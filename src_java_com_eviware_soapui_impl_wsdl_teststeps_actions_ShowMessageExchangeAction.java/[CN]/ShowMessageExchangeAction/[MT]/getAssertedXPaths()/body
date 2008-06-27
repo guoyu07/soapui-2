@@ -1,0 +1,16 @@
+{
+  List<AssertedXPath> assertedXPaths=new ArrayList<AssertedXPath>();
+  if (messageExchange instanceof RequestAssertedMessageExchange) {
+    AssertedXPath[] xpaths=((RequestAssertedMessageExchange)messageExchange).getAssertedXPathsForRequest();
+    if (xpaths != null && xpaths.length > 0) {
+      assertedXPaths.addAll(Arrays.asList(xpaths));
+    }
+  }
+  if (messageExchange instanceof ResponseAssertedMessageExchange) {
+    AssertedXPath[] xpaths=((ResponseAssertedMessageExchange)messageExchange).getAssertedXPathsForResponse();
+    if (xpaths != null && xpaths.length > 0) {
+      assertedXPaths.addAll(Arrays.asList(xpaths));
+    }
+  }
+  return assertedXPaths;
+}

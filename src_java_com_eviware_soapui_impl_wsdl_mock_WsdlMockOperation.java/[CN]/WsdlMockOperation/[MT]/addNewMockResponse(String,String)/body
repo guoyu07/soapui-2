@@ -1,0 +1,6 @@
+{
+  String name=String.valueOf(counter.addAndGet(1));
+  WsdlMockResponse mockResponse=addNewMockResponse(name,false);
+  responseMap.put(new QueryValuePair(requestQuery,matchingValue),mockResponse);
+  return mockResponse;
+}

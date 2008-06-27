@@ -1,0 +1,26 @@
+{
+  try {
+    XmlObject xmlObject=request.getRequestXmlObject();
+    for (    QueryValuePair pair : responseMap.keySet()) {
+      log.debug("Testing request for match: " + pair);
+      XmlObject[] nodes=xmlObject.selectPath(pair.getQuery());
+      if (nodes != null && nodes.length > 0) {
+        log.debug("Comparing selected node " + nodes[0] + " with the value "+ pair.getValue());
+        XmlCursor cursor=nodes[0].newCursor();
+        try {
+          if (pair.getValue().equals(cursor.getTextValue())) {
+            log.debug("Found a request with a matching query: +" + request.getRequestContent());
+            return responseMap.get(pair);
+          }
+        }
+  finally {
+          cursor.dispose();
+        }
+      }
+    }
+    return null;
+  }
+ catch (  XmlException e) {
+    throw new DispatchException(e);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  testCase.beforeSave();
+  TestCaseConfig config=(TestCaseConfig)testCase.getConfig().copy();
+  config.setLoadTestArray(new LoadTestConfig[0]);
+  WsdlTestCase wsdlTestCase=new WsdlTestCase(testCase.getTestSuite(),config,true);
+  wsdlTestCase.afterLoad();
+  return wsdlTestCase;
+}

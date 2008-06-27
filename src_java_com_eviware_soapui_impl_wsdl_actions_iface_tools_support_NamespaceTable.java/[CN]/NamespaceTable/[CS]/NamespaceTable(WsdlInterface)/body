@@ -1,0 +1,10 @@
+{
+  super(new JPanel(new BorderLayout()));
+  this.iface=iface;
+  namespaceTableModel=new NamespaceTableModel();
+  table=new JXTable(namespaceTableModel);
+  table.setHorizontalScrollEnabled(true);
+  scrollPane=new JScrollPane(table);
+  scrollPane.setPreferredSize(new Dimension(300,150));
+  getComponent().add(scrollPane,BorderLayout.CENTER);
+}

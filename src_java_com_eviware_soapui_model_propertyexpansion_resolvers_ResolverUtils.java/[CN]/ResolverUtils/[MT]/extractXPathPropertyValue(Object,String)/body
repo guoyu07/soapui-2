@@ -1,0 +1,17 @@
+{
+  try {
+    String value=property instanceof TestProperty ? ((TestProperty)property).getValue() : property.toString();
+    XmlObject xmlObject=XmlObject.Factory.parse(value);
+    String ns=xpath.trim().startsWith("declare namespace") ? "" : XmlUtils.declareXPathNamespaces(xmlObject);
+    XmlObject[] paths=xmlObject.selectPath(ns + xpath);
+    if (paths.length > 0) {
+      Node domNode=paths[0].getDomNode();
+      if (domNode.getNodeType() == Node.ELEMENT_NODE && XmlUtils.getChildElements((Element)domNode).getLength() > 0)       return paths[0].xmlText(new XmlOptions().setSaveOuter());
+ else       return XmlUtils.getNodeValue(domNode);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

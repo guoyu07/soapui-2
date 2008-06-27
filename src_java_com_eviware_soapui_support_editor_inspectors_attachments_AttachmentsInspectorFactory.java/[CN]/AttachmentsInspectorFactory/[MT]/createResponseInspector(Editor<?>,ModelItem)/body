@@ -1,0 +1,6 @@
+{
+  if (modelItem instanceof AbstractHttpRequest<?>)   return new AttachmentsInspector(new ResponseAttachmentsContainer((AbstractHttpRequest<?>)modelItem));
+ else   if (modelItem instanceof WsdlMockResponse)   return new AttachmentsInspector((WsdlMockResponse)modelItem);
+ else   if (modelItem instanceof MessageExchangeModelItem)   return new AttachmentsInspector(new WsdlMessageExchangeResponseAttachmentsContainer((MessageExchangeModelItem)modelItem));
+  return null;
+}

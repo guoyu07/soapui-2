@@ -1,0 +1,12 @@
+{
+  String fileProperty=System.getProperty(source);
+  if (fileProperty != null)   source=fileProperty;
+  URL url=null;
+  try {
+    url=new URL(source);
+  }
+ catch (  MalformedURLException e) {
+    url=new URL("file:" + source);
+  }
+  return url.openStream();
+}

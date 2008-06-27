@@ -1,0 +1,17 @@
+{
+  try {
+    String type=config.getType();
+    Class<? extends WsdlMessageAssertion> clazz=availableAssertions.get(type);
+    if (clazz == null) {
+      log.error("Missing assertion for type [" + type + "]");
+    }
+ else {
+      Constructor<? extends WsdlMessageAssertion> ctor=clazz.getConstructor(new Class[]{RequestAssertionConfig.class,Assertable.class});
+      return (WsdlMessageAssertion)ctor.newInstance(config,assertable);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

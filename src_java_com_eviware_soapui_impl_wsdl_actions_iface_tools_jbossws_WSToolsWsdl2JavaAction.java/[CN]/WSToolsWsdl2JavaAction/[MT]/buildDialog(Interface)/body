@@ -1,0 +1,32 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("JBossWS Artifacts");
+  XForm mainForm=builder.createForm("Basic");
+  addWSDLFields(mainForm,modelItem);
+  mainForm.addTextField(OUTPUT,"The root directory for all emitted files.",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(MAPPING,"mapping file to generate",XForm.FieldType.PROJECT_FILE);
+  mainForm.addCheckBox(UNWRAP,"unwrap doc-literal operations");
+  mainForm.addNameSpaceTable(NAMESPACE_MAPPING,modelItem);
+  mainForm.addSeparator("webservices.xml generation options");
+  ejbLinkField=mainForm.addTextField(EJB_LINK,"The ejb-jar.xml ejb-link for Stateless Session Bean endpoints",XForm.FieldType.TEXT);
+  ejbLinkField.addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      servletLinkField.setEnabled(newValue.length() == 0);
+      appendField.setEnabled(newValue.length() > 0);
+    }
+  }
+);
+  servletLinkField=mainForm.addTextField(SERVLET_LINK,"The web.xml servlet-link that is used by Java Service Endpoints (WAR)",XForm.FieldType.TEXT);
+  servletLinkField.addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      ejbLinkField.setEnabled(newValue.length() == 0);
+      appendField.setEnabled(newValue.length() > 0);
+    }
+  }
+);
+  appendField=mainForm.addCheckBox(APPEND,"append to existing file");
+  appendField.setEnabled(false);
+  buildArgsForm(builder,false,"wstools");
+  ActionList actions=buildDefaultActions(HelpUrls.WSTOOLS_HELP_URL,modelItem);
+  actions.addAction(new JBossWSShowConfigFileAction("JBossWS Wsdl2Java","Contents of generated wsconfig.xml file",modelItem));
+  return builder.buildDialog(actions,"Specify arguments for JBossWS wstools wsdl2java functionality",UISupport.TOOL_ICON);
+}

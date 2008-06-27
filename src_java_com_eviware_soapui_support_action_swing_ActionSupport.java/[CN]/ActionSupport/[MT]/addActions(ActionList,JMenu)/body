@@ -1,0 +1,19 @@
+{
+  if (actions == null || menu == null)   return menu;
+  for (int i=0; i < actions.getActionCount(); i++) {
+    Action action=actions.getActionAt(i);
+    if (action instanceof MarkerAction)     continue;
+    if (action == ActionSupport.SEPARATOR_ACTION) {
+      menu.addSeparator();
+    }
+ else     if (action instanceof ActionSupport.ActionListAction) {
+      JMenu subMenu=buildMenu(((ActionListAction)action).getActionList());
+      if (subMenu == null)       subMenu=new JMenu(((ActionListAction)action).getActionList().getLabel());
+      menu.add(subMenu);
+    }
+ else     if (action != null) {
+      menu.add(action);
+    }
+  }
+  return menu;
+}

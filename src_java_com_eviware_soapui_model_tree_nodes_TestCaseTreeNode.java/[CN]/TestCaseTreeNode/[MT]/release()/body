@@ -1,0 +1,7 @@
+{
+  for (  SoapUITreeNode treeNode : childNodes) {
+    getTreeModel().unmapModelItem(treeNode.getModelItem());
+    treeNode.release();
+  }
+  super.release();
+}

@@ -1,0 +1,35 @@
+{
+  try {
+    if (request.getQueryString() != null && request.getQueryString().startsWith("WSDL")) {
+      dispatchWsdlRequest(request,response);
+    }
+ else {
+      String docroot=getMockService().getDocroot();
+      if (StringUtils.hasContent(docroot)) {
+        try {
+          File file=new File(docroot + request.getPathInfo().replace('/',File.separatorChar));
+          FileInputStream in=new FileInputStream(file);
+          response.setStatus(HttpServletResponse.SC_OK);
+          long length=file.length();
+          response.setContentLength((int)length);
+          response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+          Tools.readAndWrite(in,length,response.getOutputStream());
+        }
+ catch (        Exception e) {
+          throw new DispatchException(e);
+        }
+      }
+    }
+  }
+ catch (  Exception e) {
+    throw new DispatchException(e);
+  }
+ finally {
+    try {
+      response.flushBuffer();
+    }
+ catch (    IOException e) {
+      throw new DispatchException(e);
+    }
+  }
+}

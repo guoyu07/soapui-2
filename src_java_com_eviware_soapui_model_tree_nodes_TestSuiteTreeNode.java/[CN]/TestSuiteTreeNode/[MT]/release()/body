@@ -1,0 +1,9 @@
+{
+  super.release();
+  getTestSuite().removeTestSuiteListener(internalTestSuiteListener);
+  for (  TestCaseTreeNode treeNode : testCaseNodes) {
+    treeNode.getModelItem().removePropertyChangeListener(propertyChangeListener);
+    treeNode.release();
+  }
+  propertiesTreeNode.release();
+}

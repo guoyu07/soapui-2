@@ -1,0 +1,6 @@
+{
+  if (targetStep != null)   return targetStep;
+  if (testCase == null)   return null;
+  TestModelItem step=testCase.findNextStepOfType(this.testStep,WsdlTestRequestStep.class);
+  return step == null ? null : step.getName();
+}

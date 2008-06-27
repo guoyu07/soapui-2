@@ -1,0 +1,49 @@
+{
+  AFieldType type=fieldAnnotation.type();
+  String fieldName=fieldAnnotation.name();
+  String name=messages.get(fieldName.length() == 0 ? formField.get(null).toString() : fieldName);
+  String description=messages.get(fieldAnnotation.description());
+  String[] values=messages.getArray(fieldAnnotation.values());
+  String defaultValue=messages.get(fieldAnnotation.defaultValue());
+  boolean enabled=fieldAnnotation.enabled();
+  XFormField field=null;
+switch (type) {
+case STRING:
+    field=form.addTextField(name,description,FieldType.TEXT);
+  break;
+case INT:
+field=form.addTextField(name,description,FieldType.TEXT);
+((XFormTextField)field).setWidth(10);
+break;
+case STRINGAREA:
+field=form.addTextField(name,description,FieldType.TEXTAREA);
+break;
+case BOOLEAN:
+field=form.addCheckBox(name,description);
+break;
+case FILE:
+field=form.addTextField(name,description,FieldType.FILE);
+break;
+case FOLDER:
+field=form.addTextField(name,description,FieldType.FOLDER);
+break;
+case ENUMERATION:
+field=form.addComboBox(name,values,description);
+break;
+case RADIOGROUP:
+field=form.addComponent(name,new XFormRadioGroup(values));
+break;
+case MULTILIST:
+field=form.addComponent(name,new XFormMultiSelectList(values));
+break;
+case STRINGLIST:
+field=form.addComponent(name,new JStringListFormField(description,defaultValue));
+break;
+case TABLE:
+field=form.addComponent(name,new JTableFormField(description));
+break;
+default :
+System.out.println("Unsupported field type: " + type);
+}
+if (field != null) field.setEnabled(enabled);
+}

@@ -1,0 +1,16 @@
+{
+  try {
+    XmlOptions xmlOptions=new XmlOptions();
+    xmlOptions.setLoadLineNumbers();
+    xmlOptions.setErrorListener(errors);
+    xmlOptions.setLoadLineNumbers(XmlOptions.LOAD_LINE_NUMBERS_END_ELEMENT);
+    XmlObject.Factory.parse(request,xmlOptions);
+  }
+ catch (  XmlException e) {
+    errors.addAll(e.getErrors());
+    errors.add(XmlError.forMessage(e.getMessage()));
+  }
+catch (  Exception e) {
+    errors.add(XmlError.forMessage(e.getMessage()));
+  }
+}

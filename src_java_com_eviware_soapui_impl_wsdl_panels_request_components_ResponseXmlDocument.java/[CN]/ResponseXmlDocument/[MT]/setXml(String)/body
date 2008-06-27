@@ -1,0 +1,12 @@
+{
+  HttpResponse response=(HttpResponse)request.getResponse();
+  if (response != null) {
+    try {
+      settingResponse=true;
+      response.setResponseContent(xml);
+    }
+  finally {
+      settingResponse=false;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (StringUtils.isNullOrEmpty(str))   return false;
+  str=str.toLowerCase();
+  return !str.startsWith("/") && !str.startsWith("\\") && !str.startsWith("http:/")&& !str.startsWith("https:/")&& str.indexOf(":\\") != 1 && !str.startsWith("file:");
+}

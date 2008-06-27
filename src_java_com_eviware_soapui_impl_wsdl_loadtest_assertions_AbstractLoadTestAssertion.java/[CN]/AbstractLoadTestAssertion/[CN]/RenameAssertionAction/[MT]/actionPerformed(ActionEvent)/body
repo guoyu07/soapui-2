@@ -1,0 +1,5 @@
+{
+  String name=UISupport.prompt("Specify name for this assertion","Rename Assertion",AbstractLoadTestAssertion.this.getName());
+  if (name == null || name.equals(AbstractLoadTestAssertion.this.getName()))   return;
+  setName(name);
+}

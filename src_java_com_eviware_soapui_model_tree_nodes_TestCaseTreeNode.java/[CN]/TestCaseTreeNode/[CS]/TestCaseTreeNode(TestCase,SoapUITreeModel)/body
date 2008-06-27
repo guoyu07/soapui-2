@@ -1,0 +1,12 @@
+{
+  super(testCase,testCase.getTestSuite(),treeModel);
+  testStepsNode=new TestStepsTreeNode();
+  loadTestsNode=new LoadTestsTreeNode();
+  getTreeModel().mapModelItem(testStepsNode);
+  getTreeModel().mapModelItem(loadTestsNode);
+  propertiesTreeNode=PropertiesTreeNode.createDefaultPropertiesNode(testCase,getTreeModel());
+  getTreeModel().mapModelItem(propertiesTreeNode);
+  childNodes.add(propertiesTreeNode);
+  childNodes.add(testStepsNode);
+  childNodes.add(loadTestsNode);
+}

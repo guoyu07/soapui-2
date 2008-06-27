@@ -1,0 +1,23 @@
+{
+  MetricsSection section=metrics.getSection(DEFINITION_PARTS_SECTION);
+  section.clear();
+  try {
+    Map<String,XmlObject> schemas=iface.getWsdlContext().getDefinitionParts();
+    int tabCount=partTabs.getTabCount();
+    for (Iterator<String> iter=schemas.keySet().iterator(); iter.hasNext(); ) {
+      String url=iter.next();
+      addTab(url,schemas.get(url));
+    }
+    while (tabCount-- > 0)     partTabs.remove(0);
+    return null;
+  }
+ catch (  Exception e) {
+    logger.error("Failed to load WSDL; " + e.getClass().getSimpleName() + "; "+ e.getMessage());
+    add(new JLabel("Failed to load WSDL; " + e.toString()),BorderLayout.NORTH);
+    SoapUI.logError(e);
+    return e;
+  }
+ finally {
+    section.finish();
+  }
+}

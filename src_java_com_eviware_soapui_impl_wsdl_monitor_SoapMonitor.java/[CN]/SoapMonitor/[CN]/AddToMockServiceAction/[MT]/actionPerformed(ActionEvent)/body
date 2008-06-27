@@ -1,0 +1,41 @@
+{
+  int[] rows=logTable.getSelectedRows();
+  if (rows.length == 0)   return;
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(this.getClass());
+  }
+  String[] testSuiteNames=ModelSupport.getNames(new String[]{CREATE_NEW_OPTION},getProject().getMockServiceList());
+  dialog.setOptions(MOCKSERVICE,testSuiteNames);
+  if (dialog.show()) {
+    String targetMockServiceName=dialog.getValue(MOCKSERVICE);
+    WsdlMockService mockService=getProject().getMockServiceByName(targetMockServiceName);
+    if (mockService == null) {
+      targetMockServiceName=ModelSupport.promptForUniqueName("MockService",getProject(),"");
+      if (targetMockServiceName == null)       return;
+      mockService=getProject().addNewMockService(targetMockServiceName);
+      mockService.setIncomingWss(incomingResponseWss);
+    }
+    int cnt=0;
+    for (    int row : rows) {
+      WsdlMonitorMessageExchange me=tableModel.getMessageExchangeAt(row);
+      if (me.getOperation() == null)       continue;
+      WsdlMockOperation mockOperation=mockService.getMockOperation(me.getOperation());
+      if (mockOperation == null)       mockOperation=mockService.addNewMockOperation(me.getOperation());
+      WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Monitor Response " + (++cnt),false);
+      mockResponse.setResponseContent(me.getResponseContent());
+      Attachment[] requestAttachments=me.getResponseAttachments();
+      if (requestAttachments != null) {
+        for (        Attachment attachment : requestAttachments) {
+          mockResponse.addAttachment(attachment);
+        }
+      }
+    }
+    if (cnt == 0) {
+      UISupport.showInfoMessage("No response messages found");
+    }
+ else {
+      UISupport.showInfoMessage("Added " + cnt + " MockResponses to MockService");
+      if (dialog.getBooleanValue(OPENEDITOR))       UISupport.selectAndShow(mockService);
+    }
+  }
+}

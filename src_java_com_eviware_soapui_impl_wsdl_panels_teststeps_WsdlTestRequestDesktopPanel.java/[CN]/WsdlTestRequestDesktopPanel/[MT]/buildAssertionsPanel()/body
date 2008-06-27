@@ -1,0 +1,9 @@
+{
+  return new AssertionsPanel(getRequest()){
+    protected void selectError(    AssertionError error){
+      SoapMessageXmlEditor<?> editor=getResponseEditor();
+      editor.requestFocus();
+    }
+  }
+;
+}

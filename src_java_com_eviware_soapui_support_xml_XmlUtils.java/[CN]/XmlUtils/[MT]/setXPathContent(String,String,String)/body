@@ -1,0 +1,16 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(emptyResponse);
+    String namespaces=declareXPathNamespaces(xmlObject);
+    if (namespaces != null && namespaces.trim().length() > 0)     string=namespaces + string;
+    XmlObject[] path=xmlObject.selectPath(string);
+    for (    XmlObject xml : path) {
+      setNodeValue(xml.getDomNode(),actor);
+    }
+    return xmlObject.toString();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return emptyResponse;
+}

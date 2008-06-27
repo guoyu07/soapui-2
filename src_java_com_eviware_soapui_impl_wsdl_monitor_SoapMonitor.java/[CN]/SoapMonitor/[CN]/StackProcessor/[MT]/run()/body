@@ -1,0 +1,17 @@
+{
+  running=true;
+  SoapUI.log.info("Started stackprocessor for soapmonitor in project [" + getProject().getName() + "]");
+  while (!canceled && messageExchangeStack.size() > 0) {
+    WsdlMonitorMessageExchange messageExchange=messageExchangeStack.pop();
+    if (messageExchange != null) {
+      processMessage(messageExchange);
+    }
+    try {
+      Thread.sleep(100);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  running=false;
+}

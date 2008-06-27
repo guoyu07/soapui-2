@@ -1,0 +1,5 @@
+{
+  HttpResponse response=request.getResponse();
+  updateSSLInfo(response == null ? null : response.getSSLInfo());
+  setEnabled(response != null && response.getSSLInfo() != null);
+}

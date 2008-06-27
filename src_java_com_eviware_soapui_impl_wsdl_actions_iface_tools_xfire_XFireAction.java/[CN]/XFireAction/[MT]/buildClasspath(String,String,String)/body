@@ -1,0 +1,31 @@
+{
+  String libDir=xfireDir + File.separatorChar + "lib";
+  String[] xfireLibs=new File(libDir).list(new FilenameFilter(){
+    public boolean accept(    File dir,    String name){
+      if (!name.endsWith(".jar"))       return false;
+      if (name.startsWith("jaxb"))       return name.indexOf("2.0") > 0;
+      return true;
+    }
+  }
+);
+  String modulesDir=xfireDir + File.separatorChar + "modules";
+  String[] xfireJars=new File(modulesDir).list(new FilenameFilter(){
+    public boolean accept(    File dir,    String name){
+      return name.endsWith(".jar");
+    }
+  }
+);
+  StringBuilder classpath=new StringBuilder();
+  for (int c=0; c < xfireLibs.length; c++) {
+    if (c > 0)     classpath.append(File.pathSeparatorChar);
+    classpath.append(libDir + File.separatorChar + xfireLibs[c]);
+  }
+  for (int c=0; c < xfireJars.length; c++) {
+    classpath.append(File.pathSeparatorChar);
+    classpath.append(modulesDir).append(File.separatorChar).append(xfireJars[c]);
+  }
+  classpath.append(File.pathSeparatorChar);
+  classpath.append(antDir).append(File.separatorChar).append("lib").append(File.separatorChar).append("ant.jar");
+  if (additional != null && additional.trim().length() > 0)   classpath.append(File.pathSeparatorChar).append(additional.trim());
+  return classpath.toString();
+}

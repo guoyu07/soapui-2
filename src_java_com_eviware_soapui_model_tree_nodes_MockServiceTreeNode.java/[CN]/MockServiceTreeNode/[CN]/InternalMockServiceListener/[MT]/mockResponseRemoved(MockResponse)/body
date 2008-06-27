@@ -1,0 +1,5 @@
+{
+  MockOperationTreeNode operationTreeNode=(MockOperationTreeNode)getTreeModel().getTreeNode(mockResponse.getMockOperation());
+  if (operationTreeNode != null)   operationTreeNode.mockResponseRemoved(mockResponse);
+ else   throw new RuntimeException("Removing mockResponse from unknown MockOperation");
+}

@@ -1,0 +1,7 @@
+{
+  TestStepConfig newStepConfig=WsdlTestStepRegistry.getInstance().getFactory(type).createNewTestStep(this,name);
+  if (newStepConfig != null) {
+    return addTestStep(newStepConfig);
+  }
+ else   return null;
+}

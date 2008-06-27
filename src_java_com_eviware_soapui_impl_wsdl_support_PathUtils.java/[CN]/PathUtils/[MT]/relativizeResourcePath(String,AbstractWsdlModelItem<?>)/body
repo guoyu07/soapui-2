@@ -1,0 +1,7 @@
+{
+  if (modelItem == null || StringUtils.isNullOrEmpty(path) || isRelativePath(path) || isHttpPath(path))   return path;
+  Project project=ModelSupport.getModelItemProject(modelItem);
+  if (project == null)   return path;
+  String projectPath=PropertyExpansionUtils.expandProperties(project,project.getResourceRoot());
+  return PathUtils.relativize(path,projectPath);
+}

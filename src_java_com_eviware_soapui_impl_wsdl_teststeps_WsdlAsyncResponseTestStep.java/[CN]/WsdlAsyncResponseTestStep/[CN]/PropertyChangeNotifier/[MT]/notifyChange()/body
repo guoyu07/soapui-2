@@ -1,0 +1,10 @@
+{
+  AssertionStatus newStatus=getAssertionStatus();
+  ImageIcon newIcon=getIcon();
+  if (this.status != newStatus) {
+    notifyPropertyChanged(WsdlAsyncResponseTestStep.STATUS_PROPERTY,this.status,newStatus);
+  }
+  if (this.icon != newIcon) {
+    notifyPropertyChanged(ModelItem.ICON_PROPERTY,this.icon,newIcon);
+  }
+}

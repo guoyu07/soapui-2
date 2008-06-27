@@ -1,0 +1,10 @@
+{
+  if (value == null) {
+    value="";
+  }
+  String oldValue=testStepConfig.getMatchingValue();
+  if (!value.equals(oldValue)) {
+    testStepConfig.setMatchingValue(value);
+    notifyPropertyChanged(MATCHING_VALUE_PROPERTY,oldValue,value);
+  }
+}

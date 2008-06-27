@@ -1,0 +1,6 @@
+{
+  String userAgent=settings.getString(HttpSettings.USER_AGENT,null);
+  if (userAgent != null && userAgent.length() > 0)   httpMethod.setRequestHeader("User-Agent",userAgent);
+  long timeout=settings.getLong(HttpSettings.SOCKET_TIMEOUT,HttpSettings.DEFAULT_SOCKET_TIMEOUT);
+  httpMethod.getParams().setSoTimeout((int)timeout);
+}

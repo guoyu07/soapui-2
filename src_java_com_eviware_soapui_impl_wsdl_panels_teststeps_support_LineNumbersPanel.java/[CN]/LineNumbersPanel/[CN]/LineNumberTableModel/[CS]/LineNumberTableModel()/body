@@ -1,0 +1,8 @@
+{
+  editArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      if (lastLineCount != editArea.getLineCount())       fireTableDataChanged();
+    }
+  }
+);
+}

@@ -1,0 +1,19 @@
+{
+  if (this.testStep != null) {
+    this.testStep.removeTestPropertyListener(testStepListener);
+  }
+  int sz=names.size();
+  if (sz > 0) {
+    names.clear();
+    fireIntervalRemoved(this,0,sz - 1);
+  }
+  this.testStep=testStep;
+  if (testStep != null) {
+    testStep.addTestPropertyListener(testStepListener);
+    names.addAll(Arrays.asList(testStep.getPropertyNames()));
+    if (!names.isEmpty()) {
+      fireIntervalAdded(this,0,names.size() - 1);
+    }
+  }
+  setSelectedItem(null);
+}

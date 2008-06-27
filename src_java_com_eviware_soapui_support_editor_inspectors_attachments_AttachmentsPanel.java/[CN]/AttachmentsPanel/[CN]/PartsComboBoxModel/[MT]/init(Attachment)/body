@@ -1,0 +1,13 @@
+{
+  this.attachment=attachment;
+  int previousPartsCount=parts == null ? 0 : parts.length;
+  parts=container.getDefinedAttachmentParts();
+  if (previousPartsCount < parts.length) {
+    fireIntervalAdded(this,previousPartsCount,parts.length);
+  }
+ else   if (previousPartsCount > parts.length) {
+    fireIntervalRemoved(this,parts.length - 1,previousPartsCount);
+  }
+  fireContentsChanged(this,0,parts.length - 1);
+  return this;
+}

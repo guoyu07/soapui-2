@@ -1,0 +1,7 @@
+{
+  XmlObject xmlObject=XmlObject.Factory.parse(url);
+  String targetNamespace=getTargetNamespace(xmlObject);
+  if (defaultSchemas.containsKey(targetNamespace))   log.warn("Overriding schema for targetNamespace " + targetNamespace);
+  defaultSchemas.put(targetNamespace,xmlObject);
+  log.info("Added default schema from " + url.getPath() + " with targetNamespace "+ targetNamespace);
+}

@@ -1,0 +1,19 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("XFire 1.X Stubs");
+  XForm mainForm=builder.createForm("Basic");
+  addWSDLFields(mainForm,modelItem);
+  mainForm.addTextField(OUTPUT,"Root directory for all emitted files.",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(PACKAGE,"Package for generated classes",XForm.FieldType.JAVA_PACKAGE).setRequired(true,"Package is required");
+  XFormField bindingCombo=mainForm.addComboBox(BINDING,new String[]{"jaxb","xmlbeans"},"Binding framework to use");
+  XFormTextField cpField=mainForm.addTextField(CLASSPATH,"Classpath to generated xmlbeans for binding",XForm.FieldType.PROJECT_FILE);
+  XFormTextField extBindingsField=mainForm.addTextField(EXTERNAL_BINDINGS,"External jaxb binding file(s)",XForm.FieldType.PROJECT_FILE);
+  bindingCombo.addComponentEnabler(cpField,"xmlbeans");
+  bindingCombo.addComponentEnabler(extBindingsField,"jaxb");
+  mainForm.addTextField(PROFILE,"Profile to use for generating artifacts",XForm.FieldType.TEXT);
+  mainForm.addTextField(BASE_URI,"Base URI to use",XForm.FieldType.URL);
+  mainForm.addCheckBox(OVERWRITE,null);
+  mainForm.addCheckBox(EXPLICIT_ANNOTATION,null);
+  mainForm.addCheckBox(SERVER_STUBS,null);
+  buildArgsForm(builder,true,"WsGen");
+  return builder.buildDialog(buildDefaultActions(HelpUrls.XFIRE_HELP_URL,modelItem),"Specify arguments for XFire 1.X WsGen",UISupport.TOOL_ICON);
+}

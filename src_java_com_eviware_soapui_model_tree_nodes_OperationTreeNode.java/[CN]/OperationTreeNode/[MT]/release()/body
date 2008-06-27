@@ -1,0 +1,7 @@
+{
+  super.release();
+  for (  RequestTreeNode treeNode : requestNodes) {
+    treeNode.getModelItem().removePropertyChangeListener(propertyChangeListener);
+    treeNode.release();
+  }
+}

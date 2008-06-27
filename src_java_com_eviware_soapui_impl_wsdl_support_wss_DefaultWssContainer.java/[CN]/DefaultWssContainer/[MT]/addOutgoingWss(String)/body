@@ -1,0 +1,7 @@
+{
+  OutgoingWss result=new OutgoingWss(getConfig().addNewOutgoing(),this);
+  result.setName(label);
+  outgoingWssConfigs.add(result);
+  fireOutgoingWssAdded(result);
+  return result;
+}

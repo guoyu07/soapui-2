@@ -1,0 +1,9 @@
+{
+  RequestAssertionConfig config=createConfig("testPath","testContent");
+  XPathContainsAssertion assertion=new XPathContainsAssertion(config,null);
+  assertEquals("testPath",assertion.getPath());
+  assertEquals("testContent",assertion.getExpectedContent());
+  XmlObject conf=assertion.createConfiguration();
+  String str=conf.xmlText();
+  assertEquals("<xml-fragment><path>testPath</path><content>testContent</content><allowWildcards>false</allowWildcards></xml-fragment>",str);
+}

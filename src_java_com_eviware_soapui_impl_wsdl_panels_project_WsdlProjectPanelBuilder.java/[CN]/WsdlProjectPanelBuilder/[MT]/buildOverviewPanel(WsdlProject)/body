@@ -1,0 +1,16 @@
+{
+  JPropertiesTable<WsdlProject> table=new JPropertiesTable<WsdlProject>("Project Properties",project);
+  if (project.isOpen()) {
+    table.addProperty("Name","name",true);
+    table.addProperty("Description","description",true);
+    table.addProperty("File","path");
+    if (!project.isDisabled()) {
+      table.addProperty("Resource Root","resourceRoot",new String[]{null,"${projectDir}"});
+      table.addProperty("Cache Definitions","cacheDefinitions",JPropertiesTable.BOOLEAN_OPTIONS);
+    }
+  }
+ else {
+    table.addProperty("File","path");
+  }
+  return table;
+}

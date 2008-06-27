@@ -1,0 +1,18 @@
+{
+  try {
+    List<File> files=(List<File>)t.getTransferData(fileFlavor);
+    for (    File f : files) {
+      System.out.println("Got a file: " + f.getName());
+      Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Att Attachment");
+      if (retval == null)       return false;
+      attachmentModel.addFile(f,retval);
+    }
+  }
+ catch (  IOException ex) {
+    SoapUI.logError(ex);
+  }
+catch (  UnsupportedFlavorException ex) {
+    SoapUI.logError(ex);
+  }
+  return false;
+}

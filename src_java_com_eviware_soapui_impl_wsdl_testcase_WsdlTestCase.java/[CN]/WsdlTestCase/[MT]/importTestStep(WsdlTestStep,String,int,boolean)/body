@@ -1,0 +1,7 @@
+{
+  testStep.beforeSave();
+  TestStepConfig newStepConfig=(TestStepConfig)testStep.getConfig().copy();
+  newStepConfig.setName(name);
+  if (createCopy && newStepConfig.isSetId())   newStepConfig.unsetId();
+  return insertTestStep(newStepConfig,index);
+}

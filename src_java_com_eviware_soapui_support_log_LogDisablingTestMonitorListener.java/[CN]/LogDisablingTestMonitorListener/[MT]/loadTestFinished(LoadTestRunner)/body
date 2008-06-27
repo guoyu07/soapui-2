@@ -1,0 +1,8 @@
+{
+  loadTestRunners.remove(runner);
+  if (loadTestRunners.isEmpty()) {
+    Logger.getLogger("httpclient.wire").setLevel(Level.DEBUG);
+    Logger.getLogger("groovy.log").setLevel(Level.DEBUG);
+    Logger.getLogger(SoapUI.class).info("Enabled logs after loadtests");
+  }
+}

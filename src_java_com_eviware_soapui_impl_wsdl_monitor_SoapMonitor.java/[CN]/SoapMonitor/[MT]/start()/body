@@ -1,0 +1,13 @@
+{
+  int localPort=getLocalPort();
+  if (addEndpoint && !isProxy) {
+    addLocalEndpointForTunnel();
+  }
+  sw=new SocketWaiter(getProject() + " monitor on port " + localPort,this,localPort);
+  stopButton.setEnabled(true);
+  startButton.setEnabled(false);
+  optionsButton.setEnabled(false);
+  infoLabel.setText((isProxy ? "Proxy " : "Tunnel ") + "on port " + localPort);
+  progressBar.setIndeterminate(true);
+  SoapUI.log.info("Started SOAP Monitor on local port " + localPort);
+}

@@ -1,0 +1,7 @@
+{
+  Header contentType=httpMethod.getResponseHeader("Content-Type");
+  Header contentEncoding=httpMethod.getResponseHeader("Content-Encoding");
+  if (contentType != null && contentType.getValue().toUpperCase().endsWith("GZIP"))   return true;
+  if (contentEncoding != null && contentEncoding.getValue().toUpperCase().endsWith("GZIP"))   return true;
+  return false;
+}

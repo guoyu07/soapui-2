@@ -1,0 +1,12 @@
+{
+  if (!isEditable()) {
+    getToolkit().beep();
+    return;
+  }
+  try {
+    if (undoManager != null)     undoManager.undo();
+  }
+ catch (  CannotUndoException cue) {
+    Toolkit.getDefaultToolkit().beep();
+  }
+}

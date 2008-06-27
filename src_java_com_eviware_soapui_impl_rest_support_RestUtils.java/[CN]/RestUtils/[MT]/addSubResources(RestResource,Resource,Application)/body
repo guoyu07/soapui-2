@@ -1,0 +1,9 @@
+{
+  for (  Resource res : resource.getResourceList()) {
+    String name=getFirstTitle(resource.getDocList(),resource.getPath());
+    String path=resource.getPath();
+    RestResource newRes=newResource.addNewResource(name,path);
+    initResourceFromWadlResource(newRes,res,application);
+    addSubResources(newRes,res,application);
+  }
+}

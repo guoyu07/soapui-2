@@ -1,0 +1,17 @@
+{
+  if (config == null)   return;
+  Set<String> endpoints=new HashSet<String>();
+  for (  Interface iface : project.getInterfaceList()) {
+    endpoints.addAll(Arrays.asList(iface.getEndpoints()));
+  }
+  StringList keys=new StringList();
+  for (  String key : defaults.keySet()) {
+    if (!endpoints.contains(key)) {
+      keys.add(key);
+    }
+  }
+  for (  String key : keys) {
+    EndpointDefaults def=defaults.remove(key);
+    config.getEndpointList().remove(def);
+  }
+}

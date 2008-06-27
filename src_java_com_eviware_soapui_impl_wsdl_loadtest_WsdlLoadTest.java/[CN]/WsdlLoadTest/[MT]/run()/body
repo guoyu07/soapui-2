@@ -1,0 +1,8 @@
+{
+  getStatisticsModel().reset();
+  if (runner != null && runner.getStatus() == Status.RUNNING)   return null;
+  assertionErrors.clear();
+  runner=new WsdlLoadTestRunner(this);
+  runner.start();
+  return runner;
+}

@@ -1,0 +1,38 @@
+{
+  super(new BorderLayout());
+  this.model=model;
+  editArea=new JXEditTextArea(new CTokenMarker(false,initKeywords()));
+  editArea.setBorder(BorderFactory.createMatteBorder(0,2,0,0,Color.WHITE));
+  Settings settings=model.getSettings();
+  editArea.setFont(UISupport.getEditorFont(settings));
+  editArea.setText(model.getScript());
+  editArea.setCaretPosition(0);
+  ActionListener runAction=model.getRunAction();
+  if (runAction != null)   editArea.getInputHandler().addKeyBinding("A+ENTER",runAction);
+  groovyDocumentListener=new GroovyDocumentListener();
+  editArea.getDocument().addDocumentListener(groovyDocumentListener);
+  settingsListener=new InternalSettingsListener();
+  settings.addSettingsListener(settingsListener);
+  add(editArea);
+  add(buildLineNumbers(),BorderLayout.WEST);
+  lineNumbersPanel.setVisible(settings.getBoolean(UISettings.SHOW_GROOVY_LINE_NUMBERS));
+  addFocusListener(new FocusAdapter(){
+    public void focusGained(    FocusEvent e){
+      editArea.requestFocusInWindow();
+    }
+  }
+);
+  JXEditAreaPopupMenu popup=JXEditAreaPopupMenu.add(editArea);
+  popup.add(editArea.getFindAndReplaceAction());
+  popup.addSeparator();
+  popup.add(editArea.getGoToLineAction());
+  toggleLineNumbersMenuItem=new JCheckBoxMenuItem("Show Line Numbers",lineNumbersPanel.isVisible());
+  toggleLineNumbersMenuItem.setAccelerator(UISupport.getKeyStroke("alt L"));
+  toggleLineNumbersMenuItem.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      lineNumbersPanel.setVisible(toggleLineNumbersMenuItem.isSelected());
+    }
+  }
+);
+  popup.add(toggleLineNumbersMenuItem);
+}

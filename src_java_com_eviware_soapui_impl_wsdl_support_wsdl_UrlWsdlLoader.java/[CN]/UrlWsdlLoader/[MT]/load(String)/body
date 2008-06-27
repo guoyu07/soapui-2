@@ -1,0 +1,49 @@
+{
+  if (!PathUtils.isHttpPath(url)) {
+    try {
+      File file=new File(url);
+      if (file.exists())       url=file.toURI().toURL().toString();
+    }
+ catch (    Exception e) {
+    }
+  }
+  if (urlCache.containsKey(url)) {
+    return new ByteArrayInputStream(urlCache.get(url));
+  }
+  if (url.startsWith("file:")) {
+    return new URL(url).openStream();
+  }
+  log.debug("Getting wsdl component from [" + url + "]");
+  createGetMethod(url);
+  if (aborted)   return null;
+  LoaderWorker worker=new LoaderWorker();
+  if (useWorker)   worker.start();
+ else   worker.construct();
+  while (!aborted && !finished) {
+    Thread.sleep(200);
+  }
+  while (!aborted && getMethod.getResponseBody() == null) {
+    Thread.sleep(200);
+  }
+  try {
+    if (aborted) {
+      throw new Exception("Load of url [" + url + "] was aborted");
+    }
+ else {
+      byte[] content=getMethod.getResponseBody();
+      if (content != null) {
+        if (HttpClientSupport.isZippedResponse(getMethod)) {
+          content=HttpClientSupport.decompress(content);
+        }
+        urlCache.put(url,content);
+        return new ByteArrayInputStream(content);
+      }
+ else {
+        throw new Exception("Failed to load url; " + getMethod.getStatusCode() + " - "+ getMethod.getStatusText());
+      }
+    }
+  }
+  finally {
+    getMethod.releaseConnection();
+  }
+}

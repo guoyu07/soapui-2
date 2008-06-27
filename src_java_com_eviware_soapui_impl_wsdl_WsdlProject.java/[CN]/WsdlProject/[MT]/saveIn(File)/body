@@ -1,0 +1,32 @@
+{
+  long size=0;
+  beforeSave();
+  XmlOptions options=new XmlOptions();
+  if (SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_PROJECT_FILES))   options.setSavePrettyPrint();
+  if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
+    SoapuiProjectDocumentConfig config=(SoapuiProjectDocumentConfig)projectDocument.copy();
+    removeDefinitionCaches(config);
+    config.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
+    config.save(projectFile,options);
+  }
+ else {
+    try {
+      projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
+      ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
+      projectDocument.save(writer,options);
+      FileOutputStream out=new FileOutputStream(projectFile);
+      writer.writeTo(out);
+      out.close();
+      size=writer.size();
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+      UISupport.showErrorMessage("Failed to save project [" + getName() + "]: "+ t.toString());
+      return false;
+    }
+  }
+  lastModified=projectFile.lastModified();
+  log.info("Saved project [" + getName() + "] to ["+ projectFile.getAbsolutePath()+ " - "+ size+ " bytes");
+  setProjectRoot(path);
+  return true;
+}

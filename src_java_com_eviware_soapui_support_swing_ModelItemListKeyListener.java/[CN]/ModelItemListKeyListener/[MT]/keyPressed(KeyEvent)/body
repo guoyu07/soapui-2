@@ -1,0 +1,7 @@
+{
+  int ix=((JList)e.getSource()).getSelectedIndex();
+  if (ix == -1)   return;
+  ModelItem modelItem=getModelItemAt(ix);
+  ActionList actions=ActionListBuilder.buildActions(modelItem);
+  if (actions != null)   actions.dispatchKeyEvent(e);
+}

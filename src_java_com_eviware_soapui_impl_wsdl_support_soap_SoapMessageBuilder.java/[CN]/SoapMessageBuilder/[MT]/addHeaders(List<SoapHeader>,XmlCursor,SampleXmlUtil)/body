@@ -1,0 +1,18 @@
+{
+  cursor.toStartDoc();
+  cursor.toChild(wsdlContext.getSoapVersion().getEnvelopeQName());
+  cursor.toFirstChild();
+  cursor.beginElement(wsdlContext.getSoapVersion().getHeaderQName());
+  cursor.toFirstChild();
+  for (int i=0; i < headers.size(); i++) {
+    SoapHeader header=headers.get(i);
+    Message message=wsdlContext.getDefinition().getMessage(header.getMessage());
+    if (message == null) {
+      log.error("Missing message for header: " + header.getMessage());
+      continue;
+    }
+    Part part=message.getPart(header.getPart());
+    if (part != null)     createElementForPart(part,cursor,xmlGenerator);
+ else     log.error("Missing part for header; " + header.getPart());
+  }
+}

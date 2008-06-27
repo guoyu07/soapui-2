@@ -1,0 +1,9 @@
+{
+  TreePath path=mainTree.getPathForLocation((int)e.getPoint().getX(),(int)e.getPoint().getY());
+  if (path == null)   return;
+  SoapUITreeNode node=(SoapUITreeNode)path.getLastPathComponent();
+  JPopupMenu popupMenu=node.getPopup();
+  if (popupMenu == null)   return;
+  mainTree.setSelectionPath(path);
+  popupMenu.show(mainTree,e.getX(),e.getY());
+}

@@ -1,0 +1,13 @@
+{
+  TestStepConfig config=getConfig();
+  if (config.getConfig() != null) {
+    transferStepConfig=(TransferValuesStepConfig)config.getConfig().changeType(TransferValuesStepConfig.type);
+    for (int c=0; c < transferStepConfig.sizeOfTransfersArray(); c++) {
+      transfers.add(new PropertyTransfer(this,transferStepConfig.getTransfersArray(c)));
+    }
+  }
+ else {
+    transferStepConfig=(TransferValuesStepConfig)config.addNewConfig().changeType(TransferValuesStepConfig.type);
+  }
+  super.afterLoad();
+}

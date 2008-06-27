@@ -1,0 +1,7 @@
+{
+  long old=this.resolution;
+  this.resolution=resolution;
+  if (resolution > 0 && old == 0 && statistics.getLoadTest().getHistoryLimit() != 0) {
+    new Thread(updater,statistics.getLoadTest().getName() + " StatisticsHistory Updater").start();
+  }
+}

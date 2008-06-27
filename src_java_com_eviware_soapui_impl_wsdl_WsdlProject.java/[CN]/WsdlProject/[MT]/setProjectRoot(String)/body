@@ -1,0 +1,6 @@
+{
+  if (path != null && projectDocument != null) {
+    int ix=path.lastIndexOf(File.separatorChar);
+    if (ix > 0)     getSettings().setString(ProjectSettings.PROJECT_ROOT,path.substring(0,ix));
+  }
+}

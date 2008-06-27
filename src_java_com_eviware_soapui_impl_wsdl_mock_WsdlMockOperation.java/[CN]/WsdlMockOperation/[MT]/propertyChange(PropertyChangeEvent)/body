@@ -1,0 +1,8 @@
+{
+  if (arg0.getPropertyName().equals(WsdlMockResponse.NAME_PROPERTY)) {
+    if (arg0.getOldValue().equals(getDefaultResponse()))     setDefaultResponse(arg0.getNewValue().toString());
+  }
+ else   if (arg0.getPropertyName().equals(WsdlInterface.NAME_PROPERTY)) {
+    getConfig().setInterface(arg0.getNewValue().toString());
+  }
+}

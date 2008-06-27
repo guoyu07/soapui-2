@@ -1,0 +1,6 @@
+{
+  String old=getDispatchPath();
+  getConfig().setDispatchPath(dispatchPath);
+  notifyPropertyChanged(DISPATCH_PATH_PROPERTY,old,dispatchPath);
+  scriptEnginePool.setScript(dispatchPath);
+}

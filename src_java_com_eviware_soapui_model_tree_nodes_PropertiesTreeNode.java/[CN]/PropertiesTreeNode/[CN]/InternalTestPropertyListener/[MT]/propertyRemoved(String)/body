@@ -1,0 +1,12 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(propertyMap.get(name).getModelItem());
+  if (propertyNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    propertyNodes.remove(treeNode);
+    propertyMap.remove(name);
+    if (getModelItem() instanceof PropertiesModelItem) {
+      ((PropertiesModelItem)getModelItem()).updateName();
+    }
+  }
+ else   throw new RuntimeException("Removing unkown property");
+}

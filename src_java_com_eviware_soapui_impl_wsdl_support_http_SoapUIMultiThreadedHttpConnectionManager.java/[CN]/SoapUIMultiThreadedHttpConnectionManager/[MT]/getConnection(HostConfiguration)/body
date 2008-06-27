@@ -1,0 +1,10 @@
+{
+  while (true) {
+    try {
+      return getConnectionWithTimeout(hostConfiguration,0);
+    }
+ catch (    ConnectionPoolTimeoutException e) {
+      LOG.debug("Unexpected exception while waiting for connection",e);
+    }
+  }
+}

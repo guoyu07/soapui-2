@@ -1,0 +1,9 @@
+{
+  WsdlInterface wsdlInterface=(WsdlInterface)getTestCase().getTestSuite().getProject().getInterfaceByName(interfaceName);
+  if (wsdlInterface != null) {
+    testStepConfig.setInterface(wsdlInterface.getName());
+    WsdlOperation wsdloperation=wsdlInterface.getOperationAt(0);
+    testStepConfig.setOperation(wsdloperation.getName());
+    mockOperation.setOperation(wsdloperation);
+  }
+}

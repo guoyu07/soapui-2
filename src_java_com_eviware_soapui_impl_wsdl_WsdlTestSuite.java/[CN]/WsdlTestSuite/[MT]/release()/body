@@ -1,0 +1,7 @@
+{
+  super.release();
+  for (  WsdlTestCase testCase : testCases)   testCase.release();
+  testSuiteListeners.clear();
+  if (setupScriptEngine != null)   setupScriptEngine.release();
+  if (tearDownScriptEngine != null)   tearDownScriptEngine.release();
+}

@@ -1,0 +1,9 @@
+{
+  if (notifier == null)   notifier=new PropertyChangeNotifier();
+  messageExchange=new WsdlResponseMessageExchange(this);
+  for (Iterator<WsdlMessageAssertion> iter=assertionsSupport.iterator(); iter.hasNext(); ) {
+    WsdlMessageAssertion assertion=iter.next();
+    assertion.assertResponse(messageExchange,context);
+  }
+  notifier.notifyChange();
+}

@@ -1,0 +1,7 @@
+{
+  super("Statistics History for [" + loadTest.getName() + "]",null,null);
+  this.loadTest=loadTest;
+  propertyChangeListener=new InternalPropertyChangeListener();
+  loadTest.addPropertyChangeListener(WsdlLoadTest.NAME_PROPERTY,propertyChangeListener);
+  buildUI();
+}

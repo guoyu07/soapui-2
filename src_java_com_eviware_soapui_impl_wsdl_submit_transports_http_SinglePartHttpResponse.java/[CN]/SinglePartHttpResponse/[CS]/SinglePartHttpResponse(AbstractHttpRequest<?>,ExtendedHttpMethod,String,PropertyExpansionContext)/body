@@ -1,0 +1,41 @@
+{
+  this.wsdlRequest=new WeakReference<AbstractHttpRequest<?>>(wsdlRequest);
+  this.httpMethod=httpMethod;
+  this.requestContent=requestContent;
+  this.timeTaken=httpMethod.getTimeTaken();
+  this.sslInfo=httpMethod.getSSLInfo();
+  this.timestamp=System.currentTimeMillis();
+  Settings settings=wsdlRequest.getSettings();
+  try {
+    responseBody=httpMethod.getResponseBody();
+    int contentOffset=0;
+    if (responseBody == null)     responseBody=new byte[0];
+    responseSize=responseBody.length;
+    if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN))     timeTaken+=httpMethod.getResponseReadTime();
+    String contentType=httpMethod.getResponseContentType();
+    String charset=httpMethod.getResponseCharSet();
+    if (contentType.toLowerCase().endsWith("xml")) {
+      if (responseSize > 3 && responseBody[0] == (byte)239 && responseBody[1] == (byte)187 && responseBody[2] == (byte)191) {
+        charset="UTF-8";
+        contentOffset=3;
+      }
+    }
+    if (charset == null)     charset=wsdlRequest.getEncoding();
+    charset=StringUtils.unquote(charset);
+    responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);
+    prettyPrint=wsdlRequest.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
+    initHeaders(httpMethod);
+    RequestEntity requestEntity=httpMethod.getRequestEntity();
+    if (requestEntity != null) {
+      ByteArrayOutputStream out=new ByteArrayOutputStream();
+      requestEntity.writeRequest(out);
+      requestData=out.toByteArray();
+    }
+ else {
+      requestData=new byte[0];
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

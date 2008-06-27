@@ -1,0 +1,9 @@
+{
+  RestParamProperty propertiesStepProperty=new RestParamProperty(propertyConfig);
+  properties.add(propertiesStepProperty);
+  propertyMap.put(propertiesStepProperty.getName().toUpperCase(),propertiesStepProperty);
+  if (notify) {
+    firePropertyAdded(propertiesStepProperty.getName());
+  }
+  return propertiesStepProperty;
+}

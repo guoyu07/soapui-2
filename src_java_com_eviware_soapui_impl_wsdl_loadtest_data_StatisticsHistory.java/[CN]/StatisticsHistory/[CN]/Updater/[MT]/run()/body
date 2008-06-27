@@ -1,0 +1,18 @@
+{
+  WsdlLoadTest loadTest=statistics.getLoadTest();
+  while (resolution > 0 && loadTest.isRunning()) {
+    try {
+      if (loadTest.getHistoryLimit() != 0)       updateHistory();
+      long res=resolution;
+      while (res > 100 && resolution > 0 && loadTest.isRunning()) {
+        Thread.sleep(res);
+        res-=100;
+      }
+      if (resolution > 0 && loadTest.isRunning())       Thread.sleep(res);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+      break;
+    }
+  }
+}

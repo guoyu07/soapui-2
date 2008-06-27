@@ -1,0 +1,20 @@
+{
+  RequestStepConfig requestStepConfig=RequestStepConfig.Factory.newInstance();
+  requestStepConfig.setInterface(request.getOperation().getInterface().getName());
+  requestStepConfig.setOperation(request.getOperation().getName());
+  WsdlRequestConfig testRequestConfig=requestStepConfig.addNewRequest();
+  testRequestConfig.setName(stepName);
+  testRequestConfig.setEncoding(request.getEncoding());
+  testRequestConfig.setEndpoint(request.getEndpoint());
+  testRequestConfig.addNewRequest().setStringValue(request.getRequestContent());
+  testRequestConfig.setOutgoingWss(request.getOutgoingWss());
+  testRequestConfig.setIncomingWss(request.getIncomingWss());
+  if ((CredentialsConfig)request.getConfig().getCredentials() != null) {
+    testRequestConfig.setCredentials((CredentialsConfig)request.getConfig().getCredentials().copy());
+  }
+  testRequestConfig.setWssPasswordType(request.getConfig().getWssPasswordType());
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(REQUEST_TYPE);
+  testStep.setConfig(requestStepConfig);
+  return testStep;
+}

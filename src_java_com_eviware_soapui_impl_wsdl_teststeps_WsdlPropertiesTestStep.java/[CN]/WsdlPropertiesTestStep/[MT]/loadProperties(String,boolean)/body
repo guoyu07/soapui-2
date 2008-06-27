@@ -1,0 +1,31 @@
+{
+  java.util.Properties props=new java.util.Properties(){
+    public StringList names=new StringList();
+    @Override public synchronized Object put(    Object key,    Object value){
+      names.add(key.toString());
+      return super.put(key,value);
+    }
+    @Override public Enumeration<?> propertyNames(){
+      return Collections.enumeration(names);
+    }
+  }
+;
+  InputStream in=getPropertiesInputStream(source);
+  props.load(in);
+  in.close();
+  int cnt=0;
+  Enumeration<?> names=props.propertyNames();
+  while (names.hasMoreElements()) {
+    String name=names.nextElement().toString();
+    TestProperty property=getProperty(name);
+    if (property != null) {
+      property.setValue(props.get(name).toString());
+      cnt++;
+    }
+ else     if (createMissing) {
+      addProperty(name).setValue(props.get(name).toString());
+      cnt++;
+    }
+  }
+  return cnt;
+}

@@ -1,0 +1,55 @@
+{
+  WsdlAsyncResponseTestStep step=getModelItem();
+  toolbar.addUnrelatedGap();
+  toolbar.addFixed(new JLabel("Path"));
+  toolbar.addRelatedGap();
+  pathField=new JTextField(step.getPath(),15);
+  pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      WsdlAsyncResponseTestStep step=getModelItem();
+      step.setPath(pathField.getText());
+    }
+  }
+);
+  toolbar.addFixed(pathField);
+  toolbar.addUnrelatedGap();
+  toolbar.addFixed(new JLabel("Port"));
+  toolbar.addRelatedGap();
+  portField=new JTextField(String.valueOf(step.getPort()),5);
+  portField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      try {
+        WsdlAsyncResponseTestStep step=getModelItem();
+        step.setPort(Integer.parseInt(portField.getText()));
+      }
+ catch (      NumberFormatException e) {
+      }
+    }
+  }
+);
+  toolbar.addFixed(portField);
+  toolbar.addUnrelatedGap();
+  toolbar.addFixed(new JLabel("Request Query"));
+  toolbar.addRelatedGap();
+  queryField=new JTextField(step.getRequestQuery(),30);
+  queryField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      WsdlAsyncResponseTestStep step=getModelItem();
+      step.setRequestQuery(queryField.getText());
+    }
+  }
+);
+  toolbar.addFixed(queryField);
+  toolbar.addUnrelatedGap();
+  toolbar.addFixed(new JLabel("Matching Value"));
+  toolbar.addRelatedGap();
+  valueField=new JTextField(step.getMatchingValue(),15);
+  valueField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      WsdlAsyncResponseTestStep step=getModelItem();
+      step.setMatchingValue(valueField.getText());
+    }
+  }
+);
+  toolbar.addFixed(valueField);
+}

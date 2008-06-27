@@ -1,0 +1,9 @@
+{
+synchronized (this) {
+    if (scriptEngines.isEmpty())     scriptEngines.push(SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,modelItem));
+    SoapUIScriptEngine result=scriptEngines.pop();
+    if (script != null)     result.setScript(script);
+    borrowed++;
+    return result;
+  }
+}

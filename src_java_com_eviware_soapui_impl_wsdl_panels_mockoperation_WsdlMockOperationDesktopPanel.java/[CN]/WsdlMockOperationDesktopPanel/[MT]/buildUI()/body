@@ -1,0 +1,9 @@
+{
+  add(buildToolbar(),BorderLayout.NORTH);
+  JInspectorPanel inspectorPanel=new JInspectorPanel(buildResponseList());
+  inspectorPanel.setDefaultDividerLocation(0.5F);
+  dispatchInspector=new JComponentInspector<JComponent>(buildDispatchEditor(),"Dispatch (" + getModelItem().getDispatchStyle().toString() + ")","Configures current dispatch style",true);
+  inspectorPanel.addInspector(dispatchInspector);
+  inspectorPanel.activate(dispatchInspector);
+  add(inspectorPanel,BorderLayout.CENTER);
+}

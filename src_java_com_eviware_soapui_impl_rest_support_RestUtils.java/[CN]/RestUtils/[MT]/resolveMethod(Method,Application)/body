@@ -1,0 +1,8 @@
+{
+  String href=method.getHref();
+  if (!StringUtils.hasContent(href))   return method;
+  for (  Method m : application.getMethodList()) {
+    if (m.getId().equals(href.substring(1)))     return m;
+  }
+  return method;
+}

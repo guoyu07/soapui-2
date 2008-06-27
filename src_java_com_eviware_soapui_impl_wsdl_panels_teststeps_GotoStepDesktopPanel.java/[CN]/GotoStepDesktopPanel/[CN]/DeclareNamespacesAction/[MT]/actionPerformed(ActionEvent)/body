@@ -1,0 +1,21 @@
+{
+  try {
+    WsdlTestRequestStep previousStep=(WsdlTestRequestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,WsdlTestRequestStep.class);
+    if (previousStep != null) {
+      WsdlResponse response=previousStep.getTestRequest().getResponse();
+      String xml=response == null ? null : response.getContentAsString();
+      if (xml != null && xml.trim().length() > 0) {
+        expressionArea.setText(XmlUtils.declareXPathNamespaces(xml) + expressionArea.getText());
+      }
+ else {
+        UISupport.showErrorMessage("Missing response in previous request step [" + previousStep.getName() + "]");
+      }
+    }
+ else {
+      UISupport.showErrorMessage("Missing previous request step");
+    }
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+}

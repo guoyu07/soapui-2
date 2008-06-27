@@ -1,0 +1,8 @@
+{
+  int result=super.getIndexOfChild(child);
+  if (result == -1) {
+    result=resourceNodes.indexOf(child);
+    if (result >= 0)     result+=super.getChildCount();
+  }
+  return result;
+}

@@ -1,0 +1,24 @@
+{
+  try {
+    request.setOperation(getOperation());
+    WsdlMockResult result=new WsdlMockResult(request,response);
+    if (getMockResponseCount() == 0)     throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
+    Enum dispatchStyle=getDispatchStyle();
+    if (dispatchStyle == DispatchStyleConfig.XPATH) {
+      dispatchRequestXPath(request,result);
+    }
+ else     if (dispatchStyle == DispatchStyleConfig.SCRIPT) {
+      dispatchRequestScript(request,result);
+    }
+ else     if (dispatchStyle == DispatchStyleConfig.QUERY_MATCH) {
+      dispatchRequestQueryMatch(request,result);
+    }
+ else {
+      dispatchRequestSequence(request,result);
+    }
+    return result;
+  }
+ catch (  Throwable e) {
+    throw new DispatchException(e);
+  }
+}

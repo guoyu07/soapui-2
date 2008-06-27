@@ -1,0 +1,10 @@
+{
+  try {
+    if (dialog.validate()) {
+      generate(dialog.getValues(),UISupport.getToolHost(),modelItem);
+    }
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+}

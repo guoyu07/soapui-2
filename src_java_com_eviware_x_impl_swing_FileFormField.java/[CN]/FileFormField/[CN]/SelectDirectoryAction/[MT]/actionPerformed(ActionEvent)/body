@@ -1,0 +1,20 @@
+{
+  if (fileChooser == null) {
+    fileChooser=new JFileChooser();
+    if (type == FieldType.FOLDER || type == FieldType.PROJECT_FOLDER)     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+  }
+  String value=FileFormField.this.getValue();
+  if (value.length() > 0) {
+    fileChooser.setSelectedFile(new File(value));
+  }
+ else   if (currentDirectory != null) {
+    fileChooser.setCurrentDirectory(new File(currentDirectory));
+  }
+ else   if (projectRoot != null) {
+    fileChooser.setCurrentDirectory(new File(projectRoot));
+  }
+  int returnVal=fileChooser.showOpenDialog(UISupport.getMainFrame());
+  if (returnVal == JFileChooser.APPROVE_OPTION) {
+    updateValue(fileChooser.getSelectedFile().getAbsolutePath());
+  }
+}

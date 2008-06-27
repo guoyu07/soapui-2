@@ -1,0 +1,6 @@
+{
+  if (modelItem instanceof AbstractHttpRequest<?>)   return new HttpHeadersInspector(new WsdlRequestHeadersModel((AbstractHttpRequest<?>)modelItem));
+ else   if (modelItem instanceof WsdlMockResponse)   return new HttpHeadersInspector(new WsdlMockResponseRequestHeadersModel((WsdlMockResponse)modelItem));
+ else   if (modelItem instanceof MessageExchangeModelItem)   return new HttpHeadersInspector(new WsdlMessageExchangeRequestHeadersModel((MessageExchangeModelItem)modelItem));
+  return null;
+}

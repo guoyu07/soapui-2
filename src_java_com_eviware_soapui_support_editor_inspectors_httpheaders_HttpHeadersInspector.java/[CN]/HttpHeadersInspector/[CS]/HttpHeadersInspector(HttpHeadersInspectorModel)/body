@@ -1,0 +1,5 @@
+{
+  super("Headers (" + (response.getHeaders() == null ? "0" : response.getHeaders().size()) + ")","Additional HTTP Headers for this message",true,HttpHeadersInspectorFactory.INSPECTOR_ID);
+  this.model=response;
+  response.addPropertyChangeListener(this);
+}

@@ -1,0 +1,7 @@
+{
+  super.resetConfigOnMove(config);
+  transferStepConfig=(TransferValuesStepConfig)config.getConfig().changeType(TransferValuesStepConfig.type);
+  for (int c=0; c < transferStepConfig.sizeOfTransfersArray(); c++) {
+    transfers.get(c).setConfigOnMove(transferStepConfig.getTransfersArray(c));
+  }
+}

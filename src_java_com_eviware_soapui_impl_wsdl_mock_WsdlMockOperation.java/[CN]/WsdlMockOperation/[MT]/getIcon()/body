@@ -1,0 +1,14 @@
+{
+  if (operation != null) {
+    if (isOneWay()) {
+      return oneWayIcon;
+    }
+ else     if (isNotification()) {
+      return notificationIcon;
+    }
+ else     if (isSolicitResponse()) {
+      return solicitResponseIcon;
+    }
+  }
+  return super.getIcon();
+}

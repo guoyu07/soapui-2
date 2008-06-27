@@ -1,0 +1,7 @@
+{
+  super(new DefaultXmlDocument(),messageExchangeModelItem);
+  this.messageExchangeModelItem=messageExchangeModelItem;
+  if (messageExchangeModelItem.getMessageExchange() != null)   updateXml();
+  messageExchangeModelItem.addPropertyChangeListener(MessageExchangeModelItem.MESSAGE_EXCHANGE,this);
+  setEditable(false);
+}

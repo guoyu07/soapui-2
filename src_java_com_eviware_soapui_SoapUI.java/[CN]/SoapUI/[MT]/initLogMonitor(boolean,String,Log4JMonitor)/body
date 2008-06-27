@@ -1,0 +1,11 @@
+{
+  SoapUI.logMonitor=logMonitor;
+  logMonitor.addLogArea(defaultName,"com.eviware.soapui",hasDefault).setLevel(Level.DEBUG);
+  logMonitor.addLogArea("http log","httpclient.wire",false).setLevel(Level.DEBUG);
+  logMonitor.addLogArea("jetty log","jetty",false).setLevel(Level.INFO);
+  logMonitor.addLogArea("error log","soapui.errorlog",false).setLevel(Level.DEBUG);
+  for (  Object message : logCache) {
+    logMonitor.logEvent(message);
+  }
+  return logMonitor.getComponent();
+}

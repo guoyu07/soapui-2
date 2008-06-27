@@ -1,0 +1,12 @@
+{
+  if (logArea == null)   return;
+  logArea.insert(msg,logArea.getText().length());
+  log.info(msg);
+  try {
+    logArea.setCaretPosition(logArea.getLineStartOffset(logArea.getLineCount() - 1));
+  }
+ catch (  BadLocationException e) {
+    SoapUI.logError(e);
+    log.error(e.toString());
+  }
+}

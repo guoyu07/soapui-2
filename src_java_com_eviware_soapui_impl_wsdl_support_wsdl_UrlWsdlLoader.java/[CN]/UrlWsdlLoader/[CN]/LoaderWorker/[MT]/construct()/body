@@ -1,0 +1,16 @@
+{
+  HttpClient httpClient=HttpClientSupport.getHttpClient();
+  try {
+    Settings soapuiSettings=SoapUI.getSettings();
+    HttpClientSupport.applyHttpSettings(getMethod,soapuiSettings);
+    HostConfiguration hostConfiguration=ProxyUtils.initProxySettings(soapuiSettings,state,new HostConfiguration(),getMethod.getURI().toString());
+    httpClient.executeMethod(hostConfiguration,getMethod,state);
+  }
+ catch (  Exception e) {
+    return e;
+  }
+ finally {
+    finished=true;
+  }
+  return null;
+}

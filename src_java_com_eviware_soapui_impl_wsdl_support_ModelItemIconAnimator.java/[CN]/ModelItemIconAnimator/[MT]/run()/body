@@ -1,0 +1,15 @@
+{
+  while (!stopped) {
+    try {
+      if (stopped)       break;
+      index=index >= animateIcons.length - 1 ? 0 : index + 1;
+      target.setIcon(getIcon());
+      Thread.sleep(500);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+    }
+  }
+  target.setIcon(getIcon());
+  iconAnimationThread=null;
+}

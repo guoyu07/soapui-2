@@ -1,0 +1,13 @@
+{
+  super(testCase);
+  buildUI();
+  setPreferredSize(new Dimension(400,550));
+  setRunningState();
+  testCase.addTestRunListener(testRunListener);
+  progressBarAdapter=new ProgressBarTestCaseAdapter(progressBar,testCase);
+  testMonitorListener=new InternalTestMonitorListener();
+  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
+  DragSource dragSource=DragSource.getDefaultDragSource();
+  SoapUIDragAndDropHandler dragAndDropHandler=new SoapUIDragAndDropHandler(new ModelItemListDragAndDropable(getTestStepList().getTestStepList(),testCase),DropType.BEFORE_AND_AFTER);
+  dragSource.createDefaultDragGestureRecognizer(getTestStepList().getTestStepList(),DnDConstants.ACTION_COPY_OR_MOVE,dragAndDropHandler);
+}

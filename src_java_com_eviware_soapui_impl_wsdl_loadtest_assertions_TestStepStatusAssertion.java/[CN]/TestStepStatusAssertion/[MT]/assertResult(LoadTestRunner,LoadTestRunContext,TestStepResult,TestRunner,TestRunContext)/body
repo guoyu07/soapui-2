@@ -1,0 +1,13 @@
+{
+  WsdlLoadTest loadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+  LoadTestStatistics statisticsModel=loadTest.getStatisticsModel();
+  TestStep step=result.getTestStep();
+  if (targetStepMatches(step)) {
+    int index=step.getTestCase().getIndexOfTestStep(step);
+    if (statisticsModel.getStatistic(index,Statistic.COUNT) >= minRequests && result.getStatus() == TestStepStatus.FAILED) {
+      return returnErrorOrFail("TestStep [" + step.getName() + "] result status is "+ result.getStatus().toString()+ "; "+ Arrays.toString(result.getMessages()),maxErrors,loadTestRunner,context);
+    }
+ else     return null;
+  }
+  return null;
+}

@@ -1,0 +1,17 @@
+{
+  URI splashURI=null;
+  try {
+    splashURI=UISupport.findSplash(SoapUI.SOAPUI_SPLASH_GIF).toURI();
+  }
+ catch (  URISyntaxException e1) {
+    SoapUI.logError(e1);
+  }
+  Properties props=new Properties();
+  try {
+    props.load(SoapUI.class.getResourceAsStream(BUILDINFO_RESOURCE));
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+  UISupport.showExtendedInfo("About soapUI",null,"<html><body><p align=center><img src=\"" + splashURI + "\"><br>soapUI "+ SOAPUI_VERSION+ ", copyright (C) 2004-2008 eviware.com<br>"+ "<a href=\"http://www.soapui.org\">http://www.soapui.org</a> | "+ "<a href=\"http://www.eviware.com\">http://www.eviware.com</a><br>"+ "Build "+ props.getProperty("build.number")+ ", Build Date "+ props.getProperty("build.date")+ "</p></body></html>",new Dimension(470,350));
+}

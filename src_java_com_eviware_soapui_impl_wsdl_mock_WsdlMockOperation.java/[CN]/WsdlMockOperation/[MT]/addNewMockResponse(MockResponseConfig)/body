@@ -1,0 +1,7 @@
+{
+  WsdlMockResponse mockResponse=new WsdlMockResponse(this,responseConfig);
+  responses.add(mockResponse);
+  if (responses.size() == 1)   setDefaultResponse(mockResponse.getName());
+  (getMockService()).fireMockResponseAdded(mockResponse);
+  return mockResponse;
+}

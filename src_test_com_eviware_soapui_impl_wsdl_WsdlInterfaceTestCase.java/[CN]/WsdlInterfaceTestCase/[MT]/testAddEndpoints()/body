@@ -1,0 +1,12 @@
+{
+  iface.addEndpoint("testEndpoint");
+  assertEquals(1,iface.getEndpoints().length);
+  assertEquals("testEndpoint",iface.getEndpoints()[0]);
+  iface.addEndpoint("testEndpoint");
+  assertEquals(1,iface.getEndpoints().length);
+  assertEquals("testEndpoint",iface.getEndpoints()[0]);
+  iface.addEndpoint("testEndpoint2");
+  assertEquals(2,iface.getEndpoints().length);
+  assertEquals("testEndpoint",iface.getEndpoints()[0]);
+  assertEquals("testEndpoint2",iface.getEndpoints()[1]);
+}

@@ -1,0 +1,19 @@
+{
+  server=new Server();
+  BoundedThreadPool threadPool=new BoundedThreadPool();
+  threadPool.setMaxThreads(100);
+  server.setThreadPool(threadPool);
+  server.setHandler(new ServerHandler());
+  if (SoapUI.getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL)) {
+    sslConnector=new SslSocketConnector();
+    sslConnector.setKeystore(SoapUI.getSettings().getString(SSLSettings.MOCK_KEYSTORE,null));
+    sslConnector.setPassword(SoapUI.getSettings().getString(SSLSettings.MOCK_PASSWORD,null));
+    sslConnector.setKeyPassword(SoapUI.getSettings().getString(SSLSettings.MOCK_KEYSTORE_PASSWORD,null));
+    sslConnector.setTruststore(SoapUI.getSettings().getString(SSLSettings.MOCK_TRUSTSTORE,null));
+    sslConnector.setTrustPassword(SoapUI.getSettings().getString(SSLSettings.MOCK_TRUSTSTORE_PASSWORD,null));
+    sslConnector.setMaxIdleTime(30000);
+    sslConnector.setPort((int)SoapUI.getSettings().getLong(SSLSettings.MOCK_PORT,443));
+    sslConnector.setNeedClientAuth(SoapUI.getSettings().getBoolean(SSLSettings.CLIENT_AUTHENTICATION));
+    server.addConnector(sslConnector);
+  }
+}

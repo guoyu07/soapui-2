@@ -1,0 +1,14 @@
+{
+  if (propertyHolderSupport == null)   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,config);
+ else   propertyHolderSupport.resetPropertiesConfig(config);
+  String propertyName=createPropertyName(getName());
+  if (StringUtils.hasContent(propertyName)) {
+    String propFile=System.getProperty("soapui.properties." + propertyName);
+    if (StringUtils.hasContent(propFile)) {
+      int result=propertyHolderSupport.addPropertiesFromFile(propFile);
+      if (result > 0) {
+        log.info("Overriding " + result + " properties from ["+ propFile+ "] in ["+ getName()+ "]");
+      }
+    }
+  }
+}

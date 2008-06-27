@@ -1,0 +1,19 @@
+{
+  try {
+    ApplicationDocument applicationDocument=ApplicationDocument.Factory.parse(new URL(wadlUrl));
+    Application application=applicationDocument.getApplication();
+    Resources resources=application.getResources();
+    service.setBasePath(resources.getBase());
+    service.setWadlUrl(wadlUrl);
+    for (    Resource resource : resources.getResourceList()) {
+      String name=getFirstTitle(resource.getDocList(),resource.getPath());
+      String path=resource.getPath();
+      RestResource newResource=service.addNewResource(name,path);
+      initResourceFromWadlResource(newResource,resource,application);
+      addSubResources(newResource,resource,application);
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

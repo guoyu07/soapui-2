@@ -1,0 +1,8 @@
+{
+  if (!(container instanceof MutableAttachmentContainer))   return;
+  WsdlAttachment att=(WsdlAttachment)container.getAttachmentAt(rowIndex);
+  if (columnIndex == 1)   att.setContentType((String)aValue);
+ else   if (columnIndex == 3)   att.setPart((String)aValue);
+ else   if (columnIndex == 5)   att.setContentID((String)aValue);
+  fireTableRowsUpdated(rowIndex,rowIndex);
+}

@@ -1,0 +1,7 @@
+{
+  String name=UISupport.prompt("Specify name of cloned request","Clone Request","Copy of " + request.getName());
+  if (name == null)   return;
+  WsdlRequest newRequest=((WsdlOperation)request.getOperation()).addNewRequest(name);
+  request.copyTo(newRequest,true,true);
+  UISupport.selectAndShow(newRequest);
+}

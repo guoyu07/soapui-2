@@ -1,0 +1,10 @@
+{
+  if (((TestProperty)combo.getSelectedItem()).getName().equals(name))   combo.setSelectedItem(null);
+  for (int c=0; c < combo.getItemCount(); c++) {
+    if (((TestProperty)combo.getItemAt(c)).getName().equals(name)) {
+      combo.removeItemAt(c);
+      break;
+    }
+  }
+  combo.setEnabled(combo.getItemCount() > 0);
+}

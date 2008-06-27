@@ -1,0 +1,6 @@
+{
+  if (delay == 0 || randomFactor == 0)   return delay;
+  int fixDelay=(int)((float)delay * (1 - randomFactor));
+  int randDelay=(int)(randomFactor == 0 ? 0 : (float)(delay - fixDelay) * Math.random());
+  return fixDelay + randDelay;
+}

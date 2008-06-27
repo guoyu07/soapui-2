@@ -1,0 +1,111 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.getFormField(Form.PROJECT).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        if (newValue.equals(CREATE_NEW_OPTION))         dialog.setOptions(Form.TESTSUITE,new String[]{CREATE_NEW_OPTION});
+ else {
+          Project project=SoapUI.getWorkspace().getProjectByName(newValue);
+          String[] names=ModelSupport.getNames(project.getTestSuiteList(),new String[]{CREATE_NEW_OPTION});
+          dialog.setOptions(Form.TESTSUITE,names);
+          dialog.setValue(Form.TESTSUITE,names[0]);
+          if (names.length > 1) {
+            TestSuite testSuite=project.getTestSuiteByName(names[0]);
+            dialog.setOptions(Form.TESTCASE,ModelSupport.getNames(testSuite.getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+          }
+ else {
+            dialog.setOptions(Form.TESTCASE,new String[]{CREATE_NEW_OPTION});
+          }
+        }
+      }
+    }
+);
+    dialog.getFormField(Form.TESTSUITE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        if (newValue.equals(CREATE_NEW_OPTION)) {
+          dialog.setOptions(Form.TESTCASE,new String[]{CREATE_NEW_OPTION});
+        }
+ else {
+          String projectName=dialog.getValue(Form.PROJECT);
+          Project project=SoapUI.getWorkspace().getProjectByName(projectName);
+          TestSuite testSuite=project.getTestSuiteByName(newValue);
+          dialog.setOptions(Form.TESTCASE,testSuite == null ? new String[]{CREATE_NEW_OPTION} : ModelSupport.getNames(testSuite.getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+        }
+      }
+    }
+);
+  }
+  dialog.setBooleanValue(Form.MOVE,false);
+  dialog.setValue(Form.NAME,"Copy of " + testStep.getName());
+  WorkspaceImpl workspace=testStep.getTestCase().getTestSuite().getProject().getWorkspace();
+  dialog.setOptions(Form.PROJECT,ModelSupport.getNames(workspace.getOpenProjectList(),new String[]{CREATE_NEW_OPTION}));
+  dialog.setValue(Form.PROJECT,testStep.getTestCase().getTestSuite().getProject().getName());
+  dialog.setOptions(Form.TESTSUITE,ModelSupport.getNames(testStep.getTestCase().getTestSuite().getProject().getTestSuiteList(),new String[]{CREATE_NEW_OPTION}));
+  dialog.setValue(Form.TESTSUITE,testStep.getTestCase().getTestSuite().getName());
+  dialog.setOptions(Form.TESTCASE,ModelSupport.getNames(testStep.getTestCase().getTestSuite().getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+  dialog.setValue(Form.TESTCASE,testStep.getTestCase().getName());
+  if (dialog.show()) {
+    String targetProjectName=dialog.getValue(Form.PROJECT);
+    String targetTestSuiteName=dialog.getValue(Form.TESTSUITE);
+    String targetTestCaseName=dialog.getValue(Form.TESTCASE);
+    String name=dialog.getValue(Form.NAME);
+    WsdlProject project=testStep.getTestCase().getTestSuite().getProject();
+    WsdlTestSuite targetTestSuite=null;
+    WsdlTestCase targetTestCase=null;
+    Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+    if (!targetProjectName.equals(project.getName())) {
+      requiredInterfaces.addAll(testStep.getRequiredInterfaces());
+      project=(WsdlProject)workspace.getProjectByName(targetProjectName);
+      if (project == null) {
+        targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestStep","");
+        if (targetProjectName == null)         return;
+        try {
+          project=workspace.createProject(targetProjectName);
+        }
+ catch (        SoapUIException e) {
+          UISupport.showErrorMessage(e);
+        }
+        if (project == null)         return;
+      }
+      if (requiredInterfaces.size() > 0 && project.getInterfaceCount() > 0) {
+        Map<QName,WsdlInterface> bindings=new HashMap<QName,WsdlInterface>();
+        for (        WsdlInterface iface : requiredInterfaces) {
+          bindings.put(iface.getBindingName(),iface);
+        }
+        for (        Interface iface : project.getInterfaceList()) {
+          bindings.remove(iface.getTechnicalId());
+        }
+        requiredInterfaces.retainAll(bindings.values());
+      }
+      if (requiredInterfaces.size() > 0) {
+        String msg="Target project [" + targetProjectName + "] is missing required interfaces;\r\n\r\n";
+        for (        WsdlInterface iface : requiredInterfaces) {
+          msg+=iface.getName() + " [" + iface.getBindingName()+ "]\r\n";
+        }
+        msg+="\r\nThese will be cloned to the targetProject as well";
+        if (!UISupport.confirm(msg,"Clone TestStep"))         return;
+        for (        WsdlInterface iface : requiredInterfaces) {
+          project.importInterface(iface,true,true);
+        }
+      }
+    }
+    targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
+    if (targetTestSuite == null) {
+      targetTestSuiteName=UISupport.prompt("Specify name for new TestSuite","Clone TestStep","Copy of " + testStep.getTestCase().getTestSuite().getName());
+      if (targetTestSuiteName == null)       return;
+      targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
+    }
+    targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
+    if (targetTestCase == null) {
+      targetTestCaseName=UISupport.prompt("Specify name for new TestCase","Clone TestStep","Copy of " + testStep.getTestCase().getName());
+      if (targetTestCaseName == null)       return;
+      targetTestCase=targetTestSuite.addNewTestCase(targetTestCaseName);
+    }
+    boolean move=dialog.getBooleanValue(Form.MOVE);
+    WsdlTestStep newTestStep=targetTestCase.importTestStep(testStep,name,-1,!move);
+    UISupport.select(newTestStep);
+    if (move) {
+      testStep.getTestCase().removeTestStep(testStep);
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+  runButton=UISupport.createToolbarButton(new RunAction());
+  runButton.setEnabled(transferList.getSelectedIndex() != -1);
+  toolbar.addFixed(runButton);
+  runAllButton=UISupport.createToolbarButton(new RunAllAction());
+  runAllButton.setEnabled(transferStep.getTransferCount() > 0);
+  toolbar.addFixed(runAllButton);
+  declareButton=UISupport.createToolbarButton(new DeclareNamespacesAction());
+  declareButton.setEnabled(false);
+  toolbar.addFixed(declareButton);
+  toolbar.addGlue();
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.TRANSFERSTEPEDITOR_HELP_URL)));
+  return toolbar;
+}

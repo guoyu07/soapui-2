@@ -1,0 +1,10 @@
+{
+  int mod=0;
+  for (int i=0; i < assertionList.size(); i++) {
+    RequestAssertionConfig config=assertionList.get(i);
+    if (WsdlAssertionRegistry.getInstance().canBuildAssertion(config)) {
+      assertions.get(i - mod).updateConfig(config);
+    }
+ else     mod++;
+  }
+}

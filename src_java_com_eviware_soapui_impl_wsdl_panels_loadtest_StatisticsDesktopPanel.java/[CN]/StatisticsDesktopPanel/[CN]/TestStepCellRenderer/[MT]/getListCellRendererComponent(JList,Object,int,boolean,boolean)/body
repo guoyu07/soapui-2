@@ -1,0 +1,5 @@
+{
+  JLabel label=(JLabel)super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+  if (value instanceof TestStep)   label.setText(((TestStep)value).getName());
+  return label;
+}

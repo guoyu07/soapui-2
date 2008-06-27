@@ -1,0 +1,18 @@
+{
+  try {
+    if (source != null) {
+      return new FileInputStream(source);
+    }
+    if (SchemaUtils.isInstanceOf(schemaType,XmlHexBinary.type)) {
+      return new ByteArrayInputStream(Hex.decodeHex(content.toCharArray()));
+    }
+ else     if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type)) {
+      return new ByteArrayInputStream(Base64.decodeBase64(content.getBytes()));
+    }
+ else     throw new IOException("Invalid type for XOPPartDataSource; " + schemaType.getName());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    throw new IOException(e.toString());
+  }
+}

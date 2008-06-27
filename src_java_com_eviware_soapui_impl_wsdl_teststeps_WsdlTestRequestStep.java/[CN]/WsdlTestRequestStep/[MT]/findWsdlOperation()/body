@@ -1,0 +1,19 @@
+{
+  WsdlTestCase testCase=getTestCase();
+  if (testCase == null || testCase.getTestSuite() == null)   return null;
+  Project project=testCase.getTestSuite().getProject();
+  WsdlOperation operation=null;
+  for (int c=0; c < project.getInterfaceCount(); c++) {
+    if (project.getInterfaceAt(c).getName().equals(requestStepConfig.getInterface())) {
+      WsdlInterface iface=(WsdlInterface)project.getInterfaceAt(c);
+      for (int i=0; i < iface.getOperationCount(); i++) {
+        if (iface.getOperationAt(i).getName().equals(requestStepConfig.getOperation())) {
+          operation=iface.getOperationAt(i);
+          break;
+        }
+      }
+      if (operation != null)       break;
+    }
+  }
+  return operation;
+}

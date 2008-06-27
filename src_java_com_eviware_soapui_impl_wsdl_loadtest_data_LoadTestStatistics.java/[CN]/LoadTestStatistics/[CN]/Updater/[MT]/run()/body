@@ -1,0 +1,15 @@
+{
+  while (running || changed || !samplesStack.isEmpty()) {
+    if (changed) {
+      fireTableDataChanged();
+      changed=false;
+    }
+    if (!running && samplesStack.isEmpty())     break;
+    try {
+      Thread.sleep(updateFrequency < 1 ? 1000 : updateFrequency);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

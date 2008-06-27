@@ -1,0 +1,15 @@
+{
+  try {
+    Class<? extends T1> clazz=registry.get(config.getType());
+    if (clazz == null) {
+      return null;
+    }
+    T1 entry=clazz.newInstance();
+    entry.init(config,parent);
+    return entry;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

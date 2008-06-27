@@ -1,0 +1,11 @@
+{
+  TestCaseListPanel testCaseListPanel=panels.get(testCase);
+  if (testCaseListPanel != null) {
+    boolean hadFocus=testCaseListPanel.hasFocus();
+    remove(testCaseListPanel);
+    add(testCaseListPanel,index + offset);
+    revalidate();
+    repaint();
+    if (hadFocus)     testCaseListPanel.requestFocus();
+  }
+}

@@ -1,0 +1,33 @@
+{
+  listModel=new ItemsListModel(modelItems);
+  list=new JList(listModel);
+  list.setCellRenderer(new ItemListCellRenderer());
+  ModelItemListMouseListener modelItemListMouseListener=new ModelItemListMouseListener();
+  JPopupMenu popupMenu=new JPopupMenu();
+  popupMenu.add(new RemoveAction());
+  popupMenu.add(new HighlightAction());
+  modelItemListMouseListener.setPopupMenu(popupMenu);
+  list.addMouseListener(modelItemListMouseListener);
+  listModel.addListDataListener(new ListDataListenerAdapter(){
+    @Override public void intervalRemoved(    ListDataEvent e){
+      if (listModel.isEmpty()) {
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            SoapUI.getDesktop().closeDesktopPanel(ModelItemListDesktopPanel.this);
+          }
+        }
+);
+      }
+    }
+  }
+);
+  list.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      detailListModel.refresh();
+    }
+  }
+);
+  JInspectorPanel inspectorPanel=new JInspectorPanel(new JScrollPane(list));
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildDetails(),"Details","Shows detailed information for the selected item",true));
+  return inspectorPanel;
+}

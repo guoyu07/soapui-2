@@ -1,0 +1,22 @@
+{
+  for (int c=0; c < values.size(); c++) {
+    String value=values.get(c);
+    if (c > 0)     writer.append(separator);
+    if (quote > 0) {
+      writer.append(quote);
+      if (value != null) {
+        for (int i=0; i < value.length(); i++) {
+          char ch=value.charAt(i);
+          if (ch == quote)           writer.append('\\');
+ else           if (ch == '\\')           writer.append('\\');
+          writer.append(ch);
+        }
+      }
+      writer.append(quote);
+    }
+ else     if (value != null) {
+      writer.append(value);
+    }
+  }
+  return writer;
+}

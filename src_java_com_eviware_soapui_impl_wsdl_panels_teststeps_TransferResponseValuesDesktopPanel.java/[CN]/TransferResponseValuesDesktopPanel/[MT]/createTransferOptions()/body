@@ -1,0 +1,77 @@
+{
+  JPanel panel=new JPanel(new GridLayout(3,2));
+  failTransferCheckBox=new JCheckBox("Fail transfer on error",false);
+  failTransferCheckBox.setToolTipText("Fails the Property Transfer Step if an error occurs");
+  failTransferCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setFailOnError(failTransferCheckBox.isSelected());
+      }
+    }
+  }
+);
+  setNullCheckBox=new JCheckBox("Set null on missing source",false);
+  setNullCheckBox.setToolTipText("Will set target to null if source is missing or null");
+  setNullCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setSetNullOnMissingSource(setNullCheckBox.isSelected());
+      }
+    }
+  }
+);
+  transferTextContentCheckBox=new JCheckBox("Transfer text content",false);
+  transferTextContentCheckBox.setToolTipText("Will only transfer text content of source/target elements");
+  transferTextContentCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setTransferTextContent(transferTextContentCheckBox.isSelected());
+      }
+    }
+  }
+);
+  ignoreEmptyCheckBox=new JCheckBox("Ignore empty/missing values",false);
+  ignoreEmptyCheckBox.setToolTipText("Will not transfer empty or missing values");
+  ignoreEmptyCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setIgnoreEmpty(ignoreEmptyCheckBox.isSelected());
+      }
+    }
+  }
+);
+  transferAllCheckBox=new JCheckBox("Transfer to all",false);
+  transferAllCheckBox.setToolTipText("Will transfer to all matching target selections");
+  transferAllCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setTransferToAll(transferAllCheckBox.isSelected());
+      }
+    }
+  }
+);
+  useXQueryCheckBox=new JCheckBox("Use XQuery",false);
+  useXQueryCheckBox.setToolTipText("Interprets the source xpath as an XQuery expression");
+  useXQueryCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setUseXQuery(useXQueryCheckBox.isSelected());
+      }
+    }
+  }
+);
+  panel.add(failTransferCheckBox);
+  panel.add(setNullCheckBox);
+  panel.add(transferTextContentCheckBox);
+  panel.add(ignoreEmptyCheckBox);
+  panel.add(transferAllCheckBox);
+  panel.add(useXQueryCheckBox);
+  panel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  return panel;
+}

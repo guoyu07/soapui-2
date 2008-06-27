@@ -1,0 +1,8 @@
+{
+synchronized (connectionPool) {
+    if (!shutdown) {
+      shutdown=true;
+      connectionPool.shutdown();
+    }
+  }
+}

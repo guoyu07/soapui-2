@@ -1,0 +1,13 @@
+{
+  if (data != null) {
+    data.removeTableModelListener(tableModelListener);
+    data.release();
+  }
+  data=statisticsModel.getHistory().getStatisticsValueHistory(statistic);
+  initMaxValues();
+  initScales();
+  data.addTableModelListener(tableModelListener);
+  getParent().invalidate();
+  revalidate();
+  repaint();
+}

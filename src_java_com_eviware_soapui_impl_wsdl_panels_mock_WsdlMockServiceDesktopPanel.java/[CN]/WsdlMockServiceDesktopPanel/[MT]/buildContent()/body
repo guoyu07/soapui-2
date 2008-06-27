@@ -1,0 +1,7 @@
+{
+  JTabbedPane tabs=new JTabbedPane();
+  JInspectorPanel inspectorPanel=new JInspectorPanel(buildOperationList());
+  tabs.addTab("Operations",inspectorPanel);
+  addTabs(tabs,inspectorPanel);
+  return UISupport.createTabPanel(tabs,true);
+}

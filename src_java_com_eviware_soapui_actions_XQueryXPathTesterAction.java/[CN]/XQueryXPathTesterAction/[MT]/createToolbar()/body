@@ -1,0 +1,10 @@
+{
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  JButton runButton=UISupport.createToolbarButton(new RunAction());
+  builder.addFixed(runButton);
+  builder.addRelatedGap();
+  JButton declareNsButton=UISupport.createToolbarButton(new DeclareNSAction());
+  builder.addFixed(declareNsButton);
+  builder.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  return builder.getPanel();
+}

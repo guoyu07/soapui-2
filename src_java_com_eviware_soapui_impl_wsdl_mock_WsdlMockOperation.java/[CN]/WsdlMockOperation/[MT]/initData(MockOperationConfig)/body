@@ -1,0 +1,15 @@
+{
+  if (!config.isSetName())   config.setName(operation == null ? "<missing operation>" : operation.getName());
+  if (!config.isSetDispatchStyle())   config.setDispatchStyle(DispatchStyleConfig.SEQUENCE);
+  if (!config.isSetDefaultResponse() && responses.size() > 0)   setDefaultResponse(responses.get(0).getName());
+  scriptEnginePool=new ScriptEnginePool(this);
+  scriptEnginePool.setScript(getDispatchPath());
+  if (operation != null) {
+    operation.getInterface().getProject().addProjectListener(projectListener);
+    operation.getInterface().addInterfaceListener(interfaceListener);
+    operation.getInterface().addPropertyChangeListener(WsdlInterface.NAME_PROPERTY,this);
+  }
+  oneWayIcon=UISupport.createImageIcon("/onewaymockoperation.gif");
+  notificationIcon=UISupport.createImageIcon("/mocknotificationoperation.gif");
+  solicitResponseIcon=UISupport.createImageIcon("/mocksolicitresponseoperation.gif");
+}

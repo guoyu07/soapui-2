@@ -1,0 +1,8 @@
+{
+  if (sourceType == null)   return null;
+  if (currentSourceProperty != null)   return currentSourceProperty.getName();
+  TestPropertyHolder actualSourceStep=getSourceStep();
+  if (actualSourceStep == null)   return sourceType;
+  TestProperty property=actualSourceStep.getProperty(sourceType);
+  return property == null ? sourceType : property.getName();
+}

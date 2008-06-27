@@ -1,0 +1,6 @@
+{
+  if (propertyName.charAt(0) == PropertyExpansion.SCOPE_PREFIX && context.getModelItem() instanceof WsdlRequest) {
+    return ResolverUtils.checkForExplicitReference(propertyName,PropertyExpansion.PROJECT_REFERENCE,((WsdlRequest)context.getModelItem()).getOperation().getInterface().getProject(),context,globalOverride);
+  }
+  return null;
+}

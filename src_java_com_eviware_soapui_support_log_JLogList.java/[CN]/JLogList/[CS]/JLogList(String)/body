@@ -1,0 +1,33 @@
+{
+  super(new BorderLayout());
+  this.title=title;
+  model=new LogListModel();
+  logList=new JList(model);
+  logList.setToolTipText(title);
+  logList.setCellRenderer(new LogAreaCellRenderer());
+  logList.setPrototypeCellValue("Testing 123");
+  logList.setFixedCellWidth(-1);
+  JPopupMenu listPopup=new JPopupMenu();
+  listPopup.add(new ClearAction());
+  enableAction=new EnableAction();
+  enableMenuItem=new JCheckBoxMenuItem(enableAction);
+  enableMenuItem.setSelected(true);
+  listPopup.add(enableMenuItem);
+  listPopup.addSeparator();
+  listPopup.add(new CopyAction());
+  listPopup.add(new SetMaxRowsAction());
+  listPopup.addSeparator();
+  listPopup.add(new ExportToFileAction());
+  logList.setComponentPopupMenu(listPopup);
+  setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  add(new JScrollPane(logList),BorderLayout.CENTER);
+  requestAttributes=new SimpleAttributeSet();
+  StyleConstants.setForeground(requestAttributes,Color.BLUE);
+  responseAttributes=new SimpleAttributeSet();
+  StyleConstants.setForeground(responseAttributes,Color.GREEN);
+  try {
+    maxRows=Long.parseLong(SoapUI.getSettings().getString("JLogList#" + title,"1000"));
+  }
+ catch (  NumberFormatException e) {
+  }
+}

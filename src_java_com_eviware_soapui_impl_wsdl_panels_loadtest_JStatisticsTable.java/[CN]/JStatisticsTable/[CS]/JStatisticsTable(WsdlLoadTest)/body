@@ -1,0 +1,31 @@
+{
+  super(new BorderLayout());
+  this.loadTest=loadTest;
+  statisticsTable=new JXTable(loadTest.getStatisticsModel());
+  statisticsTable.setColumnControlVisible(true);
+  statisticsTable.getTableHeader().setReorderingAllowed(false);
+  statisticsTable.addMouseListener(new StatisticsTableMouseListener());
+  TableColumnModel columnModel=statisticsTable.getColumnModel();
+  columnModel.getColumn(0).setMaxWidth(5);
+  columnModel.getColumn(0).setCellRenderer(new ColorLabelTableCellRenderer());
+  columnModel.getColumn(1).setPreferredWidth(150);
+  columnModel.getColumn(2).setPreferredWidth(20);
+  columnModel.getColumn(3).setPreferredWidth(20);
+  columnModel.getColumn(4).setPreferredWidth(20);
+  columnModel.getColumn(5).setPreferredWidth(20);
+  columnModel.getColumn(6).setPreferredWidth(20);
+  columnModel.getColumn(7).setPreferredWidth(20);
+  columnModel.getColumn(8).setPreferredWidth(20);
+  columnModel.getColumn(9).setPreferredWidth(20);
+  columnModel.getColumn(10).setPreferredWidth(20);
+  JScrollPane scrollPane=new JScrollPane(statisticsTable);
+  scrollPane.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  add(scrollPane,BorderLayout.CENTER);
+  JMenu assertionsMenu=new JMenu("Add Assertion");
+  for (  String assertion : LoadTestAssertionRegistry.getAvailableAssertions()) {
+    assertionsMenu.add(new AddAssertionAction(assertion));
+  }
+  popup=new JPopupMenu();
+  popup.add(assertionsMenu);
+  popup.setInvoker(statisticsTable);
+}

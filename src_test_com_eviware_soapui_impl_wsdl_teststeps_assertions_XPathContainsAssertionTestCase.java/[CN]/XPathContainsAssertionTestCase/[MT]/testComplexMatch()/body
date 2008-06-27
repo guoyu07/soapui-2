@@ -1,0 +1,6 @@
+{
+  String response="<response><book>" + "<bookID>1012</bookID>" + "<author type=\"humanBeing\" href=\"#ID_1\"/>"+ "<title type=\"string\">Birds</title>"+ "</book>"+ "<humanBeing id=\"ID_1\">"+ "<name>Stephen King</name>"+ "</humanBeing></response>";
+  assertion.setContent("Stephen King");
+  assertion.setPath("//*[@id=substring(//book/bookID[text()='1012']/following-sibling::author/@href,2)]/name/text()");
+  assertNotNull(assertion.assertContent(response,new WsdlSubmitContext(null),""));
+}

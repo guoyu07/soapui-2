@@ -1,0 +1,13 @@
+{
+  StringToStringMap result=new StringToStringMap();
+  int ix=value.indexOf(';');
+  while (ix > 0) {
+    extractNVPair(value.substring(0,ix),result);
+    value=value.substring(ix + 1);
+    ix=value.indexOf(';');
+  }
+  if (value.length() > 2) {
+    extractNVPair(value,result);
+  }
+  return result;
+}

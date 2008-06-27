@@ -1,0 +1,13 @@
+{
+  JMenu menu=new JMenu(string);
+  if (holder instanceof TestModelItem)   menu.setIcon(((TestModelItem)holder).getIcon());
+  String[] propertyNames=holder.getPropertyNames();
+  for (  String name : propertyNames) {
+    menu.add(new TransferFromPropertyActionInvoker(holder,name));
+  }
+  if (holder instanceof MutableTestPropertyHolder) {
+    if (menu.getMenuComponentCount() > 0)     menu.addSeparator();
+    menu.add(new TransferFromPropertyActionInvoker((MutableTestPropertyHolder)holder));
+  }
+  return menu;
+}

@@ -1,0 +1,31 @@
+{
+  List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  Set<String> expansions=new HashSet<String>();
+  try {
+    Object property=PropertyUtils.getProperty(target,propertyName);
+    if (property instanceof String && PropertyUtils.isWriteable(target,propertyName)) {
+      String str=property.toString();
+      if (!StringUtils.isNullOrEmpty(str)) {
+        int ix=str.indexOf("${");
+        while (ix != -1) {
+          int ix2=str.indexOf('}',ix + 2);
+          if (ix2 == -1)           break;
+          String expansion=str.substring(ix + 2,ix2);
+          if (!expansions.contains(expansion)) {
+            MutablePropertyExpansion tp=createMutablePropertyExpansion(expansion,modelItem,target,propertyName);
+            if (tp != null) {
+              result.add(tp);
+              expansions.add(expansion);
+            }
+          }
+          str=str.substring(ix2);
+          ix=str.indexOf("${");
+        }
+      }
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return result;
+}

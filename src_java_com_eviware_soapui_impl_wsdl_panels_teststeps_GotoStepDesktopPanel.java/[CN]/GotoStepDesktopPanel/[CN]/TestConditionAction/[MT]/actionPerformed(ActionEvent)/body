@@ -1,0 +1,26 @@
+{
+  WsdlTestRequestStep previousStep=(WsdlTestRequestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,WsdlTestRequestStep.class);
+  if (previousStep == null) {
+    UISupport.showErrorMessage("Missing previous request step");
+  }
+ else {
+    if (previousStep.getTestRequest().getResponse() == null || previousStep.getTestRequest().getResponse().getContentAsString().trim().length() == 0) {
+      UISupport.showErrorMessage("Missing response in previous request step [" + previousStep.getName() + "]");
+      return;
+    }
+    try {
+      GotoCondition condition=gotoStep.getConditionAt(conditionList.getSelectedIndex());
+      WsdlTestRunContext context=new WsdlTestRunContext(gotoStep);
+      boolean evaluate=condition.evaluate(previousStep,context);
+      if (!evaluate) {
+        UISupport.showInfoMessage("Condition not true for current response in [" + previousStep.getName() + "]");
+      }
+ else {
+        UISupport.showInfoMessage("Condition true for current response in [" + previousStep.getName() + "]");
+      }
+    }
+ catch (    Exception e1) {
+      UISupport.showErrorMessage("Error checking condition: " + e1.getMessage());
+    }
+  }
+}

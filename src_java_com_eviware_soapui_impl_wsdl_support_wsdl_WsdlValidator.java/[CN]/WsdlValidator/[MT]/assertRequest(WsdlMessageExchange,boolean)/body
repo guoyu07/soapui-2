@@ -1,0 +1,23 @@
+{
+  List<XmlError> errors=new ArrayList<XmlError>();
+  try {
+    String requestContent=messageExchange.getRequestContent();
+    wsdlContext.getSoapVersion().validateSoapEnvelope(requestContent,errors);
+    if (errors.isEmpty() && !envelopeOnly) {
+      wsdlContext.getSoapVersion().validateSoapEnvelope(requestContent,errors);
+      WsdlOperation operation=messageExchange.getOperation();
+      BindingOperation bindingOperation=operation.getBindingOperation();
+      if (bindingOperation == null) {
+        errors.add(XmlError.forMessage("Missing operation [" + operation.getBindingOperationName() + "] in wsdl definition"));
+      }
+ else {
+        Part[] inputParts=WsdlUtils.getInputParts(bindingOperation);
+        validateMessage(messageExchange,requestContent,bindingOperation,inputParts,errors,false);
+      }
+    }
+  }
+ catch (  Exception e) {
+    errors.add(XmlError.forMessage(e.getMessage()));
+  }
+  return convertErrors(errors);
+}

@@ -1,0 +1,10 @@
+{
+  if (!groovyLogInitialized) {
+    Logger logger=Logger.getLogger("groovy.log");
+    ConsoleAppender appender=new ConsoleAppender();
+    appender.setWriter(new OutputStreamWriter(System.out));
+    appender.setLayout(new PatternLayout("%d{ABSOLUTE} %-5p [%c{1}] %m%n"));
+    logger.addAppender(appender);
+    groovyLogInitialized=true;
+  }
+}

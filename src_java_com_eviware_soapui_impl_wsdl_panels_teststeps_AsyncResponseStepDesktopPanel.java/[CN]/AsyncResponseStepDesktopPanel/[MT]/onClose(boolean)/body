@@ -1,0 +1,7 @@
+{
+  WsdlAsyncResponseTestStep step=getModelItem();
+  step.getTestCase().removeTestRunListener(testRunListener);
+  SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
+  assertionsPanel.release();
+  return super.onClose(flag);
+}

@@ -1,0 +1,12 @@
+{
+  DesktopPanel desktopPanel=internalFrameToDesktopPanelMap.get(e.getInternalFrame());
+  if (!transferring && !desktopPanel.onClose(true)) {
+    return;
+  }
+  desktopPanel.removePropertyChangeListener(desktopPanelPropertyChangeListener);
+  modelItemToInternalFrameMap.remove(desktopPanel.getModelItem());
+  internalFrameToDesktopPanelMap.remove(e.getInternalFrame());
+  e.getInternalFrame().dispose();
+  if (!transferring)   fireDesktopPanelClosed(desktopPanel);
+  if (currentPanel == desktopPanel)   currentPanel=null;
+}

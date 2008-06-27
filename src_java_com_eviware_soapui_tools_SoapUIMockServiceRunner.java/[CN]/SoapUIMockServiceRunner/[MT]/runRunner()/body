@@ -1,0 +1,23 @@
+{
+  initGroovyLog();
+  String projectFile=getProjectFile();
+  WsdlProject project=new WsdlProject(projectFile);
+  if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  if (mockService == null)   log.info("Running all MockServices in project [" + project.getName() + "]");
+ else   log.info("Running MockService [" + mockService + "] in project ["+ project.getName()+ "]");
+  log.info("Press any key to terminate");
+  long startTime=System.nanoTime();
+  for (int c=0; c < project.getMockServiceCount(); c++) {
+    MockService ms=project.getMockServiceAt(c);
+    if (mockService == null || ms.getName().equals(mockService))     runMockService((WsdlMockService)ms);
+  }
+  log.info("Started " + runners.size() + " runner"+ ((runners.size() == 1) ? "" : "s"));
+  if (block) {
+    System.out.println("Press any key to terminate...");
+    System.in.read();
+    for (    MockRunner runner : runners)     runner.stop();
+  }
+  long timeTaken=(System.nanoTime() - startTime) / 1000000;
+  log.info("time taken: " + timeTaken + "ms");
+  return block;
+}

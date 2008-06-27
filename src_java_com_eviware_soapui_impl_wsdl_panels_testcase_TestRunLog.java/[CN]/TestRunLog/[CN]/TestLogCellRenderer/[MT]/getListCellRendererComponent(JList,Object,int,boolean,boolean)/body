@@ -1,0 +1,42 @@
+{
+  if (isSelected) {
+    setBackground(list.getSelectionBackground());
+    setForeground(list.getSelectionForeground());
+  }
+ else {
+    setBackground(list.getBackground());
+    setForeground(list.getForeground());
+  }
+  if (value instanceof String) {
+    setText(value.toString());
+  }
+ else   if (value instanceof TestCaseLogItem) {
+    TestCaseLogItem logItem=(TestCaseLogItem)value;
+    String msg=logItem.getMsg();
+    setText(msg == null ? "" : msg);
+  }
+  TestStepResult result=logListModel.getResultAt(index);
+  if (result != null && !result.isDiscarded() && result.getActions() != null && !getText().startsWith(" ->")) {
+    hyperlinkLabel.setText(getText());
+    hyperlinkLabel.setBackground(getBackground());
+    hyperlinkLabel.setEnabled(list.isEnabled());
+    if (result.getStatus() == TestStepStatus.OK) {
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+    }
+ else     if (result.getStatus() == TestStepStatus.FAILED) {
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+    }
+ else {
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+    }
+    return hyperlinkLabel;
+  }
+  setEnabled(list.isEnabled());
+  if (boldTexts.contains(getText())) {
+    setFont(boldFont);
+  }
+ else {
+    setFont(normalFont);
+  }
+  return this;
+}

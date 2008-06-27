@@ -1,0 +1,6 @@
+{
+  if (container instanceof MutableAttachmentContainer) {
+    ((MutableAttachmentContainer)container).attachFile(file,cacheInRequest);
+  }
+  this.fireTableRowsInserted(container.getAttachmentCount(),container.getAttachmentCount());
+}

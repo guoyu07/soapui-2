@@ -1,0 +1,24 @@
+{
+  if (e.getSource() == addButton) {
+    String value=UISupport.prompt("Specify value to add","Add..",defaultValue);
+    if (value != null) {
+      listModel.addElement(value);
+    }
+  }
+ else {
+    int selectedIndex=list.getSelectedIndex();
+    if (e.getSource() == removeButton && selectedIndex != -1) {
+      Object elm=listModel.getElementAt(selectedIndex);
+      if (UISupport.confirm("Remove [" + elm.toString() + "] from list","Remove")) {
+        listModel.remove(selectedIndex);
+      }
+    }
+ else     if (e.getSource() == editButton && selectedIndex != -1) {
+      String elm=(String)listModel.getElementAt(selectedIndex);
+      String value=UISupport.prompt("Specify value","Edit..",elm);
+      if (value != null) {
+        listModel.setElementAt(value,selectedIndex);
+      }
+    }
+  }
+}

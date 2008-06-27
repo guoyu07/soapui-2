@@ -1,0 +1,10 @@
+{
+  if (typeSystem != null)   return typeSystem;
+  try {
+    typeSystem=XmlObject.Factory.parse(xml).schemaType().getTypeSystem();
+    return typeSystem;
+  }
+ catch (  Exception e) {
+    return XmlBeans.getBuiltinTypeSystem();
+  }
+}

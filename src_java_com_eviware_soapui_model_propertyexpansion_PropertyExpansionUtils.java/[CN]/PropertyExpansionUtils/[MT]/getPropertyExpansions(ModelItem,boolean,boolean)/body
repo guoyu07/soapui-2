@@ -1,0 +1,21 @@
+{
+  List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  if (modelItem instanceof PropertyExpansionContainer) {
+    PropertyExpansion[] pes=((PropertyExpansionContainer)modelItem).getPropertyExpansions();
+    if (pes != null && pes.length > 0) {
+      for (      PropertyExpansion pe : pes) {
+        if (mutableOnly && !(pe instanceof MutablePropertyExpansion))         continue;
+        result.add(pe);
+      }
+    }
+  }
+  if (deep) {
+    List<? extends ModelItem> children=modelItem.getChildren();
+    if (children != null && children.size() > 0) {
+      for (      ModelItem child : children) {
+        result.addAll(Arrays.asList(getPropertyExpansions(child,mutableOnly,deep)));
+      }
+    }
+  }
+  return result.toArray(new PropertyExpansion[result.size()]);
+}

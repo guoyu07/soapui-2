@@ -1,0 +1,11 @@
+{
+  File projectFile;
+  if (path == null || isRemote()) {
+    projectFile=new File(getName() + "-soapui-project.xml");
+  }
+ else {
+    projectFile=new File(path);
+  }
+  File backupFile=getBackupFile(projectFile);
+  return saveIn(backupFile);
+}

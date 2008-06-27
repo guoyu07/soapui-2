@@ -1,0 +1,22 @@
+{
+  RestParamProperty property=getProperty(propertyName);
+  int ix=properties.indexOf(property);
+  if (ix == targetIndex)   return;
+  if (targetIndex < 0)   targetIndex=0;
+  String value=property.getValue();
+  config.removeParameter(ix);
+  RestParameterConfig propertyConfig=null;
+  if (targetIndex < properties.size()) {
+    properties.add(targetIndex,properties.remove(ix));
+    propertyConfig=config.insertNewParameter(targetIndex);
+  }
+ else {
+    properties.add(properties.remove(ix));
+    propertyConfig=config.addNewParameter();
+  }
+  propertyConfig.setName(propertyName);
+  propertyConfig.setValue(value);
+  resetPropertiesConfig(config);
+  if (targetIndex > properties.size())   targetIndex=properties.size();
+  firePropertyMoved(propertyName,ix,targetIndex);
+}

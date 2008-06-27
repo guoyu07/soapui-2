@@ -1,0 +1,17 @@
+{
+  WsdlProject project=new WsdlProject();
+  project.addProperty("projectId").setValue("123");
+  WsdlTestSuite testSuite=project.addNewTestSuite("TestSuite");
+  testSuite.addProperty("testSuiteId").setValue("234");
+  WsdlTestCase testCase=testSuite.addNewTestCase("TestCase");
+  testCase.addProperty("testCaseId").setValue("345");
+  WsdlTestStep testStep=testCase.addTestStep(GroovyScriptStepFactory.GROOVY_TYPE,"GroovyScript");
+  MockTestRunner mockTestRunner=new MockTestRunner(testCase,Logger.getLogger("testing"));
+  MockTestRunContext context=new MockTestRunContext(mockTestRunner,testStep);
+  PropertyExpansionUtils.getGlobalProperties().setPropertyValue("testSuiteId","testing");
+  assertEquals("123",context.expand("${#Project#projectId}"));
+  assertEquals("234",context.expand("${#TestSuite#testSuiteId}"));
+  assertEquals("345",context.expand("${#TestCase#testCaseId}"));
+  SoapUI.getSettings().setBoolean(GlobalPropertySettings.ENABLE_OVERRIDE,true);
+  assertEquals("testing",context.expand("${#TestSuite#testSuiteId}"));
+}

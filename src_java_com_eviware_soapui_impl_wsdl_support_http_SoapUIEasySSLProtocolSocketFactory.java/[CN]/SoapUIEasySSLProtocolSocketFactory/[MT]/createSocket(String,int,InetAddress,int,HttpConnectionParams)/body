@@ -1,0 +1,19 @@
+{
+  String sslConfig=(String)params.getParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG);
+  if (StringUtils.isNullOrEmpty(sslConfig))   return super.createSocket(host,port,localAddress,localPort,params);
+  EasySSLProtocolSocketFactory factory=factoryMap.get(sslConfig);
+  if (factory != null)   return factory.createSocket(host,port,localAddress,localPort,params);
+  try {
+    factory=new EasySSLProtocolSocketFactory();
+    int ix=sslConfig.lastIndexOf(' ');
+    String keyStore=sslConfig.substring(0,ix);
+    String pwd=sslConfig.substring(ix + 1);
+    factory.setKeyMaterial(new KeyMaterial(keyStore,pwd.toCharArray()));
+    factoryMap.put(sslConfig,factory);
+    return factory.createSocket(host,port,localAddress,localPort,params);
+  }
+ catch (  Exception gse) {
+    SoapUI.logError(gse);
+    return super.createSocket(host,port,localAddress,localPort,params);
+  }
+}

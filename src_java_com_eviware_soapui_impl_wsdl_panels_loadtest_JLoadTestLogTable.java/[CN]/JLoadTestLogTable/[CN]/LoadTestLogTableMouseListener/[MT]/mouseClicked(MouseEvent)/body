@@ -1,0 +1,11 @@
+{
+  if (e.getClickCount() > 1) {
+    int selectedRow=logTable.getSelectedRow();
+    if (selectedRow < 0)     return;
+    int row=logTable.convertRowIndexToModel(selectedRow);
+    if (row < 0)     return;
+    LoadTestLogEntry entry=(LoadTestLogEntry)loadTestLog.getElementAt(row);
+    ActionList actions=entry.getActions();
+    if (actions != null)     actions.performDefaultAction(new ActionEvent(logTable,0,null));
+  }
+}

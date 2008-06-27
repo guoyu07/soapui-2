@@ -1,0 +1,6 @@
+{
+  if (targetType == null)   return null;
+  if (currentTargetProperty != null)   return currentTargetProperty;
+  TestPropertyHolder actualTargetStep=getTargetStep();
+  return actualTargetStep == null ? null : actualTargetStep.getProperty(targetType);
+}

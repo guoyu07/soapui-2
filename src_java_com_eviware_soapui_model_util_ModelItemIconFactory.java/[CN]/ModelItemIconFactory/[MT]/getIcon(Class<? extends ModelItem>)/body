@@ -1,0 +1,7 @@
+{
+  if (modelItemIcons.containsKey(clazz))   return UISupport.createImageIcon(modelItemIcons.get(clazz));
+  for (  Class<?> iface : clazz.getInterfaces()) {
+    if (modelItemIcons.containsKey(iface))     return UISupport.createImageIcon(modelItemIcons.get(iface));
+  }
+  return null;
+}

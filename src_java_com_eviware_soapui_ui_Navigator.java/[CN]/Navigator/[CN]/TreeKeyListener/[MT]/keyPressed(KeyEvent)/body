@@ -1,0 +1,28 @@
+{
+  TreePath selectionPath=mainTree.getSelectionPath();
+  if (selectionPath != null) {
+    SoapUITreeNode lastPathComponent=(SoapUITreeNode)selectionPath.getLastPathComponent();
+    ActionList actions=lastPathComponent.getActions();
+    if (actions != null) {
+      actions.dispatchKeyEvent(e);
+    }
+    if (!e.isConsumed()) {
+      KeyStroke ks=KeyStroke.getKeyStrokeForEvent(e);
+      if (ks.equals(UISupport.getKeyStroke("alt C"))) {
+        mainTree.collapsePath(selectionPath);
+        e.consume();
+      }
+ else       if (ks.equals(UISupport.getKeyStroke("alt E"))) {
+        mainTree.collapsePath(selectionPath);
+        int row=mainTree.getSelectionRows()[0];
+        TreePath nextPath=mainTree.getPathForRow(row + 1);
+        TreePath path=mainTree.getPathForRow(row);
+        while (path != null && !path.equals(nextPath)) {
+          mainTree.expandRow(row);
+          path=mainTree.getPathForRow(++row);
+        }
+        e.consume();
+      }
+    }
+  }
+}

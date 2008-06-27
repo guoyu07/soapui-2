@@ -1,0 +1,8 @@
+{
+  File projectFile=new File(fileName);
+  WsdlProject project=new WsdlProject(projectFile.getAbsolutePath(),this);
+  projectList.add(project);
+  fireProjectAdded(project);
+  save(true);
+  return project;
+}

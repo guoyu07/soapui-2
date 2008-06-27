@@ -1,0 +1,17 @@
+{
+  if (!assertions.isEmpty()) {
+    for (    LoadTestAssertion assertion : assertions) {
+      String error=assertion.assertResults(loadTestRunner,context,testRunner,runContext);
+      if (error != null) {
+        int threadIndex=0;
+        try {
+          threadIndex=Integer.parseInt(runContext.getProperty("ThreadIndex").toString());
+        }
+ catch (        Throwable t) {
+        }
+        loadTestLog.addEntry(new LoadTestLogErrorEntry(assertion.getName(),error,assertion.getIcon(),threadIndex));
+        statisticsModel.addError(LoadTestStatistics.TOTAL);
+      }
+    }
+  }
+}

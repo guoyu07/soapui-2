@@ -1,0 +1,18 @@
+{
+  if (modelItem instanceof WsdlRequest) {
+    WsdlRequest wsdlRequest=(WsdlRequest)modelItem;
+    if (wsdlRequest.getOperation().getInterface() == this)     list.add(wsdlRequest);
+  }
+ else   if (modelItem instanceof WsdlTestRequestStep) {
+    WsdlTestRequestStep testRequestStep=(WsdlTestRequestStep)modelItem;
+    WsdlTestRequest testRequest=testRequestStep.getTestRequest();
+    if (testRequest.getOperation().getInterface() == this)     list.add(testRequest);
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    WsdlMockResponse mockResponse=(WsdlMockResponse)modelItem;
+    if (mockResponse.getMockOperation() != null && mockResponse.getMockOperation().getOperation() != null && mockResponse.getMockOperation().getOperation().getInterface() == this)     list.add(mockResponse);
+  }
+  for (  ModelItem child : modelItem.getChildren()) {
+    getAllMessages(child,list);
+  }
+}

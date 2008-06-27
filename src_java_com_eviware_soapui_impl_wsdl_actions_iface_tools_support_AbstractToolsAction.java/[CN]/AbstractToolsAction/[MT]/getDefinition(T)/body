@@ -1,0 +1,6 @@
+{
+  if (modelItem == null)   return "";
+  String definition=((WsdlInterface)modelItem).getExpandedDefinition();
+  if (definition.startsWith("file:"))   definition=definition.substring(5);
+  return definition;
+}

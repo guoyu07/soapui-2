@@ -1,0 +1,15 @@
+{
+  int ix=conditionList.getSelectedIndex();
+  if (ix == -1) {
+    expressionArea.setText("");
+    testStepsModel.setCondition(null);
+    currentCondition=null;
+  }
+ else {
+    currentCondition=gotoStep.getConditionAt(ix);
+    expressionArea.setText(currentCondition.getExpression());
+    testStepsModel.setCondition(currentCondition);
+  }
+  boolean b=ix != -1;
+  enableEditComponents(b);
+}

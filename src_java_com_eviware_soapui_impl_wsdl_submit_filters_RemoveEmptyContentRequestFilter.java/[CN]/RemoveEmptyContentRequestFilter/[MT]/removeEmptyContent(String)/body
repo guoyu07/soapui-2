@@ -1,0 +1,43 @@
+{
+  XmlCursor cursor=null;
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
+    cursor=xmlObject.newCursor();
+    cursor.toNextToken();
+    cursor.toNextToken();
+    boolean removed=false;
+    while (!cursor.isEnddoc()) {
+      boolean flag=false;
+      if (cursor.isContainer()) {
+        Element elm=(Element)cursor.getDomNode();
+        NamedNodeMap attributes=elm.getAttributes();
+        if (attributes != null && attributes.getLength() > 0) {
+          for (int c=0; c < attributes.getLength(); c++) {
+            Node node=attributes.item(c);
+            if (node.getNodeValue() == null || node.getNodeValue().trim().length() == 0) {
+              cursor.removeAttribute(XmlUtils.getQName(node));
+              removed=true;
+            }
+          }
+        }
+        if (cursor.getTextValue() == null || cursor.getTextValue().trim().length() == 0 && XmlUtils.getFirstChildElement(elm) == null) {
+          if (cursor.removeXml()) {
+            removed=true;
+            flag=true;
+          }
+        }
+      }
+      if (!flag)       cursor.toNextToken();
+    }
+    if (removed) {
+      return xmlObject.xmlText();
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    if (cursor != null)     cursor.dispose();
+  }
+  return content;
+}

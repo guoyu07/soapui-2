@@ -1,0 +1,11 @@
+{
+  if (desktopPanel == null) {
+    desktopPanel=new DefaultDesktopPanel("Message Viewer","Message for " + ownerName,buildContent()){
+      @Override public boolean onClose(      boolean canCancel){
+        return super.onClose(canCancel);
+      }
+    }
+;
+  }
+  return desktopPanel;
+}

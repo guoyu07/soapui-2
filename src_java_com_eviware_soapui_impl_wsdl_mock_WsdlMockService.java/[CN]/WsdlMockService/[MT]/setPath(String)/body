@@ -1,0 +1,11 @@
+{
+  String oldEndpoint=getLocalEndpoint();
+  String oldPath=getPath();
+  if (!path.equals(oldPath)) {
+    getConfig().setPath(path);
+    notifyPropertyChanged(PATH_PROPERTY,oldPath,path);
+    for (    WsdlInterface iface : getMockedInterfaces()) {
+      if (Arrays.asList(iface.getEndpoints()).contains(oldEndpoint))       iface.changeEndpoint(oldEndpoint,getLocalEndpoint());
+    }
+  }
+}

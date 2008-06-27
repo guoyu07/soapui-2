@@ -1,0 +1,16 @@
+{
+  for (  Field field : settingsClass.getFields()) {
+    Setting annotation=field.getAnnotation(Setting.class);
+    if (annotation != null) {
+      try {
+        settings.setString(field.get(null).toString(),values.get(annotation.name()));
+      }
+ catch (      IllegalArgumentException e) {
+        SoapUI.logError(e);
+      }
+catch (      IllegalAccessException e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

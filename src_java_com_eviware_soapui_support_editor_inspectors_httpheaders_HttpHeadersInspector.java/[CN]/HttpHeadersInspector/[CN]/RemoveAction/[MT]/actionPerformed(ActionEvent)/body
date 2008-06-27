@@ -1,0 +1,8 @@
+{
+  int row=headersTable.getSelectedRow();
+  if (row != -1 && UISupport.confirm("Delete selected header?","Remove Header")) {
+    changing=true;
+    headersTableModel.remove(row);
+    changing=false;
+  }
+}

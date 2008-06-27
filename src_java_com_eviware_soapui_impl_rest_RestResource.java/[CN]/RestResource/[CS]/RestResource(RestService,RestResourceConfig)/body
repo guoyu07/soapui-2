@@ -1,0 +1,14 @@
+{
+  super(resourceConfig,service,null);
+  for (  RestRequestConfig config : resourceConfig.getRequestList()) {
+    requests.add(new RestRequest(this,config));
+  }
+  for (  RestResourceConfig config : resourceConfig.getResourceList()) {
+    resources.add(new RestResource(this,config));
+  }
+  for (  RestResourceRepresentationConfig config : resourceConfig.getRepresentationList()) {
+    representations.add(new RestRepresentation(this,config));
+  }
+  if (resourceConfig.getParameters() == null)   resourceConfig.addNewParameters();
+  params=new XmlBeansRestParamsTestPropertyHolder(this,resourceConfig.getParameters());
+}

@@ -1,0 +1,10 @@
+{
+  StringBuffer buf=new StringBuffer();
+  for (  QName qname : valueMap.keySet()) {
+    String[] values=valueMap.get(qname);
+    buf.append(qname.toString()).append("=");
+    buf.append(Arrays.toString(values));
+    buf.append("\n");
+  }
+  return buf.toString();
+}

@@ -1,0 +1,43 @@
+{
+  Node destNode=dest.getDomNode();
+  Node sourceNode=source.getDomNode();
+  short destNodeType=destNode.getNodeType();
+  short sourceNodeType=sourceNode.getNodeType();
+  String value=null;
+  if (sourceNodeType == Node.DOCUMENT_FRAGMENT_NODE) {
+    sourceNode=((DocumentFragment)sourceNode).getFirstChild();
+    if (sourceNode != null)     sourceNodeType=sourceNode.getNodeType();
+ else     throw new Exception("Missing source value for " + source);
+  }
+  if (destNodeType == sourceNodeType) {
+    if (destNodeType == Node.TEXT_NODE || destNodeType == Node.ATTRIBUTE_NODE) {
+      value=sourceNode.getNodeValue();
+      if (!getIgnoreEmpty() || (value != null && value.length() > 0))       destNode.setNodeValue(value);
+    }
+ else     if (config.getTransferTextContent() && destNodeType == Node.ELEMENT_NODE) {
+      value=XmlUtils.getElementText((Element)sourceNode);
+      if (value == null && sourceNode.getFirstChild() != null) {
+        value=source.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces().setSavePrettyPrint());
+        destNode.getParentNode().replaceChild(destNode.getOwnerDocument().importNode(sourceNode,true),destNode);
+      }
+ else       if (!getIgnoreEmpty() || (value != null && value.length() > 0))       XmlUtils.setElementText((Element)destNode,value);
+    }
+ else {
+      destNode=destNode.getParentNode().replaceChild(destNode.getOwnerDocument().importNode(sourceNode,true),destNode);
+      value=dest.xmlText();
+    }
+  }
+ else   if ((sourceNodeType == Node.TEXT_NODE && destNodeType == Node.ATTRIBUTE_NODE) || (sourceNodeType == Node.ATTRIBUTE_NODE && destNodeType == Node.TEXT_NODE)) {
+    value=sourceNode.getNodeValue();
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0))     destNode.setNodeValue(value);
+  }
+ else   if (sourceNodeType == Node.ELEMENT_NODE && destNodeType == Node.ATTRIBUTE_NODE || destNodeType == Node.TEXT_NODE) {
+    value=XmlUtils.getElementText((Element)sourceNode);
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0))     destNode.setNodeValue(value);
+  }
+ else   if (destNodeType == Node.ELEMENT_NODE && sourceNodeType == Node.ATTRIBUTE_NODE || sourceNodeType == Node.TEXT_NODE) {
+    value=sourceNode.getNodeValue();
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0))     XmlUtils.setElementText((Element)destNode,value);
+  }
+  return value;
+}

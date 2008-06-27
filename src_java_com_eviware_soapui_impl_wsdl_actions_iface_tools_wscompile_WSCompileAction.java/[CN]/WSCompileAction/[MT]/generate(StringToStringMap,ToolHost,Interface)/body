@@ -1,0 +1,18 @@
+{
+  String wscompileDir=SoapUI.getSettings().getString(ToolsSettings.JWSDP_WSCOMPILE_LOCATION,null);
+  if (Tools.isEmpty(wscompileDir)) {
+    UISupport.showErrorMessage("wscompile directory must be set in global preferences");
+    return;
+  }
+  String wscompileExtension=UISupport.isWindows() ? ".bat" : ".sh";
+  File wscompileFile=new File(wscompileDir + File.separatorChar + "wscompile"+ wscompileExtension);
+  if (!wscompileFile.exists()) {
+    UISupport.showErrorMessage("Could not find wscompile script at [" + wscompileFile + "]");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(UISupport.isWindows(),modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(wscompileDir));
+  toolHost.run(new ProcessToolRunner(builder,"JAX-RPC wscompile",modelItem));
+}

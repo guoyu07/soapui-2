@@ -1,0 +1,12 @@
+{
+  if (oldEndpoint == null || oldEndpoint.trim().length() == 0)   return;
+  if (newEndpoint == null || newEndpoint.trim().length() == 0)   return;
+  EndpointsConfig endpoints=getConfig().getEndpoints();
+  for (int c=0; c < endpoints.sizeOfEndpointArray(); c++) {
+    if (endpoints.getEndpointArray(c).equals(oldEndpoint)) {
+      endpoints.setEndpointArray(c,newEndpoint);
+      notifyPropertyChanged(ENDPOINT_PROPERTY,oldEndpoint,newEndpoint);
+      break;
+    }
+  }
+}

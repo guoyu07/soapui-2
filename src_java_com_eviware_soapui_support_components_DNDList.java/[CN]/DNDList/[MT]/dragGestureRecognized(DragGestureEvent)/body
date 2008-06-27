@@ -1,0 +1,10 @@
+{
+  Object selected=getSelectedValue();
+  if (selected != null) {
+    StringSelection text=new StringSelection(selected.toString());
+    dragSource.startDrag(event,DragSource.DefaultMoveDrop,text,this);
+  }
+ else {
+    System.out.println("nothing was selected");
+  }
+}

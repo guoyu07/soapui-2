@@ -1,0 +1,15 @@
+{
+  this.mockResponse=mockResponse;
+  add(buildContent(),BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+  add(buildStatusLabel(),BorderLayout.SOUTH);
+  setPreferredSize(new Dimension(600,500));
+  mockResponse.addPropertyChangeListener(propertyChangeListener);
+  addFocusListener(new FocusAdapter(){
+    @Override public void focusGained(    FocusEvent e){
+      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocus();
+ else       requestEditor.requestFocus();
+    }
+  }
+);
+}

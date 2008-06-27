@@ -1,0 +1,10 @@
+{
+  StringToStringMap properties=new StringToStringMap();
+  if (messageExchange != null && messageExchange.getProperties() != null) {
+    properties.putAll(messageExchange.getProperties());
+    properties.put("Timestamp",new Date(messageExchange.getTimestamp()).toString());
+    properties.put("Time Taken",String.valueOf(messageExchange.getTimeTaken()));
+  }
+  JTable table=new JTable(new StringToStringMapTableModel(properties,"Name","Value",false));
+  return new JScrollPane(table);
+}

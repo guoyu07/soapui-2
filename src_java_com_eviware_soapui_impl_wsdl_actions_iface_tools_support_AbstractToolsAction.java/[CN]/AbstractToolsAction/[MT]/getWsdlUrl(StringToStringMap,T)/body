@@ -1,0 +1,19 @@
+{
+  String wsdl=values.get(WSDL);
+  boolean useCached=values.getBoolean(CACHED_WSDL);
+  if (wsdl == null && !useCached && modelItem instanceof Interface)   return ((WsdlInterface)modelItem).getExpandedDefinition();
+  WsdlInterface iface=(WsdlInterface)modelItem;
+  if (useCached && iface.isCached()) {
+    try {
+      File tempFile=File.createTempFile("tempdir",null);
+      String path=tempFile.getAbsolutePath();
+      tempFile.delete();
+      CachedWsdlLoader loader=(CachedWsdlLoader)iface.createWsdlLoader();
+      wsdl=loader.saveDefinition(path);
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  return wsdl;
+}

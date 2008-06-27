@@ -1,0 +1,14 @@
+{
+  JFileChooser chooser=getChooser(action);
+  chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+  chooser.setDialogTitle(title);
+  chooser.setAcceptAllFileFilterUsed(true);
+  if (current != null) {
+    File file=new File(current);
+    if (file.isDirectory())     chooser.setCurrentDirectory(file);
+ else     chooser.setSelectedFile(file);
+  }
+  if (extension != null && fileType != null)   chooser.setFileFilter(new ExtensionFileFilter(extension,fileType));
+  if (chooser.showOpenDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
+  return chooser.getSelectedFile();
+}

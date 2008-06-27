@@ -1,0 +1,8 @@
+{
+  if (hasConnection()) {
+    wrappedConnection.setVirtualHost(host);
+  }
+ else {
+    throw new IllegalStateException("Connection has been released");
+  }
+}

@@ -1,0 +1,9 @@
+{
+  JPropertiesTable<RestService> table=new JPropertiesTable<RestService>("Service Properties");
+  table.addProperty("Name","name");
+  table.addProperty("Description","description",true);
+  table.addProperty("Base Path","basePath",true);
+  table.addProperty("WADL","wadlUrl",true);
+  table.setPropertyObject(service);
+  return table;
+}

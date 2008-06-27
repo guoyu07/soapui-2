@@ -1,0 +1,82 @@
+{
+  String sourcePropertyValue=sourceProperty.getValue();
+  XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlObject.Factory.parse(sourcePropertyValue);
+  XmlCursor sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
+  String targetPropertyValue=targetProperty.getValue();
+  XmlObject targetXmlObject=XmlObject.Factory.parse(targetPropertyValue);
+  XmlCursor targetXml=targetXmlObject.newCursor();
+  XmlCursor lastSource=null;
+  try {
+    List<String> result=new ArrayList<String>();
+    String tp=PropertyExpansionUtils.expandProperties(context,getTargetPath());
+    targetXml.selectPath(tp);
+    if (!targetXml.hasNextSelection())     throw new Exception("Missing match for Target XPath [" + tp + "]");
+    if (sourceXml == null) {
+      if (getSetNullOnMissingSource()) {
+        while (targetXml.toNextSelection()) {
+          result.add(setNodeValue(null,targetXml.getDomNode()));
+          if (!getTransferToAll())           break;
+        }
+      }
+    }
+ else     if (getUseXQuery()) {
+      String sp=PropertyExpansionUtils.expandProperties(context,getSourcePath());
+      XmlCursor resultCursor=sourceXml.execQuery(sp);
+      sourceXml.dispose();
+      sourceXml=resultCursor;
+      if (sourceXml.toNextToken() != TokenType.START) {
+        if (getSetNullOnMissingSource()) {
+          while (targetXml.toNextSelection()) {
+            result.add(setNodeValue(null,targetXml.getDomNode()));
+            if (!getTransferToAll())             break;
+          }
+        }
+ else         if (!getIgnoreEmpty())         throw new Exception("Missing match for Source XQuery [" + sp + "]");
+      }
+      boolean hasTarget=targetXml.toNextSelection();
+      if (hasTarget) {
+        lastSource=sourceXml.newCursor();
+        result.add(transferXmlValue(sourceXml,targetXml));
+      }
+    }
+ else {
+      String sp=PropertyExpansionUtils.expandProperties(context,getSourcePath());
+      sourceXml.selectPath(sp);
+      if (!sourceXml.hasNextSelection()) {
+        if (getSetNullOnMissingSource()) {
+          while (targetXml.toNextSelection()) {
+            result.add(setNodeValue(null,targetXml.getDomNode()));
+            if (!getTransferToAll())             break;
+          }
+        }
+ else         if (!getIgnoreEmpty())         throw new Exception("Missing match for Source XPath [" + sp + "]");
+      }
+ else {
+        boolean hasSource=sourceXml.toNextSelection();
+        boolean hasTarget=targetXml.toNextSelection();
+        while (hasSource && hasTarget) {
+          if (lastSource != null)           lastSource.dispose();
+          lastSource=sourceXml.newCursor();
+          result.add(transferXmlValue(sourceXml,targetXml));
+          hasSource=sourceXml.toNextSelection();
+          hasTarget=targetXml.toNextSelection();
+        }
+        if (getTransferToAll() && !hasSource && hasTarget&& lastSource != null) {
+          while (hasTarget) {
+            result.add(transferXmlValue(lastSource,targetXml));
+            hasTarget=targetXml.toNextSelection();
+          }
+        }
+      }
+    }
+    if (result.size() > 0) {
+      targetProperty.setValue(targetXmlObject.xmlText(new XmlOptions().setSaveAggressiveNamespaces()));
+    }
+    return result.toArray(new String[result.size()]);
+  }
+  finally {
+    sourceXml.dispose();
+    targetXml.dispose();
+    if (lastSource != null)     lastSource.dispose();
+  }
+}

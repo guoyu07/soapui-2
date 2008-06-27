@@ -1,0 +1,10 @@
+{
+  List<StringToStringMap> result=new ArrayList<StringToStringMap>();
+  String[] parts=reader.readStrings(parameterName);
+  if (parts != null && parts.length > 0) {
+    for (    String part : parts) {
+      result.add(StringToStringMap.fromXml(part));
+    }
+  }
+  return result;
+}

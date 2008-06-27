@@ -1,0 +1,22 @@
+{
+  toolbar=UISupport.createSmallToolbar();
+  if (holder instanceof MutableTestPropertyHolder) {
+    removePropertyAction=new RemovePropertyAction();
+    addPropertyAction=new AddPropertyAction();
+    movePropertyUpAction=new MovePropertyUpAction();
+    movePropertyDownAction=new MovePropertyDownAction();
+    JButton addPropertyButton=UISupport.createToolbarButton(addPropertyAction);
+    toolbar.add(addPropertyButton);
+    JButton removePropertyButton=UISupport.createToolbarButton(removePropertyAction);
+    toolbar.add(removePropertyButton);
+    JButton movePropertyUpButton=UISupport.createToolbarButton(movePropertyUpAction);
+    toolbar.add(movePropertyUpButton);
+    JButton movePropertyDownButton=UISupport.createToolbarButton(movePropertyDownAction);
+    toolbar.add(movePropertyDownButton);
+  }
+  JButton clearPropertiesButton=UISupport.createToolbarButton(new ClearPropertiesAction());
+  toolbar.add(clearPropertiesButton);
+  JButton loadPropertiesButton=UISupport.createToolbarButton(loadPropertiesAction);
+  toolbar.add(loadPropertiesButton);
+  return toolbar;
+}

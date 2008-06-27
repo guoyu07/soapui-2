@@ -1,0 +1,11 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.addFixed(UISupport.createToolbarButton(new RunWSIAction()));
+  toolbar.addFixed(UISupport.createToolbarButton(new WSIOptionsAction()));
+  toolbar.addRelatedGap();
+  saveWsiReportAction=new SaveWsiReportAction();
+  toolbar.addFixed(UISupport.createToolbarButton(saveWsiReportAction));
+  toolbar.addGlue();
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.WSIREPORT_HELP_URL)));
+  return toolbar;
+}

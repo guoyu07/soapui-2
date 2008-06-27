@@ -1,0 +1,8 @@
+{
+  super(restResource,treeModel);
+  this.restResource=restResource;
+  for (int c=0; c < restResource.getResourceCount(); c++) {
+    resourceNodes.add(new RestResourceTreeNode(restResource.getResourcetAt(c),getTreeModel()));
+  }
+  treeModel.mapModelItems(resourceNodes);
+}

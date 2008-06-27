@@ -1,0 +1,7 @@
+{
+  XmlObject xmlObject=request.getRequestXmlObject();
+  String path=getDispatchPath();
+  if (StringUtils.isNullOrEmpty(path))   throw new XmlException("Missing dispatch XPath expression");
+  XmlObject[] items=xmlObject.selectPath(path);
+  return items;
+}

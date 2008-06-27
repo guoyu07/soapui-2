@@ -1,0 +1,12 @@
+{
+  this.project=(WsdlProject)project;
+  initConfig();
+  project.addProjectListener(projectListener);
+  for (  Interface iface : project.getInterfaceList()) {
+    for (    String endpoint : iface.getEndpoints()) {
+      getEndpointDefaults(endpoint);
+    }
+    iface.addPropertyChangeListener(WsdlInterface.ENDPOINT_PROPERTY,propertyChangeListener);
+  }
+  removeUnusedEndpoints();
+}

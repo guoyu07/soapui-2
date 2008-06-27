@@ -1,0 +1,20 @@
+{
+  SoapUI.workspace=workspace;
+  String desktopType=soapUICore.getSettings().getString(UISettings.DESKTOP_TYPE,SoapUI.DEFAULT_DESKTOP);
+  desktop=DesktopRegistry.getInstance().createDesktop(desktopType,workspace);
+  if (desktop == null)   desktop=new StandaloneDesktop(workspace);
+  if (testMonitor == null)   testMonitor=new TestMonitor();
+  soapUICore.getSettings().addSettingsListener(new SettingsListener(){
+    public void settingChanged(    String name,    String newValue,    String oldValue){
+      if (name.equals(UISettings.DESKTOP_TYPE)) {
+        changeDesktop(DesktopRegistry.getInstance().createDesktop(newValue,SoapUI.workspace));
+      }
+    }
+  }
+);
+  buildUI();
+  testMonitor.addTestMonitorListener(new LogDisablingTestMonitorListener());
+  testMonitor.init(workspace);
+  frame.setVisible(true);
+  initAutoSaveTimer();
+}

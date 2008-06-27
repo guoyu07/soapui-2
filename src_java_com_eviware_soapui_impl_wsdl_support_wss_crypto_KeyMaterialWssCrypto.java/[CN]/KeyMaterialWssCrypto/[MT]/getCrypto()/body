@@ -1,0 +1,14 @@
+{
+  try {
+    Properties properties=new Properties();
+    properties.put("org.apache.ws.security.crypto.merlin.file",sourceProperty.expand());
+    properties.put("org.apache.ws.security.crypto.merlin.keystore.provider","this");
+    if (StringUtils.hasContent(getDefaultAlias()))     properties.put("org.apache.ws.security.crypto.merlin.keystore.alias",getDefaultAlias());
+    if (StringUtils.hasContent(getAliasPassword()))     properties.put("org.apache.ws.security.crypto.merlin.alias.password",getAliasPassword());
+    return new KeyMaterialCrypto(properties);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return null;
+}

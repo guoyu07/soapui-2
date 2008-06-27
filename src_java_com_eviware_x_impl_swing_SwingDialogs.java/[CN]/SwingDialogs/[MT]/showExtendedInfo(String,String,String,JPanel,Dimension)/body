@@ -1,0 +1,22 @@
+{
+  extendedInfoDialog=new JDialog(UISupport.getMainFrame(),title);
+  extendedInfoDialog.setModal(true);
+  JPanel panel=new JPanel(new BorderLayout());
+  if (description != null) {
+    panel.add(UISupport.buildDescription(title,description,null),BorderLayout.NORTH);
+  }
+  JEditorPane editorPane=new JEditorPane("text/html",content);
+  editorPane.setCaretPosition(0);
+  editorPane.setEditable(false);
+  editorPane.addHyperlinkListener(new DefaultHyperlinkListener(editorPane));
+  JScrollPane scrollPane=new JScrollPane(editorPane);
+  scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5,5,5,5),scrollPane.getBorder()));
+  panel.add(scrollPane);
+  buttonBar.setBorder(BorderFactory.createEmptyBorder(0,0,5,5));
+  panel.add(buttonBar,BorderLayout.SOUTH);
+  extendedInfoDialog.getRootPane().setContentPane(panel);
+  if (size == null)   extendedInfoDialog.setSize(400,300);
+ else   extendedInfoDialog.setSize(size);
+  extendedInfoResult=null;
+  UISupport.showDialog(extendedInfoDialog);
+}

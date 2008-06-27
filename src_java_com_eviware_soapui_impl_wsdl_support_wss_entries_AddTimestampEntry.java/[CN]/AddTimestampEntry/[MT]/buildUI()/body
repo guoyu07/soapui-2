@@ -1,0 +1,7 @@
+{
+  SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddTimestampEntry>(this));
+  form.addSpace(5);
+  form.appendTextField("timeToLive","Time To Live","Sets the TimeToLive value for the Timestamp Token");
+  form.appendCheckBox("strictTimestamp","Millisecond Precision","Sets precision of timestamp to milliseconds");
+  return form.getPanel();
+}

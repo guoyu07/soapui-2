@@ -1,0 +1,9 @@
+{
+  if (oldValue == null && newValue == null)   return;
+  if (oldValue != null && oldValue.equals(newValue))   return;
+  if (newValue != null && newValue.equals(oldValue))   return;
+  TestPropertyListener[] array=listeners.toArray(new TestPropertyListener[listeners.size()]);
+  for (  TestPropertyListener listener : array) {
+    listener.propertyValueChanged(name,oldValue,newValue);
+  }
+}

@@ -1,0 +1,20 @@
+{
+  if (rowIndex > getRowCount())   return null;
+  Attachment att=container.getAttachmentAt(rowIndex);
+switch (columnIndex) {
+case 0:
+    return att.getName();
+case 1:
+  return att.getContentType();
+case 2:
+return att.getSize();
+case 3:
+return att.getPart();
+case 4:
+return att.getAttachmentType();
+case 5:
+return att.getContentID();
+default :
+return null;
+}
+}

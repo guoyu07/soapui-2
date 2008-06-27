@@ -1,0 +1,6 @@
+{
+  if (holder == null)   return null;
+  if (propertyName.startsWith(prefix))   propertyName=propertyName.substring(prefix.length());
+ else   return null;
+  return ResolverUtils.parseProperty(propertyName,holder,context,globalOverride);
+}

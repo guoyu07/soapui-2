@@ -1,0 +1,7 @@
+{
+  String value=formField.getValue();
+  if (value == null || value.length() == 0 || (trim && value.trim().length() == 0)) {
+    return new ValidationMessage[]{new ValidationMessage(message,formField)};
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  int old=getMaxResults();
+  if (old != maxResults) {
+    getConfig().setMaxResults(maxResults);
+    notifyPropertyChanged("maxResults",old,maxResults);
+  }
+}

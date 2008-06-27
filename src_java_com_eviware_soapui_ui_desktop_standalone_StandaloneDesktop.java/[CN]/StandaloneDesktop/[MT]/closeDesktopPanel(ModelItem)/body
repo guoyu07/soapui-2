@@ -1,0 +1,13 @@
+{
+  try {
+    if (modelItemToInternalFrameMap.containsKey(modelItem)) {
+      JInternalFrame frame=modelItemToInternalFrameMap.get(modelItem);
+      frame.doDefaultCloseAction();
+      return frame.isClosed();
+    }
+    return false;
+  }
+  finally {
+    enableWindowActions();
+  }
+}

@@ -1,0 +1,12 @@
+{
+  Part[] parts=WsdlUtils.getInputParts(bindingOperation);
+  for (int i=0; i < parts.length; i++) {
+    Part part=parts[i];
+    if (!WsdlUtils.isAttachmentInputPart(part,bindingOperation) && (part.getElementName() != null || part.getTypeName() != null)) {
+      XmlCursor c=cursor.newCursor();
+      c.toLastChild();
+      createElementForPart(part,c,xmlGenerator);
+      c.dispose();
+    }
+  }
+}

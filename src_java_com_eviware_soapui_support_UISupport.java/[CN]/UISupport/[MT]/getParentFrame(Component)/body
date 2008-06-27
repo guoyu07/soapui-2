@@ -1,0 +1,6 @@
+{
+  for (Container c=component.getParent(); c != null; c=c.getParent()) {
+    if (c instanceof Frame)     return (Frame)c;
+  }
+  return getMainFrame();
+}

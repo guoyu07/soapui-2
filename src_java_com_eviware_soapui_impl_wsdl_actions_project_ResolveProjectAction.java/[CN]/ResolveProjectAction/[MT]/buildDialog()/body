@@ -1,0 +1,23 @@
+{
+  dialog=new SimpleDialog("Resolve Project","Resolve unresolved paths in project",HelpUrls.RESOLVEPROJECT_HELP_URL){
+    @Override protected Component buildContent(){
+      JPanel panel=new JPanel(new BorderLayout());
+      JXTable table=new JXTable(resolveContextTableModel);
+      table.setHorizontalScrollEnabled(true);
+      table.setDefaultRenderer(Resolver.class,new ResolverRenderer());
+      table.setDefaultEditor(Resolver.class,new ResolverEditor());
+      table.getColumn(2).setCellRenderer(new PathCellRenderer());
+      table.getColumn(3).setWidth(100);
+      panel.add(new JScrollPane(table),BorderLayout.CENTER);
+      panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+      return panel;
+    }
+    @Override protected boolean handleOk(){
+      int cnt=resolveContextTableModel.getContext().apply();
+      UISupport.showInfoMessage("Resolved " + cnt + " paths");
+      return true;
+    }
+  }
+;
+  dialog.setSize(550,300);
+}

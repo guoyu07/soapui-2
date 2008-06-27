@@ -1,0 +1,8 @@
+{
+  result=(WsdlMockResult)mockResult;
+  if (result == null || (result != null && result.getMockResponse() == mockResponse)) {
+synchronized (this) {
+      notifyAll();
+    }
+  }
+}

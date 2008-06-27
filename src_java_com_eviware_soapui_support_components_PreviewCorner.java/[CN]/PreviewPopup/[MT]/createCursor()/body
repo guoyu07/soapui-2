@@ -1,0 +1,16 @@
+{
+  JPanel label=new JPanel(){
+    @Override protected void paintComponent(    Graphics g){
+      Composite composite=((Graphics2D)g).getComposite();
+      ((Graphics2D)g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.2f));
+      super.paintComponent(g);
+      ((Graphics2D)g).setComposite(composite);
+    }
+  }
+;
+  label.setBorder(BorderFactory.createLineBorder(Color.gray));
+  label.setVisible(false);
+  label.setOpaque(true);
+  label.setBackground(Color.orange.darker());
+  return label;
+}

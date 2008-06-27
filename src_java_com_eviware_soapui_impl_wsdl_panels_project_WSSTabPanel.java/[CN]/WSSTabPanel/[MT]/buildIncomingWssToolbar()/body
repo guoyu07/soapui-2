@@ -1,0 +1,9 @@
+{
+  JXToolBar toolbar=UISupport.createSmallToolbar();
+  toolbar.addFixed(UISupport.createToolbarButton(new AddIncomingWssAction()));
+  removeIncomingWssAction=new RemoveIncomingWssAction();
+  toolbar.addFixed(UISupport.createToolbarButton(removeIncomingWssAction));
+  toolbar.addGlue();
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.INCOMINGWSS_HELP_URL)));
+  return toolbar;
+}

@@ -1,0 +1,9 @@
+{
+  wssContainer.removeWssContainerListener(wssContainerListener);
+  ((IncomingWssTableModel)incomingWssTable.getModel()).release();
+  ((OutgoingWssTableModel)outgoingWssTable.getModel()).release();
+  ((CryptosTableModel)cryptosTable.getModel()).release();
+  ((KeystoresComboBoxModel)incomingWssDecryptionCryptoComboBox.getModel()).release();
+  ((KeystoresComboBoxModel)incomingWssSignatureCryptoComboBox.getModel()).release();
+  entriesTabs.removeAll();
+}

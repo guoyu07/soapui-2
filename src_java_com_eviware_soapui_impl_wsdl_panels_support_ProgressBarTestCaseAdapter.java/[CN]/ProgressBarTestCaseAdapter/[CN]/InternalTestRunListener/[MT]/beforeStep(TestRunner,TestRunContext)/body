@@ -1,0 +1,6 @@
+{
+  if (progressBar.isIndeterminate())   return;
+  TestStep testStep=runContext.getCurrentStep();
+  progressBar.setString(testStep.getName());
+  progressBar.setValue(runContext.getCurrentStepIndex());
+}

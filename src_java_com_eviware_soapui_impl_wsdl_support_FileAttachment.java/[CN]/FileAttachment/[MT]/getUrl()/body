@@ -1,0 +1,22 @@
+{
+  if (isCached()) {
+    String name=config.getName();
+    int ix=name.lastIndexOf(".");
+    try {
+      File tempFile=File.createTempFile("attachment-" + name.substring(0,ix),name.substring(ix));
+      FileOutputStream out=new FileOutputStream(tempFile);
+      InputStream in=getInputStream();
+      Tools.writeAll(out,in);
+      out.close();
+      in.close();
+      return tempFile.getAbsoluteFile().toURI().toURL().toString();
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
+  }
+ else {
+    return urlProperty.expand();
+  }
+  return null;
+}

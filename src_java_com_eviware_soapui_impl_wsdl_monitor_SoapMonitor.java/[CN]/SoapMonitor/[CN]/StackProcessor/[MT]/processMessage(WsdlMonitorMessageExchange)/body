@@ -1,0 +1,8 @@
+{
+  messageExchange.prepare(project.getWssContainer().getIncomingWssByName(incomingRequestWss),project.getWssContainer().getIncomingWssByName(incomingResponseWss));
+  tableModel.addMessageExchange(messageExchange);
+  if (logTable.getSelectedRow() == logTable.getRowCount() - 2) {
+    logTable.setRowSelectionInterval(logTable.getRowCount() - 1,logTable.getRowCount() - 1);
+  }
+  fireOnMessageExchange(messageExchange);
+}

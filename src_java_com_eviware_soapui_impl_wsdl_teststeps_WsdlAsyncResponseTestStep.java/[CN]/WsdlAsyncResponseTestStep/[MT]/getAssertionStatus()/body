@@ -1,0 +1,24 @@
+{
+  AssertionStatus currentStatus=AssertionStatus.UNKNOWN;
+  int i=getAssertionCount();
+  if (i == 0) {
+    return currentStatus;
+  }
+  int j=0;
+  do {
+    if (j >= i) {
+      break;
+    }
+    WsdlMessageAssertion assertion=getAssertionAt(j);
+    if (!assertion.isDisabled() && assertion.getStatus() == AssertionStatus.FAILED) {
+      currentStatus=AssertionStatus.FAILED;
+      break;
+    }
+    j++;
+  }
+ while (true);
+  if (currentStatus == AssertionStatus.UNKNOWN) {
+    currentStatus=AssertionStatus.VALID;
+  }
+  return currentStatus;
+}

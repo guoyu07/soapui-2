@@ -1,0 +1,58 @@
+{
+  this.testStep=target;
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.getFormField(Form.INTERFACE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        WsdlProject project=testStep.getMockService().getProject();
+        dialog.setOptions(Form.OPERATION,ModelSupport.getNames(project.getInterfaceByName(newValue).getOperationList()));
+        WsdlOperation operation=testStep.getOperation();
+        dialog.setValue(Form.OPERATION,operation == null ? "" : operation.getName());
+      }
+    }
+);
+    dialog.getFormField(Form.RECREATE_REQUEST).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        boolean enabled=Boolean.parseBoolean(newValue);
+        dialog.getFormField(Form.CREATE_OPTIONAL).setEnabled(enabled);
+        dialog.getFormField(Form.KEEP_EXISTING).setEnabled(enabled);
+      }
+    }
+);
+    dialog.getFormField(Form.CREATE_OPTIONAL).setEnabled(false);
+    dialog.getFormField(Form.KEEP_EXISTING).setEnabled(false);
+  }
+  WsdlOperation operation=testStep.getOperation();
+  WsdlProject project=testStep.getMockService().getProject();
+  String[] interfaceNames=ModelSupport.getNames(project.getInterfaceList(),new ModelSupport.InterfaceTypeFilter(WsdlInterfaceFactory.WSDL_TYPE));
+  dialog.setOptions(Form.INTERFACE,interfaceNames);
+  dialog.setValue(Form.INTERFACE,operation == null ? interfaceNames[0] : operation.getInterface().getName());
+  dialog.setOptions(Form.OPERATION,ModelSupport.getNames(project.getInterfaceByName(dialog.getValue(Form.INTERFACE)).getOperationList()));
+  dialog.setValue(Form.OPERATION,operation == null ? null : operation.getName());
+  dialog.setValue(Form.NAME,target.getName());
+  if (dialog.show()) {
+    String ifaceName=dialog.getValue(Form.INTERFACE);
+    String operationName=dialog.getValue(Form.OPERATION);
+    WsdlInterface iface=(WsdlInterface)project.getInterfaceByName(ifaceName);
+    operation=iface.getOperationByName(operationName);
+    target.setOperation(operation);
+    String name=dialog.getValue(Form.NAME).trim();
+    if (name.length() > 0 && !target.getName().equals(name))     target.setName(name);
+    if (dialog.getBooleanValue(Form.RECREATE_REQUEST)) {
+      String req=operation.createResponse(dialog.getBooleanValue(Form.CREATE_OPTIONAL));
+      if (req == null) {
+        UISupport.showErrorMessage("Response creation failed");
+      }
+ else {
+        for (int c=0; c < target.getMockResponseCount(); c++) {
+          String msg=req;
+          WsdlMockResponse mockResponse=target.getMockResponseAt(c);
+          if (dialog.getBooleanValue(Form.KEEP_EXISTING)) {
+            msg=XmlUtils.transferValues(mockResponse.getResponseContent(),req);
+          }
+          mockResponse.setResponseContent(msg);
+        }
+      }
+    }
+  }
+}

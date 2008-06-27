@@ -1,0 +1,10 @@
+{
+  try {
+    String old=getXml();
+    xmlObject=XmlObject.Factory.parse(xml);
+    fireXmlChanged(old,getXml());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

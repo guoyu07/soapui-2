@@ -1,0 +1,8 @@
+{
+  if (hasConnection()) {
+    wrappedConnection.flushRequestOutputStream();
+  }
+ else {
+    throw new IllegalStateException("Connection has been released");
+  }
+}

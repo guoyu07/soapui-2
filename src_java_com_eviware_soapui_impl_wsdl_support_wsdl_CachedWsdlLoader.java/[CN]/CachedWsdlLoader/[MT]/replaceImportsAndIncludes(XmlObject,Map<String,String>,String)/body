@@ -1,0 +1,17 @@
+{
+  XmlObject[] wsdlImports=xmlObject.selectPath("declare namespace s='http://schemas.xmlsoap.org/wsdl/' .//s:import/@location");
+  for (int i=0; i < wsdlImports.length; i++) {
+    SimpleValue wsdlImport=((SimpleValue)wsdlImports[i]);
+    replaceLocation(urlToFileMap,baseUrl,wsdlImport);
+  }
+  XmlObject[] schemaImports=xmlObject.selectPath("declare namespace s='http://www.w3.org/2001/XMLSchema' .//s:import/@schemaLocation");
+  for (int i=0; i < schemaImports.length; i++) {
+    SimpleValue schemaImport=((SimpleValue)schemaImports[i]);
+    replaceLocation(urlToFileMap,baseUrl,schemaImport);
+  }
+  XmlObject[] schemaIncludes=xmlObject.selectPath("declare namespace s='http://www.w3.org/2001/XMLSchema' .//s:include/@schemaLocation");
+  for (int i=0; i < schemaIncludes.length; i++) {
+    SimpleValue schemaInclude=((SimpleValue)schemaIncludes[i]);
+    replaceLocation(urlToFileMap,baseUrl,schemaInclude);
+  }
+}

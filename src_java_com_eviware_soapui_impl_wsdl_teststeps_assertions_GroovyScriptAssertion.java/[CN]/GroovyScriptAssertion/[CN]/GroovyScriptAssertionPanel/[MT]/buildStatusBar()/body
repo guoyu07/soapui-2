@@ -1,0 +1,10 @@
+{
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.GROOVYASSERTION_HELP_URL);
+  builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
+  builder.addGlue();
+  okButton=new JButton(new OkAction());
+  builder.addFixed(okButton);
+  builder.setBorder(BorderFactory.createEmptyBorder(0,3,3,3));
+  return builder.getPanel();
+}

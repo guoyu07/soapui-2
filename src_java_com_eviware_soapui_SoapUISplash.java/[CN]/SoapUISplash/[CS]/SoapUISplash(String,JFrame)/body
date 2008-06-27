@@ -1,0 +1,20 @@
+{
+  super(frame);
+  this.frame=frame;
+  JLabel l=new JLabel(new ImageIcon(UISupport.findSplash(fileName)));
+  getContentPane().add(l,BorderLayout.CENTER);
+  pack();
+  Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+  Dimension labelSize=l.getPreferredSize();
+  setLocation(screenSize.width / 2 - (labelSize.width / 2),screenSize.height / 2 - (labelSize.height / 2));
+  addMouseListener(new MouseAdapter(){
+    public void mousePressed(    MouseEvent e){
+      if (SoapUISplash.this.frame.isVisible()) {
+        setVisible(false);
+        dispose();
+      }
+    }
+  }
+);
+  setVisible(true);
+}

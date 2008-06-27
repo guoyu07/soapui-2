@@ -1,0 +1,15 @@
+{
+  WsdlContext wsdlContext=messageExchange.getOperation().getInterface().getWsdlContext();
+  WsdlValidator validator=new WsdlValidator(wsdlContext);
+  try {
+    AssertionError[] errors=validator.assertResponse(messageExchange,true);
+    if (errors.length > 0)     throw new AssertionException(errors);
+  }
+ catch (  AssertionException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    throw new AssertionException(new AssertionError(e.getMessage()));
+  }
+  return "Response Envelope OK";
+}

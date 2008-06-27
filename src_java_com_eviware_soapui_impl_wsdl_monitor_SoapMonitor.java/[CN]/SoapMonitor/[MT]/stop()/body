@@ -1,0 +1,24 @@
+{
+  if (sw.isAlive()) {
+    try {
+      for (int i=0; i < connections.size(); i++) {
+        Connection conn=(Connection)connections.get(i);
+        conn.halt();
+      }
+      sw.halt();
+    }
+ catch (    Throwable e) {
+      SoapUI.log.info("Error stopping monitor: " + e.toString());
+    }
+    SoapUI.log.info("Stopped SOAP Monitor on local port " + getLocalPort());
+  }
+  if (addedEndpoints != null) {
+    for (    Interface iface : addedEndpoints.keySet())     ((AbstractInterface<?>)iface).removeEndpoint(addedEndpoints.get(iface));
+    addedEndpoints.clear();
+  }
+  stopButton.setEnabled(false);
+  startButton.setEnabled(true);
+  optionsButton.setEnabled(true);
+  progressBar.setIndeterminate(false);
+  infoLabel.setText("Stopped");
+}

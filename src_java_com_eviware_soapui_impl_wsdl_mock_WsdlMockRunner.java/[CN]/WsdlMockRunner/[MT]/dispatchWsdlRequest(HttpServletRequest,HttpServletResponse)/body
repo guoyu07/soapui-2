@@ -1,0 +1,23 @@
+{
+  if (request.getQueryString().equalsIgnoreCase("WSDL")) {
+    printWsdl(response);
+    return;
+  }
+  String ifaceName=request.getParameter("interface");
+  WsdlInterface iface=(WsdlInterface)mockService.getProject().getInterfaceByName(ifaceName);
+  if (iface == null) {
+    printInterfaceList(response);
+    return;
+  }
+  StringToStringMap parts=wsdlCache.get(iface.getName());
+  String part=request.getParameter("part");
+  if (part == null)   part="#root#";
+  String content=parts.get(part);
+  if (content == null) {
+    printPartList(iface,parts,response);
+    return;
+  }
+  if (content != null) {
+    printOkXmlResult(response,content);
+  }
+}

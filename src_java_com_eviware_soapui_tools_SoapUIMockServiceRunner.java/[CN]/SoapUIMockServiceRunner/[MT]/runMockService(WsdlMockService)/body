@@ -1,0 +1,11 @@
+{
+  try {
+    if (path != null)     mockService.setPath(path);
+    if (port != null)     mockService.setPort(Integer.parseInt(port));
+    mockService.addMockRunListener(new LogListener());
+    runners.add(mockService.start());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

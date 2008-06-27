@@ -1,0 +1,26 @@
+{
+  currentLoader=loader;
+  if (factory == null) {
+    factory=WSDLFactory.newInstance();
+    wsdlReader=factory.newWSDLReader();
+    wsdlReader.setFeature("javax.wsdl.verbose",true);
+    wsdlReader.setFeature("javax.wsdl.importDocuments",true);
+  }
+  definition=wsdlReader.readWSDL(loader);
+  log.debug("Loaded definition: " + (definition != null ? "ok" : "null"));
+  if (iface != null) {
+    definitionCache.put(url,definition);
+    if (urlReferences.containsKey(url)) {
+      urlReferences.put(url,urlReferences.get(url) + 1);
+    }
+ else {
+      urlReferences.put(url,1);
+    }
+  }
+  if (!currentLoader.isAborted()) {
+    schemaTypes=SchemaUtils.loadSchemaTypes(loader.getBaseURI(),soapVersion,loader);
+    if (iface != null)     schemaCache.put(url,schemaTypes);
+  }
+ else   throw new Exception("Loading of WSDL from [" + url + "] was aborted");
+  loaded=true;
+}

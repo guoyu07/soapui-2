@@ -1,0 +1,11 @@
+{
+  requestModelItem=new MessageExchangeModelItem("monitor message exchange",null){
+    @Override public boolean hasRawData(){
+      return true;
+    }
+  }
+;
+  requestViewer=new MessageExchangeRequestMessageEditor(requestModelItem);
+  responseViewer=new MessageExchangeResponseMessageEditor(requestModelItem);
+  return UISupport.createHorizontalSplit(requestViewer,responseViewer);
+}

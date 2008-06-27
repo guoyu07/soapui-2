@@ -1,0 +1,20 @@
+{
+  StringToStringMap values=dialog.getValues();
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT),""));
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.addArgs("java");
+  addJavaArgs(values,builder);
+  builder.addArgs("-cp",classpath,"org.codehaus.xfire.gen.WsGen");
+  builder.addArgs("-wsdl",getWsdlUrl(values,modelItem));
+  builder.addString(OUTPUT,"-o");
+  builder.addString(PACKAGE,"-p");
+  builder.addString(BINDING,"-b");
+  builder.addString(EXTERNAL_BINDINGS,"-e");
+  builder.addString(PROFILE,"-r");
+  builder.addString(BASE_URI,"-u");
+  builder.addString(OVERWRITE,"-overwrite");
+  builder.addString(EXPLICIT_ANNOTATION,"-x");
+  builder.addString(SERVER_STUBS,"-ss");
+  addToolArgs(values,builder);
+  return builder;
+}

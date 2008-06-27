@@ -1,0 +1,8 @@
+{
+  if (fileName == null || fileName.length() == 0)   return "";
+  int pos=fileName.lastIndexOf(".") + 1;
+  int len=fileName.length();
+  String suffix="";
+  if (pos < len)   suffix=fileName.substring(pos,len);
+  return suffix;
+}

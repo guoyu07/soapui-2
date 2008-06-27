@@ -1,0 +1,8 @@
+{
+  if (cmd.hasOption("m"))   setMockService(getCommandLineOptionSubstSpace(cmd,"m"));
+  if (cmd.hasOption("a"))   setPath(getCommandLineOptionSubstSpace(cmd,"a"));
+  if (cmd.hasOption("p"))   setPort(cmd.getOptionValue("p"));
+  if (cmd.hasOption("s"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
+  setBlock(!cmd.hasOption('b'));
+  return true;
+}

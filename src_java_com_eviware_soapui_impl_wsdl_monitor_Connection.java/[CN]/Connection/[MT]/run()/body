@@ -1,0 +1,171 @@
+{
+  try {
+    active=true;
+    httpProxyHost=System.getProperty("http.proxyHost");
+    if ((httpProxyHost != null) && httpProxyHost.equals("")) {
+      httpProxyHost=null;
+    }
+    if (httpProxyHost != null) {
+      String tmp=System.getProperty("http.proxyPort");
+      if ((tmp != null) && tmp.equals("")) {
+        tmp=null;
+      }
+      if (tmp == null) {
+        httpProxyPort=80;
+      }
+ else {
+        httpProxyPort=Integer.parseInt(tmp);
+      }
+    }
+    String fromHost="";
+    if (inSocket != null) {
+      fromHost=(inSocket.getInetAddress()).getHostName();
+    }
+    String targetHost=monitor.getTargetHost();
+    int targetPort=monitor.getTargetPort();
+    int listenPort=monitor.getLocalPort();
+    InputStream tmpIn1=inputStream;
+    OutputStream tmpOut1=null;
+    InputStream tmpIn2=null;
+    OutputStream tmpOut2=null;
+    if (tmpIn1 == null) {
+      tmpIn1=inSocket.getInputStream();
+    }
+    if (inSocket != null) {
+      tmpOut1=inSocket.getOutputStream();
+    }
+    CaptureInputStream requestCapture=new CaptureInputStream(tmpIn1);
+    tmpIn1=requestCapture;
+    String bufferedData=null;
+    StringBuffer buf=null;
+    WsdlMonitorMessageExchange exchange=new WsdlMonitorMessageExchange(monitor.getProject());
+    exchange.setRequestHost(fromHost);
+    boolean isProxy=monitor.isProxy();
+    URL targetUrl=isProxy ? null : new URL(monitor.getTargetEndpoint());
+    if (isProxy || (httpProxyHost != null)) {
+      byte[] b=new byte[1];
+      buf=new StringBuffer();
+      String s;
+      for (; ; ) {
+        int len;
+        len=tmpIn1.read(b,0,1);
+        if (len == -1) {
+          break;
+        }
+        s=new String(b);
+        buf.append(s);
+        if (b[0] != '\n') {
+          continue;
+        }
+        break;
+      }
+      bufferedData=buf.toString();
+      if (bufferedData.startsWith("GET ") || bufferedData.startsWith("POST ") || bufferedData.startsWith("PUT ")|| bufferedData.startsWith("DELETE ")) {
+        int start, end;
+        start=bufferedData.indexOf(' ') + 1;
+        while (bufferedData.charAt(start) == ' ') {
+          start++;
+        }
+        end=bufferedData.indexOf(' ',start);
+        String urlString=bufferedData.substring(start,end);
+        if (urlString.charAt(0) == '/') {
+          urlString=urlString.substring(1);
+        }
+        if (isProxy) {
+          targetUrl=new URL(urlString);
+          targetHost=targetUrl.getHost();
+          targetPort=targetUrl.getPort();
+          if (targetPort == -1) {
+            targetPort=80;
+          }
+          bufferedData=bufferedData.substring(0,start) + targetUrl.getFile() + bufferedData.substring(end);
+          bufferedData+="Connection: close\r\n";
+        }
+ else {
+          targetUrl=new URL("http://" + targetHost + ":"+ targetPort+ "/"+ urlString);
+          bufferedData=bufferedData.substring(0,start) + targetUrl.toExternalForm() + bufferedData.substring(end);
+          targetHost=httpProxyHost;
+          targetPort=httpProxyPort;
+        }
+      }
+    }
+ else {
+      byte[] b1=new byte[1];
+      buf=new StringBuffer();
+      String s1;
+      String lastLine=null;
+      for (; ; ) {
+        int len;
+        len=tmpIn1.read(b1,0,1);
+        if (len == -1) {
+          break;
+        }
+        s1=new String(b1);
+        buf.append(s1);
+        if (b1[0] != '\n') {
+          continue;
+        }
+        String line=buf.toString();
+        buf.setLength(0);
+        if (line.startsWith("Host: ")) {
+          String newHost="Host: " + targetHost + ":"+ listenPort+ "\r\n";
+          bufferedData=bufferedData.concat(newHost);
+          bufferedData+="Connection: close\r\n";
+          break;
+        }
+        if (line.equals("\r\n") || ("\n".equals(lastLine) && line.equals("\n"))) {
+          bufferedData+="Connection: close" + line;
+          break;
+        }
+        if (bufferedData == null) {
+          bufferedData=line;
+        }
+ else {
+          bufferedData=bufferedData.concat(line);
+        }
+        lastLine=line;
+      }
+    }
+    if (targetPort == -1) {
+      targetPort=80;
+    }
+    exchange.setTargetUrl(targetUrl);
+    outSocket=new Socket(targetHost,targetPort);
+    tmpIn2=outSocket.getInputStream();
+    CaptureInputStream responseCapture=new CaptureInputStream(tmpIn2);
+    tmpIn2=responseCapture;
+    tmpOut2=outSocket.getOutputStream();
+    if (bufferedData != null) {
+      byte[] b=bufferedData.getBytes();
+      tmpOut2.write(b);
+      slowLink.pump(b.length);
+    }
+    rr1=new SocketRR(getName() + " to endpoint",this,inSocket,tmpIn1,outSocket,tmpOut2,slowLink);
+    SlowLinkSimulator responseLink=new SlowLinkSimulator(slowLink);
+    rr2=new SocketRR(getName() + " from endpoint",this,outSocket,tmpIn2,inSocket,tmpOut1,responseLink);
+    while ((rr1 != null) || (rr2 != null)) {
+      if (rr2 != null) {
+        exchange.setTimeTaken(rr2.getElapsed());
+      }
+      if ((null != rr1) && rr1.isDone()) {
+        rr1=null;
+      }
+      if ((null != rr2) && rr2.isDone()) {
+        rr2=null;
+      }
+synchronized (this) {
+        this.wait(10);
+      }
+    }
+    active=false;
+    exchange.finish(requestCapture.getCapturedData(),responseCapture.getCapturedData());
+    monitor.addMessageExchange(exchange);
+  }
+ catch (  Exception e) {
+    StringWriter st=new StringWriter();
+    PrintWriter wr=new PrintWriter(st);
+    e.printStackTrace(wr);
+    wr.close();
+    halt();
+  }
+}

@@ -1,0 +1,15 @@
+{
+  JXToolBar toolbar=UISupport.createSmallToolbar();
+  addButton=UISupport.createToolbarButton(new AddAction());
+  toolbar.addFixed(addButton);
+  copyButton=UISupport.createToolbarButton(new CopyAction());
+  copyButton.setEnabled(false);
+  toolbar.addFixed(copyButton);
+  deleteButton=UISupport.createToolbarButton(new DeleteAction());
+  deleteButton.setEnabled(false);
+  toolbar.addFixed(deleteButton);
+  renameButton=UISupport.createToolbarButton(new RenameAction());
+  renameButton.setEnabled(false);
+  toolbar.addFixed(renameButton);
+  return toolbar;
+}

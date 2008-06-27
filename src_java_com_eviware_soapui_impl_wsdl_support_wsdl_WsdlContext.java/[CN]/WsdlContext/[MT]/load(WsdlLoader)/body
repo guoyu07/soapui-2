@@ -1,0 +1,22 @@
+{
+  if (!loaded && iface != null)   loaded=definitionCache.containsKey(url) && schemaCache.containsKey(url);
+  if (loaded)   return true;
+  XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Loading WSDL",3,"Loading definition..",true);
+  Loader loader=new Loader(wsdlLoader);
+  progressDialog.run(loader);
+  if (loader.hasError()) {
+    if (loader.getError() instanceof SchemaException) {
+      schemaException=(SchemaException)loader.getError();
+      ArrayList<?> errorList=schemaException.getErrorList();
+      log.error("Error loading schema types from " + url + ", see log for details");
+      if (errorList != null) {
+        for (int c=0; c < errorList.size(); c++) {
+          log.error(errorList.get(c).toString());
+        }
+      }
+    }
+ else     throw new Exception(loader.getError());
+  }
+ else   loaded=true;
+  return loaded;
+}

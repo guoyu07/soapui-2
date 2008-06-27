@@ -1,0 +1,14 @@
+{
+  Vector<WSEncryptionPart> result=new Vector<WSEncryptionPart>();
+  for (  StringToStringMap map : parts) {
+    if (map.hasValue("id")) {
+      result.add(new WSEncryptionPart(map.get("id"),map.get("enc")));
+    }
+ else {
+      String ns=map.get("namespace");
+      if (ns == null)       ns="";
+      result.add(new WSEncryptionPart(map.get("name"),ns,map.get("enc")));
+    }
+  }
+  return result;
+}

@@ -1,0 +1,53 @@
+{
+  super(null,workspace,"/project.gif");
+  this.workspace=workspace;
+  this.path=path;
+  try {
+    if (path != null && open) {
+      File file=new File(path);
+      if (file.exists()) {
+        try {
+          loadProject(file.toURI().toURL());
+          lastModified=file.lastModified();
+        }
+ catch (        MalformedURLException e) {
+          SoapUI.logError(e);
+          disabled=true;
+        }
+      }
+ else {
+        try {
+          remote=true;
+          loadProject(new URL(path));
+        }
+ catch (        MalformedURLException e) {
+          SoapUI.logError(e);
+          disabled=true;
+        }
+      }
+    }
+  }
+ catch (  SoapUIException e) {
+    SoapUI.logError(e);
+    disabled=true;
+  }
+ finally {
+    closedIcon=UISupport.createImageIcon("/closedProject.gif");
+    remoteIcon=UISupport.createImageIcon("/remoteProject.gif");
+    disabledIcon=UISupport.createImageIcon("/disabledProject.gif");
+    this.open=open && !disabled;
+    if (projectDocument == null) {
+      projectDocument=SoapuiProjectDocumentConfig.Factory.newInstance();
+      setConfig(projectDocument.addNewSoapuiProject());
+      if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
+      setPropertiesConfig(getConfig().addNewProperties());
+      wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
+      setResourceRoot("${projectDir}");
+    }
+    endpointStrategy.init(this);
+    setProjectRoot(path);
+    for (    ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
+      addProjectListener(listener);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  super(operationConfig,iface,"/operation.gif");
+  this.iface=iface;
+  if (!operationConfig.isSetIsOneWay()) {
+    operationConfig.setIsOneWay(false);
+  }
+  List<WsdlRequestConfig> requestConfigs=getConfig().getCallList();
+  for (  WsdlRequestConfig config : requestConfigs) {
+    requests.add(new WsdlRequest(this,config));
+  }
+  oneWayIcon=UISupport.createImageIcon("/onewayoperation.gif");
+  notificationIcon=UISupport.createImageIcon("/notificationoperation.gif");
+  solicitResponseIcon=UISupport.createImageIcon("/solicitresponseoperation.gif");
+}

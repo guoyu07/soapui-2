@@ -1,0 +1,38 @@
+{
+  if (configPanel == null) {
+    ButtonBarBuilder builder=new ButtonBarBuilder();
+    startThreadCountSpinnerNumberModel=new SpinnerNumberModel(startThreadCount,1,10000,1);
+    startThreadCountSpinner=new JSpinner(startThreadCountSpinnerNumberModel);
+    UISupport.setPreferredHeight(startThreadCountSpinner,18);
+    startThreadCountSpinner.setToolTipText("Sets the initial thread-count");
+    startThreadCountSpinnerNumberModel.addChangeListener(new ChangeListener(){
+      public void stateChanged(      ChangeEvent e){
+        startThreadCount=startThreadCountSpinnerNumberModel.getNumber().intValue();
+        notifyConfigurationChanged();
+      }
+    }
+);
+    builder.addFixed(new JLabel("Start Threads"));
+    builder.addRelatedGap();
+    builder.addFixed(startThreadCountSpinner);
+    builder.addRelatedGap();
+    endThreadCountSpinnerNumberModel=new SpinnerNumberModel(endThreadCount,1,10000,1);
+    endThreadCountSpinner=new JSpinner(endThreadCountSpinnerNumberModel);
+    UISupport.setPreferredHeight(endThreadCountSpinner,18);
+    endThreadCountSpinner.setToolTipText("Sets the final thread-count");
+    endThreadCountSpinnerNumberModel.addChangeListener(new ChangeListener(){
+      public void stateChanged(      ChangeEvent e){
+        endThreadCount=endThreadCountSpinnerNumberModel.getNumber().intValue();
+        notifyConfigurationChanged();
+      }
+    }
+);
+    builder.addFixed(new JLabel("End Threads"));
+    builder.addRelatedGap();
+    builder.addFixed(endThreadCountSpinner);
+    configPanel=builder.getPanel();
+    stateDependantComponents.add(startThreadCountSpinner);
+    stateDependantComponents.add(endThreadCountSpinner);
+  }
+  return configPanel;
+}

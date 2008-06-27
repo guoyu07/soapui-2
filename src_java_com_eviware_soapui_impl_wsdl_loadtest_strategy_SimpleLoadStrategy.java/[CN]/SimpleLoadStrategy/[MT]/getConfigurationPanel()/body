@@ -1,0 +1,26 @@
+{
+  if (configPanel == null) {
+    ButtonBarBuilder builder=new ButtonBarBuilder();
+    testDelayField=new JTextField(5);
+    UISupport.setPreferredHeight(testDelayField,18);
+    testDelayField.setHorizontalAlignment(JTextField.RIGHT);
+    testDelayField.setText(String.valueOf(testDelay));
+    testDelayField.setToolTipText("Sets the delay between each test run in milliseconds");
+    testDelayField.getDocument().addDocumentListener(new ConfigDocumentListener());
+    builder.addFixed(new JLabel("Test Delay"));
+    builder.addRelatedGap();
+    builder.addFixed(testDelayField);
+    builder.addRelatedGap();
+    randomFactorField=new JTextField(4);
+    UISupport.setPreferredHeight(randomFactorField,18);
+    randomFactorField.setHorizontalAlignment(JTextField.RIGHT);
+    randomFactorField.setText(String.valueOf(randomFactor));
+    randomFactorField.setToolTipText("Specifies the relative amount of randomization for delay (0 = no random, 1 = all random)");
+    randomFactorField.getDocument().addDocumentListener(new ConfigDocumentListener());
+    builder.addFixed(new JLabel("Random"));
+    builder.addRelatedGap();
+    builder.addFixed(randomFactorField);
+    configPanel=builder.getPanel();
+  }
+  return configPanel;
+}

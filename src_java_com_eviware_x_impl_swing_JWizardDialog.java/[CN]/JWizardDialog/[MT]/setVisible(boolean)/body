@@ -1,0 +1,12 @@
+{
+  if (visible) {
+    if (showPage(0)) {
+      Frame mainFrame=UISupport.getMainFrame();
+      UISupport.centerDialog(dialog,mainFrame);
+      ModalFrameUtil.showAsModal(dialog,mainFrame);
+    }
+  }
+ else {
+    dialog.setVisible(visible);
+  }
+}

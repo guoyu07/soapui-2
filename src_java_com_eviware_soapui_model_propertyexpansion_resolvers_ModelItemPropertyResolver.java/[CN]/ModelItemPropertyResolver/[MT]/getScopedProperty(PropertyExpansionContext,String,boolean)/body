@@ -1,0 +1,58 @@
+{
+  ModelItem modelItem=context.getModelItem();
+  WsdlTestStep testStep=null;
+  WsdlTestCase testCase=null;
+  WsdlTestSuite testSuite=null;
+  WsdlProject project=null;
+  WsdlMockService mockService=null;
+  WsdlMockResponse mockResponse=null;
+  if (modelItem instanceof WsdlTestStep) {
+    testStep=(WsdlTestStep)modelItem;
+    testCase=testStep.getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlTestCase) {
+    testCase=(WsdlTestCase)modelItem;
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlTestSuite) {
+    testSuite=(WsdlTestSuite)modelItem;
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlInterface) {
+    project=((WsdlInterface)modelItem).getProject();
+  }
+ else   if (modelItem instanceof WsdlProject) {
+    project=(WsdlProject)modelItem;
+  }
+ else   if (modelItem instanceof WsdlMockService) {
+    mockService=(WsdlMockService)modelItem;
+    project=mockService.getProject();
+  }
+ else   if (modelItem instanceof WsdlRequest) {
+    project=((WsdlRequest)modelItem).getOperation().getInterface().getProject();
+  }
+ else   if (modelItem instanceof WsdlMockOperation) {
+    mockService=((WsdlMockOperation)modelItem).getMockService();
+    project=mockService.getProject();
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    mockResponse=(WsdlMockResponse)modelItem;
+    mockService=mockResponse.getMockOperation().getMockService();
+    project=mockService.getProject();
+  }
+  if (project == null)   return null;
+  String result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.PROJECT_REFERENCE,project,context,globalOverride);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.TESTSUITE_REFERENCE,testSuite,context,globalOverride);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.TESTCASE_REFERENCE,testCase,context,globalOverride);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.MOCKSERVICE_REFERENCE,mockService,context,globalOverride);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.MOCKRESPONSE_REFERENCE,mockResponse,context,globalOverride);
+  if (result != null)   return result;
+  return null;
+}

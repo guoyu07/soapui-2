@@ -1,0 +1,14 @@
+{
+  JTabbedPane messageTabs=new JTabbedPane();
+  messageTabs.addTab("Request Message",buildRequestTab());
+  messageTabs.addTab("Response Message",buildResponseTab());
+  messageTabs.addTab("Properties",buildPropertiesTab());
+  String[] messages=messageExchange.getMessages();
+  if (messages != null && messages.length > 0)   messageTabs.addTab("Messages",buildMessagesTab());
+  if (getAssertedXPaths().size() > 0)   messageTabs.addTab("XPath Assertions",buildAssertionsTab());
+  messageTabs.setPreferredSize(new Dimension(500,400));
+  JPanel tabPanel=UISupport.createTabPanel(messageTabs,true);
+  Component descriptionPanel=UISupport.buildDescription("MessageExchange Results","See the request/response message below",null);
+  tabPanel.add(descriptionPanel,BorderLayout.NORTH);
+  return tabPanel;
+}

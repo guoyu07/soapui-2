@@ -1,0 +1,6 @@
+{
+  if (wsdlRequest != null && !wsdlRequest.isRemoveEmptyContent())   return;
+  String content=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
+  content=removeEmptyContent(content);
+  if (content != null)   context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
+}

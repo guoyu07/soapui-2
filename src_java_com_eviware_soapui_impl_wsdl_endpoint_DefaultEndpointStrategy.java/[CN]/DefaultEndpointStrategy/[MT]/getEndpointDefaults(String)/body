@@ -1,0 +1,9 @@
+{
+  if (config == null)   initConfig();
+  if (!defaults.containsKey(endpoint)) {
+    EndpointConfig newEndpoint=config.addNewEndpoint();
+    newEndpoint.setStringValue(endpoint);
+    defaults.put(endpoint,new EndpointDefaults(newEndpoint));
+  }
+  return defaults.get(endpoint);
+}

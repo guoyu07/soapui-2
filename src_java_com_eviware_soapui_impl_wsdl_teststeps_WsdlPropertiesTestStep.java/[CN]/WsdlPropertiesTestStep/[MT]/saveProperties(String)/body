@@ -1,0 +1,8 @@
+{
+  java.util.Properties props=new java.util.Properties();
+  propertyHolderSupport.saveTo(props);
+  FileOutputStream out=getPropertiesOutputStream(target);
+  props.store(out,"TestStep [" + getName() + "] properties");
+  out.close();
+  return props.size();
+}

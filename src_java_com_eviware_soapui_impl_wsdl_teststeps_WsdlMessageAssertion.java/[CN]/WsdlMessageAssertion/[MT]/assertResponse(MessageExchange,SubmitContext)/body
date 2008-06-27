@@ -1,0 +1,32 @@
+{
+  AssertionStatus oldStatus=assertionStatus;
+  AssertionError[] oldErrors=getErrors();
+  ImageIcon oldIcon=getIcon();
+  if (isDisabled()) {
+    assertionStatus=AssertionStatus.UNKNOWN;
+    assertionErrors=null;
+  }
+ else   if (!messageExchange.hasResponse() && requiresResponseContent) {
+    assertionStatus=AssertionStatus.FAILED;
+    assertionErrors=new com.eviware.soapui.model.testsuite.AssertionError[]{new com.eviware.soapui.model.testsuite.AssertionError("null/empty response")};
+  }
+ else {
+    try {
+      internalAssertResponse((WsdlMessageExchange)messageExchange,context);
+      assertionStatus=AssertionStatus.VALID;
+      assertionErrors=null;
+    }
+ catch (    AssertionException e) {
+      assertionStatus=AssertionStatus.FAILED;
+      assertionErrors=e.getErrors();
+    }
+catch (    Throwable e) {
+      assertionStatus=AssertionStatus.FAILED;
+      assertionErrors=new com.eviware.soapui.model.testsuite.AssertionError[]{new com.eviware.soapui.model.testsuite.AssertionError(e.getMessage())};
+    }
+  }
+  notifyPropertyChanged(STATUS_PROPERTY,oldStatus,assertionStatus);
+  notifyPropertyChanged(ERRORS_PROPERTY,oldErrors,assertionErrors);
+  notifyPropertyChanged(ICON_PROPERTY,oldIcon,getIcon());
+  return assertionStatus;
+}

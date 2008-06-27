@@ -1,0 +1,15 @@
+{
+  ByteArrayOutputStream data=new ByteArrayOutputStream();
+  ZipOutputStream out=new ZipOutputStream(data);
+  out.putNextEntry(new ZipEntry(config.getName()));
+  InputStream in=new FileInputStream(file);
+  long sz=file.length();
+  config.setSize(sz);
+  Tools.writeAll(out,in);
+  in.close();
+  out.closeEntry();
+  out.finish();
+  out.close();
+  data.close();
+  config.setData(data.toByteArray());
+}

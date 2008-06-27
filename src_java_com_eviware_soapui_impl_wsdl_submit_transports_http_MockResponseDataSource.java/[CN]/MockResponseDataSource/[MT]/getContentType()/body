@@ -1,0 +1,7 @@
+{
+  SoapVersion soapVersion=mockResponse.getSoapVersion();
+  if (isXOP) {
+    return AttachmentUtils.buildRootPartContentType(mockResponse.getMockOperation().getOperation().getName(),soapVersion);
+  }
+ else   return soapVersion.getContentType() + "; charset=UTF-8";
+}

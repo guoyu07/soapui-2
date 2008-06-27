@@ -1,0 +1,8 @@
+{
+  setConfig(config);
+  loadStrategy.updateConfig(config.getLoadStrategy().getConfig());
+  List<LoadTestAssertionConfig> assertionList=config.getAssertionList();
+  for (int c=0; c < assertionList.size(); c++) {
+    assertions.get(c).updateConfiguration(assertionList.get(c));
+  }
+}

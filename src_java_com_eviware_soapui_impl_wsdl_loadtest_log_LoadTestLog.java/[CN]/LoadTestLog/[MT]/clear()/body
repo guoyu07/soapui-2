@@ -1,0 +1,10 @@
+{
+  entriesStack.clear();
+  if (!entries.isEmpty()) {
+    int size=entries.size();
+    entries.clear();
+    fireIntervalRemoved(this,0,size - 1);
+    totalErrorCount=0;
+    errorCounts.clear();
+  }
+}

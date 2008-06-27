@@ -1,0 +1,24 @@
+{
+  String responseContent=null;
+  String encoding=request.getCharacterEncoding();
+  if (encoding != null)   encoding=StringUtils.unquote(encoding);
+  ByteArrayOutputStream out=Tools.readAll(request.getInputStream(),Tools.READ_ALL);
+  byte[] data=out.toByteArray();
+  int contentOffset=0;
+  String contentType=request.getContentType();
+  if (contentType != null && data.length > 0) {
+    if (contentType.toLowerCase().endsWith("xml")) {
+      if (data.length > 3 && data[0] == (byte)239 && data[1] == (byte)187 && data[2] == (byte)191) {
+        encoding="UTF-8";
+        contentOffset=3;
+      }
+    }
+    encoding=StringUtils.unquote(encoding);
+    responseContent=encoding == null ? new String(data) : new String(data,contentOffset,(int)(data.length - contentOffset),encoding);
+  }
+  if (encoding == null)   encoding="UTF-8";
+  if (responseContent == null) {
+    responseContent=new String(data,encoding);
+  }
+  return responseContent;
+}

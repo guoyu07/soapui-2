@@ -1,0 +1,15 @@
+{
+  super(xmlDocument,modelItem);
+  EditorViewFactory[] editorFactories=EditorViewRegistry.getInstance().getFactoriesOfType(RequestEditorViewFactory.class);
+  for (  EditorViewFactory factory : editorFactories) {
+    RequestEditorViewFactory f=(RequestEditorViewFactory)factory;
+    XmlEditorView editorView=(XmlEditorView)f.createRequestEditorView(this,modelItem);
+    if (editorView != null)     addEditorView(editorView);
+  }
+  InspectorFactory[] inspectorFactories=InspectorRegistry.getInstance().getFactoriesOfType(RequestInspectorFactory.class);
+  for (  InspectorFactory factory : inspectorFactories) {
+    RequestInspectorFactory f=(RequestInspectorFactory)factory;
+    XmlInspector inspector=(XmlInspector)f.createRequestInspector(this,modelItem);
+    if (inspector != null)     addInspector(inspector);
+  }
+}

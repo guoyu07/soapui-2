@@ -1,0 +1,17 @@
+{
+  SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
+  try {
+    scriptEngine.setScript(name);
+    for (    String key : objects.keySet())     scriptEngine.setVariable(key,objects.get(key));
+    Object result=scriptEngine.run();
+    return result == null ? null : result.toString();
+  }
+ catch (  Throwable e) {
+    log.error("Error evaluating script",e);
+    return e.getMessage();
+  }
+ finally {
+    scriptEngine.clearVariables();
+    scriptEnginePool.returnScriptEngine(scriptEngine);
+  }
+}

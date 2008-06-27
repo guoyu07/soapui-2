@@ -1,0 +1,32 @@
+{
+  if (status != Status.RUNNING)   return;
+  long newCount=loadTest.getThreadCount();
+  Iterator<TestCaseRunner> iterator=runners.iterator();
+  List<TestCaseRunner> activeRunners=new ArrayList<TestCaseRunner>();
+  while (iterator.hasNext()) {
+    TestCaseRunner runner=iterator.next();
+    if (!runner.isCanceled())     activeRunners.add(runner);
+  }
+  long diff=newCount - activeRunners.size();
+  if (diff == 0)   return;
+  if (diff < 0 && loadTest.getCancelExcessiveThreads()) {
+    diff=Math.abs(diff);
+    for (int c=0; c < diff && c < activeRunners.size(); c++) {
+      activeRunners.get(c).cancel("excessive thread",false);
+    }
+  }
+ else   if (diff > 0) {
+    for (int c=0; c < diff; c++) {
+      int startDelay=loadTest.getStartDelay();
+      if (startDelay > 0) {
+        try {
+          Thread.sleep(startDelay);
+        }
+ catch (        InterruptedException e) {
+          SoapUI.logError(e);
+        }
+      }
+      if (status == Status.RUNNING)       startTestCase(createTestCase());
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  project.removeProjectListener(projectListener);
+  for (int c=0; c < project.getTestSuiteCount(); c++) {
+    TestSuite testSuite=project.getTestSuiteAt(c);
+    unmonitorTestSuite(testSuite);
+  }
+  for (int c=0; c < project.getMockServiceCount(); c++) {
+    unmonitorMockService(project.getMockServiceAt(c));
+  }
+}

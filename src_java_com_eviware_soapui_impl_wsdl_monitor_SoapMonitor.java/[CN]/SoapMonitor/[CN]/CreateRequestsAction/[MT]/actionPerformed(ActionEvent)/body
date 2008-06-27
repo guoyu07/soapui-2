@@ -1,0 +1,19 @@
+{
+  int[] rows=logTable.getSelectedRows();
+  if (rows.length == 0)   return;
+  if (UISupport.confirm("Create " + rows.length + " requests","Create Request")) {
+    for (    int row : rows) {
+      WsdlMonitorMessageExchange me=tableModel.getMessageExchangeAt(row);
+      if (me.getOperation() == null)       continue;
+      WsdlRequest request=me.getOperation().addNewRequest("Monitor Request " + (row + 1));
+      request.setRequestContent(me.getRequestContent());
+      request.setEndpoint(me.getTargetUrl().toString());
+      Attachment[] requestAttachments=me.getRequestAttachments();
+      if (requestAttachments != null) {
+        for (        Attachment attachment : requestAttachments) {
+          request.importAttachment(attachment);
+        }
+      }
+    }
+  }
+}

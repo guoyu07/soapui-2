@@ -1,0 +1,13 @@
+{
+  helpMenu=new JMenu("Help");
+  helpMenu.setMnemonic(KeyEvent.VK_H);
+  helpMenu.add(new ShowPushPageAction());
+  helpMenu.add(new ShowOnlineHelpAction("User Guide",HelpUrls.USERGUIDE_HELP_URL));
+  helpMenu.add(new ShowOnlineHelpAction("Getting Started",HelpUrls.GETTINGSTARTED_HELP_URL));
+  helpMenu.addSeparator();
+  helpMenu.add(new ShowSystemPropertiesAction());
+  helpMenu.addSeparator();
+  helpMenu.add(new OpenUrlAction("soapui.org","http://www.soapui.org"));
+  helpMenu.add(new AboutAction());
+  return helpMenu;
+}

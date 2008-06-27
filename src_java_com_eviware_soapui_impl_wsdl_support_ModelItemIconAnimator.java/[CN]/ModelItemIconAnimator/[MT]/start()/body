@@ -1,0 +1,6 @@
+{
+  if (!enabled || iconAnimationThread != null)   return;
+  stopped=false;
+  iconAnimationThread=new Thread(this,target.getName() + " ModelItemIconAnimator");
+  iconAnimationThread.start();
+}

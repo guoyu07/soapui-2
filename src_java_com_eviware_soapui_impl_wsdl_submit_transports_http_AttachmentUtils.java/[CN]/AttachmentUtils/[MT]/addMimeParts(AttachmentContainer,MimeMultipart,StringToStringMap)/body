@@ -1,0 +1,29 @@
+{
+  if (!container.isMultipartEnabled()) {
+    for (int c=0; c < container.getAttachmentCount(); c++) {
+      Attachment att=container.getAttachmentAt(c);
+      addSingleAttachment(mp,contentIds,att);
+    }
+  }
+ else {
+    Map<String,List<Attachment>> attachmentsMap=new HashMap<String,List<Attachment>>();
+    for (int c=0; c < container.getAttachmentCount(); c++) {
+      Attachment att=container.getAttachmentAt(c);
+      String partName=att.getPart();
+      if (!attachmentsMap.containsKey(partName)) {
+        attachmentsMap.put(partName,new ArrayList<Attachment>());
+      }
+      attachmentsMap.get(partName).add(att);
+    }
+    for (Iterator<String> i=attachmentsMap.keySet().iterator(); i.hasNext(); ) {
+      List<Attachment> attachments=attachmentsMap.get(i.next());
+      if (attachments.size() == 1) {
+        Attachment att=attachments.get(0);
+        addSingleAttachment(mp,contentIds,att);
+      }
+ else       if (attachments.size() > 1) {
+        addMultipartAttachment(mp,contentIds,attachments);
+      }
+    }
+  }
+}

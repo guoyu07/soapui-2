@@ -1,0 +1,19 @@
+{
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  try {
+    RequestAssertionConfig assertionConfig=getConfig().addNewAssertion();
+    assertionConfig.setType(WsdlAssertionRegistry.getInstance().getAssertionTypeForName(assertionLabel));
+    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionConfig);
+    if (assertion == null)     return null;
+    assertionsSupport.fireAssertionAdded(assertion);
+    if (getResponse() != null) {
+      assertion.assertResponse(new WsdlResponseMessageExchange(this),new WsdlTestRunContext(testStep));
+      notifier.notifyChange();
+    }
+    return assertion;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

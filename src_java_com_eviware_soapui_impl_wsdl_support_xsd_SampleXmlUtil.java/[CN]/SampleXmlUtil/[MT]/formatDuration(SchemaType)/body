@@ -1,0 +1,56 @@
+{
+  XmlDuration d=(XmlDuration)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+  GDuration minInclusive=null;
+  if (d != null)   minInclusive=d.getGDurationValue();
+  d=(XmlDuration)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+  GDuration maxInclusive=null;
+  if (d != null)   maxInclusive=d.getGDurationValue();
+  d=(XmlDuration)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+  GDuration minExclusive=null;
+  if (d != null)   minExclusive=d.getGDurationValue();
+  d=(XmlDuration)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+  GDuration maxExclusive=null;
+  if (d != null)   maxExclusive=d.getGDurationValue();
+  GDurationBuilder gdurb=new GDurationBuilder();
+  BigInteger min, max;
+  gdurb.setSecond(pick(800000));
+  gdurb.setMonth(pick(20));
+  if (minInclusive != null) {
+    if (gdurb.getYear() < minInclusive.getYear())     gdurb.setYear(minInclusive.getYear());
+    if (gdurb.getMonth() < minInclusive.getMonth())     gdurb.setMonth(minInclusive.getMonth());
+    if (gdurb.getDay() < minInclusive.getDay())     gdurb.setDay(minInclusive.getDay());
+    if (gdurb.getHour() < minInclusive.getHour())     gdurb.setHour(minInclusive.getHour());
+    if (gdurb.getMinute() < minInclusive.getMinute())     gdurb.setMinute(minInclusive.getMinute());
+    if (gdurb.getSecond() < minInclusive.getSecond())     gdurb.setSecond(minInclusive.getSecond());
+    if (gdurb.getFraction().compareTo(minInclusive.getFraction()) < 0)     gdurb.setFraction(minInclusive.getFraction());
+  }
+  if (maxInclusive != null) {
+    if (gdurb.getYear() > maxInclusive.getYear())     gdurb.setYear(maxInclusive.getYear());
+    if (gdurb.getMonth() > maxInclusive.getMonth())     gdurb.setMonth(maxInclusive.getMonth());
+    if (gdurb.getDay() > maxInclusive.getDay())     gdurb.setDay(maxInclusive.getDay());
+    if (gdurb.getHour() > maxInclusive.getHour())     gdurb.setHour(maxInclusive.getHour());
+    if (gdurb.getMinute() > maxInclusive.getMinute())     gdurb.setMinute(maxInclusive.getMinute());
+    if (gdurb.getSecond() > maxInclusive.getSecond())     gdurb.setSecond(maxInclusive.getSecond());
+    if (gdurb.getFraction().compareTo(maxInclusive.getFraction()) > 0)     gdurb.setFraction(maxInclusive.getFraction());
+  }
+  if (minExclusive != null) {
+    if (gdurb.getYear() <= minExclusive.getYear())     gdurb.setYear(minExclusive.getYear() + 1);
+    if (gdurb.getMonth() <= minExclusive.getMonth())     gdurb.setMonth(minExclusive.getMonth() + 1);
+    if (gdurb.getDay() <= minExclusive.getDay())     gdurb.setDay(minExclusive.getDay() + 1);
+    if (gdurb.getHour() <= minExclusive.getHour())     gdurb.setHour(minExclusive.getHour() + 1);
+    if (gdurb.getMinute() <= minExclusive.getMinute())     gdurb.setMinute(minExclusive.getMinute() + 1);
+    if (gdurb.getSecond() <= minExclusive.getSecond())     gdurb.setSecond(minExclusive.getSecond() + 1);
+    if (gdurb.getFraction().compareTo(minExclusive.getFraction()) <= 0)     gdurb.setFraction(minExclusive.getFraction().add(new BigDecimal(0.001)));
+  }
+  if (maxExclusive != null) {
+    if (gdurb.getYear() > maxExclusive.getYear())     gdurb.setYear(maxExclusive.getYear());
+    if (gdurb.getMonth() > maxExclusive.getMonth())     gdurb.setMonth(maxExclusive.getMonth());
+    if (gdurb.getDay() > maxExclusive.getDay())     gdurb.setDay(maxExclusive.getDay());
+    if (gdurb.getHour() > maxExclusive.getHour())     gdurb.setHour(maxExclusive.getHour());
+    if (gdurb.getMinute() > maxExclusive.getMinute())     gdurb.setMinute(maxExclusive.getMinute());
+    if (gdurb.getSecond() > maxExclusive.getSecond())     gdurb.setSecond(maxExclusive.getSecond());
+    if (gdurb.getFraction().compareTo(maxExclusive.getFraction()) > 0)     gdurb.setFraction(maxExclusive.getFraction());
+  }
+  gdurb.normalize();
+  return gdurb.toString();
+}

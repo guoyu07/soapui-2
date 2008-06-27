@@ -1,0 +1,6 @@
+{
+  beforeSave();
+  TestStepConfig newConfig=(TestStepConfig)getConfig().copy();
+  newConfig.setName(name);
+  return targetTestCase.addTestStep(newConfig);
+}

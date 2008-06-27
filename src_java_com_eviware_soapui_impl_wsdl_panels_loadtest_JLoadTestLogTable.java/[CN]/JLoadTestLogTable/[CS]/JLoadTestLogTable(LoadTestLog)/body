@@ -1,0 +1,31 @@
+{
+  super(new BorderLayout());
+  loadTestLog=log;
+  logTableModel=new LoadTestLogTableModel();
+  logTable=new JXTable(logTableModel);
+  logTable.setHorizontalScrollEnabled(true);
+  logTable.setColumnControlVisible(true);
+  logTable.addMouseListener(new LoadTestLogTableMouseListener());
+  TableColumnModel columnModel=logTable.getColumnModel();
+  columnModel.getColumn(0).setMaxWidth(5);
+  columnModel.getColumn(0).setCellRenderer(new IconTableCellRenderer());
+  columnModel.getColumn(1).setPreferredWidth(120);
+  columnModel.getColumn(1).setCellRenderer(new TimestampTableCellRenderer());
+  columnModel.getColumn(2).setPreferredWidth(110);
+  columnModel.getColumn(3).setPreferredWidth(110);
+  columnModel.getColumn(4).setPreferredWidth(250);
+  typeFilter=new PatternFilter(".*",0,2);
+  typeFilter.setAcceptNull(true);
+  stepFilter=new PatternFilter(".*",0,3);
+  stepFilter.setAcceptNull(true);
+  Filter[] filters=new Filter[]{typeFilter,stepFilter};
+  FilterPipeline pipeline=new FilterPipeline(filters);
+  logTable.setFilters(pipeline);
+  JScrollPane scrollPane=new JScrollPane(logTable);
+  add(scrollPane,BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+  add(buildStatus(),BorderLayout.SOUTH);
+  logTableModelListener=new LogTableModelListener();
+  logTable.getModel().addTableModelListener(logTableModelListener);
+  logTable.setSortOrder(1,SortOrder.ASCENDING);
+}

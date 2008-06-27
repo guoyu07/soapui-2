@@ -1,0 +1,7 @@
+{
+  TestCase testCase=loadTestRunner.getLoadTest().getTestCase();
+  MockRunnerManager manager=MockRunnerManagerImpl.getInstance(testCase);
+  if (manager != null && manager.isStarted()) {
+    manager.stop();
+  }
+}

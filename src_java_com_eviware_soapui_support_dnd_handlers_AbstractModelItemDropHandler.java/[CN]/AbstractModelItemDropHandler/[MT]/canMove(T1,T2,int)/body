@@ -1,0 +1,11 @@
+{
+switch (dropType) {
+case DropType.BEFORE:
+    return canMoveBefore(sourceItem,targetItem);
+case DropType.AFTER:
+  return canMoveAfter(sourceItem,targetItem);
+case DropType.ON:
+return canMoveOn(sourceItem,targetItem);
+}
+return false;
+}

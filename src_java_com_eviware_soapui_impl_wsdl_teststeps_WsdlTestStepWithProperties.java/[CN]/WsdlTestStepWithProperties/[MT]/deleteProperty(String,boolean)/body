@@ -1,0 +1,11 @@
+{
+  if (properties != null) {
+    TestProperty result=properties.remove(name.toUpperCase());
+    if (result != null) {
+      propertyList.remove(result);
+      if (notify)       firePropertyRemoved(name);
+      return result;
+    }
+  }
+  return null;
+}

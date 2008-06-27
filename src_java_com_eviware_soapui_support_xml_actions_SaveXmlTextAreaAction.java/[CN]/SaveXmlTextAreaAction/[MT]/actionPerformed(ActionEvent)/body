@@ -1,0 +1,30 @@
+{
+  File file=UISupport.getFileDialogs().saveAs(this,dialogTitle,".xml","XML Files (*.xml)",null);
+  if (file == null)   return;
+  FileWriter writer=null;
+  try {
+    try {
+      XmlObject xml=XmlObject.Factory.parse(textArea.getText());
+      xml.save(file);
+    }
+ catch (    XmlException e1) {
+      writer=new FileWriter(file);
+      writer.write(textArea.getText());
+      writer.close();
+    }
+    log.info("XML written to [" + file.getAbsolutePath() + "]");
+  }
+ catch (  IOException e1) {
+    UISupport.showErrorMessage("Error saving xml to file: " + e1.getMessage());
+  }
+ finally {
+    if (writer != null) {
+      try {
+        writer.close();
+      }
+ catch (      IOException e1) {
+        SoapUI.logError(e1);
+      }
+    }
+  }
+}

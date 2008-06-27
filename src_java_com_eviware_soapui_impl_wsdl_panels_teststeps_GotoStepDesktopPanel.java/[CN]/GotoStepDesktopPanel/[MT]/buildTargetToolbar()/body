@@ -1,0 +1,16 @@
+{
+  JXToolBar builder=UISupport.createSmallToolbar();
+  testStepsModel=new GotoTestStepsComboBoxModel(gotoStep.getTestCase(),null);
+  testStepsCombo=new JComboBox(testStepsModel);
+  testStepsCombo.setToolTipText("The step the test case will go to if the current condition is true");
+  testStepsCombo.setEnabled(false);
+  builder.addFixed(new JLabel("<html><b>Target step:</b></html>"));
+  builder.addRelatedGap();
+  builder.addFixed(testStepsCombo);
+  builder.addGlue();
+  testConditionButton=new JButton(new TestConditionAction());
+  testConditionButton.setEnabled(false);
+  builder.addFixed(testConditionButton);
+  builder.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  return builder;
+}

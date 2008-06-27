@@ -1,0 +1,11 @@
+{
+  if (canceled) {
+    runButton.setEnabled(true);
+    cancelButton.setEnabled(false);
+    testStepList.setEnabled(true);
+    return;
+  }
+  StringToObjectMap properties=new StringToObjectMap();
+  properties.put("loopButton",loopButton);
+  runner=getModelItem().run(properties,true);
+}

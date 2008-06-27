@@ -1,0 +1,8 @@
+{
+  super(new WsdlTestStepsModelItem(getTestCase()));
+  for (int c=0; c < getTestCase().getTestStepCount(); c++) {
+    TestStep testStep=getTestCase().getTestStepAt(c);
+    testStepNodes.add(createTestStepTreeNode(testStep));
+  }
+  getTreeModel().mapModelItems(testStepNodes);
+}

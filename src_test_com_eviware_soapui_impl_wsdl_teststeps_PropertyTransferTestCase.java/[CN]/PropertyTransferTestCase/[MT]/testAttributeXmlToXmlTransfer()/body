@@ -1,0 +1,15 @@
+{
+  sourceProperty.setValue("<bil><name value=\"fiat\" value2=\"volvo\">alfa</name></bil>");
+  targetProperty.setValue("<bil><name test=\"test\">bmw</name></bil>");
+  transfer.setSourcePath("//name/@value");
+  transfer.setTargetPath("//name/text()");
+  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
+  assertEquals("<bil><name test=\"test\">fiat</name></bil>",targetProperty.getValue());
+  transfer.setSourcePath("//name/text()");
+  transfer.setTargetPath("//name/@test");
+  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
+  assertEquals("<bil><name test=\"alfa\">fiat</name></bil>",targetProperty.getValue());
+  transfer.setSourcePath("//name/@value2");
+  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
+  assertEquals("<bil><name test=\"volvo\">fiat</name></bil>",targetProperty.getValue());
+}

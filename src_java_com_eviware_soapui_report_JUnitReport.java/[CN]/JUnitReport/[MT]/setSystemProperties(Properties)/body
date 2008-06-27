@@ -1,0 +1,10 @@
+{
+  Set keys=System.getProperties().keySet();
+  for (  Object keyO : keys) {
+    String key=keyO.toString();
+    String value=System.getProperty(key);
+    Property prop=properties.addNewProperty();
+    prop.setName(key);
+    prop.setValue(value);
+  }
+}

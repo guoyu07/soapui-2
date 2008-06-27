@@ -1,0 +1,21 @@
+{
+  BufferedInputStream inputStream=null;
+  if (isCached()) {
+    ZipInputStream zipInputStream=new ZipInputStream(new ByteArrayInputStream(config.getData()));
+    zipInputStream.getNextEntry();
+    inputStream=new BufferedInputStream(zipInputStream);
+  }
+ else {
+    inputStream=new BufferedInputStream(new FileInputStream(config.getUrl()));
+  }
+  AttachmentEncoding encoding=getEncoding();
+  if (encoding == AttachmentEncoding.BASE64) {
+    ByteArrayOutputStream data=Tools.readAll(inputStream,Tools.READ_ALL);
+    return new ByteArrayInputStream(Base64.encodeBase64(data.toByteArray()));
+  }
+ else   if (encoding == AttachmentEncoding.HEX) {
+    ByteArrayOutputStream data=Tools.readAll(inputStream,Tools.READ_ALL);
+    return new ByteArrayInputStream(new String(Hex.encodeHex(data.toByteArray())).getBytes());
+  }
+  return inputStream;
+}

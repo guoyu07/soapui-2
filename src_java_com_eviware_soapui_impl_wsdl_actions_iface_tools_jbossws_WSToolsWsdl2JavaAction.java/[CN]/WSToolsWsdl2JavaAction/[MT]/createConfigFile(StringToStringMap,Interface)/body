@@ -1,0 +1,44 @@
+{
+  ConfigurationDocument configDocument=ConfigurationDocument.Factory.newInstance();
+  ConfigurationType config=configDocument.addNewConfiguration();
+  try {
+    StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
+    if (!nsMappings.isEmpty()) {
+      GlobalType global=config.addNewGlobal();
+      for (      String namespace : nsMappings.keySet()) {
+        PkgNSType entry=global.addNewPackageNamespace();
+        entry.setNamespace(namespace);
+        entry.setPackage(nsMappings.get(namespace));
+      }
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  WsdlToJavaType wsdl2Java=config.addNewWsdlJava();
+  String wsdlUrl=getWsdlUrl(values,modelItem);
+  try {
+    new URL(wsdlUrl);
+    wsdl2Java.setLocation(wsdlUrl);
+  }
+ catch (  MalformedURLException e) {
+    ((Element)wsdl2Java.getDomNode()).setAttribute("file",wsdlUrl);
+  }
+  if (values.getBoolean(UNWRAP))   wsdl2Java.setParameterStyle(ParameterStyle.BARE);
+ else   wsdl2Java.setParameterStyle(ParameterStyle.WRAPPED);
+  if (values.get(EJB_LINK) != null && values.get(EJB_LINK).length() > 0) {
+    WsxmlType webservices=wsdl2Java.addNewWebservices();
+    webservices.setEjbLink(values.get(EJB_LINK));
+    webservices.setAppend(values.getBoolean(APPEND));
+  }
+ else   if (values.get(SERVLET_LINK) != null && values.get(SERVLET_LINK).length() > 0) {
+    WsxmlType webservices=wsdl2Java.addNewWebservices();
+    webservices.setServletLink(values.get(SERVLET_LINK));
+    webservices.setAppend(values.getBoolean(APPEND));
+  }
+  String mappingFile=values.get(MAPPING).toString().trim();
+  if (mappingFile.length() > 0) {
+    wsdl2Java.addNewMapping().setFile(mappingFile);
+  }
+  return configDocument;
+}

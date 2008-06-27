@@ -1,0 +1,12 @@
+{
+  File folderName=location == null ? UISupport.getFileDialogs().openDirectory(this,"Select output directory",null) : new File(location);
+  if (folderName == null)   return null;
+  CachedWsdlLoader loader=null;
+  if (iface.isCached()) {
+    loader=(CachedWsdlLoader)iface.createWsdlLoader();
+  }
+ else {
+    loader=new CachedWsdlLoader(iface);
+  }
+  return loader.saveDefinition(folderName.getAbsolutePath());
+}

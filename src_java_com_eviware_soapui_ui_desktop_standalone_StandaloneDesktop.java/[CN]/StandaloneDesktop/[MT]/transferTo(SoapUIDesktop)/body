@@ -1,0 +1,9 @@
+{
+  transferring=true;
+  List<DesktopPanel> values=new ArrayList<DesktopPanel>(internalFrameToDesktopPanelMap.values());
+  for (  DesktopPanel desktopPanel : values) {
+    closeDesktopPanel(desktopPanel);
+    newDesktop.showDesktopPanel(desktopPanel);
+  }
+  transferring=false;
+}

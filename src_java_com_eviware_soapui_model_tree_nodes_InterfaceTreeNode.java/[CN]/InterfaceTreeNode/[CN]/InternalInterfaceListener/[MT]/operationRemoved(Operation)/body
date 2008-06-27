@@ -1,0 +1,8 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(operation);
+  if (operationNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    operationNodes.remove(treeNode);
+  }
+ else   throw new RuntimeException("Removing unkown operation");
+}

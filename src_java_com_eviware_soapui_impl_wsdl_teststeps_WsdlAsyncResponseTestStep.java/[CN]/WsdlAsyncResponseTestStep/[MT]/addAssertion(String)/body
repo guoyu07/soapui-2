@@ -1,0 +1,12 @@
+{
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  RequestAssertionConfig assertionConfig=testStepConfig.addNewAssertion();
+  assertionConfig.setType(WsdlAssertionRegistry.getInstance().getAssertionTypeForName(assertion));
+  WsdlMessageAssertion messageAssertion=assertionsSupport.addWsdlAssertion(assertionConfig);
+  assertionsSupport.fireAssertionAdded(messageAssertion);
+  if (getMockResponse().getMockResult() != null) {
+    messageAssertion.assertRequest(new WsdlMockResultMessageExchange(getMockResponse().getMockResult(),getMockResponse()),new WsdlSubmitContext(this));
+    notifier.notifyChange();
+  }
+  return messageAssertion;
+}

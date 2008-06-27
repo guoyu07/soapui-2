@@ -1,0 +1,4 @@
+{
+  AbstractHttpRequest<?> request=getModelItem();
+  return request.getResponse() == null ? new StringToStringMap() : request.getResponse().getResponseHeaders();
+}

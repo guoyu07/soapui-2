@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isNullOrEmpty(contentType))   return null;
+  SoapVersion soapVersion=null;
+  soapVersion=contentType.startsWith(SoapVersion.Soap11.getContentType()) ? SoapVersion.Soap11 : null;
+  soapVersion=soapVersion == null && contentType.startsWith(SoapVersion.Soap12.getContentType()) ? SoapVersion.Soap12 : soapVersion;
+  if (soapVersion == null && contentType.startsWith("application/xop+xml")) {
+    if (contentType.indexOf("type=\"" + SoapVersion.Soap11.getContentType() + "\"") > 0)     soapVersion=SoapVersion.Soap11;
+ else     if (contentType.indexOf("type=\"" + SoapVersion.Soap12.getContentType() + "\"") > 0)     soapVersion=SoapVersion.Soap12;
+  }
+  return soapVersion;
+}

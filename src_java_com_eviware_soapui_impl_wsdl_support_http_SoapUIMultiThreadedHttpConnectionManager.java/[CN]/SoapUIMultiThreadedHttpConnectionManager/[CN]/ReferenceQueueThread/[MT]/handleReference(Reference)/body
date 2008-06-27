@@ -1,0 +1,12 @@
+{
+  ConnectionSource source=null;
+synchronized (REFERENCE_TO_CONNECTION_SOURCE) {
+    source=(ConnectionSource)REFERENCE_TO_CONNECTION_SOURCE.remove(ref);
+  }
+  if (source != null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Connection reclaimed by garbage collector, hostConfig=" + source.hostConfiguration);
+    }
+    source.connectionPool.handleLostConnection(source.hostConfiguration);
+  }
+}

@@ -1,0 +1,22 @@
+{
+  frame=new JFrame(title);
+  SoapUISplash splash=new SoapUISplash(splashImage,frame);
+  isStandalone=true;
+  soapUICore=core;
+  SoapUI soapUI=new SoapUI();
+  Workspace workspace=null;
+  if (args.length > 0) {
+    workspace=WorkspaceFactory.getInstance().openWorkspace(args);
+    soapUICore.getSettings().setString(CURRENT_SOAPUI_WORKSPACE,args[0]);
+  }
+ else {
+    String wsfile=soapUICore.getSettings().getString(CURRENT_SOAPUI_WORKSPACE,System.getProperty("user.home") + File.separatorChar + DEFAULT_WORKSPACE_FILE);
+    workspace=WorkspaceFactory.getInstance().openWorkspace(new String[]{wsfile});
+  }
+  core.prepareUI();
+  soapUI.show(workspace);
+  core.afterStartup(workspace);
+  Thread.sleep(500);
+  splash.setVisible(false);
+  return soapUI;
+}

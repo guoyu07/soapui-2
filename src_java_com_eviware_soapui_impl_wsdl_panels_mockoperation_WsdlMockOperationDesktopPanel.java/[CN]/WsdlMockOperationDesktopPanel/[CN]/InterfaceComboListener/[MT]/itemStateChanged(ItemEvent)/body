@@ -1,0 +1,16 @@
+{
+  if (currentInterface != null) {
+    currentInterface.removeInterfaceListener(interfaceListener);
+  }
+  Object selectedItem=interfaceCombo.getSelectedItem();
+  if (selectedItem == null) {
+    operationCombo.setModel(new ExtendedComboBoxModel());
+    currentInterface=null;
+  }
+ else {
+    currentInterface=(WsdlInterface)getModelItem().getMockService().getProject().getInterfaceByName(selectedItem.toString());
+    ModelItemNames<Operation> names=new ModelItemNames<Operation>(currentInterface.getOperationList());
+    operationCombo.setModel(new ExtendedComboBoxModel(names.getNames()));
+    currentInterface.addInterfaceListener(interfaceListener);
+  }
+}

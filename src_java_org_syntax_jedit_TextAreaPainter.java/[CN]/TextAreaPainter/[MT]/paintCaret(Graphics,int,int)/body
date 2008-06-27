@@ -1,0 +1,16 @@
+{
+  if (textArea.isCaretVisible()) {
+    int offset=textArea.getCaretPosition() - textArea.getLineStartOffset(line);
+    int caretX=textArea._offsetToX(line,offset);
+    int caretWidth=((blockCaret || textArea.isOverwriteEnabled()) ? fm.charWidth('w') : 1);
+    y+=fm.getLeading() + fm.getMaxDescent();
+    int height=fm.getHeight();
+    gfx.setColor(caretColor);
+    if (textArea.isOverwriteEnabled()) {
+      gfx.fillRect(caretX,y + height - 1,caretWidth,1);
+    }
+ else {
+      gfx.drawRect(caretX,y,caretWidth,height - 1);
+    }
+  }
+}

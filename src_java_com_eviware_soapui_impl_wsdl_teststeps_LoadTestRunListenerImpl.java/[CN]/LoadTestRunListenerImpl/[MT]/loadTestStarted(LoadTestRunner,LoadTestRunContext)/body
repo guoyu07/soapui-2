@@ -1,0 +1,12 @@
+{
+  TestCase testCase=loadTestRunner.getLoadTest().getTestCase();
+  if (needsMockRunnerManager(testCase)) {
+    MockRunnerManager manager=MockRunnerManagerImpl.getInstance(testCase);
+    try {
+      manager.start();
+    }
+ catch (    MockRunnerManagerException e) {
+      log.error("Unable to start MockRunnerManager",e);
+    }
+  }
+}

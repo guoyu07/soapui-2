@@ -1,0 +1,17 @@
+{
+  super(title,description,new JPanel(new BorderLayout()));
+  JPanel panel=(JPanel)getComponent();
+  editorPane=new JEditorPane();
+  editorPane.setEditorKit(new HTMLEditorKit());
+  editorPane.setEditable(false);
+  try {
+    editorPane.setPage(new URL(url));
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  editorPane.addHyperlinkListener(new DefaultHyperlinkListener(editorPane));
+  JScrollPane scrollPane=new JScrollPane(editorPane);
+  UISupport.addPreviewCorner(scrollPane,true);
+  panel.add(scrollPane,BorderLayout.CENTER);
+}

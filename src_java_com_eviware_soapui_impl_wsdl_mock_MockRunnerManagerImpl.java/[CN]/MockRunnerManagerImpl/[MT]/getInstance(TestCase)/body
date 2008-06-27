@@ -1,0 +1,10 @@
+{
+  if (managers.containsKey(testCase.getId())) {
+    return managers.get(testCase.getId());
+  }
+ else {
+    MockRunnerManager manager=new MockRunnerManagerImpl(testCase.getTestSuite().getProject());
+    managers.put(testCase.getId(),manager);
+    return manager;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.setValue(Form.NAME,"Copy of " + testSuite.getName());
+  dialog.setBooleanValue(Form.MOVE,false);
+  WorkspaceImpl workspace=testSuite.getProject().getWorkspace();
+  dialog.setOptions(Form.PROJECT,ModelSupport.getNames(workspace.getOpenProjectList(),new String[]{"<Create New>"}));
+  dialog.setValue(Form.PROJECT,testSuite.getProject().getName());
+  if (dialog.show()) {
+    String targetProjectName=dialog.getValue(Form.PROJECT);
+    String name=dialog.getValue(Form.NAME);
+    WsdlProject project=(WsdlProject)testSuite.getProject();
+    boolean move=dialog.getBooleanValue(Form.MOVE);
+    if (targetProjectName.equals(testSuite.getProject().getName())) {
+      cloneTestSuiteWithinProject(testSuite,name,project);
+    }
+ else {
+      cloneToAnotherProject(testSuite,targetProjectName,name,move);
+    }
+    if (move) {
+      testSuite.getProject().removeTestSuite(testSuite);
+    }
+  }
+}

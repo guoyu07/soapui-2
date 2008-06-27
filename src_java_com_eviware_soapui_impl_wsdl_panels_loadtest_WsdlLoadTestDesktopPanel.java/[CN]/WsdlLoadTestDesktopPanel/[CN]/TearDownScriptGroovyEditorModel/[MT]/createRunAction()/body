@@ -1,0 +1,14 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      try {
+        MockLoadTestRunner mockTestRunner=new MockLoadTestRunner(getModelItem(),SoapUI.ensureGroovyLog());
+        getModelItem().runTearDownScript(new MockLoadTestRunContext(mockTestRunner),mockTestRunner);
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage(e1);
+      }
+    }
+  }
+;
+}

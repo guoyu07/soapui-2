@@ -1,0 +1,22 @@
+{
+  super(project,workspaceNode.getWorkspace(),workspaceNode.getTreeModel());
+  if (!project.isOpen())   return;
+  internalProjectListener=new InternalProjectListener();
+  project.addProjectListener(internalProjectListener);
+  for (int c=0; c < project.getInterfaceCount(); c++) {
+    Interface iface=project.getInterfaceAt(c);
+    interfaceNodes.add(new InterfaceTreeNode(iface,getTreeModel()));
+  }
+  for (int c=0; c < project.getTestSuiteCount(); c++) {
+    testSuiteNodes.add(new TestSuiteTreeNode(project.getTestSuiteAt(c),getTreeModel()));
+  }
+  for (int c=0; c < project.getMockServiceCount(); c++) {
+    mockServiceNodes.add(new MockServiceTreeNode(project.getMockServiceAt(c),getTreeModel()));
+  }
+  getTreeModel().mapModelItems(interfaceNodes);
+  getTreeModel().mapModelItems(testSuiteNodes);
+  getTreeModel().mapModelItems(mockServiceNodes);
+  initOrdering(testSuiteNodes,UISettings.ORDER_TESTSUITES);
+  propertiesTreeNode=PropertiesTreeNode.createDefaultPropertiesNode(project,getTreeModel());
+  getTreeModel().mapModelItem(propertiesTreeNode);
+}

@@ -1,0 +1,6 @@
+{
+  inspectorPanel.addInspector(new JFocusableComponentInspector<JPanel>(buildDescriptionPanel(),descriptionArea,"Description","A description for this MockService",true));
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildPropertiesPanel(),"Properties","Properties for this MockService",true));
+  inspectorPanel.addInspector(new GroovyEditorInspector(buildStartScriptPanel(),"Start Script","A Groovy script to run when starting the MockService"));
+  inspectorPanel.addInspector(new GroovyEditorInspector(buildStopScriptPanel(),"Stop Script","A Groovy script to run when stopping the MockService"));
+}

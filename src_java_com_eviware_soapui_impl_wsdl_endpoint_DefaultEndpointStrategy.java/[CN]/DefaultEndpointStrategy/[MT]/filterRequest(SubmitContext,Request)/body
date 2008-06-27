@@ -1,0 +1,22 @@
+{
+  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  URI uri=null;
+  try {
+    uri=httpMethod.getURI();
+  }
+ catch (  URIException e) {
+    SoapUI.logError(e);
+    return;
+  }
+  EndpointDefaults def=defaults.get(uri.toString());
+  if (def == null) {
+    for (    String ep : defaults.keySet()) {
+      if (PropertyExpansionUtils.expandProperties(context,ep).equals(uri.toString())) {
+        def=defaults.get(ep);
+        break;
+      }
+    }
+    if (def == null)     return;
+  }
+  applyDefaultsToWsdlRequest(context,(WsdlRequest)wsdlRequest,def);
+}

@@ -1,0 +1,5 @@
+{
+  super("Attachments (" + container.getAttachmentCount() + ")","Files attached to this request",true,AttachmentsInspectorFactory.INSPECTOR_ID);
+  this.container=container;
+  container.addAttachmentsChangeListener(this);
+}

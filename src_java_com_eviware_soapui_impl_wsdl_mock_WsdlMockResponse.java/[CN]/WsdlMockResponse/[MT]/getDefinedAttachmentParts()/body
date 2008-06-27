@@ -1,0 +1,21 @@
+{
+  if (definedAttachmentParts == null) {
+    try {
+      WsdlOperation operation=getMockOperation().getOperation();
+      if (operation == null) {
+        definedAttachmentParts=new ArrayList<HttpAttachmentPart>();
+      }
+ else {
+        UISupport.setHourglassCursor();
+        definedAttachmentParts=AttachmentUtils.extractAttachmentParts(operation,getResponseContent(),true,true,isMtomEnabled());
+      }
+    }
+ catch (    Exception e) {
+      log.warn(e.toString());
+    }
+ finally {
+      UISupport.resetCursor();
+    }
+  }
+  return definedAttachmentParts.toArray(new HttpAttachmentPart[definedAttachmentParts.size()]);
+}

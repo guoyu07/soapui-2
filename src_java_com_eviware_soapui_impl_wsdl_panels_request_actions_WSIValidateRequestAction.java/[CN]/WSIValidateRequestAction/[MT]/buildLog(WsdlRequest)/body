@@ -1,0 +1,10 @@
+{
+  LogDocument logDoc=LogDocument.Factory.newInstance();
+  Log log=logDoc.addNewLog();
+  log.setTimestamp(Calendar.getInstance());
+  addMonitorConfig(log);
+  addMessageConfig(log,modelItem);
+  logFile=File.createTempFile("wsi-analyzer-log",".xml");
+  logDoc.save(logFile);
+  return logFile;
+}

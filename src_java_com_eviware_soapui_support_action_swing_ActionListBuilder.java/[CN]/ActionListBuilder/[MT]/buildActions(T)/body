@@ -1,0 +1,12 @@
+{
+  Class<?> clazz=modelItem.getClass();
+  ActionList actions=buildActions(clazz.getSimpleName() + "Actions",modelItem);
+  if (actions.getActionCount() == 0) {
+    clazz=clazz.getSuperclass();
+    while (actions.getActionCount() == 0 && clazz != null && ModelItem.class.isAssignableFrom(clazz)) {
+      actions=buildActions(clazz.getSimpleName() + "Actions",modelItem);
+      clazz=clazz.getSuperclass();
+    }
+  }
+  return actions;
+}

@@ -1,0 +1,13 @@
+{
+  String key=port + path;
+  WsdlMockService service=mockServices.get(key);
+  if (service == null) {
+    MockServiceConfig mockServiceConfig=MockServiceConfig.Factory.newInstance();
+    mockServiceConfig.setPath(path);
+    mockServiceConfig.setPort(port);
+    mockServiceConfig.setName(port + ":" + path);
+    service=new WsdlMockService(project,mockServiceConfig);
+    mockServices.put(key,service);
+  }
+  return service;
+}

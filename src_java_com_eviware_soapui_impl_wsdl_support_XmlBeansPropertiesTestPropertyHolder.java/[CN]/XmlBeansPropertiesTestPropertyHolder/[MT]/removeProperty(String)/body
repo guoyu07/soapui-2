@@ -1,0 +1,12 @@
+{
+  TestProperty property=getProperty(propertyName);
+  if (property != null) {
+    int ix=properties.indexOf(property);
+    propertyMap.remove(propertyName.toUpperCase());
+    properties.remove(ix);
+    config.removeProperty(ix);
+    firePropertyRemoved(propertyName);
+    return property;
+  }
+  return null;
+}

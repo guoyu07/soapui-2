@@ -1,0 +1,6 @@
+{
+  Workspace workspace=WorkspaceFactory.getInstance().openWorkspace(new String[]{System.getProperty("user.home") + File.separatorChar + SoapUI.DEFAULT_WORKSPACE_FILE});
+  for (int c=0; c < workspace.getProjectCount(); c++) {
+    System.out.println(workspace.getProjectAt(c).getName());
+  }
+}

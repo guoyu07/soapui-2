@@ -1,0 +1,13 @@
+{
+  this.caption=caption;
+  this.name=name;
+  this.options=options;
+  editable=true;
+  JComboBox comboBox=new JComboBox(options);
+  if (options.length > 0 && options[0] == null) {
+    comboBox.setEditable(true);
+    comboBox.removeItemAt(0);
+  }
+  comboBox.setBorder(null);
+  cellEditor=new DefaultCellEditor(comboBox);
+}

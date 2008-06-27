@@ -1,0 +1,5 @@
+{
+  String old=this.description;
+  this.description=description;
+  if (propertyChangeSupport != null)   propertyChangeSupport.firePropertyChange(Inspector.DESCRIPTION_PROPERTY,old,description);
+}

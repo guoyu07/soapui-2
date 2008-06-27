@@ -1,0 +1,7 @@
+{
+  WsdlTestSuite testSuite=getTargetTestSuite(target,"Copy TestCase");
+  if (testSuite == null)   return false;
+  testCase=TestCaseToTestSuiteDropHandler.copyTestCase(testCase,testSuite,-1);
+  if (testCase != null)   UISupport.select(testCase);
+  return testCase != null;
+}

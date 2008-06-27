@@ -1,0 +1,30 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(buildOutgoingWssToolbar(),BorderLayout.NORTH);
+  outgoingWssTable=new JXTable(new OutgoingWssTableModel());
+  outgoingWssTable.setSortable(false);
+  outgoingWssTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int selectedRow=outgoingWssTable.getSelectedRow();
+      selectedOutgoing=selectedRow == -1 ? null : wssContainer.getOutgoingWssAt(selectedRow);
+      removeOutgoingWssAction.setEnabled(selectedRow != -1);
+      addOutgoingEntryButton.setEnabled(selectedRow != -1);
+      entriesTabs.removeAll();
+      if (selectedOutgoing != null) {
+        for (        WssEntry entry : selectedOutgoing.getEntries()) {
+          entriesTabs.addTab(entry.getLabel(),entry.getConfigurationPanel());
+        }
+      }
+      entriesTabs.getParent().setVisible(entriesTabs.getTabCount() > 0);
+    }
+  }
+);
+  outgoingWssTable.getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  outgoingWssTable.getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(outgoingWssTable),buildOutgoingWssDetails());
+  split.setDividerLocation(140);
+  p.add(split,BorderLayout.CENTER);
+  panel.add(p,BorderLayout.CENTER);
+  return panel;
+}

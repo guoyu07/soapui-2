@@ -1,0 +1,12 @@
+{
+  exportButton=UISupport.createToolbarButton(new ExportSamplesHistoryAction(historyGraph));
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.addSpace(5);
+  toolbar.addLabeledFixed("Select Statistic:",buildSelectStatisticCombo());
+  toolbar.addUnrelatedGap();
+  toolbar.addLabeledFixed("Resolution:",buildResolutionCombo());
+  toolbar.addGlue();
+  toolbar.addFixed(exportButton);
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.STATISTICSGRAPH_HELP_URL)));
+  return toolbar;
+}

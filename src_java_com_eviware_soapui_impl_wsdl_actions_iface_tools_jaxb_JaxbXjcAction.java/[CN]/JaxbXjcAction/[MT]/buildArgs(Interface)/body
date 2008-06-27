@@ -1,0 +1,23 @@
+{
+  StringToStringMap values=dialog.getValues();
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("xjc",".bat",".sh");
+  String outputValue=(output != null ? output : values.get(OUTPUT));
+  values.put(OUTPUT,Tools.ensureDir(outputValue,""));
+  builder.addString(OUTPUT,"-d");
+  builder.addString(PACKAGE,"-p");
+  builder.addString(CLASSPATH,"-classpath");
+  builder.addString(CATALOG,"-catalog");
+  builder.addString(HTTPPROXY,"-httpproxy ");
+  builder.addBoolean(NOVALIDATION,"-nv");
+  builder.addBoolean(NPA,"-npa");
+  builder.addBoolean(READONLY,"-readOnly");
+  builder.addBoolean(VERBOSE,"-verbose");
+  addToolArgs(values,builder);
+  builder.addArgs("-wsdl",getWsdlUrl(values,modelItem));
+  String[] bindings=values.get(BINDINGS).split(",");
+  for (  String binding : bindings) {
+    if (binding.trim().length() > 0)     builder.addArgs("-b",binding.trim());
+  }
+  return builder;
+}

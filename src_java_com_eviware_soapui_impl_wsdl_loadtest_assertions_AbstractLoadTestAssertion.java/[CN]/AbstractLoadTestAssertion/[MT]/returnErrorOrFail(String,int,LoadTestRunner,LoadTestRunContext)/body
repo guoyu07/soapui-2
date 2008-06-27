@@ -1,0 +1,15 @@
+{
+  String propertyKey=getClass().getName() + hashCode();
+  Long errorCount=(Long)context.getProperty(propertyKey);
+  if (errorCount == null) {
+    errorCount=1L;
+  }
+ else {
+    errorCount=new Long(errorCount.longValue() + 1);
+  }
+  if (maxErrors >= 0 && errorCount >= maxErrors) {
+    testRunner.fail("Maximum number of errors [" + maxErrors + "] for assertion ["+ getName()+ "] exceeded");
+  }
+  context.setProperty(propertyKey,errorCount);
+  return message;
+}

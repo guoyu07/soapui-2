@@ -1,0 +1,10 @@
+{
+  componentEnabler.release();
+  editor.release();
+  SoapUI.getSettings().removeSettingsListener(settingsListener);
+  logger.removeAllAppenders();
+  logger=null;
+  logArea.release();
+  super.release();
+  return true;
+}

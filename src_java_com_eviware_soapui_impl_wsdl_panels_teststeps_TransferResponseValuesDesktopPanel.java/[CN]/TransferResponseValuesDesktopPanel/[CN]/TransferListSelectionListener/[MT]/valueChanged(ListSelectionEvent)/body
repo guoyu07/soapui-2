@@ -1,0 +1,51 @@
+{
+  selecting=true;
+  if (transfer != null) {
+    transfer.removePropertyChangeListener(transferPropertyChangeListener);
+  }
+  transfer=getCurrentTransfer();
+  if (transfer == null) {
+    sourceArea.setText("");
+    targetArea.setText("");
+    sourcePropertyCombo.removeAllItems();
+    targetPropertyCombo.removeAllItems();
+    sourceStepCombo.setSelectedIndex(-1);
+    targetStepCombo.setSelectedIndex(-1);
+  }
+ else {
+    transfer.addPropertyChangeListener(transferPropertyChangeListener);
+    sourceArea.setText(transfer.getSourcePath());
+    sourceArea.setCaretPosition(0);
+    targetArea.setText(transfer.getTargetPath());
+    targetArea.setCaretPosition(0);
+    sourceStepCombo.setSelectedItem(transfer.getSourceStep());
+    sourcePropertyCombo.setSelectedItem(transfer.getSourceProperty());
+    targetStepCombo.setSelectedItem(transfer.getTargetStep());
+    targetPropertyCombo.setSelectedItem(transfer.getTargetProperty());
+    failTransferCheckBox.setSelected(transfer.getFailOnError());
+    setNullCheckBox.setSelected(transfer.getSetNullOnMissingSource());
+    transferTextContentCheckBox.setSelected(transfer.getTransferTextContent());
+    ignoreEmptyCheckBox.setSelected(transfer.getIgnoreEmpty());
+    transferAllCheckBox.setSelected(transfer.getTransferToAll());
+    useXQueryCheckBox.setSelected(transfer.getUseXQuery());
+  }
+  copyButton.setEnabled(transfer != null);
+  renameButton.setEnabled(transfer != null);
+  deleteButton.setEnabled(transfer != null);
+  declareButton.setEnabled(transfer != null);
+  sourceStepCombo.setEnabled(transfer != null);
+  targetStepCombo.setEnabled(transfer != null);
+  sourceArea.setEnabled(transfer != null);
+  targetArea.setEnabled(transfer != null);
+  failTransferCheckBox.setEnabled(transfer != null);
+  setNullCheckBox.setEnabled(transfer != null);
+  transferTextContentCheckBox.setEnabled(transfer != null);
+  ignoreEmptyCheckBox.setEnabled(transfer != null);
+  transferAllCheckBox.setEnabled(transfer != null);
+  useXQueryCheckBox.setEnabled(transfer != null);
+  runAllButton.setEnabled(transferList.getModel().getSize() > 0);
+  runButton.setEnabled(transfer != null);
+  sourcePropertyCombo.setEnabled(transfer != null);
+  targetPropertyCombo.setEnabled(transfer != null);
+  selecting=false;
+}

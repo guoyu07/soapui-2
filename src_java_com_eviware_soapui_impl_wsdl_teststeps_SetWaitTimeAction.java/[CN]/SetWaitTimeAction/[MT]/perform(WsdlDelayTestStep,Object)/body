@@ -1,0 +1,11 @@
+{
+  String value=UISupport.prompt("Specify delay in milliseconds","Set Delay",String.valueOf(target.getDelay()));
+  if (value != null) {
+    try {
+      target.setDelay(Integer.parseInt(value));
+    }
+ catch (    NumberFormatException e1) {
+      UISupport.showErrorMessage(e1);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  InspectorLog4JMonitor inspectorLog4JMonitor=new InspectorLog4JMonitor(desktop.getDesktopComponent());
+  JComponent monitor=initLogMonitor(hasDefault,defaultName,inspectorLog4JMonitor);
+  if (!SoapUI.getSettings().getBoolean(UISettings.SHOW_LOGS_AT_STARTUP))   inspectorLog4JMonitor.activate(null);
+  MonitorPanel monitorPanel=new MonitorPanel(new RuntimeMemoryMonitorSource());
+  monitorPanel.start();
+  inspectorLog4JMonitor.addInspector(new JComponentInspector<JComponent>(monitorPanel,"memory log","Shows runtime memory consumtion",true));
+  return monitor;
+}

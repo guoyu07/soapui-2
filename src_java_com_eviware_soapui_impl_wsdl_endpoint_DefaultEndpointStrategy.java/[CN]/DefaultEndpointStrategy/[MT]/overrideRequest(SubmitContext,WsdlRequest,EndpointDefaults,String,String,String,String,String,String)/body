@@ -1,0 +1,21 @@
+{
+  String username=StringUtils.hasContent(defUsername) ? defUsername : requestUsername;
+  String password=StringUtils.hasContent(defPassword) ? defPassword : requestPassword;
+  if (StringUtils.hasContent(username) || StringUtils.hasContent(password)) {
+    String wssType=def.getWssType();
+    String wssTimeToLive=def.getWssTimeToLive();
+    if (wssType == null) {
+      String domain=StringUtils.hasContent(defDomain) ? defDomain : requestDomain;
+      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain);
+    }
+    if (StringUtils.hasContent(wssType) || StringUtils.hasContent(wssTimeToLive)) {
+      try {
+        if (wssTimeToLive != null && wssTimeToLive.length() == 0)         wssTimeToLive=null;
+        WssAuthenticationRequestFilter.setWssHeaders(context,username,password,wssType,wssTimeToLive);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  super.resetConfigOnMove(config);
+  testStepConfig=(AsyncResponseStepConfig)config.getConfig().changeType(AsyncResponseStepConfig.type);
+  mockResponseConfig=this.testStepConfig.getResponse();
+  mockResponse.setConfig(mockResponseConfig);
+}

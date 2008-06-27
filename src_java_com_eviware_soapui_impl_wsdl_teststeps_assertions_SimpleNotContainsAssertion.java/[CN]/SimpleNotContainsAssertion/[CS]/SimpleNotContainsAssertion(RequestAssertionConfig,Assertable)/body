@@ -1,0 +1,7 @@
+{
+  super(assertionConfig,assertable,true,true,true,true);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  token=reader.readString("token",null);
+  ignoreCase=reader.readBoolean("ignoreCase",false);
+  useRegEx=reader.readBoolean("useRegEx",false);
+}

@@ -1,0 +1,14 @@
+{
+  super(mockService,mockService.getProject(),treeModel);
+  mockServiceListener=new InternalMockServiceListener();
+  mockService.addMockServiceListener(mockServiceListener);
+  for (int c=0; c < mockService.getMockOperationCount(); c++) {
+    MockOperation mockOperation=mockService.getMockOperationAt(c);
+    mockOperation.addPropertyChangeListener(MockService.NAME_PROPERTY,propertyChangeListener);
+    mockOperationNodes.add(new MockOperationTreeNode(mockOperation,getTreeModel()));
+  }
+  initOrdering(mockOperationNodes,UISettings.ORDER_MOCKOPERATION);
+  getTreeModel().mapModelItems(mockOperationNodes);
+  propertiesTreeNode=PropertiesTreeNode.createDefaultPropertiesNode(mockService,getTreeModel());
+  getTreeModel().mapModelItem(propertiesTreeNode);
+}

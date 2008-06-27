@@ -1,0 +1,31 @@
+{
+  XmlOptions xmlOptions=new XmlOptions();
+  xmlOptions.setLoadLineNumbers();
+  xmlOptions.setLoadLineNumbers(XmlOptions.LOAD_LINE_NUMBERS_END_ELEMENT);
+  String xmlText=msg.copy().changeType(type).xmlText(xmlOptions.setSaveOuter());
+  XmlObject obj=type.getTypeSystem().parse(xmlText,type,xmlOptions);
+  obj=obj.changeType(type);
+  List<?> list=new ArrayList<Object>();
+  xmlOptions=new XmlOptions();
+  xmlOptions.setErrorListener(list);
+  xmlOptions.setValidateTreatLaxAsSkip();
+  obj.validate(xmlOptions);
+  for (int c=0; c < list.size(); c++) {
+    XmlError error=(XmlError)list.get(c);
+    if (error instanceof XmlValidationError) {
+      XmlValidationError validationError=((XmlValidationError)error);
+      if (wsdlContext.getSoapVersion().shouldIgnore(validationError))       continue;
+      if (validationError.getErrorCode().equals("base64Binary") || validationError.getErrorCode().equals("hexBinary")) {
+        XmlCursor cursor=validationError.getCursorLocation();
+        if (cursor.toParent()) {
+          String text=cursor.getTextValue();
+          if (text.startsWith("cid:") || text.startsWith("file:")) {
+            continue;
+          }
+        }
+      }
+    }
+    int line=error.getLine() == -1 ? 0 : error.getLine() - 1;
+    errors.add(XmlError.forLocation(error.getMessage(),error.getSourceName(),getLine(msg) + line,error.getColumn(),error.getOffset()));
+  }
+}

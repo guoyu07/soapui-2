@@ -1,0 +1,38 @@
+{
+  try {
+    List<MessagePart> result=new ArrayList<MessagePart>();
+    WsdlContext wsdlContext=getInterface().getWsdlContext();
+    BindingOperation bindingOperation=findBindingOperation(wsdlContext.getDefinition());
+    if (bindingOperation == null)     return new MessagePart[0];
+    List<SoapHeader> headers=WsdlUtils.getSoapHeaders(bindingOperation.getBindingOutput().getExtensibilityElements());
+    for (int i=0; i < headers.size(); i++) {
+      SoapHeader header=headers.get(i);
+      Message message=wsdlContext.getDefinition().getMessage(header.getMessage());
+      if (message == null) {
+        log.error("Missing message for header: " + header.getMessage());
+        continue;
+      }
+      javax.wsdl.Part part=message.getPart(header.getPart());
+      if (part != null) {
+        SchemaType schemaType=WsdlUtils.getSchemaTypeForPart(wsdlContext,part);
+        SchemaGlobalElement schemaElement=WsdlUtils.getSchemaElementForPart(wsdlContext,part);
+        if (schemaType != null)         result.add(new WsdlHeaderPart(part.getName(),schemaType,part.getElementName(),schemaElement));
+      }
+ else       log.error("Missing part for header; " + header.getPart());
+    }
+    javax.wsdl.Part[] parts=WsdlUtils.getOutputParts(bindingOperation);
+    for (int i=0; i < parts.length; i++) {
+      javax.wsdl.Part part=parts[i];
+      if (!WsdlUtils.isAttachmentOutputPart(part,bindingOperation)) {
+        SchemaType schemaType=WsdlUtils.getSchemaTypeForPart(wsdlContext,part);
+        SchemaGlobalElement schemaElement=WsdlUtils.getSchemaElementForPart(wsdlContext,part);
+        if (schemaType != null)         result.add(new WsdlContentPart(part.getName(),schemaType,part.getElementName(),schemaElement));
+      }
+    }
+    return result.toArray(new MessagePart[result.size()]);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return new MessagePart[0];
+  }
+}

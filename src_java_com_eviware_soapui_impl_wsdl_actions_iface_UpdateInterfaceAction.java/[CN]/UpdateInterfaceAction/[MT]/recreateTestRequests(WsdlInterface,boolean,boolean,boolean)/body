@@ -1,0 +1,28 @@
+{
+  int count=0;
+  List<WsdlTestRequestStep> result=new ArrayList<WsdlTestRequestStep>();
+  for (  TestSuite testSuite : iface.getProject().getTestSuiteList()) {
+    for (    TestCase testCase : testSuite.getTestCaseList()) {
+      int testStepCount=testCase.getTestStepCount();
+      for (int c=0; c < testStepCount; c++) {
+        WsdlTestStep testStep=(WsdlTestStep)testCase.getTestStepAt(c);
+        if (testStep instanceof WsdlTestRequestStep) {
+          WsdlTestRequest testRequest=((WsdlTestRequestStep)testStep).getTestRequest();
+          if (testRequest.getOperation().getInterface() == iface) {
+            String newRequest=testRequest.getOperation().createRequest(buildOptional);
+            if (keepExisting)             newRequest=XmlUtils.transferValues(testRequest.getRequestContent(),newRequest);
+            if (!newRequest.equals(testRequest.getRequestContent())) {
+              if (createBackups) {
+                ((WsdlTestCase)testCase).importTestStep(testStep,"Backup of [" + testStep.getName() + "]",-1,true).setDisabled(true);
+              }
+              ((WsdlRequest)testRequest).setRequestContent(newRequest);
+              count++;
+              result.add((WsdlTestRequestStep)testStep);
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}

@@ -1,0 +1,7 @@
+{
+  if (evt.getPropertyName().equals("script") && !updating) {
+    updating=true;
+    editor.getEditArea().setText((String)evt.getNewValue());
+    updating=false;
+  }
+}

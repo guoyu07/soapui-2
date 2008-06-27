@@ -1,0 +1,22 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(buildIncomingWssToolbar(),BorderLayout.NORTH);
+  incomingWssTable=new JXTable(new IncomingWssTableModel());
+  incomingWssTable.setSortable(false);
+  incomingWssTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      removeIncomingWssAction.setEnabled(incomingWssTable.getSelectedRow() != -1);
+    }
+  }
+);
+  incomingWssDecryptionCryptoComboBox=new JComboBox(new KeystoresComboBoxModel(wssContainer,null));
+  incomingWssTable.getColumn(1).setCellEditor(new DefaultCellEditor(incomingWssDecryptionCryptoComboBox));
+  incomingWssSignatureCryptoComboBox=new JComboBox(new KeystoresComboBoxModel(wssContainer,null));
+  incomingWssTable.getColumn(2).setCellEditor(new DefaultCellEditor(incomingWssSignatureCryptoComboBox));
+  incomingWssTable.getColumn(3).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  incomingWssTable.getColumn(3).setCellRenderer(new PasswordTableCellRenderer());
+  p.add(new JScrollPane(incomingWssTable),BorderLayout.CENTER);
+  panel.add(p,BorderLayout.CENTER);
+  return panel;
+}

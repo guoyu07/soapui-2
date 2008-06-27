@@ -1,0 +1,17 @@
+{
+  String wsaDir=SoapUI.getSettings().getString(ToolsSettings.ORACLE_WSA_LOCATION,null);
+  if (Tools.isEmpty(wsaDir)) {
+    UISupport.showErrorMessage("wsa.jar directory must be set in global preferences");
+    return;
+  }
+  File wsaFile=new File(wsaDir + File.separatorChar + "wsa.jar");
+  if (!wsaFile.exists()) {
+    UISupport.showErrorMessage("Could not find wsa.jar at [" + wsaFile + "]");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(wsaDir));
+  toolHost.run(new ProcessToolRunner(builder,"Oracle wsa.jar",modelItem));
+}

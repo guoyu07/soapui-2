@@ -1,0 +1,10 @@
+{
+  if (values.containsKey(id)) {
+    try {
+      return Long.parseLong(values.get(id).getStringValue());
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return parent == null ? defaultValue : parent.getLong(id,defaultValue);
+}

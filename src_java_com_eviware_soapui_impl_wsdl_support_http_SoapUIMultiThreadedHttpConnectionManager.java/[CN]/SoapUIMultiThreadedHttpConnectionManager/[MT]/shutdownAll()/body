@@ -1,0 +1,15 @@
+{
+synchronized (REFERENCE_TO_CONNECTION_SOURCE) {
+synchronized (ALL_CONNECTION_MANAGERS) {
+      SoapUIMultiThreadedHttpConnectionManager[] connManagers=(SoapUIMultiThreadedHttpConnectionManager[])ALL_CONNECTION_MANAGERS.keySet().toArray(new SoapUIMultiThreadedHttpConnectionManager[ALL_CONNECTION_MANAGERS.size()]);
+      for (int i=0; i < connManagers.length; i++) {
+        if (connManagers[i] != null)         connManagers[i].shutdown();
+      }
+    }
+    if (REFERENCE_QUEUE_THREAD != null) {
+      REFERENCE_QUEUE_THREAD.shutdown();
+      REFERENCE_QUEUE_THREAD=null;
+    }
+    REFERENCE_TO_CONNECTION_SOURCE.clear();
+  }
+}

@@ -1,0 +1,71 @@
+{
+  WsdlMessageExchangeTestStepResult result=new WsdlMessageExchangeTestStepResult(this);
+  testCaseRunner=null;
+  if (targetTestCase != null) {
+    Enum runMode=getRunMode();
+    if (runMode == RunTestCaseRunModeTypeConfig.PARALLELL) {
+      runningTestCase=createTestCase(targetTestCase);
+    }
+ else     if (!SoapUI.getTestMonitor().hasRunningTestCase(targetTestCase)) {
+      runningTestCase=targetTestCase;
+    }
+ else {
+      result.setStatus(TestStepStatus.FAILED);
+      result.addMessage("Target TestCase is already running");
+      result.stopTimer();
+      runningTestCase=null;
+    }
+    if (runningTestCase != null) {
+synchronized (runningTestCase) {
+        for (        TestRunListener listener : testRunListeners)         runningTestCase.addTestRunListener(listener);
+        StringList returnProperties=getReturnProperties();
+        Map<String,TestProperty> props=getProperties();
+        for (        String key : props.keySet()) {
+          if (runningTestCase.hasProperty(key) && !returnProperties.contains(key)) {
+            String value=props.get(key).getValue();
+            runningTestCase.setPropertyValue(key,PropertyExpansionUtils.expandProperties(testRunContext,value));
+          }
+        }
+        currentLabel=getLabel();
+        runningTestCase.addTestRunListener(testRunListener);
+        result.startTimer();
+        testCaseRunner=runningTestCase.run(new StringToObjectMap(),true);
+        testCaseRunner.waitUntilFinished();
+        result.stopTimer();
+        for (        String key : returnProperties) {
+          if (runningTestCase.hasProperty(key))           setPropertyValue(key,runningTestCase.getPropertyValue(key));
+        }
+        for (        TestStepResult testStepResult : testCaseRunner.getResults()) {
+          result.addMessages(testStepResult.getMessages());
+          if (testStepResult instanceof MessageExchangeTestStepResult) {
+            result.addMessages(((MessageExchangeTestStepResult)testStepResult).getMessageExchanges());
+          }
+        }
+switch (testCaseRunner.getStatus()) {
+case CANCELED:
+          result.setStatus(TestStepStatus.CANCELED);
+        break;
+case FAILED:
+      result.setStatus(TestStepStatus.FAILED);
+    break;
+case FINISHED:
+  result.setStatus(TestStepStatus.OK);
+break;
+default :
+result.setStatus(TestStepStatus.UNKNOWN);
+break;
+}
+for (TestRunListener listener : testRunListeners) runningTestCase.removeTestRunListener(listener);
+if (runMode == RunTestCaseRunModeTypeConfig.PARALLELL) runningTestCase.release();
+runningTestCase=null;
+testCaseRunner=null;
+}
+}
+}
+ else {
+result.setStatus(TestStepStatus.FAILED);
+result.addMessage("Missing testCase in project");
+result.stopTimer();
+}
+return result;
+}

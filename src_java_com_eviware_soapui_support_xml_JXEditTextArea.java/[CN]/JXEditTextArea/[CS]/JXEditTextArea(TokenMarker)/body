@@ -1,0 +1,24 @@
+{
+  getPainter().setFont(UISupport.getEditorFont());
+  getPainter().setLineHighlightColor(new Color(240,240,180));
+  getPainter().setStyles(createXmlStyles());
+  setTokenMarker(tokenMarker);
+  setBorder(BorderFactory.createEtchedBorder());
+  addFocusListener(this);
+  undoAction=new UndoAction();
+  getInputHandler().addKeyBinding("C+Z",undoAction);
+  redoAction=new RedoAction();
+  getInputHandler().addKeyBinding("C+Y",redoAction);
+  findAndReplaceAction=new FindAndReplaceDialog(this);
+  getInputHandler().addKeyBinding("C+F",findAndReplaceAction);
+  getInputHandler().addKeyBinding("F3",findAndReplaceAction);
+  getInputHandler().addKeyBinding("A+RIGHT",new NextElementValueAction());
+  getInputHandler().addKeyBinding("A+LEFT",new PreviousElementValueAction());
+  getInputHandler().addKeyBinding("C+D",new DeleteLineAction());
+  getInputHandler().addKeyBinding("S+INSERT",createPasteAction());
+  getInputHandler().addKeyBinding("S+DELETE",createCutAction());
+  goToLineAction=new GoToLineAction();
+  getInputHandler().addKeyBinding("CA+L",goToLineAction);
+  setMinimumSize(new Dimension(50,50));
+  new InternalSettingsListener(this);
+}

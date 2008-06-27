@@ -1,0 +1,19 @@
+{
+  StringToStringMap result=new StringToStringMap();
+  Map<String,String> urlToFileMap=new HashMap<String,String>();
+  if (urlPrefix == null)   urlPrefix="";
+  setFilenameForUrl(config.getRootPart(),Constants.WSDL11_NS,urlToFileMap,urlPrefix);
+  List<DefintionPartConfig> partList=config.getPartList();
+  for (  DefintionPartConfig part : partList) {
+    if (!part.getUrl().equals(config.getRootPart()))     setFilenameForUrl(part.getUrl(),part.getType(),urlToFileMap,urlPrefix);
+  }
+  for (  DefintionPartConfig part : partList) {
+    XmlObject obj=CachedWsdlLoader.getPartContent(config,part);
+    replaceImportsAndIncludes(obj,urlToFileMap,part.getUrl());
+    String urlString=urlToFileMap.get(part.getUrl());
+    if (urlString.startsWith(urlPrefix))     urlString=urlString.substring(urlPrefix.length());
+    result.put(urlString,obj.xmlText());
+    if (part.getUrl().equals(config.getRootPart()))     result.put("#root#",obj.xmlText());
+  }
+  return result;
+}

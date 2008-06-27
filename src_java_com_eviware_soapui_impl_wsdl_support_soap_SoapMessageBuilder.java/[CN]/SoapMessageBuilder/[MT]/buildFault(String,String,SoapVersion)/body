@@ -1,0 +1,16 @@
+{
+  SampleXmlUtil generator=new SampleXmlUtil(false);
+  generator.setTypeComment(false);
+  generator.setIgnoreOptional(true);
+  String emptyResponse=buildEmptyFault(generator,soapVersion);
+  if (soapVersion == SoapVersion.Soap11) {
+    emptyResponse=XmlUtils.setXPathContent(emptyResponse,"//faultcode",faultcode);
+    emptyResponse=XmlUtils.setXPathContent(emptyResponse,"//faultstring",faultstring);
+  }
+ else   if (soapVersion == SoapVersion.Soap12) {
+    emptyResponse=XmlUtils.setXPathContent(emptyResponse,"//soap:Value",faultcode);
+    emptyResponse=XmlUtils.setXPathContent(emptyResponse,"//soap:Text",faultstring);
+    emptyResponse=XmlUtils.setXPathContent(emptyResponse,"//soap:Text/@xml:lang","en");
+  }
+  return emptyResponse;
+}

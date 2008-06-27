@@ -1,0 +1,9 @@
+{
+  Dimension preferredSize=painter.getPreferredSize();
+  if (getParent() instanceof JViewport) {
+    JViewport viewport=(JViewport)getParent();
+    Dimension size=viewport.getSize();
+    preferredSize=new Dimension((int)(preferredSize.getWidth() < size.getWidth() ? size.getWidth() : preferredSize.getWidth()),(int)(preferredSize.getHeight() < size.getHeight() ? size.getHeight() : preferredSize.getHeight()));
+  }
+  return preferredSize;
+}

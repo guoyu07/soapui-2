@@ -1,0 +1,8 @@
+{
+  if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+    if (e.getURL().getRef() != null) {
+      editorPane.scrollToReference(e.getURL().getRef());
+    }
+ else     Tools.openURL(e.getURL().toString());
+  }
+}

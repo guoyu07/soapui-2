@@ -1,0 +1,47 @@
+{
+  try {
+    if (path == null) {
+      File file=UISupport.getFileDialogs().saveAs(this,messages.get("SaveWorkspace.Title"),".xml","XML Files (*.xml)",null);
+      if (file == null)       return;
+      path=file.getAbsolutePath();
+    }
+    List<WorkspaceProjectConfig> projects=new ArrayList<WorkspaceProjectConfig>();
+    for (int c=0; c < getProjectCount(); c++) {
+      WsdlProject project=(WsdlProject)getProjectAt(c);
+      if (!workspaceOnly) {
+        if (skipProjectsWithRunningTests && SoapUI.getTestMonitor().hasRunningTests(project)) {
+          log.warn(messages.get("ProjectHasRunningTests.Warning",project.getName()));
+        }
+ else {
+          String path=project.getPath();
+          if (path == null) {
+            if (UISupport.confirm(messages.get("ProjectHasNotBeenSaved.Label",project.getName()),messages.get("ProjectHasNotBeenSaved.Title"))) {
+              project.save();
+            }
+          }
+ else {
+            project.save();
+          }
+        }
+      }
+      String path=project.getPath();
+      if (path != null) {
+        path=PathUtils.createRelativePath(path,getProjectRoot(),this);
+        WorkspaceProjectConfig wpc=WorkspaceProjectConfig.Factory.newInstance();
+        wpc.setStringValue(PathUtils.normalizePath(path));
+        if (project.isRemote())         wpc.setType(Type.REMOTE);
+        if (!project.isOpen())         wpc.setStatus(Status.CLOSED);
+        wpc.setName(project.getName());
+        projects.add(wpc);
+      }
+    }
+    workspaceConfig.getSoapuiWorkspace().setProjectArray(projects.toArray(new WorkspaceProjectConfig[projects.size()]));
+    workspaceConfig.getSoapuiWorkspace().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
+    File workspaceFile=new File(path);
+    workspaceConfig.save(workspaceFile,new XmlOptions().setSavePrettyPrint());
+    log.info(messages.get("SavedWorkspace.Info",workspaceFile.getAbsolutePath()));
+  }
+ catch (  IOException e) {
+    log.error(messages.get("FailedToSaveWorkspace.Error") + e.getMessage(),e);
+  }
+}

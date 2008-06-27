@@ -1,0 +1,34 @@
+{
+  int dt=getDropTypeAtPoint(e.getLocation());
+  _timerHover.stop();
+  if (dt == DropType.NONE || !isDropAcceptable(e,dt)) {
+    e.rejectDrop();
+    return;
+  }
+  e.acceptDrop(e.getDropAction());
+  Transferable transferable=e.getTransferable();
+  DataFlavor[] flavors=transferable.getTransferDataFlavors();
+  for (int i=0; i < flavors.length; i++) {
+    DataFlavor flavor=flavors[i];
+    if (flavor.isMimeTypeEqual(DataFlavor.javaJVMLocalObjectMimeType)) {
+      try {
+        Point pt=e.getLocation();
+        ModelItem pathTarget=dragAndDropable.getModelItemForLocation(pt.x,pt.y);
+        ModelItem pathSource=(ModelItem)transferable.getTransferData(flavor);
+        for (        ModelItemDropHandler<ModelItem> handler : handlers) {
+          if (handler.canDrop(pathSource,pathTarget,e.getDropAction(),dt)) {
+            handler.drop(pathSource,pathTarget,e.getDropAction(),dt);
+            break;
+          }
+        }
+        break;
+      }
+ catch (      Exception ioe) {
+        System.out.println(ioe);
+        e.dropComplete(false);
+        return;
+      }
+    }
+  }
+  e.dropComplete(true);
+}

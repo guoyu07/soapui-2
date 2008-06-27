@@ -1,0 +1,32 @@
+{
+  if (inputHandler == null)   return;
+switch (evt.getID()) {
+case KeyEvent.KEY_TYPED:
+    inputHandler.keyTyped(evt);
+  break;
+case KeyEvent.KEY_PRESSED:
+inputHandler.keyPressed(evt);
+break;
+case KeyEvent.KEY_RELEASED:
+inputHandler.keyReleased(evt);
+break;
+}
+if (!evt.isConsumed()) {
+KeyListener[] keyListeners=getKeyListeners();
+for (KeyListener listener : keyListeners) {
+switch (evt.getID()) {
+case KeyEvent.KEY_TYPED:
+listener.keyTyped(evt);
+break;
+case KeyEvent.KEY_PRESSED:
+listener.keyPressed(evt);
+break;
+case KeyEvent.KEY_RELEASED:
+listener.keyReleased(evt);
+break;
+}
+if (evt.isConsumed()) break;
+}
+if (!evt.isConsumed()) getParent().dispatchEvent(evt);
+}
+}

@@ -1,0 +1,10 @@
+{
+  if (!isOpen() || isDisabled())   return false;
+  String oldPath=path;
+  path=fileName;
+  boolean result=save();
+  if (!result)   path=oldPath;
+ else   remote=false;
+  setProjectRoot(path);
+  return result;
+}

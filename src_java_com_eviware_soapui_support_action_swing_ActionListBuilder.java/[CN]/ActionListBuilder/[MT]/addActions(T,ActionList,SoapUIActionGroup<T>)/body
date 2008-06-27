@@ -1,0 +1,33 @@
+{
+  boolean prevWasSeparator=false;
+  for (  SoapUIActionMapping<? extends ModelItem> mapping : actionGroup.getActionMappings(modelItem)) {
+    if (mapping == null)     continue;
+    SoapUIActionMapping<T> actionMapping=(com.eviware.soapui.support.action.SoapUIActionMapping<T>)mapping;
+    SoapUIAction<T> action=(SoapUIAction<T>)mapping.getAction();
+    if (action != null && !action.applies(modelItem)) {
+      System.out.println(action + " does not apply to " + modelItem);
+    }
+ else     if (action instanceof SeperatorAction) {
+      if (!prevWasSeparator) {
+        actions.addAction(ActionSupport.SEPARATOR_ACTION);
+      }
+      prevWasSeparator=true;
+    }
+ else     if (action instanceof SoapUIActionGroupAction) {
+      DefaultActionList subActions=new DefaultActionList(mapping.getName());
+      SoapUIActionGroup<T> subGroup=((SoapUIActionGroupAction<T>)action).getActionGroup();
+      addActions(modelItem,subActions,subGroup);
+      ActionSupport.ActionListAction actionListAction=new ActionSupport.ActionListAction(subActions);
+      actions.addAction(actionListAction);
+      actionListAction.setEnabled(mapping.isEnabled());
+      prevWasSeparator=false;
+    }
+ else     if (action != null) {
+      SwingActionDelegate<T> actionDelegate=new SwingActionDelegate<T>(actionMapping,modelItem);
+      actions.addAction(actionDelegate);
+      if (mapping.isDefault())       actions.setDefaultAction(actionDelegate);
+      actionDelegate.setEnabled(mapping.isEnabled());
+      prevWasSeparator=false;
+    }
+  }
+}

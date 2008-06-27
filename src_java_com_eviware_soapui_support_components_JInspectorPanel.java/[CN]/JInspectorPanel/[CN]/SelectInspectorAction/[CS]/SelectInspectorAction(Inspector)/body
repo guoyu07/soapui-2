@@ -1,0 +1,8 @@
+{
+  super(inspector.getTitle());
+  this.inspector=inspector;
+  putValue(AbstractAction.SHORT_DESCRIPTION,inspector.getDescription());
+  putValue(AbstractAction.SMALL_ICON,inspector.getIcon());
+  setEnabled(inspector.isEnabled());
+  inspector.addPropertyChangeListener(this);
+}

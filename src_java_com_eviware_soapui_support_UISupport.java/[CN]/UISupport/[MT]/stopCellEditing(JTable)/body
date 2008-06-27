@@ -1,0 +1,18 @@
+{
+  try {
+    int column=table.getEditingColumn();
+    if (column > -1) {
+      TableCellEditor cellEditor=table.getColumnModel().getColumn(column).getCellEditor();
+      if (cellEditor == null) {
+        cellEditor=table.getDefaultEditor(table.getColumnClass(column));
+      }
+      if (cellEditor != null) {
+        cellEditor.stopCellEditing();
+      }
+    }
+  }
+ catch (  RuntimeException e) {
+    return false;
+  }
+  return true;
+}

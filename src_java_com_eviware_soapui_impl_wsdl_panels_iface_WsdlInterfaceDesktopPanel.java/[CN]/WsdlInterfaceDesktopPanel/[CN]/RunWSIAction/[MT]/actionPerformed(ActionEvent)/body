@@ -1,0 +1,14 @@
+{
+  WSIAnalyzeAction action=new WSIAnalyzeAction(){
+    @Override protected void showReport(    File reportFile,    String configFile) throws Exception {
+      reportPanel=new WSIReportPanel(reportFile,configFile,null,false);
+      reportPanel.setPreferredSize(new Dimension(600,400));
+      if (wsiPanel.getComponentCount() > 1)       wsiPanel.remove(1);
+      wsiPanel.add(reportPanel,BorderLayout.CENTER);
+      wsiPanel.revalidate();
+      saveWsiReportAction.setEnabled(true);
+    }
+  }
+;
+  action.perform(getModelItem(),null);
+}

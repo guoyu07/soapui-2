@@ -1,0 +1,15 @@
+{
+  int row=statisticsTable.rowAtPoint(e.getPoint());
+  if (row == -1)   return;
+  if (statisticsTable.getSelectedRow() != row) {
+    statisticsTable.getSelectionModel().setSelectionInterval(row,row);
+  }
+  row=statisticsTable.convertRowIndexToModel(row);
+  while (popup.getComponentCount() > 1)   popup.remove(1);
+  if (row < statisticsTable.getRowCount() - 1) {
+    TestStep testStep=loadTest.getStatisticsModel().getTestStepAtRow(row);
+    ActionSupport.addActions(ActionListBuilder.buildActions(testStep),popup);
+  }
+  popup.setLocation((int)(statisticsTable.getLocationOnScreen().getX() + e.getPoint().getX()),(int)(statisticsTable.getLocationOnScreen().getY() + e.getPoint().getY()));
+  popup.setVisible(true);
+}

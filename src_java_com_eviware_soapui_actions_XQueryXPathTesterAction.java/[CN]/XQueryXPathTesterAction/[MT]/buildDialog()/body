@@ -1,0 +1,14 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  mainSplit=UISupport.createHorizontalSplit(createQueryPanel(),createResultPanel());
+  mainSplit.setResizeWeight(0.4);
+  panel.add(mainSplit,BorderLayout.CENTER);
+  panel.add(createStatusBar(),BorderLayout.SOUTH);
+  dialog=new JDialog(UISupport.getMainFrame(),"XQuery / XPath Tester",false);
+  dialog.getContentPane().add(panel,BorderLayout.CENTER);
+  dialog.setPreferredSize(new Dimension(600,400));
+  dialog.pack();
+  mainSplit.setDividerLocation(0.5);
+  querySplit.setDividerLocation(0.3);
+}

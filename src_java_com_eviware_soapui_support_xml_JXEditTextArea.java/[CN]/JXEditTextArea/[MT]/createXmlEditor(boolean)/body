@@ -1,0 +1,22 @@
+{
+  JXEditTextArea editArea=new JXEditTextArea(new XMLTokenMarker());
+  if (addPopup) {
+    JPopupMenu inputPopup=new JPopupMenu();
+    inputPopup.add(new FormatXmlAction(editArea));
+    inputPopup.addSeparator();
+    inputPopup.add(editArea.getUndoAction());
+    inputPopup.add(editArea.getRedoAction());
+    inputPopup.add(editArea.createCopyAction());
+    inputPopup.add(editArea.createCutAction());
+    inputPopup.add(editArea.createPasteAction());
+    inputPopup.addSeparator();
+    inputPopup.add(editArea.getFindAndReplaceAction());
+    inputPopup.addSeparator();
+    inputPopup.add(editArea.getGoToLineAction());
+    inputPopup.addSeparator();
+    inputPopup.add(new SaveXmlTextAreaAction(editArea,"Save SAML Assertion"));
+    inputPopup.add(new LoadXmlTextAreaAction(editArea,"Load SAML Assertion"));
+    editArea.setRightClickPopup(inputPopup);
+  }
+  return editArea;
+}

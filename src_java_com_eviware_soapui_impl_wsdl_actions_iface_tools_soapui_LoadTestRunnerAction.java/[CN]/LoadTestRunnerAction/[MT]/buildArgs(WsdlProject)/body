@@ -1,0 +1,33 @@
+{
+  if (dialog == null) {
+    ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
+    builder.startScript("loadtestrunner",".bat",".sh");
+    return builder;
+  }
+  StringToStringMap values=dialog.getValues();
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("loadtestrunner",".bat",".sh");
+  builder.addString(ENDPOINT,"-e","");
+  builder.addString(HOSTPORT,"-h","");
+  if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
+  if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
+  if (!values.get(LOADTEST).equals(ALL_VALUE))   builder.addString(LOADTEST,"-l","");
+  builder.addString(LIMIT,"-m","");
+  builder.addString(THREADCOUNT,"-h","");
+  builder.addString(USERNAME,"-u","");
+  builder.addString(PASSWORD,"-p","");
+  builder.addString(DOMAIN,"-d","");
+  builder.addBoolean(PRINTREPORT,"-r");
+  builder.addString(ROOTFOLDER,"-f","");
+  if (dialog.getBooleanValue(ADDSETTINGS)) {
+    try {
+      builder.addBoolean(ADDSETTINGS,"-t" + SoapUI.saveSettings());
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  builder.addArgs(new String[]{modelItem.getPath()});
+  addToolArgs(values,builder);
+  return builder;
+}

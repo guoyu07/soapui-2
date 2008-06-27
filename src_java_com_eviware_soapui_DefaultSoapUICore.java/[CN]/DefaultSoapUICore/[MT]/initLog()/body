@@ -1,0 +1,18 @@
+{
+  if (!logIsInitialized) {
+    File log4jconfig=root == null ? new File("soapui-log4j.xml") : new File(new File(root),"soapui-log4j.xml");
+    if (log4jconfig.exists()) {
+      System.out.println("Configuring log4j from [" + log4jconfig.getAbsolutePath() + "]");
+      DOMConfigurator.configureAndWatch(log4jconfig.getAbsolutePath(),5000);
+    }
+ else {
+      URL url=getClass().getResource("/com/eviware/soapui/resources/conf/soapui-log4j.xml");
+      if (url != null) {
+        DOMConfigurator.configure(url);
+      }
+ else       System.err.println("Missing soapui-log4j.xml configuration");
+    }
+    logIsInitialized=true;
+    log=Logger.getLogger(DefaultSoapUICore.class);
+  }
+}

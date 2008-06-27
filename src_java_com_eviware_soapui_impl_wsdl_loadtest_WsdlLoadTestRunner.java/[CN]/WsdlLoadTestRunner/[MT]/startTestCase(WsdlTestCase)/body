@@ -1,0 +1,7 @@
+{
+  TestCaseRunner testCaseRunner=new TestCaseRunner(testCase,threadCount++);
+  Thread thread=new Thread(threadGroup,testCaseRunner,testCase.getName() + " - " + loadTest.getName()+ " - ThreadIndex "+ testCaseRunner.threadIndex);
+  thread.start();
+  runners.add(testCaseRunner);
+  return testCaseRunner;
+}

@@ -1,0 +1,15 @@
+{
+  this.title=title;
+  this.description=description;
+  this.icon=icon;
+  form=new SimpleForm(new FormLayout("10px,left:pref,10px,left:pref,5px"));
+  actions=new DefaultActionList("Actions");
+  if (helpUrl != null) {
+    actions.addAction(new ShowOnlineHelpAction(helpUrl));
+    actions.addSeparator();
+  }
+  OkAction okAction=new OkAction();
+  actions.addAction(okAction);
+  actions.addAction(new CancelAction());
+  actions.setDefaultAction(okAction);
+}

@@ -1,0 +1,11 @@
+{
+  int row=paramsTable.getSelectedRow();
+  if (row == -1)   return;
+  UISupport.stopCellEditing(paramsTable);
+  String propertyName=paramsTableModel.getValueAt(row,0).toString();
+  if (UISupport.confirm("Remove parameter [" + propertyName + "]?","Remove Parameter")) {
+    params.removeProperty(propertyName);
+    paramsTableModel.fireTableRowsDeleted(row,row);
+    clearParamsAction.setEnabled(params.getPropertyCount() > 0);
+  }
+}

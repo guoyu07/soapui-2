@@ -1,0 +1,17 @@
+{
+  JPropertiesTable<WsdlMockService> table=new JPropertiesTable<WsdlMockService>("MockService Properties");
+  table.addProperty("Name","name",true);
+  table.addProperty("Description","description",true);
+  table.addProperty("Path","path");
+  table.addProperty("Port","port");
+  table.addProperty("Match SOAP Version","requireSoapVersion",JPropertiesTable.BOOLEAN_OPTIONS).setDescription("Matches incoming SOAP Version against corresponding Interface");
+  table.addProperty("Require SOAP Action","requireSoapAction",JPropertiesTable.BOOLEAN_OPTIONS);
+  StringList incomingNames=new StringList(mockService.getProject().getWssContainer().getIncomingWssNames());
+  incomingNames.add("");
+  table.addProperty("Incoming WSS","incomingWss",incomingNames.toStringArray());
+  StringList outgoingNames=new StringList(mockService.getProject().getWssContainer().getOutgoingWssNames());
+  outgoingNames.add("");
+  table.addProperty("Default Outgoing WSS","outgoingWss",outgoingNames.toStringArray());
+  table.setPropertyObject(mockService);
+  return table;
+}

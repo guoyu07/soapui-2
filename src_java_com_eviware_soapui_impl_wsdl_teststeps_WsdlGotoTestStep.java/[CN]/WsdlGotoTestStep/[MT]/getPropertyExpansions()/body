@@ -1,0 +1,7 @@
+{
+  List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  for (  GotoCondition condition : conditions) {
+    result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,condition,"expression"));
+  }
+  return result.toArray(new PropertyExpansion[result.size()]);
+}

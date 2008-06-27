@@ -1,0 +1,31 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  JXToolBar builder=UISupport.createToolbar();
+  enableLogCheckBox=new JCheckBox(" ",true);
+  enableLogCheckBox.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent arg0){
+      testLogList.setEnabled(enableLogCheckBox.isSelected());
+      if (mockRunner != null)       mockRunner.setLogEnabled(enableLogCheckBox.isSelected());
+      logScrollPane.repaint();
+    }
+  }
+);
+  builder.addFixed(enableLogCheckBox);
+  builder.addRelatedGap();
+  builder.addFixed(new JLabel("Enable"));
+  builder.addRelatedGap();
+  addLogActions(builder);
+  builder.addGlue();
+  builder.setBorder(BorderFactory.createEmptyBorder(2,3,3,3));
+  panel.add(builder,BorderLayout.NORTH);
+  logListModel=new LogListModel();
+  testLogList=new JList(logListModel);
+  testLogList.setCellRenderer(new LogCellRenderer());
+  testLogList.setPrototypeCellValue("Testing 123");
+  testLogList.setFixedCellWidth(-1);
+  testLogList.addMouseListener(new LogListMouseListener());
+  testLogList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+  logScrollPane=new JScrollPane(testLogList);
+  panel.add(logScrollPane,BorderLayout.CENTER);
+  return panel;
+}

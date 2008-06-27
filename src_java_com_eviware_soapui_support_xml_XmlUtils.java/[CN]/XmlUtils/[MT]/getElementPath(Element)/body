@@ -1,0 +1,9 @@
+{
+  Node elm=element;
+  String result=elm.getNodeName() + "[" + getElementIndex(elm)+ "]";
+  while (elm.getParentNode() != null && elm.getParentNode().getNodeType() != Node.DOCUMENT_NODE) {
+    elm=elm.getParentNode();
+    result=elm.getNodeName() + "[" + getElementIndex(elm)+ "]/"+ result;
+  }
+  return "/" + result;
+}

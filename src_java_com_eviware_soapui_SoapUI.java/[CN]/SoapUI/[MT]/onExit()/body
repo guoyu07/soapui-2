@@ -1,0 +1,22 @@
+{
+  if (saveOnExit) {
+    String question="Exit SoapUI?";
+    if (getTestMonitor().hasRunningTests())     question+="\n(Projects with running tests will not be saved)";
+    if (!UISupport.confirm(question,"Question"))     return false;
+    try {
+      PropertyExpansionUtils.saveGlobalProperties();
+      soapUICore.saveSettings();
+      workspace.onClose();
+    }
+ catch (    Exception e1) {
+      SoapUI.logError(e1);
+    }
+  }
+ else {
+    if (!UISupport.confirm("Exit SoapUI without saving?","Question")) {
+      saveOnExit=true;
+      return false;
+    }
+  }
+  return true;
+}

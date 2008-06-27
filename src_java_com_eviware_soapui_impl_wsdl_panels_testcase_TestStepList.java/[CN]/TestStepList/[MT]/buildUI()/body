@@ -1,0 +1,21 @@
+{
+  testStepListModel=new TestStepListModel();
+  testStepList=new TestStepJList(testStepListModel);
+  testStepList.setCellRenderer(new TestStepCellRenderer());
+  testStepList.setFixedCellHeight(22);
+  testStepList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  testStepList.addKeyListener(new TestStepListKeyHandler());
+  testStepList.addMouseListener(new ModelItemListMouseListener());
+  testListPopup=new JPopupMenu();
+  testListPopup.addSeparator();
+  appendStepMenu=new JMenu("Append Step");
+  WsdlTestStepRegistry registry=WsdlTestStepRegistry.getInstance();
+  WsdlTestStepFactory[] factories=(WsdlTestStepFactory[])registry.getFactories();
+  for (int c=0; c < factories.length; c++) {
+    if (factories[c].canCreate())     appendStepMenu.add(new InsertTestStepAction(factories[c]));
+  }
+  testListPopup.add(appendStepMenu);
+  testListPopup.addPopupMenuListener(new StepListPopupMenuListener(testCase));
+  testStepList.setComponentPopupMenu(testListPopup);
+  add(testStepList,BorderLayout.CENTER);
+}

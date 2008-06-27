@@ -1,0 +1,8 @@
+{
+  super.release();
+  getProject().removeProjectListener(internalProjectListener);
+  for (  InterfaceTreeNode treeNode : interfaceNodes)   treeNode.release();
+  for (  TestSuiteTreeNode treeNode : testSuiteNodes)   treeNode.release();
+  for (  MockServiceTreeNode treeNode : mockServiceNodes)   treeNode.release();
+  if (propertiesTreeNode != null)   propertiesTreeNode.release();
+}

@@ -1,0 +1,7 @@
+{
+  WsdlTestCase testCase=testStep.getTestCase();
+  int ix=testCase.getIndexOfTestStep(testStep);
+  if (ix == -1 || ix == 0)   return;
+  testCase.moveTestStep(ix,-1);
+  UISupport.select(testStep);
+}

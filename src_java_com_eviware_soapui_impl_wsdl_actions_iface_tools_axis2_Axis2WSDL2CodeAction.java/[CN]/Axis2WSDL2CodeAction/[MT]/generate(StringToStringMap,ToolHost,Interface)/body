@@ -1,0 +1,12 @@
+{
+  String axis2Dir=SoapUI.getSettings().getString(ToolsSettings.AXIS_2_LOCATION,null);
+  if (Tools.isEmpty(axis2Dir)) {
+    UISupport.showErrorMessage("Axis 2 wsdl2java directory must be set in global preferences");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,(WsdlInterface)modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(axis2Dir + File.separatorChar + "bin"));
+  toolHost.run(new ProcessToolRunner(builder,"Axis2 wsdl2java",modelItem));
+}

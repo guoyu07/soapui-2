@@ -1,0 +1,10 @@
+{
+  Vector<?> result=messageExchange.getResponseWssResult();
+  if (result == null || result.isEmpty())   throw new AssertionException(new AssertionError("Missing WS-Security results"));
+  for (int c=0; c < result.size(); c++) {
+    if (result.get(c) instanceof Exception) {
+      throw new AssertionException(new AssertionError("WS-Security validation failed: " + result.get(c)));
+    }
+  }
+  return "WS-Security status OK";
+}

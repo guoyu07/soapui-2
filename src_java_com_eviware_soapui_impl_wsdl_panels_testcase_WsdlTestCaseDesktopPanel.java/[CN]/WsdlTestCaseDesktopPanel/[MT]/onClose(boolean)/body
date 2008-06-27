@@ -1,0 +1,25 @@
+{
+  if (canCancel) {
+    if (runner != null && runner.getStatus() == TestRunner.Status.RUNNING) {
+      Boolean retval=UISupport.confirmOrCancel("Cancel running TestCase?","Cancel Run");
+      if (retval == null)       return false;
+      if (retval.booleanValue()) {
+        runner.cancel(null);
+      }
+    }
+  }
+ else {
+    if (runner != null && runner.getStatus() == TestRunner.Status.RUNNING) {
+      runner.cancel(null);
+    }
+  }
+  SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
+  getModelItem().removeTestRunListener(testRunListener);
+  testStepList.release();
+  progressBarAdapter.release();
+  propertiesTable.release();
+  setupGroovyEditor.getEditor().release();
+  tearDownGroovyEditor.getEditor().release();
+  testCaseLog.release();
+  return release();
+}

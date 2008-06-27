@@ -1,0 +1,9 @@
+{
+  if (!isLocked() && hasConnection()) {
+    HttpConnection wrappedConnection=this.wrappedConnection;
+    this.wrappedConnection=null;
+    wrappedConnection.releaseConnection();
+  }
+ else {
+  }
+}

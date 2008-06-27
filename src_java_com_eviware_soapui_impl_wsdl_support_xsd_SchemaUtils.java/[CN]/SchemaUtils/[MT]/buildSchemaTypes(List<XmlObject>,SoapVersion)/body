@@ -1,0 +1,58 @@
+{
+  XmlOptions options=new XmlOptions();
+  options.setCompileNoValidation();
+  options.setCompileNoPvrRule();
+  options.setCompileDownloadUrls();
+  options.setCompileNoUpaRule();
+  options.setValidateTreatLaxAsSkip();
+  for (int c=0; c < schemas.size(); c++) {
+    XmlObject xmlObject=schemas.get(c);
+    if (xmlObject == null || !((Document)xmlObject.getDomNode()).getDocumentElement().getNamespaceURI().equals(Constants.XSD_NS)) {
+      schemas.remove(c);
+      c--;
+    }
+  }
+  if (!SoapUI.getSettings().getBoolean(WsdlSettings.STRICT_SCHEMA_TYPES)) {
+    Set<String> mdefNamespaces=new HashSet<String>();
+    for (    XmlObject xObj : schemas) {
+      mdefNamespaces.add(getTargetNamespace(xObj));
+    }
+    options.setCompileMdefNamespaces(mdefNamespaces);
+  }
+  ArrayList<?> errorList=new ArrayList<Object>();
+  options.setErrorListener(errorList);
+  XmlCursor cursor=null;
+  try {
+    for (int c=0; c < schemas.size(); c++) {
+      XmlObject s=schemas.get(c);
+      Map<?,?> map=new HashMap<String,String>();
+      cursor=s.newCursor();
+      cursor.toStartDoc();
+      if (toNextContainer(cursor))       cursor.getAllNamespaces(map);
+ else       log.warn("Can not get namespaces for " + s);
+      String tns=getTargetNamespace(s);
+      if (defaultSchemas.containsKey(tns)) {
+        schemas.remove(c);
+        c--;
+      }
+ else {
+        removeImports(s);
+      }
+      cursor.dispose();
+      cursor=null;
+    }
+    schemas.addAll(defaultSchemas.values());
+    SchemaTypeSystem sts=XmlBeans.compileXsd(schemas.toArray(new XmlObject[schemas.size()]),XmlBeans.getBuiltinTypeSystem(),options);
+    return XmlBeans.typeLoaderUnion(new SchemaTypeLoader[]{sts,XmlBeans.getBuiltinTypeSystem()});
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    throw new SchemaException(e,errorList);
+  }
+ finally {
+    for (int c=0; c < errorList.size(); c++) {
+      log.warn("Error: " + errorList.get(c));
+    }
+    if (cursor != null)     cursor.dispose();
+  }
+}

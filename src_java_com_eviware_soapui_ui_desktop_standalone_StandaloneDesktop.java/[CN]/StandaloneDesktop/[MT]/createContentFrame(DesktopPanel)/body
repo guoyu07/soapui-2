@@ -1,0 +1,18 @@
+{
+  desktopPanel.addPropertyChangeListener(desktopPanelPropertyChangeListener);
+  JComponent panel=desktopPanel.getComponent();
+  panel.setOpaque(true);
+  String title=desktopPanel.getTitle();
+  JInternalFrame frame=new JInternalFrame(title,true,true,true,true);
+  frame.addInternalFrameListener(internalFrameListener);
+  frame.setContentPane(panel);
+  frame.setSize(panel.getPreferredSize());
+  frame.setVisible(true);
+  frame.setFrameIcon(desktopPanel.getIcon());
+  frame.setToolTipText(desktopPanel.getDescription());
+  frame.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+  frame.setLocation(xOffset * (openFrameCount % 10),yOffset * (openFrameCount % 10));
+  frame.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createEmptyBorder(2,2,2,2)));
+  openFrameCount++;
+  return frame;
+}

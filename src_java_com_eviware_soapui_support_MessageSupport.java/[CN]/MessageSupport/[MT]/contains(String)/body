@@ -1,0 +1,10 @@
+{
+  ResourceBundle bundle=getResourceBundleForClass(clazz);
+  if (bundle == null)   return false;
+  try {
+    return bundle.getString(key) != null;
+  }
+ catch (  MissingResourceException e) {
+    return false;
+  }
+}

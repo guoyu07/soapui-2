@@ -1,0 +1,31 @@
+{
+  int pos=target.getCaretPosition();
+  String txt=target.getText();
+  String value=findCombo.getSelectedItem().toString();
+  if (value.length() == 0 || txt.length() == 0)   return;
+  String newValue=replaceCombo.getSelectedItem().toString();
+  if (!caseCheck.isSelected()) {
+    if (newValue.equalsIgnoreCase(value))     return;
+    value=value.toUpperCase();
+    txt=txt.toUpperCase();
+  }
+ else   if (newValue.equals(value))   return;
+  int ix=findNext(pos,txt,value);
+  int firstIx=ix;
+  int valueInNewValueIx=!caseCheck.isSelected() ? newValue.toUpperCase().indexOf(value) : newValue.indexOf(value);
+  while (ix != -1) {
+    System.out.println("found match at " + ix + ", "+ firstIx+ ", "+ valueInNewValueIx);
+    target.select(ix + value.length(),ix);
+    target.setSelectedText(newValue);
+    target.select(ix + newValue.length(),ix);
+    if (ix < firstIx)     firstIx+=newValue.length() - value.length();
+    txt=target.getText();
+    if (!caseCheck.isSelected()) {
+      txt=txt.toUpperCase();
+    }
+    ix=findNext(ix + newValue.length(),txt,value);
+    if (wrapCheck.isSelected() && valueInNewValueIx != -1 && ix == firstIx + valueInNewValueIx) {
+      break;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  String script=getStopScript();
+  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (stopScriptEngine == null) {
+    stopScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+    stopScriptEngine.setScript(script);
+  }
+  stopScriptEngine.setVariable("context",runContext);
+  stopScriptEngine.setVariable("mockRunner",runner);
+  stopScriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  return stopScriptEngine.run();
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    dialog.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+    return page.init();
+  }
+ catch (  Exception e) {
+    dialog.setCursor(Cursor.getDefaultCursor());
+    SoapUI.logError(e);
+    UISupport.showInfoMessage(pageName + " could not be initialized",this.name);
+    return false;
+  }
+ finally {
+    dialog.setCursor(Cursor.getDefaultCursor());
+  }
+}

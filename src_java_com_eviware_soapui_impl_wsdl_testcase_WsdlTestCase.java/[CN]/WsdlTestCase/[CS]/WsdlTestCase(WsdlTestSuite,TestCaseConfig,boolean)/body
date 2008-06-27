@@ -1,0 +1,29 @@
+{
+  super(config,testSuite,"/testCase.gif");
+  this.testSuite=testSuite;
+  this.forLoadTest=forLoadTest;
+  List<TestStepConfig> testStepConfigs=config.getTestStepList();
+  for (  TestStepConfig tsc : testStepConfigs) {
+    WsdlTestStep testStep=createTestStepFromConfig(tsc);
+    if (testStep != null) {
+      ensureUniqueName(testStep);
+      testSteps.add(testStep);
+    }
+  }
+  if (!forLoadTest) {
+    List<LoadTestConfig> loadTestConfigs=config.getLoadTestList();
+    for (    LoadTestConfig tsc : loadTestConfigs) {
+      WsdlLoadTest loadTest=new WsdlLoadTest(this,tsc);
+      loadTests.add(loadTest);
+    }
+  }
+  if (!config.isSetFailOnError())   config.setFailOnError(true);
+  if (!config.isSetFailTestCaseOnErrors())   config.setFailTestCaseOnErrors(true);
+  if (!config.isSetKeepSession())   config.setKeepSession(false);
+  if (!config.isSetMaxResults())   config.setMaxResults(0);
+  for (  TestRunListener listener : SoapUI.getListenerRegistry().getListeners(TestRunListener.class)) {
+    addTestRunListener(listener);
+  }
+  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  setPropertiesConfig(getConfig().getProperties());
+}

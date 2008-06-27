@@ -1,0 +1,11 @@
+{
+  dialog.pack();
+  if (dialog.getHeight() < 270) {
+    dialog.setSize(new Dimension(dialog.getWidth(),270));
+  }
+  if (dialog.getWidth() < 450) {
+    dialog.setSize(new Dimension(450,dialog.getHeight()));
+  }
+  UISupport.centerDialog(dialog);
+  dialog.setVisible(visible);
+}

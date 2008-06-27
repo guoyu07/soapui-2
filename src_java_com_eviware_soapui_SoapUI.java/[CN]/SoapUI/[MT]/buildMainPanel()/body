@@ -1,0 +1,8 @@
+{
+  JInspectorPanel inspectorPanel=new JInspectorPanel(navigator);
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildOverviewPanel(),"Properties","Properties for the currently selected item",true));
+  inspectorPanel.setDividerLocation(500);
+  inspectorPanel.setResizeWeight(0.6);
+  inspectorPanel.setCurrentInspector("Properties");
+  return inspectorPanel;
+}

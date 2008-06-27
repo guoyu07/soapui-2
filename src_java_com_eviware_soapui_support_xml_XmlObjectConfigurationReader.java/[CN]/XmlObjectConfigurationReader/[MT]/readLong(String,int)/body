@@ -1,0 +1,10 @@
+{
+  if (config == null)   return def;
+  try {
+    String str=readString(name,null);
+    return str == null ? def : Long.parseLong(str);
+  }
+ catch (  NumberFormatException e) {
+  }
+  return def;
+}

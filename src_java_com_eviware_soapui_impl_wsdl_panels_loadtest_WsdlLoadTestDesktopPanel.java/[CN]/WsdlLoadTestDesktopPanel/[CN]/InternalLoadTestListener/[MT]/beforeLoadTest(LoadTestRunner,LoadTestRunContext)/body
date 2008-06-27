@@ -1,0 +1,20 @@
+{
+  loadTestLog.clear();
+  loadTestStartTime=System.currentTimeMillis();
+  loadTestIsRunning=true;
+  if (getModelItem().getTestLimit() > 0) {
+    progressBar.setValue(0);
+    progressBar.setString(null);
+  }
+ else {
+    progressBar.setString("...");
+  }
+  progressBar.setStringPainted(true);
+  runButton.setEnabled(false);
+  cancelButton.setEnabled(true);
+  strategyCombo.setEnabled(false);
+  limitTypeCombo.setEnabled(false);
+  optionsButton.setEnabled(false);
+  threadsSpinner.setEnabled(getModelItem().getLoadStrategy().allowThreadCountChangeDuringRun());
+  new Thread(new ProgressBarUpdater(),getModelItem().getName() + " ProgressBarUpdater").start();
+}

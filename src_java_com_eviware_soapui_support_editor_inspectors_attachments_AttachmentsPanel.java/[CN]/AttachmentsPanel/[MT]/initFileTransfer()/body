@@ -1,0 +1,42 @@
+{
+  if (container instanceof MutableAttachmentContainer) {
+    fileTransferHandler=new FileTransferHandler(tableModel);
+    fileTable.setDragEnabled(true);
+    fileTable.setTransferHandler(fileTransferHandler);
+    dropTarget=new DropTarget();
+    dropTarget.setActive(true);
+    try {
+      dropTarget.addDropTargetListener(new DropTargetListener(){
+        public void dragEnter(        DropTargetDragEvent dtde){
+        }
+        public void dragExit(        DropTargetEvent dte){
+        }
+        public void dragOver(        DropTargetDragEvent dtde){
+        }
+        @SuppressWarnings("unchecked") public void drop(        DropTargetDropEvent dtde){
+          try {
+            dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
+            Transferable trans=dtde.getTransferable();
+            List<File> files=(List<File>)trans.getTransferData(DataFlavor.javaFileListFlavor);
+            for (            File f : files) {
+              System.out.println("Dropping file: " + f.getName());
+              Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Att Attachment");
+              if (retval == null)               return;
+              tableModel.addFile(f,retval);
+            }
+          }
+ catch (          Exception e) {
+            SoapUI.logError(e);
+          }
+        }
+        public void dropActionChanged(        DropTargetDragEvent dtde){
+        }
+      }
+);
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+    jScrollPane1.getViewport().setDropTarget(dropTarget);
+  }
+}

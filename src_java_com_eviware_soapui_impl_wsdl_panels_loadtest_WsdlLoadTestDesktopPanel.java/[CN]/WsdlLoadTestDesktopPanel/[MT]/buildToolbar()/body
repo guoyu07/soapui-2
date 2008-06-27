@@ -1,0 +1,65 @@
+{
+  WsdlLoadTest loadTest=getModelItem();
+  JXToolBar toolbar=UISupport.createToolbar();
+  runButton=UISupport.createToolbarButton(new RunLoadTestAction());
+  cancelButton=UISupport.createToolbarButton(new CancelRunTestCaseAction(),false);
+  resetButton=UISupport.createToolbarButton(new ResetAction());
+  exportButton=UISupport.createToolbarButton(new ExportStatisticsAction(loadTest.getStatisticsModel()));
+  statisticsGraphButton=UISupport.createToolbarButton(new ShowStatisticsGraphAction());
+  testTimesGraphButton=UISupport.createToolbarButton(new ShowTestTimesGraphAction());
+  statisticsGraphButton.setEnabled(getModelItem().getHistoryLimit() != 0);
+  testTimesGraphButton.setEnabled(getModelItem().getHistoryLimit() != 0);
+  AbstractAction optionsDelegate=SwingActionDelegate.createDelegate(LoadTestOptionsAction.SOAPUI_ACTION_ID,loadTest);
+  optionsDelegate.putValue(Action.SMALL_ICON,UISupport.createImageIcon("/options.gif"));
+  optionsButton=UISupport.createToolbarButton(optionsDelegate);
+  strategyCombo=new JComboBox(LoadStrategyRegistry.getInstance().getStrategies());
+  strategyCombo.setToolTipText("Selects which LoadTest Strategy to use");
+  UISupport.setPreferredHeight(strategyCombo,18);
+  strategyCombo.setSelectedItem(loadTest.getLoadStrategy().getType());
+  strategyCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      Object item=e.getItem();
+      if (item == null)       return;
+      setLoadStrategy(item.toString());
+    }
+  }
+);
+  toolbar.add(runButton);
+  toolbar.add(cancelButton);
+  toolbar.add(statisticsGraphButton);
+  toolbar.add(testTimesGraphButton);
+  toolbar.add(resetButton);
+  toolbar.add(exportButton);
+  toolbar.add(optionsButton);
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.LOADTESTEDITOR_HELP_URL)));
+  toolbar.add(Box.createHorizontalGlue());
+  buildLimitBar(toolbar);
+  toolbar.addSeparator();
+  progressBar=new JProgressBar(0,100);
+  progressBar.setPreferredSize(new Dimension(70,20));
+  toolbar.addFixed(progressBar);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  builder.addFixed(new JLabel("Threads:"));
+  builder.addRelatedGap();
+  threadsSpinner=new JSpinner(new SpinnerNumberModel(getModelItem().getThreadCount(),1,9999,1));
+  threadsSpinner.setToolTipText("Sets the number of threads (\"Virtual Users\") to run this TestCase");
+  UISupport.setPreferredHeight(threadsSpinner,18);
+  threadsSpinner.getModel().addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      getModelItem().setThreadCount(((SpinnerNumberModel)threadsSpinner.getModel()).getNumber().intValue());
+    }
+  }
+);
+  builder.addFixed(threadsSpinner);
+  builder.addUnrelatedGap();
+  LoadStrategy loadStrategy=loadTest.getLoadStrategy();
+  builder.addFixed(new JLabel("Strategy"));
+  builder.addRelatedGap();
+  builder.addFixed(strategyCombo);
+  builder.addUnrelatedGap();
+  loadStrategyConfigurationPanel=new JPanel(new BorderLayout());
+  loadStrategyConfigurationPanel.add(loadStrategy.getConfigurationPanel(),BorderLayout.CENTER);
+  builder.addFixed(loadStrategyConfigurationPanel);
+  builder.setBorder(BorderFactory.createEmptyBorder(2,3,3,3));
+  return UISupport.buildPanelWithToolbar(toolbar,builder.getPanel());
+}

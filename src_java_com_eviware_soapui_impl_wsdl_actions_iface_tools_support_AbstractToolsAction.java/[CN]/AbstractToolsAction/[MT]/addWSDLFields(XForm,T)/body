@@ -1,0 +1,14 @@
+{
+  if (!fixedWSDL) {
+    XFormTextField tf=mainForm.addTextField(WSDL,"url to wsdl",XForm.FieldType.URL);
+    if (modelItem instanceof Interface) {
+      useCached=mainForm.addCheckBox(CACHED_WSDL,null);
+      useCached.addComponentEnabler(tf,"false");
+    }
+  }
+ else {
+    if (modelItem instanceof Interface) {
+      useCached=mainForm.addCheckBox(CACHED_WSDL,null);
+    }
+  }
+}

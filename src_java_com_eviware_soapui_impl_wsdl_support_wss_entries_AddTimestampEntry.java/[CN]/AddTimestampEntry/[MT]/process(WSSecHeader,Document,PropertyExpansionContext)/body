@@ -1,0 +1,13 @@
+{
+  if (timeToLive <= 0)   return;
+  WSSecTimestamp timestamp=new WSSecTimestamp();
+  timestamp.setTimeToLive(timeToLive);
+  timestamp.build(doc,secHeader);
+  if (!strictTimestamp) {
+    WSSConfig wsc=WSSConfig.getNewInstance();
+    wsc.setPrecisionInMilliSeconds(false);
+    wsc.setTimeStampStrict(false);
+    timestamp.setWsConfig(wsc);
+  }
+  timestamp.build(doc,secHeader);
+}

@@ -1,0 +1,23 @@
+{
+  long timestamp=System.currentTimeMillis();
+  List<LoadTestStepSample[]> s=new ArrayList<LoadTestStepSample[]>();
+  List<TestStepResult> testResults=testRunner.getResults();
+  for (int c=0; c < loadTest.getTestCase().getTestStepCount(); c++) {
+    TestStep testStep=loadTest.getTestCase().getTestStepAt(c);
+    List<LoadTestStepSample> results=new ArrayList<LoadTestStepSample>();
+    for (int i=0; i < testResults.size(); i++) {
+      TestStepResult stepResult=testResults.get(i);
+      if (stepResult == null) {
+        log.warn("Result [" + c + "] is null in TestCase ["+ testRunner.getTestCase().getName()+ "]");
+        continue;
+      }
+      if (stepResult.getTestStep().equals(testStep))       results.add(new LoadTestStepSample(stepResult));
+    }
+    s.add(results.toArray(new LoadTestStepSample[results.size()]));
+  }
+synchronized (this) {
+    samples.add(s);
+    timestamps.add(timestamp);
+    fireTableRowsInserted(samples.size() - 1,samples.size() - 1);
+  }
+}

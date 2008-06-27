@@ -1,0 +1,14 @@
+{
+  if (this.xmlDocument != null) {
+    this.xmlDocument.removePropertyChangeListener(XmlDocument.XML_PROPERTY,this);
+  }
+  this.xmlDocument=xmlDocument;
+  if (xmlDocument != null) {
+    this.xmlDocument.addPropertyChangeListener(XmlDocument.XML_PROPERTY,this);
+    setXml(xmlDocument.getXml());
+  }
+ else {
+    setXml(null);
+  }
+  xmlChanged=false;
+}

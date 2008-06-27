@@ -1,0 +1,9 @@
+{
+  setRunType(testSuite.getRunType());
+  removeAllTestCases();
+  testCaseList.reset();
+  for (  TestCase testCase : testSuite.getTestCaseList()) {
+    if (!testCase.isDisabled())     addTestCase(testCase);
+  }
+  super.run();
+}

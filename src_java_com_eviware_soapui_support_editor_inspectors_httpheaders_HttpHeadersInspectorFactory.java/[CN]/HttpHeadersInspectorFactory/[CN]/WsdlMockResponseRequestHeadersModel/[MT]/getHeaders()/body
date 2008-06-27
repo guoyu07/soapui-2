@@ -1,0 +1,4 @@
+{
+  WsdlMockResponse request=getModelItem();
+  return request.getMockResult() == null ? new StringToStringMap() : request.getMockResult().getMockRequest().getRequestHeaders();
+}

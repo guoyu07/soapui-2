@@ -1,0 +1,10 @@
+{
+  try {
+    getInputStream();
+    return data == null ? bodyPart.getSize() : data.length;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return -1;
+  }
+}

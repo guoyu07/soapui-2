@@ -1,0 +1,19 @@
+{
+  List<TestStepResult> results=testRunner.getResults();
+  TestCase testCase=testRunner.getTestCase();
+  long[] samples=new long[testCase.getTestStepCount()];
+  long[] sizes=new long[samples.length];
+  long[] sampleCounts=new long[samples.length];
+  for (int c=0; c < results.size(); c++) {
+    TestStepResult testStepResult=results.get(c);
+    if (testStepResult == null) {
+      log.warn("Result [" + c + "] is null in TestCase ["+ testCase.getName()+ "]");
+      continue;
+    }
+    int index=testCase.getIndexOfTestStep(testStepResult.getTestStep());
+    sampleCounts[index]++;
+    samples[index]+=testStepResult.getTimeTaken();
+    sizes[index]+=testStepResult.getSize();
+  }
+  pushSamples(samples,sizes,sampleCounts,testRunner.getStartTime(),testRunner.getTimeTaken(),true);
+}

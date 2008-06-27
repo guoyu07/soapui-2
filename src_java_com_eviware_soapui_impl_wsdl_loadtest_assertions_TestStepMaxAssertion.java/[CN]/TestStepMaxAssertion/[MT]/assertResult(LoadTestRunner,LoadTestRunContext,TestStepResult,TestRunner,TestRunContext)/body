@@ -1,0 +1,13 @@
+{
+  TestStep step=result.getTestStep();
+  if (targetStepMatches(step)) {
+    WsdlLoadTest loadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+    LoadTestStatistics statisticsModel=loadTest.getStatisticsModel();
+    int index=step.getTestCase().getIndexOfTestStep(step);
+    long maximum=result.getTimeTaken();
+    if (statisticsModel.getStatistic(index,Statistic.COUNT) > minRequests && maximum >= maxValue) {
+      return returnErrorOrFail("Time [" + maximum + "] exceeds limit ["+ maxValue+ "]",maxErrors,loadTestRunner,context);
+    }
+  }
+  return null;
+}

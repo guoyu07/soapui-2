@@ -1,0 +1,14 @@
+{
+  try {
+    UISupport.setHourglassCursor();
+    DesktopPanel desktopPanel=UISupport.showDesktopPanel(mockService);
+    if (mockService.getMockRunner() == null)     mockService.start();
+    SoapUI.getDesktop().minimize(desktopPanel);
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

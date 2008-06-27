@@ -1,0 +1,6 @@
+{
+  if (evt.getPropertyName().equals(Inspector.ENABLED_PROPERTY)) {
+    JToggleButton toggleButton=inspectorButtons.get(evt.getSource());
+    if (toggleButton != null)     toggleButton.setEnabled((Boolean)evt.getNewValue());
+  }
+}

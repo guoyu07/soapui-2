@@ -1,0 +1,76 @@
+{
+  HttpClient httpClient=HttpClientSupport.getHttpClient();
+  ExtendedHttpMethod httpMethod=createHttpMethod(httpRequest);
+  boolean createdState=false;
+  HttpState httpState=(HttpState)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
+  if (httpState == null) {
+    httpState=new HttpState();
+    submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,httpState);
+    createdState=true;
+  }
+  HostConfiguration hostConfiguration=new HostConfiguration();
+  String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
+  if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
+  if (localAddress != null && localAddress.trim().length() > 0) {
+    try {
+      hostConfiguration.setLocalAddress(InetAddress.getByName(localAddress));
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  submitContext.setProperty(HTTP_METHOD,httpMethod);
+  submitContext.setProperty(POST_METHOD,httpMethod);
+  submitContext.setProperty(HTTP_CLIENT,httpClient);
+  submitContext.setProperty(REQUEST_CONTENT,httpRequest.getRequestContent());
+  submitContext.setProperty(HOST_CONFIGURATION,hostConfiguration);
+  submitContext.setProperty(WSDL_REQUEST,httpRequest);
+  for (  RequestFilter filter : filters) {
+    filter.filterRequest(submitContext,httpRequest);
+  }
+  Response response=null;
+  try {
+    Settings settings=httpRequest.getSettings();
+    String requestContent=(String)submitContext.getProperty(REQUEST_CONTENT);
+    boolean isWsdl=httpRequest instanceof WsdlRequest;
+    if (isWsdl)     requestContent=initWsdlRequest((WsdlRequest)httpRequest,(ExtendedPostMethod)httpMethod,requestContent);
+    StringToStringMap headers=httpRequest.getRequestHeaders();
+    for (    String header : headers.keySet()) {
+      String headerValue=headers.get(header);
+      headerValue=PropertyExpansionUtils.expandProperties(submitContext,headerValue);
+      httpMethod.setRequestHeader(header,headerValue);
+    }
+    WsdlProject project=(WsdlProject)httpRequest.getOperation().getInterface().getProject();
+    WssCrypto crypto=project.getWssContainer().getCryptoByName(httpRequest.getSslKeystore());
+    if (crypto != null && WssCrypto.STATUS_OK.equals(crypto.getStatus())) {
+      hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
+    }
+    httpMethod.setDumpFile(PropertyExpansionUtils.expandProperties(submitContext,httpRequest.getDumpFile()));
+    if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
+    httpClient.executeMethod(hostConfiguration,httpMethod,httpState);
+    httpMethod.getTimeTaken();
+    Header responseContentTypeHeader=httpMethod.getResponseHeader("Content-Type");
+    if (!settings.getBoolean(WsdlRequest.INLINE_RESPONSE_ATTACHMENTS) && responseContentTypeHeader != null && responseContentTypeHeader.getValue().toUpperCase().startsWith("MULTIPART")) {
+      if (isWsdl)       response=new WsdlMimeMessageResponse((WsdlRequest)httpRequest,httpMethod,requestContent,submitContext);
+ else       response=new MimeMessageResponse(httpRequest,httpMethod,requestContent,submitContext);
+    }
+ else {
+      if (isWsdl)       response=new WsdlSinglePartHttpResponse((WsdlRequest)httpRequest,httpMethod,requestContent,submitContext);
+ else       response=new SinglePartHttpResponse(httpRequest,httpMethod,requestContent,submitContext);
+    }
+    return response;
+  }
+ catch (  Throwable t) {
+    throw new Exception(t);
+  }
+ finally {
+    for (    RequestFilter filter : filters) {
+      filter.afterRequest(submitContext,response);
+    }
+    if (httpMethod != null) {
+      httpMethod.releaseConnection();
+    }
+ else     log.error("PostMethod is null");
+    if (createdState)     submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
+  }
+}

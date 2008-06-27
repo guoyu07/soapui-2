@@ -1,0 +1,9 @@
+{
+  if (validators == null || validators.isEmpty())   return null;
+  ArrayList<ValidationMessage> messages=new ArrayList<ValidationMessage>();
+  for (  XFormFieldValidator validator : validators) {
+    ValidationMessage[] validateField=validator.validateField(this);
+    if (validateField != null && validateField.length > 0)     messages.addAll(Arrays.asList(validateField));
+  }
+  return messages.toArray(new ValidationMessage[messages.size()]);
+}

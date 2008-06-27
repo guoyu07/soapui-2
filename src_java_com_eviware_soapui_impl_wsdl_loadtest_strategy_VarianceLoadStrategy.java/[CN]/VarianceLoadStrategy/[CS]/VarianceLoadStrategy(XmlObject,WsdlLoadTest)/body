@@ -1,0 +1,6 @@
+{
+  super(STRATEGY_TYPE,loadTest);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(config);
+  interval=reader.readLong(INTERVAL_ELEMENT,DEFAULT_INTERVAL);
+  variance=reader.readFloat(VARIANCE_ELEMENT,DEFAULT_VARIANCE);
+}

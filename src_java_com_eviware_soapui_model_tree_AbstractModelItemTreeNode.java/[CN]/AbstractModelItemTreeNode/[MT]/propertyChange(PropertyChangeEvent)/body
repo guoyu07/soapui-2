@@ -1,0 +1,14 @@
+{
+  String propertyName=evt.getPropertyName();
+  if (propertyName.equals(ModelItem.NAME_PROPERTY) || propertyName.equals(ModelItem.LABEL_PROPERTY)) {
+    getTreeModel().notifyNodeChanged(this);
+  }
+ else   if (propertyName.equals(ModelItem.ICON_PROPERTY)) {
+    JTree mainTree=SoapUI.getNavigator().getMainTree();
+    TreePath nodePath=getTreeModel().getPath(this);
+    Rectangle rowBounds=mainTree.getPathBounds(nodePath);
+    if (rowBounds != null) {
+      mainTree.repaint(rowBounds);
+    }
+  }
+}

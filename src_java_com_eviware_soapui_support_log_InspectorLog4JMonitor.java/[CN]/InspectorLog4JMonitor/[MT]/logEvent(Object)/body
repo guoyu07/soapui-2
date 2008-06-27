@@ -1,0 +1,18 @@
+{
+  if (msg instanceof LoggingEvent) {
+    LoggingEvent event=(LoggingEvent)msg;
+    String loggerName=event.getLoggerName();
+    for (    Inspector inspector : getInspectors()) {
+      Component tabComponent=inspector.getComponent();
+      if (tabComponent instanceof JLogList) {
+        JLogList logArea=(JLogList)tabComponent;
+        if (logArea.monitors(loggerName)) {
+          logArea.addLine(msg);
+        }
+      }
+    }
+  }
+ else   if (defaultLogArea != null) {
+    defaultLogArea.addLine(msg);
+  }
+}

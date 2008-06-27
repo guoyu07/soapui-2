@@ -1,0 +1,9 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(elm);
+    xmlObject.save(writer);
+  }
+ catch (  XmlException e) {
+    throw new IOException(e.toString());
+  }
+}

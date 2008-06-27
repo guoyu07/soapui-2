@@ -1,0 +1,12 @@
+{
+  try {
+    String result=PathUtils.denormalizePath(getPropertyValue());
+    if (StringUtils.isNullOrEmpty(result))     return result;
+    if (context != null)     result=PropertyExpansionUtils.expandProperties(context,result);
+    return PathUtils.resolveResourcePath(result,modelItem);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return null;
+  }
+}

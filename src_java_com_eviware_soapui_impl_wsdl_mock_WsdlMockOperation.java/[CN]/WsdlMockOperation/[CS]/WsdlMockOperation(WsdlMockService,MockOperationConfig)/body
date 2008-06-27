@@ -1,0 +1,19 @@
+{
+  super(config,mockService,"/mockOperation.gif");
+  Interface iface=mockService.getProject().getInterfaceByName(config.getInterface());
+  if (iface == null) {
+    SoapUI.log.warn("Missing interface [" + config.getInterface() + "] for MockOperation in project");
+  }
+ else {
+    operation=(WsdlOperation)iface.getOperationByName(config.getOperation());
+  }
+  List<MockResponseConfig> responseConfigs=config.getResponseList();
+  for (  MockResponseConfig responseConfig : responseConfigs) {
+    WsdlMockResponse wsdlMockResponse=new WsdlMockResponse(this,responseConfig);
+    wsdlMockResponse.addPropertyChangeListener(this);
+    responses.add(wsdlMockResponse);
+  }
+  initData(config);
+  counter=new AtomicLong();
+  responseMap=new ConcurrentHashMap<QueryValuePair,WsdlMockResponse>();
+}

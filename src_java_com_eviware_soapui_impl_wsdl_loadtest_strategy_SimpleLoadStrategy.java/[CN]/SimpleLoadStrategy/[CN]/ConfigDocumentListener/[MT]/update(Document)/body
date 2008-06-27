@@ -1,0 +1,9 @@
+{
+  try {
+    if (document == testDelayField.getDocument())     testDelay=Integer.parseInt(testDelayField.getText());
+    if (document == randomFactorField.getDocument())     randomFactor=Float.parseFloat(randomFactorField.getText().replace(',','.'));
+    notifyConfigurationChanged();
+  }
+ catch (  NumberFormatException e) {
+  }
+}

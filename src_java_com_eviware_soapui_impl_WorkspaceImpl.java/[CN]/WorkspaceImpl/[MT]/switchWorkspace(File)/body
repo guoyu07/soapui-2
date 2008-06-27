@@ -1,0 +1,33 @@
+{
+  if (file.exists()) {
+    try {
+      SoapuiWorkspaceDocumentConfig.Factory.parse(file);
+    }
+ catch (    Exception e) {
+      throw new SoapUIException(messages.get("FailedToLoadWorkspaceException") + e.toString());
+    }
+  }
+  fireWorkspaceSwitching();
+  while (projectList.size() > 0) {
+    Project project=projectList.remove(0);
+    try {
+      fireProjectRemoved(project);
+    }
+  finally {
+      project.release();
+    }
+  }
+  try {
+    String oldName=getName();
+    loadWorkspace(file);
+    this.path=file.getAbsolutePath();
+    for (    Project project : projectList) {
+      fireProjectAdded(project);
+    }
+    notifyPropertyChanged(ModelItem.NAME_PROPERTY,oldName,getName());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  fireWorkspaceSwitched();
+}

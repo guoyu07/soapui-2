@@ -1,0 +1,22 @@
+{
+  if (dialog == null) {
+    ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
+    builder.startScript("tcpmon",".bat",".sh");
+    return builder;
+  }
+  StringToStringMap values=dialog.getValues();
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("tcpmon",".bat",".sh");
+  builder.addArgs(values.get(PORT));
+  String endpoint=values.get(ENDPOINT);
+  if (endpoint != null && !endpoint.equals("- none available -")) {
+    URL url=new URL(endpoint);
+    builder.addArgs(url.getHost());
+    builder.addArgs((url.getPort() == -1) ? "80" : "" + url.getPort());
+    if (values.getBoolean(ADD_ENDPOINT)) {
+      modelItem.addEndpoint("http://localhost:" + values.get(PORT) + url.getPath());
+    }
+  }
+  addToolArgs(values,builder);
+  return builder;
+}

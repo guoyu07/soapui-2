@@ -1,0 +1,9 @@
+{
+  try {
+    if (StringUtils.isNullOrEmpty(str))     return false;
+    return XmlObject.Factory.parse(str) != null;
+  }
+ catch (  Exception e) {
+    return false;
+  }
+}

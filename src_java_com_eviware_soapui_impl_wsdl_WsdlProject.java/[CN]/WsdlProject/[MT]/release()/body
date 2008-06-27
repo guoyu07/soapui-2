@@ -1,0 +1,12 @@
+{
+  super.release();
+  if (isOpen()) {
+    endpointStrategy.release();
+    for (    WsdlTestSuite testSuite : testSuites)     testSuite.release();
+    for (    WsdlMockService mockService : mockServices)     mockService.release();
+    for (    AbstractInterface<?> iface : interfaces)     iface.release();
+  }
+  projectListeners.clear();
+  if (afterLoadScriptEngine != null)   afterLoadScriptEngine.release();
+  if (beforeSaveScriptEngine != null)   beforeSaveScriptEngine.release();
+}

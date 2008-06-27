@@ -1,0 +1,10 @@
+{
+  int index=table.getSelectedRow();
+  if (index == -1) {
+    Toolkit.getDefaultToolkit().beep();
+    return;
+  }
+  if (UISupport.confirm("Delete selected endpoint?","Delete Endpoint")) {
+    tableModel.removeEndpoint(index);
+  }
+}

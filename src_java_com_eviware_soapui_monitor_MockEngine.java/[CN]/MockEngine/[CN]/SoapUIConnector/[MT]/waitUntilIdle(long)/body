@@ -1,0 +1,8 @@
+{
+  while (maxwait > 0 && hasActiveConnections()) {
+    System.out.println("Waiting for active connections to finish..");
+    Thread.sleep(500);
+    maxwait-=500;
+  }
+  return !hasActiveConnections();
+}

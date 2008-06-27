@@ -1,0 +1,23 @@
+{
+  File file=UISupport.getFileDialogs().saveAs(this,"Save Log");
+  if (file != null) {
+    try {
+      PrintWriter out=new PrintWriter(file);
+      for (int c=0; c < logListModel.getSize(); c++) {
+        Object value=logListModel.getElementAt(c);
+        if (value instanceof String) {
+          out.println(value.toString());
+        }
+ else         if (value instanceof TestCaseLogItem) {
+          TestCaseLogItem logItem=(TestCaseLogItem)value;
+          String msg=logItem.getMsg();
+          if (StringUtils.hasContent(msg))           out.println(msg);
+        }
+      }
+      out.close();
+    }
+ catch (    FileNotFoundException e1) {
+      UISupport.showErrorMessage(e1);
+    }
+  }
+}

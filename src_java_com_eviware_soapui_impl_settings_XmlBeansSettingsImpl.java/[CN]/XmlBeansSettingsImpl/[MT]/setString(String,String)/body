@@ -1,0 +1,17 @@
+{
+  String oldValue=getString(id,null);
+  if (oldValue == null && value == null)   return;
+  if (value != null && value.equals(oldValue))   return;
+  if (value == null) {
+    clearSetting(id);
+  }
+ else {
+    if (!values.containsKey(id)) {
+      SettingConfig setting=config.addNewSetting();
+      setting.setId(id);
+      values.put(id,setting);
+    }
+    values.get(id).setStringValue(value);
+  }
+  notifySettingChanged(id,value,oldValue);
+}

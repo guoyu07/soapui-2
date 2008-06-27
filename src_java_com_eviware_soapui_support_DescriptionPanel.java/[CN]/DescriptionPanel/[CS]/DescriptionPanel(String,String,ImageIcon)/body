@@ -1,0 +1,22 @@
+{
+  super(new BorderLayout());
+  setBackground(UIManager.getColor("control"));
+  setForeground(Color.WHITE);
+  setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.DARK_GRAY),BorderFactory.createEmptyBorder(10,10,10,10)));
+  descriptionLabel=new JLabel();
+  setDescription(description);
+  JPanel innerPanel=new JPanel(new BorderLayout());
+  innerPanel.add(descriptionLabel,BorderLayout.CENTER);
+  innerPanel.setOpaque(false);
+  if (title != null) {
+    descriptionLabel.setBorder(BorderFactory.createEmptyBorder(5,5,0,0));
+    titleLabel=new JLabel("<html><div style=\"font-size: 9px\"><b>" + title + "</b></div></html>");
+    innerPanel.add(titleLabel,BorderLayout.NORTH);
+  }
+  add(innerPanel,BorderLayout.CENTER);
+  if (icon != null) {
+    JLabel iconLabel=new JLabel(icon);
+    iconLabel.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
+    add(iconLabel,BorderLayout.EAST);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  if (exitCode == 0 && context.getStatus() == RunnerContext.RunnerStatus.FINISHED) {
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        try {
+          WSIReportPanel panel=new WSIReportPanel(WSIAnalyzeAction.transformReport(reportFile),configFile,logFile,true);
+          panel.setPreferredSize(new Dimension(600,400));
+          UISupport.showDesktopPanel(new DefaultDesktopPanel("WS-I Report","WS-I Report for validation of messages in request [" + modelItem.getName() + "]",panel));
+        }
+ catch (        Exception e) {
+          UISupport.showErrorMessage(e);
+        }
+      }
+    }
+);
+  }
+}

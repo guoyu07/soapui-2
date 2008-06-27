@@ -1,0 +1,7 @@
+{
+  List<?> errors=new ArrayList<Object>();
+  xmlObject.validate(new XmlOptions().setErrorListener(errors));
+  for (Iterator<?> i=errors.iterator(); i.hasNext(); ) {
+    System.out.println(i.next());
+  }
+}

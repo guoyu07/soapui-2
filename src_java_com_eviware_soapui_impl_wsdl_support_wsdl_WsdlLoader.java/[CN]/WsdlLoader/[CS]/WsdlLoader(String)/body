@@ -1,0 +1,20 @@
+{
+  this.url=url;
+  if (!PathUtils.isRelativePath(url)) {
+    try {
+      URL u=new URL(url);
+      String authority=u.getAuthority();
+      if (authority != null) {
+        int ix1=authority.indexOf('@');
+        int ix2=authority.indexOf(':');
+        if (ix1 > ix2 && ix2 > 0) {
+          username=authority.substring(0,ix2);
+          password=authority.substring(ix2 + 1,ix1);
+        }
+      }
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+}

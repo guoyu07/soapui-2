@@ -1,0 +1,16 @@
+{
+  while (running || !samplesStack.isEmpty()) {
+    try {
+      while (!samplesStack.isEmpty()) {
+        SamplesHolder holder=samplesStack.pop();
+        if (holder != null)         addSamples(holder);
+      }
+      Thread.sleep(200);
+    }
+ catch (    EmptyStackException e) {
+    }
+catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+}

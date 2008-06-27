@@ -1,0 +1,26 @@
+{
+  if (attachment instanceof BodyPartAttachment) {
+    try {
+      BodyPartAttachment att=(BodyPartAttachment)attachment;
+      AttachmentConfig newConfig=getConfig().addNewAttachment();
+      newConfig.setData(Tools.readAll(att.getInputStream(),0).toByteArray());
+      newConfig.setContentId(att.getContentID());
+      newConfig.setContentType(att.getContentType());
+      newConfig.setName(att.getName());
+      FileAttachment<WsdlMockResponse> newAttachment=new MockFileAttachment(newConfig,this);
+      attachments.add(newAttachment);
+      return newAttachment;
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+ else   if (attachment instanceof FileAttachment) {
+    AttachmentConfig oldConfig=((FileAttachment<WsdlMockResponse>)attachment).getConfig();
+    AttachmentConfig newConfig=(AttachmentConfig)getConfig().addNewAttachment().set(oldConfig);
+    FileAttachment<WsdlMockResponse> newAttachment=new MockFileAttachment(newConfig,this);
+    attachments.add(newAttachment);
+    return newAttachment;
+  }
+  return null;
+}

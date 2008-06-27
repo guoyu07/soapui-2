@@ -1,0 +1,8 @@
+{
+  XmlObject configuration=assertionConfig.getConfiguration();
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(configuration);
+  setName(reader.readString(MaxErrorsAssertion.NAME_ELEMENT,"Max Errors"));
+  maxAbsoluteErrors=reader.readInt(MAX_ABSOLUTE_ERRORS_ELEMENT,100);
+  maxRelativeErrors=reader.readFloat(MAX_RELATIVE_ERRORS_ELEMENT,(float)0.2);
+  setTargetStep(reader.readString(TEST_STEP_ELEMENT,ALL_TEST_STEPS));
+}

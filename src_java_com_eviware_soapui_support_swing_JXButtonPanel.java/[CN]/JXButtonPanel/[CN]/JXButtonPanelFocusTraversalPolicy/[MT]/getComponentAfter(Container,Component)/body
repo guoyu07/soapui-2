@@ -1,0 +1,13 @@
+{
+  Component componentAfter=super.getComponentAfter(aContainer,aComponent);
+  if (!isAlternativeFocusMode()) {
+    return componentAfter;
+  }
+  if (JXButtonPanel.this.isCyclic()) {
+    return componentAfter == null ? getFirstComponent(aContainer) : componentAfter;
+  }
+  if (aComponent == getLastComponent(aContainer)) {
+    return aComponent;
+  }
+  return componentAfter;
+}

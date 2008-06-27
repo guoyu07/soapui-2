@@ -1,0 +1,25 @@
+{
+  if (!isAcceptable(dtde.getTransferable()))   dtde.rejectDrop();
+ else {
+    try {
+      Transferable transferable=dtde.getTransferable();
+      Object transferData=transferable.getTransferData(transferable.getTransferDataFlavors()[0]);
+      if (transferData instanceof PropertyModelItem) {
+        dtde.acceptDrop(dtde.getDropAction());
+        PropertyModelItem modelItem=(PropertyModelItem)transferData;
+        String xpath=modelItem.getXPath();
+        if (xpath == null && XmlUtils.seemsToBeXml(modelItem.getProperty().getValue())) {
+          xpath=UISupport.selectXPath("Create PropertyExpansion","Select XPath below",modelItem.getProperty().getValue(),null);
+          if (xpath != null)           xpath=XmlUtils.removeXPathNamespaceDeclarations(xpath);
+        }
+        target.insertPropertyExpansion(new PropertyExpansionImpl(modelItem.getProperty(),xpath),dtde.getLocation());
+        dtde.dropComplete(true);
+      }
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+    if (dtde.getDropTargetContext().getComponent() instanceof JTextComponent)     ((JTextComponent)dtde.getDropTargetContext().getComponent()).getCaret().setVisible(false);
+ else     if (dtde.getDropTargetContext().getComponent() instanceof JXEditTextArea)     ((JXEditTextArea)dtde.getDropTargetContext().getComponent()).setCaretVisible(false);
+  }
+}

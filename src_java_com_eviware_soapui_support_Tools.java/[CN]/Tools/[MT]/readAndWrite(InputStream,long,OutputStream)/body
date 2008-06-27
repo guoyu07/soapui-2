@@ -1,0 +1,16 @@
+{
+  byte[] buffer=new byte[4096];
+  int len;
+  int read=0;
+  int toRead=4096;
+  if (maxSize > 0) {
+    if (read + toRead > maxSize)     toRead=(int)(maxSize - read);
+  }
+  while ((len=instream.read(buffer,0,toRead)) > 0) {
+    outstream.write(buffer,0,len);
+    read+=toRead;
+    if (maxSize > 0) {
+      if (read + toRead > maxSize)       toRead=(int)(maxSize - read);
+    }
+  }
+}

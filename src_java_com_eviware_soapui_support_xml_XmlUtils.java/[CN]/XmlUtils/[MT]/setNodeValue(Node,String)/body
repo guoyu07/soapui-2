@@ -1,0 +1,12 @@
+{
+  short nodeType=domNode.getNodeType();
+  if (nodeType == Node.ELEMENT_NODE) {
+    setElementText((Element)domNode,string);
+    return true;
+  }
+ else   if (nodeType == Node.ATTRIBUTE_NODE || nodeType == Node.TEXT_NODE) {
+    domNode.setNodeValue(string);
+    return true;
+  }
+  return false;
+}

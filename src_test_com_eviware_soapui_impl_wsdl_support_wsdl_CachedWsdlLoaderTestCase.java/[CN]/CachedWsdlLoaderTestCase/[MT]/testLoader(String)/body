@@ -1,0 +1,13 @@
+{
+  WsdlProject project=new WsdlProject();
+  project.getSettings().setBoolean(WsdlSettings.CACHE_WSDLS,true);
+  WsdlInterface wsdl=WsdlImporter.importWsdl(project,wsdlUrl)[0];
+  assertTrue(wsdl.isCached());
+  CachedWsdlLoader loader=(CachedWsdlLoader)wsdl.createWsdlLoader();
+  String root=loader.saveDefinition("test" + File.separatorChar + "output");
+  WsdlProject project2=new WsdlProject();
+  WsdlInterface wsdl2=WsdlImporter.importWsdl(project2,new File(root).toURI().toURL().toString())[0];
+  assertEquals(wsdl.getBindingName(),wsdl2.getBindingName());
+  assertEquals(wsdl.getOperationCount(),wsdl2.getOperationCount());
+  assertEquals(wsdl.getWsdlContext().getDefinedNamespaces(),wsdl2.getWsdlContext().getDefinedNamespaces());
+}

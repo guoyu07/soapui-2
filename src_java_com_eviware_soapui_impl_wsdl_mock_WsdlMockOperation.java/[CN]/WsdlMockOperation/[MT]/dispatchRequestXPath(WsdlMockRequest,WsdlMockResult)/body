@@ -1,0 +1,13 @@
+{
+  XmlObject[] items=evaluateDispatchXPath(request);
+  for (  XmlObject item : items) {
+    WsdlMockResponse mockResponse=getMockResponseByName(XmlUtils.getNodeValue(item.getDomNode()));
+    if (mockResponse == null)     mockResponse=getMockResponseByName(getDefaultResponse());
+    if (mockResponse != null) {
+      result.setMockResponse(mockResponse);
+      mockResponse.execute(request,result);
+      return;
+    }
+  }
+  throw new DispatchException("Missing matching response message");
+}

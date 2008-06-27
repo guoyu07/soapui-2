@@ -1,0 +1,18 @@
+{
+  super(httpRequest,httpMethod,requestContent,context);
+  WsdlRequest wsdlRequest=(WsdlRequest)httpRequest;
+  processIncomingWss(wsdlRequest,context);
+  String multipartType=null;
+  Header h=httpMethod.getResponseHeader("Content-Type");
+  HeaderElement[] elements=h.getElements();
+  for (  HeaderElement element : elements) {
+    String name=element.getName().toUpperCase();
+    if (name.startsWith("MULTIPART/")) {
+      NameValuePair parameter=element.getParameterByName("type");
+      if (parameter != null)       multipartType=parameter.getValue();
+    }
+  }
+  if (wsdlRequest.isExpandMtomResponseAttachments() && "application/xop+xml".equals(multipartType)) {
+    expandMtomAttachments(wsdlRequest);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  WsdlSubmitContext context=new WsdlSubmitContext(null);
+  context.setProperty("test","value");
+  context.setProperty("testexp","${test}");
+  context.setProperty("exp","exp");
+  assertEquals("value",PropertyExpansionUtils.expandProperties(context,"${test${exp}}"));
+  context.setProperty("id","123");
+  context.setProperty("testxml","<test><value id=\"123\">hello</value></test>");
+  assertEquals("hello",PropertyExpansionUtils.expandProperties(context,"${#testxml#//value[@id=${id}]/text()}"));
+  context.setProperty("testxpath","//value[@id=${id}]/text()");
+  assertEquals("hello",PropertyExpansionUtils.expandProperties(context,"${#testxml#${testxpath}}"));
+}

@@ -1,0 +1,17 @@
+{
+  WsdlTestStep[] result=new WsdlTestStep[stepConfig.length];
+  for (int c=0; c < stepConfig.length; c++) {
+    TestStepConfig newStepConfig=ix == -1 ? getConfig().addNewTestStep() : getConfig().insertNewTestStep(ix + c);
+    newStepConfig.set(stepConfig[c]);
+    WsdlTestStep testStep=createTestStepFromConfig(newStepConfig);
+    if (!ensureUniqueName(testStep))     return null;
+    if (ix == -1)     testSteps.add(testStep);
+ else     testSteps.add(ix + c,testStep);
+    result[c]=testStep;
+  }
+  for (int c=0; c < result.length; c++) {
+    result[c].afterLoad();
+    if (getTestSuite() != null)     (getTestSuite()).fireTestStepAdded(result[c],getIndexOfTestStep(result[c]));
+  }
+  return result;
+}

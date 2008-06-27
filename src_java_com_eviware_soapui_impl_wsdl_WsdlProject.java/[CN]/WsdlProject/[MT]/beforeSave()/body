@@ -1,0 +1,12 @@
+{
+  try {
+    runBeforeSaveScript();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  for (  AbstractInterface<?> iface : interfaces)   iface.beforeSave();
+  for (  WsdlTestSuite testSuite : testSuites)   testSuite.beforeSave();
+  for (  WsdlMockService mockService : mockServices)   mockService.beforeSave();
+  endpointStrategy.onSave();
+}

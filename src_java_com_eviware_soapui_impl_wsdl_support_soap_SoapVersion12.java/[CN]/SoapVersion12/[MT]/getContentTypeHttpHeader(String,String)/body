@@ -1,0 +1,6 @@
+{
+  String result=getContentType();
+  if (encoding != null && encoding.trim().length() > 0)   result+=";charset=" + encoding;
+  if (StringUtils.hasContent(soapAction))   result+=";action=" + StringUtils.quote(soapAction);
+  return result;
+}

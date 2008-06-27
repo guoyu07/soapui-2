@@ -1,0 +1,10 @@
+{
+  loadTest.beforeSave();
+  LoadTestConfig loadTestConfig=getConfig().addNewLoadTest();
+  loadTestConfig.set(loadTest.getConfig().copy());
+  WsdlLoadTest newLoadTest=new WsdlLoadTest(this,loadTestConfig);
+  newLoadTest.setName(name);
+  loadTests.add(newLoadTest);
+  (getTestSuite()).fireLoadTestAdded(newLoadTest);
+  return newLoadTest;
+}

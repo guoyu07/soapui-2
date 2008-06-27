@@ -1,0 +1,10 @@
+{
+  ExportStatisticsAction exportStatisticsAction=new ExportStatisticsAction(loadTest.getStatisticsModel());
+  String statisticsFileName=StringUtils.createFileName(loadTest.getName(),'_') + "-statistics.txt";
+  if (outputFolder != null) {
+    ensureOutputFolder();
+    statisticsFileName=outputFolder + File.separator + statisticsFileName;
+  }
+  int cnt=exportStatisticsAction.exportToFile(new File(statisticsFileName));
+  log.info("Exported " + cnt + " statistics to ["+ statisticsFileName+ "]");
+}

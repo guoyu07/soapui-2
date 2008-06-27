@@ -1,0 +1,10 @@
+{
+  try {
+    String namespaceDeclarations=XmlUtils.declareXPathNamespaces(inputArea.getText());
+    xpathArea.setText(namespaceDeclarations + xpathArea.getText());
+    xqueryArea.setText(namespaceDeclarations + xqueryArea.getText());
+  }
+ catch (  XmlException e1) {
+    SoapUI.logError(e1);
+  }
+}

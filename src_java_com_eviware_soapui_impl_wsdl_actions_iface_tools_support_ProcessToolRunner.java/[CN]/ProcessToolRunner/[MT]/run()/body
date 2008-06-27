@@ -1,0 +1,52 @@
+{
+  try {
+    int exitCode=-1;
+    beforeRun(context);
+    for (int c=0; c < builders.length; c++) {
+      beforeProcess(process,context);
+      logRunInfo(builders[c]);
+      process=builders[c].start();
+      if (c == 0)       context.setStatus(RunnerContext.RunnerStatus.RUNNING);
+      running=true;
+      InputStream in=process.getInputStream();
+      InputStream err=process.getErrorStream();
+      exitCode=-1;
+      while (exitCode == -1 && running) {
+        try {
+          exitCode=process.exitValue();
+          break;
+        }
+ catch (        IllegalThreadStateException e) {
+        }
+ finally {
+          while (in.available() > 0) {
+            byte[] data=new byte[in.available()];
+            in.read(data);
+            context.log(new String(data));
+          }
+          while (err.available() > 0) {
+            byte[] data=new byte[err.available()];
+            err.read(data);
+            context.logError(new String(data));
+          }
+        }
+        Thread.sleep(25);
+      }
+      afterProcess(process,context);
+    }
+    context.setStatus(RunnerContext.RunnerStatus.FINISHED);
+    if (running) {
+      running=false;
+      afterRun(exitCode,context);
+    }
+  }
+ catch (  Exception ex) {
+    context.setStatus(RunnerContext.RunnerStatus.ERROR);
+    UISupport.showErrorMessage(ex);
+    running=false;
+    afterRun(-1,context);
+  }
+ finally {
+    context.disposeContext();
+  }
+}

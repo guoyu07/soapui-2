@@ -1,0 +1,24 @@
+{
+  StringToStringMap part=parts.get(rowIndex);
+  if (aValue == null)   aValue="";
+switch (columnIndex) {
+case 0:
+    part.put("name","");
+  fireTableCellUpdated(rowIndex,1);
+part.put("id",aValue.toString());
+return;
+case 1:
+part.put("id","");
+fireTableCellUpdated(rowIndex,0);
+part.put("name",aValue.toString());
+return;
+case 2:
+part.put("id","");
+fireTableCellUpdated(rowIndex,0);
+part.put("namespace",aValue.toString());
+return;
+case 3:
+part.put("enc",aValue.toString());
+return;
+}
+}

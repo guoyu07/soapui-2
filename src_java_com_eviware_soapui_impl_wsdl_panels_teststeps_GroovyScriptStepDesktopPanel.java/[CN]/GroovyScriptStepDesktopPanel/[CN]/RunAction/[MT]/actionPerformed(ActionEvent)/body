@@ -1,0 +1,13 @@
+{
+  MockTestRunner mockTestRunner=new MockTestRunner(groovyStep.getTestCase(),logger);
+  statusBar.setIndeterminate(true);
+  WsdlTestStepResult result=(WsdlTestStepResult)groovyStep.run(mockTestRunner,new MockTestRunContext(mockTestRunner,groovyStep));
+  statusBar.setIndeterminate(false);
+  Throwable er=result.getError();
+  if (er != null) {
+    String message=er.getMessage();
+    editor.selectError(message);
+    UISupport.showErrorMessage(er.toString());
+    editor.requestFocus();
+  }
+}

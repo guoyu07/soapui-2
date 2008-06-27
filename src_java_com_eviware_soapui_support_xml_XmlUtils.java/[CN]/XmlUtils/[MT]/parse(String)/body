@@ -1,0 +1,9 @@
+{
+  try {
+    return ensureDocumentBuilder().parse(fileName);
+  }
+ catch (  SAXException e) {
+    log.error("Error parsing fileName [" + fileName + "]; "+ e.getMessage(),e);
+  }
+  return null;
+}

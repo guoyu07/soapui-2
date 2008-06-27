@@ -1,0 +1,10 @@
+{
+  try {
+    Object property=PropertyUtils.getProperty(target,targetName);
+    return property == null ? null : property.toString();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

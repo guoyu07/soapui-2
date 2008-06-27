@@ -1,0 +1,9 @@
+{
+  Properties properties=new Properties();
+  properties.put("org.apache.ws.security.crypto.provider","org.apache.ws.security.components.crypto.Merlin");
+  properties.put("org.apache.ws.security.crypto.merlin.keystore.type",type.toLowerCase());
+  properties.put("org.apache.ws.security.crypto.merlin.keystore.password",getPassword());
+  properties.put("org.apache.ws.security.crypto.merlin.file",getKeystore());
+  Crypto crypto=CryptoFactory.getInstance(properties);
+  return crypto;
+}

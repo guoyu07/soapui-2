@@ -1,0 +1,29 @@
+{
+  tableModel=new EndpointsTableModel();
+  table=new JXTable(tableModel);
+  table.setHorizontalScrollEnabled(true);
+  table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      enableButtons();
+    }
+  }
+);
+  for (int c=0; c < table.getColumnCount(); c++)   table.getColumn(c).setHeaderRenderer(new MetricsPanel.InternalHeaderRenderer(getBackground()));
+  table.getColumn(0).setPreferredWidth(250);
+  JComboBox wssTypeCombo=new JComboBox(new String[]{WsdlRequest.PW_TYPE_NONE,WsdlRequest.PW_TYPE_TEXT,WsdlRequest.PW_TYPE_DIGEST});
+  wssTypeCombo.setEditable(true);
+  table.getColumn(4).setCellEditor(new DefaultCellEditor(wssTypeCombo));
+  table.getColumn(6).setCellEditor(new OutgoingWssCellEditor());
+  table.getColumn(7).setCellEditor(new IncomingWssCellEditor());
+  table.getColumn(8).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
+  table.getTableHeader().setReorderingAllowed(false);
+  setBackground(Color.WHITE);
+  setOpaque(true);
+  JScrollPane scrollPane=new JScrollPane(table);
+  scrollPane.setBorder(BorderFactory.createEmptyBorder(5,2,5,2));
+  scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+  scrollPane.setBackground(Color.WHITE);
+  add(scrollPane,BorderLayout.CENTER);
+  add(createButtons(),BorderLayout.NORTH);
+}

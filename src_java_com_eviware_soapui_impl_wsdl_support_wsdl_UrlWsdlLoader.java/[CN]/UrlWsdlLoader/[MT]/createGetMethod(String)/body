@@ -1,0 +1,11 @@
+{
+  getMethod=new GetMethod(url);
+  getMethod.setDoAuthentication(true);
+  getMethod.getParams().setParameter(CredentialsProvider.PROVIDER,new WsdlCredentialsProvider());
+  if (SoapUI.getSettings().getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
+    HttpClientSupport.getHttpClient().getParams().setAuthenticationPreemptive(true);
+  }
+ else {
+    HttpClientSupport.getHttpClient().getParams().setAuthenticationPreemptive(false);
+  }
+}

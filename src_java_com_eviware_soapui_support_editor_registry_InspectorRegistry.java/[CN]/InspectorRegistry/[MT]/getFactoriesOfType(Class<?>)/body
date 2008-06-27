@@ -1,0 +1,7 @@
+{
+  List<InspectorFactory> result=new ArrayList<InspectorFactory>();
+  for (  InspectorFactory factory : factories) {
+    if (type.isAssignableFrom(factory.getClass()))     result.add(factory);
+  }
+  return result.toArray(new InspectorFactory[result.size()]);
+}

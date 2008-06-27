@@ -1,0 +1,9 @@
+{
+  getModelItem().removePropertyChangeListener(WsdlRunTestCaseTestStep.TARGET_TESTCASE,this);
+  testRunLog.release();
+  if (optionsDialog != null) {
+    optionsDialog.release();
+    optionsDialog=null;
+  }
+  return release();
+}

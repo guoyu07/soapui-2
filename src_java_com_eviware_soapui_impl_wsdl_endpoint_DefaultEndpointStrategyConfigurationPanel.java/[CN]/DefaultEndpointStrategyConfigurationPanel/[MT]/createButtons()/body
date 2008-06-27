@@ -1,0 +1,13 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.addFixed(UISupport.createToolbarButton(new AddAction()));
+  deleteButton=UISupport.createToolbarButton(new DeleteAction());
+  toolbar.addFixed(deleteButton);
+  toolbar.addRelatedGap();
+  assignButton=new JButton(new AssignAction());
+  toolbar.addFixed(assignButton);
+  toolbar.addGlue();
+  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.ENDPOINTSEDITOR_HELP_URL);
+  toolbar.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
+  return toolbar;
+}

@@ -1,0 +1,13 @@
+{
+  String script=getTearDownScript();
+  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (tearDownScriptEngine == null) {
+    tearDownScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+    tearDownScriptEngine.setScript(script);
+  }
+  if (context == null)   context=new DefaultPropertyExpansionContext(this);
+  tearDownScriptEngine.setVariable("context",context);
+  tearDownScriptEngine.setVariable("testSuite",this);
+  tearDownScriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  return tearDownScriptEngine.run();
+}

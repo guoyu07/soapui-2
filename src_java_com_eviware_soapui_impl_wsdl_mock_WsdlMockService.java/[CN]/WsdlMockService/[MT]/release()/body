@@ -1,0 +1,7 @@
+{
+  super.release();
+  for (  WsdlMockOperation operation : mockOperations)   operation.release();
+  mockServiceListeners.clear();
+  if (startScriptEngine != null)   startScriptEngine.release();
+  if (stopScriptEngine != null)   stopScriptEngine.release();
+}

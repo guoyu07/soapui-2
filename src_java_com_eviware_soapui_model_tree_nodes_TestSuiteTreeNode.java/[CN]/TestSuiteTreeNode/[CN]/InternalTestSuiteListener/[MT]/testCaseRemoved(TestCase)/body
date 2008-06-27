@@ -1,0 +1,9 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(testCase);
+  if (testCaseNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    testCaseNodes.remove(treeNode);
+    testCase.removePropertyChangeListener(propertyChangeListener);
+  }
+ else   throw new RuntimeException("Removing unknown TestCase");
+}

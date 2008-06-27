@@ -1,0 +1,13 @@
+{
+  if (documentBuilder == null) {
+    try {
+      DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+      dbf.setNamespaceAware(true);
+      documentBuilder=dbf.newDocumentBuilder();
+    }
+ catch (    ParserConfigurationException e) {
+      log.error("Error creating DocumentBuilder; " + e.getMessage());
+    }
+  }
+  return documentBuilder;
+}

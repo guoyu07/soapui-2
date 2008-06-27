@@ -1,0 +1,51 @@
+{
+  String ns=WsdlUtils.getSoapBodyNamespace(bindingOperation.getBindingInput().getExtensibilityElements());
+  if (ns == null) {
+    ns=wsdlContext.getDefinition().getTargetNamespace();
+    log.warn("missing namespace on soapbind:body for RPC request, using targetNamespace instead (BP violation)");
+  }
+  cursor.beginElement(new QName(ns,bindingOperation.getName()));
+  if (xmlGenerator.isSoapEnc())   cursor.insertAttributeWithValue(new QName(wsdlContext.getSoapVersion().getEnvelopeNamespace(),"encodingStyle"),wsdlContext.getSoapVersion().getEncodingNamespace());
+  Part[] inputParts=WsdlUtils.getInputParts(bindingOperation);
+  for (int i=0; i < inputParts.length; i++) {
+    Part part=inputParts[i];
+    if (WsdlUtils.isAttachmentInputPart(part,bindingOperation)) {
+      if (iface.getSettings().getBoolean(WsdlSettings.ATTACHMENT_PARTS)) {
+        XmlCursor c=cursor.newCursor();
+        c.toLastChild();
+        c.beginElement(part.getName());
+        c.insertAttributeWithValue("href",part.getName() + "Attachment");
+        c.dispose();
+      }
+    }
+ else {
+      if (wsdlContext.hasSchemaTypes()) {
+        QName typeName=part.getTypeName();
+        if (typeName != null) {
+          SchemaType type=wsdlContext.findType(typeName);
+          if (type != null) {
+            XmlCursor c=cursor.newCursor();
+            c.toLastChild();
+            c.insertElement(part.getName());
+            c.toPrevToken();
+            xmlGenerator.createSampleForType(type,c);
+            c.dispose();
+          }
+ else           log.warn("Failed to find type [" + typeName + "]");
+        }
+ else {
+          SchemaGlobalElement element=wsdlContext.getSchemaTypeLoader().findElement(part.getElementName());
+          if (element != null) {
+            XmlCursor c=cursor.newCursor();
+            c.toLastChild();
+            c.insertElement(element.getName());
+            c.toPrevToken();
+            xmlGenerator.createSampleForType(element.getType(),c);
+            c.dispose();
+          }
+ else           log.warn("Failed to find element [" + part.getElementName() + "]");
+        }
+      }
+    }
+  }
+}

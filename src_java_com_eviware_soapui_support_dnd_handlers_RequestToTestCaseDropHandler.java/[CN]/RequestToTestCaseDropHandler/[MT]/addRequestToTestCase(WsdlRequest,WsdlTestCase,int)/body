@@ -1,0 +1,13 @@
+{
+  if (!UISupport.confirm("Add Request [" + source.getName() + "] to TestCase ["+ target.getName()+ "]","Add Request to TestCase"))   return false;
+  WsdlProject targetProject=target.getTestSuite().getProject();
+  if (targetProject != source.getOperation().getInterface().getProject()) {
+    HashSet<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+    requiredInterfaces.add(source.getOperation().getInterface());
+    if (!DragAndDropSupport.importRequiredInterfaces(targetProject,requiredInterfaces,"Add Request to TestCase")) {
+      return false;
+    }
+  }
+  SoapUIAction<WsdlRequest> action=SoapUI.getActionRegistry().getAction(AddRequestToTestCaseAction.SOAPUI_ACTION_ID);
+  return ((AddRequestToTestCaseAction)action).addRequest(target,source,index) != null;
+}

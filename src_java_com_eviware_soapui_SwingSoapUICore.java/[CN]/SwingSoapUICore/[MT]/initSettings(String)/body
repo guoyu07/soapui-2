@@ -1,0 +1,14 @@
+{
+  String fn=fileName;
+  if (!new File(fileName).exists()) {
+    try {
+      fileName=importSettingsOnStartup(fileName);
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
+  }
+  Settings result=super.initSettings(fileName);
+  if (!fileName.equals(fn))   setSettingsFile(fn);
+  return result;
+}

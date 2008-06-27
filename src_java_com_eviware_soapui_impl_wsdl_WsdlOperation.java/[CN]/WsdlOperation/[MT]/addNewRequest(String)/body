@@ -1,0 +1,7 @@
+{
+  WsdlRequest requestImpl=new WsdlRequest(this,getConfig().addNewCall());
+  requestImpl.setName(name);
+  requests.add(requestImpl);
+  (getInterface()).fireRequestAdded(requestImpl);
+  return requestImpl;
+}

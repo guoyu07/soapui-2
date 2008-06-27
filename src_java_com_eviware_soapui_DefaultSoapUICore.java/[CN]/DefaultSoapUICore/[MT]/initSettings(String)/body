@@ -1,0 +1,43 @@
+{
+  try {
+    File settingsFile=root == null ? new File(fileName) : new File(new File(root),fileName);
+    if (!settingsFile.exists()) {
+      if (settingsDocument == null) {
+        log.info("Creating new settings at [" + settingsFile.getAbsolutePath() + "]");
+        settingsDocument=SoapuiSettingsDocumentConfig.Factory.newInstance();
+      }
+    }
+ else {
+      settingsDocument=SoapuiSettingsDocumentConfig.Factory.parse(settingsFile);
+      log.info("initialized soapui-settings from [" + settingsFile.getAbsolutePath() + "]");
+    }
+  }
+ catch (  Exception e) {
+    log.warn("Failed to load settings from [" + e.getMessage() + "], creating new");
+    settingsDocument=SoapuiSettingsDocumentConfig.Factory.newInstance();
+  }
+  if (settingsDocument.getSoapuiSettings() == null) {
+    settingsDocument.addNewSoapuiSettings();
+    settings=new XmlBeansSettingsImpl(null,null,settingsDocument.getSoapuiSettings());
+    initDefaultSettings(settings);
+  }
+ else {
+    settings=new XmlBeansSettingsImpl(null,null,settingsDocument.getSoapuiSettings());
+  }
+  this.settingsFile=fileName;
+  if (!settings.isSet(WsdlSettings.EXCLUDED_TYPES)) {
+    StringList list=new StringList();
+    list.add("schema@http://www.w3.org/2001/XMLSchema");
+    settings.setString(WsdlSettings.EXCLUDED_TYPES,list.toXml());
+  }
+  if (!settings.isSet(WsdlSettings.NAME_WITH_BINDING)) {
+    settings.setBoolean(WsdlSettings.NAME_WITH_BINDING,true);
+  }
+  if (!settings.isSet(HttpSettings.MAX_CONNECTIONS_PER_HOST)) {
+    settings.setLong(HttpSettings.MAX_CONNECTIONS_PER_HOST,500);
+  }
+  if (!settings.isSet(HttpSettings.MAX_TOTAL_CONNECTIONS)) {
+    settings.setLong(HttpSettings.MAX_TOTAL_CONNECTIONS,2000);
+  }
+  return settings;
+}

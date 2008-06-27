@@ -1,0 +1,11 @@
+{
+  TestSuiteRunType oldRunType=getRunType();
+  if (runType == TestSuiteRunType.PARALLEL && oldRunType != TestSuiteRunType.PARALLEL) {
+    getConfig().setRunType(TestSuiteRunTypesConfig.PARALLELL);
+    notifyPropertyChanged(RUNTYPE_PROPERTY,oldRunType,runType);
+  }
+ else   if (runType == TestSuiteRunType.SEQUENTIAL && oldRunType != TestSuiteRunType.SEQUENTIAL) {
+    getConfig().setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
+    notifyPropertyChanged(RUNTYPE_PROPERTY,oldRunType,runType);
+  }
+}

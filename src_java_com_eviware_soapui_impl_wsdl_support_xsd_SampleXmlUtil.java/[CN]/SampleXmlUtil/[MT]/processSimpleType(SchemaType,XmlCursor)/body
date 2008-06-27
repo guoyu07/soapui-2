@@ -1,0 +1,10 @@
+{
+  if (_soapEnc) {
+    QName typeName=stype.getName();
+    if (typeName != null) {
+      xmlc.insertAttributeWithValue(XSI_TYPE,formatQName(xmlc,typeName));
+    }
+  }
+  String sample=sampleDataForSimpleType(stype);
+  xmlc.insertChars(sample);
+}

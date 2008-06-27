@@ -1,0 +1,13 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      try {
+        getModelItem().runTearDownScript(null);
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage(e1);
+      }
+    }
+  }
+;
+}

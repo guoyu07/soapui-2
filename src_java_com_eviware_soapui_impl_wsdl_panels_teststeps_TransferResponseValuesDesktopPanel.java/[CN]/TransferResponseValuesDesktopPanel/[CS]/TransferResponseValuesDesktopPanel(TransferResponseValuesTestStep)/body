@@ -1,0 +1,10 @@
+{
+  super(testStep);
+  this.transferStep=testStep;
+  componentEnabler=new TestRunComponentEnabler(testStep.getTestCase());
+  buildUI();
+  testSuiteListener=new InternalTestSuiteListener();
+  transferStep.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
+  testRunListener=new InternalTestRunListener();
+  transferStep.getTestCase().addTestRunListener(testRunListener);
+}

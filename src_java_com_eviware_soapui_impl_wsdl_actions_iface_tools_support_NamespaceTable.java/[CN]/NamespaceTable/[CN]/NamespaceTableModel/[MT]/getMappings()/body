@@ -1,0 +1,10 @@
+{
+  StringToStringMap result=new StringToStringMap();
+  for (int c=0; c < namespaces.size(); c++) {
+    String pkg=packages.get(c);
+    if (returnEmpty || (pkg != null && pkg.trim().length() > 0)) {
+      result.put(namespaces.get(c),pkg == null ? "" : pkg.trim());
+    }
+  }
+  return result;
+}

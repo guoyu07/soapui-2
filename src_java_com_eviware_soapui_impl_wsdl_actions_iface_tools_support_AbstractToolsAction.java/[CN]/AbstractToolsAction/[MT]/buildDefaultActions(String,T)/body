@@ -1,0 +1,13 @@
+{
+  ActionList actions=new DefaultActionList("Actions");
+  if (helpUrl != null) {
+    actions.addAction(new ShowOnlineHelpAction(helpUrl));
+    actions.addSeparator();
+  }
+  Action runAction=createRunOption(modelItem);
+  actions.addAction(runAction);
+  actions.setDefaultAction(runAction);
+  actions.addAction(new CloseAction(modelItem));
+  if (toolsSettingsAction != null)   actions.addAction(toolsSettingsAction);
+  return actions;
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    if (loadTestLog.getSize() == 0 || (logTable != null && logTable.getRowCount() == 0)) {
+      UISupport.showErrorMessage("No data to export!");
+      return;
+    }
+    File file=UISupport.getFileDialogs().saveAs(this,"Select file for log export");
+    if (file == null)     return;
+    int cnt=exportToFile(file);
+    UISupport.showInfoMessage("Saved " + cnt + " log entries to file ["+ file.getName()+ "]");
+  }
+ catch (  IOException e1) {
+    SoapUI.logError(e1);
+  }
+}

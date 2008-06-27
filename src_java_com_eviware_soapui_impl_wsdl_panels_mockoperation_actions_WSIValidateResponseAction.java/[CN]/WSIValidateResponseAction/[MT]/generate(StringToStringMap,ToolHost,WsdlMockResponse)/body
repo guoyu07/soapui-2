@@ -1,0 +1,20 @@
+{
+  if (modelItem.getMockResult() == null) {
+    UISupport.showErrorMessage("Request/Response required for WS-I validations");
+    return;
+  }
+  String wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,null);
+  if (wsiDir == null) {
+    UISupport.showErrorMessage("WSI Test Tools directory must be set in global preferences");
+    return;
+  }
+  if (modelItem.getAttachmentCount() > 0) {
+    if (!UISupport.confirm("Response contains attachments which is not supported by " + "validation tools, validate anyway?","Validation Warning"))     return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  File reportFile=File.createTempFile("wsi-report",".xml");
+  ArgumentBuilder args=buildArgs(reportFile,modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(wsiDir + File.separatorChar + "java"+ File.separatorChar+ "bin"));
+  toolHost.run(new WSIProcessToolRunner(builder,reportFile,modelItem));
+}

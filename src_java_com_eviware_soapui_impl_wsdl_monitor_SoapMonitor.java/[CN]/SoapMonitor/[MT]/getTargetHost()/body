@@ -1,0 +1,10 @@
+{
+  String host=targetEndpoint;
+  try {
+    URL url=new URL(host);
+    return url.getHost();
+  }
+ catch (  MalformedURLException e) {
+    return host;
+  }
+}

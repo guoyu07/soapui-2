@@ -1,0 +1,4 @@
+{
+  if (request.getResponse() == null)   return "<missing raw request>";
+  return buildRawContent(request.getResponse().getRequestHeaders(),request.getResponse().getRawRequestData());
+}

@@ -1,0 +1,14 @@
+{
+  String line=UISupport.prompt("Enter line-number to (1.." + (getLineCount()) + ")","Go To Line",String.valueOf(getCaretLine() + 1));
+  if (line != null) {
+    try {
+      int ln=Integer.parseInt(line) - 1;
+      if (ln >= 0 && ln < getLineCount()) {
+        scrollTo(ln,0);
+        setCaretPosition(getLineStartOffset(ln));
+      }
+    }
+ catch (    NumberFormatException e1) {
+    }
+  }
+}

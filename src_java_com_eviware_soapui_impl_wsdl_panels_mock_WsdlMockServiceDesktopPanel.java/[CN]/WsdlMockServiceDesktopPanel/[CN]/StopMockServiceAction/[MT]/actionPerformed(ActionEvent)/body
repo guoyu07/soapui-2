@@ -1,0 +1,10 @@
+{
+  if (mockRunner == null) {
+    UISupport.showErrorMessage("MockService is not running");
+  }
+ else {
+    mockRunner.stop();
+    mockRunner.release();
+    mockRunner=null;
+  }
+}

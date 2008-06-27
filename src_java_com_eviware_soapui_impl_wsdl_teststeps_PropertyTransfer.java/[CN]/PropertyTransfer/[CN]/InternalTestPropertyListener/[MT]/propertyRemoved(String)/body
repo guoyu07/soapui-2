@@ -1,0 +1,12 @@
+{
+  if (name.equals(sourceType)) {
+    log.warn("source property for transfer [" + getName() + "] in teststep ["+ testStep.getName()+ "/"+ testStep.getTestCase().getName()+ "/"+ testStep.getTestCase().getTestSuite().getName()+ "] set to null, was ["+ name+ "]");
+    currentSourceProperty=null;
+    setSourcePropertyName(null);
+  }
+  if (name.equals(targetType)) {
+    log.warn("target property for transfer [" + getName() + "] in teststep ["+ testStep.getName()+ "/"+ testStep.getTestCase().getName()+ "/"+ testStep.getTestCase().getTestSuite().getName()+ "] set to null, was ["+ name+ "]");
+    currentTargetProperty=null;
+    setTargetPropertyName(null);
+  }
+}

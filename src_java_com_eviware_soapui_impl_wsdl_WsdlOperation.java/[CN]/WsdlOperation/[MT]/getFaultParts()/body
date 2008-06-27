@@ -1,0 +1,9 @@
+{
+  BindingOperation bindingOperation=getBindingOperation();
+  Map<?,?> bindingFaults=bindingOperation.getBindingFaults();
+  List<FaultPart> result=new ArrayList<FaultPart>();
+  for (  Object key : bindingFaults.keySet()) {
+    result.add(new WsdlFaultPart((String)key));
+  }
+  return result.toArray(new FaultPart[result.size()]);
+}

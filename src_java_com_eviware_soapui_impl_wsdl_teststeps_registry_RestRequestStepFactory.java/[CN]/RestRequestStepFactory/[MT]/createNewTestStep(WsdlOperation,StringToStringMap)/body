@@ -1,0 +1,17 @@
+{
+  String name;
+  name=values.get(STEP_NAME);
+  RequestStepConfig requestStepConfig=RequestStepConfig.Factory.newInstance();
+  requestStepConfig.setInterface(operation.getInterface().getName());
+  requestStepConfig.setOperation(operation.getName());
+  WsdlRequestConfig testRequestConfig=requestStepConfig.addNewRequest();
+  testRequestConfig.setName(name);
+  testRequestConfig.setEncoding("UTF-8");
+  String[] endpoints=operation.getInterface().getEndpoints();
+  if (endpoints.length > 0)   testRequestConfig.setEndpoint(endpoints[0]);
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(REQUEST_TYPE);
+  testStep.setConfig(requestStepConfig);
+  testStep.setName(name);
+  return testStep;
+}

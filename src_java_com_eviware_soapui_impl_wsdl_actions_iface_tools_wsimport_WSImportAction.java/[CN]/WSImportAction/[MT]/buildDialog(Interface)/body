@@ -1,0 +1,15 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("JAX-WS Artifacts");
+  XForm mainForm=builder.createForm("Basic");
+  addWSDLFields(mainForm,modelItem);
+  mainForm.addTextField(OUTPUT,"target directory for generated files.",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(PACKAGE,"target package nam",XForm.FieldType.JAVA_PACKAGE);
+  mainForm.addTextField(SOURCE_OUTPUT,"target directory for generated source files",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(HTTPPROXY,"HTTP Proxy-server",XForm.FieldType.TEXT);
+  mainForm.addTextField(CATALOG,"catalog file to resolve external entity references",XForm.FieldType.PROJECT_FILE);
+  mainForm.addTextField(BINDING_FILES,"comma-separated list of external JAX-WS or JAXB binding files",XForm.FieldType.TEXT);
+  mainForm.addTextField(WSDLLOCATION,"@WebService.wsdlLocation and @WebServiceClient.wsdlLocation value",XForm.FieldType.TEXT);
+  mainForm.addCheckBox(KEEP,"(keep generated files)");
+  buildArgsForm(builder,false,"WSImport");
+  return builder.buildDialog(buildDefaultActions(HelpUrls.WSIMPORT_HELP_URL,modelItem),"Specify arguments for JWSDP/JAX-WS wsimport",UISupport.TOOL_ICON);
+}

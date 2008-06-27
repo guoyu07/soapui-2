@@ -1,0 +1,11 @@
+{
+  mockRunner=(WsdlMockRunner)runner;
+  mockRunner.setMaxResults(logListModel.getMaxSize());
+  mockRunner.setLogEnabled(enableLogCheckBox.isSelected());
+  progressBar.setIndeterminate(true);
+  runButton.setEnabled(false);
+  stopButton.setEnabled(true);
+  optionsButton.setEnabled(false);
+  showWsdlButton.setEnabled(true);
+  runInfoLabel.setText("running on port " + getModelItem().getPort());
+}

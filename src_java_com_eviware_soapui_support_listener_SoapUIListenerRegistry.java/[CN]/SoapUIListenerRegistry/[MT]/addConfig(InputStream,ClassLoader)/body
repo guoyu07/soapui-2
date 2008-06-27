@@ -1,0 +1,46 @@
+{
+  try {
+    SoapuiListenersDocumentConfig configDocument=SoapuiListenersDocumentConfig.Factory.parse(config);
+    SoapUIListenersConfig soapuiListeners=configDocument.getSoapuiListeners();
+    for (    SoapUIListenerConfig listenerConfig : soapuiListeners.getListenerList()) {
+      try {
+        String listenerInterfaceName=listenerConfig.getListenerInterface();
+        String listenerClassName=listenerConfig.getListenerClass();
+        Class<?> listenerInterface=Class.forName(listenerInterfaceName,true,classLoader);
+        Class<?> listenerClass=Class.forName(listenerClassName,true,classLoader);
+        if (!listenerInterface.isInterface()) {
+          throw new RuntimeException("Listener interface: " + listenerInterfaceName + " must be an interface");
+        }
+        if (!listenerInterface.isAssignableFrom(listenerClass)) {
+          throw new RuntimeException("Listener class: " + listenerClassName + " must implement interface: "+ listenerInterfaceName);
+        }
+        Object obj=listenerClass.newInstance();
+        if (listenerConfig.getSingleton()) {
+          if (obj instanceof InitializableListener) {
+            ((InitializableListener)obj).init(listenerConfig);
+          }
+          getLog().info("Adding singleton listener [" + listenerClass + "]");
+          addSingletonListener(listenerInterface,obj);
+        }
+ else {
+          getLog().info("Adding listener [" + listenerClass + "]");
+          addListener(listenerInterface,listenerClass,listenerConfig);
+        }
+      }
+ catch (      Exception e) {
+        System.err.println("Error initializing Listener: " + e);
+      }
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    try {
+      config.close();
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (stepIndex == TOTAL)   stepIndex=data.length - 1;
+  if (statistic == Statistic.TPS || statistic == Statistic.AVERAGE)   return data[stepIndex][statistic.getIndex()] / 100;
+ else   return data[stepIndex][statistic.getIndex()];
+}

@@ -1,0 +1,36 @@
+{
+  Part part=null;
+  for (int c=0; c < parts.length; c++) {
+    if ((isResponse && !WsdlUtils.isAttachmentOutputPart(parts[c],bindingOperation)) || (!isResponse && !WsdlUtils.isAttachmentInputPart(parts[c],bindingOperation))) {
+      if (part != null) {
+        errors.add(XmlError.forMessage("DocLiteral message must contain 1 body part definition"));
+        return;
+      }
+      part=parts[c];
+    }
+  }
+  QName elementName=part.getElementName();
+  if (elementName != null) {
+    XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ elementName.getNamespaceURI()+ "';"+ "$this/env:Envelope/env:Body/ns:"+ elementName.getLocalPart());
+    if (paths.length == 1) {
+      SchemaGlobalElement elm=wsdlContext.getSchemaTypeLoader().findElement(elementName);
+      if (elm != null) {
+        validateMessageBody(errors,elm.getType(),paths[0]);
+      }
+ else       errors.add(XmlError.forMessage("Missing part type [" + elementName + "] in associated schema"));
+    }
+ else     errors.add(XmlError.forMessage("Missing message part with name [" + elementName + "]"));
+  }
+ else   if (part.getTypeName() != null) {
+    QName typeName=part.getTypeName();
+    XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ typeName.getNamespaceURI()+ "';"+ "$this/env:Envelope/env:Body/ns:"+ part.getName());
+    if (paths.length == 1) {
+      SchemaType type=wsdlContext.getSchemaTypeLoader().findType(typeName);
+      if (type != null) {
+        validateMessageBody(errors,type,paths[0]);
+      }
+ else       errors.add(XmlError.forMessage("Missing part type in associated schema"));
+    }
+ else     errors.add(XmlError.forMessage("Missing message part with name:type [" + part.getName() + ":"+ typeName+ "]"));
+  }
+}

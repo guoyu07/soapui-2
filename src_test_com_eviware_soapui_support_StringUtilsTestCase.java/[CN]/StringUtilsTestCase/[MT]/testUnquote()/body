@@ -1,0 +1,8 @@
+{
+  assertEquals("test",StringUtils.unquote("\"test\""));
+  assertNull(StringUtils.unquote(null));
+  assertEquals("",StringUtils.unquote(""));
+  assertEquals("\"test",StringUtils.unquote("\"test"));
+  assertEquals("test\"",StringUtils.unquote("test\""));
+  assertEquals("test",StringUtils.unquote("test"));
+}

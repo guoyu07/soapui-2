@@ -1,0 +1,76 @@
+{
+  MimeMultipart mp=null;
+  WsdlOperation operation=getMockOperation().getOperation();
+  if (operation == null)   throw new Exception("Missing WsdlOperation for mock response");
+  SoapVersion soapVersion=operation.getInterface().getSoapVersion();
+  StringToStringMap contentIds=new StringToStringMap();
+  boolean isXOP=isMtomEnabled() && isForceMtom();
+  if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
+    try {
+      mp=new MimeMultipart();
+      MessageXmlObject requestXmlObject=new MessageXmlObject(operation,getResponseContent(),false);
+      MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
+      for (      MessageXmlPart requestPart : requestParts) {
+        if (AttachmentUtils.prepareMessagePart(this,mp,requestPart,contentIds))         isXOP=true;
+      }
+      responseContent=requestXmlObject.getMessageContent();
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
+  }
+  if (isRemoveEmptyContent()) {
+    responseContent=RemoveEmptyContentRequestFilter.removeEmptyContent(responseContent);
+  }
+  if (isStripWhitespaces()) {
+    responseContent=XmlUtils.stripWhitespaces(responseContent);
+  }
+  String status=getResponseHttpStatus();
+  WsdlMockRequest request=response.getMockRequest();
+  if (status == null || status.trim().length() == 0) {
+    if (SoapUtils.isSoapFault(responseContent,request.getSoapVersion())) {
+      request.getHttpResponse().setStatus(500);
+    }
+ else {
+      request.getHttpResponse().setStatus(200);
+    }
+  }
+ else {
+    try {
+      request.getHttpResponse().setStatus(Integer.parseInt(status));
+    }
+ catch (    RuntimeException e) {
+      SoapUI.logError(e);
+    }
+  }
+  ByteArrayOutputStream outData=new ByteArrayOutputStream();
+  if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
+    String encoding=getEncoding();
+    byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
+    response.setContentType(soapVersion.getContentTypeHttpHeader(encoding,null));
+    String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding");
+    if (acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
+      response.addHeader("Content-Encoding","gzip");
+      GZIPOutputStream zipOut=new GZIPOutputStream(outData);
+      zipOut.write(content);
+      zipOut.close();
+    }
+ else {
+      outData.write(content);
+    }
+  }
+ else {
+    if (mp == null)     mp=new MimeMultipart();
+    initRootPart(responseContent,mp,isXOP);
+    AttachmentUtils.addMimeParts(this,mp,contentIds);
+    MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+    message.setContent(mp);
+    message.saveChanges();
+    MimeMessageMockResponseEntity mimeMessageRequestEntity=new MimeMessageMockResponseEntity(message,isXOP,this);
+    response.addHeader("Content-Type",mimeMessageRequestEntity.getContentType());
+    response.addHeader("MIME-Version","1.0");
+    mimeMessageRequestEntity.writeRequest(outData);
+  }
+  response.writeRawResponseData(outData.toByteArray());
+  return responseContent;
+}

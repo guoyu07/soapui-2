@@ -1,0 +1,20 @@
+{
+  String source=expand();
+  if (StringUtils.hasContent(source)) {
+    try {
+      new URL(source);
+    }
+ catch (    Exception e) {
+      File file=new File(source);
+      if (!file.exists() || !file.isDirectory()) {
+        context.addPathToResolve(modelItem,errorDescription,source,new ResolveContext.DirectoryResolver("Select Directory",source){
+          @Override public boolean apply(          File newFile){
+            set(newFile.getAbsolutePath(),notify);
+            return true;
+          }
+        }
+);
+      }
+    }
+  }
+}

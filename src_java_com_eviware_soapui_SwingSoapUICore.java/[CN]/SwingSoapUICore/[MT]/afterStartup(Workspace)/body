@@ -1,0 +1,10 @@
+{
+  InspectorRegistry inspectorRegistry=InspectorRegistry.getInstance();
+  inspectorRegistry.addFactory(new ScriptInspectorFactory());
+  inspectorRegistry.addFactory(new AutInspectorFactory());
+  inspectorRegistry.addFactory(new HttpHeadersInspectorFactory());
+  inspectorRegistry.addFactory(new AttachmentsInspectorFactory());
+  inspectorRegistry.addFactory(new SSLInspectorFactory());
+  inspectorRegistry.addFactory(new WssInspectorFactory());
+  addExternalActions(getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions",getExtensionClassLoader());
+}

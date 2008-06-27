@@ -1,0 +1,36 @@
+{
+  if (editorForm == null) {
+    ButtonBarBuilder builder=new ButtonBarBuilder();
+    editorFontTextField=new JTextField(20);
+    editorFontTextField.setEnabled(false);
+    builder.addFixed(editorFontTextField);
+    builder.addRelatedGap();
+    builder.addFixed(new JButton(new AbstractAction("Select Font.."){
+      public void actionPerformed(      ActionEvent e){
+        Font font=JFontChooser.showDialog(null,"Select XML Editor Font",Font.decode(editorFontTextField.getText()));
+        if (font != null)         editorFontTextField.setText(encodeFont(font));
+      }
+    }
+));
+    editorForm=new SimpleForm();
+    editorForm.addSpace(5);
+    editorForm.append("Editor Font",builder.getPanel());
+    editorForm.appendSeparator();
+    editorForm.appendCheckBox(XML_LINE_NUMBERS,"(show line-numbers in xml editors by default)",true);
+    editorForm.appendCheckBox(GROOVY_LINE_NUMBERS,"(show line-numbers in groovy editors by default)",true);
+    editorForm.appendSeparator();
+    editorForm.appendCheckBox(NO_RESIZE_REQUEST_EDITOR,"(disables automatic resizing of request editors)",true);
+    editorForm.appendCheckBox(START_WITH_REQUEST_TABS,"(defaults the request editor to the tabbed layout)",true);
+    editorForm.appendSeparator();
+    autoValidateCheckBox=editorForm.appendCheckBox(AUTO_VALIDATE_REQUEST,"(always validate request messages before they are sent)",true);
+    abortCheckBox=editorForm.appendCheckBox(ABORT_ON_INVALID_REQUEST,"(aborts invalid requests)",true);
+    editorForm.appendCheckBox(AUTO_VALIDATE_RESPONSE,"(always validate response messages)",true);
+    autoValidateCheckBox.addActionListener(new ActionListener(){
+      public void actionPerformed(      ActionEvent e){
+        abortCheckBox.setEnabled(autoValidateCheckBox.isSelected());
+      }
+    }
+);
+  }
+  return editorForm;
+}

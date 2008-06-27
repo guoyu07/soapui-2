@@ -1,0 +1,16 @@
+{
+  super(new BorderLayout());
+  this.project=project;
+  this.listenPort=listenPort;
+  this.targetEndpoint=endpoint;
+  this.addEndpoint=addEndpoint;
+  this.isProxy=isProxy;
+  this.incomingRequestWss=incomingRequestWss;
+  this.incomingResponseWss=incomingResponseWss;
+  this.maxRows=100;
+  this.slowLink=new SlowLinkSimulator(0,0);
+  this.setLayout(new BorderLayout());
+  add(buildToolbars(mainToolbar),BorderLayout.NORTH);
+  add(buildContent(),BorderLayout.CENTER);
+  start();
+}

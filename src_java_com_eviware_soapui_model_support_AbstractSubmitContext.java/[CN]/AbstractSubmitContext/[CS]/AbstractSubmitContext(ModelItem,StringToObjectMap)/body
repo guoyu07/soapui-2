@@ -1,0 +1,7 @@
+{
+  this(modelItem);
+  if (properties != null && properties.size() > 0) {
+    if (this.properties == null)     this.properties=new DefaultPropertyExpansionContext(modelItem);
+    this.properties.putAll(properties);
+  }
+}

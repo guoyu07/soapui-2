@@ -1,0 +1,10 @@
+{
+  for (  SwingXFormImpl form : forms) {
+    if (form.getComponent(name) != null) {
+      String[] options=form.getOptions(name);
+      if (options == null)       return -1;
+      return Arrays.asList(options).indexOf(form.getComponentValue(name));
+    }
+  }
+  return -1;
+}

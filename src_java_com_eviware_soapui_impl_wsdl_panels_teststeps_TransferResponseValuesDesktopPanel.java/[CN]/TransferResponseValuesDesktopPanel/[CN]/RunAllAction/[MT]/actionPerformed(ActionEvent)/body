@@ -1,0 +1,13 @@
+{
+  if (listModel.getSize() == 0) {
+    UISupport.showErrorMessage("Missing transfers!");
+    return;
+  }
+  MockTestRunner mockRunner=new MockTestRunner(transferStep.getTestCase());
+  MockTestRunContext context=new MockTestRunContext(mockRunner,transferStep);
+  for (int c=0; c < transferStep.getTransferCount(); c++) {
+    PropertyTransfer transfer=transferStep.getTransferAt(c);
+    ValueTransferResult result=(ValueTransferResult)transferStep.run(mockRunner,context,transfer);
+    transferLogTableModel.addResult(result);
+  }
+}

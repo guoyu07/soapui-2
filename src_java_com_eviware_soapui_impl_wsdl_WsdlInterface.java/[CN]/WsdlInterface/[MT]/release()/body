@@ -1,0 +1,5 @@
+{
+  super.release();
+  for (  WsdlOperation operation : operations)   operation.release();
+  if (wsdlContext != null)   wsdlContext.release();
+}

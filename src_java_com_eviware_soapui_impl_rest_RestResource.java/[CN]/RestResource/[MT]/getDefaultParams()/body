@@ -1,0 +1,6 @@
+{
+  List<RestParamProperty> result=new ArrayList<RestParamProperty>();
+  if (parentResource != null)   result.addAll(Arrays.asList(parentResource.getDefaultParams()));
+  for (int c=0; c < getPropertyCount(); c++)   result.add(getPropertyAt(c));
+  return result.toArray(new RestParamProperty[result.size()]);
+}

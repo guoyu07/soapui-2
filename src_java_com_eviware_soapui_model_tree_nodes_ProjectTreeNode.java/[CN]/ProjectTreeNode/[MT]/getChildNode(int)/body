@@ -1,0 +1,8 @@
+{
+  if (propertiesTreeNode == null)   return null;
+  int propMod=getTreeModel().isShowProperties() ? 1 : 0;
+  if (propMod == 1 && index == 0)   return propertiesTreeNode;
+ else   if (index < interfaceNodes.size() + propMod)   return interfaceNodes.get(index - propMod);
+ else   if (index < testSuiteNodes.size() + interfaceNodes.size() + propMod)   return testSuiteNodes.get(index - interfaceNodes.size() - propMod);
+ else   return mockServiceNodes.get(index - interfaceNodes.size() - testSuiteNodes.size()- propMod);
+}

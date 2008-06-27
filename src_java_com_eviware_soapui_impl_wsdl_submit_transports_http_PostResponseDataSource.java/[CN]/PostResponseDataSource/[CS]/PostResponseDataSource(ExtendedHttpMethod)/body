@@ -1,0 +1,12 @@
+{
+  this.postMethod=postMethod;
+  try {
+    data=postMethod.getResponseBody();
+    if (HttpClientSupport.isZippedResponse(postMethod)) {
+      data=HttpClientSupport.decompress(data);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

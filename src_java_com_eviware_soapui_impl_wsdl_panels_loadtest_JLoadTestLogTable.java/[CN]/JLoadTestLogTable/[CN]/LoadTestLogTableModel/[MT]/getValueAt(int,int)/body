@@ -1,0 +1,17 @@
+{
+  if (rowIndex == -1)   return null;
+  LoadTestLogEntry entry=(LoadTestLogEntry)loadTestLog.getElementAt(rowIndex);
+switch (columnIndex) {
+case 0:
+    return entry.getIcon();
+case 1:
+  return entry.getTimeStamp();
+case 2:
+return entry.getType();
+case 3:
+return entry.getTargetStepName();
+case 4:
+return entry.getMessage();
+}
+return null;
+}

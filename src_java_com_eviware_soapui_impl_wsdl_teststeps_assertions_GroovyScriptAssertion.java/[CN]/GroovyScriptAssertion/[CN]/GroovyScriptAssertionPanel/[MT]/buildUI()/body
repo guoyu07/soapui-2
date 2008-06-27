@@ -1,0 +1,22 @@
+{
+  editor=new GroovyEditor(new ScriptStepGroovyEditorModel());
+  logArea=new JLogList("Groovy Test Log");
+  logArea.addLogger("ScriptAssertion." + getName(),true);
+  logArea.getLogList().addMouseListener(new MouseAdapter(){
+    public void mouseClicked(    MouseEvent e){
+      if (e.getClickCount() < 2)       return;
+      String value=logArea.getLogList().getSelectedValue().toString();
+      if (value == null)       return;
+      editor.selectError(value);
+    }
+  }
+);
+  JScrollPane scrollPane=new JScrollPane(editor);
+  scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0,3,0,3),scrollPane.getBorder()));
+  mainSplit=UISupport.createVerticalSplit(scrollPane,logArea);
+  mainSplit.setDividerLocation(280);
+  mainSplit.setResizeWeight(0.8);
+  add(mainSplit,BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+  add(buildStatusBar(),BorderLayout.SOUTH);
+}

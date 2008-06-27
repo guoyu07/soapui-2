@@ -1,0 +1,16 @@
+{
+  Component component=super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
+  if (component instanceof JComponent) {
+    PropertyDescriptor descriptor=((PropertiesTableModel<?>)table.getModel()).getPropertyDescriptorAt(row);
+    if (StringUtils.hasContent(descriptor.getDescription())) {
+      ((JComponent)component).setToolTipText(descriptor.getDescription());
+    }
+ else     if (value != null && StringUtils.hasContent(value.toString())) {
+      ((JComponent)component).setToolTipText(value.toString());
+    }
+ else {
+      ((JComponent)component).setToolTipText(null);
+    }
+  }
+  return component;
+}

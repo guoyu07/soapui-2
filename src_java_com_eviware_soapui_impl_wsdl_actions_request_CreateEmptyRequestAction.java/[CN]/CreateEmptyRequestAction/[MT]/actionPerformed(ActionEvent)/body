@@ -1,0 +1,6 @@
+{
+  if (UISupport.confirm("Overwrite existing request?","Create Empty")) {
+    WsdlInterface iface=(WsdlInterface)request.getOperation().getInterface();
+    request.setRequestContent(iface.getMessageBuilder().buildEmptyMessage());
+  }
+}

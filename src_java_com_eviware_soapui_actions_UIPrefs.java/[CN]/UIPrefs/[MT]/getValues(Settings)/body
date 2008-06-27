@@ -1,0 +1,17 @@
+{
+  StringToStringMap values=new StringToStringMap();
+  values.put(CLOSE_PROJECTS,settings.getBoolean(UISettings.CLOSE_PROJECTS));
+  values.put(ORDER_PROJECTS,settings.getBoolean(UISettings.ORDER_PROJECTS));
+  values.put(ORDER_REQUESTS,settings.getBoolean(UISettings.ORDER_REQUESTS));
+  values.put(ORDER_TESTSUITES,settings.getBoolean(UISettings.ORDER_TESTSUITES));
+  values.put(CREATE_BACKUP,settings.getBoolean(UISettings.CREATE_BACKUP));
+  values.put(BACKUP_FOLDER,settings.getString(UISettings.BACKUP_FOLDER,""));
+  values.put(AUTOSAVE_INTERVAL,settings.getString(UISettings.AUTO_SAVE_INTERVAL,"0"));
+  if (SoapUI.isStandalone()) {
+    values.put(DESKTOP_TYPE,settings.getString(UISettings.DESKTOP_TYPE,SoapUI.DEFAULT_DESKTOP));
+    values.put(NATIVE_LAF,settings.getBoolean(UISettings.NATIVE_LAF));
+  }
+  values.put(ENABLE_GROOVY_LOG_DURING_LOADTEST,settings.getBoolean(UISettings.DONT_DISABLE_GROOVY_LOG));
+  if (SoapUI.isStandalone())   values.put(SHOW_LOGS_AT_STARTUP,settings.getBoolean(UISettings.SHOW_LOGS_AT_STARTUP));
+  return values;
+}

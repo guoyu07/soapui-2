@@ -1,0 +1,5 @@
+{
+  WsdlResponse oldResponse=getResponse();
+  super.setResponse(response,context);
+  if (response != oldResponse)   assertResponse(context);
+}

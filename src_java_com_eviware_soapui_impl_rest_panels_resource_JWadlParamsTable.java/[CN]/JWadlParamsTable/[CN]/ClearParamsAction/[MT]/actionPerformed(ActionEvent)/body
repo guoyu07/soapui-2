@@ -1,0 +1,7 @@
+{
+  if (UISupport.confirm("Clear all parameter values?","Clear Parameters")) {
+    for (    String name : params.getPropertyNames()) {
+      params.getProperty(name).setValue(null);
+    }
+  }
+}

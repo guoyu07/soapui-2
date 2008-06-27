@@ -1,0 +1,33 @@
+{
+  String proxyHost=System.getProperty("http.proxyHost");
+  String proxyPort=System.getProperty("http.proxyPort");
+  if (proxyHost == null)   proxyHost=settings.getString(ProxySettings.HOST,null);
+  if (proxyPort == null)   proxyPort=settings.getString(ProxySettings.PORT,null);
+  if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
+    String[] excludes=settings.getString(ProxySettings.EXCLUDES,"").split(",");
+    try {
+      URL url=new URL(urlString);
+      if (!excludes(excludes,url.getHost(),url.getPort())) {
+        hostConfiguration.setProxy(proxyHost,Integer.parseInt(proxyPort));
+        String proxyUsername=settings.getString(ProxySettings.USERNAME,null);
+        String proxyPassword=settings.getString(ProxySettings.PASSWORD,null);
+        if (proxyUsername != null && proxyPassword != null) {
+          Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword == null ? "" : proxyPassword);
+          int ix=proxyUsername.indexOf('\\');
+          if (ix > 0) {
+            String domain=proxyUsername.substring(0,ix);
+            if (proxyUsername.length() > ix + 1) {
+              String user=proxyUsername.substring(ix + 1);
+              proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
+            }
+          }
+          httpState.setProxyCredentials(AuthScope.ANY,proxyCreds);
+        }
+      }
+    }
+ catch (    MalformedURLException e) {
+      SoapUI.logError(e);
+    }
+  }
+  return hostConfiguration;
+}

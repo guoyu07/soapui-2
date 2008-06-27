@@ -1,0 +1,59 @@
+{
+  int selectedIndex=table.getSelectedRow();
+  if (selectedIndex == -1) {
+    Toolkit.getDefaultToolkit().beep();
+    return;
+  }
+  String selectedEndpoint=tableModel.getEndpointAt(selectedIndex);
+  EndpointDefaults defaults=tableModel.getDefaultsAt(selectedIndex);
+  List<String> list=new ArrayList<String>(Arrays.asList(iface.getEndpoints()));
+  list.add(0,ALL_REQUESTS);
+  list.add(1,ALL_TEST_REQUESTS);
+  list.add(2,ALL_REQUESTS_AND_TEST_REQUESTS);
+  list.add(3,ALL_REQUESTS_WITH_NO_ENDPOINT);
+  Object endpoint=UISupport.prompt("Assign selected endpoint and authorization to..","Assign Endpoint",list.toArray(),ALL_REQUESTS_WITH_NO_ENDPOINT);
+  if (endpoint == null)   return;
+  int changeCount=0;
+  if (endpoint.equals(ALL_REQUESTS) || endpoint.equals(ALL_REQUESTS_WITH_NO_ENDPOINT) || endpoint.equals(ALL_REQUESTS_AND_TEST_REQUESTS)) {
+    for (int c=0; c < iface.getOperationCount(); c++) {
+      Operation operation=iface.getOperationAt(c);
+      for (int i=0; i < operation.getRequestCount(); i++) {
+        WsdlRequest request=(WsdlRequest)operation.getRequestAt(i);
+        String ep=request.getEndpoint();
+        if (endpoint.equals(ALL_REQUESTS) || endpoint.equals(ALL_REQUESTS_AND_TEST_REQUESTS) || (endpoint.equals(ALL_REQUESTS_WITH_NO_ENDPOINT) && ep == null)|| (ep.equals(endpoint))) {
+          request.setEndpoint(selectedEndpoint);
+          request.setUsername(defaults.getUsername());
+          request.setPassword(defaults.getPassword());
+          request.setDomain(defaults.getDomain());
+          request.setWssPasswordType(defaults.getWssType());
+          request.setWssTimeToLive(defaults.getWssTimeToLive());
+          request.setOutgoingWss(defaults.getOutgoingWss());
+          request.setIncomingWss(defaults.getIncomingWss());
+          changeCount++;
+        }
+      }
+    }
+  }
+  if (endpoint.equals(ALL_REQUESTS_AND_TEST_REQUESTS) || endpoint.equals(ALL_TEST_REQUESTS)) {
+    for (    TestSuite testSuite : iface.getProject().getTestSuiteList()) {
+      for (      TestCase testCase : testSuite.getTestCaseList()) {
+        for (        TestStep testStep : testCase.getTestStepList()) {
+          if (testStep instanceof WsdlTestRequestStep) {
+            WsdlTestRequest testRequest=((WsdlTestRequestStep)testStep).getTestRequest();
+            if (testRequest.getOperation().getInterface() == iface) {
+              testRequest.setEndpoint(selectedEndpoint);
+              testRequest.setUsername(defaults.getUsername());
+              testRequest.setPassword(defaults.getPassword());
+              testRequest.setDomain(defaults.getDomain());
+              testRequest.setWssPasswordType(defaults.getWssType());
+              testRequest.setWssTimeToLive(defaults.getWssTimeToLive());
+              testRequest.setOutgoingWss(defaults.getOutgoingWss());
+              testRequest.setIncomingWss(defaults.getIncomingWss());
+              changeCount++;
+            }
+          }
+        }
+      }
+    }
+  }
+}

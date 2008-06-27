@@ -1,0 +1,39 @@
+{
+  project=wsdlProject;
+  ArrayList<WsdlInterface> arraylist=new ArrayList<WsdlInterface>();
+  for (int i=0; i < project.getInterfaceCount(); i++) {
+    AbstractInterface<?> iface=project.getInterfaceAt(i);
+    if (iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE) && iface.getOperationCount() > 0) {
+      arraylist.add((WsdlInterface)iface);
+    }
+  }
+  if (arraylist.isEmpty()) {
+    UISupport.showErrorMessage("Missing Interfaces/Operations to mock");
+    return null;
+  }
+  form.setValue(CreateForm.NAME,name);
+  form.setOptions(CreateForm.INTERFACE,(new ModelItemNames<WsdlInterface>(arraylist)).getNames());
+  form.setOptions(CreateForm.OPERATION,(new ModelItemNames(arraylist.get(0).getOperationList())).getNames());
+  if (!form.show()) {
+    return null;
+  }
+  TestStepConfig testStepConfig;
+  (testStepConfig=TestStepConfig.Factory.newInstance()).setType(ASYNC_RESPONSE_TYPE);
+  testStepConfig.setName(form.getValue(CreateForm.NAME));
+  AsyncResponseStepConfig config=AsyncResponseStepConfig.Factory.newInstance();
+  config.setInterface(form.getValue(CreateForm.INTERFACE));
+  config.setOperation(form.getValue(CreateForm.OPERATION));
+  config.setPort(form.getIntValue(CreateForm.PORT,8080));
+  config.setPath(form.getValue(CreateForm.PATH));
+  config.setRequestQuery(form.getValue(CreateForm.REQUEST_QUERY));
+  config.setMatchingValue(form.getValue(CreateForm.MATCHING_VALUE));
+  config.addNewResponse();
+  config.getResponse().addNewResponseContent();
+  if (form.getBooleanValue(CreateForm.CREATE_RESPONSE)) {
+    WsdlInterface iface=(WsdlInterface)project.getInterfaceByName(config.getInterface());
+    String content=iface.getOperationByName(config.getOperation()).createResponse(project.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
+    CompressedStringSupport.setString(config.getResponse().getResponseContent(),content);
+  }
+  testStepConfig.addNewConfig().set(config);
+  return testStepConfig;
+}

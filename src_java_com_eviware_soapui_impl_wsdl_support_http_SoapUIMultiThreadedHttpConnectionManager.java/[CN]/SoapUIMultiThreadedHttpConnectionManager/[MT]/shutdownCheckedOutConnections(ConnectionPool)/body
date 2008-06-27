@@ -1,0 +1,23 @@
+{
+  ArrayList<HttpConnection> connectionsToClose=new ArrayList<HttpConnection>();
+synchronized (REFERENCE_TO_CONNECTION_SOURCE) {
+    Iterator referenceIter=REFERENCE_TO_CONNECTION_SOURCE.keySet().iterator();
+    while (referenceIter.hasNext()) {
+      Reference ref=(Reference)referenceIter.next();
+      ConnectionSource source=(ConnectionSource)REFERENCE_TO_CONNECTION_SOURCE.get(ref);
+      if (source.connectionPool == connectionPool) {
+        referenceIter.remove();
+        HttpConnection connection=(HttpConnection)ref.get();
+        if (connection != null) {
+          connectionsToClose.add(connection);
+        }
+      }
+    }
+  }
+  for (Iterator i=connectionsToClose.iterator(); i.hasNext(); ) {
+    HttpConnection connection=(HttpConnection)i.next();
+    connection.close();
+    connection.setHttpConnectionManager(null);
+    connection.releaseConnection();
+  }
+}

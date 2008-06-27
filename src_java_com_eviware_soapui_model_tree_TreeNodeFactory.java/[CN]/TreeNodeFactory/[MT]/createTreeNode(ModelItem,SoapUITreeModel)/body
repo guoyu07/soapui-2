@@ -1,0 +1,5 @@
+{
+  if (modelItem instanceof WsdlOperation)   return new OperationTreeNode((Operation)modelItem,treeModel);
+ else   if (modelItem instanceof RestResource)   return new RestResourceTreeNode((RestResource)modelItem,treeModel);
+  return null;
+}

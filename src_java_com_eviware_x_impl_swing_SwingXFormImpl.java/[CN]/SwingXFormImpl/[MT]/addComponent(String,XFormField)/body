@@ -1,0 +1,23 @@
+{
+  components.put(label,formComponent);
+  if (rowSpacing > 0 && !components.isEmpty())   addSpace(rowSpacing);
+  layout.appendRow(rowSpec);
+  int row=layout.getRowCount();
+  AbstractSwingXFormField<?> swingFormComponent=(AbstractSwingXFormField<?>)formComponent;
+  if (label != null) {
+    JLabel jlabel=new JLabel(label.endsWith(":") ? label : label + ":");
+    jlabel.setBorder(BorderFactory.createEmptyBorder(2,0,0,0));
+    panel.add(jlabel,cc.xy(2,row));
+    jlabel.setLabelFor(swingFormComponent.getComponent());
+    int ix=label.indexOf('&');
+    if (ix >= 0) {
+      jlabel.setText(label.substring(0,ix) + label.substring(ix + 1));
+      jlabel.setDisplayedMnemonicIndex(ix);
+      jlabel.setDisplayedMnemonic(label.charAt(ix + 1));
+    }
+    swingFormComponent.getComponent().getAccessibleContext().setAccessibleDescription(label);
+  }
+  panel.add(swingFormComponent.getComponent(),cc.xy(4,row));
+  components.put(label,formComponent);
+  return formComponent;
+}

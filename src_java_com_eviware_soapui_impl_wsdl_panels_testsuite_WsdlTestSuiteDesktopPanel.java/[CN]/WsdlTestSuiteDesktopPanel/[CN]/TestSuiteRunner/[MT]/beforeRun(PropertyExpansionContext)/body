@@ -1,0 +1,18 @@
+{
+  super.beforeRun(context);
+  WsdlTestSuiteDesktopPanel.this.beforeRun();
+  progressBar.setMaximum(getTestCaseCount());
+  progressBar.setValue(0);
+  progressBar.setString("");
+  finishCount=0;
+  if (runLogListener == null)   runLogListener=new TestRunLog.TestRunLogTestRunListener(testRunLog,false);
+  testRunLog.clear();
+  if (getRunType() == TestSuiteRunType.PARALLEL)   testRunLog.addText("<log disabled during parallell execution>");
+  context=new DefaultPropertyExpansionContext(testSuite);
+  try {
+    testSuite.runSetupScript(context);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

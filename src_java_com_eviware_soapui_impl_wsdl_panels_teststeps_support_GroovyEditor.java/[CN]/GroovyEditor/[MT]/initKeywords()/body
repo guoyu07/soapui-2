@@ -1,0 +1,8 @@
+{
+  KeywordMap keywords=GroovyTokenMarker.getKeywords();
+  String[] kw=model.getKeywords();
+  if (kw != null) {
+    for (    String keyword : kw)     keywords.add(keyword,Token.KEYWORD2);
+  }
+  return keywords;
+}

@@ -1,0 +1,17 @@
+{
+  if (wsdlContext == null || !wsdlContext.isLoaded())   return "<not loaded>";
+  try {
+    Binding binding=wsdlContext.getDefinition().getBinding(getBindingName());
+    if (binding == null)     return "<missing binding>";
+    if (WsdlUtils.isRpc(binding)) {
+      return STYLE_RPC;
+    }
+ else {
+      return STYLE_DOCUMENT;
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return "<error>";
+  }
+}

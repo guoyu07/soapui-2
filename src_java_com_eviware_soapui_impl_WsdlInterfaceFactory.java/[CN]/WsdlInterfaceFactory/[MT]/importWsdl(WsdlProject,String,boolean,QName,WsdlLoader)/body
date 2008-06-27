@@ -1,0 +1,33 @@
+{
+  WsdlInterface[] result;
+  try {
+    result=WsdlImporter.importWsdl(project,url,bindingName,wsdlLoader);
+  }
+ catch (  Exception e) {
+    log.error("Error importing wsdl: " + e);
+    SoapUI.logError(e);
+    throw new SoapUIException("Error importing wsdl",e);
+  }
+  try {
+    if (createRequests && result != null) {
+      for (      WsdlInterface iface : result) {
+        for (int c=0; c < iface.getOperationCount(); c++) {
+          WsdlOperation operation=iface.getOperationAt(c);
+          WsdlRequest request=operation.addNewRequest("Request 1");
+          try {
+            String requestContent=operation.createRequest(true);
+            request.setRequestContent(requestContent);
+          }
+ catch (          Exception e) {
+            SoapUI.logError(e);
+          }
+        }
+      }
+    }
+  }
+ catch (  Exception e) {
+    log.error("Error creating requests: " + e.getMessage());
+    throw new SoapUIException("Error creating requests",e);
+  }
+  return result;
+}

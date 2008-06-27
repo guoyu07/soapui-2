@@ -1,0 +1,14 @@
+{
+  try {
+    if (Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() == Event.META_MASK) {
+      keyStroke=keyStroke.replaceAll("menu","meta");
+    }
+ else {
+      keyStroke=keyStroke.replaceAll("menu","ctrl");
+    }
+  }
+ catch (  Throwable e) {
+    keyStroke=keyStroke.replaceAll("menu","ctrl");
+  }
+  return KeyStroke.getKeyStroke(keyStroke);
+}

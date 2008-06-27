@@ -1,0 +1,14 @@
+{
+  List<Class<?>> classes=null;
+  if (listeners.containsKey(listenerInterface)) {
+    classes=listeners.get(listenerInterface);
+  }
+  if (classes == null) {
+    classes=new ArrayList<Class<?>>();
+  }
+  classes.add(listenerClass);
+  listeners.put(listenerInterface,classes);
+  if (config != null) {
+    listenerConfigs.put(listenerClass,config);
+  }
+}

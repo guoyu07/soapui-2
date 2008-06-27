@@ -1,0 +1,18 @@
+{
+  Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+  for (int i=0; i < mockService.getMockOperationCount(); i++) {
+    WsdlOperation operation=mockService.getMockOperationAt(i).getOperation();
+    if (operation != null)     requiredInterfaces.add(operation.getInterface());
+  }
+  if (requiredInterfaces.size() > 0 && targetProject.getInterfaceCount() > 0) {
+    Map<QName,WsdlInterface> bindings=new HashMap<QName,WsdlInterface>();
+    for (    WsdlInterface iface : requiredInterfaces) {
+      bindings.put(iface.getBindingName(),iface);
+    }
+    for (    Interface iface : targetProject.getInterfaceList()) {
+      bindings.remove(iface.getTechnicalId());
+    }
+    requiredInterfaces.retainAll(bindings.values());
+  }
+  return requiredInterfaces;
+}

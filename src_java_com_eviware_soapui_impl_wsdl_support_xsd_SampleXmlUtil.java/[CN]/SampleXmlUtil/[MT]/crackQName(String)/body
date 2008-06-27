@@ -1,0 +1,14 @@
+{
+  String ns;
+  String name;
+  int index=qName.lastIndexOf(':');
+  if (index >= 0) {
+    ns=qName.substring(0,index);
+    name=qName.substring(index + 1);
+  }
+ else {
+    ns="";
+    name=qName;
+  }
+  return new QName(ns,name);
+}

@@ -1,0 +1,12 @@
+{
+  JLogList logArea=new JLogList(title);
+  logArea.addLogger(loggerName,!isDefault);
+  JComponentInspector inspector=new JComponentInspector<JLogList>(logArea,title,null,true);
+  addInspector(inspector);
+  if (isDefault) {
+    defaultLogArea=logArea;
+    activate(inspector);
+    setDividerLocation(500);
+  }
+  return logArea;
+}

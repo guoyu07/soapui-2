@@ -1,0 +1,24 @@
+{
+  int i1=i + 1;
+  boolean klassname=false;
+  int len=i - lastKeyword;
+  byte id=keywords.lookup(line,lastKeyword,len);
+  if (id == Token.NULL) {
+    klassname=true;
+    for (int at=lastKeyword; at < lastKeyword + len; at++) {
+      char ch=line.array[at];
+      if (ch != '_' && !Character.isUpperCase(ch)) {
+        klassname=false;
+        break;
+      }
+    }
+    if (klassname)     id=Token.KEYWORD3;
+  }
+  if (id != Token.NULL) {
+    if (lastKeyword != lastOffset)     addToken(lastKeyword - lastOffset,Token.NULL);
+    addToken(len,id);
+    lastOffset=i;
+  }
+  lastKeyword=i1;
+  return false;
+}

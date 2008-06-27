@@ -1,0 +1,5 @@
+{
+  if (requestContent != null)   return requestContent;
+  if (response == null)   response=request.getResponse();
+  return response == null ? request.getRequestContent() : response.getRequestContent();
+}

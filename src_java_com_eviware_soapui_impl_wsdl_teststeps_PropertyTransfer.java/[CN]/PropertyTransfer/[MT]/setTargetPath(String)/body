@@ -1,0 +1,6 @@
+{
+  String old=targetPath;
+  targetPath=path;
+  config.setTargetPath(path);
+  propertyChangeSupport.firePropertyChange(TARGET_PATH_PROPERTY,old,path);
+}

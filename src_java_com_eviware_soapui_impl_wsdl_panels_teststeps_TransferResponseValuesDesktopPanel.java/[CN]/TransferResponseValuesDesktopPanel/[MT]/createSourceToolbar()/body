@@ -1,0 +1,75 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.addSpace(3);
+  toolbar.addFixed(new JLabel("<html><b>Source:</b></html>"));
+  toolbar.addUnrelatedGap();
+  sourcePropertyCombo=new JComboBox();
+  sourceStepModel=new DefaultComboBoxModel();
+  sourceStepCombo=new JComboBox(sourceStepModel);
+  sourceStepCombo.setRenderer(new StepComboRenderer());
+  sourcePropertyCombo.setRenderer(new PropertyComboRenderer());
+  componentEnabler.add(sourcePropertyCombo);
+  componentEnabler.add(sourceStepCombo);
+  targetPropertyCombo=new JComboBox();
+  targetStepModel=new DefaultComboBoxModel();
+  targetStepCombo=new JComboBox(targetStepModel);
+  targetStepCombo.setRenderer(new StepComboRenderer());
+  targetPropertyCombo.setRenderer(new PropertyComboRenderer());
+  componentEnabler.add(targetPropertyCombo);
+  componentEnabler.add(targetStepCombo);
+  sourceStepPropertiesListener=new TestStepPropertiesListener(sourcePropertyCombo);
+  targetStepPropertiesListener=new TestStepPropertiesListener(targetPropertyCombo);
+  sourceStepModel.addElement(PropertyExpansionUtils.getGlobalProperties());
+  sourceStepModel.addElement(transferStep.getTestCase().getTestSuite().getProject());
+  sourceStepModel.addElement(transferStep.getTestCase().getTestSuite());
+  sourceStepModel.addElement(transferStep.getTestCase());
+  for (int c=0; c < transferStep.getTestCase().getTestStepCount(); c++) {
+    WsdlTestStep testStep=transferStep.getTestCase().getTestStepAt(c);
+    if (testStep == transferStep)     continue;
+    sourceStepModel.addElement(testStep);
+  }
+  for (int c=0; c < sourceStepModel.getSize(); c++)   targetStepModel.addElement(sourceStepModel.getElementAt(c));
+  sourceStepCombo.setSelectedItem(null);
+  sourceStepCombo.setToolTipText("The step the value will be transferred from");
+  sourceStepCombo.setEnabled(false);
+  sourceStepCombo.addItemListener(new StepComboItemListener(sourcePropertyCombo,sourceStepPropertiesListener));
+  sourceStepCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED && !selecting) {
+        TestPropertyHolder sourceStep=(TestPropertyHolder)sourceStepCombo.getSelectedItem();
+        PropertyTransfer valueTransfer=getCurrentTransfer();
+        if (valueTransfer != null) {
+          String name="";
+          if (sourceStep == PropertyExpansionUtils.getGlobalProperties())           name=PropertyExpansion.GLOBAL_REFERENCE;
+ else           if (sourceStep == transferStep.getTestCase().getTestSuite().getProject())           name=PropertyExpansion.PROJECT_REFERENCE;
+ else           if (sourceStep == transferStep.getTestCase().getTestSuite())           name=PropertyExpansion.TESTSUITE_REFERENCE;
+ else           if (sourceStep == transferStep.getTestCase())           name=PropertyExpansion.TESTCASE_REFERENCE;
+ else           name=sourceStep.getModelItem().getName();
+          valueTransfer.setSourceStepName(name);
+        }
+      }
+    }
+  }
+);
+  toolbar.add(UISupport.setFixedSize(sourceStepCombo,180,21));
+  toolbar.addUnrelatedGap();
+  toolbar.addFixed(new JLabel("Property:"));
+  toolbar.addRelatedGap();
+  sourcePropertyCombo.setToolTipText("The property the value will be transferred from");
+  sourcePropertyCombo.setEnabled(false);
+  sourcePropertyCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED && !selecting) {
+        TestProperty sourceProperty=(TestProperty)sourcePropertyCombo.getSelectedItem();
+        PropertyTransfer valueTransfer=getCurrentTransfer();
+        if (valueTransfer != null) {
+          valueTransfer.setSourcePropertyName(sourceProperty.getName());
+        }
+      }
+    }
+  }
+);
+  toolbar.add(UISupport.setFixedSize(sourcePropertyCombo,180,21));
+  toolbar.addGlue();
+  return toolbar;
+}

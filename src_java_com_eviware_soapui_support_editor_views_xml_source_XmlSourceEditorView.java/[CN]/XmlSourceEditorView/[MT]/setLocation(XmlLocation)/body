@@ -1,0 +1,16 @@
+{
+  int line=location.getLine() - 1;
+  if (location != null && line >= 0) {
+    int caretLine=editArea.getCaretLine();
+    int offset=editArea.getLineStartOffset(line);
+    try {
+      editArea.setCaretPosition(offset + location.getColumn());
+      int scrollLine=line + (line > caretLine ? 3 : -3);
+      if (scrollLine >= editArea.getLineCount())       scrollLine=editArea.getLineCount() - 1;
+ else       if (scrollLine < 0)       scrollLine=0;
+      editArea.scrollTo(scrollLine,location.getColumn());
+    }
+ catch (    RuntimeException e) {
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  for (  Callback callback : callbacks) {
+    if (callback instanceof WSPasswordCallback) {
+      WSPasswordCallback cb=(WSPasswordCallback)callback;
+      if (StringUtils.hasContent(getDecryptPassword()))       cb.setPassword(getDecryptPassword());
+ else       cb.setPassword(UISupport.prompt("Password required for WSS processing","Specify Password",""));
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  ResolveContext context=new ResolveContext();
+  project.resolve(context);
+  if (context.isEmpty()) {
+    UISupport.showInfoMessage("No resolve problems found in project","Resolve");
+  }
+ else {
+    if (dialog == null) {
+      resolveContextTableModel=new ResolveContextTableModel(context);
+      buildDialog();
+    }
+ else {
+      resolveContextTableModel.setContext(context);
+    }
+    UISupport.centerDialog(dialog);
+    dialog.setVisible(true);
+  }
+}

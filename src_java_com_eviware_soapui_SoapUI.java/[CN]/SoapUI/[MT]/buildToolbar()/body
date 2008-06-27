@@ -1,0 +1,15 @@
+{
+  JXToolBar toolbar=new JXToolBar();
+  toolbar.setRollover(true);
+  toolbar.putClientProperty(Options.HEADER_STYLE_KEY,HeaderStyle.BOTH);
+  toolbar.add(new NewWsdlProjectActionDelegate());
+  toolbar.add(new ImportWsdlProjectActionDelegate());
+  toolbar.add(new SaveAllActionDelegate());
+  toolbar.addSeparator();
+  toolbar.add(new PreferencesActionDelegate());
+  toolbar.add(new ExitButtonAction());
+  toolbar.addGlue();
+  toolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
+  toolbar.setBorder(BorderFactory.createEtchedBorder());
+  return toolbar;
+}

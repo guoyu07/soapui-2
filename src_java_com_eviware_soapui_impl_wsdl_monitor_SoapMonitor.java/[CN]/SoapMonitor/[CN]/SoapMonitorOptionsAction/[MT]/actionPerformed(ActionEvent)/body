@@ -1,0 +1,41 @@
+{
+  if (optionsDialog == null) {
+    optionsDialog=ADialogBuilder.buildDialog(OptionsForm.class);
+    optionsDialog.getFormField(OptionsForm.MODE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        optionsDialog.getFormField(OptionsForm.TARGET_HOST).setEnabled(!newValue.equals(CREATE_HTTP_PROXY));
+        optionsDialog.getFormField(OptionsForm.ADD_ENDPOINT).setEnabled(!newValue.equals(CREATE_HTTP_PROXY));
+      }
+    }
+);
+  }
+  StringList endpoints=new StringList();
+  endpoints.add(null);
+  for (  Interface iface : getProject().getInterfaceList()) {
+    endpoints.addAll(iface.getEndpoints());
+  }
+  optionsDialog.setOptions(OptionsForm.TARGET_HOST,endpoints.toStringArray());
+  optionsDialog.setIntValue(OptionsForm.PORT,listenPort);
+  optionsDialog.setValue(OptionsForm.TARGET_HOST,targetEndpoint);
+  optionsDialog.setValue(OptionsForm.MODE,isProxy ? "Create HTTP Proxy" : "Create TCP Tunnel");
+  optionsDialog.setIntValue(OptionsForm.MAXROWS,maxRows);
+  optionsDialog.setBooleanValue(OptionsForm.ADD_ENDPOINT,addEndpoint);
+  optionsDialog.setOptions(OptionsForm.REQUEST_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
+  optionsDialog.setOptions(OptionsForm.RESPONSE_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
+  optionsDialog.setValue(OptionsForm.REQUEST_WSS,incomingRequestWss);
+  optionsDialog.setValue(OptionsForm.RESPONSE_WSS,incomingResponseWss);
+  optionsDialog.getFormField(OptionsForm.TARGET_HOST).setEnabled(!isProxy);
+  optionsDialog.getFormField(OptionsForm.ADD_ENDPOINT).setEnabled(!isProxy);
+  if (optionsDialog.show()) {
+    Settings settings=getProject().getSettings();
+    settings.setLong(OptionsForm.PORT,listenPort=optionsDialog.getIntValue(OptionsForm.PORT,listenPort));
+    settings.setLong(OptionsForm.MAXROWS,maxRows=optionsDialog.getIntValue(OptionsForm.MAXROWS,maxRows));
+    settings.setString(OptionsForm.TARGET_HOST,targetEndpoint=optionsDialog.getValue(OptionsForm.TARGET_HOST));
+    String mode=optionsDialog.getValue(OptionsForm.MODE);
+    isProxy=mode.equals("Create HTTP Proxy");
+    settings.setString(OptionsForm.MODE,mode);
+    incomingRequestWss=optionsDialog.getValue(OptionsForm.REQUEST_WSS);
+    incomingResponseWss=optionsDialog.getValue(OptionsForm.RESPONSE_WSS);
+    tableModel.fitSizeToMaxRows();
+  }
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    RequestFileAttachment fileAttachment=new RequestFileAttachment(file,cache,this);
+    attachments.add(fileAttachment);
+    notifyPropertyChanged(ATTACHMENTS_PROPERTY,null,fileAttachment);
+    return fileAttachment;
+  }
+ catch (  IOException e) {
+    UISupport.showErrorMessage(e);
+    return null;
+  }
+}

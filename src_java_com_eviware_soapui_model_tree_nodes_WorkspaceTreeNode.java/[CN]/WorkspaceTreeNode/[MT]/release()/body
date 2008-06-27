@@ -1,0 +1,8 @@
+{
+  super.release();
+  getWorkspace().removeWorkspaceListener(workspaceListener);
+  for (  ProjectTreeNode treeNode : projectNodes) {
+    treeNode.getModelItem().removePropertyChangeListener(propertyChangeListener);
+    treeNode.release();
+  }
+}

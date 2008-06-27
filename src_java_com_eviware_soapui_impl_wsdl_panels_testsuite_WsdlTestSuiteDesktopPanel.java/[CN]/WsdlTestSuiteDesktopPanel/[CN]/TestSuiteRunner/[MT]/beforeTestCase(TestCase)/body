@@ -1,0 +1,5 @@
+{
+  super.beforeTestCase(testCase);
+  progressBar.setString("Running " + testCase.getName());
+  if (getRunType() == TestSuiteRunType.SEQUENTIAL)   testCase.addTestRunListener(runLogListener);
+}

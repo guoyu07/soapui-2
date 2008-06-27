@@ -1,0 +1,11 @@
+{
+  int ix=projectList.indexOf(project);
+  if (ix == -1)   throw new RuntimeException("Project [" + project.getName() + "] not available in workspace for removal");
+  projectList.remove(ix);
+  try {
+    fireProjectRemoved(project);
+  }
+  finally {
+    project.release();
+  }
+}

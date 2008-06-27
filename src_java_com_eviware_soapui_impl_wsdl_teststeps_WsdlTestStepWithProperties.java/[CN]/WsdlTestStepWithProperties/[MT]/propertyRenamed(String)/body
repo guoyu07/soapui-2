@@ -1,0 +1,9 @@
+{
+  if (properties == null)   return;
+  TestProperty testStepProperty=properties.get(oldName.toUpperCase());
+  if (testStepProperty == null)   return;
+  properties.remove(oldName.toUpperCase());
+  String newName=testStepProperty.getName();
+  properties.put(newName.toUpperCase(),testStepProperty);
+  firePropertyRenamed(oldName,newName);
+}

@@ -1,0 +1,14 @@
+{
+  try {
+    if (StringUtils.hasContent(getSource()) && StringUtils.hasContent(getPassword())) {
+      load();
+      return "OK";
+    }
+ else {
+      return "<unavailable>";
+    }
+  }
+ catch (  Exception e) {
+    return "<error: " + e.getMessage() + ">";
+  }
+}

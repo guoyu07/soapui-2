@@ -1,0 +1,19 @@
+{
+  try {
+    Transferable transferable=event.getTransferable();
+    if (transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+      event.acceptDrop(DnDConstants.ACTION_MOVE);
+      String s=(String)transferable.getTransferData(DataFlavor.stringFlavor);
+      addElement(s);
+      event.getDropTargetContext().dropComplete(true);
+    }
+ else {
+      event.rejectDrop();
+    }
+  }
+ catch (  Exception exception) {
+    SoapUI.logError(exception);
+    System.err.println("Exception" + exception.getMessage());
+    event.rejectDrop();
+  }
+}

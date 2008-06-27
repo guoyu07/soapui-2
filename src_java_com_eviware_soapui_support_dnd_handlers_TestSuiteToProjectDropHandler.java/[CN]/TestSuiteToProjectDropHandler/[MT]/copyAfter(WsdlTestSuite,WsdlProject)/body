@@ -1,0 +1,10 @@
+{
+  String name=UISupport.prompt("Specify name for copied TestSuite","Copy TestSuite","Copy of " + source.getName());
+  if (name == null)   return false;
+  if (source.getProject() == target) {
+    return CloneTestSuiteAction.cloneTestSuiteWithinProject(source,name,target);
+  }
+ else {
+    return CloneTestSuiteAction.cloneToAnotherProject(source,target.getName(),name,false) != null;
+  }
+}

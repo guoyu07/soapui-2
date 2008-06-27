@@ -1,0 +1,17 @@
+{
+  treeModel=new SoapUITreeModel(workspace);
+  mainTree=new NavigatorTree(treeModel);
+  mainTree.setRootVisible(true);
+  mainTree.setExpandsSelectedPaths(true);
+  mainTree.setToggleClickCount(0);
+  mainTree.addMouseListener(new TreeMouseListener());
+  mainTree.addTreeSelectionListener(new InternalTreeSelectionListener());
+  mainTree.setCellRenderer(new SoapUITreeNodeRenderer());
+  mainTree.setBorder(null);
+  mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+  mainTree.addKeyListener(new TreeKeyListener());
+  ToolTipManager.sharedInstance().registerComponent(mainTree);
+  add(new JScrollPane(mainTree),BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+  setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+}

@@ -1,0 +1,11 @@
+{
+  listModel.clear();
+  try {
+    StringList stringList=StringList.fromXml(value);
+    String[] files=stringList.toStringArray();
+    for (    String file : files)     if (file.trim().length() > 0)     listModel.addElement(file);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

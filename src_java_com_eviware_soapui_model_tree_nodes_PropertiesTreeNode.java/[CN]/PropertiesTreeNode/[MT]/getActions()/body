@@ -1,0 +1,8 @@
+{
+  if (getModelItem() instanceof PropertiesModelItem && holder instanceof MutableTestPropertyHolder) {
+    DefaultActionList actions=new DefaultActionList();
+    actions.addAction(new AddPropertyAction());
+    return actions;
+  }
+  return super.getActions();
+}

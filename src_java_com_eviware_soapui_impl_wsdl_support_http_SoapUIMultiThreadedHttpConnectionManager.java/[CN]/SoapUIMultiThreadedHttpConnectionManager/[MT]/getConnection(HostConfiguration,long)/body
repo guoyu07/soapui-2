@@ -1,0 +1,9 @@
+{
+  LOG.trace("enter HttpConnectionManager.getConnection(HostConfiguration, long)");
+  try {
+    return getConnectionWithTimeout(hostConfiguration,timeout);
+  }
+ catch (  ConnectionPoolTimeoutException e) {
+    throw new HttpException(e.getMessage());
+  }
+}

@@ -1,0 +1,20 @@
+{
+  File file=UISupport.getFileDialogs().saveAs(this,"Export Attachment..");
+  while (file != null && file.exists() && !UISupport.confirm("File " + file.getName() + " exists, overwrite?","Export Attachment")) {
+    file=UISupport.getFileDialogs().saveAs(this,"Export Attachment..");
+  }
+  if (file != null) {
+    Attachment attachment=tableModel.getAttachmentAt(fileTable.getSelectedRow());
+    try {
+      FileOutputStream out=new FileOutputStream(file);
+      long total=Tools.writeAll(out,attachment.getInputStream());
+      out.close();
+      if (UISupport.confirm("Written [" + total + "] bytes to "+ file.getName()+ ", open in browser?","Saved File")) {
+        Tools.openURL(file.toURI().toURL().toString());
+      }
+    }
+ catch (    Exception e) {
+      UISupport.showErrorMessage(e);
+    }
+  }
+}

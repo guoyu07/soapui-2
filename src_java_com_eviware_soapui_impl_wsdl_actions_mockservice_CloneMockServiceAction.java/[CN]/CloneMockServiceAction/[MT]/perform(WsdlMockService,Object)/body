@@ -1,0 +1,25 @@
+{
+  if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.setValue(Form.NAME,"Copy of " + mockService.getName());
+  WorkspaceImpl workspace=mockService.getProject().getWorkspace();
+  dialog.setOptions(Form.PROJECT,ModelSupport.getNames(workspace.getOpenProjectList(),new String[]{"<Create New>"}));
+  dialog.setValue(Form.PROJECT,mockService.getProject().getName());
+  if (dialog.show()) {
+    String targetProjectName=dialog.getValue(Form.PROJECT);
+    String name=dialog.getValue(Form.NAME);
+    WsdlProject project=(WsdlProject)mockService.getProject();
+    WsdlMockService clonedService=null;
+    if (targetProjectName.equals(mockService.getProject().getName())) {
+      clonedService=cloneMockServiceWithinProject(mockService,name,project);
+    }
+ else {
+      clonedService=cloneToAnotherProject(mockService,targetProjectName,name);
+    }
+    if (clonedService != null) {
+      UISupport.select(clonedService);
+    }
+    if (dialog.getBooleanValue(Form.MOVE)) {
+      project.removeMockService(mockService);
+    }
+  }
+}

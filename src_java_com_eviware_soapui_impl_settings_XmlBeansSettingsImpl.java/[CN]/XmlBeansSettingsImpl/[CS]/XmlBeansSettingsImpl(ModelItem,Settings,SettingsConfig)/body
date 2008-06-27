@@ -1,0 +1,12 @@
+{
+  this.item=item;
+  this.config=config;
+  this.parent=parent;
+  List<SettingConfig> settingList=config.getSettingList();
+  for (  SettingConfig setting : settingList) {
+    values.put(setting.getId(),setting);
+  }
+  if (parent != null) {
+    parent.addSettingsListener(settingsListener);
+  }
+}

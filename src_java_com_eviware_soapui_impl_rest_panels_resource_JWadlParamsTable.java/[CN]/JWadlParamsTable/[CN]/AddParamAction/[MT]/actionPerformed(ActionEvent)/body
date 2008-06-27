@@ -1,0 +1,27 @@
+{
+  String name=UISupport.prompt("Specify unique parameter name","Add Parameter","");
+  if (StringUtils.hasContent(name)) {
+    if (params.hasProperty(name)) {
+      UISupport.showErrorMessage("Param name [" + name + "] already exists..");
+      return;
+    }
+    params.addProperty(name);
+    final int row=params.getPropertyNames().length - 1;
+    paramsTableModel.fireTableRowsInserted(row,row);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        requestFocusInWindow();
+        scrollRectToVisible(paramsTable.getCellRect(row,1,true));
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            paramsTable.editCellAt(row,1);
+            paramsTable.getEditorComponent().requestFocusInWindow();
+          }
+        }
+);
+      }
+    }
+);
+    clearParamsAction.setEnabled(true);
+  }
+}

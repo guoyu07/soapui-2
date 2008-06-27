@@ -1,0 +1,19 @@
+{
+  if (args == null || args.trim().length() == 0)   return null;
+  List<String> l=Arrays.asList(args.split(" "));
+  List<String> result=new ArrayList<String>();
+  for (int c=0; c < l.size(); c++) {
+    String s=l.get(c);
+    if (s.startsWith("\"")) {
+      c++;
+      s+=" " + l.get(c);
+      while (!(s.endsWith("\"") && !s.endsWith("\\\"")) && c < l.size()) {
+        c++;
+      }
+      s=c == l.size() ? s.substring(1) : s.substring(1,s.length() - 1);
+      s=s.replace("\\\"","\"");
+    }
+    result.add(s);
+  }
+  return result.toArray(new String[result.size()]);
+}

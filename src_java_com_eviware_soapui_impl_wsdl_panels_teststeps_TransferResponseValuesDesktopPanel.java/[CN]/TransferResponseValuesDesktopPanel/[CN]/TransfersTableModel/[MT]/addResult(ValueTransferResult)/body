@@ -1,0 +1,10 @@
+{
+  int rowCount;
+synchronized (this) {
+    rowCount=getRowCount();
+    results.add(result);
+  }
+  fireTableRowsInserted(rowCount,rowCount + result.getTransferCount());
+  logInspector.setTitle("Transfer Log (" + getRowCount() + ")");
+  inspectorPanel.activate(logInspector);
+}

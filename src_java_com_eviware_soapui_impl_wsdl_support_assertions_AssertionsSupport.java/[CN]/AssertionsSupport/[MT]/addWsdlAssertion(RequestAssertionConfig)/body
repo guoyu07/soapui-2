@@ -1,0 +1,17 @@
+{
+  try {
+    WsdlMessageAssertion assertion=WsdlAssertionRegistry.getInstance().buildAssertion(config,assertable);
+    if (assertion == null) {
+      return null;
+    }
+ else {
+      assertions.add(assertion);
+      assertion.addPropertyChangeListener(this);
+      return assertion;
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  String doc1="<ns:h1 xmlns:ns=\"test\"><ns:p>p1</ns:p><ns:h2 test=\"bil\">lkj</ns:h2></ns:h1>";
+  String doc2="<ns:h1 xmlns:ns=\"test\"><ns:p>string</ns:p><ns:h2>string</ns:h2><ns:p>p2</ns:p></ns:h1>";
+  String result=XmlUtils.transferValues(doc1,doc2);
+  assertEquals("<ns:h1 xmlns:ns=\"test\"><ns:p>p1</ns:p><ns:h2 test=\"bil\">lkj</ns:h2><ns:p>p2</ns:p></ns:h1>",result);
+}

@@ -1,0 +1,14 @@
+{
+  super(document,request);
+  XmlSourceEditorView editor=getSourceEditor();
+  inputArea=editor.getInputArea();
+  resultAreaFocusListener=new ResultAreaFocusListener();
+  inputArea.addFocusListener(resultAreaFocusListener);
+  inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
+  inputArea.getInputHandler().addKeyBinding("A+X",cancelButton.getAction());
+  inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
+  inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
+  JPopupMenu inputPopup=editor.getEditorPopup();
+  inputPopup.insert(new JSeparator(),2);
+  inputPopup.insert(wsiValidateAction,3);
+}

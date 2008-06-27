@@ -1,0 +1,12 @@
+{
+  data.clear();
+  threadCounts.clear();
+  for (  StatisticsValueHistory history : statisticsValueHistories.values()) {
+    history.fireTableDataChanged();
+    history.fireTableStructureChanged();
+  }
+  for (  TestStepStatisticsHistory history : testStepStatisticHistories.values()) {
+    history.fireTableDataChanged();
+    history.fireTableStructureChanged();
+  }
+}

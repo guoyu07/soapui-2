@@ -1,0 +1,15 @@
+{
+  if (path == null || modelItem == null)   return path;
+  String prefix="";
+  if (path.startsWith("file:")) {
+    prefix=path.substring(0,5);
+    path=path.substring(5);
+  }
+  if (PathUtils.isAbsolutePath(path))   return path;
+  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
+  if (project == null)   return path;
+  String resourceRoot=PropertyExpansionUtils.expandProperties(project,project.getResourceRoot());
+  if (StringUtils.hasContent(resourceRoot) && !resourceRoot.endsWith(File.separator))   resourceRoot+=File.separator;
+  String result=Tools.joinRelativeUrl(resourceRoot,path);
+  return prefix + result;
+}

@@ -1,0 +1,13 @@
+{
+  if (iface != null) {
+    Integer i=urlReferences.get(url);
+    if (i.intValue() <= 1) {
+      urlReferences.remove(url);
+      definitionCache.remove(url);
+      schemaCache.remove(url);
+    }
+ else {
+      urlReferences.put(url,i - 1);
+    }
+  }
+}

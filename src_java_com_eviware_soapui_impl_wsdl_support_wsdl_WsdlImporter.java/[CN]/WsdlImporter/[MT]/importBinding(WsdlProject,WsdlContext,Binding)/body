@@ -1,0 +1,15 @@
+{
+  log.info("Finding importer for " + binding.getQName());
+  for (int c=0; c < bindingImporters.size(); c++) {
+    BindingImporter importer=bindingImporters.get(c);
+    if (importer.canImport(binding)) {
+      log.info("Importing binding " + binding.getQName());
+      WsdlInterface iface=importer.importBinding(project,wsdlContext,binding);
+      String url=wsdlContext.getUrl();
+      iface.setDefinition(url);
+      return iface;
+    }
+  }
+  log.info("Missing importer for " + binding.getQName());
+  return null;
+}

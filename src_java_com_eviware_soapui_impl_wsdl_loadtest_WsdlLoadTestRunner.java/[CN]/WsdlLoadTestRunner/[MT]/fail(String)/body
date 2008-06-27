@@ -1,0 +1,16 @@
+{
+  if (status != Status.RUNNING)   return;
+  this.reason=reason;
+  status=Status.FAILED;
+  String msg="LoadTest [" + loadTest.getName() + "] failed";
+  if (reason != null)   msg+="; " + reason;
+  loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry(msg));
+  for (  LoadTestRunListener listener : listeners) {
+    listener.loadTestStopped(this,context);
+  }
+  TestCaseRunner[] r=runners.toArray(new TestCaseRunner[runners.size()]);
+  for (  TestCaseRunner runner : r) {
+    runner.cancel(reason,true);
+  }
+  tearDown();
+}

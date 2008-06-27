@@ -1,0 +1,26 @@
+{
+  XmlObject targetXml=XmlObject.Factory.parse(targetProperty.getValue());
+  XmlCursor targetCursor=targetXml.newCursor();
+  try {
+    List<String> result=new ArrayList<String>();
+    String tp=PropertyExpansionUtils.expandProperties(context,getTargetPath());
+    targetCursor.selectPath(tp);
+    if (!targetCursor.toNextSelection())     throw new Exception("Missing match for Target XPath [" + tp + "]");
+    String value=sourceProperty.getValue();
+    Node targetNode=targetCursor.getDomNode();
+    setNodeValue(value,targetNode);
+    result.add(value);
+    if (getTransferToAll()) {
+      while (targetCursor.toNextSelection()) {
+        targetNode=targetCursor.getDomNode();
+        setNodeValue(value,targetNode);
+        result.add(value);
+      }
+    }
+    targetProperty.setValue(targetXml.xmlText(new XmlOptions().setSaveAggressiveNamespaces()));
+    return result.toArray(new String[result.size()]);
+  }
+  finally {
+    targetCursor.dispose();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (config == null)   return null;
+  XmlObject[] paths=config.selectPath("$this/" + name);
+  String[] result=new String[paths.length];
+  for (int c=0; c < paths.length; c++) {
+    XmlCursor cursor=paths[c].newCursor();
+    result[c]=cursor.getTextValue();
+    cursor.dispose();
+  }
+  return result;
+}

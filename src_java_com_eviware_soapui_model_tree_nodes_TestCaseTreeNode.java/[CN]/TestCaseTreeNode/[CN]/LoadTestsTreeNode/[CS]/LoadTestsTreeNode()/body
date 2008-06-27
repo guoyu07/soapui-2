@@ -1,0 +1,7 @@
+{
+  super(new WsdlLoadTestsModelItem(getTestCase()));
+  for (int c=0; c < getTestCase().getLoadTestCount(); c++) {
+    loadTestNodes.add(new LoadTestTreeNode(getTestCase().getLoadTestAt(c),getModelItem(),getTreeModel()));
+  }
+  getTreeModel().mapModelItems(loadTestNodes);
+}

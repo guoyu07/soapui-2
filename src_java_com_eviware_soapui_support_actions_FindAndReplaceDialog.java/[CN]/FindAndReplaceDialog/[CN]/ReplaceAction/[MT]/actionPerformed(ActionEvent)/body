@@ -1,0 +1,14 @@
+{
+  if (target.getSelectedText() == null)   return;
+  String value=replaceCombo.getSelectedItem().toString();
+  int ix=target.getSelectionStart();
+  target.setSelectedText(value);
+  target.select(ix + value.length(),ix);
+  for (int c=0; c < replaceCombo.getItemCount(); c++) {
+    if (replaceCombo.getItemAt(c).equals(value)) {
+      replaceCombo.removeItem(c);
+      break;
+    }
+  }
+  replaceCombo.insertItemAt(value,0);
+}

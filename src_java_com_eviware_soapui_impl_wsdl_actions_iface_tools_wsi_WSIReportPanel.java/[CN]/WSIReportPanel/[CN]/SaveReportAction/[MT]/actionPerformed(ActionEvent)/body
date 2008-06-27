@@ -1,0 +1,13 @@
+{
+  File file=UISupport.getFileDialogs().saveAs(this,"Save Report","html","HTML files",null);
+  if (file == null)   return;
+  try {
+    FileWriter writer=new FileWriter(file);
+    writer.write(editorPane.getText());
+    writer.close();
+    UISupport.showInfoMessage("Report saved to [" + file.getAbsolutePath() + "]");
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+}

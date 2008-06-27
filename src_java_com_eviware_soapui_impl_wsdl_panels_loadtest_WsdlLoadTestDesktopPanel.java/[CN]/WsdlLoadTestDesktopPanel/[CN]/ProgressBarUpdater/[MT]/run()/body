@@ -1,0 +1,34 @@
+{
+  while (true) {
+    if (!loadTestIsRunning)     break;
+    if (getModelItem().getTestLimit() == 0) {
+      if (loadTestIsRunning && !progressBar.isIndeterminate()) {
+        progressBar.setIndeterminate(true);
+        progressBar.setString("...");
+      }
+    }
+ else     if (getModelItem().getLimitType() == LoadTestLimitTypesConfig.TIME) {
+      if (loadTestIsRunning && progressBar.isIndeterminate()) {
+        progressBar.setIndeterminate(false);
+        progressBar.setString(null);
+      }
+      long timePassed=System.currentTimeMillis() - loadTestStartTime;
+      int value=(int)((timePassed * 100) / (getModelItem().getTestLimit() * 1000));
+      progressBar.setValue(value);
+    }
+ else     if (getModelItem().getLimitType() == LoadTestLimitTypesConfig.COUNT) {
+      if (loadTestIsRunning && progressBar.isIndeterminate()) {
+        progressBar.setIndeterminate(false);
+        progressBar.setString(null);
+      }
+      long counts=getModelItem().getStatisticsModel().getStatistic(LoadTestStatistics.TOTAL,Statistic.COUNT);
+      if (counts > 0)       progressBar.setValue((int)((counts * 100) / getModelItem().getTestLimit()));
+    }
+    try {
+      Thread.sleep(500);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

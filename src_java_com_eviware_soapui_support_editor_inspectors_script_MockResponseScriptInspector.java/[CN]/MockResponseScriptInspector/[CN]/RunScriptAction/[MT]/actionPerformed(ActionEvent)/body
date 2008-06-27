@@ -1,0 +1,22 @@
+{
+  try {
+    mockResponse.evaluateScript(mockResponse.getMockResult() == null ? null : mockResponse.getMockResult().getMockRequest());
+    StringToStringMap values=null;
+    if (mockResponse.getMockResult() != null)     values=mockResponse.getMockResult().getMockRequest().getContext().toStringToStringMap();
+    if (values == null || values.isEmpty()) {
+      UISupport.showInfoMessage("No values were returned");
+    }
+ else {
+      String msg="<html><body>Returned values:<br>";
+      for (      String name : values.keySet()) {
+        msg+=name + " : " + values.get(name)+ "<br>";
+      }
+      msg+="</body></html>";
+      UISupport.showInfoMessage(msg);
+    }
+  }
+ catch (  Throwable e1) {
+    responseScriptEditor.selectError(e1.getMessage());
+    UISupport.showErrorMessage(e1.toString());
+  }
+}

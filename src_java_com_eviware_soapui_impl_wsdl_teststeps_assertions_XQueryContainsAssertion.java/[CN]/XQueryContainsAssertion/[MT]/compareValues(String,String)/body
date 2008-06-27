@@ -1,0 +1,15 @@
+{
+  Diff diff=new Diff(expandedContent,expandedValue);
+  diff.overrideDifferenceListener(new DifferenceListener(){
+    public int differenceFound(    Difference diff){
+      if (allowWildcards && (diff.getId() == DifferenceEngine.TEXT_VALUE.getId() || diff.getId() == DifferenceEngine.ATTR_VALUE.getId())) {
+        if (diff.getControlNodeDetail().getValue().equals("*"))         return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
+      }
+      return Diff.RETURN_ACCEPT_DIFFERENCE;
+    }
+    public void skippedComparison(    Node arg0,    Node arg1){
+    }
+  }
+);
+  if (!diff.identical())   throw new Exception(diff.toString());
+}

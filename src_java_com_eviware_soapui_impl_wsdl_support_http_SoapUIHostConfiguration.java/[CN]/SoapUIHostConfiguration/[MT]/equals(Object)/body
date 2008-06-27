@@ -1,0 +1,10 @@
+{
+  boolean result=super.equals(o);
+  if (result && o instanceof SoapUIHostConfiguration) {
+    SoapUIHostConfiguration that=(SoapUIHostConfiguration)o;
+    return LangUtils.equals(getParams().getParameter(SOAPUI_SSL_CONFIG),that.getParams().getParameter(SOAPUI_SSL_CONFIG));
+  }
+ else {
+    return false;
+  }
+}

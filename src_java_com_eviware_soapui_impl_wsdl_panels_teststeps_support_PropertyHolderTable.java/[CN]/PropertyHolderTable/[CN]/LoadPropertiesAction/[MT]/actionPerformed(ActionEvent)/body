@@ -1,0 +1,23 @@
+{
+  File file=UISupport.getFileDialogs().open(this,"Set properties source",null,null,null);
+  if (file != null) {
+    try {
+      boolean createMissing=holder instanceof MutableTestPropertyHolder && UISupport.confirm("Create missing properties?","Set Properties Source");
+      Properties props=new Properties();
+      props.load(new FileInputStream(file));
+      for (      Object obj : props.keySet()) {
+        String name=obj.toString();
+        if (holder.hasProperty(name)) {
+          holder.setPropertyValue(name,props.getProperty(name));
+        }
+ else         if (createMissing) {
+          ((MutableTestPropertyHolder)holder).addProperty(name).setValue(props.getProperty(name));
+        }
+      }
+      UISupport.showInfoMessage("Loaded " + props.size() + " properties from ["+ file.getAbsolutePath()+ "]");
+    }
+ catch (    Exception e1) {
+      UISupport.showErrorMessage("Failed to load properties from [" + file.getAbsolutePath() + "]; "+ e1);
+    }
+  }
+}

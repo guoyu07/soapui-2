@@ -1,0 +1,12 @@
+{
+  response.setStatus(HttpServletResponse.SC_OK);
+  response.setContentType("text/html");
+  PrintWriter out=response.getWriter();
+  out.print("<html><body><p>Mocked Interfaces in project [" + mockService.getProject().getName() + "]</p><ul>");
+  for (  Interface iface : mockService.getProject().getInterfaceList()) {
+    out.print("<li><a href=\"");
+    out.print(getInterfacePrefix(iface));
+    out.print("\">" + iface.getName() + "</a></li>");
+  }
+  out.print("</ul></p></body></html>");
+}

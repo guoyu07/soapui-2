@@ -1,0 +1,8 @@
+{
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  int i=assertionsSupport.removeAssertion((WsdlMessageAssertion)assertion);
+  testStepConfig.removeAssertion(i);
+  WsdlMessageAssertion messageAssertion=(WsdlMessageAssertion)assertion;
+  messageAssertion.release();
+  notifier.notifyChange();
+}

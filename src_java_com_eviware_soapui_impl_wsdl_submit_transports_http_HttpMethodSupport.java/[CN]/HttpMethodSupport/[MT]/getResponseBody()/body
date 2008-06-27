@@ -1,0 +1,40 @@
+{
+  if (responseBody != null)   return responseBody;
+  long contentLength=httpMethod.getResponseContentLength();
+  long now=System.nanoTime();
+  InputStream instream=httpMethod.getResponseBodyAsStream();
+  if (maxSize == 0 || (contentLength >= 0 && contentLength <= maxSize)) {
+    ByteArrayOutputStream out=new ByteArrayOutputStream();
+    Tools.writeAll(out,instream);
+    responseReadTime=System.nanoTime() - now;
+    responseBody=out.toByteArray();
+    try {
+      if (StringUtils.hasContent(dumpFile))       Tools.writeAll(new FileOutputStream(dumpFile),new ByteArrayInputStream(responseBody));
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    if (HttpClientSupport.isZippedResponse(httpMethod)) {
+      responseBody=HttpClientSupport.decompress(responseBody);
+    }
+  }
+ else {
+    try {
+      if (StringUtils.hasContent(dumpFile)) {
+        FileOutputStream fileOutputStream=new FileOutputStream(dumpFile);
+        Tools.writeAll(fileOutputStream,instream);
+        responseReadTime=System.nanoTime() - now;
+        fileOutputStream.close();
+        instream=new FileInputStream(dumpFile);
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    ByteArrayOutputStream outstream=Tools.readAll(instream,maxSize);
+    if (responseReadTime == 0)     responseReadTime=System.nanoTime() - now;
+    responseBody=outstream.toByteArray();
+  }
+  responseReadTime/=1000000;
+  return responseBody;
+}

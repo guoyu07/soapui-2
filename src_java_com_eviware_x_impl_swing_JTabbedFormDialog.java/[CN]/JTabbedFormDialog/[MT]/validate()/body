@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < forms.size(); i++) {
+    XFormField[] formFields=forms.get(i).getFormFields();
+    for (int c=0; c < formFields.length; c++) {
+      ValidationMessage[] messages=formFields[c].validate();
+      if (messages != null && messages.length > 0) {
+        tabs.setSelectedIndex(i);
+        ((AbstractSwingXFormField<?>)messages[0].getFormField()).getComponent().requestFocus();
+        UISupport.showErrorMessage(messages[0].getMessage());
+        return false;
+      }
+    }
+  }
+  return true;
+}

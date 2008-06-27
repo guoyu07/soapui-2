@@ -1,0 +1,12 @@
+{
+  if (!isEditable()) {
+    getToolkit().beep();
+    return;
+  }
+  try {
+    if (canRedo())     undoManager.redo();
+  }
+ catch (  CannotRedoException cue) {
+    Toolkit.getDefaultToolkit().beep();
+  }
+}

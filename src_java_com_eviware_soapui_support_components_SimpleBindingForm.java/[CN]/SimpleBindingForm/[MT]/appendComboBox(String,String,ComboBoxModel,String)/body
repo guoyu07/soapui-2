@@ -1,0 +1,5 @@
+{
+  JComboBox comboBox=super.appendComboBox(label,model,tooltip);
+  Bindings.bind(comboBox,new SelectionInList<Object>(model,pm.getModel(propertyName)));
+  return comboBox;
+}

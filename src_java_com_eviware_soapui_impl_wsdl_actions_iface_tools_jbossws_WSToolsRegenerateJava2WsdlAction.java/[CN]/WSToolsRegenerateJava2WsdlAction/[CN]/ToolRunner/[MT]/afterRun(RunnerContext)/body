@@ -1,0 +1,16 @@
+{
+  if (context.getStatus() != RunnerContext.RunnerStatus.FINISHED)   return;
+  try {
+    boolean ifaces=modelItem.updateDefinition("file:" + outDir.getAbsolutePath() + File.separatorChar+ "wsdl"+ File.separatorChar+ serviceName+ ".wsdl",true);
+    if (ifaces) {
+      context.log("Updated Interface [" + modelItem.getName() + "]");
+      UISupport.select(modelItem);
+    }
+ else {
+      UISupport.showErrorMessage("Failed to update Interface from generated WSDL");
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

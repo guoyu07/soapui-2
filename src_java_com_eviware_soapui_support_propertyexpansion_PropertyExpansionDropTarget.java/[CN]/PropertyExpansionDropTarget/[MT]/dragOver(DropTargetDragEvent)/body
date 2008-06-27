@@ -1,0 +1,20 @@
+{
+  if (!isAcceptable(dtde.getTransferable()))   dtde.rejectDrag();
+  if (dtde.getDropTargetContext().getComponent() instanceof JTextComponent) {
+    JTextComponent textField=(JTextComponent)dtde.getDropTargetContext().getComponent();
+    int pos=textField.viewToModel(dtde.getLocation());
+    if (pos != -1) {
+      textField.setCaretPosition(pos);
+      textField.getCaret().setVisible(true);
+    }
+  }
+  if (dtde.getDropTargetContext().getComponent() instanceof JXEditTextArea) {
+    JXEditTextArea textField=(JXEditTextArea)dtde.getDropTargetContext().getComponent();
+    int pos=textField.pointToOffset(dtde.getLocation());
+    if (pos != -1) {
+      textField.setCaretPosition(pos);
+      textField.setCaretVisible(true);
+    }
+  }
+  dtde.acceptDrag(dtde.getDropAction());
+}

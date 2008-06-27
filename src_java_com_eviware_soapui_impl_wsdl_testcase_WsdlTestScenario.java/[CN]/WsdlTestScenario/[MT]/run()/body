@@ -1,0 +1,32 @@
+{
+  canceled=false;
+  context=createContext();
+  beforeRun(context);
+  try {
+    for (int c=0; c < testCaseList.size(); c++) {
+      TestCase testCase=testCaseList.get(c);
+      if (testCase.isDisabled() || (skipTestCasesWithRunningLoadTest && SoapUI.getTestMonitor().hasRunningLoadTest(testCase))) {
+        continue;
+      }
+      if (runType == TestSuiteRunType.PARALLEL) {
+        testCase.addTestRunListener(internalTestRunListener);
+      }
+      beforeTestCase(testCase);
+      TestRunner runner=testCase.run(context.getProperties(),true);
+      runners.add(runner);
+      if (runType == TestSuiteRunType.SEQUENTIAL) {
+        runner.waitUntilFinished();
+        afterTestCase(testCase,runner);
+        runners.remove(runner);
+        if (abortOnFail && runner.getStatus() == TestRunner.Status.FAILED)         break;
+      }
+      if (canceled)       break;
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    if (runners.isEmpty())     afterRun(context);
+  }
+}

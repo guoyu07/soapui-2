@@ -1,0 +1,52 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.setValue(Form.CREATEREQUEST,Boolean.toString(true));
+    dialog.getFormField(Form.INITIALWSDL).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        dialog.getFormField(Form.CREATEREQUEST).setEnabled(newValue.trim().length() > 0);
+        dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(newValue.trim().length() > 0);
+        dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0);
+      }
+    }
+);
+  }
+ else {
+    dialog.setValue(Form.PROJECTNAME,"");
+    dialog.setValue(Form.INITIALWSDL,"");
+    dialog.getFormField(Form.CREATEREQUEST).setEnabled(false);
+    dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(false);
+    dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(false);
+  }
+  while (dialog.show()) {
+    try {
+      String projectName=dialog.getValue(Form.PROJECTNAME).trim();
+      if (projectName.length() == 0) {
+        UISupport.showErrorMessage(messages.get("MissingProjectNameError"));
+      }
+ else {
+        WsdlProject project=workspace.createProject(projectName,null);
+        if (project != null) {
+          String url=dialog.getValue(Form.INITIALWSDL).trim();
+          if (url.length() > 0) {
+            if (new File(url).exists())             url="file:" + url;
+            WsdlInterface[] results=WsdlInterfaceFactory.importWsdl(project,url,dialog.getValue(Form.CREATEREQUEST).equals("true"));
+            if (dialog.getValue(Form.GENERATETESTSUITE).equals("true")) {
+              GenerateTestSuiteAction generateTestSuiteAction=new GenerateTestSuiteAction();
+              generateTestSuiteAction.generateTestSuite(results[0],true);
+            }
+            if (dialog.getValue(Form.GENERATEMOCKSERVICE).equals("true")) {
+              GenerateMockServiceAction generateMockAction=new GenerateMockServiceAction();
+              generateMockAction.generateMockService(results[0],false);
+            }
+          }
+          UISupport.select(project);
+          break;
+        }
+      }
+    }
+ catch (    Exception ex) {
+      UISupport.showErrorMessage(ex);
+    }
+  }
+}

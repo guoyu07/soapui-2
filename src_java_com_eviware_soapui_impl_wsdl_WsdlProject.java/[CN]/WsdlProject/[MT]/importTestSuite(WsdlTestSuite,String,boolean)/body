@@ -1,0 +1,11 @@
+{
+  testSuite.beforeSave();
+  TestSuiteConfig testSuiteConfig=(TestSuiteConfig)getConfig().addNewTestSuite().set(testSuite.getConfig().copy());
+  testSuiteConfig.setName(name);
+  if (testSuiteConfig.isSetId() && createCopy)   testSuiteConfig.unsetId();
+  testSuite=new WsdlTestSuite(this,testSuiteConfig);
+  testSuites.add(testSuite);
+  testSuite.afterLoad();
+  fireTestSuiteAdded(testSuite);
+  return testSuite;
+}

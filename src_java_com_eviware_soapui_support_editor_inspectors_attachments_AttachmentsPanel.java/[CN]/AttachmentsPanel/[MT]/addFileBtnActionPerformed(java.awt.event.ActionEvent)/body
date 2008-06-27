@@ -1,0 +1,18 @@
+{
+  if (fc == null)   fc=new JFileChooser();
+  int returnVal=fc.showOpenDialog(this);
+  if (returnVal == JFileChooser.APPROVE_OPTION) {
+    File file=fc.getSelectedFile();
+    Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Att Attachment");
+    if (retval == null)     return;
+    try {
+      tableModel.addFile(file,retval);
+    }
+ catch (    IOException e) {
+      UISupport.showErrorMessage(e);
+    }
+  }
+ else {
+    System.out.println("Open command cancelled by user.");
+  }
+}

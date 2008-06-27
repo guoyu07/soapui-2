@@ -1,0 +1,16 @@
+{
+  this.setBorder(BorderFactory.createEtchedBorder());
+  _doCloseAfterClick=doCloseAfterClick;
+  _scrollPane=scrollPane;
+  _viewPort=_scrollPane.getViewport();
+  _zoomWindow=new JLabel();
+  _cursorLabel=createCursor();
+  _layeredPane=new JLayeredPane();
+  _layeredPane.add(_zoomWindow,new Integer(0));
+  _layeredPane.add(_cursorLabel,new Integer(1));
+  BufferedImage bim=new BufferedImage(1,1,BufferedImage.TYPE_4BYTE_ABGR);
+  setCursor(getToolkit().createCustomCursor(bim,(new Point(0,0)),"PreviewCursor"));
+  this.add(_layeredPane);
+  _layeredPane.addMouseListener(this);
+  _layeredPane.addMouseMotionListener(this);
+}

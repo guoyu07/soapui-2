@@ -1,0 +1,24 @@
+{
+  WaitingThread waitingThread=null;
+  if (hostPool.waitingThreads.size() > 0) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Notifying thread waiting on host pool, hostConfig=" + hostPool.hostConfiguration);
+    }
+    waitingThread=(WaitingThread)hostPool.waitingThreads.removeFirst();
+    waitingThreads.remove(waitingThread);
+  }
+ else   if (waitingThreads.size() > 0) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("No-one waiting on host pool, notifying next waiting thread.");
+    }
+    waitingThread=(WaitingThread)waitingThreads.removeFirst();
+    waitingThread.hostConnectionPool.waitingThreads.remove(waitingThread);
+  }
+ else   if (LOG.isDebugEnabled()) {
+    LOG.debug("Notifying no-one, there are no waiting threads");
+  }
+  if (waitingThread != null) {
+    waitingThread.interruptedByConnectionPool=true;
+    waitingThread.thread.interrupt();
+  }
+}

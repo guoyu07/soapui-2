@@ -1,0 +1,8 @@
+{
+  super.removeNotify();
+  if (progressBarAdapter != null) {
+    testCase.removePropertyChangeListener(testCasePropertyChangeListener);
+    progressBarAdapter.release();
+    progressBarAdapter=null;
+  }
+}

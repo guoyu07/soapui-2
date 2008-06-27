@@ -1,0 +1,9 @@
+{
+  String old=getSourcePropertyName();
+  if ((name == null && old == null) || (name != null && old != null && name.equals(old)))   return;
+  sourceType=name;
+  config.setSourceType(name);
+  TestPropertyHolder sourceStep2=getSourceStep();
+  currentSourceProperty=sourceStep2 != null && sourceType != null ? sourceStep2.getProperty(sourceType) : null;
+  propertyChangeSupport.firePropertyChange(SOURCE_TYPE_PROPERTY,old,name);
+}

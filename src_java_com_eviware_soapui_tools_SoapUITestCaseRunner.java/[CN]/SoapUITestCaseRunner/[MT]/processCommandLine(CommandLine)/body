@@ -1,0 +1,17 @@
+{
+  if (cmd.hasOption("e"))   setEndpoint(cmd.getOptionValue("e"));
+  if (cmd.hasOption("s"))   setTestSuite(getCommandLineOptionSubstSpace(cmd,"s"));
+  if (cmd.hasOption("c"))   setTestCase(getCommandLineOptionSubstSpace(cmd,"c"));
+  if (cmd.hasOption("u"))   setUsername(cmd.getOptionValue("u"));
+  if (cmd.hasOption("p"))   setPassword(cmd.getOptionValue("p"));
+  if (cmd.hasOption("w"))   setWssPasswordType(cmd.getOptionValue("w"));
+  if (cmd.hasOption("d"))   setDomain(cmd.getOptionValue("d"));
+  if (cmd.hasOption("h"))   setHost(cmd.getOptionValue("h"));
+  if (cmd.hasOption("f"))   setOutputFolder(getCommandLineOptionSubstSpace(cmd,"f"));
+  if (cmd.hasOption("t"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"t"));
+  setEnableUI(cmd.hasOption("i"));
+  setPrintReport(cmd.hasOption("r"));
+  setExportAll(cmd.hasOption("a"));
+  setJUnitReport(cmd.hasOption("j"));
+  return true;
+}

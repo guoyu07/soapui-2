@@ -1,0 +1,4 @@
+{
+  if (name.length() > 2 && name.charAt(0) == PropertyExpansion.PROPERTY_SEPARATOR && name.charAt(1) == PropertyExpansion.PROPERTY_SEPARATOR)   return PropertyExpansionUtils.getGlobalProperty(name.substring(2));
+ else   return PropertyExpansionUtils.getGlobalProperty(name);
+}

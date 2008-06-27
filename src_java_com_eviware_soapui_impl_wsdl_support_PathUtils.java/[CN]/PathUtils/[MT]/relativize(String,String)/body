@@ -1,0 +1,51 @@
+{
+  if (StringUtils.isNullOrEmpty(path) || StringUtils.isNullOrEmpty(rootPath))   return path;
+  if (path.toLowerCase().startsWith("http:/") || path.toLowerCase().startsWith("https:/")) {
+    String prefix="";
+    while (rootPath != null) {
+      if (path.startsWith(rootPath)) {
+        path=path.substring(rootPath.length());
+        if (path.startsWith("/"))         path=path.substring(1);
+        break;
+      }
+ else {
+        int ix=rootPath.lastIndexOf('/');
+        rootPath=ix == -1 ? null : rootPath.substring(0,ix);
+        prefix+="../";
+      }
+    }
+    return prefix + path;
+  }
+ else {
+    String prefix="";
+    if (path.toLowerCase().startsWith("file:")) {
+      try {
+        path=new File(new URL(path).toURI()).getAbsolutePath();
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+    }
+    if (rootPath.startsWith("file:")) {
+      try {
+        rootPath=new File(new URL(rootPath).toURI()).getAbsolutePath();
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+    }
+    while (rootPath != null) {
+      if (path.startsWith(rootPath)) {
+        path=path.substring(rootPath.length());
+        if (path.startsWith(File.separator))         path=path.substring(1);
+        break;
+      }
+ else {
+        File file=new File(rootPath);
+        rootPath=file.getParent();
+        prefix+=".." + File.separatorChar;
+      }
+    }
+    return prefix + path;
+  }
+}

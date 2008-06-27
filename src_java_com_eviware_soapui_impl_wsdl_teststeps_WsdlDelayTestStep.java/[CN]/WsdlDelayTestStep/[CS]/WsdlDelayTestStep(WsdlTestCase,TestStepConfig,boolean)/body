@@ -1,0 +1,12 @@
+{
+  super(testCase,config,false,forLoadTest);
+  if (!forLoadTest) {
+    setIcon(UISupport.createImageIcon("/wait.gif"));
+  }
+  if (config.getConfig() == null) {
+    if (!forLoadTest)     saveDelay(config);
+  }
+ else {
+    readConfig(config);
+  }
+}

@@ -1,0 +1,31 @@
+{
+  releaseListeners();
+  this.config=config;
+  if (!config.isSetSetNullOnMissingSource()) {
+    config.setSetNullOnMissingSource(true);
+  }
+  if (!config.isSetTransferTextContent()) {
+    config.setTransferTextContent(true);
+  }
+  sourceStep=config.getSourceStep();
+  if (sourceStep == null) {
+    sourceStep=getSourceStepName();
+    if (sourceStep != null)     config.setSourceStep(sourceStep);
+  }
+  currentSourceStep=getPropertyHolder(sourceStep);
+  sourceType=config.getSourceType();
+  currentSourceProperty=currentSourceStep == null || sourceType == null ? null : currentSourceStep.getProperty(sourceType);
+  sourcePath=config.getSourcePath();
+  targetStep=config.getTargetStep();
+  if (targetStep == null) {
+    targetStep=getTargetStepName();
+    if (targetStep != null)     config.setTargetStep(targetStep);
+  }
+  currentTargetStep=getPropertyHolder(targetStep);
+  targetType=config.getTargetType();
+  currentTargetProperty=currentTargetStep == null || targetType == null ? null : currentTargetStep.getProperty(targetType);
+  targetPath=config.getTargetPath();
+  name=config.getName();
+  initListeners();
+  propertyChangeSupport.firePropertyChange(CONFIG_PROPERTY,null,null);
+}

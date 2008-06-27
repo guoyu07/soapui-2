@@ -1,0 +1,12 @@
+{
+  super.afterRun(context);
+  try {
+    testSuite.runTearDownScript(context);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    WsdlTestSuiteDesktopPanel.this.afterRun();
+  }
+}

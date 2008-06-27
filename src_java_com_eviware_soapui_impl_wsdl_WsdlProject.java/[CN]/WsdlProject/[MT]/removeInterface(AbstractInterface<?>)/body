@@ -1,0 +1,11 @@
+{
+  int ix=interfaces.indexOf(iface);
+  interfaces.remove(ix);
+  try {
+    fireInterfaceRemoved(iface);
+  }
+  finally {
+    iface.release();
+    getConfig().removeInterface(ix);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  String oldValue=getString(id,null);
+  values.put(id,value);
+  for (  SettingsListener listener : listeners) {
+    listener.settingChanged(id,oldValue,value);
+  }
+}

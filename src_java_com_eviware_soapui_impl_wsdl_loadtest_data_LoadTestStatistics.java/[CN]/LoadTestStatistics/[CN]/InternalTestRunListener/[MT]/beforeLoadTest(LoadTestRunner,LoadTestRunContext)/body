@@ -1,0 +1,7 @@
+{
+  running=true;
+  new Thread(updater,loadTestRunner.getLoadTest().getName() + " LoadTestStatistics Updater").start();
+  new Thread(LoadTestStatistics.this).start();
+  currentThreadCountStartTime=System.currentTimeMillis();
+  totalAverageSum=0;
+}

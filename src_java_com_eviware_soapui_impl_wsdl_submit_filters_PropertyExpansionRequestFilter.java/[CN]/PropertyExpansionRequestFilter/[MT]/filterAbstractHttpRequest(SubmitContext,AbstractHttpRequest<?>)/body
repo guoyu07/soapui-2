@@ -1,0 +1,10 @@
+{
+  String content=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
+  if (content == null) {
+    log.warn("Missing request content in context, skipping property expansion");
+  }
+ else {
+    content=PropertyExpansionUtils.expandProperties(context,content,true);
+    if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
+  }
+}

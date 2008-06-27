@@ -1,0 +1,11 @@
+{
+  try {
+    MessageExchange messageExchange=messageExchangeModelItem.getMessageExchange();
+    DefaultXmlDocument defaultXmlDocument=((DefaultXmlDocument)getDocument());
+    if (messageExchange != null && messageExchange.getOperation() != null)     defaultXmlDocument.setTypeSystem(((WsdlInterface)messageExchange.getOperation().getInterface()).getWsdlContext().getSchemaTypeSystem());
+    defaultXmlDocument.setXml(messageExchange == null ? null : messageExchange.getRequestContent());
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+}

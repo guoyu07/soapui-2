@@ -1,0 +1,7 @@
+{
+  String oldName=this.name;
+  this.name=name;
+  if (propertyChangeSupport != null) {
+    propertyChangeSupport.firePropertyChange(ModelItem.NAME_PROPERTY,oldName,name);
+  }
+}

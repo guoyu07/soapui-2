@@ -1,0 +1,51 @@
+{
+  WsdlMockResult result=null;
+  MockRunListener[] mockRunListeners=mockService.getMockRunListeners();
+  try {
+    for (    MockRunListener listener : mockRunListeners) {
+      listener.onMockRequest(this,request,response);
+    }
+    long timestamp=System.currentTimeMillis();
+    WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
+    SoapVersion soapVersion=mockRequest.getSoapVersion();
+    if (soapVersion == null)     throw new DispatchException("Unrecognized SOAP Version");
+    String soapAction=mockRequest.getSoapAction();
+    WsdlOperation operation=SoapUtils.findOperationForRequest(soapVersion,soapAction,mockRequest.getRequestXmlObject(),mockService.getMockedOperations(),mockService.isRequireSoapVersion(),mockService.isRequireSoapAction());
+    if (operation != null) {
+      WsdlMockOperation mockOperation=mockService.getMockOperation(operation);
+      if (mockOperation != null) {
+        long startTime=System.nanoTime();
+        try {
+          result=mockOperation.dispatchRequest(mockRequest,response);
+        }
+ catch (        DispatchException e) {
+          result=new WsdlMockResult(mockRequest,response);
+          String fault=SoapMessageBuilder.buildFault("Server",e.getMessage(),mockRequest.getSoapVersion());
+          result.setResponseContent(fault);
+          result.setMockOperation(mockOperation);
+          response.getWriter().write(fault);
+        }
+        if (request instanceof org.mortbay.jetty.Request)         ((org.mortbay.jetty.Request)request).setHandled(true);
+        result.setTimeTaken((System.nanoTime() - startTime) / 1000000);
+        result.setTimestamp(timestamp);
+        addMockResult(result);
+        return result;
+      }
+ else {
+        throw new DispatchException("Failed to find matching operation for request");
+      }
+    }
+    throw new DispatchException("Missing operation for soapAction [" + soapAction + "] and body element ["+ XmlUtils.getQName(mockRequest.getContentElement().getDomNode())+ "] with SOAP Version ["+ mockRequest.getSoapVersion()+ "]");
+  }
+ catch (  Exception e) {
+    if (e instanceof DispatchException)     throw (DispatchException)e;
+    throw new DispatchException(e);
+  }
+ finally {
+    if (result != null) {
+      for (      MockRunListener listener : mockRunListeners) {
+        listener.onMockResult(result);
+      }
+    }
+  }
+}

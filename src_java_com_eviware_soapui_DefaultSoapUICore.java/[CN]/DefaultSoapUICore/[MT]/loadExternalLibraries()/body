@@ -1,0 +1,20 @@
+{
+  try {
+    String extDir=System.getProperty("soapui.ext.libraries");
+    File dir=extDir != null ? new File(extDir) : StringUtils.isNullOrEmpty(root) ? new File("ext") : new File(new File(root),"ext");
+    if (dir.exists() && dir.isDirectory()) {
+      File[] files=dir.listFiles();
+      for (      File file : files) {
+        if (file.getName().toLowerCase().endsWith(".jar")) {
+          ClasspathHacker.addFile(file);
+        }
+      }
+    }
+ else {
+      log.warn("Missing folder [" + dir.getAbsolutePath() + "] for external libraries");
+    }
+  }
+ catch (  Exception e) {
+    log.error(e.toString());
+  }
+}

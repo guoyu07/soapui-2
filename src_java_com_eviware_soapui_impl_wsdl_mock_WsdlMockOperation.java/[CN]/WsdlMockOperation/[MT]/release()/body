@@ -1,0 +1,13 @@
+{
+  super.release();
+  for (  WsdlMockResponse response : responses) {
+    response.removePropertyChangeListener(this);
+    response.release();
+  }
+  scriptEnginePool.release();
+  if (operation != null) {
+    operation.getInterface().getProject().removeProjectListener(projectListener);
+    operation.getInterface().removeInterfaceListener(interfaceListener);
+    operation.getInterface().removePropertyChangeListener(WsdlInterface.NAME_PROPERTY,this);
+  }
+}

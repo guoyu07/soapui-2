@@ -1,0 +1,8 @@
+{
+  List list=operation.getExtensibilityElements();
+  SOAPOperation soapOperation=WsdlUtils.getExtensiblityElement(list,SOAPOperation.class);
+  if (soapOperation != null)   return soapOperation.getSoapActionURI();
+  SOAP12Operation soap12Operation=WsdlUtils.getExtensiblityElement(list,SOAP12Operation.class);
+  if (soap12Operation != null)   return soap12Operation.getSoapActionURI();
+  return null;
+}

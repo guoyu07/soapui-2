@@ -1,0 +1,6 @@
+{
+  File file=File.createTempFile("wstools-config",".xml");
+  ConfigurationDocument configDocument=createConfigFile(values,modelItem);
+  configDocument.save(file);
+  return file.getAbsolutePath();
+}

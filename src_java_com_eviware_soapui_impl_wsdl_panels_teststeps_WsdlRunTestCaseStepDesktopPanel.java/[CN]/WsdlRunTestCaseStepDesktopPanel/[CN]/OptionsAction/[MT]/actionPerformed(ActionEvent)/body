@@ -1,0 +1,58 @@
+{
+  if (optionsDialog == null) {
+    optionsDialog=ADialogBuilder.buildDialog(OptionsForm.class);
+    optionsDialog.getFormField(OptionsForm.TESTSUITE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        List<TestCase> testCaseList=project.getTestSuiteByName(newValue).getTestCaseList();
+        testCaseList.remove(getModelItem().getTestCase());
+        optionsDialog.setOptions(OptionsForm.TESTCASE,ModelSupport.getNames(testCaseList));
+        if (testCaseList.size() > 0) {
+          WsdlTestCase testCase=project.getTestSuiteByName(newValue).getTestCaseAt(0);
+          optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,testCase.getPropertyNames());
+          ((XFormMultiSelectList)optionsDialog.getFormField(OptionsForm.RETURN_PROPERTIES)).setSelectedOptions(getModelItem().getReturnProperties().toStringArray());
+        }
+      }
+    }
+);
+    optionsDialog.getFormField(OptionsForm.TESTCASE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        WsdlTestSuite testSuite=project.getTestSuiteByName(optionsDialog.getValue(OptionsForm.TESTSUITE));
+        WsdlTestCase testCase=testSuite.getTestCaseByName(newValue);
+        optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,testCase.getPropertyNames());
+        ((XFormMultiSelectList)optionsDialog.getFormField(OptionsForm.RETURN_PROPERTIES)).setSelectedOptions(getModelItem().getReturnProperties().toStringArray());
+      }
+    }
+);
+  }
+  WsdlTestCase targetTestCase=getModelItem().getTargetTestCase();
+  optionsDialog.setOptions(OptionsForm.TESTSUITE,ModelSupport.getNames(project.getTestSuiteList()));
+  if (targetTestCase != null) {
+    optionsDialog.setValue(OptionsForm.TESTSUITE,targetTestCase.getTestSuite().getName());
+    List<TestCase> testCaseList=targetTestCase.getTestSuite().getTestCaseList();
+    testCaseList.remove(getModelItem().getTestCase());
+    optionsDialog.setOptions(OptionsForm.TESTCASE,ModelSupport.getNames(testCaseList));
+    optionsDialog.setValue(OptionsForm.TESTCASE,targetTestCase.getName());
+    optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,targetTestCase.getPropertyNames());
+    ((XFormMultiSelectList)optionsDialog.getFormField(OptionsForm.RETURN_PROPERTIES)).setSelectedOptions(getModelItem().getReturnProperties().toStringArray());
+  }
+ else {
+    if (project.getTestSuiteCount() == 0) {
+      optionsDialog.setOptions(OptionsForm.TESTCASE,new String[0]);
+      optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,new String[0]);
+    }
+ else {
+      List<TestCase> testCaseList=project.getTestSuiteAt(0).getTestCaseList();
+      testCaseList.remove(getModelItem().getTestCase());
+      optionsDialog.setOptions(OptionsForm.TESTCASE,ModelSupport.getNames(testCaseList));
+      if (testCaseList.isEmpty())       optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,new String[0]);
+ else       optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,testCaseList.get(0).getPropertyNames());
+    }
+  }
+  optionsDialog.setValue(OptionsForm.RUN_MODE,getModelItem().getRunMode() == RunTestCaseRunModeTypeConfig.PARALLELL ? OptionsForm.CREATE_ISOLATED_COPY_FOR_EACH_RUN : OptionsForm.RUN_PRIMARY_TEST_CASE);
+  if (optionsDialog.show()) {
+    WsdlTestSuite testSuite=project.getTestSuiteByName(optionsDialog.getValue(OptionsForm.TESTSUITE));
+    getModelItem().setTargetTestCase(testSuite == null ? null : testSuite.getTestCaseByName(optionsDialog.getValue(OptionsForm.TESTCASE)));
+    getModelItem().setReturnProperties(new StringList(((XFormMultiSelectList)optionsDialog.getFormField(OptionsForm.RETURN_PROPERTIES)).getSelectedOptions()));
+    getModelItem().setRunMode(optionsDialog.getValueIndex(OptionsForm.RUN_MODE) == 0 ? RunTestCaseRunModeTypeConfig.PARALLELL : RunTestCaseRunModeTypeConfig.SINGLETON_AND_FAIL);
+  }
+}

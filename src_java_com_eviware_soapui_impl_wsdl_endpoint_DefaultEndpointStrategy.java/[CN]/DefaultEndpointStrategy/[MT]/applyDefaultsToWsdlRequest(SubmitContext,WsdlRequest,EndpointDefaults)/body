@@ -1,0 +1,17 @@
+{
+  String requestUsername=PropertyExpansionUtils.expandProperties(context,wsdlRequest.getUsername());
+  String requestPassword=PropertyExpansionUtils.expandProperties(context,wsdlRequest.getPassword());
+  String requestDomain=PropertyExpansionUtils.expandProperties(context,wsdlRequest.getDomain());
+  String defUsername=PropertyExpansionUtils.expandProperties(context,def.getUsername());
+  String defPassword=PropertyExpansionUtils.expandProperties(context,def.getPassword());
+  String defDomain=PropertyExpansionUtils.expandProperties(context,def.getDomain());
+  if (def.getMode() == EndpointConfig.Mode.OVERRIDE) {
+    overrideRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+  }
+ else   if (def.getMode() == EndpointConfig.Mode.COPY) {
+    copyToRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+  }
+ else   if (def.getMode() == EndpointConfig.Mode.COMPLEMENT) {
+    complementRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+  }
+}

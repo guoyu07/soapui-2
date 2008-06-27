@@ -1,0 +1,15 @@
+{
+  try {
+    if (initFromCommandLine(args,true)) {
+      if (run())       System.exit(0);
+    }
+ else {
+      System.exit(1);
+    }
+  }
+ catch (  Throwable e) {
+    log.error(e);
+    SoapUI.logError(e);
+    System.exit(1);
+  }
+}

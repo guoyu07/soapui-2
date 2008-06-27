@@ -1,0 +1,10 @@
+{
+  int delay=calculateDelay(testDelay);
+  if (delay == 0)   return;
+  try {
+    Thread.sleep(delay);
+  }
+ catch (  InterruptedException e) {
+    SoapUI.logError(e);
+  }
+}

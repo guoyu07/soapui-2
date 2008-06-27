@@ -1,0 +1,14 @@
+{
+  JPropertiesTable<WsdlOperation> table=new JPropertiesTable<WsdlOperation>("Operation Properties");
+  table.addProperty("Description","description",true);
+  table.addProperty("SOAPAction","action");
+  table.addProperty("Operation","bindingOperationName");
+  table.addProperty("Style","style");
+  table.addProperty("Type","type");
+  table.addProperty("Input","inputName");
+  table.addProperty("Output","outputName");
+  table.addProperty("Sends Attachments","sendsAttachments");
+  table.addProperty("Receives Attachments","receivesAttachments");
+  table.setPropertyObject(operation);
+  return table;
+}

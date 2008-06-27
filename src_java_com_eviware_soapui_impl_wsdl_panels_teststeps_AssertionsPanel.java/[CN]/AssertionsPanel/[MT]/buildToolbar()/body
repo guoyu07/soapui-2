@@ -1,0 +1,19 @@
+{
+  configureAssertionAction=new ConfigureAssertionAction();
+  removeAssertionAction=new RemoveAssertionAction();
+  JXToolBar toolbar=UISupport.createToolbar();
+  addToolbarButtons(toolbar);
+  toolbar.addGlue();
+  toolbar.add(new ShowOnlineHelpAction(HelpUrls.REQUEST_ASSERTIONS_HELP_URL));
+  assertionList.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int ix=assertionList.getSelectedIndex();
+      configureAssertionAction.setEnabled(ix >= 0);
+      removeAssertionAction.setEnabled(ix >= 0);
+      if (ix == -1)       return;
+      configureAssertionAction.setEnabled(assertionListModel.getAssertionAt(ix).isConfigurable());
+    }
+  }
+);
+  return toolbar;
+}

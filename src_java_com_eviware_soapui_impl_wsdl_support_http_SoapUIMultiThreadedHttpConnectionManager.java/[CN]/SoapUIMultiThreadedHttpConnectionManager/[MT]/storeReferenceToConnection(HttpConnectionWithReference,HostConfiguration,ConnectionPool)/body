@@ -1,0 +1,12 @@
+{
+  ConnectionSource source=new ConnectionSource();
+  source.connectionPool=connectionPool;
+  source.hostConfiguration=hostConfiguration;
+synchronized (REFERENCE_TO_CONNECTION_SOURCE) {
+    if (REFERENCE_QUEUE_THREAD == null) {
+      REFERENCE_QUEUE_THREAD=new ReferenceQueueThread();
+      REFERENCE_QUEUE_THREAD.start();
+    }
+    REFERENCE_TO_CONNECTION_SOURCE.put(connection.reference,source);
+  }
+}

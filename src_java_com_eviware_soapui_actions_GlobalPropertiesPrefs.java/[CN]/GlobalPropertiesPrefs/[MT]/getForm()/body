@@ -1,0 +1,9 @@
+{
+  SimpleForm form=new SimpleForm();
+  PropertyHolderTable propertyHolderTable=new PropertyHolderTable(PropertyExpansionUtils.getGlobalProperties());
+  propertyHolderTable.setPreferredSize(new Dimension(200,300));
+  form.addComponent(propertyHolderTable);
+  form.addSpace();
+  form.appendCheckBox(ENABLE_OVERRIDE,"Enables overriding of any property-reference with global properties",false);
+  return form;
+}

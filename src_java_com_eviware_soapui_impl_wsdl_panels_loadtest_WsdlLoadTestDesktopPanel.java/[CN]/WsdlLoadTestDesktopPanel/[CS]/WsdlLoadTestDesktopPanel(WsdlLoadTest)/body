@@ -1,0 +1,9 @@
+{
+  super(loadTest);
+  loadTestLog=loadTest.getLoadTestLog();
+  loadTest.addPropertyChangeListener(this);
+  loadTest.addLoadTestRunListener(internalLoadTestListener);
+  desktopListener=new InternalDesktopListener();
+  SoapUI.getDesktop().addDesktopListener(desktopListener);
+  buildUI();
+}

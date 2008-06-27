@@ -1,0 +1,11 @@
+{
+  WsdlMockResult lastMockResult=getModelItem().getLastMockResult();
+  WsdlMockRequest mockRequest=lastMockResult == null ? null : lastMockResult.getMockRequest();
+  try {
+    Object retVal=getModelItem().evaluateDispatchScript(mockRequest);
+    UISupport.showInfoMessage("Script returned [" + retVal + "]");
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  mockResponse.removePropertyChangeListener(propertyChangeListener);
+  requestEditor.release();
+  responseEditor.release();
+  responseEditor.getParent().remove(responseEditor);
+  responseEditor=null;
+  requestEditor.getParent().remove(requestEditor);
+  requestEditor=null;
+  return release();
+}

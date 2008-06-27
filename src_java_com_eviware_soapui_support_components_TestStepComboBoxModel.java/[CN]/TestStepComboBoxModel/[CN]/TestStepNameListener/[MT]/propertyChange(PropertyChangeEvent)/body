@@ -1,0 +1,8 @@
+{
+  Object oldItem=evt.getOldValue();
+  int stepIndex=testCase.getTestStepIndexByName((String)oldItem);
+  if (stepIndex != -1) {
+    fireContentsChanged(TestStepComboBoxModel.this,stepIndex,stepIndex);
+    if (selectedStep != null && testCase.getIndexOfTestStep(selectedStep) == stepIndex)     fireContentsChanged(this,-1,-1);
+  }
+}

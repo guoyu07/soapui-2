@@ -1,0 +1,29 @@
+{
+  super(testCase,config,true,forLoadTest);
+  if (!forLoadTest) {
+    okIcon=UISupport.createImageIcon("/groovy_script.gif");
+    setIcon(okIcon);
+    failedIcon=UISupport.createImageIcon("/groovy_script_failed.gif");
+  }
+  if (config.getConfig() == null) {
+    if (!forLoadTest)     saveScript(config);
+  }
+ else {
+    readConfig(config);
+  }
+  addProperty(new DefaultTestStepProperty("result",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
+    public String getValue(    DefaultTestStepProperty property){
+      return scriptResult == null ? null : scriptResult.toString();
+    }
+  }
+,this));
+  addProperty(new TestStepBeanProperty("script",false,this,"script",this));
+  scriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+  scriptEngine.setScript(getScript());
+  if (forLoadTest && !isDisabled())   try {
+    scriptEngine.compile();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

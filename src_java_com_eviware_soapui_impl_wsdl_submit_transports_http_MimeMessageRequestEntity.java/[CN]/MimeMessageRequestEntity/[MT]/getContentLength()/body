@@ -1,0 +1,12 @@
+{
+  try {
+    ByteArrayOutputStream out=new ByteArrayOutputStream();
+    writeRequest(out);
+    buffer=out.toByteArray();
+    return buffer.length;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return -1;
+  }
+}

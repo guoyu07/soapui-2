@@ -1,0 +1,11 @@
+{
+  int ix=table.getSelectedRow();
+  if (ix == -1)   return;
+  ix=table.convertRowIndexToModel(ix);
+  Object obj=loadTest.getAssertionAt(ix);
+  if (obj instanceof Configurable) {
+    ((Configurable)obj).configure();
+    tableModel.fireTableRowsUpdated(ix,ix);
+  }
+ else   Toolkit.getDefaultToolkit().beep();
+}

@@ -1,0 +1,10 @@
+{
+  WsdlMockResponse mockResponse=getMatchingMockResponse(request);
+  if (mockResponse != null) {
+    result.setMockResponse(mockResponse);
+    mockResponse.execute(request,result);
+  }
+ else {
+    log.error("Unable to find a response for the request. Dropping it!");
+  }
+}

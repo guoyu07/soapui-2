@@ -1,0 +1,8 @@
+{
+  super(STRATEGY_TYPE,loadTest);
+  if (config != null) {
+    XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(config);
+    startThreadCount=reader.readInt("startThreadCount",DEFAULT_START_THREAD_COUNT);
+    endThreadCount=reader.readInt("endThreadCount",DEFAULT_END_THREAD_COUNT);
+  }
+}

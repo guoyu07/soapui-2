@@ -1,0 +1,10 @@
+{
+  config=cryptoConfig;
+  container=container2;
+  sourceProperty=new BeanPathPropertySupport((AbstractWsdlModelItem<?>)container.getModelItem(),config,"source"){
+    @Override protected void notifyUpdate(    String value,    String old){
+      getWssContainer().fireCryptoUpdated(KeyMaterialWssCrypto.this);
+    }
+  }
+;
+}

@@ -1,0 +1,6 @@
+{
+  String name=UISupport.prompt("Specify name of TestCase","New TestCase","TestCase " + (testSuite.getTestCaseCount() + 1));
+  if (name == null)   return;
+  WsdlTestCase testCase=testSuite.addNewTestCase(name);
+  UISupport.showDesktopPanel(testCase);
+}

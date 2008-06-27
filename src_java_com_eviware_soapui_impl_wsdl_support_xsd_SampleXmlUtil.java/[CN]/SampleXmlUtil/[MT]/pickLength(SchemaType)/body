@@ -1,0 +1,15 @@
+{
+  XmlInteger length=(XmlInteger)sType.getFacet(SchemaType.FACET_LENGTH);
+  if (length != null)   return length.getBigIntegerValue().intValue();
+  XmlInteger min=(XmlInteger)sType.getFacet(SchemaType.FACET_MIN_LENGTH);
+  XmlInteger max=(XmlInteger)sType.getFacet(SchemaType.FACET_MAX_LENGTH);
+  int minInt, maxInt;
+  if (min == null)   minInt=0;
+ else   minInt=min.getBigIntegerValue().intValue();
+  if (max == null)   maxInt=Integer.MAX_VALUE;
+ else   maxInt=max.getBigIntegerValue().intValue();
+  if (minInt == 0 && maxInt >= 1)   minInt=1;
+  if (maxInt > minInt + 2)   maxInt=minInt + 2;
+  if (maxInt < minInt)   maxInt=minInt;
+  return minInt + pick(maxInt - minInt);
+}

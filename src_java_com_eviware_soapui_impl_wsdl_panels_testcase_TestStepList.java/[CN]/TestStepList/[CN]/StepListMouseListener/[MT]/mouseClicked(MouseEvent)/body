@@ -1,0 +1,9 @@
+{
+  if (e.getClickCount() < 2) {
+    return;
+  }
+  ModelItem modelItem=(ModelItem)testStepList.getSelectedValue();
+  if (modelItem == null)   return;
+  Action defaultAction=ActionListBuilder.buildActions(modelItem).getDefaultAction();
+  if (defaultAction != null)   defaultAction.actionPerformed(new ActionEvent(TestStepList.this,0,null));
+}

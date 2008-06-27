@@ -1,0 +1,14 @@
+{
+  int c=operations.indexOf(wsdlOperation);
+  if (c < 0)   throw new IllegalArgumentException(wsdlOperation.getName() + " not found");
+  log.info("deleting operation [" + wsdlOperation.getName() + "]");
+  while (wsdlOperation.getRequestCount() > 0)   wsdlOperation.removeRequest(wsdlOperation.getRequestAt(0));
+  operations.remove(c);
+  try {
+    fireOperationRemoved(wsdlOperation);
+  }
+  finally {
+    wsdlOperation.release();
+    getConfig().removeOperation(c);
+  }
+}

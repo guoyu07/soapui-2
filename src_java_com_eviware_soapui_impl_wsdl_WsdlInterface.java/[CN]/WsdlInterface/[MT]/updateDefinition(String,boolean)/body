@@ -1,0 +1,19 @@
+{
+  if (getConfig().isSetDefinitionCache())   getConfig().unsetDefinitionCache();
+  WsdlContext.uncache(url);
+  WsdlContext newContext=getNewContext(url,getSettings().getBoolean(WsdlSettings.CACHE_WSDLS));
+  if (!newContext.load()) {
+    return false;
+  }
+  BindingTuple tuple=findBinding(newContext);
+  if (tuple == null)   return false;
+  setBindingName(tuple.binding.getQName());
+  if (getSettings().getBoolean(WsdlSettings.NAME_WITH_BINDING))   setName(tuple.binding.getQName().getLocalPart());
+  wsdlContext=newContext;
+  if (soapMessageBuilder != null)   soapMessageBuilder.setWsdlContext(wsdlContext);
+  transferOperations(tuple.binding,createRequests);
+  setDefinition(url,false);
+  transferEndpoints(tuple.port);
+  getProject().fireInterfaceUpdated(this);
+  return true;
+}

@@ -1,0 +1,13 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.getFormField(Form.RESOURCENAME).addFormFieldValidator(new RequiredValidator());
+  }
+ else {
+    dialog.setValue(Form.RESOURCENAME,"");
+    dialog.setValue(Form.RESOURCEPATH,"");
+  }
+  if (dialog.show()) {
+    service.addNewResource(dialog.getValue(Form.RESOURCENAME),dialog.getValue(Form.RESOURCEPATH));
+  }
+}

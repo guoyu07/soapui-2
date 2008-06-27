@@ -1,0 +1,24 @@
+{
+  WsdlTestStepResult result=new WsdlTestStepResult(this);
+  canceled=false;
+  result.startTimer();
+  WsdlTestRequestStep previousStep=(WsdlTestRequestStep)getTestCase().findPreviousStepOfType(this,WsdlTestRequestStep.class);
+  if (previousStep == null) {
+    result.stopTimer();
+    result.addMessage("Failed to find previous request step from [" + getName() + "]");
+    result.setStatus(TestStepStatus.FAILED);
+    return result;
+  }
+  GotoCondition target=runConditions(previousStep,context);
+  if (target == null) {
+    result.addMessage("Missing matching condition, moving on.");
+  }
+ else {
+    String targetStepName=target.getTargetStep();
+    result.addMessage("Matched condition [" + targetStepName + "], transferring to ["+ targetStepName+ "]");
+    runner.gotoStep(runner.getTestCase().getTestStepIndexByName(targetStepName));
+  }
+  result.stopTimer();
+  result.setStatus(TestStepStatus.OK);
+  return result;
+}

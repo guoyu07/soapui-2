@@ -1,0 +1,9 @@
+{
+  List<? extends ModelItem> children=getChildren();
+  if (children == null)   return;
+  for (  ModelItem modelItem : children) {
+    if (modelItem instanceof AbstractWsdlModelItem) {
+      ((AbstractWsdlModelItem<?>)modelItem).resolve(context);
+    }
+  }
+}

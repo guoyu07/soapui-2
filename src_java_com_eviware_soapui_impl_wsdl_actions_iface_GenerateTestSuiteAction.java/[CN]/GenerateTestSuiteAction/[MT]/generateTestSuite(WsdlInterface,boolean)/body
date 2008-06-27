@@ -1,0 +1,41 @@
+{
+  XFormDialog dialog=ADialogBuilder.buildDialog(GenerateForm.class);
+  dialog.setValue(GenerateForm.STYLE,"One TestCase for each Operation");
+  dialog.setValue(GenerateForm.REQUEST_CONTENT,"Create new empty requests");
+  String[] names=ModelSupport.getNames(iface.getOperationList());
+  dialog.setOptions(GenerateForm.OPERATIONS,names);
+  XFormOptionsField operationsFormField=(XFormOptionsField)dialog.getFormField(GenerateForm.OPERATIONS);
+  operationsFormField.setSelectedOptions(names);
+  WsdlProject project=(WsdlProject)iface.getProject();
+  String[] testSuites=ModelSupport.getNames(new String[]{"<create>"},project.getTestSuiteList());
+  dialog.setOptions(GenerateForm.TESTSUITE,testSuites);
+  if (dialog.show()) {
+    List<String> operations=Arrays.asList(operationsFormField.getSelectedOptions());
+    if (operations.size() == 0) {
+      UISupport.showErrorMessage("No Operations selected..");
+      return null;
+    }
+    String testSuiteName=dialog.getValue(GenerateForm.TESTSUITE);
+    if (testSuiteName.equals("<create>"))     testSuiteName=UISupport.prompt("Enter name of TestSuite to create","Generate TestSuite",iface.getName() + " TestSuite");
+    if (testSuiteName != null && testSuiteName.trim().length() > 0) {
+      WsdlTestSuite testSuite=(WsdlTestSuite)project.getTestSuiteByName(testSuiteName);
+      if (testSuite == null) {
+        testSuite=(WsdlTestSuite)project.addNewTestSuite(testSuiteName);
+      }
+      int style=dialog.getValueIndex(GenerateForm.STYLE);
+      boolean useExistingRequests=dialog.getValueIndex(GenerateForm.REQUEST_CONTENT) == 0;
+      boolean generateLoadTest=dialog.getBooleanValue(GenerateForm.GENERATE_LOADTEST);
+      if (style == 0) {
+        generateMulipleTestCases(testSuite,iface,useExistingRequests,generateLoadTest,operations);
+      }
+ else       if (style == 1) {
+        generateSingleTestCase(testSuite,iface,useExistingRequests,generateLoadTest,operations);
+      }
+      if (!atCreation) {
+        UISupport.showDesktopPanel(testSuite);
+      }
+      return testSuite;
+    }
+  }
+  return null;
+}

@@ -1,0 +1,51 @@
+{
+  if (name.length() == 0 || name.charAt(0) != '=')   return null;
+  name=name.substring(1);
+  StringToObjectMap objects=new StringToObjectMap();
+  objects.put("context",context);
+  objects.put("log",SoapUI.ensureGroovyLog());
+  if (context instanceof TestRunContext) {
+    objects.put("testRunner",((TestRunContext)context).getTestRunner());
+  }
+  if (context instanceof LoadTestRunContext) {
+    objects.put("loadTestRunner",((LoadTestRunContext)context).getLoadTestRunner());
+  }
+  if (context instanceof MockRunContext) {
+    objects.put("mockRunner",((MockRunContext)context).getMockRunner());
+  }
+  ModelItem modelItem=context.getModelItem();
+  if (modelItem instanceof TestCase) {
+    objects.put("testCase",modelItem);
+  }
+ else   if (modelItem instanceof TestStep) {
+    objects.put("testStep",modelItem);
+  }
+ else   if (modelItem instanceof TestSuite) {
+    objects.put("testSuite",modelItem);
+  }
+  if (modelItem instanceof LoadTest) {
+    objects.put("loadTest",modelItem);
+  }
+ else   if (modelItem instanceof Project) {
+    objects.put("project",modelItem);
+  }
+ else   if (modelItem instanceof MockService) {
+    objects.put("mockService",modelItem);
+  }
+ else   if (modelItem instanceof MockOperation) {
+    objects.put("mockOperation",modelItem);
+  }
+ else   if (modelItem instanceof MockResponse) {
+    objects.put("mockResponse",modelItem);
+  }
+ else   if (modelItem instanceof Request) {
+    objects.put("request",modelItem);
+  }
+ else   if (modelItem instanceof Operation) {
+    objects.put("operation",modelItem);
+  }
+ else   if (modelItem instanceof Interface) {
+    objects.put("interface",modelItem);
+  }
+  return doEval(name,modelItem,objects);
+}

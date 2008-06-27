@@ -1,0 +1,10 @@
+{
+  if (values.containsKey(id)) {
+    try {
+      return Long.parseLong(values.get(id));
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return defaultValue;
+}

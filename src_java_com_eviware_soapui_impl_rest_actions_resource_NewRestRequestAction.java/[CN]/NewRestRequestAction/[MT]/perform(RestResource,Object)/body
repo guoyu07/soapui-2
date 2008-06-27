@@ -1,0 +1,15 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+  }
+ else {
+    dialog.setValue(Form.RESOURCENAME,"");
+  }
+  if (dialog.show()) {
+    RestRequest request=resource.addNewRequest(dialog.getValue(Form.RESOURCENAME));
+    request.setMethod(RequestMethod.valueOf(dialog.getValue(Form.METHOD)));
+    for (    TestProperty p : resource.getDefaultParams()) {
+      request.addProperty(p.getName()).setValue(p.getValue());
+    }
+  }
+}

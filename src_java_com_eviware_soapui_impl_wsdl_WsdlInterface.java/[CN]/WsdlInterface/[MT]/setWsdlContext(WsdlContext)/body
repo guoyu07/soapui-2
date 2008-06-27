@@ -1,0 +1,9 @@
+{
+  this.wsdlContext=wsdlContext;
+  this.wsdlContext.setSoapVersion(getSoapVersion());
+  this.wsdlContext.setInterface(this);
+  if (!getConfig().isSetDefinitionCache())   getConfig().addNewDefinitionCache();
+  if (wsdlContext.getCacheConfig() != null) {
+    getConfig().setDefinitionCache(wsdlContext.getCacheConfig());
+  }
+}

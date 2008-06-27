@@ -1,0 +1,36 @@
+{
+  this.httpRequest=new WeakReference<AbstractHttpRequest<?>>(httpRequest);
+  this.requestContent=requestContent;
+  this.timeTaken=httpMethod.getTimeTaken();
+  this.timestamp=System.currentTimeMillis();
+  try {
+    initHeaders(httpMethod);
+    sslInfo=httpMethod.getSSLInfo();
+    postResponseDataSource=new PostResponseDataSource(httpMethod);
+    responseContentLength=postResponseDataSource.getDataSize();
+    Header h=httpMethod.getResponseHeader("Content-Type");
+    HeaderElement[] elements=h.getElements();
+    String rootPartId=null;
+    for (    HeaderElement element : elements) {
+      String name=element.getName().toUpperCase();
+      if (name.startsWith("MULTIPART/")) {
+        NameValuePair parameter=element.getParameterByName("start");
+        if (parameter != null)         rootPartId=parameter.getValue();
+      }
+    }
+    mmSupport=new MultipartMessageSupport(postResponseDataSource,rootPartId,httpRequest.getOperation(),false,httpRequest.isPrettyPrint());
+    if (httpRequest.getSettings().getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN))     this.timeTaken+=httpMethod.getResponseReadTime();
+    RequestEntity requestEntity=httpMethod.getRequestEntity();
+    if (requestEntity != null) {
+      ByteArrayOutputStream out=new ByteArrayOutputStream();
+      requestEntity.writeRequest(out);
+      requestData=out.toByteArray();
+    }
+ else {
+      requestData=new byte[0];
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

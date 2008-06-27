@@ -1,0 +1,10 @@
+{
+  for (int c=0; c < getTabCount(); c++) {
+    JLogList tabComponent=(JLogList)getComponentAt(c);
+    if (tabComponent.getLogger(loggerName) != null) {
+      removeTabAt(c);
+      return true;
+    }
+  }
+  return false;
+}

@@ -1,0 +1,14 @@
+{
+  try {
+    File file=new File("soapui-background.gif");
+    if (!file.exists())     file=new File("soapui-background.jpg");
+    if (!file.exists())     file=new File("soapui-background.png");
+    if (file.exists()) {
+      img=javax.imageio.ImageIO.read(file);
+      imageWidth=img.getWidth(this);
+      imageHeight=img.getHeight(this);
+    }
+  }
+ catch (  Exception e) {
+  }
+}

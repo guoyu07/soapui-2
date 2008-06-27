@@ -1,0 +1,36 @@
+{
+  if (StringUtils.isNullOrEmpty(path))   return null;
+  if (isHeadless())   return null;
+  if (iconCache.containsKey(path))   return iconCache.get(path);
+  java.net.URL imgURL=null;
+  try {
+    if (path.indexOf('/',1) == -1)     path="/com/eviware/soapui/resources/images" + path;
+    imgURL=SoapUI.class.getResource(path);
+    if (imgURL == null && path.endsWith(".gif")) {
+      imgURL=SoapUI.class.getResource(path.substring(0,path.length() - 4) + ".png");
+    }
+    if (imgURL == null) {
+      imgURL=loadFromSecondaryLoader(path);
+    }
+  }
+ catch (  Throwable t) {
+    System.err.println("Failed to find icon: " + t);
+    return null;
+  }
+  if (imgURL != null) {
+    try {
+      ImageIcon imageIcon=new ImageIcon(imgURL);
+      iconCache.put(path,imageIcon);
+      return imageIcon;
+    }
+ catch (    Throwable e) {
+      if (e instanceof NoClassDefFoundError)       isHeadless=true;
+ else       System.err.println("Failed to create icon: " + e);
+      return null;
+    }
+  }
+ else {
+    System.err.println("Couldn't find icon file: " + path);
+    return null;
+  }
+}

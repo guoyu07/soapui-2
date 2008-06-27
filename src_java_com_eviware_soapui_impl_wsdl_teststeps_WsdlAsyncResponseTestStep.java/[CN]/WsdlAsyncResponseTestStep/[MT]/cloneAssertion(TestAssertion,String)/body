@@ -1,0 +1,8 @@
+{
+  RequestAssertionConfig assertionConfig=testStepConfig.addNewAssertion();
+  assertionConfig.set(((WsdlMessageAssertion)testAssertion).getConfig());
+  assertionConfig.setName(s);
+  WsdlMessageAssertion messageAssertion=assertionsSupport.addWsdlAssertion(assertionConfig);
+  assertionsSupport.fireAssertionAdded(messageAssertion);
+  return messageAssertion;
+}

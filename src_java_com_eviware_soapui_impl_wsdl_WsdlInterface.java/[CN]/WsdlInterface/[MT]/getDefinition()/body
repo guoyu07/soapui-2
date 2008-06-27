@@ -1,0 +1,13 @@
+{
+  if (!getConfig().isSetDefinition())   return null;
+  String result=definitionProperty.expand();
+  if (PathUtils.isFilePath(result) && !result.startsWith("file:") && !result.startsWith("$")) {
+    try {
+      result=new File(result).toURI().toURL().toString();
+    }
+ catch (    MalformedURLException e) {
+      e.printStackTrace();
+    }
+  }
+  return result;
+}

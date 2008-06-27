@@ -1,0 +1,29 @@
+{
+  List<String> result=new ArrayList<String>();
+  for (  String assertion : assertionLabels.keySet()) {
+switch (type) {
+case BOTH:
+{
+        result.add(assertion);
+        break;
+      }
+case REQUEST:
+{
+      String assertionId=assertionLabels.get(assertion);
+      if (Arrays.asList(availableAssertions.get(assertionId).getInterfaces()).contains(RequestAssertion.class)) {
+        result.add(assertion);
+      }
+      break;
+    }
+case RESPONSE:
+{
+    String assertionId=assertionLabels.get(assertion);
+    if (Arrays.asList(availableAssertions.get(assertionId).getInterfaces()).contains(ResponseAssertion.class)) {
+      result.add(assertion);
+    }
+    break;
+  }
+}
+}
+return result.toArray(new String[result.size()]);
+}

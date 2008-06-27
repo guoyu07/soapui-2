@@ -1,0 +1,29 @@
+{
+  if (inspectors.size() > 0) {
+    inspectToolbar.addSpace(5);
+  }
+  inspectors.add(inspector);
+  inspector.addPropertyChangeListener(JInspectorPanel.this);
+  inspectorPanel.add(inspector.getComponent(),inspector.getInspectorId());
+  JToggleButton button=new JToggleButton(new SelectInspectorAction(inspector));
+  inspectorButtons.put(inspector,button);
+  if (orientation == SwingConstants.LEFT) {
+    String text=button.getText();
+    button.setText(null);
+    button.setPreferredSize(new Dimension(17,10));
+    button.setIcon(new VTextIcon(inspectToolbar,text,VTextIcon.ROTATE_LEFT));
+    inspectToolbar.add(button);
+  }
+ else   if (orientation == SwingConstants.RIGHT) {
+    String text=button.getText();
+    button.setText(null);
+    button.setPreferredSize(new Dimension(17,10));
+    button.setIcon(new VTextIcon(inspectToolbar,text,VTextIcon.ROTATE_RIGHT));
+    inspectToolbar.add(button);
+  }
+ else   inspectToolbar.add(button);
+  button.setMinimumSize(new Dimension(10,10));
+  inspectToolbar.invalidate();
+  repaint();
+  return inspector;
+}

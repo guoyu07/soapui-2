@@ -1,0 +1,8 @@
+{
+  for (  InterfaceConfig ifaceConfig : config.getSoapuiProject().getInterfaceList()) {
+    if (ifaceConfig.isSetDefinitionCache()) {
+      log.info("Removing definition cache from interface [" + ifaceConfig.getName() + "]");
+      ifaceConfig.unsetDefinitionCache();
+    }
+  }
+}

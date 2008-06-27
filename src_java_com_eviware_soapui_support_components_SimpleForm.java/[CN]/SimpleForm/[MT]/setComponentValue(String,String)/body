@@ -1,0 +1,19 @@
+{
+  JComponent component=getComponent(label);
+  if (component instanceof JTextComponent) {
+    ((JTextComponent)component).setText(value);
+  }
+ else   if (component instanceof JComboBox) {
+    JComboBox comboBox=((JComboBox)component);
+    comboBox.setSelectedItem(value);
+  }
+ else   if (component instanceof JList) {
+    ((JList)component).setSelectedValue(value,true);
+  }
+ else   if (component instanceof JCheckBox) {
+    ((JCheckBox)component).setSelected(Boolean.valueOf(value));
+  }
+ else   if (component instanceof JFormComponent) {
+    ((JFormComponent)component).setValue(value);
+  }
+}

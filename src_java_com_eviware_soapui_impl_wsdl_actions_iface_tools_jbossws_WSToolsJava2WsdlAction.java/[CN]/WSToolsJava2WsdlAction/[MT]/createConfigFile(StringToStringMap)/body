@@ -1,0 +1,19 @@
+{
+  ConfigurationDocument configDocument=ConfigurationDocument.Factory.newInstance();
+  ConfigurationType config=configDocument.addNewConfiguration();
+  JavaToWsdlType java2Wsdl=config.addNewJavaWsdl();
+  ServiceType service=java2Wsdl.addNewService();
+  service.setEndpoint(values.get(ENDPOINT));
+  service.setStyle(Style.Enum.forString(values.get(STYLE)));
+  service.setParameterStyle(ParameterStyle.Enum.forString(values.get(PARAMETER_STYLE)));
+  service.setName(values.get(SERVICE_NAME));
+  MappingType mapping=java2Wsdl.addNewMapping();
+  mapping.setFile(values.get(MAPPING));
+  NamespacesType namespaces=java2Wsdl.addNewNamespaces();
+  namespaces.setTargetNamespace(values.get(TARGET_NAMESPACE));
+  namespaces.setTypeNamespace(values.get(TYPES_NAMESPACE));
+  WsxmlType webservices=java2Wsdl.addNewWebservices();
+  if (values.get(EJB_LINK) != null && values.get(EJB_LINK).length() > 0)   webservices.setEjbLink(values.get(EJB_LINK));
+  if (values.get(SERVLET_LINK) != null && values.get(SERVLET_LINK).length() > 0)   webservices.setServletLink(values.get(SERVLET_LINK));
+  return configDocument;
+}

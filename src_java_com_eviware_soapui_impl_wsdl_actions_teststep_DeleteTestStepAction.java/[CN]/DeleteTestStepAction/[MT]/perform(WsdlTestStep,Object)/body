@@ -1,0 +1,9 @@
+{
+  if (SoapUI.getTestMonitor().hasRunningTest(testStep.getTestCase())) {
+    UISupport.showErrorMessage("Cannot remove step while tests are running");
+    return;
+  }
+  if (UISupport.confirm("Delete TestStep [" + testStep.getName() + "] from Testcase ["+ testStep.getTestCase().getName()+ "]","Delete TestStep")) {
+    ((WsdlTestCase)testStep.getTestCase()).removeTestStep(testStep);
+  }
+}

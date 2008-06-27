@@ -1,0 +1,11 @@
+{
+  String xbDir=SoapUI.getSettings().getString(ToolsSettings.XMLBEANS_LOCATION,null);
+  if (Tools.isEmpty(xbDir)) {
+    UISupport.showErrorMessage("XmlBeans location must be set in global preferences");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  builder.command(buildArgs(modelItem).getArgs());
+  builder.directory(new File(xbDir + File.separatorChar + "bin"));
+  toolHost.run(new ProcessToolRunner(builder,"XmlBeans",modelItem));
+}

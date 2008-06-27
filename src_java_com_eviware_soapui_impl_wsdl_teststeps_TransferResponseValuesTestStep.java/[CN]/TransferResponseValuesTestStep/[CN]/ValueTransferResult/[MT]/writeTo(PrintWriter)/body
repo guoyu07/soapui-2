@@ -1,0 +1,18 @@
+{
+  super.writeTo(writer);
+  if (!isDiscarded()) {
+    writer.println("----------------------------------------------------");
+    for (int c=0; c < transfers.size(); c++) {
+      ValueTransferConfig transfer=transfers.get(c);
+      writer.println(transfer.getName() + " transferred [" + Arrays.toString(values.get(c))+ "] from ["+ transfer.getSourceStep()+ "."+ transfer.getSourceType()+ "] to ["+ transfer.getTargetStep()+ "."+ transfer.getTargetType()+ "]");
+      if (transfer.getSourcePath() != null) {
+        writer.println("------------ source path -------------");
+        writer.println(transfer.getSourcePath());
+      }
+      if (transfer.getTargetPath() != null) {
+        writer.println("------------ target path -------------");
+        writer.println(transfer.getTargetPath());
+      }
+    }
+  }
+}

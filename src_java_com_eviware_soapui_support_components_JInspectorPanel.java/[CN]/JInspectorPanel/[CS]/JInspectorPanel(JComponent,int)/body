@@ -1,0 +1,39 @@
+{
+  super(new BorderLayout());
+  this.orientation=orientation;
+  inspectorPanel=new JPanel(new CardLayout());
+  inspectorPanel.setVisible(false);
+  mainSplit=new JSplitPane(orientation == SwingConstants.LEFT || orientation == SwingConstants.RIGHT ? JSplitPane.HORIZONTAL_SPLIT : JSplitPane.VERTICAL_SPLIT);
+  mainSplit.setDividerSize(5);
+  mainSplit.setBorder(null);
+  mainSplit.setOneTouchExpandable(false);
+  JXToolBar toolbar=createInspectButtons();
+  if (orientation == SwingConstants.BOTTOM) {
+    mainSplit.setTopComponent(contentComponent);
+    mainSplit.setBottomComponent(inspectorPanel);
+    mainSplit.setResizeWeight(0.8);
+    toolbar.setBorder(BorderFactory.createEmptyBorder(1,2,3,2));
+    add(toolbar,BorderLayout.SOUTH);
+  }
+ else   if (orientation == SwingConstants.LEFT) {
+    mainSplit.setRightComponent(contentComponent);
+    JPanel p=new JPanel(new BorderLayout());
+    p.add(toolbar);
+    toolbar.setBorder(BorderFactory.createEmptyBorder(2,3,0,4));
+    mainSplit.setLeftComponent(inspectorPanel);
+    mainSplit.setResizeWeight(0.2);
+    toolbar.setOrientation(JToolBar.VERTICAL);
+    add(p,BorderLayout.WEST);
+  }
+ else   if (orientation == SwingConstants.RIGHT) {
+    mainSplit.setLeftComponent(contentComponent);
+    JPanel p=new JPanel(new BorderLayout());
+    p.add(toolbar);
+    toolbar.setBorder(BorderFactory.createEmptyBorder(2,1,0,3));
+    mainSplit.setRightComponent(inspectorPanel);
+    mainSplit.setResizeWeight(0.8);
+    toolbar.setOrientation(JToolBar.VERTICAL);
+    add(p,BorderLayout.EAST);
+  }
+  add(mainSplit,BorderLayout.CENTER);
+}

@@ -1,0 +1,42 @@
+{
+  if (server == null)   initServer();
+  WsdlMockService mockService=(WsdlMockService)runner.getMockService();
+  int port=mockService.getPort();
+  if (!runners.containsKey(port)) {
+    SoapUIConnector connector=new SoapUIConnector();
+    connector.setPort(port);
+    if (sslConnector != null)     connector.setConfidentialPort(sslConnector.getPort());
+    if (mockService.getBindToHostOnly()) {
+      String host=mockService.getHost();
+      if (StringUtils.hasContent(host)) {
+        connector.setHost(host);
+      }
+    }
+    boolean wasRunning=server.isRunning();
+    if (wasRunning) {
+      server.stop();
+    }
+    server.addConnector(connector);
+    try {
+      server.start();
+    }
+ catch (    RuntimeException e) {
+      UISupport.showErrorMessage(e);
+      server.removeConnector(connector);
+      if (wasRunning) {
+        server.start();
+        return;
+      }
+    }
+    connectors.put(new Integer(port),connector);
+    runners.put(new Integer(port),new HashMap<String,List<MockRunner>>());
+  }
+  Map<String,List<MockRunner>> map=runners.get(port);
+  String path=mockService.getPath();
+  if (!map.containsKey(path)) {
+    map.put(path,new ArrayList<MockRunner>());
+  }
+  map.get(path).add(runner);
+  mockRunners.add(runner);
+  log.info("Started mockService [" + mockService.getName() + "] on port ["+ port+ "] at path ["+ path+ "]");
+}

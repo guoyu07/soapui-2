@@ -1,0 +1,14 @@
+{
+  if (httpRequest instanceof RestRequest) {
+    RestRequest restRequest=(RestRequest)httpRequest;
+switch (restRequest.getMethod()) {
+case GET:
+      return new ExtendedGetMethod();
+case DELETE:
+    return new ExtendedDeleteMethod();
+case PUT:
+  return new ExtendedPutMethod();
+}
+}
+return new ExtendedPostMethod();
+}

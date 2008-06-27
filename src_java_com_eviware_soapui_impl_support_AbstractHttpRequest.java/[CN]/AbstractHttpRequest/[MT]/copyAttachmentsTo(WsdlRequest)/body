@@ -1,0 +1,19 @@
+{
+  if (getAttachmentCount() > 0) {
+    try {
+      UISupport.setHourglassCursor();
+      for (int c=0; c < getAttachmentCount(); c++) {
+        try {
+          Attachment attachment=getAttachmentAt(c);
+          newRequest.importAttachment(attachment);
+        }
+ catch (        Exception e) {
+          SoapUI.logError(e);
+        }
+      }
+    }
+  finally {
+      UISupport.resetCursor();
+    }
+  }
+}

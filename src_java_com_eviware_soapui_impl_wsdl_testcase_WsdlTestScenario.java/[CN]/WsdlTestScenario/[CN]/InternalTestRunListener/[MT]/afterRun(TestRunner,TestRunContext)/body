@@ -1,0 +1,11 @@
+{
+  runners.remove(testRunner);
+  WsdlTestCase testCase=(WsdlTestCase)testRunner.getTestCase();
+  testRunner.getTestCase().removeTestRunListener(this);
+  afterTestCase(testCase,testRunner);
+  if (runners.isEmpty())   WsdlTestScenario.this.afterRun(context);
+  if (testRunner.getStatus() == TestRunner.Status.FAILED) {
+    testCaseFailed(testCase);
+    if (abortOnFail && !canceled)     cancel();
+  }
+}

@@ -1,0 +1,10 @@
+{
+  ProjectConfig projectConfig=this.project.getConfig();
+  if (!projectConfig.isSetEndpointStrategy()) {
+    projectConfig.addNewEndpointStrategy();
+  }
+  config=(DefaultEndpointStrategyConfig)projectConfig.getEndpointStrategy().changeType(DefaultEndpointStrategyConfig.type);
+  for (  EndpointConfig endpointConfig : config.getEndpointList()) {
+    defaults.put(endpointConfig.getStringValue(),new EndpointDefaults(endpointConfig));
+  }
+}

@@ -1,0 +1,13 @@
+{
+  SchemaLocalElement element=(SchemaLocalElement)sp;
+  addElementTypeAndRestricionsComment(element,xmlc);
+  if (_soapEnc)   xmlc.insertElement(element.getName().getLocalPart());
+ else   xmlc.insertElement(element.getName().getLocalPart(),element.getName().getNamespaceURI());
+  xmlc.toPrevToken();
+  String[] values=null;
+  if (multiValues != null)   values=multiValues.get(element.getName());
+  if (values != null)   xmlc.insertChars(StringUtils.join(values,","));
+ else   if (sp.isDefault())   xmlc.insertChars(sp.getDefaultText());
+ else   createSampleForType(element.getType(),xmlc);
+  xmlc.toNextToken();
+}

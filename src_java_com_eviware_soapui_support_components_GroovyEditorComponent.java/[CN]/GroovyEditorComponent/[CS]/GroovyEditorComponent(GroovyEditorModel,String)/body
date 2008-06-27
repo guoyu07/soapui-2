@@ -1,0 +1,9 @@
+{
+  super(new BorderLayout());
+  editor=new GroovyEditor(editorModel);
+  JScrollPane scrollPane=new JScrollPane(editor);
+  scrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0,3,0,3),scrollPane.getBorder()));
+  UISupport.addPreviewCorner(scrollPane,true);
+  add(scrollPane,BorderLayout.CENTER);
+  addToolbar(editorModel,helpUrl);
+}

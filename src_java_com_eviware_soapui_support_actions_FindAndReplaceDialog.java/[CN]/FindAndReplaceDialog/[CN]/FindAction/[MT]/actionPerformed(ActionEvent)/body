@@ -1,0 +1,24 @@
+{
+  int pos=target.getCaretPosition();
+  int selstart=target.getSelectionStart();
+  if (selstart < pos && selstart != -1)   pos=selstart;
+  String txt=target.getText();
+  String value=findCombo.getSelectedItem().toString();
+  if (value.length() == 0 || pos == txt.length())   return;
+  if (!caseCheck.isSelected()) {
+    value=value.toUpperCase();
+    txt=txt.toUpperCase();
+  }
+  int ix=findNext(pos,txt,value);
+  if (ix != -1) {
+    target.select(ix,ix + value.length());
+    for (int c=0; c < findCombo.getItemCount(); c++) {
+      if (findCombo.getItemAt(c).equals(value)) {
+        findCombo.removeItem(c);
+        break;
+      }
+    }
+    findCombo.insertItemAt(value,0);
+  }
+ else   Toolkit.getDefaultToolkit().beep();
+}

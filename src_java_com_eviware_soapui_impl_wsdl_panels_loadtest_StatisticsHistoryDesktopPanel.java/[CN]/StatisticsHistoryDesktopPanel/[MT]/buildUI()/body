@@ -1,0 +1,8 @@
+{
+  historyGraph=new JStatisticsHistoryGraph(loadTest);
+  JScrollPane scrollPane=new JScrollPane(historyGraph);
+  scrollPane.getViewport().setBackground(Color.WHITE);
+  scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+  panel=UISupport.buildPanelWithToolbarAndStatusBar(buildToolbar(),scrollPane,historyGraph.getLegend());
+  panel.setPreferredSize(new Dimension(600,400));
+}

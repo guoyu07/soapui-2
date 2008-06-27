@@ -1,0 +1,10 @@
+{
+  super();
+  this.testCase=testCase;
+  this.condition=condition;
+  testCase.getTestSuite().addTestSuiteListener(testSuiteListener);
+  if (condition != null)   condition.addPropertyChangeListener(GotoCondition.TARGET_STEP_PROPERTY,propertyChangeListener);
+  for (int c=0; c < testCase.getTestStepCount(); c++) {
+    testCase.getTestStepAt(c).addPropertyChangeListener(TestStep.NAME_PROPERTY,propertyChangeListener);
+  }
+}

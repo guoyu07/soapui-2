@@ -1,0 +1,6 @@
+{
+  String old=getRequestContent();
+  if (request.equals(old))   return;
+  requestContent=request;
+  notifyPropertyChanged(REQUEST_PROPERTY,old,request);
+}

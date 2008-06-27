@@ -1,0 +1,20 @@
+{
+  super.buildPopup(inputPopup,editArea);
+  inputPopup.insert(applyMenu=new JMenu("Apply Outgoing WSS"),2);
+  inputPopup.addPopupMenuListener(new PopupMenuListener(){
+    public void popupMenuCanceled(    PopupMenuEvent e){
+    }
+    public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+    }
+    public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      applyMenu.removeAll();
+      DefaultWssContainer wss=mockResponse.getMockOperation().getMockService().getProject().getWssContainer();
+      List<OutgoingWss> outgoingWssList=wss.getOutgoingWssList();
+      applyMenu.setEnabled(!outgoingWssList.isEmpty());
+      for (      OutgoingWss outgoing : outgoingWssList) {
+        applyMenu.add(new ApplyOutgoingWSSToMockResponseAction(mockResponse,outgoing));
+      }
+    }
+  }
+);
+}

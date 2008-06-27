@@ -1,0 +1,41 @@
+{
+  MockService mockService=runner.getMockService();
+  final Integer port=new Integer(mockService.getPort());
+  Map<String,List<MockRunner>> map=runners.get(port);
+  map.get(mockService.getPath()).remove(runner);
+  mockRunners.remove(runner);
+  log.info("Stopped MockService [" + mockService.getName() + "] on port ["+ port+ "]");
+  if (map.isEmpty() && !SoapUI.getSettings().getBoolean(HttpSettings.LEAVE_MOCKENGINE)) {
+    SoapUIConnector connector=(SoapUIConnector)connectors.get(port);
+    if (connector == null) {
+      log.warn("Missing connectors on port [" + port + "]");
+      return;
+    }
+    try {
+      log.info("Stopping connector on port " + port);
+      if (!connector.waitUntilIdle(5000)) {
+        log.warn("Failed to wait for idle.. stopping connector anyway..");
+      }
+      connector.stop();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+    server.removeConnector(connector);
+    runners.remove(port);
+    if (runners.isEmpty()) {
+      try {
+        log.info("No more connectors.. stopping server");
+        server.stop();
+        if (sslConnector != null) {
+          server.removeConnector(sslConnector);
+          sslConnector.stop();
+          sslConnector=null;
+        }
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

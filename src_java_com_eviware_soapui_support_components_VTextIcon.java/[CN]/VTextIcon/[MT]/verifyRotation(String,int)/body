@@ -1,0 +1,17 @@
+{
+  boolean hasCJK=false;
+  boolean hasMustRotate=false;
+  int len=label.length();
+  char data[]=new char[len];
+  char ch;
+  label.getChars(0,len,data,0);
+  for (int i=0; i < len; i++) {
+    ch=data[i];
+    if ((ch >= '\u4E00' && ch <= '\u9FFF') || (ch >= '\u3400' && ch <= '\u4DFF') || (ch >= '\uF900' && ch <= '\uFAFF')|| (ch >= '\u3040' && ch <= '\u309F')|| (ch >= '\u30A0' && ch <= '\u30FF'))     hasCJK=true;
+    if ((ch >= '\u0590' && ch <= '\u05FF') || (ch >= '\u0600' && ch <= '\u06FF') || (ch >= '\u0700' && ch <= '\u074F'))     hasMustRotate=true;
+  }
+  if (hasCJK)   return DEFAULT_CJK;
+  int legal=hasMustRotate ? LEGAL_MUST_ROTATE : LEGAL_ROMAN;
+  if ((rotateHint & legal) > 0)   return rotateHint;
+  return hasMustRotate ? DEFAULT_MUST_ROTATE : DEFAULT_ROMAN;
+}

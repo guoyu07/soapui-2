@@ -1,0 +1,96 @@
+{
+  loadTest.getTestCase().beforeSave();
+  startTime=System.currentTimeMillis();
+  runners.clear();
+  loadTest.addPropertyChangeListener(WsdlLoadTest.THREADCOUNT_PROPERTY,internalPropertyChangeListener);
+  runCount=0;
+  threadCount=0;
+  threadsWaitingToStart=0;
+  context=new WsdlLoadTestContext(this);
+  try {
+    loadTest.runSetupScript(context,this);
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+  ;
+  status=Status.RUNNING;
+  listeners=loadTest.getLoadTestRunListeners();
+  for (  LoadTestRunListener listener : listeners) {
+    try {
+      listener.beforeLoadTest(this,context);
+    }
+ catch (    Throwable e) {
+      SoapUI.logError(e);
+    }
+  }
+  loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest started at " + new Date(startTime)));
+  int startDelay=loadTest.getStartDelay();
+  if (startDelay >= 0) {
+    XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Starting threads",(int)loadTest.getThreadCount(),"",true);
+    try {
+      progressDialog.run(new Worker.WorkerAdapter(){
+        private List<WsdlTestCase> testCases=new ArrayList<WsdlTestCase>();
+        private boolean canceled;
+        public Object construct(        XProgressMonitor monitor){
+          int startDelay=loadTest.getStartDelay();
+          for (int c=0; c < loadTest.getThreadCount() && !canceled; c++) {
+            monitor.setProgress(1,"Creating Virtual User " + (c + 1));
+            testCases.add(createTestCase());
+          }
+          threadsWaitingToStart=testCases.size();
+          int cnt=0;
+          while (!testCases.isEmpty() && !canceled) {
+            if (startDelay > 0) {
+              try {
+                Thread.sleep(startDelay);
+              }
+ catch (              InterruptedException e) {
+                SoapUI.logError(e);
+              }
+            }
+            if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit()))             break;
+            if (!testCases.isEmpty()) {
+              startTestCase(testCases.remove(0));
+              monitor.setProgress(1,"Started thread " + (++cnt));
+              threadsWaitingToStart--;
+            }
+          }
+          return null;
+        }
+        public boolean onCancel(){
+          cancel("Stopped from UI during start-up");
+          canceled=true;
+          while (!testCases.isEmpty())           testCases.remove(0).release();
+          return false;
+        }
+      }
+);
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+ else {
+    List<WsdlTestCase> testCases=new ArrayList<WsdlTestCase>();
+    for (int c=0; c < loadTest.getThreadCount(); c++)     testCases.add(createTestCase());
+    for (int c=0; c < loadTest.getThreadCount(); c++) {
+      if (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit())       break;
+      startTestCase(testCases.get(c));
+    }
+  }
+  if (listeners != null) {
+    if (status == Status.RUNNING) {
+      for (      LoadTestRunListener listener : listeners) {
+        listener.loadTestStarted(this,context);
+      }
+      startStrategyThread();
+    }
+ else {
+      for (      LoadTestRunListener listener : listeners) {
+        listener.afterLoadTest(this,context);
+      }
+      tearDown();
+    }
+  }
+}

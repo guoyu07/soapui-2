@@ -1,0 +1,13 @@
+{
+  WsdlMockResponse mockResponse=null;
+synchronized (this) {
+    if (getDispatchStyle() == DispatchStyleConfig.RANDOM) {
+      currentDispatchIndex=(int)((Math.random() * getMockResponseCount()) + 0.5F);
+    }
+    if (currentDispatchIndex >= getMockResponseCount())     currentDispatchIndex=0;
+    mockResponse=getMockResponseAt(currentDispatchIndex);
+    result.setMockResponse(mockResponse);
+    currentDispatchIndex++;
+  }
+  mockResponse.execute(request,result);
+}

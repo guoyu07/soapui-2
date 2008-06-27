@@ -1,0 +1,45 @@
+{
+  if (parts.length == 0)   return;
+  XmlObject[] bodyParts=getRpcBodyPart(bindingOperation,msgXml,isResponse);
+  if (bodyParts.length != 1) {
+    errors.add(XmlError.forMessage("Missing message wrapper element [" + wsdlContext.getDefinition().getTargetNamespace() + "@"+ bindingOperation.getName()+ (isResponse ? "Response" : "")));
+  }
+ else {
+    XmlObject wrapper=bodyParts[0];
+    for (int i=0; i < parts.length; i++) {
+      Part part=parts[i];
+      if (isResponse) {
+        if (WsdlUtils.isAttachmentOutputPart(part,bindingOperation))         continue;
+      }
+ else {
+        if (WsdlUtils.isAttachmentInputPart(part,bindingOperation))         continue;
+      }
+      XmlObject[] children=wrapper.selectChildren(new QName(part.getName()));
+      if (children.length != 1) {
+        QName elementName=part.getElementName();
+        if (elementName != null) {
+          bodyParts=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ wsdlContext.getDefinition().getTargetNamespace()+ "';"+ "declare namespace ns2='"+ elementName.getNamespaceURI()+ "';"+ "$this/env:Envelope/env:Body/ns:"+ bindingOperation.getName()+ (isResponse ? "Response" : "")+ "/ns2:"+ elementName.getLocalPart());
+          if (bodyParts.length == 1) {
+            SchemaGlobalElement elm=wsdlContext.getSchemaTypeLoader().findElement(elementName);
+            if (elm != null) {
+              validateMessageBody(errors,elm.getType(),bodyParts[0]);
+            }
+ else             errors.add(XmlError.forMessage("Missing part type in associated schema for [" + elementName + "]"));
+          }
+ else           errors.add(XmlError.forMessage("Missing message part with name [" + elementName + "]"));
+        }
+ else {
+          errors.add(XmlError.forMessage("Missing message part [" + part.getName() + "]"));
+        }
+      }
+ else {
+        QName typeName=part.getTypeName();
+        SchemaType type=wsdlContext.getSchemaTypeLoader().findType(typeName);
+        if (type != null) {
+          validateMessageBody(errors,type,children[0]);
+        }
+ else         errors.add(XmlError.forMessage("Missing type in associated schema for part [" + part.getName() + "]"));
+      }
+    }
+  }
+}

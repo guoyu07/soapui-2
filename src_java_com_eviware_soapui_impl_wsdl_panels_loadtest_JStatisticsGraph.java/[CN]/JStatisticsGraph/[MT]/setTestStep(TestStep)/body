@@ -1,0 +1,18 @@
+{
+  if (data != null) {
+    data.removeTableModelListener(tableModelListener);
+    data.release();
+  }
+  if (testStep == null) {
+    data=statisticsModel.getHistory().getTestStepHistory(LoadTestStatistics.TOTAL);
+  }
+ else {
+    data=statisticsModel.getHistory().getTestStepHistory(testStep.getTestCase().getIndexOfTestStep(testStep));
+  }
+  initMaxValues();
+  initScales();
+  data.addTableModelListener(tableModelListener);
+  getParent().invalidate();
+  revalidate();
+  repaint();
+}

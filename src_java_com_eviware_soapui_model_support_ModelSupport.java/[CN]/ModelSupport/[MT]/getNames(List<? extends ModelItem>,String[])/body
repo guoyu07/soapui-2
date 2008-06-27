@@ -1,0 +1,10 @@
+{
+  String[] names=new String[list.size() + lastItems.length];
+  for (int c=0; c < lastItems.length; c++) {
+    names[c + list.size()]=lastItems[c];
+  }
+  for (int c=0; c < list.size(); c++) {
+    names[c]=list.get(c).getName();
+  }
+  return names;
+}

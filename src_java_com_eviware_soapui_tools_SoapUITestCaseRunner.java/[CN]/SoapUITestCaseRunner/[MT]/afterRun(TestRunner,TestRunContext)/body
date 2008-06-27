@@ -1,0 +1,8 @@
+{
+  log.info("Finished running soapUI testcase [" + testRunner.getTestCase().getName() + "], time taken: "+ testRunner.getTimeTaken()+ "ms, status: "+ testRunner.getStatus());
+  if (testRunner.getStatus() == Status.FAILED) {
+    failedTests.add(testRunner.getTestCase());
+  }
+  runningTests.remove(testRunner.getTestCase());
+  testCaseCount++;
+}

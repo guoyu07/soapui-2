@@ -1,0 +1,30 @@
+{
+  WsdlTestStepResult result=new WsdlTestStepResult(this);
+  result.startTimer();
+  String oldLabel=getLabel();
+  try {
+    canceled=false;
+    try {
+      delay=Integer.parseInt(PropertyExpansionUtils.expandProperties(context,delayString));
+    }
+ catch (    NumberFormatException e) {
+      delay=Integer.parseInt(DEFAULT_DELAY);
+    }
+    for (timeWaited=0; !canceled && timeWaited < delay; timeWaited+=DELAY_CHUNK) {
+      if (timeWaited % 1000 == 0 && context.getProperty(TestRunContext.LOAD_TEST_RUNNER) == null) {
+        notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
+        oldLabel=getLabel();
+      }
+      if (timeWaited <= delay - DELAY_CHUNK)       Thread.sleep(DELAY_CHUNK);
+ else       Thread.sleep(delay % DELAY_CHUNK);
+    }
+  }
+ catch (  InterruptedException e) {
+    SoapUI.logError(e);
+  }
+  result.stopTimer();
+  result.setStatus(canceled ? TestStepStatus.CANCELED : TestStepStatus.OK);
+  timeWaited=0;
+  if (context.getProperty(TestRunContext.LOAD_TEST_RUNNER) == null)   notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
+  return result;
+}

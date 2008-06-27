@@ -1,0 +1,10 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("TestStep TPS Assertion");
+  XForm form=builder.createForm("Basic");
+  form.addTextField(TestStepTpsAssertion.NAME_FIELD,"Name of this assertion",FieldType.TEXT);
+  form.addTextField(TestStepTpsAssertion.MINIMUM_REQUESTS_FIELD,"Minimum steps before asserting",FieldType.TEXT);
+  form.addTextField(TestStepTpsAssertion.MIN_VALUE_FIELD,"Minimum required step TPS",FieldType.TEXT);
+  form.addTextField(TestStepTpsAssertion.MAX_ERRORS_FIELD,"Maximum number of errors before failing",FieldType.TEXT);
+  form.addComboBox(TestStepTpsAssertion.TEST_STEP_FIELD,new String[0],"TestStep to assert");
+  dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.STEP_TPS_LOAD_TEST_ASSERTION_HELP_URL),"Specify options for this TestStep TPS Assertion",UISupport.OPTIONS_ICON);
+}

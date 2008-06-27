@@ -1,0 +1,39 @@
+{
+  initGroovyLog();
+  ensureFolder(outputFolder);
+  assertions.clear();
+  String projectFile=getProjectFile();
+  project=new WsdlProject(projectFile);
+  if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  log.info("Running soapUI tests in project [" + project.getName() + "]");
+  long startTime=System.nanoTime();
+  for (int c=0; c < project.getTestSuiteCount(); c++) {
+    TestSuite suite=project.getTestSuiteAt(c);
+    for (int i=0; i < suite.getTestCaseCount(); i++) {
+      suite.getTestCaseAt(i).addTestRunListener(this);
+      if (junitReport)       suite.getTestCaseAt(i).addTestRunListener(reportCollector);
+    }
+  }
+  for (int c=0; c < project.getTestSuiteCount(); c++) {
+    WsdlTestSuite ts=project.getTestSuiteAt(c);
+    if (!ts.isDisabled() && (testSuite == null || ts.getName().equalsIgnoreCase(testSuite))) {
+      runSuite(ts);
+      testSuiteCount++;
+      if (!runningTests.isEmpty())       log.info("Waiting for " + runningTests.size() + " tests to finish");
+      while (!runningTests.isEmpty()) {
+        Thread.sleep(100);
+      }
+    }
+  }
+  long timeTaken=(System.nanoTime() - startTime) / 1000000;
+  if (printReport) {
+    printReport(timeTaken);
+  }
+  if (junitReport) {
+    exportJUnitReports(reportCollector,outputFolder);
+  }
+  if (assertions.size() > 0 || failedTests.size() > 0) {
+    throwFailureException();
+  }
+  return true;
+}

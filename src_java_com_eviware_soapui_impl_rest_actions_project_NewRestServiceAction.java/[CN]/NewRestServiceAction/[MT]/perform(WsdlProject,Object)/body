@@ -1,0 +1,26 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.getFormField(Form.SERVICENAME).addFormFieldValidator(new RequiredValidator("Service Name is required"));
+  }
+ else {
+    dialog.setValue(Form.SERVICENAME,"");
+    dialog.setValue(Form.SERVICEENDPOINT,"");
+    dialog.setValue(Form.WADLURL,"");
+  }
+  if (dialog.show()) {
+    RestService restService=(RestService)project.addNewInterface(dialog.getValue(Form.SERVICENAME),RestServiceFactory.REST_TYPE);
+    restService.setBasePath(dialog.getValue(Form.SERVICEENDPOINT));
+    String wadl=dialog.getValue(Form.WADLURL);
+    if (StringUtils.hasContent(wadl)) {
+      try {
+        File f=new File(wadl);
+        if (f.exists())         RestUtils.initFromWadl(restService,f.toURI().toURL().toString());
+ else         RestUtils.initFromWadl(restService,wadl);
+      }
+ catch (      Exception e) {
+        log.error(e.toString());
+      }
+    }
+  }
+}

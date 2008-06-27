@@ -1,0 +1,42 @@
+{
+  if (isOpaque()) {
+    super.paintComponent(g);
+    return;
+  }
+  int width=getWidth();
+  int height=getHeight();
+  GradientPaint paint=null;
+  Color sc=getForeground();
+  Color ec=getBackground();
+switch (direction) {
+case HORIZONTAL:
+{
+      paint=new GradientPaint(0,height / 2,sc,width,height / 2,ec,cyclic);
+      break;
+    }
+case VERTICAL:
+{
+    paint=new GradientPaint(width / 2,0,sc,width / 2,maxLength > 0 ? maxLength : height,ec,cyclic);
+    break;
+  }
+case DIAGONAL_LEFT:
+{
+  paint=new GradientPaint(0,0,sc,width,height,ec,cyclic);
+  break;
+}
+case DIAGONAL_RIGHT:
+{
+paint=new GradientPaint(width,0,sc,0,height,ec,cyclic);
+break;
+}
+}
+if (paint == null) {
+throw new RuntimeException("Invalid direction specified in GradientPanel");
+}
+Graphics2D g2d=(Graphics2D)g;
+Paint oldPaint=g2d.getPaint();
+g2d.setPaint(paint);
+g2d.fillRect(0,0,width,height);
+g2d.setPaint(oldPaint);
+super.paintComponent(g);
+}

@@ -1,0 +1,23 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  int cnt=0;
+  for (int c=0; c < loadTestLog.getSize(); c++) {
+    if (logTable != null) {
+      int index=logTable.getFilters().convertRowIndexToView(c);
+      if (index == -1)       continue;
+    }
+    LoadTestLogEntry logEntry=(LoadTestLogEntry)loadTestLog.getElementAt(c);
+    writer.write(sdf.format(new Date(logEntry.getTimeStamp())));
+    writer.write(',');
+    writer.write(logEntry.getType());
+    writer.write(',');
+    String targetStepName=logEntry.getTargetStepName();
+    writer.write(targetStepName == null ? "" : targetStepName);
+    writer.write(",\"");
+    writer.write(logEntry.getMessage());
+    writer.write('"');
+    writer.println();
+    cnt++;
+  }
+  return cnt;
+}

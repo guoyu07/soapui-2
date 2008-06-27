@@ -1,0 +1,7 @@
+{
+  if (requestContent != null) {
+    if (getConfig().getRequest() == null)     getConfig().addNewRequest();
+    CompressedStringSupport.setString(getConfig().getRequest(),requestContent);
+    requestContent=null;
+  }
+}
