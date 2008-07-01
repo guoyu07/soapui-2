@@ -1,10 +1,4 @@
 {
-  List<String> args=builder.command();
-  StringBuffer buf=new StringBuffer();
-  for (int c=0; c < args.size(); c++) {
-    if (c > 0)     buf.append(' ');
-    buf.append(args.get(c));
-  }
   context.log("directory: " + builder.directory().getAbsolutePath() + "\r\n");
-  context.log("command: " + buf.toString() + "\r\n");
+  context.log("command: " + args.toString() + "\r\n");
 }

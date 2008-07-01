@@ -12,7 +12,7 @@
   if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
   if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
   builder.addString(USERNAME,"-u","");
-  builder.addString(PASSWORD,"-p","");
+  builder.addStringShadow(PASSWORD,"-p","");
   builder.addString(DOMAIN,"-d","");
   builder.addString(WSSTYPE,"-w","");
   builder.addBoolean(PRINTREPORT,"-r");

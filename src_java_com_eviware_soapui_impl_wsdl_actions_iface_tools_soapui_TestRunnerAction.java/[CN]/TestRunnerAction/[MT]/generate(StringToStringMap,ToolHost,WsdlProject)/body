@@ -9,5 +9,5 @@
     modelItem.save();
   }
   if (log.isDebugEnabled())   log.debug("Launching testrunner in directory [" + builder.directory() + "] with arguments ["+ args.toString()+ "]");
-  toolHost.run(new ProcessToolRunner(builder,"soapUI TestRunner",modelItem));
+  toolHost.run(new ProcessToolRunner(builder,"soapUI TestRunner",modelItem,args));
 }

@@ -1,8 +1,21 @@
 {
   StringBuffer buf=new StringBuffer();
-  for (int c=0; c < args.size(); c++) {
-    if (c > 0)     buf.append(' ');
-    buf.append(args.get(c));
+  for (int cnt=0; cnt < args.size(); cnt++) {
+    if (cnt > 0) {
+      buf.append(' ');
+    }
+    String value=args.get(cnt);
+    for (    String argToShadow : argsToShadow) {
+      if (value.equals(argToShadow)) {
+        value=SHADOW;
+        break;
+      }
+      if (value.startsWith(argToShadow)) {
+        value=argToShadow + SHADOW;
+        break;
+      }
+    }
+    buf.append(value);
   }
   return buf.toString();
 }
