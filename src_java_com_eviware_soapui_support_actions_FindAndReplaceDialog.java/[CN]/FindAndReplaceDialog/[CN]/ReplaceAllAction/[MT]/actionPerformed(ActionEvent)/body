@@ -1,6 +1,9 @@
 {
   int pos=target.getCaretPosition();
   String txt=target.getText();
+  if (findCombo.getSelectedItem() == null) {
+    return;
+  }
   String value=findCombo.getSelectedItem().toString();
   if (value.length() == 0 || txt.length() == 0)   return;
   String newValue=replaceCombo.getSelectedItem().toString();
@@ -23,7 +26,12 @@
     if (!caseCheck.isSelected()) {
       txt=txt.toUpperCase();
     }
-    ix=findNext(ix + newValue.length(),txt,value);
+    if (forwardButton.isSelected()) {
+      ix=findNext(ix + newValue.length(),txt,value);
+    }
+ else {
+      ix=findNext(ix - 1,txt,value);
+    }
     if (wrapCheck.isSelected() && valueInNewValueIx != -1 && ix == firstIx + valueInNewValueIx) {
       break;
     }

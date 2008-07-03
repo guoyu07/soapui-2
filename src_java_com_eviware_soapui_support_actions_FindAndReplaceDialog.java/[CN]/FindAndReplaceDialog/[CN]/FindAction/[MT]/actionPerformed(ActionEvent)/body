@@ -3,6 +3,9 @@
   int selstart=target.getSelectionStart();
   if (selstart < pos && selstart != -1)   pos=selstart;
   String txt=target.getText();
+  if (findCombo.getSelectedItem() == null) {
+    return;
+  }
   String value=findCombo.getSelectedItem().toString();
   if (value.length() == 0 || pos == txt.length())   return;
   if (!caseCheck.isSelected()) {
