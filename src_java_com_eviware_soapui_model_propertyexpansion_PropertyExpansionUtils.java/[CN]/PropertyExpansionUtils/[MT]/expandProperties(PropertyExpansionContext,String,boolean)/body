@@ -16,9 +16,11 @@
     }
     String propertyName=content.substring(ix + 2,ix2);
     String propertyValue=null;
-    boolean globalOverrideEnabled=SoapUI.getSettings().getBoolean(GlobalPropertySettings.ENABLE_OVERRIDE);
-    for (int c=0; c < propertyResolvers.size() && propertyValue == null; c++) {
-      propertyValue=propertyResolvers.get(c).resolveProperty(context,propertyName,globalOverrideEnabled);
+    if (StringUtils.hasContent(propertyName)) {
+      boolean globalOverrideEnabled=SoapUI.getSettings().getBoolean(GlobalPropertySettings.ENABLE_OVERRIDE);
+      for (int c=0; c < propertyResolvers.size() && propertyValue == null; c++) {
+        propertyValue=propertyResolvers.get(c).resolveProperty(context,propertyName,globalOverrideEnabled);
+      }
     }
     if (propertyValue != null) {
       if (!content.equals(propertyValue))       propertyValue=expandProperties(context,propertyValue);

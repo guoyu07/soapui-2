@@ -1,4 +1,8 @@
 {
+  String result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.SYSTEM_REFERENCE,systemPropertyHolder,context,globalOverride);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.ENV_REFERENCE,environmentPropertyHolder,context,globalOverride);
+  if (result != null)   return result;
   if (name.length() > 2 && name.charAt(0) == PropertyExpansion.PROPERTY_SEPARATOR && name.charAt(1) == PropertyExpansion.PROPERTY_SEPARATOR)   return PropertyExpansionUtils.getGlobalProperty(name.substring(2));
  else   return PropertyExpansionUtils.getGlobalProperty(name);
 }
