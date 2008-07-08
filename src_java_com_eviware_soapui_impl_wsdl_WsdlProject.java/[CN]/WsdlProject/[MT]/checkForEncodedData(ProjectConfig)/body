@@ -1,0 +1,56 @@
+{
+  byte[] encryptedContent=soapuiProject.getEncryptedContent();
+  if (encryptedContent == null || encryptedContent.length < 6) {
+    return true;
+  }
+  char[] password=UISupport.promptPassword("Password:","Enter password for project");
+  if (password == null || password.length == 0) {
+    return false;
+  }
+  try {
+    byte[] data=OpenSSL.decrypt("des3",password,encryptedContent);
+    String decryted=new String(data,"UTF8");
+    if (!decryted.equals(soapuiProject.getName())) {
+      return false;
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+catch (  GeneralSecurityException e) {
+    e.printStackTrace();
+  }
+  for (  InterfaceConfig pInterface : soapuiProject.getInterfaceList()) {
+    for (    OperationConfig operation : ((WsdlInterfaceConfigImpl)pInterface).getOperationList()) {
+      for (      WsdlRequestConfig request : ((OperationConfigImpl)operation).getCallList()) {
+        try {
+          CredentialsConfig credentials=request.getCredentials();
+          if (credentials == null) {
+            continue;
+          }
+          String usernameEncrypted=credentials.getUsername();
+          String passwordEncrypted=credentials.getPassword();
+          if (usernameEncrypted == null || passwordEncrypted == null) {
+            continue;
+          }
+          byte[] decryptedUsername=OpenSSL.decrypt("des3",password,usernameEncrypted.getBytes("UTF8"));
+          byte[] decryptedPassword=OpenSSL.decrypt("des3",password,passwordEncrypted.getBytes("UTF8"));
+          credentials.setUsername(new String(decryptedUsername,"UTF8"));
+          credentials.setPassword(new String(decryptedPassword,"UTF8"));
+        }
+ catch (        IOException e) {
+          e.printStackTrace();
+          log.error("Credentials decrypting error");
+          throw e;
+        }
+catch (        GeneralSecurityException e) {
+          e.printStackTrace();
+          log.error("Credentials decrypting error");
+          throw e;
+        }
+      }
+    }
+  }
+  soapuiProject.setEncryptedContent(null);
+  return true;
+}
