@@ -1,6 +1,7 @@
 {
   if (settingsFile == null)   settingsFile=DEFAULT_SETTINGS_FILE;
   File file=root == null ? new File(settingsFile) : new File(new File(root),settingsFile);
+  encryptData();
   settingsDocument.save(file);
   log.info("Settings saved to [" + file.getAbsolutePath() + "]");
   return file.getAbsolutePath();
