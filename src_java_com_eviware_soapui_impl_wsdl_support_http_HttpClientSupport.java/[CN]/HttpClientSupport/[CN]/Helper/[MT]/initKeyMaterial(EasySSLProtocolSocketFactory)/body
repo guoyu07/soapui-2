@@ -5,6 +5,7 @@
   String pass=settings.getString(SSLSettings.KEYSTORE_PASSWORD,"");
   char[] pwd=pass.toCharArray();
   if (!"".equals(keyStore)) {
+    log.info("Initializing KeyStore");
     File f=new File(keyStore);
     if (f.exists()) {
       KeyMaterial km=null;
