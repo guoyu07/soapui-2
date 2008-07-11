@@ -1,26 +1,22 @@
 {
   if (!isOpen() || isDisabled() || isRemote())   return true;
-  char[] passwordForEncryption=null;
-  if (projectDocument.getSoapuiProject().getEncryptedContent() == null) {
-    if (UISupport.confirm("Encrypt sensitive data?",getName())) {
-      passwordForEncryption=UISupport.promptPassword("Enter password:",getName());
-      if (passwordForEncryption != null && passwordForEncryption.length > 6) {
-        try {
-          encryptData(passwordForEncryption);
-          projectDocument.getSoapuiProject().setEncryptedContent(OpenSSL.encrypt("des3",passwordForEncryption,getName().getBytes()));
-        }
- catch (        GeneralSecurityException e) {
-          UISupport.showErrorMessage("Encryption Error");
-        }
+  String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
+  if (passwordForEncryption != null) {
+    if (passwordForEncryption.length() > 1) {
+      try {
+        encryptData(passwordForEncryption);
+        projectDocument.getSoapuiProject().setEncryptedContent(OpenSSL.encrypt("des3",getName().toCharArray(),passwordForEncryption.getBytes()));
       }
- else {
-        UISupport.showErrorMessage("Password can not be shorter than 7 characters");
-        projectDocument.getSoapuiProject().setEncryptedContent(null);
+ catch (      GeneralSecurityException e) {
+        UISupport.showErrorMessage("Encryption Error");
       }
     }
  else {
       projectDocument.getSoapuiProject().setEncryptedContent(null);
     }
+  }
+ else {
+    projectDocument.getSoapuiProject().setEncryptedContent(null);
   }
   if (path == null || isRemote()) {
     path=getName() + "-soapui-project.xml";

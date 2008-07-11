@@ -9,8 +9,8 @@
           if (username == null || password == null) {
             continue;
           }
-          byte[] encryptedUsername=OpenSSL.encrypt("des3",passwordForEncryption,username.getBytes("UTF8"),true);
-          byte[] encryptedPassword=OpenSSL.encrypt("des3",passwordForEncryption,password.getBytes("UTF8"),true);
+          byte[] encryptedUsername=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),username.getBytes("UTF8"),true);
+          byte[] encryptedPassword=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),password.getBytes("UTF8"),true);
           ((WsdlRequest)request).setUsername(new String(encryptedUsername,"UTF8"));
           ((WsdlRequest)request).setPassword(new String(encryptedPassword,"UTF8"));
         }

@@ -5,12 +5,9 @@
     loader.setUseWorker(false);
     projectDocument=SoapuiProjectDocumentConfig.Factory.parse(loader.load());
     try {
-      if (!checkForEncodedData(projectDocument.getSoapuiProject())) {
-        UISupport.showErrorMessage("Error decrypting data. Project should be reloaded.");
-      }
+      checkForEncodedData(projectDocument.getSoapuiProject());
     }
  catch (    GeneralSecurityException e) {
-      UISupport.showErrorMessage("Error decrypting data. Project will not be loaded.");
       throw new SoapUIException("Error decrypting data",e);
     }
     setConfig(projectDocument.getSoapuiProject());
