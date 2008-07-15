@@ -5,18 +5,25 @@
   soapUICore=core;
   SoapUI soapUI=new SoapUI();
   Workspace workspace=null;
-  if (args.length > 0) {
-    workspace=WorkspaceFactory.getInstance().openWorkspace(args);
-    soapUICore.getSettings().setString(CURRENT_SOAPUI_WORKSPACE,args[0]);
+  org.apache.commons.cli.Options options=initSoapUIOptions();
+  CommandLineParser parser=new PosixParser();
+  CommandLine cmd=parser.parse(options,args);
+  if (validateCommandLineArgs(cmd,options)) {
+    System.exit(1);
+  }
+  if (workspaceName != null) {
+    workspace=WorkspaceFactory.getInstance().openWorkspace(workspaceName,projectOptions);
+    soapUICore.getSettings().setString(CURRENT_SOAPUI_WORKSPACE,workspaceName);
   }
  else {
     String wsfile=soapUICore.getSettings().getString(CURRENT_SOAPUI_WORKSPACE,System.getProperty("user.home") + File.separatorChar + DEFAULT_WORKSPACE_FILE);
-    workspace=WorkspaceFactory.getInstance().openWorkspace(new String[]{wsfile});
+    workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
   }
   core.prepareUI();
   soapUI.show(workspace);
   core.afterStartup(workspace);
   Thread.sleep(500);
   splash.setVisible(false);
+  SoapUI.workspace.inspectProjects();
   return soapUI;
 }

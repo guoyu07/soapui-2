@@ -1,6 +1,28 @@
 {
   long size=0;
   beforeSave();
+  SoapuiProjectDocumentConfig projectDocument=(SoapuiProjectDocumentConfig)this.projectDocument.copy();
+  String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
+  if (projectDocument.getSoapuiProject().getEncryptedContent() == null) {
+    if (passwordForEncryption != null) {
+      if (passwordForEncryption.length() > 1) {
+        try {
+          String data=projectDocument.getSoapuiProject().xmlText();
+          byte[] encrypted=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),data.getBytes());
+          projectDocument.getSoapuiProject().setEncryptedContent(encrypted);
+          projectDocument.getSoapuiProject().setInterfaceArray(null);
+          projectDocument.getSoapuiProject().unsetSettings();
+          projectDocument.getSoapuiProject().unsetProperties();
+        }
+ catch (        GeneralSecurityException e) {
+          UISupport.showErrorMessage("Encryption Error");
+        }
+      }
+ else {
+        projectDocument.getSoapuiProject().setEncryptedContent(null);
+      }
+    }
+  }
   XmlOptions options=new XmlOptions();
   if (SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_PROJECT_FILES))   options.setSavePrettyPrint();
   if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {

@@ -1,48 +1,46 @@
 {
   byte[] encryptedContent=soapuiProject.getEncryptedContent();
-  String password=null;
-  if (encryptedContent == null || encryptedContent.length < 1) {
-    return;
+  char[] password=null;
+  String projectPassword=getWorkspace().getProjectPassword(soapuiProject.getName());
+  if (projectPassword == null) {
+    password=UISupport.promptPassword("Enter Password:",soapuiProject.getName());
+  }
+ else {
+    password=projectPassword.toCharArray();
+  }
+  byte[] data=null;
+  if (encryptedContent == null || encryptedContent.length < 1 || password == null) {
+    return 0;
   }
   try {
-    byte[] data=OpenSSL.decrypt("des3",soapuiProject.getName().toCharArray(),encryptedContent);
-    password=new String(data,"UTF8");
+    data=OpenSSL.decrypt("des3",password,encryptedContent);
   }
  catch (  IOException e) {
     e.printStackTrace();
+    return -1;
   }
 catch (  GeneralSecurityException e) {
     e.printStackTrace();
+    return -1;
   }
-  for (  InterfaceConfig pInterface : soapuiProject.getInterfaceList()) {
-    for (    OperationConfig operation : ((WsdlInterfaceConfigImpl)pInterface).getOperationList()) {
-      for (      WsdlRequestConfig request : ((OperationConfigImpl)operation).getCallList()) {
-        try {
-          CredentialsConfig credentials=request.getCredentials();
-          if (credentials == null) {
-            continue;
-          }
-          String usernameEncrypted=credentials.getUsername();
-          String passwordEncrypted=credentials.getPassword();
-          if (usernameEncrypted == null || passwordEncrypted == null) {
-            continue;
-          }
-          byte[] decryptedUsername=OpenSSL.decrypt("des3",password.toCharArray(),usernameEncrypted.getBytes("UTF8"));
-          byte[] decryptedPassword=OpenSSL.decrypt("des3",password.toCharArray(),passwordEncrypted.getBytes("UTF8"));
-          credentials.setUsername(new String(decryptedUsername,"UTF8"));
-          credentials.setPassword(new String(decryptedPassword,"UTF8"));
-        }
- catch (        IOException e) {
-          e.printStackTrace();
-          log.error("Credentials decrypting error");
-          throw e;
-        }
-catch (        GeneralSecurityException e) {
-          e.printStackTrace();
-          log.error("Credentials decrypting error");
-          throw e;
-        }
+  String decryptedData=new String(data,"UTF-8");
+  if (decryptedData != null) {
+    if (decryptedData.length() > 0) {
+      try {
+        projectDocument.getSoapuiProject().set(XmlObject.Factory.parse(decryptedData));
+      }
+ catch (      XmlException e) {
+        UISupport.showErrorMessage("Wrong password. Project need to be reloaded.");
+        getWorkspace().clearProjectPassword(soapuiProject.getName());
+        return -1;
       }
     }
   }
+ else {
+    UISupport.showErrorMessage("Wrong project password");
+    getWorkspace().clearProjectPassword(soapuiProject.getName());
+    return -1;
+  }
+  projectDocument.getSoapuiProject().setEncryptedContent(null);
+  return 1;
 }

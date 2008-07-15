@@ -1,4 +1,10 @@
 {
+  if (projectOptions == null) {
+    projectOptions=new TreeMap<String,String>();
+  }
+ else {
+    this.projectOptions=projectOptions;
+  }
   File file=new File(path);
   this.path=file.getAbsolutePath();
   loadWorkspace(file);

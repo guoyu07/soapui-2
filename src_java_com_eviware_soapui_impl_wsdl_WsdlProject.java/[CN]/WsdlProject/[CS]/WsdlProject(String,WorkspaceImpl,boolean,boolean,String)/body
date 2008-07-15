@@ -44,8 +44,12 @@
       wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
       setResourceRoot("${projectDir}");
     }
-    endpointStrategy.init(this);
-    setProjectRoot(path);
+    if (getConfig() != null) {
+      endpointStrategy.init(this);
+    }
+    if (getSettings() != null) {
+      setProjectRoot(path);
+    }
     for (    ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
       addProjectListener(listener);
     }

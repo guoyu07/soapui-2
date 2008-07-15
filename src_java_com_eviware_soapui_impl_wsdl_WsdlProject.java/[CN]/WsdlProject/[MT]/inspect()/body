@@ -1,0 +1,11 @@
+{
+  byte data[]=projectDocument.getSoapuiProject().getEncryptedContent();
+  if (data != null && data.length > 0) {
+    try {
+      reload();
+    }
+ catch (    SoapUIException e) {
+      e.printStackTrace();
+    }
+  }
+}

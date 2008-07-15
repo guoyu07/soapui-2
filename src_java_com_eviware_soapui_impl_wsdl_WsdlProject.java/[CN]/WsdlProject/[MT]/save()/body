@@ -1,23 +1,5 @@
 {
   if (!isOpen() || isDisabled() || isRemote())   return true;
-  String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
-  if (passwordForEncryption != null) {
-    if (passwordForEncryption.length() > 1) {
-      try {
-        encryptData(passwordForEncryption);
-        projectDocument.getSoapuiProject().setEncryptedContent(OpenSSL.encrypt("des3",getName().toCharArray(),passwordForEncryption.getBytes()));
-      }
- catch (      GeneralSecurityException e) {
-        UISupport.showErrorMessage("Encryption Error");
-      }
-    }
- else {
-      projectDocument.getSoapuiProject().setEncryptedContent(null);
-    }
-  }
- else {
-    projectDocument.getSoapuiProject().setEncryptedContent(null);
-  }
   if (path == null || isRemote()) {
     path=getName() + "-soapui-project.xml";
     File file=null;

@@ -1,0 +1,17 @@
+{
+  if (cmd.hasOption('w')) {
+    workspaceName=cmd.getOptionValue('w');
+  }
+  if (cmd.hasOption('p')) {
+    for (    String projectNamePassword : cmd.getOptionValues('p')) {
+      String[] nameAndPassword=projectNamePassword.split(":");
+      projectOptions.put(nameAndPassword[0],nameAndPassword[1]);
+    }
+  }
+  if (cmd.getArgs().length > 0) {
+    HelpFormatter formatter=new HelpFormatter();
+    formatter.printHelp("soapui.sh [options]",options);
+    return true;
+  }
+  return false;
+}
