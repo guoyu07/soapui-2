@@ -7,7 +7,7 @@
     if (passwordForEncryption != null) {
       if (passwordForEncryption.length() > 1) {
         try {
-          String data=projectDocument.getSoapuiProject().xmlText();
+          String data=getConfig().xmlText();
           byte[] encrypted=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),data.getBytes());
           projectDocument.getSoapuiProject().setEncryptedContent(encrypted);
           projectDocument.getSoapuiProject().setInterfaceArray(null);
