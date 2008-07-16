@@ -1,4 +1,5 @@
 {
+  if (!isOpen())   return;
   byte data[]=projectDocument.getSoapuiProject().getEncryptedContent();
   if (data != null && data.length > 0) {
     try {
