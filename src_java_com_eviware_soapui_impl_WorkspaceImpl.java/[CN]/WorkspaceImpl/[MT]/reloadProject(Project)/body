@@ -5,7 +5,7 @@
   fireProjectRemoved(project);
   String tempName=project.getName();
   project.release();
-  project=new WsdlProject(project.getPath(),this,false,true,tempName);
+  project=new WsdlProject(project.getPath(),this,false,true,tempName,null);
   projectList.add(ix,project);
   fireProjectAdded(project);
   return project;

@@ -2,5 +2,8 @@
   setTool(cmd.getOptionValue("t"));
   if (cmd.hasOption("i"))   setInterface(cmd.getOptionValue("i"));
   if (cmd.hasOption("s"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
+  if (cmd.hasOption("x")) {
+    setProjectPassword(cmd.getOptionValue("x"));
+  }
   return true;
 }

@@ -1,7 +1,7 @@
 {
   String projectFile=getProjectFile();
   if (!new File(projectFile).exists())   throw new Exception("soapUI project file [" + projectFile + "] not found");
-  WsdlProject project=new WsdlProject(projectFile,null);
+  WsdlProject project=new WsdlProject(projectFile,getProjectPassword());
   log.info("Running tools [" + tool + "] for interface ["+ iface+ "] in project ["+ project.getName()+ "]");
   long startTime=System.nanoTime();
   for (int c=0; c < project.getInterfaceCount(); c++) {

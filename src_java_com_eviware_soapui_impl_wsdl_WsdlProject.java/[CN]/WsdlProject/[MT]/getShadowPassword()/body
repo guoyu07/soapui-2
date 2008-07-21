@@ -1,3 +1,4 @@
 {
-  return getSettings() == null ? null : getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
+  projectPassword=getSettings() == null ? projectPassword : getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
+  return projectPassword;
 }

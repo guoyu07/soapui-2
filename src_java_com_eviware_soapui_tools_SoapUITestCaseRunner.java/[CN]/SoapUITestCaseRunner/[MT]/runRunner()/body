@@ -3,7 +3,7 @@
   ensureFolder(outputFolder);
   assertions.clear();
   String projectFile=getProjectFile();
-  project=new WsdlProject(projectFile);
+  project=new WsdlProject(projectFile,getProjectPassword());
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
   log.info("Running soapUI tests in project [" + project.getName() + "]");
   long startTime=System.nanoTime();

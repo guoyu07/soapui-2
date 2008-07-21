@@ -11,7 +11,7 @@
       String str=PathUtils.denormalizePath(wsc.getStringValue());
       str=PathUtils.adjustRelativePath(str,getProjectRoot(),this);
       try {
-        WsdlProject project=new WsdlProject(str,this,false,!closeOnStartup && wsc.getStatus() != Status.CLOSED && wsc.getType() != Type.REMOTE,wsc.getName());
+        WsdlProject project=new WsdlProject(str,this,false,!closeOnStartup && wsc.getStatus() != Status.CLOSED && wsc.getType() != Type.REMOTE,wsc.getName(),null);
         projectList.add(project);
       }
  catch (      Exception e) {

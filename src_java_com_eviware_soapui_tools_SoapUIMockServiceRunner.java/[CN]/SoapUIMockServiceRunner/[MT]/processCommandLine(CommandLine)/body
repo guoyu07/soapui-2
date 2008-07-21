@@ -4,5 +4,8 @@
   if (cmd.hasOption("p"))   setPort(cmd.getOptionValue("p"));
   if (cmd.hasOption("s"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
   setBlock(!cmd.hasOption('b'));
+  if (cmd.hasOption("x")) {
+    setProjectPassword(cmd.getOptionValue("x"));
+  }
   return true;
 }

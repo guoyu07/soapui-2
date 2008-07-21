@@ -5,6 +5,9 @@
   if (workspace != null) {
     projectPassword=workspace.getProjectPassword(soapuiProject.getName());
   }
+ else {
+    projectPassword=this.projectPassword;
+  }
   if (projectPassword == null) {
     password=UISupport.promptPassword("Enter Password:",soapuiProject.getName());
   }

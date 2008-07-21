@@ -11,6 +11,8 @@
           byte[] encrypted=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),data.getBytes());
           projectDocument.getSoapuiProject().setEncryptedContent(encrypted);
           projectDocument.getSoapuiProject().setInterfaceArray(null);
+          projectDocument.getSoapuiProject().setTestSuiteArray(null);
+          projectDocument.getSoapuiProject().setMockServiceArray(null);
           projectDocument.getSoapuiProject().unsetSettings();
           projectDocument.getSoapuiProject().unsetProperties();
         }

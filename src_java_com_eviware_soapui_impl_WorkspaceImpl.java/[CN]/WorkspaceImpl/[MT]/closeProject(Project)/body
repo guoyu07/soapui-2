@@ -6,7 +6,7 @@
   String name=project.getName();
   project.release();
   try {
-    project=new WsdlProject(project.getPath(),this,false,false,name);
+    project=new WsdlProject(project.getPath(),this,false,false,name,null);
     projectList.add(ix,project);
     fireProjectAdded(project);
   }

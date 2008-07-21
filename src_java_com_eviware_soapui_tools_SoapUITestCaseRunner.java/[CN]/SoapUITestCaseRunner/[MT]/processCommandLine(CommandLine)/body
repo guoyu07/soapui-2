@@ -9,6 +9,9 @@
   if (cmd.hasOption("h"))   setHost(cmd.getOptionValue("h"));
   if (cmd.hasOption("f"))   setOutputFolder(getCommandLineOptionSubstSpace(cmd,"f"));
   if (cmd.hasOption("t"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"t"));
+  if (cmd.hasOption("x")) {
+    setProjectPassword(cmd.getOptionValue("x"));
+  }
   setEnableUI(cmd.hasOption("i"));
   setPrintReport(cmd.hasOption("r"));
   setExportAll(cmd.hasOption("a"));
