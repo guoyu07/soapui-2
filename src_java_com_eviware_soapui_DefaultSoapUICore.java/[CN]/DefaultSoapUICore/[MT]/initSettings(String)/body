@@ -9,6 +9,15 @@
     }
  else {
       settingsDocument=SoapuiSettingsDocumentConfig.Factory.parse(settingsFile);
+      byte[] encryptedContent=settingsDocument.getSoapuiSettings().getEncryptedContent();
+      if (encryptedContent != null) {
+        JPasswordField passwordField=new JPasswordField();
+        JLabel qLabel=new JLabel("Password");
+        JOptionPane.showConfirmDialog(null,new Object[]{qLabel,passwordField},"Global Settings",JOptionPane.OK_CANCEL_OPTION);
+        char[] password=passwordField.getPassword();
+        byte[] data=OpenSSL.decrypt("des3",password,encryptedContent);
+        settingsDocument=SoapuiSettingsDocumentConfig.Factory.parse(new String(data,"UTF-8"));
+      }
       log.info("initialized soapui-settings from [" + settingsFile.getAbsolutePath() + "]");
     }
   }
@@ -39,6 +48,5 @@
   if (!settings.isSet(HttpSettings.MAX_TOTAL_CONNECTIONS)) {
     settings.setLong(HttpSettings.MAX_TOTAL_CONNECTIONS,2000);
   }
-  decryptData();
   return settings;
 }
