@@ -1,0 +1,10 @@
+{
+  try {
+    httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND,ex.getMessage());
+    httpResponse.flushBuffer();
+    this.captured.stopCapture();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

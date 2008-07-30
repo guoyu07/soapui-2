@@ -1,0 +1,7 @@
+{
+  String s=name.toString().toLowerCase();
+  if (!ProxyServlet.dontProxyHeaders.contains(s)) {
+    httpResponse.addHeader(name.toString(),value.toString());
+    captured.addResponseHeader(name.toString() + "::" + value.toString());
+  }
+}

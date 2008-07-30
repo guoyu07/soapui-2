@@ -1,0 +1,8 @@
+{
+  byte[] buffer=new byte[content.length()];
+  while (content.hasContent()) {
+    int len=content.get(buffer,0,buffer.length);
+    this.captured.setResponse(new String(buffer,"UTF-8"));
+    out.write(buffer,0,len);
+  }
+}

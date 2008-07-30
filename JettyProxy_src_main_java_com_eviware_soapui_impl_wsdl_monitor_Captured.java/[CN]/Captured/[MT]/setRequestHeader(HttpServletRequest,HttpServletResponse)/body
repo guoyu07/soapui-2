@@ -1,0 +1,19 @@
+{
+  String headerValue=null;
+  Enumeration<String> headerNames=httpRequest.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String name=headerNames.nextElement();
+    if (ProxyServlet.dontProxyHeaders.contains(name.toLowerCase())) {
+      continue;
+    }
+    headerValue=name + "::";
+    Enumeration<String> header=httpRequest.getHeaders(name);
+    while (header.hasMoreElements()) {
+      String value=header.nextElement();
+      if (value != null) {
+        headerValue+=value;
+      }
+    }
+    requestHeader=requestHeader == null ? headerValue : requestHeader + "\n" + headerValue;
+  }
+}
