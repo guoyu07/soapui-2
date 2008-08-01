@@ -1,6 +1,7 @@
 {
   byte[] encryptedContent=soapuiProject.getEncryptedContent();
   char[] password=null;
+  if (encryptedContent == null || encryptedContent.length == 0)   return 0;
   String projectPassword=null;
   if (workspace != null) {
     projectPassword=workspace.getProjectPassword(soapuiProject.getName());
