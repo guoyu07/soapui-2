@@ -39,7 +39,7 @@
           value=XmlUtils.getElementText((Element)sourceNode);
         }
         if (value == null || !getTransferTextContent()) {
-          value=sourceCursor.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces().setSavePrettyPrint());
+          value=sourceCursor.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces());
         }
       }
     }
