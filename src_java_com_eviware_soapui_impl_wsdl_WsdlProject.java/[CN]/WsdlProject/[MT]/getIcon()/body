@@ -1,5 +1,13 @@
 {
   if (isDisabled())   return disabledIcon;
+ else   if (getEncrypted() != 0) {
+    if (isOpen()) {
+      return openEncyptedIcon;
+    }
+ else {
+      return closedEncyptedIcon;
+    }
+  }
  else   if (!isOpen())   return closedIcon;
  else   if (isRemote())   return remoteIcon;
  else   return super.getIcon();

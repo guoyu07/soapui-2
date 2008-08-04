@@ -36,7 +36,9 @@
     closedIcon=UISupport.createImageIcon("/closedProject.gif");
     remoteIcon=UISupport.createImageIcon("/remoteProject.gif");
     disabledIcon=UISupport.createImageIcon("/disabledProject.gif");
-    this.open=open && !disabled;
+    openEncyptedIcon=UISupport.createImageIcon("/openEncryptedProject.gif");
+    closedEncyptedIcon=UISupport.createImageIcon("/closedEncryptedProject.gif");
+    this.open=open && !disabled && (this.encrypted != -1);
     if (projectDocument == null) {
       projectDocument=SoapuiProjectDocumentConfig.Factory.newInstance();
       setConfig(projectDocument.addNewSoapuiProject());

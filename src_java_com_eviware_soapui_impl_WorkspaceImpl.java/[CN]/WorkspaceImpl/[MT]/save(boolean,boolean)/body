@@ -30,7 +30,14 @@
         WorkspaceProjectConfig wpc=WorkspaceProjectConfig.Factory.newInstance();
         wpc.setStringValue(PathUtils.normalizePath(path));
         if (project.isRemote())         wpc.setType(Type.REMOTE);
-        if (!project.isOpen())         wpc.setStatus(Status.CLOSED);
+        if (!project.isOpen()) {
+          if (project.getEncrypted() == 0) {
+            wpc.setStatus(Status.CLOSED);
+          }
+ else {
+            wpc.setStatus(Status.CLOSED_AND_ENCRYPTED);
+          }
+        }
         wpc.setName(project.getName());
         projects.add(wpc);
       }

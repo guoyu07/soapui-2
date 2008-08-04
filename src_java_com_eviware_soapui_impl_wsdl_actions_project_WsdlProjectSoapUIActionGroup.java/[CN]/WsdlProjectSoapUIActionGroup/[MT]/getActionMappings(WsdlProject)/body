@@ -3,6 +3,10 @@
     SoapUIActionGroup<WsdlProject> actionGroup=SoapUI.getActionRegistry().getActionGroup("DisabledWsdlProjectActions");
     return actionGroup.getActionMappings(project);
   }
+ else   if (project.getEncrypted() == -1) {
+    SoapUIActionGroup<WsdlProject> actionGroup=SoapUI.getActionRegistry().getActionGroup("EncryptedWsdlProjectActions");
+    return actionGroup.getActionMappings(project);
+  }
  else   if (!project.isOpen()) {
     SoapUIActionGroup<WsdlProject> actionGroup=SoapUI.getActionRegistry().getActionGroup("ClosedWsdlProjectActions");
     return actionGroup.getActionMappings(project);

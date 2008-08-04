@@ -16,8 +16,8 @@
     password=projectPassword.toCharArray();
   }
   byte[] data=null;
-  if (encryptedContent == null || encryptedContent.length < 1 || password == null) {
-    return 0;
+  if (password == null) {
+    return -1;
   }
   try {
     data=OpenSSL.decrypt("des3",password,encryptedContent);
