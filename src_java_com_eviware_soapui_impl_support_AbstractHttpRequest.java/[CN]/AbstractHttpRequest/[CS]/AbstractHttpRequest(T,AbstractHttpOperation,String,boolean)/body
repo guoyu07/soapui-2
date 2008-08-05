@@ -1,6 +1,6 @@
 {
   super(config,parent,icon);
-  if (!forLoadTest) {
+  if (!forLoadTest && !UISupport.isHeadless()) {
     iconAnimator=initIconAnimator();
     addSubmitListener(iconAnimator);
   }

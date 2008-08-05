@@ -5,13 +5,14 @@
   String projectFile=getProjectFile();
   project=new WsdlProject(projectFile,getProjectPassword());
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  initProject();
   log.info("Running soapUI tests in project [" + project.getName() + "]");
   long startTime=System.nanoTime();
   for (int c=0; c < project.getTestSuiteCount(); c++) {
     TestSuite suite=project.getTestSuiteAt(c);
     for (int i=0; i < suite.getTestCaseCount(); i++) {
-      suite.getTestCaseAt(i).addTestRunListener(this);
-      if (junitReport)       suite.getTestCaseAt(i).addTestRunListener(reportCollector);
+      TestCase tc=suite.getTestCaseAt(i);
+      addListeners(tc);
     }
   }
   for (int c=0; c < project.getTestSuiteCount(); c++) {
@@ -29,9 +30,7 @@
   if (printReport) {
     printReport(timeTaken);
   }
-  if (junitReport) {
-    exportJUnitReports(reportCollector,outputFolder);
-  }
+  exportReports();
   if (assertions.size() > 0 || failedTests.size() > 0) {
     throwFailureException();
   }
