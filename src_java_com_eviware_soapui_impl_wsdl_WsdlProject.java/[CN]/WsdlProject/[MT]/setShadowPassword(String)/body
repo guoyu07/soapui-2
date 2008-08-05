@@ -1,3 +1,5 @@
 {
+  String oldPAssword=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
   getSettings().setString(ProjectSettings.SHADOW_PASSWORD,password);
+  this.pcs.firePropertyChange("projectPassword",oldPAssword,password);
 }

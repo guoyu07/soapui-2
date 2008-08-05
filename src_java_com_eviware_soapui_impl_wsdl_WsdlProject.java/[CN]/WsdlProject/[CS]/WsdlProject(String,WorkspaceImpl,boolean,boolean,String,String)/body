@@ -56,5 +56,6 @@
     for (    ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
       addProjectListener(listener);
     }
+    addPropertyChangeListener(this);
   }
 }
