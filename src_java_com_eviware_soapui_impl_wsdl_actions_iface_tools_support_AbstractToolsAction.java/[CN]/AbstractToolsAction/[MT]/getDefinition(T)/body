@@ -1,6 +1,7 @@
 {
   if (modelItem == null)   return "";
-  String definition=((WsdlInterface)modelItem).getExpandedDefinition();
+  WsdlInterface iface=(WsdlInterface)modelItem;
+  String definition=PathUtils.expandPath(iface.getDefinition(),iface);
   if (definition.startsWith("file:"))   definition=definition.substring(5);
   return definition;
 }

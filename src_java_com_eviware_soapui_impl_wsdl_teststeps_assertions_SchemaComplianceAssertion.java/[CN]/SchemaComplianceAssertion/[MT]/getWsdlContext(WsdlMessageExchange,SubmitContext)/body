@@ -1,7 +1,7 @@
 {
   WsdlOperation operation=messageExchange.getOperation();
   WsdlInterface iface=(WsdlInterface)operation.getInterface();
-  if (definition == null || definition.trim().length() == 0 || definition.equals(operation.getInterface().getExpandedDefinition())) {
+  if (definition == null || definition.trim().length() == 0 || definition.equals(PathUtils.expandPath(iface.getDefinition(),iface,context))) {
     wsdlContext=(iface).getWsdlContext();
     wsdlContext.loadIfNecessary();
   }

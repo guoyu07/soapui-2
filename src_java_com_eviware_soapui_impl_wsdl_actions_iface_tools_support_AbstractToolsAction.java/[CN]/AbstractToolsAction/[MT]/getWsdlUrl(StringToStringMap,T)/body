@@ -1,7 +1,10 @@
 {
   String wsdl=values.get(WSDL);
   boolean useCached=values.getBoolean(CACHED_WSDL);
-  if (wsdl == null && !useCached && modelItem instanceof Interface)   return ((WsdlInterface)modelItem).getExpandedDefinition();
+  if (wsdl == null && !useCached && modelItem instanceof WsdlInterface) {
+    WsdlInterface iface=(WsdlInterface)modelItem;
+    return PathUtils.expandPath(iface.getDefinition(),iface);
+  }
   WsdlInterface iface=(WsdlInterface)modelItem;
   if (useCached && iface.isCached()) {
     try {

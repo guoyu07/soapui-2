@@ -1,7 +1,7 @@
 {
   String value=definition;
   WsdlInterface iface=(WsdlInterface)getAssertable().getInterface();
-  String orgDef=iface == null ? null : iface.getExpandedDefinition();
+  String orgDef=iface == null ? null : PathUtils.expandPath(iface.getDefinition(),iface);
   if (value == null || value.trim().length() == 0) {
     value=orgDef;
   }
