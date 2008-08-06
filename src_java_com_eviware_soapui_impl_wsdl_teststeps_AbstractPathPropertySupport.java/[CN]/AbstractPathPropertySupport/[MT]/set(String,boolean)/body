@@ -1,9 +1,9 @@
 {
-  String old=expand();
+  String old=get();
   value=PathUtils.relativizeResourcePath(value,modelItem);
   try {
     setPropertyValue(PathUtils.normalizePath(value));
-    if (notify)     notifyUpdate(expand(),old);
+    if (notify)     notifyUpdate(value,old);
   }
  catch (  Exception e) {
     e.printStackTrace();

@@ -1,5 +1,5 @@
 {
-  ResolveContext context=new ResolveContext();
+  ResolveContext context=new ResolveContext(project);
   project.resolve(context);
   if (context.isEmpty()) {
     UISupport.showInfoMessage("No resolve problems found in project","Resolve");

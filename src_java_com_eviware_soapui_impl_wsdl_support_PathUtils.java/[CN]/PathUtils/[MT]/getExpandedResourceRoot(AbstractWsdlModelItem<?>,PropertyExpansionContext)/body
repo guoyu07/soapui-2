@@ -1,0 +1,8 @@
+{
+  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
+  if (project == null)   return null;
+  String docroot=project.getResourceRoot();
+  if (!StringUtils.hasContent(docroot))   return null;
+  docroot=context == null ? PropertyExpansionUtils.expandProperties(modelItem,docroot) : PropertyExpansionUtils.expandProperties(context,docroot);
+  return docroot;
+}

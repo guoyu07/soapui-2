@@ -1,0 +1,9 @@
+{
+  path=context == null ? PropertyExpansionUtils.expandProperties(modelItem,path) : PropertyExpansionUtils.expandProperties(context,path);
+  if (!isRelativePath(path))   return path;
+  String root=getExpandedResourceRoot(modelItem,context);
+  if (StringUtils.isNullOrEmpty(root) || StringUtils.isNullOrEmpty(root))   return path;
+  if (isHttpPath(root))   root+="/";
+ else   root+=File.separatorChar;
+  return Tools.joinRelativeUrl(root,path);
+}

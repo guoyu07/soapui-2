@@ -1,0 +1,10 @@
+{
+  String result=expand();
+  try {
+    if (PathUtils.isFilePath(result))     result=new File(result).toURI().toURL().toString();
+  }
+ catch (  MalformedURLException e) {
+    SoapUI.logError(e);
+  }
+  return result;
+}

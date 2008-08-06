@@ -29,7 +29,7 @@
         if (project != null) {
           String url=dialog.getValue(Form.INITIALWSDL).trim();
           if (url.length() > 0) {
-            if (new File(url).exists())             url="file:" + url;
+            if (new File(url).exists())             url=new File(url).toURI().toURL().toString();
             WsdlInterface[] results=WsdlInterfaceFactory.importWsdl(project,url,dialog.getValue(Form.CREATEREQUEST).equals("true"));
             if (dialog.getValue(Form.GENERATETESTSUITE).equals("true")) {
               GenerateTestSuiteAction generateTestSuiteAction=new GenerateTestSuiteAction();

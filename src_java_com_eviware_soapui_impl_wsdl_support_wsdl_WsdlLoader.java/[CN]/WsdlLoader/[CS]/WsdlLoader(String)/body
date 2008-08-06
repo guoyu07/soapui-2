@@ -1,6 +1,6 @@
 {
   this.url=url;
-  if (!PathUtils.isRelativePath(url)) {
+  if (!PathUtils.isFilePath(url) && !PathUtils.isRelativePath(url)) {
     try {
       URL u=new URL(url);
       String authority=u.getAuthority();

@@ -1,6 +1,6 @@
 {
   if (wsdlContext == null) {
-    wsdlContext=new WsdlContext(getExpandedDefinition(),getSoapVersion(),getConfig().getDefinitionCache(),this);
+    wsdlContext=new WsdlContext(definitionProperty.expandUrl(),getSoapVersion(),getConfig().getDefinitionCache(),this);
   }
   return wsdlContext;
 }

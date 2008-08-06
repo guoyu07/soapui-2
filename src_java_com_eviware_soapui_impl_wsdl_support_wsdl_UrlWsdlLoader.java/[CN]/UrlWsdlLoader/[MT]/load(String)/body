@@ -1,7 +1,7 @@
 {
   if (!PathUtils.isHttpPath(url)) {
     try {
-      File file=new File(url);
+      File file=new File(url.replace('/',File.separatorChar));
       if (file.exists())       url=file.toURI().toURL().toString();
     }
  catch (    Exception e) {

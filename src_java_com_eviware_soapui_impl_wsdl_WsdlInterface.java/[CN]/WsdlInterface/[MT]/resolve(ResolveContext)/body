@@ -1,6 +1,6 @@
 {
   super.resolve(context);
-  String definition=getExpandedDefinition();
+  String definition=definitionProperty.expandUrl();
   if (definition.startsWith("file:")) {
     try {
       File file=new File(new URL(definition).toURI());

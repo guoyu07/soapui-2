@@ -17,12 +17,12 @@
   config.setTestAssertionsFile("../../common/profiles/SSBP10_BP11_TAD.xml");
   WsdlReference wsdlRef=config.addNewWsdlReference();
   StringToStringMap values=new StringToStringMap();
-  values.put(WSDL,modelItem.getDefinition());
-  values.put(CACHED_WSDL,Boolean.toString(modelItem.isCached()));
-  wsdlRef.setWsdlURI(getWsdlUrl(values,modelItem));
+  values.put(WSDL,iface.getDefinition());
+  values.put(CACHED_WSDL,Boolean.toString(iface.isCached()));
+  wsdlRef.setWsdlURI(getWsdlUrl(values,iface));
   WsdlElementReference wsdlElement=wsdlRef.addNewWsdlElement();
   wsdlElement.setType(WsdlElementType.BINDING);
-  wsdlElement.setStringValue(modelItem.getBindingName().getLocalPart());
-  wsdlElement.setNamespace(modelItem.getBindingName().getNamespaceURI());
+  wsdlElement.setStringValue(iface.getBindingName().getLocalPart());
+  wsdlElement.setNamespace(iface.getBindingName().getNamespaceURI());
   return configDoc;
 }

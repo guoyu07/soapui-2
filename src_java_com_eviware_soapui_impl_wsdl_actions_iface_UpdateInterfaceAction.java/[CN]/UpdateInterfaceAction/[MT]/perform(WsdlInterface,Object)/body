@@ -19,7 +19,7 @@
     }
 );
   }
-  dialog.setValue(Form.DEFINITION_URL,iface.getDefinition());
+  dialog.setValue(Form.DEFINITION_URL,PathUtils.expandPath(iface.getDefinition(),iface));
   if (!dialog.show())   return;
   String url=dialog.getValue(Form.DEFINITION_URL);
   if (url == null || url.trim().length() == 0)   return;
