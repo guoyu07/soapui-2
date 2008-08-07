@@ -3,7 +3,8 @@
   if (addEndpoint && !isProxy) {
     addLocalEndpointForTunnel();
   }
-  sw=new SocketWaiter(getProject() + " monitor on port " + localPort,this,localPort);
+  monitorEngine=new TcpMonMonitorEngine();
+  monitorEngine.start(this,localPort);
   stopButton.setEnabled(true);
   startButton.setEnabled(false);
   optionsButton.setEnabled(false);

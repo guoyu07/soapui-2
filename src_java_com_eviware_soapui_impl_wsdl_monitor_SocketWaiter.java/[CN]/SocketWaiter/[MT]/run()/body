@@ -6,7 +6,7 @@
       if (pleaseStop) {
         break;
       }
-      new Connection(getName() + " connection from " + inSocket.getRemoteSocketAddress(),listener,inSocket);
+      new Connection(getName() + " connection from " + inSocket.getRemoteSocketAddress(),listener,inSocket,slowLink);
       inSocket=null;
     }
   }
