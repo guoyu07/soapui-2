@@ -13,7 +13,8 @@
   if (container instanceof MutableAttachmentContainer) {
     addFileBtn=UISupport.createToolbarButton(UISupport.createImageIcon("/add_property.gif"));
     removeBtn=UISupport.createToolbarButton(UISupport.createImageIcon("/remove_property.gif"));
-    addFileBtn.setToolTipText("Adds an attachment to this request");
+    reloadBtn=UISupport.createToolbarButton(UISupport.createImageIcon("/reload_properties.gif"));
+    addFileBtn.setToolTipText("Adds an attachment");
     addFileBtn.addActionListener(new java.awt.event.ActionListener(){
       public void actionPerformed(      java.awt.event.ActionEvent evt){
         addFileBtnActionPerformed(evt);
@@ -21,7 +22,7 @@
     }
 );
     jPanel1.addFixed(addFileBtn);
-    removeBtn.setToolTipText("Removes the selected attachment from this request");
+    removeBtn.setToolTipText("Removes the selected attachment");
     removeBtn.setEnabled(false);
     removeBtn.addActionListener(new java.awt.event.ActionListener(){
       public void actionPerformed(      java.awt.event.ActionEvent evt){
@@ -30,6 +31,15 @@
     }
 );
     jPanel1.addFixed(removeBtn);
+    reloadBtn.setToolTipText("Reloads the selected attachment");
+    reloadBtn.setEnabled(false);
+    reloadBtn.addActionListener(new java.awt.event.ActionListener(){
+      public void actionPerformed(      java.awt.event.ActionEvent evt){
+        reloadBtnActionPerformed(evt);
+      }
+    }
+);
+    jPanel1.addFixed(reloadBtn);
   }
   exportBtn=UISupport.createToolbarButton(UISupport.createImageIcon("/export.gif"));
   exportBtn.setToolTipText("Exports the selected attachment to a file");
@@ -46,7 +56,10 @@
   add(jPanel1,java.awt.BorderLayout.NORTH);
   fileTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
-      if (removeBtn != null)       removeBtn.setEnabled(fileTable.getSelectedRowCount() > 0);
+      if (removeBtn != null) {
+        removeBtn.setEnabled(fileTable.getSelectedRowCount() > 0);
+        reloadBtn.setEnabled(fileTable.getSelectedRowCount() > 0);
+      }
       exportBtn.setEnabled(fileTable.getSelectedRowCount() > 0);
     }
   }
@@ -57,12 +70,18 @@
       int ix=fileTable.getSelectedRow();
       if (ix == -1)       return;
       Attachment attachment=container.getAttachmentAt(ix);
-      String url=attachment.getUrl();
-      if (url != null) {
-        Tools.openURL(url);
+      if (attachment.isCached()) {
+        String name=attachment.getName();
+        try {
+          File tempFile=File.createTempFile("attachment-" + name.substring(0,ix),name.substring(ix));
+          exportAttachment(tempFile,attachment,false);
+        }
+ catch (        Exception e1) {
+          UISupport.showErrorMessage(e1);
+        }
       }
  else {
-        Toolkit.getDefaultToolkit().beep();
+        Tools.openURL(attachment.getUrl());
       }
     }
   }
