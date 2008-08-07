@@ -1,4 +1,5 @@
 {
+  if (!(modelItem instanceof AbstractWsdlModelItem<?>))   return null;
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
   if (project == null)   return null;
   String docroot=project.getResourceRoot();

@@ -1,4 +1,4 @@
 {
   if (isCached())   return config.getSize();
- else   return new File(config.getUrl()).length();
+ else   return new File(urlProperty.expand()).length();
 }

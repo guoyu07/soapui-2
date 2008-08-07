@@ -1,5 +1,6 @@
 {
   if (fc == null)   fc=new JFileChooser();
+  fc.setCurrentDirectory(new File(PathUtils.getExpandedResourceRoot(container.getModelItem())));
   int returnVal=fc.showOpenDialog(this);
   if (returnVal == JFileChooser.APPROVE_OPTION) {
     File file=fc.getSelectedFile();
