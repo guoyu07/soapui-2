@@ -1,8 +1,7 @@
 {
   this.request=request;
   this.endpointsModel=new EndpointsComboBoxModel(request);
-  internalSubmitListener=createSubmitListener();
-  request.addSubmitListener(internalSubmitListener);
+  request.addSubmitListener(this);
   add(buildContent(),BorderLayout.CENTER);
   add(buildToolbar(),BorderLayout.NORTH);
   add(buildStatusLabel(),BorderLayout.SOUTH);

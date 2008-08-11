@@ -9,7 +9,7 @@
  else   if (submit != null && submit.getStatus() == Submit.Status.RUNNING) {
     submit.cancel();
   }
-  request.removeSubmitListener(internalSubmitListener);
+  request.removeSubmitListener(this);
   endpointsModel.release();
   requestEditor.saveDocument(false);
   requestEditor.release();

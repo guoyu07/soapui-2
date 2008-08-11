@@ -73,6 +73,7 @@
       if (attachment.isCached()) {
         String name=attachment.getName();
         try {
+          name=StringUtils.createFileName(name,'-');
           File tempFile=File.createTempFile("attachment-" + name.substring(0,ix),name.substring(ix));
           exportAttachment(tempFile,attachment,false);
         }

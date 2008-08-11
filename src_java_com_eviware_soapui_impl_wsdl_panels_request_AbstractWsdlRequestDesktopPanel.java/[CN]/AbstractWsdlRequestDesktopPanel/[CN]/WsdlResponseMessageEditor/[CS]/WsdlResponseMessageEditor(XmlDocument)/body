@@ -2,7 +2,7 @@
   super(document,request);
   XmlSourceEditorView editor=getSourceEditor();
   inputArea=editor.getInputArea();
-  resultAreaFocusListener=new ResultAreaFocusListener();
+  resultAreaFocusListener=new ResultAreaFocusListener(editor);
   inputArea.addFocusListener(resultAreaFocusListener);
   inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
   inputArea.getInputHandler().addKeyBinding("A+X",cancelButton.getAction());
