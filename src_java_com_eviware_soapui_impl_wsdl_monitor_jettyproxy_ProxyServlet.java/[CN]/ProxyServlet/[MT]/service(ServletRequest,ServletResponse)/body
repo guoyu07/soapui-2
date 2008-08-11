@@ -2,7 +2,7 @@
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   HttpServletResponse httpResponse=(HttpServletResponse)response;
   if (capturedData == null) {
-    capturedData=new JProxyServletWsdlMonitorMessageExchange();
+    capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
     capturedData.setRequestHost(httpRequest.getServerName());
     capturedData.setTargetHost(httpRequest.getRemoteHost());
     capturedData.setRequestHeader(httpRequest);
