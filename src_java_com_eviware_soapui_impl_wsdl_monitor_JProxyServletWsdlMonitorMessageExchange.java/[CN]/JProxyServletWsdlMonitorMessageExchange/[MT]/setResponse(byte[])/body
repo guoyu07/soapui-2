@@ -1,0 +1,15 @@
+{
+  if (this.response == null) {
+    this.response=response;
+  }
+ else {
+    byte[] newResponse=new byte[this.response.length + response.length];
+    for (int i=0; i < this.response.length; i++) {
+      newResponse[i]=this.response[i];
+    }
+    for (int i=this.response.length; i < newResponse.length; i++) {
+      newResponse[i]=response[i - this.response.length];
+    }
+    this.response=newResponse;
+  }
+}

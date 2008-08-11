@@ -1,0 +1,13 @@
+{
+  Enumeration<String> headerNames=httpRequest.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String name=headerNames.nextElement();
+    Enumeration<String> header=httpRequest.getHeaders(name);
+    while (header.hasMoreElements()) {
+      String value=header.nextElement();
+      if (value != null) {
+        requestHeaders.put(name,value);
+      }
+    }
+  }
+}
