@@ -1,0 +1,32 @@
+{
+  if (submit.getRequest() != request)   return;
+  Status status=submit.getStatus();
+  HttpResponse response=(HttpResponse)submit.getResponse();
+  if (status != Status.CANCELED) {
+    request.setResponse(response,context);
+  }
+  cancelButton.setEnabled(false);
+  setEnabled(true);
+  String message=null;
+  String infoMessage=null;
+  String requestName=request.getOperation().getInterface().getName() + "." + request.getOperation().getName()+ ":"+ request.getName();
+  if (status == Status.CANCELED) {
+    message="CANCELED";
+    infoMessage="[" + requestName + "] - CANCELED";
+  }
+ else {
+    if (status == Status.ERROR || response == null) {
+      message="Error getting response; " + submit.getError();
+      infoMessage="Error getting response for [" + requestName + "]; "+ submit.getError();
+    }
+ else {
+      message="response time: " + response.getTimeTaken() + "ms ("+ response.getContentLength()+ " bytes)";
+      infoMessage="Got response for [" + requestName + "] in "+ response.getTimeTaken()+ "ms ("+ response.getContentLength()+ " bytes)";
+      if (!splitButton.isEnabled())       requestTabs.setSelectedIndex(1);
+      responseEditor.requestFocus();
+    }
+  }
+  logMessages(message,infoMessage);
+  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_RESPONSE))   responseEditor.getSourceEditor().validate();
+  AbstractHttpRequestDesktopPanel.this.submit=null;
+}

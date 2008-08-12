@@ -1,0 +1,25 @@
+{
+  if (splitButton.isEnabled()) {
+    splitButton.setEnabled(false);
+    removeContent(requestSplitPane);
+    setContent(requestTabPanel);
+    requestTabs.addTab("Request",requestEditor);
+    requestTabs.addTab("Response",responseEditor);
+    if (responseHasFocus) {
+      requestTabs.setSelectedIndex(1);
+      requestEditor.requestFocus();
+    }
+  }
+ else {
+    int selectedIndex=requestTabs.getSelectedIndex();
+    splitButton.setEnabled(true);
+    removeContent(requestTabPanel);
+    setContent(requestSplitPane);
+    requestSplitPane.setTopComponent(requestEditor);
+    requestSplitPane.setBottomComponent(responseEditor);
+    requestSplitPane.setDividerLocation(0.5);
+    if (selectedIndex == 0)     requestEditor.requestFocus();
+ else     responseEditor.requestFocus();
+  }
+  revalidate();
+}

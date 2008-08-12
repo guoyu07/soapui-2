@@ -1,0 +1,7 @@
+{
+  endpointComponent.setEnabled(enabled);
+  requestEditor.setEditable(enabled);
+  responseEditor.setEditable(enabled);
+  submitButton.setEnabled(enabled && request.getEndpoint() != null && request.getEndpoint().trim().length() > 0);
+  statusBar.setIndeterminate(!enabled);
+}

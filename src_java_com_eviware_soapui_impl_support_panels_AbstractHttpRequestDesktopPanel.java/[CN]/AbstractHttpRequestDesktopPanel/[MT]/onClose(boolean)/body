@@ -1,0 +1,18 @@
+{
+  if (canCancel) {
+    if (submit != null && submit.getStatus() == Submit.Status.RUNNING) {
+      Boolean retVal=UISupport.confirmOrCancel("Cancel request before closing?","Closing window");
+      if (retVal == null)       return false;
+      if (retVal.booleanValue() && submit.getStatus() == Submit.Status.RUNNING)       submit.cancel();
+    }
+  }
+ else   if (submit != null && submit.getStatus() == Submit.Status.RUNNING) {
+    submit.cancel();
+  }
+  request.removeSubmitListener(this);
+  requestEditor.saveDocument(false);
+  responseEditor.getParent().remove(responseEditor);
+  requestEditor.getParent().remove(requestEditor);
+  requestSplitPane.removeAll();
+  return release();
+}
