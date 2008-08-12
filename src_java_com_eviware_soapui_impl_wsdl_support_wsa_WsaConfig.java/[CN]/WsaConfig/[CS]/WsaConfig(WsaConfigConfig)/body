@@ -1,0 +1,10 @@
+{
+  this.wsaConfig=wsaConfig;
+  propertyChangeSupport=new PropertyChangeSupport(this);
+  if (!wsaConfig.isSetMustUnderstand()) {
+    wsaConfig.setMustUnderstand(MustUnderstandTypeConfig.NONE);
+  }
+  if (!wsaConfig.isSetVersion()) {
+    wsaConfig.setVersion(WsaVersionTypeConfig.X_200508);
+  }
+}

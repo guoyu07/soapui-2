@@ -1,0 +1,77 @@
+{
+  try {
+    SoapVersion soapVersion=wsdlRequest.getOperation().getInterface().getSoapVersion();
+    String versionNameSpace="http://www.w3.org/2005/08/addressing";
+    if (wsdlRequest.getWsaConfig().getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
+      versionNameSpace="http://schemas.xmlsoap.org/ws/2004/08/addressing";
+    }
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
+    Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+    header.setAttribute("xmlns:wsa",versionNameSpace);
+    XmlObject[] envelope=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
+    Element elm=(Element)envelope[0].getDomNode();
+    boolean mustUnderstand=false;
+    String mustUnderstandValue="";
+    if (!wsdlRequest.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.NONE.toString())) {
+      mustUnderstand=true;
+      mustUnderstandValue=wsdlRequest.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString()) ? "1" : "0";
+    }
+    String soapVersionNamespace=wsdlRequest.getOperation().getInterface().getSoapVersion().getEnvelopeNamespace();
+    Element wsActionElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:Action");
+    Text actTxtElm=elm.getOwnerDocument().createTextNode(wsdlRequest.getWsaConfig().getAction());
+    if (mustUnderstand) {
+      wsActionElm.setAttributeNS(soapVersionNamespace,"mustUnderstand",mustUnderstandValue);
+    }
+    wsActionElm.appendChild(actTxtElm);
+    header.appendChild(wsActionElm);
+    String from=wsdlRequest.getWsaConfig().getFrom();
+    if (from != null && !from.isEmpty()) {
+      Element wsFromElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:From");
+      Text fromTxtElm=elm.getOwnerDocument().createTextNode(from);
+      if (mustUnderstand) {
+        wsFromElm.setAttribute("soap:mustUnderstand","" + mustUnderstandValue);
+      }
+      wsFromElm.appendChild(fromTxtElm);
+      header.appendChild(wsFromElm);
+    }
+    String replyTo=wsdlRequest.getWsaConfig().getReplyTo();
+    if (replyTo != null && !replyTo.isEmpty()) {
+      Element wsAddressElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:Address");
+      Element wsReplyToElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:ReplyTo");
+      if (mustUnderstand) {
+        wsReplyToElm.setAttribute("soap:mustUnderstand","" + mustUnderstandValue);
+      }
+      Text replyToTxtElm=elm.getOwnerDocument().createTextNode(replyTo);
+      wsAddressElm.appendChild(replyToTxtElm);
+      wsReplyToElm.appendChild(wsAddressElm);
+      header.appendChild(wsReplyToElm);
+    }
+    String faultTo=wsdlRequest.getWsaConfig().getFaultTo();
+    if (faultTo != null && !faultTo.isEmpty()) {
+      Element wsAddressElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:Address");
+      Element wsFaultToElm=elm.getOwnerDocument().createElementNS(versionNameSpace,"wsa:FaultTo");
+      if (mustUnderstand) {
+        wsFaultToElm.setAttribute("soap:mustUnderstand","" + mustUnderstandValue);
+      }
+      Text faultToTxtElm=elm.getOwnerDocument().createTextNode(faultTo);
+      wsAddressElm.appendChild(faultToTxtElm);
+      wsFaultToElm.appendChild(wsAddressElm);
+      header.appendChild(wsFaultToElm);
+    }
+    String msgId=wsdlRequest.getWsaConfig().getFaultTo();
+    if (msgId != null && !msgId.isEmpty()) {
+      Element wsaMsgIdElm=elm.getOwnerDocument().createElement("wsa:MessageID");
+      Text wsaMsgIdTxtElm=elm.getOwnerDocument().createTextNode(msgId);
+      if (mustUnderstand) {
+        wsaMsgIdElm.setAttribute("soap:mustUnderstand","" + mustUnderstandValue);
+      }
+      wsaMsgIdElm.appendChild(wsaMsgIdTxtElm);
+      header.appendChild(wsaMsgIdElm);
+    }
+    content=xmlObject.xmlText();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return content;
+}

@@ -1,0 +1,11 @@
+{
+  if (wsdlRequest != null && !((WsdlRequest)wsdlRequest).isWsAddressing())   return;
+  String content=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
+  if (content == null) {
+    log.warn("Missing request content in context, skipping ws-addressing");
+  }
+ else {
+    content=addWSAddressing(content,(WsdlRequest)wsdlRequest);
+    if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
+  }
+}
