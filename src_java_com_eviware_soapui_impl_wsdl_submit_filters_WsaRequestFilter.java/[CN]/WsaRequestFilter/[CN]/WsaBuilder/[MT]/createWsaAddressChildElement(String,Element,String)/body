@@ -1,0 +1,11 @@
+{
+  Element wsAddressElm=addToElement.getOwnerDocument().createElementNS(wsaVersionNameSpace,"wsa:Address");
+  Element wsaElm=addToElement.getOwnerDocument().createElementNS(wsaVersionNameSpace,elementName);
+  Text txtElm=addToElement.getOwnerDocument().createTextNode(wsaProperty);
+  if (mustUnderstand != null) {
+    wsaElm.setAttributeNS(soapVersion.getEnvelopeNamespace(),"mustUnderstand",mustUnderstand.equals(MustUnderstandTypeConfig.TRUE.toString()) ? "1" : "0");
+  }
+  wsAddressElm.appendChild(txtElm);
+  wsaElm.appendChild(wsAddressElm);
+  return wsaElm;
+}
