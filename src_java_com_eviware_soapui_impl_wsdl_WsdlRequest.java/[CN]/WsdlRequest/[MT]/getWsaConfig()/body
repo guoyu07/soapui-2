@@ -1,0 +1,9 @@
+{
+  if (wsaConfig == null) {
+    if (!getConfig().isSetWsaConfig()) {
+      getConfig().addNewWsaConfig();
+    }
+    wsaConfig=new WsaConfig(getConfig().getWsaConfig());
+  }
+  return wsaConfig;
+}
