@@ -40,7 +40,7 @@
     StringBuffer buf=null;
     TcpMonWsdlMonitorMessageExchange exchange=new TcpMonWsdlMonitorMessageExchange(monitor.getProject());
     exchange.setRequestHost(fromHost);
-    boolean isProxy=monitor.isProxy();
+    boolean isProxy=true;
     URL targetUrl=isProxy ? null : new URL(monitor.getTargetEndpoint());
     if (isProxy || (httpProxyHost != null)) {
       byte[] b=new byte[1];

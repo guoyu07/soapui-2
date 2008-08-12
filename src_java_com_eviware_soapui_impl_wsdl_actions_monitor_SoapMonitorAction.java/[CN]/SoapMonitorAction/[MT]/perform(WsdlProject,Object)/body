@@ -5,14 +5,6 @@
   }
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(LaunchForm.class);
-    dialog.getFormField(LaunchForm.MODE).addFormFieldListener(new XFormFieldListener(){
-      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        dialog.getFormField(LaunchForm.TARGET_HOST).setEnabled(!newValue.equals(CREATE_HTTP_PROXY));
-        dialog.getFormField(LaunchForm.ADD_ENDPOINT).setEnabled(!newValue.equals(CREATE_HTTP_PROXY));
-      }
-    }
-);
-    dialog.setBooleanValue(LaunchForm.ADD_ENDPOINT,true);
   }
   Settings settings=target.getSettings();
   StringList endpoints=new StringList();
@@ -20,21 +12,12 @@
   for (  Interface iface : target.getInterfaceList()) {
     if (iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE))     endpoints.addAll(iface.getEndpoints());
   }
-  dialog.setOptions(LaunchForm.TARGET_HOST,endpoints.toStringArray());
   dialog.setIntValue(LaunchForm.PORT,(int)settings.getLong(LaunchForm.PORT,8081));
-  dialog.setValue(LaunchForm.TARGET_HOST,settings.getString(LaunchForm.TARGET_HOST,""));
-  String launchMode=settings.getString(LaunchForm.MODE,CREATE_TCP_TUNNEL);
-  dialog.setValue(LaunchForm.MODE,launchMode);
-  dialog.getFormField(LaunchForm.TARGET_HOST).setEnabled(!launchMode.equals(CREATE_HTTP_PROXY));
-  dialog.getFormField(LaunchForm.ADD_ENDPOINT).setEnabled(!launchMode.equals(CREATE_HTTP_PROXY));
   dialog.setOptions(LaunchForm.REQUEST_WSS,StringUtils.merge(target.getWssContainer().getIncomingWssNames(),"<none>"));
   dialog.setOptions(LaunchForm.RESPONSE_WSS,StringUtils.merge(target.getWssContainer().getIncomingWssNames(),"<none>"));
   if (dialog.show()) {
     int listenPort=dialog.getIntValue(LaunchForm.PORT,8080);
     settings.setLong(LaunchForm.PORT,listenPort);
-    String targetHost=dialog.getValue(LaunchForm.TARGET_HOST);
-    settings.setString(LaunchForm.TARGET_HOST,targetHost);
-    settings.setString(LaunchForm.MODE,dialog.getValue(LaunchForm.MODE));
-    openSoapMonitor(target,listenPort,targetHost,dialog.getBooleanValue(LaunchForm.ADD_ENDPOINT),dialog.getValue(LaunchForm.MODE).equals(CREATE_HTTP_PROXY),dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS));
+    openSoapMonitor(target,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS));
   }
 }
