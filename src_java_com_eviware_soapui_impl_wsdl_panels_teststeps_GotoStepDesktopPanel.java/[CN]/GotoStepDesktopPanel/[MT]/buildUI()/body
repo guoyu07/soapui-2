@@ -5,7 +5,7 @@
   splitPane.setResizeWeight(0.1);
   splitPane.setDividerLocation(120);
   inspectorPanel=new JInspectorPanel(splitPane);
-  inspectorPanel.addInspector(new JComponentInspector(buildLog(),"Log","A log of evaluated conditions",true));
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildLog(),"Log","A log of evaluated conditions",true));
   add(inspectorPanel,BorderLayout.CENTER);
   setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   setPreferredSize(new Dimension(550,300));

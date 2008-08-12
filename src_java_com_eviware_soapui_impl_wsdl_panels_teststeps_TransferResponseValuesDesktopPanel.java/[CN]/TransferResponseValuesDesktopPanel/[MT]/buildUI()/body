@@ -49,7 +49,7 @@
   splitPane.setResizeWeight(0.1);
   splitPane.setDividerLocation(120);
   inspectorPanel=new JInspectorPanel(splitPane);
-  logInspector=new JComponentInspector(buildLog(),"Transfer Log (0)","A log of performed transfers while the editor was open",true);
+  logInspector=new JComponentInspector<JComponent>(buildLog(),"Transfer Log (0)","A log of performed transfers while the editor was open",true);
   inspectorPanel.addInspector(logInspector);
   add(inspectorPanel,BorderLayout.CENTER);
   setBorder(BorderFactory.createEmptyBorder(3,3,3,3));

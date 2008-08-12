@@ -1,10 +1,6 @@
 {
-  endpointCombo.setEnabled(enabled);
-  requestEditor.setEditable(enabled);
-  responseEditor.setEditable(enabled);
-  submitButton.setEnabled(enabled && request.getEndpoint() != null && request.getEndpoint().trim().length() > 0);
+  super.setEnabled(enabled);
   recreateButton.setEnabled(enabled);
   createEmptyButton.setEnabled(enabled);
   cloneButton.setEnabled(enabled);
-  statusBar.setIndeterminate(!enabled);
 }

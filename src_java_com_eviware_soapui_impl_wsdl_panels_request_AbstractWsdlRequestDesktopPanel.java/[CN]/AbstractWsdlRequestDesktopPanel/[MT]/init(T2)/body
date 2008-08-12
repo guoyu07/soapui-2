@@ -1,16 +1,9 @@
 {
-  this.request=request;
-  this.endpointsModel=new EndpointsComboBoxModel(request);
-  request.addSubmitListener(this);
-  add(buildContent(),BorderLayout.CENTER);
-  add(buildToolbar(),BorderLayout.NORTH);
-  add(buildStatusLabel(),BorderLayout.SOUTH);
-  setPreferredSize(new Dimension(600,500));
-  addFocusListener(new FocusAdapter(){
-    @Override public void focusGained(    FocusEvent e){
-      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocusInWindow();
- else       requestEditor.requestFocusInWindow();
-    }
-  }
-);
+  recreateButton=createActionButton(new RecreateRequestAction(request),true);
+  addToMockServiceButton=createActionButton(SwingActionDelegate.createDelegate(AddRequestToMockServiceAction.SOAPUI_ACTION_ID,request,null,"/addToMockService.gif"),true);
+  cloneButton=createActionButton(SwingActionDelegate.createDelegate(CloneRequestAction.SOAPUI_ACTION_ID,request,null,"/clone_request.gif"),true);
+  createEmptyButton=createActionButton(new CreateEmptyRequestAction(request),true);
+  wsiValidateAction=SwingActionDelegate.createDelegate(new WSIValidateRequestAction(),request,"alt W");
+  wsiValidateAction.setEnabled(request.getResponse() != null);
+  super.init(request);
 }

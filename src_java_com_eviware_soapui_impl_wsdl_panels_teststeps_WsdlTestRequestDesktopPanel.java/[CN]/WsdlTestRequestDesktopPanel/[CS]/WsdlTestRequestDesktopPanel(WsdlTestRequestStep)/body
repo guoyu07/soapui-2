@@ -1,6 +1,5 @@
 {
-  super(requestStep);
-  init(requestStep.getTestRequest());
+  super(requestStep,requestStep.getTestRequest());
   SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
   setEnabled(!SoapUI.getTestMonitor().hasRunningTest(requestStep.getTestCase()));
   requestStep.getTestRequest().addPropertyChangeListener(WsdlTestRequest.STATUS_PROPERTY,this);

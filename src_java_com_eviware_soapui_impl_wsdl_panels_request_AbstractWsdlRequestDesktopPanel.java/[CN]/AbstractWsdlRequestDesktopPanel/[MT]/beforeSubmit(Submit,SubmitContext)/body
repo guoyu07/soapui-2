@@ -1,15 +1,5 @@
 {
-  if (submit.getRequest() != request)   return true;
-  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_REQUEST)) {
-    boolean result=requestEditor.saveDocument(true);
-    if (!result && getModelItem().getSettings().getBoolean(UISettings.ABORT_ON_INVALID_REQUEST)) {
-      statusBar.setInfo("Cancelled request due to invalid content");
-      return false;
-    }
-  }
- else   requestEditor.saveDocument(false);
-  setEnabled(false);
-  cancelButton.setEnabled(AbstractWsdlRequestDesktopPanel.this.submit != null);
-  wsiValidateAction.setEnabled(false);
-  return true;
+  boolean result=super.beforeSubmit(submit,context);
+  wsiValidateAction.setEnabled(!result);
+  return result;
 }
