@@ -1,0 +1,24 @@
+{
+  methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
+  methodCombo.setSelectedItem(getModelItem().getMethod());
+  methodCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getModelItem().setMethod((RequestMethod)methodCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Method",methodCombo);
+  mediaTypeCombo=new JComboBox(new Object[]{getModelItem().getMediaType()});
+  mediaTypeCombo.setEditable(true);
+  mediaTypeCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getModelItem().setMediaType((String)mediaTypeCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
+}

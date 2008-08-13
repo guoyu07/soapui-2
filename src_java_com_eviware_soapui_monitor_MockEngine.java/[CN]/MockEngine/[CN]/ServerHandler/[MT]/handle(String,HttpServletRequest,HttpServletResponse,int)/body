@@ -22,13 +22,8 @@ synchronized (wsdlMockRunners) {
         try {
           for (          MockRunner wsdlMockRunner : wsdlMockRunners) {
             try {
-              if (request.getMethod().equals("GET")) {
-                wsdlMockRunner.dispatchGetRequest(request,response);
-              }
- else               if (request.getMethod().equals("POST")) {
-                WsdlMockResult result=(WsdlMockResult)wsdlMockRunner.dispatchMockRequest(request,response);
-                result.finish();
-              }
+              MockResult result=wsdlMockRunner.dispatchRequest(request,response);
+              if (result != null)               result.finish();
               break;
             }
  catch (            DispatchException e) {

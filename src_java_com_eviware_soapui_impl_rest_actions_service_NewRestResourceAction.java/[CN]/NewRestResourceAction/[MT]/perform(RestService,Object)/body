@@ -8,6 +8,16 @@
     dialog.setValue(Form.RESOURCEPATH,"");
   }
   if (dialog.show()) {
-    service.addNewResource(dialog.getValue(Form.RESOURCENAME),dialog.getValue(Form.RESOURCEPATH));
+    String path=dialog.getValue(Form.RESOURCEPATH);
+    try {
+      URL url=new URL(path);
+      path=url.getPath();
+    }
+ catch (    MalformedURLException e) {
+    }
+    RestResource resource=service.addNewResource(dialog.getValue(Form.RESOURCENAME),path);
+    if (dialog.getBooleanValue(Form.EXTRACTPARAMS)) {
+      extractParams(resource,path);
+    }
   }
 }

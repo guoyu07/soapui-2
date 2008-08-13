@@ -2,6 +2,53 @@
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.SERVICENAME).addFormFieldValidator(new RequiredValidator("Service Name is required"));
+    dialog.getFormField(Form.SERVICEENDPOINT).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        boolean enable=false;
+        try {
+          URL url=new URL(newValue);
+          enable=url.getPath().length() > 0 && !(url.getPath().length() == 1 && url.getPath().charAt(0) == '/');
+          if (enable) {
+            newValue=dialog.getValue(Form.WADLURL);
+            try {
+              new URL(newValue);
+              enable=false;
+            }
+ catch (            MalformedURLException e) {
+              if (new File(newValue).exists())               enable=false;
+            }
+          }
+        }
+ catch (        MalformedURLException e) {
+        }
+        dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(enable);
+      }
+    }
+);
+    dialog.getFormField(Form.WADLURL).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        boolean enable=true;
+        try {
+          new URL(newValue);
+        }
+ catch (        MalformedURLException e) {
+          if (new File(newValue).exists())           enable=false;
+        }
+        if (enable) {
+          try {
+            URL url=new URL(dialog.getValue(Form.SERVICEENDPOINT));
+            enable=url.getPath().length() > 0 && !(url.getPath().length() == 1 && url.getPath().charAt(0) == '/');
+          }
+ catch (          MalformedURLException e) {
+            enable=false;
+          }
+          dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(enable);
+        }
+ else         dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(false);
+      }
+    }
+);
+    dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(false);
   }
  else {
     dialog.setValue(Form.SERVICENAME,"");
