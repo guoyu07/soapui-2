@@ -1,0 +1,12 @@
+{
+  try {
+    Definition definition=requestImpl.getOperation().getInterface().getWsdlContext().getDefinition();
+    String targetNamespace=definition.getTargetNamespace();
+    String portTypeName=requestImpl.getOperation().getInterface().getBinding().getPortType().getQName().getLocalPart();
+    String operationName=requestImpl.getOperation().getName();
+    requestImpl.getWsaConfig().setAction(targetNamespace + "/" + portTypeName+ "/"+ operationName);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}
