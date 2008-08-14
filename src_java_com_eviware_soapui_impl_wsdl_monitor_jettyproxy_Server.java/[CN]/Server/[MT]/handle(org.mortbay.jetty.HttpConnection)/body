@@ -17,5 +17,5 @@
   response.setStatus(200);
   response.flushBuffer();
   IO.copyThread(socket.getInputStream(),out);
-  IO.copy(in,socket.getOutputStream());
+  IO.copyThread(in,socket.getOutputStream());
 }
