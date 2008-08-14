@@ -1,0 +1,28 @@
+{
+  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  String path=request.getResource().buildPath(context);
+  StringBuffer query=new StringBuffer();
+  XmlBeansRestParamsTestPropertyHolder params=request.getParams();
+  for (int c=0; c < params.getPropertyCount(); c++) {
+    RestParamProperty param=params.getPropertyAt(c);
+    String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
+switch (param.getStyle()) {
+case HEADER:
+      httpMethod.setRequestHeader(param.getName(),value);
+    break;
+case QUERY:
+  if (query.length() > 0)   query.append('&');
+query.append(URLEncoder.encode(param.getName())).append('=').append(URLEncoder.encode(value));
+break;
+case TEMPLATE:
+path.replaceAll(param.getName(),URLEncoder.encode(value));
+break;
+case MATRIX:
+path+=";" + param.getName() + "="+ value;
+}
+}
+if (query.length() > 1) httpMethod.setQueryString(query.toString());
+httpMethod.setPath(path);
+String encoding=request.getEncoding();
+httpMethod.setRequestHeader("Content-Type",request.getMediaType() + (StringUtils.hasContent(encoding) ? "; charset=" + encoding : ""));
+}

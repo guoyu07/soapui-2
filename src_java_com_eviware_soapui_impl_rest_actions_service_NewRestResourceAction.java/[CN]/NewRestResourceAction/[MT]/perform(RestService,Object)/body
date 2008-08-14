@@ -2,11 +2,17 @@
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.RESOURCENAME).addFormFieldValidator(new RequiredValidator());
+    dialog.getFormField(Form.EXTRACTPARAMS).setProperty("action",new ExtractParamsAction());
   }
  else {
     dialog.setValue(Form.RESOURCENAME,"");
     dialog.setValue(Form.RESOURCEPATH,"");
   }
+  params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
+  if (param instanceof URL) {
+    extractParams(param,params);
+  }
+  dialog.getFormField(Form.PARAMSTABLE).setProperty("tableModel",new WadlParamsTableModel(params));
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
     try {
@@ -16,10 +22,8 @@
  catch (    MalformedURLException e) {
     }
     RestResource resource=service.addNewResource(dialog.getValue(Form.RESOURCENAME),path);
+    resource.getParams().addParameters(params);
     UISupport.select(resource);
-    if (dialog.getBooleanValue(Form.EXTRACTPARAMS)) {
-      extractParams(resource,path);
-    }
     if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
       createRequest(resource);
     }

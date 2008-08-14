@@ -1,14 +1,6 @@
 {
   HttpMethod postMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   WsdlInterface wsdlInterface=(WsdlInterface)wsdlRequest.getOperation().getInterface();
-  String strURL=wsdlRequest.getEndpoint();
-  strURL=PropertyExpansionUtils.expandProperties(context,strURL);
-  try {
-    postMethod.setURI(new URI(strURL,wsdlRequest.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
-  }
   String encoding=wsdlRequest.getEncoding();
   SoapVersion soapVersion=wsdlInterface.getSoapVersion();
   String soapAction=wsdlRequest.isSkipSoapAction() ? null : wsdlRequest.getOperation().getAction();

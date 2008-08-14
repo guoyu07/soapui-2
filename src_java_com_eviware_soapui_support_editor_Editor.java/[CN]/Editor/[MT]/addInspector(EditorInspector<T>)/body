@@ -1,4 +1,4 @@
 {
   inspectorPanel.addInspector(inspector);
-  inspectorPanel.setInspectorVisible(inspector,inspector.isEnabledFor(currentView));
+  inspectorPanel.setInspectorVisible(inspector,currentView == null ? true : inspector.isEnabledFor(currentView));
 }

@@ -42,6 +42,9 @@ break;
 case TABLE:
 field=form.addComponent(name,new JTableFormField(description));
 break;
+case ACTION:
+field=form.addComponent(name,new ActionFormFieldComponent(name,description));
+break;
 default :
 System.out.println("Unsupported field type: " + type);
 }

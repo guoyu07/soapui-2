@@ -3,9 +3,7 @@
   resourceConfig.setName(name);
   RestRequest request=new RestRequest(this,resourceConfig);
   requests.add(request);
-  for (  TestProperty p : getDefaultParams()) {
-    request.addProperty(p.getName()).setValue(p.getValue());
-  }
+  request.getParams().addParameters(getParams());
   getInterface().fireRequestAdded(request);
   return request;
 }

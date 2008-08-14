@@ -1,7 +1,7 @@
 {
   super(new BorderLayout());
   this.params=params;
-  paramsTableModel=new ParamsTableModel();
+  paramsTableModel=new WadlParamsTableModel(params);
   paramsTable=new JXTable(paramsTableModel);
   paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(new Object[]{ParameterStyle.QUERY,ParameterStyle.TEMPLATE,ParameterStyle.HEADER,ParameterStyle.MATRIX,ParameterStyle.PLAIN})));
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){

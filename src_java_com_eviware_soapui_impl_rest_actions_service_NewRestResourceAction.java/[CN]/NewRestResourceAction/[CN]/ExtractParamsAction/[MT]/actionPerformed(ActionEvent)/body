@@ -1,0 +1,11 @@
+{
+  if (!UISupport.confirm("Extract params from current endpoint?","Extract Params")) {
+    return;
+  }
+  try {
+    extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params);
+  }
+ catch (  MalformedURLException e1) {
+    UISupport.showErrorMessage("Error extracting parameters; " + e1);
+  }
+}
