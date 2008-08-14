@@ -1,11 +1,13 @@
 {
   super(document,request);
   XmlSourceEditorView editor=getSourceEditor();
-  inputArea=editor.getInputArea();
-  inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
-  inputArea.getInputHandler().addKeyBinding("A+X",cancelButton.getAction());
-  inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
-  inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
-  inputAreaFocusListener=new InputAreaFocusListener(editor);
-  inputArea.addFocusListener(inputAreaFocusListener);
+  if (editor != null) {
+    inputArea=editor.getInputArea();
+    inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
+    inputArea.getInputHandler().addKeyBinding("A+X",cancelButton.getAction());
+    inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
+    inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
+    inputAreaFocusListener=new InputAreaFocusListener(editor);
+    inputArea.addFocusListener(inputAreaFocusListener);
+  }
 }

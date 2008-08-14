@@ -16,8 +16,12 @@
  catch (    MalformedURLException e) {
     }
     RestResource resource=service.addNewResource(dialog.getValue(Form.RESOURCENAME),path);
+    UISupport.select(resource);
     if (dialog.getBooleanValue(Form.EXTRACTPARAMS)) {
       extractParams(resource,path);
+    }
+    if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
+      createRequest(resource);
     }
   }
 }

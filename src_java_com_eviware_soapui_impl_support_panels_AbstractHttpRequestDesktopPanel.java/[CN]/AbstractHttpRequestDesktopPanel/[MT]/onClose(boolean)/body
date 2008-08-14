@@ -11,7 +11,7 @@
   }
   request.removeSubmitListener(this);
   requestEditor.saveDocument(false);
-  responseEditor.getParent().remove(responseEditor);
+  if (responseEditor != null)   responseEditor.getParent().remove(responseEditor);
   requestEditor.getParent().remove(requestEditor);
   requestSplitPane.removeAll();
   return release();

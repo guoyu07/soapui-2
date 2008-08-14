@@ -1,6 +1,6 @@
 {
   endpointsModel.release();
   requestEditor.release();
-  responseEditor.release();
+  if (responseEditor != null)   responseEditor.release();
   return super.release();
 }

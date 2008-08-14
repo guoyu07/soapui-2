@@ -8,8 +8,9 @@
   if (dialog.show()) {
     RestRequest request=resource.addNewRequest(dialog.getValue(Form.RESOURCENAME));
     request.setMethod(RequestMethod.valueOf(dialog.getValue(Form.METHOD)));
-    for (    TestProperty p : resource.getDefaultParams()) {
-      request.addProperty(p.getName()).setValue(p.getValue());
+    UISupport.select(request);
+    if (dialog.getBooleanValue(Form.OPENSREQUEST)) {
+      UISupport.showDesktopPanel(request);
     }
   }
 }
