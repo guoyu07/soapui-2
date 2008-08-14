@@ -11,7 +11,10 @@
     XmlObject[] envelope=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
     Element elm=(Element)envelope[0].getDomNode();
     Boolean mustUnderstand=null;
-    if (!wsdlRequest.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.NONE.toString())) {
+    if (wsdlRequest.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.FALSE.toString())) {
+      mustUnderstand=false;
+    }
+ else     if (wsdlRequest.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString())) {
       mustUnderstand=true;
     }
     WsaBuilder builder=new WsaBuilder(header,soapVersion,wsaVersionNameSpace,mustUnderstand);
@@ -24,13 +27,25 @@
     if (replyTo != null && !replyTo.isEmpty()) {
       header.appendChild(builder.createWsaChildElement("wsa:replyTo",elm,replyTo));
     }
+ else     if (wsdlRequest.getOperation().isRequestResponse()) {
+    }
     String faultTo=wsdlRequest.getWsaConfig().getFaultTo();
     if (faultTo != null && !faultTo.isEmpty()) {
-      header.appendChild(builder.createWsaChildElement("wsa:faultToTo",elm,faultTo));
+      header.appendChild(builder.createWsaChildElement("wsa:faultTo",elm,faultTo));
     }
     String msgId=wsdlRequest.getWsaConfig().getMessageID();
     if (msgId != null && !msgId.isEmpty()) {
       header.appendChild(builder.createWsaChildElement("wsa:MessageID",elm,msgId));
+    }
+ else     if (wsdlRequest.getOperation().isRequestResponse()) {
+      header.appendChild(builder.createWsaChildElement("wsa:MessageID",elm,UUID.randomUUID().toString()));
+    }
+    String to=wsdlRequest.getWsaConfig().getMessageID();
+    if (to != null && to.isEmpty()) {
+      header.appendChild(builder.createWsaChildElement("wsa:to",elm,to));
+    }
+ else     if (wsdlRequest.getOperation().isOneWay() || wsdlRequest.getOperation().isRequestResponse()) {
+      header.appendChild(builder.createWsaChildElement("wsa:to",elm,httpMethod.getURI().toString()));
     }
     content=xmlObject.xmlText();
   }

@@ -5,7 +5,8 @@
     log.warn("Missing request content in context, skipping ws-addressing");
   }
  else {
-    content=addWSAddressing(content,(WsdlRequest)wsdlRequest);
+    ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+    content=addWSAddressing(content,(WsdlRequest)wsdlRequest,httpMethod);
     if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
   }
 }
