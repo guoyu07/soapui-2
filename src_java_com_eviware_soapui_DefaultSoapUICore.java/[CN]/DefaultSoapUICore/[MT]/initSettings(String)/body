@@ -27,6 +27,8 @@
         }
  catch (        Exception e) {
           log.warn("Wrong password.");
+          JOptionPane.showMessageDialog(null,"Wrong password, creating backup settings file [ " + settingsFile.getAbsolutePath() + ".bak.xml. ]\nSwitch to default settings.","Error - Wrong Password",JOptionPane.ERROR_MESSAGE);
+          settingsDocument.save(new File(settingsFile.getAbsolutePath() + ".bak.xml"));
           throw e;
         }
       }

@@ -1,7 +1,6 @@
 {
   if (file != null) {
     log.info("Importing preferences from [" + file.getAbsolutePath() + "]");
-    SoapuiSettingsDocumentConfig doc=SoapuiSettingsDocumentConfig.Factory.parse(file);
-    settings.setConfig(doc.getSoapuiSettings());
+    initSettings(file.getAbsolutePath());
   }
 }
