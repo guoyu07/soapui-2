@@ -3,7 +3,11 @@
   resourceConfig.setName(name);
   RestRequest request=new RestRequest(this,resourceConfig);
   requests.add(request);
-  request.getParams().addParameters(getParams());
+  for (  RestParamProperty prop : getDefaultParams()) {
+    RestParamProperty p=request.addProperty(prop.getName());
+    p.setValue(prop.getValue());
+    p.setStyle(prop.getStyle());
+  }
   getInterface().fireRequestAdded(request);
   return request;
 }

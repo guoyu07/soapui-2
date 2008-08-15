@@ -3,6 +3,7 @@
   this.requestContent=requestContent;
   this.timeTaken=httpMethod.getTimeTaken();
   this.timestamp=System.currentTimeMillis();
+  this.contentType=httpMethod.getResponseContentType();
   try {
     initHeaders(httpMethod);
     sslInfo=httpMethod.getSSLInfo();

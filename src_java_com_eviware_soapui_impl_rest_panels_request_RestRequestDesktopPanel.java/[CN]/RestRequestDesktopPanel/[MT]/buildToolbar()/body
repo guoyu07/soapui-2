@@ -1,0 +1,45 @@
+{
+  recreatePathButton=createActionButton(new RecreatePathAction(),true);
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(super.buildToolbar(),BorderLayout.NORTH);
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.addSpace(3);
+  methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
+  methodCombo.setSelectedItem(getModelItem().getMethod());
+  methodCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getModelItem().setMethod((RequestMethod)methodCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Method",methodCombo);
+  toolbar.addSeparator();
+  pathField=new JUndoableTextField();
+  pathField.setPreferredSize(new Dimension(250,20));
+  pathField.setText(getModelItem().getPath());
+  pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getModelItem().setPath(pathField.getText());
+    }
+  }
+);
+  toolbar.addLabeledFixed("Resource Path:",pathField);
+  toolbar.add(recreatePathButton);
+  toolbar.addSeparator();
+  mediaTypeCombo=new JComboBox(new Object[]{getModelItem().getMediaType()});
+  mediaTypeCombo.setEditable(true);
+  mediaTypeCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getModelItem().setMediaType((String)mediaTypeCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
+  toolbar.addSeparator();
+  panel.add(toolbar,BorderLayout.SOUTH);
+  return panel;
+}

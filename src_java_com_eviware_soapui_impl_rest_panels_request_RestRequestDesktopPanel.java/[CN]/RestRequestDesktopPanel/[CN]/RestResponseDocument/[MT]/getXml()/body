@@ -1,4 +1,16 @@
 {
   HttpResponse response=getModelItem().getResponse();
-  return response == null ? "" : response.getContentAsString();
+  if (response == null)   return "";
+  String content=response.getContentAsString();
+  if (response.getContentType().equals("text/javascript")) {
+    try {
+      JSONObject json=JSONObject.fromObject(content);
+      content=new XMLSerializer().write(json);
+      content=XmlUtils.prettyPrintXml(content);
+    }
+ catch (    Throwable e) {
+      e.printStackTrace();
+    }
+  }
+  return content;
 }

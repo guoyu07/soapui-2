@@ -1,0 +1,16 @@
+{
+  if (httpResponse.getContentType().contains("javascript")) {
+    String content=httpResponse.getContentAsString();
+    try {
+      JSONObject json=JSONObject.fromObject(httpResponse.getContentAsString());
+      content=json.toString(3);
+    }
+ catch (    Throwable e) {
+      e.printStackTrace();
+    }
+    contentEditor.setText(content);
+  }
+ else {
+    contentEditor.setText("");
+  }
+}
