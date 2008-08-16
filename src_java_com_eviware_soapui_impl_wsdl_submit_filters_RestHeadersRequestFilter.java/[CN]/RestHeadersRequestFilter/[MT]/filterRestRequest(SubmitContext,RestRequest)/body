@@ -23,6 +23,16 @@ path+=";" + param.getName() + "="+ value;
 }
 if (query.length() > 1) httpMethod.setQueryString(query.toString());
 httpMethod.setPath(path);
-String encoding=request.getEncoding();
+String encoding=StringUtils.unquote(request.getEncoding());
+if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
+String requestContent=request.getRequestContent();
+try {
+byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
+((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(content));
+}
+ catch (UnsupportedEncodingException e) {
+((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(requestContent.getBytes()));
+}
+}
 httpMethod.setRequestHeader("Content-Type",request.getMediaType() + (StringUtils.hasContent(encoding) ? "; charset=" + encoding : ""));
 }

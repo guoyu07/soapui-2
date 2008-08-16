@@ -45,6 +45,9 @@ break;
 case ACTION:
 field=form.addComponent(name,new ActionFormFieldComponent(name,description));
 break;
+case COMPONENT:
+field=form.addComponent(name,new JComponentFormField(name,description));
+break;
 default :
 System.out.println("Unsupported field type: " + type);
 }

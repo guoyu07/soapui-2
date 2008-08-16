@@ -1,6 +1,9 @@
 {
   String path=((URL)param).getPath();
   String[] items=path.split("/");
+  if (items.length > 0) {
+    dialog.setValue(Form.RESOURCENAME,items[items.length - 1]);
+  }
   for (  String item : items) {
     try {
       String[] matrixParams=item.split(";");

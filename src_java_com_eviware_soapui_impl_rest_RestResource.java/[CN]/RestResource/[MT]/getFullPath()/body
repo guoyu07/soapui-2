@@ -1,5 +1,5 @@
 {
-  String base=parentResource == null ? "" : parentResource.getFullPath();
+  String base=parentResource == null ? getInterface().getBasePath() : parentResource.getFullPath();
   String path=getPath();
   if (StringUtils.hasContent(path) && base != null && !base.endsWith("/") && !path.startsWith("/"))   base+="/";
   return path == null ? base : base + path;

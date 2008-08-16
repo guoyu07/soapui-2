@@ -8,6 +8,8 @@
     p.setValue(prop.getValue());
     p.setStyle(prop.getStyle());
   }
+  String[] endpoints=getInterface().getEndpoints();
+  if (endpoints.length > 0)   request.setEndpoint(endpoints[0]);
   getInterface().fireRequestAdded(request);
   return request;
 }

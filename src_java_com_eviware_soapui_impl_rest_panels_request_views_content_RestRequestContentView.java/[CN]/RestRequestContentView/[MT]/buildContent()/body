@@ -5,7 +5,12 @@
   contentEditor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       updatingRequest=true;
-      restRequest.setRequestContent(contentEditor.getText());
+      try {
+        restRequest.setRequestContent(document.getText(0,document.getLength() - 1));
+      }
+ catch (      BadLocationException e) {
+        e.printStackTrace();
+      }
       updatingRequest=false;
     }
   }

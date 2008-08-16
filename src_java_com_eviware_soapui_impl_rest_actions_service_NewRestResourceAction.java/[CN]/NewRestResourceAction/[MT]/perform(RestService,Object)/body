@@ -12,7 +12,7 @@
   if (param instanceof URL) {
     extractParams(param,params);
   }
-  dialog.getFormField(Form.PARAMSTABLE).setProperty("tableModel",new WadlParamsTableModel(params));
+  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",new JWadlParamsTable(params));
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
     try {
