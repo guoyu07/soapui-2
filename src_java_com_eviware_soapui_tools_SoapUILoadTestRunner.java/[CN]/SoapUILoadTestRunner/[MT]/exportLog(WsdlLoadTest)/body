@@ -2,9 +2,9 @@
   LoadTestLog loadTestLog=loadTest.getLoadTestLog();
   ExportLoadTestLogAction exportLoadTestLogAction=new ExportLoadTestLogAction(loadTestLog,null);
   String logFileName=StringUtils.createFileName(loadTest.getName(),'_') + "-log.txt";
-  if (outputFolder != null) {
-    ensureOutputFolder();
-    logFileName=outputFolder + File.separator + logFileName;
+  if (getOutputFolder() != null) {
+    ensureOutputFolder(loadTest);
+    logFileName=getAbsoluteOutputFolder(loadTest) + File.separator + logFileName;
   }
   int cnt=exportLoadTestLogAction.exportToFile(new File(logFileName));
   log.info("Exported " + cnt + " log items to ["+ logFileName+ "]");
@@ -13,9 +13,9 @@
     LoadTestLogEntry entry=(LoadTestLogEntry)loadTestLog.getElementAt(c);
     if (entry != null && entry.isError()) {
       String entryFileName=StringUtils.createFileName(loadTest.getName(),'_') + "-error-" + errorCnt+++ "-entry.txt";
-      if (outputFolder != null) {
-        ensureOutputFolder();
-        entryFileName=outputFolder + File.separator + entryFileName;
+      if (getOutputFolder() != null) {
+        ensureOutputFolder(loadTest);
+        entryFileName=getAbsoluteOutputFolder(loadTest) + File.separator + entryFileName;
       }
       try {
         entry.exportToFile(entryFileName);

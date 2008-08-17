@@ -1,3 +1,16 @@
 {
-  super(modelItem);
+  super(iface);
+  this.iface=iface;
+  try {
+    buildUI();
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        SoapUI.getDesktop().closeDesktopPanel(RestServiceDesktopPanel.this);
+      }
+    }
+);
+  }
 }

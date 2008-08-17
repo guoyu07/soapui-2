@@ -1,0 +1,13 @@
+{
+  super.release();
+  params.release();
+  for (  RestResource resource : resources) {
+    resource.release();
+  }
+  for (  RestRequest request : requests) {
+    request.release();
+  }
+  for (  RestRepresentation representation : representations) {
+    representation.release();
+  }
+}

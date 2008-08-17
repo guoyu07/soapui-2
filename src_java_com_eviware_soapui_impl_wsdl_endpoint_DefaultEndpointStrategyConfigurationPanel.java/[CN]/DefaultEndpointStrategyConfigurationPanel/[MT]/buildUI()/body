@@ -1,5 +1,5 @@
 {
-  tableModel=new EndpointsTableModel();
+  tableModel=iface instanceof WsdlInterface ? new WsdlEndpointsTableModel() : new RestEndpointsTableModel();
   table=new JXTable(tableModel);
   table.setHorizontalScrollEnabled(true);
   table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -13,10 +13,12 @@
   table.getColumn(0).setPreferredWidth(250);
   JComboBox wssTypeCombo=new JComboBox(new String[]{WsdlRequest.PW_TYPE_NONE,WsdlRequest.PW_TYPE_TEXT,WsdlRequest.PW_TYPE_DIGEST});
   wssTypeCombo.setEditable(true);
-  table.getColumn(4).setCellEditor(new DefaultCellEditor(wssTypeCombo));
-  table.getColumn(6).setCellEditor(new OutgoingWssCellEditor());
-  table.getColumn(7).setCellEditor(new IncomingWssCellEditor());
-  table.getColumn(8).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
+  if (iface instanceof WsdlInterface) {
+    table.getColumn(4).setCellEditor(new DefaultCellEditor(wssTypeCombo));
+    table.getColumn(6).setCellEditor(new OutgoingWssCellEditor(((WsdlInterface)iface).getProject().getWssContainer()));
+    table.getColumn(7).setCellEditor(new IncomingWssCellEditor(((WsdlInterface)iface).getProject().getWssContainer()));
+    table.getColumn(8).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
+  }
   table.getTableHeader().setReorderingAllowed(false);
   setBackground(Color.WHITE);
   setOpaque(true);
@@ -26,4 +28,5 @@
   scrollPane.setBackground(Color.WHITE);
   add(scrollPane,BorderLayout.CENTER);
   add(createButtons(),BorderLayout.NORTH);
+  iface.addPropertyChangeListener("endpoints",this);
 }

@@ -1,0 +1,5 @@
+{
+  if (!resources.remove(resource))   return;
+  getInterface().fireOperationRemoved(resource);
+  resource.release();
+}

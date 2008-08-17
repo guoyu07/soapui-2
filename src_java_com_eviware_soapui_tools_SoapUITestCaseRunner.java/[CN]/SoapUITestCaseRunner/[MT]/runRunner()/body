@@ -1,11 +1,11 @@
 {
   initGroovyLog();
-  ensureFolder(outputFolder);
   assertions.clear();
   String projectFile=getProjectFile();
   project=new WsdlProject(projectFile,getProjectPassword());
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
   initProject();
+  ensureOutputFolder(project);
   log.info("Running soapUI tests in project [" + project.getName() + "]");
   long startTime=System.nanoTime();
   for (int c=0; c < project.getTestSuiteCount(); c++) {
@@ -30,7 +30,7 @@
   if (printReport) {
     printReport(timeTaken);
   }
-  exportReports();
+  exportReports(project);
   if (assertions.size() > 0 || failedTests.size() > 0) {
     throwFailureException();
   }

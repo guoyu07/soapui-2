@@ -4,6 +4,6 @@
   resourceConfig.setPath(path);
   RestResource resource=new RestResource(this,resourceConfig);
   resources.add(resource);
-  notifyPropertyChanged("resources",null,resource);
+  getInterface().fireOperationAdded(resource);
   return resource;
 }

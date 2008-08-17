@@ -1,0 +1,6 @@
+{
+  String name=UISupport.prompt("Specify name of cloned Resource","Clone Resource","Copy of " + resource.getName());
+  if (name == null)   return;
+  RestResource newResource=resource.getResourceContainer().cloneResource(resource,name);
+  UISupport.selectAndShow(newResource);
+}
