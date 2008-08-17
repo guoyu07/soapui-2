@@ -1,19 +1,22 @@
 {
   Project project=testCase.getTestSuite().getProject();
   List<String> options=new ArrayList<String>();
-  List<Operation> operations=new ArrayList<Operation>();
+  List<RestResource> operations=new ArrayList<RestResource>();
   for (int c=0; c < project.getInterfaceCount(); c++) {
     Interface iface=project.getInterfaceAt(c);
-    for (int i=0; i < iface.getOperationCount(); i++) {
-      options.add(iface.getName() + " -> " + iface.getOperationAt(i).getName());
-      operations.add(iface.getOperationAt(i));
+    if (iface instanceof RestService) {
+      RestResource[] resources=((RestService)iface).getAllResources();
+      for (      RestResource resource : resources) {
+        options.add(iface.getName() + " -> " + resource.getFullPath());
+        operations.add(resource);
+      }
     }
   }
-  Object op=UISupport.prompt("Select operation to invoke for request","New TestRequest",options.toArray());
+  Object op=UISupport.prompt("Select Resource to invoke for request","New RestRequest",options.toArray());
   if (op != null) {
     int ix=options.indexOf(op);
     if (ix != -1) {
-      WsdlOperation operation=(WsdlOperation)operations.get(ix);
+      RestResource operation=operations.get(ix);
       if (dialog == null)       buildDialog();
       dialogValues.put(STEP_NAME,name);
       dialogValues=dialog.show(dialogValues);

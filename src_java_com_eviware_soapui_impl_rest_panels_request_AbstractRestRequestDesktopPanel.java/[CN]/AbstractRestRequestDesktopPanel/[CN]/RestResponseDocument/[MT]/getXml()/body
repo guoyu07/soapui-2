@@ -1,0 +1,18 @@
+{
+  HttpResponse response=getRequest().getResponse();
+  if (response == null)   return "";
+  String content=response.getContentAsString();
+  if (response.getContentType().equals("text/javascript")) {
+    try {
+      JSONObject json=JSONObject.fromObject(content);
+      XMLSerializer serializer=new XMLSerializer();
+      serializer.setTypeHintsEnabled(false);
+      content=serializer.write(json);
+      content=XmlUtils.prettyPrintXml(content);
+    }
+ catch (    Throwable e) {
+      e.printStackTrace();
+    }
+  }
+  return content;
+}

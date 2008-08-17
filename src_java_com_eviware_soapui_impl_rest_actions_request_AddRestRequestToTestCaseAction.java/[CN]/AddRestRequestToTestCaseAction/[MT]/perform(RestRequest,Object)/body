@@ -1,3 +1,5 @@
 {
   WsdlProject project=request.getOperation().getInterface().getProject();
+  WsdlTestCase testCase=getTargetTestCase(project);
+  if (testCase != null)   addRequest(testCase,request,-1);
 }

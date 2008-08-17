@@ -1,0 +1,17 @@
+{
+  RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
+  requestStepConfig.setService(request.getOperation().getInterface().getName());
+  requestStepConfig.setResourcePath(request.getOperation().getFullPath());
+  RestRequestConfig testRequestConfig=requestStepConfig.addNewRestRequest();
+  testRequestConfig.setName(stepName);
+  testRequestConfig.setEncoding(request.getEncoding());
+  testRequestConfig.setEndpoint(request.getEndpoint());
+  testRequestConfig.addNewRequest().setStringValue(request.getRequestContent());
+  if ((CredentialsConfig)request.getConfig().getCredentials() != null) {
+    testRequestConfig.setCredentials((CredentialsConfig)request.getConfig().getCredentials().copy());
+  }
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(RESTREQUEST_TYPE);
+  testStep.setConfig(requestStepConfig);
+  return testStep;
+}

@@ -1,0 +1,10 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add Request to TestCase");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addTextField(STEP_NAME,"Name of TestStep",XForm.FieldType.URL).setWidth(30);
+  closeRequestCheckBox=mainForm.addCheckBox(CLOSE_REQUEST,"(closes the current window for this request)");
+  mainForm.addCheckBox(SHOW_TESTCASE,"(opens the TestCase editor for the target TestCase)");
+  mainForm.addCheckBox(COPY_ATTACHMENTS,"(copies the requests attachments to the TestRequest)");
+  mainForm.addCheckBox(COPY_HTTPHEADERS,"(copies the requests HTTP-Headers to the TestRequest)");
+  dialog=builder.buildDialog(builder.buildOkCancelActions(),"Specify options for adding the request to a TestCase",UISupport.OPTIONS_ICON);
+}
