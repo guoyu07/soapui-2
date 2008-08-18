@@ -1,0 +1,9 @@
+{
+  Element wsaElm=addToElement.getOwnerDocument().createElementNS(wsaVersionNameSpace,elementName);
+  Text txtElm=addToElement.getOwnerDocument().createTextNode(wsaProperty);
+  if (mustUnderstand != null) {
+    wsaElm.setAttributeNS(soapVersion.getEnvelopeNamespace(),"mustUnderstand",mustUnderstand ? "1" : "0");
+  }
+  wsaElm.appendChild(txtElm);
+  return wsaElm;
+}

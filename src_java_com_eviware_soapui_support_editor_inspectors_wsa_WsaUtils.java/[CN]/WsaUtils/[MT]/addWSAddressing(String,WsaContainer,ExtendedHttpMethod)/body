@@ -1,0 +1,48 @@
+{
+  try {
+    String wsaVersionNameSpace="http://www.w3.org/2005/08/addressing";
+    if (wsaContainer.getWsaConfig().getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
+      wsaVersionNameSpace="http://schemas.xmlsoap.org/ws/2004/08/addressing";
+    }
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
+    Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+    header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
+    XmlObject[] envelope=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
+    Element elm=(Element)envelope[0].getDomNode();
+    Boolean mustUnderstand=null;
+    if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.FALSE.toString())) {
+      mustUnderstand=false;
+    }
+ else     if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString())) {
+      mustUnderstand=true;
+    }
+    WsaBuilder builder=new WsaBuilder(header,wsaVersionNameSpace,mustUnderstand);
+    header.appendChild(builder.createWsaChildElement("wsa:Action",elm,wsaContainer.getWsaConfig().getAction()));
+    String from=wsaContainer.getWsaConfig().getFrom();
+    if (from != null && !from.isEmpty()) {
+      header.appendChild(builder.createWsaChildElement("wsa:from",elm,from));
+    }
+    String replyTo=wsaContainer.getWsaConfig().getReplyTo();
+    if (replyTo != null && !replyTo.isEmpty()) {
+      header.appendChild(builder.createWsaChildElement("wsa:replyTo",elm,replyTo));
+    }
+ else     if (operation.isRequestResponse()) {
+    }
+    String faultTo=wsaContainer.getWsaConfig().getFaultTo();
+    if (faultTo != null && !faultTo.isEmpty()) {
+      header.appendChild(builder.createWsaChildElement("wsa:faultTo",elm,faultTo));
+    }
+    String msgId=wsaContainer.getWsaConfig().getMessageID();
+    if (msgId != null && !msgId.isEmpty()) {
+      header.appendChild(builder.createWsaChildElement("wsa:MessageID",elm,msgId));
+    }
+ else     if (operation.isRequestResponse()) {
+      header.appendChild(builder.createWsaChildElement("wsa:MessageID",elm,UUID.randomUUID().toString()));
+    }
+    content=xmlObject.xmlText();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return content;
+}
