@@ -18,6 +18,7 @@
       result.addHeader(name,PropertyExpansionUtils.expandProperties(context,responseHeaders.get(name)));
     }
     responseContent=PropertyExpansionUtils.expandProperties(context,responseContent,true);
+    responseContent=new WsaUtils(getSoapVersion(),getMockOperation().getOperation()).addWSAddressing(responseContent,this);
     String outgoingWss=getOutgoingWss();
     if (StringUtils.isNullOrEmpty(outgoingWss))     outgoingWss=getMockOperation().getMockService().getOutgoingWss();
     if (StringUtils.hasContent(outgoingWss)) {
