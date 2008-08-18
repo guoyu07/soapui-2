@@ -1,5 +1,5 @@
 {
-  assertion.setContent(readResource("/testFragment.xml"));
+  assertion.setExpectedContent(readResource("/testFragment.xml"));
   assertion.setPath("//company");
   assertNotNull(assertion.assertContent(testResponse,new WsdlSubmitContext(null),""));
 }

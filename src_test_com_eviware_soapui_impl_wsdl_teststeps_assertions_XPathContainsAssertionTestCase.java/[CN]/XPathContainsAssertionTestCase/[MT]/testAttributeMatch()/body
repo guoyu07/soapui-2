@@ -1,5 +1,5 @@
 {
   assertion.setPath("declare namespace env='http://schemas.xmlsoap.org/soap/envelope/';" + "declare namespace urn='urn:schema:v1:companyservice:applications:bis.bonnier.se';" + "declare namespace urn1='urn:v1:companysearch:common:bis.bonnier.se';"+ "/env:Envelope/env:Body/urn:searchResponse/urn1:searchResult/@hitCount");
-  assertion.setContent("131");
+  assertion.setExpectedContent("131");
   assertNotNull(assertion.assertContent(testResponse,new WsdlSubmitContext(null),""));
 }

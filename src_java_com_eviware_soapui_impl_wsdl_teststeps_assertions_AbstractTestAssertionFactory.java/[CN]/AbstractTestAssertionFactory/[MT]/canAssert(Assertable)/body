@@ -1,0 +1,8 @@
+{
+  List<Class<?>> classes=Arrays.asList(assertable.getClass().getClasses());
+  if (targetClass != null && !classes.contains(targetClass))   return false;
+  if (assertable.getAssertableType() == AssertableType.BOTH)   return true;
+  if (assertable.getAssertableType() == AssertableType.REQUEST && classes.contains(RequestAssertion.class))   return true;
+ else   if (assertable.getAssertableType() == AssertableType.RESPONSE && classes.contains(ResponseAssertion.class))   return true;
+  return false;
+}

@@ -1,13 +1,12 @@
 {
   try {
     String type=config.getType();
-    Class<? extends WsdlMessageAssertion> clazz=availableAssertions.get(type);
-    if (clazz == null) {
+    TestAssertionFactory factory=availableAssertions.get(type);
+    if (factory == null) {
       log.error("Missing assertion for type [" + type + "]");
     }
  else {
-      Constructor<? extends WsdlMessageAssertion> ctor=clazz.getConstructor(new Class[]{RequestAssertionConfig.class,Assertable.class});
-      return (WsdlMessageAssertion)ctor.newInstance(config,assertable);
+      return (WsdlMessageAssertion)factory.buildAssertion(config,assertable);
     }
   }
  catch (  Exception e) {

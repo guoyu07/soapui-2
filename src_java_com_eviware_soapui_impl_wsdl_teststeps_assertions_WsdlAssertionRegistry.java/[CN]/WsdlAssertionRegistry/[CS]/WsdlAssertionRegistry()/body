@@ -1,13 +1,13 @@
 {
-  addAssertion(SoapResponseAssertion.ID,"SOAP Response",SoapResponseAssertion.class);
-  addAssertion(SchemaComplianceAssertion.ID,"Schema Compliance",SchemaComplianceAssertion.class);
-  addAssertion(SimpleContainsAssertion.ID,"Contains",SimpleContainsAssertion.class);
-  addAssertion(SimpleNotContainsAssertion.ID,"Not Contains",SimpleNotContainsAssertion.class);
-  addAssertion(XPathContainsAssertion.ID,XPathContainsAssertion.LABEL,XPathContainsAssertion.class);
-  addAssertion(NotSoapFaultAssertion.ID,NotSoapFaultAssertion.LABEL,NotSoapFaultAssertion.class);
-  addAssertion(SoapFaultAssertion.ID,"SOAP Fault",SoapFaultAssertion.class);
-  addAssertion(ResponseSLAAssertion.ID,"Response SLA",ResponseSLAAssertion.class);
-  addAssertion(GroovyScriptAssertion.ID,GroovyScriptAssertion.LABEL,GroovyScriptAssertion.class);
-  addAssertion(XQueryContainsAssertion.ID,XQueryContainsAssertion.LABEL,XQueryContainsAssertion.class);
-  addAssertion(WSSStatusAssertion.ID,"WS-Security Status",WSSStatusAssertion.class);
+  addAssertion(new SoapResponseAssertion.Factory());
+  addAssertion(new SchemaComplianceAssertion.Factory());
+  addAssertion(new SimpleContainsAssertion.Factory());
+  addAssertion(new SimpleNotContainsAssertion.Factory());
+  addAssertion(new XPathContainsAssertion.Factory());
+  addAssertion(new NotSoapFaultAssertion.Factory());
+  addAssertion(new SoapFaultAssertion.Factory());
+  addAssertion(new ResponseSLAAssertion.Factory());
+  addAssertion(new GroovyScriptAssertion.Factory());
+  addAssertion(new XQueryContainsAssertion.Factory());
+  addAssertion(new WSSStatusAssertion.Factory());
 }

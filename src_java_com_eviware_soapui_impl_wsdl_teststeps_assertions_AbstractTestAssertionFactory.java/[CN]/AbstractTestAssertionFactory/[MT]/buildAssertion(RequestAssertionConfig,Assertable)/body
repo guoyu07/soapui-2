@@ -1,0 +1,10 @@
+{
+  try {
+    Constructor<? extends TestAssertion> ctor=assertionClass.getConstructor(new Class[]{RequestAssertionConfig.class,Assertable.class});
+    return ctor.newInstance(config,assertable);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return null;
+  }
+}
