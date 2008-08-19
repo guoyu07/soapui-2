@@ -16,7 +16,7 @@
  else     if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString())) {
       mustUnderstand=true;
     }
-    WsaBuilder builder=new WsaBuilder(header,wsaVersionNameSpace,mustUnderstand);
+    WsaBuilder builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
     header.appendChild(builder.createWsaChildElement("wsa:Action",elm,wsaContainer.getWsaConfig().getAction()));
     String from=wsaContainer.getWsaConfig().getFrom();
     if (from != null && !from.isEmpty()) {
@@ -38,6 +38,15 @@
     }
  else     if (operation.isRequestResponse()) {
       header.appendChild(builder.createWsaChildElement("wsa:MessageID",elm,UUID.randomUUID().toString()));
+    }
+    if (httpMethod != null) {
+      String to=wsaContainer.getWsaConfig().getTo();
+      if (to != null && to.isEmpty()) {
+        header.appendChild(builder.createWsaChildElement("wsa:to",elm,to));
+      }
+ else       if (operation.isOneWay() || operation.isRequestResponse()) {
+        header.appendChild(builder.createWsaChildElement("wsa:to",elm,httpMethod.getURI().toString()));
+      }
     }
     content=xmlObject.xmlText();
   }
