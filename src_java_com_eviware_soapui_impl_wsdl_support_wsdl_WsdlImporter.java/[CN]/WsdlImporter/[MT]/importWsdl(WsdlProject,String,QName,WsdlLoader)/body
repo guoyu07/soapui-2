@@ -44,6 +44,7 @@
         if (iface != null) {
           String endpoint=WsdlUtils.getSoapEndpoint(port);
           if (endpoint != null)           iface.addEndpoint(endpoint);
+          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString()))           iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
           result.add(iface);
           importedBindings.put(binding,iface);
         }
