@@ -6,5 +6,5 @@
  else   if (getConfig().isSetDisabled())   getConfig().unsetDisabled();
   notifyPropertyChanged(DISABLED_PROPERTY,oldDisabled,disabled);
   String label=getLabel();
-  if (!oldLabel.equals(label))   notifyPropertyChanged(LABEL_PROPERTY,oldLabel,label);
+  notifyPropertyChanged(LABEL_PROPERTY,oldLabel,label);
 }

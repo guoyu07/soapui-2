@@ -8,7 +8,18 @@
     testStepConfig=(AsyncResponseStepConfig)config.addNewConfig().changeType(AsyncResponseStepConfig.type);
     mockResponseConfig=testStepConfig.addNewResponse();
   }
-  assertionsSupport=new AssertionsSupport(this,testStepConfig.getAssertionList());
+  assertionsSupport=new AssertionsSupport(this,new AssertableConfig(){
+    public TestAssertionConfig addNewAssertion(){
+      return testStepConfig.addNewAssertion();
+    }
+    public List<TestAssertionConfig> getAssertionList(){
+      return testStepConfig.getAssertionList();
+    }
+    public void removeAssertion(    int ix){
+      testStepConfig.removeAssertion(ix);
+    }
+  }
+);
   createMockService();
   if (!forLoadTest) {
     setIcon(UISupport.createImageIcon("/asyncResponseStep.gif"));

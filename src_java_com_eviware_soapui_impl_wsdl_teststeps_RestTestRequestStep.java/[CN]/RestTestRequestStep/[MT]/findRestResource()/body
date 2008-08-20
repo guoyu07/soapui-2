@@ -1,0 +1,8 @@
+{
+  Project project=ModelSupport.getModelItemProject(this);
+  RestService restService=(RestService)project.getInterfaceByName(requestStepConfig.getService());
+  if (restService != null) {
+    return restService.getResourceByPath(requestStepConfig.getResourcePath());
+  }
+  return null;
+}

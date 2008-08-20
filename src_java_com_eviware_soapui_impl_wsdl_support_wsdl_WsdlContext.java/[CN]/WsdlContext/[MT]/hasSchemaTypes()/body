@@ -1,4 +1,10 @@
 {
-  loadIfNecessary();
+  try {
+    loadIfNecessary();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return false;
+  }
   return schemaCache.containsKey(url);
 }

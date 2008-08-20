@@ -1,0 +1,15 @@
+{
+  TestAssertionConfig conf=modelItemConfig.addNewAssertion();
+  conf.set(source.getConfig());
+  if (createCopy && conf.isSetId())   conf.unsetId();
+  if (!source.isAllowMultiple()) {
+    List<WsdlMessageAssertion> existing=getAssertionsOfType(source.getClass());
+    if (!existing.isEmpty() && !overwrite)     return null;
+    while (!existing.isEmpty()) {
+      removeAssertion(existing.remove(0));
+    }
+  }
+  WsdlMessageAssertion result=addWsdlAssertion(conf);
+  fireAssertionAdded(result);
+  return result;
+}

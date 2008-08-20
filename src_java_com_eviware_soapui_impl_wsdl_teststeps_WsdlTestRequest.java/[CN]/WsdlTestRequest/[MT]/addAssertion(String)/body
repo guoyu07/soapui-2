@@ -1,11 +1,8 @@
 {
   PropertyChangeNotifier notifier=new PropertyChangeNotifier();
   try {
-    RequestAssertionConfig assertionConfig=getConfig().addNewAssertion();
-    assertionConfig.setType(WsdlAssertionRegistry.getInstance().getAssertionTypeForName(assertionLabel));
-    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionConfig);
+    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionLabel);
     if (assertion == null)     return null;
-    assertionsSupport.fireAssertionAdded(assertion);
     if (getResponse() != null) {
       assertion.assertResponse(new WsdlResponseMessageExchange(this),new WsdlTestRunContext(testStep));
       notifier.notifyChange();

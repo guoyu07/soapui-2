@@ -1,0 +1,10 @@
+{
+  if (wsdlOperation == operation)   return;
+  RestResource oldOperation=wsdlOperation;
+  wsdlOperation=operation;
+  requestStepConfig.setService(operation.getInterface().getName());
+  requestStepConfig.setResourcePath(operation.getFullPath());
+  oldOperation.removePropertyChangeListener(this);
+  wsdlOperation.addPropertyChangeListener(this);
+  testRequest.setResource(wsdlOperation);
+}

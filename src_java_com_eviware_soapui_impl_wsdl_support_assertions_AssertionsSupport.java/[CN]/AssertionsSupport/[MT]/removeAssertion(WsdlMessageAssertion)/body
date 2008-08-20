@@ -6,5 +6,6 @@
   assertion.removePropertyChangeListener(this);
   assertions.remove(ix);
   fireAssertionRemoved(assertion);
-  return ix;
+  assertion.release();
+  modelItemConfig.removeAssertion(ix);
 }

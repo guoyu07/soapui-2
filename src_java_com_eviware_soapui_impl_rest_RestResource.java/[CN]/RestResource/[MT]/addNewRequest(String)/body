@@ -1,7 +1,7 @@
 {
   RestRequestConfig resourceConfig=getConfig().addNewRequest();
   resourceConfig.setName(name);
-  RestRequest request=new RestRequest(this,resourceConfig);
+  RestRequest request=new RestRequest(this,resourceConfig,false);
   requests.add(request);
   for (  RestParamProperty prop : getDefaultParams()) {
     RestParamProperty p=request.addProperty(prop.getName());

@@ -1,0 +1,8 @@
+{
+  if (notifier == null)   notifier=new PropertyChangeNotifier();
+  messageExchange=new RestResponseMessageExchange(this);
+  for (  WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+    assertion.assertResponse(messageExchange,context);
+  }
+  notifier.notifyChange();
+}

@@ -1,12 +1,12 @@
 {
-  String[] assertions=WsdlAssertionRegistry.getInstance().getAvailableAssertionNames(assertable);
+  String[] assertions=TestAssertionRegistry.getInstance().getAvailableAssertionNames(assertable);
   if (assertions == null || assertions.length == 0) {
     UISupport.showErrorMessage("No assertions available for this message");
     return;
   }
   String selection=(String)UISupport.prompt("Select assertion to add","Select Assertion",assertions);
   if (selection == null)   return;
-  if (!WsdlAssertionRegistry.getInstance().canAddMultipleAssertions(selection,assertable)) {
+  if (!TestAssertionRegistry.getInstance().canAddMultipleAssertions(selection,assertable)) {
     UISupport.showErrorMessage("This assertion can only be added once");
     return;
   }

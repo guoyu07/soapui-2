@@ -1,7 +1,7 @@
 {
   super(resourceConfig,service,"/rest_resource.gif");
   for (  RestRequestConfig config : resourceConfig.getRequestList()) {
-    requests.add(new RestRequest(this,config));
+    requests.add(new RestRequest(this,config,false));
   }
   for (  RestResourceConfig config : resourceConfig.getResourceList()) {
     resources.add(new RestResource(this,config));

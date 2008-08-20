@@ -12,7 +12,8 @@
   if (param instanceof URL) {
     extractParams(param,params);
   }
-  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",new JWadlParamsTable(params));
+  paramsTable=new JWadlParamsTable(params);
+  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
     try {

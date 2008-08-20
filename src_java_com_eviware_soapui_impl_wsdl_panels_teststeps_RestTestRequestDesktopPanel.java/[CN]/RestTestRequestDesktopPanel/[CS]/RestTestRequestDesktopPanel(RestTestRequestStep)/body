@@ -1,3 +1,7 @@
 {
-  super(modelItem);
+  super(requestStep,requestStep.getTestRequest());
+  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
+  setEnabled(!SoapUI.getTestMonitor().hasRunningTest(requestStep.getTestCase()));
+  requestStep.getTestRequest().addPropertyChangeListener(RestTestRequest.STATUS_PROPERTY,this);
+  requestStep.getTestRequest().addAssertionsListener(assertionsListener);
 }

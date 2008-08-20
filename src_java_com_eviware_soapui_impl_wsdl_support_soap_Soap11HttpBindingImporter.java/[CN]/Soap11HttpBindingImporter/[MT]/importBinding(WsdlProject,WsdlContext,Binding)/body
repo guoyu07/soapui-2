@@ -10,8 +10,8 @@
   }
   List<BindingOperation> list=binding.getBindingOperations();
   Collections.sort(list,new BindingOperationComparator());
-  for (Iterator iter=list.iterator(); iter.hasNext(); ) {
-    BindingOperation operation=(BindingOperation)iter.next();
+  for (Iterator<BindingOperation> iter=list.iterator(); iter.hasNext(); ) {
+    BindingOperation operation=iter.next();
     if (operation.getOperation() == null || operation.getOperation().isUndefined()) {
       log.error("BindingOperation [" + operation.getName() + "] is missing or referring to an invalid operation");
     }

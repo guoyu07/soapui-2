@@ -1,0 +1,12 @@
+{
+  contentPanel=new JPanel(new BorderLayout());
+  editorPane=new JEditorPane();
+  editorKit=new HTMLEditorKit();
+  editorPane.setEditorKit(editorKit);
+  editorPane.setEditable(false);
+  editorPane.addHyperlinkListener(new DefaultHyperlinkListener(editorPane));
+  HttpResponse response=restRequest.getResponse();
+  if (response != null)   setEditorContent(response);
+  contentPanel.add(new JScrollPane(editorPane));
+  return contentPanel;
+}

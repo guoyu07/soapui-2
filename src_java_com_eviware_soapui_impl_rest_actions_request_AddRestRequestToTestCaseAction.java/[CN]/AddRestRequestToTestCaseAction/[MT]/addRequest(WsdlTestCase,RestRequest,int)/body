@@ -3,10 +3,7 @@
   dialogValues.put(STEP_NAME,request.getOperation().getName() + " - " + request.getName());
   dialogValues.put(CLOSE_REQUEST,"true");
   dialogValues.put(SHOW_TESTCASE,"true");
-  dialog.getFormField(COPY_ATTACHMENTS).setEnabled(request.getAttachmentCount() > 0);
-  dialog.setBooleanValue(COPY_ATTACHMENTS,true);
-  dialog.getFormField(COPY_HTTPHEADERS).setEnabled(request.getRequestHeaders().size() > 0);
-  dialog.setBooleanValue(COPY_HTTPHEADERS,false);
+  dialogValues.put(SHOW_REQUEST,"true");
   SoapUIDesktop desktop=SoapUI.getDesktop();
   closeRequestCheckBox.setEnabled(desktop != null && desktop.hasDesktopPanel(request));
   dialogValues=dialog.show(dialogValues);
@@ -15,12 +12,14 @@
   String name=dialogValues.get(STEP_NAME);
   RestTestRequestStep testStep=(RestTestRequestStep)testCase.insertTestStep(RestRequestStepFactory.createConfig(request,name),position);
   if (testStep == null)   return null;
-  UISupport.selectAndShow(testStep);
   if (dialogValues.getBoolean(CLOSE_REQUEST) && desktop != null) {
     desktop.closeDesktopPanel(request);
   }
   if (dialogValues.getBoolean(SHOW_TESTCASE)) {
     UISupport.selectAndShow(testCase);
+  }
+  if (dialogValues.getBoolean(SHOW_REQUEST)) {
+    UISupport.selectAndShow(testStep);
   }
   return testStep;
 }

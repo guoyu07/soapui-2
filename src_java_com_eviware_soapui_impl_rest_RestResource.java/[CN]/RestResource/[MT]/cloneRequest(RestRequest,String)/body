@@ -1,7 +1,7 @@
 {
   RestRequestConfig requestConfig=(RestRequestConfig)getConfig().addNewRequest().set(request.getConfig());
   requestConfig.setName(name);
-  RestRequest newRequest=new RestRequest(this,requestConfig);
+  RestRequest newRequest=new RestRequest(this,requestConfig,false);
   requests.add(newRequest);
   getInterface().fireRequestAdded(newRequest);
   return newRequest;
