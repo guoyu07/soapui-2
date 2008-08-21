@@ -1,0 +1,11 @@
+{
+  Map<String,XmlObject> result=new HashMap<String,XmlObject>();
+  ApplicationDocument applicationDocument=ApplicationDocument.Factory.newInstance();
+  Application application=applicationDocument.addNewApplication();
+  Resources resources=application.addNewResources();
+  for (int c=0; c < restService.getOperationCount(); c++) {
+    resources.addNewResource().set(generateWadlResource(restService.getOperationAt(c)));
+  }
+  result.put("<generated>",applicationDocument);
+  return result;
+}

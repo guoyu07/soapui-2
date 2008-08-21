@@ -1,0 +1,13 @@
+{
+  Map<String,XmlObject> result=new HashMap<String,XmlObject>();
+  if (!restService.getConfig().isSetDefinitionCache()) {
+    if (StringUtils.hasContent(restService.getWadlUrl()))     return WadlUtils.getDefinitionParts(restService.getWadlUrl());
+ else     return WadlUtils.generateWadl(restService);
+  }
+  DefinitionCacheConfig cache=restService.getConfig().getDefinitionCache();
+  List<DefintionPartConfig> partList=cache.getPartList();
+  for (  DefintionPartConfig part : partList) {
+    result.put(part.getUrl(),CachedWsdlLoader.getPartContent(cache,part));
+  }
+  return result;
+}

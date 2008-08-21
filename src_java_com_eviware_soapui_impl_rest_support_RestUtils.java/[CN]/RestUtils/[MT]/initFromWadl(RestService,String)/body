@@ -3,7 +3,15 @@
     ApplicationDocument applicationDocument=ApplicationDocument.Factory.parse(new URL(wadlUrl));
     Application application=applicationDocument.getApplication();
     Resources resources=application.getResources();
-    service.setBasePath(resources.getBase());
+    String base=resources.getBase();
+    try {
+      URL baseUrl=new URL(base);
+      service.setBasePath(baseUrl.getPath());
+      service.addEndpoint(Tools.getEndpointFromUrl(baseUrl));
+    }
+ catch (    Exception e) {
+      service.setBasePath(base);
+    }
     service.setWadlUrl(wadlUrl);
     for (    Resource resource : resources.getResourceList()) {
       String name=getFirstTitle(resource.getDocList(),resource.getPath());

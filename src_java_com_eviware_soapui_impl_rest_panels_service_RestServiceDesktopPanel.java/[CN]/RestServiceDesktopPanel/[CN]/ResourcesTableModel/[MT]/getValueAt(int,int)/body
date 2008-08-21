@@ -1,4 +1,11 @@
 {
   if (updatingInterface)   return "<updating>";
-  return null;
+  RestResource operation=iface.getOperationAt(rowIndex);
+switch (columnIndex) {
+case 0:
+    return operation.getName();
+case 1:
+  return operation.getPath();
+}
+return null;
 }

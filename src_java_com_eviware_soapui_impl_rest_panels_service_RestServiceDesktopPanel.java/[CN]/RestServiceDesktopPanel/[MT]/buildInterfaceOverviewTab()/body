@@ -13,9 +13,6 @@
   operationsTableModel=new ResourcesTableModel();
   JXTable table=section.addTable(operationsTableModel);
   table.getColumn(1).setPreferredWidth(60);
-  table.getColumn(2).setPreferredWidth(60);
   section.finish();
-  table.packColumn(3,10);
-  if (table.getColumn(3).getPreferredWidth() < 250)   table.getColumn(3).setPreferredWidth(250);
   return new JScrollPane(metrics);
 }
