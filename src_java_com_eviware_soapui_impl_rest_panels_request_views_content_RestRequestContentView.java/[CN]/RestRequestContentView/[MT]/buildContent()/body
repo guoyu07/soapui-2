@@ -5,17 +5,12 @@
   contentEditor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       updatingRequest=true;
-      try {
-        restRequest.setRequestContent(document.getText(0,document.getLength() - 1));
-      }
- catch (      BadLocationException e) {
-        e.printStackTrace();
-      }
+      restRequest.setRequestContent(contentEditor.getText());
       updatingRequest=false;
     }
   }
 );
   contentPanel.add(new JScrollPane(contentEditor));
-  contentEditor.setEditable(restRequest.hasRequestBody());
+  contentEditor.setEnabledAndEditable(restRequest.hasRequestBody());
   return contentPanel;
 }

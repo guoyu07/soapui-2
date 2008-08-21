@@ -1,0 +1,5 @@
+{
+  Response response=(Response)context.getProperty(BaseHttpRequestTransport.RESPONSE);
+  if (response != null)   afterRequest(context,response);
+  if (request instanceof AbstractHttpRequest)   afterAbstractHttpResponse(context,(AbstractHttpRequest<?>)request);
+}

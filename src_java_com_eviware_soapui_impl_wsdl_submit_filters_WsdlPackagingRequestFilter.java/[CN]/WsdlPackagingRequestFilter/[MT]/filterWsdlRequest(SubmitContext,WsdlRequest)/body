@@ -1,0 +1,11 @@
+{
+  ExtendedPostMethod postMethod=(ExtendedPostMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  String requestContent=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
+  try {
+    String content=initWsdlRequest(request,postMethod,requestContent);
+    if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

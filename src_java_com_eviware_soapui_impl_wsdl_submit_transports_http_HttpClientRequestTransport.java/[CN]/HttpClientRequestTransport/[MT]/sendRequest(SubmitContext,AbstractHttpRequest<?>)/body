@@ -28,12 +28,8 @@
   for (  RequestFilter filter : filters) {
     filter.filterRequest(submitContext,httpRequest);
   }
-  Response response=null;
   try {
     Settings settings=httpRequest.getSettings();
-    String requestContent=(String)submitContext.getProperty(REQUEST_CONTENT);
-    boolean isWsdl=httpRequest instanceof WsdlRequest;
-    if (isWsdl)     requestContent=initWsdlRequest((WsdlRequest)httpRequest,(ExtendedPostMethod)httpMethod,requestContent);
     StringToStringMap headers=httpRequest.getRequestHeaders();
     for (    String header : headers.keySet()) {
       String headerValue=headers.get(header);
@@ -49,28 +45,22 @@
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpClient.executeMethod(hostConfiguration,httpMethod,httpState);
     httpMethod.getTimeTaken();
-    Header responseContentTypeHeader=httpMethod.getResponseHeader("Content-Type");
-    if (!settings.getBoolean(WsdlRequest.INLINE_RESPONSE_ATTACHMENTS) && responseContentTypeHeader != null && responseContentTypeHeader.getValue().toUpperCase().startsWith("MULTIPART")) {
-      if (isWsdl)       response=new WsdlMimeMessageResponse((WsdlRequest)httpRequest,httpMethod,requestContent,submitContext);
- else       response=new MimeMessageResponse(httpRequest,httpMethod,requestContent,submitContext);
+    for (    RequestFilter filter : filters) {
+      filter.afterRequest(submitContext,httpRequest);
     }
- else {
-      if (isWsdl)       response=new WsdlSinglePartHttpResponse((WsdlRequest)httpRequest,httpMethod,requestContent,submitContext);
- else       response=new SinglePartHttpResponse(httpRequest,httpMethod,requestContent,submitContext);
+    if (!submitContext.hasProperty(RESPONSE)) {
+      createDefaultResponse(submitContext,httpRequest,httpMethod);
     }
-    return response;
   }
  catch (  Throwable t) {
     throw new Exception(t);
   }
  finally {
-    for (    RequestFilter filter : filters) {
-      filter.afterRequest(submitContext,response);
-    }
     if (httpMethod != null) {
       httpMethod.releaseConnection();
     }
  else     log.error("PostMethod is null");
     if (createdState)     submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
   }
+  return (Response)submitContext.getProperty(BaseHttpRequestTransport.RESPONSE);
 }

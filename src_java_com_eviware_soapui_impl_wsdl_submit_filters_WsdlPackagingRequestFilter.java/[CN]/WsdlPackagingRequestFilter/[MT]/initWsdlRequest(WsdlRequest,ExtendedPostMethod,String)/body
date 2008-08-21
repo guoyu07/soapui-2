@@ -13,7 +13,7 @@
       requestContent=requestXmlObject.getMessageContent();
     }
  catch (    Throwable e) {
-      log.warn("Failed to process inline/MTOM attachments; " + e);
+      SoapUI.log.warn("Failed to process inline/MTOM attachments; " + e);
     }
   }
   if (!isXOP && (mp == null || mp.getCount() == 0) && wsdlRequest.getAttachmentCount() == 0) {
