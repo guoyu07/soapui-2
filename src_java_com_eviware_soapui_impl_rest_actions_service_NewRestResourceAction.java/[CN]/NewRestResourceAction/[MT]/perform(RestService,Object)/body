@@ -10,7 +10,7 @@
   }
   params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
   if (param instanceof URL) {
-    extractParams(param,params);
+    extractParams((URL)param,params);
   }
   paramsTable=new JWadlParamsTable(params);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);

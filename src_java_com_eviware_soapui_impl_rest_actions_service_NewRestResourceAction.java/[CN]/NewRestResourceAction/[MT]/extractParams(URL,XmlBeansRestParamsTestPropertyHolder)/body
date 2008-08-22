@@ -1,10 +1,13 @@
 {
-  String path=((URL)param).getPath();
+  String path=param.getPath();
   String[] items=path.split("/");
   if (items.length > 0) {
     dialog.setValue(Form.RESOURCENAME,items[items.length - 1]);
   }
-  for (  String item : items) {
+  int templateParamCount=0;
+  StringBuffer resultPath=new StringBuffer();
+  for (int i=0; i < items.length; i++) {
+    String item=items[i];
     try {
       String[] matrixParams=item.split(";");
       if (matrixParams.length > 0) {
@@ -24,10 +27,14 @@
         }
       }
       Integer.parseInt(item);
-      params.addProperty(item).setStyle(ParameterStyle.TEMPLATE);
+      RestParamProperty prop=params.addProperty("param" + templateParamCount++);
+      prop.setStyle(ParameterStyle.TEMPLATE);
+      prop.setValue(item);
+      item="{" + prop.getName() + "}";
     }
  catch (    Exception e) {
     }
+    if (StringUtils.hasContent(item))     resultPath.append('/').append(item);
   }
   String query=((URL)param).getQuery();
   if (StringUtils.hasContent(query)) {
@@ -51,5 +58,5 @@
     }
   }
   if (paramsTable != null)   paramsTable.refresh();
-  dialog.setValue(Form.RESOURCEPATH,((URL)param).getPath());
+  dialog.setValue(Form.RESOURCEPATH,resultPath.toString());
 }

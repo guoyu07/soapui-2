@@ -16,10 +16,11 @@ query.append(URLEncoder.encode(param.getName()));
 if (StringUtils.hasContent(value)) query.append('=').append(URLEncoder.encode(value));
 break;
 case TEMPLATE:
-path.replaceAll(param.getName(),URLEncoder.encode(value));
+path=path.replaceAll("\\{" + param.getName() + "\\}",URLEncoder.encode(value));
 break;
 case MATRIX:
-path+=";" + param.getName() + "="+ value;
+path+=";" + param.getName();
+if (value != null) path+="=" + URLEncoder.encode(value);
 }
 }
 if (query.length() > 1) httpMethod.setQueryString(query.toString());

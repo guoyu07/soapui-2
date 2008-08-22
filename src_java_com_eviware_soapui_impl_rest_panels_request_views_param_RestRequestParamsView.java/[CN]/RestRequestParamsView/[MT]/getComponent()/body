@@ -1,3 +1,6 @@
 {
-  return new JWadlParamsTable(restRequest.getParams());
+  if (table == null) {
+    table=new JWadlParamsTable(restRequest.getParams());
+  }
+  return table;
 }
