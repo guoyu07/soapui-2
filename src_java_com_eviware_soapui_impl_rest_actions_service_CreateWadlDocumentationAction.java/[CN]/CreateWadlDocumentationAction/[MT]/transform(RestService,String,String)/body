@@ -1,0 +1,15 @@
+{
+  if (transformers == null) {
+    initTransformers();
+  }
+  Transformer transformer=transformers.get("WADL");
+  if (transformer == null) {
+    throw new Exception("Missing transformer for format [" + target + "]");
+  }
+  transformer.setParameter("output.dir",reportDirAbsolutePath);
+  String reportFile=reportDirAbsolutePath + File.separatorChar + "wadl-report.html";
+  StreamResult result=new StreamResult(new FileWriter(reportFile));
+  transformer.transform(new StreamSource(new StringReader(target.getWadlContext().getDefinitionParts().values().iterator().next().toString())),result);
+  String reportUrl=new File(reportFile).toURI().toURL().toString();
+  return reportUrl;
+}

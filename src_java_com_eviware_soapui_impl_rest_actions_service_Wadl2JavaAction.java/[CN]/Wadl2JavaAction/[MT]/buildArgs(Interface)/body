@@ -1,0 +1,13 @@
+{
+  StringToStringMap values=dialog.getValues();
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT),""));
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("wadl2java");
+  builder.addString(OUTPUT,"-o");
+  builder.addString(PACKAGE,"-p");
+  builder.addBoolean(AUTOMATIC_PACKAGE_NAMES,"-a");
+  builder.addString(JAXB_CUSTOMIZATION,"-c");
+  addToolArgs(values,builder);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}
