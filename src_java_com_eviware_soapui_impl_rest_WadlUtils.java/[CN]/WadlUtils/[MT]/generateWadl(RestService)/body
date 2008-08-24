@@ -3,6 +3,7 @@
   ApplicationDocument applicationDocument=ApplicationDocument.Factory.newInstance();
   Application application=applicationDocument.addNewApplication();
   Resources resources=application.addNewResources();
+  resources.setBase(restService.getBasePath());
   for (int c=0; c < restService.getOperationCount(); c++) {
     resources.addNewResource().set(generateWadlResource(restService.getOperationAt(c)));
   }

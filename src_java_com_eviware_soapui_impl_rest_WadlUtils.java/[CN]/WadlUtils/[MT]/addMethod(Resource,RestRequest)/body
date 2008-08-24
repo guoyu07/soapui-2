@@ -1,0 +1,16 @@
+{
+  Method methodConfig=resourceConfig.addNewMethod();
+  createDoc(methodConfig.addNewDoc(),request.getName(),request.getDescription());
+  methodConfig.setName(request.getMethod().toString());
+  methodConfig.setId(request.getName());
+  Request requestConfig=methodConfig.addNewRequest();
+  Set<String> defaultParamNames=new HashSet<String>();
+  for (  RestParamProperty defaultParam : request.getResource().getDefaultParams())   defaultParamNames.add(defaultParam.getName());
+  XmlBeansRestParamsTestPropertyHolder params=request.getParams();
+  for (int c=0; c < params.size(); c++) {
+    RestParamProperty param=params.getPropertyAt(c);
+    if (!defaultParamNames.contains(param.getName()))     createParam(requestConfig.addNewParam(),param);
+  }
+  Response responseConfig=methodConfig.addNewResponse();
+  responseConfig.addNewRepresentation().setMediaType("application/xml");
+}

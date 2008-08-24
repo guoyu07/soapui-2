@@ -1,0 +1,9 @@
+{
+  File dir=new File(path);
+  if (!dir.exists())   dir.mkdirs();
+  File outFile=new File(dir,"export.wadl");
+  FileWriter writer=new FileWriter(outFile);
+  writer.write(getDefinitionParts().values().iterator().next().toString());
+  writer.close();
+  return outFile.toURI().toURL().toString();
+}

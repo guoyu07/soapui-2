@@ -1,0 +1,25 @@
+{
+  paramConfig.setName(propertyAt.getName());
+  createDoc(paramConfig.addNewDoc(),propertyAt.getName(),propertyAt.getDescription());
+  if (StringUtils.hasContent(propertyAt.getValue()))   paramConfig.setDefault(propertyAt.getValue());
+switch (propertyAt.getType()) {
+case STRING:
+    paramConfig.setType(org.apache.xmlbeans.XmlString.type.getName());
+}
+ParamStyle.Enum style=ParamStyle.QUERY;
+switch (propertyAt.getStyle()) {
+case HEADER:
+  style=ParamStyle.HEADER;
+break;
+case MATRIX:
+style=ParamStyle.MATRIX;
+break;
+case PLAIN:
+style=ParamStyle.PLAIN;
+break;
+case TEMPLATE:
+style=ParamStyle.TEMPLATE;
+break;
+}
+paramConfig.setStyle(style);
+}

@@ -1,7 +1,6 @@
 {
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder("WADL2Java");
   XForm mainForm=builder.createForm("Basic");
-  addWSDLFields(mainForm,modelItem);
   mainForm.addTextField(OUTPUT,"Root directory for all emitted files.",XForm.FieldType.PROJECT_FOLDER);
   mainForm.addTextField(PACKAGE,"Default Package for generated classes",XForm.FieldType.JAVA_PACKAGE);
   mainForm.addCheckBox(AUTOMATIC_PACKAGE_NAMES,"Generates starting point code for a client mainline");
