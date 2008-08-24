@@ -1,15 +1,11 @@
 {
   if (httpResponse.getContentType().contains("html")) {
     try {
-      HTMLDocument document=(HTMLDocument)editorKit.createDefaultDocument();
-      document.setBase(httpResponse.getURL());
-      editorPane.read(new ByteArrayInputStream(httpResponse.getRawResponseData()),document);
     }
  catch (    Exception e) {
       e.printStackTrace();
     }
   }
  else {
-    editorPane.setText("");
   }
 }
