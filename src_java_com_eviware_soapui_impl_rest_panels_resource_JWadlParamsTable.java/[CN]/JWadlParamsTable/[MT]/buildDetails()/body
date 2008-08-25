@@ -1,0 +1,14 @@
+{
+  paramDetailsModel=new PresentationModel<RestParamProperty>(null);
+  SimpleBindingForm form=new SimpleBindingForm(paramDetailsModel);
+  form.addSpace(5);
+  form.appendCheckBox("required","Required","Sets if parameter is required");
+  form.appendTextField("defaultValue","Default","The default value for this parameter");
+  form.appendComboBox("type","Type",new Object[]{XmlString.type.getName(),XmlBoolean.type.getName(),XmlInt.type.getName()},"The type of the parameter");
+  optionsFormComponent=new StringListFormComponent("Available values for this Parameter");
+  optionsFormComponent.setPreferredSize(new Dimension(350,80));
+  form.appendComponent("options","Options",optionsFormComponent);
+  form.appendTextField("description","Description","A short description of the parameter");
+  form.addSpace(5);
+  return form.getPanel();
+}

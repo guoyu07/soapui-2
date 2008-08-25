@@ -1,6 +1,10 @@
 {
+  String[] oldData=getData();
   listModel.clear();
-  for (  String str : strings) {
-    listModel.addElement(str);
+  if (strings != null) {
+    for (    String str : strings) {
+      listModel.addElement(str);
+    }
   }
+  firePropertyChange("options",oldData,getData());
 }

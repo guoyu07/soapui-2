@@ -6,8 +6,7 @@
   for (  Param param : resource.getParamList()) {
     String nm=param.getName();
     RestParamProperty prop=newResource.hasProperty(nm) ? newResource.getProperty(nm) : newResource.addProperty(nm);
-    prop.setValue(param.getDefault());
-    prop.setStyle(ParameterStyle.valueOf(param.getStyle().toString().toUpperCase()));
+    initParam(param,prop);
   }
   for (  Method method : resource.getMethodList()) {
     method=resolveMethod(method,application);
@@ -15,8 +14,7 @@
     request.setMethod(RestRequest.RequestMethod.valueOf(method.getName()));
     for (    Param param : method.getRequest().getParamList()) {
       RestParamProperty p=request.addProperty(param.getName());
-      p.setValue(param.getDefault());
-      p.setStyle(ParameterStyle.valueOf(param.getStyle().toString().toUpperCase()));
+      initParam(param,p);
     }
   }
 }

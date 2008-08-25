@@ -7,14 +7,14 @@
   resourceConfig.setId(resource.getName());
   XmlBeansRestParamsTestPropertyHolder params=resource.getParams();
   for (int c=0; c < params.size(); c++) {
-    createParam(resourceConfig.addNewParam(),params.getPropertyAt(c));
+    generateParam(resourceConfig.addNewParam(),params.getPropertyAt(c));
   }
   for (int c=0; c < resource.getResourceCount(); c++) {
     resourceConfig.addNewResource().set(generateWadlResource(resource.getResourceAt(c)));
   }
   for (int c=0; c < resource.getRequestCount(); c++) {
     RestRequest request=resource.getRequestAt(c);
-    addMethod(resourceConfig,request);
+    generateWadlMethod(resourceConfig,request);
   }
   return resourceConfig;
 }

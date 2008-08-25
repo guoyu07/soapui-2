@@ -1,4 +1,5 @@
 {
   docConfig.setLang("en");
-  docConfig.setTitle(StringUtils.hasContent(description) ? description : "[" + name + "]");
+  docConfig.setTitle(name);
+  docConfig.getDomNode().appendChild(docConfig.getDomNode().getOwnerDocument().createTextNode(description));
 }

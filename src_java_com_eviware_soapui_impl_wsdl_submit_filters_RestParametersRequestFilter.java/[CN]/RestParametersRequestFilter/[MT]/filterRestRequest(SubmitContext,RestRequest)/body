@@ -6,6 +6,7 @@
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
+    if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {
 case HEADER:
       httpMethod.setRequestHeader(param.getName(),value);
@@ -19,8 +20,17 @@ case TEMPLATE:
 path=path.replaceAll("\\{" + param.getName() + "\\}",URLEncoder.encode(value));
 break;
 case MATRIX:
+if (param.getType().equals(XmlBoolean.type.getName())) {
+if (value.toUpperCase().equals("TRUE") || value.equals("1")) {
 path+=";" + param.getName();
-if (value != null) path+="=" + URLEncoder.encode(value);
+}
+}
+ else {
+path+=";" + param.getName();
+if (StringUtils.hasContent(value)) {
+path+="=" + URLEncoder.encode(value);
+}
+}
 }
 }
 if (query.length() > 1) httpMethod.setQueryString(query.toString());

@@ -1,0 +1,10 @@
+{
+  prop.setDefaultValue(param.getDefault());
+  prop.setValue(param.getDefault());
+  prop.setStyle(ParameterStyle.valueOf(param.getStyle().toString().toUpperCase()));
+  prop.setRequired(param.getRequired());
+  prop.setType(param.getType());
+  String[] options=new String[param.sizeOfOptionArray()];
+  for (int c=0; c < options.length; c++)   options[c]=param.getOptionArray(c).getValue();
+  if (options.length > 0)   prop.setOptions(options);
+}
