@@ -4,5 +4,12 @@
   }
  else   if (evt.getPropertyName().equals("method")) {
     contentEditor.setEnabledAndEditable(restRequest.hasRequestBody());
+    mediaTypeTextField.setEnabled(restRequest.hasRequestBody());
+    if (!restRequest.hasRequestBody()) {
+      split.setDividerLocation(1.0);
+    }
+ else     if (split.getDividerLocation() >= split.getHeight() - 20) {
+      split.setDividerLocation(0.5);
+    }
   }
 }

@@ -1,9 +1,17 @@
 {
   if (panel == null) {
+    JPanel p=new JPanel(new BorderLayout());
+    p.add(buildToolbar(),BorderLayout.NORTH);
+    p.add(buildContent(),BorderLayout.CENTER);
+    split=UISupport.createVerticalSplit(new JWadlParamsTable(restRequest.getParams()),p);
     panel=new JPanel(new BorderLayout());
-    panel.add(buildToolbar(),BorderLayout.NORTH);
-    panel.add(buildContent(),BorderLayout.CENTER);
-    panel.add(buildStatus(),BorderLayout.SOUTH);
+    panel.add(split);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        split.setDividerLocation(restRequest.hasRequestBody() ? 0.5 : 1.0);
+      }
+    }
+);
   }
   return panel;
 }

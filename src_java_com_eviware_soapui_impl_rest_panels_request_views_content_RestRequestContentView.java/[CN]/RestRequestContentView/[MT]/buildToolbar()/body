@@ -1,17 +1,17 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  mediaTypeCombo=new JComboBox(new Object[]{requestRepresentation.getMediaType()});
-  mediaTypeCombo.setPreferredSize(new Dimension(200,20));
-  mediaTypeCombo.setEditable(true);
-  mediaTypeCombo.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
+  mediaTypeTextField=new JUndoableTextField(requestRepresentation.getMediaType());
+  mediaTypeTextField.setPreferredSize(new Dimension(200,20));
+  mediaTypeTextField.setEnabled(restRequest.hasRequestBody());
+  mediaTypeTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
       updatingRequest=true;
-      requestRepresentation.setMediaType((String)mediaTypeCombo.getSelectedItem());
+      requestRepresentation.setMediaType(mediaTypeTextField.getText());
       updatingRequest=false;
     }
   }
 );
-  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
+  toolbar.addLabeledFixed("Media Type",mediaTypeTextField);
   toolbar.addSeparator();
   return toolbar;
 }
