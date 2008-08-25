@@ -1,0 +1,8 @@
+{
+  representationConfig.setMediaType(representation.getMediaType());
+  if (StringUtils.hasContent(representation.getId()))   representationConfig.setId(representation.getId());
+  List status=representation.getStatus();
+  if (status != null && status.size() > 0) {
+    representationConfig.setStatus(status);
+  }
+}

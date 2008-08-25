@@ -28,18 +28,6 @@
   toolbar.addLabeledFixed("Resource Path:",pathField);
   toolbar.add(recreatePathButton);
   toolbar.addSeparator();
-  mediaTypeCombo=new JComboBox(new Object[]{getRequest().getMediaType()});
-  mediaTypeCombo.setEditable(true);
-  mediaTypeCombo.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
-      updatingRequest=true;
-      getRequest().setMediaType((String)mediaTypeCombo.getSelectedItem());
-      updatingRequest=false;
-    }
-  }
-);
-  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
-  toolbar.addSeparator();
   panel.add(toolbar,BorderLayout.SOUTH);
   return panel;
 }

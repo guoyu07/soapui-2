@@ -1,4 +1,7 @@
 {
   super.release();
   params.release();
+  for (  RestRepresentation representation : representations) {
+    representation.release();
+  }
 }

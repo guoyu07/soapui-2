@@ -1,0 +1,10 @@
+{
+  super(requestConfig,resource,"/rest_request.gif",false);
+  if (requestConfig.getParameters() == null)   requestConfig.addNewParameters();
+  if (!requestConfig.isSetMethod())   setMethod(RequestMethod.GET);
+  if (requestConfig.getParameters() == null)   requestConfig.addNewParameters();
+  for (  RestResourceRepresentationConfig config : requestConfig.getRepresentationList()) {
+    representations.add(new RestRepresentation(this,config));
+  }
+  params=new XmlBeansRestParamsTestPropertyHolder(this,requestConfig.getParameters());
+}

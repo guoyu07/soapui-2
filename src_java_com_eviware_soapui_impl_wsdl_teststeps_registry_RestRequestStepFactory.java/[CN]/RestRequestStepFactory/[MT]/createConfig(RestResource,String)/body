@@ -2,7 +2,7 @@
   RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
   requestStepConfig.setService(operation.getInterface().getName());
   requestStepConfig.setResourcePath(operation.getFullPath());
-  RestRequestConfig testRequestConfig=requestStepConfig.addNewRestRequest();
+  RestMethodConfig testRequestConfig=requestStepConfig.addNewRestRequest();
   testRequestConfig.setName(stepName);
   testRequestConfig.setEncoding("UTF-8");
   String[] endpoints=operation.getInterface().getEndpoints();

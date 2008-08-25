@@ -1,17 +1,11 @@
 {
-  this.wsdlRequest=new WeakReference<AbstractHttpRequest<?>>(wsdlRequest);
-  this.httpMethod=httpMethod;
+  super(httpMethod,httpRequest);
   this.requestContent=requestContent;
-  this.timeTaken=httpMethod.getTimeTaken();
-  this.sslInfo=httpMethod.getSSLInfo();
-  this.timestamp=System.currentTimeMillis();
-  Settings settings=wsdlRequest.getSettings();
   try {
     responseBody=httpMethod.getResponseBody();
     int contentOffset=0;
     if (responseBody == null)     responseBody=new byte[0];
     responseSize=responseBody.length;
-    if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN))     timeTaken+=httpMethod.getResponseReadTime();
     String contentType=httpMethod.getResponseContentType();
     String charset=httpMethod.getResponseCharSet();
     if (contentType != null && contentType.toLowerCase().endsWith("xml")) {
@@ -20,11 +14,10 @@
         contentOffset=3;
       }
     }
-    if (charset == null)     charset=wsdlRequest.getEncoding();
+    if (charset == null)     charset=httpRequest.getEncoding();
     charset=StringUtils.unquote(charset);
     responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);
-    prettyPrint=wsdlRequest.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
-    initHeaders(httpMethod);
+    prettyPrint=httpRequest.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
     RequestEntity requestEntity=httpMethod.getRequestEntity();
     if (requestEntity != null) {
       ByteArrayOutputStream out=new ByteArrayOutputStream();

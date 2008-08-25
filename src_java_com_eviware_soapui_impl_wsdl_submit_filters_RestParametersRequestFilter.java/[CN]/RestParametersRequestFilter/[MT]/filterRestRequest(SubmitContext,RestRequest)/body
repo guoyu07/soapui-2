@@ -45,6 +45,9 @@ byte[] content=encoding == null ? requestContent.getBytes() : requestContent.get
  catch (UnsupportedEncodingException e) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(requestContent.getBytes()));
 }
+RestRepresentation[] representations=request.getRepresentations(RestRepresentation.Type.REQUEST);
+if (representations.length > 0) {
+httpMethod.setRequestHeader("Content-Type",representations[0].getMediaType() + (StringUtils.hasContent(encoding) ? "; charset=" + encoding : ""));
 }
-httpMethod.setRequestHeader("Content-Type",request.getMediaType() + (StringUtils.hasContent(encoding) ? "; charset=" + encoding : ""));
+}
 }

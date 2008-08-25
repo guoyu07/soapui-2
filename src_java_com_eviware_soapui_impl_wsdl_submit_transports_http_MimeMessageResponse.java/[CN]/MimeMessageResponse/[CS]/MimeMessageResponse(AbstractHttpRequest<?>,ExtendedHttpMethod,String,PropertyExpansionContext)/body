@@ -1,13 +1,7 @@
 {
-  this.httpRequest=new WeakReference<AbstractHttpRequest<?>>(httpRequest);
+  super(httpMethod,httpRequest);
   this.requestContent=requestContent;
-  this.timeTaken=httpMethod.getTimeTaken();
-  this.timestamp=System.currentTimeMillis();
-  this.contentType=httpMethod.getResponseContentType();
   try {
-    initHeaders(httpMethod);
-    sslInfo=httpMethod.getSSLInfo();
-    uri=httpMethod.getURI();
     postResponseDataSource=new PostResponseDataSource(httpMethod);
     responseContentLength=postResponseDataSource.getDataSize();
     Header h=httpMethod.getResponseHeader("Content-Type");

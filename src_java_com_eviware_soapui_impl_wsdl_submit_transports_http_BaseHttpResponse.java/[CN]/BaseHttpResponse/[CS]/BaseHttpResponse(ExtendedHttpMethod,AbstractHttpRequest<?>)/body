@@ -1,0 +1,25 @@
+{
+  this.httpRequest=new WeakReference<AbstractHttpRequest<?>>(httpRequest);
+  this.timeTaken=httpMethod.getTimeTaken();
+  Settings settings=httpRequest.getSettings();
+  if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
+    try {
+      httpMethod.getResponseBody();
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    timeTaken+=httpMethod.getResponseReadTime();
+  }
+  this.timestamp=System.currentTimeMillis();
+  this.contentType=httpMethod.getResponseContentType();
+  this.statusCode=httpMethod.getStatusCode();
+  this.sslInfo=httpMethod.getSSLInfo();
+  try {
+    this.url=new URL(httpMethod.getURI().toString());
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  initHeaders(httpMethod);
+}

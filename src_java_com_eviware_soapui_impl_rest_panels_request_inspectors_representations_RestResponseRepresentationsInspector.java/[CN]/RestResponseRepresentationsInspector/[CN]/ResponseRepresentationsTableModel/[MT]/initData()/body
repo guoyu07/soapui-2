@@ -1,0 +1,6 @@
+{
+  data.clear();
+  for (  RestRepresentation representation : request.getRepresentations(null)) {
+    if (representation.getType() != RestRepresentation.Type.REQUEST)     data.add(representation);
+  }
+}

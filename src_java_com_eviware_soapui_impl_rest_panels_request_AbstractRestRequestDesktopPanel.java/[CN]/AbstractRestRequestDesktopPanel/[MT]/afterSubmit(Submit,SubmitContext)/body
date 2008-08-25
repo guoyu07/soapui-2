@@ -1,0 +1,12 @@
+{
+  super.afterSubmit(submit,context);
+  HttpResponse response=getRequest().getResponse();
+  if (response != null) {
+    if (HttpUtils.isErrorStatus(response.getStatusCode())) {
+      extractRepresentation(response,RestRepresentation.Type.FAULT);
+    }
+ else {
+      extractRepresentation(response,RestRepresentation.Type.RESPONSE);
+    }
+  }
+}

@@ -11,6 +11,16 @@
     RestParamProperty param=params.getPropertyAt(c);
     if (!defaultParams.containsKey(param.getName()) || !param.equals(defaultParams.get(param.getName())))     generateParam(requestConfig.addNewParam(),param);
   }
+  if (request.hasRequestBody()) {
+    for (    RestRepresentation representation : request.getRepresentations(RestRepresentation.Type.REQUEST)) {
+      generateRepresentation(requestConfig.addNewRepresentation(),representation);
+    }
+  }
   Response responseConfig=methodConfig.addNewResponse();
-  responseConfig.addNewRepresentation().setMediaType("application/xml");
+  for (  RestRepresentation representation : request.getRepresentations(RestRepresentation.Type.RESPONSE)) {
+    generateRepresentation(responseConfig.addNewRepresentation(),representation);
+  }
+  for (  RestRepresentation representation : request.getRepresentations(RestRepresentation.Type.FAULT)) {
+    generateRepresentation(responseConfig.addNewFault(),representation);
+  }
 }

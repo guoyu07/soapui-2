@@ -1,0 +1,23 @@
+{
+  RestRepresentation representation=data.get(rowIndex);
+switch (columnIndex) {
+case 1:
+    representation.setMediaType(value == null ? "" : value.toString());
+  break;
+case 2:
+{
+  if (value == null)   value="";
+  String[] items=value.toString().split(",");
+  List<Integer> status=new ArrayList<Integer>();
+  for (  String item : items) {
+    try {
+      if (StringUtils.hasContent(item))       status.add(Integer.parseInt(item.trim()));
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  representation.setStatus(status);
+  break;
+}
+}
+}
