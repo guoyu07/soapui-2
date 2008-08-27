@@ -2,10 +2,8 @@
   try {
     Element header=addWsAddressingCommon(content,wsaContainer);
     String action=wsaContainer.getWsaConfig().getAction();
-    if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION)) {
-      if (action == null || action.isEmpty()) {
-        WsdlUtils.createDefaultedAction((WsdlRequest)wsaContainer);
-      }
+    if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION) && StringUtils.isNullOrEmpty(action)) {
+      action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),false);
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header.appendChild(builder.createWsaChildElement("wsa:Action",elm,wsaContainer.getWsaConfig().getAction()));

@@ -3,12 +3,6 @@
   responses.add(mockResponse);
   if (responses.size() == 1)   setDefaultResponse(mockResponse.getName());
   (getMockService()).fireMockResponseAdded(mockResponse);
-  String[] attrs=WsdlUtils.getExentsibilityAttributes(getOperation().getBindingOperation().getOperation().getOutput(),new QName("http://www.w3.org/2006/05/addressing/wsdl","Action"));
-  if (attrs.length > 0) {
-    mockResponse.getWsaConfig().setAction(attrs[0]);
-  }
- else {
-    WsdlUtils.createDefaultedAction(mockResponse);
-  }
+  WsdlUtils.setDefaultWsaAction(mockResponse.getWsaConfig(),true);
   return mockResponse;
 }

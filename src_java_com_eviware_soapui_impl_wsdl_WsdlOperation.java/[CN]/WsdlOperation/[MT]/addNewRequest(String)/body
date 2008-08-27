@@ -2,13 +2,9 @@
   WsdlRequest requestImpl=new WsdlRequest(this,getConfig().addNewCall());
   requestImpl.setName(name);
   requests.add(requestImpl);
-  requestImpl.setWsAddressing(true);
-  String[] attrs=WsdlUtils.getExentsibilityAttributes(getBindingOperation().getOperation().getInput(),new QName("http://www.w3.org/2006/05/addressing/wsdl","Action"));
-  if (attrs.length > 0) {
-    requestImpl.getWsaConfig().setAction(attrs[0]);
-  }
- else {
-    WsdlUtils.createDefaultedAction(requestImpl);
+  if (getInterface().getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
+    requestImpl.setWsAddressing(true);
+    WsdlUtils.setDefaultWsaAction(requestImpl.getWsaConfig(),false);
   }
   (getInterface()).fireRequestAdded(requestImpl);
   return requestImpl;

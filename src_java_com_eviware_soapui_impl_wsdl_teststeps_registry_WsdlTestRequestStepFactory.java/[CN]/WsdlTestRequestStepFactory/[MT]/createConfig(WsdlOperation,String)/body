@@ -10,13 +10,8 @@
   if (endpoints.length > 0)   testRequestConfig.setEndpoint(endpoints[0]);
   String requestContent=operation.createRequest(SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
   testRequestConfig.addNewRequest().setStringValue(requestContent);
-  String[] attrs=WsdlUtils.getExentsibilityAttributes(operation.getBindingOperation().getOperation().getInput(),new QName("http://www.w3.org/2006/05/addressing/wsdl","Action"));
-  if (attrs.length > 0) {
-    testRequestConfig.getWsaConfig().setAction(attrs[0]);
-  }
- else {
-    WsdlUtils.createDefaultedAction(operation,testRequestConfig);
-  }
+  String defaultAction=WsdlUtils.getDefaultWsaAction(operation,false);
+  if (StringUtils.hasContent(defaultAction))   testRequestConfig.getWsaConfig().setAction(defaultAction);
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(REQUEST_TYPE);
   testStep.setConfig(requestStepConfig);

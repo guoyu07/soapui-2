@@ -1,0 +1,21 @@
+{
+  try {
+    AttributeExtensible attributeExtensible=output ? operation.getBindingOperation().getOperation().getOutput() : operation.getBindingOperation().getOperation().getInput();
+    if (attributeExtensible == null)     return null;
+    String[] attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WS_A_VERSION_200408,"Action"));
+    if (attrs == null || attrs.length == 0)     attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WS_A_VERSION_200508,"Action"));
+    if (attrs != null && attrs.length > 0) {
+      return attrs[0];
+    }
+    WsdlInterface iface=operation.getInterface();
+    Definition definition=iface.getWsdlContext().getDefinition();
+    String targetNamespace=definition.getTargetNamespace();
+    String portTypeName=iface.getBinding().getPortType().getQName().getLocalPart();
+    String operationName=output ? operation.getOutputName() : operation.getInputName();
+    return targetNamespace + "/" + portTypeName+ "/"+ operationName;
+  }
+ catch (  Exception e) {
+    log.warn(e.toString());
+    return null;
+  }
+}
