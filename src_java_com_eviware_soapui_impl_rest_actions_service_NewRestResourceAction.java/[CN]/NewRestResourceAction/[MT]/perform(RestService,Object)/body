@@ -11,7 +11,6 @@
   params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
   if (param instanceof URL) {
     URL url=(URL)param;
-    service.setBasePath(Tools.getEndpointFromUrl(url));
     String path=WadlUtils.extractParams(url,params);
     dialog.setValue(Form.RESOURCEPATH,path);
     String[] items=path.split("/");
@@ -20,7 +19,7 @@
     }
     if (paramsTable != null)     paramsTable.refresh();
   }
-  paramsTable=new JWadlParamsTable(params);
+  paramsTable=new JWadlParamsTable(params,false);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);

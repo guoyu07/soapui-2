@@ -12,9 +12,23 @@
     method=resolveMethod(method,application);
     RestRequest request=newResource.addNewRequest(getFirstTitle(method.getDocList(),method.getName() + " - " + method.getId()));
     request.setMethod(RestRequest.RequestMethod.valueOf(method.getName()));
-    for (    Param param : method.getRequest().getParamList()) {
-      RestParamProperty p=request.addProperty(param.getName());
-      initParam(param,p);
+    if (method.getRequest() != null) {
+      for (      Param param : method.getRequest().getParamList()) {
+        RestParamProperty p=request.addProperty(param.getName());
+        initParam(param,p);
+      }
+    }
+    if (method.getResponse() != null) {
+      for (      RepresentationType representationType : method.getResponse().getRepresentationList()) {
+        RestRepresentation restRepresentation=request.addNewRepresentation(RestRepresentation.Type.RESPONSE);
+        restRepresentation.setMediaType(representationType.getMediaType());
+        restRepresentation.setStatus(representationType.getStatus());
+      }
+      for (      RepresentationType representationType : method.getResponse().getFaultList()) {
+        RestRepresentation restRepresentation=request.addNewRepresentation(RestRepresentation.Type.FAULT);
+        restRepresentation.setMediaType(representationType.getMediaType());
+        restRepresentation.setStatus(representationType.getStatus());
+      }
     }
   }
 }

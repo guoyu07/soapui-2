@@ -1,6 +1,6 @@
 {
   HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  String path=request.buildPath(context);
+  String path=request.getPath();
   StringBuffer query=new StringBuffer();
   XmlBeansRestParamsTestPropertyHolder params=request.getParams();
   for (int c=0; c < params.getPropertyCount(); c++) {

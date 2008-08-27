@@ -1,5 +1,5 @@
 {
-  soapVersion=SoapUtils.initSoapVersion(requestContentType);
+  soapVersion=SoapUtils.deduceSoapVersion(requestContentType,XmlObject.Factory.parse(getRequestContent()));
   if (soapVersion == null)   throw new Exception("Unrecognized SOAP Version");
   String soapAction=SoapUtils.getSoapAction(soapVersion,requestHeaders);
   List<WsdlOperation> operations=new ArrayList<WsdlOperation>();
