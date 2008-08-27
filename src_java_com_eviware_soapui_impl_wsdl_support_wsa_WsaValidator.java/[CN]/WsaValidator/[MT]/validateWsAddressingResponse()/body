@@ -1,0 +1,20 @@
+{
+  validateWsAddressingCommon();
+  NodeList relatesToList=header.getElementsByTagNameNS(wsaVersionNameSpace,"RelatesTo");
+  if (relatesToList.getLength() == 0 || relatesToList.item(0).getFirstChild() == null) {
+    throw new AssertionException(new AssertionError("WS-A RelatesTo property is not specified"));
+  }
+  Element relatesToNode=(Element)relatesToList.item(0).getChildNodes();
+  String relationshipType=relatesToNode.getAttribute("RelationshipType");
+  if (relationshipType == null || relationshipType.isEmpty()) {
+    throw new AssertionException(new AssertionError("WS-A RelationshipType is not specified"));
+  }
+  NodeList relatesToAddresses=relatesToNode.getElementsByTagNameNS(wsaVersionNameSpace,"Address");
+  if (relatesToAddresses.getLength() == 0) {
+    throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is not specified"));
+  }
+  String relatesToAddressesValue=relatesToAddresses.item(0).getFirstChild().getNodeValue();
+  if (relatesToAddressesValue == null || relatesToAddressesValue.isEmpty()) {
+    throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is not specified"));
+  }
+}
