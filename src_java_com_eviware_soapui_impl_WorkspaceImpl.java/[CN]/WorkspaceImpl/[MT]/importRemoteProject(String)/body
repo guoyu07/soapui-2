@@ -1,5 +1,5 @@
 {
-  WsdlProject project=new WsdlProject(url,this,false);
+  WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(url,this,false);
   projectList.add(project);
   fireProjectAdded(project);
   save(true);

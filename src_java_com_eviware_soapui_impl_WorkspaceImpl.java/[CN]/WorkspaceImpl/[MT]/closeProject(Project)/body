@@ -7,7 +7,7 @@
   String name=project.getName();
   project.release();
   try {
-    project=new WsdlProject(project.getPath(),this,false,false,name,null);
+    project=ProjectFactoryRegistry.getProjectFactory(WsdlProjectFactory.WSDL_TYPE).createNew(project.getPath(),this,false,false,name,null);
     ((WsdlProject)project).setEncrypted(oldProjectEncrypt);
     projectList.add(ix,project);
     fireProjectAdded(project);

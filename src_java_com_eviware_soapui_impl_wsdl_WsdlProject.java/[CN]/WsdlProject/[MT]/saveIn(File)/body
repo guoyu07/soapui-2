@@ -31,6 +31,12 @@
     SoapuiProjectDocumentConfig config=(SoapuiProjectDocumentConfig)projectDocument.copy();
     removeDefinitionCaches(config);
     config.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
+    ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
+    config.save(writer,options);
+    FileOutputStream out=new FileOutputStream(projectFile);
+    writer.writeTo(out);
+    out.close();
+    size=writer.size();
     config.save(projectFile,options);
   }
  else {
