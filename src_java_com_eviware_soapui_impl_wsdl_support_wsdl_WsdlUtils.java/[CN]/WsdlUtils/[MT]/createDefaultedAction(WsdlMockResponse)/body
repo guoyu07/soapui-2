@@ -1,0 +1,12 @@
+{
+  try {
+    Definition definition=response.getMockOperation().getOperation().getInterface().getWsdlContext().getDefinition();
+    String targetNamespace=definition.getTargetNamespace();
+    String portTypeName=response.getMockOperation().getOperation().getInterface().getBinding().getPortType().getQName().getLocalPart();
+    String operationName=response.getMockOperation().getOperation().getOutputName();
+    response.getWsaConfig().setAction(targetNamespace + "/" + portTypeName+ "/"+ operationName);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

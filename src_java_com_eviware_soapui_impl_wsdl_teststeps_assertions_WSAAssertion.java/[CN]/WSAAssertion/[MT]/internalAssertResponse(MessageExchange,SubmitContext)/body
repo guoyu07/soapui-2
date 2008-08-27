@@ -1,0 +1,9 @@
+{
+  try {
+    new WsaValidator(messageExchange).validateWsAddressingResponse();
+  }
+ catch (  Exception e) {
+    throw new AssertionException(new AssertionError(e.getMessage()));
+  }
+  return "Request Ws-Addressing is valid";
+}

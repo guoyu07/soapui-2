@@ -3,12 +3,20 @@
   requestStepConfig.setInterface(operation.getInterface().getName());
   requestStepConfig.setOperation(operation.getName());
   WsdlRequestConfig testRequestConfig=requestStepConfig.addNewRequest();
+  testRequestConfig.addNewWsaConfig();
   testRequestConfig.setName(stepName);
   testRequestConfig.setEncoding("UTF-8");
   String[] endpoints=operation.getInterface().getEndpoints();
   if (endpoints.length > 0)   testRequestConfig.setEndpoint(endpoints[0]);
   String requestContent=operation.createRequest(SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
   testRequestConfig.addNewRequest().setStringValue(requestContent);
+  String[] attrs=WsdlUtils.getExentsibilityAttributes(operation.getBindingOperation().getOperation().getInput(),new QName("http://www.w3.org/2006/05/addressing/wsdl","Action"));
+  if (attrs.length > 0) {
+    testRequestConfig.getWsaConfig().setAction(attrs[0]);
+  }
+ else {
+    WsdlUtils.createDefaultedAction(operation,testRequestConfig);
+  }
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(REQUEST_TYPE);
   testStep.setConfig(requestStepConfig);

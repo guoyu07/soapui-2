@@ -18,7 +18,9 @@
       result.addHeader(name,PropertyExpansionUtils.expandProperties(context,responseHeaders.get(name)));
     }
     responseContent=PropertyExpansionUtils.expandProperties(context,responseContent,true);
-    responseContent=new WsaUtils(getSoapVersion(),getMockOperation().getOperation()).addWSAddressing(responseContent,this);
+    if (this.getWsaConfig().isWsaEnabled()) {
+      responseContent=new WsaUtils(getSoapVersion(),getMockOperation().getOperation()).addWSAddressingMockResponse(responseContent,this,request);
+    }
     String outgoingWss=getOutgoingWss();
     if (StringUtils.isNullOrEmpty(outgoingWss))     outgoingWss=getMockOperation().getMockService().getOutgoingWss();
     if (StringUtils.hasContent(outgoingWss)) {

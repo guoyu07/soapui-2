@@ -33,5 +33,12 @@
   if (dialogValues.getBoolean(SHOW_TESTCASE)) {
     UISupport.selectAndShow(testCase);
   }
+  String[] attrs=WsdlUtils.getExentsibilityAttributes(testStep.getOperation().getBindingOperation().getOperation().getInput(),new QName("http://www.w3.org/2006/05/addressing/wsdl","Action"));
+  if (attrs.length > 0) {
+    testStep.getTestRequest().getWsaConfig().setAction(attrs[0]);
+  }
+ else {
+    WsdlUtils.createDefaultedAction(testStep.getTestRequest());
+  }
   return testStep;
 }
