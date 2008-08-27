@@ -1,8 +1,4 @@
 {
-  String[] templateParams=RestUtils.extractTemplateParams(resource.getPath());
-  for (  String param : templateParams) {
-    newResource.addProperty(param);
-  }
   for (  Param param : resource.getParamList()) {
     String nm=param.getName();
     RestParamProperty prop=newResource.hasProperty(nm) ? newResource.getProperty(nm) : newResource.addProperty(nm);
@@ -10,7 +6,9 @@
   }
   for (  Method method : resource.getMethodList()) {
     method=resolveMethod(method,application);
-    RestRequest request=newResource.addNewRequest(getFirstTitle(method.getDocList(),method.getName() + " - " + method.getId()));
+    String name=method.getName();
+    if (StringUtils.hasContent(method.getId()))     name+=" - " + method.getId();
+    RestRequest request=newResource.addNewRequest(getFirstTitle(method.getDocList(),name));
     request.setMethod(RestRequest.RequestMethod.valueOf(method.getName()));
     if (method.getRequest() != null) {
       for (      Param param : method.getRequest().getParamList()) {

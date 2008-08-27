@@ -1,4 +1,12 @@
 {
+  if (operation instanceof RestResource) {
+    RestResource restResource=(RestResource)operation;
+    if (restResource.getParentResource() != null) {
+      RestResourceTreeNode treeNode=(RestResourceTreeNode)getTreeModel().getTreeNode(restResource.getParentResource());
+      treeNode.addSubResource(restResource);
+      return;
+    }
+  }
   OperationTreeNode operationTreeNode=(OperationTreeNode)TreeNodeFactory.createTreeNode(operation,getTreeModel());
   operationNodes.add(operationTreeNode);
   getTreeModel().notifyNodeInserted(operationTreeNode);
