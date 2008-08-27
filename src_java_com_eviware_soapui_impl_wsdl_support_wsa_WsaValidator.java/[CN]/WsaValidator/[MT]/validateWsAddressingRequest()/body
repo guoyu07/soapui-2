@@ -2,22 +2,25 @@
   validateWsAddressingCommon();
   Operation operation=messageExchange.getOperation();
   if (operation.isRequestResponse()) {
-    NodeList msgIdsList=header.getElementsByTagNameNS(wsaVersionNameSpace,"MessageID");
-    if (msgIdsList.getLength() == 0 || msgIdsList.item(0).getFirstChild() == null) {
+    Element msgNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"MessageID");
+    if (msgNode == null) {
       throw new AssertionException(new AssertionError("WS-A MessageID property is not specified"));
     }
-    NodeList repliesToList=header.getElementsByTagNameNS(wsaVersionNameSpace,"ReplyTo");
-    if (repliesToList.getLength() == 0 || repliesToList.item(0).getFirstChild() == null) {
+    String msgValue=XmlUtils.getElementText(msgNode);
+    if (StringUtils.isNullOrEmpty(msgValue)) {
+      throw new AssertionException(new AssertionError("WS-A MessageID property is empty"));
+    }
+    Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
+    if (replyToNode == null) {
       throw new AssertionException(new AssertionError("WS-A ReplyTo property is not specified"));
     }
-    Element replyToNode=(Element)repliesToList.item(0).getChildNodes();
-    NodeList replyToAddresses=replyToNode.getElementsByTagNameNS(wsaVersionNameSpace,"Address");
-    if (replyToAddresses.getLength() == 0) {
+    Element addressNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
+    if (addressNode == null) {
       throw new AssertionException(new AssertionError("WS-A ReplyTo Address property is not specified"));
     }
-    String replyToAddressValue=replyToAddresses.item(0).getFirstChild().getNodeValue();
-    if (replyToAddressValue == null || replyToAddressValue.isEmpty()) {
-      throw new AssertionException(new AssertionError("WS-A ReplyTo Address property is not specified"));
+    String replyToAddressValue=XmlUtils.getElementText(addressNode);
+    if (StringUtils.isNullOrEmpty(replyToAddressValue)) {
+      throw new AssertionException(new AssertionError("WS-A ReplyTo Address property is empty"));
     }
   }
 }

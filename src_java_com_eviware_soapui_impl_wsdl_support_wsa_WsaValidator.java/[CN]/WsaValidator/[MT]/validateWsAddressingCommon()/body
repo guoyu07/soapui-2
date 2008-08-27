@@ -25,22 +25,25 @@
  else {
       throw new AssertionException(new AssertionError("WS-A version is wrong"));
     }
-    NodeList actionList=header.getElementsByTagNameNS(wsaVersionNameSpace,"Action");
-    if (actionList.getLength() == 0 || actionList.item(0).getFirstChild() == null) {
+    Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
+    if (actionNode == null) {
       throw new AssertionException(new AssertionError("WS-A Action property is not specified"));
     }
-    NodeList destinationList=header.getElementsByTagNameNS(wsaVersionNameSpace,"To");
-    if (destinationList.getLength() == 0 || destinationList.item(0).getFirstChild() == null) {
+    String actionValue=XmlUtils.getElementText(actionNode);
+    if (StringUtils.isNullOrEmpty(actionValue)) {
+      throw new AssertionException(new AssertionError("WS-A Action property is empty"));
+    }
+    Element toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
+    if (toNode == null) {
       throw new AssertionException(new AssertionError("WS-A To property is not specified"));
     }
-    Element toNode=(Element)destinationList.item(0).getChildNodes();
-    NodeList toAddresses=toNode.getElementsByTagNameNS(wsaVersionNameSpace,"Address");
-    if (toAddresses.getLength() == 0) {
+    Element addressNode=XmlUtils.getFirstChildElementNS(toNode,wsaVersionNameSpace,"Address");
+    if (addressNode == null) {
       throw new AssertionException(new AssertionError("WS-A To Address property is not specified"));
     }
-    String toAddressValue=toAddresses.item(0).getFirstChild().getNodeValue();
-    if (toAddressValue == null || toAddressValue.isEmpty()) {
-      throw new AssertionException(new AssertionError("WS-A To Address property is not specified"));
+    String toAddressValue=XmlUtils.getElementText(addressNode);
+    if (StringUtils.isNullOrEmpty(toAddressValue)) {
+      throw new AssertionException(new AssertionError("WS-A To Address property is empty"));
     }
   }
  catch (  XmlException e) {

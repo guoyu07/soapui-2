@@ -19,11 +19,11 @@
   }
   builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
   String from=wsaContainer.getWsaConfig().getFrom();
-  if (from != null && from.length() > 0) {
+  if (!StringUtils.isNullOrEmpty(from)) {
     header.appendChild(builder.createWsaAddressChildElement("wsa:From",elm,from));
   }
   String faultTo=wsaContainer.getWsaConfig().getFaultTo();
-  if (faultTo != null && faultTo.length() > 0) {
+  if (!StringUtils.isNullOrEmpty(faultTo)) {
     header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",elm,faultTo));
   }
   return header;

@@ -1,20 +1,19 @@
 {
   validateWsAddressingCommon();
-  NodeList relatesToList=header.getElementsByTagNameNS(wsaVersionNameSpace,"RelatesTo");
-  if (relatesToList.getLength() == 0 || relatesToList.item(0).getFirstChild() == null) {
+  Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
+  if (relatesToNode == null) {
     throw new AssertionException(new AssertionError("WS-A RelatesTo property is not specified"));
   }
-  Element relatesToNode=(Element)relatesToList.item(0).getChildNodes();
   String relationshipType=relatesToNode.getAttribute("RelationshipType");
-  if (relationshipType == null || relationshipType.isEmpty()) {
+  if (StringUtils.isNullOrEmpty(relationshipType)) {
     throw new AssertionException(new AssertionError("WS-A RelationshipType is not specified"));
   }
-  NodeList relatesToAddresses=relatesToNode.getElementsByTagNameNS(wsaVersionNameSpace,"Address");
-  if (relatesToAddresses.getLength() == 0) {
+  Element relatesToAddressNode=XmlUtils.getFirstChildElementNS(relatesToNode,wsaVersionNameSpace,"Address");
+  if (relatesToAddressNode == null) {
     throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is not specified"));
   }
-  String relatesToAddressesValue=relatesToAddresses.item(0).getFirstChild().getNodeValue();
-  if (relatesToAddressesValue == null || relatesToAddressesValue.isEmpty()) {
-    throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is not specified"));
+  String relatesToAddressesValue=XmlUtils.getElementText(relatesToAddressNode);
+  if (StringUtils.isNullOrEmpty(relatesToAddressesValue)) {
+    throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is empty"));
   }
 }
