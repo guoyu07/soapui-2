@@ -1,4 +1,5 @@
 {
+  if (operation.getInterface().getSoapVersion() == SoapVersion.Soap11 && StringUtils.hasContent(operation.getAction()))   return operation.getAction();
   try {
     AttributeExtensible attributeExtensible=output ? operation.getBindingOperation().getOperation().getOutput() : operation.getBindingOperation().getOperation().getInput();
     if (attributeExtensible == null)     return null;
@@ -7,7 +8,6 @@
     if (attrs != null && attrs.length > 0) {
       return attrs[0];
     }
-    if (StringUtils.hasContent(operation.getAction()))     return operation.getAction();
     WsdlInterface iface=operation.getInterface();
     Definition definition=iface.getWsdlContext().getDefinition();
     String targetNamespace=definition.getTargetNamespace();
