@@ -24,5 +24,6 @@
   core.afterStartup(workspace);
   Thread.sleep(500);
   splash.setVisible(false);
+  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE))   showPushPage();
   return soapUI;
 }

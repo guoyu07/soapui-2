@@ -24,7 +24,10 @@
     }
     editorForm.appendSeparator();
     editorForm.appendCheckBox(ENABLE_GROOVY_LOG_DURING_LOADTEST,"(do not disable the groovy log when running LoadTests)",true);
-    if (SoapUI.isStandalone())     editorForm.appendCheckBox(SHOW_LOGS_AT_STARTUP,"(shows log tabs when starting soapUI)",false);
+    if (SoapUI.isStandalone()) {
+      editorForm.appendCheckBox(SHOW_LOGS_AT_STARTUP,"(shows log tabs when starting soapUI)",false);
+      editorForm.appendCheckBox(SHOW_STARTUP,"(opens startup webpage when starting soapUI)",false);
+    }
   }
   return editorForm;
 }
