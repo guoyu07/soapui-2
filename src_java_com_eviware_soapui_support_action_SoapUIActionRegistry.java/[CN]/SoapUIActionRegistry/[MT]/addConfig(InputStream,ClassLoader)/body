@@ -17,18 +17,15 @@
       SoapUIActionGroup actionGroup=null;
       if (actionGroups.containsKey(group.getId())) {
         actionGroup=actionGroups.get(group.getId());
+        if (group.isSetClass1()) {
+          actionGroup=createActionGroupClassFromConfig(group);
+          actionGroups.put(group.getId(),actionGroup);
+        }
         addMappings(actionGroup,group);
       }
  else {
         if (group.isSetClass1()) {
-          Class<SoapUIActionGroup> actionGroupClass=(Class<SoapUIActionGroup>)Class.forName(group.getClass1());
-          Constructor<SoapUIActionGroup> constructor=actionGroupClass.getConstructor(new Class[]{String.class,String.class});
-          if (constructor != null) {
-            actionGroup=constructor.newInstance(new Object[]{group.getId(),group.getName()});
-          }
- else {
-            actionGroup=actionGroupClass.newInstance();
-          }
+          actionGroup=createActionGroupClassFromConfig(group);
         }
  else {
           actionGroup=new DefaultSoapUIActionGroup(group.getId(),group.getName());
