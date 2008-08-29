@@ -1,6 +1,7 @@
 {
   Object retVal=evaluateDispatchScript(request);
   WsdlMockResponse mockResponse=retVal == null ? getMockResponseByName(getDefaultResponse()) : getMockResponseByName(retVal.toString());
+  if (mockResponse == null)   mockResponse=getMockResponseByName(getDefaultResponse());
   if (mockResponse != null) {
     result.setMockResponse(mockResponse);
     mockResponse.execute(request,result);
