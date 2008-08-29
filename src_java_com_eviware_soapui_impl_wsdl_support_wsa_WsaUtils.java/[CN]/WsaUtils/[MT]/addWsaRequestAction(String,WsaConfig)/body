@@ -1,0 +1,24 @@
+{
+  String wsaVersionNameSpace=WS_A_VERSION_200508;
+  if (wsaConfig.getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
+    wsaVersionNameSpace=WS_A_VERSION_200408;
+  }
+  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+  header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
+  XmlObject[] envelope=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
+  Element elm=(Element)envelope[0].getDomNode();
+  Boolean mustUnderstand=null;
+  if (wsaConfig.getMustUnderstand().equals(MustUnderstandTypeConfig.FALSE.toString())) {
+    mustUnderstand=false;
+  }
+ else   if (wsaConfig.getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString())) {
+    mustUnderstand=true;
+  }
+  WsaBuilder builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
+  if (!StringUtils.isNullOrEmpty(wsaConfig.getAction())) {
+    header.appendChild(builder.createWsaChildElement("wsa:Action",elm,wsaConfig.getAction()));
+  }
+  content=xmlObject.xmlText();
+  return content;
+}

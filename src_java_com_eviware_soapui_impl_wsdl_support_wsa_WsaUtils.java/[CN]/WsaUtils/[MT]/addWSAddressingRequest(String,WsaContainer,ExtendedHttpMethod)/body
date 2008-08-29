@@ -34,7 +34,9 @@
       header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,to));
     }
  else     if (operation.isOneWay() || operation.isRequestResponse()) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,httpMethod.getURI().toString()));
+      if (httpMethod != null) {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,httpMethod.getURI().toString()));
+      }
     }
     content=xmlObject.xmlText();
   }

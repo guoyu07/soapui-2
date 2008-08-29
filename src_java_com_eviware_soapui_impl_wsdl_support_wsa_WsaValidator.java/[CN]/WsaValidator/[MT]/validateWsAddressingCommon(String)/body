@@ -1,8 +1,7 @@
 {
-  String responseContent=messageExchange.getResponseContent();
   try {
     SoapVersion soapVersion=((WsdlMessageExchange)messageExchange).getOperation().getInterface().getSoapVersion();
-    XmlObject xmlObject=XmlObject.Factory.parse(responseContent);
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
     XmlObject[] envS=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
     Element envelope=(Element)envS[0].getDomNode();
     header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();

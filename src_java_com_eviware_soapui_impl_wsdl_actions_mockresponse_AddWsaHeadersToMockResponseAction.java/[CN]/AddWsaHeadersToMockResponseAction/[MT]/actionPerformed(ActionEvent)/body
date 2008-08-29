@@ -1,0 +1,13 @@
+{
+  try {
+    SoapVersion soapVersion=mockResponse.getOperation().getInterface().getSoapVersion();
+    String content=new WsaUtils(soapVersion,mockResponse.getOperation()).addWSAddressingMockResponse(mockResponse.getResponseContent(),mockResponse);
+    mockResponse.setResponseContent(content);
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

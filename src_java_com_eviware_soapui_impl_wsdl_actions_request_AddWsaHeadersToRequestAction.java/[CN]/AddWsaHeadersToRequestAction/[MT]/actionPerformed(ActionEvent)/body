@@ -1,0 +1,13 @@
+{
+  try {
+    SoapVersion soapVersion=request.getOperation().getInterface().getSoapVersion();
+    String content=new WsaUtils(soapVersion,request.getOperation()).addWSAddressingRequest(request.getRequestContent(),request);
+    request.setRequestContent(content);
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

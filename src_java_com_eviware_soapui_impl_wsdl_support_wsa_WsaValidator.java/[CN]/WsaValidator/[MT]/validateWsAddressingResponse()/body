@@ -1,5 +1,6 @@
 {
-  validateWsAddressingCommon();
+  String content=messageExchange.getResponseContent();
+  validateWsAddressingCommon(content);
   Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
   if (relatesToNode == null) {
     throw new AssertionException(new AssertionError("WS-A RelatesTo property is not specified"));

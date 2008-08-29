@@ -1,5 +1,6 @@
 {
-  validateWsAddressingCommon();
+  String content=messageExchange.getRequestContent();
+  validateWsAddressingCommon(content);
   Operation operation=messageExchange.getOperation();
   if (operation.isRequestResponse()) {
     Element msgNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"MessageID");
