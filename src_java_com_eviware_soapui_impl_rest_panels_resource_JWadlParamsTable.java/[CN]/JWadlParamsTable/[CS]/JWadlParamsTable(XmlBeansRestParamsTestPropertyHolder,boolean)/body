@@ -23,10 +23,10 @@
 );
   add(buildToolbar(),BorderLayout.NORTH);
   if (showInspector) {
-    inspectorPanel=new JInspectorPanel(new JScrollPane(paramsTable));
+    inspectorPanel=JInspectorPanelFactory.build(new JScrollPane(paramsTable));
     detailsInspector=new JComponentInspector<JComponent>(buildDetails(),"Parameter Details","Details for the selected Parameter",false);
     inspectorPanel.addInspector(detailsInspector);
-    add(inspectorPanel,BorderLayout.CENTER);
+    add(inspectorPanel.getComponent(),BorderLayout.CENTER);
   }
  else {
     add(new JScrollPane(paramsTable),BorderLayout.CENTER);

@@ -7,6 +7,6 @@
   inputTabs.setFont(inputTabs.getFont().deriveFont(8));
   inputTabsChangeListener=new InputTabsChangeListener();
   inputTabs.addChangeListener(inputTabsChangeListener);
-  inspectorPanel=new JInspectorPanel(inputTabs);
-  add(inspectorPanel,BorderLayout.CENTER);
+  inspectorPanel=JInspectorPanelFactory.build(inputTabs);
+  add(inspectorPanel.getComponent(),BorderLayout.CENTER);
 }

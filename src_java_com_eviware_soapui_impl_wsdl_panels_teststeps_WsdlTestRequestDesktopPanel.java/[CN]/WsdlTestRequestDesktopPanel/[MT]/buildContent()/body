@@ -1,6 +1,6 @@
 {
   JComponent component=super.buildContent();
-  inspectorPanel=new JInspectorPanel(component);
+  inspectorPanel=JInspectorPanelFactory.build(component);
   assertionsPanel=buildAssertionsPanel();
   assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
   inspectorPanel.addInspector(assertionInspector);
@@ -9,5 +9,5 @@
   inspectorPanel.setDefaultDividerLocation(0.6F);
   inspectorPanel.setCurrentInspector("Assertions");
   updateStatusIcon();
-  return inspectorPanel;
+  return inspectorPanel.getComponent();
 }

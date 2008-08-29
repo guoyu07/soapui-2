@@ -2,7 +2,7 @@
   if (msg instanceof LoggingEvent) {
     LoggingEvent event=(LoggingEvent)msg;
     String loggerName=event.getLoggerName();
-    for (    Inspector inspector : getInspectors()) {
+    for (    Inspector inspector : inspectorPanel.getInspectors()) {
       Component tabComponent=inspector.getComponent();
       if (tabComponent instanceof JLogList) {
         JLogList logArea=(JLogList)tabComponent;

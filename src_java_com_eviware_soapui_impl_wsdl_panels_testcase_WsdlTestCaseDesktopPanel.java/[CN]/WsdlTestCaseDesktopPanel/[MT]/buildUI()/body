@@ -3,9 +3,9 @@
   panel.add(buildToolbar(),BorderLayout.PAGE_START);
   panel.add(buildRunnerBar(),BorderLayout.CENTER);
   add(panel,BorderLayout.NORTH);
-  JInspectorPanel inspectorPanel=new JInspectorPanel(buildContent());
+  JInspectorPanel inspectorPanel=JInspectorPanelFactory.build(buildContent());
   inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildTestLog(),"TestCase Log","TestCase Execution Log",true));
   inspectorPanel.setDefaultDividerLocation(0.7F);
   inspectorPanel.setCurrentInspector("TestCase Log");
-  add(inspectorPanel,BorderLayout.CENTER);
+  add(inspectorPanel.getComponent(),BorderLayout.CENTER);
 }

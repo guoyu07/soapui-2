@@ -4,12 +4,12 @@
   navigator=new Navigator(workspace);
   navigator.addNavigatorListener(new InternalNavigatorListener());
   desktopPanelsList=new JDesktopPanelsList(desktop);
-  mainInspector=new JInspectorPanel(buildContentPanel(),SwingConstants.LEFT);
+  mainInspector=JInspectorPanelFactory.build(buildContentPanel(),SwingConstants.LEFT);
   mainInspector.addInspector(new JComponentInspector<JComponent>(buildMainPanel(),"Navigator","The soapUI Navigator",true));
   mainInspector.setCurrentInspector("Navigator");
   frame.setJMenuBar(buildMainMenu());
   frame.getContentPane().add(buildToolbar(),BorderLayout.NORTH);
-  frame.getContentPane().add(mainInspector,BorderLayout.CENTER);
+  frame.getContentPane().add(mainInspector.getComponent(),BorderLayout.CENTER);
   frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
   frame.setSize(1000,750);
   mainInspector.setDividerLocation(250);

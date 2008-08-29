@@ -1,5 +1,5 @@
 {
-  String content=response.getContentAsString();
+  String content=response == null ? null : response.getContentAsString();
   if (!StringUtils.hasContent(content))   return null;
   try {
     Tidy tidy=new Tidy();

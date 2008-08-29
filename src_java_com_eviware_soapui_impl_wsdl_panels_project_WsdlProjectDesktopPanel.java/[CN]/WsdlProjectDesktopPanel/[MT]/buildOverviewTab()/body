@@ -1,5 +1,5 @@
 {
-  JInspectorPanel inspectorPanel=new JInspectorPanel(buildProjectOverview());
+  JInspectorPanel inspectorPanel=JInspectorPanelFactory.build(buildProjectOverview());
   inspectorPanel.addInspector(new JFocusableComponentInspector<JPanel>(buildDescriptionPanel(),descriptionArea,"Description","Project description",true));
   inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildPropertiesPanel(),"Properties","Project level properties",true));
   inspectorPanel.addInspector(new GroovyEditorInspector(buildLoadScriptPanel(),"Load Script","Script to run after loading the project"));
@@ -8,5 +8,5 @@
   treeModelListener=new InternalTreeModelListener();
   SoapUI.getNavigator().getMainTree().getModel().addTreeModelListener(treeModelListener);
   updateStatistics();
-  return inspectorPanel;
+  return inspectorPanel.getComponent();
 }

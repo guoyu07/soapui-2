@@ -1,5 +1,5 @@
 {
-  JInspectorPanel inspectorPanel=new JInspectorPanel(buildTabs());
+  JInspectorPanel inspectorPanel=JInspectorPanelFactory.build(buildTabs());
   inspectorPanel.addInspector(new JComponentInspector(buildRunLog(),"TestSuite Log","Log of executed TestCases and TestSteps",true));
-  return inspectorPanel;
+  return inspectorPanel.getComponent();
 }

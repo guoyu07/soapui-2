@@ -1,7 +1,7 @@
 {
   JTabbedPane tabs=new JTabbedPane(JTabbedPane.TOP);
-  JInspectorPanel inspectorPanel=new JInspectorPanel(buildTestStepList(),SwingConstants.BOTTOM);
-  tabs.addTab("TestSteps",inspectorPanel);
+  JInspectorPanel inspectorPanel=JInspectorPanelFactory.build(buildTestStepList(),SwingConstants.BOTTOM);
+  tabs.addTab("TestSteps",inspectorPanel.getComponent());
   addTabs(tabs,inspectorPanel);
   tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
   return UISupport.createTabPanel(tabs,true);

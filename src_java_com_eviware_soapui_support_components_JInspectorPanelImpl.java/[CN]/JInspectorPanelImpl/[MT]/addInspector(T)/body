@@ -3,7 +3,7 @@
     inspectToolbar.addSpace(5);
   }
   inspectors.add(inspector);
-  inspector.addPropertyChangeListener(JInspectorPanel.this);
+  inspector.addPropertyChangeListener(JInspectorPanelImpl.this);
   inspectorPanel.add(inspector.getComponent(),inspector.getInspectorId());
   JToggleButton button=new JToggleButton(new SelectInspectorAction(inspector));
   inspectorButtons.put(inspector,button);

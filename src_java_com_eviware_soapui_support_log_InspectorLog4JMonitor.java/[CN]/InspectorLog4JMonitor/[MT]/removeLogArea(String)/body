@@ -3,7 +3,7 @@
     JLogList logList=((JLogList)((JComponentInspector<?>)inspector).getComponent());
     if (logList.getLogger(loggerName) != null) {
       logList.removeLogger(loggerName);
-      removeInspector(inspector);
+      inspectorPanel.removeInspector(inspector);
       return true;
     }
   }
