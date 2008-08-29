@@ -18,7 +18,7 @@
     }
   }
   if (!currentLoader.isAborted()) {
-    schemaTypes=SchemaUtils.loadSchemaTypes(loader.getBaseURI(),soapVersion,loader);
+    schemaTypes=SchemaUtils.loadSchemaTypes(loader.getBaseURI(),loader);
     if (iface != null)     schemaCache.put(url,schemaTypes);
   }
  else   throw new Exception("Loading of WSDL from [" + url + "] was aborted");

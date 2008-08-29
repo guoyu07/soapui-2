@@ -1,5 +1,5 @@
 {
-  SchemaTypeLoader schemaTypes=SchemaUtils.loadSchemaTypes(url,SoapVersion.Soap11,new UrlWsdlLoader(url));
+  SchemaTypeLoader schemaTypes=SchemaUtils.loadSchemaTypes(url,new UrlWsdlLoader(url));
   Map<String,XmlObject> definitionUrls=SchemaUtils.getDefinitionParts(new UrlWsdlLoader(url));
   assertNotNull(schemaTypes);
   assertNotNull(definitionUrls);

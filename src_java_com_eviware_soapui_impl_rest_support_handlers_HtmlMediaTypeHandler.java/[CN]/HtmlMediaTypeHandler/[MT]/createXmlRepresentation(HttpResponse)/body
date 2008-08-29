@@ -1,0 +1,17 @@
+{
+  String content=response.getContentAsString();
+  if (!StringUtils.hasContent(content))   return null;
+  try {
+    Tidy tidy=new Tidy();
+    tidy.setXHTML(true);
+    tidy.setQuiet(true);
+    Document document=tidy.parseDOM(new ByteArrayInputStream(content.getBytes()),null);
+    StringWriter writer=new StringWriter();
+    XmlUtils.serializePretty(document,writer);
+    return writer.toString();
+  }
+ catch (  Throwable e) {
+    e.printStackTrace();
+  }
+  return null;
+}

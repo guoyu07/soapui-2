@@ -1,0 +1,5 @@
+{
+  if (request.getResponse() == null)   return "<missing raw request>";
+  String firstLine=request.getResponse().getMethod() + " " + request.getResponse().getURL().getFile()+ " "+ request.getResponse().getHttpVersion()+ "\r\n";
+  return firstLine + buildRawContent(request.getResponse().getRequestHeaders(),request.getResponse().getRawRequestData());
+}

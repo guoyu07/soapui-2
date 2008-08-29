@@ -35,29 +35,8 @@
     for (currentStepIndex=0; status == Status.RUNNING && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
       TestStep currentStep=runContext.getCurrentStep();
       if (!currentStep.isDisabled()) {
-        for (int i=0; i < listeners.length; i++) {
-          listeners[i].beforeStep(this,runContext);
-          if (status == Status.CANCELED || status == Status.FAILED)           return;
-        }
-        TestStepResult stepResult=currentStep.run(this,runContext);
-        testStepResults.add(stepResult);
-        resultCount++;
-        enforceMaxSize();
-        for (int i=0; i < listeners.length; i++) {
-          listeners[i].afterStep(this,runContext,stepResult);
-        }
-        if (stepResult.getStatus() == TestStepStatus.OK && testCase.getDiscardOkResults() && !stepResult.isDiscarded()) {
-          stepResult.discard();
-        }
-        if (stepResult.getStatus() == TestStepStatus.FAILED) {
-          if (testCase.getFailOnError()) {
-            error=stepResult.getError();
-            fail("Cancelling due to failed test step");
-          }
- else {
-            runContext.setProperty(TestRunner.Status.class.getName(),TestRunner.Status.FAILED);
-          }
-        }
+        TestStepResult stepResult=runTestStep(currentStep,true,true);
+        if (stepResult == null)         return;
         if (status == Status.CANCELED || status == Status.FAILED)         return;
         if (gotoStepIndex != -1) {
           currentStepIndex=gotoStepIndex - 1;

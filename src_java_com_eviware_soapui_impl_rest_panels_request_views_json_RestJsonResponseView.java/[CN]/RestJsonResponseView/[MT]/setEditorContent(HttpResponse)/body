@@ -1,17 +1,22 @@
 {
-  if (httpResponse.getContentType().contains("javascript")) {
-    String content=httpResponse.getContentAsString();
-    try {
-      JSONObject json=JSONObject.fromObject(httpResponse.getContentAsString());
-      if (json.isEmpty())       content="<Empty JSON content>";
- else       content=json.toString(3);
-    }
- catch (    Throwable e) {
-      e.printStackTrace();
-    }
-    contentEditor.setText(content);
+  if (httpResponse == null) {
+    contentEditor.setText("");
   }
  else {
-    contentEditor.setText("<Not JSON content>");
+    String content="<Not JSON content>";
+    if (httpResponse.getContentType() != null && httpResponse.getContentType().contains("javascript")) {
+      try {
+        JSONObject json=JSONObject.fromObject(httpResponse.getContentAsString());
+        if (json.isEmpty())         content="<Empty JSON content>";
+ else         content=json.toString(3);
+      }
+ catch (      Throwable e) {
+        e.printStackTrace();
+      }
+      contentEditor.setText(content);
+    }
+ else {
+      contentEditor.setText("<Not JSON content>");
+    }
   }
 }

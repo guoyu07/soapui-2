@@ -2,8 +2,8 @@
   if (modelItem instanceof MessageExchangeModelItem && ((MessageExchangeModelItem)modelItem).hasRawData()) {
     return new WsdlMessageExchangeRequestRawXmlEditor((MessageExchangeModelItem)modelItem,(XmlEditor)editor);
   }
- else   if (modelItem instanceof WsdlRequest) {
-    return new WsdlRequestRawXmlEditor((WsdlRequest)modelItem,(XmlEditor)editor);
+ else   if (modelItem instanceof AbstractHttpRequest) {
+    return new HttpRequestRawXmlEditor((AbstractHttpRequest)modelItem,(XmlEditor)editor);
   }
  else   if (modelItem instanceof WsdlMockResponse) {
     return new WsdlMockRequestRawXmlEditor((WsdlMockResponse)modelItem,(XmlEditor)editor);

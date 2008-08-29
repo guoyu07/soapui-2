@@ -1,3 +1,6 @@
 {
-  return null;
+  for (  MediaTypeHandler handler : mediaTypeHandlers) {
+    if (handler.canHandle(contentType))     return handler;
+  }
+  return defaultMediaTypeHandler;
 }

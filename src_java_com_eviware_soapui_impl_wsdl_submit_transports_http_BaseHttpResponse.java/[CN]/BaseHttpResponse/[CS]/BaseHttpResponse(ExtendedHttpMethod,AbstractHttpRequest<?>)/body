@@ -1,6 +1,8 @@
 {
   this.httpRequest=new WeakReference<AbstractHttpRequest<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
+  method=httpMethod.getMethod();
+  version=httpMethod.getParams().getVersion().toString();
   Settings settings=httpRequest.getSettings();
   if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
     try {
