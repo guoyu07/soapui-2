@@ -12,41 +12,38 @@
     if (!StringUtils.isNullOrEmpty(replyTo)) {
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",elm,replyTo));
     }
-    boolean isRequestNull=false;
-    if (request != null) {
-      XmlObject requestXmlObject=request.getRequestXmlObject();
-      Element requestHeader=(Element)SoapUtils.getHeaderElement(requestXmlObject,request.getSoapVersion(),true).getDomNode();
-      Element msgNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"MessageID");
-      String requestMessageId=null;
-      if (msgNode != null) {
-        requestMessageId=XmlUtils.getElementText(msgNode);
+    XmlObject requestXmlObject=request.getRequestXmlObject();
+    Element requestHeader=(Element)SoapUtils.getHeaderElement(requestXmlObject,request.getSoapVersion(),true).getDomNode();
+    Element msgNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"MessageID");
+    String requestMessageId=null;
+    if (msgNode != null) {
+      requestMessageId=XmlUtils.getElementText(msgNode);
+    }
+    Element replyToNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"ReplyTo");
+    String requestReplyToValue=null;
+    if (replyToNode != null) {
+      Element replyToAddresseNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
+      if (replyToAddresseNode != null) {
+        requestReplyToValue=XmlUtils.getElementText(replyToAddresseNode);
       }
-      Element replyToNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"ReplyTo");
-      String requestReplyToValue=null;
-      if (replyToNode != null) {
-        Element replyToAddresseNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
-        if (replyToAddresseNode != null) {
-          requestReplyToValue=XmlUtils.getElementText(replyToAddresseNode);
-        }
-      }
-      String to=wsaContainer.getWsaConfig().getTo();
-      if (!StringUtils.isNullOrEmpty(to)) {
-        header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,to));
-      }
+    }
+    String to=wsaContainer.getWsaConfig().getTo();
+    if (!StringUtils.isNullOrEmpty(to)) {
+      header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,to));
+    }
  else {
-        if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
-          header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,requestReplyToValue));
-        }
+      if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:To",elm,requestReplyToValue));
       }
-      String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
-      if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(requestMessageId)) {
-        header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",elm,relationshipType,requestMessageId));
-      }
- else       if (wsaContainer instanceof WsdlMockResponse) {
-        if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
-          if (!StringUtils.isNullOrEmpty(requestMessageId)) {
-            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",elm,relatesToReply,requestMessageId));
-          }
+    }
+    String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
+    if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(requestMessageId)) {
+      header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",elm,relationshipType,requestMessageId));
+    }
+ else     if (wsaContainer instanceof WsdlMockResponse) {
+      if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
+        if (!StringUtils.isNullOrEmpty(requestMessageId)) {
+          header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",elm,relatesToReply,requestMessageId));
         }
       }
     }

@@ -1,7 +1,14 @@
 {
   try {
     SoapVersion soapVersion=mockResponse.getOperation().getInterface().getSoapVersion();
-    String content=new WsaUtils(soapVersion,mockResponse.getOperation()).addWSAddressingMockResponse(mockResponse.getResponseContent(),mockResponse);
+    WsaUtils wsaUtils=new WsaUtils(soapVersion,mockResponse.getOperation());
+    String content=mockResponse.getResponseContent();
+    if (!wsaUtils.hasWsAddressing(content)) {
+      content=wsaUtils.addWSAddressingMockResponse(content,mockResponse);
+    }
+ else     if (SoapUI.getSettings().getBoolean(WsaSettings.OVERRIDE_EXISTING_HEADERS)) {
+      content=wsaUtils.overrideExistingMockresponseHeaders(content,mockResponse);
+    }
     mockResponse.setResponseContent(content);
   }
  catch (  Exception e1) {

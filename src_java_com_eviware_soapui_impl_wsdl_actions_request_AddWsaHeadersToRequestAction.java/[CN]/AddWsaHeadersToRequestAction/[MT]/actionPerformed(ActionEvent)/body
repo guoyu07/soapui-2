@@ -1,7 +1,14 @@
 {
   try {
     SoapVersion soapVersion=request.getOperation().getInterface().getSoapVersion();
-    String content=new WsaUtils(soapVersion,request.getOperation()).addWSAddressingRequest(request.getRequestContent(),request);
+    WsaUtils wsaUtils=new WsaUtils(soapVersion,request.getOperation());
+    String content=request.getRequestContent();
+    if (!wsaUtils.hasWsAddressing(content)) {
+      content=wsaUtils.addWSAddressingRequest(content,request);
+    }
+ else     if (SoapUI.getSettings().getBoolean(WsaSettings.OVERRIDE_EXISTING_HEADERS)) {
+      content=wsaUtils.overrideExistingRequestHeaders(content,request);
+    }
     request.setRequestContent(content);
   }
  catch (  Exception e1) {
