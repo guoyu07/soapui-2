@@ -1,7 +1,6 @@
 {
   boolean hasWsa=false;
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(content);
     Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
     if (header.hasAttribute("xmlns:wsa")) {
       hasWsa=true;

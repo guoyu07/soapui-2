@@ -5,11 +5,10 @@
   }
   replyToAnonimus=wsaVersionNameSpace + "/anonymous";
   relatesToReply=wsaVersionNameSpace + "/reply";
-  xmlObject=XmlObject.Factory.parse(content);
   Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
   header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
   XmlObject[] envelope=xmlObject.selectChildren(soapVersion.getEnvelopeQName());
-  elm=(Element)envelope[0].getDomNode();
+  envelopeElement=(Element)envelope[0].getDomNode();
   Boolean mustUnderstand=null;
   if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.FALSE.toString())) {
     mustUnderstand=false;
@@ -20,11 +19,11 @@
   builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
   String from=wsaContainer.getWsaConfig().getFrom();
   if (!StringUtils.isNullOrEmpty(from)) {
-    header.appendChild(builder.createWsaAddressChildElement("wsa:From",elm,from));
+    header.appendChild(builder.createWsaAddressChildElement("wsa:From",envelopeElement,from));
   }
   String faultTo=wsaContainer.getWsaConfig().getFaultTo();
   if (!StringUtils.isNullOrEmpty(faultTo)) {
-    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",elm,faultTo));
+    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,faultTo));
   }
   return header;
 }
