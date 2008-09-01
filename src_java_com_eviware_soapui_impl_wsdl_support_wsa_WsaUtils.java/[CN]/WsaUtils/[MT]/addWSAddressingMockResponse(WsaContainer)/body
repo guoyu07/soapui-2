@@ -1,38 +1,3 @@
 {
-  try {
-    Element header=addWsAddressingCommon(wsaContainer);
-    String action=wsaContainer.getWsaConfig().getAction();
-    if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION) && StringUtils.isNullOrEmpty(action)) {
-      action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),true);
-    }
-    if (!StringUtils.isNullOrEmpty(action)) {
-      header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
-    }
-    String replyTo=wsaContainer.getWsaConfig().getReplyTo();
-    if (!StringUtils.isNullOrEmpty(replyTo)) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
-    }
-    String to=wsaContainer.getWsaConfig().getTo();
-    if (!StringUtils.isNullOrEmpty(to)) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
-    }
-    String msgId=wsaContainer.getWsaConfig().getMessageID();
-    if (!StringUtils.isNullOrEmpty(msgId)) {
-      header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,msgId));
-    }
-    String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
-    if (!StringUtils.isNullOrEmpty(relationshipType)) {
-      header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,""));
-    }
- else     if (wsaContainer instanceof WsdlMockResponse) {
-      if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
-        header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relatesToReply,""));
-      }
-    }
-    content=xmlObject.xmlText();
-  }
- catch (  XmlException e) {
-    SoapUI.logError(e);
-  }
-  return content;
+  return addWSAddressingMockResponse(wsaContainer,null);
 }

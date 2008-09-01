@@ -1,0 +1,23 @@
+{
+  boolean appliedWsAddressing=false;
+  try {
+    xmlHeaderObject=(XmlObject)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true);
+    String currentWsaVersionNameSpace=((Element)xmlHeaderObject.getDomNode()).getAttribute("xmlns:wsa");
+    NodeList headerElements=((Element)xmlHeaderObject.getDomNode()).getChildNodes();
+    headerWsaElementList=new ArrayList<Node>();
+    for (int i=0; i < headerElements.getLength(); i++) {
+      Node childNode=headerElements.item(i);
+      String namespaceURI=childNode.getNamespaceURI();
+      if (!StringUtils.isNullOrEmpty(namespaceURI) && namespaceURI.equals(currentWsaVersionNameSpace)) {
+        headerWsaElementList.add(childNode);
+      }
+    }
+    if (headerWsaElementList.size() > 0) {
+      appliedWsAddressing=true;
+    }
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
+  return appliedWsAddressing;
+}

@@ -1,21 +1,9 @@
 {
-  try {
-    Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
-    String currentWsaVersionNameSpace=header.getAttribute("xmlns:wsa");
-    if (!StringUtils.isNullOrEmpty(currentWsaVersionNameSpace)) {
-      NodeList headerElements=header.getChildNodes();
-      while (header.hasChildNodes()) {
-        Node childNode=headerElements.item(0);
-        if (childNode.getNamespaceURI().equals(currentWsaVersionNameSpace)) {
-          header.removeChild(childNode);
-        }
-      }
-      header.removeAttribute("xmlns:wsa");
-    }
-    content=xmlObject.xmlText();
+  Iterator<Node> iter=headerWsaElementList.iterator();
+  while (iter.hasNext()) {
+    ((Element)xmlHeaderObject.getDomNode()).removeChild((Node)iter.next());
   }
- catch (  XmlException e) {
-    SoapUI.logError(e);
-  }
+  ((Element)xmlHeaderObject.getDomNode()).removeAttribute("xmlns:wsa");
+  content=xmlContentObject.xmlText();
   return content;
 }
