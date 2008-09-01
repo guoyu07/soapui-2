@@ -2,7 +2,7 @@
   initGroovyLog();
   assertions.clear();
   String projectFile=getProjectFile();
-  project=new WsdlProject(projectFile,getProjectPassword());
+  project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
   initProject();
   ensureOutputFolder(project);
