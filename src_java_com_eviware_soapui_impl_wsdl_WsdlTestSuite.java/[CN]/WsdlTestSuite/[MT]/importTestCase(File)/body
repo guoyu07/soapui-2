@@ -1,0 +1,26 @@
+{
+  TestCaseConfig testCaseNewConfig=null;
+  if (!file.exists()) {
+    UISupport.showErrorMessage("Error loading test case ");
+    return;
+  }
+  try {
+    testCaseNewConfig=TestCaseDocumentConfig.Factory.parse(file).getTestCase();
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+  if (testCaseNewConfig != null) {
+    TestCaseConfig newConfig=(TestCaseConfig)getConfig().addNewTestCase().set(testCaseNewConfig).changeType(TestCaseConfig.type);
+    WsdlTestCase newTestCase=new WsdlTestCase(this,newConfig,false);
+    newTestCase.afterLoad();
+    testCases.add(newTestCase);
+    fireTestCaseAdded(newTestCase);
+  }
+ else {
+    UISupport.showErrorMessage("Not valild test case xml");
+  }
+}
