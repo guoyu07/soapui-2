@@ -7,6 +7,7 @@
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
+      wsaContainer.getWsaConfig().setAction(action);
     }
     String replyTo=wsaContainer.getWsaConfig().getReplyTo();
     if (!StringUtils.isNullOrEmpty(replyTo)) {
@@ -15,6 +16,7 @@
  else     if (operation.isRequestResponse()) {
       if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_REPLYTO)) {
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyToAnonimus));
+        wsaContainer.getWsaConfig().setReplyTo(replyToAnonimus);
       }
     }
     String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
@@ -26,8 +28,10 @@
     if (!StringUtils.isNullOrEmpty(msgId)) {
       header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,msgId));
     }
- else     if (operation.isRequestResponse()) {
-      header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,UUID.randomUUID().toString()));
+ else     if (operation.isRequestResponse() && SoapUI.getSettings().getBoolean(WsaSettings.GENERATE_MESSAGE_ID)) {
+      String generatedMessageId=UUID.randomUUID().toString();
+      header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,generatedMessageId));
+      wsaContainer.getWsaConfig().setMessageID(generatedMessageId);
     }
     String to=wsaContainer.getWsaConfig().getTo();
     if (!StringUtils.isNullOrEmpty(to)) {
@@ -35,7 +39,9 @@
     }
  else     if (operation.isOneWay() || operation.isRequestResponse()) {
       if (httpMethod != null) {
-        header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,httpMethod.getURI().toString()));
+        String defaultTo=httpMethod.getURI().toString();
+        header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,defaultTo));
+        wsaContainer.getWsaConfig().setTo(defaultTo);
       }
     }
     content=xmlContentObject.xmlText();
