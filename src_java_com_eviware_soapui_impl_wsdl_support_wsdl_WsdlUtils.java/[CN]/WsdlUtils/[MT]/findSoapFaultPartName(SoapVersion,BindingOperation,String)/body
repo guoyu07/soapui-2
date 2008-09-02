@@ -1,0 +1,25 @@
+{
+  if (WsdlUtils.isOutputSoapEncoded(bindingOperation))   throw new Exception("SOAP-Encoded messages not supported");
+  XmlObject xml=XmlObject.Factory.parse(message);
+  XmlObject[] msgPaths=xml.selectPath("declare namespace env='" + soapVersion.getEnvelopeNamespace() + "';"+ "$this/env:Envelope/env:Body/env:Fault");
+  if (msgPaths.length == 0)   return null;
+  XmlObject msgXml=msgPaths[0];
+  Map faults=bindingOperation.getBindingFaults();
+  for (Iterator<BindingFault> i=faults.values().iterator(); i.hasNext(); ) {
+    BindingFault bindingFault=i.next();
+    String faultName=bindingFault.getName();
+    Part[] faultParts=WsdlUtils.getFaultParts(bindingOperation,faultName);
+    Part part=faultParts[0];
+    QName elementName=part.getElementName();
+    if (elementName != null) {
+      XmlObject[] faultPaths=msgXml.selectPath("declare namespace env='" + soapVersion.getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ elementName.getNamespaceURI()+ "';"+ "//env:Fault/detail/ns:"+ elementName.getLocalPart());
+      if (faultPaths.length == 1)       return faultName;
+    }
+ else     if (part.getTypeName() != null) {
+      QName typeName=part.getTypeName();
+      XmlObject[] faultPaths=msgXml.selectPath("declare namespace env='" + soapVersion.getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ typeName.getNamespaceURI()+ "';"+ "//env:Fault/detail/ns:"+ part.getName());
+      if (faultPaths.length == 1)       return faultName;
+    }
+  }
+  return null;
+}

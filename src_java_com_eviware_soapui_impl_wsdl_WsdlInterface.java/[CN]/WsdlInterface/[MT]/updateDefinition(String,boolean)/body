@@ -1,7 +1,6 @@
 {
-  if (getConfig().isSetDefinitionCache())   getConfig().unsetDefinitionCache();
   WsdlContext.uncache(url);
-  WsdlContext newContext=getNewContext(url,getSettings().getBoolean(WsdlSettings.CACHE_WSDLS));
+  WsdlContext newContext=new WsdlContext(url,(WsdlInterface)null);
   if (!newContext.load()) {
     return false;
   }
@@ -9,8 +8,7 @@
   if (tuple == null)   return false;
   setBindingName(tuple.binding.getQName());
   if (getSettings().getBoolean(WsdlSettings.NAME_WITH_BINDING))   setName(tuple.binding.getQName().getLocalPart());
-  wsdlContext=newContext;
-  if (soapMessageBuilder != null)   soapMessageBuilder.setWsdlContext(wsdlContext);
+  setWsdlContext(newContext);
   transferOperations(tuple.binding,createRequests);
   setDefinition(url,false);
   transferEndpoints(tuple.port);

@@ -7,16 +7,16 @@
   try {
     testCaseNewConfig=TestCaseDocumentConfig.Factory.parse(file).getTestCase();
   }
- catch (  XmlException e) {
-    e.printStackTrace();
-  }
-catch (  IOException e) {
-    e.printStackTrace();
+ catch (  Exception e) {
+    SoapUI.logError(e);
   }
   if (testCaseNewConfig != null) {
     TestCaseConfig newConfig=(TestCaseConfig)getConfig().addNewTestCase().set(testCaseNewConfig).changeType(TestCaseConfig.type);
     WsdlTestCase newTestCase=new WsdlTestCase(this,newConfig,false);
     newTestCase.afterLoad();
+    ResolveDialog resolver=new ResolveDialog("Validate TestCase","Checks TestCase for inconsistencies",null);
+    resolver.setShowOkMessage(false);
+    resolver.resolve(newTestCase);
     testCases.add(newTestCase);
     fireTestCaseAdded(newTestCase);
   }

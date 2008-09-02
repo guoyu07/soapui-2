@@ -1,0 +1,18 @@
+{
+  currentLoader=createDefinitionLoader(cache);
+  currentLoader.setProgressInfo("Loading Definition");
+  definition=loadDefinition(currentLoader);
+  definition.setDefinitionCache(cache);
+  log.debug("Loaded Definition: " + (definition != null ? "ok" : "null"));
+  if (!currentLoader.isAborted() && iface != null) {
+    definitionCache.put(url,definition);
+    if (urlReferences.containsKey(url)) {
+      urlReferences.put(url,urlReferences.get(url) + 1);
+    }
+ else {
+      urlReferences.put(url,1);
+    }
+  }
+  if (currentLoader.isAborted())   throw new Exception("Loading of Definition from [" + url + "] was aborted");
+  loaded=true;
+}

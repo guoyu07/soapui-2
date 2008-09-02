@@ -46,7 +46,6 @@
       if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
       setPropertiesConfig(getConfig().addNewProperties());
       wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
-      setResourceRoot("${projectDir}");
     }
     if (getConfig() != null) {
       endpointStrategy.init(this);

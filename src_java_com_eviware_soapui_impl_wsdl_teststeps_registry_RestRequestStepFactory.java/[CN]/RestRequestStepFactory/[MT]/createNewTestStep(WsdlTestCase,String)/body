@@ -2,6 +2,8 @@
   Project project=testCase.getTestSuite().getProject();
   List<String> options=new ArrayList<String>();
   List<RestResource> operations=new ArrayList<RestResource>();
+  options.add("-> none");
+  operations.add(null);
   for (int c=0; c < project.getInterfaceCount(); c++) {
     Interface iface=project.getInterfaceAt(c);
     if (iface instanceof RestService) {

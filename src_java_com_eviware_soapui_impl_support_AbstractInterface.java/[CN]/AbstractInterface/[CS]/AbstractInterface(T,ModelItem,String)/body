@@ -4,4 +4,5 @@
   for (  InterfaceListener listener : SoapUI.getListenerRegistry().getListeners(InterfaceListener.class)) {
     addInterfaceListener(listener);
   }
+  if (!config.isSetDefinitionCache())   config.addNewDefinitionCache();
 }

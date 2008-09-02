@@ -9,6 +9,7 @@
  else   if (submit != null && submit.getStatus() == Submit.Status.RUNNING) {
     submit.cancel();
   }
+  request.removePropertyChangeListener(this);
   request.removeSubmitListener(this);
   requestEditor.saveDocument(false);
   if (responseEditor != null)   responseEditor.getParent().remove(responseEditor);

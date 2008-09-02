@@ -1,6 +1,5 @@
 {
   super(new BorderLayout());
   this.modelItem=modelItem;
-  propertyChangeListener=new InternalPropertyChangeListener();
-  ((ModelItem)modelItem).addPropertyChangeListener(propertyChangeListener);
+  ((ModelItem)modelItem).addPropertyChangeListener(this);
 }

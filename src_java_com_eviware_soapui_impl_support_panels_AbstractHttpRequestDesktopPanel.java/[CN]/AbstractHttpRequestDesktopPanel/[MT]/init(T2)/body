@@ -1,6 +1,7 @@
 {
   this.endpointsModel=new EndpointsComboBoxModel(request);
   request.addSubmitListener(this);
+  request.addPropertyChangeListener(this);
   add(buildContent(),BorderLayout.CENTER);
   add(buildToolbar(),BorderLayout.NORTH);
   add(buildStatusLabel(),BorderLayout.SOUTH);

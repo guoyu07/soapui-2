@@ -1,0 +1,22 @@
+{
+  AssertionStatus status=getModelItem().getTestRequest().getAssertionStatus();
+switch (status) {
+case FAILED:
+{
+      assertionInspector.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+      inspectorPanel.activate(assertionInspector);
+      break;
+    }
+case UNKNOWN:
+{
+    assertionInspector.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+    break;
+  }
+case VALID:
+{
+  assertionInspector.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+  inspectorPanel.deactivate();
+  break;
+}
+}
+}

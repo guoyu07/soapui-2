@@ -11,7 +11,7 @@
   params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
   if (param instanceof URL) {
     URL url=(URL)param;
-    String path=WadlUtils.extractParams(url,params);
+    String path=RestUtils.extractParams(url,params);
     dialog.setValue(Form.RESOURCEPATH,path);
     String[] items=path.split("/");
     if (items.length > 0) {

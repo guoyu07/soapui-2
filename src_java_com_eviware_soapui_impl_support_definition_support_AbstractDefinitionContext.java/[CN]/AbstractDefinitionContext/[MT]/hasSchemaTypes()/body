@@ -1,0 +1,10 @@
+{
+  try {
+    loadIfNecessary();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return false;
+  }
+  return definitionCache.containsKey(url) && definitionCache.get(url).hasSchemaTypes();
+}

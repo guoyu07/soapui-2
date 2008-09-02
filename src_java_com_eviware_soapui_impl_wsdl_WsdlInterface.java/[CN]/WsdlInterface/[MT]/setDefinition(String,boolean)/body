@@ -1,9 +1,7 @@
 {
   String old=definitionProperty.set(wsdlUrl,false);
-  if (updateCache && getConfig().isSetDefinitionCache())   getConfig().unsetDefinitionCache();
   if (wsdlContext != null) {
-    wsdlContext.setDefinition(definitionProperty.expandUrl());
-    wsdlContext.setSoapVersion(getSoapVersion());
+    wsdlContext.setDefinition(definitionProperty.expandUrl(),updateCache);
   }
   notifyPropertyChanged(DEFINITION_PROPERTY,old,wsdlUrl);
   notifyPropertyChanged(UPDATING_PROPERTY,true,false);

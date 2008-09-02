@@ -3,7 +3,7 @@
     return;
   }
   try {
-    WadlUtils.extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params);
+    RestUtils.extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params);
   }
  catch (  MalformedURLException e1) {
     UISupport.showErrorMessage("Error extracting parameters; " + e1);

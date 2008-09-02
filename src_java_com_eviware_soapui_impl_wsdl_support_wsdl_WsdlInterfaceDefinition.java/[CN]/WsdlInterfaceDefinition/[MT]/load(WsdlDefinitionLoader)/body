@@ -1,0 +1,15 @@
+{
+  if (factory == null) {
+    factory=WSDLFactory.newInstance();
+    wsdlReader=factory.newWSDLReader();
+    wsdlReader.setFeature("javax.wsdl.verbose",true);
+    wsdlReader.setFeature("javax.wsdl.importDocuments",true);
+  }
+  definition=wsdlReader.readWSDL(loader);
+  log.debug("Loaded WSDL: " + (definition != null ? "ok" : "null"));
+  if (!loader.isAborted()) {
+    super.loadSchemaTypes(loader);
+  }
+ else   throw new Exception("Loading of WSDL from [" + loader.getBaseURI() + "] was aborted");
+  return this;
+}

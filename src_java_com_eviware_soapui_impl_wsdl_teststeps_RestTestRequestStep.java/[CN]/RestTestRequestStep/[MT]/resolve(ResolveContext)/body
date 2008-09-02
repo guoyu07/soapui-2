@@ -1,0 +1,6 @@
+{
+  super.resolve(context);
+  if (restResource == null) {
+    context.addPathToResolve(this,"Missing REST Resource in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getResourcePath(),null);
+  }
+}

@@ -1,48 +1,11 @@
 {
-  super(testCase,config,true,forLoadTest);
-  if (getConfig().getConfig() != null) {
-    requestStepConfig=(RestRequestStepConfig)getConfig().getConfig().changeType(RestRequestStepConfig.type);
-    wsdlOperation=findRestResource();
-    if (wsdlOperation == null) {
-      requestStepConfig.setRestRequest(null);
-      setDisabled(true);
-    }
- else {
-      if (!forLoadTest) {
-        wsdlOperation.getInterface().getProject().addProjectListener(projectListener);
-        wsdlOperation.getInterface().addInterfaceListener(interfaceListener);
-        wsdlOperation.getInterface().addPropertyChangeListener(this);
-        wsdlOperation.addPropertyChangeListener(this);
-      }
-      testRequest=new RestTestRequest(wsdlOperation,requestStepConfig.getRestRequest(),this,forLoadTest);
-      testRequest.addPropertyChangeListener(this);
-      if (config.isSetName())       testRequest.setName(config.getName());
- else       config.setName(testRequest.getName());
-    }
+  super(testCase,config,forLoadTest);
+  restResource=findRestResource();
+  if (restResource == null)   setDisabled(true);
+  if (!forLoadTest && restResource != null) {
+    restResource.getInterface().getProject().addProjectListener(projectListener);
+    restResource.getInterface().addInterfaceListener(interfaceListener);
+    restResource.getInterface().addPropertyChangeListener(this);
+    restResource.addPropertyChangeListener(this);
   }
- else {
-    requestStepConfig=(RestRequestStepConfig)getConfig().addNewConfig().changeType(RestRequestStepConfig.type);
-  }
-  addProperty(new TestStepBeanProperty("Endpoint",false,testRequest,"endpoint",this));
-  addProperty(new TestStepBeanProperty("Username",false,testRequest,"username",this));
-  addProperty(new TestStepBeanProperty("Password",false,testRequest,"password",this));
-  addProperty(new TestStepBeanProperty("Domain",false,testRequest,"domain",this));
-  addProperty(new TestStepBeanProperty("Request",false,testRequest,"requestContent",this){
-    @Override public String getDefaultValue(){
-      return wsdlOperation.createRequest(true);
-    }
-  }
-);
-  addProperty(new TestStepBeanProperty("Response",true,testRequest,"responseContentAsXml",this){
-    @Override public String getDefaultValue(){
-      return wsdlOperation.createResponse(true);
-    }
-  }
-);
-  addProperty(new TestStepBeanProperty("RawResponse",true,testRequest,"responseContentAsString",this){
-    @Override public String getDefaultValue(){
-      return wsdlOperation.createResponse(true);
-    }
-  }
-);
 }

@@ -1,0 +1,16 @@
+{
+  XmlObject[] wsdlImports=xmlObject.selectPath(path);
+  for (int i=0; i < wsdlImports.length; i++) {
+    String location=((SimpleValue)wsdlImports[i]).getStringValue();
+    if (location != null) {
+      if (StringUtils.hasContent(location)) {
+        if (!location.startsWith("file:") && location.indexOf("://") == -1)         location=Tools.joinRelativeUrl(wsdlUrl,location);
+        getDefinitionParts(location,existing,loader);
+      }
+ else {
+        Node domNode=((Attr)wsdlImports[i].getDomNode()).getOwnerElement();
+        domNode.getParentNode().removeChild(domNode);
+      }
+    }
+  }
+}

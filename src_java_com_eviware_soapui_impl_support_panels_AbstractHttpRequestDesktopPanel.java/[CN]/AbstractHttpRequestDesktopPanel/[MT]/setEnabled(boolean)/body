@@ -1,5 +1,5 @@
 {
-  endpointComponent.setEnabled(enabled);
+  if (endpointComponent != null)   endpointComponent.setEnabled(enabled);
   requestEditor.setEditable(enabled);
   if (responseEditor != null)   responseEditor.setEditable(enabled);
   submitButton.setEnabled(enabled && request.getEndpoint() != null && request.getEndpoint().trim().length() > 0);

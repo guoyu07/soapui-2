@@ -1,14 +1,9 @@
 {
   super.release();
-  if (wsdlOperation == null)   wsdlOperation=findRestResource();
-  if (wsdlOperation != null) {
-    wsdlOperation.removePropertyChangeListener(this);
-    wsdlOperation.getInterface().getProject().removeProjectListener(projectListener);
-    wsdlOperation.getInterface().removeInterfaceListener(interfaceListener);
-    wsdlOperation.getInterface().removePropertyChangeListener(this);
-  }
-  if (testRequest != null) {
-    testRequest.removePropertyChangeListener(this);
-    testRequest.release();
+  if (restResource != null) {
+    restResource.removePropertyChangeListener(this);
+    restResource.getInterface().getProject().removeProjectListener(projectListener);
+    restResource.getInterface().removeInterfaceListener(interfaceListener);
+    restResource.getInterface().removePropertyChangeListener(this);
   }
 }

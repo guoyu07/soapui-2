@@ -9,7 +9,7 @@
   setEnabled(true);
   String message=null;
   String infoMessage=null;
-  String requestName=request.getOperation().getInterface().getName() + "." + request.getOperation().getName()+ ":"+ request.getName();
+  String requestName=request.getOperation() == null ? request.getName() : request.getOperation().getInterface().getName() + "." + request.getOperation().getName()+ ":"+ request.getName();
   if (status == Status.CANCELED) {
     message="CANCELED";
     infoMessage="[" + requestName + "] - CANCELED";

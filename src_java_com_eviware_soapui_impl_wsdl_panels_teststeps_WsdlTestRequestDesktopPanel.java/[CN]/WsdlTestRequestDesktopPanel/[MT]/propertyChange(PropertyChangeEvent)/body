@@ -1,3 +1,4 @@
 {
-  updateStatusIcon();
+  super.propertyChange(evt);
+  if (evt.getPropertyName().equals(WsdlTestRequest.STATUS_PROPERTY))   updateStatusIcon();
 }

@@ -1,10 +1,3 @@
 {
-  CachedWsdlLoader loader=null;
-  if (iface.isCached()) {
-    loader=(CachedWsdlLoader)iface.createWsdlLoader();
-  }
- else {
-    loader=new CachedWsdlLoader(iface);
-  }
-  return loader.saveDefinition(path);
+  return new WsdlDefinitionExporter(getInterface()).export(path);
 }

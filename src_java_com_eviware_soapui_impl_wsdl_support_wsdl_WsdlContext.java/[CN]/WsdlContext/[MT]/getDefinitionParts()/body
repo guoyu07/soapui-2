@@ -1,9 +1,0 @@
-{
-  Map<String,XmlObject> result=new HashMap<String,XmlObject>();
-  if (cache == null)   return SchemaUtils.getDefinitionParts(new UrlWsdlLoader(url));
-  List<DefintionPartConfig> partList=cache.getPartList();
-  for (  DefintionPartConfig part : partList) {
-    result.put(part.getUrl(),CachedWsdlLoader.getPartContent(cache,part));
-  }
-  return result;
-}

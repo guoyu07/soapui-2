@@ -1,0 +1,14 @@
+{
+  ApplicationDocument applicationDocument=ApplicationDocument.Factory.newInstance();
+  Application application=applicationDocument.addNewApplication();
+  createDoc(application.addNewDoc(),restService);
+  Resources resources=application.addNewResources();
+  String basePath=restService.getBasePath();
+  String[] endpoints=restService.getEndpoints();
+  if (endpoints.length > 0)   basePath=endpoints[0] + basePath;
+  resources.setBase(basePath);
+  for (int c=0; c < restService.getOperationCount(); c++) {
+    resources.addNewResource().set(generateWadlResource(restService.getOperationAt(c)));
+  }
+  return applicationDocument;
+}

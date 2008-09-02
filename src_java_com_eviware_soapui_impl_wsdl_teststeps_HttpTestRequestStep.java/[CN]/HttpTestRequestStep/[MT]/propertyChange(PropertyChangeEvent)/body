@@ -1,0 +1,13 @@
+{
+  if (arg0.getPropertyName().equals(TestAssertion.CONFIGURATION_PROPERTY) || arg0.getPropertyName().equals(TestAssertion.DISABLED_PROPERTY)) {
+    if (getTestRequest().getResponse() != null) {
+      getTestRequest().assertResponse(new WsdlTestRunContext(this));
+    }
+  }
+ else {
+    if (arg0.getSource() == testRequest && arg0.getPropertyName().equals(WsdlTestRequest.NAME_PROPERTY)) {
+      if (!super.getName().equals((String)arg0.getNewValue()))       super.setName((String)arg0.getNewValue());
+    }
+    notifyPropertyChanged(arg0.getPropertyName(),arg0.getOldValue(),arg0.getNewValue());
+  }
+}

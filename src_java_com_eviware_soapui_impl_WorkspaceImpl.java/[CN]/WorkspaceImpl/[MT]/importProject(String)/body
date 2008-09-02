@@ -3,6 +3,11 @@
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile.getAbsolutePath(),this);
   projectList.add(project);
   fireProjectAdded(project);
+  if (resolver == null) {
+    resolver=new ResolveDialog("Resolve Project","Resolve imported project",null);
+    resolver.setShowOkMessage(false);
+  }
+  resolver.resolve(project);
   save(true);
   return project;
 }

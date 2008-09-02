@@ -3,7 +3,7 @@
   if (file == null)   return;
   try {
     FileWriter writer=new FileWriter(file);
-    writer.write(editorPane.getText());
+    writer.write(browser.getContent());
     writer.close();
     UISupport.showInfoMessage("Report saved to [" + file.getAbsolutePath() + "]");
   }

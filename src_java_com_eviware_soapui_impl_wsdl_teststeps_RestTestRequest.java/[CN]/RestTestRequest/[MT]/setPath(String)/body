@@ -1,0 +1,10 @@
+{
+  super.setPath(fullPath);
+  if (getOperation() == null) {
+    try {
+      setEndpoint(Tools.getEndpointFromUrl(new URL(fullPath)));
+    }
+ catch (    MalformedURLException e) {
+    }
+  }
+}

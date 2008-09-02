@@ -43,7 +43,7 @@
     }
     schemas.addAll(defaultSchemas.values());
     SchemaTypeSystem sts=XmlBeans.compileXsd(schemas.toArray(new XmlObject[schemas.size()]),XmlBeans.getBuiltinTypeSystem(),options);
-    return XmlBeans.typeLoaderUnion(new SchemaTypeLoader[]{sts,XmlBeans.getBuiltinTypeSystem()});
+    return sts;
   }
  catch (  Exception e) {
     SoapUI.logError(e);

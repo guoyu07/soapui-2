@@ -1,0 +1,12 @@
+{
+  if (iface != null && urlReferences.containsKey(url)) {
+    Integer i=urlReferences.get(url);
+    if (i.intValue() <= 1) {
+      urlReferences.remove(url);
+      definitionCache.remove(url);
+    }
+ else {
+      urlReferences.put(url,i - 1);
+    }
+  }
+}

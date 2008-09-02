@@ -4,8 +4,10 @@
   toolbar.add(submitButton);
   insertButtons(toolbar);
   toolbar.add(cancelButton);
-  toolbar.addSeparator();
-  toolbar.add(endpointComponent);
+  if (endpointComponent != null) {
+    toolbar.addSeparator();
+    toolbar.add(endpointComponent);
+  }
   toolbar.add(Box.createHorizontalGlue());
   toolbar.add(tabsButton);
   toolbar.add(splitButton);

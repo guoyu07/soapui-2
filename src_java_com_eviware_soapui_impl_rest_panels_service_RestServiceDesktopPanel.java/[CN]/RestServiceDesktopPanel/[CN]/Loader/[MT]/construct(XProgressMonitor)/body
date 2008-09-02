@@ -2,12 +2,11 @@
   MetricsSection section=metrics.getSection(DEFINITION_PARTS_SECTION);
   section.clear();
   try {
-    WadlContext wadlContext=iface.getWadlContext();
-    Map<String,XmlObject> parts=wadlContext.getDefinitionParts();
+    WadlDefinitionContext wadlContext=iface.getWadlContext();
+    List<InterfaceDefinitionPart> parts=wadlContext.getDefinitionParts();
     int tabCount=partTabs.getTabCount();
-    for (Iterator<String> iter=parts.keySet().iterator(); iter.hasNext(); ) {
-      String url=iter.next();
-      addTab(url,parts.get(url));
+    for (    InterfaceDefinitionPart part : parts) {
+      addTab(part.getUrl(),part.getContent());
     }
     while (tabCount-- > 0)     partTabs.remove(0);
     return null;

@@ -2,46 +2,8 @@
   if (existing.containsKey(wsdlUrl))   return;
   XmlObject xmlObject=loader.loadXmlObject(wsdlUrl,null);
   existing.put(wsdlUrl,xmlObject);
-  XmlObject[] wsdlImports=xmlObject.selectPath("declare namespace s='" + Constants.WSDL11_NS + "' .//s:import");
-  for (int i=0; i < wsdlImports.length; i++) {
-    String location=wsdlImports[i].getDomNode().getAttributes().getNamedItem("location").getNodeValue();
-    if (location != null) {
-      if (StringUtils.hasContent(location)) {
-        if (!location.startsWith("file:") && location.indexOf("://") == -1)         location=Tools.joinRelativeUrl(wsdlUrl,location);
-        getDefinitionParts(location,existing,loader);
-      }
- else {
-        Node domNode=((Attr)wsdlImports[i].getDomNode()).getOwnerElement();
-        domNode.getParentNode().removeChild(domNode);
-      }
-    }
-  }
-  XmlObject[] schemaImports=xmlObject.selectPath("declare namespace s='" + Constants.XSD_NS + "' .//s:import/@schemaLocation");
-  for (int i=0; i < schemaImports.length; i++) {
-    String location=((SimpleValue)schemaImports[i]).getStringValue();
-    if (location != null) {
-      if (StringUtils.hasContent(location)) {
-        if (!location.startsWith("file:") && location.indexOf("://") == -1)         location=Tools.joinRelativeUrl(wsdlUrl,location);
-        getDefinitionParts(location,existing,loader);
-      }
- else {
-        Node domNode=((Attr)schemaImports[i].getDomNode()).getOwnerElement();
-        domNode.getParentNode().removeChild(domNode);
-      }
-    }
-  }
-  XmlObject[] schemaIncludes=xmlObject.selectPath("declare namespace s='" + Constants.XSD_NS + "' .//s:include/@schemaLocation");
-  for (int i=0; i < schemaIncludes.length; i++) {
-    String location=((SimpleValue)schemaIncludes[i]).getStringValue();
-    if (location != null) {
-      if (StringUtils.hasContent(location)) {
-        if (!location.startsWith("file:") && location.indexOf("://") == -1)         location=Tools.joinRelativeUrl(wsdlUrl,location);
-        getDefinitionParts(location,existing,loader);
-      }
- else {
-        Node domNode=((Attr)schemaIncludes[i].getDomNode()).getOwnerElement();
-        domNode.getParentNode().removeChild(domNode);
-      }
-    }
-  }
+  selectDefinitionParts(wsdlUrl,existing,loader,xmlObject,"declare namespace s='" + Constants.WSDL11_NS + "' .//s:import/@location");
+  selectDefinitionParts(wsdlUrl,existing,loader,xmlObject,"declare namespace s='" + Constants.WADL10_NS + "' .//s:grammars/s:include/@href");
+  selectDefinitionParts(wsdlUrl,existing,loader,xmlObject,"declare namespace s='" + Constants.XSD_NS + "' .//s:import/@schemaLocation");
+  selectDefinitionParts(wsdlUrl,existing,loader,xmlObject,"declare namespace s='" + Constants.XSD_NS + "' .//s:include/@schemaLocation");
 }

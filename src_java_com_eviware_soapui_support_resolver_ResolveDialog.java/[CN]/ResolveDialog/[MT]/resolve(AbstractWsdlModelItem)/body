@@ -1,0 +1,16 @@
+{
+  ResolveContext context=new ResolveContext(modelItem);
+  modelItem.resolve(context);
+  if (context.isEmpty()) {
+    if (isShowOkMessage()) {
+      UISupport.showInfoMessage("No resolve problems found",title);
+    }
+  }
+ else {
+    resolveContextTableModel=new ResolveContextTableModel(context);
+    if (dialog == null)     buildDialog();
+    UISupport.centerDialog(dialog);
+    dialog.setVisible(true);
+  }
+  return context;
+}

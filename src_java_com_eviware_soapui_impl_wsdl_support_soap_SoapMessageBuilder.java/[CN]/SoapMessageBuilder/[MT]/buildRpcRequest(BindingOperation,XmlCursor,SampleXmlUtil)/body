@@ -22,7 +22,7 @@
       if (wsdlContext.hasSchemaTypes()) {
         QName typeName=part.getTypeName();
         if (typeName != null) {
-          SchemaType type=wsdlContext.findType(typeName);
+          SchemaType type=wsdlContext.getInterfaceDefinition().findType(typeName);
           if (type != null) {
             XmlCursor c=cursor.newCursor();
             c.toLastChild();

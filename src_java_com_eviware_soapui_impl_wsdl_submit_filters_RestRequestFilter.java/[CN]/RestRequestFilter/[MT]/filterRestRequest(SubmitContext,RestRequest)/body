@@ -34,7 +34,17 @@ path+="=" + URLEncoder.encode(value);
 }
 }
 if (query.length() > 1) httpMethod.setQueryString(query.toString());
+if (PathUtils.isHttpPath(path)) {
+try {
+httpMethod.setURI(new URI(path));
+}
+ catch (Exception e) {
+e.printStackTrace();
+}
+}
+ else {
 httpMethod.setPath(path);
+}
 String encoding=StringUtils.unquote(request.getEncoding());
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
 String requestContent=request.getRequestContent();

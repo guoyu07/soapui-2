@@ -1,0 +1,8 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add HTTP Request to TestCase");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addTextField(STEP_NAME,"Name of TestStep",XForm.FieldType.URL).setWidth(30);
+  mainForm.addTextField(ENDPOINT,"Endpoint",XForm.FieldType.URL).setWidth(30);
+  mainForm.addTextField(METHOD,"Endpoint",XForm.FieldType.URL).setWidth(30);
+  dialog=builder.buildDialog(builder.buildOkCancelActions(),"Specify options for adding a new HTTP Request to a TestCase",UISupport.OPTIONS_ICON);
+}

@@ -36,7 +36,7 @@
       headerValue=PropertyExpansionUtils.expandProperties(submitContext,headerValue);
       httpMethod.setRequestHeader(header,headerValue);
     }
-    WsdlProject project=(WsdlProject)httpRequest.getOperation().getInterface().getProject();
+    WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(httpRequest);
     WssCrypto crypto=project.getWssContainer().getCryptoByName(httpRequest.getSslKeystore());
     if (crypto != null && WssCrypto.STATUS_OK.equals(crypto.getStatus())) {
       hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());

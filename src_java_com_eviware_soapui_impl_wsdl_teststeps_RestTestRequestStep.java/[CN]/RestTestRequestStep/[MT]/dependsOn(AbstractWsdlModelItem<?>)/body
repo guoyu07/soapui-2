@@ -1,8 +1,8 @@
 {
-  if (modelItem instanceof Interface && testRequest.getOperation().getInterface() == modelItem) {
+  if (modelItem instanceof Interface && getTestRequest().getOperation() != null && getTestRequest().getOperation().getInterface() == modelItem) {
     return true;
   }
- else   if (modelItem instanceof Operation && testRequest.getOperation() == modelItem) {
+ else   if (modelItem instanceof Operation && getTestRequest().getOperation() == modelItem) {
     return true;
   }
   return false;

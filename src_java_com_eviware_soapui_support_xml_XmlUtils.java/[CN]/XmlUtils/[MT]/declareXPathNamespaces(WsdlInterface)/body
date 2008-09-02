@@ -4,7 +4,7 @@
   buf.append(iface.getSoapVersion().getEnvelopeNamespace());
   buf.append("';\n");
   try {
-    Collection<String> namespaces=iface.getWsdlContext().getDefinedNamespaces();
+    Collection<String> namespaces=iface.getWsdlContext().getInterfaceDefinition().getDefinedNamespaces();
     int c=1;
     for (Iterator<String> i=namespaces.iterator(); i.hasNext(); ) {
       buf.append("declare namespace ns");
