@@ -11,7 +11,8 @@
       configureAssertionAction.setEnabled(ix >= 0);
       removeAssertionAction.setEnabled(ix >= 0);
       if (ix == -1)       return;
-      configureAssertionAction.setEnabled(assertionListModel.getAssertionAt(ix).isConfigurable());
+      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+      configureAssertionAction.setEnabled(assertion != null && assertion.isConfigurable());
     }
   }
 );
