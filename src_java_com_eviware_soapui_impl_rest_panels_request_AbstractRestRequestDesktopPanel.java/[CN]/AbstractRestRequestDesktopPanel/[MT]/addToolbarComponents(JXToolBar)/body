@@ -1,0 +1,32 @@
+{
+  toolbar.addSeparator();
+  methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
+  methodCombo.setSelectedItem(getRequest().getMethod());
+  methodCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getRequest().setMethod((RequestMethod)methodCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Method",methodCombo);
+  toolbar.addSeparator();
+  pathField=new JUndoableTextField();
+  pathField.setPreferredSize(new Dimension(250,20));
+  pathField.setText(getRequest().getPath());
+  pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getRequest().setPath(pathField.getText());
+    }
+  }
+);
+  if (getRequest().getResource() != null) {
+    toolbar.addLabeledFixed("Resource Path:",pathField);
+    toolbar.add(recreatePathButton);
+  }
+ else {
+    toolbar.addLabeledFixed("Request URL:",pathField);
+  }
+  toolbar.addSeparator();
+}

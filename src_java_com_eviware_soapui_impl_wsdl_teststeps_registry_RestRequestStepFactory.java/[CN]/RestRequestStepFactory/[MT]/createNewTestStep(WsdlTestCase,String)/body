@@ -1,24 +1,26 @@
 {
   Project project=testCase.getTestSuite().getProject();
   List<String> options=new ArrayList<String>();
-  List<RestResource> operations=new ArrayList<RestResource>();
-  options.add("-> none");
-  operations.add(null);
+  List<RestResource> restResources=new ArrayList<RestResource>();
   for (int c=0; c < project.getInterfaceCount(); c++) {
     Interface iface=project.getInterfaceAt(c);
     if (iface instanceof RestService) {
       RestResource[] resources=((RestService)iface).getAllResources();
       for (      RestResource resource : resources) {
-        options.add(iface.getName() + " -> " + resource.getFullPath());
-        operations.add(resource);
+        options.add(iface.getName() + " -> " + resource.getPath());
+        restResources.add(resource);
       }
     }
+  }
+  if (restResources.size() == 0) {
+    UISupport.showErrorMessage("Missing REST Resources in project");
+    return null;
   }
   Object op=UISupport.prompt("Select Resource to invoke for request","New RestRequest",options.toArray());
   if (op != null) {
     int ix=options.indexOf(op);
     if (ix != -1) {
-      RestResource operation=operations.get(ix);
+      RestResource operation=restResources.get(ix);
       if (dialog == null)       buildDialog();
       dialogValues.put(STEP_NAME,name);
       dialogValues=dialog.show(dialogValues);

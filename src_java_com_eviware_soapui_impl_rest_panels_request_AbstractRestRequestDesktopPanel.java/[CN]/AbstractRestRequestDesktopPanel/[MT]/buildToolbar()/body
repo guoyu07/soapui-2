@@ -1,33 +1,14 @@
 {
   recreatePathButton=createActionButton(new RecreatePathAction(),true);
-  JPanel panel=new JPanel(new BorderLayout());
-  panel.add(super.buildToolbar(),BorderLayout.NORTH);
-  JXToolBar toolbar=UISupport.createToolbar();
-  toolbar.addSpace(3);
-  methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
-  methodCombo.setSelectedItem(getRequest().getMethod());
-  methodCombo.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
-      updatingRequest=true;
-      getRequest().setMethod((RequestMethod)methodCombo.getSelectedItem());
-      updatingRequest=false;
-    }
+  if (getRequest().getResource() != null) {
+    JPanel panel=new JPanel(new BorderLayout());
+    panel.add(super.buildToolbar(),BorderLayout.NORTH);
+    JXToolBar toolbar=UISupport.createToolbar();
+    addToolbarComponents(toolbar);
+    panel.add(toolbar,BorderLayout.SOUTH);
+    return panel;
   }
-);
-  toolbar.addLabeledFixed("Method",methodCombo);
-  toolbar.addSeparator();
-  pathField=new JUndoableTextField();
-  pathField.setPreferredSize(new Dimension(250,20));
-  pathField.setText(getRequest().getPath());
-  pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
-      getRequest().setPath(pathField.getText());
-    }
+ else {
+    return super.buildToolbar();
   }
-);
-  toolbar.addLabeledFixed("Resource Path:",pathField);
-  toolbar.add(recreatePathButton);
-  toolbar.addSeparator();
-  panel.add(toolbar,BorderLayout.SOUTH);
-  return panel;
 }

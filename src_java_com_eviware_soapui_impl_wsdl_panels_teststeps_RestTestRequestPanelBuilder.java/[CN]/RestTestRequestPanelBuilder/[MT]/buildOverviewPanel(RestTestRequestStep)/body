@@ -4,7 +4,7 @@
   table.addProperty("Name","name",true);
   table.addProperty("Description","description",true);
   table.addProperty("Encoding","encoding",new String[]{null,"UTF-8","iso-8859-1"});
-  if (request.getOperation() == null)   table.addProperty("Endpoint","endpoint",true);
+  if (request.getOperation() == null)   table.addProperty("Path","path",true);
  else   table.addProperty("Endpoint","endpoint",request.getInterface().getEndpoints());
   table.addProperty("Bind Address","bindAddress",true);
   table.addProperty("Service","service");

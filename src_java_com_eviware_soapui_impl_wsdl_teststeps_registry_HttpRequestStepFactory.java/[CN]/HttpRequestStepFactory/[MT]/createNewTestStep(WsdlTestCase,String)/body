@@ -5,7 +5,7 @@
   if (dialog.getReturnValue() != XFormDialog.OK_OPTION)   return null;
   RestRequestStepConfig testStepConfig=RestRequestStepConfig.Factory.newInstance();
   RestMethodConfig requestConfig=testStepConfig.addNewRestRequest();
-  requestConfig.setEndpoint(dialog.getValue(ENDPOINT));
+  requestConfig.setFullPath(dialog.getValue(ENDPOINT));
   requestConfig.setMethod(dialog.getValue(METHOD));
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(HTTPREQUEST_TYPE);

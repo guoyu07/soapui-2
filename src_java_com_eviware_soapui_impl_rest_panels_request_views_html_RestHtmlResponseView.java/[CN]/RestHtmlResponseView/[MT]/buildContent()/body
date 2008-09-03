@@ -1,6 +1,10 @@
 {
   contentPanel=new JPanel(new BorderLayout());
+  browser=new BrowserComponent();
   HttpResponse response=restRequest.getResponse();
   if (response != null)   setEditorContent(response);
+  Component component=browser.getComponent();
+  component.setMinimumSize(new Dimension(100,100));
+  contentPanel.add(component);
   return contentPanel;
 }

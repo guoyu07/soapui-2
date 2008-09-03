@@ -1,4 +1,9 @@
 {
+  if (evt.getPropertyName().equals(RestTestRequest.STATUS_PROPERTY)) {
+    updateStatusIcon();
+  }
+ else   if (evt.getPropertyName().equals("path")) {
+    getSubmitButton().setEnabled(getSubmit() == null && StringUtils.hasContent(getRequest().getPath()));
+  }
   super.propertyChange(evt);
-  if (evt.getPropertyName().equals(RestTestRequest.STATUS_PROPERTY))   updateStatusIcon();
 }

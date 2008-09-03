@@ -1,11 +1,13 @@
 {
-  if (httpResponse.getContentType() != null && httpResponse.getContentType().contains("html")) {
+  if (httpResponse != null && httpResponse.getContentType() != null && httpResponse.getContentType().contains("html")) {
     try {
+      browser.setContent(httpResponse.getContentAsString(),httpResponse.getContentType(),httpResponse.getURL().toURI().toString());
     }
  catch (    Exception e) {
       e.printStackTrace();
     }
   }
  else {
+    browser.setContent("<missing content>","text/text");
   }
 }

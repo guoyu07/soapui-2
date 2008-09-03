@@ -4,15 +4,15 @@
   RestMethodConfig testRequestConfig=requestStepConfig.addNewRestRequest();
   testRequestConfig.setName(name);
   testRequestConfig.setEncoding("UTF-8");
-  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
-  testStep.setType(RESTREQUEST_TYPE);
-  testStep.setConfig(requestStepConfig);
-  testStep.setName(name);
-  if (operation != null) {
-    requestStepConfig.setService(operation.getInterface().getName());
-    requestStepConfig.setResourcePath(operation.getName());
-    String[] endpoints=operation.getInterface().getEndpoints();
+  if (resource != null) {
+    requestStepConfig.setService(resource.getInterface().getName());
+    requestStepConfig.setResourcePath(resource.getPath());
+    String[] endpoints=resource.getInterface().getEndpoints();
     if (endpoints.length > 0)     testRequestConfig.setEndpoint(endpoints[0]);
   }
-  return testStep;
+  TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+  testStepConfig.setType(RESTREQUEST_TYPE);
+  testStepConfig.setConfig(requestStepConfig);
+  testStepConfig.setName(name);
+  return testStepConfig;
 }
