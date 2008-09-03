@@ -7,5 +7,8 @@
       return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
     }
   }
+ else   if (ignoreNamspaceDifferences && diff.getId() == DifferenceEngine.NAMESPACE_PREFIX_ID) {
+    return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
+  }
   return Diff.RETURN_ACCEPT_DIFFERENCE;
 }

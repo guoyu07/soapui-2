@@ -3,8 +3,9 @@
   String oldContent=getExpectedContent();
   boolean oldAllowWildcards=isAllowWildcards();
   setPath(pathArea.getText().trim());
-  setContent(contentArea.getText());
+  setExpectedContent(contentArea.getText());
   setAllowWildcards(allowWildcardsCheckBox.isSelected());
+  setIgnoreNamspaceDifferences(ignoreNamspaceDifferencesCheckBox.isSelected());
   try {
     String msg=assertContent(getAssertable().getAssertableContent(),new WsdlTestRunContext((TestStep)getAssertable().getModelItem()),"Response");
     UISupport.showInfoMessage(msg,"Success");
@@ -13,6 +14,6 @@
     UISupport.showErrorMessage(e.getMessage());
   }
   setPath(oldPath);
-  setContent(oldContent);
+  setExpectedContent(oldContent);
   setAllowWildcards(oldAllowWildcards);
 }
