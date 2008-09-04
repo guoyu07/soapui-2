@@ -49,6 +49,7 @@ httpMethod.setPath(path);
 }
 String encoding=StringUtils.unquote(request.getEncoding());
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
+httpMethod.setRequestHeader("Content-Type",request.getMediaType());
 String requestContent=request.getRequestContent();
 Attachment[] attachments=request.getAttachments();
 if (StringUtils.hasContent(requestContent)) {
@@ -76,10 +77,6 @@ e.printStackTrace();
 }
  else {
 }
-}
-RestRepresentation[] representations=request.getRepresentations(RestRepresentation.Type.REQUEST);
-if (representations.length > 0) {
-httpMethod.setRequestHeader("Content-Type",representations[0].getMediaType() + (StringUtils.hasContent(encoding) ? "; charset=" + encoding : ""));
 }
 }
 }
