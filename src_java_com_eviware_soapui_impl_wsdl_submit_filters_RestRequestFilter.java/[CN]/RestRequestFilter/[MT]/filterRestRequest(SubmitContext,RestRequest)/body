@@ -33,7 +33,7 @@ path+="=" + URLEncoder.encode(value);
 }
 }
 }
-if (query.length() > 1) httpMethod.setQueryString(query.toString());
+if (query.length() > 0) httpMethod.setQueryString(query.toString());
 if (PathUtils.isHttpPath(path)) {
 try {
 httpMethod.setURI(new URI(path));
@@ -48,12 +48,32 @@ httpMethod.setPath(path);
 String encoding=StringUtils.unquote(request.getEncoding());
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
 String requestContent=request.getRequestContent();
+Attachment[] attachments=request.getAttachments();
+if (StringUtils.hasContent(requestContent)) {
+if (attachments.length == 0) {
 try {
 byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(content));
 }
  catch (UnsupportedEncodingException e) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(requestContent.getBytes()));
+}
+}
+ else {
+}
+}
+ else if (attachments.length > 0) {
+if (attachments.length == 1) {
+try {
+((EntityEnclosingMethod)httpMethod).setRequestEntity(new InputStreamRequestEntity(attachments[0].getInputStream()));
+httpMethod.setRequestHeader("Content-Type",attachments[0].getContentType());
+}
+ catch (Exception e) {
+e.printStackTrace();
+}
+}
+ else {
+}
 }
 RestRepresentation[] representations=request.getRepresentations(RestRepresentation.Type.REQUEST);
 if (representations.length > 0) {

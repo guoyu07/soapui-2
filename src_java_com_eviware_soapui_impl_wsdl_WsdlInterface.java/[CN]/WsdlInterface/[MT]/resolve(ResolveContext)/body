@@ -3,7 +3,7 @@
   String definition=definitionProperty.expandUrl();
   if (definition.startsWith("file:")) {
     try {
-      File file=new File(new URL(definition).toURI());
+      File file=new File(definition.substring(5));
       if (!file.exists()) {
         context.addPathToResolve(this,"Missing WSDL file",definition,new ResolveContext.FileResolver("Select WSDL File","wsdl","WSDL Files (*.wsdl)",file.getParent()){
           @Override public boolean apply(          File newFile){

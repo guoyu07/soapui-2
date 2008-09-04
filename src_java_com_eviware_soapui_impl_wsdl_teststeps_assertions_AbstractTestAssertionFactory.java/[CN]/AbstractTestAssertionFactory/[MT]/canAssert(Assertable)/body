@@ -1,6 +1,7 @@
 {
   List<Class<?>> classes=Arrays.asList(assertionClass.getInterfaces());
-  if (targetClass != null && !Arrays.asList(targetClass.getClasses()).contains(targetClass) && !Arrays.asList(targetClass.getInterfaces()).contains(targetClass))   return false;
+  List<Class> classList=getImplementedAndExtendedClasses(assertable);
+  if (targetClass != null && !classList.contains(targetClass))   return false;
   if (assertable.getAssertableType() == AssertableType.BOTH)   return true;
   if (assertable.getAssertableType() == AssertableType.REQUEST && classes.contains(com.eviware.soapui.model.testsuite.RequestAssertion.class))   return true;
  else   if (assertable.getAssertableType() == AssertableType.RESPONSE && classes.contains(com.eviware.soapui.model.testsuite.ResponseAssertion.class))   return true;

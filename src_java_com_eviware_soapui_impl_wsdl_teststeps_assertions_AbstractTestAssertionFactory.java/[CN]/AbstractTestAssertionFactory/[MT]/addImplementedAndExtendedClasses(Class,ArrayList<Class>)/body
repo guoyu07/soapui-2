@@ -1,0 +1,7 @@
+{
+  result.add(clazz);
+  result.addAll(Arrays.asList(clazz.getInterfaces()));
+  if (clazz.getSuperclass() != null) {
+    addImplementedAndExtendedClasses(clazz.getSuperclass(),result);
+  }
+}

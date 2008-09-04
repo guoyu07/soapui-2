@@ -1,5 +1,5 @@
 {
-  SoapVersion soapVersion=((WsdlInterface)wsdlRequest.getOperation().getInterface()).getSoapVersion();
+  SoapVersion soapVersion=wsdlRequest.getOperation().getInterface().getSoapVersion();
   if (isXOP) {
     return AttachmentUtils.buildRootPartContentType(wsdlRequest.getOperation().getName(),soapVersion);
   }

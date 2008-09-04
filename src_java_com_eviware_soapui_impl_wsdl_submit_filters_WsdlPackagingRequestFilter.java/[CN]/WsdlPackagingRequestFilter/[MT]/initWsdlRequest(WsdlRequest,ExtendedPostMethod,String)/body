@@ -16,7 +16,7 @@
       SoapUI.log.warn("Failed to process inline/MTOM attachments; " + e);
     }
   }
-  if (!isXOP && (mp == null || mp.getCount() == 0) && wsdlRequest.getAttachmentCount() == 0) {
+  if (!isXOP && (mp == null || mp.getCount() == 0) && hasNonContentAttachments(wsdlRequest)) {
     String encoding=StringUtils.unquote(wsdlRequest.getEncoding());
     byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
     postMethod.setRequestEntity(new ByteArrayRequestEntity(content));
@@ -28,7 +28,7 @@
     MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
     message.setContent(mp);
     message.saveChanges();
-    MimeMessageRequestEntity mimeMessageRequestEntity=new MimeMessageRequestEntity(message,isXOP,wsdlRequest);
+    WsdlRequestMimeMessageRequestEntity mimeMessageRequestEntity=new WsdlRequestMimeMessageRequestEntity(message,isXOP,wsdlRequest);
     postMethod.setRequestEntity(mimeMessageRequestEntity);
     postMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
     postMethod.setRequestHeader("MIME-Version","1.0");

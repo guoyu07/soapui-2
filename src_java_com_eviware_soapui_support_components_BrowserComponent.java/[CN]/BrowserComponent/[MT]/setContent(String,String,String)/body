@@ -1,2 +1,9 @@
 {
+  editorPane.setContentType(contentType);
+  try {
+    editorPane.read(new ByteArrayInputStream(contentAsString.getBytes()),editorPane.getEditorKit().createDefaultDocument());
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
 }
