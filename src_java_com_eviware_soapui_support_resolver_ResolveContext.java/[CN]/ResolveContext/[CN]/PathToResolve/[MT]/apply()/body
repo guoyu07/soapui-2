@@ -1,3 +1,8 @@
 {
-  return resolver == null ? false : resolver.apply();
+  if (resolver != null)   return resolver.apply();
+  if (defaultAction != null) {
+    defaultAction.perform(owner,this);
+    return true;
+  }
+  return false;
 }

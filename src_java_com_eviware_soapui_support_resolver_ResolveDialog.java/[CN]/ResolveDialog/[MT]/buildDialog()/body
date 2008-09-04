@@ -4,8 +4,8 @@
       JPanel panel=new JPanel(new BorderLayout());
       JXTable table=new JXTable(resolveContextTableModel);
       table.setHorizontalScrollEnabled(true);
-      table.setDefaultRenderer(Resolver.class,new ResolverRenderer());
-      table.setDefaultEditor(Resolver.class,new ResolverEditor());
+      table.setDefaultRenderer(JComboBox.class,new ResolverRenderer());
+      table.setDefaultEditor(JComboBox.class,new ResolverEditor());
       table.getColumn(2).setCellRenderer(new PathCellRenderer());
       table.getColumn(3).setWidth(100);
       panel.add(new JScrollPane(table),BorderLayout.CENTER);
@@ -13,11 +13,22 @@
       return panel;
     }
     @Override protected boolean handleOk(){
+      for (      PathToResolve path : resolveContextTableModel.getContext().getPathsToResolve()) {
+        int index=resolveContextTableModel.getContext().getPathsToResolve().indexOf(path);
+        Object key=resolveContextTableModel.jbcMap.get(index).getSelectedItem();
+        if (resolveContextTableModel.resolverz.get(key) instanceof Resolver) {
+          path.setResolver(resolveContextTableModel.resolverz.get(key));
+        }
+      }
       int cnt=resolveContextTableModel.getContext().apply();
       if (isShowOkMessage()) {
         UISupport.showInfoMessage("Resolved " + cnt + " items");
       }
       return true;
+    }
+    @Override protected boolean handleCancel(){
+      resolveContextTableModel.getContext().cancel();
+      return super.handleCancel();
     }
   }
 ;

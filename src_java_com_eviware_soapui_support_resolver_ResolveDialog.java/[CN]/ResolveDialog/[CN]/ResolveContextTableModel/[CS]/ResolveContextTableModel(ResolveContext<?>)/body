@@ -1,3 +1,18 @@
 {
   context=context2;
+  for (  PathToResolve path : context.getPathsToResolve()) {
+    ArrayList<Object> resolversAndDefaultAction=new ArrayList<Object>();
+    if (path.getDefaultAction() != null) {
+      resolversAndDefaultAction.add(path.getDefaultAction().getDescription());
+    }
+    for (    Resolver resolver : defaultResolvers) {
+      resolversAndDefaultAction.add(resolver.getDecription());
+      resolverz.put((String)resolver.getDecription(),resolver);
+    }
+    if (path.getResolver() != null) {
+      resolversAndDefaultAction.add(path.getResolver().getDecription());
+    }
+    JComboBox jbc=new JComboBox(resolversAndDefaultAction.toArray());
+    jbcMap.add(jbc);
+  }
 }
