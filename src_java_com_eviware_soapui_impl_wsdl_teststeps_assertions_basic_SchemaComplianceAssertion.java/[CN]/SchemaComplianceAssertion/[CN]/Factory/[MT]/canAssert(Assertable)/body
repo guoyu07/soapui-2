@@ -1,7 +1,3 @@
 {
-  boolean result=super.canAssert(assertable);
-  if (result) {
-    result=assertable instanceof Request && ((Request)assertable).getOperation().getInterface() instanceof AbstractInterface && ((AbstractInterface<?>)((Request)assertable).getOperation().getInterface()).getDefinitionContext().hasSchemaTypes();
-  }
-  return result;
+  return super.canAssert(assertable) && assertable.getInterface() instanceof AbstractInterface && ((AbstractInterface)assertable.getInterface()).getDefinitionContext().hasSchemaTypes();
 }

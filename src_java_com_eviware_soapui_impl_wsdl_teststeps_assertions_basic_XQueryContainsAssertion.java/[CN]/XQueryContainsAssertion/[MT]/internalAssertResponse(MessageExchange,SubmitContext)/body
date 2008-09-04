@@ -1,3 +1,4 @@
 {
-  return assertContent(messageExchange.getResponseContent(),context,"Response");
+  if (!messageExchange.hasResponse())   return "Missing Response";
+ else   return assertContent(messageExchange.getResponseContentAsXml(),context,"Response");
 }

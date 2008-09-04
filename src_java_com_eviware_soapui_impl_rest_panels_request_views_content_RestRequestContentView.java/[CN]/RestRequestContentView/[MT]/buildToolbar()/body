@@ -1,13 +1,11 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  mediaTypeTextField=new JUndoableTextField(requestRepresentation.getMediaType());
+  mediaTypeTextField=new JComboBox(getRequestMediaTypes());
   mediaTypeTextField.setPreferredSize(new Dimension(200,20));
   mediaTypeTextField.setEnabled(restRequest.hasRequestBody());
-  mediaTypeTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
-      updatingRequest=true;
-      requestRepresentation.setMediaType(mediaTypeTextField.getText());
-      updatingRequest=false;
+  mediaTypeTextField.setEditable(true);
+  mediaTypeTextField.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
     }
   }
 );

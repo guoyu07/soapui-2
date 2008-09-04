@@ -1,6 +1,16 @@
 {
   try {
-    ApplicationDocument applicationDocument=ApplicationDocument.Factory.parse(new URL(wadlUrl));
+    XmlObject xmlObject=XmlObject.Factory.parse(new URL(wadlUrl));
+    Element element=((Document)xmlObject.getDomNode()).getDocumentElement();
+    if (element.getLocalName().equals("application") && element.getNamespaceURI().startsWith("http://research.sun.com/wadl") && !element.getNamespaceURI().equals(Constants.WADL10_NS)) {
+      String content=xmlObject.xmlText();
+      content=content.replaceAll("\"" + element.getNamespaceURI() + "\"","\"" + Constants.WADL10_NS + "\"");
+      xmlObject=ApplicationDocument.Factory.parse(content);
+    }
+ else     if (!element.getLocalName().equals("application") || !element.getNamespaceURI().equals(Constants.WADL10_NS)) {
+      throw new Exception("Document is not a WADL application with " + Constants.WADL10_NS + " namespace");
+    }
+    ApplicationDocument applicationDocument=(ApplicationDocument)xmlObject.changeType(ApplicationDocument.type);
     Application application=applicationDocument.getApplication();
     Resources resources=application.getResources();
     String base=resources.getBase();
@@ -22,6 +32,6 @@
     }
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    UISupport.showErrorMessage(e);
   }
 }

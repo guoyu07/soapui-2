@@ -33,7 +33,9 @@ path+="=" + URLEncoder.encode(value);
 }
 }
 }
-if (query.length() > 0) httpMethod.setQueryString(query.toString());
+if (query.length() > 0) {
+httpMethod.setQueryString(query.toString());
+}
 if (PathUtils.isHttpPath(path)) {
 try {
 httpMethod.setURI(new URI(path));

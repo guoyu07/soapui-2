@@ -3,7 +3,7 @@
   String strURL=request.getEndpoint();
   strURL=PropertyExpansionUtils.expandProperties(context,strURL);
   try {
-    httpMethod.setURI(new URI(strURL,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
+    if (StringUtils.hasContent(strURL))     httpMethod.setURI(new URI(strURL,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
   }
  catch (  Exception e) {
     SoapUI.logError(e);

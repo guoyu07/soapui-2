@@ -1,7 +1,5 @@
 {
   HttpResponse response=getResponse();
   if (response == null)   return null;
-  MediaTypeHandler typeHandler=MediaTypeHandlerRegistry.getTypeHandler(response.getContentType());
-  if (typeHandler != null)   return typeHandler.createXmlRepresentation(response);
- else   return null;
+  return response.getProperty(REST_XML_RESPONSE);
 }

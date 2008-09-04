@@ -1,6 +1,13 @@
 {
   String endpoint=PropertyExpansionUtils.expandProperties(submitContext,getEndpoint());
-  if (endpoint == null || endpoint.trim().length() == 0) {
+  if (StringUtils.isNullOrEmpty(endpoint)) {
+    try {
+      endpoint=new URL(getPath()).toString();
+    }
+ catch (    MalformedURLException e) {
+    }
+  }
+  if (StringUtils.isNullOrEmpty(endpoint)) {
     UISupport.showErrorMessage("Missing endpoint for request [" + getName() + "]");
     return null;
   }

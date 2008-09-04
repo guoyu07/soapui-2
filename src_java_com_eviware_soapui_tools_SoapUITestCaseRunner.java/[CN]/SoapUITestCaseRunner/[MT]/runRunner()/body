@@ -31,7 +31,7 @@
     printReport(timeTaken);
   }
   exportReports(project);
-  if (assertions.size() > 0 || failedTests.size() > 0) {
+  if (assertions.size() > 0 || failedTests.size() > 0 && !ignoreErrors) {
     throwFailureException();
   }
   return true;

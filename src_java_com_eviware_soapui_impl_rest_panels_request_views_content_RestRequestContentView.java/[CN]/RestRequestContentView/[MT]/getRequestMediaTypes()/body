@@ -1,0 +1,7 @@
+{
+  StringList result=new StringList();
+  for (  RestRepresentation representation : restRequest.getRepresentations(RestRepresentation.Type.REQUEST)) {
+    result.add(representation.getMediaType());
+  }
+  return result.toStringArray();
+}

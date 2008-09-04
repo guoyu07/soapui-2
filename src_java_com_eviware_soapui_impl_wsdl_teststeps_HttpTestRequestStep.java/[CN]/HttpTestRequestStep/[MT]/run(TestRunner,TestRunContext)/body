@@ -37,7 +37,13 @@ break;
 testStepResult.setStatus(TestStepStatus.CANCELED);
 testStepResult.addMessage("Request was canceled");
 }
-if (response != null) testStepResult.setRequestContent(response.getRequestContent());
+if (response != null) {
+testStepResult.setRequestContent(response.getRequestContent());
+testStepResult.getProperties().put("URL",response.getURL().toString());
+testStepResult.getProperties().put("Method",response.getMethod().toString());
+testStepResult.getProperties().put("StatusCode",String.valueOf(response.getStatusCode()));
+testStepResult.getProperties().put("HTTP Version",response.getHttpVersion());
+}
  else testStepResult.setRequestContent(testRequest.getRequestContent());
 }
  catch (SubmitException e) {
@@ -49,8 +55,8 @@ submit=null;
 }
 testStepResult.setDomain(PropertyExpansionUtils.expandProperties(runContext,testRequest.getDomain()));
 testStepResult.setUsername(PropertyExpansionUtils.expandProperties(runContext,testRequest.getUsername()));
-testStepResult.setPassword(PropertyExpansionUtils.expandProperties(runContext,testRequest.getPassword()));
 testStepResult.setEndpoint(PropertyExpansionUtils.expandProperties(runContext,testRequest.getEndpoint()));
+testStepResult.setPassword(PropertyExpansionUtils.expandProperties(runContext,testRequest.getPassword()));
 testStepResult.setEncoding(PropertyExpansionUtils.expandProperties(runContext,testRequest.getEncoding()));
 if (testStepResult.getStatus() != TestStepStatus.CANCELED) {
 AssertionStatus assertionStatus=testRequest.getAssertionStatus();

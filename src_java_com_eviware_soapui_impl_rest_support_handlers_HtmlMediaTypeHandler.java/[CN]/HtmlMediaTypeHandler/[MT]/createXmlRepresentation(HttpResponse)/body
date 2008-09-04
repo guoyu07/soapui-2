@@ -3,8 +3,11 @@
   if (!StringUtils.hasContent(content))   return null;
   try {
     Tidy tidy=new Tidy();
-    tidy.setXHTML(true);
-    tidy.setQuiet(true);
+    tidy.setXmlOut(true);
+    tidy.setShowWarnings(false);
+    tidy.setErrout(new PrintWriter(new StringWriter()));
+    tidy.setNumEntities(true);
+    tidy.setQuoteNbsp(true);
     Document document=tidy.parseDOM(new ByteArrayInputStream(content.getBytes()),null);
     StringWriter writer=new StringWriter();
     XmlUtils.serializePretty(document,writer);

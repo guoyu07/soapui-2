@@ -13,7 +13,7 @@
   toolbar.addLabeledFixed("Method",methodCombo);
   toolbar.addSeparator();
   pathField=new JUndoableTextField();
-  pathField.setPreferredSize(new Dimension(250,20));
+  pathField.setPreferredSize(new Dimension(getRequest().getResource() == null ? 350 : 250,20));
   pathField.setText(getRequest().getPath());
   pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
