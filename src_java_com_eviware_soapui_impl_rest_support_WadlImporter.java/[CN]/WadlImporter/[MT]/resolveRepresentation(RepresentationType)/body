@@ -1,0 +1,8 @@
+{
+  String href=representation.getHref();
+  if (!StringUtils.hasContent(href))   return representation;
+  for (  RepresentationType m : application.getRepresentationList()) {
+    if (m.getId().equals(href.substring(1)))     return m;
+  }
+  return representation;
+}

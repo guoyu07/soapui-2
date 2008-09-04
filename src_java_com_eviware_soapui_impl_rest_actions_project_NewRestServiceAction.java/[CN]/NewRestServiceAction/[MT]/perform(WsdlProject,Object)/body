@@ -78,8 +78,8 @@
     if (StringUtils.hasContent(wadl)) {
       try {
         File f=new File(wadl);
-        if (f.exists())         RestUtils.initFromWadl(restService,f.toURI().toURL().toString());
- else         RestUtils.initFromWadl(restService,wadl);
+        WadlImporter importer=new WadlImporter(restService);
+        importer.initFromWadl(f.exists() ? f.toURI().toURL().toString() : wadl);
       }
  catch (      Exception e) {
         log.error(e.toString());

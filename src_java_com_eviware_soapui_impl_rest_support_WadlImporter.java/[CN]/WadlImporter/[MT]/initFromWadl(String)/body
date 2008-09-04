@@ -11,8 +11,8 @@
       throw new Exception("Document is not a WADL application with " + Constants.WADL10_NS + " namespace");
     }
     ApplicationDocument applicationDocument=(ApplicationDocument)xmlObject.changeType(ApplicationDocument.type);
-    Application application=applicationDocument.getApplication();
-    Resources resources=application.getResources();
+    application=applicationDocument.getApplication();
+    resources=application.getResources();
     String base=resources.getBase();
     try {
       URL baseUrl=new URL(base);
@@ -27,8 +27,8 @@
       String name=getFirstTitle(resource.getDocList(),resource.getPath());
       String path=resource.getPath();
       RestResource newResource=service.addNewResource(name,path);
-      initResourceFromWadlResource(newResource,resource,application);
-      addSubResources(newResource,resource,application);
+      initResourceFromWadlResource(newResource,resource);
+      addSubResources(newResource,resource);
     }
   }
  catch (  Exception e) {
