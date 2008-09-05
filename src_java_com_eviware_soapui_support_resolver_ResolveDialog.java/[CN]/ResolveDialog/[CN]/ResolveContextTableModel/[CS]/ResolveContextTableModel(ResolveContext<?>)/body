@@ -3,16 +3,12 @@
   for (  PathToResolve path : context.getPathsToResolve()) {
     ArrayList<Object> resolversAndDefaultAction=new ArrayList<Object>();
     if (path.getDefaultAction() != null) {
-      resolversAndDefaultAction.add(path.getDefaultAction().getDescription());
+      resolversAndDefaultAction.add(path.getDefaultAction());
     }
-    for (    Resolver resolver : defaultResolvers) {
-      resolversAndDefaultAction.add(resolver.getDecription());
-      resolverz.put((String)resolver.getDecription(),resolver);
-    }
-    if (path.getResolver() != null) {
-      resolversAndDefaultAction.add(path.getResolver().getDecription());
+    for (    Object resolver : path.getResolvers()) {
+      resolversAndDefaultAction.add(resolver);
     }
     JComboBox jbc=new JComboBox(resolversAndDefaultAction.toArray());
-    jbcMap.add(jbc);
+    jbcList.add(jbc);
   }
 }

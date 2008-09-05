@@ -1,5 +1,6 @@
 {
-  PathToResolve pathToResolve=new PathToResolve(owner,description,path,resolver);
+  PathToResolve pathToResolve=new PathToResolve(owner,description,path,null);
+  pathToResolve.addResolvers(resolver);
   pathsToResolve.add(pathToResolve);
   return pathToResolve;
 }

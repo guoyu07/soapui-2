@@ -16,7 +16,7 @@
     newTestCase.afterLoad();
     testCases.add(newTestCase);
     fireTestCaseAdded(newTestCase);
-    ResolveDialog resolver=new ResolveDialog("Validate TestCase","Checks TestCase for inconsistencies",null,new ImportInterfaceResolver(this),new ChangeOperationResolver(this));
+    ResolveDialog resolver=new ResolveDialog("Validate TestCase","Checks TestCase for inconsistencies",null);
     resolver.setShowOkMessage(false);
     resolver.resolve(newTestCase);
   }

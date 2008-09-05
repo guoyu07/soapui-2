@@ -1,7 +1,7 @@
 {
   super.resolve(context);
   if (wsdlOperation == null) {
-    context.addPathToResolve(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation(),null).setDefaultAction(new TestRequestDefaultResolveAction());
+    context.addPathToResolve(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation(),new TestRequestDefaultResolveAction()).addResolvers(new ImportInterfaceResolver(this),new ChangeOperationResolver(this));
   }
  else {
     testRequest.resolve(context);
