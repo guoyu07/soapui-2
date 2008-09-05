@@ -10,13 +10,17 @@
       wsaContainer.getWsaConfig().setAction(action);
     }
     String replyTo=wsaContainer.getWsaConfig().getReplyTo();
-    if (!StringUtils.isNullOrEmpty(replyTo)) {
+    if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
+      header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
+      wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
+    }
+ else     if (!StringUtils.isNullOrEmpty(replyTo)) {
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
     }
  else     if (operation.isRequestResponse()) {
-      if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_REPLYTO)) {
-        header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyToAnonimus));
-        wsaContainer.getWsaConfig().setReplyTo(replyToAnonimus);
+      if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_REPLYTO) && !AnonymousTypeConfig.PROHIBITED.equals(anonymousType)) {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
+        wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
       }
     }
     String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();

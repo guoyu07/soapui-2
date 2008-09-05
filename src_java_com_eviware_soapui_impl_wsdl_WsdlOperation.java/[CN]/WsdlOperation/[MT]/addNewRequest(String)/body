@@ -6,6 +6,7 @@
     requestImpl.setWsAddressing(true);
   }
   WsdlUtils.setDefaultWsaAction(requestImpl.getWsaConfig(),false);
+  WsdlUtils.getAnonymous(this);
   (getInterface()).fireRequestAdded(requestImpl);
   return requestImpl;
 }

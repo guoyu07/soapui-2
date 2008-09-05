@@ -3,8 +3,9 @@
   if (wsaContainer.getWsaConfig().getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
     wsaVersionNameSpace=WS_A_VERSION_200408;
   }
-  replyToAnonimus=wsaVersionNameSpace + "/anonymous";
+  anonymousAddress=wsaVersionNameSpace + "/anonymous";
   relatesToReply=wsaVersionNameSpace + "/reply";
+  anonymousType=wsaContainer.getOperation().getAnonymous();
   Element header=(Element)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true).getDomNode();
   header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
   XmlObject[] envelope=xmlContentObject.selectChildren(soapVersion.getEnvelopeQName());
@@ -21,9 +22,15 @@
   if (!StringUtils.isNullOrEmpty(from)) {
     header.appendChild(builder.createWsaAddressChildElement("wsa:From",envelopeElement,from));
   }
-  String faultTo=wsaContainer.getWsaConfig().getFaultTo();
-  if (!StringUtils.isNullOrEmpty(faultTo)) {
-    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,faultTo));
+  if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
+    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,anonymousAddress));
+    wsaContainer.getWsaConfig().setFaultTo(anonymousAddress);
+  }
+ else {
+    String faultTo=wsaContainer.getWsaConfig().getFaultTo();
+    if (!StringUtils.isNullOrEmpty(faultTo)) {
+      header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,faultTo));
+    }
   }
   return header;
 }
