@@ -1,3 +1,7 @@
 {
-  request.setRequestContent(xml);
+  if (!updating) {
+    updating=true;
+    request.setRequestContent(xml);
+    updating=false;
+  }
 }

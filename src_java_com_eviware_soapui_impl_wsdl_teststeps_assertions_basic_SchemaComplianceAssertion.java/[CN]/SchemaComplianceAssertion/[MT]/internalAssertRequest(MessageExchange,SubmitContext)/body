@@ -1,7 +1,7 @@
 {
   WsdlContext wsdlContext=null;
   try {
-    wsdlContext=getWsdlContext((WsdlMessageExchange)messageExchange,context);
+    wsdlContext=(WsdlContext)getWsdlContext((WsdlMessageExchange)messageExchange,context);
   }
  catch (  Exception e1) {
     throw new AssertionException(new AssertionError(e1.getMessage()));

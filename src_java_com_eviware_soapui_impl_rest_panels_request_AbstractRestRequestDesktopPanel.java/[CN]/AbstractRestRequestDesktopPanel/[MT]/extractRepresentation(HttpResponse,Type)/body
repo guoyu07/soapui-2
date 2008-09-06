@@ -1,5 +1,5 @@
 {
-  RestRepresentation[] representations=getRequest().getRepresentations(type);
+  RestRepresentation[] representations=getRequest().getRepresentations(type,null);
   int c=0;
   for (; c < representations.length; c++) {
     if (representations[c].getMediaType().equals(response.getContentType())) {

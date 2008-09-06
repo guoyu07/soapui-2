@@ -13,6 +13,7 @@
     ApplicationDocument applicationDocument=(ApplicationDocument)xmlObject.changeType(ApplicationDocument.type);
     application=applicationDocument.getApplication();
     resources=application.getResources();
+    service.setName(getFirstTitle(application.getDocList(),service.getName()));
     String base=resources.getBase();
     try {
       URL baseUrl=new URL(base);

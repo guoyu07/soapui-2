@@ -1,6 +1,8 @@
 {
   if (evt.getPropertyName().equals("request") && !updatingRequest) {
+    updatingRequest=true;
     contentEditor.setText((String)evt.getNewValue());
+    updatingRequest=false;
   }
  else   if (evt.getPropertyName().equals("method")) {
     contentEditor.setEnabledAndEditable(restRequest.hasRequestBody());
@@ -11,5 +13,8 @@
  else     if (split.getDividerLocation() >= split.getHeight() - 20) {
       split.setDividerLocation(0.5);
     }
+  }
+ else   if (evt.getPropertyName().equals("mediaType")) {
+    recreateButton.setEnabled(canRecreate());
   }
 }

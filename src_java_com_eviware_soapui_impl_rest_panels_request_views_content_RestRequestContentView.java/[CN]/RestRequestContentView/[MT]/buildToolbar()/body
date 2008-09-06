@@ -13,5 +13,8 @@
 );
   toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
   toolbar.addSeparator();
+  recreateButton=UISupport.createActionButton(new CreateDefaultRepresentationAction(),true);
+  recreateButton.setEnabled(canRecreate());
+  toolbar.addFixed(recreateButton);
   return toolbar;
 }

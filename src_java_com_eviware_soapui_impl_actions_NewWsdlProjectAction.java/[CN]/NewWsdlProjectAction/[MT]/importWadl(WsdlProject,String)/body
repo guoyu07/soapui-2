@@ -1,5 +1,5 @@
 {
-  RestService restService=(RestService)project.addNewInterface(dialog.getValue(project.getName()),RestServiceFactory.REST_TYPE);
+  RestService restService=(RestService)project.addNewInterface(project.getName(),RestServiceFactory.REST_TYPE);
   UISupport.select(restService);
   try {
     new WadlImporter(restService).initFromWadl(url);

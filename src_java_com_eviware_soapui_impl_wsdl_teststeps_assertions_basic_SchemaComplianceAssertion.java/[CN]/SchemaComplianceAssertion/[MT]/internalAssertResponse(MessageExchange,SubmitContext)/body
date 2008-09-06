@@ -1,21 +1,9 @@
 {
-  WsdlContext wsdlContext=null;
-  try {
-    wsdlContext=getWsdlContext((WsdlMessageExchange)messageExchange,context);
+  if (messageExchange instanceof WsdlMessageExchange) {
+    return assertWsdlResponse((WsdlMessageExchange)messageExchange,context);
   }
- catch (  Exception e1) {
-    throw new AssertionException(new AssertionError(e1.getMessage()));
+ else   if (messageExchange instanceof RestMessageExchange) {
+    return assertWadlResponse((RestMessageExchange)messageExchange,context);
   }
-  WsdlValidator validator=new WsdlValidator(wsdlContext);
-  try {
-    AssertionError[] errors=validator.assertResponse((WsdlMessageExchange)messageExchange,false);
-    if (errors.length > 0)     throw new AssertionException(errors);
-  }
- catch (  AssertionException e) {
-    throw e;
-  }
-catch (  Exception e) {
-    throw new AssertionException(new AssertionError(e.getMessage()));
-  }
-  return "Schema compliance OK";
+  throw new AssertionException(new AssertionError("Unknown MessageExchange type"));
 }

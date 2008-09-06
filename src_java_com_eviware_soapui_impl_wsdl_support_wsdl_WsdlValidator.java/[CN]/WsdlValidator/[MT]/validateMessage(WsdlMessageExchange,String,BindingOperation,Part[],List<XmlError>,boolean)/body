@@ -26,7 +26,7 @@
     }
   }
  catch (  XmlException e) {
-    errors.addAll(e.getErrors());
+    if (e.getErrors() != null)     errors.addAll(e.getErrors());
     errors.add(XmlError.forMessage(e.getMessage()));
   }
 catch (  Exception e) {

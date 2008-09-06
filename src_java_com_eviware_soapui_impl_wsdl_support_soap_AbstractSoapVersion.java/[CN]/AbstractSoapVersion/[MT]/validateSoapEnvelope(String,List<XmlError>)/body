@@ -10,7 +10,7 @@
     xmlObject.validate(xmlOptions);
   }
  catch (  XmlException e) {
-    errorList.addAll(e.getErrors());
+    if (e.getErrors() != null)     errorList.addAll(e.getErrors());
     errors.add(XmlError.forMessage(e.getMessage()));
   }
 catch (  Exception e) {

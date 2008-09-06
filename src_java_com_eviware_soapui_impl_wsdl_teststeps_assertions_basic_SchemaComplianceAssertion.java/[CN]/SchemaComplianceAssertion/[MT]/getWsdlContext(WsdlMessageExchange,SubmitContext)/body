@@ -2,17 +2,17 @@
   WsdlOperation operation=messageExchange.getOperation();
   WsdlInterface iface=(WsdlInterface)operation.getInterface();
   if (definition == null || definition.trim().length() == 0 || definition.equals(PathUtils.expandPath(iface.getDefinition(),iface,context))) {
-    wsdlContext=(iface).getWsdlContext();
-    wsdlContext.loadIfNecessary();
+    definitionContext=(iface).getWsdlContext();
+    ((WsdlContext)definitionContext).loadIfNecessary();
   }
  else {
     String def=PropertyExpansionUtils.expandProperties(context,definition);
-    if (wsdlContext == null || !def.equals(wsdlContextDef)) {
-      wsdlContext=new WsdlContext(def,iface.getSoapVersion());
-      wsdlContext.load();
-      wsdlContext.setInterface(iface);
+    if (definitionContext == null || !def.equals(wsdlContextDef)) {
+      definitionContext=new WsdlContext(def,iface.getSoapVersion());
+      ((WsdlContext)definitionContext).load();
+      ((WsdlContext)definitionContext).setInterface(iface);
       wsdlContextDef=def;
     }
   }
-  return wsdlContext;
+  return definitionContext;
 }

@@ -30,14 +30,18 @@
   if (status == null || status.trim().length() == 0) {
     if (SoapUtils.isSoapFault(responseContent,request.getSoapVersion())) {
       request.getHttpResponse().setStatus(500);
+      response.setResponseStatus(500);
     }
  else {
       request.getHttpResponse().setStatus(200);
+      response.setResponseStatus(200);
     }
   }
  else {
     try {
-      request.getHttpResponse().setStatus(Integer.parseInt(status));
+      int statusCode=Integer.parseInt(status);
+      request.getHttpResponse().setStatus(statusCode);
+      response.setResponseStatus(statusCode);
     }
  catch (    RuntimeException e) {
       SoapUI.logError(e);

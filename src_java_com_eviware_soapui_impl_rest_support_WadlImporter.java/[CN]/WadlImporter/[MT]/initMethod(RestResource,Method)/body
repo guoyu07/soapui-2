@@ -8,17 +8,16 @@
       RestParamProperty p=request.addProperty(param.getName());
       initParam(param,p);
     }
+    for (    RepresentationType representationType : method.getResponse().getRepresentationList()) {
+      addRepresentationFromConfig(request,representationType,RestRepresentation.Type.REQUEST);
+    }
   }
   if (method.getResponse() != null) {
     for (    RepresentationType representationType : method.getResponse().getRepresentationList()) {
-      RestRepresentation restRepresentation=request.addNewRepresentation(RestRepresentation.Type.RESPONSE);
-      restRepresentation.setMediaType(representationType.getMediaType());
-      restRepresentation.setStatus(representationType.getStatus());
+      addRepresentationFromConfig(request,representationType,RestRepresentation.Type.RESPONSE);
     }
     for (    RepresentationType representationType : method.getResponse().getFaultList()) {
-      RestRepresentation restRepresentation=request.addNewRepresentation(RestRepresentation.Type.FAULT);
-      restRepresentation.setMediaType(representationType.getMediaType());
-      restRepresentation.setStatus(representationType.getStatus());
+      addRepresentationFromConfig(request,representationType,RestRepresentation.Type.FAULT);
     }
   }
   return request;

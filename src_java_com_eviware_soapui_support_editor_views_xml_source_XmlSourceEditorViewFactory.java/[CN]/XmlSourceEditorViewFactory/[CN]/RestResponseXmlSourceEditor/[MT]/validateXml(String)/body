@@ -1,0 +1,5 @@
+{
+  if (restRequest.getResource() == null)   return new ValidationError[0];
+  WadlValidator validator=new WadlValidator(restRequest.getResource().getService().getWadlContext());
+  return validator.assertResponse(new RestResponseMessageExchange(restRequest));
+}

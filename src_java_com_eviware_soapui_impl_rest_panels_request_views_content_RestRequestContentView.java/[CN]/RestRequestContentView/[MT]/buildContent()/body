@@ -4,9 +4,11 @@
   contentEditor.setText(XmlUtils.prettyPrintXml(restRequest.getRequestContent()));
   contentEditor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
-      updatingRequest=true;
-      restRequest.setRequestContent(contentEditor.getText());
-      updatingRequest=false;
+      if (!updatingRequest) {
+        updatingRequest=true;
+        restRequest.setRequestContent(contentEditor.getText());
+        updatingRequest=false;
+      }
     }
   }
 );

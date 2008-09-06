@@ -9,7 +9,7 @@
   testRequestConfig.addNewRequest().setStringValue(request.getRequestContent());
   testRequestConfig.setOutgoingWss(request.getOutgoingWss());
   testRequestConfig.setIncomingWss(request.getIncomingWss());
-  testRequestConfig.setWsaConfig((WsaConfigConfig)request.getConfig().getWsaConfig().copy());
+  if (request.getConfig().isSetWsaConfig())   testRequestConfig.setWsaConfig((WsaConfigConfig)request.getConfig().getWsaConfig().copy());
   if ((CredentialsConfig)request.getConfig().getCredentials() != null) {
     testRequestConfig.setCredentials((CredentialsConfig)request.getConfig().getCredentials().copy());
   }

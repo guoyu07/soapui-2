@@ -1,0 +1,12 @@
+{
+  RestRequest restRequest=messageExchange.getRestRequest();
+  if (restRequest != null) {
+    if (messageExchange.getResponseStatusCode() >= 400) {
+      return assertResponse(messageExchange,RestRepresentation.Type.FAULT);
+    }
+ else {
+      return assertResponse(messageExchange,RestRepresentation.Type.RESPONSE);
+    }
+  }
+  return new AssertionError[0];
+}
