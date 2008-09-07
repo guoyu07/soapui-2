@@ -9,7 +9,10 @@
   transformer.setParameter("output.dir",reportDirAbsolutePath);
   String reportFile=reportDirAbsolutePath + File.separatorChar + "wadl-report.html";
   StreamResult result=new StreamResult(new FileWriter(reportFile));
-  transformer.transform(new StreamSource(new StringReader(target.getWadlContext().getDefinitionParts().get(0).getContent())),result);
+  WadlDefinitionExporter exporter=new WadlDefinitionExporter(target);
+  String infile=exporter.export(reportDirAbsolutePath);
+  transformer.setURIResolver(new FileUriResolver(reportDirAbsolutePath));
+  transformer.transform(new StreamSource(new FileReader(infile)),result);
   String reportUrl=new File(reportFile).toURI().toURL().toString();
   return reportUrl;
 }

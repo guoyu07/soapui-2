@@ -1,0 +1,11 @@
+{
+  try {
+    if (PathUtils.isHttpPath(href))     return new StreamSource(new URL(href).openStream());
+    File file=PathUtils.isAbsolutePath(href) ? new File(href) : new File(basePath,href);
+    FileReader reader=new FileReader(file);
+    return new StreamSource(reader);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

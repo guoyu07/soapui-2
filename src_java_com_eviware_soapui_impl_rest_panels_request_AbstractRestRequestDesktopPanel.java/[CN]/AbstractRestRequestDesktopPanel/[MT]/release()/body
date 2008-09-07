@@ -1,0 +1,6 @@
+{
+  if (getRequest().getResource() != null) {
+    getRequest().getResource().removePropertyChangeListener(this);
+  }
+  return super.release();
+}

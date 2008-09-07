@@ -3,6 +3,7 @@
   section.clear();
   try {
     WadlDefinitionContext wadlContext=iface.getWadlContext();
+    if (iface.isGenerated())     wadlContext.regenerateWadl();
     List<InterfaceDefinitionPart> parts=wadlContext.getDefinitionParts();
     int tabCount=partTabs.getTabCount();
     for (    InterfaceDefinitionPart part : parts) {

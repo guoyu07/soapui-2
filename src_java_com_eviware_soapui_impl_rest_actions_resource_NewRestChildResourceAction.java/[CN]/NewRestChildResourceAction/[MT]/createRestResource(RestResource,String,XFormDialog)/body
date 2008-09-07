@@ -1,0 +1,24 @@
+{
+  RestResource possibleParent=null;
+  String p=parentResource.getFullPath() + path;
+  for (  RestResource resource : parentResource.getAllChildResources()) {
+    if (p.startsWith(resource.getFullPath())) {
+      int c=0;
+      for (; c < resource.getChildResourceCount(); c++) {
+        if (p.startsWith(resource.getChildResourceAt(c).getFullPath()))         break;
+      }
+      if (c != resource.getChildResourceCount())       continue;
+      possibleParent=resource;
+      break;
+    }
+  }
+  RestResource resource;
+  if (possibleParent != null && UISupport.confirm("Create resource as child to [" + possibleParent.getName() + "]","New Child Resource")) {
+    path=path.substring(p.length() - possibleParent.getFullPath().length() - 1);
+    resource=possibleParent.addNewChildResource(dialog.getValue(Form.RESOURCENAME),path);
+  }
+ else {
+    resource=parentResource.addNewChildResource(dialog.getValue(Form.RESOURCENAME),path);
+  }
+  return resource;
+}

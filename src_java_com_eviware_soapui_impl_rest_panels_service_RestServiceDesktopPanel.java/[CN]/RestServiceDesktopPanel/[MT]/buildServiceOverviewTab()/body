@@ -2,7 +2,7 @@
   metrics=new MetricsPanel();
   MetricsSection section=metrics.addSection("WSDL Definition");
   try {
-    section.addMetric("WADL URL",MetricType.URL).set(restService.getWadlUrl());
+    section.addMetric("WADL URL",MetricType.URL).set(restService.getWadlUrl() + (restService.isGenerated() ? " - generated" : ""));
   }
  catch (  Exception e) {
     UISupport.showErrorMessage(e);

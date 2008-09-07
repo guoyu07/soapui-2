@@ -1,6 +1,7 @@
 {
   super.release();
   params.release();
+  if (getResource() != null)   getResource().removePropertyChangeListener(this);
   for (  RestRepresentation representation : representations) {
     representation.release();
   }

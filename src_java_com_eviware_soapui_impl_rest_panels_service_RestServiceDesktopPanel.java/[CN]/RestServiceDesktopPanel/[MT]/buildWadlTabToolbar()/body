@@ -3,15 +3,12 @@
   toolbar.addFixed(UISupport.createToolbarButton(new BackwardAction()));
   toolbar.addFixed(UISupport.createToolbarButton(new ForwardAction()));
   toolbar.addUnrelatedGap();
-  JButton button=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(UpdateInterfaceAction.SOAPUI_ACTION_ID,getModelItem(),null,"/updateDefinition.gif"));
-  button.setText(null);
-  toolbar.addFixed(button);
-  button=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(ExportDefinitionAction.SOAPUI_ACTION_ID,getModelItem(),null,"/exportDefinition.gif"));
+  JButton button=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(ExportWadlAction.SOAPUI_ACTION_ID,getModelItem(),null,"/exportDefinition.gif"));
   button.setText(null);
   toolbar.addFixed(button);
   toolbar.addFixed(UISupport.createToolbarButton(SwingActionDelegate.createDelegate(CreateWadlDocumentationAction.SOAPUI_ACTION_ID,restService,null,"/export.gif")));
   toolbar.addFixed(button);
-  if (!StringUtils.hasContent(restService.getWadlUrl())) {
+  if (restService.isGenerated()) {
     toolbar.addUnrelatedGap();
     toolbar.addFixed(UISupport.createToolbarButton(new RecreateWadlAction()));
   }

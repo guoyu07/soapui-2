@@ -9,8 +9,8 @@
   for (int c=0; c < params.size(); c++) {
     generateParam(resourceConfig.addNewParam(),params.getPropertyAt(c));
   }
-  for (int c=0; c < resource.getResourceCount(); c++) {
-    resourceConfig.addNewResource().set(generateWadlResource(resource.getResourceAt(c)));
+  for (int c=0; c < resource.getChildResourceCount(); c++) {
+    resourceConfig.addNewResource().set(generateWadlResource(resource.getChildResourceAt(c)));
   }
   for (int c=0; c < resource.getRequestCount(); c++) {
     RestRequest request=resource.getRequestAt(c);

@@ -24,8 +24,8 @@
       requestEntity.writeRequest(out);
       requestData=out.toByteArray();
     }
- else {
-      requestData=new byte[0];
+ else     if (StringUtils.hasContent(requestContent)) {
+      requestData=requestContent.getBytes();
     }
   }
  catch (  Exception e) {

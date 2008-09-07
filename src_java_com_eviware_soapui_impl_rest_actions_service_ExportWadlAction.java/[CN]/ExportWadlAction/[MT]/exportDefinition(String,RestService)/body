@@ -1,0 +1,6 @@
+{
+  File folderName=location == null ? UISupport.getFileDialogs().openDirectory(this,"Select output directory",null) : new File(location);
+  if (folderName == null)   return null;
+  WadlDefinitionExporter exporter=new WadlDefinitionExporter(iface);
+  return exporter.export(folderName.getAbsolutePath());
+}

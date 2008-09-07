@@ -1,0 +1,11 @@
+{
+  try {
+    String path=RestUtils.extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params);
+    dialog.setValue(Form.RESOURCEPATH,path);
+    if (StringUtils.isNullOrEmpty(dialog.getValue(Form.RESOURCENAME)))     setNameFromPath(path);
+    paramsTable.refresh();
+  }
+ catch (  MalformedURLException e1) {
+    UISupport.showErrorMessage("Error extracting parameters; " + e1);
+  }
+}

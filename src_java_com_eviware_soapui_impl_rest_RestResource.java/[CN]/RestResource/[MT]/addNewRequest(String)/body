@@ -4,7 +4,7 @@
   RestRequest request=new RestRequest(this,resourceConfig,false);
   requests.add(request);
   for (  RestParamProperty prop : getDefaultParams()) {
-    request.addProperty(prop);
+    if (!request.hasProperty(prop.getName()))     request.addProperty(prop);
   }
   String[] endpoints=getInterface().getEndpoints();
   if (endpoints.length > 0)   request.setEndpoint(endpoints[0]);

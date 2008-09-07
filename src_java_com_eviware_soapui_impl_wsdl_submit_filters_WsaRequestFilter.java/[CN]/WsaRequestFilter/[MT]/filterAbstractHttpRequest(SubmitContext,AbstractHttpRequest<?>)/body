@@ -6,8 +6,8 @@
   }
  else {
     ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-    Operation operation=((WsdlRequest)wsdlRequest).getOperation();
-    SoapVersion soapVersion=((WsdlRequest)wsdlRequest).getOperation().getInterface().getSoapVersion();
+    WsdlOperation operation=((WsdlRequest)wsdlRequest).getOperation();
+    SoapVersion soapVersion=operation.getInterface().getSoapVersion();
     content=new WsaUtils(content,soapVersion,operation).addWSAddressingRequest((WsdlRequest)wsdlRequest,httpMethod);
     if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
   }

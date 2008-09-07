@@ -1,7 +1,7 @@
 {
   super(xmlDocument);
   this.modelItem=modelItem;
-  EditorViewFactory[] editorFactories=EditorViewRegistry.getInstance().getFactoriesOfType(ResponseEditorViewFactory.class);
+  EditorViewFactory[] editorFactories=EditorViewFactoryRegistry.getInstance().getFactoriesOfType(ResponseEditorViewFactory.class);
   for (  EditorViewFactory factory : editorFactories) {
     ResponseEditorViewFactory f=(ResponseEditorViewFactory)factory;
     EditorView<T1> editorView=(EditorView<T1>)f.createResponseEditorView(this,modelItem);

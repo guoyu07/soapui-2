@@ -7,4 +7,5 @@
     representations.add(new RestRepresentation(this,config));
   }
   params=new XmlBeansRestParamsTestPropertyHolder(this,requestConfig.getParameters());
+  if (resource != null)   resource.addPropertyChangeListener(this);
 }

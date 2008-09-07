@@ -7,6 +7,6 @@
   assertEquals(resource.getDefaultParams().length,1);
   assertEquals("id",resource.getDefaultParams()[0].getName());
   assertEquals("/{id}/test",resource.getFullPath());
-  RestResource subResource=resource.addNewResource("Child","{test}/test");
+  RestResource subResource=resource.addNewChildResource("Child","{test}/test");
   assertEquals("/{id}/test/{test}/test",subResource.getFullPath());
 }

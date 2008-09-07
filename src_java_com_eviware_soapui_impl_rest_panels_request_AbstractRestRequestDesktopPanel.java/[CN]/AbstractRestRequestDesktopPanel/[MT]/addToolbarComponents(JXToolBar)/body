@@ -12,21 +12,36 @@
 );
   toolbar.addLabeledFixed("Method",methodCombo);
   toolbar.addSeparator();
-  pathField=new JUndoableTextField();
-  pathField.setPreferredSize(new Dimension(getRequest().getResource() == null ? 350 : 250,20));
-  pathField.setText(getRequest().getPath());
-  pathField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
-      getRequest().setPath(pathField.getText());
-    }
-  }
-);
   if (getRequest().getResource() != null) {
-    toolbar.addLabeledFixed("Resource Path:",pathField);
-    toolbar.add(recreatePathButton);
+    pathComponent=new JUndoableTextField();
+    pathComponent.setPreferredSize(new Dimension(250,20));
+    pathComponent.setText(getRequest().getResource().getPath());
+    pathComponent.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+      @Override public void update(      Document document){
+        if (updating)         return;
+        updating=true;
+        getRequest().getResource().setPath(pathComponent.getText());
+        updating=false;
+      }
+    }
+);
+    toolbar.addLabeledFixed("Resource Path:",pathComponent);
+    pathLabel=new JLabel(getRequest().getResource().getFullPath());
+    pathLabel.setPreferredSize(new Dimension(200,20));
+    toolbar.addSeparator();
+    toolbar.addLabeledFixed("Full Path:",pathLabel);
   }
  else {
-    toolbar.addLabeledFixed("Request URL:",pathField);
+    pathComponent=new JUndoableTextField();
+    pathComponent.setPreferredSize(new Dimension(350,20));
+    pathComponent.setText(getRequest().getPath());
+    pathComponent.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+      @Override public void update(      Document document){
+        getRequest().setPath(pathComponent.getText());
+      }
+    }
+);
+    toolbar.addLabeledFixed("Request URL:",pathComponent);
   }
   toolbar.addSeparator();
 }

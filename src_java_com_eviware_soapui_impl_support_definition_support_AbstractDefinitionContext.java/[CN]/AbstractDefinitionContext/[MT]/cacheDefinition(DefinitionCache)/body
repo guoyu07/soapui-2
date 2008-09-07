@@ -4,7 +4,7 @@
   definition=loadDefinition(currentLoader);
   definition.setDefinitionCache(cache);
   log.debug("Loaded Definition: " + (definition != null ? "ok" : "null"));
-  if (!currentLoader.isAborted() && iface != null) {
+  if (!currentLoader.isAborted() && iface != null && iface.isDefinitionShareble()) {
     definitionCache.put(url,definition);
     if (urlReferences.containsKey(url)) {
       urlReferences.put(url,urlReferences.get(url) + 1);

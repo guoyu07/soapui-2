@@ -1,5 +1,5 @@
 {
-  if (modelItem instanceof MessageExchangeModelItem && ((MessageExchangeModelItem)modelItem).hasRawData()) {
+  if (modelItem instanceof MessageExchangeModelItem && ((MessageExchangeModelItem)modelItem).hasRawData() && ((MessageExchangeModelItem)modelItem).getMessageExchange().getRawResponseData() != null) {
     return new WsdlMessageExchangeResponseRawXmlEditor((MessageExchangeModelItem)modelItem,(XmlEditor)editor);
   }
  else   if (modelItem instanceof AbstractHttpRequest) {

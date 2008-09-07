@@ -20,7 +20,9 @@
   JPanel p=new JPanel(new BorderLayout());
   p.add(inputArea,BorderLayout.CENTER);
   p.add(new LineNumbersPanel(inputArea),BorderLayout.WEST);
-  panel.add(new JScrollPane(p),BorderLayout.CENTER);
+  JScrollPane scrollPane=new JScrollPane(p);
+  UISupport.addPreviewCorner(scrollPane,true);
+  panel.add(scrollPane,BorderLayout.CENTER);
   partTabs.addTab(title,panel);
   if (tree != null) {
     initInspectionTree(xmlObject,inputArea);
