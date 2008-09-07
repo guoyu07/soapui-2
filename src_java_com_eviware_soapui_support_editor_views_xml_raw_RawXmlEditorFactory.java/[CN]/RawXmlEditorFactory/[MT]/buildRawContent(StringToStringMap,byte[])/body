@@ -7,6 +7,6 @@
     result.append(header).append(": ").append(headers.get(header)).append('\n');
   }
   result.append('\n');
-  result.append(new String(data).trim());
+  if (data != null)   result.append(new String(data).trim());
   return result.toString().trim();
 }
