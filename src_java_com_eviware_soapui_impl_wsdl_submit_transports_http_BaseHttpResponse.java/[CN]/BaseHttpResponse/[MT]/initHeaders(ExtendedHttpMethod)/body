@@ -17,6 +17,7 @@
     }
     responseHeaders.put("#status#",httpMethod.getStatusLine().toString());
     if (httpMethod.getRequestEntity() != null) {
+      rawRequestData.write("\r\n".getBytes());
       if (httpMethod.getRequestEntity().isRepeatable())       httpMethod.getRequestEntity().writeRequest(rawRequestData);
  else       rawRequestData.write("<request data not available>".getBytes());
     }
