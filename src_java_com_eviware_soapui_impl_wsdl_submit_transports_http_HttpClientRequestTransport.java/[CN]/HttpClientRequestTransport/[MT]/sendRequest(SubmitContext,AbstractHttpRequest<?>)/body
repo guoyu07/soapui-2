@@ -23,14 +23,17 @@
   submitContext.setProperty(HTTP_METHOD,httpMethod);
   submitContext.setProperty(POST_METHOD,httpMethod);
   submitContext.setProperty(HTTP_CLIENT,httpClient);
-  submitContext.setProperty(REQUEST_CONTENT,httpRequest.getRequestContent());
+  Settings settings=httpRequest.getSettings();
+  String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
+  String requestContent=httpRequest.getRequestContent();
+  if (!"None".equals(compressionAlg))   requestContent=new String(CompressionSupport.compress(compressionAlg,requestContent.getBytes()));
+  submitContext.setProperty(REQUEST_CONTENT,requestContent);
   submitContext.setProperty(HOST_CONFIGURATION,hostConfiguration);
   submitContext.setProperty(WSDL_REQUEST,httpRequest);
   for (  RequestFilter filter : filters) {
     filter.filterRequest(submitContext,httpRequest);
   }
   try {
-    Settings settings=httpRequest.getSettings();
     StringToStringMap headers=httpRequest.getRequestHeaders();
     for (    String header : headers.keySet()) {
       String headerValue=headers.get(header);
