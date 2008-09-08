@@ -1,0 +1,7 @@
+{
+  ByteArrayOutputStream compressedContent=new ByteArrayOutputStream();
+  GZIPOutputStream gzipstream=new GZIPOutputStream(compressedContent);
+  gzipstream.write(requestContent);
+  gzipstream.finish();
+  return compressedContent.toByteArray();
+}
