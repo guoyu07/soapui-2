@@ -1,7 +1,7 @@
 {
   try {
     MessageExchange messageExchange=messageExchangeModelItem.getMessageExchange();
-    DefaultXmlDocument defaultXmlDocument=((DefaultXmlDocument)getDocument());
+    DefaultXmlDocument defaultXmlDocument=getDocument();
     if (messageExchange != null && messageExchange.getOperation() != null)     defaultXmlDocument.setTypeSystem(messageExchange.getOperation().getInterface().getDefinitionContext().getInterfaceDefinition().getSchemaTypeSystem());
     defaultXmlDocument.setXml(messageExchange == null ? null : messageExchange.getRequestContentAsXml());
   }

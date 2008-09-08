@@ -12,8 +12,7 @@
     return new ByteArrayInputStream(urlCache.get(url));
   }
   if (url.startsWith("file:")) {
-    setNewBaseURI(url);
-    return new URL(url).openStream();
+    return handleFile(url);
   }
   log.debug("Getting wsdl component from [" + url + "]");
   createGetMethod(url);

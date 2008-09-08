@@ -1,4 +1,4 @@
 {
   if (request.getResponse() == null)   return "<missing response>";
-  return buildRawContent(request.getResponse().getResponseHeaders(),request.getResponse().getRawResponseData());
+  return new String(request.getResponse().getRawResponseData());
 }

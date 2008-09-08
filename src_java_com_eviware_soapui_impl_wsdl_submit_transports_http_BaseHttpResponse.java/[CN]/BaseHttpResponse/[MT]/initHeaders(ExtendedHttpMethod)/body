@@ -1,13 +1,28 @@
 {
-  requestHeaders=new StringToStringMap();
-  Header[] headers=postMethod.getRequestHeaders();
-  for (  Header header : headers) {
-    requestHeaders.put(header.getName(),header.getValue());
+  try {
+    rawResponseData.write(httpMethod.getStatusLine().toString().getBytes());
+    rawRequestData.write((method + " " + url.toString()+ " "+ version+ "\r\n").getBytes());
+    requestHeaders=new StringToStringMap();
+    Header[] headers=httpMethod.getRequestHeaders();
+    for (    Header header : headers) {
+      requestHeaders.put(header.getName(),header.getValue());
+      rawRequestData.write(header.toExternalForm().getBytes());
+    }
+    responseHeaders=new StringToStringMap();
+    headers=httpMethod.getResponseHeaders();
+    for (    Header header : headers) {
+      responseHeaders.put(header.getName(),header.getValue());
+      rawResponseData.write(header.toExternalForm().getBytes());
+    }
+    responseHeaders.put("#status#",httpMethod.getStatusLine().toString());
+    if (httpMethod.getRequestEntity() != null) {
+      if (httpMethod.getRequestEntity().isRepeatable())       httpMethod.getRequestEntity().writeRequest(rawRequestData);
+ else       rawRequestData.write("<request data not available>".getBytes());
+    }
+    rawResponseData.write("\r\n".getBytes());
+    rawResponseData.write(httpMethod.getResponseBody());
   }
-  responseHeaders=new StringToStringMap();
-  headers=postMethod.getResponseHeaders();
-  for (  Header header : headers) {
-    responseHeaders.put(header.getName(),header.getValue());
+ catch (  Exception e) {
+    e.printStackTrace();
   }
-  responseHeaders.put("#status#",postMethod.getStatusLine().toString());
 }

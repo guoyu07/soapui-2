@@ -2,7 +2,7 @@
   super(httpMethod,httpRequest);
   this.requestContent=requestContent;
   try {
-    responseBody=httpMethod.getResponseBody();
+    byte[] responseBody=httpMethod.getResponseBody();
     int contentOffset=0;
     if (responseBody == null)     responseBody=new byte[0];
     responseSize=responseBody.length;
@@ -18,15 +18,6 @@
     charset=StringUtils.unquote(charset);
     responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);
     prettyPrint=httpRequest.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
-    RequestEntity requestEntity=httpMethod.getRequestEntity();
-    if (requestEntity != null) {
-      ByteArrayOutputStream out=new ByteArrayOutputStream();
-      requestEntity.writeRequest(out);
-      requestData=out.toByteArray();
-    }
- else     if (StringUtils.hasContent(requestContent)) {
-      requestData=requestContent.getBytes();
-    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);
