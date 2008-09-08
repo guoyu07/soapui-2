@@ -2,13 +2,16 @@
   if (evt.getPropertyName().equals("method") && !updatingRequest) {
     methodCombo.setSelectedItem(evt.getNewValue());
   }
+ else   if (evt.getPropertyName().equals("accept") && !updatingRequest) {
+    acceptEncodingCombo.setSelectedItem(evt.getNewValue());
+  }
  else   if (evt.getPropertyName().equals("path") && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
     if (pathLabel != null) {
       pathLabel.setText(getRequest().getResource().getFullPath());
     }
     if (!updating) {
       updating=true;
-      pathComponent.setText((String)evt.getNewValue());
+      pathTextField.setText((String)evt.getNewValue());
       updating=false;
     }
   }

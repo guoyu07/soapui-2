@@ -2,6 +2,7 @@
   toolbar.addSeparator();
   methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
   methodCombo.setSelectedItem(getRequest().getMethod());
+  methodCombo.setToolTipText("Set desired HTTP method");
   methodCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       updatingRequest=true;
@@ -13,35 +14,49 @@
   toolbar.addLabeledFixed("Method",methodCombo);
   toolbar.addSeparator();
   if (getRequest().getResource() != null) {
-    pathComponent=new JUndoableTextField();
-    pathComponent.setPreferredSize(new Dimension(250,20));
-    pathComponent.setText(getRequest().getResource().getPath());
-    pathComponent.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    acceptEncodingCombo=new JComboBox(getRequest().getAcceptEncodings());
+    acceptEncodingCombo.setEditable(true);
+    acceptEncodingCombo.setToolTipText("Sets accepted encoding(s) for response");
+    acceptEncodingCombo.setSelectedItem(getRequest().getAccept());
+    acceptEncodingCombo.addItemListener(new ItemListener(){
+      public void itemStateChanged(      ItemEvent e){
+        updatingRequest=true;
+        getRequest().setAccept(String.valueOf(acceptEncodingCombo.getSelectedItem()));
+        updatingRequest=false;
+      }
+    }
+);
+    toolbar.addLabeledFixed("Accept",acceptEncodingCombo);
+    toolbar.addSeparator();
+    pathTextField=new JUndoableTextField();
+    pathTextField.setPreferredSize(new Dimension(200,20));
+    pathTextField.setText(getRequest().getResource().getPath());
+    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
       @Override public void update(      Document document){
         if (updating)         return;
         updating=true;
-        getRequest().getResource().setPath(pathComponent.getText());
+        getRequest().getResource().setPath(pathTextField.getText());
         updating=false;
       }
     }
 );
-    toolbar.addLabeledFixed("Resource Path:",pathComponent);
+    toolbar.addLabeledFixed("Resource Path:",pathTextField);
     pathLabel=new JLabel(getRequest().getResource().getFullPath());
     pathLabel.setPreferredSize(new Dimension(200,20));
     toolbar.addSeparator();
     toolbar.addLabeledFixed("Full Path:",pathLabel);
   }
  else {
-    pathComponent=new JUndoableTextField();
-    pathComponent.setPreferredSize(new Dimension(350,20));
-    pathComponent.setText(getRequest().getPath());
-    pathComponent.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    pathTextField=new JUndoableTextField();
+    pathTextField.setPreferredSize(new Dimension(300,20));
+    pathTextField.setText(getRequest().getPath());
+    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
       @Override public void update(      Document document){
-        getRequest().setPath(pathComponent.getText());
+        getRequest().setPath(pathTextField.getText());
       }
     }
 );
-    toolbar.addLabeledFixed("Request URL:",pathComponent);
+    toolbar.addLabeledFixed("Request URL:",pathTextField);
   }
   toolbar.addSeparator();
 }

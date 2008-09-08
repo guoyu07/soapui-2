@@ -9,19 +9,23 @@
     responseReadTime=System.nanoTime() - now;
     responseBody=out.toByteArray();
     try {
-      if (StringUtils.hasContent(dumpFile))       Tools.writeAll(new FileOutputStream(dumpFile),new ByteArrayInputStream(responseBody));
+      if (StringUtils.hasContent(dumpFile)) {
+        Tools.writeAll(new FileOutputStream(dumpFile),new ByteArrayInputStream(responseBody));
+      }
     }
  catch (    IOException e) {
       e.printStackTrace();
     }
     String compressionAlg=HttpClientSupport.getResponseCompressionType(httpMethod);
-    if (compressionAlg != null)     try {
-      responseBody=CompressionSupport.decompress(compressionAlg,responseBody);
-    }
- catch (    Exception e) {
-      IOException ioe=new IOException("Decompression of response failed");
-      ioe.initCause(e);
-      throw ioe;
+    if (compressionAlg != null) {
+      try {
+        responseBody=CompressionSupport.decompress(compressionAlg,responseBody);
+      }
+ catch (      Exception e) {
+        IOException ioe=new IOException("Decompression of response failed");
+        ioe.initCause(e);
+        throw ioe;
+      }
     }
   }
  else {
