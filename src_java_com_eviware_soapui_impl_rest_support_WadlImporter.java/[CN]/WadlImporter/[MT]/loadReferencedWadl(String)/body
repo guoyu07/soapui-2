@@ -1,0 +1,11 @@
+{
+  int ix=id.indexOf('#');
+  if (ix != -1)   id=id.substring(0,ix);
+  ApplicationDocument applicationDocument=refCache.get(id);
+  if (applicationDocument == null) {
+    URI uri=new URI(id);
+    applicationDocument=ApplicationDocument.Factory.parse(uri.toURL());
+    refCache.put(id,applicationDocument);
+  }
+  return applicationDocument;
+}

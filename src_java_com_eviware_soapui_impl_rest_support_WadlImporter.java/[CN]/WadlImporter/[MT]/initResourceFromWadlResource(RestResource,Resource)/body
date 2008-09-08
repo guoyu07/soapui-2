@@ -14,6 +14,7 @@
       ResourceTypeDocument.ResourceType type=resolveResource(obj.toString());
       if (type != null) {
         for (        Method method : type.getMethodList()) {
+          method=resolveMethod(method);
           RestRequest restRequest=initMethod(newResource,method);
           for (          Param param : type.getParamList()) {
             String nm=param.getName();

@@ -9,14 +9,17 @@
       initParam(param,p);
     }
     for (    RepresentationType representationType : method.getResponse().getRepresentationList()) {
+      representationType=resolveRepresentation(representationType);
       addRepresentationFromConfig(request,representationType,RestRepresentation.Type.REQUEST);
     }
   }
   if (method.getResponse() != null) {
     for (    RepresentationType representationType : method.getResponse().getRepresentationList()) {
+      representationType=resolveRepresentation(representationType);
       addRepresentationFromConfig(request,representationType,RestRepresentation.Type.RESPONSE);
     }
     for (    RepresentationType representationType : method.getResponse().getFaultList()) {
+      representationType=resolveFault(representationType);
       addRepresentationFromConfig(request,representationType,RestRepresentation.Type.FAULT);
     }
   }

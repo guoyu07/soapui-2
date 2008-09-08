@@ -2,5 +2,18 @@
   for (  ResourceTypeDocument.ResourceType resourceType : application.getResourceTypeList()) {
     if (resourceType.getId().equals(id))     return resourceType;
   }
+  try {
+    ApplicationDocument applicationDocument=loadReferencedWadl(id);
+    if (applicationDocument != null) {
+      int ix=id.lastIndexOf('#');
+      if (ix > 0)       id=id.substring(ix + 1);
+      for (      ResourceTypeDocument.ResourceType resourceType : applicationDocument.getApplication().getResourceTypeList()) {
+        if (resourceType.getId().equals(id))         return resourceType;
+      }
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
   return null;
 }
