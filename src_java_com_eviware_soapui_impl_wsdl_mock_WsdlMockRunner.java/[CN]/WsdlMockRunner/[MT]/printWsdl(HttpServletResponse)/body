@@ -2,15 +2,16 @@
   WsdlInterface[] mockedInterfaces=mockService.getMockedInterfaces();
   if (mockedInterfaces.length == 1) {
     StringToStringMap parts=wsdlCache.get(mockedInterfaces[0].getName());
-    printOkXmlResult(response,parts.get("#root#"));
+    printOkXmlResult(response,parts.get(parts.get("#root#")));
   }
  else {
     try {
       WSDLFactory wsdlFactory=WSDLFactory.newInstance();
       Definition def=wsdlFactory.newDefinition();
       for (      WsdlInterface iface : mockedInterfaces) {
+        StringToStringMap parts=wsdlCache.get(iface.getName());
         Import wsdlImport=def.createImport();
-        wsdlImport.setLocationURI(getInterfacePrefix(iface));
+        wsdlImport.setLocationURI(getInterfacePrefix(iface) + "&part=" + parts.get("#root#"));
         wsdlImport.setNamespaceURI(iface.getWsdlContext().getDefinition().getTargetNamespace());
         def.addImport(wsdlImport);
       }

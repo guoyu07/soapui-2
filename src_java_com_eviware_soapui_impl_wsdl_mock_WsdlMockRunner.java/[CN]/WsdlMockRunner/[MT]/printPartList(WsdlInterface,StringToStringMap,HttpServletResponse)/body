@@ -4,6 +4,7 @@
   PrintWriter out=response.getWriter();
   out.print("<html><body><p>Parts in interface [" + iface.getName() + "]</p><ul>");
   for (  String key : parts.keySet()) {
+    if (key.equals("#root#"))     continue;
     out.print("<li><a href=\"");
     out.print(getInterfacePrefix(iface) + "&part=" + key);
     out.print("\">" + key + "</a></li>");

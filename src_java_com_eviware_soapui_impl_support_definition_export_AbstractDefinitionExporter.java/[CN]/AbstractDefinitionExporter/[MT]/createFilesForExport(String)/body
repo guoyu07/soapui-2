@@ -13,7 +13,7 @@
     String urlString=urlToFileMap.get(part.getUrl());
     if (urlString.startsWith(urlPrefix))     urlString=urlString.substring(urlPrefix.length());
     result.put(urlString,obj.xmlText());
-    if (part.getUrl().equals(definition.getDefinitionCache().getRootPart()))     result.put("#root#",obj.xmlText());
+    if (part.isRootPart())     result.put("#root#",urlString);
   }
   return result;
 }

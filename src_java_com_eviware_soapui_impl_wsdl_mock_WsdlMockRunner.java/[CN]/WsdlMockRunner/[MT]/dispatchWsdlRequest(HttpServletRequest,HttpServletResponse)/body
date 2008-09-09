@@ -11,8 +11,7 @@
   }
   StringToStringMap parts=wsdlCache.get(iface.getName());
   String part=request.getParameter("part");
-  if (part == null)   part="#root#";
-  String content=parts.get(part);
+  String content=StringUtils.isNullOrEmpty(part) ? null : parts.get(part);
   if (content == null) {
     printPartList(iface,parts,response);
     return;
