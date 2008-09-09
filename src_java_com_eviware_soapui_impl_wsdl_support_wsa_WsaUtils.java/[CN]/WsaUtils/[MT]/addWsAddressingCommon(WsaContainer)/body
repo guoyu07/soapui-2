@@ -22,15 +22,9 @@
   if (!StringUtils.isNullOrEmpty(from)) {
     header.appendChild(builder.createWsaAddressChildElement("wsa:From",envelopeElement,from));
   }
-  if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
-    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,anonymousAddress));
-    wsaContainer.getWsaConfig().setFaultTo(anonymousAddress);
-  }
- else {
-    String faultTo=wsaContainer.getWsaConfig().getFaultTo();
-    if (!StringUtils.isNullOrEmpty(faultTo)) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,faultTo));
-    }
+  String faultTo=wsaContainer.getWsaConfig().getFaultTo();
+  if (!StringUtils.isNullOrEmpty(faultTo)) {
+    header.appendChild(builder.createWsaAddressChildElement("wsa:FaultTo",envelopeElement,faultTo));
   }
   return header;
 }

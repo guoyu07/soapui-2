@@ -18,7 +18,7 @@
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
     }
  else     if (operation.isRequestResponse()) {
-      if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_REPLYTO) && !AnonymousTypeConfig.PROHIBITED.equals(anonymousType)) {
+      if (!AnonymousTypeConfig.PROHIBITED.equals(anonymousType)) {
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
         wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
       }

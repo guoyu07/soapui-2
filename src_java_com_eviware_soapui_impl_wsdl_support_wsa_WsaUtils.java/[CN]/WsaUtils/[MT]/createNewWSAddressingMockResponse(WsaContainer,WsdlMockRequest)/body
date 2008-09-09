@@ -9,9 +9,15 @@
       header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
       wsaContainer.getWsaConfig().setAction(action);
     }
-    String replyTo=wsaContainer.getWsaConfig().getReplyTo();
-    if (!StringUtils.isNullOrEmpty(replyTo)) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
+    if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
+      header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
+      wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
+    }
+ else {
+      String replyTo=wsaContainer.getWsaConfig().getReplyTo();
+      if (!StringUtils.isNullOrEmpty(replyTo)) {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
+      }
     }
     Element requestHeader=null;
     if (request != null) {
@@ -50,8 +56,10 @@
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
-          header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
-          wsaContainer.getWsaConfig().setTo(requestReplyToValue);
+          if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && (requestReplyToValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || requestReplyToValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous")))) {
+            header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
+            wsaContainer.getWsaConfig().setTo(requestReplyToValue);
+          }
         }
       }
     }

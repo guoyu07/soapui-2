@@ -17,4 +17,19 @@
   if (StringUtils.isNullOrEmpty(relatesToAddressesValue)) {
     throw new AssertionException(new AssertionError("WS-A RelatesTo Address property is empty"));
   }
+  Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
+  if (replyToNode != null) {
+    Element addressNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
+    if (addressNode != null) {
+      String replyToAddressValue=XmlUtils.getElementText(addressNode);
+      if (!StringUtils.isNullOrEmpty(replyToAddressValue)) {
+        if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && (replyToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || replyToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+          throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are prohibited"));
+        }
+ else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(replyToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || replyToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+          throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required"));
+        }
+      }
+    }
+  }
 }
