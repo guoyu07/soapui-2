@@ -4,7 +4,9 @@
   if (!requestConfig.isSetMethod())   setMethod(RequestMethod.GET);
   if (requestConfig.getParameters() == null)   requestConfig.addNewParameters();
   for (  RestResourceRepresentationConfig config : requestConfig.getRepresentationList()) {
-    representations.add(new RestRepresentation(this,config));
+    RestRepresentation representation=new RestRepresentation(this,config);
+    representation.addPropertyChangeListener(representationPropertyChangeListener);
+    representations.add(representation);
   }
   params=new XmlBeansRestParamsTestPropertyHolder(this,requestConfig.getParameters());
   if (resource != null)   resource.addPropertyChangeListener(this);

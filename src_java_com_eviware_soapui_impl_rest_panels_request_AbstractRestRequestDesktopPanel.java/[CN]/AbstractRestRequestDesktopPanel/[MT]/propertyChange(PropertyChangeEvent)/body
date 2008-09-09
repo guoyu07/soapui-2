@@ -3,7 +3,12 @@
     methodCombo.setSelectedItem(evt.getNewValue());
   }
  else   if (evt.getPropertyName().equals("accept") && !updatingRequest) {
-    acceptEncodingCombo.setSelectedItem(evt.getNewValue());
+    acceptCombo.setSelectedItem(evt.getNewValue());
+  }
+ else   if (evt.getPropertyName().equals("responseMediaTypes") && !updatingRequest) {
+    Object item=acceptCombo.getSelectedItem();
+    acceptCombo.setModel(new DefaultComboBoxModel((Object[])evt.getNewValue()));
+    acceptCombo.setSelectedItem(item);
   }
  else   if (evt.getPropertyName().equals("path") && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
     if (pathLabel != null) {

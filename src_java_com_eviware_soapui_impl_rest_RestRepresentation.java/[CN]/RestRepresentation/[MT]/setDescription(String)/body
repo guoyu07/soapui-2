@@ -1,3 +1,5 @@
 {
+  String old=getDescription();
   config.setDescription(description);
+  propertyChangeSupport.firePropertyChange("description",old,description);
 }

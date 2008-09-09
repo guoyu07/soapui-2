@@ -14,19 +14,19 @@
   toolbar.addLabeledFixed("Method",methodCombo);
   toolbar.addSeparator();
   if (getRequest().getResource() != null) {
-    acceptEncodingCombo=new JComboBox(getRequest().getAcceptEncodings());
-    acceptEncodingCombo.setEditable(true);
-    acceptEncodingCombo.setToolTipText("Sets accepted encoding(s) for response");
-    acceptEncodingCombo.setSelectedItem(getRequest().getAccept());
-    acceptEncodingCombo.addItemListener(new ItemListener(){
+    acceptCombo=new JComboBox(getRequest().getResponseMediaTypes());
+    acceptCombo.setEditable(true);
+    acceptCombo.setToolTipText("Sets accepted encoding(s) for response");
+    acceptCombo.setSelectedItem(getRequest().getAccept());
+    acceptCombo.addItemListener(new ItemListener(){
       public void itemStateChanged(      ItemEvent e){
         updatingRequest=true;
-        getRequest().setAccept(String.valueOf(acceptEncodingCombo.getSelectedItem()));
+        getRequest().setAccept(String.valueOf(acceptCombo.getSelectedItem()));
         updatingRequest=false;
       }
     }
 );
-    toolbar.addLabeledFixed("Accept",acceptEncodingCombo);
+    toolbar.addLabeledFixed("Accept",acceptCombo);
     toolbar.addSeparator();
     pathTextField=new JUndoableTextField();
     pathTextField.setPreferredSize(new Dimension(200,20));

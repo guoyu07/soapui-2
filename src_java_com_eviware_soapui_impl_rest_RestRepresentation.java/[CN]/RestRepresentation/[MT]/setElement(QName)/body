@@ -1,4 +1,6 @@
 {
+  QName old=getElement();
   config.setElement(name);
   schemaType=null;
+  propertyChangeSupport.firePropertyChange("element",old,name);
 }
