@@ -1,4 +1,5 @@
 {
+  UISupport.setToolHost(this);
   String projectFile=getProjectFile();
   if (!new File(projectFile).exists())   throw new Exception("soapUI project file [" + projectFile + "] not found");
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
