@@ -24,10 +24,10 @@
       throw new AssertionException(new AssertionError("WS-A ReplyTo Address property is empty"));
     }
  else {
-      if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && (replyToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || replyToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+      if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(replyToAddressValue)) {
         throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are prohibited"));
       }
- else       if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(replyToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || replyToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+ else       if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !WsaUtils.isAnonymousAddress(replyToAddressValue)) {
         throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required"));
       }
     }

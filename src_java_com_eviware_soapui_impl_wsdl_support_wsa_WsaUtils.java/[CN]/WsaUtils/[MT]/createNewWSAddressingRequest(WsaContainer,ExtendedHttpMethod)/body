@@ -15,10 +15,12 @@
       wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
     }
  else     if (!StringUtils.isNullOrEmpty(replyTo)) {
-      header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
+      if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo))) {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
+      }
     }
  else     if (operation.isRequestResponse()) {
-      if (!AnonymousTypeConfig.PROHIBITED.equals(anonymousType)) {
+      if (!AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType)) {
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
         wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
       }

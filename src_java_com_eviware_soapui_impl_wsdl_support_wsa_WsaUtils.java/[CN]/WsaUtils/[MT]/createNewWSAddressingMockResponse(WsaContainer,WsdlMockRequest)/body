@@ -52,11 +52,13 @@
       }
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
-        header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
+        if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to))) {
+          header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
+        }
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
-          if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && (requestReplyToValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || requestReplyToValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous")))) {
+          if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue))) {
             header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
             wsaContainer.getWsaConfig().setTo(requestReplyToValue);
           }

@@ -45,7 +45,7 @@
       throw new AssertionException(new AssertionError("WS-A To Address property is empty"));
     }
  else {
-      if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && (toAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || toAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+      if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue)) {
         throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader To , Anonymous addresses are prohibited"));
       }
     }
@@ -55,10 +55,10 @@
       if (addressNode != null) {
         String faultToAddressValue=XmlUtils.getElementText(addressNode);
         if (!StringUtils.isNullOrEmpty(faultToAddressValue)) {
-          if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && (faultToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || faultToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+          if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(faultToAddressValue)) {
             throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are prohibited"));
           }
- else           if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(faultToAddressValue.equals("http://www.w3.org/2005/08/addressing/anonymous") || faultToAddressValue.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing/anonymous"))) {
+ else           if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !WsaUtils.isAnonymousAddress(faultToAddressValue)) {
             throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are required"));
           }
         }
