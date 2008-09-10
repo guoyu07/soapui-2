@@ -1,3 +1,10 @@
 {
-  update(new InterfaceCacheDefinitionLoader(cache));
+  if (cache instanceof AbstractDefinitionCache) {
+    definitionCache=reinit(container);
+    definitionCache.set(((AbstractDefinitionCache)cache).getConfig());
+    initParts();
+  }
+ else {
+    update(new InterfaceCacheDefinitionLoader(cache));
+  }
 }
