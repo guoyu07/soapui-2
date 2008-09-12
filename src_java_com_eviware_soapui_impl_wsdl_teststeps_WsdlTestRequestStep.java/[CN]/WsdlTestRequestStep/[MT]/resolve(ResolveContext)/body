@@ -1,7 +1,17 @@
 {
   super.resolve(context);
   if (wsdlOperation == null) {
-    context.addPathToResolve(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation(),new TestRequestDefaultResolveAction()).addResolvers(new ImportInterfaceResolver(this),new ChangeOperationResolver(this));
+    context.addPathToResolve(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation(),new TestRequestDefaultResolveAction()).addResolvers(new ImportInterfaceResolver(this){
+      @Override protected boolean update(){
+        wsdlOperation=findWsdlOperation();
+        if (wsdlOperation == null)         return false;
+        initTestRequest(getConfig(),false);
+        initRequestProperties();
+        setDisabled(false);
+        return true;
+      }
+    }
+,new ChangeOperationResolver(this));
   }
  else {
     testRequest.resolve(context);

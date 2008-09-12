@@ -1,0 +1,26 @@
+{
+  if (!file.exists()) {
+    UISupport.showErrorMessage("Error loading test case ");
+    return;
+  }
+  TestSuiteDocumentConfig newTestSuiteConfig=null;
+  try {
+    newTestSuiteConfig=TestSuiteDocumentConfig.Factory.parse(file);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  if (newTestSuiteConfig == null) {
+    UISupport.showErrorMessage("Not valild test case xml");
+  }
+ else {
+    WsdlTestSuite testSuite=new WsdlTestSuite(this,newTestSuiteConfig.getTestSuite());
+    testSuite.afterLoad();
+    testSuites.add(testSuite);
+    testSuite.afterLoad();
+    fireTestSuiteAdded(testSuite);
+    ResolveDialog resolver=new ResolveDialog("Validate TestSuite","Checks TestSuite for inconsistencies",null);
+    resolver.setShowOkMessage(false);
+    resolver.resolve(testSuite);
+  }
+}

@@ -1,4 +1,20 @@
 {
-  UISupport.showInfoMessage("Import inteface");
-  return true;
+  String[] options={"File","Url","Cancel"};
+  int choosed=JOptionPane.showOptionDialog(UISupport.getMainFrame(),"Choose source for new interface from ...","New interface source",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,null);
+switch (choosed) {
+case 0:
+{
+      loadWsdlFromFile();
+    }
+  break;
+case 1:
+{
+  loadWsdlFromUrl();
+}
+break;
+case 2:
+break;
+}
+resolved=update();
+return resolved;
 }

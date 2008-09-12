@@ -4,7 +4,7 @@
   wsdlOperation=operation;
   requestStepConfig.setInterface(operation.getInterface().getName());
   requestStepConfig.setOperation(operation.getName());
-  oldOperation.removePropertyChangeListener(this);
+  if (oldOperation != null)   oldOperation.removePropertyChangeListener(this);
   wsdlOperation.addPropertyChangeListener(this);
   testRequest.setOperation(wsdlOperation);
 }
