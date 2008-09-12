@@ -19,7 +19,9 @@
     if (currentViewIndex == -1)     return;
   }
   EditorInspector<T> currentInspector=(EditorInspector<T>)inspectorPanel.getCurrentInspector();
-  if (currentInspector != null)   lastDividerLocation=inspectorPanel.getDividerLocation();
+  if (currentInspector != null) {
+    lastDividerLocation=inspectorPanel.getDividerLocation();
+  }
   for (  Inspector inspector : inspectorPanel.getInspectors()) {
     inspectorPanel.setInspectorVisible(inspector,((EditorInspector<T>)inspector).isEnabledFor(currentView));
   }

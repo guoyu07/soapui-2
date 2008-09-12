@@ -1,0 +1,9 @@
+{
+  String namespaceUri=null;
+  while (StringUtils.isNullOrEmpty(namespaceUri) && elm != null) {
+    if (elm.getParentNode().getNodeType() != Node.ELEMENT_NODE)     break;
+    elm=(Element)elm.getParentNode();
+    namespaceUri=elm.getAttribute("xmlns:" + prefix);
+  }
+  return namespaceUri;
+}

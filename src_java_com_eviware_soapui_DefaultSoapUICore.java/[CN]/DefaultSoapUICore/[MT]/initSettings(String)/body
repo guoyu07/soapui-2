@@ -62,5 +62,8 @@
   if (!settings.isSet(HttpSettings.MAX_TOTAL_CONNECTIONS)) {
     settings.setLong(HttpSettings.MAX_TOTAL_CONNECTIONS,2000);
   }
+  if (!settings.isSet(UISettings.AUTO_SAVE_PROJECTS_ON_EXIT)) {
+    settings.setBoolean(UISettings.AUTO_SAVE_PROJECTS_ON_EXIT,true);
+  }
   return settings;
 }
