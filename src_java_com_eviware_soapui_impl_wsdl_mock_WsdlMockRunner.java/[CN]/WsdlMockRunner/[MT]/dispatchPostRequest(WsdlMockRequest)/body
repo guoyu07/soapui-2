@@ -3,10 +3,9 @@
   MockRunListener[] mockRunListeners=mockService.getMockRunListeners();
   try {
     for (    MockRunListener listener : mockRunListeners) {
-      listener.onMockRequest(this,request,response);
+      listener.onMockRequest(this,mockRequest.getHttpRequest(),mockRequest.getHttpResponse());
     }
     long timestamp=System.currentTimeMillis();
-    WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
     SoapVersion soapVersion=mockRequest.getSoapVersion();
     if (soapVersion == null)     throw new DispatchException("Unrecognized SOAP Version");
     String soapAction=mockRequest.getSoapAction();
@@ -16,16 +15,16 @@
       if (mockOperation != null) {
         long startTime=System.nanoTime();
         try {
-          result=mockOperation.dispatchRequest(mockRequest,response);
+          result=mockOperation.dispatchRequest(mockRequest);
         }
  catch (        DispatchException e) {
-          result=new WsdlMockResult(mockRequest,response);
+          result=new WsdlMockResult(mockRequest);
           String fault=SoapMessageBuilder.buildFault("Server",e.getMessage(),mockRequest.getSoapVersion());
           result.setResponseContent(fault);
           result.setMockOperation(mockOperation);
-          response.getWriter().write(fault);
+          mockRequest.getHttpResponse().getWriter().write(fault);
         }
-        if (request instanceof org.mortbay.jetty.Request)         ((org.mortbay.jetty.Request)request).setHandled(true);
+        if (mockRequest.getHttpRequest() instanceof org.mortbay.jetty.Request)         ((org.mortbay.jetty.Request)mockRequest.getHttpRequest()).setHandled(true);
         result.setTimeTaken((System.nanoTime() - startTime) / 1000000);
         result.setTimestamp(timestamp);
         addMockResult(result);

@@ -1,7 +1,7 @@
 {
   try {
     request.setOperation(getOperation());
-    WsdlMockResult result=new WsdlMockResult(request,response);
+    WsdlMockResult result=new WsdlMockResult(request);
     if (getMockResponseCount() == 0)     throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
     Enum dispatchStyle=getDispatchStyle();
     if (dispatchStyle == DispatchStyleConfig.XPATH) {

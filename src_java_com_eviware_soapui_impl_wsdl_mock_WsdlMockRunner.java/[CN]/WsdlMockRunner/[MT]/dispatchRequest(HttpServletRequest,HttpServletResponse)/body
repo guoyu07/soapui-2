@@ -1,0 +1,16 @@
+{
+  try {
+    WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
+    Object result=mockService.runOnRequestScript(mockContext,this,mockRequest);
+    if (!(result instanceof MockResult)) {
+      String method=request.getMethod();
+      if (method.equals("POST"))       result=dispatchPostRequest(mockRequest);
+ else       result=super.dispatchRequest(request,response);
+    }
+    mockService.runAfterRequestScript(mockContext,this,(MockResult)result);
+    return (MockResult)result;
+  }
+ catch (  Exception e) {
+    throw new DispatchException(e);
+  }
+}

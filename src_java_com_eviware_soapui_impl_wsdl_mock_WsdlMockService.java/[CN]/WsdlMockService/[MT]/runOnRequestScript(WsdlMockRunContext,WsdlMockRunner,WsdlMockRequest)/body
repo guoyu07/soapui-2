@@ -1,0 +1,13 @@
+{
+  String script=getOnRequestScript();
+  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (onRequestScriptEngine == null) {
+    onRequestScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+    onRequestScriptEngine.setScript(script);
+  }
+  onRequestScriptEngine.setVariable("context",runContext);
+  onRequestScriptEngine.setVariable("mockRequest",mockRequest);
+  onRequestScriptEngine.setVariable("mockRunner",runner);
+  onRequestScriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  return onRequestScriptEngine.run();
+}

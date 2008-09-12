@@ -20,6 +20,7 @@
     if (wsdlMockRunners != null) {
 synchronized (wsdlMockRunners) {
         try {
+          DispatchException ex=null;
           for (          MockRunner wsdlMockRunner : wsdlMockRunners) {
             try {
               MockResult result=wsdlMockRunner.dispatchRequest(request,response);
@@ -28,8 +29,10 @@ synchronized (wsdlMockRunners) {
             }
  catch (            DispatchException e) {
               log.debug(wsdlMockRunner.getMockService().getName() + " was unable to dispatch mock request ",e);
+              ex=e;
             }
           }
+          if (ex != null)           throw ex;
         }
  catch (        Exception e) {
           SoapUI.logError(e);

@@ -1,0 +1,14 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      try {
+        WsdlMockRunContext context=mockRunner == null ? new WsdlMockRunContext(getModelItem(),null) : mockRunner.getMockContext();
+        getModelItem().runOnRequestScript(context,mockRunner,null);
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage(e1);
+      }
+    }
+  }
+;
+}
