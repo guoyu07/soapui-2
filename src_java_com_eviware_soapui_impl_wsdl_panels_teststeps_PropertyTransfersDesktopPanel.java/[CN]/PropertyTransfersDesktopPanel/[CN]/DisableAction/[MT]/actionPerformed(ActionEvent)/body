@@ -1,0 +1,7 @@
+{
+  PropertyTransfer transfer=getCurrentTransfer();
+  transfer.setDisabled(disableButton.isSelected());
+  String name=transfer.getName();
+  if (transfer.isDisabled())   name+=" (disabled)";
+  listModel.setElementAt(name,transferList.getSelectedIndex());
+}
