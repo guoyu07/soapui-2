@@ -1,8 +1,9 @@
 {
   String result=null;
   String xsPrefix=null;
-  if (particle instanceof SchemaLocalElement) {
-    SchemaAnnotation annotation=((SchemaLocalElement)particle).getAnnotation();
+  SchemaField containerField=schemaType.getContainerField();
+  if (containerField instanceof SchemaLocalElement) {
+    SchemaAnnotation annotation=((SchemaLocalElement)containerField).getAnnotation();
     if (annotation != null) {
       XmlObject[] userInformation=annotation.getUserInformation();
       if (userInformation != null && userInformation.length > 0) {
