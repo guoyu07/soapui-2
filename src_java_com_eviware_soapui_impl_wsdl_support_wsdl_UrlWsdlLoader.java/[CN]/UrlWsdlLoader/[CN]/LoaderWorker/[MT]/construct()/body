@@ -3,7 +3,7 @@
   try {
     Settings soapuiSettings=SoapUI.getSettings();
     HttpClientSupport.applyHttpSettings(getMethod,soapuiSettings);
-    HostConfiguration hostConfiguration=ProxyUtils.initProxySettings(soapuiSettings,state,new HostConfiguration(),getMethod.getURI().toString());
+    HostConfiguration hostConfiguration=ProxyUtils.initProxySettings(soapuiSettings,state,new HostConfiguration(),getMethod.getURI().toString(),contextModelItem == null ? null : new DefaultPropertyExpansionContext(contextModelItem));
     httpClient.executeMethod(hostConfiguration,getMethod,state);
   }
  catch (  Exception e) {

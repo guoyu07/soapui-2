@@ -1,3 +1,3 @@
 {
-  return url == null || (getInterface().isGenerated() && getInterface().getWadlUrl().equals(url)) ? new GeneratedWadlDefinitionLoader(getInterface()) : new UrlWsdlLoader(url);
+  return url == null || (getInterface().isGenerated() && getInterface().getWadlUrl().equals(url)) ? new GeneratedWadlDefinitionLoader(getInterface()) : new UrlWsdlLoader(url,getInterface());
 }

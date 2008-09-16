@@ -1,16 +1,16 @@
 {
   String proxyHost=System.getProperty("http.proxyHost");
   String proxyPort=System.getProperty("http.proxyPort");
-  if (proxyHost == null)   proxyHost=settings.getString(ProxySettings.HOST,null);
-  if (proxyPort == null)   proxyPort=settings.getString(ProxySettings.PORT,null);
+  if (proxyHost == null)   proxyHost=PropertyExpansionUtils.expandProperties(context,settings.getString(ProxySettings.HOST,""));
+  if (proxyPort == null)   proxyPort=PropertyExpansionUtils.expandProperties(context,settings.getString(ProxySettings.PORT,""));
   if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
-    String[] excludes=settings.getString(ProxySettings.EXCLUDES,"").split(",");
+    String[] excludes=PropertyExpansionUtils.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
     try {
       URL url=new URL(urlString);
       if (!excludes(excludes,url.getHost(),url.getPort())) {
         hostConfiguration.setProxy(proxyHost,Integer.parseInt(proxyPort));
-        String proxyUsername=settings.getString(ProxySettings.USERNAME,null);
-        String proxyPassword=settings.getString(ProxySettings.PASSWORD,null);
+        String proxyUsername=PropertyExpansionUtils.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
+        String proxyPassword=PropertyExpansionUtils.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
         if (proxyUsername != null && proxyPassword != null) {
           Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword == null ? "" : proxyPassword);
           int ix=proxyUsername.indexOf('\\');
