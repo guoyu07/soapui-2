@@ -16,7 +16,7 @@
       SoapUI.log.warn("Failed to process inline/MTOM attachments; " + e);
     }
   }
-  if (!isXOP && (mp == null || mp.getCount() == 0) && hasNonContentAttachments(wsdlRequest)) {
+  if (!isXOP && (mp == null || mp.getCount() == 0) && hasContentAttachmentsOnly(wsdlRequest)) {
     String encoding=StringUtils.unquote(wsdlRequest.getEncoding());
     byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
     postMethod.setRequestEntity(new ByteArrayRequestEntity(content));

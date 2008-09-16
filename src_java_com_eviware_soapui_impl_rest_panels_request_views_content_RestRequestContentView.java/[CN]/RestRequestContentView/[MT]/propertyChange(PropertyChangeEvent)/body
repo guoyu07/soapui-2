@@ -5,8 +5,7 @@
     updatingRequest=false;
   }
  else   if (evt.getPropertyName().equals("method")) {
-    contentEditor.setEnabledAndEditable(restRequest.hasRequestBody());
-    mediaTypeCombo.setEnabled(restRequest.hasRequestBody());
+    enableBodyComponents();
     if (!restRequest.hasRequestBody()) {
       split.setDividerLocation(1.0);
     }
@@ -15,6 +14,7 @@
     }
   }
  else   if (evt.getPropertyName().equals("mediaType")) {
+    mediaTypeCombo.setSelectedItem(evt.getNewValue());
     recreateButton.setEnabled(canRecreate());
   }
 }

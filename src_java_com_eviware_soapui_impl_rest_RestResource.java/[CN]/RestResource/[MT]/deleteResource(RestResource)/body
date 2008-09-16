@@ -1,5 +1,8 @@
 {
+  int ix=resources.indexOf(resource);
   if (!resources.remove(resource))   return;
   getInterface().fireOperationRemoved(resource);
+  notifyPropertyChanged("childResources",resource,null);
+  getConfig().removeResource(ix);
   resource.release();
 }

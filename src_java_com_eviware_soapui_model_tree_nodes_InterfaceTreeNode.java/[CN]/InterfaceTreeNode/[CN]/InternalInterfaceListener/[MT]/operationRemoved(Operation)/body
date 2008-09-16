@@ -4,5 +4,7 @@
     getTreeModel().notifyNodeRemoved(treeNode);
     operationNodes.remove(treeNode);
   }
+ else   if (treeNode instanceof RestResourceTreeNode) {
+  }
  else   throw new RuntimeException("Removing unkown operation");
 }

@@ -16,5 +16,16 @@
   recreateButton=UISupport.createActionButton(new CreateDefaultRepresentationAction(),true);
   recreateButton.setEnabled(canRecreate());
   toolbar.addFixed(recreateButton);
+  toolbar.addSeparator();
+  postQueryCheckBox=new JCheckBox("Post QueryString",restRequest.isPostQueryString());
+  postQueryCheckBox.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      restRequest.setPostQueryString(postQueryCheckBox.isSelected());
+      enableBodyComponents();
+    }
+  }
+);
+  postQueryCheckBox.setPreferredSize(new Dimension(200,20));
+  toolbar.addFixed(postQueryCheckBox);
   return toolbar;
 }

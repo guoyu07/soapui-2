@@ -33,7 +33,7 @@ path+="=" + URLEncoder.encode(value);
 }
 }
 }
-if (query.length() > 0) {
+if (query.length() > 0 && !request.isPostQueryString()) {
 httpMethod.setQueryString(query.toString());
 }
 if (PathUtils.isHttpPath(path)) {
@@ -54,6 +54,10 @@ httpMethod.setRequestHeader("Accept",acceptEncoding);
 String encoding=StringUtils.unquote(request.getEncoding());
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
 httpMethod.setRequestHeader("Content-Type",request.getMediaType());
+if (request.isPostQueryString()) {
+((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
+}
+ else {
 String requestContent=request.getRequestContent();
 Attachment[] attachments=request.getAttachments();
 if (StringUtils.hasContent(requestContent)) {
@@ -80,6 +84,7 @@ e.printStackTrace();
 }
 }
  else {
+}
 }
 }
 }

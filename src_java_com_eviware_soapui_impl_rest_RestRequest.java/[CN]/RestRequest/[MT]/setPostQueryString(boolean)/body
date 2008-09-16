@@ -1,0 +1,6 @@
+{
+  boolean old=isPostQueryString();
+  getConfig().setPostQueryString(b);
+  notifyPropertyChanged("postQueryString",old,b);
+  setMediaType(b ? "application/x-www-form-urlencoded" : "");
+}

@@ -1,5 +1,5 @@
 {
-  if (evt.getPropertyName().equals("resources") && evt.getSource() == restResource) {
+  if (evt.getPropertyName().equals("childResources") && evt.getSource() == restResource) {
     if (evt.getNewValue() != null && evt.getOldValue() == null) {
       RestResourceTreeNode resourceNode=new RestResourceTreeNode((RestResource)evt.getNewValue(),getTreeModel());
       resourceNodes.add(resourceNode);

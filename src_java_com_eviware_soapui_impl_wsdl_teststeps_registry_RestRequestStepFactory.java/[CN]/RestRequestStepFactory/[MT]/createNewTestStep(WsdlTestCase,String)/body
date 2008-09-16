@@ -20,12 +20,12 @@
   if (op != null) {
     int ix=options.indexOf(op);
     if (ix != -1) {
-      RestResource operation=restResources.get(ix);
+      RestResource resource=restResources.get(ix);
       if (dialog == null)       buildDialog();
       dialogValues.put(STEP_NAME,name);
       dialogValues=dialog.show(dialogValues);
       if (dialog.getReturnValue() != XFormDialog.OK_OPTION)       return null;
-      return createNewTestStep(operation,dialogValues);
+      return createNewTestStep(resource,dialogValues);
     }
   }
   return null;

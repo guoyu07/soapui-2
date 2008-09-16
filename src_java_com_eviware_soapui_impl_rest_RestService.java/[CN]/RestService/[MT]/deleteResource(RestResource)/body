@@ -1,5 +1,7 @@
 {
+  int ix=resources.indexOf(resource);
   if (!resources.remove(resource))   return;
   fireOperationRemoved(resource);
+  getConfig().removeResource(ix);
   resource.release();
 }
