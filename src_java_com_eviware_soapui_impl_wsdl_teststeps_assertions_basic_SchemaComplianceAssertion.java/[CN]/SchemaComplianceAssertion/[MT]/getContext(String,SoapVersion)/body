@@ -1,0 +1,11 @@
+{
+  if (wsdlContextMap.containsKey(wsdlLocation)) {
+    return wsdlContextMap.get(wsdlLocation);
+  }
+ else {
+    WsdlContext newWsdlContext=new WsdlContext(wsdlLocation,soapVersion);
+    newWsdlContext.load();
+    wsdlContextMap.put(wsdlLocation,newWsdlContext);
+    return newWsdlContext;
+  }
+}

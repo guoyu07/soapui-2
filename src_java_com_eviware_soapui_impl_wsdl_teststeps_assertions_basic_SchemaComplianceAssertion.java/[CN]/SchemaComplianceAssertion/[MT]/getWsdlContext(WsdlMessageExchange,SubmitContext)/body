@@ -8,8 +8,7 @@
  else {
     String def=PropertyExpansionUtils.expandProperties(context,definition);
     if (definitionContext == null || !def.equals(wsdlContextDef)) {
-      definitionContext=new WsdlContext(def,iface.getSoapVersion());
-      ((WsdlContext)definitionContext).load();
+      definitionContext=getContext(def,iface.getSoapVersion());
       ((WsdlContext)definitionContext).setInterface(iface);
       wsdlContextDef=def;
     }

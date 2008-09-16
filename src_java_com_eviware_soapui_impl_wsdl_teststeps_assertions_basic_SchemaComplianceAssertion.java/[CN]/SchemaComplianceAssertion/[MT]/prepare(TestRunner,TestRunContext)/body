@@ -2,4 +2,11 @@
   super.prepare(testRunner,testRunContext);
   definitionContext=null;
   wsdlContextDef=null;
+  PropertyExpansionContext context=testRunContext.hasProperty(TestRunContext.LOAD_TEST_CONTEXT) ? (PropertyExpansionContext)testRunContext.getProperty(TestRunContext.LOAD_TEST_CONTEXT) : testRunContext;
+synchronized (context) {
+    if (!context.hasProperty(SCHEMA_COMPLIANCE_HAS_CLEARED_CACHE_FLAG)) {
+      wsdlContextMap.clear();
+      context.setProperty(SCHEMA_COMPLIANCE_HAS_CLEARED_CACHE_FLAG,"yep!");
+    }
+  }
 }
