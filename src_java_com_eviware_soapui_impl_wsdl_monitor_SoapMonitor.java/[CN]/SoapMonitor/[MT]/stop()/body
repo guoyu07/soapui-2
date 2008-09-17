@@ -1,7 +1,7 @@
 {
   monitorEngine.stop();
   if (addedEndpoints != null) {
-    for (    Interface iface : addedEndpoints.keySet())     ((AbstractInterface<?>)iface).removeEndpoint(addedEndpoints.get(iface));
+    for (    Interface iface : addedEndpoints.keySet())     iface.removeEndpoint(addedEndpoints.get(iface));
     addedEndpoints.clear();
   }
   stopButton.setEnabled(false);
@@ -9,4 +9,8 @@
   optionsButton.setEnabled(true);
   progressBar.setIndeterminate(false);
   infoLabel.setText("Stopped");
+  if (setAsProxy) {
+    SoapUI.getSettings().setString(ProxySettings.HOST,oldProxyHost);
+    SoapUI.getSettings().setString(ProxySettings.PORT,oldProxyPort);
+  }
 }

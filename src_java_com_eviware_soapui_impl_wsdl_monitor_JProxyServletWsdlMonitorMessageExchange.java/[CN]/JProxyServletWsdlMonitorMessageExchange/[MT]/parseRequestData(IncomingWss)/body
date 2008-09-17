@@ -1,5 +1,5 @@
 {
-  ByteArrayInputStream in=request == null ? new ByteArrayInputStream(null) : new ByteArrayInputStream(request);
+  ByteArrayInputStream in=request == null ? new ByteArrayInputStream(new byte[0]) : new ByteArrayInputStream(request);
   try {
     requestContentType=requestHeaders.get("Content-Type");
     if (requestContentType != null && requestContentType.toUpperCase().startsWith("MULTIPART")) {

@@ -20,6 +20,6 @@
   form.appendComboBox("encKeyTransport","Key Encryption Algorithm",new String[]{DEFAULT_OPTION,WSConstants.KEYTRANSPORT_RSA15,WSConstants.KEYTRANSPORT_RSAOEP},"Sets the algorithm to encode the symmetric key");
   form.appendComboBox("encryptionCanonicalization","Encryption Canonicalization",new String[]{DEFAULT_OPTION,WSConstants.C14N_OMIT_COMMENTS,WSConstants.C14N_WITH_COMMENTS,WSConstants.C14N_EXCL_OMIT_COMMENTS,WSConstants.C14N_EXCL_WITH_COMMENTS},"Set the name of an optional canonicalization algorithm to use before encryption");
   form.appendCheckBox("encryptSymmetricKey","Create Encrypted Key","Indicates whether to encrypt the symmetric key into an EncryptedKey or not");
-  form.append("Parts",new WSPartsTable(parts));
+  form.append("Parts",new WSPartsTable(parts,this));
   return new JScrollPane(form.getPanel());
 }

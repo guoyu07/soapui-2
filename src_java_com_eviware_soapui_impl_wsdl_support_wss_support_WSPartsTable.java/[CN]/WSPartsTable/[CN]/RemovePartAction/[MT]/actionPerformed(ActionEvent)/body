@@ -3,5 +3,6 @@
   if (row == -1)   return;
   if (UISupport.confirm("Remove selected Part?","Remove Part")) {
     partsTableModel.remove(row);
+    entry.saveConfig();
   }
 }

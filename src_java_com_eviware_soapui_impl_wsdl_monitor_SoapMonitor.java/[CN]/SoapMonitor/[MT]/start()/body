@@ -8,6 +8,12 @@
     optionsButton.setEnabled(false);
     infoLabel.setText("Proxy " + "on port " + localPort);
     progressBar.setIndeterminate(true);
+    if (setAsProxy) {
+      oldProxyHost=SoapUI.getSettings().getString(ProxySettings.HOST,"");
+      oldProxyPort=SoapUI.getSettings().getString(ProxySettings.PORT,"");
+      SoapUI.getSettings().setString(ProxySettings.HOST,"127.0.0.1");
+      SoapUI.getSettings().setString(ProxySettings.PORT,String.valueOf(localPort));
+    }
     SoapUI.log.info("Started SOAP Monitor on local port " + localPort);
   }
  else {

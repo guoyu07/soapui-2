@@ -4,7 +4,7 @@
   JPanel p=(JPanel)getComponent();
   JTabbedPane tabs=new JTabbedPane();
   JXToolBar toolbar=UISupport.createToolbar();
-  soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar);
+  soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy);
   tabs.add(soapMonitor,"Traffic Log");
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.SOAPMONITOR_HELP_URL)));
   p.add(toolbar,BorderLayout.NORTH);

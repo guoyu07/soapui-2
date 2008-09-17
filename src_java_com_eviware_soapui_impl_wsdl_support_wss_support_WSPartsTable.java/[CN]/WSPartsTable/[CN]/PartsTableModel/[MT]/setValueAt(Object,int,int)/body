@@ -6,19 +6,20 @@ case 0:
     part.put("name","");
   fireTableCellUpdated(rowIndex,1);
 part.put("id",aValue.toString());
-return;
+break;
 case 1:
 part.put("id","");
 fireTableCellUpdated(rowIndex,0);
 part.put("name",aValue.toString());
-return;
+break;
 case 2:
 part.put("id","");
 fireTableCellUpdated(rowIndex,0);
 part.put("namespace",aValue.toString());
-return;
+break;
 case 3:
 part.put("enc",aValue.toString());
-return;
+break;
 }
+entry.saveConfig();
 }
