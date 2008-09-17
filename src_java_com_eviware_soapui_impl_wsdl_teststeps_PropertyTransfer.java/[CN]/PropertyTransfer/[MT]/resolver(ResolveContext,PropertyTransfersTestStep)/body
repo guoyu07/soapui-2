@@ -1,0 +1,8 @@
+{
+  if (getSourceProperty() == null) {
+    context.addPathToResolve(parent,"Resolve source property",getConfig().getSourceStep(),new DisablePropertyTransferAction(this)).addResolvers(new CreateMissingPropertyResolver(this,parent),new ChooseAnotherPropertySourceResolver(this,parent));
+  }
+  if (getTargetProperty() == null) {
+    context.addPathToResolve(parent,"Resolve target property",getConfig().getTargetStep(),new DisablePropertyTransferAction(this)).addResolvers(new CreateMissingPropertyResolver(this,parent),new ChooseAnotherPropertyTargetResolver(this,parent));
+  }
+}
