@@ -18,6 +18,7 @@
   toolbar.addFixed(recreateButton);
   toolbar.addSeparator();
   postQueryCheckBox=new JCheckBox("Post QueryString",restRequest.isPostQueryString());
+  postQueryCheckBox.setOpaque(false);
   postQueryCheckBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       restRequest.setPostQueryString(postQueryCheckBox.isSelected());

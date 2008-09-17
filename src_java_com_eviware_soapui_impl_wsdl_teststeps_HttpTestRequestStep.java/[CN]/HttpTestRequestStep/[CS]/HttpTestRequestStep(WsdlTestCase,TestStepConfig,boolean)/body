@@ -4,11 +4,15 @@
     requestStepConfig=(RestRequestStepConfig)getConfig().getConfig().changeType(RestRequestStepConfig.type);
     testRequest=new RestTestRequest(null,requestStepConfig.getRestRequest(),this,forLoadTest);
     testRequest.addPropertyChangeListener(this);
+    testRequest.addTestPropertyListener(new InternalTestPropertyListener());
     if (config.isSetName())     testRequest.setName(config.getName());
  else     config.setName(testRequest.getName());
   }
  else {
     requestStepConfig=(RestRequestStepConfig)getConfig().addNewConfig().changeType(RestRequestStepConfig.type);
+  }
+  for (  TestProperty property : testRequest.getProperties().values()) {
+    addProperty(new RestTestStepProperty((XmlBeansRestParamsTestPropertyHolder.RestParamProperty)property));
   }
   addProperty(new TestStepBeanProperty("Endpoint",false,testRequest,"endpoint",this));
   addProperty(new TestStepBeanProperty("Username",false,testRequest,"username",this));
