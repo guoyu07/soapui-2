@@ -5,6 +5,10 @@
     operationNodes.remove(treeNode);
   }
  else   if (treeNode instanceof RestResourceTreeNode) {
+    SoapUITreeNode parentNode=treeNode.getParentTreeNode();
+    if (parentNode instanceof RestResourceTreeNode) {
+      ((RestResourceTreeNode)parentNode).removeChildResource((RestResourceTreeNode)treeNode);
+    }
   }
  else   throw new RuntimeException("Removing unkown operation");
 }

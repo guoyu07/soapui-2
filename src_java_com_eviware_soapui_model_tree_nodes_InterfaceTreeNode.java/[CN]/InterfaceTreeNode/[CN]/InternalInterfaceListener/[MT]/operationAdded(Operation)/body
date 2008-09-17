@@ -3,7 +3,7 @@
     RestResource restResource=(RestResource)operation;
     if (restResource.getParentResource() != null) {
       RestResourceTreeNode treeNode=(RestResourceTreeNode)getTreeModel().getTreeNode(restResource.getParentResource());
-      treeNode.addSubResource(restResource);
+      treeNode.addChildResource(restResource);
       return;
     }
   }
