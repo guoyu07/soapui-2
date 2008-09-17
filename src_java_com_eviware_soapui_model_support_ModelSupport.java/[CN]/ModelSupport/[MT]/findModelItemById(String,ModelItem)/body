@@ -1,4 +1,5 @@
 {
+  if (root == null || id == null)   return null;
   for (  ModelItem child : root.getChildren()) {
     if (child.getId().equals(id))     return (T)child;
     ModelItem result=findModelItemById(id,child);
