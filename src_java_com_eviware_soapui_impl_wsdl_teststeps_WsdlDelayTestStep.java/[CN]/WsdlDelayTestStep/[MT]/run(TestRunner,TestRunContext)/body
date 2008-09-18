@@ -4,6 +4,7 @@
   String oldLabel=getLabel();
   try {
     canceled=false;
+    running=true;
     try {
       delay=Integer.parseInt(PropertyExpansionUtils.expandProperties(context,delayString));
     }
@@ -12,8 +13,9 @@
     }
     for (timeWaited=0; !canceled && timeWaited < delay; timeWaited+=DELAY_CHUNK) {
       if (timeWaited % 1000 == 0 && context.getProperty(TestRunContext.LOAD_TEST_RUNNER) == null) {
-        notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
-        oldLabel=getLabel();
+        String newLabel=getLabel();
+        notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,newLabel);
+        oldLabel=newLabel;
       }
       if (timeWaited <= delay - DELAY_CHUNK)       Thread.sleep(DELAY_CHUNK);
  else       Thread.sleep(delay % DELAY_CHUNK);
