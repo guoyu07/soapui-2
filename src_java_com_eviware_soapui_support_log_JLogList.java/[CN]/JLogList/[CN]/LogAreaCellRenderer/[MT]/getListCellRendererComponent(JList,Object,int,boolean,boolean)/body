@@ -4,6 +4,8 @@
     LoggingEventWrapper eventWrapper=(LoggingEventWrapper)value;
     if (levelColors.containsKey(eventWrapper.getLevel()))     component.setForeground(levelColors.get(eventWrapper.getLevel()));
   }
-  component.setToolTipText(component.getText());
+  String toolTip=component.getText();
+  if (toolTip != null && toolTip.length() > 1000)   toolTip=toolTip.substring(0,1000);
+  component.setToolTipText(toolTip);
   return component;
 }
