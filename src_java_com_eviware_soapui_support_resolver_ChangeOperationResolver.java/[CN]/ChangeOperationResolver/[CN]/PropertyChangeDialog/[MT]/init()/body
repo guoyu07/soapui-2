@@ -1,0 +1,48 @@
+{
+  FormLayout layout=new FormLayout("right:pref, 4dlu, 30dlu, 5dlu, 30dlu, min ","min, pref, 4dlu, pref, 4dlu, pref, min");
+  CellConstraints cc=new CellConstraints();
+  PanelBuilder panel=new PanelBuilder(layout);
+  panel.addLabel("Interface:",cc.xy(1,2));
+  List<Interface> ifaces=project.getInterfaceList();
+  DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
+  sourceStepCombo=new JComboBox(sourceStepComboModel);
+  sourceStepCombo.setRenderer(new InterfaceComboRenderer());
+  for (  Interface element : ifaces)   sourceStepComboModel.addElement(element);
+  sourceStepCombo.setSelectedIndex(0);
+  panel.add(sourceStepCombo,cc.xyw(3,2,3));
+  propertiesCombo=new JComboBox(((Interface)sourceStepCombo.getSelectedItem()).getOperationList().toArray());
+  propertiesCombo.setRenderer(new OperationComboRender());
+  panel.addLabel("Operation:",cc.xy(1,4));
+  panel.add(propertiesCombo,cc.xyw(3,4,3));
+  panel.add(okBtn,cc.xy(3,6));
+  panel.add(cancelBtn,cc.xy(5,6));
+  sourceStepCombo.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      Interface iface=project.getInterfaceByName(((Interface)sourceStepCombo.getSelectedItem()).getName());
+      propertiesCombo.removeAllItems();
+      if (iface != null) {
+        propertiesCombo.setEnabled(true);
+        for (        Operation op : iface.getOperationList())         propertiesCombo.addItem(op);
+      }
+ else {
+        propertiesCombo.setEnabled(false);
+      }
+    }
+  }
+);
+  okBtn.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      pickedOperation=(Operation)propertiesCombo.getSelectedItem();
+      setVisible(false);
+    }
+  }
+);
+  cancelBtn.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      setVisible(false);
+    }
+  }
+);
+  setLocationRelativeTo(UISupport.getParentFrame(this));
+  this.add(panel.getPanel());
+}

@@ -1,12 +1,5 @@
 {
   super(testCase,config,forLoadTest);
   restResource=findRestResource();
-  if (restResource == null)   setDisabled(true);
- else   getTestRequest().setResource(restResource);
-  if (!forLoadTest && restResource != null) {
-    restResource.getInterface().getProject().addProjectListener(projectListener);
-    restResource.getInterface().addInterfaceListener(interfaceListener);
-    restResource.getInterface().addPropertyChangeListener(this);
-    restResource.addPropertyChangeListener(this);
-  }
+  initRestTestRequest(forLoadTest);
 }

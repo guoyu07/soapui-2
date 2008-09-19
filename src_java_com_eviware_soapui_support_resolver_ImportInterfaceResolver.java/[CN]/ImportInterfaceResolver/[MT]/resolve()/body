@@ -1,18 +1,20 @@
 {
-  String[] options={"File","Url","Cancel"};
+  String[] options={"File(Wsdl)","Url(Wsdl)","File(Wadl)","Url(Wadl)","Cancel"};
   int choosed=JOptionPane.showOptionDialog(UISupport.getMainFrame(),"Choose source for new interface from ...","New interface source",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,null);
 switch (choosed) {
 case 0:
-{
-      loadWsdlFromFile();
-    }
+    loadWsdlFromFile();
   break;
 case 1:
-{
-  loadWsdlFromUrl();
-}
+loadWsdlFromUrl();
 break;
 case 2:
+loadWadlFromFile();
+break;
+case 3:
+loadWadlFromUrl();
+break;
+default :
 break;
 }
 resolved=update();

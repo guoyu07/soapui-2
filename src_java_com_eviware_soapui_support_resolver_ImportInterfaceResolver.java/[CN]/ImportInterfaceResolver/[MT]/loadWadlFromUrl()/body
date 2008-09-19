@@ -1,0 +1,6 @@
+{
+  WsdlProject project=item.getTestCase().getTestSuite().getProject();
+  String url=UISupport.prompt("Enter WADL URL","Add WADL from URL","");
+  if (url == null)   return;
+  importWadl(project,url);
+}

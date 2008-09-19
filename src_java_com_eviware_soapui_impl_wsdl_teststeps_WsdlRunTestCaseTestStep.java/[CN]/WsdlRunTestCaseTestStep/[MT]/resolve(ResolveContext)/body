@@ -1,0 +1,9 @@
+{
+  super.resolve(context);
+  if (targetTestCase == null) {
+    context.addPathToResolve(this,"Missing Test Case",stepConfig.getTargetTestCase(),new RunTestCaseDefaultAction()).addResolvers(new ChooseAnotherTestCase(this),new CreateNewEmptyTestCase(this));
+  }
+ else {
+    targetTestCase.resolve(context);
+  }
+}

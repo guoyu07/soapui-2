@@ -1,2 +1,12 @@
 {
+  this.badTransfer=propertyTransfer;
+  this.parent=parent;
+  sources.add(PropertyExpansionUtils.getGlobalProperties());
+  properties.add(PropertyExpansionUtils.getGlobalProperties().getPropertyNames());
+  sources.add(parent.getTestCase().getTestSuite().getProject());
+  properties.add(parent.getTestCase().getTestSuite().getProject().getPropertyNames());
+  sources.add(parent.getTestCase().getTestSuite());
+  properties.add(parent.getTestCase().getTestSuite().getPropertyNames());
+  sources.add(parent.getTestCase());
+  properties.add(parent.getTestCase().getPropertyNames());
 }
