@@ -16,7 +16,7 @@
   panel.add(okBtn,cc.xy(6,4));
   panel.add(cancelBtn,cc.xy(8,4));
   sourceStepCombo.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       int index=sourceStepCombo.getSelectedIndex();
       propertiesCombo.removeAllItems();
       if (properties.get(index).length > 0) {
@@ -30,7 +30,7 @@
   }
 );
   okBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       String name;
       TestPropertyHolder sourceStep=(TestPropertyHolder)sourceStepCombo.getSelectedItem();
       if (sourceStep == PropertyExpansionUtils.getGlobalProperties())       name=PropertyExpansion.GLOBAL_REFERENCE;
@@ -45,7 +45,7 @@
   }
 );
   cancelBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       setVisible(false);
     }
   }

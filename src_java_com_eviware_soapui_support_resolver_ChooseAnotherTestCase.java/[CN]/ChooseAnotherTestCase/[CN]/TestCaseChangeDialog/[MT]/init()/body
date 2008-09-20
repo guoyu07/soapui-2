@@ -17,7 +17,7 @@
   panel.add(okBtn,cc.xy(3,6));
   panel.add(cancelBtn,cc.xy(5,6));
   tSuiteStepCombo.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       Interface iface=project.getInterfaceByName(((TestSuite)tSuiteStepCombo.getSelectedItem()).getName());
       tCaseCombo.removeAllItems();
       if (iface != null) {
@@ -31,7 +31,7 @@
   }
 );
   okBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       pickedTestCase=(WsdlTestCase)tCaseCombo.getSelectedItem();
       runTestStep.setTargetTestCase(pickedTestCase);
       setVisible(false);
@@ -39,7 +39,7 @@
   }
 );
   cancelBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       setVisible(false);
     }
   }

@@ -17,7 +17,7 @@
   panel.add(okBtn,cc.xy(3,6));
   panel.add(cancelBtn,cc.xy(5,6));
   sourceStepCombo.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       Interface iface=project.getInterfaceByName(((Interface)sourceStepCombo.getSelectedItem()).getName());
       propertiesCombo.removeAllItems();
       if (iface != null) {
@@ -31,14 +31,14 @@
   }
 );
   okBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       pickedOperation=(Operation)propertiesCombo.getSelectedItem();
       setVisible(false);
     }
   }
 );
   cancelBtn.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
+    public void actionPerformed(    ActionEvent e){
       setVisible(false);
     }
   }
