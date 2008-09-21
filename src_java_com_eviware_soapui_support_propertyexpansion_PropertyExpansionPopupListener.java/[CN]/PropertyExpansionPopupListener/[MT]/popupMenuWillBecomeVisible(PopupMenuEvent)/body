@@ -32,8 +32,8 @@
  else   if (modelItem instanceof WsdlProject) {
     project=(WsdlProject)modelItem;
   }
- else   if (modelItem instanceof WsdlRequest) {
-    project=(WsdlProject)((WsdlRequest)modelItem).getOperation().getInterface().getProject();
+ else   if (modelItem instanceof AbstractHttpRequest) {
+    project=((AbstractHttpRequest)modelItem).getOperation().getInterface().getProject();
   }
   TestPropertyHolder globalProperties=PropertyExpansionUtils.getGlobalProperties();
   if (globalProperties.getProperties().size() > 0)   targetMenu.add(createPropertyMenu("Global",globalProperties));

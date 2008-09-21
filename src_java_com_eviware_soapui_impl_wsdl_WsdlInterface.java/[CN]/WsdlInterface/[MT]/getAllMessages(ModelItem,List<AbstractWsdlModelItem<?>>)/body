@@ -1,6 +1,6 @@
 {
-  if (modelItem instanceof WsdlRequest) {
-    WsdlRequest wsdlRequest=(WsdlRequest)modelItem;
+  if (modelItem instanceof AbstractHttpRequest) {
+    AbstractHttpRequest wsdlRequest=(AbstractHttpRequest)modelItem;
     if (wsdlRequest.getOperation().getInterface() == this)     list.add(wsdlRequest);
   }
  else   if (modelItem instanceof WsdlTestRequestStep) {

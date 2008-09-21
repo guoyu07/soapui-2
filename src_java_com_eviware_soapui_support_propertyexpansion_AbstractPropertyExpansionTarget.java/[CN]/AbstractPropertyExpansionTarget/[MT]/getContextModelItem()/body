@@ -2,5 +2,8 @@
   if (modelItem instanceof WsdlTestRequest) {
     modelItem=((WsdlTestRequest)modelItem).getTestStep();
   }
+ else   if (modelItem instanceof RestTestRequest) {
+    modelItem=((RestTestRequest)modelItem).getTestStep();
+  }
   return modelItem;
 }
