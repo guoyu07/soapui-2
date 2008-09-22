@@ -1,8 +1,20 @@
 {
   List<RestRepresentation> result=new ArrayList<RestRepresentation>();
+  Set<String> addedTypes=new HashSet<String>();
   for (  RestRepresentation representation : representations) {
     if ((type == null || type == representation.getType()) && (mediaType == null || mediaType.equals(representation.getMediaType()))) {
       result.add(representation);
+      addedTypes.add(representation.getMediaType());
+    }
+  }
+  if (type == RestRepresentation.Type.REQUEST) {
+    for (    Attachment attachment : getAttachments()) {
+      if ((mediaType == null || mediaType.equals(attachment.getContentType())) && !addedTypes.contains(attachment.getContentType())) {
+        RestRepresentation representation=new RestRepresentation(this,RestResourceRepresentationConfig.Factory.newInstance());
+        representation.setType(RestRepresentation.Type.REQUEST);
+        representation.setMediaType(attachment.getContentType());
+        result.add(representation);
+      }
     }
   }
   return result.toArray(new RestRepresentation[result.size()]);

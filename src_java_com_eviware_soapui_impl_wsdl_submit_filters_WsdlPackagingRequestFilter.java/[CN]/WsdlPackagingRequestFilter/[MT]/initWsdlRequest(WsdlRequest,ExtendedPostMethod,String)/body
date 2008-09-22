@@ -24,7 +24,7 @@
  else {
     if (mp == null)     mp=new MimeMultipart();
     initRootPart(wsdlRequest,requestContent,mp,isXOP);
-    AttachmentUtils.addMimeParts(wsdlRequest,mp,contentIds);
+    AttachmentUtils.addMimeParts(wsdlRequest,Arrays.asList(wsdlRequest.getAttachments()),mp,contentIds);
     MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
     message.setContent(mp);
     message.saveChanges();

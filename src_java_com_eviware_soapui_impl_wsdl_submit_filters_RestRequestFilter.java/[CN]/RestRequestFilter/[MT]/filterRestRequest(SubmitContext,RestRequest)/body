@@ -59,9 +59,13 @@ if (request.isPostQueryString()) {
 }
  else {
 String requestContent=request.getRequestContent();
-Attachment[] attachments=request.getAttachments();
-if (StringUtils.hasContent(requestContent)) {
-if (attachments.length == 0) {
+List<Attachment> attachments=new ArrayList<Attachment>();
+for (Attachment attachment : request.getAttachments()) {
+if (attachment.getContentType().equals(request.getMediaType())) {
+attachments.add(attachment);
+}
+}
+if (StringUtils.hasContent(requestContent) && attachments.isEmpty()) {
 try {
 byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(content));
@@ -70,20 +74,31 @@ byte[] content=encoding == null ? requestContent.getBytes() : requestContent.get
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(requestContent.getBytes()));
 }
 }
- else {
-}
-}
- else if (attachments.length > 0) {
-if (attachments.length == 1) {
+ else if (attachments.size() > 0) {
 try {
-((EntityEnclosingMethod)httpMethod).setRequestEntity(new InputStreamRequestEntity(attachments[0].getInputStream()));
-httpMethod.setRequestHeader("Content-Type",attachments[0].getContentType());
+MimeMultipart mp=null;
+if (StringUtils.hasContent(requestContent)) {
+mp=new MimeMultipart();
+initRootPart(request,requestContent,mp);
+}
+ else if (attachments.size() == 1) {
+((EntityEnclosingMethod)httpMethod).setRequestEntity(new InputStreamRequestEntity(attachments.get(0).getInputStream()));
+httpMethod.setRequestHeader("Content-Type",request.getMediaType());
+}
+if (((EntityEnclosingMethod)httpMethod).getRequestEntity() == null) {
+if (mp == null) mp=new MimeMultipart();
+AttachmentUtils.addMimeParts(request,attachments,mp,new StringToStringMap());
+MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+message.setContent(mp);
+message.saveChanges();
+RestRequestMimeMessageRequestEntity mimeMessageRequestEntity=new RestRequestMimeMessageRequestEntity(message,request);
+((EntityEnclosingMethod)httpMethod).setRequestEntity(mimeMessageRequestEntity);
+httpMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
+httpMethod.setRequestHeader("MIME-Version","1.0");
+}
 }
  catch (Exception e) {
 e.printStackTrace();
-}
-}
- else {
 }
 }
 }

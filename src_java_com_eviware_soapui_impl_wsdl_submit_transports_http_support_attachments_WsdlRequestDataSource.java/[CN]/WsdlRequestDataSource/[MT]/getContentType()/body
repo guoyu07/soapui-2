@@ -3,5 +3,7 @@
   if (isXOP) {
     return AttachmentUtils.buildRootPartContentType(wsdlRequest.getOperation().getName(),soapVersion);
   }
- else   return soapVersion.getContentType() + "; charset=UTF-8";
+ else {
+    return soapVersion.getContentType() + "; charset=UTF-8";
+  }
 }

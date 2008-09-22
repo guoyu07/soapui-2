@@ -17,4 +17,8 @@
     mediaTypeCombo.setSelectedItem(evt.getNewValue());
     recreateButton.setEnabled(canRecreate());
   }
+ else   if (evt.getPropertyName().equals(AbstractHttpRequest.ATTACHMENTS_PROPERTY)) {
+    mediaTypeCombo.setModel(new DefaultComboBoxModel(getRequestMediaTypes()));
+    mediaTypeCombo.setSelectedItem(restRequest.getMediaType());
+  }
 }

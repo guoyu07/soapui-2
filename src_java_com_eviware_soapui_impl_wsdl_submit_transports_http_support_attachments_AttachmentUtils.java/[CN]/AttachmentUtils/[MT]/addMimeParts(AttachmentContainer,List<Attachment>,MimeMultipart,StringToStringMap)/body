@@ -1,7 +1,7 @@
 {
   if (!container.isMultipartEnabled()) {
-    for (int c=0; c < container.getAttachmentCount(); c++) {
-      Attachment att=container.getAttachmentAt(c);
+    for (int c=0; c < attachments.size(); c++) {
+      Attachment att=attachments.get(c);
       if (att.getAttachmentType() != Attachment.AttachmentType.CONTENT) {
         addSingleAttachment(mp,contentIds,att);
       }
@@ -9,8 +9,8 @@
   }
  else {
     Map<String,List<Attachment>> attachmentsMap=new HashMap<String,List<Attachment>>();
-    for (int c=0; c < container.getAttachmentCount(); c++) {
-      Attachment att=container.getAttachmentAt(c);
+    for (int c=0; c < attachments.size(); c++) {
+      Attachment att=attachments.get(c);
       if (att.getAttachmentType() == Attachment.AttachmentType.CONTENT)       continue;
       String partName=att.getPart();
       if (!attachmentsMap.containsKey(partName)) {
@@ -19,7 +19,7 @@
       attachmentsMap.get(partName).add(att);
     }
     for (Iterator<String> i=attachmentsMap.keySet().iterator(); i.hasNext(); ) {
-      List<Attachment> attachments=attachmentsMap.get(i.next());
+      attachments=attachmentsMap.get(i.next());
       if (attachments.size() == 1) {
         Attachment att=attachments.get(0);
         addSingleAttachment(mp,contentIds,att);
