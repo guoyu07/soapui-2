@@ -3,6 +3,9 @@
   Enumeration<String> headerNames=httpRequest.getHeaderNames();
   while (headerNames.hasMoreElements()) {
     String name=headerNames.nextElement();
+    if (ProxyServlet.dontProxyHeaders.contains(name.toLowerCase())) {
+      continue;
+    }
     headerValue=name + "::";
     Enumeration<String> header=httpRequest.getHeaders(name);
     while (header.hasMoreElements()) {
