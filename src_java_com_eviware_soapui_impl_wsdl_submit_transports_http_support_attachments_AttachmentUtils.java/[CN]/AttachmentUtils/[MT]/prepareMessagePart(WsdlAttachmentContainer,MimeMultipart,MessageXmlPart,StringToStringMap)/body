@@ -43,7 +43,7 @@
             }
           }
         }
- else         if (SchemaUtils.isBinaryType(schemaType)) {
+ else         if (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
           String xmimeContentType=getXmlMimeContentType(cursor);
           String textContent=cursor.getTextValue();
           Attachment attachment=null;

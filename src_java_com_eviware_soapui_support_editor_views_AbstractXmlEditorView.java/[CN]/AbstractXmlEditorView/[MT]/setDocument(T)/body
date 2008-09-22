@@ -3,12 +3,14 @@
     this.xmlDocument.removePropertyChangeListener(XmlDocument.XML_PROPERTY,this);
   }
   this.xmlDocument=xmlDocument;
+  xmlChanged=false;
   if (xmlDocument != null) {
     this.xmlDocument.addPropertyChangeListener(XmlDocument.XML_PROPERTY,this);
-    setXml(xmlDocument.getXml());
+    if (isActive())     setXml(xmlDocument.getXml());
+ else     xmlChanged=true;
   }
  else {
-    setXml(null);
+    if (isActive())     setXml(null);
+ else     xmlChanged=true;
   }
-  xmlChanged=false;
 }

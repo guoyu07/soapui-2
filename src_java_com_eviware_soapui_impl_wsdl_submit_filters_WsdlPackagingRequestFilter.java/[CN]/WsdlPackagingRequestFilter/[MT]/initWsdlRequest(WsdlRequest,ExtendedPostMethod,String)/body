@@ -5,7 +5,7 @@
   if (wsdlRequest.isMtomEnabled() || wsdlRequest.isInlineFilesEnabled() || wsdlRequest.getAttachmentCount() > 0) {
     try {
       mp=new MimeMultipart();
-      MessageXmlObject requestXmlObject=new MessageXmlObject((WsdlOperation)wsdlRequest.getOperation(),requestContent,true);
+      MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlRequest.getOperation(),requestContent,true);
       MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
       for (      MessageXmlPart requestPart : requestParts) {
         if (AttachmentUtils.prepareMessagePart(wsdlRequest,mp,requestPart,contentIds))         isXOP=true;

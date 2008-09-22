@@ -23,13 +23,14 @@
     dialog.getFormField(Form.ADDRESTSERVICE).setEnabled(true);
   }
   while (dialog.show()) {
+    WsdlProject project=null;
     try {
       String projectName=dialog.getValue(Form.PROJECTNAME).trim();
       if (projectName.length() == 0) {
         UISupport.showErrorMessage(messages.get("MissingProjectNameError"));
       }
  else {
-        WsdlProject project=workspace.createProject(projectName,null);
+        project=workspace.createProject(projectName,null);
         if (project != null) {
           UISupport.select(project);
           String url=dialog.getValue(Form.INITIALWSDL).trim();
@@ -47,6 +48,9 @@
     }
  catch (    Exception ex) {
       UISupport.showErrorMessage(ex);
+      if (project != null) {
+        workspace.removeProject(project);
+      }
     }
   }
 }

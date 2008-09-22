@@ -9,7 +9,7 @@
     }
   }
   if (messageContent.length() > 0) {
-    WsdlContext wsdlContext=((WsdlInterface)operation.getInterface()).getWsdlContext();
+    WsdlContext wsdlContext=operation.getInterface().getWsdlContext();
     WsdlValidator validator=new WsdlValidator(wsdlContext);
     try {
       XmlObject[] requestDocuments=validator.getMessageParts(messageContent,operation.getName(),isResponse);
@@ -20,7 +20,7 @@
             SchemaType schemaType=cursor.getObject().schemaType();
             if (schemaType != null) {
               String attributeText=AttachmentUtils.getXmlMimeContentType(cursor);
-              if (SchemaUtils.isBinaryType(schemaType)) {
+              if (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
                 String contentId=cursor.getTextValue();
                 if (contentId.startsWith("cid:")) {
                   HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
