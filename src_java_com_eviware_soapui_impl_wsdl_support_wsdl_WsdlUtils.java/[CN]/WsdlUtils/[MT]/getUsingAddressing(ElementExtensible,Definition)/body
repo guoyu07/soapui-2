@@ -5,7 +5,7 @@
     usingAddressingElements=WsdlUtils.getExentsibilityElements(item,new QName("http://www.w3.org/2006/02/addressing/wsdl","UsingAddressing"));
   }
   if (usingAddressingElements.length != 0) {
-    String addressingVersion=usingAddressingElements[0].getAttributeNS("http://schemas.xmlsoap.org/wsdl/","required");
+    String addressingVersion=usingAddressingElements[0].getAttributeNS(WSDL_NAMESPACE,"required");
     if (addressingVersion != null && addressingVersion.equals("true")) {
       version=WsaVersionTypeConfig.X_200508.toString();
     }

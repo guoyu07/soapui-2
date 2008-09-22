@@ -1,0 +1,31 @@
+{
+  Element wsAddressing=XmlUtils.getFirstChildElementNS(policy,WsaUtils.WSAM_NAMESPACE,"Addressing");
+  Element addressingPolicy=null;
+  Policy newPolicy=PolicyDocument.Factory.newInstance().addNewPolicy();
+  Addressing newAddressing=null;
+  if (wsAddressing != null) {
+    newAddressing=newPolicy.addNewAddressing();
+    String optional=wsAddressing.getAttributeNS(PolicyUtils.WS_POLICY_NAMESPACE,"Optional");
+    if (!StringUtils.isNullOrEmpty(optional) && optional.equals(OptionalType.TRUE.toString())) {
+      newAddressing.setOptional(OptionalType.TRUE);
+    }
+ else {
+      newAddressing.setOptional(OptionalType.FALSE);
+    }
+    addressingPolicy=XmlUtils.getFirstChildElementNS(wsAddressing,PolicyUtils.WS_POLICY_NAMESPACE,"Policy");
+    if (addressingPolicy != null) {
+      Policy innerPolicy=newAddressing.addNewPolicy();
+      Element anonymousElm=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"AnonymousResponses"));
+      if (anonymousElm != null) {
+        AnonymousResponses anr=innerPolicy.addNewAnonymousResponses();
+      }
+ else {
+        Element nonAnonymousElement=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"NonAnonymousResponses"));
+        if (nonAnonymousElement != null) {
+          innerPolicy.addNewNonAnonymousResponses();
+        }
+      }
+    }
+  }
+  return newPolicy;
+}

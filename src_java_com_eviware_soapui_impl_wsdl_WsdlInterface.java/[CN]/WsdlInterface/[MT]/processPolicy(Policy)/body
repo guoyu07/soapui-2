@@ -1,0 +1,33 @@
+{
+  String wsaVersion=WsaVersionTypeConfig.NONE.toString();
+  setAnonymous(AnonymousTypeConfig.OPTIONAL.toString());
+  if (policy != null) {
+    List<Addressing> addressingList=policy.getAddressingList();
+    for (    Addressing addressing : addressingList) {
+      String optional=addressing.getOptional().toString();
+      if (StringUtils.isNullOrEmpty(optional) || optional.equals("false") || (optional.equals("true") && SoapUI.getSettings().getBoolean(WsaSettings.ENABLE_FOR_OPTIONAL))) {
+        wsaVersion=WsaVersionTypeConfig.X_200508.toString();
+      }
+      Policy innerPolicy=addressing.getPolicy();
+      if (innerPolicy != null) {
+        List<AnonymousResponses> anonymousList=innerPolicy.getAnonymousResponsesList();
+        List<NonAnonymousResponses> nonAnonymousList=innerPolicy.getNonAnonymousResponsesList();
+        if (anonymousList.size() > 0 && nonAnonymousList.size() > 0) {
+          throw new Exception("Wrong addressing policy, anonymousResponses and nonAnonymousResponses can not be specified together");
+        }
+        if (anonymousList.size() > 0) {
+          AnonymousResponses anonResp=anonymousList.get(0);
+          setAnonymous(AnonymousTypeConfig.REQUIRED.toString());
+        }
+ else {
+          if (nonAnonymousList.size() > 0) {
+            NonAnonymousResponses nonAnonResp=nonAnonymousList.get(0);
+            setAnonymous(AnonymousTypeConfig.PROHIBITED.toString());
+          }
+        }
+      }
+    }
+  }
+  setWsaVersion(wsaVersion);
+  return this;
+}

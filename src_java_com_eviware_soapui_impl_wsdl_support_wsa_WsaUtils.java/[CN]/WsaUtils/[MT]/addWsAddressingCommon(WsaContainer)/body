@@ -6,6 +6,9 @@
   anonymousAddress=wsaVersionNameSpace + "/anonymous";
   relatesToReply=wsaVersionNameSpace + "/reply";
   anonymousType=wsaContainer.getOperation().getAnonymous();
+  if (anonymousType.equals(AnonymousTypeConfig.OPTIONAL.toString())) {
+    anonymousType=wsaContainer.getOperation().getInterface().getAnonymous();
+  }
   Element header=(Element)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true).getDomNode();
   header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
   XmlObject[] envelope=xmlContentObject.selectChildren(soapVersion.getEnvelopeQName());

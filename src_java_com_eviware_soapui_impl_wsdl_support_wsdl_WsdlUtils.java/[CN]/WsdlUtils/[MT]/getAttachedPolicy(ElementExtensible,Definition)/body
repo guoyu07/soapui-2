@@ -1,0 +1,29 @@
+{
+  Policy rtnPolicy=null;
+  Element[] policyReferences=WsdlUtils.getExentsibilityElements(item,new QName(PolicyUtils.WS_POLICY_NAMESPACE,"PolicyReference"));
+  if (policyReferences.length > 0) {
+    String policyId=policyReferences[0].getAttribute("URI");
+    if (!StringUtils.isNullOrEmpty(policyId)) {
+      Element[] policies=WsdlUtils.getExentsibilityElements(def,new QName(PolicyUtils.WS_POLICY_NAMESPACE,"Policy"));
+      Element policy=null;
+      for (int i=0; i < policies.length; i++) {
+        policy=policies[i];
+        String policyIdx=policy.getAttributeNS(WSU_NAMESPACE,"Id");
+        if (policyId.equals("#" + policyIdx)) {
+          rtnPolicy=getPolicy(policy);
+          continue;
+        }
+      }
+    }
+  }
+ else {
+    Element[] itemPolicies=WsdlUtils.getExentsibilityElements(item,new QName(PolicyUtils.WS_POLICY_NAMESPACE,"Policy"));
+    if (itemPolicies.length > 0) {
+      for (int i=0; i < itemPolicies.length; i++) {
+        Element policy=itemPolicies[i];
+        rtnPolicy=getPolicy(policy);
+      }
+    }
+  }
+  return rtnPolicy;
+}

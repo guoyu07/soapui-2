@@ -1,0 +1,22 @@
+{
+  List<Policy> policies=new ArrayList<Policy>();
+  try {
+    List<InterfaceDefinitionPart> parts=wsdlContext.getDefinitionCache().getDefinitionParts();
+    for (int i=0; i < parts.size(); i++) {
+      InterfaceDefinitionPart part=parts.get(i);
+      String content=part.getContent();
+      XmlObject xml=XmlObject.Factory.parse(content);
+      XmlObject[] paths=xml.selectPath("declare namespace wsp='" + WS_POLICY_NAMESPACE + "';"+ "//wsp:Policy");
+      for (      XmlObject obj : paths) {
+        String xx=obj.xmlText(new XmlOptions().setSaveOuter());
+        PolicyDocument policyDocument=PolicyDocument.Factory.parse(xx);
+        org.xmlsoap.schemas.ws.x2004.x09.policy.Policy polc=(org.xmlsoap.schemas.ws.x2004.x09.policy.Policy)policyDocument.getPolicy();
+        policies.add(polc);
+      }
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return null;
+}

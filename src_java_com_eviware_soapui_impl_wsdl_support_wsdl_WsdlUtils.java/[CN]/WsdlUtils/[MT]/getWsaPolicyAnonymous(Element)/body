@@ -1,0 +1,26 @@
+{
+  String version=WsaVersionTypeConfig.NONE.toString();
+  String anonymous=AnonymousTypeConfig.OPTIONAL.toString();
+  Element wsAddressing=XmlUtils.getFirstChildElementNS(policy,WsaUtils.WSAM_NAMESPACE,"Addressing");
+  Element addressingPolicy=null;
+  if (wsAddressing != null) {
+    String optional=wsAddressing.getAttributeNS(PolicyUtils.WS_POLICY_NAMESPACE,"Optional");
+    addressingPolicy=XmlUtils.getFirstChildElementNS(wsAddressing,PolicyUtils.WS_POLICY_NAMESPACE,"Policy");
+    if (addressingPolicy != null) {
+      if (StringUtils.isNullOrEmpty(optional) || optional.equals("false") || (optional.equals("true") && SoapUI.getSettings().getBoolean(WsaSettings.ENABLE_FOR_OPTIONAL))) {
+        version=WsaVersionTypeConfig.X_200508.toString();
+      }
+      Element anonymousElm=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"AnonymousResponses"));
+      if (anonymousElm != null) {
+        anonymous=AnonymousTypeConfig.REQUIRED.toString();
+      }
+ else {
+        Element nonAnonymousElement=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"NonAnonymousResponses"));
+        if (nonAnonymousElement != null) {
+          anonymous=AnonymousTypeConfig.PROHIBITED.toString();
+        }
+      }
+    }
+  }
+  return anonymous;
+}

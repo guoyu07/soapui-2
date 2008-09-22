@@ -1,0 +1,31 @@
+{
+  NodeList nl=policy.getChildNodes();
+  List<Element> listElms=new ArrayList<Element>();
+  for (int c=0; c < nl.getLength(); c++) {
+    Node item=nl.item(c);
+    if (item.getParentNode() == policy && item.getNodeType() == Node.ELEMENT_NODE)     listElms.add((Element)item);
+  }
+  for (int i=0; i < listElms.size(); i++) {
+    Element elm=listElms.get(i);
+    Element newElm=null;
+    String nameSpace=elm.getNamespaceURI();
+    String localName=elm.getLocalName();
+    if (nameSpace.equals(WS_POLICY_NAMESPACE) && (localName.equals("Policy") || localName.equals("All") || localName.equals("ExactlyOne"))) {
+      newElm=normalize(elm);
+    }
+ else {
+      Element allElm=elm.getOwnerDocument().createElementNS(WS_POLICY_NAMESPACE,"All");
+      allElm.appendChild(elm);
+      Element exactlyOneElm=elm.getOwnerDocument().createElementNS(WS_POLICY_NAMESPACE,"ExactlyOne");
+      exactlyOneElm.appendChild(allElm);
+      String optional=elm.getAttributeNS(WS_POLICY_NAMESPACE,"Optional");
+      if (!StringUtils.isNullOrEmpty(optional) && optional.equals("true")) {
+        Element allElmEmpty=elm.getOwnerDocument().createElementNS(WS_POLICY_NAMESPACE,"All");
+        exactlyOneElm.appendChild(allElmEmpty);
+      }
+      newElm=exactlyOneElm;
+    }
+    elm.getParentNode().replaceChild(elm,newElm);
+  }
+  return policy;
+}

@@ -1,0 +1,6 @@
+{
+  iface.setWsaVersion(WsdlUtils.getUsingAddressing(binding,def));
+  if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
+    iface.processPolicy(WsdlUtils.getAttachedPolicy(binding,def));
+  }
+}
