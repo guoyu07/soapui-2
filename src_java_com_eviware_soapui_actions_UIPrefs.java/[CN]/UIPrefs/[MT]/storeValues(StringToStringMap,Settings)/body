@@ -3,6 +3,7 @@
   settings.setBoolean(UISettings.ORDER_PROJECTS,values.getBoolean(ORDER_PROJECTS));
   settings.setBoolean(UISettings.ORDER_REQUESTS,values.getBoolean(ORDER_REQUESTS));
   settings.setBoolean(UISettings.ORDER_TESTSUITES,values.getBoolean(ORDER_TESTSUITES));
+  settings.setBoolean(UISettings.SHOW_DESCRIPTIONS,values.getBoolean(SHOW_DESCRIPTIONS));
   settings.setBoolean(UISettings.CREATE_BACKUP,values.getBoolean(CREATE_BACKUP));
   settings.setString(UISettings.BACKUP_FOLDER,values.get(BACKUP_FOLDER));
   settings.setString(UISettings.AUTO_SAVE_INTERVAL,values.get(AUTOSAVE_INTERVAL));
@@ -14,7 +15,7 @@
   settings.setBoolean(UISettings.DONT_DISABLE_GROOVY_LOG,values.getBoolean(ENABLE_GROOVY_LOG_DURING_LOADTEST));
   if (SoapUI.isStandalone()) {
     settings.setBoolean(UISettings.SHOW_LOGS_AT_STARTUP,values.getBoolean(SHOW_LOGS_AT_STARTUP));
-    settings.setBoolean(UISettings.SHOW_STARTUP_PAGE,values.getBoolean(SHOW_STARTUP));
+    settings.setBoolean(UISettings.SHOW_STARTUP_PAGE,values.getBoolean(SHOW_STARTUP_PAGE));
   }
   SoapUI.initAutoSaveTimer();
 }

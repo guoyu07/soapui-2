@@ -1,6 +1,8 @@
 {
   JInspectorPanel inspectorPanel=JInspectorPanelFactory.build(buildTabs());
   inspectorPanel.addInspector(new JComponentInspector(buildRunLog(),"TestSuite Log","Log of executed TestCases and TestSteps",true));
-  if (StringUtils.hasContent(getModelItem().getDescription()))   testCaseListInspectorPanel.setCurrentInspector("Description");
+  if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
+    testCaseListInspectorPanel.setCurrentInspector("Description");
+  }
   return inspectorPanel.getComponent();
 }

@@ -7,6 +7,8 @@
   inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildTestLog(),"TestCase Log","TestCase Execution Log",true));
   inspectorPanel.setDefaultDividerLocation(0.7F);
   inspectorPanel.setCurrentInspector("TestCase Log");
-  if (StringUtils.hasContent(getModelItem().getDescription()))   testStepListInspectorPanel.setCurrentInspector("Description");
+  if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
+    testStepListInspectorPanel.setCurrentInspector("Description");
+  }
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
 }
