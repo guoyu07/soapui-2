@@ -1,0 +1,33 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.setValue(Form.CREATEREQUEST,Boolean.toString(true));
+    dialog.getFormField(Form.INITIALWSDL).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        String value=newValue.toLowerCase().trim();
+        dialog.getFormField(Form.CREATEREQUEST).setEnabled(value.length() > 0);
+        dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(newValue.trim().length() > 0 && !newValue.endsWith(".wadl"));
+        dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0 && !newValue.endsWith(".wadl"));
+      }
+    }
+);
+  }
+ else {
+    dialog.setValue(Form.INITIALWSDL,"");
+    dialog.getFormField(Form.CREATEREQUEST).setEnabled(false);
+    dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(false);
+    dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(false);
+  }
+  while (dialog.show()) {
+    try {
+      String url=dialog.getValue(Form.INITIALWSDL).trim();
+      if (url.length() > 0) {
+        if (new File(url).exists())         url=new File(url).toURI().toURL().toString();
+        importWsdl(project,url);
+      }
+    }
+ catch (    Exception ex) {
+      UISupport.showErrorMessage(ex);
+    }
+  }
+}

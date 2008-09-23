@@ -1,7 +1,7 @@
 {
   super.afterRun(context);
   try {
-    testSuite.runTearDownScript(context);
+    getModelItem().runTearDownScript(context);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

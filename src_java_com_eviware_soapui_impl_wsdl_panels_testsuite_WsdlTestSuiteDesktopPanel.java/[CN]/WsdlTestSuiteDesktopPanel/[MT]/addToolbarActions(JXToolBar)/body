@@ -6,10 +6,10 @@
   sequentialButton=new JToggleButton(UISupport.createImageIcon("/sequential.gif"),true);
   sequentialButton.setToolTipText("The selected TestCases are run in sequence");
   sequentialButton.setPreferredSize(UISupport.getPreferredButtonSize());
-  sequentialButton.setSelected(testSuite.getRunType() == TestSuiteRunType.SEQUENTIAL);
+  sequentialButton.setSelected(getModelItem().getRunType() == TestSuiteRunType.SEQUENTIAL);
   sequentialButton.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent e){
-      testSuite.setRunType(TestSuiteRunType.SEQUENTIAL);
+      getModelItem().setRunType(TestSuiteRunType.SEQUENTIAL);
     }
   }
 );
@@ -17,10 +17,10 @@
   parallellButton=new JToggleButton(UISupport.createImageIcon("/parallell.gif"));
   parallellButton.setToolTipText("The selected TestCases are run in parallel");
   parallellButton.setPreferredSize(UISupport.getPreferredButtonSize());
-  parallellButton.setSelected(testSuite.getRunType() == TestSuiteRunType.PARALLEL);
+  parallellButton.setSelected(getModelItem().getRunType() == TestSuiteRunType.PARALLEL);
   parallellButton.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent e){
-      testSuite.setRunType(TestSuiteRunType.PARALLEL);
+      getModelItem().setRunType(TestSuiteRunType.PARALLEL);
     }
   }
 );

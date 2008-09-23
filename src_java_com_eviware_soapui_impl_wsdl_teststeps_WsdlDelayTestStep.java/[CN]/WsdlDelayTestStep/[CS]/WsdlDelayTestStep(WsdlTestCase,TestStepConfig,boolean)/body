@@ -9,4 +9,13 @@
  else {
     readConfig(config);
   }
+  addProperty(new DefaultTestStepProperty("delay",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
+    public String getValue(    DefaultTestStepProperty property){
+      return getDelayString();
+    }
+    @Override public void setValue(    DefaultTestStepProperty property,    String value){
+      setDelayString(value);
+    }
+  }
+,this));
 }

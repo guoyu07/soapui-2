@@ -1,9 +1,9 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  descriptionArea=new JUndoableTextArea(testSuite.getDescription());
+  descriptionArea=new JUndoableTextArea(getModelItem().getDescription());
   descriptionArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     public void update(    Document document){
-      testSuite.setDescription(descriptionArea.getText());
+      getModelItem().setDescription(descriptionArea.getText());
     }
   }
 );

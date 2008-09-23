@@ -1,14 +1,18 @@
 {
   Project project=testCase.getTestSuite().getProject();
   List<String> options=new ArrayList<String>();
-  List<RestResource> restResources=new ArrayList<RestResource>();
+  TupleList<RestResource,RestRequest> restResources=new TupleList<RestResource,RestRequest>();
   for (int c=0; c < project.getInterfaceCount(); c++) {
     Interface iface=project.getInterfaceAt(c);
     if (iface instanceof RestService) {
-      RestResource[] resources=((RestService)iface).getAllResources();
+      List<RestResource> resources=((RestService)iface).getAllResources();
       for (      RestResource resource : resources) {
         options.add(iface.getName() + " -> " + resource.getPath());
-        restResources.add(resource);
+        restResources.add(resource,null);
+        for (        RestRequest request : resource.getRequests().values()) {
+          restResources.add(resource,request);
+          options.add(iface.getName() + " -> " + resource.getPath()+ " -> "+ request.getName());
+        }
       }
     }
   }
@@ -20,12 +24,8 @@
   if (op != null) {
     int ix=options.indexOf(op);
     if (ix != -1) {
-      RestResource resource=restResources.get(ix);
-      if (dialog == null)       buildDialog();
-      dialogValues.put(STEP_NAME,name);
-      dialogValues=dialog.show(dialogValues);
-      if (dialog.getReturnValue() != XFormDialog.OK_OPTION)       return null;
-      return createNewTestStep(resource,dialogValues);
+      TupleList<RestResource,RestRequest>.Tuple tuple=restResources.get(ix);
+      return tuple.getValue2() == null ? createNewTestStep(tuple.getValue1(),name) : createConfig(tuple.getValue2(),name);
     }
   }
   return null;

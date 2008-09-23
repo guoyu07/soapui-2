@@ -1,11 +1,11 @@
 {
   cancelAction.setEnabled(false);
-  runAction.setEnabled(testSuite.getTestCaseCount() > 0);
+  runAction.setEnabled(getModelItem().getTestCaseCount() > 0);
   JXToolBar toolbar=UISupport.createToolbar();
   addToolbarActions(toolbar);
   toolbar.addGlue();
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.TESTSUITEEDITOR_HELP_URL)));
-  progressBar=new JProgressBar(0,testSuite.getTestCaseCount());
+  progressBar=new JProgressBar(0,getModelItem().getTestCaseCount());
   JPanel progressPanel=UISupport.createProgressBarPanel(progressBar,10,false);
   JPanel panel=new JPanel(new BorderLayout());
   panel.add(toolbar,BorderLayout.PAGE_START);

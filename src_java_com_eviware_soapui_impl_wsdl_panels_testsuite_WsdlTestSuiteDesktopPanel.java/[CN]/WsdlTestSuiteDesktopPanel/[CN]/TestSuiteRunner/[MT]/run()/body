@@ -1,8 +1,8 @@
 {
-  setRunType(testSuite.getRunType());
+  setRunType(getModelItem().getRunType());
   removeAllTestCases();
   testCaseList.reset();
-  for (  TestCase testCase : testSuite.getTestCaseList()) {
+  for (  TestCase testCase : getModelItem().getTestCaseList()) {
     if (!testCase.isDisabled())     addTestCase(testCase);
   }
   super.run();

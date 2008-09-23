@@ -1,0 +1,10 @@
+{
+  if (evt.getPropertyName().equals("path")) {
+    if (!updating) {
+      updating=true;
+      pathTextField.setText(String.valueOf(evt.getNewValue()));
+      updating=false;
+    }
+  }
+  super.propertyChange(evt);
+}

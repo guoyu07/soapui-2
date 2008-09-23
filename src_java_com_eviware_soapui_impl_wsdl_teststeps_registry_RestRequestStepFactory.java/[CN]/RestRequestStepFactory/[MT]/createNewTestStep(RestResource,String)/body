@@ -1,0 +1,22 @@
+{
+  RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
+  RestMethodConfig testRequestConfig=requestStepConfig.addNewRestRequest();
+  testRequestConfig.setName(name);
+  testRequestConfig.setEncoding("UTF-8");
+  if (resource != null) {
+    requestStepConfig.setService(resource.getInterface().getName());
+    requestStepConfig.setResourcePath(resource.getPath());
+    String[] endpoints=resource.getInterface().getEndpoints();
+    if (endpoints.length > 0)     testRequestConfig.setEndpoint(endpoints[0]);
+    testRequestConfig.addNewRequest();
+    RestParametersConfig parametersConfig=testRequestConfig.addNewParameters();
+    for (    XmlBeansRestParamsTestPropertyHolder.RestParamProperty property : resource.getDefaultParams()) {
+      parametersConfig.addNewParameter().set(property.getConfig());
+    }
+  }
+  TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+  testStepConfig.setType(RESTREQUEST_TYPE);
+  testStepConfig.setConfig(requestStepConfig);
+  testStepConfig.setName(name);
+  return testStepConfig;
+}

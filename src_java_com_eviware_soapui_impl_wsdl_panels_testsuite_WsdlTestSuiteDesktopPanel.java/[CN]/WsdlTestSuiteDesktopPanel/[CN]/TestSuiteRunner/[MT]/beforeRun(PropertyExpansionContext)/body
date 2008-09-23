@@ -8,9 +8,9 @@
   if (runLogListener == null)   runLogListener=new TestRunLog.TestRunLogTestRunListener(testRunLog,false);
   testRunLog.clear();
   if (getRunType() == TestSuiteRunType.PARALLEL)   testRunLog.addText("<log disabled during parallell execution>");
-  context=new DefaultPropertyExpansionContext(testSuite);
+  context=new DefaultPropertyExpansionContext(getModelItem());
   try {
-    testSuite.runSetupScript(context);
+    getModelItem().runSetupScript(context);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
