@@ -29,16 +29,27 @@
         requestMessageId=XmlUtils.getElementText(msgNode);
       }
       String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
-      if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(requestMessageId)) {
-        header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,requestMessageId));
-        wsaContainer.getWsaConfig().setRelatesTo(requestMessageId);
+      if (!StringUtils.isNullOrEmpty(relationshipType)) {
+        if (!StringUtils.isNullOrEmpty(requestMessageId)) {
+          header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,requestMessageId));
+          wsaContainer.getWsaConfig().setRelatesTo(requestMessageId);
+        }
+ else         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+          header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,unspecifiedMessage));
+          wsaContainer.getWsaConfig().setRelatesTo(unspecifiedMessage);
+        }
       }
  else       if (wsaContainer instanceof WsdlMockResponse) {
         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
           if (!StringUtils.isNullOrEmpty(requestMessageId)) {
-            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relatesToReply,requestMessageId));
-            wsaContainer.getWsaConfig().setRelationshipType(relatesToReply);
+            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,requestMessageId));
+            wsaContainer.getWsaConfig().setRelationshipType(relationshipTypeReply);
             wsaContainer.getWsaConfig().setRelatesTo(requestMessageId);
+          }
+ else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,unspecifiedMessage));
+            wsaContainer.getWsaConfig().setRelationshipType(relationshipTypeReply);
+            wsaContainer.getWsaConfig().setRelatesTo(unspecifiedMessage);
           }
         }
       }
@@ -52,13 +63,13 @@
       }
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
-        if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to))) {
+        if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
           header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
         }
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
-          if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue))) {
+          if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue,wsaVersionNameSpace))) {
             header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
             wsaContainer.getWsaConfig().setTo(requestReplyToValue);
           }
@@ -76,8 +87,13 @@
         header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,relatesTo));
       }
  else       if (wsaContainer instanceof WsdlMockResponse) {
-        if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE) && !StringUtils.isNullOrEmpty(relatesTo)) {
-          header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relatesToReply,relatesTo));
+        if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
+          if (!StringUtils.isNullOrEmpty(relatesTo)) {
+            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,relatesTo));
+          }
+ else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,unspecifiedMessage));
+          }
         }
       }
     }

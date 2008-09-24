@@ -4,7 +4,8 @@
     wsaVersionNameSpace=WS_A_VERSION_200408;
   }
   anonymousAddress=wsaVersionNameSpace + "/anonymous";
-  relatesToReply=wsaVersionNameSpace + "/reply";
+  relationshipTypeReply=wsaVersionNameSpace + "/reply";
+  unspecifiedMessage=wsaVersionNameSpace + "/unspecified";
   anonymousType=wsaContainer.getOperation().getAnonymous();
   if (anonymousType.equals(AnonymousTypeConfig.OPTIONAL.toString())) {
     anonymousType=wsaContainer.getOperation().getInterface().getAnonymous();

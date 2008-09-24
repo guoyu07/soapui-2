@@ -45,7 +45,7 @@
       throw new AssertionException(new AssertionError("WS-A To Address property is empty"));
     }
  else {
-      if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue)) {
+      if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue,wsaVersionNameSpace)) {
         throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader To , Anonymous addresses are prohibited"));
       }
     }
@@ -55,10 +55,10 @@
       if (addressNode != null) {
         String faultToAddressValue=XmlUtils.getElementText(addressNode);
         if (!StringUtils.isNullOrEmpty(faultToAddressValue)) {
-          if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(faultToAddressValue)) {
+          if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(faultToAddressValue,wsaVersionNameSpace)) {
             throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are prohibited"));
           }
- else           if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !WsaUtils.isAnonymousAddress(faultToAddressValue)) {
+ else           if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(faultToAddressValue,wsaVersionNameSpace) || WsaUtils.isNoneAddress(faultToAddressValue,wsaVersionNameSpace))) {
             throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are required"));
           }
         }

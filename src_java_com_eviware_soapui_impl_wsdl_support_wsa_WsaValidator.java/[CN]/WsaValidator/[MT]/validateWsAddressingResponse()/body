@@ -23,10 +23,10 @@
     if (addressNode != null) {
       String replyToAddressValue=XmlUtils.getElementText(addressNode);
       if (!StringUtils.isNullOrEmpty(replyToAddressValue)) {
-        if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(replyToAddressValue)) {
+        if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(replyToAddressValue,wsaVersionNameSpace)) {
           throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are prohibited"));
         }
- else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !WsaUtils.isAnonymousAddress(replyToAddressValue)) {
+ else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(replyToAddressValue,wsaVersionNameSpace) || WsaUtils.isNoneAddress(replyToAddressValue,wsaVersionNameSpace))) {
           throw new AssertionException(new AssertionError("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required"));
         }
       }

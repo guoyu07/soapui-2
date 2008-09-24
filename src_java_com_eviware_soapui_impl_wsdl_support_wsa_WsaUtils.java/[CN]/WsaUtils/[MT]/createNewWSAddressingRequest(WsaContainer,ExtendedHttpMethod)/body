@@ -15,7 +15,7 @@
       wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
     }
  else     if (!StringUtils.isNullOrEmpty(replyTo)) {
-      if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo))) {
+      if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo,wsaVersionNameSpace))) {
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
       }
     }
