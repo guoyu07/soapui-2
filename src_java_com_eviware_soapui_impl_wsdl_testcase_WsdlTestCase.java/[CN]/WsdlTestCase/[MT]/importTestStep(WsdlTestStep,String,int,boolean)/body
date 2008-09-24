@@ -3,5 +3,7 @@
   TestStepConfig newStepConfig=(TestStepConfig)testStep.getConfig().copy();
   newStepConfig.setName(name);
   if (createCopy && newStepConfig.isSetId())   newStepConfig.unsetId();
-  return insertTestStep(newStepConfig,index);
+  WsdlTestStep result=insertTestStep(newStepConfig,index);
+  resolveTestCase();
+  return result;
 }

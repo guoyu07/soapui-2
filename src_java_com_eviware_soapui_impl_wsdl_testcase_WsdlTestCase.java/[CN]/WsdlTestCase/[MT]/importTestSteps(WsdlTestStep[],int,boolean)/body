@@ -5,5 +5,7 @@
     newStepConfigs[c]=(TestStepConfig)testSteps[c].getConfig().copy();
     if (createCopies && newStepConfigs[c].isSetId())     newStepConfigs[c].unsetId();
   }
-  return insertTestSteps(newStepConfigs,index);
+  WsdlTestStep[] result=insertTestSteps(newStepConfigs,index);
+  resolveTestCase();
+  return result;
 }
