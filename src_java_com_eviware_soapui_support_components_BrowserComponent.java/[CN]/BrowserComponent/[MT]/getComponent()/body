@@ -1,3 +1,7 @@
 {
-  return new JScrollPane(editorPane);
+  if (scrollPane == null) {
+    scrollPane=new JScrollPane(editorPane);
+    UISupport.addPreviewCorner(scrollPane,false);
+  }
+  return scrollPane;
 }
