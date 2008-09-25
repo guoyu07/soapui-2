@@ -4,16 +4,16 @@
   Policy newPolicy=PolicyDocument.Factory.newInstance().addNewPolicy();
   Addressing newAddressing=null;
   if (wsAddressing != null) {
-    newAddressing=newPolicy.addNewAddressing();
-    String optional=wsAddressing.getAttributeNS(PolicyUtils.WS_POLICY_NAMESPACE,"Optional");
-    if (!StringUtils.isNullOrEmpty(optional) && optional.equals(OptionalType.TRUE.toString())) {
-      newAddressing.setOptional(OptionalType.TRUE);
-    }
- else {
-      newAddressing.setOptional(OptionalType.FALSE);
-    }
     addressingPolicy=XmlUtils.getFirstChildElementNS(wsAddressing,PolicyUtils.WS_POLICY_NAMESPACE,"Policy");
     if (addressingPolicy != null) {
+      newAddressing=newPolicy.addNewAddressing();
+      String optional=wsAddressing.getAttributeNS(PolicyUtils.WS_POLICY_NAMESPACE,"Optional");
+      if (!StringUtils.isNullOrEmpty(optional) && optional.equals(OptionalType.TRUE.toString())) {
+        newAddressing.setOptional(OptionalType.TRUE);
+      }
+ else {
+        newAddressing.setOptional(OptionalType.FALSE);
+      }
       Policy innerPolicy=newAddressing.addNewPolicy();
       Element anonymousElm=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"AnonymousResponses"));
       if (anonymousElm != null) {
