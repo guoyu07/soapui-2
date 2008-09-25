@@ -4,7 +4,7 @@
     dialog.getFormField(Form.INITIALWSDL).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
         String value=newValue.toLowerCase().trim();
-        dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0 && !newValue.endsWith(".wadl"));
+        dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0);
       }
     }
 );
