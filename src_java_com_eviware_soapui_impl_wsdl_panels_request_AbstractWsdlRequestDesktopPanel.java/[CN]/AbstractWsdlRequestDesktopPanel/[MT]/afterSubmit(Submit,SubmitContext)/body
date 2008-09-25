@@ -1,4 +1,4 @@
 {
   super.afterSubmit(submit,context);
-  wsiValidateAction.setEnabled(submit.getResponse() != null);
+  if (!isHasClosed())   wsiValidateAction.setEnabled(submit.getResponse() != null);
 }

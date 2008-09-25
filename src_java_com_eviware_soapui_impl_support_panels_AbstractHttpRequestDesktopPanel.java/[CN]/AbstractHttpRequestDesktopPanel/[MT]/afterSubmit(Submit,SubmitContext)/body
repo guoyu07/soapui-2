@@ -5,6 +5,10 @@
   if (status != Status.CANCELED) {
     request.setResponse(response,context);
   }
+  if (hasClosed) {
+    request.removeSubmitListener(this);
+    return;
+  }
   cancelButton.setEnabled(false);
   setEnabled(true);
   String message=null;
