@@ -1,0 +1,13 @@
+{
+  boolean existsWsa=getWsaProperty(header,elementLocalName) != null ? true : false;
+  if (override) {
+    if (existsWsa) {
+      header=removeWsaProperty(override,header,elementLocalName);
+    }
+    header.appendChild(builder.createWsaAddressChildElement(elementLocalName,envelopeElement,wsaPropValue));
+  }
+ else   if (!existsWsa) {
+    header.appendChild(builder.createWsaAddressChildElement(elementLocalName,envelopeElement,wsaPropValue));
+  }
+  return header;
+}
