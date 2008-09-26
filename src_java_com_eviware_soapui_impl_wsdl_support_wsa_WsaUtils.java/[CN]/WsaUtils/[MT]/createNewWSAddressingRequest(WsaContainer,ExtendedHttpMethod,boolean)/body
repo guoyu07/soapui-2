@@ -6,23 +6,23 @@
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),false);
     }
     if (!StringUtils.isNullOrEmpty(action)) {
-      header=processWsaProperty(header,override,"wsa:Action",action);
+      header=processWsaProperty(header,override,"wsa:Action",action,false);
     }
     String replyTo=wsaContainer.getWsaConfig().getReplyTo();
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
-      header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress);
+      header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress,true);
     }
  else     if (!StringUtils.isNullOrEmpty(replyTo)) {
       if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo,wsaVersionNameSpace))) {
-        header=processWsaProperty(header,override,"wsa:ReplyTo",replyTo);
+        header=processWsaProperty(header,override,"wsa:ReplyTo",replyTo,true);
       }
     }
  else     if (operation.isRequestResponse()) {
       if (!AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType)) {
-        header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress);
+        header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress,true);
       }
  else {
-        header=processWsaProperty(header,override,"wsa:ReplyTo",noneAddress);
+        header=processWsaProperty(header,override,"wsa:ReplyTo",noneAddress,true);
       }
     }
     String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
@@ -32,20 +32,20 @@
     }
     String msgId=wsaContainer.getWsaConfig().getMessageID();
     if (!StringUtils.isNullOrEmpty(msgId)) {
-      header=processWsaProperty(header,override,"wsa:MessageID",msgId);
+      header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
     }
  else     if (operation.isRequestResponse() && SoapUI.getSettings().getBoolean(WsaSettings.GENERATE_MESSAGE_ID)) {
       String generatedMessageId=UUID.randomUUID().toString();
-      header=processWsaProperty(header,override,"wsa:MessageID",generatedMessageId);
+      header=processWsaProperty(header,override,"wsa:MessageID",generatedMessageId,false);
     }
     String to=wsaContainer.getWsaConfig().getTo();
     if (!StringUtils.isNullOrEmpty(to)) {
-      header=processWsaProperty(header,override,"wsa:To",to);
+      header=processWsaProperty(header,override,"wsa:To",to,true);
     }
  else     if (operation.isOneWay() || operation.isRequestResponse()) {
       if (httpMethod != null) {
         String defaultTo=httpMethod.getURI().toString();
-        header=processWsaProperty(header,override,"wsa:To",defaultTo);
+        header=processWsaProperty(header,override,"wsa:To",defaultTo,true);
       }
     }
     content=xmlContentObject.xmlText();

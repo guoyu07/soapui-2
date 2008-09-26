@@ -6,15 +6,15 @@
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),true);
     }
     if (!StringUtils.isNullOrEmpty(action)) {
-      header=processWsaProperty(header,override,"wsa:Action",action);
+      header=processWsaProperty(header,override,"wsa:Action",action,false);
     }
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
-      header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress);
+      header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress,true);
     }
  else {
       String replyTo=wsaContainer.getWsaConfig().getReplyTo();
       if (!StringUtils.isNullOrEmpty(replyTo)) {
-        header=processWsaProperty(header,override,"wsa:ReplyTo",replyTo);
+        header=processWsaProperty(header,override,"wsa:ReplyTo",replyTo,true);
       }
     }
     Element requestHeader=null;
@@ -57,13 +57,13 @@
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
         if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
-          header=processWsaProperty(header,override,"wsa:To",to);
+          header=processWsaProperty(header,override,"wsa:To",to,true);
         }
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
           if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue,wsaVersionNameSpace))) {
-            header=processWsaProperty(header,override,"wsa:To",requestReplyToValue);
+            header=processWsaProperty(header,override,"wsa:To",requestReplyToValue,true);
           }
         }
       }
@@ -92,7 +92,7 @@
     }
     String msgId=wsaContainer.getWsaConfig().getMessageID();
     if (!StringUtils.isNullOrEmpty(msgId)) {
-      header=processWsaProperty(header,override,"wsa:MessageID",msgId);
+      header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
     }
     content=xmlContentObject.xmlText();
   }

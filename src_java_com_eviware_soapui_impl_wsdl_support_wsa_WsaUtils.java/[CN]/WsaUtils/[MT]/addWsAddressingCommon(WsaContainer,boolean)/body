@@ -25,11 +25,11 @@
   builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
   String from=wsaContainer.getWsaConfig().getFrom();
   if (!StringUtils.isNullOrEmpty(from)) {
-    header=processWsaProperty(header,overrideExisting,"wsa:From",from);
+    header=processWsaProperty(header,overrideExisting,"wsa:From",from,true);
   }
   String faultTo=wsaContainer.getWsaConfig().getFaultTo();
   if (!StringUtils.isNullOrEmpty(faultTo)) {
-    header=processWsaProperty(header,overrideExisting,"wsa:FaultTo",faultTo);
+    header=processWsaProperty(header,overrideExisting,"wsa:FaultTo",faultTo,true);
   }
   return header;
 }
