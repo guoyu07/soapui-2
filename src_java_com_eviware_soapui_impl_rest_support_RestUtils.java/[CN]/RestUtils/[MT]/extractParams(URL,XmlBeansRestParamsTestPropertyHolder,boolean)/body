@@ -42,7 +42,7 @@
     }
     if (StringUtils.hasContent(item))     resultPath.append('/').append(item);
   }
-  String query=((URL)param).getQuery();
+  String query=param.getQuery();
   if (StringUtils.hasContent(query)) {
     items=query.split("&");
     for (    String item : items) {
@@ -68,6 +68,9 @@
         e.printStackTrace();
       }
     }
+  }
+  if (keepHost) {
+    return Tools.getEndpointFromUrl(param) + resultPath.toString();
   }
   return resultPath.toString();
 }

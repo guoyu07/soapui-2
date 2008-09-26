@@ -1,6 +1,6 @@
 {
   try {
-    String path=RestUtils.extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params);
+    String path=RestUtils.extractParams(new URL(dialog.getValue(Form.RESOURCEPATH)),params,false);
     dialog.setValue(Form.RESOURCEPATH,path);
     if (StringUtils.isNullOrEmpty(dialog.getValue(Form.RESOURCENAME)))     setNameFromPath(path);
     paramsTable.refresh();

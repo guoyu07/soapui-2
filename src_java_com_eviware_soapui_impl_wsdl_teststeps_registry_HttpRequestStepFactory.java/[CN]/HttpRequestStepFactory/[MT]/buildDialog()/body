@@ -1,8 +1,6 @@
 {
-  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add HTTP Request to TestCase");
-  XForm mainForm=builder.createForm("Basic");
-  mainForm.addTextField(STEP_NAME,"Name of TestStep",XForm.FieldType.TEXT).setWidth(30);
-  mainForm.addTextField(ENDPOINT,"Endpoint",XForm.FieldType.URL).setWidth(30);
-  mainForm.addComboBox(METHOD,new Object[]{RestRequest.RequestMethod.GET,RestRequest.RequestMethod.POST,RestRequest.RequestMethod.PUT,RestRequest.RequestMethod.DELETE,RestRequest.RequestMethod.HEAD},"The HTTP method to use");
-  dialog=builder.buildDialog(builder.buildOkCancelActions(),"Specify options for adding a new HTTP Request to a TestCase",UISupport.OPTIONS_ICON);
+  dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.getFormField(Form.STEPNAME).addFormFieldValidator(new RequiredValidator());
+  dialog.getFormField(Form.EXTRACTPARAMS).setProperty("action",new ExtractParamsAction());
+  ((XFormOptionsField)dialog.getFormField(Form.HTTPMETHOD)).setOptions(new Object[]{RestRequest.RequestMethod.GET,RestRequest.RequestMethod.POST,RestRequest.RequestMethod.PUT,RestRequest.RequestMethod.DELETE,RestRequest.RequestMethod.HEAD});
 }
