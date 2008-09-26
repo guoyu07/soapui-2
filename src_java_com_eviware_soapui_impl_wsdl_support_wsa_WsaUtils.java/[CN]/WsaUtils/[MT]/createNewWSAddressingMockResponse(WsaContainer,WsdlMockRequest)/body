@@ -7,11 +7,9 @@
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
-      wsaContainer.getWsaConfig().setAction(action);
     }
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
-      wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
     }
  else {
       String replyTo=wsaContainer.getWsaConfig().getReplyTo();
@@ -32,24 +30,18 @@
       if (!StringUtils.isNullOrEmpty(relationshipType)) {
         if (!StringUtils.isNullOrEmpty(requestMessageId)) {
           header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,requestMessageId));
-          wsaContainer.getWsaConfig().setRelatesTo(requestMessageId);
         }
  else         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
           header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,unspecifiedMessage));
-          wsaContainer.getWsaConfig().setRelatesTo(unspecifiedMessage);
         }
       }
  else       if (wsaContainer instanceof WsdlMockResponse) {
         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
           if (!StringUtils.isNullOrEmpty(requestMessageId)) {
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,requestMessageId));
-            wsaContainer.getWsaConfig().setRelationshipType(relationshipTypeReply);
-            wsaContainer.getWsaConfig().setRelatesTo(requestMessageId);
           }
  else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,unspecifiedMessage));
-            wsaContainer.getWsaConfig().setRelationshipType(relationshipTypeReply);
-            wsaContainer.getWsaConfig().setRelatesTo(unspecifiedMessage);
           }
         }
       }
@@ -71,7 +63,6 @@
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
           if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue,wsaVersionNameSpace))) {
             header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
-            wsaContainer.getWsaConfig().setTo(requestReplyToValue);
           }
         }
       }

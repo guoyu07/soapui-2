@@ -7,12 +7,10 @@
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
-      wsaContainer.getWsaConfig().setAction(action);
     }
     String replyTo=wsaContainer.getWsaConfig().getReplyTo();
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
-      wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
     }
  else     if (!StringUtils.isNullOrEmpty(replyTo)) {
       if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo,wsaVersionNameSpace))) {
@@ -22,7 +20,9 @@
  else     if (operation.isRequestResponse()) {
       if (!AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType)) {
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
-        wsaContainer.getWsaConfig().setReplyTo(anonymousAddress);
+      }
+ else {
+        header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,noneAddress));
       }
     }
     String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
@@ -37,7 +37,6 @@
  else     if (operation.isRequestResponse() && SoapUI.getSettings().getBoolean(WsaSettings.GENERATE_MESSAGE_ID)) {
       String generatedMessageId=UUID.randomUUID().toString();
       header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,generatedMessageId));
-      wsaContainer.getWsaConfig().setMessageID(generatedMessageId);
     }
     String to=wsaContainer.getWsaConfig().getTo();
     if (!StringUtils.isNullOrEmpty(to)) {
@@ -47,7 +46,6 @@
       if (httpMethod != null) {
         String defaultTo=httpMethod.getURI().toString();
         header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,defaultTo));
-        wsaContainer.getWsaConfig().setTo(defaultTo);
       }
     }
     content=xmlContentObject.xmlText();
