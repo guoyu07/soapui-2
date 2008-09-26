@@ -1,19 +1,22 @@
 {
   try {
-    Element header=addWsAddressingCommon(wsaContainer);
+    Element header=addWsAddressingCommon(wsaContainer,overrideExisting);
     String action=wsaContainer.getWsaConfig().getAction();
     if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION) && StringUtils.isNullOrEmpty(action)) {
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),true);
     }
     if (!StringUtils.isNullOrEmpty(action)) {
+      header=removeExistingWsaChild(overrideExisting,header,"wsa:Action");
       header.appendChild(builder.createWsaChildElement("wsa:Action",envelopeElement,action));
     }
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
+      header=removeExistingWsaChild(overrideExisting,header,"wsa:ReplyTo");
       header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,anonymousAddress));
     }
  else {
       String replyTo=wsaContainer.getWsaConfig().getReplyTo();
       if (!StringUtils.isNullOrEmpty(replyTo)) {
+        header=removeExistingWsaChild(overrideExisting,header,"wsa:ReplyTo");
         header.appendChild(builder.createWsaAddressChildElement("wsa:ReplyTo",envelopeElement,replyTo));
       }
     }
@@ -29,18 +32,22 @@
       String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
       if (!StringUtils.isNullOrEmpty(relationshipType)) {
         if (!StringUtils.isNullOrEmpty(requestMessageId)) {
+          header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
           header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,requestMessageId));
         }
  else         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+          header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
           header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,unspecifiedMessage));
         }
       }
  else       if (wsaContainer instanceof WsdlMockResponse) {
         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
           if (!StringUtils.isNullOrEmpty(requestMessageId)) {
+            header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,requestMessageId));
           }
  else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+            header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,unspecifiedMessage));
           }
         }
@@ -56,12 +63,14 @@
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
         if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
+          header=removeExistingWsaChild(overrideExisting,header,"wsa:To");
           header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
         }
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
           if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue,wsaVersionNameSpace))) {
+            header=removeExistingWsaChild(overrideExisting,header,"wsa:To");
             header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,requestReplyToValue));
           }
         }
@@ -70,19 +79,23 @@
  else {
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
+        header=removeExistingWsaChild(overrideExisting,header,"wsa:To");
         header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
       }
       String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
       String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
       if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(relatesTo)) {
+        header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
         header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,relatesTo));
       }
  else       if (wsaContainer instanceof WsdlMockResponse) {
         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
           if (!StringUtils.isNullOrEmpty(relatesTo)) {
+            header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,relatesTo));
           }
  else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
+            header=removeExistingWsaChild(overrideExisting,header,"wsa:RelatesTo");
             header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,unspecifiedMessage));
           }
         }
@@ -90,6 +103,7 @@
     }
     String msgId=wsaContainer.getWsaConfig().getMessageID();
     if (!StringUtils.isNullOrEmpty(msgId)) {
+      header=removeExistingWsaChild(overrideExisting,header,"wsa:MessageID");
       header.appendChild(builder.createWsaChildElement("wsa:MessageID",envelopeElement,msgId));
     }
     content=xmlContentObject.xmlText();

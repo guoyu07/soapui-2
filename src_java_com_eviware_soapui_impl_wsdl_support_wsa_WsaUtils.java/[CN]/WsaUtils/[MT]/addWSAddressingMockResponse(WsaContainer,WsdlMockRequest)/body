@@ -2,14 +2,13 @@
   boolean hasWsaAlready=getExistingWsAddressing(content);
   if (hasWsaAlready) {
     if (SoapUI.getSettings().getBoolean(WsaSettings.OVERRIDE_EXISTING_HEADERS)) {
-      cleanExistingWsaHeaders(content);
-      return createNewWSAddressingMockResponse(wsaContainer,request);
+      return createWSAddressingMockResponse(wsaContainer,request,true);
     }
  else {
       return content;
     }
   }
  else {
-    return createNewWSAddressingMockResponse(wsaContainer,request);
+    return createWSAddressingMockResponse(wsaContainer,request,false);
   }
 }
