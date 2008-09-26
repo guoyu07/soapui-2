@@ -6,7 +6,7 @@
   if (header.length == 0 && create) {
     Element elm=(Element)envelope[0].getDomNode();
     Element headerElement=elm.getOwnerDocument().createElementNS(headerQName.getNamespaceURI(),headerQName.getLocalPart());
-    elm.appendChild(headerElement);
+    elm.insertBefore(headerElement,elm.getFirstChild());
     header=envelope[0].selectChildren(headerQName);
   }
   return header.length == 0 ? null : header[0];
