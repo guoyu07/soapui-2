@@ -33,9 +33,6 @@ path+="=" + URLEncoder.encode(value);
 }
 }
 }
-if (query.length() > 0 && !request.isPostQueryString()) {
-httpMethod.setQueryString(query.toString());
-}
 if (PathUtils.isHttpPath(path)) {
 try {
 httpMethod.setURI(new URI(path));
@@ -46,6 +43,9 @@ e.printStackTrace();
 }
  else {
 httpMethod.setPath(path);
+}
+if (query.length() > 0 && !request.isPostQueryString()) {
+httpMethod.setQueryString(query.toString());
 }
 String acceptEncoding=request.getAccept();
 if (StringUtils.hasContent(acceptEncoding)) {
