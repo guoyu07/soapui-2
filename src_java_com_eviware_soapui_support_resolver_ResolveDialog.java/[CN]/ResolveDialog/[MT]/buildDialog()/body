@@ -1,5 +1,5 @@
 {
-  dialog=new SimpleDialog(title,description,helpUrl,false){
+  dialog=new SimpleDialog(title,description,helpUrl,true){
     @Override protected Component buildContent(){
       JPanel panel=new JPanel(new BorderLayout());
       JXTable table=new JXTable(resolveContextTableModel);
@@ -26,7 +26,12 @@
       }
       return true;
     }
+    @Override protected boolean handleCancel(){
+      if (UISupport.confirm("There are unresolved paths, continue?","Unresolved paths"))       return true;
+ else       return false;
+    }
   }
 ;
   dialog.setSize(550,300);
+  dialog.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 }
