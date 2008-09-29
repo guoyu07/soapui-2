@@ -1,7 +1,7 @@
 {
+  super.release();
   for (  SoapUITreeNode treeNode : childNodes) {
-    getTreeModel().unmapModelItem(treeNode.getModelItem());
+    if (!(treeNode instanceof PropertiesTreeNode))     getTreeModel().unmapModelItem(treeNode.getModelItem());
     treeNode.release();
   }
-  super.release();
 }
