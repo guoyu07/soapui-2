@@ -9,4 +9,10 @@
   properties.add(parent.getTestCase().getTestSuite().getPropertyNames());
   sources.add(parent.getTestCase());
   properties.add(parent.getTestCase().getPropertyNames());
+  for (int c=0; c < parent.getTestCase().getTestStepCount(); c++) {
+    WsdlTestStep testStep=parent.getTestCase().getTestStepAt(c);
+    if (testStep == parent)     continue;
+    sources.add(testStep);
+    properties.add(testStep.getPropertyNames());
+  }
 }

@@ -1,20 +1,20 @@
 {
-  FormLayout layout=new FormLayout("right:pref, 4dlu, 30dlu, 5dlu, 30dlu, min ","min, pref, 4dlu, pref, 4dlu, pref, min");
+  FormLayout layout=new FormLayout("min,right:pref, 4dlu, 40dlu, 5dlu, 40dlu, min ","min, pref, 4dlu, pref, 4dlu, pref, min");
   CellConstraints cc=new CellConstraints();
   PanelBuilder panel=new PanelBuilder(layout);
-  panel.addLabel("Source:",cc.xy(1,2));
+  panel.addLabel("Source:",cc.xy(2,2));
   DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
   sourceStepCombo=new JComboBox(sourceStepComboModel);
   sourceStepCombo.setRenderer(new StepComboRenderer());
   for (  Object element : sources)   sourceStepComboModel.addElement(element);
   sourceStepCombo.setSelectedIndex(0);
-  panel.add(sourceStepCombo,cc.xyw(3,2,3));
+  panel.add(sourceStepCombo,cc.xyw(4,2,3));
   int index=sourceStepCombo.getSelectedIndex();
   propertiesCombo=new JComboBox(properties.get(index));
-  panel.addLabel("Property:",cc.xy(1,4));
-  panel.add(propertiesCombo,cc.xyw(3,4,3));
-  panel.add(okBtn,cc.xy(3,6));
-  panel.add(cancelBtn,cc.xy(5,6));
+  panel.addLabel("Property:",cc.xy(2,4));
+  panel.add(propertiesCombo,cc.xyw(4,4,3));
+  panel.add(okBtn,cc.xy(4,6));
+  panel.add(cancelBtn,cc.xy(6,6));
   sourceStepCombo.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent e){
       int index=sourceStepCombo.getSelectedIndex();
@@ -51,5 +51,7 @@
   }
 );
   setLocationRelativeTo(UISupport.getParentFrame(this));
+  panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
   this.add(panel.getPanel());
+  setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 }
