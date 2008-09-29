@@ -2,4 +2,12 @@
   super(modelItem);
   this.request=request;
   init(request);
+  try {
+    if (request.getAttachmentCount() > 0) {
+      request.getOperation().getInterface().getDefinitionContext().loadIfNecessary();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
 }

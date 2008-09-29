@@ -12,4 +12,12 @@
     }
   }
 );
+  try {
+    if (mockResponse.getAttachmentCount() > 0) {
+      mockResponse.getOperation().getInterface().getDefinitionContext().loadIfNecessary();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
 }
