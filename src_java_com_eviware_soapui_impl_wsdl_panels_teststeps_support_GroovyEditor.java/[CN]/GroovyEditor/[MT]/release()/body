@@ -1,5 +1,7 @@
 {
-  model.getSettings().removeSettingsListener(settingsListener);
+  if (model != null) {
+    model.getSettings().removeSettingsListener(settingsListener);
+  }
   model=null;
   editArea.getDocument().removeDocumentListener(groovyDocumentListener);
   editArea.getInputHandler().removeAllKeyBindings();
