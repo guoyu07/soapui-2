@@ -1,7 +1,7 @@
 {
   StringBuffer buf=new StringBuffer();
   for (int c=0; c < assertions.size(); c++) {
-    WsdlMessageAssertion assertion=assertions.get(c);
+    TestAssertion assertion=assertions.get(c);
     Assertable assertable=assertion.getAssertable();
     if (assertable instanceof WsdlTestStep)     failedTests.remove(((WsdlTestStep)assertable).getTestCase());
     buf.append(assertion.getName() + " in [" + assertable.getModelItem().getName()+ "] failed;\n");

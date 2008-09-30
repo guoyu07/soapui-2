@@ -1,8 +1,13 @@
 {
   try {
     editorPane.setPage(new URL(url));
+    return true;
   }
- catch (  IOException e) {
-    e.printStackTrace();
+ catch (  NoRouteToHostException e) {
+    SoapUI.log.warn("Failed to access [" + url + "]");
   }
+catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return false;
 }

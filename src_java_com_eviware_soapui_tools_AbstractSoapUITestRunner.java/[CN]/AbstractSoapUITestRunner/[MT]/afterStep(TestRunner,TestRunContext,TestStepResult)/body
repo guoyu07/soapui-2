@@ -1,0 +1,6 @@
+{
+  TestStep currentStep=runContext.getCurrentStep();
+  if (currentStep instanceof WsdlRunTestCaseTestStep) {
+    ((WsdlRunTestCaseTestStep)currentStep).removeTestRunListener(this);
+  }
+}
