@@ -16,10 +16,6 @@
       cumulativeErrorMsg.append("WS-A Action property is empty. ");
     }
  else {
-      String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
-      if (!actionValue.equals(defaultWsdlAction)) {
-        cumulativeErrorMsg.append("WS-A Action property has the wrong value. ");
-      }
     }
   }
   validateWsAddressingCommon(content);
