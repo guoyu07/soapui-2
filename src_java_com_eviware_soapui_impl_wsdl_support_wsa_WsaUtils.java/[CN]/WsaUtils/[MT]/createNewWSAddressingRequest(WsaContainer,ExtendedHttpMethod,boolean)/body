@@ -40,12 +40,12 @@
     }
     String to=wsaContainer.getWsaConfig().getTo();
     if (!StringUtils.isNullOrEmpty(to)) {
-      header=processWsaProperty(header,override,"wsa:To",to,true);
+      header=processWsaProperty(header,override,"wsa:To",to,false);
     }
  else     if (operation.isOneWay() || operation.isRequestResponse()) {
       if (httpMethod != null) {
         String defaultTo=httpMethod.getURI().toString();
-        header=processWsaProperty(header,override,"wsa:To",defaultTo,true);
+        header=processWsaProperty(header,override,"wsa:To",defaultTo,false);
       }
     }
     content=xmlContentObject.xmlText();

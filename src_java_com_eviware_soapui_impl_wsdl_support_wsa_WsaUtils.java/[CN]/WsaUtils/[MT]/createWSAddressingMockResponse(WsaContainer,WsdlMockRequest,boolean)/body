@@ -38,8 +38,7 @@
  else       if (wsaContainer instanceof WsdlMockResponse) {
         if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATIONSHIP_TYPE)) {
           if (!StringUtils.isNullOrEmpty(requestMessageId)) {
-            header=removeWsaProperty(override,header,"wsa:RelatesTo");
-            header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipTypeReply,requestMessageId));
+            header=processWsaRelatesToProperty(header,override,"wsa:RelatesTo",relationshipTypeReply,requestMessageId);
           }
  else           if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_RELATES_TO)) {
             header=processWsaRelatesToProperty(header,override,"wsa:RelatesTo",relationshipTypeReply,unspecifiedMessage);
@@ -57,13 +56,13 @@
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
         if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
-          header=processWsaProperty(header,override,"wsa:To",to,true);
+          header=processWsaProperty(header,override,"wsa:To",to,false);
         }
       }
  else {
         if (!StringUtils.isNullOrEmpty(requestReplyToValue)) {
           if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(requestReplyToValue,wsaVersionNameSpace))) {
-            header=processWsaProperty(header,override,"wsa:To",requestReplyToValue,true);
+            header=processWsaProperty(header,override,"wsa:To",requestReplyToValue,false);
           }
         }
       }
@@ -71,8 +70,7 @@
  else {
       String to=wsaContainer.getWsaConfig().getTo();
       if (!StringUtils.isNullOrEmpty(to)) {
-        header=removeWsaProperty(override,header,"wsa:To");
-        header.appendChild(builder.createWsaAddressChildElement("wsa:To",envelopeElement,to));
+        header=processWsaProperty(header,override,"wsa:To",to,false);
       }
       String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
       String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();

@@ -1,7 +1,21 @@
 {
   String content=messageExchange.getRequestContent();
-  validateWsAddressingCommon(content);
+  try {
+    getWsaVersion(content);
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
   WsdlOperation operation=messageExchange.getOperation();
+  Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
+  if (actionNode == null) {
+    cumulativeErrorMsg.append("WS-A Action property is not specified. ");
+  }
+  String actionValue=XmlUtils.getElementText(actionNode);
+  if (StringUtils.isNullOrEmpty(actionValue)) {
+    cumulativeErrorMsg.append("WS-A Action property is empty. ");
+  }
+  validateWsAddressingCommon(content);
   if (operation.isRequestResponse()) {
     Element msgNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"MessageID");
     if (msgNode == null) {
