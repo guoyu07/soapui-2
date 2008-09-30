@@ -5,7 +5,7 @@
   fireMockOperationRemoved(mockOperation);
   mockOperation.release();
   getConfig().removeMockOperation(ix);
-  MockOperationConfig newConfig=(MockOperationConfig)getConfig().addNewMockOperation().set(reloadedMockOperation).changeType(MockOperationConfig.type);
+  MockOperationConfig newConfig=(MockOperationConfig)getConfig().insertNewMockOperation(ix).set(reloadedMockOperation).changeType(MockOperationConfig.type);
   WsdlMockOperation newOperation=new WsdlMockOperation(this,newConfig);
   mockOperations.add(ix,newOperation);
   newOperation.afterLoad();

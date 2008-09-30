@@ -27,11 +27,18 @@
       return true;
     }
     @Override protected boolean handleCancel(){
-      if (UISupport.confirm("There are unresolved item, continue?","Unresolved items"))       return true;
- else       return false;
+      return UISupport.confirm("There are unresolved item, continue?","Unresolved items");
     }
   }
 ;
   dialog.setSize(550,300);
   dialog.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+  dialog.addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent arg0){
+      if (UISupport.confirm("There are unresolved item, continue?","Unresolved items")) {
+        dialog.setVisible(false);
+      }
+    }
+  }
+);
 }
