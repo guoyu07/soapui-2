@@ -15,12 +15,12 @@
         newAddressing.setOptional(OptionalType.FALSE);
       }
       Policy innerPolicy=newAddressing.addNewPolicy();
-      Element anonymousElm=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"AnonymousResponses"));
+      Element anonymousElm=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(WsaUtils.WSAM_NAMESPACE,"AnonymousResponses"));
       if (anonymousElm != null) {
         AnonymousResponses anr=innerPolicy.addNewAnonymousResponses();
       }
  else {
-        Element nonAnonymousElement=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(PolicyUtils.WSAM_NAMESPACE,"NonAnonymousResponses"));
+        Element nonAnonymousElement=XmlUtils.getFirstChildElementNS(addressingPolicy,new QName(WsaUtils.WSAM_NAMESPACE,"NonAnonymousResponses"));
         if (nonAnonymousElement != null) {
           innerPolicy.addNewNonAnonymousResponses();
         }

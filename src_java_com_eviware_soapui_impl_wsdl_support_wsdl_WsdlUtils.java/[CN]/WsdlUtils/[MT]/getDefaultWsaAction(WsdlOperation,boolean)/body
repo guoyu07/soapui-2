@@ -1,5 +1,5 @@
 {
-  if (operation.getInterface().getSoapVersion() == SoapVersion.Soap11 && StringUtils.hasContent(operation.getAction()))   return operation.getAction();
+  if (operation.getInterface().getSoapVersion() == SoapVersion.Soap11 && StringUtils.hasContent(operation.getAction()) && SoapUI.getSettings().getBoolean(WsaSettings.SOAP_ACTION_OVERRIDES_WSA_ACTION))   return operation.getAction();
   try {
     AttributeExtensible attributeExtensible=output ? operation.getBindingOperation().getOperation().getOutput() : operation.getBindingOperation().getOperation().getInput();
     if (attributeExtensible == null)     return null;
@@ -12,13 +12,24 @@
     Definition definition=iface.getWsdlContext().getDefinition();
     String targetNamespace=definition.getTargetNamespace();
     String portTypeName=iface.getBinding().getPortType().getQName().getLocalPart();
-    String operationName=output ? operation.getOutputName() : operation.getInputName();
-    if (operationName == null)     operationName=operation.getName() + (output ? "Response" : "Request");
+    String operationName=operation.getName();
+    if (!StringUtils.isNullOrEmpty(operationName)) {
+      Operation op=iface.getBinding().getPortType().getOperation(operationName,null,null);
+      if (op != null) {
+        attributeExtensible=output ? op.getOutput() : op.getInput();
+        attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WSAM_NAMESPACE,"Action"));
+        if (attrs != null && attrs.length > 0) {
+          return attrs[0];
+        }
+      }
+    }
+    String operationInOutName=output ? operation.getOutputName() : operation.getInputName();
+    if (operationInOutName == null)     operationInOutName=operation.getName() + (output ? "Response" : "Request");
     StringBuffer result=new StringBuffer(targetNamespace);
     if (targetNamespace.charAt(targetNamespace.length() - 1) != '/' && portTypeName.charAt(0) != '/')     result.append('/');
     result.append(portTypeName);
-    if (portTypeName.charAt(portTypeName.length() - 1) != '/' && operationName.charAt(0) != '/')     result.append('/');
-    result.append(operationName);
+    if (portTypeName.charAt(portTypeName.length() - 1) != '/' && operationInOutName.charAt(0) != '/')     result.append('/');
+    result.append(operationInOutName);
     return result.toString();
   }
  catch (  Exception e) {
