@@ -1,7 +1,6 @@
 {
   tableModel=iface instanceof WsdlInterface ? new WsdlEndpointsTableModel() : new RestEndpointsTableModel();
-  table=new JXTable(tableModel);
-  table.setHorizontalScrollEnabled(true);
+  table=new JTable(tableModel);
   table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){

@@ -2,8 +2,7 @@
   JPanel panel=new JPanel(new BorderLayout());
   JPanel p=new JPanel(new BorderLayout());
   p.add(buildIncomingWssToolbar(),BorderLayout.NORTH);
-  incomingWssTable=new JXTable(new IncomingWssTableModel());
-  incomingWssTable.setSortable(false);
+  incomingWssTable=new JTable(new IncomingWssTableModel());
   incomingWssTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       removeIncomingWssAction.setEnabled(incomingWssTable.getSelectedRow() != -1);
