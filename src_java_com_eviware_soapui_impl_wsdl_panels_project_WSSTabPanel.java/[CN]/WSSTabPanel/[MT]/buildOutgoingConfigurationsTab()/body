@@ -19,8 +19,8 @@
     }
   }
 );
-  outgoingWssTable.getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
-  outgoingWssTable.getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  outgoingWssTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  outgoingWssTable.getColumnModel().getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
   JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(outgoingWssTable),buildOutgoingWssDetails());
   split.setDividerLocation(140);
   p.add(split,BorderLayout.CENTER);

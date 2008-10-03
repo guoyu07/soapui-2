@@ -1,5 +1,7 @@
 {
-  if (!loaded && iface != null)   loaded=definitionCache.containsKey(url);
+  if (!loaded && iface != null) {
+    loaded=definitionCache.containsKey(url);
+  }
   if (loaded)   return true;
   XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Loading Definition",3,"Loading definition..",true);
   Loader loader=new Loader(wsdlLoader);

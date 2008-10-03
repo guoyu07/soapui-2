@@ -1,0 +1,15 @@
+{
+  super.init();
+  try {
+    logger.info("Initializing soapUI Core");
+    SoapUI.setSoapUICore(createSoapUICore(getInitParameter("settingsFile"),getInitParameter("settingsPassword")));
+    logger.info("Loading project");
+    project=new WsdlProject(getInitParameter("projectFile"),getInitParameter("projectPassword"));
+    logger.info("Starting MockService");
+    mockService=project.getMockServiceByName(getInitParameter("mockService"));
+    mockRunner=mockService.start();
+  }
+ catch (  Exception ex) {
+    logger.log(Level.SEVERE,null,ex);
+  }
+}

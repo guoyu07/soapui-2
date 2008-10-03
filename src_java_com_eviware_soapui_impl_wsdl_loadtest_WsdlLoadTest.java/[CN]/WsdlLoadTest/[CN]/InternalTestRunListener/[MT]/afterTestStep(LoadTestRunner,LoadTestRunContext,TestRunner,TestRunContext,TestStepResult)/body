@@ -27,7 +27,12 @@ synchronized (assertionErrors) {
       }
     }
     if (!added) {
-      result.discard();
+      if (getTestCase().getDiscardOkResults() || getTestCase().getMaxResults() == 0) {
+        result.discard();
+      }
+ else       if (getTestCase().getMaxResults() > 0 && testRunner instanceof WsdlTestCaseRunner) {
+        ((WsdlTestCaseRunner)testRunner).enforceMaxResults(getTestCase().getMaxResults());
+      }
     }
   }
  else   result.discard();

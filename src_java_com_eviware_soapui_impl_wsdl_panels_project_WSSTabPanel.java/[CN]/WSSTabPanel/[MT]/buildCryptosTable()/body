@@ -9,10 +9,10 @@
     }
   }
 );
-  cryptosTable.getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
-  cryptosTable.getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
-  cryptosTable.getColumn(4).setCellEditor(new DefaultCellEditor(new JPasswordField()));
-  cryptosTable.getColumn(4).setCellRenderer(new PasswordTableCellRenderer());
+  cryptosTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  cryptosTable.getColumnModel().getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  cryptosTable.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  cryptosTable.getColumnModel().getColumn(4).setCellRenderer(new PasswordTableCellRenderer());
   p.add(new JScrollPane(cryptosTable),BorderLayout.CENTER);
   panel.add(p,BorderLayout.CENTER);
   return panel;
