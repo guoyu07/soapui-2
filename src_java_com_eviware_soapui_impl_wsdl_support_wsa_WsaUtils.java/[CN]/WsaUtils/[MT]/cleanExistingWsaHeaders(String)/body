@@ -1,9 +1,0 @@
-{
-  Iterator<Node> iter=headerWsaElementList.iterator();
-  while (iter.hasNext()) {
-    ((Element)xmlHeaderObject.getDomNode()).removeChild((Node)iter.next());
-  }
-  ((Element)xmlHeaderObject.getDomNode()).removeAttribute("xmlns:wsa");
-  content=xmlContentObject.xmlText();
-  return content;
-}
