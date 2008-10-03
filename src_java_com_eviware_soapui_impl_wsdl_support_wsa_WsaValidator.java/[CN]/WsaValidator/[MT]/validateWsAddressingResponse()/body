@@ -18,7 +18,7 @@
  else {
       String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
       if (!actionValue.equals(defaultWsdlAction)) {
-        cumulativeErrorMsg.append("WS-A Action property has the wrong value. ");
+        cumulativeErrorMsg.append("WS-A Action property should be " + defaultWsdlAction + ". ");
       }
     }
   }
@@ -28,21 +28,9 @@
     cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
   }
  else {
-    String relationshipType=relatesToNode.getAttribute("RelationshipType");
-    if (StringUtils.isNullOrEmpty(relationshipType)) {
-      cumulativeErrorMsg.append("WS-A RelationshipType is not specified. ");
-    }
- else {
-      Element relatesToAddressNode=XmlUtils.getFirstChildElementNS(relatesToNode,wsaVersionNameSpace,"Address");
-      if (relatesToAddressNode == null) {
-        cumulativeErrorMsg.append("WS-A RelatesTo Address property is not specified. ");
-      }
- else {
-        String relatesToAddressesValue=XmlUtils.getElementText(relatesToAddressNode);
-        if (StringUtils.isNullOrEmpty(relatesToAddressesValue)) {
-          cumulativeErrorMsg.append("WS-A RelatesTo Address property is empty. ");
-        }
-      }
+    String relatesToAddressesValue=XmlUtils.getElementText(relatesToNode);
+    if (StringUtils.isNullOrEmpty(relatesToAddressesValue)) {
+      cumulativeErrorMsg.append("WS-A RelatesTo property is empty. ");
     }
   }
   Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
@@ -60,5 +48,8 @@
       }
     }
   }
-  throw new AssertionException(new AssertionError(cumulativeErrorMsg.toString()));
+  String cumulativeError=cumulativeErrorMsg.toString();
+  if (!StringUtils.isNullOrEmpty(cumulativeError)) {
+    throw new AssertionException(new AssertionError(cumulativeError));
+  }
 }
