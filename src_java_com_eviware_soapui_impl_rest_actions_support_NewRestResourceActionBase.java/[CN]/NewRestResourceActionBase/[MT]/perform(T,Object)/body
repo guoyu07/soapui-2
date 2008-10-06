@@ -11,8 +11,7 @@
   }
   params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
   if (param instanceof URL) {
-    URL url=(URL)param;
-    String path=RestUtils.extractParams(url,params,false);
+    String path=RestUtils.extractParams(param.toString(),params,false);
     dialog.setValue(Form.RESOURCEPATH,path);
     setNameFromPath(path);
     if (paramsTable != null)     paramsTable.refresh();
