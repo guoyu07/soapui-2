@@ -1,0 +1,12 @@
+{
+  JTabbedPane tabbedPane=new JTabbedPane(JTabbedPane.RIGHT);
+  tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+  logArea=new JTextArea();
+  logArea.setEditable(false);
+  logArea.setToolTipText("Response Log");
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(new JScrollPane(logArea),BorderLayout.CENTER);
+  tabbedPane.addTab("Assertions",buildAssertionsPanel());
+  tabbedPane.addTab("Response Log",panel);
+  return UISupport.createTabPanel(tabbedPane,true);
+}

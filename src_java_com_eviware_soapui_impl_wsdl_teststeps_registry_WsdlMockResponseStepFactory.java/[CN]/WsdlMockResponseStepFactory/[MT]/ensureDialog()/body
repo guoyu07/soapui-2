@@ -1,0 +1,14 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(CreateForm.class);
+    dialog.getFormField(CreateForm.INTERFACE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        WsdlInterface iface=(WsdlInterface)project.getInterfaceByName(newValue);
+        dialog.setOptions(CreateForm.OPERATION,new ModelItemNames<Operation>(iface.getOperationList()).getNames());
+      }
+    }
+);
+    dialog.setBooleanValue(CreateForm.CREATE_RESPONSE,true);
+    dialog.setValue(CreateForm.PATH,"/");
+  }
+}

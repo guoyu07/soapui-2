@@ -1,0 +1,14 @@
+{
+  assertionsSupport=new AssertionsSupport(this,new AssertableConfig(){
+    public TestAssertionConfig addNewAssertion(){
+      return mockResponseStepConfig.addNewAssertion();
+    }
+    public List<TestAssertionConfig> getAssertionList(){
+      return mockResponseStepConfig.getAssertionList();
+    }
+    public void removeAssertion(    int ix){
+      mockResponseStepConfig.removeAssertion(ix);
+    }
+  }
+);
+}

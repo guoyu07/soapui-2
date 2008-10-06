@@ -1,0 +1,32 @@
+{
+  WsdlMockResponseStepFactory.project=project;
+  List<Interface> interfaces=new ArrayList<Interface>();
+  for (int c=0; c < project.getInterfaceCount(); c++) {
+    if (project.getInterfaceAt(c).getOperationCount() > 0)     interfaces.add(project.getInterfaceAt(c));
+  }
+  if (interfaces.isEmpty()) {
+    UISupport.showErrorMessage("Missing Interfaces/Operations to mock");
+    return null;
+  }
+  dialog.setValue(CreateForm.NAME,name);
+  dialog.setOptions(CreateForm.INTERFACE,new ModelItemNames<Interface>(interfaces).getNames());
+  dialog.setOptions(CreateForm.OPERATION,new ModelItemNames<Operation>(interfaces.get(0).getOperationList()).getNames());
+  if (!dialog.show())   return null;
+  TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+  testStepConfig.setType(MOCKRESPONSE_TYPE);
+  testStepConfig.setName(dialog.getValue(CreateForm.NAME));
+  MockResponseStepConfig config=MockResponseStepConfig.Factory.newInstance();
+  config.setInterface(dialog.getValue(CreateForm.INTERFACE));
+  config.setOperation(dialog.getValue(CreateForm.OPERATION));
+  config.setPort(dialog.getIntValue(CreateForm.PORT,8080));
+  config.setPath(dialog.getValue(CreateForm.PATH));
+  config.addNewResponse();
+  config.getResponse().addNewResponseContent();
+  if (dialog.getBooleanValue(CreateForm.CREATE_RESPONSE)) {
+    WsdlInterface iface=(WsdlInterface)project.getInterfaceByName(config.getInterface());
+    String response=iface.getOperationByName(config.getOperation()).createResponse(project.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
+    CompressedStringSupport.setString(config.getResponse().getResponseContent(),response);
+  }
+  testStepConfig.addNewConfig().set(config);
+  return testStepConfig;
+}

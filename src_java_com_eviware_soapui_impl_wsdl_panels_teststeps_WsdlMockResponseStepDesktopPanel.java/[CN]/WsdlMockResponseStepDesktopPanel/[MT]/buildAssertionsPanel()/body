@@ -1,0 +1,10 @@
+{
+  assertionsPanel=new AssertionsPanel(getModelItem()){
+    protected void selectError(    AssertionError error){
+      ModelItemXmlEditor<?,?> editor=getResponseEditor();
+      editor.requestFocus();
+    }
+  }
+;
+  return assertionsPanel;
+}

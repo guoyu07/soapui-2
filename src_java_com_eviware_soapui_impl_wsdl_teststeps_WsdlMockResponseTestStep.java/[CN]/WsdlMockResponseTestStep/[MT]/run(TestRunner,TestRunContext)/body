@@ -1,0 +1,16 @@
+{
+  LoadTestRunner loadTestRunner=(LoadTestRunner)context.getProperty(TestRunContext.LOAD_TEST_RUNNER);
+  if (loadTestRunner == null) {
+    return internalRun((WsdlTestRunContext)context);
+  }
+ else {
+synchronized (STATUS_PROPERTY) {
+      if (loadTestRunner.getStatus() == LoadTestRunner.Status.RUNNING)       return internalRun((WsdlTestRunContext)context);
+ else {
+        WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
+        result.setStatus(TestStepStatus.UNKNOWN);
+        return result;
+      }
+    }
+  }
+}

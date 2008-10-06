@@ -1,0 +1,18 @@
+{
+  MockServiceConfig mockServiceConfig=MockServiceConfig.Factory.newInstance();
+  mockServiceConfig.setPath(mockResponseStepConfig.getPath());
+  mockServiceConfig.setPort(mockResponseStepConfig.getPort());
+  mockService=new WsdlTestMockService(this,mockServiceConfig);
+  mockService.setName(getName());
+  iface=(WsdlInterface)testCase.getTestSuite().getProject().getInterfaceByName(mockResponseStepConfig.getInterface());
+  if (iface == null) {
+  }
+ else {
+    iface.addInterfaceListener(interfaceListener);
+    mockOperation=mockService.addNewMockOperation(iface.getOperationByName(mockResponseStepConfig.getOperation()));
+    mockOperation.addNewMockResponse("MockResponse",false);
+    mockResponse=mockOperation.getMockResponseAt(0);
+    mockResponse.setConfig(mockResponseConfig);
+    mockResponse.addPropertyChangeListener(this);
+  }
+}

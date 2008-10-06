@@ -1,0 +1,65 @@
+{
+  iconAnimator.start();
+  WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
+  try {
+    listener=new InternalMockRunListener();
+    mockService.addMockRunListener(listener);
+    mockRunner=mockService.start(context);
+    result.startTimer();
+    long timeout=getTimeout();
+synchronized (listener) {
+      listener.wait(timeout);
+    }
+    if (mockRunner != null) {
+      mockRunner.stop();
+      mockRunner=null;
+    }
+    AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(listener.getResult());
+    result.setMessageExchange(messageExchange);
+    if (listener.getResult() != null) {
+      context.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,messageExchange);
+      assertResult(listener.getResult(),context);
+    }
+    result.stopTimer();
+    if (listener.getResult() == null) {
+      if (listener.isCanceled()) {
+        result.setStatus(TestStepStatus.CANCELED);
+      }
+ else {
+        result.setStatus(TestStepStatus.FAILED);
+        result.addMessage("Timeout occured after " + timeout + " milliseconds");
+      }
+    }
+ else {
+      AssertionStatus status=getAssertionStatus();
+      if (status == AssertionStatus.FAILED) {
+        result.setStatus(TestStepStatus.FAILED);
+        if (getAssertionCount() == 0) {
+          result.addMessage("Invalid/empty request");
+        }
+ else         for (int c=0; c < getAssertionCount(); c++) {
+          AssertionError[] errors=getAssertionAt(c).getErrors();
+          if (errors != null) {
+            for (            AssertionError error : errors) {
+              result.addMessage(error.getMessage());
+            }
+          }
+        }
+      }
+ else {
+        result.setStatus(TestStepStatus.OK);
+      }
+    }
+  }
+ catch (  Exception e) {
+    result.stopTimer();
+    result.setStatus(TestStepStatus.FAILED);
+    result.setError(e);
+    SoapUI.logError(e);
+  }
+ finally {
+    mockService.removeMockRunListener(listener);
+    iconAnimator.stop();
+  }
+  return result;
+}

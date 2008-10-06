@@ -1,0 +1,28 @@
+{
+  super.resolve(context);
+  if (mockOperation == null) {
+    context.addPathToResolve(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation(),new RemoveTestStepDefaultResolveAction()).addResolvers(new ImportInterfaceResolver(this){
+      @Override protected boolean update(){
+        initMockObjects(getTestCase());
+        initProperties();
+        setDisabled(false);
+        return true;
+      }
+    }
+,new ChangeOperationResolver(this){
+      @Override public boolean update(){
+        WsdlOperation operation=(WsdlOperation)getPickedOperation();
+        setInterface(operation.getInterface().getName());
+        setOperation(operation.getName());
+        initMockObjects(getTestCase());
+        initProperties();
+        setDisabled(false);
+        return true;
+      }
+    }
+);
+  }
+ else {
+    mockOperation.resolve(context);
+  }
+}
