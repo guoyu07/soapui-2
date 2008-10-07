@@ -1,7 +1,7 @@
 {
   try {
     Element header=addWsAddressingCommon(wsaContainer,override);
-    String action=wsaContainer.getWsaConfig().getAction();
+    String action=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getAction());
     if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION) && StringUtils.isNullOrEmpty(action)) {
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),true);
     }
@@ -12,7 +12,7 @@
       header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress,true);
     }
  else {
-      String replyTo=wsaContainer.getWsaConfig().getReplyTo();
+      String replyTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getReplyTo());
       if (!StringUtils.isNullOrEmpty(replyTo)) {
         header=processWsaProperty(header,override,"wsa:ReplyTo",replyTo,true);
       }
@@ -20,13 +20,14 @@
     Element requestHeader=null;
     if (request != null) {
       XmlObject requestXmlObject=request.getRequestXmlObject();
+      String requestWsaVersionNameSpace=WsaValidator.getWsaVersion(requestXmlObject,request.getSoapVersion());
       requestHeader=(Element)SoapUtils.getHeaderElement(requestXmlObject,request.getSoapVersion(),true).getDomNode();
-      Element msgNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"MessageID");
+      Element msgNode=XmlUtils.getFirstChildElementNS(requestHeader,requestWsaVersionNameSpace,"MessageID");
       String requestMessageId=null;
       if (msgNode != null) {
         requestMessageId=XmlUtils.getElementText(msgNode);
       }
-      String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
+      String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
       if (!StringUtils.isNullOrEmpty(relationshipType)) {
         if (!StringUtils.isNullOrEmpty(requestMessageId)) {
           header=processWsaRelatesToProperty(header,override,"wsa:RelatesTo",relationshipType,requestMessageId);
@@ -45,15 +46,15 @@
           }
         }
       }
-      Element replyToNode=XmlUtils.getFirstChildElementNS(requestHeader,wsaVersionNameSpace,"ReplyTo");
+      Element replyToNode=XmlUtils.getFirstChildElementNS(requestHeader,requestWsaVersionNameSpace,"ReplyTo");
       String requestReplyToValue=null;
       if (replyToNode != null) {
-        Element replyToAddresseNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
+        Element replyToAddresseNode=XmlUtils.getFirstChildElementNS(replyToNode,requestWsaVersionNameSpace,"Address");
         if (replyToAddresseNode != null) {
           requestReplyToValue=XmlUtils.getElementText(replyToAddresseNode);
         }
       }
-      String to=wsaContainer.getWsaConfig().getTo();
+      String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
       if (!StringUtils.isNullOrEmpty(to)) {
         if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
           header=processWsaProperty(header,override,"wsa:To",to,false);
@@ -68,12 +69,12 @@
       }
     }
  else {
-      String to=wsaContainer.getWsaConfig().getTo();
+      String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
       if (!StringUtils.isNullOrEmpty(to)) {
         header=processWsaProperty(header,override,"wsa:To",to,false);
       }
-      String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
-      String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
+      String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
+      String relatesTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelatesTo());
       if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(relatesTo)) {
         header=processWsaRelatesToProperty(header,override,"wsa:RelatesTo",relationshipType,relatesTo);
       }
@@ -88,7 +89,7 @@
         }
       }
     }
-    String msgId=wsaContainer.getWsaConfig().getMessageID();
+    String msgId=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
     if (!StringUtils.isNullOrEmpty(msgId)) {
       header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
     }

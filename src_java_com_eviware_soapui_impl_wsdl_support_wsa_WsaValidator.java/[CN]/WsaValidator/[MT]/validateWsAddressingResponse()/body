@@ -1,10 +1,16 @@
 {
   String content=messageExchange.getResponseContent();
-  try {
-    getWsaVersion(content);
+  SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
+  XmlObject requestXmlObject=XmlObject.Factory.parse(messageExchange.getRequestContent());
+  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+  wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
+  String requestWsaVersionNameSpace=getWsaVersion(requestXmlObject,soapVersion);
+  if (wsaVersionNameSpace == null) {
+    throw new AssertionException(new AssertionError("WS-A not enabled."));
   }
- catch (  XmlException e) {
-    SoapUI.logError(e);
+ else   if (!wsaVersionNameSpace.equals(requestWsaVersionNameSpace)) {
+    throw new AssertionException(new AssertionError("Response has the wrong ws-a version namespace value."));
   }
   Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
   if (actionNode == null) {
@@ -28,9 +34,15 @@
     cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
   }
  else {
-    String relatesToAddressesValue=XmlUtils.getElementText(relatesToNode);
-    if (StringUtils.isNullOrEmpty(relatesToAddressesValue)) {
+    String relatesToValue=XmlUtils.getElementText(relatesToNode);
+    if (StringUtils.isNullOrEmpty(relatesToValue)) {
       cumulativeErrorMsg.append("WS-A RelatesTo property is empty. ");
+    }
+ else {
+      String requestMsgId=WsdlUtils.getRequestWsaMessageId(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
+      if (!relatesToValue.equals(requestMsgId)) {
+        cumulativeErrorMsg.append("WS-A RelatesTo property is not equal to request wsa:MessageId. ");
+      }
     }
   }
   Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");

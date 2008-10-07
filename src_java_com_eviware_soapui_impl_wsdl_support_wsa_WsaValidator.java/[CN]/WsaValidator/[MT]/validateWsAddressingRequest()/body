@@ -1,10 +1,11 @@
 {
   String content=messageExchange.getRequestContent();
-  try {
-    getWsaVersion(content);
-  }
- catch (  XmlException e) {
-    SoapUI.logError(e);
+  SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
+  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+  wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
+  if (wsaVersionNameSpace == null) {
+    throw new AssertionException(new AssertionError("WS-A not enabled"));
   }
   WsdlOperation operation=messageExchange.getOperation();
   Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");

@@ -1,14 +1,14 @@
 {
   try {
     Element header=addWsAddressingCommon(wsaContainer,override);
-    String action=wsaContainer.getWsaConfig().getAction();
+    String action=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getAction());
     if (SoapUI.getSettings().getBoolean(WsaSettings.USE_DEFAULT_ACTION) && StringUtils.isNullOrEmpty(action)) {
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),false);
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header=processWsaProperty(header,override,"wsa:Action",action,false);
     }
-    String replyTo=wsaContainer.getWsaConfig().getReplyTo();
+    String replyTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getReplyTo());
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
       header=processWsaProperty(header,override,"wsa:ReplyTo",anonymousAddress,true);
     }
@@ -25,12 +25,12 @@
         header=processWsaProperty(header,override,"wsa:ReplyTo",noneAddress,true);
       }
     }
-    String relatesTo=wsaContainer.getWsaConfig().getRelatesTo();
-    String relationshipType=wsaContainer.getWsaConfig().getRelationshipType();
+    String relatesTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelatesTo());
+    String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
     if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(relatesTo)) {
       header=processWsaRelatesToProperty(header,override,"wsa:RelatesTo",relationshipType,relatesTo);
     }
-    String msgId=wsaContainer.getWsaConfig().getMessageID();
+    String msgId=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
     if (!StringUtils.isNullOrEmpty(msgId)) {
       header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
     }
@@ -38,7 +38,7 @@
       String generatedMessageId=UUID.randomUUID().toString();
       header=processWsaProperty(header,override,"wsa:MessageID",generatedMessageId,false);
     }
-    String to=wsaContainer.getWsaConfig().getTo();
+    String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
     if (!StringUtils.isNullOrEmpty(to)) {
       header=processWsaProperty(header,override,"wsa:To",to,false);
     }

@@ -1,0 +1,40 @@
+{
+  String wsaVns=null;
+  try {
+    XmlObject[] envS=contentObject.selectChildren(soapVersion.getEnvelopeQName());
+    Element envelope=(Element)envS[0].getDomNode();
+    Element hdr=(Element)SoapUtils.getHeaderElement(contentObject,soapVersion,true).getDomNode();
+    if (!hdr.hasChildNodes()) {
+      return null;
+    }
+    String wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_VERSION_200508);
+    if (wsaNameSpace != null) {
+      wsaVns=WsaUtils.WS_A_VERSION_200508;
+    }
+ else {
+      wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_VERSION_200408);
+      if (wsaNameSpace != null) {
+        wsaVns=WsaUtils.WS_A_VERSION_200408;
+      }
+ else {
+        wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_VERSION_200508);
+        if (wsaNameSpace != null) {
+          wsaVns=WsaUtils.WS_A_VERSION_200508;
+        }
+ else {
+          wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_VERSION_200408);
+          if (wsaNameSpace != null) {
+            wsaVns=WsaUtils.WS_A_VERSION_200408;
+          }
+ else {
+            return null;
+          }
+        }
+      }
+    }
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
+  return wsaVns;
+}

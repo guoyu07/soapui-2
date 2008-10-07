@@ -2,7 +2,7 @@
   try {
     SoapVersion soapVersion=request.getOperation().getInterface().getSoapVersion();
     String content=request.getRequestContent();
-    WsaUtils wsaUtils=new WsaUtils(content,soapVersion,request.getOperation());
+    WsaUtils wsaUtils=new WsaUtils(content,soapVersion,request.getOperation(),new DefaultPropertyExpansionContext(request));
     content=wsaUtils.addWSAddressingRequest(request);
     request.setRequestContent(content);
   }
