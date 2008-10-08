@@ -1,13 +1,16 @@
 {
+  String responseContentType=response.getRequestHeaders().get("Content-Type");
+  if (StringUtils.isNullOrEmpty(responseContentType))   return;
   RestRepresentation[] representations=getRequest().getRepresentations(RestRepresentation.Type.REQUEST,null);
   int c=0;
   for (; c < representations.length; c++) {
-    if (representations[c].getMediaType() != null && representations[c].getMediaType().equals(response.getRequestHeaders().get("Content-Type"))) {
+    String repMediaType=representations[c].getMediaType();
+    if (responseContentType.equals(repMediaType)) {
       break;
     }
   }
   if (c == representations.length) {
     RestRepresentation representation=getRequest().addNewRepresentation(RestRepresentation.Type.REQUEST);
-    representation.setMediaType(response.getRequestHeaders().get("Content-Type"));
+    representation.setMediaType(responseContentType);
   }
 }
