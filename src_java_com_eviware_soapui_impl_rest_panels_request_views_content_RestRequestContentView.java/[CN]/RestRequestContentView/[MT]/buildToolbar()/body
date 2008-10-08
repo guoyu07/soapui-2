@@ -18,6 +18,7 @@
   toolbar.addFixed(recreateButton);
   toolbar.addSeparator();
   postQueryCheckBox=new JCheckBox("Post QueryString",restRequest.isPostQueryString());
+  postQueryCheckBox.setToolTipText("Controls if Query-parameters should be put in message body");
   postQueryCheckBox.setOpaque(false);
   postQueryCheckBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){

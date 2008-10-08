@@ -14,5 +14,5 @@
   ArgumentBuilder args=buildArgs(UISupport.isWindows());
   builder.command(args.getArgs());
   builder.directory(new File(wstoolsDir));
-  toolHost.run(new ToolRunner(builder,new File(values.get(OUTPUT)),values.get(SERVICE_NAME),modelItem));
+  toolHost.run(new ToolRunner(builder,new File(values.get(OUTPUT)),values.get(SERVICE_NAME),modelItem,args));
 }

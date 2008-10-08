@@ -1,27 +1,24 @@
 {
   String onlineHelpUrl="";
-  configurationDialog=new SimpleDialog("Ws-a properties to assert","",onlineHelpUrl,true){
+  configurationDialog=new SimpleDialog("WS-A Assertion","Set options for WS-Addressing assertion",onlineHelpUrl,true){
     @Override protected Component buildContent(){
       editorForm=new SimpleForm();
-      asertWsaActionCheckBox=new JCheckBox("Assert wsa:Action",asertWsaAction);
-      editorForm.append(asertWsaActionCheckBox);
-      asertWsaToCheckBox=new JCheckBox("Assert wsa:To",asertWsaTo);
-      editorForm.append(asertWsaToCheckBox);
-      asertWsaRelatesToCheckBox=new JCheckBox("Assert wsa:RelatesTo",asertWsaRelatesTo);
-      editorForm.append(asertWsaRelatesToCheckBox);
+      assertWsaActionCheckBox=editorForm.appendCheckBox("wsa:Action","Asserts value of wsa:Action against WSDL metadata",assertWsaAction);
+      assertWsaToCheckBox=editorForm.appendCheckBox("wsa:To","Asserts value of wsa:To against WSDL metadata",assertWsaTo);
+      assertWsaRelatesToCheckBox=editorForm.appendCheckBox("wsa:RelatesTo","Asserts value of wsa:RelatesTo in regard to sent MessageID",assertWsaRelatesTo);
       return editorForm.getPanel();
     }
     @Override protected boolean handleOk(){
-      setAsertWsaAction(asertWsaActionCheckBox.isSelected());
-      setAsertWsaTo(asertWsaToCheckBox.isSelected());
-      setAsertWsaRelatesTo(asertWsaRelatesToCheckBox.isSelected());
-      wsaPropertiesTable=new WsaPropertiesTable(asertWsaAction,asertWsaTo,asertWsaRelatesTo);
+      setAssertWsaAction(assertWsaActionCheckBox.isSelected());
+      setAssertWsaTo(assertWsaToCheckBox.isSelected());
+      setAssertWsaRelatesTo(assertWsaRelatesToCheckBox.isSelected());
+      wsaPropertiesTable=new WsaPropertiesTable(assertWsaAction,assertWsaTo,assertWsaRelatesTo);
       configureResult=true;
       configurationDialog.setVisible(false);
       return true;
     }
   }
 ;
-  configurationDialog.setSize(300,200);
+  configurationDialog.setSize(400,200);
   configurationDialog.setModal(true);
 }

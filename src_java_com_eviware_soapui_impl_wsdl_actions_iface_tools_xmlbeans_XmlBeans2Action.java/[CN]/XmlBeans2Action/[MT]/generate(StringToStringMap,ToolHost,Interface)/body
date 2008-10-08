@@ -5,7 +5,8 @@
     return;
   }
   ProcessBuilder builder=new ProcessBuilder();
-  builder.command(buildArgs(modelItem).getArgs());
+  ArgumentBuilder argumentBuilder=buildArgs(modelItem);
+  builder.command(argumentBuilder.getArgs());
   builder.directory(new File(xbDir + File.separatorChar + "bin"));
   toolHost.run(new ProcessToolRunner(builder,"XmlBeans",modelItem));
 }

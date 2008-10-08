@@ -46,22 +46,24 @@
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpClient.executeMethod(hostConfiguration,httpMethod,httpState);
     httpMethod.getTimeTaken();
-    for (    RequestFilter filter : filters) {
-      filter.afterRequest(submitContext,httpRequest);
-    }
-    if (!submitContext.hasProperty(RESPONSE)) {
-      createDefaultResponse(submitContext,httpRequest,httpMethod);
-    }
   }
  catch (  Throwable t) {
     throw new Exception(t);
   }
  finally {
+    for (int c=filters.size() - 1; c >= 0; c--) {
+      filters.get(c).afterRequest(submitContext,httpRequest);
+    }
+    if (!submitContext.hasProperty(RESPONSE)) {
+      createDefaultResponse(submitContext,httpRequest,httpMethod);
+    }
     if (httpMethod != null) {
       httpMethod.releaseConnection();
     }
  else     log.error("PostMethod is null");
-    if (createdState)     submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
+    if (createdState) {
+      submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
+    }
   }
   return (Response)submitContext.getProperty(BaseHttpRequestTransport.RESPONSE);
 }

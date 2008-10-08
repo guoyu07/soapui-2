@@ -14,5 +14,5 @@
   ArgumentBuilder args=buildArgs(UISupport.isWindows(),modelItem);
   builder.command(args.getArgs());
   builder.directory(new File(wstoolsDir));
-  toolHost.run(new ProcessToolRunner(builder,"JBossWS wstools",modelItem));
+  toolHost.run(new ProcessToolRunner(builder,"JBossWS wstools",modelItem,args));
 }

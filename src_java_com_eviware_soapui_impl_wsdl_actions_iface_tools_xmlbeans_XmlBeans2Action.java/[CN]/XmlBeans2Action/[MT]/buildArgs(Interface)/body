@@ -19,7 +19,7 @@
   builder.addString(CATALOG,"-catalog");
   builder.addBoolean(VERBOSE,"-verbose");
   String javac=ToolsSupport.getToolLocator().getJavacLocation(false);
-  if (javac != null) {
+  if (StringUtils.hasContent(javac)) {
     builder.addArgs("-compiler",javac + File.separatorChar + "javac");
   }
   addToolArgs(values,builder);

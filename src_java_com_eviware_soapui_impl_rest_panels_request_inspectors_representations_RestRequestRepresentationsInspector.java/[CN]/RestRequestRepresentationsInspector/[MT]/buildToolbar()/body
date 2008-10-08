@@ -1,0 +1,23 @@
+{
+  JXToolBar toolbar=super.buildToolbar();
+  toolbar.addSeparator();
+  enableRecordingCheckBox=new JCheckBox("Auto-Create");
+  enableRecordingCheckBox.setToolTipText("Automatically create Representations from sent Requests");
+  enableRecordingCheckBox.setOpaque(false);
+  UISupport.setFixedSize(enableRecordingCheckBox,100,20);
+  toolbar.addFixed(enableRecordingCheckBox);
+  XmlBeansSettingsImpl settings=getRequest().getSettings();
+  if (settings.isSet(RECORD_REQUEST_REPRESENTATIONS)) {
+    enableRecordingCheckBox.setSelected(settings.getBoolean(RECORD_REQUEST_REPRESENTATIONS));
+  }
+ else {
+    enableRecordingCheckBox.setSelected(getRequest().getResource().getService().isGenerated());
+  }
+  enableRecordingCheckBox.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      getRequest().getSettings().setBoolean(RECORD_REQUEST_REPRESENTATIONS,enableRecordingCheckBox.isSelected());
+    }
+  }
+);
+  return toolbar;
+}

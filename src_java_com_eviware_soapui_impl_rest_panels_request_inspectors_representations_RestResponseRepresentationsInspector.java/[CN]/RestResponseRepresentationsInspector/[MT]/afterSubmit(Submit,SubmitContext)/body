@@ -1,0 +1,11 @@
+{
+  HttpResponse response=getRequest().getResponse();
+  if (response != null && enableRecordingCheckBox.isSelected()) {
+    if (HttpUtils.isErrorStatus(response.getStatusCode())) {
+      extractRepresentation(response,RestRepresentation.Type.FAULT);
+    }
+ else {
+      extractRepresentation(response,RestRepresentation.Type.RESPONSE);
+    }
+  }
+}

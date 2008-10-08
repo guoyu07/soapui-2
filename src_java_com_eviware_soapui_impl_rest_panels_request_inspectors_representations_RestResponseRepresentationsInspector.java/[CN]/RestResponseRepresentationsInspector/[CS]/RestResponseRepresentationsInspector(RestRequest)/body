@@ -1,5 +1,4 @@
 {
-  super("Rep","Response Representations",true,RestRepresentationsInspectorFactory.INSPECTOR_ID);
-  this.request=request;
-  request.addPropertyChangeListener("representations",this);
+  super(request,"Representations","Response Representations",new RestRepresentation.Type[]{RestRepresentation.Type.RESPONSE,RestRepresentation.Type.FAULT});
+  request.addSubmitListener(this);
 }
