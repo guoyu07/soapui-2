@@ -1,6 +1,6 @@
 {
   try {
-    new WsaValidator((WsdlMessageExchange)messageExchange).validateWsAddressingResponse();
+    new WsaValidator((WsdlMessageExchange)messageExchange,wsaPropertiesTable).validateWsAddressingResponse();
   }
  catch (  Exception e) {
     throw new AssertionException(new AssertionError(e.getMessage()));

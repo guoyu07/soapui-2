@@ -12,36 +12,40 @@
  else   if (!wsaVersionNameSpace.equals(requestWsaVersionNameSpace)) {
     throw new AssertionException(new AssertionError("Response has the wrong ws-a version namespace value."));
   }
-  Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
-  if (actionNode == null) {
-    cumulativeErrorMsg.append("WS-A Action property is not specified. ");
-  }
- else {
-    String actionValue=XmlUtils.getElementText(actionNode);
-    if (StringUtils.isNullOrEmpty(actionValue)) {
-      cumulativeErrorMsg.append("WS-A Action property is empty. ");
+  if (wsaPropertiesTable.isAssertAction()) {
+    Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
+    if (actionNode == null) {
+      cumulativeErrorMsg.append("WS-A Action property is not specified. ");
     }
  else {
-      String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
-      if (!actionValue.equals(defaultWsdlAction)) {
-        cumulativeErrorMsg.append("WS-A Action property should be " + defaultWsdlAction + ". ");
+      String actionValue=XmlUtils.getElementText(actionNode);
+      if (StringUtils.isNullOrEmpty(actionValue)) {
+        cumulativeErrorMsg.append("WS-A Action property is empty. ");
+      }
+ else {
+        String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
+        if (!actionValue.equals(defaultWsdlAction)) {
+          cumulativeErrorMsg.append("WS-A Action property should be " + defaultWsdlAction + ". ");
+        }
       }
     }
   }
   validateWsAddressingCommon(content);
-  Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
-  if (relatesToNode == null) {
-    cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
-  }
- else {
-    String relatesToValue=XmlUtils.getElementText(relatesToNode);
-    if (StringUtils.isNullOrEmpty(relatesToValue)) {
-      cumulativeErrorMsg.append("WS-A RelatesTo property is empty. ");
+  if (wsaPropertiesTable.isAssertRelatesTo()) {
+    Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
+    if (relatesToNode == null) {
+      cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
     }
  else {
-      String requestMsgId=WsdlUtils.getRequestWsaMessageId(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
-      if (!relatesToValue.equals(requestMsgId)) {
-        cumulativeErrorMsg.append("WS-A RelatesTo property is not equal to request wsa:MessageId. ");
+      String relatesToValue=XmlUtils.getElementText(relatesToNode);
+      if (StringUtils.isNullOrEmpty(relatesToValue)) {
+        cumulativeErrorMsg.append("WS-A RelatesTo property is empty. ");
+      }
+ else {
+        String requestMsgId=WsdlUtils.getRequestWsaMessageId(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
+        if (!relatesToValue.equals(requestMsgId)) {
+          cumulativeErrorMsg.append("WS-A RelatesTo property is not equal to request wsa:MessageId. ");
+        }
       }
     }
   }

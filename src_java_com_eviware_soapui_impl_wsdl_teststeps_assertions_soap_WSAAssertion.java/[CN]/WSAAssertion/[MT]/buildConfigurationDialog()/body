@@ -1,0 +1,27 @@
+{
+  String onlineHelpUrl="";
+  configurationDialog=new SimpleDialog("Ws-a properties to assert","",onlineHelpUrl,true){
+    @Override protected Component buildContent(){
+      editorForm=new SimpleForm();
+      asertWsaActionCheckBox=new JCheckBox("Assert wsa:Action",asertWsaAction);
+      editorForm.append(asertWsaActionCheckBox);
+      asertWsaToCheckBox=new JCheckBox("Assert wsa:To",asertWsaTo);
+      editorForm.append(asertWsaToCheckBox);
+      asertWsaRelatesToCheckBox=new JCheckBox("Assert wsa:RelatesTo",asertWsaRelatesTo);
+      editorForm.append(asertWsaRelatesToCheckBox);
+      return editorForm.getPanel();
+    }
+    @Override protected boolean handleOk(){
+      setAsertWsaAction(asertWsaActionCheckBox.isSelected());
+      setAsertWsaTo(asertWsaToCheckBox.isSelected());
+      setAsertWsaRelatesTo(asertWsaRelatesToCheckBox.isSelected());
+      wsaPropertiesTable=new WsaPropertiesTable(asertWsaAction,asertWsaTo,asertWsaRelatesTo);
+      configureResult=true;
+      configurationDialog.setVisible(false);
+      return true;
+    }
+  }
+;
+  configurationDialog.setSize(300,200);
+  configurationDialog.setModal(true);
+}

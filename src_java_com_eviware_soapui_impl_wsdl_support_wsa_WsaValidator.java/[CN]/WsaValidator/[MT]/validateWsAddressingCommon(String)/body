@@ -1,16 +1,18 @@
 {
-  Element toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
-  if (toNode == null) {
-    cumulativeErrorMsg.append("WS-A To property is not specified. ");
-  }
- else {
-    String toAddressValue=XmlUtils.getElementText(toNode);
-    if (StringUtils.isNullOrEmpty(toAddressValue)) {
-      cumulativeErrorMsg.append("WS-A To property is empty. ");
+  if (wsaPropertiesTable.isAssertTo()) {
+    Element toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
+    if (toNode == null) {
+      cumulativeErrorMsg.append("WS-A To property is not specified. ");
     }
  else {
-      if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue,wsaVersionNameSpace)) {
-        cumulativeErrorMsg.append("WS-A InvalidAddressingHeader To , Anonymous addresses are prohibited. ");
+      String toAddressValue=XmlUtils.getElementText(toNode);
+      if (StringUtils.isNullOrEmpty(toAddressValue)) {
+        cumulativeErrorMsg.append("WS-A To property is empty. ");
+      }
+ else {
+        if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue,wsaVersionNameSpace)) {
+          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader To , Anonymous addresses are prohibited. ");
+        }
       }
     }
   }

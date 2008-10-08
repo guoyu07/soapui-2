@@ -1,3 +1,7 @@
 {
-  super(assertionConfig,modelItem,false,false,false,true);
+  super(assertionConfig,modelItem,false,true,false,true);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  asertWsaAction=reader.readBoolean("action",true);
+  asertWsaTo=reader.readBoolean("to",true);
+  asertWsaRelatesTo=reader.readBoolean("relatesTo",false);
 }
