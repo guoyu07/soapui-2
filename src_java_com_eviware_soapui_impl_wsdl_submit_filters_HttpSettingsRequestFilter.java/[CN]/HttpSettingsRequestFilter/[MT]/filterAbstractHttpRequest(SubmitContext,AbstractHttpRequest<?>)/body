@@ -1,6 +1,6 @@
 {
   ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  Settings settings=wsdlRequest.getSettings();
+  Settings settings=httpRequest.getSettings();
   if (settings.getBoolean(HttpSettings.CLOSE_CONNECTIONS)) {
     httpMethod.setRequestHeader("Connection","close");
   }
@@ -20,8 +20,9 @@
  else   if (httpVersion.equals(HttpSettings.HTTP_VERSION_0_9)) {
     httpMethod.getParams().setVersion(HttpVersion.HTTP_0_9);
   }
-  long maxSize=wsdlRequest.getMaxSize();
+  long maxSize=httpRequest.getMaxSize();
   if (maxSize == 0)   maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
   if (maxSize > 0)   httpMethod.setMaxSize(maxSize);
+  httpMethod.setFollowRedirects(httpRequest.isFollowRedirects());
   HttpClientSupport.applyHttpSettings(httpMethod,settings);
 }
