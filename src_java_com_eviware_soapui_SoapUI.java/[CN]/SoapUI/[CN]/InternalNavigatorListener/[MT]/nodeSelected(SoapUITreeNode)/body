@@ -6,7 +6,9 @@
     ModelItem modelItem=treeNode.getModelItem();
     PropertyHolderTable propertyHolderTable=null;
     if (modelItem instanceof TestPropertyHolder) {
-      propertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
+      if (!(modelItem instanceof WsdlProject) || ((WsdlProject)modelItem).isOpen()) {
+        propertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
+      }
     }
     PanelBuilder<ModelItem> panelBuilder=PanelBuilderRegistry.getPanelBuilder(modelItem);
     if (panelBuilder != null && panelBuilder.hasOverviewPanel()) {
