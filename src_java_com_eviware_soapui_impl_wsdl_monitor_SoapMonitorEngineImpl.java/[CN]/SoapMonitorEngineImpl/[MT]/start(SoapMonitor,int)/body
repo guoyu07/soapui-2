@@ -1,8 +1,27 @@
 {
-  connector.setPort(localPort);
-  server.addConnector(connector);
+  Settings settings=soapMonitor.getProject().getSettings();
+  BoundedThreadPool threadPool=new BoundedThreadPool();
+  threadPool.setMaxThreads(100);
+  server.setThreadPool(threadPool);
   Context context=new Context(server,"/",0);
-  context.addServlet(new ServletHolder(new ProxyServlet(soapMonitor)),"/");
+  if (sslEndpoint != null) {
+    sslConnector=new SslSocketConnector();
+    sslConnector.setKeystore(settings.getString(SoapMonitorAction.LaunchForm.SSLTUNNEL_KEYSTORE,""));
+    sslConnector.setPassword(settings.getString(SoapMonitorAction.LaunchForm.SSLTUNNEL_PASSWORD,""));
+    sslConnector.setKeyPassword(settings.getString(SoapMonitorAction.LaunchForm.SSLTUNNEL_KEYPASSWORD,""));
+    sslConnector.setTruststore(settings.getString(SoapMonitorAction.LaunchForm.SSLTUNNEL_TRUSTSTORE,""));
+    sslConnector.setTrustPassword(settings.getString(SoapMonitorAction.LaunchForm.SSLTUNNEL_TRUSTSTORE_PASSWORD,""));
+    sslConnector.setMaxIdleTime(30000);
+    sslConnector.setNeedClientAuth(false);
+    sslConnector.setPort(localPort);
+    server.addConnector(sslConnector);
+    context.addServlet(new ServletHolder(new HttpsProxyServlet(soapMonitor,sslEndpoint)),"/");
+  }
+ else {
+    connector.setPort(localPort);
+    server.addConnector(connector);
+    context.addServlet(new ServletHolder(new ProxyServlet(soapMonitor)),"/");
+  }
   try {
     server.start();
   }

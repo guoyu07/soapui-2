@@ -1,5 +1,5 @@
 {
-  ByteArrayInputStream in=new ByteArrayInputStream(response);
+  ByteArrayInputStream in=new ByteArrayInputStream(response == null ? new byte[0] : response);
   try {
     responseContentType=responseHeaders.get("Content-Type");
     if (responseContentType != null && responseContentType.toUpperCase().startsWith("MULTIPART")) {

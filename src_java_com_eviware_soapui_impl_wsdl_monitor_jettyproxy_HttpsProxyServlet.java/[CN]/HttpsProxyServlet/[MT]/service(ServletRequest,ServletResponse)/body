@@ -1,0 +1,46 @@
+{
+  HttpServletRequest httpRequest=(HttpServletRequest)request;
+  InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
+  ExtendedPostMethod postMethod=new ExtendedPostMethod();
+  postMethod.setURI(new URI("https://" + sslEndPoint,true));
+  if (capturedData == null) {
+    capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
+    capturedData.setRequestHost(httpRequest.getRemoteHost());
+    capturedData.setRequestHeader(httpRequest);
+    capturedData.setTargetURL("https://" + inetAddress.getHostName());
+  }
+  CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
+  Enumeration<?> headerNames=httpRequest.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String hdr=(String)headerNames.nextElement();
+    String lhdr=hdr.toLowerCase();
+    if ("host".equals(lhdr)) {
+      Enumeration<?> vals=httpRequest.getHeaders(hdr);
+      while (vals.hasMoreElements()) {
+        String val=(String)vals.nextElement();
+        if (val.startsWith("127.0.0.1")) {
+          postMethod.addRequestHeader(hdr,sslEndPoint);
+        }
+      }
+      continue;
+    }
+    Enumeration<?> vals=httpRequest.getHeaders(hdr);
+    while (vals.hasMoreElements()) {
+      String val=(String)vals.nextElement();
+      if (val != null) {
+        postMethod.addRequestHeader(hdr,val);
+      }
+    }
+  }
+  postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
+  client.executeMethod(postMethod);
+  capturedData.stopCapture();
+  byte[] requestBytes=getRequestToBytes(postMethod,capture);
+  byte[] responseBytes=getResponseToBytes(postMethod);
+  IO.copy(new ByteArrayInputStream(postMethod.getResponseBody()),response.getOutputStream());
+  capturedData.setRequest(capture.getCapturedData());
+  capturedData.setResponse(postMethod.getResponseBody());
+  monitor.addMessageExchange(capturedData);
+  capturedData=null;
+  postMethod.releaseConnection();
+}

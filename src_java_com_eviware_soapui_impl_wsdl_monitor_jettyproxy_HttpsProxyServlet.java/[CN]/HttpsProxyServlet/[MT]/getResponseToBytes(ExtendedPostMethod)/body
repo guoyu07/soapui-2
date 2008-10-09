@@ -1,0 +1,14 @@
+{
+  String response="";
+  Header[] headers=postMethod.getResponseHeaders();
+  for (  Header header : headers) {
+    response+=header.toString();
+  }
+  try {
+    response+=postMethod.getResponseBodyAsString();
+  }
+ catch (  IOException e) {
+    SoapUI.log(e.getStackTrace());
+  }
+  return response.getBytes();
+}

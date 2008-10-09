@@ -1,0 +1,9 @@
+{
+  super(soapMonitor);
+  int c=sslEndpoint.indexOf(':');
+  if (c > 0) {
+    this.sslPort=Integer.parseInt(sslEndpoint.substring(c + 1));
+    this.sslEndPoint=sslEndpoint.substring(0,c);
+  }
+ else   this.sslEndPoint=sslEndpoint;
+}

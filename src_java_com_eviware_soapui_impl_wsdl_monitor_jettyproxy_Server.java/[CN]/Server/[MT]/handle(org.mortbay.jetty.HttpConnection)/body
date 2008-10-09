@@ -12,7 +12,7 @@
   final Socket clientSocket=connection.getEndPoint().getTransport() instanceof Socket ? (Socket)connection.getEndPoint().getTransport() : ((SocketChannel)connection.getEndPoint().getTransport()).socket();
   final InputStream in=clientSocket.getInputStream();
   final OutputStream out=clientSocket.getOutputStream();
-  final Socket socket=new Socket(inetAddress.getAddress(),inetAddress.getPort());
+  final SSLSocket socket=(SSLSocket)SSLSocketFactory.getDefault().createSocket(inetAddress.getAddress(),inetAddress.getPort());
   final Response response=connection.getResponse();
   response.setStatus(200);
   response.flushBuffer();

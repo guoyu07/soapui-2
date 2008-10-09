@@ -1,13 +1,3 @@
 {
-  super(new BorderLayout());
-  this.project=project;
-  this.listenPort=listenPort;
-  this.incomingRequestWss=incomingRequestWss;
-  this.incomingResponseWss=incomingResponseWss;
-  this.setAsProxy=setAsProxy;
-  this.maxRows=100;
-  this.setLayout(new BorderLayout());
-  add(buildToolbars(mainToolbar),BorderLayout.NORTH);
-  add(buildContent(),BorderLayout.CENTER);
-  start();
+  this(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy,null);
 }

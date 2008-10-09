@@ -1,0 +1,9 @@
+{
+  String request="";
+  Header[] headers=postMethod.getRequestHeaders();
+  for (  Header header : headers) {
+    request+=header.toString();
+  }
+  request+=new String(capture.getCapturedData());
+  return request.getBytes();
+}

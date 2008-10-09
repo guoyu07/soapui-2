@@ -1,6 +1,7 @@
 {
   int localPort=getLocalPort();
   monitorEngine=new SoapMonitorEngineImpl();
+  ((SoapMonitorEngineImpl)monitorEngine).setSslEndpoint(sslEndpoint);
   monitorEngine.start(this,localPort);
   if (monitorEngine.isRunning()) {
     stopButton.setEnabled(true);

@@ -1,0 +1,14 @@
+{
+  if (sslEndpoint == null) {
+    UISupport.showDesktopPanel(new SoapMonitorDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,null));
+  }
+ else {
+    String ssl=validate(sslEndpoint);
+    if (ssl == null) {
+      UISupport.showErrorMessage("SSL Monitor needs endpoint.");
+    }
+ else {
+      UISupport.showDesktopPanel(new SoapMonitorDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,ssl));
+    }
+  }
+}
