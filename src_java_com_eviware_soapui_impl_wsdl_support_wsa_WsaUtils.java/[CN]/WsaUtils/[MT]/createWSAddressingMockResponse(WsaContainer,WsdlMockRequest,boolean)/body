@@ -89,9 +89,15 @@
         }
       }
     }
-    String msgId=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
-    if (!StringUtils.isNullOrEmpty(msgId)) {
-      header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
+    if (wsaContainer.getWsaConfig().isGenerateMessageId()) {
+      String generatedMessageId=UUID.randomUUID().toString();
+      header=processWsaProperty(header,override,"wsa:MessageID",generatedMessageId,false);
+    }
+ else {
+      String msgId=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
+      if (!StringUtils.isNullOrEmpty(msgId)) {
+        header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
+      }
     }
     content=xmlContentObject.xmlText();
   }

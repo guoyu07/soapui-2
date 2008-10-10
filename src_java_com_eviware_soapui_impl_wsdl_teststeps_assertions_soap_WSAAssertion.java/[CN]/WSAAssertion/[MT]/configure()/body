@@ -1,8 +1,16 @@
 {
-  if (configurationDialog == null)   buildConfigurationDialog();
-  assertWsaActionCheckBox.setSelected(assertWsaAction);
-  assertWsaToCheckBox.setSelected(assertWsaTo);
-  assertWsaRelatesToCheckBox.setSelected(assertWsaRelatesTo);
-  UISupport.showDialog(configurationDialog);
-  return configureResult;
+  if (dialog == null)   buildDialog();
+  StringToStringMap values=new StringToStringMap();
+  values.put(ASSERT_ACTION,assertWsaAction);
+  values.put(ASSERT_TO,assertWsaTo);
+  values.put(ASSERT_RELATES_TO,assertWsaRelatesTo);
+  values=dialog.show(values);
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    assertWsaAction=values.getBoolean(ASSERT_ACTION);
+    assertWsaTo=values.getBoolean(ASSERT_TO);
+    assertWsaRelatesTo=values.getBoolean(ASSERT_RELATES_TO);
+  }
+  wsaPropertiesTable=new WsaPropertiesTable(assertWsaAction,assertWsaTo,assertWsaRelatesTo);
+  setConfiguration(createConfiguration());
+  return true;
 }
