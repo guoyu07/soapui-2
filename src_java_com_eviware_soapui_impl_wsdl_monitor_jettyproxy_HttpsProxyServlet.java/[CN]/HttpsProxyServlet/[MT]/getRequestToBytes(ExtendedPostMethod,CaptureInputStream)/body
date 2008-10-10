@@ -4,6 +4,7 @@
   for (  Header header : headers) {
     request+=header.toString();
   }
+  request+="\n";
   request+=new String(capture.getCapturedData());
   return request.getBytes();
 }

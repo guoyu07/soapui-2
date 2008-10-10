@@ -4,11 +4,7 @@
   for (  Header header : headers) {
     response+=header.toString();
   }
-  try {
-    response+=postMethod.getResponseBodyAsString();
-  }
- catch (  IOException e) {
-    SoapUI.log(e.getStackTrace());
-  }
+  response+="\n";
+  response+=new String(res);
   return response.getBytes();
 }
