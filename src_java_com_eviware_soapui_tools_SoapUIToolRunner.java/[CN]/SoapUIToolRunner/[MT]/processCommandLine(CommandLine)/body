@@ -8,5 +8,8 @@
   if (cmd.hasOption("v")) {
     setSoapUISettingsPassword(cmd.getOptionValue("v"));
   }
+  if (cmd.hasOption("D")) {
+    setSystemProperties(cmd.getOptionValues("D"));
+  }
   return true;
 }
