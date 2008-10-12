@@ -18,6 +18,9 @@
   if (cmd.hasOption("D")) {
     setSystemProperties(cmd.getOptionValues("D"));
   }
+  if (cmd.hasOption("G")) {
+    setGlobalProperties(cmd.getOptionValues("G"));
+  }
   setEnableUI(cmd.hasOption("i"));
   setPrintReport(cmd.hasOption("r"));
   setExportAll(cmd.hasOption("a"));

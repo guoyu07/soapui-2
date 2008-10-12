@@ -1,0 +1,8 @@
+{
+  for (  String option : optionValues) {
+    int ix=option.indexOf('=');
+    if (ix != -1) {
+      PropertyExpansionUtils.getGlobalProperties().setPropertyValue(option.substring(0,ix),option.substring(ix + 1));
+    }
+  }
+}
