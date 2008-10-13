@@ -40,14 +40,14 @@
         header=processWsaProperty(header,override,"wsa:MessageID",msgId,false);
       }
     }
-    String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
-    if (!StringUtils.isNullOrEmpty(to)) {
-      header=processWsaProperty(header,override,"wsa:To",to,false);
+    if (wsaContainer.getWsaConfig().isAddDefaultTo()) {
+      String defaultTo=httpMethod.getURI().toString();
+      header=processWsaProperty(header,override,"wsa:To",defaultTo,false);
     }
- else     if (operation.isOneWay() || operation.isRequestResponse()) {
-      if (httpMethod != null) {
-        String defaultTo=httpMethod.getURI().toString();
-        header=processWsaProperty(header,override,"wsa:To",defaultTo,false);
+ else {
+      String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
+      if (!StringUtils.isNullOrEmpty(to)) {
+        header=processWsaProperty(header,override,"wsa:To",to,false);
       }
     }
     content=xmlContentObject.xmlText();
