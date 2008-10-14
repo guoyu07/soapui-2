@@ -6,6 +6,7 @@
   table.addProperty("Port","port");
   table.addProperty("Match SOAP Version","requireSoapVersion",JPropertiesTable.BOOLEAN_OPTIONS).setDescription("Matches incoming SOAP Version against corresponding Interface");
   table.addProperty("Require SOAP Action","requireSoapAction",JPropertiesTable.BOOLEAN_OPTIONS);
+  table.addProperty("Dispatch Responses","dispatchResponseMessages",JPropertiesTable.BOOLEAN_OPTIONS);
   StringList incomingNames=new StringList(mockService.getProject().getWssContainer().getIncomingWssNames());
   incomingNames.add("");
   table.addProperty("Incoming WSS","incomingWss",incomingNames.toStringArray());

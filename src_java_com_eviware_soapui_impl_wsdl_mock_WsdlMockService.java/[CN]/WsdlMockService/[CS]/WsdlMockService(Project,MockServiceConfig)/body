@@ -15,4 +15,7 @@
   if (!getConfig().isSetProperties())   getConfig().addNewProperties();
   setPropertiesConfig(getConfig().getProperties());
   docrootProperty=new BeanPathPropertySupport(this,"docroot");
+  if (getConfig().isSetFaultMockOperation()) {
+    faultMockOperation=getMockOperationByName(getConfig().getFaultMockOperation());
+  }
 }

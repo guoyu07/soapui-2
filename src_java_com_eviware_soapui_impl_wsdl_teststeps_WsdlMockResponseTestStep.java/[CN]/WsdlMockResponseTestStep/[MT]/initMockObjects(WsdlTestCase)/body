@@ -10,6 +10,8 @@
  else {
     iface.addInterfaceListener(interfaceListener);
     mockOperation=mockService.addNewMockOperation(iface.getOperationByName(mockResponseStepConfig.getOperation()));
+    if (mockResponseStepConfig.getHandleFault())     mockService.setFaultMockOperation(mockOperation);
+    if (mockResponseStepConfig.getHandleResponse())     mockService.setDispatchResponseMessages(true);
     mockOperation.addNewMockResponse("MockResponse",false);
     mockResponse=mockOperation.getMockResponseAt(0);
     mockResponse.setConfig(mockResponseConfig);
