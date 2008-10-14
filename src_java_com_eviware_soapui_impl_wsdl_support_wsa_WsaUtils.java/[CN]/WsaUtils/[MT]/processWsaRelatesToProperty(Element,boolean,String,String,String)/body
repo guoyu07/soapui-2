@@ -4,10 +4,10 @@
     if (existsWsa) {
       header=removeWsaProperty(override,header,elementLocalName);
     }
-    header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,relatesTo));
+    header.appendChild(builder.createRelatesToElement(wsaPrefix + ":RelatesTo",envelopeElement,relationshipType,relatesTo));
   }
  else   if (!existsWsa) {
-    header.appendChild(builder.createRelatesToElement("wsa:RelatesTo",envelopeElement,relationshipType,relatesTo));
+    header.appendChild(builder.createRelatesToElement(wsaPrefix + ":RelatesTo",envelopeElement,relationshipType,relatesTo));
   }
   return header;
 }

@@ -12,7 +12,31 @@
     anonymousType=wsaContainer.getOperation().getInterface().getAnonymous();
   }
   Element header=(Element)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true).getDomNode();
-  header.setAttribute("xmlns:wsa",wsaVersionNameSpace);
+  wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200508);
+  if (wsaPrefix != null) {
+    wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200508;
+  }
+ else {
+    wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200408);
+    if (wsaPrefix != null) {
+      wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200408;
+    }
+ else {
+      wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200508);
+      if (wsaPrefix != null) {
+        wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200508;
+      }
+ else {
+        wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200408);
+        if (wsaPrefix != null) {
+          wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200408;
+        }
+ else {
+          wsaPrefix="wsa";
+        }
+      }
+    }
+  }
   XmlObject[] envelope=xmlContentObject.selectChildren(soapVersion.getEnvelopeQName());
   envelopeElement=(Element)envelope[0].getDomNode();
   Boolean mustUnderstand=null;
@@ -23,13 +47,5 @@
     mustUnderstand=true;
   }
   builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
-  String from=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFrom());
-  if (!StringUtils.isNullOrEmpty(from)) {
-    header=processWsaProperty(header,overrideExisting,"wsa:From",from,true);
-  }
-  String faultTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFaultTo());
-  if (!StringUtils.isNullOrEmpty(faultTo)) {
-    header=processWsaProperty(header,overrideExisting,"wsa:FaultTo",faultTo,true);
-  }
   return header;
 }
