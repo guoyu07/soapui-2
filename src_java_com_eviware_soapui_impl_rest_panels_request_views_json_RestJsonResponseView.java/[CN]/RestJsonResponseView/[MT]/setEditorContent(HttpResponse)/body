@@ -4,7 +4,7 @@
   }
  else {
     String content="<Not JSON content>";
-    if (httpResponse.getContentType() != null && httpResponse.getContentType().contains("javascript")) {
+    if (JsonMediaTypeHandler.couldBeJsonContent(httpResponse.getContentType())) {
       try {
         JSONObject json=JSONObject.fromObject(httpResponse.getContentAsString());
         if (json.isEmpty())         content="<Empty JSON content>";
