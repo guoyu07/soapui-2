@@ -1,6 +1,12 @@
 {
+  String name="";
   ModelItem modelItem=ptr.getOwner();
-  String name=modelItem.getName();
+  try {
+    name=modelItem.getName();
+  }
+ catch (  Exception e) {
+    e.getStackTrace();
+  }
   while (modelItem.getParent() != null && !(modelItem.getParent() instanceof Project)) {
     modelItem=modelItem.getParent();
     name=modelItem.getName() + " - " + name;

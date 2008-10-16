@@ -2,9 +2,7 @@
   context=context2;
   for (  PathToResolve path : context.getPathsToResolve()) {
     ArrayList<Object> resolversAndDefaultAction=new ArrayList<Object>();
-    if (path.getDefaultAction() != null) {
-      resolversAndDefaultAction.add(path.getDefaultAction());
-    }
+    resolversAndDefaultAction.add("Choose one...");
     for (    Object resolver : path.getResolvers()) {
       resolversAndDefaultAction.add(resolver);
     }

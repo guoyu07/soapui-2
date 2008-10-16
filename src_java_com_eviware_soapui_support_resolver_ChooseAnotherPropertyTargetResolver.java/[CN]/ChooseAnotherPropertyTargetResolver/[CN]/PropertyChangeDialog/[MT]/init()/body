@@ -40,12 +40,14 @@
  else       name=sourceStep.getModelItem().getName();
       badTransfer.setTargetStepName(name);
       badTransfer.setTargetPropertyName((String)propertiesCombo.getSelectedItem());
+      resolved=true;
       setVisible(false);
     }
   }
 );
   cancelBtn.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent e){
+      resolved=false;
       setVisible(false);
     }
   }

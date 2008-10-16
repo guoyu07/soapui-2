@@ -34,12 +34,14 @@
     public void actionPerformed(    ActionEvent e){
       pickedTestCase=(WsdlTestCase)tCaseCombo.getSelectedItem();
       runTestStep.setTargetTestCase(pickedTestCase);
+      resolved=true;
       setVisible(false);
     }
   }
 );
   cancelBtn.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent e){
+      resolved=false;
       setVisible(false);
     }
   }

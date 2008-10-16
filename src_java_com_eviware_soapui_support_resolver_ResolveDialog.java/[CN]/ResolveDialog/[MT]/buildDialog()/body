@@ -1,5 +1,5 @@
 {
-  dialog=new SimpleDialog(title,description,helpUrl,true){
+  dialog=new SimpleDialog(title,description,helpUrl,false){
     @Override protected Component buildContent(){
       JPanel panel=new JPanel(new BorderLayout());
       JXTable table=new JXTable(resolveContextTableModel);
@@ -12,31 +12,30 @@
       panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
       return panel;
     }
-    @Override protected boolean handleOk(){
+    @SuppressWarnings("unchecked") @Override protected boolean handleOk(){
       for (      PathToResolve path : resolveContextTableModel.getContext().getPathsToResolve()) {
-        int index=resolveContextTableModel.getContext().getPathsToResolve().indexOf(path);
-        Object key=resolveContextTableModel.jbcList.get(index).getSelectedItem();
-        if (key instanceof Resolver) {
-          path.setResolver(key);
+        if (!path.isResolved()) {
+          if (UISupport.confirm("There are unresolved paths, continue?","Unresolved paths - Warning")) {
+            return true;
+          }
+          return false;
         }
       }
-      int cnt=resolveContextTableModel.getContext().apply();
-      if (isShowOkMessage()) {
-        UISupport.showInfoMessage("Resolved " + cnt + " items");
-      }
       return true;
-    }
-    @Override protected boolean handleCancel(){
-      return UISupport.confirm("There are unresolved item, continue?","Unresolved items");
     }
   }
 ;
   dialog.setSize(550,300);
   dialog.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
   dialog.addWindowListener(new WindowAdapter(){
-    @Override public void windowClosing(    WindowEvent arg0){
-      if (UISupport.confirm("There are unresolved item, continue?","Unresolved items")) {
-        dialog.setVisible(false);
+    @SuppressWarnings("unchecked") @Override public void windowClosing(    WindowEvent arg0){
+      for (      PathToResolve path : resolveContextTableModel.getContext().getPathsToResolve()) {
+        if (!path.isResolved()) {
+          if (UISupport.confirm("There are unresolved paths, continue?","Unresolved paths - Warning")) {
+            dialog.setVisible(false);
+          }
+          break;
+        }
       }
     }
   }

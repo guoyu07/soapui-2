@@ -1,4 +1,30 @@
 {
   jbc=((ResolveContextTableModel)table.getModel()).getResolversAndActions(row);
+  final PathToResolve path=resolveContextTableModel.getContext().getPathsToResolve().get(row);
+  jbc.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      Object key=jbc.getSelectedItem();
+      if (key instanceof Resolver) {
+        path.setResolver(key);
+      }
+      if (path.resolve()) {
+        jbc.addItem("Resolved");
+        jbc.setSelectedIndex(jbc.getItemCount() - 1);
+        for (int cnt=0; cnt < resolveContextTableModel.getContext().getPathsToResolve().size(); cnt++) {
+          PathToResolve otherPath=resolveContextTableModel.getContext().getPathsToResolve().get(cnt);
+          if (path != otherPath & !otherPath.isResolved()) {
+            otherPath.getOwner().afterLoad();
+            otherPath.getOwner().resolve(resolveContextTableModel.getContext());
+            if (otherPath.isResolved()) {
+              JComboBox jbcOther=((ResolveContextTableModel)table.getModel()).getResolversAndActions(cnt);
+              jbcOther.addItem("Resolved");
+              jbcOther.setSelectedIndex(jbcOther.getItemCount() - 1);
+            }
+          }
+        }
+      }
+    }
+  }
+);
   return jbc;
 }

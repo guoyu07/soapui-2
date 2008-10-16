@@ -1,0 +1,9 @@
+{
+  if (UISupport.confirm("Are you sure to remove this test step?","Remove Test Step")) {
+    if (testStep != null) {
+      testStep.getTestCase().removeTestStep(testStep);
+      resolve=true;
+    }
+  }
+  return resolve;
+}
