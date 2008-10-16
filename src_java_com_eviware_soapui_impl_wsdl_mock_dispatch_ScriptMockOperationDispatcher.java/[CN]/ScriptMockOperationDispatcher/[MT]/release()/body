@@ -1,0 +1,6 @@
+{
+  scriptEnginePool.release();
+  if (groovyEditor != null)   groovyEditor.release();
+  getMockOperation().removePropertyChangeListener(WsdlMockOperation.DISPATCH_PATH_PROPERTY,this);
+  super.release();
+}

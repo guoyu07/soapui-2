@@ -1,0 +1,23 @@
+{
+  try {
+    XmlObject xmlObject=request.getRequestXmlObject();
+    for (    MockOperationQueryDispatchConfigConfig.Query query : conf.getQueryList()) {
+      XmlObject[] nodes=xmlObject.selectPath(query.getPath());
+      if (nodes != null && nodes.length > 0) {
+        XmlCursor cursor=nodes[0].newCursor();
+        try {
+          if (query.getValue().equals(cursor.getTextValue())) {
+            return getMockOperation().getMockResponseByName(query.getResponse());
+          }
+        }
+  finally {
+          cursor.dispose();
+        }
+      }
+    }
+    return null;
+  }
+ catch (  XmlException e) {
+    throw new DispatchException(e);
+  }
+}

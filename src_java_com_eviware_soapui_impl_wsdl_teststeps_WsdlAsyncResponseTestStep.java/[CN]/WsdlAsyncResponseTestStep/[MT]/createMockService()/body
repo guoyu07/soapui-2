@@ -7,7 +7,6 @@
   WsdlOperation operation=iface.getOperationByName(testStepConfig.getOperation());
   mockOperation=mockService.getMockOperation(operation);
   if (mockOperation == null)   mockOperation=mockService.addNewMockOperation(operation);
-  mockOperation.setDispatchStyle(DispatchStyleConfig.QUERY_MATCH);
   mockResponse=mockOperation.addNewMockResponse(mockResponseConfig);
   mockResponse.addPropertyChangeListener(this);
   listener=new InternalMockRunListener();

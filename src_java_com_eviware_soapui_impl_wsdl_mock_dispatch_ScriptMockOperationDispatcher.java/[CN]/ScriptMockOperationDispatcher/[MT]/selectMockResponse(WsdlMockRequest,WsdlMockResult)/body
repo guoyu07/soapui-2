@@ -1,0 +1,27 @@
+{
+  String dispatchScript=getMockOperation().getDispatchPath();
+  if (StringUtils.hasContent(dispatchScript)) {
+    SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
+    try {
+      WsdlMockService mockService=getMockOperation().getMockService();
+      WsdlMockRunner mockRunner=mockService.getMockRunner();
+      MockRunContext context=mockRunner == null ? new WsdlMockRunContext(mockService,null) : mockRunner.getMockContext();
+      scriptEngine.setVariable("context",context);
+      scriptEngine.setVariable("requestContext",request == null ? null : request.getRequestContext());
+      scriptEngine.setVariable("mockRequest",request);
+      scriptEngine.setVariable("mockOperation",this);
+      scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+      scriptEngine.setScript(dispatchScript);
+      Object retVal=scriptEngine.run();
+      return getMockOperation().getMockResponseByName(String.valueOf(retVal));
+    }
+ catch (    Throwable e) {
+      SoapUI.logError(e);
+      throw new DispatchException("Failed to dispatch using script; " + e);
+    }
+ finally {
+      scriptEnginePool.returnScriptEngine(scriptEngine);
+    }
+  }
+  return null;
+}

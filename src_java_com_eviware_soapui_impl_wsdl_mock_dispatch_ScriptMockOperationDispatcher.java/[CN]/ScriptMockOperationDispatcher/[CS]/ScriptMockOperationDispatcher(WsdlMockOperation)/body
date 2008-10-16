@@ -1,0 +1,6 @@
+{
+  super(mockOperation,null);
+  scriptEnginePool=new ScriptEnginePool(mockOperation);
+  scriptEnginePool.setScript(mockOperation.getDispatchPath());
+  mockOperation.addPropertyChangeListener(WsdlMockOperation.DISPATCH_PATH_PROPERTY,this);
+}

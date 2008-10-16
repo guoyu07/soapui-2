@@ -1,40 +1,21 @@
 {
-  buildGroovyEditor();
-  buildXPathEditor();
   dispatchPanel=new JPanel(new BorderLayout());
   dispatchPanel.setOpaque(true);
   ButtonBarBuilder builder=new ButtonBarBuilder();
   builder.addFixed(new JLabel("Dispatch: "));
   builder.addRelatedGap();
-  dispatchCombo=new JComboBox(new Object[]{"Sequence","Random","XPath","Script"});
+  dispatchCombo=new JComboBox(MockOperationDispatchRegistry.getDispatchTypes());
   dispatchCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       if (dispatchPanel.getComponentCount() > 1)       dispatchPanel.remove(1);
       String item=(String)dispatchCombo.getSelectedItem();
-      if (item.equalsIgnoreCase("Script")) {
-        getModelItem().setDispatchStyle(DispatchStyleConfig.SCRIPT);
-        dispatchPanel.add(groovyEditorPanel);
-        groovyEditor.getEditArea().setText(getModelItem().getDispatchPath());
-        defaultResponseCombo.setEnabled(true);
-      }
- else       if (item.equalsIgnoreCase("XPath")) {
-        getModelItem().setDispatchStyle(DispatchStyleConfig.XPATH);
-        dispatchPanel.add(xpathEditorPanel);
-        xpathEditor.getEditArea().setText(getModelItem().getDispatchPath());
-        defaultResponseCombo.setEnabled(true);
-      }
- else       if (item.equalsIgnoreCase("Sequence")) {
-        getModelItem().setDispatchStyle(DispatchStyleConfig.SEQUENCE);
-        defaultResponseCombo.setEnabled(false);
-      }
- else       if (item.equalsIgnoreCase("Random")) {
-        getModelItem().setDispatchStyle(DispatchStyleConfig.RANDOM);
-        defaultResponseCombo.setEnabled(false);
-      }
+      MockOperationDispatcher dispatcher=getModelItem().setDispatchStyle(item);
+      dispatchPanel.add(dispatcher.buildEditorComponent(),BorderLayout.CENTER);
       dispatchPanel.revalidate();
       dispatchPanel.repaint();
-      Enum dispatchStyle=getModelItem().getDispatchStyle();
-      if (dispatchInspector != null && dispatchStyle != null)       dispatchInspector.setTitle("Dispatch (" + dispatchStyle + ")");
+      if (dispatchInspector != null && item != null) {
+        dispatchInspector.setTitle("Dispatch (" + item + ")");
+      }
     }
   }
 );
@@ -56,20 +37,6 @@
   builder.setBorder(BorderFactory.createEmptyBorder(2,3,3,3));
   dispatchPanel.add(builder.getPanel(),BorderLayout.NORTH);
   defaultResponseCombo.setSelectedItem(getModelItem().getDefaultResponse());
-  DispatchStyleConfig.Enum dispatchStyle=getModelItem().getDispatchStyle();
-  if (dispatchStyle.equals(DispatchStyleConfig.SEQUENCE)) {
-    dispatchCombo.setSelectedItem("Sequence");
-    defaultResponseCombo.setEnabled(false);
-  }
- else   if (dispatchStyle.equals(DispatchStyleConfig.RANDOM)) {
-    dispatchCombo.setSelectedItem("Random");
-    defaultResponseCombo.setEnabled(false);
-  }
- else   if (dispatchStyle.equals(DispatchStyleConfig.SCRIPT)) {
-    dispatchCombo.setSelectedItem("Script");
-  }
- else   if (dispatchStyle.equals(DispatchStyleConfig.XPATH)) {
-    dispatchCombo.setSelectedItem("XPath");
-  }
+  dispatchCombo.setSelectedItem(getModelItem().getDispatchStyle());
   return dispatchPanel;
 }

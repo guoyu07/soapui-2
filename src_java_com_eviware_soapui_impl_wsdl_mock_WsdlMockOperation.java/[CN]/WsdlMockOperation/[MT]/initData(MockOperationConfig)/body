@@ -1,9 +1,9 @@
 {
   if (!config.isSetName())   config.setName(operation == null ? "<missing operation>" : operation.getName());
-  if (!config.isSetDispatchStyle())   config.setDispatchStyle(DispatchStyleConfig.SEQUENCE);
   if (!config.isSetDefaultResponse() && responses.size() > 0)   setDefaultResponse(responses.get(0).getName());
-  scriptEnginePool=new ScriptEnginePool(this);
-  scriptEnginePool.setScript(getDispatchPath());
+  if (!config.isSetDispatchStyle())   config.setDispatchStyle(MockOperationDispatchStyleConfig.SEQUENCE);
+  if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
+  dispatcher=MockOperationDispatchRegistry.buildDispatcher(config.getDispatchStyle().toString(),this,getConfig().getDispatchConfig());
   if (operation != null) {
     operation.getInterface().getProject().addProjectListener(projectListener);
     operation.getInterface().addInterfaceListener(interfaceListener);
