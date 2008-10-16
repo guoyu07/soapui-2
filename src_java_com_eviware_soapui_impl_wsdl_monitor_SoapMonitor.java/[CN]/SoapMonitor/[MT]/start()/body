@@ -7,7 +7,7 @@
     stopButton.setEnabled(true);
     startButton.setEnabled(false);
     optionsButton.setEnabled(false);
-    infoLabel.setText("Proxy " + "on port " + localPort);
+    infoLabel.setText(monitorEngine.isProxy() ? "HTTP Proxy " : "SSL Tunnel " + "on port " + localPort);
     progressBar.setIndeterminate(true);
     if (setAsProxy) {
       oldProxyHost=SoapUI.getSettings().getString(ProxySettings.HOST,"");

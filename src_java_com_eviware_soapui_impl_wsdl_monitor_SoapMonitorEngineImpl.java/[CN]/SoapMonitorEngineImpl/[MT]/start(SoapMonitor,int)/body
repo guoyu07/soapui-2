@@ -16,8 +16,10 @@
     sslConnector.setPort(localPort);
     server.addConnector(sslConnector);
     context.addServlet(new ServletHolder(new HttpsProxyServlet(soapMonitor,sslEndpoint)),"/");
+    proxyOrTunnel=false;
   }
  else {
+    proxyOrTunnel=true;
     connector.setPort(localPort);
     server.addConnector(connector);
     context.addServlet(new ServletHolder(new ProxyServlet(soapMonitor)),"/");
