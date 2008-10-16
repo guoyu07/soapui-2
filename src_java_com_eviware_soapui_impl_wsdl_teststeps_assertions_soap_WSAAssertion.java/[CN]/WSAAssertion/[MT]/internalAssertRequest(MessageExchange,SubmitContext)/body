@@ -2,8 +2,11 @@
   try {
     new WsaValidator((WsdlMessageExchange)messageExchange,wsaPropertiesTable).validateWsAddressingRequest();
   }
- catch (  Exception e) {
+ catch (  AssertionException e) {
     throw new AssertionException(new AssertionError(e.getMessage()));
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
   }
   return "Request WS-Addressing is valid";
 }
