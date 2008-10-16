@@ -1,0 +1,12 @@
+{
+  JTextArea textArea=new JUndoableTextArea();
+  textArea.setColumns(30);
+  textArea.setRows(3);
+  textArea.setAutoscrolls(true);
+  textArea.add(new JScrollPane());
+  textArea.setToolTipText(tooltip);
+  textArea.getAccessibleContext().setAccessibleDescription(tooltip);
+  JTextComponentPopupMenu.add(textArea);
+  append(label,new JScrollPane(textArea));
+  return textArea;
+}

@@ -1,0 +1,23 @@
+{
+  boolean existsWsa=getWsaProperty(header,elementLocalName) != null ? true : false;
+  if (override) {
+    if (existsWsa) {
+      header=removeWsaProperty(override,header,elementLocalName);
+    }
+    if (address) {
+      header.appendChild(builder.createWsaAddressChildElement(elementLocalName,envelopeElement,wsaPropValue,refParamsContent));
+    }
+ else {
+      header.appendChild(builder.createWsaChildElement(elementLocalName,envelopeElement,wsaPropValue));
+    }
+  }
+ else   if (!existsWsa) {
+    if (address) {
+      header.appendChild(builder.createWsaAddressChildElement(elementLocalName,envelopeElement,wsaPropValue,refParamsContent));
+    }
+ else {
+      header.appendChild(builder.createWsaChildElement(elementLocalName,envelopeElement,wsaPropValue));
+    }
+  }
+  return header;
+}

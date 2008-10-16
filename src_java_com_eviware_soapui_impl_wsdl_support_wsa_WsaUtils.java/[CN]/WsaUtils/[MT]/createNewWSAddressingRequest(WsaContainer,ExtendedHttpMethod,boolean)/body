@@ -15,20 +15,21 @@
       header=processWsaProperty(header,override,wsaPrefix + ":Action",action,false);
     }
     String replyTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getReplyTo());
+    String replyToRefParams=wsaContainer.getWsaConfig().getReplyToRefParams();
     if (AnonymousTypeConfig.REQUIRED.toString().equals(anonymousType)) {
-      header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true);
+      header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true,replyToRefParams);
     }
  else     if (!StringUtils.isNullOrEmpty(replyTo)) {
       if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(replyTo,wsaVersionNameSpace))) {
-        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",replyTo,true);
+        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",replyTo,true,replyToRefParams);
       }
     }
  else     if (operation.isRequestResponse()) {
       if (!AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType)) {
-        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true);
+        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true,replyToRefParams);
       }
  else {
-        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",noneAddress,true);
+        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",noneAddress,true,replyToRefParams);
       }
     }
     String from=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFrom());
@@ -36,8 +37,9 @@
       header=processWsaProperty(header,override,wsaPrefix + ":From",from,true);
     }
     String faultTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFaultTo());
+    String faultToRefParams=wsaContainer.getWsaConfig().getFaultToRefParams();
     if (!StringUtils.isNullOrEmpty(faultTo)) {
-      header=processWsaProperty(header,override,wsaPrefix + ":FaultTo",faultTo,true);
+      header=processWsaProperty(header,override,wsaPrefix + ":FaultTo",faultTo,true,faultToRefParams);
     }
     String relatesTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelatesTo());
     String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());

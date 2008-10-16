@@ -19,7 +19,7 @@
         jl.setDisplayedMnemonicIndex(ix);
         jl.setDisplayedMnemonic(text.charAt(ix + 1));
       }
-      component.getAccessibleContext().setAccessibleName(text);
+      if (component.getAccessibleContext() != null)       component.getAccessibleContext().setAccessibleName(text);
     }
   }
  else   component.addComponentListener(new LabelHider(null,spaceRowIndex));
