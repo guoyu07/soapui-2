@@ -8,7 +8,7 @@
     throw new AssertionException(new AssertionError("WS-A not enabled"));
   }
   WsdlOperation operation=messageExchange.getOperation();
-  if (wsaPropertiesTable.isAssertAction()) {
+  if (wsaAssertionConfiguration.isAssertAction()) {
     Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
     if (actionNode == null) {
       cumulativeErrorMsg.append("WS-A Action property is not specified. ");

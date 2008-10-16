@@ -1,0 +1,17 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(messageExchange.getRequestContent());
+    SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
+    Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+    Element faultToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"FaultTo");
+    Element faultRefParamsNode=XmlUtils.getFirstChildElementNS(faultToNode,wsaVersionNameSpace,"ReferenceParameters");
+    if (faultRefParamsNode != null) {
+      return XmlUtils.getChildElements(faultRefParamsNode);
+    }
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+    log.warn(e.toString());
+  }
+  return null;
+}

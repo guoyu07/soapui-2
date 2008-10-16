@@ -4,13 +4,17 @@
   values.put(ASSERT_ACTION,assertWsaAction);
   values.put(ASSERT_TO,assertWsaTo);
   values.put(ASSERT_RELATES_TO,assertWsaRelatesTo);
+  values.put(ASSERT_REPLY_TO_REF_PARAMS,assertReplyToRefParams);
+  values.put(ASSERT_FAULT_TO_REF_PARAMS,assertFaultToRefParams);
   values=dialog.show(values);
   if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
     assertWsaAction=values.getBoolean(ASSERT_ACTION);
     assertWsaTo=values.getBoolean(ASSERT_TO);
     assertWsaRelatesTo=values.getBoolean(ASSERT_RELATES_TO);
+    assertReplyToRefParams=values.getBoolean(ASSERT_REPLY_TO_REF_PARAMS);
+    assertFaultToRefParams=values.getBoolean(ASSERT_FAULT_TO_REF_PARAMS);
   }
-  wsaPropertiesTable=new WsaPropertiesTable(assertWsaAction,assertWsaTo,assertWsaRelatesTo);
+  wsaAssertionConfiguration=new WsaAssertionConfiguration(assertWsaAction,assertWsaTo,assertWsaRelatesTo,assertReplyToRefParams,assertFaultToRefParams);
   setConfiguration(createConfiguration());
   return true;
 }

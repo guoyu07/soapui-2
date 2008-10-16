@@ -1,12 +1,13 @@
 {
   try {
-    new WsaValidator((WsdlMessageExchange)messageExchange,wsaPropertiesTable).validateWsAddressingResponse();
+    new WsaValidator((WsdlMessageExchange)messageExchange,wsaAssertionConfiguration).validateWsAddressingResponse();
   }
  catch (  AssertionException e) {
     throw new AssertionException(new AssertionError(e.getMessage()));
   }
-catch (  Exception e) {
+catch (  XmlException e) {
     SoapUI.logError(e);
+    throw new AssertionException(new AssertionError("There has been some XmlException, ws-a couldn't be validated properly."));
   }
   return "Response WS-Addressing is valid";
 }

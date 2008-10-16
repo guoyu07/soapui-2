@@ -12,7 +12,7 @@
  else   if (!wsaVersionNameSpace.equals(requestWsaVersionNameSpace)) {
     throw new AssertionException(new AssertionError("Response has the wrong ws-a version namespace value."));
   }
-  if (wsaPropertiesTable.isAssertAction()) {
+  if (wsaAssertionConfiguration.isAssertAction()) {
     Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
     if (actionNode == null) {
       cumulativeErrorMsg.append("WS-A Action property is not specified. ");
@@ -31,7 +31,7 @@
     }
   }
   validateWsAddressingCommon(content);
-  if (wsaPropertiesTable.isAssertRelatesTo()) {
+  if (wsaAssertionConfiguration.isAssertRelatesTo()) {
     Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
     if (relatesToNode == null) {
       cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
@@ -61,6 +61,34 @@
  else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(replyToAddressValue,wsaVersionNameSpace) || WsaUtils.isNoneAddress(replyToAddressValue,wsaVersionNameSpace))) {
           cumulativeErrorMsg.append("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required. ");
         }
+      }
+    }
+  }
+  if (wsaAssertionConfiguration.isAssertReplyToRefParams()) {
+    NodeList requestReplyToRefProps=WsdlUtils.getRequestReplyToRefProps(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
+    for (int i=0; i < requestReplyToRefProps.getLength(); i++) {
+      Node refProp=requestReplyToRefProps.item(i);
+      String refPropName=refProp.getNodeName();
+      NodeList existingResponseRefs=XmlUtils.getChildElementsByTagName(header,refPropName);
+      if (existingResponseRefs != null && existingResponseRefs.getLength() > 0) {
+        continue;
+      }
+ else {
+        cumulativeErrorMsg.append("Response does not have request ReferenceProperty " + refPropName + ". ");
+      }
+    }
+  }
+  if (wsaAssertionConfiguration.isAssertFaultToRefParams()) {
+    NodeList requestFaultToRefProps=WsdlUtils.getRequestFaultToRefProps(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
+    for (int i=0; i < requestFaultToRefProps.getLength(); i++) {
+      Node refProp=requestFaultToRefProps.item(i);
+      String refPropName=refProp.getNodeName();
+      NodeList existingResponseRefs=XmlUtils.getChildElementsByTagName(header,refPropName);
+      if (existingResponseRefs != null && existingResponseRefs.getLength() > 0) {
+        continue;
+      }
+ else {
+        cumulativeErrorMsg.append("Response does not have request ReferenceProperty " + refPropName + ". ");
       }
     }
   }
