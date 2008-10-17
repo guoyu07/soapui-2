@@ -7,6 +7,7 @@
  catch (    Exception e) {
       File file=new File(source);
       if (!file.exists() || !file.isDirectory()) {
+        if (context.hasThisModelItem(modelItem,errorDescription,source))         return;
         context.addPathToResolve(modelItem,errorDescription,source,new ResolveContext.DirectoryResolver("Select Directory",source){
           @Override public boolean apply(          File newFile){
             set(newFile.getAbsolutePath(),notify);
@@ -14,6 +15,9 @@
           }
         }
 );
+      }
+ else {
+        if (context.hasThisModelItem(modelItem,errorDescription,source))         context.getPath(modelItem,errorDescription,source).setSolved(true);
       }
     }
   }

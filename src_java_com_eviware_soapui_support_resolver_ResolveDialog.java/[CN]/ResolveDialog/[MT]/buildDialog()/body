@@ -1,5 +1,5 @@
 {
-  dialog=new SimpleDialog(title,description,helpUrl,false){
+  dialog=new SimpleDialog(title,description,helpUrl,true){
     @Override protected Component buildContent(){
       JPanel panel=new JPanel(new BorderLayout());
       JXTable table=new JXTable(resolveContextTableModel);
@@ -11,6 +11,33 @@
       panel.add(new JScrollPane(table),BorderLayout.CENTER);
       panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
       return panel;
+    }
+    @Override protected void modifyButtons(){
+      super.modifyButtons();
+      Component[] components=buttons.getComponents();
+      for (      Component component : components) {
+        if (component instanceof JButton) {
+          JButton button=(JButton)component;
+          if (button.getText().equals("Cancel")) {
+            button.setText("Update");
+          }
+        }
+      }
+    }
+    @Override protected boolean handleCancel(){
+      return handleUpdate();
+    }
+    @SuppressWarnings("unchecked") private boolean handleUpdate(){
+      for (      PathToResolve otherPath : resolveContextTableModel.getContext().getPathsToResolve()) {
+        if (!otherPath.isResolved()) {
+          otherPath.getOwner().afterLoad();
+          otherPath.getOwner().resolve(resolveContextTableModel.getContext());
+        }
+      }
+      dialog=null;
+      setVisible(false);
+      resolve(resolveContextTableModel.getContext().getModelItem());
+      return true;
     }
     @SuppressWarnings("unchecked") @Override protected boolean handleOk(){
       for (      PathToResolve path : resolveContextTableModel.getContext().getPathsToResolve()) {

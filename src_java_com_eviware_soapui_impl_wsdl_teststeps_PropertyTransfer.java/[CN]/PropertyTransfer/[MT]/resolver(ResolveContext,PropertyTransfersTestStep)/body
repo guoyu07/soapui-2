@@ -1,4 +1,5 @@
 {
+  if (isDisabled())   return;
   if (getSourceProperty() == null) {
     if (context.hasThisModelItem(parent,"Resolve source property",getConfig().getSourceStep()))     return;
     context.addPathToResolve(parent,"Resolve source property",getConfig().getSourceStep()).addResolvers(new DisablePropertyTransferResolver(this),new CreateMissingPropertyResolver(this,parent),new ChooseAnotherPropertySourceResolver(this,parent));

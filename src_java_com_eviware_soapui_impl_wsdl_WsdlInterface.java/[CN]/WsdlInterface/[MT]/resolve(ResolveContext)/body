@@ -5,6 +5,7 @@
     try {
       File file=new File(definition.substring(5));
       if (!file.exists()) {
+        if (context.hasThisModelItem(this,"Missing WSDL file",definition))         return;
         context.addPathToResolve(this,"Missing WSDL file",definition,new ResolveContext.FileResolver("Select WSDL File","wsdl","WSDL Files (*.wsdl)",file.getParent()){
           @Override public boolean apply(          File newFile){
             try {
@@ -18,6 +19,9 @@
           }
         }
 );
+      }
+ else {
+        if (context.hasThisModelItem(this,"Missing WSDL file",definition))         context.getPath(this,"Missing WSDL file",definition).setSolved(true);
       }
     }
  catch (    Exception e) {
