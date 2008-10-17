@@ -1,0 +1,6 @@
+{
+  if (capturingServletOutputStream == null) {
+    capturingServletOutputStream=new CapturingServletOutputStream(super.getOutputStream());
+  }
+  return capturingServletOutputStream;
+}

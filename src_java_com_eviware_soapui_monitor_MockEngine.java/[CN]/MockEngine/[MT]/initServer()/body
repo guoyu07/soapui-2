@@ -4,6 +4,9 @@
   threadPool.setMaxThreads(100);
   server.setThreadPool(threadPool);
   server.setHandler(new ServerHandler());
+  RequestLogHandler logHandler=new RequestLogHandler();
+  logHandler.setRequestLog(new MockRequestLog());
+  server.addHandler(logHandler);
   if (SoapUI.getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL)) {
     sslConnector=new SslSocketConnector();
     sslConnector.setKeystore(SoapUI.getSettings().getString(SSLSettings.MOCK_KEYSTORE,null));
