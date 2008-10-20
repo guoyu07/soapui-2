@@ -3,7 +3,7 @@
   if (!config.isSetDefaultResponse() && responses.size() > 0)   setDefaultResponse(responses.get(0).getName());
   if (!config.isSetDispatchStyle())   config.setDispatchStyle(MockOperationDispatchStyleConfig.SEQUENCE);
   if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
-  dispatcher=MockOperationDispatchRegistry.buildDispatcher(config.getDispatchStyle().toString(),this,getConfig().getDispatchConfig());
+  dispatcher=MockOperationDispatchRegistry.buildDispatcher(config.getDispatchStyle().toString(),this);
   if (operation != null) {
     operation.getInterface().getProject().addProjectListener(projectListener);
     operation.getInterface().addInterfaceListener(interfaceListener);

@@ -1,0 +1,17 @@
+{
+  QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
+  if (selectedQuery == null)   return;
+  WsdlMockResult result=getMockOperation().getLastMockResult();
+  if (result != null) {
+    try {
+      XmlObject xmlObject=XmlObject.Factory.parse(result.getMockRequest().getRequestContent());
+      selectedQuery.setValue(xmlObject.xmlText());
+    }
+ catch (    XmlException e1) {
+      e1.printStackTrace();
+    }
+  }
+ else {
+    UISupport.showErrorMessage("Missing MockRequest to select from");
+  }
+}

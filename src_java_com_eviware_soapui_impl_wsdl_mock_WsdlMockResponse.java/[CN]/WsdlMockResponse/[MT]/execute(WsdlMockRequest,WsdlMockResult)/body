@@ -17,7 +17,7 @@
     for (    String name : responseHeaders.keySet()) {
       result.addHeader(name,PropertyExpansionUtils.expandProperties(context,responseHeaders.get(name)));
     }
-    responseContent=PropertyExpansionUtils.expandProperties(context,responseContent,true);
+    responseContent=PropertyExpansionUtils.expandProperties(context,responseContent,isEntitizeProperties());
     if (this.getWsaConfig().isWsaEnabled()) {
       responseContent=new WsaUtils(responseContent,getSoapVersion(),getMockOperation().getOperation(),context).addWSAddressingMockResponse(this,request);
     }

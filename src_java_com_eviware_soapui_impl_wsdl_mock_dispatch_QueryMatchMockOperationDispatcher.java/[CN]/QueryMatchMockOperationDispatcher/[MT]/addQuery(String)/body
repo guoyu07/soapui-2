@@ -1,0 +1,8 @@
+{
+  Query query=new Query(conf.addNewQuery());
+  query.setName(name);
+  queries.add(query);
+  getPropertyChangeSupport().firePropertyChange("queries",null,query);
+  if (queryItemListModel != null)   queryItemListModel.fireAdded();
+  return query;
+}

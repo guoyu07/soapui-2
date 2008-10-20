@@ -1,19 +1,16 @@
 {
   try {
     XmlObject xmlObject=request.getRequestXmlObject();
-    for (    MockOperationQueryDispatchConfigConfig.Query query : conf.getQueryList()) {
-      XmlObject[] nodes=xmlObject.selectPath(query.getPath());
+    Map<String,XmlObject[]> nodesCache=new HashMap<String,XmlObject[]>();
+    for (    Query query : getQueries()) {
+      if (query.isDisabled())       continue;
+      XmlObject[] nodes=nodesCache.containsKey(query.getPath()) ? nodesCache.get(query.getPath()) : xmlObject.selectPath(query.getPath());
       if (nodes != null && nodes.length > 0) {
-        XmlCursor cursor=nodes[0].newCursor();
-        try {
-          if (query.getValue().equals(cursor.getTextValue())) {
-            return getMockOperation().getMockResponseByName(query.getResponse());
-          }
-        }
-  finally {
-          cursor.dispose();
+        if (query.getValue().equals(XmlUtils.getNodeValue(nodes[0].getDomNode()))) {
+          return getMockOperation().getMockResponseByName(query.getResponse());
         }
       }
+      nodesCache.put(query.getPath(),nodes);
     }
     return null;
   }

@@ -57,6 +57,7 @@
   setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   setPreferredSize(new Dimension(550,400));
   if (listModel.getSize() > 0)   transferList.setSelectedIndex(0);
+ else   setSelectedTransfer(null);
   componentEnabler.add(deleteButton);
   componentEnabler.add(declareButton);
   componentEnabler.add(runButton);
@@ -69,4 +70,6 @@
   componentEnabler.add(ignoreEmptyCheckBox);
   componentEnabler.add(transferAllCheckBox);
   componentEnabler.add(useXQueryCheckBox);
+  componentEnabler.add(entitizeCheckBox);
+  componentEnabler.add(transferChildNodesCheckBox);
 }

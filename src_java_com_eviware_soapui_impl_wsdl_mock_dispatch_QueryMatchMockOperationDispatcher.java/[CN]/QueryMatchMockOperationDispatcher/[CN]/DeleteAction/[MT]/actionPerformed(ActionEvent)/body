@@ -1,0 +1,8 @@
+{
+  QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
+  if (selectedQuery == null)   return;
+  if (UISupport.confirm("Delete selected Query","Delete Query")) {
+    deleteQuery(selectedQuery);
+    if (getQueryCount() > 0)     itemList.setSelectedIndex(0);
+  }
+}

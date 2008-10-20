@@ -5,7 +5,7 @@
     dispatcher.release();
   }
   if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
-  dispatcher=MockOperationDispatchRegistry.buildDispatcher(dispatchStyle,this,getConfig().getDispatchConfig());
+  dispatcher=MockOperationDispatchRegistry.buildDispatcher(dispatchStyle,this);
   notifyPropertyChanged(DISPATCH_STYLE_PROPERTY,old,dispatchStyle);
   return dispatcher;
 }

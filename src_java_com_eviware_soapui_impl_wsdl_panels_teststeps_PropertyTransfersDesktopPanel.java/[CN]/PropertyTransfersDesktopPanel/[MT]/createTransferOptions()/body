@@ -1,5 +1,5 @@
 {
-  JPanel panel=new JPanel(new GridLayout(3,2));
+  JPanel panel=new JPanel(new GridLayout(4,2));
   failTransferCheckBox=new JCheckBox("Fail transfer on error",false);
   failTransferCheckBox.setToolTipText("Fails the Property Transfer Step if an error occurs");
   failTransferCheckBox.addChangeListener(new ChangeListener(){
@@ -66,12 +66,36 @@
     }
   }
 );
+  entitizeCheckBox=new JCheckBox("Entitize transferred value(s)",false);
+  entitizeCheckBox.setToolTipText("Entitize transferred values when possible");
+  entitizeCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setEntitize(entitizeCheckBox.isSelected());
+      }
+    }
+  }
+);
+  transferChildNodesCheckBox=new JCheckBox("Transfer Child Nodes",false);
+  transferChildNodesCheckBox.setToolTipText("Transfers child nodes of specified source node to children of specified target");
+  transferChildNodesCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      PropertyTransfer currentTransfer=getCurrentTransfer();
+      if (currentTransfer != null) {
+        currentTransfer.setTransferChildNodes(transferChildNodesCheckBox.isSelected());
+      }
+    }
+  }
+);
   panel.add(failTransferCheckBox);
   panel.add(setNullCheckBox);
   panel.add(transferTextContentCheckBox);
   panel.add(ignoreEmptyCheckBox);
   panel.add(transferAllCheckBox);
   panel.add(useXQueryCheckBox);
+  panel.add(entitizeCheckBox);
+  panel.add(transferChildNodesCheckBox);
   panel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   return panel;
 }
