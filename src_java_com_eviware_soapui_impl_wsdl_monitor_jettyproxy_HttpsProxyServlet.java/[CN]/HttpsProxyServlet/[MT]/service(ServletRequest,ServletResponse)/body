@@ -2,7 +2,6 @@
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
   ExtendedPostMethod postMethod=new ExtendedPostMethod();
-  postMethod.setURI(new URI("https://" + sslEndPoint,true));
   if (capturedData == null) {
     capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
     capturedData.setRequestHost(httpRequest.getRemoteHost());
@@ -33,7 +32,16 @@
     }
   }
   postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
-  client.executeMethod(postMethod);
+  HostConfiguration hostConfiguration=new HostConfiguration();
+  hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
+  hostConfiguration.setHost(new URI("https://" + sslEndPoint,true));
+  if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
+    if (httpState == null)     httpState=new HttpState();
+    client.executeMethod(hostConfiguration,postMethod,httpState);
+  }
+ else {
+    client.executeMethod(hostConfiguration,postMethod);
+  }
   capturedData.stopCapture();
   byte[] res=postMethod.getResponseBody();
   IO.copy(new ByteArrayInputStream(postMethod.getResponseBody()),response.getOutputStream());
