@@ -24,14 +24,6 @@
         header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",replyTo,true,replyToRefParams);
       }
     }
- else     if (operation.isRequestResponse()) {
-      if (!AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType)) {
-        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true,replyToRefParams);
-      }
- else {
-        header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",noneAddress,true,replyToRefParams);
-      }
-    }
     String from=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFrom());
     if (!StringUtils.isNullOrEmpty(from)) {
       header=processWsaProperty(header,override,wsaPrefix + ":From",from,true);
