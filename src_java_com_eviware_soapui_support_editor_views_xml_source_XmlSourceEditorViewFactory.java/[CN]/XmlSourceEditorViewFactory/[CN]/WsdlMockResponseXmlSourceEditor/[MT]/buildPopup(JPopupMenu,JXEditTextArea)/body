@@ -1,9 +1,7 @@
 {
   super.buildPopup(inputPopup,editArea);
-  inputPopup.insert(applyMenu=new JMenu("Apply Outgoing WSS"),2);
-  wsaApplyMenu=new JMenuItem("Add WS-A headers");
-  inputPopup.insert(wsaApplyMenu,3);
-  wsaApplyMenu.setAction(new AddWsaHeadersToMockResponseAction(mockResponse));
+  inputPopup.insert(applyMenu=new JMenu("Outgoing WSS"),2);
+  inputPopup.insert(wsaApplyMenu=new JMenu("WS-A headers"),3);
   inputPopup.addPopupMenuListener(new PopupMenuListener(){
     public void popupMenuCanceled(    PopupMenuEvent e){
     }
@@ -17,6 +15,10 @@
       for (      OutgoingWss outgoing : outgoingWssList) {
         applyMenu.add(new ApplyOutgoingWSSToMockResponseAction(mockResponse,outgoing));
       }
+      applyMenu.add(new RemoveAllOutgoingWSSFromMockResponseAction(mockResponse));
+      wsaApplyMenu.removeAll();
+      wsaApplyMenu.add(new AddWsaHeadersToMockResponseAction(mockResponse));
+      wsaApplyMenu.add(new RemoveWsaHeadersFromMockResponseAction(mockResponse));
       wsaApplyMenu.setEnabled(mockResponse.getWsaConfig().isWsaEnabled());
     }
   }

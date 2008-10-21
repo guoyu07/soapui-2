@@ -3,10 +3,8 @@
   inputPopup.insert(new JSeparator(),2);
   inputPopup.insert(new AddWSSUsernameTokenAction(request),3);
   inputPopup.insert(new AddWSTimestampAction(request),4);
-  inputPopup.insert(applyMenu=new JMenu("Apply Outgoing WSS"),5);
-  wsaApplyMenu=new JMenuItem("Add WS-A headers");
-  inputPopup.insert(wsaApplyMenu,6);
-  wsaApplyMenu.setAction(new AddWsaHeadersToRequestAction(request));
+  inputPopup.insert(applyMenu=new JMenu("Outgoing WSS"),5);
+  inputPopup.insert(wsaApplyMenu=new JMenu("WS-A headers"),6);
   inputPopup.addPopupMenuListener(new PopupMenuListener(){
     public void popupMenuCanceled(    PopupMenuEvent e){
     }
@@ -20,6 +18,10 @@
       for (      OutgoingWss outgoing : outgoingWssList) {
         applyMenu.add(new ApplyOutgoingWSSToRequestAction(request,outgoing));
       }
+      applyMenu.add(new RemoveAllOutgoingWSSFromRequestAction(request));
+      wsaApplyMenu.removeAll();
+      wsaApplyMenu.add(new AddWsaHeadersToRequestAction(request));
+      wsaApplyMenu.add(new RemoveWsaHeadersFromRequestAction(request));
       wsaApplyMenu.setEnabled(request.getWsaConfig().isWsaEnabled());
     }
   }
