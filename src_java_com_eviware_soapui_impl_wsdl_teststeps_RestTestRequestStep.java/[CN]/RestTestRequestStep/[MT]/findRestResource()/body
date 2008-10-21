@@ -2,7 +2,7 @@
   Project project=ModelSupport.getModelItemProject(this);
   RestService restService=(RestService)project.getInterfaceByName(getRequestStepConfig().getService());
   if (restService != null) {
-    return restService.getResourceByPath(getRequestStepConfig().getResourcePath());
+    return restService.getResourceByFullPath(getRequestStepConfig().getResourcePath());
   }
   return null;
 }
