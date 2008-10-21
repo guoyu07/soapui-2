@@ -3,5 +3,10 @@
   JPanel panel=(JPanel)getComponent();
   browser=new BrowserComponent();
   panel.add(browser.getComponent(),BorderLayout.CENTER);
-  navigate(url);
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      navigate(url);
+    }
+  }
+);
 }
