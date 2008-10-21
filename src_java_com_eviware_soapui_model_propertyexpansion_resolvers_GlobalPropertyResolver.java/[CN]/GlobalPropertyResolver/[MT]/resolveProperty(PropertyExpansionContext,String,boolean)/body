@@ -1,5 +1,7 @@
 {
-  String result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.SYSTEM_REFERENCE,systemPropertyHolder,context,globalOverride);
+  String result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.GLOBAL_REFERENCE,PropertyExpansionUtils.getGlobalProperties(),context,false);
+  if (result != null)   return result;
+  result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.SYSTEM_REFERENCE,systemPropertyHolder,context,globalOverride);
   if (result != null)   return result;
   result=ResolverUtils.checkForExplicitReference(name,PropertyExpansion.ENV_REFERENCE,environmentPropertyHolder,context,globalOverride);
   if (result != null)   return result;
