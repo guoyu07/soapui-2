@@ -5,7 +5,9 @@
   }
  else {
 synchronized (STATUS_PROPERTY) {
-      if (loadTestRunner.getStatus() == LoadTestRunner.Status.RUNNING)       return internalRun((WsdlTestRunContext)context);
+      if (loadTestRunner.getStatus() == LoadTestRunner.Status.RUNNING) {
+        return internalRun((WsdlTestRunContext)context);
+      }
  else {
         WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
         result.setStatus(TestStepStatus.UNKNOWN);

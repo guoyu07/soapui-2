@@ -2,32 +2,30 @@
   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
-    listener=new InternalMockRunListener();
-    mockService.addMockRunListener(listener);
-    mockRunner=mockService.start(context);
-    result.startTimer();
-    long timeout=getTimeout();
+    if (!isPreStart() && testMockResponse == null) {
+      initTestMockResponse(context);
+    }
+    if (!listener.hasResult()) {
+      result.startTimer();
+      long timeout=getTimeout();
 synchronized (listener) {
-      listener.wait(timeout);
+        listener.waitForRequest(timeout);
+      }
     }
-    if (mockRunner != null) {
-      mockRunner.stop();
-      mockRunner=null;
-    }
+    result.stopTimer();
     AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(listener.getResult());
     result.setMessageExchange(messageExchange);
     if (listener.getResult() != null) {
       context.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,messageExchange);
       assertResult(listener.getResult(),context);
     }
-    result.stopTimer();
     if (listener.getResult() == null) {
       if (listener.isCanceled()) {
         result.setStatus(TestStepStatus.CANCELED);
       }
  else {
         result.setStatus(TestStepStatus.FAILED);
-        result.addMessage("Timeout occured after " + timeout + " milliseconds");
+        result.addMessage("Timeout occured after " + getTimeout() + " milliseconds");
       }
     }
  else {
@@ -58,7 +56,6 @@ synchronized (listener) {
     SoapUI.logError(e);
   }
  finally {
-    mockService.removeMockRunListener(listener);
     iconAnimator.stop();
   }
   return result;

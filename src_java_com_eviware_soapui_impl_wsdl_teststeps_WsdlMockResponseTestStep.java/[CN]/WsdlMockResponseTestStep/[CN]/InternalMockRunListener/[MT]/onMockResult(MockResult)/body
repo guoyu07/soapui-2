@@ -1,6 +1,10 @@
 {
-  this.setResult((WsdlMockResult)result);
+  if ((waiting || isPreStart()) && result.getMockResponse() == testMockResponse) {
+    this.setResult((WsdlMockResult)result);
+    if (waiting) {
 synchronized (this) {
-    notifyAll();
+        notifyAll();
+      }
+    }
   }
 }

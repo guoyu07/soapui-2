@@ -1,3 +1,14 @@
 {
-  mockRunner=null;
+  if (listener != null) {
+    mockService.removeMockRunListener(listener);
+    listener=null;
+  }
+  if (mockResponse != null) {
+    mockOperation.removeMockResponse(mockResponse);
+    mockResponse=null;
+  }
+  if (mockRunner != null) {
+    if (mockRunner.isRunning())     mockRunner.stop();
+    mockRunner=null;
+  }
 }

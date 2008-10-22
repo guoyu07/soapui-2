@@ -1,0 +1,9 @@
+{
+  super.prepare(testRunner,testRunContext);
+  listener=new InternalMockRunListener();
+  mockService.addMockRunListener(listener);
+  if (isPreStart()) {
+    initTestMockResponse(testRunContext);
+  }
+  mockRunner=mockService.start((WsdlTestRunContext)testRunContext);
+}
