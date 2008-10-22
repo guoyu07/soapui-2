@@ -1,61 +1,58 @@
 {
   HttpServletRequest httpRequest=(HttpServletRequest)request;
-  HttpServletResponse httpResponse=(HttpServletResponse)response;
+  ExtendedPostMethod postMethod=new ExtendedPostMethod();
   if (capturedData == null) {
     capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
     capturedData.setRequestHost(httpRequest.getServerName());
-    capturedData.setTargetHost(httpRequest.getRemoteHost());
     capturedData.setRequestHeader(httpRequest);
+    capturedData.setTargetURL(httpRequest.getRequestURL().toString());
   }
   CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
-  Continuation continuation=ContinuationSupport.getContinuation(httpRequest,httpRequest);
-  if (!continuation.isPending()) {
-    String uri=httpRequest.getRequestURI();
-    if (httpRequest.getQueryString() != null)     uri+="?" + httpRequest.getQueryString();
-    SoapUIHttpExchange exchange=new SoapUIHttpExchange(monitor,httpRequest,httpResponse,capture,capturedData);
-    exchange.setScheme(HttpSchemes.HTTPS.equals(request.getScheme()) ? HttpSchemes.HTTPS_BUFFER : HttpSchemes.HTTP_BUFFER);
-    exchange.setMethod(httpRequest.getMethod());
-    exchange.setURI(uri);
-    capturedData.setTargetURL(httpRequest.getRequestURL().toString());
-    exchange.setVersion(httpRequest.getProtocol());
-    InetSocketAddress address=new InetSocketAddress(httpRequest.getServerName(),httpRequest.getServerPort());
-    exchange.setAddress(address);
-    String connectionHeader=httpRequest.getHeader("Connection");
-    if (connectionHeader != null) {
-      connectionHeader=connectionHeader.toLowerCase();
-      if (connectionHeader.indexOf("keep-alive") < 0 && connectionHeader.indexOf("close") < 0)       connectionHeader=null;
-    }
-    boolean xForwardedFor=false;
-    boolean hasContent=false;
-    @SuppressWarnings("unused") long contentLength=-1;
-    Enumeration<?> headerNames=httpRequest.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String hdr=(String)headerNames.nextElement();
-      String lhdr=hdr.toLowerCase();
-      if (dontProxyHeaders.contains(lhdr))       continue;
-      if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)       continue;
-      if ("content-type".equals(lhdr))       hasContent=true;
-      if ("content-length".equals(lhdr))       contentLength=request.getContentLength();
-      Enumeration<?> vals=httpRequest.getHeaders(hdr);
-      while (vals.hasMoreElements()) {
-        String val=(String)vals.nextElement();
-        if (val != null) {
-          exchange.setRequestHeader(lhdr,val);
-          xForwardedFor|="X-Forwarded-For".equalsIgnoreCase(hdr);
-        }
+  String connectionHeader=httpRequest.getHeader("Connection");
+  if (connectionHeader != null) {
+    connectionHeader=connectionHeader.toLowerCase();
+    if (connectionHeader.indexOf("keep-alive") < 0 && connectionHeader.indexOf("close") < 0)     connectionHeader=null;
+  }
+  boolean xForwardedFor=false;
+  @SuppressWarnings("unused") long contentLength=-1;
+  Enumeration<?> headerNames=httpRequest.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String hdr=(String)headerNames.nextElement();
+    String lhdr=hdr.toLowerCase();
+    if (dontProxyHeaders.contains(lhdr))     continue;
+    if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
+    if ("content-length".equals(lhdr))     contentLength=request.getContentLength();
+    Enumeration<?> vals=httpRequest.getHeaders(hdr);
+    while (vals.hasMoreElements()) {
+      String val=(String)vals.nextElement();
+      if (val != null) {
+        postMethod.setRequestHeader(lhdr,val);
+        xForwardedFor|="X-Forwarded-For".equalsIgnoreCase(hdr);
       }
     }
-    exchange.setRequestHeader("Via","SoapUI Monitor");
-    if (!xForwardedFor)     exchange.addRequestHeader("X-Forwarded-For",request.getRemoteAddr());
-    if (hasContent) {
-      exchange.setRequestContentSource(capture);
-    }
-    client.send(exchange);
-    continuation.suspend(3000);
   }
-  while (capturedData.isStopCapture())   ;
-  if (!capturedData.isStopCapture()) {
-    monitor.addMessageExchange(capturedData);
-    capturedData=null;
+  postMethod.setRequestHeader("Via","SoapUI Monitor");
+  if (!xForwardedFor)   postMethod.addRequestHeader("X-Forwarded-For",request.getRemoteAddr());
+  postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
+  HostConfiguration hostConfiguration=new HostConfiguration();
+  hostConfiguration.setHost(new URI("http://" + httpRequest.getServerName() + httpRequest.getServletPath(),true));
+  postMethod.setPath("http://" + httpRequest.getServerName() + httpRequest.getServletPath());
+  if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
+    if (httpState == null)     httpState=new HttpState();
+    client.executeMethod(hostConfiguration,postMethod,httpState);
   }
+ else {
+    client.executeMethod(hostConfiguration,postMethod);
+  }
+  capturedData.stopCapture();
+  byte[] res=postMethod.getResponseBody();
+  IO.copy(new ByteArrayInputStream(postMethod.getResponseBody()),response.getOutputStream());
+  capturedData.setRequest(capture.getCapturedData());
+  capturedData.setResponse(res);
+  capturedData.setResponseHeader(postMethod);
+  capturedData.setRawRequestData(getRequestToBytes(postMethod,capture));
+  capturedData.setRawResponseData(getResponseToBytes(postMethod,res));
+  monitor.addMessageExchange(capturedData);
+  capturedData=null;
+  postMethod.releaseConnection();
 }

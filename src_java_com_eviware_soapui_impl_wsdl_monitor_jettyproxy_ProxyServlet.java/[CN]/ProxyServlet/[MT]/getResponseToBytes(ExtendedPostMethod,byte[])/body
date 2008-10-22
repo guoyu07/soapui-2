@@ -1,0 +1,10 @@
+{
+  String response="";
+  Header[] headers=postMethod.getResponseHeaders();
+  for (  Header header : headers) {
+    response+=header.toString();
+  }
+  response+="\n";
+  response+=new String(res);
+  return response.getBytes();
+}

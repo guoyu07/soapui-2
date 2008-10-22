@@ -2,11 +2,4 @@
   this.config=config;
   this.context=config.getServletContext();
   client=new HttpClient();
-  client.setConnectorType(HttpClient.CONNECTOR_SOCKET);
-  try {
-    client.start();
-  }
- catch (  Exception e) {
-    throw new ServletException(e);
-  }
 }
