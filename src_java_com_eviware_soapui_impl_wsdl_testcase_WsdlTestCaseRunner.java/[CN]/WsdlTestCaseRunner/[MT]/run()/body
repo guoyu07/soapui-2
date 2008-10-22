@@ -15,10 +15,7 @@
       timeoutTimerTask=new TimeoutTimerTask();
       timeoutTimer.schedule(timeoutTimerTask,testCase.getTimeout());
     }
-    for (int i=0; i < listeners.length; i++) {
-      listeners[i].beforeRun(this,runContext);
-      if (status != Status.RUNNING)       return;
-    }
+    notifyBeforeRun();
     for (; initCount < testCase.getTestStepCount() && status == Status.RUNNING; initCount++) {
       WsdlTestStep testStep=testCase.getTestStepAt(initCount);
       if (testStep.isDisabled())       continue;
