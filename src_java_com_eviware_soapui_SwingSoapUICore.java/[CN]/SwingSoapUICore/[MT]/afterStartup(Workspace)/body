@@ -8,5 +8,6 @@
   inspectorRegistry.addFactory(new WssInspectorFactory());
   inspectorRegistry.addFactory(new WsaInspectorFactory());
   inspectorRegistry.addFactory(new RestRepresentationsInspectorFactory());
-  addExternalActions(getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions",getExtensionClassLoader());
+  String actionsDir=System.getProperty("soapui.ext.actions");
+  addExternalActions(actionsDir == null ? getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions" : actionsDir,getExtensionClassLoader());
 }
