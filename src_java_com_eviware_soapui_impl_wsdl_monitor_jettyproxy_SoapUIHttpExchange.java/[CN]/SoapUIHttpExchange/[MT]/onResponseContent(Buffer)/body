@@ -1,8 +1,0 @@
-{
-  byte[] buffer=new byte[content.length()];
-  while (content.hasContent()) {
-    int len=content.get(buffer,0,buffer.length);
-    this.capturedMessage.setResponse(buffer);
-    out.write(buffer,0,len);
-  }
-}
