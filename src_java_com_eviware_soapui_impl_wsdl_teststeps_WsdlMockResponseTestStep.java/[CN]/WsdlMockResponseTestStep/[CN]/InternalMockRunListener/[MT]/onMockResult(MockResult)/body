@@ -1,5 +1,5 @@
 {
-  if (this.result == null && (waiting || isPreStart()) && result.getMockResponse() == testMockResponse) {
+  if (this.result == null && waiting && result.getMockResponse() == testMockResponse) {
     this.setResult((WsdlMockResult)result);
     mockRunner.stop();
     if (waiting) {

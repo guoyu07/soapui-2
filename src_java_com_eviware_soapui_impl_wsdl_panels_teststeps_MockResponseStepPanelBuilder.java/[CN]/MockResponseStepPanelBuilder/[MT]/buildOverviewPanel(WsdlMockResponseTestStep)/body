@@ -19,7 +19,8 @@
   table.addProperty("Response HTTP-Status","responseHttpStatus",true);
   table.addProperty("Response Delay","responseDelay",true);
   table.addProperty("Timeout","timeout",true);
-  table.addProperty("Pre-Start","preStart",JPropertiesTable.BOOLEAN_OPTIONS);
+  String[] names=ModelSupport.getNames(new String[]{""},mockResponseStep.getTestCase().getTestStepList());
+  table.addProperty("Start Step","startStep",names);
   table.addProperty("Port","port",true);
   table.addProperty("Path","path",true);
   table.setPropertyObject(mockResponseStep);

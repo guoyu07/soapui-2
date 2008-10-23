@@ -18,4 +18,10 @@
     iconAnimator=new ModelItemIconAnimator<WsdlMockResponseTestStep>(this,"/mockResponseStep.gif","/exec_mockResponse",4,"gif");
   }
   initProperties();
+  testCase.addTestRunListener(testRunListener);
+  startTestStep=testCase.getTestStepByName(getStartStep());
+  if (startTestStep != null) {
+    startTestStep.addPropertyChangeListener(this);
+  }
+  testCase.addPropertyChangeListener(this);
 }

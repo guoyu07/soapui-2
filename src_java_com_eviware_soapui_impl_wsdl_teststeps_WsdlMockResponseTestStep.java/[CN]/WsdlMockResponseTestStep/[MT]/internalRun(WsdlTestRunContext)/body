@@ -2,25 +2,22 @@
   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
-    if (!isPreStart() || testMockResponse == null) {
-      initTestMockResponse(context);
-    }
-    if (!listener.hasResult()) {
+    if (!mockRunListener.hasResult()) {
       result.startTimer();
       long timeout=getTimeout();
-synchronized (listener) {
-        listener.waitForRequest(timeout);
+synchronized (mockRunListener) {
+        mockRunListener.waitForRequest(timeout);
       }
     }
     result.stopTimer();
-    AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(listener.getResult());
+    AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(mockRunListener.getResult());
     result.setMessageExchange(messageExchange);
-    if (listener.getResult() != null) {
+    if (mockRunListener.getResult() != null) {
       context.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,messageExchange);
-      assertResult(listener.getResult(),context);
+      assertResult(mockRunListener.getResult(),context);
     }
-    if (listener.getResult() == null) {
-      if (listener.isCanceled()) {
+    if (mockRunListener.getResult() == null) {
+      if (mockRunListener.isCanceled()) {
         result.setStatus(TestStepStatus.CANCELED);
       }
  else {
@@ -47,7 +44,7 @@ synchronized (listener) {
  else {
         result.setStatus(TestStepStatus.OK);
       }
-      listener.setResult(null);
+      mockRunListener.setResult(null);
     }
   }
  catch (  Exception e) {

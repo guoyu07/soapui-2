@@ -1,0 +1,13 @@
+{
+  if (startTestStep != null) {
+    startTestStep.removePropertyChangeListener(this);
+    startTestStep=null;
+  }
+  if (startStep != null) {
+    startTestStep=getTestCase().getTestStepByName(startStep);
+    if (startTestStep != null) {
+      startTestStep.addPropertyChangeListener(this);
+    }
+  }
+  mockResponseStepConfig.setStartStep(startStep);
+}

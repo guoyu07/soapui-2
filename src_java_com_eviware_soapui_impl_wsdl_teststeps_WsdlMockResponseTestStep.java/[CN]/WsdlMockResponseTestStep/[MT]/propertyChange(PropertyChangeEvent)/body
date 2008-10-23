@@ -3,4 +3,10 @@
     mockResponseConfig.set(mockResponse.getConfig());
     notifyPropertyChanged(evt.getPropertyName(),evt.getOldValue(),evt.getNewValue());
   }
+ else   if (evt.getSource() == getTestCase() && evt.getPropertyName().equals("testSteps") && evt.getNewValue() == null && evt.getOldValue() == startTestStep && startTestStep != null) {
+    setStartStep(null);
+  }
+ else   if (evt.getSource() == startTestStep && evt.getPropertyName().equals(WsdlTestStep.NAME_PROPERTY)) {
+    mockResponseStepConfig.setStartStep(String.valueOf(evt.getNewValue()));
+  }
 }
