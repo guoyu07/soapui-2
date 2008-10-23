@@ -3,6 +3,7 @@
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
     if (!mockRunListener.hasResult()) {
+      if (testMockResponse == null)       initTestMockResponse(context);
       result.startTimer();
       long timeout=getTimeout();
 synchronized (mockRunListener) {

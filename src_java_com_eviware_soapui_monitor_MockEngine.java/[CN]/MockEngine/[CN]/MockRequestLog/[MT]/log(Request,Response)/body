@@ -16,7 +16,7 @@
     }
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    log.error("Failed to log request: " + e);
   }
   try {
     ServletOutputStream outputStream=response.getOutputStream();
@@ -33,6 +33,6 @@
     }
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    log.error("Failed to log response: " + e);
   }
 }
