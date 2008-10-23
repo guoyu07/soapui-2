@@ -1,8 +1,6 @@
 {
   responseScriptEditor=new GroovyEditor(new MockResponseGroovyEditorModel());
-  panel=new JPanel(new BorderLayout()){
-  }
-;
+  panel=new JPanel(new BorderLayout());
   panel.add(buildScriptToolbar(),BorderLayout.NORTH);
-  panel.add(new JScrollPane(responseScriptEditor),BorderLayout.CENTER);
+  panel.add(responseScriptEditor,BorderLayout.CENTER);
 }

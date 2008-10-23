@@ -1,14 +1,21 @@
 {
-  int pos=pt == null ? -1 : textField.pointToOffset(pt);
+  int pos=pt == null ? -1 : textField.viewToModel(pt);
   if (pos == -1)   pos=textField.getCaretPosition();
   String name=expansion.getProperty().getName();
   String javaName=createJavaName(name);
   javaName=UISupport.prompt("Specify name of variable for property","Get Property",javaName);
   if (javaName == null)   return;
   String txt="def " + javaName + " = context.expand( '"+ expansion+ "' )\n";
-  int line=textField.getLineOfOffset(pos);
-  pos=textField.getLineStartOffset(line);
-  textField.setCaretPosition(pos);
-  textField.setSelectedText(txt);
-  textField.requestFocusInWindow();
+  try {
+    int line=textField.getLineOfOffset(pos);
+    pos=textField.getLineStartOffset(line);
+    textField.setCaretPosition(pos);
+    textField.insert(txt,pos);
+    textField.setSelectionStart(pos);
+    textField.setSelectionEnd(pos + txt.length());
+    textField.requestFocusInWindow();
+  }
+ catch (  BadLocationException e) {
+    e.printStackTrace();
+  }
 }

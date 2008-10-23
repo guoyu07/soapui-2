@@ -1,6 +1,7 @@
 {
   if (name.equals(UISettings.EDITOR_FONT)) {
-    editArea.setFont(Font.decode(newValue));
+    Font newFont=Font.decode(newValue);
+    setEditorFont(newFont);
     invalidate();
   }
 }
