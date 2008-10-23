@@ -1,9 +1,11 @@
 {
   int initCount=0;
+  if (future != null) {
+    Thread.currentThread().setName("TestCaseRunner Thread for " + testCase.getName());
+  }
   try {
     gotoStepIndex=-1;
     testStepResults.clear();
-    listeners=testCase.getTestRunListeners();
     if (testCase.getKeepSession()) {
       runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new HttpState());
     }
@@ -15,6 +17,7 @@
       timeoutTimerTask=new TimeoutTimerTask();
       timeoutTimer.schedule(timeoutTimerTask,testCase.getTimeout());
     }
+    listeners=testCase.getTestRunListeners();
     notifyBeforeRun();
     for (; initCount < testCase.getTestStepCount() && status == Status.RUNNING; initCount++) {
       WsdlTestStep testStep=testCase.getTestStepAt(initCount);
@@ -28,8 +31,8 @@
         throw new Exception("Failed to prepare testStep [" + testStep.getName() + "]; "+ e.toString());
       }
     }
-    int currentStepIndex=runContext.getCurrentStepIndex();
-    for (currentStepIndex=0; status == Status.RUNNING && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
+    int currentStepIndex=0;
+    for (; status == Status.RUNNING && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
       TestStep currentStep=runContext.getCurrentStep();
       if (!currentStep.isDisabled()) {
         TestStepResult stepResult=runTestStep(currentStep,true,true);

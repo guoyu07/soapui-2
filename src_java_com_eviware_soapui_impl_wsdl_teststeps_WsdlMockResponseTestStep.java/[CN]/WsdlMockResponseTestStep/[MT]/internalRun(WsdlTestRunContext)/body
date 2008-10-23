@@ -2,7 +2,7 @@
   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
-    if (!isPreStart() && testMockResponse == null) {
+    if (!isPreStart() || testMockResponse == null) {
       initTestMockResponse(context);
     }
     if (!listener.hasResult()) {
@@ -47,6 +47,7 @@ synchronized (listener) {
  else {
         result.setStatus(TestStepStatus.OK);
       }
+      listener.setResult(null);
     }
   }
  catch (  Exception e) {

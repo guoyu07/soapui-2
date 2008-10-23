@@ -21,6 +21,7 @@
   assertEquals(mockResponse.getMockResult().getMockRequest().getRequestContent().trim(),request.getRequestContent().trim());
   System.out.println("Mock response took " + timeTaken + "ms");
   testCase.cloneStep(step,"TestStep2");
+  assertEquals(testCase.getTestStepCount(),2);
   runner=testCase.run(new StringToObjectMap(),true);
   Thread.sleep(1000);
   System.out.println("Submitting first request again");
