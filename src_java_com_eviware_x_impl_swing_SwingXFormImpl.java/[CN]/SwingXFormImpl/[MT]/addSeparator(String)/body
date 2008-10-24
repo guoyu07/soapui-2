@@ -1,7 +1,9 @@
 {
   addSpace(rowSpacing);
+  addSpace(rowSpacing);
   layout.appendRow(rowSpec);
   int row=layout.getRowCount();
-  if (label == null)   panel.add(new JSeparator(),cc.xywh(2,row,3,1));
+  if (StringUtils.isNullOrEmpty(label))   panel.add(new JSeparator(),cc.xywh(2,row,3,1));
  else   panel.add(new JLabel(label),cc.xywh(2,row,3,1));
+  addSpace(rowSpacing);
 }

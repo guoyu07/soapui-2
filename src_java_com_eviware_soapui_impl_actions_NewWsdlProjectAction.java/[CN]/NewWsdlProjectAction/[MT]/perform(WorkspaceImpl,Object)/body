@@ -33,6 +33,14 @@
         project=workspace.createProject(projectName,null);
         if (project != null) {
           UISupport.select(project);
+          if (dialog.getBooleanValue(Form.RELATIVEPATHS)) {
+            if (!project.save()) {
+              UISupport.showErrorMessage("Project was not saved, paths will not be stored relatively until configured.");
+            }
+ else {
+              project.setResourceRoot("${projectDir}");
+            }
+          }
           String url=dialog.getValue(Form.INITIALWSDL).trim();
           if (url.length() > 0) {
             if (new File(url).exists())             url=new File(url).toURI().toURL().toString();

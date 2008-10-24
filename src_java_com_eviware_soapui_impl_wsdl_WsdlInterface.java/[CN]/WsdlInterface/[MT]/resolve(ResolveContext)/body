@@ -1,7 +1,7 @@
 {
   super.resolve(context);
   String definition=definitionProperty.expandUrl();
-  if (definition.startsWith("file:")) {
+  if (!isCached() && definition.startsWith("file:")) {
     try {
       File file=new File(definition.substring(5));
       if (!file.exists()) {
