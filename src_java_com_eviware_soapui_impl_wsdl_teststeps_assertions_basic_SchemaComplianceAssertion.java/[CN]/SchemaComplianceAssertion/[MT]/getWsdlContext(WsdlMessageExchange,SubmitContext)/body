@@ -1,12 +1,12 @@
 {
   WsdlOperation operation=messageExchange.getOperation();
   WsdlInterface iface=operation.getInterface();
-  if (definition == null || definition.trim().length() == 0 || definition.equals(PathUtils.expandPath(iface.getDefinition(),iface,context))) {
+  if (StringUtils.isNullOrEmpty(definition) || definition.equals(iface.getDefinition())) {
     definitionContext=(iface).getWsdlContext();
     ((WsdlContext)definitionContext).loadIfNecessary();
   }
  else {
-    String def=PropertyExpansionUtils.expandProperties(context,definition);
+    String def=PathUtils.expandPath(definition,iface,context);
     if (definitionContext == null || !def.equals(wsdlContextDef)) {
       definitionContext=getContext(def,iface.getSoapVersion());
       ((WsdlContext)definitionContext).setInterface(iface);

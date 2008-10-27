@@ -1,12 +1,12 @@
 {
   RestResource operation=messageExchange.getResource();
   RestService service=operation.getService();
-  if (definition == null || definition.trim().length() == 0 || definition.equals(PathUtils.expandPath(service.getDefinition(),service,context))) {
+  if (StringUtils.isNullOrEmpty(definition) || definition.equals(PathUtils.expandPath(service.getDefinition(),service,context))) {
     definitionContext=service.getWadlContext();
     ((WadlDefinitionContext)definitionContext).loadIfNecessary();
   }
  else {
-    String def=PropertyExpansionUtils.expandProperties(context,definition);
+    String def=PathUtils.expandPath(definition,service,context);
     if (definitionContext == null || !def.equals(wsdlContextDef)) {
       definitionContext=new WadlDefinitionContext(def);
       ((WadlDefinitionContext)definitionContext).load();
