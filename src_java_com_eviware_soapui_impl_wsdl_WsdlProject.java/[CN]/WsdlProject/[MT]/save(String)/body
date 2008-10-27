@@ -1,0 +1,31 @@
+{
+  if (!isOpen() || isDisabled() || isRemote())   return true;
+  if (path == null || isRemote()) {
+    path=getName() + "-soapui-project.xml";
+    if (folder != null) {
+      path=folder + File.separatorChar + path;
+    }
+    File file=null;
+    while (file == null || (file.exists() && !UISupport.confirm("File [" + file.getName() + "] exists, overwrite?","Overwrite File?"))) {
+      file=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",new File(path));
+      if (file == null)       return false;
+    }
+    path=file.getAbsolutePath();
+  }
+  File projectFile=new File(path);
+  while (projectFile.exists() && !projectFile.canWrite()) {
+    if (UISupport.confirm("Project file [" + path + "] can not be written to, save to new file?","Save Project")) {
+      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",projectFile);
+      if (projectFile == null)       return false;
+      path=projectFile.getAbsolutePath();
+    }
+ else     return false;
+  }
+  if (projectFile.exists() && lastModified != 0 && lastModified < projectFile.lastModified()) {
+    if (!UISupport.confirm("Project file for [" + getName() + "] has been modified externally, overwrite?","Save Project"))     return false;
+  }
+  if (projectFile.exists() && getSettings().getBoolean(UISettings.CREATE_BACKUP)) {
+    createBackup(projectFile);
+  }
+  return saveIn(projectFile);
+}
