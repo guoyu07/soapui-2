@@ -15,7 +15,7 @@
     sslConnector.setNeedClientAuth(false);
     sslConnector.setPort(localPort);
     server.addConnector(sslConnector);
-    context.addServlet(new ServletHolder(new HttpsProxyServlet(soapMonitor,sslEndpoint)),"/");
+    context.addServlet(new ServletHolder(new TunnelServlet(soapMonitor,sslEndpoint)),"/");
     proxyOrTunnel=false;
   }
  else {
