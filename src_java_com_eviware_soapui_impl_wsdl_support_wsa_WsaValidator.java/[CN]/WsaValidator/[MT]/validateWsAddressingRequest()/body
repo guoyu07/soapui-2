@@ -4,48 +4,30 @@
   XmlObject xmlObject=XmlObject.Factory.parse(content);
   header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
   wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
-  if (wsaVersionNameSpace == null) {
-    throw new AssertionException(new AssertionError("WS-A not enabled"));
-  }
   WsdlOperation operation=messageExchange.getOperation();
   if (wsaAssertionConfiguration.isAssertAction()) {
-    Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
-    if (actionNode == null) {
-      cumulativeErrorMsg.append("WS-A Action property is not specified. ");
-    }
-    String actionValue=XmlUtils.getElementText(actionNode);
-    if (StringUtils.isNullOrEmpty(actionValue)) {
-      cumulativeErrorMsg.append("WS-A Action property is empty. ");
-    }
+    assertProperty("Wsa:Action","Action");
   }
   validateWsAddressingCommon(content);
   if (operation.isRequestResponse()) {
-    Element msgNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"MessageID");
-    if (msgNode == null) {
-      cumulativeErrorMsg.append("WS-A MessageID property is not specified. ");
+    if (wsaAssertionConfiguration.isAssertMessageId()) {
+      assertProperty("Wsa:MessageId","MessageId");
     }
-    String msgValue=XmlUtils.getElementText(msgNode);
-    if (StringUtils.isNullOrEmpty(msgValue)) {
-      cumulativeErrorMsg.append("WS-A MessageID property is empty");
-    }
-    Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
-    if (replyToNode == null) {
-      cumulativeErrorMsg.append("WS-A ReplyTo property is not specified. ");
-    }
-    Element addressNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaVersionNameSpace,"Address");
-    if (addressNode == null) {
-      cumulativeErrorMsg.append("WS-A ReplyTo Address property is not specified. ");
-    }
-    String replyToAddressValue=XmlUtils.getElementText(addressNode);
-    if (StringUtils.isNullOrEmpty(replyToAddressValue)) {
-      cumulativeErrorMsg.append("WS-A ReplyTo Address property is empty. ");
-    }
- else {
-      if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(replyToAddressValue,wsaVersionNameSpace)) {
-        cumulativeErrorMsg.append("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are prohibited. ");
+    if (wsaAssertionConfiguration.isAssertReplyTo()) {
+      Element replyToNode;
+      String currentTagWsaNs;
+      if (!StringUtils.isNullOrEmpty(wsaVersionNameSpace)) {
+        replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
+        parseReplyToNode(replyToNode,wsaVersionNameSpace);
       }
- else       if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(replyToAddressValue,wsaVersionNameSpace) || WsaUtils.isNoneAddress(replyToAddressValue,wsaVersionNameSpace))) {
-        cumulativeErrorMsg.append("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required. ");
+ else {
+        replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"ReplyTo");
+        currentTagWsaNs=WsaUtils.WS_A_VERSION_200508;
+        if (replyToNode == null) {
+          replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"ReplyTo");
+          currentTagWsaNs=WsaUtils.WS_A_VERSION_200408;
+        }
+        parseReplyToNode(replyToNode,currentTagWsaNs);
       }
     }
   }

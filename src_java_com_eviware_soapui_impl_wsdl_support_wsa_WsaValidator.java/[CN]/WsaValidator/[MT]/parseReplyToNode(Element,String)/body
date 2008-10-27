@@ -1,0 +1,25 @@
+{
+  if (replyToNode == null) {
+    cumulativeErrorMsg.append("WS-A ReplyTo property is not specified. ");
+  }
+ else {
+    Element addressNode=XmlUtils.getFirstChildElementNS(replyToNode,wsaNsStr,"Address");
+    if (addressNode == null) {
+      cumulativeErrorMsg.append("WS-A ReplyTo Address property is not specified. ");
+    }
+ else {
+      String replyToAddressValue=XmlUtils.getElementText(addressNode);
+      if (StringUtils.isNullOrEmpty(replyToAddressValue)) {
+        cumulativeErrorMsg.append("WS-A ReplyTo Address property is empty. ");
+      }
+ else {
+        if (AnonymousTypeConfig.PROHIBITED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(replyToAddressValue,wsaNsStr)) {
+          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are prohibited. ");
+        }
+ else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(replyToAddressValue,wsaNsStr) || WsaUtils.isNoneAddress(replyToAddressValue,wsaNsStr))) {
+          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader ReplyTo , Anonymous addresses are required. ");
+        }
+      }
+    }
+  }
+}

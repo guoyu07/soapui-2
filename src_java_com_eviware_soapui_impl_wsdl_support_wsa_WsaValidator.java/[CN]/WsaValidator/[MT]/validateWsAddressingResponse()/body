@@ -5,48 +5,23 @@
   XmlObject xmlObject=XmlObject.Factory.parse(content);
   header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
   wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
-  String requestWsaVersionNameSpace=getWsaVersion(requestXmlObject,soapVersion);
-  if (wsaVersionNameSpace == null) {
-    throw new AssertionException(new AssertionError("WS-A not enabled."));
-  }
- else   if (!wsaVersionNameSpace.equals(requestWsaVersionNameSpace)) {
-    throw new AssertionException(new AssertionError("Response has the wrong ws-a version namespace value."));
-  }
   if (wsaAssertionConfiguration.isAssertAction()) {
-    Element actionNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"Action");
-    if (actionNode == null) {
-      cumulativeErrorMsg.append("WS-A Action property is not specified. ");
-    }
- else {
-      String actionValue=XmlUtils.getElementText(actionNode);
-      if (StringUtils.isNullOrEmpty(actionValue)) {
-        cumulativeErrorMsg.append("WS-A Action property is empty. ");
-      }
- else {
-        String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
-        if (!actionValue.equals(defaultWsdlAction)) {
-          cumulativeErrorMsg.append("WS-A Action property should be " + defaultWsdlAction + ". ");
-        }
-      }
-    }
+    String defaultWsdlAction=WsdlUtils.getDefaultWsaAction(messageExchange.getOperation(),true);
+    assertProperty("Wsa:Action","Action",defaultWsdlAction);
   }
   validateWsAddressingCommon(content);
   if (wsaAssertionConfiguration.isAssertRelatesTo()) {
-    Element relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
-    if (relatesToNode == null) {
-      cumulativeErrorMsg.append("WS-A RelatesTo property is not specified. ");
+    Element relatesToNode;
+    if (!StringUtils.isNullOrEmpty(wsaVersionNameSpace)) {
+      relatesToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"RelatesTo");
+      parseRelatesToNode(soapVersion,requestXmlObject,relatesToNode);
     }
  else {
-      String relatesToValue=XmlUtils.getElementText(relatesToNode);
-      if (StringUtils.isNullOrEmpty(relatesToValue)) {
-        cumulativeErrorMsg.append("WS-A RelatesTo property is empty. ");
+      relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"RelatesTo");
+      if (relatesToNode == null) {
+        relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"RelatesTo");
       }
- else {
-        String requestMsgId=WsdlUtils.getRequestWsaMessageId(messageExchange,getWsaVersion(requestXmlObject,soapVersion));
-        if (!relatesToValue.equals(requestMsgId)) {
-          cumulativeErrorMsg.append("WS-A RelatesTo property is not equal to request wsa:MessageId. ");
-        }
-      }
+      parseRelatesToNode(soapVersion,requestXmlObject,relatesToNode);
     }
   }
   Element replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");

@@ -14,6 +14,7 @@
     assertReplyToRefParams=values.getBoolean(ASSERT_REPLY_TO_REF_PARAMS);
     assertFaultToRefParams=values.getBoolean(ASSERT_FAULT_TO_REF_PARAMS);
   }
+  wsaAssertionConfiguration=new WsaAssertionConfiguration(assertWsaAction,assertWsaTo,false,false,assertWsaRelatesTo,assertReplyToRefParams,assertFaultToRefParams);
   setConfiguration(createConfiguration());
   return true;
 }

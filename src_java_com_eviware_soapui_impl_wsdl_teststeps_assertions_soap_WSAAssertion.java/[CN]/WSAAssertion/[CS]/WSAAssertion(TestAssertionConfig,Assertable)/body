@@ -2,9 +2,9 @@
   super(assertionConfig,modelItem,false,true,false,true);
   XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
   assertWsaAction=reader.readBoolean("asertWsaAction",true);
-  assertWsaTo=reader.readBoolean("asertWsaTo",true);
+  assertWsaTo=reader.readBoolean("asertWsaTo",false);
   assertWsaRelatesTo=reader.readBoolean("asertWsaRelatesTo",false);
   assertReplyToRefParams=reader.readBoolean("assertReplyToRefParams",false);
   assertFaultToRefParams=reader.readBoolean("assertFaultToRefParams",false);
-  wsaAssertionConfiguration=new WsaAssertionConfiguration(assertWsaAction,assertWsaTo,assertWsaRelatesTo,assertReplyToRefParams,assertFaultToRefParams);
+  wsaAssertionConfiguration=new WsaAssertionConfiguration(assertWsaAction,assertWsaTo,false,false,assertWsaRelatesTo,assertReplyToRefParams,assertFaultToRefParams);
 }

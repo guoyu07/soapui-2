@@ -1,19 +1,16 @@
 {
   if (wsaAssertionConfiguration.isAssertTo()) {
-    Element toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
-    if (toNode == null) {
-      cumulativeErrorMsg.append("WS-A To property is not specified. ");
+    Element toNode;
+    if (wsaVersionNameSpace != null) {
+      toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
+      parseToNode(toNode);
     }
  else {
-      String toAddressValue=XmlUtils.getElementText(toNode);
-      if (StringUtils.isNullOrEmpty(toAddressValue)) {
-        cumulativeErrorMsg.append("WS-A To property is empty. ");
+      toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"To");
+      if (toNode == null) {
+        toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"To");
       }
- else {
-        if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(toAddressValue,wsaVersionNameSpace)) {
-          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader To , Anonymous addresses are prohibited. ");
-        }
-      }
+      parseToNode(toNode);
     }
   }
   Element faultToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"FaultTo");

@@ -1,0 +1,9 @@
+{
+  super(assertionConfig,modelItem,false,true,false,true);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  assertWsaAction=reader.readBoolean("asertWsaAction",true);
+  assertWsaTo=reader.readBoolean("asertWsaTo",false);
+  assertWsaReplyTo=reader.readBoolean("assertWsaReplyTo",false);
+  assertWsaMessageId=reader.readBoolean("assertWsaMessageId",false);
+  wsaAssertionConfiguration=new WsaAssertionConfiguration(assertWsaAction,assertWsaTo,assertWsaReplyTo,assertWsaMessageId,false,false,false);
+}
