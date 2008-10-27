@@ -15,8 +15,8 @@
   dialog.setIntValue(LaunchForm.PORT,(int)settings.getLong(LaunchForm.PORT,8081));
   dialog.setOptions(LaunchForm.REQUEST_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
   dialog.setOptions(LaunchForm.RESPONSE_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
-  dialog.setValue(LaunchForm.SETSSLMON,settings.getString(LaunchForm.SETSSLMON,"").length() > 0 ? settings.getString(LaunchForm.SETSSLMON,"") : "https://");
-  dialog.setOptions(LaunchForm.SSLORHTTP,new String[]{"SSL Tunnel","HTTP Proxy"});
+  dialog.setValue(LaunchForm.SETSSLMON,settings.getString(LaunchForm.SETSSLMON,"").length() > 0 ? settings.getString(LaunchForm.SETSSLMON,"") : HTTPS_PROTOCOL);
+  dialog.setOptions(LaunchForm.SSLORHTTP,new String[]{HTTP_TUNNEL,HTTP_PROXY});
   dialog.setValue(LaunchForm.SSLTUNNEL_KEYSTORE,settings.getString(LaunchForm.SSLTUNNEL_KEYSTORE,""));
   dialog.setValue(LaunchForm.SSLTUNNEL_PASSWORD,settings.getString(LaunchForm.SSLTUNNEL_PASSWORD,""));
   dialog.setValue(LaunchForm.SSLTUNNEL_KEYPASSWORD,settings.getString(LaunchForm.SSLTUNNEL_KEYPASSWORD,""));
@@ -26,29 +26,11 @@
   dialog.setValue(LaunchForm.SSLTUNNEL_KEYSTOREPATH,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,""));
   dialog.setValue(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   XFormField sslOrHttp=dialog.getFormField(LaunchForm.SSLORHTTP);
-  sslOrHttp.setValue("SSL Tunnel");
+  sslOrHttp.setValue(HTTP_PROXY);
+  setDialogState(HTTP_PROXY);
   sslOrHttp.addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
-      if ("HTTP Proxy".equals(newValue)) {
-        dialog.getFormField(LaunchForm.SETSSLMON).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTORE).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_PASSWORD).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYPASSWORD).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_TRUSTSTORE).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_TRUSTSTORE_PASSWORD).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTOREPATH).setEnabled(false);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD).setEnabled(false);
-      }
- else {
-        dialog.getFormField(LaunchForm.SETSSLMON).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTORE).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_PASSWORD).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYPASSWORD).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_TRUSTSTORE).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_TRUSTSTORE_PASSWORD).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTOREPATH).setEnabled(true);
-        dialog.getFormField(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD).setEnabled(true);
-      }
+      setDialogState(newValue);
     }
   }
 );
@@ -64,7 +46,7 @@
     settings.setString(LaunchForm.SSLTUNNEL_REUSESTATE,dialog.getValue(LaunchForm.SSLTUNNEL_REUSESTATE));
     settings.setString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,dialog.getValue(LaunchForm.SSLTUNNEL_KEYSTOREPATH));
     settings.setString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,dialog.getValue(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD));
-    if ("HTTP Proxy".equals(dialog.getValue(LaunchForm.SSLORHTTP))) {
+    if (HTTP_PROXY.equals(dialog.getValue(LaunchForm.SSLORHTTP))) {
       openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),null);
     }
  else {
