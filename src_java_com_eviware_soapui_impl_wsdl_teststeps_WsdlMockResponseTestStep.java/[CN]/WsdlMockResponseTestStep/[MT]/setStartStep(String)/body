@@ -1,4 +1,5 @@
 {
+  String old=getStartStep();
   if (startTestStep != null) {
     startTestStep.removePropertyChangeListener(this);
     startTestStep=null;
@@ -10,4 +11,5 @@
     }
   }
   mockResponseStepConfig.setStartStep(startStep);
+  notifyPropertyChanged("startStep",old,startStep);
 }

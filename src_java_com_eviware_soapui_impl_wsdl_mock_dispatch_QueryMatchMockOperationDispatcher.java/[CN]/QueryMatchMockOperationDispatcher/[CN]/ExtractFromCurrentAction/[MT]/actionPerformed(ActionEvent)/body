@@ -2,16 +2,27 @@
   QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
   if (selectedQuery == null)   return;
   WsdlMockResult result=getMockOperation().getLastMockResult();
-  if (result != null) {
-    try {
-      XmlObject xmlObject=XmlObject.Factory.parse(result.getMockRequest().getRequestContent());
-      selectedQuery.setValue(xmlObject.xmlText());
-    }
- catch (    XmlException e1) {
-      e1.printStackTrace();
-    }
+  String content;
+  if (result != null && StringUtils.hasContent(result.getMockRequest().getRequestContent())) {
+    content=result.getMockRequest().getRequestContent();
   }
  else {
-    UISupport.showErrorMessage("Missing MockRequest to select from");
+    if (!UISupport.confirm("Missing last result, extract from default request instead?","Extract Match")) {
+      return;
+    }
+    content=getMockOperation().getOperation().createRequest(true);
+  }
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
+    XmlObject[] objects=xmlObject.selectPath(selectedQuery.getQuery());
+    if (objects.length == 0) {
+      UISupport.showErrorMessage("Missing match in request");
+    }
+ else {
+      selectedQuery.setMatch(objects[0].xmlText());
+    }
+  }
+ catch (  XmlException e1) {
+    SoapUI.logError(e1);
   }
 }

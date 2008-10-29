@@ -2,5 +2,7 @@
   getModelItem().getTestCase().removeTestRunListener(testRunListener);
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
   assertionsPanel.release();
+  queryEditorModel.release();
+  matchEditorModel.release();
   return super.onClose(canCancel);
 }

@@ -13,9 +13,9 @@
  else {
       content=lastResult.getMockRequest().getRequestContent();
     }
-    String path=selectedQuery.getPath();
+    String path=selectedQuery.getQuery();
     if (path == null)     path="";
-    selectedQuery.setPath(XmlUtils.declareXPathNamespaces(content) + path);
+    selectedQuery.setQuery(XmlUtils.declareXPathNamespaces(content) + path);
   }
  catch (  Exception e1) {
     UISupport.showErrorMessage(e1);

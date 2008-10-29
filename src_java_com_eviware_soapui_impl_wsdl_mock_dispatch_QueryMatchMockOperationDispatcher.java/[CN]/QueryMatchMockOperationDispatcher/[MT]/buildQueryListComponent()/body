@@ -6,13 +6,7 @@
   itemList.addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       queryDetailFormPresentationModel.setBean((Query)itemList.getSelectedValue());
-      detailForm.setEnabled(queryDetailFormPresentationModel.getBean() != null);
-      renameButton.setEnabled(queryDetailFormPresentationModel.getBean() != null);
-      deleteButton.setEnabled(queryDetailFormPresentationModel.getBean() != null);
-      copyButton.setEnabled(queryDetailFormPresentationModel.getBean() != null);
-      extractFromCurrentButton.setEnabled(queryDetailFormPresentationModel.getBean() != null && getMockOperation().getLastMockResult() != null);
-      copyButton.setEnabled(queryDetailFormPresentationModel.getBean() != null);
-      runButton.setEnabled(getQueryCount() > 0);
+      setEnabled();
     }
   }
 );

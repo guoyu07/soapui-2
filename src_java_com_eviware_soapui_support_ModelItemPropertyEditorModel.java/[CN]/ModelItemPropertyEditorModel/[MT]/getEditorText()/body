@@ -1,6 +1,7 @@
 {
   try {
-    return String.valueOf(PropertyUtils.getSimpleProperty(modelItem,propertyName));
+    Object value=PropertyUtils.getSimpleProperty(modelItem,propertyName);
+    return value == null ? "" : String.valueOf(value);
   }
  catch (  Exception e) {
     e.printStackTrace();

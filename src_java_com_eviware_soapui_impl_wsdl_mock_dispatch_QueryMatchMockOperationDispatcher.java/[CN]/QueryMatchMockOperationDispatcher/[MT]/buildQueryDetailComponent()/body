@@ -3,12 +3,11 @@
   detailForm=new SimpleBindingForm(queryDetailFormPresentationModel);
   detailForm.setDefaultTextAreaRows(8);
   detailForm.setDefaultTextAreaColumns(50);
-  detailForm.append(buildXPathActions());
+  detailForm.append(buildQueryToolbar());
   detailForm.appendTextArea("path","XPath","The XPath to query in the request");
   detailForm.appendTextArea("value","Expected Value","The value to match");
   JComboBox comboBox=detailForm.appendComboBox("response","Dispatch to",new MockResponsesComboBoxModel(),"The MockResponse to dispatch to");
   UISupport.setFixedSize(comboBox,150,20);
   detailForm.appendCheckBox("disabled","Disabled","Disables this Query");
-  detailForm.setEnabled(false);
   return new JScrollPane(detailForm.getPanel());
 }

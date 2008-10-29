@@ -4,10 +4,10 @@
     Map<String,XmlObject[]> nodesCache=new HashMap<String,XmlObject[]>();
     for (    Query query : getQueries()) {
       if (query.isDisabled())       continue;
-      String path=PropertyExpansionUtils.expandProperties(request.getContext(),query.getPath());
+      String path=PropertyExpansionUtils.expandProperties(request.getContext(),query.getQuery());
       XmlObject[] nodes=nodesCache.containsKey(path) ? nodesCache.get(path) : xmlObject.selectPath(path);
       if (nodes != null && nodes.length > 0) {
-        String value=PropertyExpansionUtils.expandProperties(request.getContext(),query.getValue());
+        String value=PropertyExpansionUtils.expandProperties(request.getContext(),query.getMatch());
         if (value.equals(XmlUtils.getNodeValue(nodes[0].getDomNode()))) {
           return getMockOperation().getMockResponseByName(query.getResponse());
         }

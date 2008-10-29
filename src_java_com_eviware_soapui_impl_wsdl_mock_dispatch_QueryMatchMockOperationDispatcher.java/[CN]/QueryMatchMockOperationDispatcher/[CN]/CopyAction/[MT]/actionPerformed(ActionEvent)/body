@@ -4,8 +4,8 @@
   String name=UISupport.prompt("Specify name for copied Query","Copy Query",selectedQuery.getName());
   if (name == null || name.trim().length() == 0)   return;
   QueryMatchMockOperationDispatcher.Query query=addQuery(name);
-  query.setValue(selectedQuery.getValue());
-  query.setPath(selectedQuery.getPath());
+  query.setMatch(selectedQuery.getMatch());
+  query.setQuery(selectedQuery.getQuery());
   query.setResponse(selectedQuery.getResponse());
   itemList.setSelectedIndex(getQueryCount() - 1);
 }

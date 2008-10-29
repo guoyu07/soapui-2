@@ -1,5 +1,6 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  panel.add(UISupport.getEditorFactory().buildXPathEditor(new ModelItemPropertyEditorModel<WsdlMockResponseTestStep>(getModelItem(),"query")),BorderLayout.CENTER);
+  queryEditorModel=new ModelItemPropertyEditorModel<WsdlMockResponseTestStep>(getModelItem(),"query");
+  panel.add(UISupport.getEditorFactory().buildXPathEditor(queryEditorModel),BorderLayout.CENTER);
   return panel;
 }

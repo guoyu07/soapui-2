@@ -4,8 +4,8 @@
     testMockResponse.setConfig(mockResponse.getConfig());
     QueryMatchMockOperationDispatcher dispatcher=(QueryMatchMockOperationDispatcher)mockOperation.setDispatchStyle(MockOperationDispatchStyleConfig.QUERY_MATCH.toString());
     QueryMatchMockOperationDispatcher.Query query=dispatcher.addQuery("Match");
-    query.setPath(PropertyExpansionUtils.expandProperties(testRunContext,getQuery()));
-    query.setValue(PropertyExpansionUtils.expandProperties(testRunContext,getMatch()));
+    query.setQuery(PropertyExpansionUtils.expandProperties(testRunContext,getQuery()));
+    query.setMatch(PropertyExpansionUtils.expandProperties(testRunContext,getMatch()));
     query.setResponse(testMockResponse.getName());
   }
  else {
