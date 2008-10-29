@@ -3,7 +3,8 @@
   table.addProperty("Name","name");
   table.addProperty("Description","description",true);
   table.addProperty("Base Path","basePath",true);
-  table.addProperty("WADL","wadlUrl",true);
+  table.addProperty("WADL","wadlUrl",!service.isGenerated());
+  table.addProperty("Generated","generated",false);
   table.setPropertyObject(service);
   return table;
 }
