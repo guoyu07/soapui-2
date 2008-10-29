@@ -39,7 +39,6 @@ synchronized (wsdlMockRunners) {
           response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
           response.setContentType("text/html");
           response.getWriter().print(SoapMessageBuilder.buildFault("Server",e.getMessage(),SoapVersion.Utils.getSoapVersionForContentType(request.getContentType(),SoapVersion.Soap11)));
-          response.flushBuffer();
         }
       }
     }
@@ -50,4 +49,5 @@ synchronized (wsdlMockRunners) {
  else {
     printMockServiceList(response);
   }
+  response.flushBuffer();
 }
