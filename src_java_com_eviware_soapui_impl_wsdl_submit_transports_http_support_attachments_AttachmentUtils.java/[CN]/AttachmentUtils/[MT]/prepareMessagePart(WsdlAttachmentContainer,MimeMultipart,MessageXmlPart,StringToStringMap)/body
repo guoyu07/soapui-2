@@ -43,15 +43,15 @@
             }
           }
         }
- else         if (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
-          String xmimeContentType=getXmlMimeContentType(cursor);
-          String textContent=cursor.getTextValue();
+ else {
+          String textContent=XmlUtils.getNodeValue(cursor.getDomNode());
           Attachment attachment=null;
           boolean isXopAttachment=false;
-          if (textContent.startsWith("file:") && container.isInlineFilesEnabled()) {
+          if (container.isInlineFilesEnabled() && textContent.startsWith("file:")) {
             String filename=textContent.substring(5);
             if (container.isMtomEnabled()) {
               MimeBodyPart part=new PreencodedMimeBodyPart("binary");
+              String xmimeContentType=getXmlMimeContentType(cursor);
               if (StringUtils.isNullOrEmpty(xmimeContentType))               xmimeContentType=ContentTypeHandler.getContentTypeFromFilename(filename);
               part.setDataHandler(new DataHandler(new XOPPartDataSource(new File(filename),xmimeContentType,schemaType)));
               part.setContentID("<" + filename + ">");
@@ -74,8 +74,9 @@
             isXopAttachment=container.isMtomEnabled();
             contentIds.put(textContent,textContent);
           }
- else           if (container.isMtomEnabled()) {
+ else           if (container.isMtomEnabled() && SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
             MimeBodyPart part=new PreencodedMimeBodyPart("binary");
+            String xmimeContentType=getXmlMimeContentType(cursor);
             part.setDataHandler(new DataHandler(new XOPPartDataSource(textContent,xmimeContentType,schemaType)));
             textContent="http://www.soapui.org/" + System.nanoTime();
             part.setContentID("<" + textContent + ">");
