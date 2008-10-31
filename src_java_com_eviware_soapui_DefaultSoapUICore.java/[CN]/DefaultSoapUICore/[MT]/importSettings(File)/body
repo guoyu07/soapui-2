@@ -1,6 +1,9 @@
 {
+  File toFile=null;
   if (file != null) {
     log.info("Importing preferences from [" + file.getAbsolutePath() + "]");
-    initSettings(file.getAbsolutePath());
+    toFile=new File(System.getProperty("soapui.home"),file.getName());
+    Tools.copyFile(file,toFile,true);
+    initSettings(toFile.getAbsolutePath());
   }
 }
