@@ -7,6 +7,7 @@
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
+    if (param.isEncode())     value=URLEncoder.encode(value);
     responseProperties.put(param.getName(),value);
     if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {
@@ -16,10 +17,10 @@ case HEADER:
 case QUERY:
   if (query.length() > 0)   query.append('&');
 query.append(URLEncoder.encode(param.getName()));
-if (StringUtils.hasContent(value)) query.append('=').append(URLEncoder.encode(value));
+if (StringUtils.hasContent(value)) query.append('=').append(value);
 break;
 case TEMPLATE:
-path=path.replaceAll("\\{" + param.getName() + "\\}",URLEncoder.encode(value));
+path=path.replaceAll("\\{" + param.getName() + "\\}",value);
 break;
 case MATRIX:
 if (param.getType().equals(XmlBoolean.type.getName())) {
@@ -30,7 +31,7 @@ path+=";" + param.getName();
  else {
 path+=";" + param.getName();
 if (StringUtils.hasContent(value)) {
-path+="=" + URLEncoder.encode(value);
+path+="=" + value;
 }
 }
 case PLAIN:

@@ -6,7 +6,7 @@
     @Override public void update(    Document document){
       if (!updatingRequest) {
         updatingRequest=true;
-        restRequest.setRequestContent(contentEditor.getText());
+        restRequest.setRequestContent(getText(document));
         updatingRequest=false;
       }
     }
