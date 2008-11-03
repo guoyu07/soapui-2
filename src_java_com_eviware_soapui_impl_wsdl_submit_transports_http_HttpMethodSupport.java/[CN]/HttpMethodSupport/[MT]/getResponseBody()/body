@@ -16,15 +16,17 @@
  catch (    IOException e) {
       e.printStackTrace();
     }
-    String compressionAlg=HttpClientSupport.getResponseCompressionType(httpMethod);
-    if (compressionAlg != null) {
-      try {
-        responseBody=CompressionSupport.decompress(compressionAlg,responseBody);
-      }
- catch (      Exception e) {
-        IOException ioe=new IOException("Decompression of response failed");
-        ioe.initCause(e);
-        throw ioe;
+    if (!SoapUI.getSettings().getBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION)) {
+      String compressionAlg=HttpClientSupport.getResponseCompressionType(httpMethod);
+      if (compressionAlg != null) {
+        try {
+          responseBody=CompressionSupport.decompress(compressionAlg,responseBody);
+        }
+ catch (        Exception e) {
+          IOException ioe=new IOException("Decompression of response failed");
+          ioe.initCause(e);
+          throw ioe;
+        }
       }
     }
   }

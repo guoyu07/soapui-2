@@ -2,8 +2,10 @@
   this.postMethod=postMethod;
   try {
     data=postMethod.getResponseBody();
-    String compressionAlg=HttpClientSupport.getResponseCompressionType(postMethod);
-    if (compressionAlg != null)     data=CompressionSupport.decompress(compressionAlg,data);
+    if (!SoapUI.getSettings().getBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION)) {
+      String compressionAlg=HttpClientSupport.getResponseCompressionType(postMethod);
+      if (compressionAlg != null)       data=CompressionSupport.decompress(compressionAlg,data);
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);

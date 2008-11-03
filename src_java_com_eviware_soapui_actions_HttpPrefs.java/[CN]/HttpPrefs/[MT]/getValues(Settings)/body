@@ -5,6 +5,7 @@
   httpValues.put(USER_AGENT_HEADER,settings.getString(HttpSettings.USER_AGENT,null));
   httpValues.put(REQUEST_COMPRESSION,compressionAlgs.get(settings.getString(HttpSettings.REQUEST_COMPRESSION,"None")));
   httpValues.put(RESPONSE_COMPRESSION,settings.getString(HttpSettings.RESPONSE_COMPRESSION,null));
+  httpValues.put(DISABLE_RESPONSE_DECOMPRESSION,settings.getString(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION,null));
   httpValues.put(CLOSE_CONNECTIONS_AFTER_REQUEST,settings.getString(HttpSettings.CLOSE_CONNECTIONS,null));
   httpValues.put(AUTHENTICATE_PREEMPTIVELY,settings.getString(HttpSettings.AUTHENTICATE_PREEMPTIVELY,null));
   httpValues.put(INCLUDE_REQUEST_IN_TIME_TAKEN,settings.getString(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN,null));
