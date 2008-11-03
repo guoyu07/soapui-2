@@ -1,4 +1,5 @@
 {
+  super.beforeSave();
   if (isGenerated() && wadlContext != null) {
     try {
       wadlContext.getDefinitionCache().clear();
