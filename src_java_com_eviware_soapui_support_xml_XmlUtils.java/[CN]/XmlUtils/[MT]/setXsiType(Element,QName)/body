@@ -2,6 +2,7 @@
   String prefix=findPrefixForNamespace(elm,name.getNamespaceURI());
   if (prefix == null) {
     prefix=generatePrefixForNamespace(name.getNamespaceURI());
+    int cnt=1;
     while (findNamespaceForPrefix(elm,prefix) != null) {
       prefix=generatePrefixForNamespace(name.getNamespaceURI());
     }

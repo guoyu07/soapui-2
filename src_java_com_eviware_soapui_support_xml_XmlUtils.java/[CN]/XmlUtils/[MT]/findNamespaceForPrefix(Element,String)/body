@@ -5,5 +5,5 @@
     elm=(Element)elm.getParentNode();
     namespaceUri=elm.getAttribute("xmlns:" + prefix);
   }
-  return namespaceUri;
+  return StringUtils.isNullOrEmpty(namespaceUri) ? null : namespaceUri;
 }
