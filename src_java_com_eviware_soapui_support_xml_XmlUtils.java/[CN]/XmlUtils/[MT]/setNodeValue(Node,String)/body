@@ -1,12 +1,31 @@
 {
   short nodeType=domNode.getNodeType();
-  if (nodeType == Node.ELEMENT_NODE) {
-    setElementText((Element)domNode,string);
-    return true;
-  }
- else   if (nodeType == Node.ATTRIBUTE_NODE || nodeType == Node.TEXT_NODE) {
+switch (nodeType) {
+case Node.ELEMENT_NODE:
+{
+      setElementText((Element)domNode,string);
+      break;
+    }
+case Node.ATTRIBUTE_NODE:
+case Node.TEXT_NODE:
+{
     domNode.setNodeValue(string);
-    return true;
+    break;
   }
-  return false;
+case Node.PROCESSING_INSTRUCTION_NODE:
+{
+  ((ProcessingInstruction)domNode).setData(string);
+  break;
+}
+case Node.CDATA_SECTION_NODE:
+{
+((CDATASection)domNode).setData(string);
+break;
+}
+default :
+{
+return false;
+}
+}
+return true;
 }
