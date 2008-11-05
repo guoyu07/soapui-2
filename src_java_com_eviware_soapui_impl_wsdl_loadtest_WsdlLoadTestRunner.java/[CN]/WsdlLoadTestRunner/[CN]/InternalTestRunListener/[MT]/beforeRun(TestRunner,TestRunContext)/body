@@ -2,7 +2,7 @@
   if (getProgress() > 1 && loadTest.getCancelOnReachedLimit()) {
     testRunner.cancel("LoadTest Limit reached");
   }
- else   for (  LoadTestRunListener listener : listeners) {
+ else   for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     listener.beforeTestCase(WsdlLoadTestRunner.this,context,testRunner,runContext);
   }
 }

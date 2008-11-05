@@ -9,7 +9,7 @@
   String msg="LoadTest [" + loadTest.getName() + "] canceled";
   if (reason != null)   msg+="; " + reason;
   loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry(msg));
-  for (  LoadTestRunListener listener : listeners) {
+  for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     listener.loadTestStopped(this,context);
   }
   tearDown();

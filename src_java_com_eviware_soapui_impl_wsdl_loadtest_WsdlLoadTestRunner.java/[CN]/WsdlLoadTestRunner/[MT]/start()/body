@@ -15,8 +15,7 @@
   }
   ;
   status=Status.RUNNING;
-  listeners=loadTest.getLoadTestRunListeners();
-  for (  LoadTestRunListener listener : listeners) {
+  for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     try {
       listener.beforeLoadTest(this,context);
     }
@@ -79,18 +78,16 @@
       startTestCase(testCases.get(c));
     }
   }
-  if (listeners != null) {
-    if (status == Status.RUNNING) {
-      for (      LoadTestRunListener listener : listeners) {
-        listener.loadTestStarted(this,context);
-      }
-      startStrategyThread();
+  if (status == Status.RUNNING) {
+    for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
+      listener.loadTestStarted(this,context);
     }
+    startStrategyThread();
+  }
  else {
-      for (      LoadTestRunListener listener : listeners) {
-        listener.afterLoadTest(this,context);
-      }
-      tearDown();
+    for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
+      listener.afterLoadTest(this,context);
     }
+    tearDown();
   }
 }

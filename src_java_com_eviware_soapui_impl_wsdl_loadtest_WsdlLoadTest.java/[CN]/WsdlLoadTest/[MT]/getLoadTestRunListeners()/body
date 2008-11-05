@@ -1,3 +1,6 @@
 {
-  return loadTestRunListeners.toArray(new LoadTestRunListener[loadTestRunListeners.size()]);
+  if (loadTestRunListenersArray == null) {
+    loadTestRunListenersArray=loadTestRunListeners.toArray(new LoadTestRunListener[loadTestRunListeners.size()]);
+  }
+  return loadTestRunListenersArray;
 }

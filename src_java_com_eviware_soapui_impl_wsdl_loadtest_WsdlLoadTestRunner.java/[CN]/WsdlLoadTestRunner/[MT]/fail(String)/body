@@ -5,7 +5,7 @@
   String msg="LoadTest [" + loadTest.getName() + "] failed";
   if (reason != null)   msg+="; " + reason;
   loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry(msg));
-  for (  LoadTestRunListener listener : listeners) {
+  for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     listener.loadTestStopped(this,context);
   }
   TestCaseRunner[] r=runners.toArray(new TestCaseRunner[runners.size()]);

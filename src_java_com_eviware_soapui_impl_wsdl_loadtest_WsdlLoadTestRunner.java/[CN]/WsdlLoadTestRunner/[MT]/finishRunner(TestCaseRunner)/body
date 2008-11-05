@@ -7,11 +7,10 @@
     loadTest.removePropertyChangeListener(WsdlLoadTest.THREADCOUNT_PROPERTY,internalPropertyChangeListener);
     if (status == Status.RUNNING)     status=Status.FINISHED;
     loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest ended at " + new Date(System.currentTimeMillis())));
-    for (    LoadTestRunListener listener : listeners) {
+    for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
       listener.afterLoadTest(this,context);
     }
     tearDown();
-    listeners=null;
     context.clear();
   }
 }
