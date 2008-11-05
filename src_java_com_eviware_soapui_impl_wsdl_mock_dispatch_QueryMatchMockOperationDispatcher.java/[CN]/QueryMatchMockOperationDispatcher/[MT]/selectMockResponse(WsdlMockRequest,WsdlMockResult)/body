@@ -1,22 +1,39 @@
 {
+  Map<String,XmlCursor> cursorCache=new HashMap<String,XmlCursor>();
   try {
     XmlObject xmlObject=request.getRequestXmlObject();
-    Map<String,XmlObject[]> nodesCache=new HashMap<String,XmlObject[]>();
     for (    Query query : getQueries()) {
       if (query.isDisabled())       continue;
       String path=PropertyExpansionUtils.expandProperties(request.getContext(),query.getQuery());
-      XmlObject[] nodes=nodesCache.containsKey(path) ? nodesCache.get(path) : xmlObject.selectPath(path);
-      if (nodes != null && nodes.length > 0) {
-        String value=PropertyExpansionUtils.expandProperties(request.getContext(),query.getMatch());
-        if (value.equals(XmlUtils.getNodeValue(nodes[0].getDomNode()))) {
-          return getMockOperation().getMockResponseByName(query.getResponse());
+      if (StringUtils.hasContent(path)) {
+        XmlCursor cursor=cursorCache.get(path);
+        if (cursor == null && !cursorCache.containsKey(path)) {
+          cursor=xmlObject.newCursor();
+          cursor.selectPath(path);
+          if (!cursor.toNextSelection()) {
+            cursor.dispose();
+            cursor=null;
+          }
         }
+        if (cursor != null) {
+          String value=PropertyExpansionUtils.expandProperties(request.getContext(),query.getMatch());
+          if (value.equals(XmlUtils.getValueForMatch(cursor))) {
+            return getMockOperation().getMockResponseByName(query.getResponse());
+          }
+        }
+        cursorCache.put(path,cursor);
       }
-      nodesCache.put(path,nodes);
     }
     return null;
   }
- catch (  XmlException e) {
+ catch (  Throwable e) {
     throw new DispatchException(e);
+  }
+ finally {
+    for (    XmlCursor cursor : cursorCache.values()) {
+      if (cursor != null) {
+        cursor.dispose();
+      }
+    }
   }
 }

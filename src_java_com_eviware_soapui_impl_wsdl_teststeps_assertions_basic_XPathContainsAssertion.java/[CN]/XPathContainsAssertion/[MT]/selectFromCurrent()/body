@@ -1,10 +1,6 @@
 {
   XmlCursor cursor=null;
   try {
-    XmlOptions options=new XmlOptions();
-    options.setSavePrettyPrint();
-    options.setSaveOuter();
-    options.setSaveAggressiveNamespaces();
     String assertableContent=getAssertable().getAssertableContent();
     if (assertableContent == null || assertableContent.trim().length() == 0) {
       UISupport.showErrorMessage("Missing content to select from");
@@ -25,24 +21,7 @@
       UISupport.showErrorMessage("More than one match in current response");
     }
  else {
-      Node domNode=cursor.getDomNode();
-      String stringValue=null;
-      if (domNode.getNodeType() == Node.ATTRIBUTE_NODE || domNode.getNodeType() == Node.TEXT_NODE) {
-        stringValue=domNode.getNodeValue();
-      }
- else       if (cursor.getObject() instanceof XmlAnySimpleType) {
-        stringValue=((XmlAnySimpleType)cursor.getObject()).getStringValue();
-      }
- else {
-        if (domNode.getNodeType() == Node.ELEMENT_NODE) {
-          Element elm=(Element)domNode;
-          if (elm.getChildNodes().getLength() == 1 && elm.getAttributes().getLength() == 0)           stringValue=XmlUtils.getElementText(elm);
- else           stringValue=cursor.getObject().xmlText(options);
-        }
- else {
-          stringValue=domNode.getNodeValue();
-        }
-      }
+      String stringValue=XmlUtils.getValueForMatch(cursor);
       if (contentArea != null && contentArea.isVisible())       contentArea.setText(stringValue);
  else       setExpectedContent(stringValue);
     }

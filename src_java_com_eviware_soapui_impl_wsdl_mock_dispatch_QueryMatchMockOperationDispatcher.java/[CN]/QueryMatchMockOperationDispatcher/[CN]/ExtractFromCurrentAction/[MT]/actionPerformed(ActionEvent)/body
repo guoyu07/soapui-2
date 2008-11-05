@@ -12,17 +12,24 @@
     }
     content=getMockOperation().getOperation().createRequest(true);
   }
+  XmlCursor cursor=null;
   try {
     XmlObject xmlObject=XmlObject.Factory.parse(content);
-    XmlObject[] objects=xmlObject.selectPath(selectedQuery.getQuery());
-    if (objects.length == 0) {
+    cursor=xmlObject.newCursor();
+    cursor.selectPath(selectedQuery.getQuery());
+    if (!cursor.toNextSelection()) {
       UISupport.showErrorMessage("Missing match in request");
     }
  else {
-      selectedQuery.setMatch(objects[0].xmlText());
+      selectedQuery.setMatch(XmlUtils.getValueForMatch(cursor));
     }
   }
- catch (  XmlException e1) {
+ catch (  Throwable e1) {
     SoapUI.logError(e1);
+  }
+ finally {
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
 }
