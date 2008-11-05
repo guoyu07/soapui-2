@@ -1,8 +1,8 @@
 {
   try {
-    String content=response.getContentAsString();
+    String content=response.getContentAsString().trim();
     if (!StringUtils.hasContent(content))     return null;
-    JSONObject json=JSONObject.fromObject(content);
+    JSON json=JSONSerializer.toJSON(content);
     XMLSerializer serializer=new XMLSerializer();
     serializer.setTypeHintsEnabled(false);
     content=serializer.write(json);
