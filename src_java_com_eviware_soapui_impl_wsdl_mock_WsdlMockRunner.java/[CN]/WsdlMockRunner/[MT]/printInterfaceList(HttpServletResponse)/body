@@ -3,7 +3,7 @@
   response.setContentType("text/html");
   PrintWriter out=response.getWriter();
   out.print("<html><body><p>Mocked Interfaces in project [" + mockService.getProject().getName() + "]</p><ul>");
-  for (  Interface iface : mockService.getProject().getInterfaceList()) {
+  for (  Interface iface : ModelSupport.getChildren(mockService.getProject(),WsdlInterface.class)) {
     out.print("<li><a href=\"");
     out.print(getInterfacePrefix(iface));
     out.print("\">" + iface.getName() + "</a></li>");

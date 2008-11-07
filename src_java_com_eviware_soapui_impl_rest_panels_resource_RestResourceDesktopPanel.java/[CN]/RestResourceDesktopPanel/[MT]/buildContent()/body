@@ -1,5 +1,6 @@
 {
   JTabbedPane tabs=new JTabbedPane();
-  tabs.addTab("Resource Parameters",new RestParamsTable(getModelItem().getParams(),true));
+  paramsTable=new RestParamsTable(getModelItem().getParams(),true);
+  tabs.addTab("Resource Parameters",paramsTable);
   return UISupport.createTabPanel(tabs,false);
 }

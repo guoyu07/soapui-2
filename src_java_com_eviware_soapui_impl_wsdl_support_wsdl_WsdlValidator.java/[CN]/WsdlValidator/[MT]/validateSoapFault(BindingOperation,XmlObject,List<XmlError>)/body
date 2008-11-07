@@ -1,6 +1,15 @@
 {
   Map faults=bindingOperation.getBindingFaults();
   Iterator<BindingFault> i=faults.values().iterator();
+  List<?> list=new ArrayList<Object>();
+  XmlOptions xmlOptions=new XmlOptions();
+  xmlOptions.setErrorListener(list);
+  xmlOptions.setValidateTreatLaxAsSkip();
+  msgXml.validate(xmlOptions);
+  for (  Object o : list) {
+    if (o instanceof XmlError)     errors.add((XmlError)o);
+ else     errors.add(XmlError.forMessage(o.toString()));
+  }
   while (i.hasNext()) {
     BindingFault bindingFault=i.next();
     String faultName=bindingFault.getName();

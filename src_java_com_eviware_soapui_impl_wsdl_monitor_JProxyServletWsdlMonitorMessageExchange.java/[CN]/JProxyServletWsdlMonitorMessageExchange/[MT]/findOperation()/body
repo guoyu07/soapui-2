@@ -3,7 +3,7 @@
   if (soapVersion == null)   throw new Exception("Unrecognized SOAP Version");
   String soapAction=SoapUtils.getSoapAction(soapVersion,requestHeaders);
   List<WsdlOperation> operations=new ArrayList<WsdlOperation>();
-  for (  Interface iface : project.getInterfaceList()) {
+  for (  WsdlInterface iface : ModelSupport.getChildren(project,WsdlInterface.class)) {
     for (    Operation operation : iface.getOperationList())     operations.add((WsdlOperation)operation);
   }
   return SoapUtils.findOperationForRequest(soapVersion,soapAction,XmlObject.Factory.parse(getRequestContent()),operations,true,false);

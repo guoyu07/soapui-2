@@ -9,8 +9,8 @@
   Settings settings=project.getSettings();
   StringList endpoints=new StringList();
   endpoints.add(null);
-  for (  Interface iface : project.getInterfaceList()) {
-    if (iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE))     endpoints.addAll(iface.getEndpoints());
+  for (  Interface iface : ModelSupport.getChildren(project,WsdlInterface.class)) {
+    endpoints.addAll(iface.getEndpoints());
   }
   dialog.setIntValue(LaunchForm.PORT,(int)settings.getLong(LaunchForm.PORT,8081));
   dialog.setOptions(LaunchForm.REQUEST_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));

@@ -8,7 +8,7 @@
     panel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
     tabs.addTab(form.getName(),panel);
   }
-  JButtonBar buttons=UISupport.initDialogActions(actions,dialog);
+  buttons=UISupport.initDialogActions(actions,dialog);
   if (description != null || icon != null)   dialog.getContentPane().add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
   dialog.getContentPane().add(UISupport.createTabPanel(tabs,false),BorderLayout.CENTER);
   buttons.setBorder(BorderFactory.createEmptyBorder(3,5,3,5));

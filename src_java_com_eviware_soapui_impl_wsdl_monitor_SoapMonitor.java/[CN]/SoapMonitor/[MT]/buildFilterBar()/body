@@ -35,7 +35,7 @@
     }
   }
 );
-  String[] interfaceNames=ModelSupport.getNames(new String[]{ALL_FILTER_OPTION},getProject().getInterfaceList());
+  String[] interfaceNames=ModelSupport.getNames(new String[]{ALL_FILTER_OPTION},ModelSupport.getChildren(getProject(),WsdlInterface.class));
   toolbar.addFixed(new JLabel("Interface"));
   toolbar.addRelatedGap();
   interfaceFilterCombo=UISupport.setFixedSize(new JComboBox(interfaceNames),comboBoxSize);

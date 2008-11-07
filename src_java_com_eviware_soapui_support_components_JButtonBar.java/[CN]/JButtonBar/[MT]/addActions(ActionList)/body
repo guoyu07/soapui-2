@@ -1,7 +1,10 @@
 {
   for (int c=0; c < actions.getActionCount(); c++) {
     Action action=actions.getActionAt(c);
-    if (!(action instanceof HelpActionMarker) && c == 0)     builder.addGlue();
+    if (!(action instanceof HelpActionMarker) && c == 0) {
+      if (getComponentCount() == 0)       builder.addGlue();
+ else       builder.addUnrelatedGap();
+    }
     if (action == ActionSupport.SEPARATOR_ACTION) {
       builder.addUnrelatedGap();
     }

@@ -4,7 +4,7 @@
   }
   StringList endpoints=new StringList();
   endpoints.add(null);
-  for (  Interface iface : getProject().getInterfaceList()) {
+  for (  WsdlInterface iface : ModelSupport.getChildren(getProject(),WsdlInterface.class)) {
     endpoints.addAll(iface.getEndpoints());
   }
   optionsDialog.setIntValue(OptionsForm.PORT,listenPort);
