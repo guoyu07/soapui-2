@@ -11,7 +11,7 @@
     enableRecordingCheckBox.setSelected(settings.getBoolean(RECORD_REQUEST_REPRESENTATIONS));
   }
  else {
-    enableRecordingCheckBox.setSelected(getRequest().getResource().getService().isGenerated());
+    enableRecordingCheckBox.setSelected(getRequest().getResource() == null || getRequest().getResource().getService().isGenerated());
   }
   enableRecordingCheckBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
