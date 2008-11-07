@@ -1,9 +1,4 @@
 {
   xpath=initXPathNamespaces(xpath);
-  XmlObject[] selectPath=xmlObject.selectPath(xpath);
-  Node[] result=new Node[selectPath.length];
-  for (int c=0; c < selectPath.length; c++) {
-    result[c]=selectPath[c].getDomNode();
-  }
-  return result;
+  return XmlUtils.selectDomNodes(xmlObject,xpath);
 }
