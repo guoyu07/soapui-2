@@ -5,7 +5,7 @@
   map.get(mockService.getPath()).remove(runner);
   mockRunners.remove(runner);
   log.info("Stopped MockService [" + mockService.getName() + "] on port ["+ port+ "]");
-  if (map.isEmpty() && !SoapUI.getSettings().getBoolean(HttpSettings.LEAVE_MOCKENGINE)) {
+  if (map.get(mockService.getPath()).isEmpty() && !SoapUI.getSettings().getBoolean(HttpSettings.LEAVE_MOCKENGINE)) {
     SoapUIConnector connector=connectors.get(port);
     if (connector == null) {
       log.warn("Missing connectors on port [" + port + "]");
