@@ -1,12 +1,6 @@
 {
   if (dialog == null) {
-    dialog=new JDialog(UISupport.getMainFrame(),"Script Assertion",true);
-    groovyScriptAssertionPanel=new GroovyScriptAssertionPanel();
-    dialog.setContentPane(groovyScriptAssertionPanel);
-    UISupport.initDialogActions(dialog,groovyScriptAssertionPanel.getShowOnlineHelpAction(),groovyScriptAssertionPanel.getDefaultButton());
-    dialog.setSize(600,500);
-    dialog.setModal(true);
-    dialog.pack();
+    buildDialog();
   }
   UISupport.showDialog(dialog);
   setConfiguration(createConfiguration());
