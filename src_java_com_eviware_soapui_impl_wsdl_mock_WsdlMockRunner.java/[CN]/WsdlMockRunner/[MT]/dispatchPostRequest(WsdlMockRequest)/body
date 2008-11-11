@@ -1,10 +1,6 @@
 {
   WsdlMockResult result=null;
-  MockRunListener[] mockRunListeners=mockService.getMockRunListeners();
   try {
-    for (    MockRunListener listener : mockRunListeners) {
-      listener.onMockRequest(this,mockRequest.getHttpRequest(),mockRequest.getHttpResponse());
-    }
     long timestamp=System.currentTimeMillis();
     SoapVersion soapVersion=mockRequest.getSoapVersion();
     if (soapVersion == null)     throw new DispatchException("Unrecognized SOAP Version");
@@ -64,12 +60,5 @@
  catch (  Exception e) {
     if (e instanceof DispatchException)     throw (DispatchException)e;
     throw new DispatchException(e);
-  }
- finally {
-    if (result != null) {
-      for (      MockRunListener listener : mockRunListeners) {
-        listener.onMockResult(result);
-      }
-    }
   }
 }

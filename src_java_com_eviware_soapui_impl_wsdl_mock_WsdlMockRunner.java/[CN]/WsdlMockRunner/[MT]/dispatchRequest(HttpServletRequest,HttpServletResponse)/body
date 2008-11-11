@@ -1,7 +1,12 @@
 {
+  Object result=null;
   try {
+    for (    MockRunListener listener : mockService.getMockRunListeners()) {
+      result=listener.onMockRequest(this,request,response);
+      if (result instanceof MockResult)       return (MockResult)result;
+    }
     WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
-    Object result=mockService.runOnRequestScript(mockContext,this,mockRequest);
+    result=mockService.runOnRequestScript(mockContext,this,mockRequest);
     if (!(result instanceof MockResult)) {
       String method=request.getMethod();
       if (method.equals("POST"))       result=dispatchPostRequest(mockRequest);
@@ -12,5 +17,12 @@
   }
  catch (  Exception e) {
     throw new DispatchException(e);
+  }
+ finally {
+    if (result instanceof MockResult) {
+      for (      MockRunListener listener : mockService.getMockRunListeners()) {
+        listener.onMockResult((MockResult)result);
+      }
+    }
   }
 }
