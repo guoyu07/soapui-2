@@ -4,8 +4,8 @@
   UISupport.stopCellEditing(paramsTable);
   String propertyName=paramsTableModel.getValueAt(row,0).toString();
   if (UISupport.confirm("Remove parameter [" + propertyName + "]?","Remove Parameter")) {
+    paramsTable.clearSelection();
     params.removeProperty(propertyName);
-    paramsTableModel.fireTableRowsDeleted(row,row);
     clearParamsAction.setEnabled(params.getPropertyCount() > 0);
   }
 }
