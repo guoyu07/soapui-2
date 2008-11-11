@@ -7,7 +7,7 @@
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
-    if (!param.isDisableUrlEncoding())     value=URLEncoder.encode(value);
+    if (value != null && !param.isDisableUrlEncoding())     value=URLEncoder.encode(value);
     responseProperties.put(param.getName(),value);
     if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {

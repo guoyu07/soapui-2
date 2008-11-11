@@ -1,7 +1,9 @@
 {
   prop.setDefaultValue(param.getDefault());
   prop.setValue(param.getDefault());
-  prop.setStyle(ParameterStyle.valueOf(param.getStyle().toString().toUpperCase()));
+  ParamStyle.Enum paramStyle=param.getStyle();
+  if (paramStyle == null)   paramStyle=ParamStyle.QUERY;
+  prop.setStyle(ParameterStyle.valueOf(paramStyle.toString().toUpperCase()));
   prop.setRequired(param.getRequired());
   prop.setType(param.getType());
   String[] options=new String[param.sizeOfOptionArray()];

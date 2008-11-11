@@ -12,11 +12,12 @@
   }
  else   if (evt.getPropertyName().equals("path") && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
     if (pathLabel != null) {
-      pathLabel.setText(getRequest().getResource().getFullPath());
+      updateFullPathLabel();
     }
     if (!updating) {
       updating=true;
       pathTextField.setText((String)evt.getNewValue());
+      pathTextField.setToolTipText(pathTextField.getText());
       updating=false;
     }
   }

@@ -1,0 +1,7 @@
+{
+  if (pathLabel != null && getRequest().getResource() != null) {
+    String text=RestUtils.expandPath(getRequest().getResource().getFullPath(),getRequest().getParams(),getRequest());
+    pathLabel.setText("[" + text + "]");
+    pathLabel.setToolTipText(text);
+  }
+}

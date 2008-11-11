@@ -31,25 +31,28 @@
     pathTextField=new JUndoableTextField();
     pathTextField.setPreferredSize(new Dimension(200,20));
     pathTextField.setText(getRequest().getResource().getPath());
+    pathTextField.setToolTipText(pathTextField.getText());
     pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
       @Override public void update(      Document document){
         if (updating)         return;
         updating=true;
         getRequest().getResource().setPath(pathTextField.getText());
+        pathTextField.setToolTipText(pathTextField.getText());
         updating=false;
       }
     }
 );
     toolbar.addLabeledFixed("Resource Path:",pathTextField);
-    pathLabel=new JLabel(getRequest().getResource().getFullPath());
-    pathLabel.setPreferredSize(new Dimension(200,20));
+    pathLabel=new JLabel();
+    updateFullPathLabel();
     toolbar.addSeparator();
-    toolbar.addLabeledFixed("Full Path:",pathLabel);
+    toolbar.add(pathLabel);
   }
  else {
     pathTextField=new JUndoableTextField();
     pathTextField.setPreferredSize(new Dimension(300,20));
     pathTextField.setText(getRequest().getPath());
+    pathTextField.setToolTipText(pathTextField.getText());
     pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
       @Override public void update(      Document document){
         getRequest().setPath(pathTextField.getText());

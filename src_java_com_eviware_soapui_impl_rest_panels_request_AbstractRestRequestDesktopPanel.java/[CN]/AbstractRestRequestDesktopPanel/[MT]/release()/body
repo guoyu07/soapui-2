@@ -2,5 +2,9 @@
   if (getRequest().getResource() != null) {
     getRequest().getResource().removePropertyChangeListener(this);
   }
+  getRequest().removeTestPropertyListener(testPropertyListener);
+  for (  TestProperty param : getRequest().getParams().getProperties().values()) {
+    ((XmlBeansRestParamsTestPropertyHolder.RestParamProperty)param).removePropertyChangeListener(restParamPropertyChangeListener);
+  }
   return super.release();
 }

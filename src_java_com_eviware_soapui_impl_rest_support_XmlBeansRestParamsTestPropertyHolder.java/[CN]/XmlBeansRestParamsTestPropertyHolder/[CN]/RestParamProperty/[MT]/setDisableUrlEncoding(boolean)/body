@@ -1,3 +1,6 @@
 {
+  boolean old=isDisableUrlEncoding();
+  if (old == encode)   return;
   propertyConfig.setDisableUrlEncoding(encode);
+  propertySupport.firePropertyChange("disableUrlEncoding",old,encode);
 }
