@@ -1,3 +1,8 @@
 {
-  return getConfig().isSetDefinitionCache() || (wsdlContext != null && wsdlContext.isCached());
+  if (wsdlContext != null && wsdlContext.isCached()) {
+    return true;
+  }
+  DefinitionCacheConfig cacheConfig=getConfig().getDefinitionCache();
+  if (cacheConfig == null || cacheConfig.getRootPart() == null || cacheConfig.sizeOfPartArray() == 0)   return false;
+  return true;
 }
