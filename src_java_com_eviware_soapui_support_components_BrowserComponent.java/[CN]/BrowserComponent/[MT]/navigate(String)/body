@@ -1,5 +1,7 @@
 {
   try {
+    System.setProperty("http.proxyHost",SoapUI.getSettings().getString(ProxySettings.HOST,System.getProperty("http.proxyHost",null)));
+    System.setProperty("http.proxyPort",SoapUI.getSettings().getString(ProxySettings.PORT,System.getProperty("http.proxyPort",null)));
     editorPane.setPage(new URL(url));
     return true;
   }
