@@ -3,21 +3,33 @@
   String path=request.getPath();
   StringBuffer query=new StringBuffer();
   StringToStringMap responseProperties=(StringToStringMap)context.getProperty(BaseHttpRequestTransport.RESPONSE_PROPERTIES);
+  MimeMultipart formMp=request.getMediaType().equals("multipart/form-data") ? new MimeMultipart() : null;
   XmlBeansRestParamsTestPropertyHolder params=request.getParams();
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
-    if (value != null && !param.isDisableUrlEncoding())     value=URLEncoder.encode(value);
     responseProperties.put(param.getName(),value);
+    if (value != null && formMp == null && !param.isDisableUrlEncoding())     value=URLEncoder.encode(value);
     if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {
 case HEADER:
       httpMethod.setRequestHeader(param.getName(),value);
     break;
 case QUERY:
-  if (query.length() > 0)   query.append('&');
-query.append(URLEncoder.encode(param.getName()));
-if (StringUtils.hasContent(value)) query.append('=').append(value);
+  if (formMp == null) {
+    if (query.length() > 0)     query.append('&');
+    query.append(URLEncoder.encode(param.getName()));
+    query.append('=');
+    if (StringUtils.hasContent(value))     query.append(value);
+  }
+ else {
+    try {
+      addFormMultipart(request,formMp,param.getName(),value);
+    }
+ catch (    MessagingException e) {
+      e.printStackTrace();
+    }
+  }
 break;
 case TEMPLATE:
 path=path.replaceAll("\\{" + param.getName() + "\\}",value);
@@ -57,13 +69,39 @@ if (StringUtils.hasContent(acceptEncoding)) {
 httpMethod.setRequestHeader("Accept",acceptEncoding);
 }
 String encoding=StringUtils.unquote(request.getEncoding());
+if (formMp != null) {
+try {
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
+String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent());
+if (StringUtils.hasContent(requestContent)) {
+initRootPart(request,requestContent,formMp);
+}
+}
+for (Attachment attachment : request.getAttachments()) {
+MimeBodyPart part=new MimeBodyPart();
+part.setDisposition("form-data; name=\"" + attachment.getName() + "\"");
+part.setDataHandler(new DataHandler(new AttachmentDataSource(attachment)));
+formMp.addBodyPart(part);
+}
+MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+message.setContent(formMp);
+message.saveChanges();
+RestRequestMimeMessageRequestEntity mimeMessageRequestEntity=new RestRequestMimeMessageRequestEntity(message,request);
+((EntityEnclosingMethod)httpMethod).setRequestEntity(mimeMessageRequestEntity);
+httpMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
+httpMethod.setRequestHeader("MIME-Version","1.0");
+}
+ catch (Throwable e) {
+SoapUI.logError(e);
+}
+}
+ else if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
 httpMethod.setRequestHeader("Content-Type",request.getMediaType());
 if (request.isPostQueryString()) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
 }
  else {
-String requestContent=request.getRequestContent();
+String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent());
 List<Attachment> attachments=new ArrayList<Attachment>();
 for (Attachment attachment : request.getAttachments()) {
 if (attachment.getContentType().equals(request.getMediaType())) {

@@ -1,0 +1,18 @@
+{
+  MimeBodyPart part=new MimeBodyPart();
+  if (value.startsWith("file:")) {
+    File file=new File(value.substring(5));
+    part.setDisposition("form-data; name=\"" + name + "\"; filename=\""+ file.getName()+ "\"");
+    if (file.exists()) {
+      part.setDataHandler(new DataHandler(new FileDataSource(file)));
+    }
+    part.setHeader("Content-Type",ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+  }
+ else {
+    part.setDisposition("form-data; name=\"" + name + "\"");
+    part.setText(URLEncoder.encode(value),request.getEncoding());
+  }
+  if (part != null) {
+    formMp.addBodyPart(part);
+  }
+}

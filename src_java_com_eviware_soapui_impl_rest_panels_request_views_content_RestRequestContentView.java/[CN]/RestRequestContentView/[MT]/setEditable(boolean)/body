@@ -1,5 +1,5 @@
 {
   contentEditor.setEnabledAndEditable(enabled ? restRequest.hasRequestBody() : false);
-  mediaTypeCombo.setEnabled(enabled);
+  mediaTypeCombo.setEnabled(enabled && !restRequest.isPostQueryString());
   postQueryCheckBox.setEnabled(enabled);
 }
