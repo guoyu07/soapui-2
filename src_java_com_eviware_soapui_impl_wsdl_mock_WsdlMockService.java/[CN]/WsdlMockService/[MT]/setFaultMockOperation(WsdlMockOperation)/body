@@ -1,5 +1,11 @@
 {
   faultMockOperation=mockOperation;
-  if (faultMockOperation == null)   getConfig().unsetFaultMockOperation();
- else   getConfig().setFaultMockOperation(faultMockOperation.getName());
+  if (faultMockOperation == null) {
+    if (getConfig().isSetFaultMockOperation()) {
+      getConfig().unsetFaultMockOperation();
+    }
+  }
+ else {
+    getConfig().setFaultMockOperation(faultMockOperation.getName());
+  }
 }
