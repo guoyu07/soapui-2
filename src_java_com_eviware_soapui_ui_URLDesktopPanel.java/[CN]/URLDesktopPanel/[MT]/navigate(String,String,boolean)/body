@@ -1,11 +1,6 @@
 {
   if (async) {
-    new Thread(new Runnable(){
-      public void run(){
-        browser.navigate(url,errorUrl);
-      }
-    }
-).start();
+    new Thread(new Navigator(url,errorUrl)).start();
   }
  else {
     browser.navigate(url,errorUrl);
