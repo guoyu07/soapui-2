@@ -1,5 +1,7 @@
 {
-  URLDesktopPanel urlDesktopPanel=new URLDesktopPanel("soapUI Starter Page","Info on soapUI",null);
+  if (urlDesktopPanel == null) {
+    urlDesktopPanel=new URLDesktopPanel("soapUI Starter Page","Info on soapUI",null);
+  }
   DesktopPanel dp=UISupport.showDesktopPanel(urlDesktopPanel);
   desktop.maximize(dp);
   urlDesktopPanel.navigate(PUSH_PAGE_URL + "?version=" + URLEncoder.encode(SOAPUI_VERSION),PUSH_PAGE_ERROR_URL,true);

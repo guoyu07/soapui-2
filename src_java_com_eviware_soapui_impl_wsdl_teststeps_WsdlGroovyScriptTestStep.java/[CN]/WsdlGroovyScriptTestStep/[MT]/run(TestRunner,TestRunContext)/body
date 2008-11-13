@@ -20,7 +20,7 @@
  else     result.setStatus(TestStepStatus.OK);
   }
  catch (  Throwable e) {
-    log.error(e);
+    SoapUI.logError(e);
     result.stopTimer();
     result.addMessage(e.getMessage());
     result.setError(e);
