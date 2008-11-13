@@ -11,13 +11,17 @@
         return true;
       }
     }
-,new ChangeOperationResolver(this){
+,new ChangeOperationResolver(this,"Resource"){
       @Override public boolean update(){
         restResource=(RestResource)getPickedOperation();
         if (restResource == null)         return false;
         initRestTestRequest(false);
         setDisabled(false);
         return true;
+      }
+      protected Interface[] getInterfaces(      WsdlProject project){
+        List<RestService> interfaces=ModelSupport.getChildren(project,RestService.class);
+        return interfaces.toArray(new Interface[interfaces.size()]);
       }
     }
 );

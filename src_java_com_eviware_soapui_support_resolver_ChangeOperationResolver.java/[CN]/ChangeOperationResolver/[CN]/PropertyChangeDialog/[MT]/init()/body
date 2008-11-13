@@ -3,7 +3,7 @@
   CellConstraints cc=new CellConstraints();
   PanelBuilder panel=new PanelBuilder(layout);
   panel.addLabel("Interface:",cc.xy(2,2));
-  List<WsdlInterface> ifaces=ModelSupport.getChildren(project,WsdlInterface.class);
+  Interface[] ifaces=getInterfaces(project);
   DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
   sourceStepCombo=new JComboBox(sourceStepComboModel);
   sourceStepCombo.setRenderer(new InterfaceComboRenderer());
@@ -12,7 +12,7 @@
   panel.add(sourceStepCombo,cc.xyw(4,2,3));
   propertiesCombo=new JComboBox(((Interface)sourceStepCombo.getSelectedItem()).getOperationList().toArray());
   propertiesCombo.setRenderer(new OperationComboRender());
-  panel.addLabel("Operation:",cc.xy(2,4));
+  panel.addLabel(operationType + ":",cc.xy(2,4));
   panel.add(propertiesCombo,cc.xyw(4,4,3));
   panel.add(okBtn,cc.xy(4,6));
   panel.add(cancelBtn,cc.xy(6,6));

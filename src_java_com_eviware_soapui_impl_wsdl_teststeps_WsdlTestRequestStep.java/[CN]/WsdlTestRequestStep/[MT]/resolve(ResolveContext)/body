@@ -12,7 +12,7 @@
         return true;
       }
     }
-,new ChangeOperationResolver(this){
+,new ChangeOperationResolver(this,"Operation"){
       @Override public boolean update(){
         wsdlOperation=(WsdlOperation)getPickedOperation();
         if (wsdlOperation == null)         return false;
@@ -20,6 +20,10 @@
         initRequestProperties();
         setDisabled(false);
         return true;
+      }
+      protected Interface[] getInterfaces(      WsdlProject project){
+        List<WsdlInterface> interfaces=ModelSupport.getChildren(project,WsdlInterface.class);
+        return interfaces.toArray(new Interface[interfaces.size()]);
       }
     }
 );

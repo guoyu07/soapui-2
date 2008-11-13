@@ -2,12 +2,12 @@
   if (async) {
     new Thread(new Runnable(){
       public void run(){
-        browser.navigate(url);
+        browser.navigate(url,errorUrl);
       }
     }
 ).start();
   }
  else {
-    browser.navigate(url);
+    browser.navigate(url,errorUrl);
   }
 }
