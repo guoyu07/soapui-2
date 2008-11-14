@@ -1,5 +1,11 @@
 {
   super(testCase,config,forLoadTest);
   restResource=findRestResource();
-  initRestTestRequest(forLoadTest);
+  initRestTestRequest();
+  if (!forLoadTest && restResource != null) {
+    restResource.getInterface().getProject().addProjectListener(projectListener);
+    restResource.getInterface().addInterfaceListener(interfaceListener);
+    restResource.getInterface().addPropertyChangeListener(this);
+    restResource.addPropertyChangeListener(this);
+  }
 }

@@ -1,7 +1,7 @@
 {
   if (evt.getSource() == restResource) {
     if (evt.getPropertyName().equals(RestResource.PATH_PROPERTY)) {
-      getRequestStepConfig().setResourcePath((String)evt.getNewValue());
+      getRequestStepConfig().setResourcePath(restResource.getFullPath());
     }
   }
  else   if (restResource != null && evt.getSource() == restResource.getInterface()) {

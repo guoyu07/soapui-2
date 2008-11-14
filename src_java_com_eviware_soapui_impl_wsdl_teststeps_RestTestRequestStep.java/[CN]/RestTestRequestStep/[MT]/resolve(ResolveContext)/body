@@ -4,18 +4,20 @@
     if (context.hasThisModelItem(this,"Missing REST Resource in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getResourcePath()))     return;
     context.addPathToResolve(this,"Missing REST Resource in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getResourcePath()).addResolvers(new RemoveTestStepResolver(this),new ImportInterfaceResolver(this){
       @Override protected boolean update(){
-        restResource=findRestResource();
+        RestResource restResource=findRestResource();
         if (restResource == null)         return false;
-        initRestTestRequest(false);
+        setResource(restResource);
+        initRestTestRequest();
         setDisabled(false);
         return true;
       }
     }
 ,new ChangeOperationResolver(this,"Resource"){
       @Override public boolean update(){
-        restResource=(RestResource)getPickedOperation();
+        RestResource restResource=(RestResource)getSelectedOperation();
         if (restResource == null)         return false;
-        initRestTestRequest(false);
+        setResource(restResource);
+        initRestTestRequest();
         setDisabled(false);
         return true;
       }

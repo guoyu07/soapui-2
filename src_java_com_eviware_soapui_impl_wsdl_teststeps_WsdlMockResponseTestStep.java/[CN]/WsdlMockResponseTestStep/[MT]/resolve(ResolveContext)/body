@@ -12,7 +12,7 @@
     }
 ,new ChangeOperationResolver(this,"Operation"){
       @Override public boolean update(){
-        WsdlOperation operation=(WsdlOperation)getPickedOperation();
+        WsdlOperation operation=(WsdlOperation)getSelectedOperation();
         setInterface(operation.getInterface().getName());
         setOperation(operation.getName());
         initMockObjects(getTestCase());

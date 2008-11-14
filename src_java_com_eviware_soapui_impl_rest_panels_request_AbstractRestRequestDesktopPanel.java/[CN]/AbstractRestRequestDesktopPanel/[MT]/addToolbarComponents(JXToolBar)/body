@@ -28,24 +28,28 @@
 );
     toolbar.addLabeledFixed("Accept",acceptCombo);
     toolbar.addSeparator();
-    pathTextField=new JUndoableTextField();
-    pathTextField.setPreferredSize(new Dimension(200,20));
-    pathTextField.setText(getRequest().getResource().getPath());
-    pathTextField.setToolTipText(pathTextField.getText());
-    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-      @Override public void update(      Document document){
-        if (updating)         return;
-        updating=true;
-        getRequest().getResource().setPath(pathTextField.getText());
-        pathTextField.setToolTipText(pathTextField.getText());
-        updating=false;
+    if (getRequest() instanceof RestTestRequest) {
+      pathCombo=new JComboBox(new PathComboBoxModel());
+      pathCombo.setRenderer(new ModelItemListCellRenderer());
+      pathCombo.setPreferredSize(new Dimension(200,20));
+      pathCombo.setSelectedItem(getRequest().getResource().getPath());
+      pathCombo.addItemListener(new ItemListener(){
+        public void itemStateChanged(        ItemEvent e){
+          if (updating)           return;
+          updating=true;
+          getRequest().getResource().setPath(String.valueOf(pathCombo.getSelectedItem()));
+          updating=false;
+        }
       }
-    }
 );
-    toolbar.addLabeledFixed("Resource Path:",pathTextField);
+      toolbar.addLabeledFixed("Resource:",pathCombo);
+      toolbar.addSeparator();
+    }
+ else {
+      toolbar.add(new JLabel("Full Path: "));
+    }
     pathLabel=new JLabel();
     updateFullPathLabel();
-    toolbar.addSeparator();
     toolbar.add(pathLabel);
   }
  else {

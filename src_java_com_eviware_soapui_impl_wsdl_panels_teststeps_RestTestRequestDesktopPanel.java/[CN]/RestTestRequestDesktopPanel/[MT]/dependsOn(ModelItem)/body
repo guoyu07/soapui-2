@@ -1,3 +1,8 @@
 {
-  return modelItem == getRequest() || modelItem == getModelItem() || modelItem == getRequest().getOperation() || modelItem == getRequest().getOperation().getInterface() || modelItem == getRequest().getOperation().getInterface().getProject() || modelItem == getModelItem().getTestCase() || modelItem == getModelItem().getTestCase().getTestSuite();
+  if (getRequest().getResource() == null) {
+    return modelItem == getRequest() || modelItem == getModelItem() || modelItem == getRequest().getOperation() || modelItem == getModelItem().getTestCase() || modelItem == getModelItem().getTestCase().getTestSuite() || modelItem == getModelItem().getTestCase().getTestSuite().getProject();
+  }
+ else {
+    return modelItem == getRequest() || modelItem == getModelItem() || modelItem == getRequest().getOperation() || modelItem == getRequest().getOperation().getInterface() || modelItem == getRequest().getOperation().getInterface().getProject() || modelItem == getModelItem().getTestCase() || modelItem == getModelItem().getTestCase().getTestSuite();
+  }
 }

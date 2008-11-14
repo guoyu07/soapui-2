@@ -14,7 +14,7 @@
     }
 ,new ChangeOperationResolver(this,"Operation"){
       @Override public boolean update(){
-        wsdlOperation=(WsdlOperation)getPickedOperation();
+        wsdlOperation=(WsdlOperation)getSelectedOperation();
         if (wsdlOperation == null)         return false;
         initTestRequest(getConfig(),false);
         initRequestProperties();
