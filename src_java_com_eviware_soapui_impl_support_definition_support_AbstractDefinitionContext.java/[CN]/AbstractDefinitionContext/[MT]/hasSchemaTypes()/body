@@ -6,5 +6,6 @@
     SoapUI.logError(e);
     return false;
   }
-  return definitionCache.containsKey(url) && definitionCache.get(url).hasSchemaTypes();
+  InterfaceDefinition def=(definition != null ? definition : definitionCache.get(url));
+  return def != null && def.hasSchemaTypes();
 }
