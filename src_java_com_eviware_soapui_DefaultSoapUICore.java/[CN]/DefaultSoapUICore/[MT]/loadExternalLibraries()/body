@@ -1,7 +1,7 @@
 {
   try {
     String extDir=System.getProperty("soapui.ext.libraries");
-    File dir=extDir != null ? new File(extDir) : StringUtils.isNullOrEmpty(root) ? new File("ext") : new File(new File(root),"ext");
+    File dir=extDir != null ? new File(extDir) : new File(new File(getRoot()),"ext");
     if (dir.exists() && dir.isDirectory()) {
       File[] files=dir.listFiles();
       for (      File file : files) {

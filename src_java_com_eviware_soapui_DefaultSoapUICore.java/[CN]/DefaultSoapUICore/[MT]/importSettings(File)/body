@@ -2,8 +2,9 @@
   File toFile=null;
   if (file != null) {
     log.info("Importing preferences from [" + file.getAbsolutePath() + "]");
-    toFile=new File(root == null ? System.getProperty("soapui.home") : root,file.getName());
+    toFile=new File(getRoot(),file.getName());
+    log.info("Copy preferences from [" + file.getAbsolutePath() + "] to ["+ toFile.getAbsolutePath()+ "]");
     Tools.copyFile(file,toFile,true);
-    initSettings(toFile.getName());
+    initSettings(file.getName());
   }
 }

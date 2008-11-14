@@ -1,10 +1,11 @@
 {
   try {
-    File settingsFile=root == null ? new File(System.getProperty("soapui.home"),fileName) : new File(new File(root),fileName);
+    File settingsFile=new File(new File(getRoot()),fileName);
     if (!settingsFile.exists()) {
       if (settingsDocument == null) {
         log.info("Creating new settings at [" + settingsFile.getAbsolutePath() + "]");
         settingsDocument=SoapuiSettingsDocumentConfig.Factory.newInstance();
+        setInitialImport(true);
       }
     }
  else {

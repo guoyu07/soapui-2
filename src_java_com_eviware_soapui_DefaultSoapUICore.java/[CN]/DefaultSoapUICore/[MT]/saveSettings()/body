@@ -1,6 +1,6 @@
 {
   if (settingsFile == null)   settingsFile=DEFAULT_SETTINGS_FILE;
-  File file=root == null ? new File(settingsFile) : new File(new File(root),settingsFile);
+  File file=new File(new File(getRoot()),settingsFile);
   SoapuiSettingsDocumentConfig settingsDocument=(SoapuiSettingsDocumentConfig)this.settingsDocument.copy();
   String password=settings.getString(SecuritySettings.SHADOW_PASSWORD,null);
   if (password != null && password.length() > 0) {

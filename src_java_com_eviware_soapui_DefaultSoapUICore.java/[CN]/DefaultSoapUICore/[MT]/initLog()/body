@@ -1,6 +1,6 @@
 {
   if (!logIsInitialized) {
-    File log4jconfig=root == null ? new File("soapui-log4j.xml") : new File(new File(root),"soapui-log4j.xml");
+    File log4jconfig=new File(new File(getRoot()),"soapui-log4j.xml");
     if (log4jconfig.exists()) {
       System.out.println("Configuring log4j from [" + log4jconfig.getAbsolutePath() + "]");
       DOMConfigurator.configureAndWatch(log4jconfig.getAbsolutePath(),5000);
