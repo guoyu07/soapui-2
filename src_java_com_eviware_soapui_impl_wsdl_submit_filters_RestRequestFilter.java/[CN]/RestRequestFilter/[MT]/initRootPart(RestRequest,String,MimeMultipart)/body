@@ -1,6 +1,5 @@
 {
   MimeBodyPart rootPart=new PreencodedMimeBodyPart("8bit");
-  rootPart.setContentID(AttachmentUtils.ROOTPART_SOAPUI_ORG);
   mp.addBodyPart(rootPart,0);
   DataHandler dataHandler=new DataHandler(new RestRequestDataSource(wsdlRequest,requestContent));
   rootPart.setDataHandler(dataHandler);

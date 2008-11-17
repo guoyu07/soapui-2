@@ -1,7 +1,7 @@
 {
   TupleList<RestRepresentation,SchemaType> list=new TupleList<RestRepresentation,SchemaType>(){
     protected String toStringHandler(    Tuple tuple){
-      return tuple.getValue2().getContainerField().getName().toString();
+      return tuple.getValue2().getDocumentElementName().toString();
     }
   }
 ;
@@ -19,5 +19,5 @@
   if (result == null) {
     return;
   }
-  restRequest.setRequestContent(SampleXmlUtil.createSampleForElement((SchemaGlobalElement)result.getValue2().getContainerField()));
+  restRequest.setRequestContent(SampleXmlUtil.createSampleForType(result.getValue2()));
 }
