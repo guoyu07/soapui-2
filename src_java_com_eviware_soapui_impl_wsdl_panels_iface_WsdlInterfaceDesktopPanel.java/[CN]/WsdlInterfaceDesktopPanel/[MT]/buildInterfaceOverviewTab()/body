@@ -1,5 +1,9 @@
 {
   metrics=new MetricsPanel();
+  JXToolBar toolbar=UISupport.createSmallToolbar();
+  toolbar.addGlue();
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.INTERFACE_OVERVIEW_HELP_URL)));
+  metrics.add(toolbar,BorderLayout.NORTH);
   MetricsSection section=metrics.addSection("WSDL Definition");
   try {
     section.addMetric("WSDL URL",MetricType.URL).set(iface.getDefinition());
