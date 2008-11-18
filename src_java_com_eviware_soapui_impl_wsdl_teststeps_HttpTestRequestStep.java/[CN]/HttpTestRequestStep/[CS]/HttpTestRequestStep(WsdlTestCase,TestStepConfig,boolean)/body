@@ -7,7 +7,7 @@
     testRequest.addTestPropertyListener(new InternalTestPropertyListener());
     if (config.isSetName())     testRequest.setName(config.getName());
  else     config.setName(testRequest.getName());
-    testRequest.setEndpoint(testRequest.getPath());
+    if (testRequest.getPath() != null)     testRequest.setEndpoint(testRequest.getPath());
   }
  else {
     requestStepConfig=(RestRequestStepConfig)getConfig().addNewConfig().changeType(RestRequestStepConfig.type);
