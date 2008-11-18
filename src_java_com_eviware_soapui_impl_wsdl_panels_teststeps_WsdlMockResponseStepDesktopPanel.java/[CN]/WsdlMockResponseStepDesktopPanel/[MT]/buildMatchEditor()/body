@@ -2,5 +2,6 @@
   JPanel panel=new JPanel(new BorderLayout());
   matchEditorModel=new ModelItemPropertyEditorModel<WsdlMockResponseTestStep>(getModelItem(),"match");
   panel.add(UISupport.getEditorFactory().buildXmlEditor(matchEditorModel),BorderLayout.CENTER);
+  UISupport.addTitledBorder(panel,"Matching Value");
   return panel;
 }
