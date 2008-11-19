@@ -1,5 +1,3 @@
 {
-  Header contentEncodingHeader=getResponseHeader("Content-Encoding");
-  if (contentEncodingHeader != null)   return contentEncodingHeader.getValue();
-  return super.getResponseCharSet();
+  return httpMethodSupport.getResponseCharset();
 }
