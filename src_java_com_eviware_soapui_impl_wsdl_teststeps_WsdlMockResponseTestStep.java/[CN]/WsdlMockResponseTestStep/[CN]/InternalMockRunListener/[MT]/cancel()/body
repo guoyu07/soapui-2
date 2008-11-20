@@ -1,3 +1,8 @@
 {
   canceled=true;
+  if (waiting) {
+synchronized (this) {
+      notifyAll();
+    }
+  }
 }

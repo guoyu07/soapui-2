@@ -11,6 +11,7 @@ synchronized (mockRunListener) {
       }
     }
     result.stopTimer();
+    if (mockRunner != null && mockRunner.isRunning())     mockRunner.stop();
     AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(mockRunListener.getResult());
     result.setMessageExchange(messageExchange);
     if (mockRunListener.getResult() != null) {

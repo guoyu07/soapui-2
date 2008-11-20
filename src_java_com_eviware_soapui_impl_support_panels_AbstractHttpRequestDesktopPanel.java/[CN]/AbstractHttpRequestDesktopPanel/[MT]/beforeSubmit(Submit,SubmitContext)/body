@@ -8,7 +8,7 @@
     }
   }
  else {
-    requestEditor.saveDocument(false);
+    if (requestEditor != null)     requestEditor.saveDocument(false);
   }
   setEnabled(false);
   cancelButton.setEnabled(AbstractHttpRequestDesktopPanel.this.submit != null);
