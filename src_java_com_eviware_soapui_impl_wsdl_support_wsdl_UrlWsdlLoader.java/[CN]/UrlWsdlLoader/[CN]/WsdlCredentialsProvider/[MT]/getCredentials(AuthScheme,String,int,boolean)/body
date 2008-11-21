@@ -33,7 +33,11 @@
       StringToStringMap values=new StringToStringMap();
       values.put("Info","Authentication required for [" + host + ":"+ port+ "]");
       basicDialog.setValues(values);
-      if (basicDialog.show()) {
+      ShowDialog showBasicDialog=new ShowDialog(basicDialog);
+      log.info("show basicDialog in UI thread");
+      UISupport.getUIUtils().runInUIThreadIfSWT(showBasicDialog);
+      log.info("basicDialog.show finished");
+      if (showBasicDialog.result) {
         values=basicDialog.getValues();
         return new UsernamePasswordCredentials(values.get("Username"),values.get("Password"));
       }
