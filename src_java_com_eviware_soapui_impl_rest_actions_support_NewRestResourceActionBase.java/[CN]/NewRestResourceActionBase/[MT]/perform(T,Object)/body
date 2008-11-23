@@ -33,4 +33,8 @@
       createRequest(resource);
     }
   }
+  paramsTable.release();
+  paramsTable=null;
+  params=null;
+  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
 }

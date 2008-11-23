@@ -9,20 +9,28 @@
   paramsTable=new RestParamsTable(params,false);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   dialog.setValue(Form.STEPNAME,name);
-  if (dialog.show()) {
-    RestRequestStepConfig testStepConfig=RestRequestStepConfig.Factory.newInstance();
-    RestMethodConfig requestConfig=testStepConfig.addNewRestRequest();
-    requestConfig.setFullPath(dialog.getValue(Form.ENDPOINT));
-    requestConfig.setEndpoint(dialog.getValue(Form.ENDPOINT));
-    requestConfig.setMethod(dialog.getValue(Form.HTTPMETHOD));
-    new XmlBeansRestParamsTestPropertyHolder(testCase,requestConfig.addNewParameters()).addParameters(params);
-    TestStepConfig testStep=TestStepConfig.Factory.newInstance();
-    testStep.setType(HTTPREQUEST_TYPE);
-    testStep.setConfig(testStepConfig);
-    testStep.setName(dialog.getValue(Form.STEPNAME));
-    return testStep;
-  }
+  try {
+    if (dialog.show()) {
+      RestRequestStepConfig testStepConfig=RestRequestStepConfig.Factory.newInstance();
+      RestMethodConfig requestConfig=testStepConfig.addNewRestRequest();
+      requestConfig.setFullPath(dialog.getValue(Form.ENDPOINT));
+      requestConfig.setEndpoint(dialog.getValue(Form.ENDPOINT));
+      requestConfig.setMethod(dialog.getValue(Form.HTTPMETHOD));
+      new XmlBeansRestParamsTestPropertyHolder(testCase,requestConfig.addNewParameters()).addParameters(params);
+      TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+      testStep.setType(HTTPREQUEST_TYPE);
+      testStep.setConfig(testStepConfig);
+      testStep.setName(dialog.getValue(Form.STEPNAME));
+      return testStep;
+    }
  else {
-    return null;
+      return null;
+    }
+  }
+  finally {
+    paramsTable.release();
+    paramsTable=null;
+    params=null;
+    dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   }
 }
