@@ -1,6 +1,6 @@
 {
   String content=response == null ? null : response.getContentAsString();
-  if (!StringUtils.hasContent(content))   return null;
+  if (!StringUtils.hasContent(content))   return "<xml/>";
   try {
     Tidy tidy=new Tidy();
     tidy.setXmlOut(true);

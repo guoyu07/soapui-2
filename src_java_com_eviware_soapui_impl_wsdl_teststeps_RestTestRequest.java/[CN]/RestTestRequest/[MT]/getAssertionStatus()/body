@@ -1,7 +1,7 @@
 {
   currentStatus=AssertionStatus.UNKNOWN;
   if (messageExchange != null) {
-    if (!messageExchange.hasResponse() && getOperation().isBidirectional()) {
+    if (!messageExchange.hasResponse() && getOperation() != null && getOperation().isBidirectional()) {
       currentStatus=AssertionStatus.FAILED;
     }
   }
