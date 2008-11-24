@@ -6,7 +6,7 @@
     capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
     capturedData.setRequestHost(httpRequest.getRemoteHost());
     capturedData.setRequestHeader(httpRequest);
-    capturedData.setTargetURL("https://" + inetAddress.getHostName());
+    capturedData.setTargetURL(this.prot + inetAddress.getHostName());
   }
   CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
   Enumeration<?> headerNames=httpRequest.getHeaderNames();
@@ -33,8 +33,9 @@
   }
   postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
   HostConfiguration hostConfiguration=new HostConfiguration();
+  httpRequest.getProtocol();
   hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
-  hostConfiguration.setHost(new URI("https://" + sslEndPoint,true));
+  hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
     client.executeMethod(hostConfiguration,postMethod,httpState);

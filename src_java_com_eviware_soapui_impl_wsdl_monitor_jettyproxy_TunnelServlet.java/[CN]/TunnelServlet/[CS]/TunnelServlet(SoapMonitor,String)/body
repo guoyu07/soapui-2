@@ -1,5 +1,8 @@
 {
   super(soapMonitor);
+  if (!sslEndpoint.startsWith("https")) {
+    this.prot="http://";
+  }
   int prefix=sslEndpoint.indexOf("://");
   int c=sslEndpoint.indexOf(prefix,':');
   if (c > 0) {

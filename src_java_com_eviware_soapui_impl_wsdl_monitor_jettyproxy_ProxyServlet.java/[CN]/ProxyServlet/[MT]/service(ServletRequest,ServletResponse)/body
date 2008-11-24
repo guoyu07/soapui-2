@@ -35,8 +35,10 @@
   if (!xForwardedFor)   postMethod.addRequestHeader("X-Forwarded-For",request.getRemoteAddr());
   postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
   HostConfiguration hostConfiguration=new HostConfiguration();
-  hostConfiguration.setHost(new URI("http://" + httpRequest.getServerName() + httpRequest.getServletPath(),true));
-  postMethod.setPath("http://" + httpRequest.getServerName() + httpRequest.getServletPath());
+  String url="http://" + httpRequest.getServerName() + ":"+ httpRequest.getServerPort()+ httpRequest.getServletPath();
+  hostConfiguration.setHost(new URI(url,true));
+  postMethod.setPath(url);
+  SoapUI.log("PROXY to:" + url);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
     client.executeMethod(hostConfiguration,postMethod,httpState);
