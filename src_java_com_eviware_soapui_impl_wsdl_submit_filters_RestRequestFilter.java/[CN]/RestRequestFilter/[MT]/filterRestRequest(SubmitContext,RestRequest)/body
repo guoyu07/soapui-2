@@ -72,7 +72,7 @@ String encoding=StringUtils.unquote(request.getEncoding());
 if (formMp != null) {
 try {
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
-String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent());
+String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
 if (StringUtils.hasContent(requestContent)) {
 initRootPart(request,requestContent,formMp);
 }
@@ -101,7 +101,7 @@ if (request.isPostQueryString()) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
 }
  else {
-String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent());
+String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
 List<Attachment> attachments=new ArrayList<Attachment>();
 for (Attachment attachment : request.getAttachments()) {
 if (attachment.getContentType().equals(request.getMediaType())) {
