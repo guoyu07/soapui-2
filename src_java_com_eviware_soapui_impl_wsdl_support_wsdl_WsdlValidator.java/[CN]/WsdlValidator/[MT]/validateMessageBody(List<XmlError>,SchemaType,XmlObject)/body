@@ -2,7 +2,13 @@
   XmlOptions xmlOptions=new XmlOptions();
   xmlOptions.setLoadLineNumbers();
   xmlOptions.setLoadLineNumbers(XmlOptions.LOAD_LINE_NUMBERS_END_ELEMENT);
+  XmlCursor cur=msg.newCursor();
+  Map<String,String> map=new HashMap<String,String>();
+  while (cur.hasNextToken()) {
+    if (cur.toNextToken().isNamespace())     map.put(cur.getName().getLocalPart(),cur.getTextValue());
+  }
   String xmlText=msg.copy().changeType(type).xmlText(xmlOptions.setSaveOuter());
+  xmlOptions.setLoadAdditionalNamespaces(map);
   XmlObject obj=type.getTypeSystem().parse(xmlText,type,xmlOptions);
   obj=obj.changeType(type);
   List<?> list=new ArrayList<Object>();
