@@ -7,6 +7,7 @@
       part.setDataHandler(new DataHandler(new FileDataSource(file)));
     }
     part.setHeader("Content-Type",ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+    part.setHeader("Content-Transfer-Encoding","binary");
   }
  else {
     part.setDisposition("form-data; name=\"" + name + "\"");
