@@ -4,6 +4,7 @@
   while (cursor.hasNextToken()) {
     if (cursor.toNextToken().isNamespace())     map.put(cursor.getName(),cursor.getTextValue());
   }
+  cursor.dispose();
   Iterator<QName> i=map.keySet().iterator();
   int nsCnt=0;
   StringBuffer buf=new StringBuffer();
