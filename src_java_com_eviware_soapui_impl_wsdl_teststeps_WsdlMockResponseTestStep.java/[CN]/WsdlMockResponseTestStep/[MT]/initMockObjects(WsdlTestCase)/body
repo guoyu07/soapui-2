@@ -12,6 +12,7 @@
     mockOperation=mockService.addNewMockOperation(iface.getOperationByName(mockResponseStepConfig.getOperation()));
     if (mockResponseStepConfig.getHandleFault())     mockService.setFaultMockOperation(mockOperation);
     if (mockResponseStepConfig.getHandleResponse())     mockService.setDispatchResponseMessages(true);
+    setStartStep(mockResponseStepConfig.getStartStep());
     mockResponse=mockOperation.addNewMockResponse("MockResponse",false);
     mockResponse.setConfig(mockResponseConfig);
     mockOperation.setDefaultResponse(mockResponse.getName());
