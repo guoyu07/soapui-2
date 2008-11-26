@@ -1,6 +1,15 @@
 {
+  File settingsFile=fileName.equals(new File(fileName).getAbsoluteFile()) ? new File(fileName) : null;
   try {
-    File settingsFile=new File(new File(getRoot()),fileName);
+    if (settingsFile == null) {
+      settingsFile=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
+      if (!settingsFile.exists()) {
+        settingsFile=new File(new File(System.getProperty("user.home")),DEFAULT_SETTINGS_FILE);
+      }
+    }
+ else {
+      settingsFile=new File(fileName);
+    }
     if (!settingsFile.exists()) {
       if (settingsDocument == null) {
         log.info("Creating new settings at [" + settingsFile.getAbsolutePath() + "]");
@@ -48,7 +57,7 @@
  else {
     settings=new XmlBeansSettingsImpl(null,null,settingsDocument.getSoapuiSettings());
   }
-  this.settingsFile=fileName;
+  this.settingsFile=settingsFile.getAbsolutePath();
   if (!settings.isSet(WsdlSettings.EXCLUDED_TYPES)) {
     StringList list=new StringList();
     list.add("schema@http://www.w3.org/2001/XMLSchema");
