@@ -1,6 +1,6 @@
 {
   try {
-    if (StringUtils.isNullOrEmpty(xml))     return xml;
+    if (!XmlUtils.seemsToBeXml(xml))     return xml;
     StringWriter writer=new StringWriter();
     XmlUtils.serializePretty(XmlObject.Factory.parse(xml),writer);
     return writer.toString();
