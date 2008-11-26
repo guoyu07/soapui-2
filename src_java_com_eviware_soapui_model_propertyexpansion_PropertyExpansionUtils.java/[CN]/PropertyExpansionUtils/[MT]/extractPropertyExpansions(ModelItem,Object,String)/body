@@ -11,9 +11,12 @@
           int ix2=str.indexOf('}',ix + 2);
           if (ix2 == -1)           break;
           String expansion=str.substring(ix + 2,ix2);
-          MutablePropertyExpansion tp=createMutablePropertyExpansion(expansion,modelItem,target,propertyName);
-          if (tp != null) {
-            result.add(tp);
+          if (!expansions.contains(expansion)) {
+            MutablePropertyExpansion tp=createMutablePropertyExpansion(expansion,modelItem,target,propertyName);
+            if (tp != null) {
+              result.add(tp);
+              expansions.add(expansion);
+            }
           }
           str=str.substring(ix2);
           ix=str.indexOf("${");
