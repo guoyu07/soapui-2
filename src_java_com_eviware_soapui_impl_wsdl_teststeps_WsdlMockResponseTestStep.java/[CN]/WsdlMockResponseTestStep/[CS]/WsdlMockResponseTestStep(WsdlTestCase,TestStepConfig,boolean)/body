@@ -19,9 +19,5 @@
   }
   initProperties();
   testCase.addTestRunListener(testRunListener);
-  startTestStep=testCase.getTestStepByName(getStartStep());
-  if (startTestStep != null) {
-    startTestStep.addPropertyChangeListener(this);
-  }
   testCase.addPropertyChangeListener(this);
 }

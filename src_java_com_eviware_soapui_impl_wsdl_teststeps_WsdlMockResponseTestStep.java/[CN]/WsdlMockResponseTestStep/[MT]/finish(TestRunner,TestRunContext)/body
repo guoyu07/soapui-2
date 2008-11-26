@@ -4,6 +4,10 @@
     mockRunListener=null;
   }
   if (testMockResponse != null) {
+    if (startStepMockRunListener != null) {
+      mockService.removeMockRunListener(startStepMockRunListener);
+      startStepMockRunListener=null;
+    }
     if (testMockResponse != mockResponse) {
       mockOperation.removeMockResponse(testMockResponse);
     }

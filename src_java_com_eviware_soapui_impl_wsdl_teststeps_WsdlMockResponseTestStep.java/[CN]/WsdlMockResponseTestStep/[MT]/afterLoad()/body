@@ -1,0 +1,9 @@
+{
+  super.afterLoad();
+  if (mockResponseStepConfig.isSetStartStep()) {
+    startTestStep=getTestCase().getTestStepByName(mockResponseStepConfig.getStartStep());
+    if (startTestStep != null) {
+      startTestStep.addPropertyChangeListener(this);
+    }
+  }
+}

@@ -1,6 +1,12 @@
 {
   if (runContext.getCurrentStep() == startTestStep && testMockResponse == null) {
-    initTestMockResponse(runContext);
-    mockRunListener.setWaiting(true);
+    if (startTestStep instanceof WsdlMockResponseTestStep && ((WsdlMockResponseTestStep)startTestStep).getMockResponse().getMockResult() == null) {
+      startStepMockRunListener=new StartStepMockRunListener(runContext);
+      mockService.addMockRunListener(startStepMockRunListener);
+    }
+ else {
+      initTestMockResponse(runContext);
+      mockRunListener.setWaiting(true);
+    }
   }
 }
