@@ -1,5 +1,6 @@
 {
-  if (evt.getSource() == mockResponse) {
+  if (evt.getSource() == mockResponse || evt.getSource() == mockResponse.getWsaConfig()) {
+    mockResponse.beforeSave();
     mockResponseConfig.set(mockResponse.getConfig());
     notifyPropertyChanged(evt.getPropertyName(),evt.getOldValue(),evt.getNewValue());
   }
