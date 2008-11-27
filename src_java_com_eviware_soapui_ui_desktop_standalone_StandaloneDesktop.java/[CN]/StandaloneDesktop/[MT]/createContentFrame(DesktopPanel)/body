@@ -12,7 +12,9 @@
   frame.setToolTipText(desktopPanel.getDescription());
   frame.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
   frame.setLocation(xOffset * (openFrameCount % 10),yOffset * (openFrameCount % 10));
-  frame.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createEmptyBorder(2,2,2,2)));
+  if (!SoapUI.getSettings().getBoolean(UISettings.NATIVE_LAF)) {
+    frame.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createEmptyBorder(2,2,2,2)));
+  }
   openFrameCount++;
   return frame;
 }
