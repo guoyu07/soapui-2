@@ -1,7 +1,9 @@
 {
   if (evt.getSource() == mockResponse || evt.getSource() == mockResponse.getWsaConfig()) {
-    mockResponse.beforeSave();
-    mockResponseConfig.set(mockResponse.getConfig());
+    if (!evt.getPropertyName().equals(WsdlMockResponse.ICON_PROPERTY)) {
+      mockResponse.beforeSave();
+      mockResponseConfig.set(mockResponse.getConfig());
+    }
     notifyPropertyChanged(evt.getPropertyName(),evt.getOldValue(),evt.getNewValue());
   }
  else   if (evt.getSource() == getTestCase() && evt.getPropertyName().equals("testSteps") && evt.getNewValue() == null && evt.getOldValue() == startTestStep && startTestStep != null) {

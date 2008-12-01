@@ -2,9 +2,9 @@
   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
+    result.startTimer();
     if (!mockRunListener.hasResult()) {
       if (testMockResponse == null)       initTestMockResponse(context);
-      result.startTimer();
       long timeout=getTimeout();
 synchronized (mockRunListener) {
         mockRunListener.waitForRequest(timeout);

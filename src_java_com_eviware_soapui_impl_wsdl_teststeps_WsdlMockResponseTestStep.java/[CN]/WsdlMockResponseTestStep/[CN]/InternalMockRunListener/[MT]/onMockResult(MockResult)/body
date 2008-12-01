@@ -1,10 +1,11 @@
 {
   if (this.result == null && waiting && result.getMockResponse() == testMockResponse) {
     this.setResult((WsdlMockResult)result);
-    if (waiting) {
+    testMockResponse.setMockResult(null);
+    waiting=false;
+    System.out.println("Got mockrequest to [" + getName() + "]");
 synchronized (this) {
-        notifyAll();
-      }
+      notifyAll();
     }
   }
 }
