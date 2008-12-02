@@ -5,7 +5,7 @@
   }
   if (testMockResponse != null) {
     if (startStepMockRunListener != null) {
-      mockService.removeMockRunListener(startStepMockRunListener);
+      startStepMockRunListener.release();
       startStepMockRunListener=null;
     }
     if (testMockResponse != mockResponse) {

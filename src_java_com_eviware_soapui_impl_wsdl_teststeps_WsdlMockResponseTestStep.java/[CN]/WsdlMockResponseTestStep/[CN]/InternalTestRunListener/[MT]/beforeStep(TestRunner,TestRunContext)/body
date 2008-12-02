@@ -1,8 +1,8 @@
 {
   if (runContext.getCurrentStep() == startTestStep && testMockResponse == null) {
-    if (startTestStep instanceof WsdlMockResponseTestStep && ((WsdlMockResponseTestStep)startTestStep).getMockResponse().getMockResult() == null) {
-      startStepMockRunListener=new StartStepMockRunListener(runContext);
-      mockService.addMockRunListener(startStepMockRunListener);
+    if (startTestStep instanceof WsdlMockResponseTestStep) {
+      System.out.println("Adding StartStepMockRunListener from " + getName() + " to "+ startTestStep.getName());
+      startStepMockRunListener=new StartStepMockRunListener(runContext,(WsdlMockResponseTestStep)startTestStep);
     }
  else {
       initTestMockResponse(runContext);
