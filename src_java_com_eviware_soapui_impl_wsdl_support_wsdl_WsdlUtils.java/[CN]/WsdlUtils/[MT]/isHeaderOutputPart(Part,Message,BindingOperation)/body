@@ -1,5 +1,6 @@
 {
-  List<SOAPHeader> headers=WsdlUtils.getExtensiblityElements(bindingOperation.getBindingOutput().getExtensibilityElements(),SOAPHeader.class);
+  BindingOutput bindingOutput=bindingOperation.getBindingOutput();
+  List<SOAPHeader> headers=bindingOutput == null ? null : WsdlUtils.getExtensiblityElements(bindingOutput.getExtensibilityElements(),SOAPHeader.class);
   if (headers == null || headers.isEmpty())   return false;
   for (  SOAPHeader header : headers) {
     if (message.getQName().equals(header.getMessage()) && part.getName().equals(header.getPart()))     return true;

@@ -1,5 +1,6 @@
 {
-  String ns=WsdlUtils.getSoapBodyNamespace(bindingOperation.getBindingOutput().getExtensibilityElements());
+  BindingOutput bindingOutput=bindingOperation.getBindingOutput();
+  String ns=bindingOutput == null ? null : WsdlUtils.getSoapBodyNamespace(bindingOutput.getExtensibilityElements());
   if (ns == null) {
     ns=wsdlContext.getDefinition().getTargetNamespace();
     log.warn("missing namespace on soapbind:body for RPC response, using targetNamespace instead (BP violation)");

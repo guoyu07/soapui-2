@@ -4,7 +4,9 @@
     WsdlContext wsdlContext=getInterface().getWsdlContext();
     BindingOperation bindingOperation=findBindingOperation(wsdlContext.getDefinition());
     if (bindingOperation == null)     return new MessagePart[0];
-    List<SoapHeader> headers=WsdlUtils.getSoapHeaders(bindingOperation.getBindingInput().getExtensibilityElements());
+    BindingInput bindingInput=bindingOperation.getBindingInput();
+    if (bindingInput == null)     return new MessagePart[0];
+    List<SoapHeader> headers=WsdlUtils.getSoapHeaders(bindingInput.getExtensibilityElements());
     for (int i=0; i < headers.size(); i++) {
       SoapHeader header=headers.get(i);
       Message message=wsdlContext.getDefinition().getMessage(header.getMessage());

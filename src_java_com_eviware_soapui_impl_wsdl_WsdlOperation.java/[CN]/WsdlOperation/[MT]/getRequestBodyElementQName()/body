@@ -3,7 +3,9 @@
   Definition definition=iface.getWsdlContext().getDefinition();
   BindingOperation bindingOperation=findBindingOperation(definition);
   if (WsdlUtils.isRpc(definition,bindingOperation)) {
-    String ns=WsdlUtils.getSoapBodyNamespace(bindingOperation.getBindingInput().getExtensibilityElements());
+    BindingInput bindingInput=bindingOperation.getBindingInput();
+    if (bindingInput == null)     return null;
+    String ns=WsdlUtils.getSoapBodyNamespace(bindingInput.getExtensibilityElements());
     if (ns == null) {
       ns=definition.getTargetNamespace();
     }

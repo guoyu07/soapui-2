@@ -21,9 +21,12 @@
     buildDocumentRequest(bindingOperation,cursor,xmlGenerator);
   }
   if (alwaysBuildHeaders) {
-    List extensibilityElements=bindingOperation.getBindingInput().getExtensibilityElements();
-    List<SoapHeader> soapHeaders=WsdlUtils.getSoapHeaders(extensibilityElements);
-    addHeaders(soapHeaders,cursor,xmlGenerator);
+    BindingInput bindingInput=bindingOperation.getBindingInput();
+    if (bindingInput != null) {
+      List extensibilityElements=bindingInput.getExtensibilityElements();
+      List<SoapHeader> soapHeaders=WsdlUtils.getSoapHeaders(extensibilityElements);
+      addHeaders(soapHeaders,cursor,xmlGenerator);
+    }
   }
   cursor.dispose();
   try {

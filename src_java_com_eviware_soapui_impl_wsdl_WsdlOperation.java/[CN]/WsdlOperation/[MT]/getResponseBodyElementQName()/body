@@ -4,7 +4,8 @@
   Definition definition=iface.getWsdlContext().getDefinition();
   BindingOperation bindingOperation=findBindingOperation(definition);
   if (WsdlUtils.isRpc(definition,bindingOperation)) {
-    String ns=WsdlUtils.getSoapBodyNamespace(bindingOperation.getBindingOutput().getExtensibilityElements());
+    BindingOutput bindingOutput=bindingOperation.getBindingOutput();
+    String ns=bindingOutput == null ? null : WsdlUtils.getSoapBodyNamespace(bindingOutput.getExtensibilityElements());
     if (ns == null) {
       ns=definition.getTargetNamespace();
     }

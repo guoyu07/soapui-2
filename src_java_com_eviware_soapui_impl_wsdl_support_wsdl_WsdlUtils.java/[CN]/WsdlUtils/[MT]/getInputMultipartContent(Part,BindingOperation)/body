@@ -1,4 +1,6 @@
 {
-  MIMEMultipartRelated multipartInput=WsdlUtils.getExtensiblityElement(operation.getBindingInput().getExtensibilityElements(),MIMEMultipartRelated.class);
+  BindingInput bindingInput=operation.getBindingInput();
+  if (bindingInput == null)   return new MIMEContent[0];
+  MIMEMultipartRelated multipartInput=WsdlUtils.getExtensiblityElement(bindingInput.getExtensibilityElements(),MIMEMultipartRelated.class);
   return getContentParts(part,multipartInput);
 }

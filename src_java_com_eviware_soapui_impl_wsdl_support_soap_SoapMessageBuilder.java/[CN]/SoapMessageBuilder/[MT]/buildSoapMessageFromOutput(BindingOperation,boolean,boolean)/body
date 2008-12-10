@@ -22,9 +22,11 @@
   }
   if (alwaysBuildHeaders) {
     BindingOutput bindingOutput=bindingOperation.getBindingOutput();
-    List extensibilityElements=bindingOutput.getExtensibilityElements();
-    List<SoapHeader> soapHeaders=WsdlUtils.getSoapHeaders(extensibilityElements);
-    addHeaders(soapHeaders,cursor,xmlGenerator);
+    if (bindingOutput != null) {
+      List extensibilityElements=bindingOutput.getExtensibilityElements();
+      List<SoapHeader> soapHeaders=WsdlUtils.getSoapHeaders(extensibilityElements);
+      addHeaders(soapHeaders,cursor,xmlGenerator);
+    }
   }
   cursor.dispose();
   try {
