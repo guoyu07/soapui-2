@@ -14,7 +14,26 @@
         continue;
       }
       if (wsdlOperation.getStyle().equals(WsdlOperation.STYLE_DOCUMENT)) {
-        return wsdlOperation;
+        BindingOperation bindingOperation=wsdlOperation.getBindingOperation();
+        Message message=bindingOperation.getOperation().getInput().getMessage();
+        List<Part> parts=message.getOrderedParts(null);
+        for (int x=0; x < parts.size(); x++) {
+          if (WsdlUtils.isAttachmentInputPart(parts.get(x),bindingOperation)) {
+            for (            Attachment attachment : attachments) {
+              if (attachment.getPart().equals(parts.get(x).getName())) {
+                parts.remove(x);
+                x--;
+              }
+            }
+          }
+ else {
+            parts.remove(x);
+            x--;
+          }
+        }
+        if (parts.isEmpty()) {
+          return wsdlOperation;
+        }
       }
  else       if (wsdlOperation.getStyle().equals(WsdlOperation.STYLE_RPC)) {
         BindingOperation bindingOperation=wsdlOperation.getBindingOperation();
@@ -24,7 +43,15 @@
         int i=0;
         if (parts.size() > 0) {
           for (int x=0; x < parts.size(); x++) {
-            if (WsdlUtils.isAttachmentInputPart(parts.get(x),bindingOperation) || WsdlUtils.isHeaderInputPart(parts.get(x),message,bindingOperation)) {
+            if (WsdlUtils.isAttachmentInputPart(parts.get(x),bindingOperation)) {
+              for (              Attachment attachment : attachments) {
+                if (attachment.getPart().equals(parts.get(x).getName())) {
+                  parts.remove(x);
+                  x--;
+                }
+              }
+            }
+            if (WsdlUtils.isHeaderInputPart(parts.get(x),message,bindingOperation)) {
               parts.remove(x);
               x--;
             }

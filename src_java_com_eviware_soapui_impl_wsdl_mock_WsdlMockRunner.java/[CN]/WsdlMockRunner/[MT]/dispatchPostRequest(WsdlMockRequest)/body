@@ -12,7 +12,7 @@
     }
  else {
       try {
-        operation=SoapUtils.findOperationForRequest(soapVersion,soapAction,mockRequest.getRequestXmlObject(),mockService.getMockedOperations(),mockService.isRequireSoapVersion(),mockService.isRequireSoapAction());
+        operation=SoapUtils.findOperationForRequest(soapVersion,soapAction,mockRequest.getRequestXmlObject(),mockService.getMockedOperations(),mockService.isRequireSoapVersion(),mockService.isRequireSoapAction(),mockRequest.getRequestAttachments());
       }
  catch (      Exception e) {
         if (mockService.isDispatchResponseMessages()) {
