@@ -5,6 +5,7 @@
   builder.addFixed(new JLabel("Dispatch: "));
   builder.addRelatedGap();
   dispatchCombo=new JComboBox(MockOperationDispatchRegistry.getDispatchTypes());
+  dispatchCombo.setSelectedItem(null);
   dispatchCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       if (dispatchPanel.getComponentCount() > 1)       dispatchPanel.remove(1);
