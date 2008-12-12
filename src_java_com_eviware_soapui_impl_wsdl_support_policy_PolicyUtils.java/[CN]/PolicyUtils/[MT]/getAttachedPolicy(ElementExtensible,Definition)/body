@@ -8,7 +8,7 @@
       Element policy=null;
       for (int i=0; i < policies.length; i++) {
         policy=policies[i];
-        String policyIdx=policy.getAttributeNS(WSU_NAMESPACE,"Id");
+        String policyIdx=policy.getAttributeNS(WS_SECURITY_NAMESPACE,"Id");
         if (policyId.equals("#" + policyIdx)) {
           rtnPolicy=getPolicy(policy);
           continue;
