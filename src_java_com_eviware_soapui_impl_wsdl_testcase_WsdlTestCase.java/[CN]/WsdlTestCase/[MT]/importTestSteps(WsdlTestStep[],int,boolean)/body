@@ -3,9 +3,8 @@
   for (int c=0; c < testSteps.length; c++) {
     testSteps[c].beforeSave();
     newStepConfigs[c]=(TestStepConfig)testSteps[c].getConfig().copy();
-    if (createCopies && newStepConfigs[c].isSetId())     newStepConfigs[c].unsetId();
   }
-  WsdlTestStep[] result=insertTestSteps(newStepConfigs,index);
+  WsdlTestStep[] result=insertTestSteps(newStepConfigs,index,createCopies);
   resolveTestCase();
   return result;
 }

@@ -2,9 +2,9 @@
   testSuite.beforeSave();
   TestSuiteConfig testSuiteConfig=(TestSuiteConfig)getConfig().addNewTestSuite().set(testSuite.getConfig().copy());
   testSuiteConfig.setName(name);
-  if (testSuiteConfig.isSetId() && createCopy)   testSuiteConfig.unsetId();
   testSuite=new WsdlTestSuite(this,testSuiteConfig);
   testSuites.add(testSuite);
+  if (createCopy)   ModelSupport.unsetIds(testSuite);
   testSuite.afterLoad();
   fireTestSuiteAdded(testSuite);
   resolveImportedTestSuite(testSuite);

@@ -2,8 +2,8 @@
   testStep.beforeSave();
   TestStepConfig newStepConfig=(TestStepConfig)testStep.getConfig().copy();
   newStepConfig.setName(name);
-  if (createCopy && newStepConfig.isSetId())   newStepConfig.unsetId();
-  WsdlTestStep result=insertTestStep(newStepConfig,index);
+  WsdlTestStep result=insertTestStep(newStepConfig,index,createCopy);
+  if (createCopy)   ModelSupport.unsetIds(result);
   resolveTestCase();
   return result;
 }

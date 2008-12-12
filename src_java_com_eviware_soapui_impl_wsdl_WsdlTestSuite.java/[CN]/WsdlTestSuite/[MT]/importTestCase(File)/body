@@ -13,6 +13,7 @@
   if (testCaseNewConfig != null) {
     TestCaseConfig newConfig=(TestCaseConfig)getConfig().addNewTestCase().set(testCaseNewConfig).changeType(TestCaseConfig.type);
     WsdlTestCase newTestCase=new WsdlTestCase(this,newConfig,false);
+    ModelSupport.unsetIds(newTestCase);
     newTestCase.afterLoad();
     testCases.add(newTestCase);
     fireTestCaseAdded(newTestCase);

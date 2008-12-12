@@ -14,8 +14,9 @@
     UISupport.showErrorMessage("Not valild test case xml");
   }
  else {
-    WsdlTestSuite testSuite=new WsdlTestSuite(this,newTestSuiteConfig.getTestSuite());
-    projectDocument.getSoapuiProject().addNewTestSuite().set(testSuite.getConfig());
+    TestSuiteConfig config=(TestSuiteConfig)projectDocument.getSoapuiProject().addNewTestSuite().set(newTestSuiteConfig.getTestSuite());
+    WsdlTestSuite testSuite=new WsdlTestSuite(this,config);
+    ModelSupport.unsetIds(testSuite);
     testSuite.afterLoad();
     testSuites.add(testSuite);
     fireTestSuiteAdded(testSuite);

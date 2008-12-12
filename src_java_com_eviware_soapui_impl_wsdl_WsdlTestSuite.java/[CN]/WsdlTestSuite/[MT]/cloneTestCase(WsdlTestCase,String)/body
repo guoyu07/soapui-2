@@ -4,6 +4,7 @@
   newTestCase.set(testCase.getConfig());
   newTestCase.setName(name);
   WsdlTestCase newWsdlTestCase=new WsdlTestCase(this,newTestCase,false);
+  ModelSupport.unsetIds(newWsdlTestCase);
   newWsdlTestCase.afterLoad();
   testCases.add(newWsdlTestCase);
   fireTestCaseAdded(newWsdlTestCase);

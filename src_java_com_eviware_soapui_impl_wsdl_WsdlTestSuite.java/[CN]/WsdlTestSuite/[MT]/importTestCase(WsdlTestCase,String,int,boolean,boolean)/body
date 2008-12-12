@@ -3,9 +3,11 @@
   if (index >= testCases.size())   index=-1;
   TestCaseConfig testCaseConfig=index == -1 ? (TestCaseConfig)getConfig().addNewTestCase().set(testCase.getConfig().copy()) : (TestCaseConfig)getConfig().insertNewTestCase(index).set(testCase.getConfig().copy());
   testCaseConfig.setName(name);
-  if (createCopy && testCaseConfig.isSetId())   testCaseConfig.unsetId();
   if (!includeLoadTests)   testCaseConfig.setLoadTestArray(new LoadTestConfig[0]);
   testCase=new WsdlTestCase(this,testCaseConfig,false);
+  if (createCopy) {
+    ModelSupport.unsetIds(testCase);
+  }
   if (index == -1)   testCases.add(testCase);
  else   testCases.add(index,testCase);
   testCase.afterLoad();
