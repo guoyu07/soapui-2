@@ -1,6 +1,7 @@
 {
-  JUndoableTextArea textArea=new JUndoableTextArea();
-  textArea.setText(editorModel.getEditorText());
-  textArea.getDocument().addDocumentListener(new EditorModelDocumentListener(editorModel));
-  return new JScrollPane(textArea);
+  JXEditTextArea xmlEditor=JXEditTextArea.createXmlEditor(true);
+  xmlEditor.getDocument().addDocumentListener(new EditorModelDocumentListener(editorModel));
+  JScrollPane scrollPane=new JScrollPane(xmlEditor);
+  UISupport.addPreviewCorner(scrollPane,false);
+  return scrollPane;
 }
