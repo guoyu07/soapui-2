@@ -16,6 +16,10 @@
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt ENTER"),"run-action");
     editArea.getActionMap().put("run-action",runAction);
   }
+  editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),"find-action");
+  editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),"find-action");
+  RSyntaxTextAreaFindAndReplaceable findAndReplaceable=new RSyntaxTextAreaFindAndReplaceable();
+  editArea.getActionMap().put("find-action",new FindAndReplaceDialog(findAndReplaceable));
   groovyDocumentListener=new GroovyDocumentListener();
   editArea.getDocument().addDocumentListener(groovyDocumentListener);
   settingsListener=new InternalSettingsListener();
@@ -30,7 +34,7 @@
   }
 );
   RSyntaxAreaPopupMenu popup=RSyntaxAreaPopupMenu.add(editArea);
-  popup.add(new FindAndReplaceDialog(new RSyntaxTextAreaFindAndReplaceable()));
+  popup.add(new FindAndReplaceDialog(findAndReplaceable));
   popup.addSeparator();
   popup.add(new GoToLineAction());
   toggleLineNumbersMenuItem=new JCheckBoxMenuItem("Show Line Numbers",scrollPane.areLineNumbersEnabled());
