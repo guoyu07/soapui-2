@@ -4,6 +4,7 @@
   chooser.setDialogTitle(title);
   chooser.setAcceptAllFileFilterUsed(true);
   if (defaultDirectory != null)   chooser.setSelectedFile(defaultDirectory);
+ else   chooser.setSelectedFile(null);
   if (chooser.showSaveDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
   return chooser.getSelectedFile();
 }

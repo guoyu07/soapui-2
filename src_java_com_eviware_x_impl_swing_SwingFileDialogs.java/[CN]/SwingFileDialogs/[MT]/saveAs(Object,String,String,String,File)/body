@@ -3,8 +3,18 @@
   chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
   chooser.setDialogTitle(title);
   chooser.setAcceptAllFileFilterUsed(true);
-  if (extension != null && fileType != null)   chooser.setFileFilter(new ExtensionFileFilter(extension,fileType));
-  if (defaultFile != null)   chooser.setSelectedFile(defaultFile);
+  if (extension != null && fileType != null) {
+    chooser.setFileFilter(new ExtensionFileFilter(extension,fileType));
+  }
+ else {
+    chooser.setFileFilter(null);
+  }
+  if (defaultFile != null) {
+    chooser.setSelectedFile(defaultFile);
+  }
+ else {
+    chooser.setSelectedFile(null);
+  }
   if (chooser.showSaveDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
   return chooser.getSelectedFile();
 }
