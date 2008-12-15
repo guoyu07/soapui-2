@@ -8,7 +8,7 @@
   if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
     try {
       mp=new MimeMultipart();
-      MessageXmlObject requestXmlObject=new MessageXmlObject(operation,getResponseContent(),false);
+      MessageXmlObject requestXmlObject=new MessageXmlObject(operation,responseContent,false);
       MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
       for (      MessageXmlPart requestPart : requestParts) {
         if (AttachmentUtils.prepareMessagePart(this,mp,requestPart,contentIds))         isXOP=true;
