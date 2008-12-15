@@ -5,6 +5,7 @@
   String projectFile=getProjectFile();
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  initProjectProperties(project);
   int suiteCount=0;
   for (int c=0; c < project.getTestSuiteCount(); c++) {
     if (testSuite == null || project.getTestSuiteAt(c).getName().equalsIgnoreCase(testSuite)) {

@@ -15,7 +15,17 @@
   log.info("Started " + runners.size() + " runner"+ ((runners.size() == 1) ? "" : "s"));
   if (block) {
     System.out.println("Press any key to terminate...");
-    System.in.read();
+    while (System.in.available() == 0) {
+      Thread.sleep(1000);
+      for (int c=0; c < runners.size(); c++) {
+        if (!runners.get(c).isRunning()) {
+          runners.remove(c);
+          c--;
+        }
+      }
+      if (runners.isEmpty())       break;
+    }
+    if (System.in.available() > 0)     System.in.read();
     for (    MockRunner runner : runners)     runner.stop();
   }
   long timeTaken=(System.nanoTime() - startTime) / 1000000;

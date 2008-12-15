@@ -21,6 +21,9 @@
   if (cmd.hasOption("G")) {
     setGlobalProperties(cmd.getOptionValues("G"));
   }
+  if (cmd.hasOption("P")) {
+    setProjectProperties(cmd.getOptionValues("G"));
+  }
   setIgnoreError(cmd.hasOption("I"));
   setEnableUI(cmd.hasOption("i"));
   setPrintReport(cmd.hasOption("r"));

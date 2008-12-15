@@ -1,0 +1,10 @@
+{
+  if (projectProperties != null) {
+    for (    String option : projectProperties) {
+      int ix=option.indexOf('=');
+      if (ix != -1) {
+        project.setPropertyValue(option.substring(0,ix),option.substring(ix + 1));
+      }
+    }
+  }
+}
