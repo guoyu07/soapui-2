@@ -1,7 +1,8 @@
 {
   int initCount=0;
   if (future != null) {
-    Thread.currentThread().setName("TestCaseRunner Thread for " + testCase.getName());
+    thread=Thread.currentThread();
+    thread.setName("TestCaseRunner Thread for " + testCase.getName());
   }
   try {
     gotoStepIndex=-1;
