@@ -29,7 +29,14 @@
           buf.append(runner.getTestCase().getName()).append(':');
           TestStep currentStep=runner.getRunContext().getCurrentStep();
           if (currentStep != null)           buf.append(currentStep.getName());
- else           buf.append("currentStep is null");
+ else {
+            buf.append("currentStep is null");
+          }
+          Thread thread=((WsdlTestCaseRunner)runner).getThread();
+          if (thread != null) {
+            StackTraceElement[] trace=thread.getStackTrace();
+            for (int y=0; y < trace.length; y++)             buf.append("\tat " + trace[i]);
+          }
         }
         log.info("Waiting for " + runners.length + " tests to finish: "+ buf.toString());
         Thread.sleep(1000);
