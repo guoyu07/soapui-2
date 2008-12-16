@@ -20,9 +20,16 @@
     if (!ts.isDisabled() && (testSuite == null || ts.getName().equalsIgnoreCase(testSuite))) {
       runSuite(ts);
       testSuiteCount++;
-      if (!runningTests.isEmpty())       log.info("Waiting for " + runningTests.size() + " tests to finish");
       while (!runningTests.isEmpty()) {
-        Thread.sleep(100);
+        StringBuffer buf=new StringBuffer();
+        TestRunner[] runners=runningTests.toArray(new TestRunner[runningTests.size()]);
+        for (int i=0; i < runners.length; i++) {
+          TestRunner runner=runners[i];
+          if (i > 0)           buf.append(',');
+          buf.append(runner.getTestCase().getName()).append(':').append(runner.getRunContext().getCurrentStep().getName());
+        }
+        log.info("Waiting for " + runners.length + " tests to finish: "+ buf.toString());
+        Thread.sleep(1000);
       }
     }
   }
