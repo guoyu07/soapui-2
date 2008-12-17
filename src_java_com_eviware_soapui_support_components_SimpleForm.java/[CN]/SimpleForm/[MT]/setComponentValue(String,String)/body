@@ -1,5 +1,6 @@
 {
   JComponent component=getComponent(label);
+  if (component instanceof JScrollPane)   component=(JComponent)((JScrollPane)component).getViewport().getComponent(0);
   if (component instanceof JTextComponent) {
     ((JTextComponent)component).setText(value);
   }
@@ -15,5 +16,8 @@
   }
  else   if (component instanceof JFormComponent) {
     ((JFormComponent)component).setValue(value);
+  }
+ else   if (component instanceof JXEditTextArea) {
+    ((JXEditTextArea)component).setText(value);
   }
 }
