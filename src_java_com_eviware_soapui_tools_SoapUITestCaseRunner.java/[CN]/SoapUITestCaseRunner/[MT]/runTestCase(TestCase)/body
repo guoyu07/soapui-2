@@ -1,3 +1,4 @@
 {
-  runningTests.add(testCase.run(new StringToObjectMap(),testCase.getTestSuite().getRunType() == TestSuiteRunType.PARALLEL));
+  TestRunner testRunner=testCase.run(new StringToObjectMap(),testCase.getTestSuite().getRunType() == TestSuiteRunType.PARALLEL);
+  if (testRunner.getStatus() == TestRunner.Status.RUNNING)   runningTests.add(testRunner);
 }
