@@ -8,6 +8,7 @@
     if (oldOperations.containsKey(bindingOperationName)) {
       log.info("Synchronizing existing operation [" + bindingOperationName + "]");
       WsdlOperation wsdlOperation=oldOperations.get(bindingOperationName);
+      WsdlUtils.getAnonymous(wsdlOperation);
       wsdlOperation.initFromBindingOperation(newOperation);
       fireOperationUpdated(wsdlOperation);
       oldOperations.remove(bindingOperationName);

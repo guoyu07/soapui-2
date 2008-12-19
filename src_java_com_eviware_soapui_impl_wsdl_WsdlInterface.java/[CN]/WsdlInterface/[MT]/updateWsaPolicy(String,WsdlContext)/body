@@ -1,0 +1,19 @@
+{
+  Definition definition=newContext.getDefinition();
+  policyFlag=false;
+  processPolicy(PolicyUtils.getAttachedPolicy(getBinding(),definition));
+  Map<?,?> serviceMap=definition.getAllServices();
+  if (serviceMap.isEmpty())   log.info("Missing services in [" + url + "], check for bindings");
+ else {
+    Iterator<?> i=serviceMap.values().iterator();
+    while (i.hasNext()) {
+      Service service=(Service)i.next();
+      Map<?,?> portMap=service.getPorts();
+      Iterator<?> i2=portMap.values().iterator();
+      while (i2.hasNext()) {
+        Port port=(Port)i2.next();
+        processPolicy(PolicyUtils.getAttachedPolicy(port,definition));
+      }
+    }
+  }
+}

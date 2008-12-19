@@ -1,12 +1,16 @@
 {
-  String wsaVersion=WsaVersionTypeConfig.NONE.toString();
-  setAnonymous(AnonymousTypeConfig.OPTIONAL.toString());
+  if (!policyFlag) {
+    interfaceAnonymous=AnonymousTypeConfig.OPTIONAL.toString();
+    interfaceWsaVersion=WsaVersionTypeConfig.NONE.toString();
+  }
+  policyFlag=true;
   if (policy != null) {
     List<Addressing> addressingList=policy.getAddressingList();
     for (    Addressing addressing : addressingList) {
+      policyFlag=true;
       String optional=addressing.getOptional().toString();
       if (StringUtils.isNullOrEmpty(optional) || optional.equals("false") || (optional.equals("true") && SoapUI.getSettings().getBoolean(WsaSettings.ENABLE_FOR_OPTIONAL))) {
-        wsaVersion=WsaVersionTypeConfig.X_200508.toString();
+        interfaceWsaVersion=WsaVersionTypeConfig.X_200508.toString();
       }
       Policy innerPolicy=addressing.getPolicy();
       if (innerPolicy != null) {
@@ -17,17 +21,17 @@
         }
         if (anonymousList.size() > 0) {
           AnonymousResponses anonResp=anonymousList.get(0);
-          setAnonymous(AnonymousTypeConfig.REQUIRED.toString());
+          interfaceAnonymous=AnonymousTypeConfig.REQUIRED.toString();
         }
  else {
           if (nonAnonymousList.size() > 0) {
             NonAnonymousResponses nonAnonResp=nonAnonymousList.get(0);
-            setAnonymous(AnonymousTypeConfig.PROHIBITED.toString());
+            interfaceAnonymous=AnonymousTypeConfig.PROHIBITED.toString();
           }
         }
       }
     }
   }
-  setWsaVersion(wsaVersion);
-  return this;
+  setAnonymous(interfaceAnonymous);
+  setWsaVersion(interfaceWsaVersion);
 }

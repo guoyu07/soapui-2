@@ -44,10 +44,8 @@
         if (iface != null) {
           String endpoint=WsdlUtils.getSoapEndpoint(port);
           if (endpoint != null)           iface.addEndpoint(endpoint);
-          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString()))           iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
-          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
-            iface.processPolicy(PolicyUtils.getAttachedPolicy(port,wsdlContext.getDefinition()));
-          }
+          iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
+          iface.processPolicy(PolicyUtils.getAttachedPolicy(port,wsdlContext.getDefinition()));
           result.add(iface);
           importedBindings.put(binding,iface);
         }
