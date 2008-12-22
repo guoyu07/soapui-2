@@ -1,5 +1,5 @@
 {
-  File settingsFile=fileName.equals(new File(fileName).getAbsoluteFile()) ? new File(fileName) : null;
+  File settingsFile=fileName.equals(new File(fileName).getAbsolutePath()) ? new File(fileName) : null;
   try {
     if (settingsFile == null) {
       settingsFile=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
