@@ -18,4 +18,8 @@ synchronized (STATUS_PROPERTY) {
       }
     }
   }
+  if (startTestStep instanceof WsdlMockResponseTestStep) {
+    System.out.println("Adding StartStepMockRunListener from [" + getName() + "] to ["+ startTestStep.getName()+ "]");
+    startStepMockRunListener=new StartStepMockRunListener(testRunContext,(WsdlMockResponseTestStep)startTestStep);
+  }
 }
