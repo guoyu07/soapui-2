@@ -1,7 +1,5 @@
 {
-  log.info("SOAP::" + fileName);
   File settingsFile=new File(fileName).exists() ? new File(fileName) : null;
-  log.info("SOAP::" + settingsFile.getAbsolutePath());
   try {
     if (settingsFile == null) {
       settingsFile=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
