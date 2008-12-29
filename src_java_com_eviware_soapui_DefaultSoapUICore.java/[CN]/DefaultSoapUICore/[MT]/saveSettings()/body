@@ -2,7 +2,7 @@
   if (settingsFile == null)   settingsFile=DEFAULT_SETTINGS_FILE;
   File file=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
   if (!file.canWrite()) {
-    file=new File(new File(System.getProperty("user.home")),DEFAULT_SETTINGS_FILE);
+    file=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);
   }
   SoapuiSettingsDocumentConfig settingsDocument=(SoapuiSettingsDocumentConfig)this.settingsDocument.copy();
   String password=settings.getString(SecuritySettings.SHADOW_PASSWORD,null);

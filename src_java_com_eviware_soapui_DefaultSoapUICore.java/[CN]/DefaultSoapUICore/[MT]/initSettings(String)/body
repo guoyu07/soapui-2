@@ -4,7 +4,7 @@
     if (settingsFile == null) {
       settingsFile=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
       if (!settingsFile.exists()) {
-        settingsFile=new File(new File(System.getProperty("user.home")),DEFAULT_SETTINGS_FILE);
+        settingsFile=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);
       }
     }
  else {
