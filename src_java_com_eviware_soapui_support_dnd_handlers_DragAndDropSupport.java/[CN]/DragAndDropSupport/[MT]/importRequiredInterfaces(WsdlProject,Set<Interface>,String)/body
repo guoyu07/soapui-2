@@ -1,7 +1,7 @@
 {
   if (requiredInterfaces.size() > 0 && project.getInterfaceCount() > 0) {
-    Map<String,WsdlInterface> bindings=new HashMap<String,WsdlInterface>();
-    for (    WsdlInterface iface : requiredInterfaces) {
+    Map<String,Interface> bindings=new HashMap<String,Interface>();
+    for (    Interface iface : requiredInterfaces) {
       bindings.put(iface.getTechnicalId(),iface);
     }
     for (    Interface iface : project.getInterfaceList()) {
@@ -10,14 +10,14 @@
     requiredInterfaces.retainAll(bindings.values());
   }
   if (requiredInterfaces.size() > 0) {
-    String msg="Target project [" + project.getName() + "] is missing required interfaces;\r\n\r\n";
-    for (    WsdlInterface iface : requiredInterfaces) {
-      msg+=iface.getName() + " [" + iface.getBindingName()+ "]\r\n";
+    String msg="Target project [" + project.getName() + "] is missing required Interfaces;\r\n\r\n";
+    for (    Interface iface : requiredInterfaces) {
+      msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
     msg+="\r\nThese will be cloned to the target project as well";
     if (!UISupport.confirm(msg,title))     return false;
-    for (    WsdlInterface iface : requiredInterfaces) {
-      project.importInterface(iface,true,true);
+    for (    Interface iface : requiredInterfaces) {
+      project.importInterface((AbstractInterface<?>)iface,true,true);
     }
   }
   return true;

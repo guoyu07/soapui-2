@@ -28,7 +28,7 @@
     String name=dialog.getValue(Form.NAME);
     WsdlProject project=testCase.getTestSuite().getProject();
     WsdlTestSuite targetTestSuite=null;
-    Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+    Set<Interface> requiredInterfaces=new HashSet<Interface>();
     if (!targetProjectName.equals(project.getName())) {
       for (int y=0; y < testCase.getTestStepCount(); y++) {
         WsdlTestStep testStep=testCase.getTestStepAt(y);
@@ -39,7 +39,7 @@
         targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestCase","");
         if (targetProjectName == null)         return;
         try {
-          project=workspace.createProject(targetProjectName);
+          project=workspace.createProject(targetProjectName,null);
         }
  catch (        SoapUIException e) {
           UISupport.showErrorMessage(e);
@@ -47,9 +47,9 @@
         if (project == null)         return;
       }
       if (requiredInterfaces.size() > 0 && project.getInterfaceCount() > 0) {
-        Map<QName,WsdlInterface> bindings=new HashMap<QName,WsdlInterface>();
-        for (        WsdlInterface iface : requiredInterfaces) {
-          bindings.put(iface.getBindingName(),iface);
+        Map<String,Interface> bindings=new HashMap<String,Interface>();
+        for (        Interface iface : requiredInterfaces) {
+          bindings.put(iface.getTechnicalId(),iface);
         }
         for (        Interface iface : project.getInterfaceList()) {
           bindings.remove(iface.getTechnicalId());
@@ -57,14 +57,14 @@
         requiredInterfaces.retainAll(bindings.values());
       }
       if (requiredInterfaces.size() > 0) {
-        String msg="Target project [" + targetProjectName + "] is missing required interfaces;\r\n\r\n";
-        for (        WsdlInterface iface : requiredInterfaces) {
-          msg+=iface.getName() + " [" + iface.getBindingName()+ "]\r\n";
+        String msg="Target project [" + targetProjectName + "] is missing required Interfaces;\r\n\r\n";
+        for (        Interface iface : requiredInterfaces) {
+          msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
         }
         msg+="\r\nThese will be cloned to the targetProject as well";
         if (!UISupport.confirm(msg,"Clone TestCase"))         return;
-        for (        WsdlInterface iface : requiredInterfaces) {
-          project.importInterface(iface,true,true);
+        for (        Interface iface : requiredInterfaces) {
+          project.importInterface((AbstractInterface<?>)iface,true,true);
         }
       }
     }

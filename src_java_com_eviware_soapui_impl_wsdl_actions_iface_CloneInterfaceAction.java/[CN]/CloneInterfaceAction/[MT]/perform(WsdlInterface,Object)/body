@@ -10,7 +10,7 @@
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestSuite","");
     if (targetProjectName == null)     return;
     try {
-      targetProject=workspace.createProject(targetProjectName);
+      targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);

@@ -5,23 +5,23 @@
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestSuite","");
     if (targetProjectName == null)     return null;
     try {
-      targetProject=workspace.createProject(targetProjectName);
+      targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);
     }
     if (targetProject == null)     return null;
   }
-  Set<WsdlInterface> requiredInterfaces=getRequiredInterfaces(testSuite,targetProject);
+  Set<Interface> requiredInterfaces=getRequiredInterfaces(testSuite,targetProject);
   if (requiredInterfaces.size() > 0) {
-    String msg="Target project [" + targetProjectName + "] is missing required interfaces;\r\n\r\n";
-    for (    WsdlInterface iface : requiredInterfaces) {
-      msg+=iface.getName() + " [" + iface.getBindingName()+ "]\r\n";
+    String msg="Target project [" + targetProjectName + "] is missing required Interfaces;\r\n\r\n";
+    for (    Interface iface : requiredInterfaces) {
+      msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
     msg+="\r\nThese will be cloned to the targetProject as well";
     if (!UISupport.confirm(msg,"Clone TestSuite"))     return null;
-    for (    WsdlInterface iface : requiredInterfaces) {
-      targetProject.importInterface(iface,true,true);
+    for (    Interface iface : requiredInterfaces) {
+      targetProject.importInterface((AbstractInterface<?>)iface,true,true);
     }
   }
   testSuite=targetProject.importTestSuite(testSuite,name,!move);

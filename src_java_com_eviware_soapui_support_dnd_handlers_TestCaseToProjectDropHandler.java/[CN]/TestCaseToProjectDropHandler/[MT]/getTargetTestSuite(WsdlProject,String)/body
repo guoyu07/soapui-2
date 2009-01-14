@@ -11,7 +11,7 @@
     if (name == null)     return null;
     testSuite=target.addNewTestSuite(name);
   }
-  Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+  Set<Interface> requiredInterfaces=new HashSet<Interface>();
   for (int i=0; i < testSuite.getTestCaseCount(); i++) {
     WsdlTestCase testCase=testSuite.getTestCaseAt(i);
     for (int y=0; y < testCase.getTestStepCount(); y++) {

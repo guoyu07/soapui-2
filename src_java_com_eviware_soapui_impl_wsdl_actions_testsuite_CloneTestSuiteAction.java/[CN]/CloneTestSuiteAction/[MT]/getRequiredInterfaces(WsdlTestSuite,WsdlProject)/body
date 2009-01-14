@@ -1,5 +1,5 @@
 {
-  Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+  Set<Interface> requiredInterfaces=new HashSet<Interface>();
   for (int i=0; i < testSuite.getTestCaseCount(); i++) {
     WsdlTestCase testCase=testSuite.getTestCaseAt(i);
     for (int y=0; y < testCase.getTestStepCount(); y++) {
@@ -8,9 +8,9 @@
     }
   }
   if (requiredInterfaces.size() > 0 && targetProject.getInterfaceCount() > 0) {
-    Map<QName,WsdlInterface> bindings=new HashMap<QName,WsdlInterface>();
-    for (    WsdlInterface iface : requiredInterfaces) {
-      bindings.put(iface.getBindingName(),iface);
+    Map<String,Interface> bindings=new HashMap<String,Interface>();
+    for (    Interface iface : requiredInterfaces) {
+      bindings.put(iface.getTechnicalId(),iface);
     }
     for (    Interface iface : targetProject.getInterfaceList()) {
       bindings.remove(iface.getTechnicalId());

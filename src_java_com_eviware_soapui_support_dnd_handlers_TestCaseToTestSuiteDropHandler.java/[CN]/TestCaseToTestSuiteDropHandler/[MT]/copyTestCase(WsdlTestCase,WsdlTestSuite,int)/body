@@ -8,7 +8,7 @@
     return target.importTestCase(testCase,name,position,true,true);
   }
  else {
-    Set<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+    Set<Interface> requiredInterfaces=new HashSet<Interface>();
     for (int y=0; y < testCase.getTestStepCount(); y++) {
       WsdlTestStep testStep=testCase.getTestStepAt(y);
       requiredInterfaces.addAll(testStep.getRequiredInterfaces());

@@ -5,7 +5,7 @@
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone MockService","");
     if (targetProjectName == null)     return null;
     try {
-      targetProject=workspace.createProject(targetProjectName);
+      targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);
@@ -16,7 +16,7 @@
   if (requiredInterfaces.size() > 0) {
     String msg="Target project [" + targetProjectName + "] is missing required interfaces;\r\n\r\n";
     for (    WsdlInterface iface : requiredInterfaces) {
-      msg+=iface.getName() + " [" + iface.getBindingName()+ "]\r\n";
+      msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
     msg+="\r\nThese will be cloned to the targetProject as well";
     if (!UISupport.confirm(msg,"Clone MockService"))     return null;

@@ -5,9 +5,9 @@
     if (operation != null)     requiredInterfaces.add(operation.getInterface());
   }
   if (requiredInterfaces.size() > 0 && targetProject.getInterfaceCount() > 0) {
-    Map<QName,WsdlInterface> bindings=new HashMap<QName,WsdlInterface>();
+    Map<String,WsdlInterface> bindings=new HashMap<String,WsdlInterface>();
     for (    WsdlInterface iface : requiredInterfaces) {
-      bindings.put(iface.getBindingName(),iface);
+      bindings.put(iface.getTechnicalId(),iface);
     }
     for (    Interface iface : targetProject.getInterfaceList()) {
       bindings.remove(iface.getTechnicalId());
