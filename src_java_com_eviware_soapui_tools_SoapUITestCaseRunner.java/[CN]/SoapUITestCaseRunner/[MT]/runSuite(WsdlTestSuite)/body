@@ -9,7 +9,7 @@
       String name=tc.getName();
       if (testCase == null || name.equalsIgnoreCase(testCase)) {
         if (!tc.isDisabled()) {
-          runTestCase(tc);
+          runTestCase(tc,context);
         }
  else {
           log.info("Skipping disabled testcase [" + name + "]");
