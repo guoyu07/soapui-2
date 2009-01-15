@@ -2,7 +2,7 @@
   if (!UISupport.confirm("Add Request [" + source.getName() + "] to TestCase ["+ testCase.getName()+ "]","Add Request to TestCase"))   return false;
   WsdlProject targetProject=testCase.getTestSuite().getProject();
   if (targetProject != source.getOperation().getInterface().getProject()) {
-    HashSet<WsdlInterface> requiredInterfaces=new HashSet<WsdlInterface>();
+    HashSet<Interface> requiredInterfaces=new HashSet<Interface>();
     requiredInterfaces.add(source.getOperation().getInterface());
     if (!DragAndDropSupport.importRequiredInterfaces(targetProject,requiredInterfaces,"Add Request to TestCase")) {
       return false;
