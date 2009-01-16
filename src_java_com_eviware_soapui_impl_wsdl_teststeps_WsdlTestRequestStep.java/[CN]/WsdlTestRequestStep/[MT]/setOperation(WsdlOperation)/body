@@ -6,5 +6,6 @@
   requestStepConfig.setOperation(operation.getName());
   if (oldOperation != null)   oldOperation.removePropertyChangeListener(this);
   wsdlOperation.addPropertyChangeListener(this);
+  initTestRequest(this.getConfig(),false);
   testRequest.setOperation(wsdlOperation);
 }
