@@ -1,8 +1,8 @@
 {
   WsdlMockResponseStepFactory.project=project;
   List<Interface> interfaces=new ArrayList<Interface>();
-  for (int c=0; c < project.getInterfaceCount(); c++) {
-    if (project.getInterfaceAt(c).getOperationCount() > 0)     interfaces.add(project.getInterfaceAt(c));
+  for (  Interface iface : project.getInterfaces(WsdlInterfaceFactory.WSDL_TYPE)) {
+    if (iface.getOperationCount() > 0)     interfaces.add(iface);
   }
   if (interfaces.isEmpty()) {
     UISupport.showErrorMessage("Missing Interfaces/Operations to mock");
