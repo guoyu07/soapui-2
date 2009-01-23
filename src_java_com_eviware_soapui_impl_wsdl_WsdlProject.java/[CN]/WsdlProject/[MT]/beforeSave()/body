@@ -1,5 +1,9 @@
 {
   try {
+    ProjectListener[] a=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
+    for (int c=0; c < a.length; c++) {
+      a[c].beforeSave(this);
+    }
     runBeforeSaveScript();
   }
  catch (  Exception e) {
