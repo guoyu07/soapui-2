@@ -2,16 +2,23 @@
   List<XmlError> errors=new ArrayList<XmlError>();
   try {
     String response=messageExchange.getResponseContent();
-    wsdlContext.getSoapVersion().validateSoapEnvelope(response,errors);
-    if (errors.isEmpty() && !envelopeOnly) {
-      WsdlOperation operation=messageExchange.getOperation();
-      BindingOperation bindingOperation=operation.getBindingOperation();
-      if (bindingOperation == null) {
-        errors.add(XmlError.forMessage("Missing operation [" + operation.getBindingOperationName() + "] in wsdl definition"));
+    if (StringUtils.isNullOrEmpty(response)) {
+      if (!messageExchange.getOperation().isOneWay()) {
+        errors.add(XmlError.forMessage("Response is missing or empty"));
       }
+    }
  else {
-        Part[] outputParts=WsdlUtils.getOutputParts(bindingOperation);
-        validateMessage(messageExchange,response,bindingOperation,outputParts,errors,true);
+      wsdlContext.getSoapVersion().validateSoapEnvelope(response,errors);
+      if (errors.isEmpty() && !envelopeOnly) {
+        WsdlOperation operation=messageExchange.getOperation();
+        BindingOperation bindingOperation=operation.getBindingOperation();
+        if (bindingOperation == null) {
+          errors.add(XmlError.forMessage("Missing operation [" + operation.getBindingOperationName() + "] in wsdl definition"));
+        }
+ else {
+          Part[] outputParts=WsdlUtils.getOutputParts(bindingOperation);
+          validateMessage(messageExchange,response,bindingOperation,outputParts,errors,true);
+        }
       }
     }
   }
