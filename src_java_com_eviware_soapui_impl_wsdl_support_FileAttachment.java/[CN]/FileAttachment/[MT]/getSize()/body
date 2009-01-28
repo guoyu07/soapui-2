@@ -1,4 +1,13 @@
 {
-  if (isCached())   return config.getSize();
- else   return new File(urlProperty.expand()).length();
+  if (isCached()) {
+    return config.getSize();
+  }
+ else {
+    String url=urlProperty.expand();
+    if (url != null) {
+      File file=new File(url);
+      if (file.exists())       return file.length();
+    }
+  }
+  return -1;
 }

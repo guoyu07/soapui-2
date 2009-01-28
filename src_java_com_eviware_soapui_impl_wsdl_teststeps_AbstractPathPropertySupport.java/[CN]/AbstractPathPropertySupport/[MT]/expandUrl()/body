@@ -1,15 +1,17 @@
 {
   String result=expand();
-  try {
-    if (PathUtils.isFilePath(result) && !result.startsWith("file:")) {
-      result=new File(result).toURI().toURL().toString();
-    }
+  if (StringUtils.hasContent(result)) {
+    try {
+      if (PathUtils.isFilePath(result) && !result.startsWith("file:")) {
+        result=new File(result).toURI().toURL().toString();
+      }
  else {
-      result=new URL(result).toString();
+        result=new URL(result).toString();
+      }
     }
-  }
- catch (  MalformedURLException e) {
-    SoapUI.logError(e);
+ catch (    MalformedURLException e) {
+      SoapUI.logError(e);
+    }
   }
   return result;
 }

@@ -6,7 +6,8 @@
     inputStream=new BufferedInputStream(zipInputStream);
   }
  else {
-    inputStream=new BufferedInputStream(new FileInputStream(urlProperty.expand()));
+    String url=urlProperty.expand();
+    inputStream=new BufferedInputStream(url == null ? new ByteArrayInputStream(new byte[0]) : new FileInputStream(url));
   }
   AttachmentEncoding encoding=getEncoding();
   if (encoding == AttachmentEncoding.BASE64) {
