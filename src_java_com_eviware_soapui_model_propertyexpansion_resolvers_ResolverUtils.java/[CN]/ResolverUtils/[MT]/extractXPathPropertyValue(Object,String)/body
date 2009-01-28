@@ -3,7 +3,8 @@
     String value=property instanceof TestProperty ? ((TestProperty)property).getValue() : property.toString();
     XmlObject xmlObject=XmlObject.Factory.parse(value);
     String ns=xpath.trim().startsWith("declare namespace") ? "" : XmlUtils.declareXPathNamespaces(xmlObject);
-    return XmlUtils.getValueForMatch(XmlUtils.selectFirstDomNode(xmlObject,ns + xpath),false);
+    Node domNode=XmlUtils.selectFirstDomNode(xmlObject,ns + xpath);
+    return domNode == null ? null : XmlUtils.getValueForMatch(domNode,false);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
