@@ -29,17 +29,11 @@
         return new UsernamePasswordCredentials(getUsername(),pw);
       }
       log.info(host + ":" + port+ " requires authentication with the realm '"+ authscheme.getRealm()+ "'");
-      if (basicDialog == null)       buildBasicDialog();
-      StringToStringMap values=new StringToStringMap();
-      values.put("Info","Authentication required for [" + host + ":"+ port+ "]");
-      basicDialog.setValues(values);
-      ShowDialog showBasicDialog=new ShowDialog(basicDialog);
-      log.info("show basicDialog in UI thread");
-      UISupport.getUIUtils().runInUIThreadIfSWT(showBasicDialog);
-      log.info("basicDialog.show finished");
-      if (showBasicDialog.result) {
-        values=basicDialog.getValues();
-        return new UsernamePasswordCredentials(values.get("Username"),values.get("Password"));
+      ShowDialog showDialog=new ShowDialog();
+      showDialog.values.put("Info","Authentication required for [" + host + ":"+ port+ "]");
+      UISupport.getUIUtils().runInUIThreadIfSWT(showDialog);
+      if (showDialog.result) {
+        return new UsernamePasswordCredentials(showDialog.values.get("Username"),showDialog.values.get("Password"));
       }
  else       throw new CredentialsNotAvailableException("Operation cancelled");
     }
