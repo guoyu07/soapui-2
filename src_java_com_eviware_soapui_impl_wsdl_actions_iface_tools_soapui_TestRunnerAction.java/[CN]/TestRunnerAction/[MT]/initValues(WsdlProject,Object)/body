@@ -40,6 +40,7 @@
       mainForm.getFormField(TESTSUITE).setValue(((WsdlTestSuite)param).getName());
       values.put(TESTSUITE,((WsdlTestSuite)param).getName());
     }
+    mainForm.getComponent(SAVEPROJECT).setEnabled(!modelItem.isRemote());
   }
   return values;
 }

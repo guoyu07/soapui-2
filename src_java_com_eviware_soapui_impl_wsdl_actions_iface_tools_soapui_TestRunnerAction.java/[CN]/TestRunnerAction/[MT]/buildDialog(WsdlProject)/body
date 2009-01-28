@@ -36,7 +36,7 @@
   mainForm.addSeparator();
   mainForm.addCheckBox(ENABLEUI,"Enables UI components in scripts");
   mainForm.addTextField(TESTRUNNERPATH,"Folder containing TestRunner.bat to use",XForm.FieldType.FOLDER);
-  mainForm.addCheckBox(SAVEPROJECT,"Saves project before running");
+  mainForm.addCheckBox(SAVEPROJECT,"Saves project before running").setEnabled(!modelItem.isRemote());
   mainForm.addCheckBox(ADDSETTINGS,"Adds global settings to command-line");
   advForm=builder.createForm("Overrides");
   advForm.addComboBox(ENDPOINT,new String[]{""},"endpoint to forward to");

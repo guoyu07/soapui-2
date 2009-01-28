@@ -8,6 +8,10 @@
   if (mainForm.getComponentValue(SAVEPROJECT).equals(Boolean.TRUE.toString())) {
     modelItem.save();
   }
+ else   if (StringUtils.isNullOrEmpty(modelItem.getPath())) {
+    UISupport.showErrorMessage("Project [" + modelItem.getName() + "] has not been saved to file.");
+    return;
+  }
   if (log.isDebugEnabled())   log.debug("Launching loadtestrunner in directory [" + builder.directory() + "] with arguments ["+ args.toString()+ "]");
   toolHost.run(new ProcessToolRunner(builder,"soapUI LoadTestRunner",modelItem,args));
 }

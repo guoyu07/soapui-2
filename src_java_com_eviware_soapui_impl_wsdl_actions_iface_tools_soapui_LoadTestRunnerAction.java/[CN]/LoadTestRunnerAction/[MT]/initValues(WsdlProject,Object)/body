@@ -33,6 +33,7 @@
     values.put(TESTSUITE,mainForm.getComponentValue(TESTSUITE));
     values.put(TESTCASE,mainForm.getComponentValue(TESTCASE));
     values.put(LOADTEST,mainForm.getComponentValue(LOADTEST));
+    mainForm.getComponent(SAVEPROJECT).setEnabled(!modelItem.isRemote());
   }
   return values;
 }
