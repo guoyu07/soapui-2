@@ -16,6 +16,17 @@
       SchemaGlobalElement elm=wsdlContext.getSchemaTypeLoader().findElement(elementName);
       if (elm != null) {
         validateMessageBody(errors,elm.getType(),paths[0]);
+        NodeList children=XmlUtils.getChildElements((Element)paths[0].getDomNode().getParentNode());
+        for (int c=0; c < children.getLength(); c++) {
+          QName childName=XmlUtils.getQName(children.item(c));
+          if (!elementName.equals(childName)) {
+            XmlCursor cur=paths[0].newCursor();
+            cur.toParent();
+            cur.toChild(childName);
+            errors.add(XmlError.forCursor("Invalid element [" + childName + "] in SOAP Body",cur));
+            cur.dispose();
+          }
+        }
       }
  else       errors.add(XmlError.forMessage("Missing part type [" + elementName + "] in associated schema"));
     }
