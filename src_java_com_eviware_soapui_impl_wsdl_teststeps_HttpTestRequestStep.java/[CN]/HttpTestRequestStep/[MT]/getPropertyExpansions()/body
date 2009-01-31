@@ -1,13 +1,16 @@
 {
   PropertyExpansionsResult result=new PropertyExpansionsResult(this,testRequest);
   result.extractAndAddAll("requestContent");
-  result.extractAndAddAll("endpoint");
+  result.extractAndAddAll("path");
   result.extractAndAddAll("username");
   result.extractAndAddAll("password");
   result.extractAndAddAll("domain");
   StringToStringMap requestHeaders=testRequest.getRequestHeaders();
   for (  String key : requestHeaders.keySet()) {
     result.extractAndAddAll(new RequestHeaderHolder(requestHeaders,key),"value");
+  }
+  for (  String key : testRequest.getParams().getPropertyNames()) {
+    result.extractAndAddAll(new RequestParamHolder(key),"value");
   }
   return result.toArray(new PropertyExpansion[result.size()]);
 }

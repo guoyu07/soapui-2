@@ -33,7 +33,7 @@
     project=(WsdlProject)modelItem;
   }
  else   if (modelItem instanceof AbstractHttpRequest) {
-    project=((AbstractHttpRequest)modelItem).getOperation().getInterface().getProject();
+    project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
   }
  else   if (modelItem instanceof Operation) {
     project=(WsdlProject)((Operation)modelItem).getInterface().getProject();
