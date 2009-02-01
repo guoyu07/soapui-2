@@ -1,18 +1,20 @@
 {
-  JXToolBar toolbar=new JXToolBar();
-  toolbar.setRollover(true);
-  toolbar.putClientProperty(Options.HEADER_STYLE_KEY,HeaderStyle.BOTH);
-  toolbar.add(new NewWsdlProjectActionDelegate());
-  toolbar.add(new ImportWsdlProjectActionDelegate());
-  toolbar.add(new SaveAllActionDelegate());
-  toolbar.addSeparator();
-  toolbar.add(new ShowOnlineHelpAction("User Guide",HelpUrls.USERGUIDE_HELP_URL,"Opens the soapUI User-Guide in a browser"));
-  toolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.FORUMS_HELP_URL,"Opens the soapUI Forum in a browser","/group_go.png"));
-  toolbar.addSeparator();
-  toolbar.add(new PreferencesActionDelegate());
-  toolbar.add(new ExitButtonAction());
-  toolbar.addGlue();
-  toolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
-  toolbar.setBorder(BorderFactory.createEtchedBorder());
-  return toolbar;
+  mainToolbar=new JXToolBar();
+  mainToolbar.setRollover(true);
+  mainToolbar.putClientProperty(Options.HEADER_STYLE_KEY,HeaderStyle.BOTH);
+  mainToolbar.add(new NewWsdlProjectActionDelegate());
+  mainToolbar.add(new ImportWsdlProjectActionDelegate());
+  mainToolbar.add(new SaveAllActionDelegate());
+  mainToolbar.addSeparator();
+  mainToolbar.add(new ShowOnlineHelpAction("User Guide",HelpUrls.USERGUIDE_HELP_URL,"Opens the soapUI User-Guide in a browser"));
+  mainToolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.FORUMS_HELP_URL,"Opens the soapUI Forum in a browser","/group_go.png"));
+  mainToolbar.addSeparator();
+  mainToolbar.add(new ShowOnlineHelpAction("Trial",HelpUrls.TRIAL_URL,"Apply for soapUI Pro Trial License","/favicon.png"));
+  mainToolbar.addSeparator();
+  mainToolbar.add(new PreferencesActionDelegate());
+  mainToolbar.add(new ExitButtonAction());
+  mainToolbar.addGlue();
+  mainToolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
+  mainToolbar.setBorder(BorderFactory.createEtchedBorder());
+  return mainToolbar;
 }
