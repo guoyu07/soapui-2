@@ -3,7 +3,7 @@
     UISupport.showErrorMessage("Request/Response required for WS-I validations");
     return;
   }
-  String wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,null);
+  wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,null);
   if (wsiDir == null) {
     UISupport.showErrorMessage("WSI Test Tools directory must be set in global preferences");
     return;

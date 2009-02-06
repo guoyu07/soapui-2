@@ -1,5 +1,5 @@
 {
-  String wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,System.getenv("WSI_HOME"));
+  wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,System.getenv("WSI_HOME"));
   if (Tools.isEmpty(wsiDir)) {
     UISupport.showErrorMessage("WSI Test Tools directory must be set in global preferences");
     if (UISupport.getMainFrame() != null) {
