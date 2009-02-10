@@ -1,21 +1,21 @@
 {
-  String requestContent=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
-  if (requestContent == null) {
-    log.warn("Missing request content in context, skipping property expansion");
-  }
- else {
-    Settings settings=httpRequest.getSettings();
-    String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
-    if (!"None".equals(compressionAlg)) {
-      try {
-        requestContent=new String(CompressionSupport.compress(compressionAlg,requestContent.getBytes()));
-      }
- catch (      Exception e) {
-        e.printStackTrace();
+  Settings settings=httpRequest.getSettings();
+  String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
+  if (!"None".equals(compressionAlg)) {
+    try {
+      ExtendedHttpMethod method=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+      if (method instanceof EntityEnclosingMethod) {
+        RequestEntity requestEntity=method.getRequestEntity();
+        if (requestEntity != null) {
+          ByteArrayOutputStream tempOut=new ByteArrayOutputStream();
+          requestEntity.writeRequest(tempOut);
+          byte[] compressedData=CompressionSupport.compress(compressionAlg,tempOut.toByteArray());
+          ((EntityEnclosingMethod)method).setRequestEntity(new ByteArrayRequestEntity(compressedData));
+        }
       }
     }
-    if (requestContent != null) {
-      context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,requestContent);
+ catch (    Exception e) {
+      e.printStackTrace();
     }
   }
 }
