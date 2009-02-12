@@ -49,6 +49,7 @@
     httpMethod.getTimeTaken();
   }
  catch (  Throwable t) {
+    httpMethod.setFailed(t);
     throw new Exception(t);
   }
  finally {

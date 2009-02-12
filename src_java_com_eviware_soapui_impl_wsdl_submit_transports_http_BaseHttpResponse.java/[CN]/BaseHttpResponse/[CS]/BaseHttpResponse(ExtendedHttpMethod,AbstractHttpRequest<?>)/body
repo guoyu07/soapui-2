@@ -3,25 +3,32 @@
   this.timeTaken=httpMethod.getTimeTaken();
   method=httpMethod.getMethod();
   version=httpMethod.getParams().getVersion().toString();
-  Settings settings=httpRequest.getSettings();
-  if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
-    try {
-      httpMethod.getResponseBody();
-    }
- catch (    IOException e) {
-      e.printStackTrace();
-    }
-    timeTaken+=httpMethod.getResponseReadTime();
-  }
   try {
-    this.timestamp=System.currentTimeMillis();
-    this.contentType=httpMethod.getResponseContentType();
-    this.statusCode=httpMethod.getStatusCode();
-    this.sslInfo=httpMethod.getSSLInfo();
     this.url=new URL(httpMethod.getURI().toString());
   }
- catch (  Throwable e) {
-    e.printStackTrace();
+ catch (  Exception e1) {
+    e1.printStackTrace();
+  }
+  if (!httpMethod.isFailed()) {
+    Settings settings=httpRequest.getSettings();
+    if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
+      try {
+        httpMethod.getResponseBody();
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+      timeTaken+=httpMethod.getResponseReadTime();
+    }
+    try {
+      this.timestamp=System.currentTimeMillis();
+      this.contentType=httpMethod.getResponseContentType();
+      this.statusCode=httpMethod.getStatusCode();
+      this.sslInfo=httpMethod.getSSLInfo();
+    }
+ catch (    Throwable e) {
+      e.printStackTrace();
+    }
   }
   initHeaders(httpMethod);
 }
