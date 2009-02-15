@@ -1,7 +1,6 @@
 {
   server=new Server();
-  BoundedThreadPool threadPool=new BoundedThreadPool();
-  threadPool.setMaxThreads(100);
+  QueuedThreadPool threadPool=new QueuedThreadPool();
   server.setThreadPool(threadPool);
   server.setHandler(new ServerHandler());
   RequestLogHandler logHandler=new RequestLogHandler();
