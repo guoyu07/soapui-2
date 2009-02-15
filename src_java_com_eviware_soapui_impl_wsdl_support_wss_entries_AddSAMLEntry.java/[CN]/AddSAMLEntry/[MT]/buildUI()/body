@@ -1,6 +1,7 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
   editor=JXEditTextArea.createXmlEditor(true);
+  editor.setText(samlAssertion);
   editor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    javax.swing.text.Document document){
       samlAssertion=editor.getText();
