@@ -32,8 +32,8 @@
           typeName=schemaType.getName();
         }
       }
- catch (      Exception e) {
-        e.printStackTrace();
+ catch (      Throwable e) {
+        SoapUI.logError(e);
       }
     }
     if (typeName != null && typeName.getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
