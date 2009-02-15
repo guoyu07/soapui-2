@@ -1,7 +1,9 @@
 {
   if (project.getPath() != null) {
     File file=new File(project.getPath());
-    if (file.exists())     return file.getParentFile().getAbsolutePath();
+    if (file.exists()) {
+      return new File(file.getAbsolutePath()).getParent();
+    }
  else {
       try {
         URL url=new URL(project.getPath());
