@@ -23,7 +23,8 @@
     }
     wsEncrypt.setEncryptSymmKey(isEncryptSymmetricKey());
     if (parts.size() > 0) {
-      wsEncrypt.setParts(createWSParts(parts));
+      Vector<WSEncryptionPart> wsParts=createWSParts(parts);
+      if (!wsParts.isEmpty())       wsEncrypt.setParts(wsParts);
     }
     writer=new StringWriter();
     XmlUtils.serialize(doc,writer);
