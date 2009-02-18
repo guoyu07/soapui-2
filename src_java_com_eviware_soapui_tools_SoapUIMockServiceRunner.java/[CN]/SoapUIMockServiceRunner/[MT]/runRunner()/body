@@ -27,6 +27,14 @@
     }
     if (System.in.available() > 0)     System.in.read();
     for (    MockRunner runner : runners)     runner.stop();
+    if (saveAfterRun && !project.isRemote()) {
+      try {
+        project.save();
+      }
+ catch (      Throwable t) {
+        log.error("Failed to save project",t);
+      }
+    }
   }
   long timeTaken=(System.nanoTime() - startTime) / 1000000;
   log.info("time taken: " + timeTaken + "ms");

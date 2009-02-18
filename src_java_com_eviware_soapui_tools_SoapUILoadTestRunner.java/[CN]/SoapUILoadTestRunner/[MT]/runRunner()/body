@@ -22,12 +22,22 @@
  else   if (loadTestCount == 0) {
     log.warn("No load-tests matched argument [" + loadTest + "]");
   }
- else   if (!failedTests.isEmpty()) {
-    log.info(failedTests.size() + " load tests failed:");
-    for (    LoadTestRunner loadTestRunner : failedTests) {
-      log.info(loadTestRunner.getLoadTest().getName() + ": " + loadTestRunner.getReason());
+ else {
+    if (saveAfterRun && !project.isRemote()) {
+      try {
+        project.save();
+      }
+ catch (      Throwable t) {
+        log.error("Failed to save project",t);
+      }
     }
-    throw new SoapUIException("LoadTests failed");
+    if (!failedTests.isEmpty()) {
+      log.info(failedTests.size() + " load tests failed:");
+      for (      LoadTestRunner loadTestRunner : failedTests) {
+        log.info(loadTestRunner.getLoadTest().getName() + ": " + loadTestRunner.getReason());
+      }
+      throw new SoapUIException("LoadTests failed");
+    }
   }
   return true;
 }

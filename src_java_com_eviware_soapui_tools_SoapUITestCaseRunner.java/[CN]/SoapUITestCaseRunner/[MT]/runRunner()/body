@@ -59,6 +59,14 @@
     printReport(timeTaken);
   }
   exportReports(project);
+  if (saveAfterRun && !project.isRemote()) {
+    try {
+      project.save();
+    }
+ catch (    Throwable t) {
+      log.error("Failed to save project",t);
+    }
+  }
   if ((assertions.size() > 0 || failedTests.size() > 0) && !ignoreErrors) {
     throwFailureException();
   }
