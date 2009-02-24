@@ -17,6 +17,11 @@
     testSuite=testCase.getTestSuite();
     project=testSuite.getProject();
   }
+ else   if (modelItem instanceof WsdlLoadTest) {
+    testCase=((WsdlLoadTest)modelItem).getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
  else   if (modelItem instanceof WsdlTestSuite) {
     testSuite=(WsdlTestSuite)modelItem;
     project=testSuite.getProject();
@@ -32,7 +37,7 @@
     project=mockService.getProject();
   }
  else   if (modelItem instanceof AbstractHttpRequest) {
-    project=((AbstractHttpRequest)modelItem).getOperation().getInterface().getProject();
+    project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
   }
  else   if (modelItem instanceof WsdlMockOperation) {
     mockService=((WsdlMockOperation)modelItem).getMockService();
