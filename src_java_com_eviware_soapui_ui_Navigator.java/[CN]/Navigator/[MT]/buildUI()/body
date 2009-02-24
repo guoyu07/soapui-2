@@ -8,7 +8,7 @@
   mainTree.addTreeSelectionListener(new InternalTreeSelectionListener());
   mainTree.setCellRenderer(new SoapUITreeNodeRenderer());
   mainTree.setBorder(null);
-  mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+  mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
   mainTree.addKeyListener(new TreeKeyListener());
   ToolTipManager.sharedInstance().registerComponent(mainTree);
   add(new JScrollPane(mainTree),BorderLayout.CENTER);
