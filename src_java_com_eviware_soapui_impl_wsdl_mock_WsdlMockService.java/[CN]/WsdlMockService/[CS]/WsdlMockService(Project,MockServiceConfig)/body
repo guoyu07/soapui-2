@@ -7,6 +7,12 @@
   }
   if (!config.isSetPort() || config.getPort() < 1)   config.setPort(8080);
   if (!config.isSetPath())   config.setPath("/");
+  try {
+    if (!config.isSetHost() || !StringUtils.hasContent(config.getHost()))     config.setHost(InetAddress.getLocalHost().getHostName());
+  }
+ catch (  UnknownHostException e) {
+    SoapUI.logError(e);
+  }
   iconAnimator=new MockServiceIconAnimator();
   addMockRunListener(iconAnimator);
   for (  MockRunListener listener : SoapUI.getListenerRegistry().getListeners(MockRunListener.class)) {
