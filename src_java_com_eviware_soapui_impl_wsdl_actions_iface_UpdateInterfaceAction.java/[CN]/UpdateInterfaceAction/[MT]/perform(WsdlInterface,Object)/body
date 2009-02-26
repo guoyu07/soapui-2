@@ -21,8 +21,10 @@
   }
   dialog.setValue(Form.DEFINITION_URL,PathUtils.expandPath(iface.getDefinition(),iface));
   if (!dialog.show())   return;
+  PropertyExpansionContext context=new DefaultPropertyExpansionContext(iface.getProject().getModelItem());
   String url=dialog.getValue(Form.DEFINITION_URL);
   if (url == null || url.trim().length() == 0)   return;
+  url=PropertyExpansionUtils.expandProperties(context,url);
   String expUrl=PropertyExpansionUtils.expandProperties(iface,url);
   if (expUrl.trim().length() == 0)   return;
   try {
