@@ -1,4 +1,5 @@
 {
+  PropertyExpansionContext context=new DefaultPropertyExpansionContext(project.getModelItem());
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.INITIALWSDL).addFormFieldListener(new XFormFieldListener(){
@@ -16,6 +17,7 @@
   while (dialog.show()) {
     try {
       String url=dialog.getValue(Form.INITIALWSDL).trim();
+      url=PropertyExpansionUtils.expandProperties(context,url);
       if (url.length() > 0) {
         if (new File(url).exists())         url=new File(url).toURI().toURL().toString();
         importWadl(project,url);

@@ -1,5 +1,7 @@
 {
   WsdlInterface[] result;
+  PropertyExpansionContext context=new DefaultPropertyExpansionContext(project.getModelItem());
+  url=PropertyExpansionUtils.expandProperties(context,url);
   try {
     result=WsdlImporter.importWsdl(project,url,bindingName,wsdlLoader);
   }
