@@ -9,7 +9,7 @@
     return new RestResponseXmlSourceEditor((XmlEditor)editor,(RestRequest)modelItem);
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
-    return new XmlSourceEditorView((XmlEditor)editor);
+    return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);
   }
   return null;
 }

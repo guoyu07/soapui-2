@@ -6,7 +6,7 @@
     return new WsdlMockRequestXmlSourceEditor((XmlEditor)editor,(WsdlMockResponse)modelItem);
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
-    return new XmlSourceEditorView((XmlEditor)editor);
+    return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);
   }
   return null;
 }

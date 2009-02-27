@@ -9,17 +9,17 @@
     }
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
       applyMenu.removeAll();
-      DefaultWssContainer wss=mockResponse.getMockOperation().getMockService().getProject().getWssContainer();
+      DefaultWssContainer wss=getModelItem().getMockOperation().getMockService().getProject().getWssContainer();
       List<OutgoingWss> outgoingWssList=wss.getOutgoingWssList();
       applyMenu.setEnabled(!outgoingWssList.isEmpty());
       for (      OutgoingWss outgoing : outgoingWssList) {
-        applyMenu.add(new ApplyOutgoingWSSToMockResponseAction(mockResponse,outgoing));
+        applyMenu.add(new ApplyOutgoingWSSToMockResponseAction(getModelItem(),outgoing));
       }
-      applyMenu.add(new RemoveAllOutgoingWSSFromMockResponseAction(mockResponse));
+      applyMenu.add(new RemoveAllOutgoingWSSFromMockResponseAction(getModelItem()));
       wsaApplyMenu.removeAll();
-      wsaApplyMenu.add(new AddWsaHeadersToMockResponseAction(mockResponse));
-      wsaApplyMenu.add(new RemoveWsaHeadersFromMockResponseAction(mockResponse));
-      wsaApplyMenu.setEnabled(mockResponse.getWsaConfig().isWsaEnabled());
+      wsaApplyMenu.add(new AddWsaHeadersToMockResponseAction(getModelItem()));
+      wsaApplyMenu.add(new RemoveWsaHeadersFromMockResponseAction(getModelItem()));
+      wsaApplyMenu.setEnabled(getModelItem().getWsaConfig().isWsaEnabled());
     }
   }
 );

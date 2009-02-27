@@ -1,8 +1,8 @@
 {
   super.buildPopup(inputPopup,editArea);
   inputPopup.insert(new JSeparator(),2);
-  inputPopup.insert(new AddWSSUsernameTokenAction(request),3);
-  inputPopup.insert(new AddWSTimestampAction(request),4);
+  inputPopup.insert(new AddWSSUsernameTokenAction(getModelItem()),3);
+  inputPopup.insert(new AddWSTimestampAction(getModelItem()),4);
   inputPopup.insert(applyMenu=new JMenu("Outgoing WSS"),5);
   inputPopup.insert(wsaApplyMenu=new JMenu("WS-A headers"),6);
   inputPopup.addPopupMenuListener(new PopupMenuListener(){
@@ -12,17 +12,17 @@
     }
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
       applyMenu.removeAll();
-      DefaultWssContainer wss=request.getOperation().getInterface().getProject().getWssContainer();
+      DefaultWssContainer wss=getModelItem().getOperation().getInterface().getProject().getWssContainer();
       List<OutgoingWss> outgoingWssList=wss.getOutgoingWssList();
       applyMenu.setEnabled(!outgoingWssList.isEmpty());
       for (      OutgoingWss outgoing : outgoingWssList) {
-        applyMenu.add(new ApplyOutgoingWSSToRequestAction(request,outgoing));
+        applyMenu.add(new ApplyOutgoingWSSToRequestAction(getModelItem(),outgoing));
       }
-      applyMenu.add(new RemoveAllOutgoingWSSFromRequestAction(request));
+      applyMenu.add(new RemoveAllOutgoingWSSFromRequestAction(getModelItem()));
       wsaApplyMenu.removeAll();
-      wsaApplyMenu.add(new AddWsaHeadersToRequestAction(request));
-      wsaApplyMenu.add(new RemoveWsaHeadersFromRequestAction(request));
-      wsaApplyMenu.setEnabled(request.getWsaConfig().isWsaEnabled());
+      wsaApplyMenu.add(new AddWsaHeadersToRequestAction(getModelItem()));
+      wsaApplyMenu.add(new RemoveWsaHeadersFromRequestAction(getModelItem()));
+      wsaApplyMenu.setEnabled(getModelItem().getWsaConfig().isWsaEnabled());
     }
   }
 );
