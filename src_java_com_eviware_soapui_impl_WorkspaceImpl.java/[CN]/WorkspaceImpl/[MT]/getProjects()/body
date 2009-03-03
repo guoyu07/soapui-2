@@ -1,3 +1,7 @@
 {
-  return projectList.toArray(new Project[projectList.size()]);
+  Map<String,Project> result=new HashMap<String,Project>();
+  for (  Project project : projectList) {
+    result.put(project.getName(),project);
+  }
+  return result;
 }
