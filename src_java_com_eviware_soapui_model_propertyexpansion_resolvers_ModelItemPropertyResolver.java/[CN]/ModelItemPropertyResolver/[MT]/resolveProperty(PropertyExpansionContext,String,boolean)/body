@@ -2,6 +2,8 @@
   if (pe.charAt(0) == PropertyExpansion.SCOPE_PREFIX)   return getScopedProperty(context,pe,globalOverride);
   ModelItem modelItem=context.getModelItem();
   if (modelItem instanceof WsdlLoadTest)   modelItem=((WsdlLoadTest)modelItem).getTestCase();
+ else   if (modelItem instanceof TestRequest)   modelItem=((TestRequest)modelItem).getTestStep();
+ else   if (modelItem instanceof WsdlMockResponse && ((WsdlMockResponse)modelItem).getMockOperation().getMockService() instanceof WsdlTestMockService)   modelItem=((WsdlTestMockService)((WsdlMockResponse)modelItem).getMockOperation().getMockService()).getMockResponseStep();
   if (modelItem instanceof WsdlTestStep || modelItem instanceof WsdlTestCase) {
     WsdlTestStep testStep=(WsdlTestStep)(modelItem instanceof WsdlTestStep ? modelItem : null);
     WsdlTestCase testCase=(WsdlTestCase)(testStep == null ? modelItem : testStep.getTestCase());
