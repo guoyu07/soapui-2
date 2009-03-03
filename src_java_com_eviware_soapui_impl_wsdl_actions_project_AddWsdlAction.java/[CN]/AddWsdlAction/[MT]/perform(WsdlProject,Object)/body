@@ -21,9 +21,15 @@
   while (dialog.show()) {
     try {
       String url=dialog.getValue(Form.INITIALWSDL).trim();
-      if (url.length() > 0) {
-        if (new File(url).exists())         url=new File(url).toURI().toURL().toString();
-        importWsdl(project,url);
+      if (StringUtils.hasContent(url)) {
+        String expUrl=PathUtils.expandPath(url,project);
+        if (new File(expUrl).exists())         url=new File(expUrl).toURI().toURL().toString();
+        WsdlInterface[] results=importWsdl(project,expUrl);
+        if (!url.equals(expUrl)) {
+          for (          WsdlInterface iface : results) {
+            iface.setDefinition(url,false);
+          }
+        }
         break;
       }
     }

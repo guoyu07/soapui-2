@@ -19,13 +19,12 @@
     }
 );
   }
-  dialog.setValue(Form.DEFINITION_URL,PathUtils.expandPath(iface.getDefinition(),iface));
+  dialog.setValue(Form.DEFINITION_URL,iface.getDefinition());
+  dialog.getFormField(Form.DEFINITION_URL).setToolTip(PathUtils.expandPath(iface.getDefinition(),iface));
   if (!dialog.show())   return;
-  PropertyExpansionContext context=new DefaultPropertyExpansionContext(iface.getProject().getModelItem());
   String url=dialog.getValue(Form.DEFINITION_URL);
   if (url == null || url.trim().length() == 0)   return;
-  url=PropertyExpansionUtils.expandProperties(context,url);
-  String expUrl=PropertyExpansionUtils.expandProperties(iface,url);
+  String expUrl=PathUtils.expandPath(url,iface);
   if (expUrl.trim().length() == 0)   return;
   try {
     File file=new File(expUrl);

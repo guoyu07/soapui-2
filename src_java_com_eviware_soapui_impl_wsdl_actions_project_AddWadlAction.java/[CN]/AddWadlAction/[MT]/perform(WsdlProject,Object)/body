@@ -17,10 +17,13 @@
   while (dialog.show()) {
     try {
       String url=dialog.getValue(Form.INITIALWSDL).trim();
-      url=PropertyExpansionUtils.expandProperties(context,url);
-      if (url.length() > 0) {
-        if (new File(url).exists())         url=new File(url).toURI().toURL().toString();
-        importWadl(project,url);
+      if (StringUtils.hasContent(url)) {
+        String expUrl=PathUtils.expandPath(url,project);
+        if (new File(expUrl).exists())         expUrl=new File(expUrl).toURI().toURL().toString();
+        RestService result=importWadl(project,expUrl);
+        if (!url.equals(expUrl) && result != null) {
+          result.setWadlUrl(url);
+        }
         break;
       }
     }
