@@ -1,7 +1,7 @@
 {
   try {
     if (StringUtils.isNullOrEmpty(str))     return false;
-    return XmlObject.Factory.parse(str) != null;
+    return null != XmlObject.Factory.parse(str);
   }
  catch (  Throwable e) {
     return false;
