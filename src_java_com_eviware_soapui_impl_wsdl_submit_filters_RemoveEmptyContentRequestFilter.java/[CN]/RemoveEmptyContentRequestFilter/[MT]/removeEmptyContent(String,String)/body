@@ -8,7 +8,7 @@
     boolean removed=false;
     while (!cursor.isEnddoc()) {
       boolean flag=false;
-      if (cursor.isContainer()) {
+      if (cursor.isContainer() && (soapNamespace == null || !soapNamespace.equals(cursor.getName().getNamespaceURI()))) {
         Element elm=(Element)cursor.getDomNode();
         NamedNodeMap attributes=elm.getAttributes();
         if (attributes != null && attributes.getLength() > 0) {
