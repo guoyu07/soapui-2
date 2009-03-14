@@ -4,6 +4,7 @@
   TestCaseConfig testCaseConfig=index == -1 ? (TestCaseConfig)getConfig().addNewTestCase().set(testCase.getConfig().copy()) : (TestCaseConfig)getConfig().insertNewTestCase(index).set(testCase.getConfig().copy());
   testCaseConfig.setName(name);
   if (!includeLoadTests)   testCaseConfig.setLoadTestArray(new LoadTestConfig[0]);
+  WsdlTestCase oldTestCase=testCase;
   testCase=new WsdlTestCase(this,testCaseConfig,false);
   if (createCopy) {
     ModelSupport.unsetIds(testCase);
@@ -11,6 +12,9 @@
   if (index == -1)   testCases.add(testCase);
  else   testCases.add(index,testCase);
   testCase.afterLoad();
+  if (createCopy) {
+    testCase.afterCopy(null,oldTestCase);
+  }
   fireTestCaseAdded(testCase);
   resolveImportedTestCase(testCase);
   return testCase;

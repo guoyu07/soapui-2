@@ -3,7 +3,9 @@
   newStepConfig.set(stepConfig);
   WsdlTestStep testStep=createTestStepFromConfig(newStepConfig);
   if (!ensureUniqueName(testStep))   return null;
-  if (clearIds)   ModelSupport.unsetIds(testStep);
+  if (clearIds) {
+    ModelSupport.unsetIds(testStep);
+  }
   if (ix == -1)   testSteps.add(testStep);
  else   testSteps.add(ix,testStep);
   testStep.afterLoad();
