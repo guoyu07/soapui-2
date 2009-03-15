@@ -3,9 +3,10 @@
     boolean buildOptional=dialog.getBooleanValue(Form.RECREATE_OPTIONAL);
     boolean createBackups=dialog.getBooleanValue(Form.CREATE_BACKUPS);
     boolean keepExisting=dialog.getBooleanValue(Form.KEEP_EXISTING);
+    boolean keepHeaders=dialog.getBooleanValue(Form.KEEP_HEADERS);
     List<ModelItem> updated=new ArrayList<ModelItem>();
-    updated.addAll(recreateRequests(iface,buildOptional,createBackups,keepExisting));
-    if (dialog.getBooleanValue(Form.UPDATE_TESTREQUESTS))     updated.addAll(recreateTestRequests(iface,buildOptional,createBackups,keepExisting));
+    updated.addAll(recreateRequests(iface,buildOptional,createBackups,keepExisting,keepHeaders));
+    if (dialog.getBooleanValue(Form.UPDATE_TESTREQUESTS))     updated.addAll(recreateTestRequests(iface,buildOptional,createBackups,keepExisting,keepHeaders));
     UISupport.showInfoMessage("Update of interface successfull, [" + updated.size() + "] Requests/TestRequests have"+ " been updated.","Update Definition");
     if (dialog.getBooleanValue(Form.OPEN_LIST)) {
       UISupport.showDesktopPanel(new ModelItemListDesktopPanel("Updated Requests/TestRequests","The following Request/TestRequests where updated",updated.toArray(new ModelItem[updated.size()])));

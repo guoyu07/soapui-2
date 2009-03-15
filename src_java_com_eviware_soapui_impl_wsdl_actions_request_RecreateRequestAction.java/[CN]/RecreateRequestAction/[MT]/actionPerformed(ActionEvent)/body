@@ -5,13 +5,15 @@
     if (create == null)     return;
     createOptional=create.booleanValue();
   }
-  String req=((WsdlOperation)request.getOperation()).createRequest(createOptional);
+  WsdlOperation wsdlOperation=(WsdlOperation)request.getOperation();
+  String req=wsdlOperation.createRequest(createOptional);
   if (req == null) {
     UISupport.showErrorMessage("Request creation failed");
     return;
   }
   if (request.getRequestContent() != null && request.getRequestContent().trim().length() > 0) {
     if (UISupport.confirm("Keep existing values","Recreate Request")) {
+      req=SoapUtils.transferSoapHeaders(request.getRequestContent(),req,wsdlOperation.getInterface().getSoapVersion());
       req=XmlUtils.transferValues(request.getRequestContent(),req);
     }
   }

@@ -7,6 +7,9 @@
     List<Request> requests=operation.getRequestList();
     for (    Request request : requests) {
       String requestContent=request.getRequestContent();
+      if (keepHeaders) {
+        newRequest=SoapUtils.transferSoapHeaders(requestContent,newRequest,iface.getSoapVersion());
+      }
       String req=XmlUtils.transferValues(requestContent,newRequest);
       if (!req.equals(requestContent)) {
         if (!XmlUtils.prettyPrintXml(req).equals(XmlUtils.prettyPrintXml(requestContent))) {

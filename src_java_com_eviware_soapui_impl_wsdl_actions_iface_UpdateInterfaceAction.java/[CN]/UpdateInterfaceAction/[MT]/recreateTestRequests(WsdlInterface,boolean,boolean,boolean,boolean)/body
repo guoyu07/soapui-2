@@ -10,6 +10,9 @@
           WsdlTestRequest testRequest=((WsdlTestRequestStep)testStep).getTestRequest();
           if (testRequest.getOperation().getInterface() == iface) {
             String newRequest=testRequest.getOperation().createRequest(buildOptional);
+            if (keepHeaders) {
+              newRequest=SoapUtils.transferSoapHeaders(testRequest.getRequestContent(),newRequest,iface.getSoapVersion());
+            }
             if (keepExisting)             newRequest=XmlUtils.transferValues(testRequest.getRequestContent(),newRequest);
             if (!newRequest.equals(testRequest.getRequestContent())) {
               if (createBackups) {
