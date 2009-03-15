@@ -20,7 +20,7 @@
     httpMethod.getParams().setVersion(HttpVersion.HTTP_1_0);
   }
  else   if (httpVersion.equals(HttpSettings.HTTP_VERSION_0_9)) {
-    httpMethod.getParams().setVersion(HttpVersion.HTTP_0_9);
+    httpMethod.getParams().setVersion(HttpVersion.HTTP_1_1);
   }
   long maxSize=httpRequest.getMaxSize();
   if (maxSize == 0)   maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
