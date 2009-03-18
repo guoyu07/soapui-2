@@ -54,5 +54,6 @@
     getModelItem().setTargetTestCase(testSuite == null ? null : testSuite.getTestCaseByName(optionsDialog.getValue(OptionsForm.TESTCASE)));
     getModelItem().setReturnProperties(new StringList(((XFormMultiSelectList)optionsDialog.getFormField(OptionsForm.RETURN_PROPERTIES)).getSelectedOptions()));
     getModelItem().setRunMode(optionsDialog.getValueIndex(OptionsForm.RUN_MODE) == 0 ? RunTestCaseRunModeTypeConfig.PARALLELL : RunTestCaseRunModeTypeConfig.SINGLETON_AND_FAIL);
+    titledBorder.setTitle(createTitleForBorder());
   }
 }

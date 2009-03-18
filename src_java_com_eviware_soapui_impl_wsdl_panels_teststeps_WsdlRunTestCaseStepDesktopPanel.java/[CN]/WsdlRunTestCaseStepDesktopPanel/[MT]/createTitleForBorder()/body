@@ -1,4 +1,4 @@
 {
   WsdlTestCase targetTestCase=getModelItem().getTargetTestCase();
-  return "TestCase [" + (targetTestCase == null ? "-none selected-" : targetTestCase.getName()) + "] Run Properties";
+  return "TestCase [" + (targetTestCase == null ? "- none selected -" : targetTestCase.getTestSuite().getName() + ":" + targetTestCase.getName()) + "] Run Properties";
 }

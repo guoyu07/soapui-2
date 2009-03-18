@@ -2,6 +2,11 @@
   super(modelItem);
   project=getModelItem().getTestCase().getTestSuite().getProject();
   getModelItem().addPropertyChangeListener(WsdlRunTestCaseTestStep.TARGET_TESTCASE,this);
+  WsdlTestCase targetTestCase=getModelItem().getTargetTestCase();
+  if (targetTestCase != null) {
+    targetTestCase.addPropertyChangeListener(WsdlTestCase.NAME_PROPERTY,this);
+    targetTestCase.getTestSuite().addPropertyChangeListener(WsdlTestCase.NAME_PROPERTY,this);
+  }
   buildUI();
   setEnabledState();
   if (modelItem.getTargetTestCase() == null) {
