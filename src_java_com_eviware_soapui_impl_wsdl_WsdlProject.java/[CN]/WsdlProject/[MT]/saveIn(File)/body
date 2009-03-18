@@ -32,9 +32,13 @@
     removeDefinitionCaches(config);
     config.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
     ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
-    config.save(writer,options);
+    FileWriter fwriter=new FileWriter(projectFile);
+    config.save(fwriter,options);
     FileOutputStream out=new FileOutputStream(projectFile);
-    writer.writeTo(out);
+    String tmpBuffer=fixLineSeparator(writer);
+    ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
+    writer2.write(tmpBuffer.getBytes());
+    writer2.writeTo(out);
     out.close();
     size=writer.size();
   }
@@ -42,9 +46,13 @@
     try {
       projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
       ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
-      projectDocument.save(writer,options);
+      FileWriter fwriter=new FileWriter(projectFile);
+      projectDocument.save(fwriter,options);
       FileOutputStream out=new FileOutputStream(projectFile);
-      writer.writeTo(out);
+      String tmpBuffer=fixLineSeparator(writer);
+      ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
+      writer2.write(tmpBuffer.getBytes());
+      writer2.writeTo(out);
       out.close();
       size=writer.size();
     }
