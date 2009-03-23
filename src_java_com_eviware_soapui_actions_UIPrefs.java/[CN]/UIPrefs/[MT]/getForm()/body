@@ -2,33 +2,33 @@
   if (editorForm == null) {
     editorForm=new SimpleForm();
     editorForm.addSpace(5);
-    editorForm.appendCheckBox(CLOSE_PROJECTS,"(close all projects on startup)",false);
+    editorForm.appendCheckBox(CLOSE_PROJECTS,"Close all projects on startup",false);
     editorForm.appendSeparator();
-    editorForm.appendCheckBox(ORDER_PROJECTS,"(orders Projects alphabetically in tree)",false);
-    editorForm.appendCheckBox(ORDER_REQUESTS,"(orders Requests alphabetically in tree)",false);
-    editorForm.appendCheckBox(ORDER_TESTSUITES,"(orders TestSuites alphabetically in tree)",false);
-    editorForm.appendCheckBox(SHOW_DESCRIPTIONS,"(show description content when available)",false);
+    editorForm.appendCheckBox(ORDER_PROJECTS,"Order Projects alphabetically in tree",false);
+    editorForm.appendCheckBox(ORDER_REQUESTS,"Order Requests alphabetically in tree",false);
+    editorForm.appendCheckBox(ORDER_TESTSUITES,"Order TestSuites alphabetically in tree",false);
+    editorForm.appendCheckBox(SHOW_DESCRIPTIONS,"Show description content when available",false);
     editorForm.appendSeparator();
-    editorForm.appendCheckBox(AUTOSAVE_ONEXIT,"(automatically save all projects on exit)",true);
-    backupCheckBox=editorForm.appendCheckBox(CREATE_BACKUP,"(backup project files before they are saved)",true);
-    backupFolder=editorForm.appendTextField(BACKUP_FOLDER,"(folder to backup to, can be both relative or absolute)");
+    editorForm.appendCheckBox(AUTOSAVE_ONEXIT,"Automatically save all projects on exit",true);
+    backupCheckBox=editorForm.appendCheckBox(CREATE_BACKUP,"Backup project files before they are saved",true);
+    backupFolder=editorForm.appendTextField(BACKUP_FOLDER,"Folder to backup to (can be both relative or absolute)");
     backupCheckBox.addActionListener(new ActionListener(){
       public void actionPerformed(      ActionEvent e){
         backupFolder.setEnabled(backupCheckBox.isSelected());
       }
     }
 );
-    editorForm.appendTextField(AUTOSAVE_INTERVAL,"Sets the autosave interval in minutes, 0 = off");
+    editorForm.appendTextField(AUTOSAVE_INTERVAL,"Sets the autosave interval in minutes (0 means autosave is off)");
     if (SoapUI.isStandalone()) {
       editorForm.appendSeparator();
       editorForm.appendComboBox(DESKTOP_TYPE,DesktopRegistry.getInstance().getNames(),"Select the type of desktop to use");
-      editorForm.appendCheckBox(NATIVE_LAF,"(use native Look & Feel - requires restart)",true);
+      editorForm.appendCheckBox(NATIVE_LAF,"Use native Look & Feel (requires restart)",true);
     }
     editorForm.appendSeparator();
-    editorForm.appendCheckBox(ENABLE_GROOVY_LOG_DURING_LOADTEST,"(do not disable the groovy log when running LoadTests)",true);
+    editorForm.appendCheckBox(ENABLE_GROOVY_LOG_DURING_LOADTEST,"Do not disable the groovy log when running LoadTests",true);
     if (SoapUI.isStandalone()) {
-      editorForm.appendCheckBox(SHOW_LOGS_AT_STARTUP,"(shows log tabs when starting soapUI)",false);
-      editorForm.appendCheckBox(SHOW_STARTUP_PAGE,"(opens startup webpage when starting soapUI)",false);
+      editorForm.appendCheckBox(SHOW_LOGS_AT_STARTUP,"Shows log tabs when starting soapUI",false);
+      editorForm.appendCheckBox(SHOW_STARTUP_PAGE,"Opens startup web page when starting soapUI",false);
     }
   }
   return editorForm;

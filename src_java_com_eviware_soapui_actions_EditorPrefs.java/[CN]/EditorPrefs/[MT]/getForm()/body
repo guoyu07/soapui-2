@@ -16,15 +16,15 @@
     editorForm.addSpace(5);
     editorForm.append("Editor Font",builder.getPanel());
     editorForm.appendSeparator();
-    editorForm.appendCheckBox(XML_LINE_NUMBERS,"(show line-numbers in xml editors by default)",true);
-    editorForm.appendCheckBox(GROOVY_LINE_NUMBERS,"(show line-numbers in groovy editors by default)",true);
+    editorForm.appendCheckBox(XML_LINE_NUMBERS,"Show line numbers in XML editors by default",true);
+    editorForm.appendCheckBox(GROOVY_LINE_NUMBERS,"Show line numbers in Groovy editors by default",true);
     editorForm.appendSeparator();
-    editorForm.appendCheckBox(NO_RESIZE_REQUEST_EDITOR,"(disables automatic resizing of request editors)",true);
-    editorForm.appendCheckBox(START_WITH_REQUEST_TABS,"(defaults the request editor to the tabbed layout)",true);
+    editorForm.appendCheckBox(NO_RESIZE_REQUEST_EDITOR,"Disables automatic resizing of Request editors",true);
+    editorForm.appendCheckBox(START_WITH_REQUEST_TABS,"Defaults the Request editor to the tabbed layout",true);
     editorForm.appendSeparator();
-    autoValidateCheckBox=editorForm.appendCheckBox(AUTO_VALIDATE_REQUEST,"(always validate request messages before they are sent)",true);
-    abortCheckBox=editorForm.appendCheckBox(ABORT_ON_INVALID_REQUEST,"(aborts invalid requests)",true);
-    editorForm.appendCheckBox(AUTO_VALIDATE_RESPONSE,"(always validate response messages)",true);
+    autoValidateCheckBox=editorForm.appendCheckBox(AUTO_VALIDATE_REQUEST,"Always validate request messages before they are sent",true);
+    abortCheckBox=editorForm.appendCheckBox(ABORT_ON_INVALID_REQUEST,"Abort invalid requests",true);
+    editorForm.appendCheckBox(AUTO_VALIDATE_RESPONSE,"Always validate response messages",true);
     autoValidateCheckBox.addActionListener(new ActionListener(){
       public void actionPerformed(      ActionEvent e){
         abortCheckBox.setEnabled(autoValidateCheckBox.isSelected());
