@@ -33,15 +33,6 @@
       pathCombo.setRenderer(new ModelItemListCellRenderer());
       pathCombo.setPreferredSize(new Dimension(200,20));
       pathCombo.setSelectedItem(getRequest().getResource().getPath());
-      pathCombo.addItemListener(new ItemListener(){
-        public void itemStateChanged(        ItemEvent e){
-          if (updating)           return;
-          updating=true;
-          getRequest().getResource().setPath(String.valueOf(pathCombo.getSelectedItem()));
-          updating=false;
-        }
-      }
-);
       toolbar.addLabeledFixed("Resource:",pathCombo);
       toolbar.addSeparator();
     }

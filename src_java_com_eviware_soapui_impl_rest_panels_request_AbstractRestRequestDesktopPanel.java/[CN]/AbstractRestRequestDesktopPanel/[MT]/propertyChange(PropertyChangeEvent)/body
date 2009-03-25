@@ -11,7 +11,7 @@
     acceptCombo.setModel(new DefaultComboBoxModel((Object[])evt.getNewValue()));
     acceptCombo.setSelectedItem(item);
   }
- else   if (evt.getPropertyName().equals("path") && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
+ else   if ((evt.getPropertyName().equals("path") || evt.getPropertyName().equals("resource")) && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
     if (pathLabel != null) {
       updateFullPathLabel();
     }
