@@ -1,5 +1,6 @@
 {
   WsdlTestRequestStepResult testStepResult=new WsdlTestRequestStepResult(this);
+  runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
   try {
     submit=testRequest.submit(runContext,false);
     WsdlResponse response=(WsdlResponse)submit.getResponse();
@@ -15,7 +16,6 @@
         testRequest.setResponse(null,runContext);
       }
  else {
-        runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
         testRequest.setResponse(response,runContext);
         testStepResult.setTimeTaken(response.getTimeTaken());
         testStepResult.setSize(response.getContentLength());
