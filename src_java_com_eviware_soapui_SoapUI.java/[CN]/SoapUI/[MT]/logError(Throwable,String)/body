@@ -1,0 +1,8 @@
+{
+  String msg=e.getMessage();
+  if (msg == null)   msg=e.toString();
+  log.error("An error occured [" + msg + "], see error log for details");
+  if (message != null)   errorLog.error(message);
+  errorLog.error(e.toString(),e);
+  if (!isStandalone() || "true".equals(System.getProperty("soapui.stacktrace")))   e.printStackTrace();
+}

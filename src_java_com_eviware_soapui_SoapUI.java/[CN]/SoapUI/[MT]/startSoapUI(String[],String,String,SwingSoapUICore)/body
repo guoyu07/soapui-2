@@ -20,7 +20,18 @@
   }
  else {
     String wsfile=soapUICore.getSettings().getString(CURRENT_SOAPUI_WORKSPACE,System.getProperty("user.home") + File.separatorChar + DEFAULT_WORKSPACE_FILE);
-    workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
+    try {
+      workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
+    }
+ catch (    Exception e) {
+      if (UISupport.confirm("Failed to open workspace: [" + e.toString() + "], create new one instead?","Error")) {
+        new File(wsfile).delete();
+        workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
+      }
+ else {
+        System.exit(1);
+      }
+    }
   }
   core.prepareUI();
   soapUI.show(workspace);

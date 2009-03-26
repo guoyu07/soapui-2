@@ -5,7 +5,7 @@
     uri=httpMethod.getURI();
   }
  catch (  URIException e) {
-    SoapUI.logError(e);
+    SoapUI.logError(e,"Error for path: " + httpMethod.getPath() + ", QueryString: "+ httpMethod.getQueryString());
     return;
   }
   EndpointDefaults def=defaults.get(uri.toString());
@@ -18,5 +18,5 @@
     }
     if (def == null)     return;
   }
-  applyDefaultsToWsdlRequest(context,(AbstractHttpRequest)wsdlRequest,def);
+  applyDefaultsToWsdlRequest(context,(AbstractHttpRequest<?>)wsdlRequest,def);
 }
