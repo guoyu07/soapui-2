@@ -36,7 +36,7 @@
     FileOutputStream out=new FileOutputStream(projectFile);
     String tmpBuffer=fixLineSeparator(writer);
     ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
-    writer2.write(tmpBuffer.getBytes());
+    writer2.write(tmpBuffer.getBytes("utf-8"));
     writer2.writeTo(out);
     out.close();
     size=writer.size();
@@ -49,7 +49,7 @@
       FileOutputStream out=new FileOutputStream(projectFile);
       String tmpBuffer=fixLineSeparator(writer);
       ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
-      writer2.write(tmpBuffer.getBytes());
+      writer2.write(tmpBuffer.getBytes("utf-8"));
       writer2.writeTo(out);
       out.close();
       size=writer.size();
