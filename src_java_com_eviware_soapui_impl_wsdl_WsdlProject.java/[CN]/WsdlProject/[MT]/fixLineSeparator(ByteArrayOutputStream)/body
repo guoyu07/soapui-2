@@ -1,10 +1,15 @@
 {
-  String tmpBuffer=writer.toString();
-  if ("\r\n".equals(System.getProperty("line.separator"))) {
-    tmpBuffer=tmpBuffer.replaceAll("\r[^\n]",System.getProperty("line.separator"));
-  }
+  try {
+    String tmpBuffer=writer.toString("utf-8");
+    if ("\r\n".equals(System.getProperty("line.separator"))) {
+      tmpBuffer=tmpBuffer.replaceAll("\r[^\n]",System.getProperty("line.separator"));
+    }
  else {
-    tmpBuffer=tmpBuffer.replaceAll("\r\n",System.getProperty("line.separator"));
+      tmpBuffer=tmpBuffer.replaceAll("\r\n",System.getProperty("line.separator"));
+    }
+    return tmpBuffer;
   }
-  return tmpBuffer;
+ catch (  UnsupportedEncodingException e) {
+    return null;
+  }
 }
