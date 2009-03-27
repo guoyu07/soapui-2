@@ -1,7 +1,17 @@
 {
+  this.currentProject=project;
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.SERVICENAME).addFormFieldValidator(new RequiredValidator("Service Name is required"));
+    dialog.getFormField(Form.SERVICENAME).addFormFieldValidator(new XFormFieldValidator(){
+      public ValidationMessage[] validateField(      XFormField formField){
+        if (currentProject.getInterfaceByName(formField.getValue()) != null) {
+          return new ValidationMessage[]{new ValidationMessage("Service Name must be unique in project",formField)};
+        }
+        return null;
+      }
+    }
+);
     dialog.getFormField(Form.SERVICEENDPOINT).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
         boolean enable=false;
