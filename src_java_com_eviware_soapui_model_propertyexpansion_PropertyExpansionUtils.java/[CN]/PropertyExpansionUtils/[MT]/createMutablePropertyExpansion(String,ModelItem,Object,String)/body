@@ -32,7 +32,7 @@
     project=mockService.getProject();
   }
  else   if (modelItem instanceof AbstractHttpRequest) {
-    project=((AbstractHttpRequest)modelItem).getOperation().getInterface().getProject();
+    project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
   }
  else   if (modelItem instanceof WsdlMockOperation) {
     mockService=((WsdlMockOperation)modelItem).getMockService();

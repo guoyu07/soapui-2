@@ -1,0 +1,8 @@
+{
+  int currentStepIndex=getIndexOfTestStep(referenceStep);
+  int ix=currentStepIndex + 1;
+  while (ix < getTestStepCount() && !getTestStepAt(ix).getClass().isInstance(stepClass)) {
+    ix++;
+  }
+  return (T)(ix >= getTestStepCount() ? null : getTestStepAt(ix));
+}

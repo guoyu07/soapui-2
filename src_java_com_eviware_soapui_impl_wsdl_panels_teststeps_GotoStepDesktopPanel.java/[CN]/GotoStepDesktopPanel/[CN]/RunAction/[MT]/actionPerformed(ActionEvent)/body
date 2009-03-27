@@ -3,7 +3,7 @@
     UISupport.showErrorMessage("Missing conditions!");
     return;
   }
-  WsdlTestRequestStep previousStep=(WsdlTestRequestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,WsdlTestRequestStep.class);
+  HttpTestRequestStep previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpTestRequestStep.class);
   if (previousStep == null) {
     UISupport.showErrorMessage("Missing previous request step");
   }
