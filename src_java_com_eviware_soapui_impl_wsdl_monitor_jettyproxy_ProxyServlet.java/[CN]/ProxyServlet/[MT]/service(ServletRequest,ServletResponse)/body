@@ -3,7 +3,6 @@
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   if (httpRequest.getMethod().equals("GET"))   method=new ExtendedGetMethod();
  else   method=new ExtendedPostMethod();
-  System.err.println(httpRequest.getMethod());
   if (capturedData == null) {
     capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
     capturedData.setRequestHost(httpRequest.getServerName());
@@ -57,10 +56,6 @@
   }
  else {
     client.executeMethod(hostConfiguration,method);
-  }
-  if (capturedData == null) {
-    int i=0;
-    i++;
   }
   capturedData.stopCapture();
   byte[] res=method.getResponseBody();
