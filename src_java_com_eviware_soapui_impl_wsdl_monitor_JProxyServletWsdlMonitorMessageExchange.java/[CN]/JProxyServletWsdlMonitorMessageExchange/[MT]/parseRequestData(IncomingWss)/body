@@ -4,11 +4,12 @@
     requestContentType=requestHeaders.get("Content-Type");
     if (requestContentType != null && requestContentType.toUpperCase().startsWith("MULTIPART")) {
       StringToStringMap values=StringToStringMap.fromHttpHeader(requestContentType);
-      requestMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor request",in,requestContentType),values.get("start"),null,true,SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES));
+      requestMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor request",in,requestContentType),values.get("start"),null,true,false);
       requestContentType=requestMmSupport.getRootPart().getContentType();
     }
  else {
-      this.requestContent=XmlUtils.prettyPrintXml(Tools.readAll(in,0).toString());
+      String charset=getCharset(requestHeaders);
+      this.requestContent=charset == null ? Tools.readAll(in,0).toString() : Tools.readAll(in,0).toString(charset);
     }
     processRequestWss(incomingRequestWss);
     operation=findOperation();
