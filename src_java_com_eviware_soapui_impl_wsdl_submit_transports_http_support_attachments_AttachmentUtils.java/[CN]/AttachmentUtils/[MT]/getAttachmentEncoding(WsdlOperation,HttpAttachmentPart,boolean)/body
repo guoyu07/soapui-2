@@ -1,0 +1,7 @@
+{
+  if (httpAttachmentPart.getSchemaType() != null) {
+    if (SchemaUtils.isInstanceOf(httpAttachmentPart.getSchemaType(),XmlBase64Binary.type))     return AttachmentEncoding.BASE64;
+ else     if (SchemaUtils.isInstanceOf(httpAttachmentPart.getSchemaType(),XmlHexBinary.type))     return AttachmentEncoding.HEX;
+  }
+  return getAttachmentEncoding(operation,httpAttachmentPart.getName(),isResponse);
+}

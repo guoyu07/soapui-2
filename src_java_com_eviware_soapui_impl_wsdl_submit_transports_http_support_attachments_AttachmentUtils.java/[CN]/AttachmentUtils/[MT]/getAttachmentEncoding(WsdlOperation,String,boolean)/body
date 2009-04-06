@@ -28,8 +28,8 @@
         SchemaGlobalElement elm=operation.getInterface().getWsdlContext().getSchemaTypeLoader().findElement(part.getElementName());
         if (elm != null && elm.getType() != null) {
           SchemaType schemaType=elm.getType();
-          while (!schemaType.isBuiltinType() && schemaType.getBaseType() != null)           schemaType=schemaType.getBaseType();
-          typeName=schemaType.getName();
+          if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type))           return AttachmentEncoding.BASE64;
+ else           if (SchemaUtils.isInstanceOf(schemaType,XmlHexBinary.type))           return AttachmentEncoding.HEX;
         }
       }
  catch (      Throwable e) {

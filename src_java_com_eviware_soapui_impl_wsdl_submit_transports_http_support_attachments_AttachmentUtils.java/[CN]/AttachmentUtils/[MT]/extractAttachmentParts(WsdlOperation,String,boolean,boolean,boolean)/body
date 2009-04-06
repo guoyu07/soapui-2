@@ -20,10 +20,11 @@
             SchemaType schemaType=cursor.getObject().schemaType();
             if (schemaType != null) {
               String attributeText=AttachmentUtils.getXmlMimeContentType(cursor);
+              HttpAttachmentPart attachmentPart=null;
               if (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
                 String contentId=cursor.getTextValue();
                 if (contentId.startsWith("cid:")) {
-                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
+                  attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
                   attachmentPart.setType(attributeText == null && !forceMtom ? Attachment.AttachmentType.CONTENT : Attachment.AttachmentType.XOP);
                   result.add(attachmentPart);
                 }
@@ -31,7 +32,7 @@
  else               if (AttachmentUtils.isXopInclude(schemaType)) {
                 String contentId=cursor.getAttributeText(new QName("href"));
                 if (contentId != null && contentId.length() > 0) {
-                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId,attributeText);
+                  attachmentPart=new HttpAttachmentPart(contentId,attributeText);
                   attachmentPart.setType(Attachment.AttachmentType.XOP);
                   result.add(attachmentPart);
                 }
@@ -39,11 +40,12 @@
  else               if (AttachmentUtils.isSwaRefType(schemaType)) {
                 String contentId=cursor.getTextValue();
                 if (contentId.startsWith("cid:")) {
-                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
+                  attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
                   attachmentPart.setType(Attachment.AttachmentType.SWAREF);
                   result.add(attachmentPart);
                 }
               }
+              if (attachmentPart != null)               attachmentPart.setSchemaType(schemaType);
             }
           }
           cursor.toNextToken();
