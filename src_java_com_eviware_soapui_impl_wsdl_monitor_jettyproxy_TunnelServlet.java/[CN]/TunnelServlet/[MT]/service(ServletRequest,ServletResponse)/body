@@ -46,13 +46,19 @@
   }
   capturedData.stopCapture();
   byte[] res=postMethod.getResponseBody();
-  IO.copy(new ByteArrayInputStream(postMethod.getResponseBody()),response.getOutputStream());
   capturedData.setRequest(capture.getCapturedData());
   capturedData.setResponse(res);
   capturedData.setResponseHeader(postMethod);
   capturedData.setRawRequestData(getRequestToBytes(postMethod,capture));
   capturedData.setRawResponseData(getResponseToBytes(postMethod,res));
   monitor.addMessageExchange(capturedData);
+  StringToStringMap responseHeaders=capturedData.getResponseHeaders();
   capturedData=null;
+  HttpServletResponse httpResponse=(HttpServletResponse)response;
+  for (  String name : responseHeaders.keySet()) {
+    String header=responseHeaders.get(name);
+    httpResponse.addHeader(name,header);
+  }
+  IO.copy(new ByteArrayInputStream(res),httpResponse.getOutputStream());
   postMethod.releaseConnection();
 }
