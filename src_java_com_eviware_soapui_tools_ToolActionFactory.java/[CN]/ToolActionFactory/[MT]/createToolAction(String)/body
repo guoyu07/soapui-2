@@ -1,0 +1,23 @@
+{
+  Class toolActionType=toolActionTypeMap.get(toolName);
+  AbstractToolsAction<Interface> toolActionObject=null;
+  if (toolActionType == null) {
+    return null;
+  }
+  try {
+    toolActionObject=(AbstractToolsAction<Interface>)toolActionType.newInstance();
+  }
+ catch (  IllegalAccessException e) {
+    log.error("Constructor is not accessible.");
+    log.error("Check your source code.");
+  }
+catch (  InstantiationException ie) {
+    log.error("Could not instantiate " + toolActionType + " for some reason.");
+    log.error("Check your source code.");
+  }
+catch (  Exception e) {
+    log.error("Some error while instantiating " + toolActionType + " occurred.");
+    log.error("Check your source code.");
+  }
+  return toolActionObject;
+}
