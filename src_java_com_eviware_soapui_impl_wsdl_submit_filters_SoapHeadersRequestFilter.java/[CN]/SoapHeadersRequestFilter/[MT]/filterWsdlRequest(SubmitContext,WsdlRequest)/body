@@ -1,7 +1,7 @@
 {
   HttpMethod postMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   WsdlInterface wsdlInterface=(WsdlInterface)wsdlRequest.getOperation().getInterface();
-  String encoding=wsdlRequest.getEncoding();
+  String encoding=System.getProperty("soapui.request.encoding",wsdlRequest.getEncoding());
   SoapVersion soapVersion=wsdlInterface.getSoapVersion();
   String soapAction=wsdlRequest.isSkipSoapAction() ? null : wsdlRequest.getOperation().getAction();
   postMethod.setRequestHeader("Content-Type",soapVersion.getContentTypeHttpHeader(encoding,soapAction));

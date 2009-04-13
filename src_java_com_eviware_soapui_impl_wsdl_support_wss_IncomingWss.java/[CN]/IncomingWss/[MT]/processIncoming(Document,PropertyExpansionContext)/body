@@ -10,7 +10,7 @@
     if (sig == null && dec == null)     throw new WSSecurityException("Missing cryptos");
     if (sig == null)     sig=dec;
  else     if (dec == null)     dec=sig;
-    return wssecurityEngine.processSecurityHeader(soapDocument,(String)null,new WSSCallbackHandler(),sig,dec);
+    return wssecurityEngine.processSecurityHeader(soapDocument,(String)null,new WSSCallbackHandler(dec),sig,dec);
   }
  catch (  WSSecurityException e) {
     SoapUI.logError(e);

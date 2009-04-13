@@ -4,6 +4,9 @@
       WSPasswordCallback cb=(WSPasswordCallback)callback;
       if (StringUtils.hasContent(getDecryptPassword()))       cb.setPassword(getDecryptPassword());
  else       cb.setPassword(UISupport.prompt("Password required for WSS processing","Specify Password",""));
+      if (cb.getUsage() == WSPasswordCallback.ENCRYPTED_KEY_TOKEN) {
+        byte[] str=Base64.decodeBase64(cb.getIdentifier().getBytes());
+      }
     }
   }
 }

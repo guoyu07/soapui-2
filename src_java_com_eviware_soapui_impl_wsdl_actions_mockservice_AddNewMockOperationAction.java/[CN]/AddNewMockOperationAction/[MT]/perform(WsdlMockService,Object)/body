@@ -1,6 +1,6 @@
 {
   List<OperationWrapper> operations=new ArrayList<OperationWrapper>();
-  List<AbstractInterface> interfaces=mockService.getProject().getInterfaces(WsdlInterfaceFactory.WSDL_TYPE);
+  List<AbstractInterface<?>> interfaces=mockService.getProject().getInterfaces(WsdlInterfaceFactory.WSDL_TYPE);
   for (  Interface iface : interfaces) {
     for (int i=0; i < iface.getOperationCount(); i++) {
       if (!mockService.hasMockOperation(iface.getOperationAt(i)))       operations.add(new OperationWrapper((WsdlOperation)iface.getOperationAt(i)));

@@ -1,4 +1,4 @@
 {
-  WsdlTestRequestStep previousStep=(WsdlTestRequestStep)getTestCase().findPreviousStepOfType(WsdlGotoTestStep.this,WsdlTestRequestStep.class);
+  HttpRequestTestStep<?> previousStep=(WsdlTestRequestStep)getTestCase().findPreviousStepOfType(WsdlGotoTestStep.this,HttpRequestTestStep.class);
   return previousStep == null ? null : previousStep.getProperty("Response");
 }

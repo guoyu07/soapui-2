@@ -1,10 +1,10 @@
 {
-  HttpTestRequestStep previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpTestRequestStep.class);
+  HttpRequestTestStep<?> previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
   if (previousStep == null) {
     UISupport.showErrorMessage("Missing previous request step");
   }
  else {
-    if (previousStep.getTestRequest().getResponse() == null || previousStep.getTestRequest().getResponse().getContentAsString().trim().length() == 0) {
+    if (previousStep.getHttpRequest().getResponse() == null || !StringUtils.hasContent(previousStep.getHttpRequest().getResponseContentAsXml())) {
       UISupport.showErrorMessage("Missing response in previous request step [" + previousStep.getName() + "]");
       return;
     }

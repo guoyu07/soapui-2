@@ -2,7 +2,7 @@
   WsdlTestStepResult result=new WsdlTestStepResult(this);
   canceled=false;
   result.startTimer();
-  HttpTestRequestStep previousStep=getTestCase().findPreviousStepOfType(this,HttpTestRequestStep.class);
+  HttpRequestTestStep<?> previousStep=getTestCase().findPreviousStepOfType(this,HttpRequestTestStep.class);
   if (previousStep == null) {
     result.stopTimer();
     result.addMessage("Failed to find previous request step from [" + getName() + "]");

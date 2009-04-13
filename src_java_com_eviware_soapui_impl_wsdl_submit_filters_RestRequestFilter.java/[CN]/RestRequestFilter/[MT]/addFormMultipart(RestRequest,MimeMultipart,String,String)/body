@@ -20,7 +20,7 @@
   }
  else {
     part.setDisposition("form-data; name=\"" + name + "\"");
-    part.setText(URLEncoder.encode(value),request.getEncoding());
+    part.setText(URLEncoder.encode(value),System.getProperty("soapui.request.encoding",request.getEncoding()));
   }
   if (part != null) {
     formMp.addBodyPart(part);

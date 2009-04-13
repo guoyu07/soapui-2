@@ -2,6 +2,9 @@
   long size=0;
   beforeSave();
   SoapuiProjectDocumentConfig projectDocument=(SoapuiProjectDocumentConfig)this.projectDocument.copy();
+  if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
+    removeDefinitionCaches(projectDocument);
+  }
   String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
   if (projectDocument.getSoapuiProject().getEncryptedContent() == null) {
     if (passwordForEncryption != null) {
@@ -27,41 +30,22 @@
   }
   XmlOptions options=new XmlOptions();
   if (SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_PROJECT_FILES))   options.setSavePrettyPrint();
-  if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
-    SoapuiProjectDocumentConfig config=(SoapuiProjectDocumentConfig)projectDocument.copy();
-    removeDefinitionCaches(config);
-    config.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
-    ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
-    config.save(writer,options);
+  projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
+  try {
+    String xml=projectDocument.xmlText(options);
+    xml=StringUtils.fixLineSeparator(xml);
     FileOutputStream out=new FileOutputStream(projectFile);
-    String tmpBuffer=fixLineSeparator(writer);
-    ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
-    writer2.write(tmpBuffer.getBytes("utf-8"));
-    writer2.writeTo(out);
+    out.write(xml.getBytes("utf-8"));
     out.close();
-    size=writer.size();
+    size=projectFile.length();
   }
- else {
-    try {
-      projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
-      ByteArrayOutputStream writer=new ByteArrayOutputStream(8192);
-      projectDocument.save(writer,options);
-      FileOutputStream out=new FileOutputStream(projectFile);
-      String tmpBuffer=fixLineSeparator(writer);
-      ByteArrayOutputStream writer2=new ByteArrayOutputStream(8192);
-      writer2.write(tmpBuffer.getBytes("utf-8"));
-      writer2.writeTo(out);
-      out.close();
-      size=writer.size();
-    }
- catch (    Throwable t) {
-      SoapUI.logError(t);
-      UISupport.showErrorMessage("Failed to save project [" + getName() + "]: "+ t.toString());
-      return false;
-    }
+ catch (  Throwable t) {
+    SoapUI.logError(t);
+    UISupport.showErrorMessage("Failed to save project [" + getName() + "]: "+ t.toString());
+    return false;
   }
   lastModified=projectFile.lastModified();
   log.info("Saved project [" + getName() + "] to ["+ projectFile.getAbsolutePath()+ " - "+ size+ " bytes");
-  setProjectRoot(path);
+  setProjectRoot(getPath());
   return true;
 }

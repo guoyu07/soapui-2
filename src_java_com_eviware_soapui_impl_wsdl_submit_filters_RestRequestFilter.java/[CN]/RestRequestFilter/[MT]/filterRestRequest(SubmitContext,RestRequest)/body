@@ -68,7 +68,7 @@ String acceptEncoding=request.getAccept();
 if (StringUtils.hasContent(acceptEncoding)) {
 httpMethod.setRequestHeader("Accept",acceptEncoding);
 }
-String encoding=StringUtils.unquote(request.getEncoding());
+String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(request.getEncoding()));
 if (formMp != null) {
 try {
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {

@@ -1,6 +1,6 @@
 {
   if (sourceStep != null)   return sourceStep;
   if (testCase == null)   return null;
-  TestModelItem step=testCase.findPreviousStepOfType(this.testStep,WsdlTestRequestStep.class);
+  HttpRequestTestStep<?> step=testCase.findPreviousStepOfType(this.testStep,HttpRequestTestStep.class);
   return step == null ? null : step.getName();
 }

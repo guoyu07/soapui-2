@@ -2,7 +2,7 @@
   if (getExpression() == null || getExpression().trim().length() == 0)   throw new Exception("Missing expression in condition [" + getName() + "]");
   if (getTargetStep() == null || getTargetStep().trim().length() == 0)   throw new Exception("Missing target step in condition [" + getName() + "]");
   if (getType().equals(GotoConditionTypeConfig.XPATH.toString())) {
-    RestTestRequest testRequest=previousStep.getTestRequest();
+    AbstractHttpRequest<?> testRequest=previousStep.getHttpRequest();
     XmlObject xmlObject=XmlObject.Factory.parse(testRequest.getResponseContentAsXml());
     String expression=PropertyExpansionUtils.expandProperties(context,getExpression());
     XmlObject[] selectPath=xmlObject.selectPath(expression);
