@@ -4,7 +4,7 @@
       rawResponseData.write(String.valueOf(httpMethod.getStatusLine()).getBytes());
       rawResponseData.write("\r\n".getBytes());
     }
-    rawRequestData.write((method + " " + url.toString()+ " "+ version+ "\r\n").getBytes());
+    rawRequestData.write((method + " " + String.valueOf(url)+ " "+ version+ "\r\n").getBytes());
     requestHeaders=new StringToStringMap();
     Header[] headers=httpMethod.getRequestHeaders();
     for (    Header header : headers) {

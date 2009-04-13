@@ -7,7 +7,7 @@
     this.url=new URL(httpMethod.getURI().toString());
   }
  catch (  Exception e1) {
-    e1.printStackTrace();
+    SoapUI.logError(e1);
   }
   if (!httpMethod.isFailed()) {
     Settings settings=httpRequest.getSettings();
