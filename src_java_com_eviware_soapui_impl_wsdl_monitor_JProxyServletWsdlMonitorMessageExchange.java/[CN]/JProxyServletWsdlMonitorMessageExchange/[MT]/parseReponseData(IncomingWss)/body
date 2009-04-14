@@ -14,11 +14,14 @@
     processResponseWss(incomingResponseWss);
   }
  catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
     try {
       in.close();
     }
  catch (    IOException e1) {
-      e1.printStackTrace();
+      SoapUI.logError(e1);
     }
   }
 }

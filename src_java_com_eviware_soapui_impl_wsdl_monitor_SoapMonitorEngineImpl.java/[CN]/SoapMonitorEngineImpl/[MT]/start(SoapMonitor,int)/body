@@ -1,6 +1,6 @@
 {
   Settings settings=soapMonitor.getProject().getSettings();
-  BoundedThreadPool threadPool=new BoundedThreadPool();
+  QueuedThreadPool threadPool=new QueuedThreadPool();
   threadPool.setMaxThreads(100);
   server.setThreadPool(threadPool);
   Context context=new Context(server,ROOT,0);
