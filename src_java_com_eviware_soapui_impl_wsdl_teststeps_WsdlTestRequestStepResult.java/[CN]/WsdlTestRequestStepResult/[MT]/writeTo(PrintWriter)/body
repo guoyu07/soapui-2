@@ -1,22 +1,22 @@
 {
   super.writeTo(writer);
-  writer.println("----------------------------------------------------");
-  writer.println("Encoding: " + getEncoding());
-  writer.println("Endpoint: " + getEndpoint());
-  writer.println("Username: " + getUsername());
-  writer.println("Password: " + getPassword());
-  writer.println("Domain: " + getDomain());
-  writer.println("---------------- Request ---------------------------");
+  writer.println("\r\n----------------- Properties ------------------------------");
+  if (properties != null) {
+    for (    String key : properties.keySet()) {
+      if (properties.get(key) != null)       writer.println(key + ": " + properties.get(key));
+    }
+  }
+  writer.println("\r\n---------------- Request ---------------------------");
+  if (response != null) {
+    writer.println("Request Headers: " + response.getRequestHeaders().toString() + "\r\n");
+  }
   if (requestContent != null)   writer.println(XmlUtils.prettyPrintXml(requestContent));
  else   writer.println("- missing request / garbage collected -");
+  writer.println("\r\n---------------- Response --------------------------");
   if (response != null) {
-    writer.println("Request Headers: " + response.getRequestHeaders().toString());
-  }
-  writer.println("---------------- Response --------------------------");
-  if (response != null) {
+    writer.println("Response Headers: " + response.getResponseHeaders().toString() + "\r\n");
     String respContent=response.getContentAsString();
     if (respContent != null)     writer.println(XmlUtils.prettyPrintXml(respContent));
-    writer.println("Response Headers: " + response.getResponseHeaders().toString());
   }
  else   writer.println("- missing response / garbage collected -");
 }
