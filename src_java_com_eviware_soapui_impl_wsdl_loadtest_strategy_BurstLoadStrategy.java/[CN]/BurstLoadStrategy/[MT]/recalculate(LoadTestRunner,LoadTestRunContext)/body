@@ -1,24 +1,17 @@
 {
   long timePassed=System.currentTimeMillis() - startTime;
-  long mod=timePassed % (burstDelay + burstDuration);
-  while ((mod < burstDelay) && (loadTestRunner.getStatus() == Status.RUNNING || loadTestRunner.getStatus() == Status.INITIALIZED)) {
-    try {
-      String label=(burstDelay - mod) / 1000 + "s delay left";
-      if (infoLabel != null && !infoLabel.getText().equals(label))       infoLabel.setText(label);
-      Thread.sleep(SLEEP_DELAY);
-      if (((WsdlLoadTestRunner)loadTestRunner).getProgress() >= 1 && infoLabel != null) {
-        infoLabel.setText("");
-        return;
-      }
-      timePassed=System.currentTimeMillis() - startTime;
-      mod=timePassed % (burstDelay + burstDuration);
-    }
- catch (    InterruptedException e) {
-      SoapUI.logError(e);
-    }
-  }
   if (loadTestRunner.getStatus() == Status.RUNNING) {
-    String label=((burstDelay + burstDuration) - mod) / 1000 + "s burst left";
+    WsdlLoadTest wsdlLoadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+    String label=null;
+    long mod=timePassed % (burstDelay + burstDuration);
+    if (mod < burstDelay) {
+      wsdlLoadTest.setThreadCount(0);
+      label=(burstDelay - mod) / 1000 + "s delay left";
+    }
+ else {
+      wsdlLoadTest.setThreadCount(threadCount);
+      label=((burstDelay + burstDuration) - mod) / 1000 + "s burst left";
+    }
     if (infoLabel != null && !infoLabel.getText().equals(label))     infoLabel.setText(label);
   }
 }

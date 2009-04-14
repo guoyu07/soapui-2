@@ -3,7 +3,7 @@
     throw new RuntimeException("Trying to finish unknown runner.. ");
   }
   runners.remove(runner);
-  if (runners.size() == 0 && threadsWaitingToStart == 0) {
+  if (runners.size() == 0 && threadsWaitingToStart == 0 && (getProgress() >= 1 || status != Status.RUNNING)) {
     loadTest.removePropertyChangeListener(WsdlLoadTest.THREADCOUNT_PROPERTY,internalPropertyChangeListener);
     if (status == Status.RUNNING)     status=Status.FINISHED;
     loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest ended at " + new Date(System.currentTimeMillis())));

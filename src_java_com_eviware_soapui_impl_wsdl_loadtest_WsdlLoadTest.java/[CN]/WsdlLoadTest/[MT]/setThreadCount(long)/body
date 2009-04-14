@@ -1,6 +1,6 @@
 {
   long oldCount=getThreadCount();
-  if (threadCount < 1 || threadCount == oldCount)   return;
+  if (threadCount == oldCount)   return;
   if (getLogStatisticsOnThreadChange() && isRunning())   statisticsLogger.logStatistics("ThreadCount change from " + oldCount + " to "+ threadCount);
   getConfig().setThreadCount((int)threadCount);
   notifyPropertyChanged(THREADCOUNT_PROPERTY,oldCount,threadCount);
