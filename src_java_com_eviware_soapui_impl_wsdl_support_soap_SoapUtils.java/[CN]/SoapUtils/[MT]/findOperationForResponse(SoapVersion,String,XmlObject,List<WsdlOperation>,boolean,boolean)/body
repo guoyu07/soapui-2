@@ -1,6 +1,6 @@
 {
   XmlObject contentElm=getContentElement(responseContent,soapVersion);
-  if (contentElm == null)   throw new DispatchException("Missing content element in body");
+  if (contentElm == null)   return null;
   QName contentQName=XmlUtils.getQName(contentElm.getDomNode());
   NodeList contentChildNodes=null;
   for (int c=0; c < operations.size(); c++) {
