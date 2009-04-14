@@ -9,7 +9,15 @@
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
     responseProperties.put(param.getName(),value);
-    if (value != null && formMp == null && !param.isDisableUrlEncoding())     value=URLEncoder.encode(value);
+    if (value != null && formMp == null && !param.isDisableUrlEncoding()) {
+      try {
+        value=URLEncoder.encode(value,System.getProperty("soapui.request.encoding",request.getEncoding()));
+      }
+ catch (      UnsupportedEncodingException e1) {
+        SoapUI.logError(e1);
+        value=URLEncoder.encode(value);
+      }
+    }
     if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {
 case HEADER:
