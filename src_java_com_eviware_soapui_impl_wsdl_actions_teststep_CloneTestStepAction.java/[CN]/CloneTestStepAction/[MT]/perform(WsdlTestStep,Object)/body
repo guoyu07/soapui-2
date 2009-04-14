@@ -106,7 +106,8 @@
     }
     boolean move=dialog.getBooleanValue(Form.MOVE);
     WsdlTestStep newTestStep=targetTestCase.importTestStep(testStep,name,-1,!move);
-    UISupport.select(newTestStep);
+    if (dialog.getBooleanValue(Form.OPEN))     UISupport.selectAndShow(newTestStep);
+ else     UISupport.select(newTestStep);
     if (move) {
       testStep.getTestCase().removeTestStep(testStep);
     }
