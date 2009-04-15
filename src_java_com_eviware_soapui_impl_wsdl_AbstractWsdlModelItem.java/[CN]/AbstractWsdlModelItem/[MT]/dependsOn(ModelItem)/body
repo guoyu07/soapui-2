@@ -1,9 +1,3 @@
 {
-  if (modelItem == this)   return true;
-  ModelItem p=parent;
-  while (p != null) {
-    if (p == modelItem)     return true;
-    p=p.getParent();
-  }
-  return false;
+  return ModelSupport.dependsOn(this,modelItem);
 }

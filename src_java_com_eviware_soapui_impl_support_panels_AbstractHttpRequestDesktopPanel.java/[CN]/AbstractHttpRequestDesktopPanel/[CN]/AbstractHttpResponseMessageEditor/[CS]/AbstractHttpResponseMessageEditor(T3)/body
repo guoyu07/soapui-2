@@ -1,6 +1,6 @@
 {
   super(document,request);
-  XmlSourceEditorView editor=getSourceEditor();
+  XmlSourceEditorView<?> editor=getSourceEditor();
   inputArea=editor.getInputArea();
   if (inputArea != null) {
     resultAreaFocusListener=new ResultAreaFocusListener(editor);

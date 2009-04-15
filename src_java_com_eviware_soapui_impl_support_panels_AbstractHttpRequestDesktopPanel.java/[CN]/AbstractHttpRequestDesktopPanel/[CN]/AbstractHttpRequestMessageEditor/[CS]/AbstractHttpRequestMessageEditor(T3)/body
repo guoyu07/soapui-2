@@ -1,6 +1,6 @@
 {
   super(document,request);
-  XmlSourceEditorView editor=getSourceEditor();
+  XmlSourceEditorView<?> editor=getSourceEditor();
   if (editor != null) {
     inputArea=editor.getInputArea();
     inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
