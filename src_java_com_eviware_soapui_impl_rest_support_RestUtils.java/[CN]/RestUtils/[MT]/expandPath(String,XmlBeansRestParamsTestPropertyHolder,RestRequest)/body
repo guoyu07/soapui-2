@@ -6,7 +6,9 @@
     String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
     if (value != null && !param.isDisableUrlEncoding()) {
       try {
-        value=URLEncoder.encode(value,System.getProperty("soapui.request.encoding",request.getEncoding()));
+        String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
+        if (StringUtils.hasContent(encoding))         value=URLEncoder.encode(value,encoding);
+ else         value=URLEncoder.encode(value);
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);

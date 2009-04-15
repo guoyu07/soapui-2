@@ -1,4 +1,4 @@
 {
   PropertyTreeNode propertyTreeNode=propertyMap.get(name);
-  propertyTreeNode.getModelItem().setName(PropertyTreeNode.buildName(holder.getProperty(name)));
+  if (propertyTreeNode != null)   propertyTreeNode.getModelItem().setName(PropertyTreeNode.buildName(holder.getProperty(name)));
 }

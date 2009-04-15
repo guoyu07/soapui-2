@@ -11,7 +11,9 @@
     responseProperties.put(param.getName(),value);
     if (value != null && formMp == null && !param.isDisableUrlEncoding()) {
       try {
-        value=URLEncoder.encode(value,System.getProperty("soapui.request.encoding",request.getEncoding()));
+        String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
+        if (StringUtils.hasContent(encoding))         value=URLEncoder.encode(value,encoding);
+ else         value=URLEncoder.encode(value);
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);

@@ -38,13 +38,15 @@ testStepResult.setStatus(TestStepStatus.CANCELED);
 testStepResult.addMessage("Request was canceled");
 }
 if (response != null) {
-testStepResult.setRequestContent(response.getRequestContent());
 testStepResult.addProperty("URL",response.getURL() == null ? "<missing>" : response.getURL().toString());
 testStepResult.addProperty("Method",String.valueOf(response.getMethod()));
 testStepResult.addProperty("StatusCode",String.valueOf(response.getStatusCode()));
 testStepResult.addProperty("HTTP Version",response.getHttpVersion());
 }
- else testStepResult.setRequestContent(testRequest.getRequestContent());
+ else {
+testStepResult.addMessage("Missing Response");
+}
+testStepResult.setRequestContent(testRequest.getRequestContent());
 }
  catch (SubmitException e) {
 testStepResult.setStatus(TestStepStatus.FAILED);
