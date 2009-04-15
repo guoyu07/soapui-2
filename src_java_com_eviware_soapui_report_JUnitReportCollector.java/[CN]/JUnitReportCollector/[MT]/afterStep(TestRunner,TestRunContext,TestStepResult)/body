@@ -7,8 +7,7 @@
       buf=failures.get(testCase);
     }
  else     failures.put(testCase,buf);
-    buf.append("<h3><b>" + result.getTestStep().getName() + " Failed</b></h3>");
-    buf.append("<pre>" + XmlUtils.entitize(Arrays.toString(result.getMessages())) + "\n");
+    buf.append("<h3><b>" + result.getTestStep().getName() + " Failed</b></h3><pre>");
     StringWriter stringWriter=new StringWriter();
     PrintWriter writer=new PrintWriter(stringWriter);
     result.writeTo(writer);
