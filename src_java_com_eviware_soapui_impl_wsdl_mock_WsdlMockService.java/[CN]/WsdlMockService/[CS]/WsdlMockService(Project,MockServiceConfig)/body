@@ -7,6 +7,7 @@
   }
   if (!config.isSetPort() || config.getPort() < 1)   config.setPort(8080);
   if (!config.isSetPath())   config.setPath("/");
+  if (!getSettings().isSet(REQUIRE_SOAP_ACTION))   setRequireSoapAction(true);
   try {
     if (!config.isSetHost() || !StringUtils.hasContent(config.getHost()))     config.setHost(InetAddress.getLocalHost().getHostName());
   }
