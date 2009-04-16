@@ -45,7 +45,7 @@
         hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
       }
     }
-    httpMethod.setDumpFile(PropertyExpansionUtils.expandProperties(submitContext,httpRequest.getDumpFile()));
+    httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),httpRequest,submitContext));
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpClient.executeMethod(hostConfiguration,httpMethod,httpState);
     httpMethod.getTimeTaken();
