@@ -5,6 +5,7 @@
   assertionList=new JList(assertionListModel);
   assertionList.setToolTipText("Assertions for this request");
   assertionList.setCellRenderer(new AssertionCellRenderer());
+  assertionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   assertionListPopup=new JPopupMenu();
   addAssertionAction=new AddAssertionAction(assertable);
   assertionListPopup.add(addAssertionAction);
