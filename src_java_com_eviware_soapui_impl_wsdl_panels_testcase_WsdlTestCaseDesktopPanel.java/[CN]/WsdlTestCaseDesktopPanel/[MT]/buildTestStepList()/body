@@ -6,7 +6,7 @@
     toolbar.addFixed(UISupport.createToolbarButton(new AddWsdlTestStepAction(factory)));
   }
   p.add(toolbar,BorderLayout.NORTH);
-  testStepList=new TestStepList(getModelItem());
+  testStepList=new JTestStepList(getModelItem());
   stateDependantComponents.add(testStepList);
   p.add(new JScrollPane(testStepList),BorderLayout.CENTER);
   return p;
