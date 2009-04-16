@@ -7,7 +7,9 @@
   while (cur.hasNextToken()) {
     if (cur.toNextToken().isNamespace())     map.put(cur.getName().getLocalPart(),cur.getTextValue());
   }
-  String xmlText=msg.copy().changeType(type).xmlText(xmlOptions.setSaveOuter());
+  xmlOptions.setUseDefaultNamespace();
+  xmlOptions.setSaveOuter();
+  String xmlText=msg.copy().changeType(type).xmlText(xmlOptions);
   xmlOptions.setLoadAdditionalNamespaces(map);
   XmlObject obj=type.getTypeSystem().parse(xmlText,type,xmlOptions);
   obj=obj.changeType(type);
