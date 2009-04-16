@@ -5,6 +5,8 @@
   if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
     removeDefinitionCaches(projectDocument);
   }
+  XmlBeansSettingsImpl tempSettings=new XmlBeansSettingsImpl(this,null,projectDocument.getSoapuiProject().getSettings());
+  tempSettings.clearSetting(ProjectSettings.PROJECT_ROOT);
   String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
   if (projectDocument.getSoapuiProject().getEncryptedContent() == null) {
     if (passwordForEncryption != null) {
