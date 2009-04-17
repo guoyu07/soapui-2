@@ -23,7 +23,7 @@
   if (alwaysBuildHeaders) {
     BindingOutput bindingOutput=bindingOperation.getBindingOutput();
     if (bindingOutput != null) {
-      List extensibilityElements=bindingOutput.getExtensibilityElements();
+      List<?> extensibilityElements=bindingOutput.getExtensibilityElements();
       List<SoapHeader> soapHeaders=WsdlUtils.getSoapHeaders(extensibilityElements);
       addHeaders(soapHeaders,cursor,xmlGenerator);
     }

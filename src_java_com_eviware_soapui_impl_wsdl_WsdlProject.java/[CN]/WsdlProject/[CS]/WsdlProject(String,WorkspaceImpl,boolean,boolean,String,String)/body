@@ -12,7 +12,7 @@
       File file=new File(path.trim());
       if (file.exists()) {
         try {
-          loadProject(file.toURI().toURL());
+          loadProject(new URL("file:" + file.getAbsolutePath()));
           lastModified=file.lastModified();
         }
  catch (        MalformedURLException e) {

@@ -2,7 +2,7 @@
   if (this.iface == null && iface != null) {
     if (definition != null) {
       if (definition.getDefinitionCache().validate()) {
-        InterfaceConfigDefinitionCache cache=new InterfaceConfigDefinitionCache(iface);
+        InterfaceConfigDefinitionCache<T> cache=new InterfaceConfigDefinitionCache<T>(iface);
         try {
           cache.importCache(definition.getDefinitionCache());
         }
