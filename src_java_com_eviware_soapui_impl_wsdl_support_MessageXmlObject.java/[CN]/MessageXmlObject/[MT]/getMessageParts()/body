@@ -1,6 +1,6 @@
 {
   String operationName=operation.getName();
-  BindingOperation bindingOperation=findBindingOperation(operationName);
+  BindingOperation bindingOperation=operation.getBindingOperation();
   if (bindingOperation == null) {
     throw new Exception("Missing operation [" + operationName + "] in wsdl definition");
   }
