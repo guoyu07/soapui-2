@@ -36,8 +36,9 @@
   try {
     String xml=projectDocument.xmlText(options);
     xml=StringUtils.fixLineSeparator(xml);
+    byte[] bytes=xml.getBytes("utf-8");
     FileOutputStream out=new FileOutputStream(projectFile);
-    out.write(xml.getBytes("utf-8"));
+    out.write(bytes);
     out.close();
     size=projectFile.length();
   }
