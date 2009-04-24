@@ -3,10 +3,12 @@
   try {
     AttributeExtensible attributeExtensible=output ? operation.getBindingOperation().getOperation().getOutput() : operation.getBindingOperation().getOperation().getInput();
     if (attributeExtensible == null)     return null;
-    String[] attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WS_A_VERSION_200408,"Action"));
-    if (attrs == null || attrs.length == 0)     attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WS_A_VERSION_200508,"Action"));
-    if (attrs != null && attrs.length > 0) {
-      return attrs[0];
+    String[] attrs;
+    for (    String namespace : WsaUtils.wsaNamespaces) {
+      attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(namespace,"Action"));
+      if (attrs != null && attrs.length > 0) {
+        return attrs[0];
+      }
     }
     WsdlInterface iface=operation.getInterface();
     Definition definition=iface.getWsdlContext().getDefinition();
@@ -17,7 +19,7 @@
       Operation op=iface.getBinding().getPortType().getOperation(operationName,null,null);
       if (op != null) {
         attributeExtensible=output ? op.getOutput() : op.getInput();
-        attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WSAM_NAMESPACE,"Action"));
+        attrs=WsdlUtils.getExentsibilityAttributes(attributeExtensible,new QName(WsaUtils.WS_A_NAMESPACE_200705,"Action"));
         if (attrs != null && attrs.length > 0) {
           return attrs[0];
         }

@@ -1,7 +1,7 @@
 {
-  wsaVersionNameSpace=WS_A_VERSION_200508;
+  wsaVersionNameSpace=WS_A_NAMESPACE_200508;
   if (wsaContainer.getWsaConfig().getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
-    wsaVersionNameSpace=WS_A_VERSION_200408;
+    wsaVersionNameSpace=WS_A_NAMESPACE_200408;
   }
   anonymousAddress=wsaVersionNameSpace + "/anonymous";
   noneAddress=wsaVersionNameSpace + "/none";
@@ -12,24 +12,24 @@
     anonymousType=wsaContainer.getOperation().getInterface().getAnonymous();
   }
   Element header=(Element)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true).getDomNode();
-  wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200508);
+  wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200508);
   if (wsaPrefix != null) {
-    wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200508;
+    wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200508;
   }
  else {
-    wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200408);
+    wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200408);
     if (wsaPrefix != null) {
-      wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200408;
+      wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200408;
     }
  else {
-      wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200508);
+      wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200508);
       if (wsaPrefix != null) {
-        wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200508;
+        wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200508;
       }
  else {
-        wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_VERSION_200408);
+        wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200408);
         if (wsaPrefix != null) {
-          wsaVersionNamespaceOld=WsaUtils.WS_A_VERSION_200408;
+          wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200408;
         }
  else {
           wsaPrefix="wsa";

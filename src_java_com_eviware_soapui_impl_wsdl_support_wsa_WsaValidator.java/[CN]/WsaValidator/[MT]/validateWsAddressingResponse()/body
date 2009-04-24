@@ -17,9 +17,9 @@
       parseRelatesToNode(soapVersion,requestXmlObject,relatesToNode);
     }
  else {
-      relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"RelatesTo");
+      relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,"RelatesTo");
       if (relatesToNode == null) {
-        relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"RelatesTo");
+        relatesToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,"RelatesTo");
       }
       parseRelatesToNode(soapVersion,requestXmlObject,relatesToNode);
     }

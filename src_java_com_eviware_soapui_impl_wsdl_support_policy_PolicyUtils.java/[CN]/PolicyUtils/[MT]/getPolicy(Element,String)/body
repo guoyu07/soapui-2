@@ -1,0 +1,14 @@
+{
+  Policy newPolicy=null;
+  Element exactlyOne=XmlUtils.getFirstChildElementNS(policy,usedPolicyNamespace,"ExactlyOne");
+  if (exactlyOne != null) {
+    Element all=XmlUtils.getFirstChildElementNS(exactlyOne,usedPolicyNamespace,"All");
+    if (all != null) {
+      newPolicy=getAddressingPolicy(all,usedPolicyNamespace);
+    }
+  }
+ else {
+    newPolicy=getAddressingPolicy(policy,usedPolicyNamespace);
+  }
+  return newPolicy;
+}

@@ -21,11 +21,11 @@
         parseReplyToNode(replyToNode,wsaVersionNameSpace);
       }
  else {
-        replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"ReplyTo");
-        currentTagWsaNs=WsaUtils.WS_A_VERSION_200508;
+        replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,"ReplyTo");
+        currentTagWsaNs=WsaUtils.WS_A_NAMESPACE_200508;
         if (replyToNode == null) {
-          replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"ReplyTo");
-          currentTagWsaNs=WsaUtils.WS_A_VERSION_200408;
+          replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,"ReplyTo");
+          currentTagWsaNs=WsaUtils.WS_A_NAMESPACE_200408;
         }
         parseReplyToNode(replyToNode,currentTagWsaNs);
       }

@@ -6,9 +6,9 @@
       parseToNode(toNode);
     }
  else {
-      toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200508,"To");
+      toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,"To");
       if (toNode == null) {
-        toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_VERSION_200408,"To");
+        toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,"To");
       }
       parseToNode(toNode);
     }

@@ -1,22 +1,22 @@
 {
-  Element wsAddressing=XmlUtils.getFirstChildElementNS(wsamAddressingElm,WsaUtils.WSAM_NAMESPACE,"Addressing");
+  Element wsAddressing=XmlUtils.getFirstChildElementNS(wsamAddressingElm,WsaUtils.WS_A_NAMESPACE_200705,"Addressing");
   Element addressingPolicy=null;
   Policy newPolicy=PolicyDocument.Factory.newInstance().addNewPolicy();
   Addressing newAddressing=null;
   if (wsAddressing != null) {
     newAddressing=newPolicy.addNewAddressing();
-    String optional=wsAddressing.getAttributeNS(PolicyUtils.WS_POLICY_NAMESPACE,"Optional");
+    String optional=wsAddressing.getAttributeNS(usedPolicyNamespace,"Optional");
     if (!StringUtils.isNullOrEmpty(optional) && optional.equals(OptionalType.TRUE.toString())) {
       newAddressing.setOptional(OptionalType.TRUE);
     }
  else {
       newAddressing.setOptional(OptionalType.FALSE);
     }
-    addressingPolicy=XmlUtils.getFirstChildElementNS(wsAddressing,PolicyUtils.WS_POLICY_NAMESPACE,"Policy");
+    addressingPolicy=XmlUtils.getFirstChildElementNS(wsAddressing,usedPolicyNamespace,"Policy");
     if (addressingPolicy != null) {
-      Element exactlyOne=XmlUtils.getFirstChildElementNS(addressingPolicy,PolicyUtils.WS_POLICY_NAMESPACE,"ExactlyOne");
+      Element exactlyOne=XmlUtils.getFirstChildElementNS(addressingPolicy,usedPolicyNamespace,"ExactlyOne");
       if (exactlyOne != null) {
-        Element all=XmlUtils.getFirstChildElementNS(exactlyOne,PolicyUtils.WS_POLICY_NAMESPACE,"All");
+        Element all=XmlUtils.getFirstChildElementNS(exactlyOne,usedPolicyNamespace,"All");
         if (all != null) {
           getAddressingAnonymous(all,newAddressing);
         }
@@ -25,6 +25,10 @@
         getAddressingAnonymous(addressingPolicy,newAddressing);
       }
     }
+  }
+  Element usingAddressing=XmlUtils.getFirstChildElementNS(wsamAddressingElm,WsaUtils.WS_A_NAMESPACE_200605,"UsingAddressing");
+  if (usingAddressing != null) {
+    newPolicy.addNewUsingAddressing();
   }
   return newPolicy;
 }

@@ -6,7 +6,11 @@
       InterfaceDefinitionPart part=parts.get(i);
       String content=part.getContent();
       XmlObject xml=XmlObject.Factory.parse(content);
-      XmlObject[] paths=xml.selectPath("declare namespace wsp='" + WS_POLICY_NAMESPACE + "';"+ "//wsp:Policy");
+      XmlObject[] paths=xml.selectPath("declare namespace wsp='" + WS_W3_POLICY_NAMESPACE + "';"+ "//wsp:Policy");
+      List<XmlObject> listOfXmlObjcts=Arrays.asList(paths);
+      XmlObject[] paths1=xml.selectPath("declare namespace wsp='" + WS_XMLSOAP_POLICY_NAMESPACE + "';"+ "//wsp:Policy");
+      listOfXmlObjcts.addAll(Arrays.asList(paths1));
+      paths=(XmlObject[])listOfXmlObjcts.toArray();
       for (      XmlObject obj : paths) {
         String xx=obj.xmlText(new XmlOptions().setSaveOuter());
         PolicyDocument policyDocument=PolicyDocument.Factory.parse(xx);

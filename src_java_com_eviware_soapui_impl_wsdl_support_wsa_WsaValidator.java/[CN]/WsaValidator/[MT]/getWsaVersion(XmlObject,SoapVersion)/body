@@ -7,24 +7,24 @@
     if (!hdr.hasChildNodes()) {
       return null;
     }
-    String wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_VERSION_200508);
+    String wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_NAMESPACE_200508);
     if (wsaNameSpace != null) {
-      wsaVns=WsaUtils.WS_A_VERSION_200508;
+      wsaVns=WsaUtils.WS_A_NAMESPACE_200508;
     }
  else {
-      wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_VERSION_200408);
+      wsaNameSpace=XmlUtils.findPrefixForNamespace(hdr,WsaUtils.WS_A_NAMESPACE_200408);
       if (wsaNameSpace != null) {
-        wsaVns=WsaUtils.WS_A_VERSION_200408;
+        wsaVns=WsaUtils.WS_A_NAMESPACE_200408;
       }
  else {
-        wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_VERSION_200508);
+        wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_NAMESPACE_200508);
         if (wsaNameSpace != null) {
-          wsaVns=WsaUtils.WS_A_VERSION_200508;
+          wsaVns=WsaUtils.WS_A_NAMESPACE_200508;
         }
  else {
-          wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_VERSION_200408);
+          wsaNameSpace=XmlUtils.findPrefixForNamespace(envelope,WsaUtils.WS_A_NAMESPACE_200408);
           if (wsaNameSpace != null) {
-            wsaVns=WsaUtils.WS_A_VERSION_200408;
+            wsaVns=WsaUtils.WS_A_NAMESPACE_200408;
           }
  else {
             return null;

@@ -6,6 +6,7 @@
   policyFlag=true;
   if (policy != null) {
     List<Addressing> addressingList=policy.getAddressingList();
+    List<?> usingAddressingList=policy.getUsingAddressingList();
     for (    Addressing addressing : addressingList) {
       policyFlag=true;
       String optional=addressing.getOptional().toString();
@@ -30,6 +31,9 @@
           }
         }
       }
+    }
+    if (interfaceWsaVersion == WsaVersionTypeConfig.NONE.toString() && !usingAddressingList.isEmpty()) {
+      interfaceWsaVersion=WsaVersionTypeConfig.X_200508.toString();
     }
   }
   setAnonymous(interfaceAnonymous);
