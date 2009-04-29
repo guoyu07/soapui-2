@@ -34,12 +34,10 @@
   if (SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_PROJECT_FILES))   options.setSavePrettyPrint();
   projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
   try {
-    String xml=projectDocument.xmlText(options);
-    xml=StringUtils.fixLineSeparator(xml);
-    byte[] bytes=xml.getBytes("utf-8");
-    FileOutputStream out=new FileOutputStream(projectFile);
-    out.write(bytes);
-    out.close();
+    File tempFile=File.createTempFile("project-temp-",".xml",projectFile.getParentFile());
+    projectDocument.save(tempFile,options);
+    projectDocument.save(projectFile,options);
+    tempFile.delete();
     size=projectFile.length();
   }
  catch (  Throwable t) {
