@@ -1,7 +1,7 @@
 {
   if (cache instanceof AbstractDefinitionCache) {
     definitionCache=reinit(container);
-    definitionCache.set(((AbstractDefinitionCache)cache).getConfig());
+    definitionCache.set(((AbstractDefinitionCache<?>)cache).getConfig());
     initParts();
   }
  else {
