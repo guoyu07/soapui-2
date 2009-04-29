@@ -1,5 +1,5 @@
 {
-  setConfig(testCaseArray);
+  setConfig(testCaseConfig);
   int mod=0;
   List<TestStepConfig> configs=getConfig().getTestStepList();
   for (int c=0; c < configs.size(); c++) {
@@ -12,4 +12,5 @@
   for (int c=0; c < loadTestConfigs.size(); c++) {
     loadTests.get(c).resetConfigOnMove(loadTestConfigs.get(c));
   }
+  setPropertiesConfig(testCaseConfig.getProperties());
 }
