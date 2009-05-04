@@ -1,3 +1,6 @@
 {
   super.release();
+  for (  RestResourceTreeNode child : resourceNodes) {
+    child.release();
+  }
 }
