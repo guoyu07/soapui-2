@@ -1,5 +1,5 @@
 {
   super.beforeStep(testRunner,runContext);
   TestStep currentStep=runContext.getCurrentStep();
-  log.info("running step [" + currentStep.getName() + "]");
+  if (currentStep != null)   log.info("running step [" + currentStep.getName() + "]");
 }

@@ -35,7 +35,7 @@
     int currentStepIndex=0;
     for (; status == Status.RUNNING && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
       TestStep currentStep=runContext.getCurrentStep();
-      if (!currentStep.isDisabled()) {
+      if (currentStep != null && !currentStep.isDisabled()) {
         TestStepResult stepResult=runTestStep(currentStep,true,true);
         if (stepResult == null)         return;
         if (status == Status.CANCELED || status == Status.FAILED)         return;
