@@ -1,9 +1,8 @@
 {
   if (!isEnabled())   return;
-  if (modelThread == null) {
+  if (future == null) {
     released=false;
-    modelThread=new Thread(model,title + " LogListUpdater");
-    modelThread.start();
+    future=SoapUI.getThreadPool().submit(model);
   }
   if (line instanceof LoggingEvent) {
     LoggingEvent ev=(LoggingEvent)line;

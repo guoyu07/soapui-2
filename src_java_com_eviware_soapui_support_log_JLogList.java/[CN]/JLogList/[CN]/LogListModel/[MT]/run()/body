@@ -1,4 +1,7 @@
 {
+  if (future != null) {
+    Thread.currentThread().setName("LogList Updater for " + getName());
+  }
   while (!released && !linesToAdd.isEmpty()) {
     try {
       if (!linesToAdd.isEmpty()) {
@@ -32,5 +35,5 @@ catch (    InvocationTargetException e) {
       SoapUI.logError(e);
     }
   }
-  modelThread=null;
+  future=null;
 }

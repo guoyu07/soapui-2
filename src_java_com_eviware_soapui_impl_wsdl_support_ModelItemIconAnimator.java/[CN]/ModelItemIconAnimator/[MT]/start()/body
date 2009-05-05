@@ -1,6 +1,5 @@
 {
-  if (!enabled || iconAnimationThread != null)   return;
+  if (!enabled || future != null)   return;
   stopped=false;
-  iconAnimationThread=new Thread(this,target.getName() + " ModelItemIconAnimator");
-  iconAnimationThread.start();
+  future=SoapUI.getThreadPool().submit(this);
 }

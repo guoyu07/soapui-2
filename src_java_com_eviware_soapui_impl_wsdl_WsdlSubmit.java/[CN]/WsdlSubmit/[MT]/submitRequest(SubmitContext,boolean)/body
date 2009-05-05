@@ -1,6 +1,6 @@
 {
   this.submitContext=submitContext;
   if (async && future != null)   throw new RuntimeException("Submit already running");
-  if (async)   future=threadPool.submit(this);
+  if (async)   future=SoapUI.getThreadPool().submit(this);
  else   run();
 }

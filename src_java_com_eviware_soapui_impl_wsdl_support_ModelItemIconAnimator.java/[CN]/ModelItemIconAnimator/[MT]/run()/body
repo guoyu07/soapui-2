@@ -1,4 +1,7 @@
 {
+  if (future != null) {
+    Thread.currentThread().setName("ModelItemIconAnimator for " + target.getName());
+  }
   while (!stopped) {
     try {
       if (stopped)       break;
@@ -11,5 +14,5 @@
     }
   }
   target.setIcon(getIcon());
-  iconAnimationThread=null;
+  future=null;
 }

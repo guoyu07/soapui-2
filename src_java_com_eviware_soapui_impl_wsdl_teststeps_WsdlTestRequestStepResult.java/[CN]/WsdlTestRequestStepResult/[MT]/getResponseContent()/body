@@ -1,5 +1,5 @@
 {
   if (isDiscarded())   return "<discarded>";
-  if (response == null)   return "<missing response>";
-  return response.getContentAsString();
+  if (response == null || response.get() == null)   return "<missing response>";
+  return response.get().getContentAsString();
 }

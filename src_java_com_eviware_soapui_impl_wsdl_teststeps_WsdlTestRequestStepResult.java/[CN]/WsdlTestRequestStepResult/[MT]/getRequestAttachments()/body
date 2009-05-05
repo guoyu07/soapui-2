@@ -1,4 +1,4 @@
 {
-  if (response == null || response.getRequest() == null)   return new Attachment[0];
-  return response.getRequest().getAttachments();
+  if (response == null || response.get() == null || response.get().getRequest() == null)   return new Attachment[0];
+  return response.get().getRequest().getAttachments();
 }

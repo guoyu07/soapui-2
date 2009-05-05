@@ -1,4 +1,4 @@
 {
-  if (response == null)   return null;
-  return response.getRequestHeaders();
+  if (response == null || response.get() == null)   return null;
+  return response.get().getRequestHeaders();
 }
