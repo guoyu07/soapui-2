@@ -8,6 +8,9 @@
         runner.getRunContext().setProperty(TestRunContext.RUN_COUNT,runCount);
         runner.getRunContext().setProperty(TestRunContext.LOAD_TEST_RUNNER,WsdlLoadTestRunner.this);
         runner.getRunContext().setProperty(TestRunContext.LOAD_TEST_CONTEXT,context);
+synchronized (this) {
+          runner.getRunContext().setProperty(TestRunContext.TOTAL_RUN_COUNT,startedCount++);
+        }
         runner.run();
       }
  catch (      Throwable e) {

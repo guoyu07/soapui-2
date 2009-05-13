@@ -1,4 +1,5 @@
 {
+  if (testRunner.getStatus() == TestRunner.Status.CANCELED && testRunner.getReason().equals(NO_STATS_TESTCASE_CANCEL_REASON))   return;
   List<TestStepResult> results=testRunner.getResults();
   TestCase testCase=testRunner.getTestCase();
   long[] samples=new long[testCase.getTestStepCount()];
