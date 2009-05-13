@@ -1,0 +1,9 @@
+{
+  ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  Settings settings=request.getSettings();
+  if (httpMethod.getParams().getVersion().equals(HttpVersion.HTTP_1_1) && httpMethod instanceof EntityEnclosingMethod) {
+    EntityEnclosingMethod entityEnclosingMethod=((EntityEnclosingMethod)httpMethod);
+    long limit=settings.getLong(HttpSettings.CHUNKING_THRESHOLD,-1);
+    entityEnclosingMethod.setContentChunked(limit >= 0 ? entityEnclosingMethod.getRequestEntity().getContentLength() > limit : false);
+  }
+}

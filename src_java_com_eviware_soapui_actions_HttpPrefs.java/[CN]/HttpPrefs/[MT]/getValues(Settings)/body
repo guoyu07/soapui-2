@@ -1,7 +1,7 @@
 {
   StringToStringMap httpValues=new StringToStringMap();
   httpValues.put(HTTP_VERSION,settings.getString(HttpSettings.HTTP_VERSION,HttpSettings.HTTP_VERSION_1_1));
-  httpValues.put(DISABLE_CHUNKING,settings.getString(HttpSettings.DISABLE_CHUNKING,null));
+  httpValues.put(CHUNKING_THRESHOLD,settings.getString(HttpSettings.CHUNKING_THRESHOLD,null));
   httpValues.put(USER_AGENT_HEADER,settings.getString(HttpSettings.USER_AGENT,null));
   httpValues.put(REQUEST_COMPRESSION,compressionAlgs.get(settings.getString(HttpSettings.REQUEST_COMPRESSION,"None")));
   httpValues.put(RESPONSE_COMPRESSION,settings.getString(HttpSettings.RESPONSE_COMPRESSION,null));
