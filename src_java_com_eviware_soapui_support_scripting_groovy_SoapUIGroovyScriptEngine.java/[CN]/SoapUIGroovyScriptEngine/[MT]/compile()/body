@@ -1,5 +1,8 @@
 {
   if (script == null) {
+    if (shell == null) {
+      initShell();
+    }
     script=shell.parse(scriptText);
     script.setBinding(binding);
   }

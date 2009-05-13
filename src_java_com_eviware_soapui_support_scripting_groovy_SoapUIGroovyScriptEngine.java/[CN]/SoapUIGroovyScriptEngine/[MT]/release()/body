@@ -1,11 +1,11 @@
 {
-  if (script != null) {
-    script=null;
-    shell.resetLoadedClasses();
-    classLoader.clearCache();
-  }
+  script=null;
   if (binding != null) {
     binding.getVariables().clear();
     binding=null;
+  }
+  if (shell != null) {
+    shell.resetLoadedClasses();
+    shell=null;
   }
 }
