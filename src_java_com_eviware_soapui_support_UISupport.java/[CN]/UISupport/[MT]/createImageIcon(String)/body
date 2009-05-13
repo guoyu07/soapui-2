@@ -5,6 +5,7 @@
   java.net.URL imgURL=null;
   try {
     if (path.indexOf('/',1) == -1)     path="/com/eviware/soapui/resources/images" + path;
+    if (iconCache.containsKey(path))     return iconCache.get(path);
     imgURL=SoapUI.class.getResource(path);
     if (imgURL == null && path.endsWith(".gif")) {
       imgURL=SoapUI.class.getResource(path.substring(0,path.length() - 4) + ".png");

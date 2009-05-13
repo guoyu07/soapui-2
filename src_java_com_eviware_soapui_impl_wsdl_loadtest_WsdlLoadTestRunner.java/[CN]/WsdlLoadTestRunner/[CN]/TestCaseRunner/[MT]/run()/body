@@ -1,5 +1,6 @@
 {
   try {
+    Thread.currentThread().setName(testCase.getName() + " - " + loadTest.getName()+ " - ThreadIndex "+ threadIndex);
     runner=new WsdlTestCaseRunner(testCase,new StringToObjectMap());
     while (!canceled) {
       try {

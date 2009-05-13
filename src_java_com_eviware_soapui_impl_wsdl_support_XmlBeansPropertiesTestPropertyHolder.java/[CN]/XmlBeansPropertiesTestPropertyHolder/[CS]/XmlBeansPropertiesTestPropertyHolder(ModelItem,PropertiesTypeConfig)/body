@@ -2,6 +2,6 @@
   this.modelItem=modelItem;
   this.config=config;
   for (  PropertyConfig propertyConfig : config.getPropertyList()) {
-    addProperty(propertyConfig,false);
+    if (StringUtils.hasContent(propertyConfig.getName()))     addProperty(propertyConfig,false);
   }
 }

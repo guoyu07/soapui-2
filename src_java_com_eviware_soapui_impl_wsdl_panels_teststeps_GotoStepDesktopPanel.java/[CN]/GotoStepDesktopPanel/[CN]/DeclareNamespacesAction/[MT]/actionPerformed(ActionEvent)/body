@@ -1,6 +1,6 @@
 {
   try {
-    HttpRequestTestStep<?> previousStep=(WsdlTestRequestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
+    HttpRequestTestStep<?> previousStep=(HttpRequestTestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
     if (previousStep != null) {
       String xml=previousStep.getHttpRequest().getResponseContentAsXml();
       if (StringUtils.hasContent(xml)) {

@@ -1,8 +1,7 @@
 {
   classLoader=new GroovyClassLoader(parentClassLoader);
-  binding=new Binding();
   CompilerConfiguration config=new CompilerConfiguration();
   config.setDebug(true);
   config.setVerbose(true);
-  shell=new GroovyShell(classLoader,binding,config);
+  shell=new GroovyShell(classLoader,new Binding(),config);
 }
