@@ -1,7 +1,7 @@
 {
   int currentStepIndex=getIndexOfTestStep(referenceStep);
   int ix=currentStepIndex - 1;
-  while (ix >= 0 && !getTestStepAt(ix).getClass().isInstance(stepClass)) {
+  while (ix >= 0 && !stepClass.isAssignableFrom(getTestStepAt(ix).getClass())) {
     ix--;
   }
   return (T)(ix < 0 ? null : getTestStepAt(ix));
