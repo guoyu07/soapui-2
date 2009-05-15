@@ -2,6 +2,7 @@
   if (status != Status.RUNNING)   return;
   this.reason=reason;
   status=Status.CANCELED;
+  if (testCaseStarter != null)   testCaseStarter.stop();
   TestCaseRunner[] r=runners.toArray(new TestCaseRunner[runners.size()]);
   for (  TestCaseRunner runner : r) {
     runner.cancel(reason,true);

@@ -28,43 +28,8 @@
   if (startDelay >= 0) {
     XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Starting threads",(int)loadTest.getThreadCount(),"",true);
     try {
-      progressDialog.run(new Worker.WorkerAdapter(){
-        private List<WsdlTestCase> testCases=new ArrayList<WsdlTestCase>();
-        private boolean canceled;
-        public Object construct(        XProgressMonitor monitor){
-          int startDelay=loadTest.getStartDelay();
-          for (int c=0; c < loadTest.getThreadCount() && !canceled; c++) {
-            monitor.setProgress(1,"Creating Virtual User " + (c + 1));
-            testCases.add(createTestCase());
-          }
-          threadsWaitingToStart=testCases.size();
-          int cnt=0;
-          while (!testCases.isEmpty() && !canceled) {
-            if (startDelay > 0) {
-              try {
-                Thread.sleep(startDelay);
-              }
- catch (              InterruptedException e) {
-                SoapUI.logError(e);
-              }
-            }
-            if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit()))             break;
-            if (!testCases.isEmpty()) {
-              startTestCase(testCases.remove(0));
-              monitor.setProgress(1,"Started thread " + (++cnt));
-              threadsWaitingToStart--;
-            }
-          }
-          return null;
-        }
-        public boolean onCancel(){
-          cancel("Stopped from UI during start-up");
-          canceled=true;
-          while (!testCases.isEmpty())           testCases.remove(0).release();
-          return false;
-        }
-      }
-);
+      testCaseStarter=new TestCaseStarter();
+      progressDialog.run(testCaseStarter);
     }
  catch (    Exception e) {
       SoapUI.logError(e);

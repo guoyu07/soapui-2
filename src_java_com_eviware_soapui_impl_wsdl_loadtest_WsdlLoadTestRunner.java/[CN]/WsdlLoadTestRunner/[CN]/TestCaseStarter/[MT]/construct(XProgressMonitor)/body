@@ -1,0 +1,26 @@
+{
+  int startDelay=loadTest.getStartDelay();
+  for (int c=0; c < loadTest.getThreadCount() && !canceled; c++) {
+    monitor.setProgress(1,"Creating Virtual User " + (c + 1));
+    testCases.add(createTestCase());
+  }
+  threadsWaitingToStart=testCases.size();
+  int cnt=0;
+  while (!testCases.isEmpty() && !canceled) {
+    if (startDelay > 0) {
+      try {
+        Thread.sleep(startDelay);
+      }
+ catch (      InterruptedException e) {
+        SoapUI.logError(e);
+      }
+    }
+    if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit()))     break;
+    if (!testCases.isEmpty()) {
+      startTestCase(testCases.remove(0));
+      monitor.setProgress(1,"Started thread " + (++cnt));
+      threadsWaitingToStart--;
+    }
+  }
+  return null;
+}

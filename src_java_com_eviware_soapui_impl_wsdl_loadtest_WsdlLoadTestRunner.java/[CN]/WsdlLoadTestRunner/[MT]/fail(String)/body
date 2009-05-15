@@ -2,6 +2,7 @@
   if (status != Status.RUNNING)   return;
   this.reason=reason;
   status=Status.FAILED;
+  if (testCaseStarter != null)   testCaseStarter.stop();
   String msg="LoadTest [" + loadTest.getName() + "] failed";
   if (reason != null)   msg+="; " + reason;
   loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry(msg));
