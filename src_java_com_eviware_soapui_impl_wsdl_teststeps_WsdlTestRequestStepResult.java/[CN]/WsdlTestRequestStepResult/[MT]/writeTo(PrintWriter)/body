@@ -7,15 +7,16 @@
     }
   }
   writer.println("\r\n---------------- Request ---------------------------");
-  if (response != null && response.get() != null) {
-    writer.println("Request Headers: " + response.get().getRequestHeaders().toString() + "\r\n");
+  WsdlResponse resp=getResponse();
+  if (resp != null) {
+    writer.println("Request Headers: " + resp.getRequestHeaders().toString() + "\r\n");
   }
-  if (requestContent != null)   writer.println(XmlUtils.prettyPrintXml(requestContent));
+  if (getRequestContent() != null)   writer.println(XmlUtils.prettyPrintXml(getRequestContent()));
  else   writer.println("- missing request / garbage collected -");
   writer.println("\r\n---------------- Response --------------------------");
-  if (response != null && response.get() != null) {
-    writer.println("Response Headers: " + response.get().getResponseHeaders().toString() + "\r\n");
-    String respContent=response.get().getContentAsString();
+  if (resp != null) {
+    writer.println("Response Headers: " + resp.getResponseHeaders().toString() + "\r\n");
+    String respContent=resp.getContentAsString();
     if (respContent != null)     writer.println(XmlUtils.prettyPrintXml(respContent));
   }
  else   writer.println("- missing response / garbage collected -");

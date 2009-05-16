@@ -19,7 +19,6 @@
         testRequest.setResponse(response,runContext);
         testStepResult.setTimeTaken(response.getTimeTaken());
         testStepResult.setSize(response.getContentLength());
-        testStepResult.setResponse(response);
 switch (testRequest.getAssertionStatus()) {
 case FAILED:
           testStepResult.setStatus(TestStepStatus.FAILED);
@@ -31,14 +30,15 @@ case UNKNOWN:
   testStepResult.setStatus(TestStepStatus.UNKNOWN);
 break;
 }
+testStepResult.setResponse(response,testStepResult.getStatus() != TestStepStatus.FAILED);
 }
 }
  else {
 testStepResult.setStatus(TestStepStatus.CANCELED);
 testStepResult.addMessage("Request was canceled");
 }
-if (response != null) testStepResult.setRequestContent(response.getRequestContent());
- else testStepResult.setRequestContent(testRequest.getRequestContent());
+if (response != null) testStepResult.setRequestContent(response.getRequestContent(),testStepResult.getStatus() != TestStepStatus.FAILED);
+ else testStepResult.setRequestContent(testRequest.getRequestContent(),testStepResult.getStatus() != TestStepStatus.FAILED);
 }
  catch (SubmitException e) {
 testStepResult.setStatus(TestStepStatus.FAILED);

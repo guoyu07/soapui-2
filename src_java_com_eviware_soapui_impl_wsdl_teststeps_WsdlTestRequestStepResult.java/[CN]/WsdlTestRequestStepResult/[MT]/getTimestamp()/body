@@ -1,4 +1,3 @@
 {
-  if (isDiscarded() || response == null || response.get() == null)   return -1;
-  return response.get().getTimestamp();
+  return getResponse() == null ? null : getResponse().getTimestamp();
 }
