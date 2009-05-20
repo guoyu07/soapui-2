@@ -15,7 +15,11 @@
         SoapUI.logError(e);
       }
     }
-    if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit()))     break;
+    if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit())) {
+      while (!testCases.isEmpty())       testCases.remove(0).release();
+      threadsWaitingToStart=0;
+      break;
+    }
     if (!testCases.isEmpty()) {
       startTestCase(testCases.remove(0));
       monitor.setProgress(1,"Started thread " + (++cnt));
