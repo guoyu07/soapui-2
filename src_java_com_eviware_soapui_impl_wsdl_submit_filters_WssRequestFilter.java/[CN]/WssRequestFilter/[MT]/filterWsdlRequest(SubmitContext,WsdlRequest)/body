@@ -10,9 +10,7 @@
     try {
       Document wssDocument=getWssDocument(context);
       outgoingWss.processOutgoing(wssDocument,context);
-      StringWriter writer=new StringWriter();
-      XmlUtils.serialize(wssDocument,writer);
-      context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,writer.toString());
+      updateWssDocument(context,wssDocument);
     }
  catch (    Exception e) {
       e.printStackTrace();

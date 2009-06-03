@@ -30,7 +30,5 @@
     parentNode.removeChild(elm);
     if (XmlUtils.getChildElements(parentNode).getLength() == 0)     parentNode.getParentNode().removeChild(parentNode);
   }
-  StringWriter writer=new StringWriter();
-  XmlUtils.serializePretty(doc,writer);
-  context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,writer.toString());
+  updateWssDocument(context,doc);
 }
