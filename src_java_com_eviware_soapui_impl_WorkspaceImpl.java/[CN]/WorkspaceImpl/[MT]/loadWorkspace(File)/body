@@ -3,6 +3,7 @@
     log.info(messages.get("FailedToLoadWorkspaceFrom",file.getAbsolutePath()));
     workspaceConfig=SoapuiWorkspaceDocumentConfig.Factory.parse(file);
     if (workspaceConfig.getSoapuiWorkspace().getSettings() == null)     workspaceConfig.getSoapuiWorkspace().addNewSettings();
+    setPath(file.getAbsolutePath());
     settings=new XmlBeansSettingsImpl(this,SoapUI.getSettings(),workspaceConfig.getSoapuiWorkspace().getSettings());
     boolean closeOnStartup=getSettings().getBoolean(UISettings.CLOSE_PROJECTS);
     List<WorkspaceProjectConfig> projects=workspaceConfig.getSoapuiWorkspace().getProjectList();
