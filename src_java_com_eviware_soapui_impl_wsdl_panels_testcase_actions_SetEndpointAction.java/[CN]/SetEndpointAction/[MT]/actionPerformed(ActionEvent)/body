@@ -4,13 +4,16 @@
   endpointSet.add(USE_CURRENT);
   for (int c=0; c < testCase.getTestStepCount(); c++) {
     TestStep step=testCase.getTestStepAt(c);
-    if (step instanceof WsdlTestRequestStep) {
-      WsdlTestRequestStep requestStep=(WsdlTestRequestStep)step;
-      String[] endpoints=requestStep.getTestRequest().getOperation().getInterface().getEndpoints();
-      for (int i=0; i < endpoints.length; i++) {
-        endpointSet.add(endpoints[i]);
+    if (step instanceof HttpRequestTestStep) {
+      HttpRequestTestStep requestStep=(HttpRequestTestStep)step;
+      Operation operation=requestStep.getHttpRequest().getOperation();
+      if (operation != null) {
+        String[] endpoints=operation.getInterface().getEndpoints();
+        for (int i=0; i < endpoints.length; i++) {
+          endpointSet.add(endpoints[i]);
+        }
       }
-      currentEndpointSet.add(requestStep.getTestRequest().getEndpoint());
+      currentEndpointSet.add(requestStep.getHttpRequest().getEndpoint());
     }
   }
   String selected=(String)UISupport.prompt("Select endpoint to set for all requests","Set Endpoint",endpointSet.toArray(),currentEndpointSet.size() == 1 ? currentEndpointSet.iterator().next() : USE_CURRENT);
@@ -18,9 +21,9 @@
   int cnt=0;
   for (int c=0; c < testCase.getTestStepCount(); c++) {
     TestStep step=testCase.getTestStepAt(c);
-    if (step instanceof WsdlTestRequestStep) {
-      WsdlTestRequestStep requestStep=(WsdlTestRequestStep)step;
-      WsdlTestRequest testRequest=requestStep.getTestRequest();
+    if (step instanceof HttpRequestTestStep) {
+      HttpRequestTestStep requestStep=(HttpRequestTestStep)step;
+      AbstractHttpRequest testRequest=requestStep.getHttpRequest();
       if (testRequest.getEndpoint() == null || !testRequest.getEndpoint().equals(selected)) {
         testRequest.setEndpoint(selected);
         cnt++;
