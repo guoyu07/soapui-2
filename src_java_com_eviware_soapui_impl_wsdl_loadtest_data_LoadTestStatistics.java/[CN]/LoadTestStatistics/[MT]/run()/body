@@ -2,7 +2,7 @@
   while (running || !samplesStack.isEmpty()) {
     try {
       while (!samplesStack.isEmpty()) {
-        SamplesHolder holder=samplesStack.pop();
+        SamplesHolder holder=samplesStack.poll();
         if (holder != null)         addSamples(holder);
       }
       Thread.sleep(200);

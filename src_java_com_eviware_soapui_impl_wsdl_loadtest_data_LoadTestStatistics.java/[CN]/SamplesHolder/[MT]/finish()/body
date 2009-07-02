@@ -1,13 +1,6 @@
 {
-  int sz=samplesStack.size();
-  while (sz > 0) {
-    log.info("Waiting for " + sz + " samples..");
-    try {
-      Thread.sleep(500);
-    }
- catch (    InterruptedException e) {
-      SoapUI.logError(e);
-    }
-    sz=samplesStack.size();
+  while (!samplesStack.isEmpty()) {
+    SamplesHolder holder=samplesStack.poll();
+    if (holder != null)     addSamples(holder);
   }
 }
