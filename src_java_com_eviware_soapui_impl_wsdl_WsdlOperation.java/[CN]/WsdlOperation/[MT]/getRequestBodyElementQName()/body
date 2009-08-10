@@ -7,7 +7,7 @@
     if (bindingInput == null)     return null;
     String ns=WsdlUtils.getSoapBodyNamespace(bindingInput.getExtensibilityElements());
     if (ns == null) {
-      ns=definition.getTargetNamespace();
+      ns=WsdlUtils.getTargetNamespace(definition);
     }
     return new QName(ns,bindingOperation.getName());
   }

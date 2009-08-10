@@ -1,0 +1,24 @@
+{
+  try {
+    JarFile soapJar=new JarFile(new File(System.getProperty("soapui.home"),"soapui-3.0.jar"));
+    Enumeration<JarEntry> classList=soapJar.entries();
+    while (classList.hasMoreElements()) {
+      JarEntry soapClass=classList.nextElement();
+      if (soapClass.getName().contains("MockAsWarServlet.class")) {
+        InputStream in=soapJar.getInputStream(soapClass);
+        OutputStream out=new FileOutputStream(new File(packageDir,"MockAsWarServlet.class"));
+        byte[] buffer=new byte[4096];
+        int len=0;
+        while ((len=in.read(buffer)) > 0) {
+          out.write(buffer,0,len);
+          out.flush();
+        }
+        in.close();
+        out.close();
+      }
+    }
+  }
+ catch (  IOException e) {
+    log.error(e.getMessage(),e);
+  }
+}

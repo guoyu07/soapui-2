@@ -9,10 +9,7 @@
  else     if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type)) {
       return new ByteArrayInputStream(Base64.decodeBase64(content.getBytes()));
     }
- else {
-      SoapUI.log.warn("Unexpected type for XOPPartDataSource; " + schemaType.getName());
-      return new ByteArrayInputStream(content.getBytes());
-    }
+ else     throw new IOException("Invalid type for XOPPartDataSource; " + schemaType.getName());
   }
  catch (  Exception e) {
     SoapUI.logError(e);

@@ -13,6 +13,7 @@
   for (int c=0; c < result.length; c++) {
     result[c].afterLoad();
     if (getTestSuite() != null)     (getTestSuite()).fireTestStepAdded(result[c],getIndexOfTestStep(result[c]));
+    notifyPropertyChanged("testSteps",null,result[c]);
   }
   return result;
 }

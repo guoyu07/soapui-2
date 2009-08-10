@@ -4,7 +4,7 @@
     UISupport.showErrorMessage("Missing TestSteps for testing!");
     return;
   }
-  if (loadtest.getLimitType() == LoadTestLimitTypesConfig.COUNT && loadtest.getTestLimit() < loadtest.getThreadCount()) {
+  if (loadtest.getLimitType() != LoadTestLimitTypesConfig.TIME && loadtest.getTestLimit() < loadtest.getThreadCount()) {
     if (!UISupport.confirm("The run limit is set to a lower count than number of threads\nRun Anyway?","Run LoadTest")) {
       return;
     }

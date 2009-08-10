@@ -5,12 +5,15 @@
     JSON json=JSONSerializer.toJSON(content);
     XMLSerializer serializer=new XMLSerializer();
     serializer.setTypeHintsEnabled(false);
+    serializer.setRootName(HttpUtils.isErrorStatus(response.getStatusCode()) ? "Fault" : "Response");
+    URL url=response.getURL();
+    serializer.setNamespace("",url.getProtocol() + "://" + url.getHost()+ url.getPath());
     content=serializer.write(json);
     content=XmlUtils.prettyPrintXml(content);
     return content;
   }
  catch (  Throwable e) {
-    e.printStackTrace();
+    if (!(e instanceof JSONException))     e.printStackTrace();
   }
-  return null;
+  return "<xml/>";
 }

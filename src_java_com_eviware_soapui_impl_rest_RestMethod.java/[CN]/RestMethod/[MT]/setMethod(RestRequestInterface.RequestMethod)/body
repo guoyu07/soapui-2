@@ -1,0 +1,6 @@
+{
+  RestRequestInterface.RequestMethod old=getMethod();
+  getConfig().setMethod(method.toString());
+  setIcon(UISupport.createImageIcon("/" + method.toString().toLowerCase() + "_method.gif"));
+  notifyPropertyChanged("method",old,method);
+}

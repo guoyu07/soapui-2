@@ -1,0 +1,15 @@
+{
+  if (part.getType().equals(Constants.WADL11_NS)) {
+    ApplicationDocument document=(ApplicationDocument)obj;
+    for (    Resources resources : document.getApplication().getResourcesList()) {
+      for (      Resource resource : resources.getResourceList()) {
+        for (        Method method : resource.getMethodList()) {
+          fixRepresentations(method.getRequest().getRepresentationList());
+          for (          Response response : method.getResponseList()) {
+            fixRepresentations(response.getRepresentationList());
+          }
+        }
+      }
+    }
+  }
+}

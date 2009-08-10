@@ -1,0 +1,32 @@
+{
+  if (submit.getResponse() == null)   return;
+  HttpResponse httpResponse=(HttpResponse)submit.getResponse();
+  String content=httpResponse.getContentAsXml();
+  if (content == null || content.equals("<xml/>"))   return;
+  XmlObject xml;
+  try {
+    URL url=httpResponse.getURL();
+    String defaultNamespace=url.getProtocol() + "://" + url.getHost();
+    XmlOptions options=new XmlOptions().setLoadSubstituteNamespaces(Collections.singletonMap("",defaultNamespace));
+    xml=XmlObject.Factory.parse(content,options);
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+    return;
+  }
+  if (!submit.getStatus().equals(Status.CANCELED) && !InferredSchemaManager.getInferredSchema(service).validate(xml)) {
+    setTitle("Schema (conflicts)");
+    if (thread != null && thread.isAlive()) {
+      handler.kill();
+      try {
+        thread.join();
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    handler=new Handler(tabs,xml);
+    thread=new Thread(handler);
+    thread.start();
+  }
+}

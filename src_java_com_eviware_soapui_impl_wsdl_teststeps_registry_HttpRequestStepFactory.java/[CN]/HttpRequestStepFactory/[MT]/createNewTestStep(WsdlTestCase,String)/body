@@ -11,15 +11,13 @@
   dialog.setValue(Form.STEPNAME,name);
   try {
     if (dialog.show()) {
-      RestRequestStepConfig testStepConfig=RestRequestStepConfig.Factory.newInstance();
-      RestMethodConfig requestConfig=testStepConfig.addNewRestRequest();
-      requestConfig.setFullPath(dialog.getValue(Form.ENDPOINT));
-      requestConfig.setEndpoint(dialog.getValue(Form.ENDPOINT));
-      requestConfig.setMethod(dialog.getValue(Form.HTTPMETHOD));
-      new XmlBeansRestParamsTestPropertyHolder(testCase,requestConfig.addNewParameters()).addParameters(params);
+      HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
+      httpRequest.setEndpoint(dialog.getValue(Form.ENDPOINT));
+      httpRequest.setMethod(dialog.getValue(Form.HTTPMETHOD));
+      new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters()).addParameters(params);
       TestStepConfig testStep=TestStepConfig.Factory.newInstance();
       testStep.setType(HTTPREQUEST_TYPE);
-      testStep.setConfig(testStepConfig);
+      testStep.setConfig(httpRequest);
       testStep.setName(dialog.getValue(Form.STEPNAME));
       return testStep;
     }

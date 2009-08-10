@@ -8,7 +8,7 @@
   XmlCursor sourceCursor=sourceValue == null ? null : sourceXml.newCursor();
   try {
     String value=null;
-    String xquery=PropertyExpansionUtils.expandProperties(context,getSourcePath());
+    String xquery=PropertyExpander.expandProperties(context,getSourcePath());
     if (getUseXQuery()) {
       XmlCursor resultCursor=sourceCursor.execQuery(xquery);
       sourceCursor.dispose();

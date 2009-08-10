@@ -3,11 +3,14 @@
   this.project=project;
   List<TestCaseConfig> testCaseConfigs=config.getTestCaseList();
   for (int i=0; i < testCaseConfigs.size(); i++) {
-    testCases.add(new WsdlTestCase(this,testCaseConfigs.get(i),false));
+    testCases.add(buildTestCase(testCaseConfigs.get(i),false));
   }
   if (!config.isSetRunType())   config.setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
   for (  TestSuiteListener listener : SoapUI.getListenerRegistry().getListeners(TestSuiteListener.class)) {
     addTestSuiteListener(listener);
+  }
+  for (  TestSuiteRunListener listener : SoapUI.getListenerRegistry().getListeners(TestSuiteRunListener.class)) {
+    addTestSuiteRunListener(listener);
   }
   if (!config.isSetProperties())   config.addNewProperties();
   setPropertiesConfig(config.getProperties());

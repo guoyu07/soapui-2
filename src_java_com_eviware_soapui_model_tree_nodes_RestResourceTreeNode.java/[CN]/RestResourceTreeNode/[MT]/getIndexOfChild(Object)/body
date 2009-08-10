@@ -1,8 +1,8 @@
 {
-  int result=super.getIndexOfChild(child);
+  int result=methodNodes.indexOf(child);
   if (result == -1) {
     result=resourceNodes.indexOf(child);
-    if (result >= 0)     result+=super.getChildCount();
+    if (result >= 0)     result+=methodNodes.size();
   }
   return result;
 }

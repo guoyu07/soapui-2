@@ -1,6 +1,6 @@
 {
   if (UISupport.confirm("Delete Request [" + request.getName() + "] from Resource ["+ request.getOperation().getName()+ "]","Delete Request")) {
-    RestResource resource=request.getResource();
-    resource.removeRequest(request);
+    RestMethod method=request.getRestMethod();
+    method.removeRequest(request);
   }
 }

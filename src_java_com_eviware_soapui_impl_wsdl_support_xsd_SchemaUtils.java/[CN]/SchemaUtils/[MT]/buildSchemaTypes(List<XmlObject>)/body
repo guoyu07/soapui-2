@@ -12,7 +12,8 @@
       c--;
     }
   }
-  if (!SoapUI.getSettings().getBoolean(WsdlSettings.STRICT_SCHEMA_TYPES)) {
+  boolean strictSchemaTypes=SoapUI.getSettings().getBoolean(WsdlSettings.STRICT_SCHEMA_TYPES);
+  if (!strictSchemaTypes) {
     Set<String> mdefNamespaces=new HashSet<String>();
     for (    XmlObject xObj : schemas) {
       mdefNamespaces.add(getTargetNamespace(xObj));
@@ -31,7 +32,7 @@
       if (toNextContainer(cursor))       cursor.getAllNamespaces(map);
  else       log.warn("Can not get namespaces for " + s);
       String tns=getTargetNamespace(s);
-      if (defaultSchemas.containsKey(tns)) {
+      if (strictSchemaTypes && defaultSchemas.containsKey(tns)) {
         schemas.remove(c);
         c--;
       }

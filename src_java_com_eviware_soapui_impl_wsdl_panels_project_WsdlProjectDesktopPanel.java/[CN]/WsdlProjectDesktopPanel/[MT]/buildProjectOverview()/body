@@ -1,8 +1,6 @@
 {
   metrics=new MetricsPanel();
-  JXToolBar toolbar=UISupport.createSmallToolbar();
-  toolbar.addGlue();
-  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.PROJECT_OVERVIEW_HELP_URL)));
+  JXToolBar toolbar=buildOverviewToolbar();
   metrics.add(toolbar,BorderLayout.NORTH);
   MetricsSection section=metrics.addSection("Project Summary");
   section.addMetric(ModelItemIconFactory.getIcon(Project.class),"File Path",MetricType.URL);

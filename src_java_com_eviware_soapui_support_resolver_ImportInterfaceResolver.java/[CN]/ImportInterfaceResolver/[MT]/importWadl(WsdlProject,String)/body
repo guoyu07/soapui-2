@@ -1,5 +1,5 @@
 {
-  RestService restService=(RestService)project.addNewInterface(((RestTestRequestStep)item).getRequestStepConfig().getService(),RestServiceFactory.REST_TYPE);
+  RestService restService=(RestService)project.addNewInterface(((RestTestRequestStepInterface)item).getRequestStepConfig().getService(),RestServiceFactory.REST_TYPE);
   try {
     new WadlImporter(restService).initFromWadl(path);
   }

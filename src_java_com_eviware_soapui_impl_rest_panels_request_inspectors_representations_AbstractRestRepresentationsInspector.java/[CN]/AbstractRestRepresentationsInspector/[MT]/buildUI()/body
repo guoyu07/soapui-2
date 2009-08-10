@@ -1,14 +1,10 @@
 {
-  mainPanel=new JPanel(new BorderLayout());
-  tableModel=new RepresentationsTableModel();
-  representationsTable=new JTable(tableModel);
-  representationsTable.setRowHeight(18);
-  mainPanel.add(buildToolbar(),BorderLayout.NORTH);
-  mainPanel.add(new JScrollPane(representationsTable),BorderLayout.CENTER);
-  representationsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-    public void valueChanged(    ListSelectionEvent e){
-      removeRepresentationAction.setEnabled(representationsTable.getSelectedRow() != -1);
+  representationTable=new RestRepresentationsTable(restMethod,types.toArray(new RestRepresentation.Type[]{}),true){
+    protected JXToolBar buildToolbar(){
+      JXToolBar toolbar=super.buildToolbar();
+      addToToolbar(toolbar);
+      return toolbar;
     }
   }
-);
+;
 }

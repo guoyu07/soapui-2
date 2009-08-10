@@ -1,4 +1,4 @@
 {
-  OperationTreeNode operationTreeNode=(OperationTreeNode)getTreeModel().getTreeNode(request.getOperation());
-  if (operationTreeNode != null)   operationTreeNode.requestAdded(request);
+  SoapUITreeNode operationTreeNode=getTreeModel().getTreeNode(request.getOperation());
+  if (operationTreeNode != null && operationTreeNode instanceof OperationTreeNode)   ((OperationTreeNode)operationTreeNode).requestAdded(request);
 }

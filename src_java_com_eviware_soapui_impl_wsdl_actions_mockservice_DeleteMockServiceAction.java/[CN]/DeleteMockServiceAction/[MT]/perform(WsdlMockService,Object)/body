@@ -3,7 +3,7 @@
     UISupport.showErrorMessage("Cannot remove MockService while mocks are running");
     return;
   }
-  if (UISupport.confirm("Remove MockService [" + mockService.getName() + "] from MockService","Remove MockService")) {
+  if (UISupport.confirm("Remove MockService [" + mockService.getName() + "] from Project","Remove MockService")) {
     ((WsdlProject)mockService.getProject()).removeMockService(mockService);
   }
 }

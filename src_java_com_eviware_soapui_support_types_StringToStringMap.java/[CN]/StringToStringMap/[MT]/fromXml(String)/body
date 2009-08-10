@@ -1,14 +1,11 @@
 {
-  StringToStringMap result=new StringToStringMap();
-  if (value == null || value.trim().length() == 0)   return result;
+  if (value == null || value.trim().length() == 0)   return new StringToStringMap();
   try {
     StringToStringMapConfig nsMapping=StringToStringMapConfig.Factory.parse(value);
-    for (    Entry entry : nsMapping.getEntryList()) {
-      result.put(entry.getKey(),entry.getValue());
-    }
+    return fromXml(nsMapping);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
   }
-  return result;
+  return new StringToStringMap();
 }

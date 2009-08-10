@@ -1,4 +1,5 @@
 {
+  Thread.currentThread().setName(loadTest.getName() + " LoadTestStatistics");
   while (running || !samplesStack.isEmpty()) {
     try {
       while (!samplesStack.isEmpty()) {

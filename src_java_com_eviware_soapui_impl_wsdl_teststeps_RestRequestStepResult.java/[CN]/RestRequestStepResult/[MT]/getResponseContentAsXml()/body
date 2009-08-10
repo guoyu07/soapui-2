@@ -1,7 +1,3 @@
 {
-  if (response.getProperty(RestRequest.REST_XML_RESPONSE) == null) {
-    MediaTypeHandler typeHandler=MediaTypeHandlerRegistry.getTypeHandler(response.getContentType());
-    if (typeHandler != null)     response.setProperty(RestRequest.REST_XML_RESPONSE,typeHandler.createXmlRepresentation(response));
-  }
-  return response.getProperty(RestRequest.REST_XML_RESPONSE);
+  return response.getContentAsXml();
 }

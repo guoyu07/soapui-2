@@ -1,0 +1,6 @@
+{
+  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
+  String scriptEngineId=project.getDefaultScriptLanguage();
+  if (StringUtils.isNullOrEmpty(scriptEngineId))   scriptEngineId=DEFAULT_SCRIPT_ENGINE_ID;
+  return factories.get(scriptEngineId).createCodeGenerator(modelItem);
+}

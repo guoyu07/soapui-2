@@ -1,6 +1,6 @@
 {
   String value=definition;
-  WsdlInterface iface=(WsdlInterface)getAssertable().getInterface();
+  AbstractInterface<?> iface=(AbstractInterface<?>)getAssertable().getInterface();
   String orgDef=iface == null ? null : iface.getDefinition();
   if (StringUtils.isNullOrEmpty(value)) {
     value=orgDef;

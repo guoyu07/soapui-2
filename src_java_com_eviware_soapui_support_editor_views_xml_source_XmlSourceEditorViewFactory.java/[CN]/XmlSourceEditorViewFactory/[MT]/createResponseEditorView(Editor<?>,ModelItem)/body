@@ -5,8 +5,8 @@
  else   if (modelItem instanceof WsdlMockResponse) {
     return new WsdlMockResponseXmlSourceEditor((XmlEditor)editor,(WsdlMockResponse)modelItem);
   }
- else   if (modelItem instanceof RestRequest) {
-    return new RestResponseXmlSourceEditor((XmlEditor)editor,(RestRequest)modelItem);
+ else   if (modelItem instanceof HttpRequestInterface<?>) {
+    return new RestResponseXmlSourceEditor((XmlEditor)editor,(HttpRequestInterface<?>)modelItem);
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
     return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);

@@ -1,9 +1,0 @@
-{
-  AnnotatedSettingsPrefs prefs=new AnnotatedSettingsPrefs(HttpSettings.class,"HTTP Settings");
-  SettingsImpl settings=new SettingsImpl();
-  StringToStringMap values=prefs.getValues(settings);
-  assertEquals(HttpSettings.HTTP_VERSION_1_1,values.get("HTTP Version"));
-  prefs.setFormValues(settings);
-  SimpleForm form=prefs.getForm();
-  assertEquals(HttpSettings.HTTP_VERSION_1_1,form.getComponentValue("HTTP Version"));
-}

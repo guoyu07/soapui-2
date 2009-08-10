@@ -2,7 +2,7 @@
   if (parts.length == 0)   return;
   XmlObject[] bodyParts=getRpcBodyPart(bindingOperation,msgXml,isResponse);
   if (bodyParts.length != 1) {
-    errors.add(XmlError.forMessage("Missing message wrapper element [" + wsdlContext.getDefinition().getTargetNamespace() + "@"+ bindingOperation.getName()+ (isResponse ? "Response" : "")));
+    errors.add(XmlError.forMessage("Missing message wrapper element [" + WsdlUtils.getTargetNamespace(wsdlContext.getDefinition()) + "@"+ bindingOperation.getName()+ (isResponse ? "Response" : "")));
   }
  else {
     XmlObject wrapper=bodyParts[0];

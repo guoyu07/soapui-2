@@ -3,12 +3,12 @@
     UISupport.showErrorMessage("Missing conditions!");
     return;
   }
-  HttpRequestTestStep<?> previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
+  HttpRequestTestStep previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
   if (previousStep == null) {
     UISupport.showErrorMessage("Missing previous request step");
   }
  else {
-    if (previousStep.getHttpRequest().getResponse() == null || StringUtils.isNullOrEmpty(previousStep.getHttpRequest().getResponseContentAsXml())) {
+    if (previousStep.getHttpRequest().getResponse() == null || StringUtils.isNullOrEmpty(previousStep.getHttpRequest().getResponse().getContentAsXml())) {
       UISupport.showErrorMessage("Missing response in previous message");
       return;
     }

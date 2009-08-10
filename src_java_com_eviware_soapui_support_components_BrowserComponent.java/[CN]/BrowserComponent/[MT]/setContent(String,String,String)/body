@@ -1,9 +1,12 @@
 {
-  editorPane.setContentType(contentType);
-  try {
-    editorPane.read(new ByteArrayInputStream(contentAsString.getBytes()),editorPane.getEditorKit().createDefaultDocument());
+  if (!SwingUtilities.isEventDispatchThread()) {
+    SwingUtilities.invokeLater(new ContentSetter(contentAsString,contentType,contextUri));
   }
- catch (  IOException e) {
-    e.printStackTrace();
+ else {
+    if (browser == null) {
+      initBrowser();
+    }
+    browser.activate();
+    browser.setContentWithContext(contentAsString,contentType,contextUri);
   }
 }

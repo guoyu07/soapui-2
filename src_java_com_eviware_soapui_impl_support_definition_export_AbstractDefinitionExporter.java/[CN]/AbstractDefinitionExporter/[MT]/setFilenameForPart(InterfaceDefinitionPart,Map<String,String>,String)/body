@@ -13,7 +13,7 @@
   String type=part.getType();
   if (type.equals(Constants.WSDL11_NS))   fileName+=".wsdl";
  else   if (part.getType().equals(Constants.XSD_NS))   fileName+=".xsd";
- else   if (part.getType().equals(Constants.WADL10_NS))   fileName+=".wadl";
+ else   if (part.getType().equals(((RestService)getDefinition().getInterface()).getWadlVersion()))   fileName+=".wadl";
  else   fileName+=".xml";
   if (urlPrefix != null)   fileName=urlPrefix + fileName;
   int cnt=1;

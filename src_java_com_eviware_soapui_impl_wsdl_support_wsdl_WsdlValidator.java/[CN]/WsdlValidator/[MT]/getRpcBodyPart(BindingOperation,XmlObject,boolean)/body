@@ -1,6 +1,6 @@
 {
   String ns=WsdlUtils.getSoapBodyNamespace(isResponse ? bindingOperation.getBindingOutput().getExtensibilityElements() : bindingOperation.getBindingInput().getExtensibilityElements());
-  if (ns == null || ns.trim().length() == 0)   ns=wsdlContext.getDefinition().getTargetNamespace();
+  if (ns == null || ns.trim().length() == 0)   ns=WsdlUtils.getTargetNamespace(wsdlContext.getDefinition());
   XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ ns+ "';"+ "$this/env:Envelope/env:Body/ns:"+ bindingOperation.getName()+ (isResponse ? "Response" : ""));
   return paths;
 }

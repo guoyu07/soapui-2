@@ -2,6 +2,8 @@
   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
+    this.lastResult=null;
+    mockResponse.setMockResult(null);
     result.startTimer();
     if (!mockRunListener.hasResult()) {
       if (testMockResponse == null)       initTestMockResponse(context);
@@ -12,13 +14,15 @@ synchronized (mockRunListener) {
     }
     result.stopTimer();
     if (mockRunner != null && mockRunner.isRunning())     mockRunner.stop();
-    AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(mockRunListener.getResult());
+    AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(mockRunListener.getLastResult());
     result.setMessageExchange(messageExchange);
-    if (mockRunListener.getResult() != null) {
+    if (mockRunListener.getLastResult() != null) {
+      lastResult=mockRunListener.getLastResult();
+      mockResponse.setMockResult(lastResult);
       context.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,messageExchange);
-      assertResult(mockRunListener.getResult(),context);
+      assertResult(lastResult,context);
     }
-    if (mockRunListener.getResult() == null) {
+    if (mockRunListener.getLastResult() == null) {
       if (mockRunListener.isCanceled()) {
         result.setStatus(TestStepStatus.CANCELED);
       }
@@ -35,10 +39,11 @@ synchronized (mockRunListener) {
           result.addMessage("Invalid/empty request");
         }
  else         for (int c=0; c < getAssertionCount(); c++) {
-          AssertionError[] errors=getAssertionAt(c).getErrors();
+          WsdlMessageAssertion assertion=getAssertionAt(c);
+          AssertionError[] errors=assertion.getErrors();
           if (errors != null) {
             for (            AssertionError error : errors) {
-              result.addMessage(error.getMessage());
+              result.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
             }
           }
         }
@@ -46,7 +51,7 @@ synchronized (mockRunListener) {
  else {
         result.setStatus(TestStepStatus.OK);
       }
-      mockRunListener.setResult(null);
+      mockRunListener.setLastResult(null);
     }
   }
  catch (  Exception e) {

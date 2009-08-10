@@ -6,10 +6,15 @@
     exchange=new WsdlResponseMessageExchange(testRequestStep.getTestRequest());
     ((WsdlResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
   }
- else   if (testStep instanceof RestTestRequestStep) {
-    RestTestRequestStep testRequestStep=(RestTestRequestStep)testStep;
-    exchange=new RestResponseMessageExchange(testRequestStep.getTestRequest());
+ else   if (testStep instanceof RestTestRequestStepInterface) {
+    RestTestRequestStepInterface testRequestStep=(RestTestRequestStepInterface)testStep;
+    exchange=new RestResponseMessageExchange((RestRequestInterface)testRequestStep.getTestRequest());
     ((RestResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
+  }
+ else   if (testStep instanceof HttpTestRequestStepInterface) {
+    HttpTestRequestStepInterface testRequestStep=(HttpTestRequestStepInterface)testStep;
+    exchange=new HttpResponseMessageExchange(testRequestStep.getTestRequest());
+    ((HttpResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
   }
  else   if (testStep instanceof WsdlMockResponseTestStep) {
     WsdlMockResponseTestStep mockResponseStep=(WsdlMockResponseTestStep)testStep;

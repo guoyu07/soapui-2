@@ -5,7 +5,7 @@
   testCaseConfig.setName(name);
   if (!includeLoadTests)   testCaseConfig.setLoadTestArray(new LoadTestConfig[0]);
   WsdlTestCase oldTestCase=testCase;
-  testCase=new WsdlTestCase(this,testCaseConfig,false);
+  testCase=buildTestCase(testCaseConfig,false);
   if (createCopy) {
     ModelSupport.unsetIds(testCase);
   }

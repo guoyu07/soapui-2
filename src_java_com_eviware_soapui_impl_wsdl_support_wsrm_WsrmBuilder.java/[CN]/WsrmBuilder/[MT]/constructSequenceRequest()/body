@@ -1,0 +1,10 @@
+{
+  XmlObject object=XmlObject.Factory.newInstance();
+  XmlCursor cursor=object.newCursor();
+  cursor.insertNamespace("wsrm",wsrmConfig.getVersionNameSpace());
+  cursor.beginElement(WSRM_CREATE_SEQUENCE,wsrmConfig.getVersionNameSpace());
+  cursor.insertElementWithText(WSRM_ACKNOWLEDGMENTS_TO,wsrmConfig.getAckTo());
+  if (wsrmConfig.getSequenceExpires() != null)   cursor.insertElementWithText(WSRM_EXPIRES,wsrmConfig.getSequenceExpires().toString());
+  cursor.dispose();
+  return object;
+}

@@ -1,7 +1,7 @@
 {
-  List<String> result=new ArrayList<String>();
+  List<Object> result=new ArrayList<Object>();
   for (int c=0; c < selected.size(); c++) {
-    if (selected.get(c))     result.add((String)listModel.get(c));
+    if (selected.get(c))     result.add(listModel.get(c));
   }
-  return result.toArray(new String[result.size()]);
+  return result.toArray();
 }

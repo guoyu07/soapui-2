@@ -1,6 +1,6 @@
 {
   if (async) {
-    new Thread(new Navigator(url,errorUrl)).start();
+    SwingUtilities.invokeLater(new Navigator(url,errorUrl));
   }
  else {
     browser.navigate(url,errorUrl);

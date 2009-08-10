@@ -1,0 +1,22 @@
+{
+  if (mockRunListener != null) {
+    mockService.removeMockRunListener(mockRunListener);
+    mockRunListener=null;
+  }
+  if (startStepMockRunListener != null) {
+    startStepMockRunListener.release();
+    startStepMockRunListener=null;
+  }
+  if (testMockResponse != null) {
+    if (testMockResponse != mockResponse) {
+      mockOperation.removeMockResponse(testMockResponse);
+    }
+    testMockResponse=null;
+  }
+  if (mockRunner != null) {
+    if (mockRunner.isRunning()) {
+      mockRunner.stop();
+    }
+    mockRunner=null;
+  }
+}

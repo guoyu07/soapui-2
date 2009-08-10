@@ -1,0 +1,22 @@
+{
+  if (httpRequest instanceof HttpRequestInterface<?>) {
+    HttpRequestInterface<?> restRequest=(HttpRequestInterface<?>)httpRequest;
+switch (restRequest.getMethod()) {
+case GET:
+      return new ExtendedGetMethod();
+case HEAD:
+    return new ExtendedHeadMethod();
+case DELETE:
+  return new ExtendedDeleteMethod();
+case PUT:
+return new ExtendedPutMethod();
+case OPTIONS:
+return new ExtendedOptionsMethod();
+case TRACE:
+return new ExtendedTraceMethod();
+}
+}
+ExtendedPostMethod extendedPostMethod=new ExtendedPostMethod();
+extendedPostMethod.setAfterRequestInjection(httpRequest.getAfterRequestInjection());
+return extendedPostMethod;
+}

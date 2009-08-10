@@ -19,8 +19,17 @@
   builder.addBoolean(EXPORTALL,"-a");
   builder.addBoolean(EXPORTJUNITRESULTS,"-j");
   builder.addString(ROOTFOLDER,"-f");
-  builder.addBoolean(OPEN_REPORT,"-o");
-  builder.addBoolean(COVERAGE,"-g");
+  if (proVersion) {
+    builder.addBoolean(OPEN_REPORT,"-o");
+    builder.addBoolean(COVERAGE,"-g");
+    builder.addString(GENERATEREPORTSEACHTESTCASE,"-R","");
+    builder.addString(REPORTFORMAT,"-F","");
+  }
+  builder.addStringShadow(PROJECTPASSWORD,"-x","");
+  builder.addStringShadow(SOAPUISETTINGSPASSWORD,"-v","");
+  builder.addBoolean(IGNOREERRORS,"-I");
+  builder.addBoolean(SAVEAFTER,"-S");
+  addPropertyArguments(builder);
   if (dialog.getBooleanValue(ADDSETTINGS)) {
     try {
       builder.addBoolean(ADDSETTINGS,"-t" + SoapUI.saveSettings());

@@ -1,11 +1,16 @@
 {
   JTabbedPane tabs=new JTabbedPane(JTabbedPane.BOTTOM);
+  editorPane=new JEditorPane();
+  editorPane.setEditorKit(new HTMLEditorKit());
+  editorPane.setEditable(false);
+  editorPane.setPage(reportFile.toURI().toURL());
+  editorPane.addHyperlinkListener(new DefaultHyperlinkListener(editorPane));
   JTextArea configContent=new JTextArea();
   configContent.setEditable(false);
   configContent.setText(configFile);
-  browser=new BrowserComponent();
-  browser.navigate(reportFile.toURI().toURL().toString(),null);
-  tabs.addTab("Report",browser.getComponent());
+  JScrollPane scrollPane=new JScrollPane(editorPane);
+  UISupport.addPreviewCorner(scrollPane,true);
+  tabs.addTab("Report",scrollPane);
   tabs.addTab("Config",new JScrollPane(configContent));
   if (logFile != null) {
     String logFileContent=XmlObject.Factory.parse(logFile).toString();

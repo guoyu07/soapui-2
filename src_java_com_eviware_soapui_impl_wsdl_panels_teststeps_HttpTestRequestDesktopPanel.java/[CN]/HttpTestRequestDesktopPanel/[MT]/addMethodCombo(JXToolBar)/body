@@ -1,0 +1,15 @@
+{
+  methodCombo=new JComboBox(RestRequestInterface.RequestMethod.getMethods());
+  methodCombo.setSelectedItem(getRequest().getMethod());
+  methodCombo.setToolTipText("Set desired HTTP method");
+  methodCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getRequest().setMethod((RestRequestInterface.RequestMethod)methodCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("Method",methodCombo);
+  toolbar.addSeparator();
+}

@@ -1,0 +1,8 @@
+{
+  if (properties.containsKey(name))   return name;
+  Set<String> props=normalizedPropertyNames.get(name.toUpperCase());
+  if (props != null && !props.isEmpty()) {
+    return props.iterator().next();
+  }
+  return name;
+}

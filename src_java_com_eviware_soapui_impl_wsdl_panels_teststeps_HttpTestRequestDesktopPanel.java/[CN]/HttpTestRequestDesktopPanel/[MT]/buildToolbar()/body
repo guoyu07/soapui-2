@@ -1,4 +1,9 @@
 {
   addAssertionButton=createActionButton(new AddAssertionAction(getRequest()),true);
-  return super.buildToolbar();
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(super.buildToolbar(),BorderLayout.NORTH);
+  JXToolBar toolbar=UISupport.createToolbar();
+  addToolbarComponents(toolbar);
+  panel.add(toolbar,BorderLayout.SOUTH);
+  return panel;
 }

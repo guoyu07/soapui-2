@@ -3,7 +3,7 @@
   XmlCursor targetCursor=targetXml.newCursor();
   try {
     List<String> result=new ArrayList<String>();
-    String tp=PropertyExpansionUtils.expandProperties(context,getTargetPath());
+    String tp=PropertyExpander.expandProperties(context,getTargetPath());
     targetCursor.selectPath(tp);
     if (!targetCursor.toNextSelection())     throw new Exception("Missing match for Target XPath [" + tp + "]");
     String value=sourceProperty.getValue();

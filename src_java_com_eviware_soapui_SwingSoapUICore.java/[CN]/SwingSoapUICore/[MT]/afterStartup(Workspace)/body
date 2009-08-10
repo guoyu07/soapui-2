@@ -7,7 +7,9 @@
   inspectorRegistry.addFactory(new SSLInspectorFactory());
   inspectorRegistry.addFactory(new WssInspectorFactory());
   inspectorRegistry.addFactory(new WsaInspectorFactory());
+  inspectorRegistry.addFactory(new WsrmInspectorFactory());
   inspectorRegistry.addFactory(new RestRepresentationsInspectorFactory());
+  inspectorRegistry.addFactory(new InferredSchemaInspectorFactory());
   String actionsDir=System.getProperty("soapui.ext.actions");
   addExternalActions(actionsDir == null ? getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions" : actionsDir,getExtensionClassLoader());
 }

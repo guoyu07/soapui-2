@@ -1,0 +1,9 @@
+{
+  this.setWsrmConfig(wsrmConfig);
+  this.container=container;
+  this.setPropertyChangeSupport(new PropertyChangeSupport(this));
+  lastMessageId=1l;
+  if (!wsrmConfig.isSetVersion()) {
+    wsrmConfig.setVersion(WsrmVersionTypeConfig.X_1_2);
+  }
+}

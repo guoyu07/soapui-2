@@ -1,0 +1,14 @@
+{
+  currentTestCaseIndex=0;
+  for (; isRunning() && currentTestCaseIndex < testSuite.getTestCaseCount(); currentTestCaseIndex++) {
+    currentTestCase=testSuite.getTestCaseAt(currentTestCaseIndex);
+    if (!currentTestCase.isDisabled()) {
+      notifyBeforeRunTestCase(currentTestCase);
+      TestCaseRunner testCaseRunner=runTestCase(currentTestCase,false);
+      activeRunners.remove(testCaseRunner);
+      finishedRunners.add(testCaseRunner);
+      notifyAfterRunTestCase(testCaseRunner);
+    }
+  }
+  updateStatus();
+}

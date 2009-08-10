@@ -3,9 +3,8 @@
   TestStepConfig newStepConfig=(TestStepConfig)testStep.getConfig().copy();
   newStepConfig.setName(name);
   WsdlTestStep result=insertTestStep(newStepConfig,index,createCopy);
-  if (createCopy) {
-    ModelSupport.unsetIds(result);
-  }
+  if (result == null)   return null;
+  if (createCopy)   ModelSupport.unsetIds(result);
   resolveTestCase();
   return result;
 }

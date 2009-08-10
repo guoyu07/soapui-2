@@ -1,0 +1,7 @@
+{
+  for (  MockRunner mockRunner : getMockRunners()) {
+    if (request.getPathInfo().equals(mockRunner.getMockService().getPath())) {
+      mockRunner.dispatchRequest(request,response);
+    }
+  }
+}

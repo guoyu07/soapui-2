@@ -1,0 +1,10 @@
+{
+  String script="var holder = new com.eviware.soapui.support.XmlHolder( messageExchange.responseContentAsXml );\n";
+  StringToStringMap nsMap=xpathData.getNamespaceMap();
+  for (  String ns : nsMap.keySet()) {
+    script+="holder.namespaces.put(\"" + nsMap.get(ns) + "\", \""+ ns+ "\" );\n";
+  }
+  script+="var node = holder.getDomNode( \"" + xpathData.getPath() + "\" );\n";
+  script+="if( node == null )\n   throw new java.lang.Exception( \"Missing node\" );\n";
+  return script;
+}

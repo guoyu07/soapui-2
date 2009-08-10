@@ -8,6 +8,8 @@
   builder.addBoolean(AUTOMATIC_PACKAGE_NAMES,"-a");
   builder.addString(JAXB_CUSTOMIZATION,"-c");
   addToolArgs(values,builder);
-  builder.addArgs(getWsdlUrl(values,modelItem));
+  String wsdlUrl=getWadlUrl(values,(RestService)modelItem);
+  if (PathUtils.isFilePath(wsdlUrl))   wsdlUrl=new File(wsdlUrl).toURI().toURL().toString();
+  builder.addArgs(wsdlUrl);
   return builder;
 }

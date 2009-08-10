@@ -2,7 +2,7 @@
   WsdlTestCase testCase=loadTest.getTestCase();
   TestCaseConfig config=(TestCaseConfig)testCase.getConfig().copy();
   config.setLoadTestArray(new LoadTestConfig[0]);
-  WsdlTestCase tc=new WsdlTestCase(testCase.getTestSuite(),config,true);
+  WsdlTestCase tc=testCase.getTestSuite().buildTestCase(config,true);
   tc.afterLoad();
   tc.addTestRunListener(testRunListener);
   Settings settings=tc.getSettings();

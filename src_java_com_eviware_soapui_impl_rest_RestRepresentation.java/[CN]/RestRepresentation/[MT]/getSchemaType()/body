@@ -2,7 +2,7 @@
   if (schemaType == null) {
     try {
       if (getElement() != null) {
-        WadlDefinitionContext context=getRestRequest().getResource().getService().getWadlContext();
+        WadlDefinitionContext context=getRestMethod().getResource().getService().getWadlContext();
         if (context.hasSchemaTypes()) {
           schemaType=context.getSchemaTypeSystem().findDocumentType(getElement());
           if (schemaType == null) {

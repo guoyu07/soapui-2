@@ -1,5 +1,5 @@
 {
-  RestRequest restRequest=messageExchange.getRestRequest();
+  RestRequestInterface restRequest=messageExchange.getRestRequest();
   if (restRequest != null) {
     if (messageExchange.getResponseStatusCode() >= 400) {
       return assertResponse(messageExchange,RestRepresentation.Type.FAULT);

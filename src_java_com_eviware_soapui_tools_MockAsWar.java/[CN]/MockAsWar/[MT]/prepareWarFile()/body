@@ -1,0 +1,32 @@
+{
+  if (createWarFileSystem()) {
+    File fromDir=new File(System.getProperty("soapui.home"),".." + File.separator + "lib");
+    JarPackager.copyAllFromTo(fromDir,lib);
+    if (includeExt) {
+      fromDir=new File(System.getProperty("soapui.home"),"ext");
+      JarPackager.copyAllFromTo(fromDir,lib);
+    }
+    File soapUIHome=new File(System.getProperty("soapui.home"));
+    String[] mainJar=soapUIHome.list(new FilenameFilter(){
+      public boolean accept(      File dir,      String name){
+        if (name.toLowerCase().startsWith("soapui") && name.toLowerCase().endsWith(".jar"))         return true;
+        return false;
+      }
+    }
+);
+    fromDir=new File(System.getProperty("soapui.home"),mainJar[0]);
+    JarPackager.copyFileToDir(fromDir,lib);
+    JarPackager.copyFileToDir(projectFile,soapuiDir);
+    JarPackager.copyFileToDir(settingsFile,soapuiDir);
+    if (includeActions) {
+      fromDir=new File(System.getProperty("soapui.ext.actions"));
+      JarPackager.copyAllFromTo(fromDir,actionsDir);
+    }
+    if (includeListeners) {
+      fromDir=new File(System.getProperty("soapui.ext.listeners"));
+      JarPackager.copyAllFromTo(fromDir,listenersDir);
+    }
+    return true;
+  }
+  return false;
+}

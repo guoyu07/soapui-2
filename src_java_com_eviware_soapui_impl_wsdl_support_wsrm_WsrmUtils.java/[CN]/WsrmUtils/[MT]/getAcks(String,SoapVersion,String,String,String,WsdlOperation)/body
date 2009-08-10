@@ -1,0 +1,56 @@
+{
+  HttpRequestConfig httpRequestConfig=(HttpRequestConfig)(XmlObject.Factory.newInstance().changeType(HttpRequestConfig.type));
+  httpRequestConfig.setEndpoint(endpoint);
+  httpRequestConfig.setMediaType(soapVersion.getContentType());
+  WsaConfigConfig wsaConfigConfig=(WsaConfigConfig)(XmlObject.Factory.newInstance().changeType(WsaConfigConfig.type));
+  WsaContainer wsaContainer=new WsaContainerImpl();
+  wsaContainer.setOperation(operation);
+  WsaConfig wsaConfig=new WsaConfig(wsaConfigConfig,wsaContainer);
+  WsrmConfigConfig wsrmConfigConfig=(WsrmConfigConfig)(XmlObject.Factory.newInstance().changeType(WsrmConfigConfig.type));
+  WsrmConfig wsrmConfig=new WsrmConfig(wsrmConfigConfig,null);
+  WsaRequest startSequenceRequest=new WsaRequest(httpRequestConfig,wsaConfig,wsrmConfig,false);
+  startSequenceRequest.setOperation(operation);
+  String openSequenceMessageContent=SoapMessageBuilder.buildEmptyMessage(soapVersion);
+  startSequenceRequest.getWsaConfig().setWsaEnabled(true);
+  startSequenceRequest.getWsaConfig().setAction(wsrmNamespace + WSRM_REQUEST_ACK_ACTION);
+  startSequenceRequest.getWsaConfig().setTo(endpoint);
+  startSequenceRequest.getWsaConfig().setGenerateMessageId(true);
+  try {
+    XmlObject object=XmlObject.Factory.parse(openSequenceMessageContent);
+    XmlCursor cursor=object.newCursor();
+    cursor.toFirstContentToken();
+    cursor.toFirstChild();
+    cursor.toNextSibling();
+    cursor.toNextToken();
+    cursor.insertNamespace("wsrm",wsrmNamespace);
+    cursor.beginElement(WSRM_REQUEST_ACK,wsrmNamespace);
+    cursor.beginElement(WSRM_IDENTIFIER,wsrmNamespace);
+    cursor.insertChars(identifier);
+    cursor.dispose();
+    WsaUtils wsaUtils=new WsaUtils(object.xmlText(),soapVersion,null,new DefaultPropertyExpansionContext(startSequenceRequest));
+    content=wsaUtils.addWSAddressingRequest(startSequenceRequest);
+    startSequenceRequest.setRequestContent(content);
+    Logger.getLogger("wsrm").info("Acknowledgments Requested for Sequence: " + identifier);
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+  try {
+    WsdlSubmit wsdlSubmit=startSequenceRequest.submit(new WsdlSubmitContext(null),true);
+    while (wsdlSubmit.getStatus() != Status.FINISHED) {
+      wsdlSubmit.waitUntilFinished();
+    }
+    Response response=wsdlSubmit.getResponse();
+    String responseContent=response.getContentAsString();
+    XmlObject xml=XmlObject.Factory.parse(responseContent);
+    XmlObject result=xml.selectPath("Envelope/Header/SequenceAcknowledgment")[0];
+    if (result != null) {
+    }
+  }
+ catch (  SubmitException e1) {
+    SoapUI.logError(e1);
+  }
+catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
+}

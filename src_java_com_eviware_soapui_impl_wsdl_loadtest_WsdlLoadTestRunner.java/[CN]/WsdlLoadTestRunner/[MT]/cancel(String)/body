@@ -3,8 +3,8 @@
   this.reason=reason;
   status=Status.CANCELED;
   if (testCaseStarter != null)   testCaseStarter.stop();
-  TestCaseRunner[] r=runners.toArray(new TestCaseRunner[runners.size()]);
-  for (  TestCaseRunner runner : r) {
+  InternalTestCaseRunner[] r=runners.toArray(new InternalTestCaseRunner[runners.size()]);
+  for (  InternalTestCaseRunner runner : r) {
     runner.cancel(reason,true);
   }
   String msg="LoadTest [" + loadTest.getName() + "] canceled";

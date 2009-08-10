@@ -2,7 +2,7 @@
   int ix=contentType.indexOf(';');
   if (ix > 0)   contentType=contentType.substring(0,ix);
   for (  String key : suffixToContentType.keySet()) {
-    if (suffixToContentType.get(key).equals(contentType))     return key;
+    if (key.length() == 3 && suffixToContentType.get(key).equals(contentType))     return key;
   }
   return "dat";
 }

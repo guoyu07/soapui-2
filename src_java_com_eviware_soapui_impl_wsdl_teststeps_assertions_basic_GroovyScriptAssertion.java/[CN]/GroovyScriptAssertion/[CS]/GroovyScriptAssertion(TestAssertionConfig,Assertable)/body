@@ -2,6 +2,6 @@
   super(assertionConfig,modelItem,true,true,true,false);
   XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
   scriptText=reader.readString("scriptText","");
-  scriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+  scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(scriptText);
 }

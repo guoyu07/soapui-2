@@ -1,5 +1,12 @@
 {
   if (stepIndex == TOTAL)   stepIndex=data.length - 1;
-  if (statistic == Statistic.TPS || statistic == Statistic.AVERAGE)   return data[stepIndex][statistic.getIndex()] / 100;
- else   return data[stepIndex][statistic.getIndex()];
+switch (statistic) {
+case TPS:
+case AVERAGE:
+    return data[stepIndex][statistic.getIndex()] / 100;
+case ERRORRATIO:
+  return data[stepIndex][Statistic.COUNT.getIndex()] == 0 ? 0 : (long)(((float)data[stepIndex][Statistic.ERRORS.getIndex()] / (float)data[stepIndex][Statistic.COUNT.getIndex()]) * 100);
+default :
+return data[stepIndex][statistic.getIndex()];
+}
 }

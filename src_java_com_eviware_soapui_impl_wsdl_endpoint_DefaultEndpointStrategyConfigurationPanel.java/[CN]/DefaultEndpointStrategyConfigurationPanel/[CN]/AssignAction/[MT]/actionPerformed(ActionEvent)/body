@@ -16,7 +16,7 @@
   if (endpoint.equals(ALL_REQUESTS) || endpoint.equals(ALL_REQUESTS_WITH_NO_ENDPOINT) || endpoint.equals(ALL_REQUESTS_AND_TEST_REQUESTS)) {
     for (    Operation operation : iface.getAllOperations()) {
       for (int i=0; i < operation.getRequestCount(); i++) {
-        AbstractHttpRequest request=(AbstractHttpRequest)operation.getRequestAt(i);
+        AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)operation.getRequestAt(i);
         String ep=request.getEndpoint();
         if (endpoint.equals(ALL_REQUESTS) || endpoint.equals(ALL_REQUESTS_AND_TEST_REQUESTS) || (endpoint.equals(ALL_REQUESTS_WITH_NO_ENDPOINT) && ep == null)|| (ep.equals(endpoint))) {
           request.setEndpoint(selectedEndpoint);
@@ -38,7 +38,7 @@
       for (      TestCase testCase : testSuite.getTestCaseList()) {
         for (        TestStep testStep : testCase.getTestStepList()) {
           if (testStep instanceof HttpRequestTestStep) {
-            AbstractHttpRequest httpRequest=((HttpRequestTestStep)testStep).getHttpRequest();
+            AbstractHttpRequest<?> httpRequest=((HttpRequestTestStep)testStep).getHttpRequest();
             if (httpRequest.getOperation() != null && httpRequest.getOperation().getInterface() == iface) {
               httpRequest.setEndpoint(selectedEndpoint);
               httpRequest.setUsername(defaults.getUsername());

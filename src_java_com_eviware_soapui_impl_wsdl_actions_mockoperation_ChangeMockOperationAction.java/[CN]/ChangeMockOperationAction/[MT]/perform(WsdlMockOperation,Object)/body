@@ -48,7 +48,6 @@
           String msg=req;
           WsdlMockResponse mockResponse=target.getMockResponseAt(c);
           if (dialog.getBooleanValue(Form.KEEP_EXISTING)) {
-            msg=SoapUtils.transferSoapHeaders(mockResponse.getResponseContent(),req,iface.getSoapVersion());
             msg=XmlUtils.transferValues(mockResponse.getResponseContent(),req);
           }
           mockResponse.setResponseContent(msg);

@@ -24,9 +24,6 @@ yPos+=fCharHeight;
  else if (fRotation == ROTATE_LEFT) {
 g.translate(x + fWidth,y + fHeight);
 ((Graphics2D)g).rotate(-NINETY_DEGREES);
-g.setColor(fComponent.getBackground());
-g.fillRect(1,1,fWidth - 2,fHeight - 2);
-g.setColor(fComponent.getForeground());
 g.drawString(fLabel,kBufferSpace,-fDescent);
 g.setColor(fComponent.getBackground());
 ((Graphics2D)g).rotate(NINETY_DEGREES);

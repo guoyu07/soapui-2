@@ -1,0 +1,10 @@
+{
+  if (notifier == null)   notifier=new PropertyChangeNotifier();
+  messageExchange=getResponse() == null ? null : new HttpResponseMessageExchange(this);
+  if (messageExchange != null) {
+    for (    WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+      assertion.assertResponse(messageExchange,context);
+    }
+  }
+  notifier.notifyChange();
+}

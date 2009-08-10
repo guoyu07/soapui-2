@@ -1,0 +1,15 @@
+{
+  if (StringUtils.isNullOrEmpty(scriptText))   return null;
+  Context context=ContextFactory.getGlobal().enterContext();
+  context.setApplicationClassLoader(parentClassLoader);
+  ScriptableObject scope=context.initStandardObjects();
+  try {
+    for (    String name : properties.keySet())     ScriptableObject.putProperty(scope,name,Context.javaToJS(properties.get(name),scope));
+    Script script=context.compileString(scriptText,"Script",0,null);
+    return script.exec(context,scope);
+  }
+  finally {
+    for (    String name : properties.keySet())     scope.delete(name);
+    Context.exit();
+  }
+}

@@ -1,5 +1,5 @@
 {
-  SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
+  SoapUIScriptEngine scriptEngine=SoapUIScriptEngineRegistry.create(modelItem);
   try {
     scriptEngine.setScript(name);
     for (    String key : objects.keySet())     scriptEngine.setVariable(key,objects.get(key));
@@ -12,6 +12,6 @@
   }
  finally {
     scriptEngine.clearVariables();
-    scriptEnginePool.returnScriptEngine(scriptEngine);
+    scriptEngine.release();
   }
 }

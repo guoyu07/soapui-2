@@ -9,7 +9,7 @@
   if (interval > 0) {
     autoSaveTimerTask=new AutoSaveTimerTask();
     SoapUI.log("Scheduling autosave every " + interval + " minutes");
-    if (autoSaveTimer == null)     autoSaveTimer=new Timer("AutoSave Timer");
-    autoSaveTimer.schedule(autoSaveTimerTask,interval * 1000 * 60,interval * 1000 * 60);
+    if (backgroundTimer == null)     backgroundTimer=new Timer("AutoSave Timer");
+    backgroundTimer.schedule(autoSaveTimerTask,interval * 1000 * 60,interval * 1000 * 60);
   }
 }

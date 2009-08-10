@@ -1,6 +1,6 @@
 {
   JUndoableTextArea textArea=new JUndoableTextArea();
   textArea.setText(editorModel.getEditorText());
-  textArea.getDocument().addDocumentListener(new EditorModelDocumentListener(editorModel));
+  textArea.getDocument().addDocumentListener(new JTextComponentEditorModelDocumentListener(editorModel,textArea));
   return new JScrollPane(textArea);
 }

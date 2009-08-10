@@ -1,0 +1,10 @@
+{
+  try {
+    WsdlProject project=(WsdlProject)getWorkspace().createProject(arg.getHost(),null);
+    SoapUIAction<ModelItem> action=getActionRegistry().getAction(NewRestServiceAction.SOAPUI_ACTION_ID);
+    if (action != null)     action.perform(project,arg);
+  }
+ catch (  SoapUIException e) {
+    e.printStackTrace();
+  }
+}

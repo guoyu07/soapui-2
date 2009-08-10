@@ -1,7 +1,25 @@
 {
-  if (scrollPane == null) {
-    scrollPane=new JScrollPane(editorPane);
-    UISupport.addPreviewCorner(scrollPane,false);
+  if (isJXBrowserDisabled()) {
+    JEditorPane jxbrowserDisabledPanel=new JEditorPane();
+    jxbrowserDisabledPanel.setText("browser component disabled");
+    panel.add(jxbrowserDisabledPanel);
   }
-  return scrollPane;
+ else {
+    if (browser == null) {
+      statusBar=new JPanel();
+      statusLabel=new JLabel();
+      statusBar.add(statusLabel,BorderLayout.CENTER);
+      if (addToolbar)       panel.add(buildToolbar(),BorderLayout.NORTH);
+      panel.add(statusBar,BorderLayout.SOUTH);
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          initBrowser();
+          panel.add(browser.getComponent(),BorderLayout.CENTER);
+          panel.repaint();
+        }
+      }
+);
+    }
+  }
+  return panel;
 }

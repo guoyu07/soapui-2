@@ -1,6 +1,11 @@
 {
   if (listeners == null || listeners.length == 0)   return;
   for (int i=0; i < listeners.length; i++) {
-    listeners[i].afterRun(this,runContext);
+    try {
+      listeners[i].afterRun(this,getRunContext());
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+    }
   }
 }

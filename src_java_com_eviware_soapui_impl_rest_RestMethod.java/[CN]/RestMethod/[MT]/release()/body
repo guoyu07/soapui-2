@@ -1,0 +1,10 @@
+{
+  ((AbstractSoapUIDesktop)SoapUI.getDesktop()).closeDependantPanels(this);
+  super.release();
+  for (int i=requests.size(); i > 0; i--) {
+    requests.get(i - 1).release();
+  }
+  getOperation().removePropertyChangeListener(this);
+  params.release();
+  removeTestPropertyListener(testPropertyListener);
+}

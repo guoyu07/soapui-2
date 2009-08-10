@@ -21,6 +21,7 @@
   mockResponse.beforeSave();
   mockResponseStepConfig.getResponse().set(mockResponse.getConfig());
   WsdlMockResponseTestStep testStep=(WsdlMockResponseTestStep)testCase.insertTestStep(config,-1);
+  if (testStep == null)   return;
   if (dialog.getBooleanValue(Form.ADD_SCHEMA_ASSERTION))   testStep.addAssertion(SchemaComplianceAssertion.ID);
   UISupport.selectAndShow(testStep);
   if (dialog.getBooleanValue(Form.CLOSE_EDITOR) && desktop != null) {

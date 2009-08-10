@@ -1,5 +1,5 @@
 {
-  HttpResponse response=getRequest().getResponse();
+  HttpResponse response=request.getResponse();
   if (response != null && enableRecordingCheckBox.isSelected()) {
     if (HttpUtils.isErrorStatus(response.getStatusCode())) {
       extractRepresentation(response,RestRepresentation.Type.FAULT);

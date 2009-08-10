@@ -1,0 +1,14 @@
+{
+  XmlCursor cursor=context.getCursor();
+  String value="";
+  if (cursor.isStart())   throw new XmlException("Unsupported!");
+  if (!cursor.isEnd())   value=cursor.getTextValue();
+  if (!TypeInferrer.validateSimpleType(value,simpleType)) {
+    XmlAnySimpleType newSimpleType=TypeInferrer.expandTypeForValue(value,simpleType);
+    if (context.getHandler().callback(ConflictHandler.Event.MODIFICATION,ConflictHandler.Type.TYPE,new QName(schema.getNamespace(),context.getAttribute("typeName")),context.getPath(),"Illegal value.")) {
+      simpleType=newSimpleType;
+    }
+ else     throw new XmlException("Illegal content!");
+  }
+  return this;
+}

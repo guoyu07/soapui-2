@@ -2,7 +2,7 @@
   if (submit.getRequest() != request)   return;
   Status status=submit.getStatus();
   HttpResponse response=(HttpResponse)submit.getResponse();
-  if (status != Status.CANCELED) {
+  if (status == Status.FINISHED) {
     request.setResponse(response,context);
   }
   if (hasClosed) {

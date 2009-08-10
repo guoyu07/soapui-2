@@ -3,10 +3,10 @@
     if (path == null)     return "Missing path for XQuery Assertion";
     if (expectedContent == null)     return "Missing content for XQuery Assertion";
     XmlObject xml=XmlObject.Factory.parse(response);
-    String expandedPath=PropertyExpansionUtils.expandProperties(context,path);
+    String expandedPath=PropertyExpander.expandProperties(context,path);
     XmlObject[] items=xml.execQuery(expandedPath);
     XmlObject contentObj=null;
-    String expandedContent=PropertyExpansionUtils.expandProperties(context,expectedContent);
+    String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
     try {
       contentObj=XmlObject.Factory.parse(expandedContent);
     }
@@ -21,17 +21,17 @@
         if (contentObj == null) {
           if (items[c] instanceof XmlAnySimpleType) {
             String value=((XmlAnySimpleType)items[c]).getStringValue();
-            String expandedValue=PropertyExpansionUtils.expandProperties(context,value);
+            String expandedValue=PropertyExpander.expandProperties(context,value);
             XMLAssert.assertEquals(expandedContent,expandedValue);
           }
  else {
             Node domNode=items[c].getDomNode();
             if (domNode.getNodeType() == Node.ELEMENT_NODE) {
-              String expandedValue=PropertyExpansionUtils.expandProperties(context,XmlUtils.getElementText((Element)domNode));
+              String expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText((Element)domNode));
               XMLAssert.assertEquals(expandedContent,expandedValue);
             }
  else {
-              String expandedValue=PropertyExpansionUtils.expandProperties(context,items[c].xmlText(options));
+              String expandedValue=PropertyExpander.expandProperties(context,items[c].xmlText(options));
               XMLAssert.assertEquals(expandedContent,expandedValue);
             }
           }

@@ -1,13 +1,19 @@
 {
   String script=getAfterRequestScript();
   if (StringUtils.isNullOrEmpty(script))   return null;
-  if (afterRequestScriptEngine == null) {
-    afterRequestScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
-    afterRequestScriptEngine.setScript(script);
+  if (afterRequestScriptEnginePool == null) {
+    afterRequestScriptEnginePool=new ScriptEnginePool(this);
+    afterRequestScriptEnginePool.setScript(script);
   }
-  afterRequestScriptEngine.setVariable("context",runContext);
-  afterRequestScriptEngine.setVariable("mockResult",mockResult);
-  afterRequestScriptEngine.setVariable("mockRunner",runner);
-  afterRequestScriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
-  return afterRequestScriptEngine.run();
+  SoapUIScriptEngine scriptEngine=afterRequestScriptEnginePool.getScriptEngine();
+  try {
+    scriptEngine.setVariable("context",runContext);
+    scriptEngine.setVariable("mockResult",mockResult);
+    scriptEngine.setVariable("mockRunner",runner);
+    scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+    return scriptEngine.run();
+  }
+  finally {
+    afterRequestScriptEnginePool.returnScriptEngine(scriptEngine);
+  }
 }

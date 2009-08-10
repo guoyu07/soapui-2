@@ -5,4 +5,5 @@
   mockResponseStep.getTestCase().addTestRunListener(testRunListener);
   SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
   setEnabled(!SoapUI.getTestMonitor().hasRunningTest(mockResponseStep.getTestCase()));
+  mockResponseStep.addAssertionsListener(assertionsListener);
 }

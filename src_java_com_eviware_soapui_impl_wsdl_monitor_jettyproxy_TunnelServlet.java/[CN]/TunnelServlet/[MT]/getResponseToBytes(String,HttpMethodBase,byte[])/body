@@ -1,0 +1,10 @@
+{
+  String response=footer;
+  Header[] headers=postMethod.getResponseHeaders();
+  for (  Header header : headers) {
+    response+=header.toString();
+  }
+  response+="\n";
+  response+=XmlUtils.prettyPrintXml(new String(res));
+  return response.getBytes();
+}

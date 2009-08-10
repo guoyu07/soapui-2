@@ -1,0 +1,45 @@
+{
+  if (rootPart == null)   return null;
+  if (responseContent == null) {
+    try {
+      InputStream in=rootPart.getInputStream();
+      ByteArrayOutputStream out=Tools.readAll(in,Tools.READ_ALL);
+      byte[] data=out.toByteArray();
+      int contentOffset=0;
+      String contentType=rootPart.getContentType();
+      if (contentType != null && data.length > 0) {
+        String charset=null;
+        if (contentType.indexOf("charset=") > 0) {
+          try {
+            int ix=contentType.indexOf("charset=");
+            int ix2=contentType.indexOf(";",ix);
+            charset=ix2 == -1 ? contentType.substring(ix + 8) : contentType.substring(ix + 8,ix2);
+          }
+ catch (          Throwable e) {
+            SoapUI.logError(e);
+          }
+        }
+        int ix=contentType.indexOf(';');
+        if (ix > 0) {
+          contentType=contentType.substring(0,ix);
+          if (contentType.toLowerCase().endsWith("xml")) {
+            if (data.length > 3 && data[0] == (byte)239 && data[1] == (byte)187 && data[2] == (byte)191) {
+              charset="UTF-8";
+              contentOffset=3;
+            }
+          }
+        }
+        charset=StringUtils.unquote(charset);
+        responseContent=charset == null ? new String(data) : new String(data,contentOffset,(int)(data.length - contentOffset),charset);
+      }
+      if (responseContent == null) {
+        responseContent=data.toString();
+      }
+      return responseContent;
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  return responseContent;
+}

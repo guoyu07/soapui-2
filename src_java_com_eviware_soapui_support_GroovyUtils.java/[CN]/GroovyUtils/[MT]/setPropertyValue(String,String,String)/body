@@ -1,6 +1,6 @@
 {
-  if (!(context instanceof TestRunContext))   return;
-  TestStep step=((TestRunContext)context).getTestCase().getTestStepByName(testStep);
+  if (!(context instanceof TestCaseRunContext))   return;
+  TestStep step=((TestCaseRunContext)context).getTestCase().getTestStepByName(testStep);
   if (step != null) {
     step.setPropertyValue(property,value);
   }

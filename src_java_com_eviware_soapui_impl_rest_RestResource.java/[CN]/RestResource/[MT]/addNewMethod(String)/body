@@ -1,0 +1,8 @@
+{
+  RestMethodConfig methodConfig=getConfig().addNewMethod();
+  methodConfig.setName(name);
+  RestMethod method=new RestMethod(this,methodConfig);
+  methods.add(method);
+  notifyPropertyChanged("childMethods",null,method);
+  return method;
+}

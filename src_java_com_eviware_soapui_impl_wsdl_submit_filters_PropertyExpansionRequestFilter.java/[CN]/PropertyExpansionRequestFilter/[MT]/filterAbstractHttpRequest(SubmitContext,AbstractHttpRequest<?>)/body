@@ -4,7 +4,7 @@
     log.warn("Missing request content in context, skipping property expansion");
   }
  else {
-    content=PropertyExpansionUtils.expandProperties(context,content,httpRequest.getSettings().getBoolean(CommonSettings.ENTITIZE_PROPERTIES));
+    content=PropertyExpander.expandProperties(context,content,httpRequest.getSettings().getBoolean(CommonSettings.ENTITIZE_PROPERTIES));
     if (content != null) {
       context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
     }

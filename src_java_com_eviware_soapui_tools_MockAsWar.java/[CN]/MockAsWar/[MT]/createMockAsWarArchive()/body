@@ -1,0 +1,22 @@
+{
+  XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Creating War File",3,"Filling war file..",false);
+  WorkerAdapter warWorker=new WorkerAdapter(){
+    public Object construct(    XProgressMonitor monitor){
+      if (prepareWarFile()) {
+        createWebXml();
+        if (warFile != null) {
+          File[] filez=getAllFilesFrom(webInf).toArray(new File[0]);
+          JarPackager.createJarArchive(warFile,warDir,filez);
+        }
+      }
+      return null;
+    }
+  }
+;
+  try {
+    progressDialog.run(warWorker);
+  }
+ catch (  Exception e) {
+    log.error(e.getMessage(),e);
+  }
+}

@@ -1,0 +1,26 @@
+{
+  representation=resolveRepresentation(representation);
+  List<Long> status=null;
+  if (isWADL11)   status=response.getStatus();
+ else {
+    Node n=representation.getDomNode().getAttributes().getNamedItem("status");
+    if (n != null) {
+      status=new ArrayList<Long>();
+      for (      String s : n.getNodeValue().split(" ")) {
+        status.add(Long.parseLong(s));
+      }
+    }
+  }
+  boolean fault=false;
+  if (status != null && status.size() > 0) {
+    fault=true;
+    for (    Long s : status) {
+      if (s < 400) {
+        fault=false;
+        break;
+      }
+    }
+  }
+  RestRepresentation.Type type=fault ? RestRepresentation.Type.FAULT : RestRepresentation.Type.RESPONSE;
+  addRepresentationFromConfig(restMethod,representation,type,status);
+}

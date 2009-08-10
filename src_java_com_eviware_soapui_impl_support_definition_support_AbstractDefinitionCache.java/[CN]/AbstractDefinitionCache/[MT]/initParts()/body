@@ -2,8 +2,14 @@
   parts=new ArrayList<InterfaceDefinitionPart>();
   List<DefintionPartConfig> partList=definitionCache.getPartList();
   for (  DefintionPartConfig part : partList) {
-    ConfigInterfaceDefinitionPart configInterfaceDefinitionPart=new ConfigInterfaceDefinitionPart(part,part.getUrl().equals(definitionCache.getRootPart()),definitionCache.getType());
-    parts.add(configInterfaceDefinitionPart);
-    if (configInterfaceDefinitionPart.isRootPart())     rootPart=configInterfaceDefinitionPart;
+    try {
+      boolean rootElement=URLDecoder.decode(part.getUrl(),"UTF-8").equals(URLDecoder.decode(definitionCache.getRootPart(),"UTF-8"));
+      ConfigInterfaceDefinitionPart configInterfaceDefinitionPart=new ConfigInterfaceDefinitionPart(part,rootElement,definitionCache.getType());
+      parts.add(configInterfaceDefinitionPart);
+      if (configInterfaceDefinitionPart.isRootPart())       rootPart=configInterfaceDefinitionPart;
+    }
+ catch (    UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
   }
 }

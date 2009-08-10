@@ -3,4 +3,7 @@
   for (  RestResourceConfig resourceConfig : serviceConfig.getResourceList()) {
     resources.add(new RestResource(this,resourceConfig));
   }
+  if (!serviceConfig.isSetWadlVersion()) {
+    serviceConfig.setWadlVersion(serviceConfig.isSetDefinitionUrl() ? Constants.WADL10_NS : Constants.WADL11_NS);
+  }
 }

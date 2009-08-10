@@ -8,7 +8,7 @@
   XmlCursor lastSource=null;
   try {
     List<String> result=new ArrayList<String>();
-    String tp=PropertyExpansionUtils.expandProperties(context,getTargetPath());
+    String tp=PropertyExpander.expandProperties(context,getTargetPath());
     targetXml.selectPath(tp);
     if (!targetXml.hasNextSelection())     throw new Exception("Missing match for Target XPath [" + tp + "]");
     if (sourceXml == null) {
@@ -20,7 +20,7 @@
       }
     }
  else     if (getUseXQuery()) {
-      String sp=PropertyExpansionUtils.expandProperties(context,getSourcePath());
+      String sp=PropertyExpander.expandProperties(context,getSourcePath());
       XmlCursor resultCursor=sourceXml.execQuery(sp);
       sourceXml.dispose();
       sourceXml=resultCursor;
@@ -40,7 +40,7 @@
       }
     }
  else {
-      String sp=PropertyExpansionUtils.expandProperties(context,getSourcePath());
+      String sp=PropertyExpander.expandProperties(context,getSourcePath());
       sourceXml.selectPath(sp);
       if (!sourceXml.hasNextSelection()) {
         if (getSetNullOnMissingSource()) {

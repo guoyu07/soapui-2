@@ -4,7 +4,7 @@
     XmlObject xmlObject=request.getRequestXmlObject();
     for (    Query query : getQueries()) {
       if (query.isDisabled())       continue;
-      String path=PropertyExpansionUtils.expandProperties(request.getContext(),query.getQuery());
+      String path=PropertyExpander.expandProperties(request.getContext(),query.getQuery());
       if (StringUtils.hasContent(path)) {
         XmlCursor cursor=cursorCache.get(path);
         if (cursor == null && !cursorCache.containsKey(path)) {
@@ -16,7 +16,7 @@
           }
         }
         if (cursor != null) {
-          String value=PropertyExpansionUtils.expandProperties(request.getContext(),query.getMatch());
+          String value=PropertyExpander.expandProperties(request.getContext(),query.getMatch());
           if (value.equals(XmlUtils.getValueForMatch(cursor))) {
             return getMockOperation().getMockResponseByName(query.getResponse());
           }

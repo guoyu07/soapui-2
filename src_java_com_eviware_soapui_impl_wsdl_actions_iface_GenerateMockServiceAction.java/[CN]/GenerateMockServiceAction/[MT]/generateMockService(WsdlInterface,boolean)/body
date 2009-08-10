@@ -12,7 +12,7 @@
   dialog.setValue(Form.PATH,"/mock" + iface.getName());
   dialog.setValue(Form.PORT,"8088");
   if (dialog.show()) {
-    List<String> operations=Arrays.asList(operationsFormField.getSelectedOptions());
+    List<String> operations=StringUtils.toStringList(operationsFormField.getSelectedOptions());
     if (operations.size() == 0) {
       UISupport.showErrorMessage("No Operations selected..");
       return null;

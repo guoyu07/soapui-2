@@ -1,8 +1,0 @@
-{
-  if (SoapUI.getSettings().getBoolean(HttpSettings.ENABLE_MOCK_WIRE_LOG)) {
-    return new SoapUIHttpConnection(SoapUIConnector.this,selectChannelEndPoint,getServer());
-  }
- else {
-    return super.newConnection(socketChannel,selectChannelEndPoint);
-  }
-}

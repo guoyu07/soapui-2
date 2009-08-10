@@ -1,5 +1,5 @@
 {
   this.mockService=mockService;
   this.context=context;
-  properties=context == null ? new DefaultPropertyExpansionContext(mockService) : context.getProperties();
+  properties=(DefaultPropertyExpansionContext)(context == null ? new DefaultPropertyExpansionContext(mockService) : context.getProperties());
 }

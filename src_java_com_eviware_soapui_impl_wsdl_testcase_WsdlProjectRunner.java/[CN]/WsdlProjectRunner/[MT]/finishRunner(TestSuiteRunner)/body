@@ -1,0 +1,12 @@
+{
+  notifyAfterRunTestSuite(testRunner);
+  activeRunners.remove(testRunner);
+  finishedRunners.add(testRunner);
+  testRunner.getTestSuite().removeTestSuiteRunListener(internalTestRunListener);
+  if (activeRunners.isEmpty()) {
+    updateStatus();
+synchronized (activeRunners) {
+      activeRunners.notify();
+    }
+  }
+}

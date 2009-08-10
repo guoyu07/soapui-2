@@ -7,15 +7,16 @@
     return;
   }
   String value=findCombo.getSelectedItem().toString();
-  if (value.length() == 0 || pos == txt.length())   return;
+  if (value.length() == 0 || (pos == txt.length() && !wrapCheck.isSelected()))   return;
   if (!caseCheck.isSelected()) {
     value=value.toUpperCase();
     txt=txt.toUpperCase();
   }
-  if (txt.substring(pos,pos + value.length()).equals(value)) {
-    pos+=forwardButton.isSelected() ? 1 : -1;
-  }
+  if (pos == lastPositionF && value.equals(lastSearchedItem))   if (forwardButton.isSelected())   pos+=value.length() + 1;
+ else   pos-=value.length() - 1;
   int ix=findNext(pos,txt,value);
+  lastSearchedItem=value;
+  lastPositionF=ix;
   if (ix != -1) {
     target.select(ix,ix + value.length());
     for (int c=0; c < findCombo.getItemCount(); c++) {

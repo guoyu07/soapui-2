@@ -7,6 +7,9 @@
   for (  ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
     addProjectListener(listener);
   }
+  for (  ProjectRunListener listener : SoapUI.getListenerRegistry().getListeners(ProjectRunListener.class)) {
+    addProjectRunListener(listener);
+  }
   try {
     if (path != null && open) {
       File file=new File(path.trim());
@@ -22,6 +25,7 @@
       }
  else {
         try {
+          if (!PathUtils.isHttpPath(path))           SoapUI.log.info("File [" + file.getAbsolutePath() + "] does not exist, trying URL instead");
           remote=true;
           loadProject(new URL(path));
         }

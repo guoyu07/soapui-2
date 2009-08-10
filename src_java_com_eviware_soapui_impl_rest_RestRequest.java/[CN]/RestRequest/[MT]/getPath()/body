@@ -1,4 +1,4 @@
 {
-  if (getConfig().isSetFullPath() || getResource() == null)   return getConfig().getFullPath();
+  if (!StringUtils.isNullOrEmpty(getConfig().getFullPath()) || getResource() == null)   return getConfig().getFullPath();
  else   return getResource().getFullPath();
 }

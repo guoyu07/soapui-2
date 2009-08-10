@@ -2,7 +2,7 @@
   BindingOutput bindingOutput=bindingOperation.getBindingOutput();
   String ns=bindingOutput == null ? null : WsdlUtils.getSoapBodyNamespace(bindingOutput.getExtensibilityElements());
   if (ns == null) {
-    ns=wsdlContext.getDefinition().getTargetNamespace();
+    ns=WsdlUtils.getTargetNamespace(wsdlContext.getDefinition());
     log.warn("missing namespace on soapbind:body for RPC response, using targetNamespace instead (BP violation)");
   }
   cursor.beginElement(new QName(ns,bindingOperation.getName() + "Response"));

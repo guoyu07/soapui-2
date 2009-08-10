@@ -2,6 +2,6 @@
   String oldScript=getAfterRequestScript();
   if (!getConfig().isSetAfterRequestScript())   getConfig().addNewAfterRequestScript();
   getConfig().getAfterRequestScript().setStringValue(script);
-  if (afterRequestScriptEngine != null)   afterRequestScriptEngine.setScript(script);
+  if (afterRequestScriptEnginePool != null)   afterRequestScriptEnginePool.setScript(script);
   notifyPropertyChanged("afterRequestScript",oldScript,script);
 }

@@ -1,0 +1,7 @@
+{
+  List<String> propertyArguments=new ArrayList<String>();
+  addProperties(propertyArguments,GLOBALPROPERTIES,"-G");
+  addProperties(propertyArguments,SYSTEMPROPERTIES,"-D");
+  addProperties(propertyArguments,PROJECTPROPERTIES,"-P");
+  builder.addArgs(propertyArguments.toArray(new String[propertyArguments.size()]));
+}

@@ -21,12 +21,10 @@
           throw new Exception("Wrong addressing policy, anonymousResponses and nonAnonymousResponses can not be specified together");
         }
         if (anonymousList.size() > 0) {
-          AnonymousResponses anonResp=anonymousList.get(0);
           interfaceAnonymous=AnonymousTypeConfig.REQUIRED.toString();
         }
  else {
           if (nonAnonymousList.size() > 0) {
-            NonAnonymousResponses nonAnonResp=nonAnonymousList.get(0);
             interfaceAnonymous=AnonymousTypeConfig.PROHIBITED.toString();
           }
         }
@@ -37,5 +35,7 @@
     }
   }
   setAnonymous(interfaceAnonymous);
-  setWsaVersion(interfaceWsaVersion);
+  if (getConfig().getWsaVersion().equals(equals(WsaVersionTypeConfig.NONE))) {
+    setWsaVersion(interfaceWsaVersion);
+  }
 }

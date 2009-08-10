@@ -1,0 +1,9 @@
+{
+  mService.beforeSave();
+  String defaultFileName=System.getProperty("user.home") + File.separator + mService.getName()+ ".xml";
+  File file=UISupport.getFileDialogs().saveAs(this,"Select test case file","xml","XML",new File(defaultFileName));
+  if (file == null)   return;
+  String fileName=file.getAbsolutePath();
+  if (fileName == null)   return;
+  mService.export(file);
+}

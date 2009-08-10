@@ -1,0 +1,6 @@
+{
+  String disable=System.getProperty("soapui.jxbrowser.disable","nope");
+  if (disable.equals("true"))   return true;
+  if (!disable.equals("false") && (!Xpcom.isMacOSX() && "64".equals(System.getProperty("sun.arch.data.model"))))   return true;
+  return false;
+}

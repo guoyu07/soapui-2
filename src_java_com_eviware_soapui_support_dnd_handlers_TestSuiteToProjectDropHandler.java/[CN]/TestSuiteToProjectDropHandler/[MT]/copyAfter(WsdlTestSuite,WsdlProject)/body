@@ -2,9 +2,9 @@
   String name=UISupport.prompt("Specify name for copied TestSuite","Copy TestSuite","Copy of " + source.getName());
   if (name == null)   return false;
   if (source.getProject() == target) {
-    return CloneTestSuiteAction.cloneTestSuiteWithinProject(source,name,target);
+    return CloneTestSuiteAction.cloneTestSuiteWithinProject(source,name,target,source.getDescription());
   }
  else {
-    return CloneTestSuiteAction.cloneToAnotherProject(source,target.getName(),name,false) != null;
+    return CloneTestSuiteAction.cloneToAnotherProject(source,target.getName(),name,false,source.getDescription()) != null;
   }
 }

@@ -6,14 +6,14 @@
     TestStep step=testCase.getTestStepAt(c);
     if (step instanceof HttpRequestTestStep) {
       HttpRequestTestStep requestStep=(HttpRequestTestStep)step;
-      Operation operation=requestStep.getHttpRequest().getOperation();
+      Operation operation=requestStep.getTestRequest().getOperation();
       if (operation != null) {
         String[] endpoints=operation.getInterface().getEndpoints();
         for (int i=0; i < endpoints.length; i++) {
           endpointSet.add(endpoints[i]);
         }
       }
-      currentEndpointSet.add(requestStep.getHttpRequest().getEndpoint());
+      currentEndpointSet.add(requestStep.getTestRequest().getEndpoint());
     }
   }
   String selected=(String)UISupport.prompt("Select endpoint to set for all requests","Set Endpoint",endpointSet.toArray(),currentEndpointSet.size() == 1 ? currentEndpointSet.iterator().next() : USE_CURRENT);
@@ -23,7 +23,7 @@
     TestStep step=testCase.getTestStepAt(c);
     if (step instanceof HttpRequestTestStep) {
       HttpRequestTestStep requestStep=(HttpRequestTestStep)step;
-      AbstractHttpRequest testRequest=requestStep.getHttpRequest();
+      TestRequest testRequest=requestStep.getTestRequest();
       if (testRequest.getEndpoint() == null || !testRequest.getEndpoint().equals(selected)) {
         testRequest.setEndpoint(selected);
         cnt++;

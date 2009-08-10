@@ -15,10 +15,10 @@
       if (type != null) {
         for (        Method method : type.getMethodList()) {
           method=resolveMethod(method);
-          RestRequest restRequest=initMethod(newResource,method);
+          RestMethod restMethod=initMethod(newResource,method);
           for (          Param param : type.getParamList()) {
             String nm=param.getName();
-            RestParamProperty prop=restRequest.hasProperty(nm) ? restRequest.getProperty(nm) : restRequest.addProperty(nm);
+            RestParamProperty prop=restMethod.hasProperty(nm) ? restMethod.getProperty(nm) : restMethod.addProperty(nm);
             initParam(param,prop);
           }
         }

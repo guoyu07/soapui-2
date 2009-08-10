@@ -1,13 +1,15 @@
 {
-  HttpServletRequest httpRequest=(HttpServletRequest)request;
+  monitor.fireOnRequest(request,response);
+  if (response.isCommitted())   return;
+  HttpMethodBase postMethod;
   InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
-  ExtendedPostMethod postMethod=new ExtendedPostMethod();
-  if (capturedData == null) {
-    capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
-    capturedData.setRequestHost(httpRequest.getRemoteHost());
-    capturedData.setRequestHeader(httpRequest);
-    capturedData.setTargetURL(this.prot + inetAddress.getHostName());
-  }
+  HttpServletRequest httpRequest=(HttpServletRequest)request;
+  if (httpRequest.getMethod().equals("GET"))   postMethod=new ExtendedGetMethod();
+ else   postMethod=new ExtendedPostMethod();
+  JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
+  capturedData.setRequestHost(httpRequest.getRemoteHost());
+  capturedData.setRequestHeader(httpRequest);
+  capturedData.setTargetURL(this.prot + inetAddress.getHostName());
   CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
   Enumeration<?> headerNames=httpRequest.getHeaderNames();
   while (headerNames.hasMoreElements()) {
@@ -31,12 +33,13 @@
       }
     }
   }
-  postMethod.setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
+  if (postMethod instanceof ExtendedPostMethod)   ((ExtendedPostMethod)postMethod).setRequestEntity(new InputStreamRequestEntity(capture,request.getContentType()));
   HostConfiguration hostConfiguration=new HostConfiguration();
   httpRequest.getProtocol();
   hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
   postMethod.setPath(sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length()));
+  monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
     client.executeMethod(hostConfiguration,postMethod,httpState);
@@ -45,20 +48,20 @@
     client.executeMethod(hostConfiguration,postMethod);
   }
   capturedData.stopCapture();
-  byte[] res=postMethod.getResponseBody();
   capturedData.setRequest(capture.getCapturedData());
-  capturedData.setResponse(res);
+  capturedData.setRawResponseBody(postMethod.getResponseBody());
   capturedData.setResponseHeader(postMethod);
-  capturedData.setRawRequestData(getRequestToBytes(postMethod,capture));
-  capturedData.setRawResponseData(getResponseToBytes(postMethod,res));
-  monitor.addMessageExchange(capturedData);
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),postMethod,capture));
+  capturedData.setRawResponseData(getResponseToBytes(response.toString(),postMethod,capturedData.getRawResponseBody()));
+  monitor.fireAfterProxy(request,response,postMethod,capturedData);
   StringToStringMap responseHeaders=capturedData.getResponseHeaders();
-  capturedData=null;
   HttpServletResponse httpResponse=(HttpServletResponse)response;
   for (  String name : responseHeaders.keySet()) {
     String header=responseHeaders.get(name);
     httpResponse.addHeader(name,header);
   }
-  IO.copy(new ByteArrayInputStream(res),httpResponse.getOutputStream());
+  IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
   postMethod.releaseConnection();
+  monitor.addMessageExchange(capturedData);
+  capturedData=null;
 }

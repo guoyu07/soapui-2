@@ -29,7 +29,7 @@
         property=context.getProperty(name);
       }
       if (property != null && xpath != null) {
-        property=ResolverUtils.extractXPathPropertyValue(property,PropertyExpansionUtils.expandProperties(context,xpath));
+        property=ResolverUtils.extractXPathPropertyValue(property,PropertyExpander.expandProperties(context,xpath));
       }
     }
     if (property != null)     return property.toString();

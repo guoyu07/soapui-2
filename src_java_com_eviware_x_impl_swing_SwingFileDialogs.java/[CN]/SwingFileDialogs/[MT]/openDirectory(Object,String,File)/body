@@ -1,8 +1,8 @@
 {
-  JFileChooser chooser=getChooser(action);
+  JDirectoryChooser chooser=new JDirectoryChooser(defaultDirectory);
   chooser.setDialogTitle(title);
-  chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-  if (defaultDirectory != null)   chooser.setCurrentDirectory(defaultDirectory);
-  if (chooser.showOpenDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
+  chooser.setShowingCreateDirectory(true);
+  chooser.setPreferredSize(new Dimension(400,400));
+  if (chooser.showSaveDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
   return chooser.getSelectedFile();
 }

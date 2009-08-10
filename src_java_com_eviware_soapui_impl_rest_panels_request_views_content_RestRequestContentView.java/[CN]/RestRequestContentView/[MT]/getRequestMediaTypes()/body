@@ -1,10 +1,7 @@
 {
-  StringList result=new StringList();
+  StringList result=new StringList(super.getRequestMediaTypes());
   for (  RestRepresentation representation : restRequest.getRepresentations(RestRepresentation.Type.REQUEST,null)) {
     if (!result.contains(representation.getMediaType()))     result.add(representation.getMediaType());
   }
-  if (!result.contains("application/xml"))   result.add("application/xml");
-  if (!result.contains("text/xml"))   result.add("text/xml");
-  if (!result.contains("multipart/form-data"))   result.add("multipart/form-data");
   return result.toStringArray();
 }

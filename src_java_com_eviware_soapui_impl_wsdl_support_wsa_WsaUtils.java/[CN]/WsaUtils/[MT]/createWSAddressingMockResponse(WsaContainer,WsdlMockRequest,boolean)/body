@@ -9,7 +9,7 @@
       action=WsdlUtils.getDefaultWsaAction(wsaContainer.getOperation(),true);
     }
  else {
-      action=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getAction());
+      action=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getAction());
     }
     if (!StringUtils.isNullOrEmpty(action)) {
       header=processWsaProperty(header,override,wsaPrefix + ":Action",action,false);
@@ -18,8 +18,8 @@
       header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",anonymousAddress,true);
     }
  else {
-      String replyTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getReplyTo());
-      String replyToRefParams=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getReplyToRefParams());
+      String replyTo=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getReplyTo());
+      String replyToRefParams=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getReplyToRefParams());
       if (!StringUtils.isNullOrEmpty(replyTo)) {
         header=processWsaProperty(header,override,wsaPrefix + ":ReplyTo",replyTo,true,replyToRefParams);
       }
@@ -34,16 +34,16 @@
       if (msgNode != null) {
         requestMessageId=XmlUtils.getElementText(msgNode);
       }
-      String from=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFrom());
+      String from=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getFrom());
       if (!StringUtils.isNullOrEmpty(from)) {
         header=processWsaProperty(header,override,wsaPrefix + ":From",from,true);
       }
-      String faultTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFaultTo());
-      String faultToRefParams=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getFaultToRefParams());
+      String faultTo=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getFaultTo());
+      String faultToRefParams=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getFaultToRefParams());
       if (!StringUtils.isNullOrEmpty(faultTo)) {
         header=processWsaProperty(header,override,wsaPrefix + ":FaultTo",faultTo,true,faultToRefParams);
       }
-      String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
+      String relationshipType=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
       if (!StringUtils.isNullOrEmpty(relationshipType)) {
         if (!StringUtils.isNullOrEmpty(requestMessageId)) {
           header=processWsaRelatesToProperty(header,override,wsaPrefix + ":RelatesTo",relationshipType,requestMessageId);
@@ -70,7 +70,7 @@
           requestReplyToValue=XmlUtils.getElementText(replyToAddresseNode);
         }
       }
-      String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
+      String to=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getTo());
       if (!StringUtils.isNullOrEmpty(to)) {
         if (!(AnonymousTypeConfig.PROHIBITED.toString().equals(anonymousType) && isAnonymousAddress(to,wsaVersionNameSpace))) {
           header=processWsaProperty(header,override,wsaPrefix + ":To",to,false);
@@ -85,12 +85,12 @@
       }
     }
  else {
-      String to=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getTo());
+      String to=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getTo());
       if (!StringUtils.isNullOrEmpty(to)) {
         header=processWsaProperty(header,override,wsaPrefix + ":To",to,false);
       }
-      String relationshipType=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
-      String relatesTo=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getRelatesTo());
+      String relationshipType=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getRelationshipType());
+      String relatesTo=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getRelatesTo());
       if (!StringUtils.isNullOrEmpty(relationshipType) && !StringUtils.isNullOrEmpty(relatesTo)) {
         header=processWsaRelatesToProperty(header,override,wsaPrefix + ":RelatesTo",relationshipType,relatesTo);
       }
@@ -110,7 +110,7 @@
       header=processWsaProperty(header,override,wsaPrefix + ":MessageID",generatedMessageId,false);
     }
  else {
-      String msgId=PropertyExpansionUtils.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
+      String msgId=PropertyExpander.expandProperties(context,wsaContainer.getWsaConfig().getMessageID());
       if (!StringUtils.isNullOrEmpty(msgId)) {
         header=processWsaProperty(header,override,wsaPrefix + ":MessageID",msgId,false);
       }

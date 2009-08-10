@@ -1,0 +1,5 @@
+{
+  boolean oldValue=isWsrmEnabled();
+  container.setWsrmEnabled(enable);
+  propertyChangeSupport.firePropertyChange("wsrmEnabled",oldValue,enable);
+}

@@ -16,7 +16,8 @@
     return (MockResult)result;
   }
  catch (  Exception e) {
-    throw new DispatchException(e);
+    if (e instanceof DispatchException)     throw (DispatchException)e;
+ else     throw new DispatchException(e);
   }
  finally {
     if (result instanceof MockResult) {

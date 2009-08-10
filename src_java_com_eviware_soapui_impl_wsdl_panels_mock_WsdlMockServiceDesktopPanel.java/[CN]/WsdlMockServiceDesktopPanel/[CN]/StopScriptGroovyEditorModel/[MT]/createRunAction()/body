@@ -2,8 +2,8 @@
   return new AbstractAction(){
     public void actionPerformed(    ActionEvent e){
       try {
-        WsdlMockRunContext context=mockRunner == null ? new WsdlMockRunContext(getModelItem(),null) : mockRunner.getMockContext();
-        getModelItem().runStopScript(context,mockRunner);
+        WsdlMockRunContext context=mockRunner == null ? new WsdlMockRunContext(WsdlMockServiceDesktopPanel.this.getModelItem(),null) : mockRunner.getMockContext();
+        WsdlMockServiceDesktopPanel.this.getModelItem().runStopScript(context,mockRunner);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);

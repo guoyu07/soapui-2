@@ -1,7 +1,6 @@
 {
-  if (this.delay == delay)   return;
   String oldLabel=getLabel();
-  this.delay=delay;
+  this.delayString=String.valueOf(delay);
   saveDelay(getConfig());
   notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
 }

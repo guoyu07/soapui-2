@@ -1,7 +1,8 @@
 {
+  samplesStack.clear();
   running=true;
-  new Thread(updater,loadTestRunner.getLoadTest().getName() + " LoadTestStatistics Updater").start();
-  new Thread(LoadTestStatistics.this).start();
+  SoapUI.getThreadPool().submit(updater);
+  SoapUI.getThreadPool().submit(LoadTestStatistics.this);
   currentThreadCountStartTime=System.currentTimeMillis();
   totalAverageSum=0;
 }

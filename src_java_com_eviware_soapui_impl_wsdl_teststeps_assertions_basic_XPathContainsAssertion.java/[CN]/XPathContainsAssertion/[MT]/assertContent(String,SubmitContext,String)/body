@@ -3,11 +3,11 @@
     if (path == null)     return "Missing path for XPath assertion";
     if (expectedContent == null)     return "Missing content for XPath assertion";
     XmlObject xml=XmlObject.Factory.parse(response);
-    String expandedPath=PropertyExpansionUtils.expandProperties(context,path);
+    String expandedPath=PropertyExpander.expandProperties(context,path);
     XmlObject[] items=xml.selectPath(expandedPath);
     AssertedXPathsContainer assertedXPathsContainer=(AssertedXPathsContainer)context.getProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY);
     XmlObject contentObj=null;
-    String expandedContent=PropertyExpansionUtils.expandProperties(context,expectedContent);
+    String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
     if (!expandedPath.endsWith("text()")) {
       try {
         contentObj=XmlObject.Factory.parse(expandedContent);
@@ -33,17 +33,17 @@
         if (contentObj == null) {
           if (items[c] instanceof XmlAnySimpleType && !(items[c] instanceof XmlQName)) {
             String value=((XmlAnySimpleType)items[c]).getStringValue();
-            String expandedValue=PropertyExpansionUtils.expandProperties(context,value);
+            String expandedValue=PropertyExpander.expandProperties(context,value);
             XMLAssert.assertEquals(expandedContent,expandedValue);
           }
  else {
             Node domNode=items[c].getDomNode();
             if (domNode.getNodeType() == Node.ELEMENT_NODE) {
-              String expandedValue=PropertyExpansionUtils.expandProperties(context,XmlUtils.getElementText((Element)domNode));
+              String expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText((Element)domNode));
               XMLAssert.assertEquals(expandedContent,expandedValue);
             }
  else {
-              String expandedValue=PropertyExpansionUtils.expandProperties(context,domNode.getNodeValue());
+              String expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
               XMLAssert.assertEquals(expandedContent,expandedValue);
             }
           }

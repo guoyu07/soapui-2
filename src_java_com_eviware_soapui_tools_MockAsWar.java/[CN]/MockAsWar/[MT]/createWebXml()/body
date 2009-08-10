@@ -1,0 +1,20 @@
+{
+  URL url=SoapUI.class.getResource("/com/eviware/soapui/resources/mockaswar/web.xml");
+  try {
+    BufferedReader in=new BufferedReader(new InputStreamReader(url.openStream()));
+    String inputLine;
+    StringBuilder content=new StringBuilder();
+    while ((inputLine=in.readLine()) != null)     content.append(inputLine + "\n");
+    content.replace(content.indexOf(PROJECT_FILE_NAME),content.indexOf(PROJECT_FILE_NAME) + PROJECT_FILE_NAME.length(),projectFile.getName());
+    content.replace(content.indexOf(SOAPUI_SETTINGS),content.indexOf(SOAPUI_SETTINGS) + SOAPUI_SETTINGS.length(),settingsFile.getAbsolutePath());
+    if (!includeActions)     content.replace(content.indexOf("WEB-INF/actions"),content.indexOf("WEB-INF/actions") + "WEB-INF/actions".length(),"");
+    if (!includeListeners)     content.replace(content.indexOf("WEB-INF/listeners"),content.indexOf("WEB-INF/listeners") + "WEB-INF/listeners".length(),"");
+    BufferedWriter out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(webInf,"web.xml"))));
+    out.write(content.toString());
+    out.flush();
+    out.close();
+  }
+ catch (  IOException e) {
+    log.error(e.getMessage(),e);
+  }
+}

@@ -2,8 +2,11 @@
   String responseContent=null;
   String encoding=request.getCharacterEncoding();
   if (encoding != null)   encoding=StringUtils.unquote(encoding);
-  ByteArrayOutputStream out=Tools.readAll(request.getInputStream(),Tools.READ_ALL);
+  ServletInputStream is=request.getInputStream();
+  if (is.markSupported())   is.mark(Integer.MAX_VALUE);
+  ByteArrayOutputStream out=Tools.readAll(is,Tools.READ_ALL);
   byte[] data=out.toByteArray();
+  if (is.markSupported())   is.reset();
   int contentOffset=0;
   String contentType=request.getContentType();
   if (contentType != null && data.length > 0) {

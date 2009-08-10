@@ -9,7 +9,7 @@
   mockResponse.setResponseContent("<xml>Tjoho!!</xml>");
   step.setPort(8989);
   step.setPath("/tjohoo");
-  TestRunner runner=testCase.run(new StringToObjectMap(),true);
+  TestCaseRunner runner=testCase.run(new StringToObjectMap(),true);
   Thread.sleep(1000);
   request.setEndpoint("http://127.0.0.1:8989/tjohoo");
   System.out.println("Submitting first request");

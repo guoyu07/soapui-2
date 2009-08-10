@@ -1,6 +1,12 @@
 {
-  if (urlDesktopPanel == null) {
-    urlDesktopPanel=new URLDesktopPanel("soapUI Starter Page","Info on soapUI",null);
+  if (urlDesktopPanel == null || urlDesktopPanel.isClosed()) {
+    try {
+      urlDesktopPanel=new URLDesktopPanel("soapUI Starter Page","Info on soapUI",null);
+    }
+ catch (    Throwable t) {
+      t.printStackTrace();
+      return;
+    }
   }
   DesktopPanel dp=UISupport.showDesktopPanel(urlDesktopPanel);
   desktop.maximize(dp);

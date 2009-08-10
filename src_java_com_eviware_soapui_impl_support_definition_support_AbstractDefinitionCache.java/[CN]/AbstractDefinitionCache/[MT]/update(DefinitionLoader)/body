@@ -1,8 +1,9 @@
 {
   definitionCache=reinit(container);
+  String baseUri=loader.getBaseURI();
   definitionCache.setType(DefinitionCacheTypeConfig.TEXT);
   Map<String,XmlObject> urls=SchemaUtils.getDefinitionParts(loader);
-  definitionCache.setRootPart(loader.getFirstNewURI());
+  definitionCache.setRootPart(baseUri);
   for (Iterator<String> i=urls.keySet().iterator(); i.hasNext(); ) {
     DefintionPartConfig definitionPart=definitionCache.addNewPart();
     String url=i.next();

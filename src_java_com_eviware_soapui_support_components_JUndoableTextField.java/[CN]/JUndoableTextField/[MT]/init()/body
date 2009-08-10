@@ -8,6 +8,9 @@
  else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu Y")))       redo();
  else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu X")))       cut();
  else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu C")))       copy();
+ else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu V")))       paste();
+ else       return;
+      e.consume();
     }
   }
 );

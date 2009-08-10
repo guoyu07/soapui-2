@@ -1,9 +1,11 @@
 {
   super(new JPanel(new BorderLayout()));
   listModel=new DefaultListModel();
-  for (  String value : values) {
-    selected.add(false);
-    listModel.addElement(value);
+  if (values != null) {
+    for (    String value : values) {
+      selected.add(false);
+      listModel.addElement(value);
+    }
   }
   list=new JList(listModel);
   list.setCellRenderer(new CheckListCellRenderer());

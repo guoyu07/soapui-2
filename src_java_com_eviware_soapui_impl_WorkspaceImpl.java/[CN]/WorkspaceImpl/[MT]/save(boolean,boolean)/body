@@ -14,7 +14,7 @@
         }
  else {
           String path=project.getPath();
-          if (path == null) {
+          if (!StringUtils.hasContent(path)) {
             if (UISupport.confirm(messages.get("ProjectHasNotBeenSaved.Label",project.getName()),messages.get("ProjectHasNotBeenSaved.Title"))) {
               project.save();
             }

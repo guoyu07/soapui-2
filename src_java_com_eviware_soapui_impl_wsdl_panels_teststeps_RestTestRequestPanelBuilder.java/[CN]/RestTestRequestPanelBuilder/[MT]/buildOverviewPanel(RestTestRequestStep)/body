@@ -1,6 +1,6 @@
 {
-  RestTestRequest request=testStep.getTestRequest();
-  JPropertiesTable<RestTestRequest> table=new JPropertiesTable<RestTestRequest>("REST TestRequest Properties");
+  RestTestRequestInterface request=testStep.getTestRequest();
+  JPropertiesTable<RestTestRequestInterface> table=new JPropertiesTable<RestTestRequestInterface>("REST TestRequest Properties");
   table.addProperty("Name","name",true);
   table.addProperty("Description","description",true);
   table.addProperty("Encoding","encoding",new String[]{null,"UTF-8","iso-8859-1"});
@@ -11,6 +11,7 @@
     table.addProperty("Endpoint","endpoint",request.getInterface().getEndpoints());
     table.addProperty("Service","serviceName");
     table.addProperty("Resource","path");
+    table.addProperty("Method","restMethodName");
   }
   table.addProperty("Bind Address","bindAddress",true);
   table.addProperty("Follow Redirects","followRedirects",JPropertiesTable.BOOLEAN_OPTIONS);

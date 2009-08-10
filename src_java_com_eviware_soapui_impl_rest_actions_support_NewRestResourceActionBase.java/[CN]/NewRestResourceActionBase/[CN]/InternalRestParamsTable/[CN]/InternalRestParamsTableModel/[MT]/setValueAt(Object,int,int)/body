@@ -1,0 +1,7 @@
+{
+  if (columnIndex != columnCount)   super.setValueAt(value,rowIndex,columnIndex);
+ else {
+    RestParamProperty name=params.getPropertyAt(rowIndex);
+    locations.put(name,(ParamLocation)value);
+  }
+}

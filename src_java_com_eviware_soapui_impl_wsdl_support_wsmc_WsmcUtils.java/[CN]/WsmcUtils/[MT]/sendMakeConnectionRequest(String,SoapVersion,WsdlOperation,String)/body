@@ -1,0 +1,60 @@
+{
+  String identifier=null;
+  HttpRequestConfig httpRequestConfig=(HttpRequestConfig)(XmlObject.Factory.newInstance().changeType(HttpRequestConfig.type));
+  httpRequestConfig.setEndpoint(endpoint);
+  WsaConfigConfig wsaConfigConfig=(WsaConfigConfig)(XmlObject.Factory.newInstance().changeType(WsaConfigConfig.type));
+  WsaContainer wsaContainer=new WsaContainerImpl();
+  wsaContainer.setOperation(operation);
+  WsaConfig wsaConfig=new WsaConfig(wsaConfigConfig,wsaContainer);
+  WsrmConfigConfig wsrmConfigConfig=(WsrmConfigConfig)(XmlObject.Factory.newInstance().changeType(WsrmConfigConfig.type));
+  WsrmConfig wsrmConfig=new WsrmConfig(wsrmConfigConfig,null);
+  WsaRequest makeConnectionRequest=new WsaRequest(httpRequestConfig,wsaConfig,wsrmConfig,false);
+  makeConnectionRequest.setOperation(operation);
+  String makeConnectionMessageContent=SoapMessageBuilder.buildEmptyMessage(soapVersion);
+  makeConnectionRequest.getWsaConfig().setWsaEnabled(true);
+  makeConnectionRequest.getWsaConfig().setAction(WSMC_ACTION);
+  makeConnectionRequest.getWsaConfig().setTo(WsaUtils.getNamespace(makeConnectionRequest.getWsaConfig().getVersion()) + "/anonymous");
+  makeConnectionRequest.getWsaConfig().setGenerateMessageId(true);
+  try {
+    XmlObject object=XmlObject.Factory.parse(makeConnectionMessageContent);
+    XmlCursor cursor=object.newCursor();
+    cursor.toFirstContentToken();
+    cursor.toFirstChild();
+    cursor.toNextSibling();
+    cursor.toNextToken();
+    cursor.insertNamespace("wsmc",WSMC_NAMESPACE);
+    cursor.beginElement("MakeConnection",WSMC_NAMESPACE);
+    cursor.beginElement("Address",WSMC_NAMESPACE);
+    cursor.insertChars(WsaUtils.getNamespace(makeConnectionRequest.getWsaConfig().getVersion()) + "/anonymous?id=" + uuid);
+    cursor.dispose();
+    cursor.dispose();
+    WsaUtils wsaUtils=new WsaUtils(object.xmlText(),soapVersion,null,new DefaultPropertyExpansionContext(makeConnectionRequest));
+    String content=wsaUtils.addWSAddressingRequest(makeConnectionRequest);
+    makeConnectionRequest.setRequestContent(content);
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+  try {
+    WsdlSubmit wsdlSubmit=makeConnectionRequest.submit(new WsdlSubmitContext(null),true);
+    while (wsdlSubmit.getStatus() != Status.FINISHED) {
+      wsdlSubmit.waitUntilFinished();
+    }
+    Response response=wsdlSubmit.getResponse();
+    String responseContent=response.getContentAsString();
+    XmlObject xml=XmlObject.Factory.parse(responseContent);
+    XmlCursor cursor=xml.newCursor();
+    cursor.toFirstContentToken();
+    cursor.toFirstChild();
+    cursor.toNextSibling();
+    cursor.toFirstChild();
+    String sequenceIdentifier=cursor.getTextValue();
+    Logger.getLogger("wsrm").info("Sequence response Received, sequence ID: " + sequenceIdentifier);
+  }
+ catch (  SubmitException e1) {
+    SoapUI.logError(e1);
+  }
+catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
+}

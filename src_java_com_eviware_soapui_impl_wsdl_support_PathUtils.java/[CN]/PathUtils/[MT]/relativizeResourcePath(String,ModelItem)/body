@@ -14,7 +14,7 @@
       }
     }
   }
-  String projectPath=PropertyExpansionUtils.expandProperties(project,project.getResourceRoot());
+  String projectPath=PropertyExpander.expandProperties(project,project.getResourceRoot());
   if (StringUtils.isNullOrEmpty(projectPath))   return path;
   return PathUtils.relativize(path,projectPath);
 }

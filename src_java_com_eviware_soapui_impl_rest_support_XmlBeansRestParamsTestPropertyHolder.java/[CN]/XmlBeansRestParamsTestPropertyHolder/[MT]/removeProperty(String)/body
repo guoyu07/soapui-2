@@ -4,8 +4,8 @@
     int ix=properties.indexOf(property);
     propertyMap.remove(propertyName.toUpperCase());
     properties.remove(ix);
-    config.removeParameter(ix);
     firePropertyRemoved(propertyName);
+    config.removeParameter(ix);
     return property;
   }
   return null;

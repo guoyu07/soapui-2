@@ -1,3 +1,10 @@
 {
-  return getRequest().getResource().getService().getAllResources().get(index);
+  int sz=0;
+  for (  RestResource resource : getRequest().getResource().getService().getAllResources()) {
+    if (index < sz + resource.getRestMethodCount()) {
+      return resource.getRestMethodAt(index - sz);
+    }
+    sz+=resource.getRestMethodCount();
+  }
+  return null;
 }

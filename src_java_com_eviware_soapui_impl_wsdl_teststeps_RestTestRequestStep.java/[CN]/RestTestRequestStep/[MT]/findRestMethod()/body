@@ -1,0 +1,15 @@
+{
+  if (!restRequestStepConfig.isSetMethodName()) {
+    RestRequestConverter.updateRestTestRequest(this);
+    if (getResource() == null) {
+      restResource=RestRequestConverter.resolveResource(this);
+      if (restResource == null)       return null;
+      getRequestStepConfig().setService(restResource.getInterface().getName());
+      getRequestStepConfig().setResourcePath(restResource.getFullPath());
+    }
+    RestMethod method=RestRequestConverter.getMethod(getResource(),getRequestStepConfig().getRestRequest().selectAttribute(null,"method").newCursor().getTextValue(),getRequestStepConfig().getRestRequest().getName());
+    restRequestStepConfig.setMethodName(method.getName());
+    return method;
+  }
+  return (RestMethod)getWsdlModelItemByName(getResource().getRestMethodList(),getRequestStepConfig().getMethodName());
+}

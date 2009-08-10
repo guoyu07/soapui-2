@@ -1,0 +1,15 @@
+{
+  contentPanel=new JPanel(new BorderLayout());
+  if (BrowserComponent.isJXBrowserDisabled()) {
+    contentPanel.add(new JLabel("Browser Component is disabled"));
+  }
+ else {
+    browser=new BrowserComponent(false);
+    HttpResponse response=restRequest.getResponse();
+    if (response != null)     setEditorContent(response);
+    Component component=browser.getComponent();
+    component.setMinimumSize(new Dimension(100,100));
+    contentPanel.add(component);
+  }
+  return contentPanel;
+}

@@ -27,7 +27,12 @@
  finally {
     if (status != Status.CANCELED) {
       for (int i=0; i < listeners.length; i++) {
-        listeners[i].afterSubmit(this,submitContext);
+        try {
+          listeners[i].afterSubmit(this,submitContext);
+        }
+ catch (        Throwable e) {
+          SoapUI.logError(e);
+        }
       }
     }
   }

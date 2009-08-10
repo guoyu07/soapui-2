@@ -1,9 +1,5 @@
 {
   if (!isEnabled())   return;
-  if (future == null) {
-    released=false;
-    future=SoapUI.getThreadPool().submit(model);
-  }
   if (line instanceof LoggingEvent) {
     LoggingEvent ev=(LoggingEvent)line;
     linesToAdd.push(new LoggingEventWrapper(ev));
@@ -18,5 +14,9 @@
   }
  else {
     linesToAdd.push(line);
+  }
+  if (future == null) {
+    released=false;
+    future=SoapUI.getThreadPool().submit(model);
   }
 }

@@ -1,0 +1,9 @@
+{
+  if (!searchField.getText().equals(text))   searchField.setText(text);
+  if (StringUtils.hasContent(text)) {
+    Tools.openURL("http://www.google.com/search?q=site:eviware.com+" + URLEncoder.encode(text.trim()) + "&hl=en&tbs=clue:1&tbo=1");
+  }
+ else {
+    Tools.openURL("http://www.eviware.com/forums");
+  }
+}

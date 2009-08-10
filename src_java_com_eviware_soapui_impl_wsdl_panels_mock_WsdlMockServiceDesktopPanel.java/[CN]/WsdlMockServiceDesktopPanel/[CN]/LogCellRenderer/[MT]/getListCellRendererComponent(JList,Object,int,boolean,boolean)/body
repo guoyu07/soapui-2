@@ -1,25 +1,5 @@
 {
-  if (value instanceof String) {
-    setText(value.toString());
-  }
- else   if (value instanceof MockResult) {
-    MockResult result=(MockResult)value;
-    String msg=dateFormat.format(new Date(result.getTimestamp()));
-    MockResponse mockResponse=result.getMockResponse();
-    if (mockResponse == null) {
-      msg+=": [dispatch error; missing response]";
-    }
- else {
-      try {
-        msg+=": [" + mockResponse.getMockOperation().getName();
-      }
- catch (      Throwable e) {
-        msg+=": [removed operation?]";
-      }
-      msg+="] " + result.getTimeTaken() + "ms";
-    }
-    setText(msg);
-  }
+  setText(value.toString());
   if (isSelected) {
     setBackground(list.getSelectionBackground());
     setForeground(list.getSelectionForeground());

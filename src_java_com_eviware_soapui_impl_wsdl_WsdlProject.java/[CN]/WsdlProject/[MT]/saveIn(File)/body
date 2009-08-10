@@ -18,6 +18,8 @@
           projectDocument.getSoapuiProject().setInterfaceArray(null);
           projectDocument.getSoapuiProject().setTestSuiteArray(null);
           projectDocument.getSoapuiProject().setMockServiceArray(null);
+          projectDocument.getSoapuiProject().unsetWssContainer();
+          projectDocument.getSoapuiProject().unsetDatabaseConnectionContainer();
           projectDocument.getSoapuiProject().unsetSettings();
           projectDocument.getSoapuiProject().unsetProperties();
         }
@@ -35,9 +37,21 @@
   projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
   try {
     File tempFile=File.createTempFile("project-temp-",".xml",projectFile.getParentFile());
-    projectDocument.save(tempFile,options);
-    projectDocument.save(projectFile,options);
-    tempFile.delete();
+    FileOutputStream tempOut=new FileOutputStream(tempFile);
+    projectDocument.save(tempOut,options);
+    tempOut.close();
+    if (getSettings().getBoolean(UISettings.LINEBREAK)) {
+      normalizeLineBreak(projectFile,tempFile);
+    }
+ else {
+      FileOutputStream projectOut=new FileOutputStream(projectFile);
+      projectDocument.save(projectOut,options);
+      projectOut.close();
+      if (!tempFile.delete()) {
+        SoapUI.getErrorLog().warn("Failed to delete temporary project file; " + tempFile.getAbsolutePath());
+        tempFile.deleteOnExit();
+      }
+    }
     size=projectFile.length();
   }
  catch (  Throwable t) {

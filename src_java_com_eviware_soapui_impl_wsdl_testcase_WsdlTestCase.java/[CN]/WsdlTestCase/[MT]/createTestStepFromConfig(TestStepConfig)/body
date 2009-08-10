@@ -1,7 +1,6 @@
 {
   WsdlTestStepFactory factory=WsdlTestStepRegistry.getInstance().getFactory(tsc.getType());
   if (factory != null) {
-    if (tsc.getConfig() != null && tsc.getConfig() instanceof RestRequestStepConfig && ((RestRequestStepConfig)tsc.getConfig().changeType(RestRequestStepConfig.type)).getRestRequest() == null)     return null;
     WsdlTestStep testStep=factory.buildTestStep(this,tsc,forLoadTest);
     return testStep;
   }

@@ -1,3 +1,5 @@
 {
-  return wssContainer.getPropertyExpansions();
+  List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  result.addAll(Arrays.asList(wssContainer.getPropertyExpansions()));
+  return result.toArray(new PropertyExpansion[result.size()]);
 }

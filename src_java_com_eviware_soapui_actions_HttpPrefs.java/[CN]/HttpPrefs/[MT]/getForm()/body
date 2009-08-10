@@ -10,6 +10,7 @@
     httpForm.appendCheckBox(HttpPrefs.CLOSE_CONNECTIONS_AFTER_REQUEST,"Closes the HTTP connection after each HTTP request",true);
     httpForm.appendTextField(HttpPrefs.CHUNKING_THRESHOLD,"Uses content-chunking for requests larger than threshold, blank to disable");
     httpForm.appendCheckBox(HttpPrefs.AUTHENTICATE_PREEMPTIVELY,"Adds authentication information to outgoing request",true);
+    httpForm.appendCheckBox(HttpPrefs.EXPECT_CONTINUE,"Activates 'Expect: 100-Continue' handshake for the entity enclosing methods",true);
     httpForm.appendCheckBox(HttpPrefs.ENCODED_URLS,"Do not URL-escape service endpoints",true);
     httpForm.appendTextField(HttpPrefs.BIND_ADDRESS,"Default local address to bind to when sending requests");
     httpForm.appendSeparator();

@@ -1,0 +1,5 @@
+{
+  BigInteger oldValue=wsrmConfig.getSequenceExpires();
+  wsrmConfig.setSequenceExpires(newTimeout);
+  propertyChangeSupport.firePropertyChange("sequenceExpires",oldValue,newTimeout);
+}

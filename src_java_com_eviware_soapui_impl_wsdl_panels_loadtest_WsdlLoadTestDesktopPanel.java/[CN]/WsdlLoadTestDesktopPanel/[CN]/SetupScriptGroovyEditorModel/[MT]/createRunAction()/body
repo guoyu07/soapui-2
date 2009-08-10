@@ -2,8 +2,8 @@
   return new AbstractAction(){
     public void actionPerformed(    ActionEvent e){
       try {
-        MockLoadTestRunner mockTestRunner=new MockLoadTestRunner(getModelItem(),SoapUI.ensureGroovyLog());
-        getModelItem().runSetupScript(new MockLoadTestRunContext(mockTestRunner),mockTestRunner);
+        MockLoadTestRunner mockTestRunner=new MockLoadTestRunner(WsdlLoadTestDesktopPanel.this.getModelItem(),SoapUI.ensureGroovyLog());
+        WsdlLoadTestDesktopPanel.this.getModelItem().runSetupScript(new MockLoadTestRunContext(mockTestRunner),mockTestRunner);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);

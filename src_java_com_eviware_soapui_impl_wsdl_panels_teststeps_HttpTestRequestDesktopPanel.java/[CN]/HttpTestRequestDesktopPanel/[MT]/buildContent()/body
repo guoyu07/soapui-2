@@ -9,6 +9,6 @@
   inspectorPanel.setDefaultDividerLocation(0.6F);
   inspectorPanel.setCurrentInspector("Assertions");
   updateStatusIcon();
-  getSubmitButton().setEnabled(getSubmit() == null && StringUtils.hasContent(getRequest().getPath()));
+  getSubmitButton().setEnabled(getSubmit() == null && StringUtils.hasContent(getRequest().getEndpoint()));
   return inspectorPanel.getComponent();
 }

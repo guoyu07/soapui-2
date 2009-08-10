@@ -2,7 +2,7 @@
   if (!checkedGroovyLogMonitor) {
     Log4JMonitor logMonitor=getLogMonitor();
     if (logMonitor != null && !logMonitor.hasLogArea("groovy.log")) {
-      logMonitor.addLogArea("groovy log","groovy.log",false);
+      logMonitor.addLogArea("script log","groovy.log",false);
       checkedGroovyLogMonitor=true;
     }
   }

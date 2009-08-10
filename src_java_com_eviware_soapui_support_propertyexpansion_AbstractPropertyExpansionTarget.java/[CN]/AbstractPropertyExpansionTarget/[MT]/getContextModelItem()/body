@@ -2,8 +2,8 @@
   if (modelItem instanceof WsdlTestRequest) {
     modelItem=((WsdlTestRequest)modelItem).getTestStep();
   }
- else   if (modelItem instanceof RestTestRequest) {
-    modelItem=((RestTestRequest)modelItem).getTestStep();
+ else   if (modelItem instanceof HttpTestRequestInterface) {
+    modelItem=((HttpTestRequestInterface<?>)modelItem).getTestStep();
   }
   return modelItem;
 }

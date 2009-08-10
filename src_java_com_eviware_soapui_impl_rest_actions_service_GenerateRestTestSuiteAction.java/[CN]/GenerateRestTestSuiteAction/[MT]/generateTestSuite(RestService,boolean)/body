@@ -10,7 +10,7 @@
   String[] testSuites=ModelSupport.getNames(new String[]{"<create>"},project.getTestSuiteList());
   dialog.setOptions(GenerateForm.TESTSUITE,testSuites);
   if (dialog.show()) {
-    List<String> resources=Arrays.asList(operationsFormField.getSelectedOptions());
+    List<String> resources=Arrays.asList(StringUtils.toStringArray(operationsFormField.getSelectedOptions()));
     if (resources.size() == 0) {
       UISupport.showErrorMessage("No Resources selected..");
       return null;

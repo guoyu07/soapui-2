@@ -2,7 +2,8 @@
   return new AbstractAction(){
     public void actionPerformed(    ActionEvent e){
       try {
-        getModelItem().runTearDownScript(null);
+        MockTestSuiteRunner mockRunner=new MockTestSuiteRunner(WsdlTestSuiteDesktopPanel.this.getModelItem());
+        WsdlTestSuiteDesktopPanel.this.getModelItem().runTearDownScript((TestSuiteRunContext)mockRunner.getRunContext(),mockRunner);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);

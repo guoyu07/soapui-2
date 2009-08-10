@@ -15,7 +15,7 @@
   toolbar.addSeparator();
   toolbar.addFixed(limitSpinner);
   toolbar.addSeparator();
-  limitTypeCombo=new JComboBox(new String[]{WsdlLoadTestDesktopPanel.RUNS_LIMIT,WsdlLoadTestDesktopPanel.SECONDS_LIMIT});
+  limitTypeCombo=new JComboBox(new String[]{WsdlLoadTestDesktopPanel.RUNS_LIMIT,WsdlLoadTestDesktopPanel.SECONDS_LIMIT,WsdlLoadTestDesktopPanel.RUNS_PER_THREAD_LIMIT});
   if (getModelItem().getLimitType() == LoadTestLimitTypesConfig.TIME)   limitTypeCombo.setSelectedIndex(1);
   toolbar.addFixed(limitTypeCombo);
   toolbar.addSeparator();
@@ -27,6 +27,9 @@
       }
  else       if (WsdlLoadTestDesktopPanel.SECONDS_LIMIT.equals(item)) {
         getModelItem().setLimitType(LoadTestLimitTypesConfig.TIME);
+      }
+ else       if (WsdlLoadTestDesktopPanel.RUNS_PER_THREAD_LIMIT.equals(item)) {
+        getModelItem().setLimitType(LoadTestLimitTypesConfig.COUNT_PER_THREAD);
       }
     }
   }

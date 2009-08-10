@@ -1,11 +1,11 @@
 {
   if (name.length() == 0 || name.charAt(0) != '=')   return null;
   name=name.substring(1);
-  StringToObjectMap objects=new StringToObjectMap();
+  StringToObjectMap objects=new StringToObjectMap(context.getProperties());
   objects.put("context",context);
   objects.put("log",SoapUI.ensureGroovyLog());
-  if (context instanceof TestRunContext) {
-    objects.put("testRunner",((TestRunContext)context).getTestRunner());
+  if (context instanceof TestCaseRunContext) {
+    objects.put("testRunner",((TestCaseRunContext)context).getTestRunner());
   }
   if (context instanceof LoadTestRunContext) {
     objects.put("loadTestRunner",((LoadTestRunContext)context).getLoadTestRunner());

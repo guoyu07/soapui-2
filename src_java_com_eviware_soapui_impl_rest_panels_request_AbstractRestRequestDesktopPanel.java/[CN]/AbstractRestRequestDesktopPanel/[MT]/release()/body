@@ -4,7 +4,7 @@
   }
   getRequest().removeTestPropertyListener(testPropertyListener);
   for (  TestProperty param : getRequest().getParams().getProperties().values()) {
-    ((XmlBeansRestParamsTestPropertyHolder.RestParamProperty)param).removePropertyChangeListener(restParamPropertyChangeListener);
+    ((RestParamProperty)param).removePropertyChangeListener(restParamPropertyChangeListener);
   }
   return super.release();
 }

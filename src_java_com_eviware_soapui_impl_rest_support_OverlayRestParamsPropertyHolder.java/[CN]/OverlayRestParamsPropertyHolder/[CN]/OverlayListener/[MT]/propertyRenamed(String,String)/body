@@ -1,0 +1,9 @@
+{
+  if (!parent.hasProperty(oldName) && !parent.hasProperty(newName))   firePropertyRenamed(oldName,newName);
+ else   if (parent.hasProperty(oldName) && parent.hasProperty(newName)) {
+    firePropertyValueChanged(oldName,overlay.getPropertyValue(newName),parent.getPropertyValue(oldName));
+    firePropertyValueChanged(newName,parent.getPropertyValue(newName),overlay.getPropertyValue(newName));
+  }
+ else   if (parent.hasProperty(oldName))   firePropertyAdded(newName);
+ else   firePropertyRemoved(oldName);
+}

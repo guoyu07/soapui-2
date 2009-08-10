@@ -1,0 +1,32 @@
+{
+  WsrmContainer container=(WsrmContainer)submit.getRequest();
+  if (request.getWsrmConfig().isWsrmEnabled()) {
+    String content=submit.getResponse().getContentAsString();
+    XmlOptions options=new XmlOptions();
+    try {
+      XmlObject xml=XmlObject.Factory.parse(content);
+      String namespaceDeclaration="declare namespace wsrm='" + request.getWsrmConfig().getVersionNameSpace() + "';";
+      XmlObject result[]=xml.selectPath(namespaceDeclaration + "//wsrm:AcknowledgementRange",options);
+      if (result.length > 0) {
+        for (int i=0; i < result.length; i++) {
+          String upper=result[i].selectAttribute(null,"Upper").getDomNode().getNodeValue();
+          String lower=result[i].selectAttribute(null,"Lower").getDomNode().getNodeValue();
+          if (lower == upper) {
+            Logger.getLogger("wsrm").info("Acknowledgment for message " + upper + " received for identifier: "+ request.getWsrmConfig().getSequenceIdentifier());
+          }
+ else {
+            Logger.getLogger("wsrm").info("Acknowledgment for messages " + lower + " to "+ upper+ " received for identifier: "+ request.getWsrmConfig().getSequenceIdentifier());
+          }
+        }
+      }
+    }
+ catch (    XmlException e) {
+      e.printStackTrace();
+    }
+  }
+  if (container.getWsrmConfig().isWsrmEnabled()) {
+    WsdlInterface iface=request.getOperation().getInterface();
+    WsrmUtils utils=new WsrmUtils(iface.getSoapVersion());
+    utils.closeSequence(request.getEndpoint(),iface.getSoapVersion(),request.getWsrmConfig().getVersionNameSpace(),request.getWsrmConfig().getUuid(),request.getWsrmConfig().getSequenceIdentifier(),1l,request.getOperation());
+  }
+}

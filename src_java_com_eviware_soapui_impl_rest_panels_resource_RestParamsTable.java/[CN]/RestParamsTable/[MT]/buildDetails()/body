@@ -1,19 +1,19 @@
 {
   paramDetailsModel=new PresentationModel<RestParamProperty>(null);
-  SimpleBindingForm form=new SimpleBindingForm(paramDetailsModel);
-  form.addSpace(5);
-  form.appendCheckBox("required","Required","Sets if parameter is required");
-  form.appendTextField("defaultValue","Default","The default value for this parameter");
+  detailsForm=new SimpleBindingForm(paramDetailsModel);
+  detailsForm.addSpace(5);
+  detailsForm.appendCheckBox("required","Required","Sets if parameter is required");
   List<QName> types=new ArrayList<QName>();
   for (  SchemaType type : XmlBeans.getBuiltinTypeSystem().globalTypes()) {
     types.add(type.getName());
   }
-  form.appendComboBox("type","Type",types.toArray(),"The type of the parameter");
+  detailsForm.appendComboBox("type","Type",types.toArray(),"The type of the parameter");
   optionsFormComponent=new StringListFormComponent("Available values for this Parameter");
   optionsFormComponent.setPreferredSize(new Dimension(350,80));
-  form.appendComponent("options","Options",optionsFormComponent);
-  form.appendTextField("description","Description","A short description of the parameter");
-  form.appendCheckBox("disableUrlEncoding","Disable Encoding","Disables URL-Encoding of the parameter value");
-  form.addSpace(5);
-  return new JScrollPane(form.getPanel());
+  detailsForm.appendComponent("options","Options",optionsFormComponent);
+  detailsForm.appendTextField("description","Description","A short description of the parameter");
+  detailsForm.appendCheckBox("disableUrlEncoding","Disable Encoding","Disables URL-Encoding of the parameter value");
+  detailsForm.addSpace(5);
+  detailsForm.setEnabled(false);
+  return new JScrollPane(detailsForm.getPanel());
 }

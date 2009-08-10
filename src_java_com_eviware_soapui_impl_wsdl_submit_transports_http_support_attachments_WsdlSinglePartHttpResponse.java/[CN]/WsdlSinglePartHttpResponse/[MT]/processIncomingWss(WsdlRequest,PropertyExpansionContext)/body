@@ -2,7 +2,7 @@
   IncomingWss incomingWss=(IncomingWss)context.getProperty(WssRequestFilter.INCOMING_WSS_PROPERTY);
   if (incomingWss != null) {
     try {
-      Document document=XmlUtils.parseXml(getContentAsString());
+      Document document=XmlUtils.parseXml(getResponseContent());
       wssResult=incomingWss.processIncoming(document,context);
       if (wssResult != null && wssResult.size() > 0) {
         StringWriter writer=new StringWriter();
@@ -13,7 +13,6 @@
  catch (    Exception e) {
       if (wssResult == null)       wssResult=new Vector<Object>();
       wssResult.add(e);
-      SoapUI.logError(e);
     }
   }
 }

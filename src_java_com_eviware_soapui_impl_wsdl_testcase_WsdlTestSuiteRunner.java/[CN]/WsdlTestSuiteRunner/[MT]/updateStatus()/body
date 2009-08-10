@@ -1,0 +1,8 @@
+{
+  for (  TestCaseRunner runner : finishedRunners) {
+    if (runner.getStatus() == Status.FAILED) {
+      setStatus(Status.FAILED);
+      break;
+    }
+  }
+}

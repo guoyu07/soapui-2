@@ -1,6 +1,6 @@
 {
 synchronized (this) {
-    if (scriptEngines.isEmpty())     scriptEngines.push(SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,modelItem));
+    if (scriptEngines.isEmpty())     scriptEngines.push(SoapUIScriptEngineRegistry.create(modelItem));
     SoapUIScriptEngine result=scriptEngines.pop();
     if (script != null)     result.setScript(script);
     borrowed++;

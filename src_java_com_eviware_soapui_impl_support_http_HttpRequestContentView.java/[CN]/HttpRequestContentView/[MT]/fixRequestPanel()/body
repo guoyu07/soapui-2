@@ -1,0 +1,23 @@
+{
+  if (httpRequest.hasRequestBody()) {
+    panel.remove(paramsTable);
+    split.setLeftComponent(paramsTable);
+    panel.add(split);
+    enableBodyComponents();
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        if (panel.getHeight() == 0) {
+          SwingUtilities.invokeLater(this);
+        }
+ else {
+          split.setDividerLocation(0.5F);
+        }
+      }
+    }
+);
+  }
+ else {
+    panel.remove(split);
+    panel.add(paramsTable);
+  }
+}

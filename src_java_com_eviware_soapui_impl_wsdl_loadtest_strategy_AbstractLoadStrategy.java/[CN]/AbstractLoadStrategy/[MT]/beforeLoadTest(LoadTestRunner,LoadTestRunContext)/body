@@ -1,2 +1,5 @@
 {
+  if (getLoadTest().getLimitType() == LoadTestLimitTypesConfig.COUNT && getLoadTest().getTestLimit() < getLoadTest().getThreadCount()) {
+    getLoadTest().setThreadCount(getLoadTest().getTestLimit());
+  }
 }

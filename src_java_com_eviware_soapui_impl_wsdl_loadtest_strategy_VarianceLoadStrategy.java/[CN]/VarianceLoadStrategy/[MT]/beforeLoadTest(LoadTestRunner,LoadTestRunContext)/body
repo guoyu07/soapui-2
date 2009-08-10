@@ -1,4 +1,5 @@
 {
+  super.beforeLoadTest(loadTestRunner,context);
   baseThreadCount=((WsdlLoadTest)loadTestRunner.getLoadTest()).getThreadCount();
   startTime=System.currentTimeMillis();
   stateDependantComponents.setEnabled(false);

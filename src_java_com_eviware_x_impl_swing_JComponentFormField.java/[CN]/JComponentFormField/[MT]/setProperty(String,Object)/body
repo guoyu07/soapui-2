@@ -1,7 +1,17 @@
 {
   if (name.equals("component")) {
     getComponent().removeAll();
-    if (value != null)     getComponent().add((JComponent)value,BorderLayout.CENTER);
+    if (value != null) {
+      getComponent().add((JComponent)value,BorderLayout.CENTER);
+    }
+    getComponent().revalidate();
+    getComponent().getParent().repaint();
+  }
+ else   if (name.equals("preferredSize")) {
+    getComponent().setPreferredSize((Dimension)value);
+    getComponent().setMaximumSize((Dimension)value);
+    getComponent().setMinimumSize((Dimension)value);
+    getComponent().setSize((Dimension)value);
   }
  else {
     super.setProperty(name,value);

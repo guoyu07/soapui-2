@@ -1,6 +1,6 @@
 {
   super(document,mockResponse);
-  XmlSourceEditorView editor=getSourceEditor();
+  XmlSourceEditorView<?> editor=getSourceEditor();
   if (getModelItem().getMockOperation().isBidirectional()) {
     JXEditTextArea inputArea=editor.getInputArea();
     inputArea.addFocusListener(new ResultAreaFocusListener());

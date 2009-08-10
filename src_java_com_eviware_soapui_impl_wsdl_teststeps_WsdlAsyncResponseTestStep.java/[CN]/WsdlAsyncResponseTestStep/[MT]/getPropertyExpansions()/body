@@ -1,8 +1,0 @@
-{
-  ArrayList<PropertyExpansion> expansions=new ArrayList<PropertyExpansion>();
-  expansions.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,mockResponse,"responseContent"));
-  StringToStringMap headers=mockResponse.getResponseHeaders();
-  String s;
-  for (Iterator<?> iterator=headers.keySet().iterator(); iterator.hasNext(); PropertyExpansionUtils.extractPropertyExpansions(this,new ResponseHeaderHolder(headers,s),"value"))   s=(String)iterator.next();
-  return (PropertyExpansion[])expansions.toArray(new PropertyExpansion[expansions.size()]);
-}

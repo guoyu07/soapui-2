@@ -1,0 +1,6 @@
+{
+  StringBuilder s=new StringBuilder("<" + schema.getPrefixForNamespace(Settings.xsdns) + ":"+ getReference().getPType()+ " ref=\""+ schema.getPrefixForNamespace(referenceQName.getNamespaceURI())+ ":"+ referenceQName.getLocalPart()+ "\"");
+  for (  Map.Entry<String,String> entry : attributes.entrySet())   s.append(" " + entry.getKey() + "=\""+ entry.getValue()+ "\"");
+  s.append("/>");
+  return s.toString();
+}

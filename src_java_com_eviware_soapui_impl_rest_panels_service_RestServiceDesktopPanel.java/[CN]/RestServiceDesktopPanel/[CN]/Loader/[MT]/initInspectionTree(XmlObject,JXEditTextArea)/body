@@ -2,16 +2,10 @@
   DefaultMutableTreeNode treeRoot=rootNode;
   targetNamespaces.add(SchemaUtils.getTargetNamespace(xmlObject));
   int tabCount=partTabs.getTabCount() - 1;
-  String xmlNsDeclaration="declare namespace xs='" + Constants.XSD_NS + "';";
   String wadlNsDeclaration="declare namespace wadl='" + Constants.WADL10_NS + "';";
-  mapTreeItems(xmlObject,treeRoot,false,tabCount,"Complex Types",xmlNsDeclaration + "//xs:complexType[@name!='']","@name",true,null);
-  mapTreeItems(xmlObject,treeRoot,false,tabCount,"Simple Types",xmlNsDeclaration + "//xs:simpleType[@name!='']","@name",true,null);
-  mapTreeItems(xmlObject,treeRoot,false,tabCount,"Anonymous Complex Types",xmlNsDeclaration + "//xs:complexType[not(exists(@name))]","parent::node()/@name",true,null);
-  mapTreeItems(xmlObject,treeRoot,false,tabCount,"Global Elements",xmlNsDeclaration + "//xs:schema/xs:element[@name!='']","@name",true,new GlobalElementSelector());
-  mapTreeItems(xmlObject,treeRoot,false,tabCount,"Schemas",xmlNsDeclaration + "//xs:schema","@targetNamespace",true,null);
-  List<DefaultMutableTreeNode> resources=mapTreeItems(xmlObject,treeRoot,false,tabCount,"Resources",wadlNsDeclaration + "//wadl:resource","concat( @path, ' [', *:doc[1]/@title, ']' )",true,null);
-  List<DefaultMutableTreeNode> methods=mapTreeItems(xmlObject,treeRoot,false,tabCount,"Methods",wadlNsDeclaration + "//wadl:method[exists(@name)]","concat( @name, ' [', *:doc[1]/@title, ']' )",true,null);
-  List<DefaultMutableTreeNode> representations=mapTreeItems(xmlObject,treeRoot,false,tabCount,"Representations",wadlNsDeclaration + "//wadl:representation","concat( @mediaType, ' [', *:doc[1]/@title, ']' )",true,null);
+  mapWadlItems(xmlObject,treeRoot,tabCount,wadlNsDeclaration);
+  wadlNsDeclaration="declare namespace wadl='" + Constants.WADL11_NS + "';";
+  mapWadlItems(xmlObject,treeRoot,tabCount,wadlNsDeclaration);
   tree.expandRow(0);
   editors.add(inputArea);
 }

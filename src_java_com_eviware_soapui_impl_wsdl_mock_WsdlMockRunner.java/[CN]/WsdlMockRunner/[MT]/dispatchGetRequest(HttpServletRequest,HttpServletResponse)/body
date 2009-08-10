@@ -1,24 +1,30 @@
 {
   try {
-    if (request.getQueryString() != null && request.getQueryString().toUpperCase().startsWith("WSDL")) {
+    String qs=request.getQueryString();
+    if (qs != null && qs.toUpperCase().startsWith("WSDL")) {
       dispatchWsdlRequest(request,response);
     }
  else {
-      String docroot=PropertyExpansionUtils.expandProperties(mockContext,getMockService().getDocroot());
-      if (StringUtils.hasContent(docroot)) {
-        try {
-          String pathInfo=request.getPathInfo();
-          if (mockService.getPath().length() > 1 && pathInfo.startsWith(mockService.getPath()))           pathInfo=pathInfo.substring(mockService.getPath().length());
-          File file=new File(docroot + pathInfo.replace('/',File.separatorChar));
-          FileInputStream in=new FileInputStream(file);
-          response.setStatus(HttpServletResponse.SC_OK);
-          long length=file.length();
-          response.setContentLength((int)length);
-          response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
-          Tools.readAndWrite(in,length,response.getOutputStream());
-        }
- catch (        Throwable e) {
-          throw new DispatchException(e);
+      if (qs != null && qs.startsWith("cmd=")) {
+        dispatchCommand(request.getParameter("cmd"),request,response);
+      }
+ else {
+        String docroot=PropertyExpander.expandProperties(mockContext,getMockService().getDocroot());
+        if (StringUtils.hasContent(docroot)) {
+          try {
+            String pathInfo=request.getPathInfo();
+            if (mockService.getPath().length() > 1 && pathInfo.startsWith(mockService.getPath()))             pathInfo=pathInfo.substring(mockService.getPath().length());
+            File file=new File(docroot + pathInfo.replace('/',File.separatorChar));
+            FileInputStream in=new FileInputStream(file);
+            response.setStatus(HttpServletResponse.SC_OK);
+            long length=file.length();
+            response.setContentLength((int)length);
+            response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+            Tools.readAndWrite(in,length,response.getOutputStream());
+          }
+ catch (          Throwable e) {
+            throw new DispatchException(e);
+          }
         }
       }
     }

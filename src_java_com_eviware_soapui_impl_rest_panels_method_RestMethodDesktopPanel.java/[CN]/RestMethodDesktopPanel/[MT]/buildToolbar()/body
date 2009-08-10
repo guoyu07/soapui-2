@@ -1,0 +1,21 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  methodCombo=new JComboBox(RestRequestInterface.RequestMethod.getMethods());
+  methodCombo.setSelectedItem(getModelItem().getMethod());
+  methodCombo.setToolTipText("Set desired HTTP method");
+  methodCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      updatingRequest=true;
+      getModelItem().setMethod((RestRequestInterface.RequestMethod)methodCombo.getSelectedItem());
+      updatingRequest=false;
+    }
+  }
+);
+  toolbar.addLabeledFixed("HTTP method",methodCombo);
+  toolbar.addSeparator();
+  toolbar.addFixed(createActionButton(SwingActionDelegate.createDelegate(NewRestRequestAction.SOAPUI_ACTION_ID,getModelItem(),null,"/create_empty_request.gif"),true));
+  toolbar.addSeparator();
+  toolbar.addGlue();
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.RESTMETHODEDITOR_HELP_URL)));
+  return toolbar;
+}

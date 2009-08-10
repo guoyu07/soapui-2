@@ -1,0 +1,53 @@
+{
+  Map<String,List<MockRunner>> map=runners.get(request.getLocalPort());
+  if (map == null && sslConnector != null && request.getLocalPort() == sslConnector.getPort()) {
+    for (    Map<String,List<MockRunner>> runnerMap : runners.values()) {
+      if (runnerMap.containsKey(request.getPathInfo())) {
+        map=runnerMap;
+        break;
+      }
+    }
+  }
+  if (map != null) {
+    List<MockRunner> wsdlMockRunners=map.get(request.getPathInfo());
+    if (wsdlMockRunners == null && request.getMethod().equals("GET")) {
+      for (      String root : map.keySet()) {
+        if (request.getPathInfo().startsWith(root)) {
+          wsdlMockRunners=map.get(root);
+        }
+      }
+    }
+    if (wsdlMockRunners != null) {
+      try {
+        DispatchException ex=null;
+        MockResult result=null;
+        for (        MockRunner wsdlMockRunner : wsdlMockRunners) {
+          if (!wsdlMockRunner.isRunning())           continue;
+          try {
+            result=wsdlMockRunner.dispatchRequest(request,response);
+            if (result != null)             result.finish();
+            break;
+          }
+ catch (          DispatchException e) {
+            log.debug(wsdlMockRunner.getMockService().getName() + " was unable to dispatch mock request ",e);
+            ex=e;
+          }
+        }
+        if (ex != null && result == null)         throw ex;
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.setContentType("text/html");
+        response.getWriter().print(SoapMessageBuilder.buildFault("Server",e.getMessage(),SoapVersion.Utils.getSoapVersionForContentType(request.getContentType(),SoapVersion.Soap11)));
+      }
+    }
+ else {
+      printMockServiceList(response);
+    }
+  }
+ else {
+    printMockServiceList(response);
+  }
+  response.flushBuffer();
+}

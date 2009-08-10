@@ -1,7 +1,7 @@
 {
   if (path == null || modelItem == null)   return path;
   path=PathUtils.denormalizePath(path);
-  path=PropertyExpansionUtils.expandProperties(new DefaultPropertyExpansionContext(modelItem),path);
+  path=PropertyExpander.expandProperties(new DefaultPropertyExpansionContext(modelItem),path);
   String prefix="";
   if (path.startsWith("file:")) {
     prefix=path.substring(0,5);

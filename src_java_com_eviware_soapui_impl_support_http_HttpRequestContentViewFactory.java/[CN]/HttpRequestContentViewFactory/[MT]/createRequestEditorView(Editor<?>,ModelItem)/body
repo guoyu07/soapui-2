@@ -1,0 +1,7 @@
+{
+  if (editor instanceof HttpRequestMessageEditor && modelItem instanceof HttpRequestInterface<?>) {
+    if (modelItem instanceof RestRequestInterface)     return new RestRequestContentView((HttpRequestMessageEditor)editor,(RestRequestInterface)modelItem);
+ else     return new HttpRequestContentView((HttpRequestMessageEditor)editor,(HttpRequestInterface<?>)modelItem);
+  }
+  return null;
+}

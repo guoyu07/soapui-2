@@ -51,7 +51,15 @@
           getSchemas(location,existing,loader,null);
         }
       }
-      XmlObject[] wadlImports=xmlObject.selectPath("declare namespace s='" + Constants.WADL10_NS + "' .//s:grammars/s:include/@href");
+      XmlObject[] wadl10Imports=xmlObject.selectPath("declare namespace s='" + Constants.WADL10_NS + "' .//s:grammars/s:include/@href");
+      for (int i=0; i < wadl10Imports.length; i++) {
+        String location=((SimpleValue)wadl10Imports[i]).getStringValue();
+        if (location != null) {
+          if (!location.startsWith("file:") && location.indexOf("://") == -1)           location=Tools.joinRelativeUrl(wsdlUrl,location);
+          getSchemas(location,existing,loader,null);
+        }
+      }
+      XmlObject[] wadlImports=xmlObject.selectPath("declare namespace s='" + Constants.WADL11_NS + "' .//s:grammars/s:include/@href");
       for (int i=0; i < wadlImports.length; i++) {
         String location=((SimpleValue)wadlImports[i]).getStringValue();
         if (location != null) {

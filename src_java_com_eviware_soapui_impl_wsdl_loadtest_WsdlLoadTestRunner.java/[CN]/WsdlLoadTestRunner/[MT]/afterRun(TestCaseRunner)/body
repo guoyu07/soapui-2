@@ -1,8 +1,0 @@
-{
-  if (status != Status.RUNNING)   return false;
-  runCount++;
-  if (loadTest.getTestLimit() < 1)   return true;
-  if (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT)   return runCount + runners.size() + threadsWaitingToStart <= loadTest.getTestLimit();
-  if (loadTest.getLimitType() == LoadTestLimitTypesConfig.TIME)   return getTimeTaken() < loadTest.getTestLimit() * 1000;
-  return true;
-}

@@ -12,7 +12,7 @@
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
     if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
     WsdlTestRunContext context=new WsdlTestRunContext((TestStep)getAssertable().getModelItem());
-    String expandedPath=PropertyExpansionUtils.expandProperties(context,txt.trim());
+    String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
     if (contentArea != null && contentArea.isVisible())     contentArea.setText("");
     XmlObject[] paths=xml.execQuery(expandedPath);
     if (paths.length == 0) {

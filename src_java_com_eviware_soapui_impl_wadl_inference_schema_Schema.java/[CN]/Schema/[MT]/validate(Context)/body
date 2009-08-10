@@ -1,0 +1,11 @@
+{
+  XmlCursor cursor=context.getCursor();
+  Particle root=getParticle(cursor.getName().getLocalPart());
+  if (root == null) {
+    if (context.getHandler().callback(Event.CREATION,ConflictHandler.Type.ELEMENT,cursor.getName(),"/" + cursor.getName().getLocalPart(),"Undeclared root element.")) {
+      root=newElement(cursor.getName().getLocalPart());
+    }
+ else     throw new XmlException("Illegal root element");
+  }
+  root.validate(context);
+}

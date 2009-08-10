@@ -23,20 +23,7 @@
   }
   if (part != null) {
     QName typeName=part.getTypeName();
-    if (typeName == null && part.getElementName() != null) {
-      try {
-        SchemaGlobalElement elm=operation.getInterface().getWsdlContext().getSchemaTypeLoader().findElement(part.getElementName());
-        if (elm != null && elm.getType() != null) {
-          SchemaType schemaType=elm.getType();
-          if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type))           return AttachmentEncoding.BASE64;
- else           if (SchemaUtils.isInstanceOf(schemaType,XmlHexBinary.type))           return AttachmentEncoding.HEX;
-        }
-      }
- catch (      Throwable e) {
-        SoapUI.logError(e);
-      }
-    }
-    if (typeName != null && typeName.getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
+    if (typeName.getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
       if (typeName.getLocalPart().equals("base64Binary")) {
         return AttachmentEncoding.BASE64;
       }

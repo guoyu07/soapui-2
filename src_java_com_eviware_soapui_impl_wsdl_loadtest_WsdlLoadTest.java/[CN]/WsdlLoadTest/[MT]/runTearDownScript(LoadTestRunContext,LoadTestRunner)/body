@@ -2,7 +2,7 @@
   String script=getTearDownScript();
   if (StringUtils.isNullOrEmpty(script))   return null;
   if (tearDownScriptEngine == null) {
-    tearDownScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+    tearDownScriptEngine=SoapUIScriptEngineRegistry.create(this);
     tearDownScriptEngine.setScript(script);
   }
   tearDownScriptEngine.setVariable("context",runContext);

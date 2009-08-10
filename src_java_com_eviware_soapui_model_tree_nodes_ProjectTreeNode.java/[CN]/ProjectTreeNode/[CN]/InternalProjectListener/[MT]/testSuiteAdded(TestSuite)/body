@@ -1,6 +1,5 @@
 {
   TestSuiteTreeNode testSuiteNode=new TestSuiteTreeNode(testSuite,getTreeModel());
-  testSuiteNodes.add(testSuiteNode);
-  reorder(false);
+  testSuiteNodes.add(testSuite.getProject().getIndexOfTestSuite(testSuite),testSuiteNode);
   getTreeModel().notifyNodeInserted(testSuiteNode);
 }

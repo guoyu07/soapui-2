@@ -1,0 +1,5 @@
+{
+  if (testScenarioRunner != projectRunner)   return;
+  progressBar.setString("Running " + testRunnable.getName());
+  if (project.getRunType() == TestSuiteRunType.SEQUENTIAL)   testRunnable.addTestSuiteRunListener(runLogListener);
+}

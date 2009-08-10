@@ -1,0 +1,8 @@
+{
+  DefaultPropertyExpansionContext properties=(DefaultPropertyExpansionContext)getRunContext().getProperties();
+  properties.put("#TestSuiteRunner#",this);
+  WsdlTestSuiteRunner currentRunner=testSuite.run(properties,true);
+  activeRunners.add(currentRunner);
+  if (!async)   currentRunner.waitUntilFinished();
+  return currentRunner;
+}

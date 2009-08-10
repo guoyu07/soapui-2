@@ -4,6 +4,7 @@
   formatXmlAction=new FormatXmlAction(editArea);
   saveXmlTextAreaAction=new SaveXmlTextAreaAction(editArea,"Save");
   loadXmlTextAreaAction=new LoadXmlTextAreaAction(editArea,"Load");
+  insertBase64FileTextAreaAction=new InsertBase64FileTextAreaAction(editArea,"Insert File as Base64");
   toggleLineNumbersMenuItem=new JCheckBoxMenuItem("Show Line Numbers",lineNumbersPanel.isVisible());
   toggleLineNumbersMenuItem.setAccelerator(UISupport.getKeyStroke("alt L"));
   toggleLineNumbersMenuItem.addActionListener(new ActionListener(){
@@ -28,4 +29,5 @@
   inputPopup.addSeparator();
   inputPopup.add(saveXmlTextAreaAction);
   inputPopup.add(loadXmlTextAreaAction);
+  inputPopup.add(insertBase64FileTextAreaAction);
 }

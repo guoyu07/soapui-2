@@ -10,6 +10,6 @@
   assertNotNull(resource.getProperty("appid"));
   assertEquals(1,resource.getRequestCount());
   RestRequest request=resource.getRequestAt(0);
-  assertEquals(AbstractHttpRequest.RequestMethod.GET,request.getMethod());
+  assertEquals(RestRequestInterface.RequestMethod.GET,request.getMethod());
   assertEquals(9,request.getPropertyCount());
 }

@@ -11,8 +11,22 @@
       }
     }
 );
+    dialog.getFormField(Form.CLONE_DESCRIPTION).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        if (dialog.getBooleanValue(Form.CLONE_DESCRIPTION)) {
+          dialog.getFormField(Form.DESCRIPTION).setEnabled(false);
+        }
+ else {
+          dialog.getFormField(Form.DESCRIPTION).setEnabled(true);
+        }
+      }
+    }
+);
   }
   dialog.setBooleanValue(Form.MOVE,false);
+  dialog.setBooleanValue(Form.CLONE_DESCRIPTION,true);
+  dialog.getFormField(Form.DESCRIPTION).setEnabled(false);
+  dialog.setValue(Form.DESCRIPTION,testCase.getDescription());
   dialog.setValue(Form.NAME,"Copy of " + testCase.getName());
   WorkspaceImpl workspace=testCase.getTestSuite().getProject().getWorkspace();
   dialog.setOptions(Form.PROJECT,ModelSupport.getNames(workspace.getOpenProjectList(),new String[]{CREATE_NEW_OPTION}));
@@ -79,6 +93,10 @@
     UISupport.select(newTestCase);
     if (move) {
       testCase.getTestSuite().removeTestCase(testCase);
+    }
+    boolean cloneDescription=dialog.getBooleanValue(Form.CLONE_DESCRIPTION);
+    if (!cloneDescription) {
+      newTestCase.setDescription(dialog.getValue(Form.DESCRIPTION));
     }
   }
 }

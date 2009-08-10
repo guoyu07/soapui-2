@@ -4,10 +4,10 @@
   String name=UISupport.prompt("Specify name for copied MockService","Copy MockService","Copy of " + source.getName());
   if (name == null)   return false;
   if (source.getProject() == target) {
-    a.cloneMockServiceWithinProject(source,name,target);
+    a.cloneMockServiceWithinProject(source,name,target,source.getDescription());
   }
  else {
-    a.cloneToAnotherProject(source,target.getName(),name);
+    a.cloneToAnotherProject(source,target.getName(),name,source.getDescription());
   }
   return true;
 }

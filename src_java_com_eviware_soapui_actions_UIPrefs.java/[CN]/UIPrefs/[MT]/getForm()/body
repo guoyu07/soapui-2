@@ -6,7 +6,6 @@
     editorForm.appendSeparator();
     editorForm.appendCheckBox(ORDER_PROJECTS,"Order Projects alphabetically in tree",false);
     editorForm.appendCheckBox(ORDER_REQUESTS,"Order Requests alphabetically in tree",false);
-    editorForm.appendCheckBox(ORDER_TESTSUITES,"Order TestSuites alphabetically in tree",false);
     editorForm.appendCheckBox(SHOW_DESCRIPTIONS,"Show description content when available",false);
     editorForm.appendSeparator();
     editorForm.appendCheckBox(AUTOSAVE_ONEXIT,"Automatically save all projects on exit",true);
@@ -30,6 +29,10 @@
       editorForm.appendCheckBox(SHOW_LOGS_AT_STARTUP,"Shows log tabs when starting soapUI",false);
       editorForm.appendCheckBox(SHOW_STARTUP_PAGE,"Opens startup web page when starting soapUI",false);
     }
+    editorForm.appendSeparator();
+    editorForm.appendCheckBox(LINEBRAK,"Normalize line-breaks when saving project",false);
+    editorForm.appendSeparator();
+    editorForm.appendTextField(GC_INTERVAL,"Sets the Garbage Collector interval in seconds (0 means garbage collection is only performed by JRE)");
   }
   return editorForm;
 }

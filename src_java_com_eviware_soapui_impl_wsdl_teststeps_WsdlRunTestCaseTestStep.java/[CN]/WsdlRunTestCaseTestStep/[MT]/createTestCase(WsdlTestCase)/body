@@ -1,8 +1,14 @@
 {
   testCase.beforeSave();
-  TestCaseConfig config=(TestCaseConfig)testCase.getConfig().copy();
-  config.setLoadTestArray(new LoadTestConfig[0]);
-  WsdlTestCase wsdlTestCase=new WsdlTestCase(testCase.getTestSuite(),config,true);
-  wsdlTestCase.afterLoad();
-  return wsdlTestCase;
+  try {
+    TestCaseConfig config=TestCaseConfig.Factory.parse(testCase.getConfig().xmlText());
+    config.setLoadTestArray(new LoadTestConfig[0]);
+    WsdlTestCase wsdlTestCase=testCase.getTestSuite().buildTestCase(config,true);
+    wsdlTestCase.afterLoad();
+    return wsdlTestCase;
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+  return null;
 }

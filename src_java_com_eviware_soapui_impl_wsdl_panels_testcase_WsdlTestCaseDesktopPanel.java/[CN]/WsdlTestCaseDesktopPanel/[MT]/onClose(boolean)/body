@@ -1,6 +1,6 @@
 {
   if (canCancel) {
-    if (runner != null && runner.getStatus() == TestRunner.Status.RUNNING) {
+    if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
       Boolean retval=UISupport.confirmOrCancel("Cancel running TestCase?","Cancel Run");
       if (retval == null)       return false;
       if (retval.booleanValue()) {
@@ -9,7 +9,7 @@
     }
   }
  else {
-    if (runner != null && runner.getStatus() == TestRunner.Status.RUNNING) {
+    if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
       runner.cancel(null);
     }
   }

@@ -1,0 +1,17 @@
+{
+  if (evt.getPropertyName().equals("request") && !updatingRequest) {
+    updatingRequest=true;
+    contentEditor.setText((String)evt.getNewValue());
+    updatingRequest=false;
+  }
+ else   if (evt.getPropertyName().equals("method")) {
+    fixRequestPanel();
+  }
+ else   if (evt.getPropertyName().equals("mediaType")) {
+    mediaTypeCombo.setSelectedItem(evt.getNewValue());
+  }
+ else   if (evt.getPropertyName().equals(AbstractHttpRequest.ATTACHMENTS_PROPERTY)) {
+    mediaTypeCombo.setModel(new DefaultComboBoxModel(getRequestMediaTypes()));
+    mediaTypeCombo.setSelectedItem(httpRequest.getMediaType());
+  }
+}

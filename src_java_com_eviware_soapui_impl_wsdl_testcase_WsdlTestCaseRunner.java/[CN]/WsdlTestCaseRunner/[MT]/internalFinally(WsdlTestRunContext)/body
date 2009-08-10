@@ -1,0 +1,16 @@
+{
+  WsdlTestCase testCase=getTestRunnable();
+  try {
+    testCase.runTearDownScript(runContext,this);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  for (int c=0; c < initCount && c < testCase.getTestStepCount(); c++) {
+    WsdlTestStep testStep=testCase.getTestStepAt(c);
+    if (!testStep.isDisabled())     testStep.finish(this,runContext);
+  }
+  notifyAfterRun();
+  runContext.clear();
+  listeners=null;
+}

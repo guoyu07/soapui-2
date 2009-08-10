@@ -7,7 +7,7 @@
     if (newTestStepConfig != null) {
       int ix=testCase.getIndexOfTestStep(testStep);
       testStep=testCase.insertTestStep(newTestStepConfig,ix);
-      UISupport.selectAndShow(testStep);
+      if (testStep != null)       UISupport.selectAndShow(testStep);
     }
   }
 }

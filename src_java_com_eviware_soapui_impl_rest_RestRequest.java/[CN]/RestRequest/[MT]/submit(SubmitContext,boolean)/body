@@ -1,5 +1,5 @@
 {
-  String endpoint=PropertyExpansionUtils.expandProperties(submitContext,getEndpoint());
+  String endpoint=PropertyExpander.expandProperties(submitContext,getEndpoint());
   if (StringUtils.isNullOrEmpty(endpoint)) {
     try {
       endpoint=new URL(getPath()).toString();

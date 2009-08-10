@@ -1,7 +1,7 @@
 {
   if (fileChooser == null) {
-    fileChooser=new JFileChooser();
-    if (type == FieldType.FOLDER || type == FieldType.PROJECT_FOLDER)     fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    if (type == FieldType.FOLDER || type == FieldType.PROJECT_FOLDER)     fileChooser=new JDirectoryChooser();
+ else     fileChooser=new JFileChooser();
   }
   String value=FileFormField.this.getValue();
   if (value.length() > 0) {

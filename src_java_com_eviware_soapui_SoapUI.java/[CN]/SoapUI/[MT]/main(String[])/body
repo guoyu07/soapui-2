@@ -1,3 +1,12 @@
 {
-  startSoapUI(args,"soapUI " + SOAPUI_VERSION,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
+  WebstartUtilCore.init();
+  mainArgs=args;
+  BrowserComponent.initialize();
+  SoapUIRunner soapuiRunner=new SoapUIRunner();
+  if (!BrowserComponent.isJXBrowserDisabled() && Xpcom.isLinux()) {
+    SwingUtilities.invokeLater(soapuiRunner);
+  }
+ else {
+    soapuiRunner.run();
+  }
 }

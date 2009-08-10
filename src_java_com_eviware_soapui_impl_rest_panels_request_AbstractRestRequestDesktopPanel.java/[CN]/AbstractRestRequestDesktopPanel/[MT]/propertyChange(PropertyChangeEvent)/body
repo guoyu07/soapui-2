@@ -1,9 +1,6 @@
 {
   updateFullPathLabel();
-  if (evt.getPropertyName().equals("method") && !updatingRequest) {
-    methodCombo.setSelectedItem(evt.getNewValue());
-  }
- else   if (evt.getPropertyName().equals("accept") && !updatingRequest) {
+  if (evt.getPropertyName().equals("accept") && !updatingRequest) {
     acceptCombo.setSelectedItem(evt.getNewValue());
   }
  else   if (evt.getPropertyName().equals("responseMediaTypes") && !updatingRequest) {
@@ -11,7 +8,7 @@
     acceptCombo.setModel(new DefaultComboBoxModel((Object[])evt.getNewValue()));
     acceptCombo.setSelectedItem(item);
   }
- else   if ((evt.getPropertyName().equals("path") || evt.getPropertyName().equals("resource")) && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
+ else   if ((evt.getPropertyName().equals("path") || evt.getPropertyName().equals("restMethod")) && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
     if (pathLabel != null) {
       updateFullPathLabel();
     }

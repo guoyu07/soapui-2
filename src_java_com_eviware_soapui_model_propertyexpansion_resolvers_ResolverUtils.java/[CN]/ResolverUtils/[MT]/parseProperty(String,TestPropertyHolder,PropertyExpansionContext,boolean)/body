@@ -9,7 +9,7 @@
     }
     TestProperty property=holder.getProperty(name);
     if (property != null) {
-      return context == null ? ResolverUtils.extractXPathPropertyValue(property,xpath) : ResolverUtils.extractXPathPropertyValue(property,PropertyExpansionUtils.expandProperties(context,xpath));
+      return context == null ? ResolverUtils.extractXPathPropertyValue(property,xpath) : ResolverUtils.extractXPathPropertyValue(property,PropertyExpander.expandProperties(context,xpath));
     }
   }
  else {

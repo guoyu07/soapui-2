@@ -4,6 +4,8 @@
   frame=new JFrame(title);
   SoapUISplash splash=new SoapUISplash(splashImage,frame);
   frame.setIconImage(UISupport.createImageIcon(FRAME_ICON).getImage());
+  JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+  ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
   isStandalone=true;
   soapUICore=core;
   SoapUI soapUI=new SoapUI();
@@ -11,7 +13,7 @@
   org.apache.commons.cli.Options options=initSoapUIOptions();
   CommandLineParser parser=new PosixParser();
   CommandLine cmd=parser.parse(options,args);
-  if (validateCommandLineArgs(cmd,options)) {
+  if (!validateCommandLineArgs(cmd,options)) {
     System.exit(1);
   }
   if (workspaceName != null) {
@@ -38,13 +40,29 @@
   core.afterStartup(workspace);
   Thread.sleep(500);
   splash.setVisible(false);
-  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE)) {
+  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !BrowserComponent.isJXBrowserDisabled()) {
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){
         showPushPage();
       }
     }
 );
+  }
+  frame.setSize(1000,750);
+  String[] args2=cmd.getArgs();
+  if (args2 != null && args2.length > 0) {
+    String arg=args2[0];
+    if (arg.toUpperCase().endsWith(".WSDL") || arg.toUpperCase().endsWith(".WADL")) {
+      SwingUtilities.invokeLater(new WsdlProjectCreator(arg));
+    }
+ else {
+      try {
+        URL url=new URL(arg);
+        SwingUtilities.invokeLater(new RestProjectCreator(url));
+      }
+ catch (      Exception e) {
+      }
+    }
   }
   return soapUI;
 }

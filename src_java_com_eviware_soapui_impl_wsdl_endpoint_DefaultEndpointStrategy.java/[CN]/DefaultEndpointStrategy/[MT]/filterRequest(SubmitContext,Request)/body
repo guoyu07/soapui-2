@@ -11,12 +11,12 @@
   EndpointDefaults def=defaults.get(uri.toString());
   if (def == null) {
     for (    String ep : defaults.keySet()) {
-      if (PropertyExpansionUtils.expandProperties(context,ep).equals(uri.toString())) {
+      if (PropertyExpander.expandProperties(context,ep).equals(uri.toString())) {
         def=defaults.get(ep);
         break;
       }
     }
     if (def == null)     return;
   }
-  applyDefaultsToWsdlRequest(context,(AbstractHttpRequest<?>)wsdlRequest,def);
+  applyDefaultsToWsdlRequest(context,(AbstractHttpRequestInterface<?>)wsdlRequest,def);
 }

@@ -3,5 +3,6 @@
   RestParamProperty property=getProperty(name);
   if (property == null)   return false;
   property.setName(newName);
+  firePropertyRenamed(name,newName);
   return true;
 }

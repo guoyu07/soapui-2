@@ -1,0 +1,14 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      try {
+        MockProjectRunner runner=new MockProjectRunner(project);
+        project.runBeforeRunScript((ProjectRunContext)runner.getRunContext(),runner);
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage(e1);
+      }
+    }
+  }
+;
+}

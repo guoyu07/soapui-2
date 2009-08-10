@@ -1,4 +1,5 @@
 {
+  Thread.currentThread().setName(loadTest.getName() + " LoadTestStatistics Updater");
   while (running || changed || !samplesStack.isEmpty()) {
     if (changed) {
       fireTableDataChanged();

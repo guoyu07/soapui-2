@@ -1,0 +1,40 @@
+{
+  if ("stop".equals(cmd)) {
+    response.setStatus(HttpServletResponse.SC_OK);
+    response.flushBuffer();
+    SoapUI.getThreadPool().execute(new Runnable(){
+      public void run(){
+        try {
+          Thread.sleep(500);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+        stop();
+      }
+    }
+);
+  }
+ else   if ("restart".equals(cmd)) {
+    response.setStatus(HttpServletResponse.SC_OK);
+    response.flushBuffer();
+    SoapUI.getThreadPool().execute(new Runnable(){
+      public void run(){
+        try {
+          Thread.sleep(500);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+        stop();
+        try {
+          mockService.start();
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (modelItemIcons.containsKey(clazz))   return modelItemIcons.get(clazz);
+  for (  Class<?> iface : clazz.getInterfaces()) {
+    if (modelItemIcons.containsKey(iface))     return modelItemIcons.get(iface);
+  }
+  while (clazz.getSuperclass() != null && ModelItem.class.isAssignableFrom(clazz.getSuperclass())) {
+    return getIconPath((Class<? extends ModelItem>)clazz.getSuperclass());
+  }
+  return null;
+}

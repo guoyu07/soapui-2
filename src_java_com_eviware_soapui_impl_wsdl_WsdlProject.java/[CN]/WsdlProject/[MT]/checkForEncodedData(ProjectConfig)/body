@@ -22,11 +22,7 @@
   try {
     data=OpenSSL.decrypt("des3",password,encryptedContent);
   }
- catch (  IOException e) {
-    e.printStackTrace();
-    return -1;
-  }
-catch (  GeneralSecurityException e) {
+ catch (  Exception e) {
     e.printStackTrace();
     return -1;
   }

@@ -3,20 +3,19 @@
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.RESOURCENAME).addFormFieldValidator(new RequiredValidator());
     dialog.getFormField(Form.EXTRACTPARAMS).setProperty("action",new ExtractParamsAction());
-    dialog.setBooleanValue(Form.CREATEREQUEST,true);
   }
  else {
     dialog.setValue(Form.RESOURCENAME,"");
     dialog.setValue(Form.RESOURCEPATH,"");
   }
-  params=new XmlBeansRestParamsTestPropertyHolder(service,RestParametersConfig.Factory.newInstance());
+  params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
   if (param instanceof URL) {
     String path=RestUtils.extractParams(param.toString(),params,false);
     dialog.setValue(Form.RESOURCEPATH,path);
     setNameFromPath(path);
     if (paramsTable != null)     paramsTable.refresh();
   }
-  paramsTable=new RestParamsTable(params,false);
+  paramsTable=new InternalRestParamsTable(params,ParamLocation.RESOURCE);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
@@ -27,11 +26,10 @@
  catch (    MalformedURLException e) {
     }
     RestResource resource=createRestResource(service,path,dialog);
-    resource.getParams().addParameters(params);
-    UISupport.select(resource);
-    if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
-      createRequest(resource);
-    }
+    paramsTable.extractParams(resource.getParams(),ParamLocation.RESOURCE);
+    XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
+    paramsTable.extractParams(methodParams,ParamLocation.METHOD);
+    SoapUI.getActionRegistry().getAction(NewRestMethodAction.SOAPUI_ACTION_ID).perform(resource,methodParams);
   }
   paramsTable.release();
   paramsTable=null;

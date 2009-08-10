@@ -12,7 +12,7 @@
         StringToStringMap parts=wsdlCache.get(iface.getName());
         Import wsdlImport=def.createImport();
         wsdlImport.setLocationURI(getInterfacePrefix(iface) + "&part=" + parts.get("#root#"));
-        wsdlImport.setNamespaceURI(iface.getWsdlContext().getDefinition().getTargetNamespace());
+        wsdlImport.setNamespaceURI(WsdlUtils.getTargetNamespace(iface.getWsdlContext().getDefinition()));
         def.addImport(wsdlImport);
       }
       response.setStatus(HttpServletResponse.SC_OK);

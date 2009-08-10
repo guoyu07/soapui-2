@@ -1,6 +1,10 @@
 {
   super.release();
-  for (  RestResourceTreeNode child : resourceNodes) {
-    child.release();
+  for (  RestMethodTreeNode treeNode : methodNodes) {
+    treeNode.getModelItem().removePropertyChangeListener(Request.NAME_PROPERTY,propertyChangeListener);
+    treeNode.release();
+  }
+  for (  RestResourceTreeNode resource : resourceNodes) {
+    resource.release();
   }
 }

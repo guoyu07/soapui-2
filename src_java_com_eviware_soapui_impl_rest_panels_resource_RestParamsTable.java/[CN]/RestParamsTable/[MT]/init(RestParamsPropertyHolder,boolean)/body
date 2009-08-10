@@ -1,0 +1,43 @@
+{
+  paramsTableModel=createTableModel(params);
+  paramsTable=new JTable(paramsTableModel);
+  paramsTable.setRowHeight(19);
+  paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(new Object[]{ParameterStyle.QUERY,ParameterStyle.TEMPLATE,ParameterStyle.HEADER,ParameterStyle.MATRIX,ParameterStyle.PLAIN})));
+  paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int selectedRow=paramsTable.getSelectedRow();
+      removeParamAction.setEnabled(selectedRow != -1);
+      movePropertyDownAction.setEnabled(selectedRow < paramsTable.getRowCount() - 1);
+      movePropertyUpAction.setEnabled(selectedRow > 0);
+      if (selectedRow != -1) {
+        RestParamProperty selectedParameter=getSelectedParameter();
+        if (paramDetailsModel != null) {
+          paramDetailsModel.setBean(selectedParameter);
+          detailsForm.setEnabled(true);
+        }
+      }
+ else {
+        if (paramDetailsModel != null) {
+          detailsForm.setEnabled(false);
+          paramDetailsModel.setBean(null);
+        }
+      }
+    }
+  }
+);
+  add(buildToolbar(),BorderLayout.NORTH);
+  if (showInspector) {
+    final JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    add(splitPane,BorderLayout.CENTER);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        splitPane.setDividerLocation(0.5);
+      }
+    }
+);
+  }
+ else {
+    add(new JScrollPane(paramsTable),BorderLayout.CENTER);
+  }
+}

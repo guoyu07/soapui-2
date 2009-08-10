@@ -2,7 +2,7 @@
   String script=getSetupScript();
   if (StringUtils.isNullOrEmpty(script))   return null;
   if (setupScriptEngine == null) {
-    setupScriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+    setupScriptEngine=SoapUIScriptEngineRegistry.create(this);
     setupScriptEngine.setScript(script);
   }
   setupScriptEngine.setVariable("context",runContext);

@@ -1,9 +1,0 @@
-{
-  TestStep currentStep=runContext.getCurrentStep();
-  if (currentStep instanceof HttpRequestTestStep) {
-    prepareRequestStep((HttpRequestTestStep<?>)currentStep);
-  }
- else   if (currentStep instanceof WsdlRunTestCaseTestStep) {
-    ((WsdlRunTestCaseTestStep)currentStep).addTestRunListener(this);
-  }
-}

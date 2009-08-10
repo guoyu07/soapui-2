@@ -1,5 +1,5 @@
 {
-  TestCaseRunner testCaseRunner=new TestCaseRunner(testCase,threadCount++);
+  InternalTestCaseRunner testCaseRunner=new InternalTestCaseRunner(testCase,threadCount++);
   SoapUI.getThreadPool().submit(testCaseRunner);
   runners.add(testCaseRunner);
   return testCaseRunner;

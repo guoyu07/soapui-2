@@ -3,17 +3,19 @@
   this.testSuite=testSuite;
   this.forLoadTest=forLoadTest;
   List<TestStepConfig> testStepConfigs=config.getTestStepList();
+  List<TestStepConfig> removed=new ArrayList<TestStepConfig>();
   for (  TestStepConfig tsc : testStepConfigs) {
     WsdlTestStep testStep=createTestStepFromConfig(tsc);
     if (testStep != null) {
       ensureUniqueName(testStep);
       testSteps.add(testStep);
     }
+ else     removed.add(tsc);
   }
   if (!forLoadTest) {
     List<LoadTestConfig> loadTestConfigs=config.getLoadTestList();
     for (    LoadTestConfig tsc : loadTestConfigs) {
-      WsdlLoadTest loadTest=new WsdlLoadTest(this,tsc);
+      WsdlLoadTest loadTest=buildLoadTest(tsc);
       loadTests.add(loadTest);
     }
   }
@@ -26,4 +28,6 @@
   }
   if (!getConfig().isSetProperties())   getConfig().addNewProperties();
   setPropertiesConfig(getConfig().getProperties());
+  WsrmTestRunListener wsrmListener=new WsrmTestRunListener();
+  addTestRunListener(wsrmListener);
 }

@@ -19,6 +19,15 @@
   builder.addString(DOMAIN,"-d","");
   builder.addBoolean(PRINTREPORT,"-r");
   builder.addString(ROOTFOLDER,"-f","");
+  builder.addStringShadow(PROJECTPASSWORD,"-x","");
+  builder.addStringShadow(SOAPUISETTINGSPASSWORD,"-v","");
+  builder.addBoolean(SAVEAFTER,"-S");
+  builder.addString(WSSTYPE,"-w","");
+  if (proVersion) {
+    builder.addString(GENERATEREPORTSEACHTESTCASE,"-R","");
+    builder.addString(REPORTFORMAT,"-F","");
+  }
+  addPropertyArguments(builder);
   if (dialog.getBooleanValue(ADDSETTINGS)) {
     try {
       builder.addBoolean(ADDSETTINGS,"-t" + SoapUI.saveSettings());

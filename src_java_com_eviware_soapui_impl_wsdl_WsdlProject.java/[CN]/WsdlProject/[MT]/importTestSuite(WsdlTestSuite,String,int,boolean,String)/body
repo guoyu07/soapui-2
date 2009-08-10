@@ -1,0 +1,14 @@
+{
+  testSuite.beforeSave();
+  TestSuiteConfig testSuiteConfig=index == -1 ? (TestSuiteConfig)getConfig().addNewTestSuite().set(testSuite.getConfig().copy()) : (TestSuiteConfig)getConfig().insertNewTestSuite(index).set(testSuite.getConfig().copy());
+  testSuiteConfig.setName(name);
+  testSuite=buildTestSuite(testSuiteConfig);
+  if (description != null)   testSuite.setDescription(description);
+  if (index == -1)   testSuites.add(testSuite);
+ else   testSuites.add(index,testSuite);
+  if (createCopy)   ModelSupport.unsetIds(testSuite);
+  testSuite.afterLoad();
+  fireTestSuiteAdded(testSuite);
+  resolveImportedTestSuite(testSuite);
+  return testSuite;
+}

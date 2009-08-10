@@ -1,0 +1,7 @@
+{
+  if (!filenames.containsKey(namespace)) {
+    filenames.put(namespace,generateFilename(namespace));
+    rFilenames.put(filenames.get(namespace),namespace);
+  }
+  return filenames.get(namespace);
+}

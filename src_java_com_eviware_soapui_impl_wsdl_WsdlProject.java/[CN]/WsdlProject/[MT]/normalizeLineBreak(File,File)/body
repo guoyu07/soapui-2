@@ -1,0 +1,28 @@
+{
+  try {
+    FileReader fr=new FileReader(tmpFile);
+    BufferedReader in=new BufferedReader(fr);
+    FileWriter fw=new FileWriter(target);
+    BufferedWriter out=new BufferedWriter(fw);
+    String line="";
+    while ((line=in.readLine()) != null) {
+      out.write(line);
+      out.newLine();
+      out.flush();
+    }
+    out.close();
+    fw.close();
+    in.close();
+    fr.close();
+  }
+ catch (  FileNotFoundException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+  if (!tmpFile.delete()) {
+    SoapUI.getErrorLog().warn("Failed to delete temporary file: " + tmpFile.getAbsolutePath());
+    tmpFile.deleteOnExit();
+  }
+}

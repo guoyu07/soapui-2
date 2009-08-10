@@ -14,6 +14,17 @@
   mainToolbar.add(new PreferencesActionDelegate());
   mainToolbar.add(new ExitButtonAction());
   mainToolbar.addGlue();
+  searchField=new JTextField(20);
+  searchField.addKeyListener(new KeyAdapter(){
+    @Override public void keyTyped(    KeyEvent e){
+      if (e.getKeyChar() == '\n') {
+        doForumSearch(searchField.getText());
+      }
+    }
+  }
+);
+  mainToolbar.addLabeledFixed("Search Forum",searchField);
+  mainToolbar.add(new ToolbarForumSearchAction());
   mainToolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
   mainToolbar.setBorder(BorderFactory.createEtchedBorder());
   return mainToolbar;

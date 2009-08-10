@@ -1,0 +1,12 @@
+{
+  this.projectFile=new File(projectPath);
+  this.settingsFile=new File(settingsPath);
+  this.warDir=warDir.length() > 0 ? new File(warDir) : new File(System.getProperty("java.io.tmpdir"),"warasmock");
+  if (!this.warDir.exists()) {
+    this.warDir.mkdir();
+  }
+  this.warFile=warFile.length() == 0 ? null : new File(warFile);
+  this.includeExt=includeExt;
+  this.includeActions=actions;
+  this.includeListeners=listeners;
+}

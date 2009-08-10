@@ -12,7 +12,12 @@
         continue;
       }
     }
-    if (proxyHost.endsWith(exclude))     return true;
+    String excludeIp=exclude.indexOf('*') >= 0 ? exclude : nslookup(exclude,true);
+    String ip=nslookup(proxyHost,true);
+    Pattern pattern=Pattern.compile(excludeIp);
+    Matcher matcher=pattern.matcher(ip);
+    Matcher matcher2=pattern.matcher(proxyHost);
+    if (matcher.find() || matcher2.find())     return true;
   }
   return false;
 }

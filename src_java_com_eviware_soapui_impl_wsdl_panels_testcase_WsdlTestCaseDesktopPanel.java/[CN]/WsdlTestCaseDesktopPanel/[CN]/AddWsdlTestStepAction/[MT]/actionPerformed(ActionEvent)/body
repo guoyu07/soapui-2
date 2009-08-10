@@ -5,7 +5,7 @@
     TestStepConfig newTestStepConfig=factory.createNewTestStep(getModelItem(),name);
     if (newTestStepConfig != null) {
       WsdlTestStep testStep=getModelItem().insertTestStep(newTestStepConfig,ix);
-      UISupport.selectAndShow(testStep);
+      if (testStep != null)       UISupport.selectAndShow(testStep);
     }
   }
 }

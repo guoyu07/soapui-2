@@ -2,10 +2,10 @@
   if (StringUtils.isNullOrEmpty(path))   return null;
   if (isHeadless())   return null;
   if (iconCache.containsKey(path))   return iconCache.get(path);
+  String orgPath=path;
   java.net.URL imgURL=null;
   try {
     if (path.indexOf('/',1) == -1)     path="/com/eviware/soapui/resources/images" + path;
-    if (iconCache.containsKey(path))     return iconCache.get(path);
     imgURL=SoapUI.class.getResource(path);
     if (imgURL == null && path.endsWith(".gif")) {
       imgURL=SoapUI.class.getResource(path.substring(0,path.length() - 4) + ".png");
@@ -21,7 +21,7 @@
   if (imgURL != null) {
     try {
       ImageIcon imageIcon=new ImageIcon(imgURL);
-      iconCache.put(path,imageIcon);
+      iconCache.put(orgPath,imageIcon);
       return imageIcon;
     }
  catch (    Throwable e) {

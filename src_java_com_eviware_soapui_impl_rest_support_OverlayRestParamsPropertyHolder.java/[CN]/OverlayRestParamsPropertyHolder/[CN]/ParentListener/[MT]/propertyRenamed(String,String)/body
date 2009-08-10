@@ -1,0 +1,8 @@
+{
+  if (overlay.hasProperty(oldName)) {
+    if (!overlay.hasProperty(newName))     firePropertyAdded(newName);
+  }
+ else   if (overlay.hasProperty(newName)) {
+    firePropertyRemoved(oldName);
+  }
+}

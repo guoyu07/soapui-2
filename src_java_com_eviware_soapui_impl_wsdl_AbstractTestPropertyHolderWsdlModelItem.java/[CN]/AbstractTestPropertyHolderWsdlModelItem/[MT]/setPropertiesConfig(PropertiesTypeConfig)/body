@@ -3,7 +3,9 @@
  else   propertyHolderSupport.resetPropertiesConfig(config);
   String propertyName=createPropertyName(getName());
   if (StringUtils.hasContent(propertyName)) {
-    String propFile=System.getProperty("soapui.properties." + propertyName);
+    String propFileName="soapui.properties." + propertyName;
+    String propFile=System.getProperty(propFileName);
+    if (!StringUtils.hasContent(propFile))     propFile=SoapUI.getGlobalProperties().getPropertyValue(propFileName);
     if (StringUtils.hasContent(propFile)) {
       int result=propertyHolderSupport.addPropertiesFromFile(propFile);
       if (result > 0) {

@@ -2,12 +2,12 @@
   settings.setBoolean(UISettings.CLOSE_PROJECTS,values.getBoolean(CLOSE_PROJECTS));
   settings.setBoolean(UISettings.ORDER_PROJECTS,values.getBoolean(ORDER_PROJECTS));
   settings.setBoolean(UISettings.ORDER_REQUESTS,values.getBoolean(ORDER_REQUESTS));
-  settings.setBoolean(UISettings.ORDER_TESTSUITES,values.getBoolean(ORDER_TESTSUITES));
   settings.setBoolean(UISettings.SHOW_DESCRIPTIONS,values.getBoolean(SHOW_DESCRIPTIONS));
   settings.setBoolean(UISettings.CREATE_BACKUP,values.getBoolean(CREATE_BACKUP));
   settings.setString(UISettings.BACKUP_FOLDER,values.get(BACKUP_FOLDER));
   settings.setString(UISettings.AUTO_SAVE_INTERVAL,values.get(AUTOSAVE_INTERVAL));
   settings.setBoolean(UISettings.AUTO_SAVE_PROJECTS_ON_EXIT,values.getBoolean(AUTOSAVE_ONEXIT));
+  settings.setBoolean(UISettings.LINEBREAK,values.getBoolean(LINEBRAK));
   if (SoapUI.isStandalone()) {
     settings.setString(UISettings.DESKTOP_TYPE,values.get(DESKTOP_TYPE));
     settings.setBoolean(UISettings.NATIVE_LAF,values.getBoolean(NATIVE_LAF));
@@ -17,5 +17,7 @@
     settings.setBoolean(UISettings.SHOW_LOGS_AT_STARTUP,values.getBoolean(SHOW_LOGS_AT_STARTUP));
     settings.setBoolean(UISettings.SHOW_STARTUP_PAGE,values.getBoolean(SHOW_STARTUP_PAGE));
   }
+  settings.setString(UISettings.GC_INTERVAL,values.get(GC_INTERVAL));
   SoapUI.initAutoSaveTimer();
+  SoapUI.initGCTimer();
 }

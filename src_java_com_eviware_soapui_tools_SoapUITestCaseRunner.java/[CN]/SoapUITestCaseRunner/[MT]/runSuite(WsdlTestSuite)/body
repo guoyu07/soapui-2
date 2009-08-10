@@ -1,35 +1,10 @@
 {
-  log.info(("Running soapUI suite [" + suite.getName() + "], runType = "+ suite.getRunType()));
-  PropertyExpansionContext context=new DefaultPropertyExpansionContext(suite);
-  long start=System.currentTimeMillis();
   try {
-    suite.runSetupScript(context);
-    for (int c=0; c < suite.getTestCaseCount(); c++) {
-      WsdlTestCase tc=suite.getTestCaseAt(c);
-      String name=tc.getName();
-      if (testCase == null || name.equalsIgnoreCase(testCase)) {
-        if (!tc.isDisabled()) {
-          runTestCase(tc,context);
-        }
- else {
-          log.info("Skipping disabled testcase [" + name + "]");
-        }
-      }
- else {
-        log.info("Skipping testcase [" + name + "], filter is ["+ testCase+ "]");
-      }
-    }
+    log.info(("Running TestSuite [" + suite.getName() + "], runType = "+ suite.getRunType()));
+    WsdlTestSuiteRunner runner=suite.run(new StringToObjectMap(),false);
+    log.info("TestSuite [" + suite.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ (runner.getTimeTaken())+ "ms");
   }
  catch (  Exception e) {
     e.printStackTrace();
   }
- finally {
-    try {
-      suite.runTearDownScript(context);
-    }
- catch (    Exception e) {
-      e.printStackTrace();
-    }
-  }
-  log.info("soapUI suite [" + suite.getName() + "] finished in "+ (System.currentTimeMillis() - start)+ "ms");
 }

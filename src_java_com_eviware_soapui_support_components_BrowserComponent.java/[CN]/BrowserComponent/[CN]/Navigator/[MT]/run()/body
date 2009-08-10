@@ -1,0 +1,13 @@
+{
+  try {
+    if (browser == null) {
+      initBrowser();
+    }
+    browser.activate();
+    browser.navigate(getUrl());
+    if (showingErrorPage)     showingErrorPage=false;
+  }
+ catch (  Throwable e) {
+    SoapUI.log(e.toString());
+  }
+}

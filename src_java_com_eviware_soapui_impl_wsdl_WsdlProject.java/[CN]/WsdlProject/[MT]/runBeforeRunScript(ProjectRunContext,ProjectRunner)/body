@@ -1,0 +1,13 @@
+{
+  String script=getBeforeRunScript();
+  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (beforeRunScriptEngine == null) {
+    beforeRunScriptEngine=SoapUIScriptEngineRegistry.create(this);
+    beforeRunScriptEngine.setScript(script);
+  }
+  beforeRunScriptEngine.setVariable("runner",runner);
+  beforeRunScriptEngine.setVariable("context",context);
+  beforeRunScriptEngine.setVariable("project",this);
+  beforeRunScriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  return beforeRunScriptEngine.run();
+}

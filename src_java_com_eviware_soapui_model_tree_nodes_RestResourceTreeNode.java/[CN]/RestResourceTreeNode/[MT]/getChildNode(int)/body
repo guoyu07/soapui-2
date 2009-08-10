@@ -1,5 +1,5 @@
 {
-  int childCount=super.getChildCount();
-  if (index < childCount)   return super.getChildNode(index);
+  int childCount=methodNodes.size();
+  if (index < childCount)   return methodNodes.get(index);
  else   return resourceNodes.get(index - childCount);
 }

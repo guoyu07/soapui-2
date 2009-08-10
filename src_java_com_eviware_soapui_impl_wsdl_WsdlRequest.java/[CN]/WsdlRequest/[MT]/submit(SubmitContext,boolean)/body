@@ -1,5 +1,5 @@
 {
-  String endpoint=PropertyExpansionUtils.expandProperties(submitContext,getEndpoint());
+  String endpoint=PropertyExpander.expandProperties(submitContext,getEndpoint());
   if (endpoint == null || endpoint.trim().length() == 0) {
     UISupport.showErrorMessage("Missing endpoint for request [" + getName() + "]");
     return null;

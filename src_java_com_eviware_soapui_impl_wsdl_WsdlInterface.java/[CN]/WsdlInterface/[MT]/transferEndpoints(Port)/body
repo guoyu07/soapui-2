@@ -3,7 +3,7 @@
     String endpoint=WsdlUtils.getSoapEndpoint(port);
     if (endpoint != null) {
       StringList list=new StringList(getEndpoints());
-      for (int c=0; c < list.size(); c++)       list.set(c,PropertyExpansionUtils.expandProperties(this,list.get(c)));
+      for (int c=0; c < list.size(); c++)       list.set(c,PropertyExpander.expandProperties(this,list.get(c)));
       if (!list.contains(endpoint)) {
         if (UISupport.confirm("Update existing requests with new endpoint\n[" + endpoint + "]","Update Definition")) {
           for (int c=0; c < getOperationCount(); c++) {

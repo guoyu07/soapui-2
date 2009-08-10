@@ -9,14 +9,19 @@
     toolbar.add(addPropertyButton);
     JButton removePropertyButton=UISupport.createToolbarButton(removePropertyAction);
     toolbar.add(removePropertyButton);
+    toolbar.addRelatedGap();
     JButton movePropertyUpButton=UISupport.createToolbarButton(movePropertyUpAction);
     toolbar.add(movePropertyUpButton);
     JButton movePropertyDownButton=UISupport.createToolbarButton(movePropertyDownAction);
     toolbar.add(movePropertyDownButton);
+    toolbar.addRelatedGap();
+    toolbar.add(UISupport.createToolbarButton(new SortPropertiesAction()));
+    toolbar.addRelatedGap();
   }
   JButton clearPropertiesButton=UISupport.createToolbarButton(new ClearPropertiesAction());
   toolbar.add(clearPropertiesButton);
   JButton loadPropertiesButton=UISupport.createToolbarButton(loadPropertiesAction);
   toolbar.add(loadPropertiesButton);
+  toolbar.add(UISupport.createToolbarButton(new SavePropertiesAction()));
   return toolbar;
 }

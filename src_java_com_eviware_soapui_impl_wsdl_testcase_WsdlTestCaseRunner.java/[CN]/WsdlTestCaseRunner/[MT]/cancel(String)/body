@@ -1,7 +1,0 @@
-{
-  if (status == Status.CANCELED || status == Status.FINISHED || status == Status.FAILED || runContext == null)   return;
-  TestStep currentStep=runContext.getCurrentStep();
-  if (currentStep != null)   currentStep.cancel();
-  status=Status.CANCELED;
-  this.reason=reason;
-}

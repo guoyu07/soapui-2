@@ -1,0 +1,9 @@
+{
+  SoapUITreeNode methodTreeNode=getTreeModel().getTreeNode(method);
+  if (methodNodes.contains(methodTreeNode)) {
+    getTreeModel().notifyNodeRemoved(methodTreeNode);
+    methodNodes.remove(methodTreeNode);
+    method.removePropertyChangeListener(propertyChangeListener);
+  }
+ else   throw new RuntimeException("Removing unknown method");
+}

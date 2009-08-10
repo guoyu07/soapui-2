@@ -4,6 +4,9 @@
   if (settings.getBoolean(HttpSettings.CLOSE_CONNECTIONS)) {
     httpMethod.setRequestHeader("Connection","close");
   }
+  if (settings.getBoolean(HttpSettings.EXPECT_CONTINUE) && httpMethod instanceof EntityEnclosingMethod) {
+    httpMethod.getParams().setParameter(HttpMethodParams.USE_EXPECT_CONTINUE,Boolean.TRUE);
+  }
   String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
   if (!"None".equals(compressionAlg))   httpMethod.setRequestHeader("Content-Encoding",compressionAlg);
   if (settings.getBoolean(HttpSettings.RESPONSE_COMPRESSION)) {

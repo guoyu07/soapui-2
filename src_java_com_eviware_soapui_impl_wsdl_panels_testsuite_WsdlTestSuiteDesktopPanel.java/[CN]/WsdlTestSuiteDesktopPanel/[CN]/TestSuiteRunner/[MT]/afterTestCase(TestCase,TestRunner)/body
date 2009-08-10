@@ -1,6 +1,0 @@
-{
-  super.afterTestCase(testCase,runner);
-  progressBar.setValue(++finishCount);
-  if (runner.getStatus() == TestRunner.Status.FAILED)   failedTests=true;
-  if (getRunType() == TestSuiteRunType.SEQUENTIAL)   testCase.removeTestRunListener(runLogListener);
-}

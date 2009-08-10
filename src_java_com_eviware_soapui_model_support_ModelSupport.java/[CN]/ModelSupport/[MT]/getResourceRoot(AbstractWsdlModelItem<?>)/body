@@ -1,5 +1,5 @@
 {
   WsdlProject project=(WsdlProject)getModelItemProject(testStep);
   if (project == null)   return null;
-  return PropertyExpansionUtils.expandProperties(project,project.getResourceRoot());
+  return PropertyExpander.expandProperties(project,project.getResourceRoot());
 }

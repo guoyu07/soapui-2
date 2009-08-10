@@ -1,6 +1,7 @@
 {
   TreePath selectionPath=mainTree.getSelectionPath();
-  if (selectionPath != null) {
+  if (selectionPath == null || mainTree.getSelectionCount() == 0)   return;
+  if (mainTree.getSelectionCount() == 1) {
     SoapUITreeNode lastPathComponent=(SoapUITreeNode)selectionPath.getLastPathComponent();
     ActionList actions=lastPathComponent.getActions();
     if (actions != null) {
@@ -22,6 +23,20 @@
           path=mainTree.getPathForRow(++row);
         }
         e.consume();
+      }
+    }
+  }
+ else {
+    TreePath[] selectionPaths=mainTree.getSelectionPaths();
+    List<ModelItem> targets=new ArrayList<ModelItem>();
+    for (    TreePath treePath : selectionPaths) {
+      SoapUITreeNode node=(SoapUITreeNode)treePath.getLastPathComponent();
+      targets.add(node.getModelItem());
+    }
+    if (targets.size() > 0) {
+      ActionList actions=ActionListBuilder.buildMultiActions(targets.toArray(new ModelItem[targets.size()]));
+      if (actions.getActionCount() > 0) {
+        actions.dispatchKeyEvent(e);
       }
     }
   }

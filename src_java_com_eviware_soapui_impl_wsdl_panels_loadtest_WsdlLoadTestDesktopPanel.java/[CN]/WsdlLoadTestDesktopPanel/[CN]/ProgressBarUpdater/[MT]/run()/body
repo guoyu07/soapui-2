@@ -16,7 +16,7 @@
       int value=(int)((timePassed * 100) / (getModelItem().getTestLimit() * 1000));
       progressBar.setValue(value);
     }
- else     if (getModelItem().getLimitType() == LoadTestLimitTypesConfig.COUNT) {
+ else     if (getModelItem().getLimitType() == LoadTestLimitTypesConfig.COUNT || getModelItem().getLimitType() == LoadTestLimitTypesConfig.COUNT_PER_THREAD) {
       if (loadTestIsRunning && progressBar.isIndeterminate()) {
         progressBar.setIndeterminate(false);
         progressBar.setString(null);

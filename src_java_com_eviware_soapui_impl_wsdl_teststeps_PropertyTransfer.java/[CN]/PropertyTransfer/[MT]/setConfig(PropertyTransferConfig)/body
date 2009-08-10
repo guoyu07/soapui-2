@@ -12,6 +12,7 @@
     sourceStep=getSourceStepName();
     if (sourceStep != null)     config.setSourceStep(sourceStep);
   }
+ else   sourceStep=sourceStep.trim();
   currentSourceStep=getPropertyHolder(sourceStep);
   sourceType=config.getSourceType();
   currentSourceProperty=currentSourceStep == null || sourceType == null ? null : currentSourceStep.getProperty(sourceType);
@@ -21,6 +22,7 @@
     targetStep=getTargetStepName();
     if (targetStep != null)     config.setTargetStep(targetStep);
   }
+ else   targetStep=targetStep.trim();
   currentTargetStep=getPropertyHolder(targetStep);
   targetType=config.getTargetType();
   currentTargetProperty=currentTargetStep == null || targetType == null ? null : currentTargetStep.getProperty(targetType);

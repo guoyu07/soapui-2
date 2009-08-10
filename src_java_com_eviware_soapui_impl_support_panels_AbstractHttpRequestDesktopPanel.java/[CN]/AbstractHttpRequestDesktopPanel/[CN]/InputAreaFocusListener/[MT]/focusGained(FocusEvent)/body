@@ -6,7 +6,7 @@
     return;
   }
   if (getModelItem().getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR))   return;
-  if (((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged())   return;
+  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged())   return;
   int pos=requestSplitPane.getDividerLocation();
   if (pos >= 600)   return;
   if (requestSplitPane.getMaximumDividerLocation() > 700)   requestSplitPane.setDividerLocation(600);

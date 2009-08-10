@@ -15,7 +15,7 @@
         SoapUI.logError(e);
       }
     }
-    if (status != Status.RUNNING || getProgress() >= 1 || (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit())) {
+    if (status != Status.RUNNING || getProgress() >= 1) {
       while (!testCases.isEmpty())       testCases.remove(0).release();
       threadsWaitingToStart=0;
       break;

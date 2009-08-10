@@ -1,18 +1,5 @@
 {
   toolbar.addSeparator();
-  methodCombo=new JComboBox(new Object[]{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE,RequestMethod.HEAD});
-  methodCombo.setSelectedItem(getRequest().getMethod());
-  methodCombo.setToolTipText("Set desired HTTP method");
-  methodCombo.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
-      updatingRequest=true;
-      getRequest().setMethod((RequestMethod)methodCombo.getSelectedItem());
-      updatingRequest=false;
-    }
-  }
-);
-  toolbar.addLabeledFixed("Method",methodCombo);
-  toolbar.addSeparator();
   if (getRequest().getResource() != null) {
     acceptCombo=new JComboBox(getRequest().getResponseMediaTypes());
     acceptCombo.setEditable(true);
@@ -28,11 +15,12 @@
 );
     toolbar.addLabeledFixed("Accept",acceptCombo);
     toolbar.addSeparator();
-    if (getRequest() instanceof RestTestRequest) {
+    if (getRequest() instanceof RestTestRequestInterface) {
       pathCombo=new JComboBox(new PathComboBoxModel());
-      pathCombo.setRenderer(new ModelItemListCellRenderer());
+      pathCombo.setRenderer(new RestMethodListCellRenderer());
       pathCombo.setPreferredSize(new Dimension(200,20));
-      toolbar.addLabeledFixed("Resource:",pathCombo);
+      pathCombo.setSelectedItem(getRequest().getRestMethod());
+      toolbar.addLabeledFixed("Resource/Method:",pathCombo);
       toolbar.addSeparator();
     }
  else {

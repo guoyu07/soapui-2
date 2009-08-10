@@ -43,7 +43,6 @@
       }
       WsdlTestRequest request=target.getTestRequest();
       if (dialog.getBooleanValue(Form.KEEP_EXISTING)) {
-        req=SoapUtils.transferSoapHeaders(request.getRequestContent(),req,operation.getInterface().getSoapVersion());
         req=XmlUtils.transferValues(request.getRequestContent(),req);
       }
       request.setRequestContent(req);

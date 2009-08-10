@@ -9,6 +9,7 @@
     (getTestSuite()).fireTestStepRemoved(testStep,ix);
   }
   finally {
+    notifyPropertyChanged("testSteps",testStep,null);
     testStep.release();
     for (int c=0; c < getConfig().sizeOfTestStepArray(); c++) {
       if (testStep.getConfig() == getConfig().getTestStepArray(c)) {

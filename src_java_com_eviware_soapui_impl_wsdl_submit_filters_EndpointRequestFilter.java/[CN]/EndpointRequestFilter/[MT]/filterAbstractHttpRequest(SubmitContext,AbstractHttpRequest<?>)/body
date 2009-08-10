@@ -1,7 +1,7 @@
 {
   HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   String strURL=request.getEndpoint();
-  strURL=PropertyExpansionUtils.expandProperties(context,strURL);
+  strURL=PropertyExpander.expandProperties(context,strURL);
   try {
     if (StringUtils.hasContent(strURL))     httpMethod.setURI(new URI(strURL,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
   }

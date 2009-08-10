@@ -1,0 +1,20 @@
+{
+  String name=UISupport.prompt("Specify name of copied TestCase","Copy TestCase","Copy of " + testSuite.getName());
+  if (name == null)   return null;
+  if (testSuite.getProject() == target) {
+    return target.importTestSuite(testSuite,name,position,true,null);
+  }
+ else {
+    Set<Interface> requiredInterfaces=new HashSet<Interface>();
+    for (    TestCase testCase : testSuite.getTestCaseList()) {
+      for (int y=0; y < testCase.getTestStepCount(); y++) {
+        WsdlTestStep testStep=(WsdlTestStep)testCase.getTestStepAt(y);
+        requiredInterfaces.addAll(testStep.getRequiredInterfaces());
+      }
+    }
+    if (DragAndDropSupport.importRequiredInterfaces(target,requiredInterfaces,"Move TestSuite")) {
+      return target.importTestSuite(testSuite,testSuite.getName(),position,true,null);
+    }
+  }
+  return null;
+}

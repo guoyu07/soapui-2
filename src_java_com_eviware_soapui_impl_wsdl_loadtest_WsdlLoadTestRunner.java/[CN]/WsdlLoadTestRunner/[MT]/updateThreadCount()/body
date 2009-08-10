@@ -1,10 +1,10 @@
 {
   if (status != Status.RUNNING)   return;
   long newCount=loadTest.getThreadCount();
-  Iterator<TestCaseRunner> iterator=runners.iterator();
-  List<TestCaseRunner> activeRunners=new ArrayList<TestCaseRunner>();
+  Iterator<InternalTestCaseRunner> iterator=runners.iterator();
+  List<InternalTestCaseRunner> activeRunners=new ArrayList<InternalTestCaseRunner>();
   while (iterator.hasNext()) {
-    TestCaseRunner runner=iterator.next();
+    InternalTestCaseRunner runner=iterator.next();
     if (!runner.isCanceled())     activeRunners.add(runner);
   }
   long diff=newCount - activeRunners.size();

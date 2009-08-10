@@ -1,6 +1,6 @@
 {
   String old=getPath();
-  if (getResource() != null && getResource().getFullPath().equals(fullPath) && getConfig().isSetFullPath())   getConfig().unsetFullPath();
+  if (getResource() != null && getResource().getFullPath().equals(fullPath))   getConfig().unsetFullPath();
  else   getConfig().setFullPath(fullPath);
   notifyPropertyChanged("path",old,fullPath);
 }

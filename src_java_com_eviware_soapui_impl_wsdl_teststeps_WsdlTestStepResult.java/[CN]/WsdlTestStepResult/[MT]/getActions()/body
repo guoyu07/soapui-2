@@ -1,20 +1,20 @@
 {
   if (isDiscarded())   return discardedActionList;
   if (actionList == null) {
-    actionList=new DefaultActionList(testStep.getName());
+    actionList=new DefaultActionList(testStepName);
     actionList.setDefaultAction(new AbstractAction(){
       public void actionPerformed(      ActionEvent e){
         if (getMessages().length > 0) {
-          StringBuffer buf=new StringBuffer();
-          if (getError() != null)           buf.append(getError().toString()).append("\r\n");
-          for (          String s : getMessages())           buf.append(s).append("\r\n");
-          UISupport.showExtendedInfo("TestStep Result","Step [" + testStep.getName() + "] ran with status ["+ getStatus()+ "]",buf.toString(),null);
+          StringBuffer buf=new StringBuffer("<html><body>");
+          if (getError() != null)           buf.append(getError().toString()).append("<br/>");
+          for (          String s : getMessages())           buf.append(s).append("<br/>");
+          UISupport.showExtendedInfo("TestStep Result","Step [" + testStepName + "] ran with status ["+ getStatus()+ "]",buf.toString(),null);
         }
  else         if (getError() != null) {
-          UISupport.showExtendedInfo("TestStep Result","Step [" + testStep.getName() + "] ran with status ["+ getStatus()+ "]",getError().toString(),null);
+          UISupport.showExtendedInfo("TestStep Result","Step [" + testStepName + "] ran with status ["+ getStatus()+ "]",getError().toString(),null);
         }
  else {
-          UISupport.showInfoMessage("Step [" + testStep.getName() + "] ran with status ["+ getStatus()+ "]","TestStep Result");
+          UISupport.showInfoMessage("Step [" + testStepName + "] ran with status ["+ getStatus()+ "]","TestStep Result");
         }
       }
     }

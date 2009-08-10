@@ -1,0 +1,9 @@
+{
+  if (SoapUI.getSettings().getBoolean(HttpSettings.ENABLE_MOCK_WIRE_LOG)) {
+    if (capturingServletOutputStream == null) {
+      capturingServletOutputStream=new CapturingServletOutputStream(super.getOutputStream());
+    }
+    return capturingServletOutputStream;
+  }
+ else   return super.getOutputStream();
+}

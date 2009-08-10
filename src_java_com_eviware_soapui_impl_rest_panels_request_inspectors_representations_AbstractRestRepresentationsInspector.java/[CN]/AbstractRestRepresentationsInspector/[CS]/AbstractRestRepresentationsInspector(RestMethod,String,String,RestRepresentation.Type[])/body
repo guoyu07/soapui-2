@@ -1,0 +1,7 @@
+{
+  super(name,description,true,RestRepresentationsInspectorFactory.INSPECTOR_ID);
+  this.restMethod=restMethod;
+  this.types=Arrays.asList(types);
+  restMethod.addPropertyChangeListener("representations",this);
+  updateLabel();
+}

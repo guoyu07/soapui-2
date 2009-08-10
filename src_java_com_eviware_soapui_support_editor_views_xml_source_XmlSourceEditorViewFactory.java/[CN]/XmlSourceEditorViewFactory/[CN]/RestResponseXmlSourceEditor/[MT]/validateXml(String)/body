@@ -1,5 +1,5 @@
 {
-  if (getModelItem().getResource() == null)   return new ValidationError[0];
-  WadlValidator validator=new WadlValidator(getModelItem().getResource().getService().getWadlContext());
-  return validator.assertResponse(new RestResponseMessageExchange(getModelItem()));
+  if (getModelItem() instanceof HttpRequestInterface || ((RestRequestInterface)getModelItem()).getResource() == null)   return new ValidationError[0];
+  WadlValidator validator=new WadlValidator(((RestRequestInterface)getModelItem()).getResource().getService().getWadlContext());
+  return validator.assertResponse(new RestResponseMessageExchange((RestRequest)getModelItem()));
 }

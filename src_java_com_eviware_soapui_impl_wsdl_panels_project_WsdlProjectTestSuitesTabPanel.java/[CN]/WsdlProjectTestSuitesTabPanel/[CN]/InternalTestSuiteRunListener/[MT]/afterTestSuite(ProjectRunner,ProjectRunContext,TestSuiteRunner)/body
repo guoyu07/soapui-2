@@ -1,0 +1,5 @@
+{
+  if (testScenarioRunner != projectRunner)   return;
+  progressBar.setValue(++finishCount);
+  if (project.getRunType() == TestSuiteRunType.SEQUENTIAL)   testRunner.getTestSuite().removeTestSuiteRunListener(runLogListener);
+}

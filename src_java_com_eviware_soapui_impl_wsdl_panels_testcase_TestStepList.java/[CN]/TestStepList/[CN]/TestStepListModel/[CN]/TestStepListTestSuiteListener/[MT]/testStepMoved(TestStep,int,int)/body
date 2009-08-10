@@ -1,0 +1,15 @@
+{
+  if (testStep.getTestCase() == testCase) {
+    fireContentsChanged(TestStepListModel.this,fromIndex,fromIndex + offset);
+    int selectedIndex=testStepList.getSelectedIndex();
+    if (selectedIndex == fromIndex) {
+      testStepList.setSelectedIndex(fromIndex + offset);
+    }
+ else     if (selectedIndex < fromIndex && selectedIndex >= fromIndex + offset) {
+      testStepList.setSelectedIndex(selectedIndex + 1);
+    }
+ else     if (selectedIndex > fromIndex && selectedIndex <= fromIndex + offset) {
+      testStepList.setSelectedIndex(selectedIndex - 1);
+    }
+  }
+}

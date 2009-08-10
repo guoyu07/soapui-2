@@ -1,34 +1,12 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  mediaTypeCombo=new JComboBox(getRequestMediaTypes());
-  mediaTypeCombo.setPreferredSize(new Dimension(120,20));
-  mediaTypeCombo.setEnabled(restRequest.hasRequestBody());
-  mediaTypeCombo.setEditable(true);
-  if (restRequest.getMediaType() != null)   mediaTypeCombo.setSelectedItem(restRequest.getMediaType());
-  mediaTypeCombo.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
-      restRequest.setMediaType(String.valueOf(mediaTypeCombo.getSelectedItem()));
-    }
-  }
-);
-  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
+  addMediaTypeCombo(toolbar);
   toolbar.addSeparator();
   recreateButton=UISupport.createActionButton(new CreateDefaultRepresentationAction(),true);
   recreateButton.setEnabled(canRecreate());
   toolbar.addFixed(recreateButton);
   toolbar.addSeparator();
-  postQueryCheckBox=new JCheckBox("Post QueryString",restRequest.isPostQueryString());
-  postQueryCheckBox.setToolTipText("Controls if Query-parameters should be put in message body");
-  postQueryCheckBox.setOpaque(false);
-  postQueryCheckBox.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent e){
-      restRequest.setPostQueryString(postQueryCheckBox.isSelected());
-      enableBodyComponents();
-    }
-  }
-);
-  postQueryCheckBox.setPreferredSize(new Dimension(130,20));
-  toolbar.addFixed(postQueryCheckBox);
+  addPostQueryCheckBox(toolbar);
   toolbar.setMinimumSize(new Dimension(50,20));
   return toolbar;
 }

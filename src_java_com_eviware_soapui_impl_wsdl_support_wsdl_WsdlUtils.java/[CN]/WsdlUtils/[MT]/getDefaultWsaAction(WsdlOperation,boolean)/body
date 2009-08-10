@@ -12,7 +12,7 @@
     }
     WsdlInterface iface=operation.getInterface();
     Definition definition=iface.getWsdlContext().getDefinition();
-    String targetNamespace=definition.getTargetNamespace();
+    String targetNamespace=WsdlUtils.getTargetNamespace(definition);
     String portTypeName=iface.getBinding().getPortType().getQName().getLocalPart();
     String operationName=operation.getName();
     if (!StringUtils.isNullOrEmpty(operationName)) {
@@ -28,7 +28,7 @@
     String operationInOutName=output ? operation.getOutputName() : operation.getInputName();
     if (operationInOutName == null)     operationInOutName=operation.getName() + (output ? "Response" : "Request");
     StringBuffer result=new StringBuffer(targetNamespace);
-    if (targetNamespace.charAt(targetNamespace.length() - 1) != '/' && portTypeName.charAt(0) != '/')     result.append('/');
+    if (targetNamespace.length() > 0 && targetNamespace.charAt(targetNamespace.length() - 1) != '/' && portTypeName.charAt(0) != '/')     result.append('/');
     result.append(portTypeName);
     if (portTypeName.charAt(portTypeName.length() - 1) != '/' && operationInOutName.charAt(0) != '/')     result.append('/');
     result.append(operationInOutName);

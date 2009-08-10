@@ -1,0 +1,17 @@
+{
+  WsdlTestSuite testSuite=getTestRunnable();
+  listeners=testSuite.getTestSuiteRunListeners();
+  testSuite.runSetupScript(runContext,this);
+  if (!isRunning())   return;
+  if (testSuite.getTimeout() > 0) {
+    startTimeoutTimer(testSuite.getTimeout());
+  }
+  notifyBeforeRun();
+  if (!isRunning())   return;
+  if (testSuite.getRunType() == TestSuiteRunType.SEQUENTIAL) {
+    runSequential(testSuite,runContext);
+  }
+ else   if (testSuite.getRunType() == TestSuiteRunType.PARALLEL) {
+    runParallel(testSuite,runContext);
+  }
+}

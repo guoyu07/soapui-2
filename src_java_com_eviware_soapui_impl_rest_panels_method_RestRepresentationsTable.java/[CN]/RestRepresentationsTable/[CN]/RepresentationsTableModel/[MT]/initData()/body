@@ -1,0 +1,12 @@
+{
+  if (!data.isEmpty()) {
+    release();
+    data.clear();
+  }
+  for (  RestRepresentation representation : restMethod.getRepresentations()) {
+    if (types.contains(representation.getType())) {
+      representation.addPropertyChangeListener(this);
+      data.add(representation);
+    }
+  }
+}

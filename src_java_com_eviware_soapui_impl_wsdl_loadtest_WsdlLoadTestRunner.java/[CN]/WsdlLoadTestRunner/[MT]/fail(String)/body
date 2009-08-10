@@ -9,8 +9,8 @@
   for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     listener.loadTestStopped(this,context);
   }
-  TestCaseRunner[] r=runners.toArray(new TestCaseRunner[runners.size()]);
-  for (  TestCaseRunner runner : r) {
+  InternalTestCaseRunner[] r=runners.toArray(new InternalTestCaseRunner[runners.size()]);
+  for (  InternalTestCaseRunner runner : r) {
     runner.cancel(reason,true);
   }
   tearDown();

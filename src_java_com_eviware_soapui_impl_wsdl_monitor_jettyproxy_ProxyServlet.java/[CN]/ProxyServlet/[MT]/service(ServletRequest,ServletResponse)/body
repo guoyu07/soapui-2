@@ -1,14 +1,14 @@
 {
+  monitor.fireOnRequest(request,response);
+  if (response.isCommitted())   return;
   HttpMethodBase method;
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   if (httpRequest.getMethod().equals("GET"))   method=new ExtendedGetMethod();
  else   method=new ExtendedPostMethod();
-  if (capturedData == null) {
-    capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
-    capturedData.setRequestHost(httpRequest.getServerName());
-    capturedData.setRequestHeader(httpRequest);
-    capturedData.setTargetURL(httpRequest.getRequestURL().toString());
-  }
+  JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
+  capturedData.setRequestHost(httpRequest.getServerName());
+  capturedData.setRequestHeader(httpRequest);
+  capturedData.setTargetURL(httpRequest.getRequestURL().toString());
   CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
   String connectionHeader=httpRequest.getHeader("Connection");
   if (connectionHeader != null) {
@@ -35,7 +35,7 @@
   }
   method.setRequestHeader("Via","SoapUI Monitor");
   if (!xForwardedFor)   method.addRequestHeader("X-Forwarded-For",request.getRemoteAddr());
-  if (method instanceof ExtendedPostMethod)   ((ExtendedPostMethod)method).setRequestEntity(new InputStreamRequestEntity(capture,"text/xml; charset=utf-8"));
+  if (method instanceof ExtendedPostMethod)   ((ExtendedPostMethod)method).setRequestEntity(new InputStreamRequestEntity(capture,request.getContentType()));
   HostConfiguration hostConfiguration=new HostConfiguration();
   StringBuffer url=new StringBuffer("http://");
   url.append(httpRequest.getServerName());
@@ -49,7 +49,7 @@
     }
   }
   hostConfiguration.setHost(new URI(url.toString(),true));
-  SoapUI.log("PROXY to:" + url);
+  monitor.fireBeforeProxy(request,response,method,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
     client.executeMethod(hostConfiguration,method,httpState);
@@ -58,20 +58,20 @@
     client.executeMethod(hostConfiguration,method);
   }
   capturedData.stopCapture();
-  byte[] res=method.getResponseBody();
   capturedData.setRequest(capture.getCapturedData());
-  capturedData.setResponse(res);
+  capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method);
-  capturedData.setRawRequestData(getRequestToBytes(method,capture));
-  capturedData.setRawResponseData(getResponseToBytes(method,res));
-  monitor.addMessageExchange(capturedData);
-  StringToStringMap responseHeaders=capturedData.getResponseHeaders();
-  capturedData=null;
-  HttpServletResponse httpResponse=(HttpServletResponse)response;
-  for (  String name : responseHeaders.keySet()) {
-    String header=responseHeaders.get(name);
-    httpResponse.addHeader(name,header);
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,capture));
+  capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
+  monitor.fireAfterProxy(request,response,method,capturedData);
+  if (!response.isCommitted()) {
+    StringToStringMap responseHeaders=capturedData.getResponseHeaders();
+    HttpServletResponse httpResponse=(HttpServletResponse)response;
+    for (    String name : responseHeaders.keySet()) {
+      String header=responseHeaders.get(name);
+      if (!httpResponse.containsHeader(name))       httpResponse.addHeader(name,header);
+    }
+    IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
   }
-  IO.copy(new ByteArrayInputStream(res),httpResponse.getOutputStream());
-  method.releaseConnection();
+  monitor.addMessageExchange(capturedData);
 }

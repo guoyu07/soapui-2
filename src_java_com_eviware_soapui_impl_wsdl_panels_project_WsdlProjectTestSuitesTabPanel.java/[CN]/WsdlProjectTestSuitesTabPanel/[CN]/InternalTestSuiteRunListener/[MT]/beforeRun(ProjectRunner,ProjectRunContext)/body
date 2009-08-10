@@ -1,0 +1,12 @@
+{
+  if (testScenarioRunner != projectRunner)   return;
+  WsdlProjectTestSuitesTabPanel.this.beforeRun();
+  testSuiteList.reset();
+  progressBar.setMaximum(project.getTestSuiteCount());
+  progressBar.setValue(0);
+  progressBar.setString("");
+  finishCount=0;
+  if (runLogListener == null)   runLogListener=new TestRunLogTestSuiteRunListener(testRunLog,false);
+  testRunLog.clear();
+  if (project.getRunType() == TestSuiteRunType.PARALLEL)   testRunLog.addText("<log disabled during parallell execution>");
+}

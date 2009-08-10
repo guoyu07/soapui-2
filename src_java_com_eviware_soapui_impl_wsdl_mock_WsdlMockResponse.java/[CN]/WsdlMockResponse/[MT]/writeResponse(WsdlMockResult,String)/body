@@ -48,17 +48,20 @@
     }
   }
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
+  String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
     String encoding=getEncoding();
     if (responseContent == null)     responseContent="";
     byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
     response.setContentType(soapVersion.getContentTypeHttpHeader(encoding,null));
     String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding");
-    if (acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
+    if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
       response.addHeader("Content-Encoding","gzip");
-      GZIPOutputStream zipOut=new GZIPOutputStream(outData);
-      zipOut.write(content);
-      zipOut.close();
+      outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));
+    }
+ else     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("DEFLATE")) {
+      response.addHeader("Content-Encoding","deflate");
+      outData.write(CompressionSupport.compress(CompressionSupport.ALG_DEFLATE,content));
     }
  else {
       outData.write(content);
@@ -76,6 +79,13 @@
     response.addHeader("MIME-Version","1.0");
     mimeMessageRequestEntity.writeRequest(outData);
   }
-  if (outData.size() > 0)   response.writeRawResponseData(outData.toByteArray());
+  if (outData.size() > 0) {
+    byte[] data=outData.toByteArray();
+    if (responseCompression.equals(CompressionSupport.ALG_DEFLATE) || responseCompression.equals(CompressionSupport.ALG_GZIP)) {
+      response.addHeader("Content-Encoding",responseCompression);
+      data=CompressionSupport.compress(responseCompression,data);
+    }
+    response.writeRawResponseData(data);
+  }
   return responseContent;
 }

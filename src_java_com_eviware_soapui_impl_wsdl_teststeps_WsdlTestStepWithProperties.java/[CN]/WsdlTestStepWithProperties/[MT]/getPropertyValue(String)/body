@@ -1,5 +1,5 @@
 {
   if (properties == null)   return null;
-  TestProperty testStepProperty=properties.get(name.toUpperCase());
+  TestProperty testStepProperty=properties.get(getPropertyKeyName(name));
   return testStepProperty == null ? null : testStepProperty.getValue();
 }

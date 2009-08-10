@@ -9,6 +9,11 @@
     public void removeAssertion(    int ix){
       getConfig().removeAssertion(ix);
     }
+    public TestAssertionConfig insertAssertion(    TestAssertionConfig source,    int ix){
+      TestAssertionConfig conf=getConfig().insertNewAssertion(ix);
+      conf.set(source);
+      return conf;
+    }
   }
 );
 }

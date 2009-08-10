@@ -1,6 +1,6 @@
 {
   if (token == null)   token="";
-  String replToken=PropertyExpansionUtils.expandProperties(context,token);
+  String replToken=PropertyExpander.expandProperties(context,token);
   if (replToken.length() > 0) {
     int ix=-1;
     if (useRegEx) {

@@ -1,0 +1,11 @@
+{
+  if (restMethod == method)   return;
+  RestMethod oldMethod=restMethod;
+  restMethod=method;
+  getRequestStepConfig().setService(method.getInterface().getName());
+  getRequestStepConfig().setResourcePath(method.getResource().getFullPath());
+  getRequestStepConfig().setMethodName(method.getName());
+  if (oldMethod != null)   oldMethod.removePropertyChangeListener(this);
+  restMethod.addPropertyChangeListener(this);
+  getTestRequest().setRestMethod(restMethod);
+}

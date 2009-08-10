@@ -2,6 +2,7 @@
   PropertyTreeNode node=propertyNodes.get(oldIndex);
   getTreeModel().notifyNodeRemoved(node,false);
   propertyNodes.remove(oldIndex);
-  propertyNodes.add(newIndex,node);
+  if (newIndex >= propertyNodes.size())   propertyNodes.add(node);
+ else   propertyNodes.add(newIndex,node);
   getTreeModel().notifyNodeInserted(node);
 }

@@ -18,7 +18,7 @@
   }
 ,this));
   addProperty(new TestStepBeanProperty("script",false,this,"script",this));
-  scriptEngine=SoapUIScriptEngineRegistry.create(SoapUIScriptEngineRegistry.GROOVY_ID,this);
+  scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
   if (forLoadTest && !isDisabled())   try {
     scriptEngine.compile();

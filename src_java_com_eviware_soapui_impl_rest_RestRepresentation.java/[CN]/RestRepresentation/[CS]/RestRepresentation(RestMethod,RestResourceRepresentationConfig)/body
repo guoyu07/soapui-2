@@ -1,0 +1,8 @@
+{
+  this.restMethod=restMethod;
+  this.config=config;
+  if (config.getParams() == null)   config.addNewParams();
+  params=new XmlBeansRestParamsTestPropertyHolder(restMethod,config.getParams());
+  propertyChangeSupport=new PropertyChangeSupport(this);
+  InferredSchemaManager.addPropertyChangeListener(this.restMethod.getResource().getService(),this);
+}

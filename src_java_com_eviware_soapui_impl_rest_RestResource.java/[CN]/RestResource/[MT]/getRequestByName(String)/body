@@ -1,3 +1,7 @@
 {
-  return (RestRequest)getWsdlModelItemByName(requests,name);
+  for (  RestMethod m : methods) {
+    RestRequest r=m.getRequestByName(name);
+    if (r != null)     return r;
+  }
+  return null;
 }

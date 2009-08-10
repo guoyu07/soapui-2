@@ -1,5 +1,5 @@
 {
-  RestRepresentation[] representations=getRequest().getRepresentations(type,null);
+  RestRepresentation[] representations=getMethod().getRepresentations(type,null);
   int c=0;
   for (; c < representations.length; c++) {
     if (representations[c].getMediaType() != null && representations[c].getMediaType().equals(response.getContentType())) {
@@ -13,8 +13,18 @@
     }
   }
   if (c == representations.length) {
-    RestRepresentation representation=getRequest().addNewRepresentation(type);
+    RestRepresentation representation=getMethod().addNewRepresentation(type);
     representation.setMediaType(response.getContentType());
     representation.setStatus(Arrays.asList(response.getStatusCode()));
+    String xmlContent=response.getContentAsXml();
+    if (!xmlContent.equals("<xml/>")) {
+      try {
+        XmlCursor cursor=XmlObject.Factory.parse(xmlContent).newCursor();
+        cursor.toFirstChild();
+        representation.setElement(cursor.getName());
+      }
+ catch (      Exception e) {
+      }
+    }
   }
 }

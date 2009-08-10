@@ -1,21 +1,16 @@
 {
-  RestTestRequest request=testStep.getTestRequest();
-  JPropertiesTable<RestTestRequest> table=new JPropertiesTable<RestTestRequest>("REST TestRequest Properties");
+  HttpTestRequestInterface<?> request=testStep.getTestRequest();
+  JPropertiesTable<HttpTestRequestInterface<?>> table=new JPropertiesTable<HttpTestRequestInterface<?>>("REST TestRequest Properties");
   table.addProperty("Name","name",true);
   table.addProperty("Description","description",true);
   table.addProperty("Encoding","encoding",new String[]{null,"UTF-8","iso-8859-1"});
-  if (request.getOperation() != null)   table.addProperty("Endpoint","endpoint",request.getInterface().getEndpoints());
-  table.addProperty("Path","path",true);
+  table.addProperty("Endpoint","endpoint",true);
   table.addProperty("Bind Address","bindAddress",true);
   table.addProperty("Follow Redirects","followRedirects",JPropertiesTable.BOOLEAN_OPTIONS);
-  if (request.getOperation() != null) {
-    table.addProperty("Service","service");
-    table.addProperty("Resource","path");
-  }
   table.addProperty("Username","username",true);
   table.addProperty("Password","password",true);
   table.addProperty("Domain","domain",true);
-  StringList keystores=new StringList(request.getTestStep().getTestCase().getTestSuite().getProject().getWssContainer().getCryptoNames());
+  StringList keystores=new StringList(((WsdlProject)request.getTestStep().getTestCase().getTestSuite().getProject()).getWssContainer().getCryptoNames());
   keystores.add("");
   table.addProperty("SSL Keystore","sslKeystore",keystores.toStringArray());
   table.addProperty("Strip whitespaces","stripWhitespaces",JPropertiesTable.BOOLEAN_OPTIONS);

@@ -4,6 +4,6 @@
   if (project == null)   return null;
   String docroot=project.getResourceRoot();
   if (!StringUtils.hasContent(docroot))   return new File("").getAbsolutePath();
-  docroot=context == null ? PropertyExpansionUtils.expandProperties(modelItem,docroot) : PropertyExpansionUtils.expandProperties(context,docroot);
+  docroot=context == null ? PropertyExpander.expandProperties(modelItem,docroot) : PropertyExpander.expandProperties(context,docroot);
   return docroot;
 }

@@ -23,7 +23,7 @@
     }
     List<TestSuiteConfig> testSuiteConfigs=getConfig().getTestSuiteList();
     for (    TestSuiteConfig config : testSuiteConfigs) {
-      testSuites.add(new WsdlTestSuite(this,config));
+      testSuites.add(buildTestSuite(config));
     }
     List<MockServiceConfig> mockServiceConfigs=getConfig().getMockServiceList();
     for (    MockServiceConfig config : mockServiceConfigs) {
@@ -33,6 +33,8 @@
     wssContainer=new DefaultWssContainer(this,getConfig().getWssContainer());
     endpointStrategy.init(this);
     if (!getConfig().isSetProperties())     getConfig().addNewProperties();
+    if (!getConfig().isSetAbortOnError())     getConfig().setAbortOnError(false);
+    if (!getConfig().isSetRunType())     getConfig().setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
     setPropertiesConfig(getConfig().getProperties());
     afterLoad();
   }
@@ -41,6 +43,10 @@
       XmlException xe=(XmlException)e;
       XmlError error=xe.getError();
       if (error != null)       System.err.println("Error at line " + error.getLine() + ", column "+ error.getColumn());
+    }
+    if (e instanceof RestConversionException) {
+      log.error("Project file needs to be updated manually, please reload the project.");
+      throw new SoapUIException("Failed to load project from file [" + file.toString() + "]",e);
     }
     e.printStackTrace();
     throw new SoapUIException("Failed to load project from file [" + file.toString() + "]",e);

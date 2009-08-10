@@ -1,5 +1,6 @@
 {
-  applicationDocument=(ApplicationDocument)loader.loadXmlObject(loader.getBaseURI(),null);
+  XmlObject obj=loader.loadXmlObject(loader.getBaseURI(),null);
+  applicationDocument=(ApplicationDocument)obj.changeType(ApplicationDocument.type);
   if (!loader.isAborted()) {
     super.loadSchemaTypes(loader);
   }

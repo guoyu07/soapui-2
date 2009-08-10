@@ -15,7 +15,7 @@
   }
  else {
     TestSuiteConfig config=(TestSuiteConfig)projectDocument.getSoapuiProject().addNewTestSuite().set(newTestSuiteConfig.getTestSuite());
-    WsdlTestSuite testSuite=new WsdlTestSuite(this,config);
+    WsdlTestSuite testSuite=buildTestSuite(config);
     ModelSupport.unsetIds(testSuite);
     testSuite.afterLoad();
     testSuites.add(testSuite);
