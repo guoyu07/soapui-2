@@ -1,0 +1,15 @@
+{
+  String[] params=endpoint.substring(ix + 3).split("/");
+  if (params.length == 2) {
+    return JMS_SEND;
+  }
+ else   if (params.length == 3 && params[1].equals("-")) {
+    return JMS_RECEIVE;
+  }
+ else   if (params.length == 3) {
+    return JMS_SEND_RECEIVE;
+  }
+ else {
+    throw new CannotResolveJmsTypeException("Bad jms alias! /nFor JMS please use this endpont pattern:\nfor sending 'jms://configfilename/queue' \nfor receive  'jms://configfilename/-/topic'\nfor send-receive 'jms://configfilename/queue/topic'");
+  }
+}
