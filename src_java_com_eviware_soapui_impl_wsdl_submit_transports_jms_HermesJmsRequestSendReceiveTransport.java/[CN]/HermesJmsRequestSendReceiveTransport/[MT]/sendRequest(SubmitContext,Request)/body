@@ -1,0 +1,48 @@
+{
+  ConnectionFactory connectionFactory=null;
+  Connection connection=null;
+  Session session=null;
+  try {
+    String queueNameSend=null;
+    String queueNameReceive=null;
+    String sessionName=null;
+    String[] parameters=request.getEndpoint().substring(request.getEndpoint().indexOf("://") + 3).split("/");
+    if (parameters.length == 3) {
+      sessionName=parameters[0];
+      queueNameSend=parameters[1];
+      queueNameReceive=parameters[2];
+    }
+ else     throw new Exception("bad jms alias!!!!!");
+    Hermes hermes=getHermes(sessionName);
+    connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
+    connection=connectionFactory.createConnection();
+    connection.start();
+    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    Queue queueSend;
+    Queue queueReceive;
+    queueSend=session.createQueue(queueNameSend);
+    queueReceive=session.createQueue(queueNameReceive);
+    MessageProducer messageProducer=session.createProducer(queueSend);
+    TextMessage textMessageSend=session.createTextMessage();
+    textMessageSend.setText(request.getRequestContent());
+    log.info("Sending Message: \n" + textMessageSend.getText());
+    messageProducer.send(textMessageSend);
+    MessageConsumer messageConsumer=session.createConsumer(queueReceive);
+    Message message=messageConsumer.receive();
+    TextMessage textMessageReceive=null;
+    if (message instanceof TextMessage) {
+      textMessageReceive=(TextMessage)message;
+      System.out.println("Read Message: " + textMessageReceive.getText());
+    }
+    JMSResponse response=new JMSResponse(textMessageReceive.getText(),textMessageReceive,request);
+    return response;
+  }
+ catch (  Throwable jmse) {
+    log.info("Exception occurred : " + jmse.toString());
+  }
+ finally {
+    if (session != null)     session.close();
+    if (connection != null)     connection.close();
+  }
+  return null;
+}
