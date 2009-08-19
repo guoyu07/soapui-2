@@ -17,7 +17,6 @@
   modelItemConfig.removeAssertion(ix);
   newAssertion.addPropertyChangeListener(this);
   assertions.add(ix + offset,newAssertion);
-  newAssertion.release();
   modelItemConfig.insertAssertion(newConf,ix + offset);
   fireAssertionMoved(newAssertion,ix,offset);
   return newAssertion;
