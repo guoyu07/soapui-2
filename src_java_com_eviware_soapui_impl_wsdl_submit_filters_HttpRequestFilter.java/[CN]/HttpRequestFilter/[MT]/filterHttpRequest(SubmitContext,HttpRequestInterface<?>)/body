@@ -19,6 +19,7 @@
         SoapUI.logError(e1);
         value=URLEncoder.encode(value);
       }
+      value=value.replaceAll("\\+","%20");
     }
     if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
 switch (param.getStyle()) {
@@ -62,7 +63,7 @@ break;
 }
 if (PathUtils.isHttpPath(path)) {
 try {
-httpMethod.setURI(new URI(path));
+httpMethod.setURI(new URI(URLDecoder.decode(path)));
 }
  catch (Exception e) {
 e.printStackTrace();
