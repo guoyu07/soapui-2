@@ -26,8 +26,9 @@
       workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
     }
  catch (    Exception e) {
+      UISupport.setDialogs(new SwingDialogs(null));
       if (UISupport.confirm("Failed to open workspace: [" + e.toString() + "], create new one instead?","Error")) {
-        new File(wsfile).delete();
+        new File(wsfile).renameTo(new File(wsfile + ".bak"));
         workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
       }
  else {
