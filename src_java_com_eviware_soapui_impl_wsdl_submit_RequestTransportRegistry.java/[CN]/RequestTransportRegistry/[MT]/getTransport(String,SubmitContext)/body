@@ -2,9 +2,6 @@
   int ix=endpoint.indexOf("://");
   if (ix == -1)   throw new MissingTransportException("Missing protocol in endpoint [" + endpoint + "]");
   String protocol=endpoint.substring(0,ix).toLowerCase();
-  if ("jms".equalsIgnoreCase(protocol)) {
-    protocol=resolveProtocol(protocol,endpoint,ix);
-  }
   RequestTransport transport=transports.get(protocol);
   if (transport == null)   throw new MissingTransportException("Missing transport for protocol [" + protocol + "]");
   return transport;
