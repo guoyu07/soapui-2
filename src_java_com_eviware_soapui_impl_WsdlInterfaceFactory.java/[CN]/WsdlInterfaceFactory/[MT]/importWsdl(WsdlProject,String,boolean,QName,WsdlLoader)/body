@@ -17,7 +17,7 @@
           WsdlOperation operation=iface.getOperationAt(c);
           WsdlRequest request=operation.addNewRequest("Request 1");
           try {
-            String requestContent=operation.createRequest(true);
+            String requestContent=operation.createRequest(project.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
             request.setRequestContent(requestContent);
           }
  catch (          Exception e) {
