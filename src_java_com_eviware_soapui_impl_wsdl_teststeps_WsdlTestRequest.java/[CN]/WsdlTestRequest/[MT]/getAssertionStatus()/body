@@ -1,9 +1,6 @@
 {
   currentStatus=AssertionStatus.UNKNOWN;
   if (messageExchange != null) {
-    if (!messageExchange.hasResponse() && getOperation().isBidirectional() && !isWsaEnabled()) {
-      currentStatus=AssertionStatus.FAILED;
-    }
   }
  else   return currentStatus;
   int cnt=getAssertionCount();
