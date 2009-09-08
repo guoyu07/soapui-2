@@ -1,3 +1,15 @@
 {
+  List<String> propertyNames=new ArrayList<String>();
+  Enumeration temp;
+  try {
+    temp=message.getPropertyNames();
+    while (temp.hasMoreElements()) {
+      propertyNames.add((String)temp.nextElement());
+    }
+    return propertyNames.toArray(new String[propertyNames.size()]);
+  }
+ catch (  JMSException e) {
+    e.printStackTrace();
+  }
   return null;
 }

@@ -1,3 +1,9 @@
 {
+  try {
+    return message.getStringProperty(name);
+  }
+ catch (  JMSException e) {
+    e.printStackTrace();
+  }
   return null;
 }
