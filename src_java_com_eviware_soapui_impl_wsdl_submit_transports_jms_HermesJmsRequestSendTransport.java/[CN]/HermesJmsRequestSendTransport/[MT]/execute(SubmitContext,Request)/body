@@ -11,7 +11,7 @@
       queueName=parameters[1];
     }
  else     throw new Exception("bad jms alias!!!!!");
-    Hermes hermes=getHermes(sessionName);
+    Hermes hermes=getHermes(sessionName,request);
     connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
     connection=connectionFactory.createConnection();
     connection.start();
@@ -21,13 +21,12 @@
     MessageProducer messageProducer=session.createProducer(queue);
     TextMessage textMessage=session.createTextMessage();
     textMessage.setText(request.getRequestContent());
-    log.info("Sending Message: " + textMessage.getText());
     messageProducer.send(textMessage);
     JMSResponse response=new JMSResponse(textMessage.getText(),textMessage,request);
     return response;
   }
  catch (  Throwable jmse) {
-    log.info("Exception occurred : " + jmse);
+    SoapUI.logError(jmse);
   }
  finally {
     if (session != null)     session.close();

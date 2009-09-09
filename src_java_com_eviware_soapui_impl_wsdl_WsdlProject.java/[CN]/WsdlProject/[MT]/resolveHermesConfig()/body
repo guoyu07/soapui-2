@@ -1,0 +1,12 @@
+{
+  String hermesConfigProperty=getSettings().getString(ProjectSettings.HERMES_CONFIG,null);
+  if (hermesConfigProperty != null && !hermesConfigProperty.equals("")) {
+    return hermesConfigProperty;
+  }
+ else   if (System.getenv("HERMES_CONFIG") != null) {
+    return System.getenv("HERMES_CONFIG");
+  }
+ else {
+    return PropertyExpander.expandProperties(this,"${#System#user.home}\\.hermes");
+  }
+}

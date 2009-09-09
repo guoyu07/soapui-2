@@ -1,0 +1,15 @@
+{
+  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(request);
+  Properties props=new Properties();
+  props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
+  props.put(Context.PROVIDER_URL,project.getHermesConfig() + "\\hermes-config.xml");
+  props.put("hermes.loader",JAXBHermesLoader.class.getName());
+  try {
+    Context ctx=new InitialContext(props);
+    Hermes hermes=(Hermes)ctx.lookup(sessionName);
+    return hermes;
+  }
+ catch (  NamingException ne) {
+    throw new NamingException("Session name '" + sessionName + "' does not exist in Hermes configuration or path to Hermes config ("+ project.getHermesConfig()+ " )is not valid !!!!");
+  }
+}

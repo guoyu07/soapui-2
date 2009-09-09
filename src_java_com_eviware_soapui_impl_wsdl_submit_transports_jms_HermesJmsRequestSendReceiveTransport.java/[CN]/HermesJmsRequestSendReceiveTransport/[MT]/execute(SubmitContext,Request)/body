@@ -13,7 +13,7 @@
       queueNameReceive=parameters[2];
     }
  else     throw new Exception("bad jms alias!!!!!");
-    Hermes hermes=getHermes(sessionName);
+    Hermes hermes=getHermes(sessionName,request);
     connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
     connection=connectionFactory.createConnection();
     connection.start();
@@ -25,20 +25,18 @@
     MessageProducer messageProducer=session.createProducer(queueSend);
     TextMessage textMessageSend=session.createTextMessage();
     textMessageSend.setText(request.getRequestContent());
-    log.info("Sending Message: \n" + textMessageSend.getText());
     messageProducer.send(textMessageSend);
     MessageConsumer messageConsumer=session.createConsumer(queueReceive);
     Message message=messageConsumer.receive();
     TextMessage textMessageReceive=null;
     if (message instanceof TextMessage) {
       textMessageReceive=(TextMessage)message;
-      System.out.println("Read Message: " + textMessageReceive.getText());
     }
     JMSResponse response=new JMSResponse(textMessageReceive.getText(),textMessageReceive,request);
     return response;
   }
  catch (  Throwable jmse) {
-    log.info("Exception occurred : " + jmse.toString());
+    SoapUI.logError(jmse);
   }
  finally {
     if (session != null)     session.close();
