@@ -16,12 +16,11 @@
     connection=connectionFactory.createConnection();
     connection.start();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    Queue queue;
     if (parameters.length == 3) {
       queueName=parameters[2];
     }
  else     throw new Exception("bad jms alias!!!!!");
-    queue=session.createQueue(queueName);
+    Queue queue=session.createQueue(queueName);
     MessageConsumer messageConsumer=session.createConsumer(queue);
     Message message=messageConsumer.receive();
     TextMessage textMessage=null;

@@ -1,0 +1,11 @@
+{
+  String hermesLib=SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,null) + File.separator + "lib";
+  if (hermesLib == null || "".equals(hermesLib)) {
+    throw new FileNotFoundException("HermesJMS home not specified !!!");
+  }
+  File dir=new File(hermesLib);
+  String[] children=dir.list();
+  for (  String filename : children) {
+    ClasspathHacker.addURL(new URL("file:" + File.separator + hermesLib+ File.separator+ filename));
+  }
+}

@@ -7,6 +7,6 @@
     return System.getenv("HERMES_CONFIG");
   }
  else {
-    return PropertyExpander.expandProperties(this,"${#System#user.home}\\.hermes");
+    return "${#System#user.home}\\.hermes";
   }
 }

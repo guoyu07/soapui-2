@@ -16,8 +16,7 @@
     connection=connectionFactory.createConnection();
     connection.start();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    Queue queue;
-    queue=session.createQueue(queueName);
+    Queue queue=session.createQueue(queueName);
     MessageProducer messageProducer=session.createProducer(queue);
     TextMessage textMessage=session.createTextMessage();
     textMessage.setText(request.getRequestContent());
