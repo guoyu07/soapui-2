@@ -1,0 +1,9 @@
+{
+  try {
+    testConn(testingModelItem,driver,connectionString,password);
+    UISupport.showInfoMessage("The Connection Successfully Tested");
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage("Can't get the Connection for specified properties; " + e.toString());
+  }
+}

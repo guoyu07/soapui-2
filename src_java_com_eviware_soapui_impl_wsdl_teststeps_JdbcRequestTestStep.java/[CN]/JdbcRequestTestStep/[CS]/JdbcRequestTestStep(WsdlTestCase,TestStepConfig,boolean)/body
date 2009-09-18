@@ -1,0 +1,14 @@
+{
+  super(testCase,config,true,forLoadTest);
+  if (!forLoadTest) {
+    okIcon=UISupport.createImageIcon("/datasource.gif");
+    failedIcon=UISupport.createImageIcon("/datasource_failed.gif");
+    setIcon(okIcon);
+  }
+  if (getConfig().getConfig() != null) {
+    jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().getConfig().changeType(JdbcRequestTestStepConfig.type);
+  }
+ else {
+    jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().addNewConfig().changeType(JdbcRequestTestStepConfig.type);
+  }
+}
