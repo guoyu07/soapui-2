@@ -20,9 +20,9 @@
     MessageProducer messageProducer=session.createProducer(queue);
     TextMessage textMessage=session.createTextMessage();
     textMessage.setText(request.getRequestContent());
-    JMSHeader.setMessageHeaders(textMessage,request,hermes);
-    messageProducer.send(textMessage,Message.DEFAULT_DELIVERY_MODE,textMessage.getJMSPriority(),textMessage.getLongProperty(JMSHeader.TIMETOLIVE));
-    messageProducer.send(textMessage);
+    JMSHeader jmsHeader=new JMSHeader();
+    jmsHeader.setMessageHeaders(textMessage,request,hermes);
+    messageProducer.send(textMessage,jmsHeader.getDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
     JMSResponse response=new JMSResponse("",null,request,timeStarted);
     return response;
   }

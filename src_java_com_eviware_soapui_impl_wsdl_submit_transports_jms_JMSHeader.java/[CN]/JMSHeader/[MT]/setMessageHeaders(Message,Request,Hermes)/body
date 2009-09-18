@@ -9,10 +9,10 @@
       message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(headersMap.get(JMSREPLYTO,"")),Domain.QUEUE));
     }
     if (headersMap.containsKey(TIMETOLIVE)) {
-      message.setLongProperty(TIMETOLIVE,Long.parseLong(PropertyExpander.expandProperties(headersMap.get(TIMETOLIVE,""))));
+      setTimeTolive(Long.parseLong(PropertyExpander.expandProperties(headersMap.get(TIMETOLIVE,"0"))));
     }
  else {
-      message.setLongProperty(TIMETOLIVE,Message.DEFAULT_TIME_TO_LIVE);
+      setTimeTolive(Message.DEFAULT_TIME_TO_LIVE);
     }
     if (headersMap.containsKey(JMSTYPE)) {
       message.setJMSType(PropertyExpander.expandProperties(headersMap.get(JMSTYPE,"")));
@@ -24,10 +24,10 @@
       message.setJMSPriority(Message.DEFAULT_PRIORITY);
     }
     if (headersMap.containsKey(DELIVERY_MODE)) {
-      message.setIntProperty(DELIVERY_MODE,Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(DELIVERY_MODE,""))));
+      setDeliveryMode(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(DELIVERY_MODE,"0"))));
     }
  else {
-      message.setIntProperty(DELIVERY_MODE,Message.DEFAULT_DELIVERY_MODE);
+      setDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
     }
     String keys[]=headersMap.getKeys();
     for (    String key : keys) {

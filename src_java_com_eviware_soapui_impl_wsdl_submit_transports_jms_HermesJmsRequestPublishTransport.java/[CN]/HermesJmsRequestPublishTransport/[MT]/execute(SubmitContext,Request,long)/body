@@ -20,7 +20,9 @@
     TopicPublisher messageProducer=session.createPublisher(topic);
     TextMessage textMessage=session.createTextMessage();
     textMessage.setText(request.getRequestContent());
-    messageProducer.publish(textMessage,Message.DEFAULT_DELIVERY_MODE,textMessage.getJMSPriority(),textMessage.getLongProperty(JMSHeader.TIMETOLIVE));
+    JMSHeader jmsHeader=new JMSHeader();
+    jmsHeader.setMessageHeaders(textMessage,request,hermes);
+    messageProducer.send(textMessage,jmsHeader.getDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
     JMSResponse response=new JMSResponse("",null,request,timeStarted);
     return response;
   }

@@ -23,8 +23,9 @@
     MessageProducer messageProducer=session.createProducer(queueSend);
     TextMessage textMessageSend=session.createTextMessage();
     textMessageSend.setText(request.getRequestContent());
-    JMSHeader.setMessageHeaders(textMessageSend,request,hermes);
-    messageProducer.send(textMessageSend,Message.DEFAULT_DELIVERY_MODE,textMessageSend.getJMSPriority(),textMessageSend.getLongProperty(JMSHeader.TIMETOLIVE));
+    JMSHeader jmsHeader=new JMSHeader();
+    jmsHeader.setMessageHeaders(textMessageSend,request,hermes);
+    messageProducer.send(textMessageSend,jmsHeader.getDeliveryMode(),textMessageSend.getJMSPriority(),jmsHeader.getTimeTolive());
     MessageConsumer messageConsumer=session.createConsumer(queueReceive);
     long timeout=getTimeout(submitContext,request);
     Message message=messageConsumer.receive(timeout);
