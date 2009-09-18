@@ -18,20 +18,20 @@
       message.setJMSType(PropertyExpander.expandProperties(headersMap.get(JMSTYPE,"")));
     }
     if (headersMap.containsKey(JMSPRIORITY)) {
-      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSPRIORITY,""))));
+      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSPRIORITY,String.valueOf(Message.DEFAULT_PRIORITY)))));
     }
  else {
       message.setJMSPriority(Message.DEFAULT_PRIORITY);
     }
-    if (headersMap.containsKey(DELIVERY_MODE)) {
-      setDeliveryMode(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(DELIVERY_MODE,"0"))));
+    if (headersMap.containsKey(JMSDELIVERYMODE)) {
+      message.setJMSDeliveryMode(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSDELIVERYMODE,String.valueOf(Message.DEFAULT_DELIVERY_MODE)))));
     }
  else {
-      setDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
+      message.setJMSDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
     }
     String keys[]=headersMap.getKeys();
     for (    String key : keys) {
-      if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(DELIVERY_MODE)) {
+      if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(JMSDELIVERYMODE)) {
         message.setStringProperty(key,PropertyExpander.expandProperties(headersMap.get(key)));
       }
     }

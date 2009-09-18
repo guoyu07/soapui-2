@@ -22,7 +22,7 @@
     textMessage.setText(request.getRequestContent());
     JMSHeader jmsHeader=new JMSHeader();
     jmsHeader.setMessageHeaders(textMessage,request,hermes);
-    messageProducer.send(textMessage,jmsHeader.getDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
+    messageProducer.send(textMessage,textMessage.getJMSDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
     JMSResponse response=new JMSResponse("",null,request,timeStarted);
     return response;
   }
