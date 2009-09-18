@@ -1,0 +1,46 @@
+{
+  int ix=request.getEndpoint().indexOf("://");
+  if (ix == -1)   throw new MissingTransportException("Missing protocol in endpoint [" + request.getEndpoint() + "]");
+  String[] params=request.getEndpoint().substring(ix + 3).split("/");
+  if (params.length == 2) {
+    String destinationName=PropertyExpander.expandProperties(submitContext,params[1]);
+    if (destinationName.startsWith("queue_")) {
+      return new HermesJmsRequestSendTransport();
+    }
+ else     if (destinationName.startsWith("topic_")) {
+      return new HermesJmsRequestPublishTransport();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else   if (params.length == 3 && PropertyExpander.expandProperties(submitContext,params[1]).equals("-")) {
+    String destinationName=PropertyExpander.expandProperties(submitContext,params[2]);
+    if (destinationName.startsWith("queue_")) {
+      return new HermesJmsRequestReceiveTransport();
+    }
+ else     if (destinationName.startsWith("topic_")) {
+      throw new NotImplementedException();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else   if (params.length == 3) {
+    String destinationSendName=PropertyExpander.expandProperties(submitContext,params[1]);
+    String destinationReceiveName=PropertyExpander.expandProperties(submitContext,params[2]);
+    if (destinationSendName.startsWith("queue_") && destinationReceiveName.startsWith("queue_")) {
+      return new HermesJmsRequestSendReceiveTransport();
+    }
+ else     if (destinationSendName.startsWith("topic_") || destinationReceiveName.startsWith("topic_")) {
+      throw new NotImplementedException();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else {
+    cannotResolve();
+  }
+  return null;
+}

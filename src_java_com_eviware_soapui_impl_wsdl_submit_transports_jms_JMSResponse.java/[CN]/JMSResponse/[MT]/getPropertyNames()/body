@@ -2,11 +2,16 @@
   List<String> propertyNames=new ArrayList<String>();
   Enumeration temp;
   try {
-    temp=message.getPropertyNames();
-    while (temp.hasMoreElements()) {
-      propertyNames.add((String)temp.nextElement());
+    if (message != null) {
+      temp=message.getPropertyNames();
+      while (temp.hasMoreElements()) {
+        propertyNames.add((String)temp.nextElement());
+      }
+      return propertyNames.toArray(new String[propertyNames.size()]);
     }
-    return propertyNames.toArray(new String[propertyNames.size()]);
+ else {
+      return new String[0];
+    }
   }
  catch (  JMSException e) {
     e.printStackTrace();

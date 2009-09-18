@@ -1,0 +1,51 @@
+{
+  ConnectionFactory connectionFactory=null;
+  Connection connection=null;
+  Session session=null;
+  try {
+    String queueNameSend=null;
+    String queueNameReceive=null;
+    String sessionName=null;
+    String[] parameters=request.getEndpoint().substring(request.getEndpoint().indexOf("://") + 3).split("/");
+    if (parameters.length == 3) {
+      sessionName=PropertyExpander.expandProperties(submitContext,parameters[0]);
+      queueNameSend=PropertyExpander.expandProperties(submitContext,parameters[1]).replaceFirst("queue_","");
+      queueNameReceive=PropertyExpander.expandProperties(submitContext,parameters[2]).replaceFirst("queue_","");
+    }
+ else     throw new Exception("bad jms alias!!!!!");
+    Hermes hermes=getHermes(sessionName,request);
+    connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
+    connection=connectionFactory.createConnection();
+    connection.start();
+    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    Queue queueSend=(Queue)hermes.getDestination(queueNameSend,Domain.QUEUE);
+    Queue queueReceive=(Queue)hermes.getDestination(queueNameReceive,Domain.QUEUE);
+    MessageProducer messageProducer=session.createProducer(queueSend);
+    TextMessage textMessageSend=session.createTextMessage();
+    textMessageSend.setText(request.getRequestContent());
+    JMSHeader.setMessageHeaders(textMessageSend,request,hermes);
+    messageProducer.send(textMessageSend,Message.DEFAULT_DELIVERY_MODE,textMessageSend.getJMSPriority(),textMessageSend.getLongProperty(JMSHeader.TIMETOLIVE));
+    MessageConsumer messageConsumer=session.createConsumer(queueReceive);
+    long timeout=getTimeout(submitContext,request);
+    Message message=messageConsumer.receive(timeout);
+    if (message != null) {
+      TextMessage textMessageReceive=null;
+      if (message instanceof TextMessage) {
+        textMessageReceive=(TextMessage)message;
+      }
+      JMSResponse response=new JMSResponse(textMessageReceive.getText(),textMessageReceive,request,timeStarted);
+      return response;
+    }
+ else {
+      return new JMSResponse("",null,request,timeStarted);
+    }
+  }
+ catch (  Throwable jmse) {
+    SoapUI.logError(jmse);
+  }
+ finally {
+    if (session != null)     session.close();
+    if (connection != null)     connection.close();
+  }
+  return null;
+}

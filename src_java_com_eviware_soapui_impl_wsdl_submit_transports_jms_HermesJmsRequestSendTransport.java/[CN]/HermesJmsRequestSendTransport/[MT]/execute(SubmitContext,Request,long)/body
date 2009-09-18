@@ -1,0 +1,37 @@
+{
+  ConnectionFactory connectionFactory=null;
+  Connection connection=null;
+  Session session=null;
+  try {
+    String queueName=null;
+    String sessionName=null;
+    String[] parameters=request.getEndpoint().substring(request.getEndpoint().indexOf("://") + 3).split("/");
+    if (parameters.length == 2) {
+      sessionName=PropertyExpander.expandProperties(submitContext,parameters[0]);
+      queueName=PropertyExpander.expandProperties(submitContext,parameters[1]).replaceFirst("queue_","");
+    }
+ else     throw new Exception("bad jms alias!!!!!");
+    Hermes hermes=getHermes(sessionName,request);
+    connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
+    connection=connectionFactory.createConnection();
+    connection.start();
+    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    Queue queue=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
+    MessageProducer messageProducer=session.createProducer(queue);
+    TextMessage textMessage=session.createTextMessage();
+    textMessage.setText(request.getRequestContent());
+    JMSHeader.setMessageHeaders(textMessage,request,hermes);
+    messageProducer.send(textMessage,Message.DEFAULT_DELIVERY_MODE,textMessage.getJMSPriority(),textMessage.getLongProperty(JMSHeader.TIMETOLIVE));
+    messageProducer.send(textMessage);
+    JMSResponse response=new JMSResponse("",null,request,timeStarted);
+    return response;
+  }
+ catch (  Throwable jmse) {
+    SoapUI.logError(jmse);
+  }
+ finally {
+    if (session != null)     session.close();
+    if (connection != null)     connection.close();
+  }
+  return null;
+}

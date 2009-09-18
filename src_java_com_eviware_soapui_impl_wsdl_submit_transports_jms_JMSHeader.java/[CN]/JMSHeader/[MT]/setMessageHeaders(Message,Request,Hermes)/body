@@ -1,0 +1,45 @@
+{
+  AbstractHttpRequest temp=(AbstractHttpRequest)request;
+  StringToStringMap headersMap=temp.getRequestHeaders();
+  try {
+    if (headersMap.containsKey(JMSCORRELATIONID)) {
+      message.setJMSCorrelationID(PropertyExpander.expandProperties(headersMap.get(JMSCORRELATIONID,"")));
+    }
+    if (headersMap.containsKey(JMSREPLYTO)) {
+      message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(headersMap.get(JMSREPLYTO,"")),Domain.QUEUE));
+    }
+    if (headersMap.containsKey(TIMETOLIVE)) {
+      message.setLongProperty(TIMETOLIVE,Long.parseLong(PropertyExpander.expandProperties(headersMap.get(TIMETOLIVE,""))));
+    }
+ else {
+      message.setLongProperty(TIMETOLIVE,Message.DEFAULT_TIME_TO_LIVE);
+    }
+    if (headersMap.containsKey(JMSTYPE)) {
+      message.setJMSType(PropertyExpander.expandProperties(headersMap.get(JMSTYPE,"")));
+    }
+    if (headersMap.containsKey(JMSPRIORITY)) {
+      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSPRIORITY,""))));
+    }
+ else {
+      message.setJMSPriority(Message.DEFAULT_PRIORITY);
+    }
+    if (headersMap.containsKey(DELIVERY_MODE)) {
+      message.setIntProperty(DELIVERY_MODE,Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(DELIVERY_MODE,""))));
+    }
+ else {
+      message.setIntProperty(DELIVERY_MODE,Message.DEFAULT_DELIVERY_MODE);
+    }
+    String keys[]=headersMap.getKeys();
+    for (    String key : keys) {
+      if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(DELIVERY_MODE)) {
+        message.setStringProperty(key,PropertyExpander.expandProperties(headersMap.get(key)));
+      }
+    }
+  }
+ catch (  NamingException e) {
+    SoapUI.logError(e,"Message header JMSReplyTo = " + PropertyExpander.expandProperties(headersMap.get(JMSREPLYTO)) + "destination not exists!");
+  }
+catch (  Exception e) {
+    SoapUI.logError(e,"error while seting message header properties!");
+  }
+}

@@ -1,0 +1,35 @@
+{
+  TopicConnectionFactory connectionFactory=null;
+  TopicConnection connection=null;
+  TopicSession session=null;
+  try {
+    String topicName=null;
+    String sessionName=null;
+    String[] parameters=request.getEndpoint().substring(request.getEndpoint().indexOf("://") + 3).split("/");
+    if (parameters.length == 2) {
+      sessionName=PropertyExpander.expandProperties(submitContext,parameters[0]);
+      topicName=PropertyExpander.expandProperties(submitContext,parameters[1]).replaceFirst("topic_","");
+    }
+ else     throw new UnresolvedJMSEndpointException("bad jms alias!!!!!");
+    Hermes hermes=getHermes(sessionName,request);
+    connectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
+    connection=connectionFactory.createTopicConnection();
+    connection.start();
+    session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
+    Topic topic=(Topic)hermes.getDestination(topicName,Domain.TOPIC);
+    TopicPublisher messageProducer=session.createPublisher(topic);
+    TextMessage textMessage=session.createTextMessage();
+    textMessage.setText(request.getRequestContent());
+    messageProducer.publish(textMessage,Message.DEFAULT_DELIVERY_MODE,textMessage.getJMSPriority(),textMessage.getLongProperty(JMSHeader.TIMETOLIVE));
+    JMSResponse response=new JMSResponse("",null,request,timeStarted);
+    return response;
+  }
+ catch (  Throwable jmse) {
+    SoapUI.logError(jmse);
+  }
+ finally {
+    if (session != null)     session.close();
+    if (connection != null)     connection.close();
+  }
+  return null;
+}

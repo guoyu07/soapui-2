@@ -6,6 +6,6 @@
   File dir=new File(hermesLib);
   String[] children=dir.list();
   for (  String filename : children) {
-    ClasspathHacker.addURL(new URL("file:" + File.separator + hermesLib+ File.separator+ filename));
+    HermesJMSClasspathHacker.addURL(new URL("file:" + File.separator + hermesLib+ File.separator+ filename));
   }
 }

@@ -1,9 +1,13 @@
 {
+  if (contextMap.containsKey(project.getName())) {
+    return contextMap.get(project.getName());
+  }
   String hermesConfigPath=PropertyExpander.expandProperties(project,project.getHermesConfig());
   Properties props=new Properties();
   props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
   props.put(Context.PROVIDER_URL,hermesConfigPath + "\\hermes-config.xml");
   props.put("hermes.loader",JAXBHermesLoader.class.getName());
   Context ctx=new InitialContext(props);
+  contextMap.put(project.getName(),ctx);
   return ctx;
 }
