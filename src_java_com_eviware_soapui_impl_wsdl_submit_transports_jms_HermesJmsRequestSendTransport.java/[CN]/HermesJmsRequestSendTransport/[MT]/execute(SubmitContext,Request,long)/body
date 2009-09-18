@@ -19,7 +19,8 @@
     Queue queue=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
     MessageProducer messageProducer=session.createProducer(queue);
     TextMessage textMessage=session.createTextMessage();
-    textMessage.setText(request.getRequestContent());
+    String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
+    textMessage.setText(messageBody);
     JMSHeader jmsHeader=new JMSHeader();
     jmsHeader.setMessageHeaders(textMessage,request,hermes);
     messageProducer.send(textMessage,textMessage.getJMSDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
