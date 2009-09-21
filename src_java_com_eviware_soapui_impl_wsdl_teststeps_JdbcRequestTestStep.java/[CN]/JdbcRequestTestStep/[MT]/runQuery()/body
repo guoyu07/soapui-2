@@ -1,0 +1,13 @@
+{
+  MockTestRunner mockRunner=new MockTestRunner(getTestCase());
+  MockTestRunContext mockContext=new MockTestRunContext(mockRunner,this);
+  try {
+    prepare(mockRunner,mockContext);
+    List<String> properties=new ArrayList<String>();
+    load(mockRunner,mockContext,properties);
+    createXmlResult();
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+}

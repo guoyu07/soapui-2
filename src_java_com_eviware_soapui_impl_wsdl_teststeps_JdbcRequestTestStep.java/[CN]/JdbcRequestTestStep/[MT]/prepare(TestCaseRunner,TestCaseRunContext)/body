@@ -1,0 +1,12 @@
+{
+  getDatabaseConnection(context);
+  if (storedProcedure) {
+    String sql=PropertyExpander.expandProperties(context,query);
+    if (!sql.startsWith("{call ") && !sql.endsWith("}"))     sql="{call " + sql + "}";
+    statement=connection.prepareCall(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+  }
+ else {
+    statement=connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+  }
+  super.prepare(testRunner,context);
+}

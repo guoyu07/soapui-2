@@ -1,3 +1,5 @@
 {
-  jdbcRequestTestStepConfig.setQuery(query);
+  String old=getQuery();
+  jdbcRequestTestStepConfig.setQuery(q);
+  notifyPropertyChanged("query",old,q);
 }

@@ -16,6 +16,12 @@
  else {
           testConnectionButton.setEnabled(true);
         }
+        if (StringUtils.isNullOrEmpty(driver) || StringUtils.isNullOrEmpty(connectionString) || StringUtils.isNullOrEmpty(query)) {
+          runnable=false;
+        }
+ else {
+          runnable=true;
+        }
       }
     }
 );
@@ -31,6 +37,12 @@
  else {
           testConnectionButton.setEnabled(true);
         }
+        if (StringUtils.isNullOrEmpty(driver) || StringUtils.isNullOrEmpty(connectionString) || StringUtils.isNullOrEmpty(query)) {
+          runnable=false;
+        }
+ else {
+          runnable=true;
+        }
       }
     }
 );
@@ -41,6 +53,12 @@
     }
  else {
       testConnectionButton.setEnabled(true);
+    }
+    if (StringUtils.isNullOrEmpty(driver) || StringUtils.isNullOrEmpty(connectionString) || StringUtils.isNullOrEmpty(query)) {
+      runnable=false;
+    }
+ else {
+      runnable=true;
     }
     queryArea=JXEditTextArea.createSqlEditor();
     JXEditAreaPopupMenu.add(queryArea);

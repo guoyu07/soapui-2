@@ -1,0 +1,10 @@
+{
+  if (storedProcedure) {
+    ((CallableStatement)statement).execute();
+  }
+ else {
+    String q=PropertyExpander.expandProperties(context,query);
+    statement.execute(q);
+  }
+  resultSet=statement.getResultSet();
+}
