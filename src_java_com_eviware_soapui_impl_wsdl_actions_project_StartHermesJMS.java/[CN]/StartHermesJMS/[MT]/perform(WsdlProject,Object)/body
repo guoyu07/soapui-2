@@ -1,0 +1,20 @@
+{
+  String hermesConfigPath=UISupport.prompt("Specify path to hermes-config.xml file","Hermes configuration",PropertyExpander.expandProperties(project,project.getHermesConfig()));
+  if (hermesConfigPath == null)   return;
+  String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,"");
+  if ("".equals(hermesHome)) {
+    UISupport.showErrorMessage("Please set Hermes 1.13 path in Preferences->Tools ! ");
+    return;
+  }
+  String extension=UISupport.isWindows() ? ".bat" : ".sh";
+  String hermesBatPath=hermesHome + File.separator + "bin"+ File.separator+ "hermes"+ extension;
+  try {
+    ProcessBuilder pb=new ProcessBuilder(hermesBatPath);
+    Map<String,String> env=pb.environment();
+    env.put("HERMES_CONFIG",hermesConfigPath);
+    pb.start();
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+}
