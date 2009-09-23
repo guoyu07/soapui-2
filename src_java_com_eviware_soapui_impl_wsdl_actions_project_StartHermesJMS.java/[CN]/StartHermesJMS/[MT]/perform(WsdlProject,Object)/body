@@ -1,6 +1,7 @@
 {
-  String hermesConfigPath=UISupport.prompt("Specify path to hermes-config.xml file","Hermes configuration",PropertyExpander.expandProperties(project,project.getHermesConfig()));
+  String hermesConfigPath=chooseFolderDialog(project);
   if (hermesConfigPath == null)   return;
+  project.setHermesConfig(hermesConfigPath);
   String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,"");
   if ("".equals(hermesHome)) {
     UISupport.showErrorMessage("Please set Hermes 1.13 path in Preferences->Tools ! ");
