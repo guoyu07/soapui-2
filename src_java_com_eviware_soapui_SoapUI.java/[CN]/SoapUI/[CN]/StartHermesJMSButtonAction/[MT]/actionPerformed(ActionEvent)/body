@@ -1,0 +1,14 @@
+{
+  try {
+    String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,"");
+    if ("".equals(hermesHome)) {
+      UISupport.showErrorMessage("Please set Hermes 1.13 path in Preferences->Tools ! ");
+      return;
+    }
+    String hermesBatPath=hermesHome + File.separator + "bin"+ File.separator+ "hermes.bat";
+    Runtime.getRuntime().exec(hermesBatPath);
+  }
+ catch (  Throwable t) {
+    SoapUI.logError(t);
+  }
+}
