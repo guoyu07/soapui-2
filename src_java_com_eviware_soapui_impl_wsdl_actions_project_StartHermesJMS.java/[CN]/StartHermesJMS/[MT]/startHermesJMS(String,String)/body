@@ -1,0 +1,13 @@
+{
+  String extension=UISupport.isWindows() ? ".bat" : ".sh";
+  String hermesBatPath=hermesHome + File.separator + "bin"+ File.separator+ "hermes"+ extension;
+  try {
+    ProcessBuilder pb=new ProcessBuilder(hermesBatPath);
+    Map<String,String> env=pb.environment();
+    env.put("HERMES_CONFIG",hermesConfigPath);
+    pb.start();
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+}
