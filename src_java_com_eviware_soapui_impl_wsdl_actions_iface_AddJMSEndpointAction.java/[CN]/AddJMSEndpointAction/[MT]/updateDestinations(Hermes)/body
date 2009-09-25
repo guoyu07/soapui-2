@@ -1,0 +1,9 @@
+{
+  destinationNameList=new ArrayList<Destination>();
+  queueNameList=new ArrayList<Destination>();
+  destinationNameList.add(new Destination("-",Domain.QUEUE));
+  queueNameList.add(new Destination("",Domain.QUEUE));
+  extractDestinations(hermes,destinationNameList,queueNameList);
+  mainForm.setOptions(SEND,destinationNameList.toArray());
+  mainForm.setOptions(RECEIVE,queueNameList.toArray());
+}

@@ -1,0 +1,11 @@
+{
+  WsdlProject project=iface.getProject();
+  try {
+    Context ctx=HermesUtils.hermesContext(project);
+    return ctx;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

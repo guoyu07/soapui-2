@@ -2,11 +2,7 @@
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(request);
   ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
   try {
-    if (!hermesJarsLoaded) {
-      addHermesJarsToClasspath();
-      hermesJarsLoaded=true;
-    }
-    Context ctx=hermesContext(project);
+    Context ctx=HermesUtils.hermesContext(project);
     Hermes hermes=(Hermes)ctx.lookup(sessionName);
     return hermes;
   }

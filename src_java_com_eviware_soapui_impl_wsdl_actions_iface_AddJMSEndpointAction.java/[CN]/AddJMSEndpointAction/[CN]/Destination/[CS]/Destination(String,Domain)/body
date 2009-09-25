@@ -1,0 +1,14 @@
+{
+  this.domain=domain;
+  if (destinationName.equals("-") || destinationName.equals("")) {
+    this.destinationName=destinationName;
+  }
+ else {
+    if (domain.equals(Domain.QUEUE)) {
+      this.destinationName="queue_" + destinationName;
+    }
+ else {
+      this.destinationName="topic_" + destinationName;
+    }
+  }
+}

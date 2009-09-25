@@ -1,0 +1,16 @@
+{
+  XFormDialog dialog=buildDialog(iface);
+  initValues(iface);
+  if (dialog.show()) {
+    String session=dialog.getValue(SESSION);
+    int i=dialog.getValueIndex(SEND);
+    String send=destinationNameList.get(i).getDestinationName();
+    int j=dialog.getValueIndex(RECEIVE);
+    String receive=queueNameList.get(j).getDestinationName();
+    if ("-".equals(send) && "".equals(receive)) {
+      UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
+      return;
+    }
+    iface.addEndpoint(createEndpointString(session,send,receive));
+  }
+}

@@ -1,0 +1,28 @@
+{
+  if (iface == null)   return null;
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add JMS endpoint");
+  mainForm=builder.createForm("Basic");
+  mainForm.addComboBox(SESSION,new String[]{},"Session name from HermesJMS").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      Context ctx=getHermesContext(iface);
+      Hermes hermes=null;
+      try {
+        hermes=(Hermes)ctx.lookup(newValue);
+      }
+ catch (      NamingException e) {
+        SoapUI.logError(e);
+      }
+      if (hermes != null) {
+        updateDestinations(hermes);
+      }
+ else {
+        mainForm.setOptions(SEND,new String[]{});
+        mainForm.setOptions(RECEIVE,new String[]{});
+      }
+    }
+  }
+);
+  mainForm.addComboBox(SEND,new String[]{},"Queue/Topic for sending/publishing");
+  mainForm.addComboBox(RECEIVE,new String[]{},"Queue for receiving");
+  return builder.buildDialog(builder.buildOkCancelActions(),"create JMS endpoint by selecting proper values",null);
+}

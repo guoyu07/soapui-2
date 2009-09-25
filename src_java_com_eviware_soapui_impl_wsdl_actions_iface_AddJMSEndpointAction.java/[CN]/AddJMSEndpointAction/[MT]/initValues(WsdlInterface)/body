@@ -1,0 +1,17 @@
+{
+  String[] sessionOptions=getSessionOptions(iface);
+  mainForm.setOptions(SESSION,sessionOptions);
+  Context ctx=getHermesContext(iface);
+  Hermes hermes=null;
+  try {
+    if (sessionOptions != null && sessionOptions.length > 0) {
+      hermes=(Hermes)ctx.lookup(sessionOptions[0]);
+    }
+    if (hermes != null) {
+      updateDestinations(hermes);
+    }
+  }
+ catch (  NamingException e) {
+    SoapUI.logError(e);
+  }
+}
