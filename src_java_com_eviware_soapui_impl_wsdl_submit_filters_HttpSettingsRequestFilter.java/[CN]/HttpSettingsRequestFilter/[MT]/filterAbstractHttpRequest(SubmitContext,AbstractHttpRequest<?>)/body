@@ -27,4 +27,13 @@
   if (maxSize > 0)   httpMethod.setMaxSize(maxSize);
   httpMethod.setFollowRedirects(httpRequest.isFollowRedirects());
   HttpClientSupport.applyHttpSettings(httpMethod,settings);
+  String timeout=context.expand(httpRequest.getTimeout());
+  if (StringUtils.hasContent(timeout)) {
+    try {
+      httpMethod.getParams().setSoTimeout(Integer.parseInt(timeout));
+    }
+ catch (    NumberFormatException e) {
+      SoapUI.logError(e);
+    }
+  }
 }
