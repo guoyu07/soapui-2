@@ -1,5 +1,5 @@
 {
-  Iterator hermesDestionations=hermes.getDestinations();
+  Iterator<?> hermesDestionations=hermes.getDestinations();
   while (hermesDestionations.hasNext()) {
     DestinationConfigImpl dest=(DestinationConfigImpl)hermesDestionations.next();
     Destination temp=new Destination(dest.getName(),Domain.getDomain(dest.getDomain()));
