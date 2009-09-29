@@ -1,3 +1,16 @@
 {
-  return null;
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  try {
+    JdbcXmlResponseAssertion assertion=(JdbcXmlResponseAssertion)assertionsSupport.addJdbcXmlAssertion(assertionLabel);
+    if (assertion == null)     return null;
+    if (getXmlStringResult() != null) {
+      assertion.assertContent(getXmlDocumentResult(),new WsdlTestRunContext(this));
+      notifier.notifyChange();
+    }
+    return assertion;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
 }

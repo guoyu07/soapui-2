@@ -1,0 +1,9 @@
+{
+  if (assertion.isAllowMultiple())   return true;
+  for (int c=0; c < assertable.getAssertionCount(); c++) {
+    if (assertion.getClass().equals(assertable.getAssertionAt(c).getClass())) {
+      return false;
+    }
+  }
+  return true;
+}

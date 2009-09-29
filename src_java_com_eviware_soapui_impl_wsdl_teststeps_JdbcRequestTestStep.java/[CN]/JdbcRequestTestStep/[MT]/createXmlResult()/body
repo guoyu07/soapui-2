@@ -4,27 +4,27 @@
   try {
     DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
     DocumentBuilder builder=factory.newDocumentBuilder();
-    org.w3c.dom.Document doc=builder.newDocument();
-    Element results=doc.createElement("Results");
-    doc.appendChild(results);
+    xmlDocumentResult=builder.newDocument();
+    Element results=xmlDocumentResult.createElement("Results");
+    xmlDocumentResult.appendChild(results);
     ResultSetMetaData rsmd=rs.getMetaData();
     int colCount=rsmd.getColumnCount();
     while (rs.next()) {
-      Element row=doc.createElement("Row");
+      Element row=xmlDocumentResult.createElement("Row");
       results.appendChild(row);
       for (int ii=1; ii <= colCount; ii++) {
-        String columnName=rsmd.getColumnName(ii);
+        String columnName=(rsmd.getTableName(ii) + "." + rsmd.getColumnName(ii)).toUpperCase();
         String value=rs.getString(ii);
-        Element node=doc.createElement(columnName);
+        Element node=xmlDocumentResult.createElement(columnName);
         if (!StringUtils.isNullOrEmpty(value)) {
-          node.appendChild(doc.createTextNode(value.toString()));
+          node.appendChild(xmlDocumentResult.createTextNode(value.toString()));
         }
         row.appendChild(node);
       }
     }
-    String oldRes=getXmlResult();
-    xmlResult=getDocumentAsXml(doc);
-    notifyPropertyChanged("xmlResult",oldRes,xmlResult);
+    String oldRes=getXmlStringResult();
+    xmlStringResult=getDocumentAsString(xmlDocumentResult);
+    notifyPropertyChanged("xmlStringResult",oldRes,xmlStringResult);
   }
  catch (  Exception e) {
     e.printStackTrace();

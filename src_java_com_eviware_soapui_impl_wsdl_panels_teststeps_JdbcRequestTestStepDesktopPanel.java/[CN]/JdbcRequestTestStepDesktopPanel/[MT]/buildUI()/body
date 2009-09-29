@@ -3,6 +3,8 @@
   inspectorPanel.setDefaultDividerLocation(0.7F);
   add(buildToolbar(),BorderLayout.NORTH);
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
-  add(buildStatusBar(),BorderLayout.SOUTH);
+  assertionsPanel=buildAssertionsPanel();
+  assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
+  inspectorPanel.addInspector(assertionInspector);
   setPreferredSize(new Dimension(600,450));
 }
