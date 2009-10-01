@@ -1,5 +1,11 @@
 {
   configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Configuration");
-  configPanel.add(jdbcRequestTestStep.getComponent(),BorderLayout.CENTER);
+  if (panel == null) {
+    panel=new JPanel(new BorderLayout());
+    configForm=new SimpleForm();
+    createSimpleJdbcConfigForm();
+    panel.add(configForm.getPanel());
+  }
+  configPanel.add(panel,BorderLayout.CENTER);
   return configPanel;
 }

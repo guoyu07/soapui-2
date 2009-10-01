@@ -1,6 +1,9 @@
 {
   super(modelItem);
   jdbcRequestTestStep=modelItem;
+  this.driver=jdbcRequestTestStep.getDriver();
+  this.connectionString=jdbcRequestTestStep.getConnectionString();
+  this.query=jdbcRequestTestStep.getQuery();
   buildUI();
   JdbcRequestTestStep jdbcRequest=modelItem;
   runButton.setEnabled(true);
