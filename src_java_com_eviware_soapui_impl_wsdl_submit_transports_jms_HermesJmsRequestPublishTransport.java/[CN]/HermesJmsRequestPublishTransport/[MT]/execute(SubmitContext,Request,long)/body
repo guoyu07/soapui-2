@@ -26,6 +26,7 @@
     JMSHeader.setMessageProperties(textMessage,request,hermes);
     messageProducer.send(textMessage,textMessage.getJMSDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
     JMSResponse response=new JMSResponse("",null,request,timeStarted);
+    attachResponseToRequest(submitContext,request,response);
     return response;
   }
  catch (  Throwable jmse) {

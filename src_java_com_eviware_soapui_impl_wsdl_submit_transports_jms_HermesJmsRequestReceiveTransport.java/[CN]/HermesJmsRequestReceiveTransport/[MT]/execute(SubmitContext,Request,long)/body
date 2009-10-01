@@ -26,6 +26,7 @@
         textMessage=(TextMessage)message;
       }
       JMSResponse response=new JMSResponse(textMessage.getText(),textMessage,request,timeStarted);
+      attachResponseToRequest(submitContext,request,response);
       return response;
     }
  else {

@@ -1,0 +1,8 @@
+{
+  StringToStringMap stringToStringMap=new StringToStringMap();
+  if ((request.getResponse()) instanceof JMSResponse) {
+    Message message=((JMSResponse)request.getResponse()).getMessage();
+    if (message != null)     stringToStringMap.putAll(JMSHeader.getReceivedMessageHeaders(message));
+  }
+  return stringToStringMap;
+}

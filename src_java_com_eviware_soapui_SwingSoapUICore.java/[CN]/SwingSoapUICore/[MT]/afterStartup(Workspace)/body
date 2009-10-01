@@ -12,6 +12,7 @@
   inspectorRegistry.addFactory(new InferredSchemaInspectorFactory());
   inspectorRegistry.addFactory(new JMSHeaderInspectorFactory());
   inspectorRegistry.addFactory(new JMSPropertyInspectorFactory());
+  inspectorRegistry.addFactory(new JMSHeaderAndPropertyInspectorFactory());
   String actionsDir=System.getProperty("soapui.ext.actions");
   addExternalActions(actionsDir == null ? getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions" : actionsDir,getExtensionClassLoader());
 }
