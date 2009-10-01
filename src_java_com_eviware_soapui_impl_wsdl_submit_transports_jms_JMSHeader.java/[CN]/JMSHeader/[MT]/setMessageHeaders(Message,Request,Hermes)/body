@@ -1,43 +1,37 @@
 {
-  AbstractHttpRequest temp=(AbstractHttpRequest)request;
-  StringToStringMap headersMap=temp.getRequestHeaders();
+  JMSConfig jmsConfig=((WsdlRequest)request).getJMSConfig();
   try {
-    if (headersMap.containsKey(JMSCORRELATIONID)) {
-      message.setJMSCorrelationID(PropertyExpander.expandProperties(headersMap.get(JMSCORRELATIONID,"")));
+    if (jmsConfig.getJMSCorrelationID() != null && !jmsConfig.getJMSCorrelationID().equals("")) {
+      message.setJMSCorrelationID(PropertyExpander.expandProperties(jmsConfig.getJMSCorrelationID()));
     }
-    if (headersMap.containsKey(JMSREPLYTO)) {
-      message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(headersMap.get(JMSREPLYTO,"")),Domain.QUEUE));
+    if (jmsConfig.getJMSReplyTo() != null && !jmsConfig.getJMSReplyTo().equals("")) {
+      message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(jmsConfig.getJMSReplyTo()),Domain.QUEUE));
     }
-    if (headersMap.containsKey(TIMETOLIVE)) {
-      setTimeTolive(Long.parseLong(PropertyExpander.expandProperties(headersMap.get(TIMETOLIVE,"0"))));
+    if (jmsConfig.getTimeToLive() != null && !jmsConfig.getTimeToLive().equals("")) {
+      setTimeTolive(Long.parseLong(PropertyExpander.expandProperties(jmsConfig.getTimeToLive())));
     }
  else {
       setTimeTolive(Message.DEFAULT_TIME_TO_LIVE);
     }
-    if (headersMap.containsKey(JMSTYPE)) {
-      message.setJMSType(PropertyExpander.expandProperties(headersMap.get(JMSTYPE,"")));
+    if (jmsConfig.getJMSType() != null && !jmsConfig.getJMSType().equals("")) {
+      message.setJMSType(PropertyExpander.expandProperties(jmsConfig.getJMSType()));
     }
-    if (headersMap.containsKey(JMSPRIORITY)) {
-      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSPRIORITY,String.valueOf(Message.DEFAULT_PRIORITY)))));
+    if (jmsConfig.getJMSPriority() != null && !jmsConfig.getJMSPriority().equals("")) {
+      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(jmsConfig.getJMSPriority())));
     }
  else {
       message.setJMSPriority(Message.DEFAULT_PRIORITY);
     }
-    if (headersMap.containsKey(JMSDELIVERYMODE)) {
-      message.setJMSDeliveryMode(Integer.parseInt(PropertyExpander.expandProperties(headersMap.get(JMSDELIVERYMODE,String.valueOf(Message.DEFAULT_DELIVERY_MODE)))));
+    if (jmsConfig.getJMSDeliveryMode() != null && !jmsConfig.getJMSDeliveryMode().equals("")) {
+      int deliveryMode=jmsConfig.getJMSDeliveryMode().equals("PERSISTENT") ? javax.jms.DeliveryMode.PERSISTENT : javax.jms.DeliveryMode.NON_PERSISTENT;
+      message.setJMSDeliveryMode(deliveryMode);
     }
  else {
       message.setJMSDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
     }
-    String keys[]=headersMap.getKeys();
-    for (    String key : keys) {
-      if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(JMSDELIVERYMODE)) {
-        message.setStringProperty(key,PropertyExpander.expandProperties(headersMap.get(key)));
-      }
-    }
   }
  catch (  NamingException e) {
-    SoapUI.logError(e,"Message header JMSReplyTo = " + PropertyExpander.expandProperties(headersMap.get(JMSREPLYTO)) + "destination not exists!");
+    SoapUI.logError(e,"Message header JMSReplyTo = " + PropertyExpander.expandProperties(jmsConfig.getJMSReplyTo()) + "destination not exists!");
   }
 catch (  Exception e) {
     SoapUI.logError(e,"error while seting message header properties!");

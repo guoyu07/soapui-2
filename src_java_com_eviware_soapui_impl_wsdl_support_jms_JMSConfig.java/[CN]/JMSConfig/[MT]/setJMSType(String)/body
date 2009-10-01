@@ -1,0 +1,5 @@
+{
+  String oldValue=getJMSType();
+  jmsConfConfig.setJMSType(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.JMSTYPE,oldValue,newValue);
+}

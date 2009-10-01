@@ -1,16 +1,16 @@
 {
   StringToStringMap headermap=new StringToStringMap();
   try {
-    headermap.put(JMSDESTINATION,String.valueOf(message.getJMSDestination()));
     headermap.put(JMSDELIVERYMODE,String.valueOf(message.getJMSDeliveryMode()));
     headermap.put(JMSEXPIRATION,String.valueOf(message.getJMSExpiration()));
-    headermap.put(JMSMESSAGEID,String.valueOf(message.getJMSMessageID()));
     headermap.put(JMSPRIORITY,String.valueOf(message.getJMSPriority()));
     headermap.put(JMSTIMESTAMP,String.valueOf(message.getJMSTimestamp()));
-    headermap.put(JMSCORRELATIONID,String.valueOf(message.getJMSCorrelationID()));
-    headermap.put(JMSREPLYTO,String.valueOf(message.getJMSReplyTo()));
-    headermap.put(JMSTYPE,String.valueOf(message.getJMSType()));
     headermap.put(JMSREDELIVERED,String.valueOf(message.getJMSRedelivered()));
+    if (message.getJMSDestination() != null)     headermap.put(JMSDESTINATION,String.valueOf(message.getJMSDestination()));
+    if (message.getJMSMessageID() != null)     headermap.put(JMSMESSAGEID,message.getJMSMessageID());
+    if (message.getJMSCorrelationID() != null)     headermap.put(JMSCORRELATIONID,message.getJMSCorrelationID());
+    if (message.getJMSReplyTo() != null)     headermap.put(JMSREPLYTO,String.valueOf(message.getJMSReplyTo()));
+    if (message.getJMSType() != null)     headermap.put(JMSTYPE,message.getJMSType());
     Enumeration properties=message.getPropertyNames();
     while (properties.hasMoreElements()) {
       String key=(String)properties.nextElement();

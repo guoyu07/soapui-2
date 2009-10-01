@@ -1,0 +1,5 @@
+{
+  String oldValue=getJMSPriority();
+  jmsConfConfig.setJMSPriority(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.JMSPRIORITY,oldValue,newValue);
+}

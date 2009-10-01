@@ -1,0 +1,19 @@
+{
+  JMSPropertiesConfig jmsPropertyConfig=((WsdlRequest)request).getJMSPropertiesConfig();
+  try {
+    List<JMSPropertyConfig> propertyList=jmsPropertyConfig.getJMSProperties();
+    StringToStringMap stringToStringMap=new StringToStringMap(propertyList.size());
+    for (    JMSPropertyConfig jmsProperty : propertyList) {
+      stringToStringMap.put(jmsProperty.getName(),jmsProperty.getValue());
+    }
+    String keys[]=stringToStringMap.getKeys();
+    for (    String key : keys) {
+      if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(JMSDELIVERYMODE)) {
+        message.setStringProperty(key,PropertyExpander.expandProperties(stringToStringMap.get(key)));
+      }
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"error while seting jms message properties!");
+  }
+}

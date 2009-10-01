@@ -1,0 +1,8 @@
+{
+  List<JMSPropertyConfig> propertyList=request.getJMSPropertiesConfig().getJMSProperties();
+  StringToStringMap stringToStringMap=new StringToStringMap(propertyList.size());
+  for (  JMSPropertyConfig jmsProperty : propertyList) {
+    stringToStringMap.put(jmsProperty.getName(),jmsProperty.getValue());
+  }
+  return stringToStringMap;
+}

@@ -23,6 +23,7 @@
     textMessage.setText(messageBody);
     JMSHeader jmsHeader=new JMSHeader();
     jmsHeader.setMessageHeaders(textMessage,request,hermes);
+    JMSHeader.setMessageProperties(textMessage,request,hermes);
     messageProducer.send(textMessage,textMessage.getJMSDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
     JMSResponse response=new JMSResponse("",null,request,timeStarted);
     return response;

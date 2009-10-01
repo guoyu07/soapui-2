@@ -1,0 +1,8 @@
+{
+  int row=headersTable.getSelectedRow();
+  if (row != -1 && UISupport.confirm("Delete selected JMS Property?","Remove JMS Property")) {
+    changing=true;
+    headersTableModel.remove(row);
+    changing=false;
+  }
+}
