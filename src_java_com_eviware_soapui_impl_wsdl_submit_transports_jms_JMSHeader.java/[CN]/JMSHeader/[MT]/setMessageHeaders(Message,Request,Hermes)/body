@@ -1,5 +1,5 @@
 {
-  JMSConfig jmsConfig=((WsdlRequest)request).getJMSConfig();
+  JMSHeaderConfig jmsConfig=((WsdlRequest)request).getJMSHeaderConfig();
   try {
     if (jmsConfig.getJMSCorrelationID() != null && !jmsConfig.getJMSCorrelationID().equals("")) {
       message.setJMSCorrelationID(PropertyExpander.expandProperties(jmsConfig.getJMSCorrelationID()));

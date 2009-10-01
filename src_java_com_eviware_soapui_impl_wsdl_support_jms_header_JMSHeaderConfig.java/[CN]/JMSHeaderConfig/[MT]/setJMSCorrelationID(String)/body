@@ -1,0 +1,5 @@
+{
+  String oldValue=getJMSCorrelationID();
+  jmsHeaderConfConfig.setJMSCorrelationID(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.JMSCORRELATIONID,oldValue,newValue);
+}

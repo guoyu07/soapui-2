@@ -1,4 +1,4 @@
 {
-  if (modelItem instanceof AbstractHttpRequestInterface<?>)   return new JMSPropertyInspector((JMSPropertyInspectorModel)new WsdlRequestJMSPropertiesModel((WsdlRequest)modelItem));
+  if (modelItem instanceof WsdlRequest)   return new JMSPropertyInspector((JMSPropertyInspectorModel)new WsdlRequestJMSPropertiesModel((WsdlRequest)modelItem));
   return null;
 }

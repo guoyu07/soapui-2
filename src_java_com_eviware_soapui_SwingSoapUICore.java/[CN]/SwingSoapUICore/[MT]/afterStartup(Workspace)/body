@@ -10,7 +10,7 @@
   inspectorRegistry.addFactory(new WsrmInspectorFactory());
   inspectorRegistry.addFactory(new RestRepresentationsInspectorFactory());
   inspectorRegistry.addFactory(new InferredSchemaInspectorFactory());
-  inspectorRegistry.addFactory(new JMSInspectorFactory());
+  inspectorRegistry.addFactory(new JMSHeaderInspectorFactory());
   inspectorRegistry.addFactory(new JMSPropertyInspectorFactory());
   String actionsDir=System.getProperty("soapui.ext.actions");
   addExternalActions(actionsDir == null ? getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions" : actionsDir,getExtensionClassLoader());
