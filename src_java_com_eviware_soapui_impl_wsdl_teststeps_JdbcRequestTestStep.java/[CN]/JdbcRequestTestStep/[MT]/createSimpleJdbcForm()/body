@@ -1,12 +1,15 @@
 {
+  if (configForm == null) {
+    configForm=new SimpleForm();
+  }
   configForm.addSpace(5);
   configForm.setDefaultTextFieldColumns(50);
   JTextField textField=configForm.appendTextField(DRIVER_FIELD,"JDBC Driver to use");
-  textField.setText(jdbcRequestTestStep.getDriver());
+  textField.setText(getDriver());
   textField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       driver=configForm.getComponentValue(DRIVER_FIELD);
-      jdbcRequestTestStep.setDriver(driver);
+      setDriver(driver);
       if (StringUtils.isNullOrEmpty(driver) || StringUtils.isNullOrEmpty(connectionString)) {
         testConnectionButton.setEnabled(false);
       }
@@ -23,11 +26,11 @@
   }
 );
   textField=configForm.appendTextField(CONNSTR_FIELD,"JDBC Driver Connection String");
-  textField.setText(jdbcRequestTestStep.getConnectionString());
+  textField.setText(getConnectionString());
   textField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       connectionString=configForm.getComponentValue(CONNSTR_FIELD);
-      jdbcRequestTestStep.setConnectionString(connectionString);
+      setConnectionString(connectionString);
       if (StringUtils.isNullOrEmpty(driver) || StringUtils.isNullOrEmpty(connectionString)) {
         testConnectionButton.setEnabled(false);
       }
@@ -59,15 +62,16 @@
   }
   queryArea=JXEditTextArea.createSqlEditor();
   JXEditAreaPopupMenu.add(queryArea);
-  queryArea.setText(jdbcRequestTestStep.getQuery());
+  queryArea.setText(getQuery());
   JScrollPane scrollPane=new JScrollPane(queryArea);
   scrollPane.setPreferredSize(new Dimension(400,150));
   configForm.append(QUERY_FIELD,scrollPane);
   queryArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       query=queryArea.getText();
-      jdbcRequestTestStep.setQuery(query);
+      setQuery(query);
     }
   }
 );
+  return configForm;
 }
