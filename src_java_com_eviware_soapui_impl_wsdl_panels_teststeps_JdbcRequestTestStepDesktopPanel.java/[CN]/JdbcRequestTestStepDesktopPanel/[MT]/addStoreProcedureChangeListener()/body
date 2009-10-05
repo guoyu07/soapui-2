@@ -1,0 +1,9 @@
+{
+  isStoredProcedureCheckBox.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      storedProcedure=((JCheckBox)e.getSource()).isSelected();
+      jdbcRequestTestStepConfig.setStoredProcedure(storedProcedure);
+    }
+  }
+);
+}

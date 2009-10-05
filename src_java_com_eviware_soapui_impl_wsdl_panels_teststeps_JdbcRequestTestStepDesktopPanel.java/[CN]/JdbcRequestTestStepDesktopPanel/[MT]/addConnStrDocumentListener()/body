@@ -1,0 +1,21 @@
+{
+  connStrTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      connectionString=configForm.getComponentValue(CONNSTR_FIELD);
+      jdbcRequestTestStepConfig.setConnectionString(connectionString);
+      if (enableTestConnection()) {
+        testConnectionButton.setEnabled(true);
+      }
+ else {
+        testConnectionButton.setEnabled(false);
+      }
+      if (enableTestConnection() && !StringUtils.isNullOrEmpty(query)) {
+        runnable=true;
+      }
+ else {
+        runnable=false;
+      }
+    }
+  }
+);
+}

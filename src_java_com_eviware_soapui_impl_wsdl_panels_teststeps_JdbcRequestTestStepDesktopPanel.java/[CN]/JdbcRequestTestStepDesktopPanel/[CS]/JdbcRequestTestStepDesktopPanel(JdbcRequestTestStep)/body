@@ -1,10 +1,11 @@
 {
   super(modelItem);
   jdbcRequestTestStep=modelItem;
-  this.driver=jdbcRequestTestStep.getDriver();
-  this.connectionString=jdbcRequestTestStep.getConnectionString();
-  this.query=jdbcRequestTestStep.getQuery();
-  this.password=jdbcRequestTestStep.getPassword();
+  jdbcRequestTestStepConfig=jdbcRequestTestStep.getJdbcRequestTestStepConfig();
+  this.driver=jdbcRequestTestStepConfig.getDriver();
+  this.connectionString=jdbcRequestTestStepConfig.getConnectionString();
+  this.query=jdbcRequestTestStepConfig.getQuery();
+  this.password=jdbcRequestTestStepConfig.getPassword();
   buildUI();
   runButton.setEnabled(true);
 }
