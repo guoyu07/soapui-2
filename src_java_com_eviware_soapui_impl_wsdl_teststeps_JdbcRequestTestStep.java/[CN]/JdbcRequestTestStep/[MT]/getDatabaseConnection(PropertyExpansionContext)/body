@@ -9,6 +9,7 @@
     UISupport.showErrorMessage("Please supply connection settings for all DataSources");
     throw new SoapUIException("Please supply connection settings");
   }
+  connStr=connStr.replaceFirst(PASS_TEMPLATE,password);
   try {
     DriverManager.getDriver(connStr);
   }

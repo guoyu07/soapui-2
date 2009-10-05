@@ -1,5 +1,7 @@
 {
-  inspectorPanel=JInspectorPanelFactory.build(buildContent());
+  JSplitPane split=UISupport.createHorizontalSplit(buildConfigPanel(),buildResultEditor());
+  split.setDividerLocation(180);
+  inspectorPanel=JInspectorPanelFactory.build(split);
   inspectorPanel.setDefaultDividerLocation(0.7F);
   add(buildToolbar(),BorderLayout.NORTH);
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);

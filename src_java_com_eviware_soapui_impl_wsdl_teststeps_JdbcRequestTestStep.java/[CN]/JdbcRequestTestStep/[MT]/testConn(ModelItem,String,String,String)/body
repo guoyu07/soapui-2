@@ -1,7 +1,8 @@
 {
   PropertyExpansionContext context=new DefaultPropertyExpansionContext(modelItem);
-  String drvr=driver;
-  String connStr=connectionString;
+  String drvr=PropertyExpander.expandProperties(context,driver).trim();
+  String connStr=PropertyExpander.expandProperties(context,connectionString).trim();
+  connStr=connStr.replaceFirst(PASS_TEMPLATE,password);
   try {
     DriverManager.getDriver(connStr);
   }
