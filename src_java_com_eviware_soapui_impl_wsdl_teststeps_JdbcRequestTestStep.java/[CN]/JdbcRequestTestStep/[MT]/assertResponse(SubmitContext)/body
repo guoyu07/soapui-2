@@ -1,8 +1,10 @@
 {
   try {
     if (notifier == null)     notifier=new PropertyChangeNotifier();
+    JdbcMessageExchange messageExchange=new JdbcMessageExchange(this);
     if (this != null) {
       for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+        assertion.assertResponse(messageExchange,context);
       }
     }
     notifier.notifyChange();

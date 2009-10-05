@@ -4,6 +4,7 @@
     WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionLabel);
     if (assertion == null)     return null;
     if (getXmlStringResult() != null) {
+      assertion.assertResponse(new JdbcMessageExchange(this),new WsdlTestRunContext(this));
       notifier.notifyChange();
     }
     return assertion;
