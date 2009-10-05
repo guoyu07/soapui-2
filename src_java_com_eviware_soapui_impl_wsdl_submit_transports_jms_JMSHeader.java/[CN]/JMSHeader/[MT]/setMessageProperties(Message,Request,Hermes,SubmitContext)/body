@@ -9,7 +9,7 @@
     String keys[]=stringToStringMap.getKeys();
     for (    String key : keys) {
       if (!key.equals(JMSCORRELATIONID) && !key.equals(JMSREPLYTO) && !key.equals(TIMETOLIVE)&& !key.equals(JMSTYPE)&& !key.equals(JMSPRIORITY)&& !key.equals(JMSDELIVERYMODE)) {
-        message.setStringProperty(key,PropertyExpander.expandProperties(stringToStringMap.get(key)));
+        message.setStringProperty(key,PropertyExpander.expandProperties(submitContext,stringToStringMap.get(key)));
       }
     }
   }

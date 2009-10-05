@@ -11,6 +11,10 @@
       UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
       return;
     }
+    if (destinationNameList.get(i).getDomain().equals(Domain.TOPIC) && queueNameList.get(j).getDomain().equals(Domain.QUEUE)) {
+      UISupport.showErrorMessage("Not supported endpoint");
+      return;
+    }
     iface.addEndpoint(createEndpointString(session,send,receive));
   }
 }
