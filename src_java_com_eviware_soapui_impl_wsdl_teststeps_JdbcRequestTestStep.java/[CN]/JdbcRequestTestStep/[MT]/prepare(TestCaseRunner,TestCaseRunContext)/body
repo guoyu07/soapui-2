@@ -1,7 +1,7 @@
 {
   getDatabaseConnection(context);
-  if (storedProcedure) {
-    String sql=PropertyExpander.expandProperties(context,query);
+  if (jdbcRequestTestStepConfig.getStoredProcedure()) {
+    String sql=PropertyExpander.expandProperties(context,jdbcRequestTestStepConfig.getQuery());
     if (!sql.startsWith("{call ") && !sql.endsWith("}"))     sql="{call " + sql + "}";
     statement=connection.prepareCall(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
   }

@@ -1,9 +1,9 @@
 {
-  if (storedProcedure) {
+  if (jdbcRequestTestStepConfig.getStoredProcedure()) {
     ((CallableStatement)statement).execute();
   }
  else {
-    String q=PropertyExpander.expandProperties(context,query);
+    String q=PropertyExpander.expandProperties(context,jdbcRequestTestStepConfig.getQuery());
     statement.execute(q);
   }
   resultSet=statement.getResultSet();
