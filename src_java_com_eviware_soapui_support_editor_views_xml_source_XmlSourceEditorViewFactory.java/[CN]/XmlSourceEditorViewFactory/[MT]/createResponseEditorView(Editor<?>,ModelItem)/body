@@ -11,5 +11,8 @@
  else   if (modelItem instanceof MessageExchangeModelItem) {
     return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);
   }
+ else   if (modelItem instanceof JdbcRequestTestStep) {
+    return new XmlSourceEditorView<JdbcRequestTestStep>((XmlEditor)editor,(JdbcRequestTestStep)modelItem);
+  }
   return null;
 }

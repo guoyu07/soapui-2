@@ -3,12 +3,11 @@
     if (notifier == null)     notifier=new PropertyChangeNotifier();
     if (this != null) {
       for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
-        ((JdbcXmlResponseAssertion)assertion).assertContent(xmlDocumentResult,context);
       }
     }
     notifier.notifyChange();
   }
- catch (  AssertionException e) {
+ catch (  Exception e) {
     e.printStackTrace();
   }
 }

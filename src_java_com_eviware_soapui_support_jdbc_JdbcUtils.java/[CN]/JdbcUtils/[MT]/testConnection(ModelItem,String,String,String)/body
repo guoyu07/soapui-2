@@ -1,0 +1,17 @@
+{
+  PropertyExpansionContext context=new DefaultPropertyExpansionContext(modelItem);
+  String drvr=driver;
+  String connStr=connectionString;
+  try {
+    DriverManager.getDriver(connStr);
+  }
+ catch (  SQLException e) {
+    try {
+      Class.forName(drvr).newInstance();
+    }
+ catch (    Exception e1) {
+      throw new Exception("Failed to init connection for drvr [" + drvr + "], connectionString ["+ connectionString+ "]");
+    }
+  }
+  return DriverManager.getConnection(connStr);
+}

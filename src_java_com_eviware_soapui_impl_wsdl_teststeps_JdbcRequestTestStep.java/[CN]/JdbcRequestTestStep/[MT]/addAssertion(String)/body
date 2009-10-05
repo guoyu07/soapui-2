@@ -1,10 +1,9 @@
 {
   PropertyChangeNotifier notifier=new PropertyChangeNotifier();
   try {
-    JdbcXmlResponseAssertion assertion=(JdbcXmlResponseAssertion)assertionsSupport.addJdbcXmlAssertion(assertionLabel);
+    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionLabel);
     if (assertion == null)     return null;
     if (getXmlStringResult() != null) {
-      assertion.assertContent(getXmlDocumentResult(),new WsdlTestRunContext(this));
       notifier.notifyChange();
     }
     return assertion;
