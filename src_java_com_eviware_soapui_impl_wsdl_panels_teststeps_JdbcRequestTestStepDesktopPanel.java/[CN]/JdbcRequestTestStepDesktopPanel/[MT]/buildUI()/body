@@ -1,4 +1,5 @@
 {
+  init();
   JSplitPane split=UISupport.createHorizontalSplit(buildConfigPanel(),buildResponseEditor());
   split.setDividerLocation(180);
   inspectorPanel=JInspectorPanelFactory.build(split);
@@ -9,5 +10,4 @@
   assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
   inspectorPanel.addInspector(assertionInspector);
   setPreferredSize(new Dimension(600,450));
-  init();
 }
