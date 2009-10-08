@@ -1,7 +1,15 @@
 {
-  String[] sessionOptions=getSessionOptions(iface);
+  String hermesConfigPath=PropertyExpander.expandProperties(iface,iface.getProject().getHermesConfig());
+  mainForm.getComponent(HERMES_CONFIG).setValue(hermesConfigPath);
+  String[] sessionOptions=getSessionOptions(iface,hermesConfigPath);
   mainForm.setOptions(SESSION,sessionOptions);
-  Context ctx=getHermesContext(iface);
+  Context ctx=null;
+  try {
+    ctx=getHermesContext(iface,hermesConfigPath);
+  }
+ catch (  Exception e) {
+    SoapUI.log.info("no hermes context");
+  }
   Hermes hermes=null;
   try {
     if (sessionOptions != null && sessionOptions.length > 0) {

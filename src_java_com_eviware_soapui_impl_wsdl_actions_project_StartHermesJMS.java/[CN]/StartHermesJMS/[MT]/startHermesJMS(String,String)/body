@@ -2,6 +2,11 @@
   String extension=UISupport.isWindows() ? ".bat" : ".sh";
   String hermesBatPath=hermesHome + File.separator + "bin"+ File.separator+ "hermes"+ extension;
   try {
+    File file=new File(hermesConfigPath + File.separator + HermesUtils.HERMES_CONFIG_XML);
+    if (!file.exists()) {
+      UISupport.showErrorMessage("No hermes-config.xml on this path!");
+      return;
+    }
     ProcessBuilder pb=new ProcessBuilder(hermesBatPath);
     Map<String,String> env=pb.environment();
     env.put("HERMES_CONFIG",hermesConfigPath);

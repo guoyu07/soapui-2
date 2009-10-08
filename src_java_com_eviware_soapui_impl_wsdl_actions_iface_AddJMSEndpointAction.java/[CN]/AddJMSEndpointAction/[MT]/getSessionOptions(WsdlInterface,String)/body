@@ -1,12 +1,12 @@
 {
-  Context ctx=getHermesContext(iface);
-  List<Hermes> hermesList=null;
+  List<Hermes> hermesList=new ArrayList<Hermes>();
   try {
+    Context ctx=getHermesContext(iface,hermesConfigPath);
     JAXBHermesLoader loader=(JAXBHermesLoader)ctx.lookup(HermesContext.LOADER);
     hermesList=loader.load();
   }
  catch (  Exception e) {
-    SoapUI.logError(e);
+    SoapUI.log.info("no hermes context");
   }
   List<String> hermesSessionList=new ArrayList<String>();
   for (  Hermes h : hermesList) {

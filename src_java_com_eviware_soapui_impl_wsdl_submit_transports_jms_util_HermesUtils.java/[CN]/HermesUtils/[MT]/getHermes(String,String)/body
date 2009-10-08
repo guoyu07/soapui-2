@@ -1,0 +1,16 @@
+{
+  if (!hermesJarsLoaded) {
+    addHermesJarsToClasspath();
+    hermesJarsLoaded=true;
+  }
+  if (contextMap.containsKey(key)) {
+    return contextMap.get(key);
+  }
+  Properties props=new Properties();
+  props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
+  props.put(Context.PROVIDER_URL,hermesConfigPath + File.separator + HERMES_CONFIG_XML);
+  props.put("hermes.loader",JAXBHermesLoader.class.getName());
+  Context ctx=new InitialContext(props);
+  contextMap.put(key,ctx);
+  return ctx;
+}

@@ -4,8 +4,16 @@
   if (dialog.show()) {
     String session=dialog.getValue(SESSION);
     int i=dialog.getValueIndex(SEND);
+    if (i == -1) {
+      UISupport.showErrorMessage("Not supported endpoint");
+      return;
+    }
     String send=destinationNameList.get(i).getDestinationName();
     int j=dialog.getValueIndex(RECEIVE);
+    if (j == -1) {
+      UISupport.showErrorMessage("Not supported endpoint");
+      return;
+    }
     String receive=queueNameList.get(j).getDestinationName();
     if ("-".equals(send) && "".equals(receive)) {
       UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
