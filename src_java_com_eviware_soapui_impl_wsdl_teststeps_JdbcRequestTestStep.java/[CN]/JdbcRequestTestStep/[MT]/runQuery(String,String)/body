@@ -2,7 +2,7 @@
   MockTestRunner mockRunner=new MockTestRunner(getTestCase());
   MockTestRunContext mockContext=new MockTestRunContext(mockRunner,this);
   try {
-    prepare(mockRunner,mockContext);
+    prepare(mockRunner,mockContext,driver,connStr);
     List<String> properties=new ArrayList<String>();
     load(mockRunner,mockContext,properties);
     createXmlResult();
