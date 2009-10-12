@@ -47,15 +47,19 @@
       return new JMSResponse("",null,request,timeStarted);
     }
   }
- catch (  Throwable jmse) {
+ catch (  JMSException jmse) {
     SoapUI.logError(jmse);
     submitContext.setProperty(JMS_ERROR,jmse);
     response=new JMSResponse("",null,request,timeStarted);
     submitContext.setProperty(JMS_RESPONSE,response);
     return response;
   }
+catch (  Throwable t) {
+    SoapUI.logError(t);
+  }
  finally {
     if (session != null)     session.close();
     if (connection != null)     connection.close();
   }
+  return null;
 }
