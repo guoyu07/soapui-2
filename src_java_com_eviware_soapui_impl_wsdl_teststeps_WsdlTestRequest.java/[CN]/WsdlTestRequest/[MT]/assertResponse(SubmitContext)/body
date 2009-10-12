@@ -1,6 +1,17 @@
 {
   if (notifier == null)   notifier=new PropertyChangeNotifier();
-  messageExchange=getResponse() == null ? null : new WsdlResponseMessageExchange(this);
+  if (getResponse() instanceof JMSResponse) {
+    messageExchange=getResponse() == null ? null : new WsdlResponseMessageExchange(this){
+      @Override public boolean hasResponse(){
+        String responseContent=getResponseContent();
+        return responseContent != null;
+      }
+    }
+;
+  }
+ else {
+    messageExchange=getResponse() == null ? null : new WsdlResponseMessageExchange(this);
+  }
   if (messageExchange != null) {
     for (    WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
       assertion.assertResponse(messageExchange,context);

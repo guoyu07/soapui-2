@@ -1,6 +1,7 @@
 {
   try {
-    return message.getJMSTimestamp();
+    if (message != null)     return message.getJMSTimestamp();
+ else     return 0;
   }
  catch (  JMSException e) {
     e.printStackTrace();
