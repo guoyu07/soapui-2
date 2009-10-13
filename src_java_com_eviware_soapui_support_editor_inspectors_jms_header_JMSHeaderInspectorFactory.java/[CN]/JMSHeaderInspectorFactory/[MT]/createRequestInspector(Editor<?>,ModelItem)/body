@@ -1,4 +1,6 @@
 {
-  if (modelItem instanceof WsdlRequest)   return new WsdlRequestJMSHeaderInspector(((WsdlRequest)modelItem));
+  if (modelItem instanceof WsdlRequest) {
+    if (JMSUtil.checkIfJMS((Request)modelItem))     return new WsdlRequestJMSHeaderInspector(((WsdlRequest)modelItem));
+  }
   return null;
 }

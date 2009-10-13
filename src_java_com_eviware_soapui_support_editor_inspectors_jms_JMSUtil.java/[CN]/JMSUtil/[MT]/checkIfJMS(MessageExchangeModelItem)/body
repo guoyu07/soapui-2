@@ -1,0 +1,10 @@
+{
+  try {
+    String r=((MessageExchangeModelItem)messageExchange).getMessageExchange().getProperty("Endpoint");
+    return r.startsWith("jms://");
+  }
+ catch (  NullPointerException e) {
+    SoapUI.logError(e);
+  }
+  return false;
+}

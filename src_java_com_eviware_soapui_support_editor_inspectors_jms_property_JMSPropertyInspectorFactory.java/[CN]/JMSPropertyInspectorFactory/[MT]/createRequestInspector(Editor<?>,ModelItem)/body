@@ -1,4 +1,6 @@
 {
-  if (modelItem instanceof WsdlRequest)   return new JMSPropertyInspector((JMSPropertyInspectorModel)new WsdlRequestJMSPropertiesModel((WsdlRequest)modelItem));
+  if (modelItem instanceof WsdlRequest) {
+    if (JMSUtil.checkIfJMS(modelItem))     return new JMSPropertyInspector((JMSPropertyInspectorModel)new WsdlRequestJMSPropertiesModel((WsdlRequest)modelItem));
+  }
   return null;
 }

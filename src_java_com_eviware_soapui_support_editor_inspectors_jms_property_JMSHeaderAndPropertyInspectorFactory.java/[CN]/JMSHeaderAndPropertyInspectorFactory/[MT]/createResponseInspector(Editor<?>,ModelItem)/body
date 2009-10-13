@@ -1,9 +1,9 @@
 {
   if (modelItem instanceof WsdlRequest) {
-    return new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new ResponseJMSHeaderAndPropertiesModel((WsdlRequest)modelItem));
+    if (JMSUtil.checkIfJMS(modelItem))     return new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new ResponseJMSHeaderAndPropertiesModel((WsdlRequest)modelItem));
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
-    return new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new MessageExchangeResponseJMSHeaderAndPropertiesModel((MessageExchangeModelItem)modelItem));
+    if (JMSUtil.checkIfJMS(modelItem))     return new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new MessageExchangeResponseJMSHeaderAndPropertiesModel((MessageExchangeModelItem)modelItem));
   }
   return null;
 }

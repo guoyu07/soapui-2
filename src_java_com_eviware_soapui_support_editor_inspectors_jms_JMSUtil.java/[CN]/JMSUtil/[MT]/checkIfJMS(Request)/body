@@ -1,0 +1,9 @@
+{
+  try {
+    return request.getEndpoint().startsWith("jms://");
+  }
+ catch (  NullPointerException e) {
+    SoapUI.logError(e);
+  }
+  return false;
+}
