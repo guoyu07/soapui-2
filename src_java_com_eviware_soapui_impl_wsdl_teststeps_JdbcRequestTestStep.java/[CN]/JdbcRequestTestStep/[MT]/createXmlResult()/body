@@ -28,7 +28,7 @@
     String oldRes=getXmlStringResult();
     xmlStringResult=getDocumentAsString(xmlDocumentResult);
     setXmlStringResult(xmlStringResult);
-    notifyPropertyChanged("xmlStringResult",oldRes,xmlStringResult);
+    notifyPropertyChanged(RESPONSE_PROPERTY,oldRes,xmlStringResult);
   }
  catch (  Exception e) {
     e.printStackTrace();
