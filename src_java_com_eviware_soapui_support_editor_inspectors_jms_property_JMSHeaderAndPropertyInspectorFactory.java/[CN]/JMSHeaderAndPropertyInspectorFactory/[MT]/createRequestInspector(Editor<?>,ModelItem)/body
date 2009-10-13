@@ -1,3 +1,6 @@
 {
+  if (modelItem instanceof MessageExchangeModelItem) {
+    return new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new MessageExchangeRequestJMSHeaderAndPropertiesModel((MessageExchangeModelItem)modelItem));
+  }
   return null;
 }
