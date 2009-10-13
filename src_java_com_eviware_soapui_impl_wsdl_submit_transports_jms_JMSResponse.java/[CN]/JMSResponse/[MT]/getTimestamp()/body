@@ -1,10 +1,10 @@
 {
   try {
-    if (message != null)     return message.getJMSTimestamp();
+    if (messageReceive != null)     return messageReceive.getJMSTimestamp();
  else     return 0;
   }
  catch (  JMSException e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
   }
   return 0;
 }

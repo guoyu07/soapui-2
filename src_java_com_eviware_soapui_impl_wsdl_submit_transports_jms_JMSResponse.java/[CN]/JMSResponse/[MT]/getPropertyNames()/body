@@ -2,8 +2,8 @@
   List<String> propertyNames=new ArrayList<String>();
   Enumeration temp;
   try {
-    if (message != null) {
-      temp=message.getPropertyNames();
+    if (messageReceive != null) {
+      temp=messageReceive.getPropertyNames();
       while (temp.hasMoreElements()) {
         propertyNames.add((String)temp.nextElement());
       }
@@ -14,7 +14,7 @@
     }
   }
  catch (  JMSException e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
   }
   return null;
 }

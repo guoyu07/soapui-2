@@ -1,4 +1,6 @@
 {
-  AbstractHttpRequest temp=(AbstractHttpRequest)request;
-  return temp.getRequestHeaders();
+  if (messageSend != null) {
+    return JMSHeader.getSendMessageHeaders(messageSend);
+  }
+ else   return new StringToStringMap();
 }

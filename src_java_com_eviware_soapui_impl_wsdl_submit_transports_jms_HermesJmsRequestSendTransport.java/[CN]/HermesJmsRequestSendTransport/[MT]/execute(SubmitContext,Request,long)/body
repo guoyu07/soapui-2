@@ -20,22 +20,22 @@
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queue=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
     MessageProducer messageProducer=session.createProducer(queue);
-    TextMessage textMessage=session.createTextMessage();
+    TextMessage textMessageSend=session.createTextMessage();
     String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
-    textMessage.setText(messageBody);
+    textMessageSend.setText(messageBody);
     JMSHeader jmsHeader=new JMSHeader();
-    jmsHeader.setMessageHeaders(textMessage,request,hermes,submitContext);
-    JMSHeader.setMessageProperties(textMessage,request,hermes,submitContext);
-    messageProducer.send(textMessage,textMessage.getJMSDeliveryMode(),textMessage.getJMSPriority(),jmsHeader.getTimeTolive());
-    response=new JMSResponse("",null,request,timeStarted);
-    submitContext.setProperty(JMS_MESSAGE,textMessage);
+    jmsHeader.setMessageHeaders(textMessageSend,request,hermes,submitContext);
+    JMSHeader.setMessageProperties(textMessageSend,request,hermes,submitContext);
+    messageProducer.send(textMessageSend,textMessageSend.getJMSDeliveryMode(),textMessageSend.getJMSPriority(),jmsHeader.getTimeTolive());
+    response=new JMSResponse("",textMessageSend,null,request,timeStarted);
+    submitContext.setProperty(JMS_MESSAGE_SEND,textMessageSend);
     submitContext.setProperty(JMS_RESPONSE,response);
     return response;
   }
  catch (  JMSException jmse) {
     SoapUI.logError(jmse);
     submitContext.setProperty(JMS_ERROR,jmse);
-    response=new JMSResponse("",null,request,timeStarted);
+    response=new JMSResponse("",null,null,request,timeStarted);
     submitContext.setProperty(JMS_RESPONSE,response);
     return response;
   }

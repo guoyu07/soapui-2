@@ -1,9 +1,9 @@
 {
   try {
-    return message.getStringProperty(name);
+    return messageReceive.getStringProperty(name);
   }
  catch (  JMSException e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
   }
   return null;
 }

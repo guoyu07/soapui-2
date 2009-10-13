@@ -1,3 +1,6 @@
 {
-  return new StringToStringMap();
+  if (messageReceive != null) {
+    return JMSHeader.getReceivedMessageHeaders(messageReceive);
+  }
+ else   return new StringToStringMap();
 }

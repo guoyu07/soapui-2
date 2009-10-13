@@ -1,7 +1,7 @@
 {
   StringToStringMap stringToStringMap=stringToStringMap2;
   if ((request.getResponse()) instanceof JMSResponse) {
-    Message message=((JMSResponse)request.getResponse()).getMessage();
+    Message message=((JMSResponse)request.getResponse()).getMessageReceive();
     stringToStringMap.putAll(JMSHeader.getReceivedMessageHeaders(message));
   }
   String[] keyList=stringToStringMap.getKeys();

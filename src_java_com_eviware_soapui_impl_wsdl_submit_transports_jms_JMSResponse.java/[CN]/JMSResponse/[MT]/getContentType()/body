@@ -1,9 +1,9 @@
 {
   try {
-    return message.getJMSType();
+    return messageReceive.getJMSType();
   }
  catch (  JMSException e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
   }
   return null;
 }
