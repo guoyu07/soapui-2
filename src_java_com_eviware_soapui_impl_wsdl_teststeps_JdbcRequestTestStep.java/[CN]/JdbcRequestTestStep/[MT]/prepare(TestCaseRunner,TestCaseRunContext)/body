@@ -5,7 +5,8 @@
     statement=connection.prepareCall(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
   }
  else {
-    statement=connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+    String sql=PropertyExpander.expandProperties(context,jdbcRequestTestStepConfig.getQuery());
+    statement=connection.prepareStatement(sql);
   }
   super.prepare(testRunner,context);
 }

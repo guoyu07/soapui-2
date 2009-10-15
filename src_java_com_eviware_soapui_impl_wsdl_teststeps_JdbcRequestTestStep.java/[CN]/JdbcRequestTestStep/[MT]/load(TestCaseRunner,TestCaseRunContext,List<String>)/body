@@ -3,7 +3,11 @@
     ((CallableStatement)statement).execute();
   }
  else {
-    String q=PropertyExpander.expandProperties(context,jdbcRequestTestStepConfig.getQuery());
-    statement.execute(q);
+    List<PropertyConfig> props=jdbcRequestTestStepConfig.getProperties().getPropertyList();
+    for (int j=0; j < props.size(); j++) {
+      PropertyConfig property=props.get(j);
+      ((PreparedStatement)statement).setString(j + 1,property.getValue());
+    }
+    ((PreparedStatement)statement).execute();
   }
 }
