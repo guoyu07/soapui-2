@@ -1,0 +1,7 @@
+{
+  PropertyHolderTable holderTable=new PropertyHolderTable(getModelItem());
+  JUndoableTextField textField=new JUndoableTextField(true);
+  PropertyExpansionPopupListener.enable(textField,getModelItem());
+  holderTable.getPropertiesTable().setDefaultEditor(String.class,new DefaultCellEditor(textField));
+  return holderTable;
+}

@@ -1,29 +1,14 @@
 {
-  ResultSet rs=resultSet;
-  Statement stmt=statement;
   try {
     DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
     DocumentBuilder builder=factory.newDocumentBuilder();
     xmlDocumentResult=builder.newDocument();
     Element results=xmlDocumentResult.createElement("Results");
     xmlDocumentResult.appendChild(results);
+    resultSet=statement.getResultSet();
+    addResultSetXmlPart(results,statement.getResultSet());
     while (statement.getMoreResults()) {
-      rs=statement.getResultSet();
-      ResultSetMetaData rsmd=rs.getMetaData();
-      int colCount=rsmd.getColumnCount();
-      while (rs.next()) {
-        Element row=xmlDocumentResult.createElement("Row");
-        results.appendChild(row);
-        for (int ii=1; ii <= colCount; ii++) {
-          String columnName=(rsmd.getTableName(ii) + "." + rsmd.getColumnName(ii)).toUpperCase();
-          String value=rs.getString(ii);
-          Element node=xmlDocumentResult.createElement(columnName);
-          if (!StringUtils.isNullOrEmpty(value)) {
-            node.appendChild(xmlDocumentResult.createTextNode(value.toString()));
-          }
-          row.appendChild(node);
-        }
-      }
+      addResultSetXmlPart(results,statement.getResultSet());
     }
     String oldRes=getXmlStringResult();
     xmlStringResult=getDocumentAsString(xmlDocumentResult);
@@ -36,8 +21,8 @@
  finally {
     try {
       if (connection != null)       connection.close();
-      if (stmt != null)       stmt.close();
-      if (rs != null)       rs.close();
+      if (statement != null)       statement.close();
+      if (resultSet != null)       resultSet.close();
     }
  catch (    Exception e) {
     }

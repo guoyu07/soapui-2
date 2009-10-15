@@ -1,0 +1,17 @@
+{
+  ResultSetMetaData rsmd=rs.getMetaData();
+  int colCount=rsmd.getColumnCount();
+  while (rs.next()) {
+    Element row=xmlDocumentResult.createElement("Row");
+    results.appendChild(row);
+    for (int ii=1; ii <= colCount; ii++) {
+      String columnName=(rsmd.getTableName(ii) + "." + rsmd.getColumnName(ii)).toUpperCase();
+      String value=rs.getString(ii);
+      Element node=xmlDocumentResult.createElement(columnName);
+      if (!StringUtils.isNullOrEmpty(value)) {
+        node.appendChild(xmlDocumentResult.createTextNode(value.toString()));
+      }
+      row.appendChild(node);
+    }
+  }
+}

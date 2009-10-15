@@ -11,5 +11,7 @@
  else {
     jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().addNewConfig().changeType(JdbcRequestTestStepConfig.type);
   }
+  if (jdbcRequestTestStepConfig.getProperties() == null)   jdbcRequestTestStepConfig.addNewProperties();
+  propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,jdbcRequestTestStepConfig.getProperties());
   initAssertions();
 }
