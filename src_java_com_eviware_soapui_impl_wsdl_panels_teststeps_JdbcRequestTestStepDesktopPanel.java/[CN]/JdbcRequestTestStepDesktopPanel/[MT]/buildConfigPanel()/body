@@ -8,5 +8,7 @@
     panel.add(configForm.getPanel());
   }
   configPanel.add(panel,BorderLayout.CENTER);
-  return configPanel;
+  JSplitPane split=UISupport.createVerticalSplit(buildProperties(),configPanel);
+  split.setDividerLocation(180);
+  return split;
 }
