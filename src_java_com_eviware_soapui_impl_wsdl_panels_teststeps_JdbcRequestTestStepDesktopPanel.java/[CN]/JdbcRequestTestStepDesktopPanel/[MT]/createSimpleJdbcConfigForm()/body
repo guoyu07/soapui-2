@@ -20,7 +20,7 @@
  else {
     testConnectionButton.setEnabled(false);
   }
-  if (enableTestConnection() && !StringUtils.isNullOrEmpty(query)) {
+  if (enableTestConnection() && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getQuery())) {
     runnable=true;
   }
  else {
@@ -35,10 +35,9 @@
   configForm.append(QUERY_FIELD,scrollPane);
   queryArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
-      query=queryArea.getText();
-      jdbcRequestTestStepConfig.setQuery(query);
+      jdbcRequestTestStep.setQuery(queryArea.getText());
     }
   }
 );
-  isStoredProcedureCheckBox=configForm.appendCheckBox(STOREDPROCEDURE_FIELD,"Select if this is a stored procedure",storedProcedure);
+  isStoredProcedureCheckBox=configForm.appendCheckBox(STOREDPROCEDURE_FIELD,"Select if this is a stored procedure",jdbcRequestTestStep.isStoredProcedure());
 }

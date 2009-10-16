@@ -1,6 +1,6 @@
 {
   try {
-    JdbcUtils.testConnection(getModelItem(),driver,connectionString,password);
+    JdbcUtils.testConnection(getModelItem(),jdbcRequestTestStep.getDriver(),jdbcRequestTestStep.getConnectionString(),jdbcRequestTestStep.getPassword());
     UISupport.showInfoMessage("The Connection Successfully Tested");
   }
  catch (  Exception e) {

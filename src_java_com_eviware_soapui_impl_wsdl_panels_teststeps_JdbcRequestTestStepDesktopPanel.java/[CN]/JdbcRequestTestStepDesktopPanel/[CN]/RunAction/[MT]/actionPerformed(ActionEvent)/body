@@ -1,7 +1,6 @@
 {
   try {
-    String unmaskedPassConnStr=connectionString.replaceFirst(JdbcRequestTestStep.PASS_TEMPLATE,password);
-    jdbcRequestTestStep.runQuery(driver,unmaskedPassConnStr);
+    jdbcRequestTestStep.runQuery();
   }
  catch (  Exception e) {
     UISupport.showErrorMessage("There's been an error in executing query " + e.toString());
