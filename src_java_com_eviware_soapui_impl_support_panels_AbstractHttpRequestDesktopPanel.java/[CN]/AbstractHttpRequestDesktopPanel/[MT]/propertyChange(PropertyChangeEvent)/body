@@ -2,8 +2,8 @@
   if (evt.getPropertyName().equals(AbstractHttpRequest.ENDPOINT_PROPERTY)) {
     submitButton.setEnabled(submit == null && StringUtils.hasContent(request.getEndpoint()));
   }
-  if ((evt.getSource() instanceof WsdlTestRequest) && evt.getPropertyName().equals("endpoint")) {
-    boolean jmsEndpoint=request.getEndpoint().startsWith("jms://");
+  if ((evt.getSource() instanceof WsdlTestRequest) && evt.getPropertyName().equals(AbstractHttpRequest.ENDPOINT_PROPERTY)) {
+    boolean jmsEndpoint=request.getEndpoint().startsWith(JMSUtil.JMS_ENDPIONT_PREFIX);
     updateInspector(requestEditor,JMSHeaderInspectorFactory.INSPECTOR_ID,jmsEndpoint);
     updateInspector(requestEditor,JMSPropertyInspectorFactory.INSPECTOR_ID,jmsEndpoint);
     updateInspector(requestEditor,HttpHeadersInspectorFactory.INSPECTOR_ID,!jmsEndpoint);

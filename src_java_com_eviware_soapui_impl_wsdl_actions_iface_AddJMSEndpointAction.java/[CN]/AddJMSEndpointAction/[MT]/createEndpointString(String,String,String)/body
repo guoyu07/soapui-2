@@ -1,5 +1,5 @@
 {
-  StringBuilder sb=new StringBuilder("jms://");
+  StringBuilder sb=new StringBuilder(JMSUtil.JMS_ENDPIONT_PREFIX);
   sb.append(session + "/");
   sb.append(send);
   if (!"".equals(receive))   sb.append("/" + receive);

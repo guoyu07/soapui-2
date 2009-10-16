@@ -1,6 +1,6 @@
 {
   try {
-    return request.getEndpoint().startsWith("jms://");
+    return request.getEndpoint().startsWith(JMS_ENDPIONT_PREFIX);
   }
  catch (  NullPointerException e) {
     SoapUI.logError(e);
