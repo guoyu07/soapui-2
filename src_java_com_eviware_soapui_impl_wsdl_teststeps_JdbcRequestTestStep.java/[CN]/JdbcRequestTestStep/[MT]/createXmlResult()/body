@@ -11,7 +11,7 @@
       addResultSetXmlPart(results,statement.getResultSet());
     }
     String oldRes=getXmlStringResult();
-    xmlStringResult=getDocumentAsString(xmlDocumentResult);
+    xmlStringResult=XmlUtils.getDocumentAsString(xmlDocumentResult);
     setXmlStringResult(xmlStringResult);
     notifyPropertyChanged(RESPONSE_PROPERTY,oldRes,xmlStringResult);
   }
