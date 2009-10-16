@@ -1,5 +1,6 @@
 {
-  System.out.println(inspectorId + " " + enable);
-  Inspector inspector=editor.getInspector(inspectorId);
-  if (inspector != null)   inspector.getComponent().setEnabled(enable);
+  AbstractXmlInspector inspector=(AbstractXmlInspector)editor.getInspector(inspectorId);
+  if (inspector != null) {
+    inspector.setEnabled(enable);
+  }
 }
