@@ -1,6 +1,6 @@
 {
   if (evt.getPropertyName().equals(AbstractHttpRequest.ENDPOINT_PROPERTY)) {
-    submitButton.setEnabled(submit == null && StringUtils.hasContent(request.getEndpoint()));
+    inspector.setEnabled(!request.getEndpoint().startsWith(JMSUtil.JMS_ENDPIONT_PREFIX));
   }
   super.propertyChange(evt);
 }

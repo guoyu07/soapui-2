@@ -2,4 +2,5 @@
   super("JMS Property (" + (model.getJMSProperties() == null ? "0" : model.getJMSProperties().size()) + ")","Additional JMS Property for this message",true,JMSPropertyInspectorFactory.INSPECTOR_ID);
   this.model=model;
   model.addPropertyChangeListener(this);
+  model.setInspector(this);
 }
