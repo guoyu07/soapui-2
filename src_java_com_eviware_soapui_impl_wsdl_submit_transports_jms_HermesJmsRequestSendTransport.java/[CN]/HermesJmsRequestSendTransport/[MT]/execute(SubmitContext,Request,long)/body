@@ -2,7 +2,6 @@
   ConnectionFactory connectionFactory=null;
   Connection connection=null;
   Session session=null;
-  JMSResponse response=null;
   try {
     String queueName=null;
     String sessionName=null;
@@ -20,9 +19,7 @@
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queueSend=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
     TextMessage textMessageSend=messageSend(submitContext,request,session,hermes,queueSend);
-    response=new JMSResponse("",textMessageSend,null,request,timeStarted);
-    submitContext.setProperty(JMS_RESPONSE,response);
-    return response;
+    return makeResponseOnly(submitContext,request,timeStarted,textMessageSend);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);

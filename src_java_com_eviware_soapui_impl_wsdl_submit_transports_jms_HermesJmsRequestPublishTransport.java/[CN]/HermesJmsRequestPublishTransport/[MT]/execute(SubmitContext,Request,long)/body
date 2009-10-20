@@ -20,9 +20,7 @@
     session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicPublish=(Topic)hermes.getDestination(topicName,Domain.TOPIC);
     TextMessage textMessagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
-    response=new JMSResponse("",textMessagePublish,null,request,timeStarted);
-    submitContext.setProperty(JMS_RESPONSE,response);
-    return response;
+    return makeResponseOnly(submitContext,request,timeStarted,textMessagePublish);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);
