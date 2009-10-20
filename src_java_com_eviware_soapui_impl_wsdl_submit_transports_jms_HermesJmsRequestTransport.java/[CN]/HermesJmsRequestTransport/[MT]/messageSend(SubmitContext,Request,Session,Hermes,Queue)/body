@@ -1,0 +1,10 @@
+{
+  TextMessage textMessageSend=session.createTextMessage();
+  String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
+  textMessageSend.setText(messageBody);
+  MessageProducer messageProducer=session.createProducer(queueSend);
+  JMSHeader jmsHeader=createJMSHeader(submitContext,request,hermes,textMessageSend);
+  messageProducer.send(textMessageSend,textMessageSend.getJMSDeliveryMode(),textMessageSend.getJMSPriority(),jmsHeader.getTimeTolive());
+  submitContext.setProperty(JMS_MESSAGE_SEND,textMessageSend);
+  return textMessageSend;
+}

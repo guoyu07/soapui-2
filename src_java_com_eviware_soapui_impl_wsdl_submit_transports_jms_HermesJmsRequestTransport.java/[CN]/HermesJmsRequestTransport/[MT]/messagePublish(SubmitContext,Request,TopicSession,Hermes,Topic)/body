@@ -1,0 +1,12 @@
+{
+  TopicPublisher messageProducer=topicSession.createPublisher(topicPublish);
+  TextMessage textMessagePublish=topicSession.createTextMessage();
+  String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
+  textMessagePublish.setText(messageBody);
+  JMSHeader jmsHeader=new JMSHeader();
+  jmsHeader.setMessageHeaders(textMessagePublish,request,hermes,submitContext);
+  JMSHeader.setMessageProperties(textMessagePublish,request,hermes,submitContext);
+  messageProducer.send(textMessagePublish,textMessagePublish.getJMSDeliveryMode(),textMessagePublish.getJMSPriority(),jmsHeader.getTimeTolive());
+  submitContext.setProperty(JMS_MESSAGE_SEND,textMessagePublish);
+  return textMessagePublish;
+}
