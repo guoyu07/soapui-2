@@ -1,6 +1,7 @@
 {
   submitAction=new SubmitAction();
   submitButton=createActionButton(submitAction,true);
+  cancelButton=createActionButton(new CancelAction(),false);
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
   addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(jdbcRequestTestStep));

@@ -1,0 +1,11 @@
+{
+  try {
+    statement.cancel();
+  }
+ catch (  SQLFeatureNotSupportedException e) {
+    UISupport.showErrorMessage(e);
+  }
+catch (  SQLException ex) {
+    UISupport.showErrorMessage(ex);
+  }
+}

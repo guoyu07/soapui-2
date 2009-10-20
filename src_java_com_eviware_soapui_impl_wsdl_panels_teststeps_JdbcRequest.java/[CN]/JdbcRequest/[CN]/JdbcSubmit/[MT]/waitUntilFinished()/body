@@ -1,3 +1,14 @@
 {
-  return null;
+  if (future != null) {
+    if (!future.isDone()) {
+      try {
+        future.get();
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+ else   throw new RuntimeException("cannot wait on null future");
+  return getStatus();
 }

@@ -4,5 +4,18 @@
   }
  catch (  Exception e) {
     UISupport.showErrorMessage("There's been an error in executing query " + e.toString());
+    error=e;
+  }
+ finally {
+    if (status != Status.CANCELED) {
+      for (int i=0; i < listeners.length; i++) {
+        try {
+          listeners[i].afterSubmit(this,submitContext);
+        }
+ catch (        Throwable e) {
+          SoapUI.logError(e);
+        }
+      }
+    }
   }
 }
