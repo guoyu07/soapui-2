@@ -14,13 +14,9 @@
       UISupport.showErrorMessage("Not supported endpoint");
       return;
     }
-    String receive=queueNameList.get(j).getDestinationName();
+    String receive=destinationNameList.get(j).getDestinationName();
     if ("-".equals(send) && "".equals(receive)) {
       UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
-      return;
-    }
-    if (destinationNameList.get(i).getDomain().equals(Domain.TOPIC) && queueNameList.get(j).getDomain().equals(Domain.QUEUE)) {
-      UISupport.showErrorMessage("Not supported endpoint");
       return;
     }
     iface.addEndpoint(createEndpointString(session,send,receive));

@@ -4,8 +4,5 @@
     DestinationConfigImpl dest=(DestinationConfigImpl)hermesDestionations.next();
     Destination temp=new Destination(dest.getName(),Domain.getDomain(dest.getDomain()));
     destinationList.add(temp);
-    if (Domain.QUEUE.getId() == dest.getDomain()) {
-      queueList.add(temp);
-    }
   }
 }
