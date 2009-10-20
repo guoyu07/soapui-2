@@ -1,12 +1,10 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-  runButton=UISupport.createToolbarButton(new RunAction());
-  toolbar.addFixed(runButton);
-  addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(jdbcRequestTestStep));
-  addAssertionButton.setEnabled(true);
+  toolbar.addFixed(submitButton);
   toolbar.addFixed(addAssertionButton);
-  toolbar.addGlue();
+  toolbar.add(Box.createHorizontalGlue());
+  toolbar.add(tabsButton);
   toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.TRANSFERSTEPEDITOR_HELP_URL)));
   return toolbar;
 }

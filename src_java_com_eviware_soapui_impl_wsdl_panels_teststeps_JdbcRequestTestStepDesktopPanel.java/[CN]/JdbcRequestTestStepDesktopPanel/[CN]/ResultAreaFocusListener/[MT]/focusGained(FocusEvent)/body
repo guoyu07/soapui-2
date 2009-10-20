@@ -1,0 +1,12 @@
+{
+  responseHasFocus=true;
+  if (!requestTabsDisplay) {
+    requestTabs.setSelectedIndex(1);
+    return;
+  }
+  int pos=requestSplitPane.getDividerLocation();
+  int maximumDividerLocation=requestSplitPane.getMaximumDividerLocation();
+  if (pos + 600 < maximumDividerLocation)   return;
+  if (maximumDividerLocation > 700)   requestSplitPane.setDividerLocation(maximumDividerLocation - 600);
+ else   requestSplitPane.setDividerLocation(0.2);
+}

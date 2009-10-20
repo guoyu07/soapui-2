@@ -1,7 +1,7 @@
 {
   super(modelItem);
   jdbcRequestTestStep=modelItem;
-  buildUI();
   modelItem.getTestCase().addTestRunListener(testRunListener);
-  runButton.setEnabled(true);
+  jdbcRequest=new JdbcRequest(jdbcRequestTestStep);
+  buildUI();
 }

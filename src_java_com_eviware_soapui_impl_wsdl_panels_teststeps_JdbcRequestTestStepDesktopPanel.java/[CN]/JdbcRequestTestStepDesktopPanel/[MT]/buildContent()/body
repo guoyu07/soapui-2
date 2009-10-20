@@ -1,5 +1,48 @@
 {
-  JSplitPane split=UISupport.createHorizontalSplit(buildConfigPanel(),buildResponseEditor());
-  split.setDividerLocation(0.8);
-  return split;
+  submitAction=new SubmitAction();
+  submitButton=createActionButton(submitAction,true);
+  tabsButton=new JToggleButton(new ChangeToTabsAction());
+  tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
+  addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(jdbcRequestTestStep));
+  addAssertionButton.setEnabled(true);
+  requestTabs=new JTabbedPane();
+  requestTabs.addChangeListener(new ChangeListener(){
+    public void stateChanged(    ChangeEvent e){
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          int ix=requestTabs.getSelectedIndex();
+          if (ix == 0)           requestEditor.requestFocus();
+ else           if (ix == 1 && responseEditor != null)           responseEditor.requestFocus();
+        }
+      }
+);
+    }
+  }
+);
+  addFocusListener(new FocusAdapter(){
+    @Override public void focusGained(    FocusEvent e){
+      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocusInWindow();
+ else       requestEditor.requestFocusInWindow();
+    }
+  }
+);
+  requestTabPanel=UISupport.createTabPanel(requestTabs,true);
+  requestSplitPane=UISupport.createHorizontalSplit();
+  requestSplitPane.setResizeWeight(0.5);
+  requestSplitPane.setBorder(null);
+  requestEditor=buildRequestConfigPanel();
+  responseEditor=buildResponseEditor();
+  if (jdbcRequest.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
+    requestTabs.addTab("Request",requestEditor);
+    if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
+    requestTabsDisplay=true;
+    tabsButton.setSelected(true);
+    return requestTabPanel;
+  }
+ else {
+    requestSplitPane.setTopComponent(requestEditor);
+    requestSplitPane.setBottomComponent(responseEditor);
+    requestSplitPane.setDividerLocation(0.5);
+    return requestSplitPane;
+  }
 }

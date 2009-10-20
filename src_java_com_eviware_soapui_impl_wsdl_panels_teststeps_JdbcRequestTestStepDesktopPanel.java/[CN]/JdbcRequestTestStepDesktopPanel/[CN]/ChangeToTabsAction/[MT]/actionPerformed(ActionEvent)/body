@@ -1,0 +1,27 @@
+{
+  if (!requestTabsDisplay) {
+    requestTabsDisplay=true;
+    removeContent(requestSplitPane);
+    setContent(requestTabPanel);
+    requestTabs.addTab("Request",requestEditor);
+    if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
+    if (responseHasFocus) {
+      requestTabs.setSelectedIndex(1);
+      requestEditor.requestFocus();
+    }
+    requestTabs.repaint();
+  }
+ else {
+    int selectedIndex=requestTabs.getSelectedIndex();
+    requestTabsDisplay=false;
+    removeContent(requestTabPanel);
+    setContent(requestSplitPane);
+    requestSplitPane.setTopComponent(requestEditor);
+    if (responseEditor != null)     requestSplitPane.setBottomComponent(responseEditor);
+    requestSplitPane.setDividerLocation(0.5);
+    if (selectedIndex == 0 || responseEditor == null)     requestEditor.requestFocus();
+ else     responseEditor.requestFocus();
+    requestSplitPane.repaint();
+  }
+  revalidate();
+}
