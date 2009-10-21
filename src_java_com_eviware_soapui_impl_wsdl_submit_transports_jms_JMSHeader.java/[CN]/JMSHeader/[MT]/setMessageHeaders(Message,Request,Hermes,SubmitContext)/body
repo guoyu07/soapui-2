@@ -1,39 +1,41 @@
 {
-  JMSHeaderConfig jmsConfig=((WsdlRequest)request).getJMSHeaderConfig();
-  try {
-    if (jmsConfig.getJMSCorrelationID() != null && !jmsConfig.getJMSCorrelationID().equals("")) {
-      message.setJMSCorrelationID(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSCorrelationID()));
-    }
-    if (jmsConfig.getJMSReplyTo() != null && !jmsConfig.getJMSReplyTo().equals("")) {
-      message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSReplyTo()),Domain.QUEUE));
-    }
-    if (jmsConfig.getTimeToLive() != null && !jmsConfig.getTimeToLive().equals("")) {
-      setTimeTolive(Long.parseLong(PropertyExpander.expandProperties(submitContext,jmsConfig.getTimeToLive())));
-    }
+  if (request instanceof WsdlRequest) {
+    JMSHeaderConfig jmsConfig=((WsdlRequest)request).getJMSHeaderConfig();
+    try {
+      if (jmsConfig.getJMSCorrelationID() != null && !jmsConfig.getJMSCorrelationID().equals("")) {
+        message.setJMSCorrelationID(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSCorrelationID()));
+      }
+      if (jmsConfig.getJMSReplyTo() != null && !jmsConfig.getJMSReplyTo().equals("")) {
+        message.setJMSReplyTo(hermes.getDestination(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSReplyTo()),Domain.QUEUE));
+      }
+      if (jmsConfig.getTimeToLive() != null && !jmsConfig.getTimeToLive().equals("")) {
+        setTimeTolive(Long.parseLong(PropertyExpander.expandProperties(submitContext,jmsConfig.getTimeToLive())));
+      }
  else {
-      setTimeTolive(Message.DEFAULT_TIME_TO_LIVE);
-    }
-    if (jmsConfig.getJMSType() != null && !jmsConfig.getJMSType().equals("")) {
-      message.setJMSType(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSType()));
-    }
-    if (jmsConfig.getJMSPriority() != null && !jmsConfig.getJMSPriority().equals("")) {
-      message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSPriority())));
-    }
+        setTimeTolive(Message.DEFAULT_TIME_TO_LIVE);
+      }
+      if (jmsConfig.getJMSType() != null && !jmsConfig.getJMSType().equals("")) {
+        message.setJMSType(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSType()));
+      }
+      if (jmsConfig.getJMSPriority() != null && !jmsConfig.getJMSPriority().equals("")) {
+        message.setJMSPriority(Integer.parseInt(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSPriority())));
+      }
  else {
-      message.setJMSPriority(Message.DEFAULT_PRIORITY);
-    }
-    if (jmsConfig.getJMSDeliveryMode() != null && !jmsConfig.getJMSDeliveryMode().equals("")) {
-      int deliveryMode=jmsConfig.getJMSDeliveryMode().equals("PERSISTENT") ? javax.jms.DeliveryMode.PERSISTENT : javax.jms.DeliveryMode.NON_PERSISTENT;
-      message.setJMSDeliveryMode(deliveryMode);
-    }
+        message.setJMSPriority(Message.DEFAULT_PRIORITY);
+      }
+      if (jmsConfig.getJMSDeliveryMode() != null && !jmsConfig.getJMSDeliveryMode().equals("")) {
+        int deliveryMode=jmsConfig.getJMSDeliveryMode().equals("PERSISTENT") ? javax.jms.DeliveryMode.PERSISTENT : javax.jms.DeliveryMode.NON_PERSISTENT;
+        message.setJMSDeliveryMode(deliveryMode);
+      }
  else {
-      message.setJMSDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
+        message.setJMSDeliveryMode(Message.DEFAULT_DELIVERY_MODE);
+      }
     }
-  }
- catch (  NamingException e) {
-    SoapUI.logError(e,"Message header JMSReplyTo = " + PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSReplyTo()) + "destination not exists!");
-  }
-catch (  Exception e) {
-    SoapUI.logError(e,"error while seting message header properties!");
+ catch (    NamingException e) {
+      SoapUI.logError(e,"Message header JMSReplyTo = " + PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSReplyTo()) + "destination not exists!");
+    }
+catch (    Exception e) {
+      SoapUI.logError(e,"error while seting message header properties!");
+    }
   }
 }

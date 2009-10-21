@@ -11,7 +11,7 @@
     if (message.getJMSCorrelationID() != null)     headermap.put(JMSCORRELATIONID,message.getJMSCorrelationID());
     if (message.getJMSReplyTo() != null)     headermap.put(JMSREPLYTO,String.valueOf(message.getJMSReplyTo()));
     if (message.getJMSType() != null)     headermap.put(JMSTYPE,message.getJMSType());
-    Enumeration properties=message.getPropertyNames();
+    Enumeration<?> properties=message.getPropertyNames();
     while (properties.hasMoreElements()) {
       String key=(String)properties.nextElement();
       headermap.put(key,message.getStringProperty(key));
