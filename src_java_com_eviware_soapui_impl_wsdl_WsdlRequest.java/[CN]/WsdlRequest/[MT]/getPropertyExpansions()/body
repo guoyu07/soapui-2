@@ -6,5 +6,6 @@
     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new RequestHeaderHolder(requestHeaders,key),"value"));
   }
   addWsaPropertyExpansions(result,getWsaConfig(),this);
+  addJMSHeaderExpansions(result,getJMSHeaderConfig(),this);
   return result.toArray();
 }
