@@ -2,12 +2,8 @@
   passField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       jdbcRequestTestStep.setPassword(configForm.getComponentValue(PASS_FIELD));
-      if (StringUtils.isNullOrEmpty(jdbcRequestTestStep.getDriver()) || StringUtils.isNullOrEmpty(jdbcRequestTestStep.getConnectionString()) && StringUtils.isNullOrEmpty(jdbcRequestTestStep.getPassword())) {
-        testConnectionButton.setEnabled(false);
-      }
- else {
-        testConnectionButton.setEnabled(true);
-      }
+      testConnectionButton.setEnabled(enableTestConnection());
+      submitButton.setEnabled(enableSubmit());
     }
   }
 );

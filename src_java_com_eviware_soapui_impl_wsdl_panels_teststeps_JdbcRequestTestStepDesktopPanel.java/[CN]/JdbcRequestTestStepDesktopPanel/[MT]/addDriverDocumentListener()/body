@@ -2,18 +2,8 @@
   driverTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       jdbcRequestTestStep.setDriver(configForm.getComponentValue(DRIVER_FIELD));
-      if (enableTestConnection()) {
-        testConnectionButton.setEnabled(true);
-      }
- else {
-        testConnectionButton.setEnabled(false);
-      }
-      if (enableTestConnection() && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getQuery())) {
-        runnable=true;
-      }
- else {
-        runnable=false;
-      }
+      testConnectionButton.setEnabled(enableTestConnection());
+      submitButton.setEnabled(enableSubmit());
     }
   }
 );

@@ -14,18 +14,8 @@
   addPasswordDocumentListener();
   testConnectionButton=configForm.appendButton("TestConnection","Test selected database connection");
   testConnectionButton.setAction(new TestConnectionAction());
-  if (enableTestConnection()) {
-    testConnectionButton.setEnabled(true);
-  }
- else {
-    testConnectionButton.setEnabled(false);
-  }
-  if (enableTestConnection() && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getQuery())) {
-    runnable=true;
-  }
- else {
-    runnable=false;
-  }
+  testConnectionButton.setEnabled(enableTestConnection());
+  submitButton.setEnabled(enableSubmit());
   queryArea=JXEditTextArea.createSqlEditor();
   JXEditAreaPopupMenu.add(queryArea);
   PropertyExpansionPopupListener.enable(queryArea,jdbcRequestTestStep);
@@ -36,6 +26,7 @@
   queryArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       jdbcRequestTestStep.setQuery(queryArea.getText());
+      submitButton.setEnabled(enableSubmit());
     }
   }
 );

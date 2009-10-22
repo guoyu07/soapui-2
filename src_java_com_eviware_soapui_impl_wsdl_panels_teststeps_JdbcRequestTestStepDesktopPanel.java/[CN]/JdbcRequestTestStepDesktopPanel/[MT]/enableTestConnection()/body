@@ -1,3 +1,13 @@
 {
-  return !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getDriver()) && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getConnectionString()) && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getPassword());
+  if (!StringUtils.isNullOrEmpty(jdbcRequestTestStep.getDriver()) && !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getConnectionString())) {
+    if (jdbcRequestTestStep.getConnectionString().contains(JdbcRequestTestStep.PASS_TEMPLATE)) {
+      return !StringUtils.isNullOrEmpty(jdbcRequestTestStep.getPassword());
+    }
+ else {
+      return true;
+    }
+  }
+ else {
+    return false;
+  }
 }

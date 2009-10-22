@@ -1,6 +1,8 @@
 {
+  JComponent content;
   submitAction=new SubmitAction();
   submitButton=createActionButton(submitAction,true);
+  submitButton.setEnabled(enableSubmit());
   cancelButton=createActionButton(new CancelAction(),false);
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
@@ -38,12 +40,20 @@
     if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
     requestTabsDisplay=true;
     tabsButton.setSelected(true);
-    return requestTabPanel;
+    content=requestTabPanel;
   }
  else {
     requestSplitPane.setTopComponent(requestEditor);
     requestSplitPane.setBottomComponent(responseEditor);
     requestSplitPane.setDividerLocation(0.5);
-    return requestSplitPane;
+    content=requestSplitPane;
   }
+  inspectorPanel=JInspectorPanelFactory.build(content);
+  inspectorPanel.setDefaultDividerLocation(0.7F);
+  add(buildToolbar(),BorderLayout.NORTH);
+  add(inspectorPanel.getComponent(),BorderLayout.CENTER);
+  assertionsPanel=buildAssertionsPanel();
+  assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
+  inspectorPanel.addInspector(assertionInspector);
+  return inspectorPanel.getComponent();
 }
