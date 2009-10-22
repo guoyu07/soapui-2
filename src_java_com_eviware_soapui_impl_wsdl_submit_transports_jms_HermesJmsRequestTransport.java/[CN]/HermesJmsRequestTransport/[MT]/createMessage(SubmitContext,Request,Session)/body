@@ -1,0 +1,18 @@
+{
+  if (request instanceof WsdlRequest) {
+    TextMessage textMessageSend=session.createTextMessage();
+    String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
+    textMessageSend.setText(messageBody);
+    return textMessageSend;
+  }
+ else   if (request instanceof HttpRequest) {
+    MapMessage mapMessageSend=session.createMapMessage();
+    String[] propertyNames=((HttpRequest)request).getPropertyNames();
+    for (    String name : propertyNames) {
+      String key=((HttpRequest)request).getPropertyValue(name);
+      mapMessageSend.setString(name,PropertyExpander.expandProperties(submitContext,key));
+    }
+    return mapMessageSend;
+  }
+  return null;
+}

@@ -1,7 +1,7 @@
 {
   if (modelItem instanceof WsdlRequest) {
     WsdlRequestJMSHeaderInspector inspector=new WsdlRequestJMSHeaderInspector(((WsdlRequest)modelItem));
-    inspector.setEnabled(JMSUtil.checkIfJMS(modelItem));
+    inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
   return null;

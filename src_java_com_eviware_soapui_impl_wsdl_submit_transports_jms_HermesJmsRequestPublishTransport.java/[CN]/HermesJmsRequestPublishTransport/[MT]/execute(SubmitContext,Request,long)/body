@@ -18,8 +18,8 @@
     connection.start();
     session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicPublish=(Topic)hermes.getDestination(topicName,Domain.TOPIC);
-    TextMessage textMessagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
-    return makeResponseOnly(submitContext,request,timeStarted,textMessagePublish);
+    Message messagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
+    return makeResponseOnly(submitContext,request,timeStarted,messagePublish);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);

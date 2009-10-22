@@ -1,17 +1,17 @@
 {
   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
     HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlRequestHeadersModel((AbstractHttpRequest<?>)modelItem));
-    inspector.setEnabled(!JMSUtil.checkIfJMS(modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
  else   if (modelItem instanceof WsdlMockResponse) {
     HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlMockResponseRequestHeadersModel((WsdlMockResponse)modelItem));
-    inspector.setEnabled(!JMSUtil.checkIfJMS(modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
     HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlMessageExchangeRequestHeadersModel((MessageExchangeModelItem)modelItem));
-    inspector.setEnabled(!JMSUtil.checkIfJMS(modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
   return null;

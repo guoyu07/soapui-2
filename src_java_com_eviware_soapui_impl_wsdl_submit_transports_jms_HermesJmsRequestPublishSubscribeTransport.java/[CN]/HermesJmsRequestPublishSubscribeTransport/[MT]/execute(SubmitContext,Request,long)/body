@@ -24,8 +24,8 @@
     Topic topicPublish=(Topic)hermes.getDestination(topicNamePublish,Domain.TOPIC);
     Topic topicSubscribe=(Topic)hermes.getDestination(topicNameSubscribe,Domain.TOPIC);
     topicDurableSubsriber=session.createDurableSubscriber(topicSubscribe,"durableSubscription" + topicNameSubscribe);
-    TextMessage textMessagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
-    return makeResponse(submitContext,request,timeStarted,textMessagePublish,topicDurableSubsriber);
+    Message messagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
+    return makeResponse(submitContext,request,timeStarted,messagePublish,topicDurableSubsriber);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);

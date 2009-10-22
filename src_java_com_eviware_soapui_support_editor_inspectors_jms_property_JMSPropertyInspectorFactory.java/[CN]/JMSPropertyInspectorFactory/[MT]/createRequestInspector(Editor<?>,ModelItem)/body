@@ -1,7 +1,7 @@
 {
   if (modelItem instanceof WsdlRequest) {
     JMSPropertyInspector inspector=new JMSPropertyInspector((JMSPropertyInspectorModel)new WsdlRequestJMSPropertiesModel((WsdlRequest)modelItem));
-    inspector.setEnabled(JMSUtil.checkIfJMS(modelItem));
+    inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
   return null;

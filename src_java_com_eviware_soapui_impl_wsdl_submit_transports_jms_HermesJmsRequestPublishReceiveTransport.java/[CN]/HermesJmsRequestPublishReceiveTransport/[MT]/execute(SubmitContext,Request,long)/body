@@ -28,9 +28,9 @@
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicPublish=(Topic)hermes.getDestination(topicNamePublish,Domain.TOPIC);
     Queue queueReceive=(Queue)hermes.getDestination(queueNameReceive,Domain.QUEUE);
-    TextMessage textMessagePublish=messagePublish(submitContext,request,topicSession,hermes,topicPublish);
+    Message messagePublish=messagePublish(submitContext,request,topicSession,hermes,topicPublish);
     MessageConsumer messageConsumer=session.createConsumer(queueReceive);
-    return makeResponse(submitContext,request,timeStarted,textMessagePublish,messageConsumer);
+    return makeResponse(submitContext,request,timeStarted,messagePublish,messageConsumer);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);

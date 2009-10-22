@@ -24,7 +24,7 @@
     Queue queueSend=(Queue)hermes.getDestination(queueNameSend,Domain.QUEUE);
     Topic topicReceive=(Topic)hermes.getDestination(topicNameReceive,Domain.TOPIC);
     topicSubsriber=session.createDurableSubscriber(topicReceive,"durableSubscription" + topicNameReceive);
-    TextMessage textMessageSend=messageSend(submitContext,request,session,hermes,queueSend);
+    Message textMessageSend=messageSend(submitContext,request,session,hermes,queueSend);
     return makeResponse(submitContext,request,timeStarted,textMessageSend,topicSubsriber);
   }
  catch (  JMSException jmse) {

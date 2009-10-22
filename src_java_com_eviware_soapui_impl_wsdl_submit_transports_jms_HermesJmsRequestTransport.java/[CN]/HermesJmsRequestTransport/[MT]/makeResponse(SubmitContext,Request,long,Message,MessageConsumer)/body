@@ -1,13 +1,8 @@
 {
-  JMSResponse response;
   long timeout=getTimeout(submitContext,request);
   Message messageReceive=messageConsumer.receive(timeout);
   if (messageReceive != null) {
-    TextMessage textMessageReceive=null;
-    if (messageReceive instanceof TextMessage) {
-      textMessageReceive=(TextMessage)messageReceive;
-    }
-    response=new JMSResponse(textMessageReceive.getText(),textMessageSend,textMessageReceive,request,timeStarted);
+    JMSResponse response=resolveMessage(request,timeStarted,messageSend,messageReceive);
     submitContext.setProperty(JMS_MESSAGE_RECEIVE,messageReceive);
     submitContext.setProperty(JMS_RESPONSE,response);
     return response;

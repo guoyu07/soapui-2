@@ -1,0 +1,11 @@
+{
+  if (messageReceive instanceof TextMessage) {
+    TextMessage textMessageReceive=(TextMessage)messageReceive;
+    return new JMSResponse(textMessageReceive.getText(),messageSend,textMessageReceive,request,timeStarted);
+  }
+ else   if (messageReceive instanceof MapMessage) {
+    MapMessage mapMessageReceive=(MapMessage)messageReceive;
+    return new JMSResponse(JMSUtils.extractMapMessagePayloadToString(mapMessageReceive),messageSend,mapMessageReceive,request,timeStarted);
+  }
+  return null;
+}

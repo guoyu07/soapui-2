@@ -1,0 +1,10 @@
+{
+  StringBuffer sb=new StringBuffer();
+  Enumeration<?> mapNames=mapMessage.getMapNames();
+  while (mapNames.hasMoreElements()) {
+    String key=(String)mapNames.nextElement();
+    String value=mapMessage.getString(key);
+    sb.append(key + ": " + value);
+  }
+  return sb.toString();
+}
