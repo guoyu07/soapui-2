@@ -5,10 +5,10 @@
   }
  else {
     if (domain.equals(Domain.QUEUE)) {
-      this.destinationName="queue_" + destinationName;
+      this.destinationName=HermesJmsRequestTransport.QUEUE_ENDPOINT_PREFIX + destinationName;
     }
  else {
-      this.destinationName="topic_" + destinationName;
+      this.destinationName=HermesJmsRequestTransport.TOPIC_ENDPOINT_PREFIX + destinationName;
     }
   }
 }
