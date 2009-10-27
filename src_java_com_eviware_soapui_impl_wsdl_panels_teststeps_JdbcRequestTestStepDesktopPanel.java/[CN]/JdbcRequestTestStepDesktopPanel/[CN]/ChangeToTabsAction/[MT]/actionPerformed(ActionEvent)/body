@@ -1,6 +1,6 @@
 {
-  if (!requestTabsDisplay) {
-    requestTabsDisplay=true;
+  if (splitButton.isEnabled()) {
+    splitButton.setEnabled(false);
     removeContent(requestSplitPane);
     setContent(requestTabPanel);
     requestTabs.addTab("Request",requestEditor);
@@ -13,7 +13,7 @@
   }
  else {
     int selectedIndex=requestTabs.getSelectedIndex();
-    requestTabsDisplay=false;
+    splitButton.setEnabled(true);
     removeContent(requestTabPanel);
     setContent(requestSplitPane);
     requestSplitPane.setTopComponent(requestEditor);

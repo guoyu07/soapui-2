@@ -1,4 +1,7 @@
 {
+  requestSplitPane=UISupport.createHorizontalSplit();
+  requestSplitPane.setResizeWeight(0.5);
+  requestSplitPane.setBorder(null);
   JComponent content;
   submitAction=new SubmitAction();
   submitButton=createActionButton(submitAction,true);
@@ -6,6 +9,7 @@
   cancelButton=createActionButton(new CancelAction(),false);
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
+  splitButton=createActionButton(new ChangeSplitPaneOrientationAction(requestSplitPane),true);
   addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(jdbcRequestTestStep));
   addAssertionButton.setEnabled(true);
   requestTabs=new JTabbedPane();
@@ -30,16 +34,13 @@
   }
 );
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
-  requestSplitPane=UISupport.createHorizontalSplit();
-  requestSplitPane.setResizeWeight(0.5);
-  requestSplitPane.setBorder(null);
   requestEditor=buildRequestConfigPanel();
   responseEditor=buildResponseEditor();
   if (jdbcRequest.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Request",requestEditor);
     if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
-    requestTabsDisplay=true;
     tabsButton.setSelected(true);
+    splitButton.setEnabled(false);
     content=requestTabPanel;
   }
  else {
