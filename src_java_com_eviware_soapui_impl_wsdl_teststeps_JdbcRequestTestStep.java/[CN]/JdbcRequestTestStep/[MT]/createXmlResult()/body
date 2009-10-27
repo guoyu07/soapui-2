@@ -1,15 +1,6 @@
 {
   try {
-    DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
-    DocumentBuilder builder=factory.newDocumentBuilder();
-    xmlDocumentResult=builder.newDocument();
-    Element results=xmlDocumentResult.createElement("Results");
-    xmlDocumentResult.appendChild(results);
-    resultSet=statement.getResultSet();
-    addResultSetXmlPart(results,statement.getResultSet());
-    while (statement.getMoreResults()) {
-      addResultSetXmlPart(results,statement.getResultSet());
-    }
+    org.w3c.dom.Document xmlDocumentResult=XmlUtils.createJdbcXmlResult(statement);
     String oldRes=getXmlStringResult();
     xmlStringResult=XmlUtils.getDocumentAsString(xmlDocumentResult);
     setXmlStringResult(xmlStringResult);
