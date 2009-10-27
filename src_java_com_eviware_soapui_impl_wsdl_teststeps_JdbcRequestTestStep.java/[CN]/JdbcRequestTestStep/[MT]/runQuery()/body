@@ -3,6 +3,12 @@
   MockTestRunContext mockContext=new MockTestRunContext(mockRunner,this);
   try {
     prepare(mockRunner,mockContext);
+    try {
+      Thread.sleep(5000);
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
     List<String> properties=new ArrayList<String>();
     load(mockRunner,mockContext,properties);
     createXmlResult();
