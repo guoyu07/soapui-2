@@ -1,6 +1,6 @@
 {
-  if (request instanceof WsdlRequest) {
-    JMSPropertiesConfig jmsPropertyConfig=((WsdlRequest)request).getJMSPropertiesConfig();
+  if (request instanceof AbstractHttpRequest) {
+    JMSPropertiesConfig jmsPropertyConfig=((AbstractHttpRequest<?>)request).getJMSPropertiesConfig();
     try {
       List<JMSPropertyConfig> propertyList=jmsPropertyConfig.getJMSProperties();
       StringToStringMap stringToStringMap=new StringToStringMap(propertyList.size());

@@ -1,6 +1,6 @@
 {
-  if (request instanceof WsdlRequest) {
-    JMSHeaderConfig jmsConfig=((WsdlRequest)request).getJMSHeaderConfig();
+  if (request instanceof AbstractHttpRequest) {
+    JMSHeaderConfig jmsConfig=((AbstractHttpRequest<?>)request).getJMSHeaderConfig();
     try {
       if (jmsConfig.getJMSCorrelationID() != null && !jmsConfig.getJMSCorrelationID().equals("")) {
         message.setJMSCorrelationID(PropertyExpander.expandProperties(submitContext,jmsConfig.getJMSCorrelationID()));

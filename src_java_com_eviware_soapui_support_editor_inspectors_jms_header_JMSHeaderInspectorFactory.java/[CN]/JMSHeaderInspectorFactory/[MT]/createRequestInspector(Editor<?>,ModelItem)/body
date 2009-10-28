@@ -1,6 +1,6 @@
 {
-  if (modelItem instanceof WsdlRequest) {
-    WsdlRequestJMSHeaderInspector inspector=new WsdlRequestJMSHeaderInspector(((WsdlRequest)modelItem));
+  if (modelItem instanceof AbstractHttpRequest) {
+    RequestJMSHeaderInspector inspector=new RequestJMSHeaderInspector(((AbstractHttpRequest<?>)modelItem));
     inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
