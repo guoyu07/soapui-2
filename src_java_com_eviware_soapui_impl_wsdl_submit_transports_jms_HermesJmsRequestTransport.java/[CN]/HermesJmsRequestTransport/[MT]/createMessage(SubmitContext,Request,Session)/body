@@ -1,21 +1,16 @@
 {
-  if (request instanceof WsdlRequest) {
-    TextMessage textMessageSend=session.createTextMessage();
-    String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
-    textMessageSend.setText(messageBody);
-    return textMessageSend;
-  }
- else   if (request instanceof HttpTestRequest) {
-    TextMessage textMessageSend=session.createTextMessage();
-    String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
-    textMessageSend.setText(messageBody);
-    return textMessageSend;
-  }
- else   if (request instanceof RestTestRequest) {
-    TextMessage textMessageSend=session.createTextMessage();
-    String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
-    textMessageSend.setText(messageBody);
-    return textMessageSend;
+  if (request instanceof WsdlRequest || request instanceof HttpTestRequest || request instanceof RestRequest) {
+    if (hasAttachment(request)) {
+      if (isTextAttachment(request)) {
+        return createTextMessageFromAttachment(submitContext,request,session);
+      }
+ else {
+        return createBytesMessage(request,session);
+      }
+    }
+ else {
+      return createTextMessage(submitContext,request,session);
+    }
   }
   return null;
 }

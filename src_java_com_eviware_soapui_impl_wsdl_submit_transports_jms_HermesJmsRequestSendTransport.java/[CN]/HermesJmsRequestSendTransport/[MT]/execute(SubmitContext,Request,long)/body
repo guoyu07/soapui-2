@@ -14,7 +14,7 @@
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queueSend=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
     Message messageSend=messageSend(submitContext,request,session,hermes,queueSend);
-    return makeResponseOnly(submitContext,request,timeStarted,messageSend);
+    return makeEmptyResponse(submitContext,request,timeStarted,messageSend);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);

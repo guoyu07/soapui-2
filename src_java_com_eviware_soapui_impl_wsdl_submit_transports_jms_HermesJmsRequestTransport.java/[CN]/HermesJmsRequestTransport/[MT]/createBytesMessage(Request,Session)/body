@@ -1,0 +1,17 @@
+{
+  try {
+    InputStream in=request.getAttachments()[0].getInputStream();
+    int buff=-1;
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    while ((buff=in.read()) != -1) {
+      baos.write(buff);
+    }
+    BytesMessage bytesMessage=session.createBytesMessage();
+    bytesMessage.writeBytes(baos.toByteArray());
+    return bytesMessage;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

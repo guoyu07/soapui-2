@@ -1,0 +1,6 @@
+{
+  TextMessage textMessageSend=session.createTextMessage();
+  String messageBody=PropertyExpander.expandProperties(submitContext,request.getRequestContent());
+  textMessageSend.setText(messageBody);
+  return textMessageSend;
+}

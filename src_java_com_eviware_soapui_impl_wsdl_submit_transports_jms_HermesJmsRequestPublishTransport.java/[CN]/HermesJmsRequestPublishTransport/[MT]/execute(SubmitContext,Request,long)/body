@@ -14,7 +14,7 @@
     session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicPublish=(Topic)hermes.getDestination(topicName,Domain.TOPIC);
     Message messagePublish=messagePublish(submitContext,request,session,hermes,topicPublish);
-    return makeResponseOnly(submitContext,request,timeStarted,messagePublish);
+    return makeEmptyResponse(submitContext,request,timeStarted,messagePublish);
   }
  catch (  JMSException jmse) {
     return errorResponse(submitContext,request,timeStarted,jmse);
