@@ -1,3 +1,4 @@
 {
-  return jdbcRequestTestStep.getJdbcRequest().getResponse().getContentAsString();
+  JdbcResponse response=jdbcRequestTestStep.getJdbcRequest().getResponse();
+  return response == null ? null : response.getContentAsString();
 }
