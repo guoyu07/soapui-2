@@ -56,5 +56,6 @@
   assertionsPanel=buildAssertionsPanel();
   assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
   inspectorPanel.addInspector(assertionInspector);
+  updateStatusIcon();
   return inspectorPanel.getComponent();
 }
