@@ -1,0 +1,21 @@
+{
+  try {
+    JdbcRequestTestStep testStep=request.getTestStep();
+    if (testStep.isStoredProcedure()) {
+      timestamp=System.nanoTime();
+      ((CallableStatement)statement).execute();
+    }
+ else {
+      List<TestProperty> props=testStep.getPropertyList();
+      for (int j=0; j < props.size(); j++) {
+        TestProperty property=props.get(j);
+        ((PreparedStatement)statement).setString(j + 1,property.getValue());
+      }
+      timestamp=System.nanoTime();
+      ((PreparedStatement)statement).execute();
+    }
+  }
+  finally {
+    timeTaken=System.nanoTime() - timestamp;
+  }
+}

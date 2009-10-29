@@ -1,7 +1,6 @@
 {
   beforeSave();
   TestStepConfig config=(TestStepConfig)getConfig().copy();
-  JdbcRequestTestStepConfig stepConfig=(JdbcRequestTestStepConfig)config.getConfig().changeType(JdbcRequestTestStepConfig.type);
   JdbcRequestTestStep result=(JdbcRequestTestStep)targetTestCase.addTestStep(config);
   return result;
 }

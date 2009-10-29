@@ -36,7 +36,7 @@
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
   requestEditor=buildRequestConfigPanel();
   responseEditor=buildResponseEditor();
-  if (jdbcRequest.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
+  if (jdbcRequestTestStep.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Request",requestEditor);
     if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
     tabsButton.setSelected(true);

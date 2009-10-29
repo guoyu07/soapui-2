@@ -1,0 +1,27 @@
+{
+  String drvr="";
+  String connStr="";
+  JdbcRequestTestStep testStep=request.getTestStep();
+  if (!StringUtils.isNullOrEmpty(testStep.getDriver()) && !StringUtils.isNullOrEmpty(testStep.getConnectionString())) {
+    drvr=PropertyExpander.expandProperties(context,testStep.getDriver()).trim();
+    connStr=PropertyExpander.expandProperties(context,testStep.getConnectionString()).trim();
+  }
+ else {
+    UISupport.showErrorMessage("Please supply connection settings for all DataSources");
+    throw new SoapUIException("Please supply connection settings");
+  }
+  connStr=connStr.replaceFirst(JdbcRequestTestStep.PASS_TEMPLATE,testStep.getPassword());
+  try {
+    DriverManager.getDriver(connStr);
+  }
+ catch (  SQLException e) {
+    try {
+      Class.forName(drvr).newInstance();
+    }
+ catch (    Exception e1) {
+      throw new Exception("Failed to init connection for drvr [" + drvr + "], connectionString ["+ testStep.getConnectionString()+ "]");
+    }
+  }
+  resultSet=null;
+  connection=DriverManager.getConnection(connStr);
+}

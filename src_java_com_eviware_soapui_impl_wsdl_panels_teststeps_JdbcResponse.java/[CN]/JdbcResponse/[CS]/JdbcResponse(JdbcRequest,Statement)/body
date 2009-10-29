@@ -1,0 +1,5 @@
+{
+  super(request);
+  org.w3c.dom.Document xmlDocumentResult=XmlUtils.createJdbcXmlResult(statement);
+  responseContent=XmlUtils.serialize(xmlDocumentResult);
+}
