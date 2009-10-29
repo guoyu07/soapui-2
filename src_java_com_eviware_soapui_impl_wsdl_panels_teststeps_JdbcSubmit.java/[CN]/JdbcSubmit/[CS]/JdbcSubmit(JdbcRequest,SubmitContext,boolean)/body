@@ -5,7 +5,7 @@
   SubmitListener[] submitListeners=request.getSubmitListeners();
   this.listeners=new SubmitListener[submitListeners.length + regListeners.size()];
   for (int c=0; c < submitListeners.length; c++)   this.listeners[c]=submitListeners[c];
-  for (int c=0; c < regListeners.size(); c++)   this.listeners[listeners.length + c]=regListeners.get(c);
+  for (int c=0; c < regListeners.size(); c++)   this.listeners[submitListeners.length + c]=regListeners.get(c);
   error=null;
   status=Status.INITIALIZED;
   if (async)   future=SoapUI.getThreadPool().submit(this);

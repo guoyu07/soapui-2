@@ -1,0 +1,6 @@
+{
+  JdbcResponse oldResponse=jdbcRequest.getResponse();
+  jdbcRequest.setResponse(response);
+  notifyPropertyChanged(RESPONSE_PROPERTY,oldResponse,response);
+  assertResponse(context);
+}

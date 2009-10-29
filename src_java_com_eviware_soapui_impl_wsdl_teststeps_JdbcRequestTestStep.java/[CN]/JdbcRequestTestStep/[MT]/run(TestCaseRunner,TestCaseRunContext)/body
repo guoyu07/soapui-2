@@ -9,16 +9,16 @@
       if (submit.getStatus() == Submit.Status.ERROR) {
         testStepResult.setStatus(TestStepStatus.FAILED);
         testStepResult.addMessage(submit.getError().toString());
-        jdbcRequest.setResponse(null,runContext);
+        jdbcRequest.setResponse(null);
       }
  else       if (response == null) {
         testStepResult.setStatus(TestStepStatus.FAILED);
         testStepResult.addMessage("Request is missing response");
-        jdbcRequest.setResponse(null,runContext);
+        jdbcRequest.setResponse(null);
       }
  else {
         runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
-        jdbcRequest.setResponse(response,runContext);
+        jdbcRequest.setResponse(response);
         testStepResult.setTimeTaken(response.getTimeTaken());
         testStepResult.setSize(response.getContentLength());
 switch (jdbcRequest.getAssertionStatus()) {
@@ -52,6 +52,7 @@ testStepResult.stopTimer();
 submit=null;
 }
 if (testStepResult.getStatus() != TestStepStatus.CANCELED) {
+assertResponse(runContext);
 AssertionStatus assertionStatus=jdbcRequest.getAssertionStatus();
 switch (assertionStatus) {
 case FAILED:
@@ -73,6 +74,6 @@ break;
 }
 }
 }
-if (!runContext.hasProperty(TestRunContext.INTERACTIVE)) jdbcRequest.setResponse(null,runContext);
+if (!runContext.hasProperty(TestRunContext.INTERACTIVE)) jdbcRequest.setResponse(null);
 return testStepResult;
 }

@@ -2,7 +2,7 @@
   try {
     JdbcRequestTestStep testStep=request.getTestStep();
     if (testStep.isStoredProcedure()) {
-      timestamp=System.nanoTime();
+      timestamp=System.currentTimeMillis();
       ((CallableStatement)statement).execute();
     }
  else {
@@ -11,11 +11,11 @@
         TestProperty property=props.get(j);
         ((PreparedStatement)statement).setString(j + 1,property.getValue());
       }
-      timestamp=System.nanoTime();
+      timestamp=System.currentTimeMillis();
       ((PreparedStatement)statement).execute();
     }
   }
   finally {
-    timeTaken=System.nanoTime() - timestamp;
+    timeTaken=System.currentTimeMillis() - timestamp;
   }
 }

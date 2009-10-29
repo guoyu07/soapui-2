@@ -1,7 +1,10 @@
 {
   if (submit.getRequest() != jdbcRequestTestStep.getJdbcRequest())   return;
   Status status=submit.getStatus();
-  HttpResponse response=(HttpResponse)submit.getResponse();
+  JdbcResponse response=(JdbcResponse)submit.getResponse();
+  if (status == Status.FINISHED) {
+    jdbcRequestTestStep.setResponse(response,context);
+  }
   cancelButton.setEnabled(false);
   setEnabled(true);
   String message=null;
