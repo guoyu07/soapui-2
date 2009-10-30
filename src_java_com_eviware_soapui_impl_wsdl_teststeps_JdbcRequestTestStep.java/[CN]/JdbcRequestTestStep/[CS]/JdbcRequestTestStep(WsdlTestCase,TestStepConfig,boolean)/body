@@ -1,10 +1,6 @@
 {
   super(testCase,config,true,forLoadTest);
-  if (!forLoadTest) {
-    okIcon=UISupport.createImageIcon("/jdbcrequest.gif");
-    failedIcon=UISupport.createImageIcon("/jdbcrequest_failed.gif");
-    setIcon(okIcon);
-  }
+  this.forLoadTest=forLoadTest;
   if (getConfig().getConfig() != null) {
     jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().getConfig().changeType(JdbcRequestTestStepConfig.type);
   }
@@ -15,4 +11,5 @@
   jdbcRequest=new JdbcRequest(this);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,jdbcRequestTestStepConfig.getProperties());
   initAssertions();
+  initIcons();
 }
