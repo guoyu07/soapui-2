@@ -1,9 +1,11 @@
 {
   ResultSetMetaData rsmd=rs.getMetaData();
+  Element resultSetElement=xmlDocumentResult.createElement("ResultSet");
+  resultsElement.appendChild(resultSetElement);
   int colCount=rsmd.getColumnCount();
   while (rs.next()) {
-    Element row=xmlDocumentResult.createElement("Row");
-    results.appendChild(row);
+    Element rowElement=xmlDocumentResult.createElement("Row");
+    resultsElement.appendChild(rowElement);
     for (int ii=1; ii <= colCount; ii++) {
       String columnName="";
       if (!StringUtils.isNullOrEmpty(rsmd.getTableName(ii))) {
@@ -15,8 +17,9 @@
       if (!StringUtils.isNullOrEmpty(value)) {
         node.appendChild(xmlDocumentResult.createTextNode(value.toString()));
       }
-      row.appendChild(node);
+      rowElement.appendChild(node);
     }
+    resultSetElement.appendChild(rowElement);
   }
   return xmlDocumentResult;
 }

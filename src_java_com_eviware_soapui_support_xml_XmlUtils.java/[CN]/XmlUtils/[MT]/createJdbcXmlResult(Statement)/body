@@ -2,11 +2,11 @@
   DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
   DocumentBuilder builder=factory.newDocumentBuilder();
   org.w3c.dom.Document xmlDocumentResult=builder.newDocument();
-  Element results=xmlDocumentResult.createElement("Results");
-  xmlDocumentResult.appendChild(results);
-  xmlDocumentResult=addResultSetXmlPart(results,statement.getResultSet(),xmlDocumentResult);
+  Element resultsElement=xmlDocumentResult.createElement("Results");
+  xmlDocumentResult.appendChild(resultsElement);
+  xmlDocumentResult=addResultSetXmlPart(resultsElement,statement.getResultSet(),xmlDocumentResult);
   while (statement.getMoreResults()) {
-    xmlDocumentResult=addResultSetXmlPart(results,statement.getResultSet(),xmlDocumentResult);
+    xmlDocumentResult=addResultSetXmlPart(resultsElement,statement.getResultSet(),xmlDocumentResult);
   }
   return xmlDocumentResult;
 }
