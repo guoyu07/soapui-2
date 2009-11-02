@@ -11,6 +11,11 @@
         TestProperty property=props.get(j);
         ((PreparedStatement)statement).setString(j + 1,property.getValue());
       }
+      try {
+        Thread.sleep(15000);
+      }
+ catch (      Exception e) {
+      }
       timestamp=System.currentTimeMillis();
       ((PreparedStatement)statement).execute();
     }

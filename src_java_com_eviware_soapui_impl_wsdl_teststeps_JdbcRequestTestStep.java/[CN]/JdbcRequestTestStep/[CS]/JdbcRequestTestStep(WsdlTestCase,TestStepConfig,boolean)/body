@@ -1,6 +1,5 @@
 {
   super(testCase,config,true,forLoadTest);
-  this.forLoadTest=forLoadTest;
   if (getConfig().getConfig() != null) {
     jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().getConfig().changeType(JdbcRequestTestStepConfig.type);
   }
@@ -11,5 +10,5 @@
   jdbcRequest=new JdbcRequest(this);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,jdbcRequestTestStepConfig.getProperties());
   initAssertions();
-  initIcons();
+  jdbcRequest.initIcons();
 }
