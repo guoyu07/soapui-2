@@ -44,7 +44,7 @@
         data[c][BYTES_COLUMN]+=holder.sizes[c];
         if (timePassed > 0) {
           if (loadTest.getCalculateTPSOnTimePassed()) {
-            data[c][TPS_COLUMN]=(data[c][CURRENT_CNT_COLUMN] * 100000) / timePassed;
+            data[c][TPS_COLUMN]=(long)((float)(data[c][CURRENT_CNT_COLUMN] * 100000) / (float)timePassed);
             data[c][BPS_COLUMN]=(data[c][BYTES_COLUMN] * 1000) / timePassed;
           }
  else {

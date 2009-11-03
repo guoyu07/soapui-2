@@ -14,6 +14,7 @@
   notifyBeforeRun();
   if (!isRunning())   return;
   initCount=0;
+  setStartTime();
   for (; initCount < testCase.getTestStepCount() && isRunning(); initCount++) {
     WsdlTestStep testStep=testCase.getTestStepAt(initCount);
     if (testStep.isDisabled())     continue;
