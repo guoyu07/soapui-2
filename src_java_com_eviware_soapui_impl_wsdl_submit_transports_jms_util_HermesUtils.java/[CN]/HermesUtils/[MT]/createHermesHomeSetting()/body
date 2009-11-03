@@ -1,0 +1,11 @@
+{
+  if (Tools.isEmpty(SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,null))) {
+    UISupport.showErrorMessage("Hermes Home must be set in global preferences");
+    if (UISupport.getMainFrame() != null) {
+      if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.INTEGRATED_TOOLS)) {
+        return SoapUI.getSettings().getString(ToolsSettings.HERMES_1_13,null);
+      }
+    }
+  }
+  return null;
+}
