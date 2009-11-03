@@ -1,5 +1,6 @@
 {
   WsdlProject project=iface.getProject();
+  HermesUtils.flushHermesCache();
   Context ctx=HermesUtils.hermesContext(project,hermesConfigPath);
   return ctx;
 }

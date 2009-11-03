@@ -7,7 +7,7 @@
       if (!"".equals(newValue)) {
         Hermes hermes=null;
         try {
-          Context ctx=HermesUtils.hermesContext(iface.getProject(),newValue);
+          Context ctx=getHermesContext(iface,newValue);
           iface.getProject().setHermesConfig(newValue);
           String[] sessions=getSessionOptions(iface,newValue);
           mainForm.setOptions(SESSION,sessions);
