@@ -11,7 +11,9 @@
       defaultNamespace=url.getProtocol() + "://" + url.getHost();
     }
  else {
-      defaultNamespace=httpResponse.getRequest().getEndpoint();
+      if (httpResponse instanceof JMSResponse) {
+        defaultNamespace=((JMSResponse)httpResponse).getEndpoint();
+      }
     }
     XmlOptions options=new XmlOptions().setLoadSubstituteNamespaces(Collections.singletonMap("",defaultNamespace));
     xml=XmlObject.Factory.parse(content,options);
