@@ -1,32 +1,34 @@
 {
-  String proxyHost=System.getProperty("http.proxyHost");
-  String proxyPort=System.getProperty("http.proxyPort");
-  if (proxyHost == null)   proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
-  if (proxyPort == null)   proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
-  if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
-    String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
-    try {
-      URL url=new URL(urlString);
-      if (!excludes(excludes,url.getHost(),url.getPort())) {
-        hostConfiguration.setProxy(proxyHost,Integer.parseInt(proxyPort));
-        String proxyUsername=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
-        String proxyPassword=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
-        if (proxyUsername != null && proxyPassword != null) {
-          Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword == null ? "" : proxyPassword);
-          int ix=proxyUsername.indexOf('\\');
-          if (ix > 0) {
-            String domain=proxyUsername.substring(0,ix);
-            if (proxyUsername.length() > ix + 1) {
-              String user=proxyUsername.substring(ix + 1);
-              proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
+  if (SoapUI.getSettings().getBoolean(ProxySettings.ENABLE_PROXY)) {
+    String proxyHost=System.getProperty("http.proxyHost");
+    String proxyPort=System.getProperty("http.proxyPort");
+    if (proxyHost == null)     proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
+    if (proxyPort == null)     proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
+    if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
+      String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
+      try {
+        URL url=new URL(urlString);
+        if (!excludes(excludes,url.getHost(),url.getPort())) {
+          hostConfiguration.setProxy(proxyHost,Integer.parseInt(proxyPort));
+          String proxyUsername=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
+          String proxyPassword=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
+          if (proxyUsername != null && proxyPassword != null) {
+            Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword == null ? "" : proxyPassword);
+            int ix=proxyUsername.indexOf('\\');
+            if (ix > 0) {
+              String domain=proxyUsername.substring(0,ix);
+              if (proxyUsername.length() > ix + 1) {
+                String user=proxyUsername.substring(ix + 1);
+                proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
+              }
             }
+            httpState.setProxyCredentials(AuthScope.ANY,proxyCreds);
           }
-          httpState.setProxyCredentials(AuthScope.ANY,proxyCreds);
         }
       }
-    }
- catch (    MalformedURLException e) {
-      SoapUI.logError(e);
+ catch (      MalformedURLException e) {
+        SoapUI.logError(e);
+      }
     }
   }
   return hostConfiguration;
