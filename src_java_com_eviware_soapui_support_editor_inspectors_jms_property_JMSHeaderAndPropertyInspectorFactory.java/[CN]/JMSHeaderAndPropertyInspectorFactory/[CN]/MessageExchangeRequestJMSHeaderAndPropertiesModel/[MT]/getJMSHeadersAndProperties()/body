@@ -1,3 +1,5 @@
 {
-  return getModelItem().getMessageExchange() != null ? getModelItem().getMessageExchange().getRequestHeaders() : null;
+  MessageExchange messageExchange=getModelItem().getMessageExchange();
+  if (messageExchange != null)   return messageExchange.getRequestHeaders();
+ else   return new StringToStringMap();
 }
