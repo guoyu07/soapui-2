@@ -1,0 +1,15 @@
+{
+  settings.setString(ProxySettings.HOST,values.get(HOST));
+  settings.setString(ProxySettings.PORT,values.get(PORT));
+  settings.setString(ProxySettings.USERNAME,values.get(USERNAME));
+  settings.setString(ProxySettings.PASSWORD,values.get(PASSWORD));
+  settings.setString(ProxySettings.EXCLUDES,values.get(EXCLUDES));
+  settings.setBoolean(ProxySettings.ENABLE_PROXY,values.getBoolean(ENABLE_PROXY));
+  JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
+  if (values.getBoolean(ENABLE_PROXY)) {
+    applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
+  }
+ else {
+    applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_DISABLED_ICON));
+  }
+}

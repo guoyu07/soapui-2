@@ -12,6 +12,13 @@
   mainToolbar.add(new ShowOnlineHelpAction("Trial",HelpUrls.TRIAL_URL,"Apply for soapUI Pro Trial License","/favicon.png"));
   mainToolbar.addSeparator();
   mainToolbar.add(new PreferencesActionDelegate());
+  applyProxyButton=mainToolbar.add(new ApplyProxyButtonAction());
+  if (isApplyProxy()) {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_ENABLED_ICON));
+  }
+ else {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_DISABLED_ICON));
+  }
   mainToolbar.add(new ExitButtonAction());
   mainToolbar.addGlue();
   searchField=new JTextField(20);
