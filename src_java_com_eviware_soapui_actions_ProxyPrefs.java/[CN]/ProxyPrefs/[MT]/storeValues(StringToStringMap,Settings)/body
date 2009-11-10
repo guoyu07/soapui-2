@@ -8,8 +8,10 @@
   JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
   if (values.getBoolean(ENABLE_PROXY)) {
     applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
+    ProxyUtils.setProxyEnabled(true);
   }
  else {
     applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_DISABLED_ICON));
+    ProxyUtils.setProxyEnabled(false);
   }
 }

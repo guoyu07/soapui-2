@@ -13,11 +13,14 @@
   mainToolbar.addSeparator();
   mainToolbar.add(new PreferencesActionDelegate());
   applyProxyButton=mainToolbar.add(new ApplyProxyButtonAction());
-  if (isApplyProxy()) {
+  ProxyUtils.setProxyEnabled(getSettings().getBoolean(ProxySettings.ENABLE_PROXY));
+  if (ProxyUtils.isProxyEnabled()) {
     applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_ENABLED_ICON));
+    ProxyUtils.setProxyEnabled(true);
   }
  else {
     applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_DISABLED_ICON));
+    ProxyUtils.setProxyEnabled(false);
   }
   mainToolbar.add(new ExitButtonAction());
   mainToolbar.addGlue();
