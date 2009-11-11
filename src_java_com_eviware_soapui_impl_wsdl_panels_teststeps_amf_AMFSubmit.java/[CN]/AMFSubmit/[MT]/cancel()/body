@@ -1,0 +1,16 @@
+{
+  if (status == Status.CANCELED)   return;
+  AMFRequest.logger.info("Canceling request..");
+  if (status == Status.RUNNING) {
+    cancelQuery();
+  }
+  status=Status.CANCELED;
+  for (int i=0; i < listeners.length; i++) {
+    try {
+      listeners[i].afterSubmit(this,context);
+    }
+ catch (    Throwable e) {
+      SoapUI.logError(e);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Groovy Script Editor");
+  if (panel == null) {
+    panel=new JPanel(new BorderLayout());
+    panel.add(createGroovyEditorSimpleForm().getPanel());
+  }
+  configPanel.add(panel,BorderLayout.CENTER);
+  propertiesTableComponent=buildProperties();
+  JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
+  split.setDividerLocation(120);
+  return split;
+}

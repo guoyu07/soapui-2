@@ -1,0 +1,20 @@
+{
+  try {
+    response=new AMFResponse(request,statement);
+    response.setTimestamp(timestamp);
+    response.setTimeTaken(timeTaken);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    try {
+      if (connection != null)       connection.close();
+      if (statement != null)       statement.close();
+      if (resultSet != null)       resultSet.close();
+    }
+ catch (    Exception e) {
+    }
+  }
+  return null;
+}

@@ -1,0 +1,21 @@
+{
+  SoapUI.getThreadPool().execute(new Runnable(){
+    public void run(){
+      MockTestRunner mockTestRunner=new MockTestRunner(amfRequestTestStep.getTestCase(),log);
+      statusBar.setIndeterminate(true);
+      WsdlTestStepResult result=(WsdlTestStepResult)amfRequestTestStep.run(mockTestRunner,new MockTestRunContext(mockTestRunner,amfRequestTestStep));
+      statusBar.setIndeterminate(false);
+      Throwable er=result.getError();
+      if (er != null) {
+        String message=er.getMessage();
+        groovyEditor.selectError(message);
+        UISupport.showErrorMessage(er.toString());
+        groovyEditor.requestFocus();
+      }
+ else       if (result.getMessages().length > 0) {
+        UISupport.showInfoMessage(StringUtils.join(result.getMessages(),"\n"));
+      }
+    }
+  }
+);
+}

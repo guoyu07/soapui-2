@@ -1,0 +1,11 @@
+{
+  super(modelItem);
+  amfRequestTestStep=modelItem;
+  initConfig();
+  initContent();
+  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
+  setEnabled(!SoapUI.getTestMonitor().hasRunningTest(amfRequestTestStep.getTestCase()));
+  amfRequestTestStep.addAssertionsListener(assertionsListener);
+  scriptEngine=SoapUIScriptEngineRegistry.create(modelItem);
+  scriptEngine.setScript(amfRequestTestStep.getScript());
+}

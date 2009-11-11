@@ -1,0 +1,32 @@
+{
+  try {
+    for (int i=0; i < listeners.length; i++) {
+      if (!listeners[i].beforeSubmit(this,context)) {
+        status=Status.CANCELED;
+        System.err.println("listener cancelled submit..");
+        return;
+      }
+    }
+    status=Status.RUNNING;
+    runQuery();
+    if (status != Status.CANCELED) {
+      status=Status.FINISHED;
+    }
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage("There's been an error in executing query " + e.toString());
+    error=e;
+  }
+ finally {
+    if (status != Status.CANCELED) {
+      for (int i=0; i < listeners.length; i++) {
+        try {
+          listeners[i].afterSubmit(this,context);
+        }
+ catch (        Throwable e) {
+          SoapUI.logError(e);
+        }
+      }
+    }
+  }
+}
