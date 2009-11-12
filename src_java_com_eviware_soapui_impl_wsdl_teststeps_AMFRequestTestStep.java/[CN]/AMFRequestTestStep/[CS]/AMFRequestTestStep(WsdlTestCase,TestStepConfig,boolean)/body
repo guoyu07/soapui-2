@@ -11,6 +11,8 @@
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,amfRequestTestStepConfig.getProperties());
   initAssertions();
   amfRequest.initIcons();
+  this.script=amfRequestTestStepConfig.getGroovyScript();
+  this.amfCall=amfRequestTestStepConfig.getAmfCall();
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
   if (forLoadTest && !isDisabled())   try {

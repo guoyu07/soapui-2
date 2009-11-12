@@ -1,8 +1,11 @@
 {
-  configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Groovy Script Editor");
+  configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"AMF call and intialisation groovy script");
   if (panel == null) {
     panel=new JPanel(new BorderLayout());
-    panel.add(createGroovyEditorSimpleForm().getPanel());
+    configForm=new SimpleForm();
+    addAmfCAlltoSimpleForm();
+    addGroovyEditorToSimpleForm();
+    panel.add(configForm.getPanel());
   }
   configPanel.add(panel,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();

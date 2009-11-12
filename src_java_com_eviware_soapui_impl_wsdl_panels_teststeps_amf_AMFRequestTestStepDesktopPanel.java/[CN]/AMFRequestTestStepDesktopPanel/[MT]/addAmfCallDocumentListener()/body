@@ -1,0 +1,10 @@
+{
+  amfCall.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      if (!updating) {
+        amfRequestTestStep.setAmfCall(configForm.getComponentValue(AMF_CALL));
+      }
+    }
+  }
+);
+}

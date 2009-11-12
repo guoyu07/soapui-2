@@ -1,8 +1,8 @@
 {
-  if (scriptText.equals(this.scriptText))   return;
-  String oldScript=this.scriptText;
-  this.scriptText=scriptText;
+  if (scriptText.equals(this.script))   return;
+  String oldScript=this.script;
+  this.script=scriptText;
   scriptEngine.setScript(scriptText);
-  saveScript(getConfig());
-  notifyPropertyChanged("script",oldScript,scriptText);
+  notifyPropertyChanged("groovyScript",oldScript,scriptText);
+  saveScript();
 }
