@@ -1,0 +1,62 @@
+{
+  if (cursor == null)   return null;
+  positionCursor(cursor);
+  SchemaType resultType=null;
+  XmlObject xo=cursor.getObject();
+  if (xo != null) {
+    Node domNode=xo.getDomNode();
+    if (domNode.getNodeType() == Node.ELEMENT_NODE) {
+      Element elm=(Element)domNode;
+      String xsiType=elm.getAttributeNS("http://www.w3.org/2001/XMLSchema-instance","type");
+      if (xsiType != null && xsiType.length() > 0) {
+        resultType=findXsiType(xsiType);
+      }
+    }
+    if (resultType == null)     resultType=typeSystem.findType(xo.schemaType().getName());
+    if (resultType == null)     resultType=xo.schemaType();
+    if (resultType.isNoType()) {
+      QName nm=cursor.getName();
+      if (parent != null && parent.getSchemaType() != null) {
+        SchemaType parentSchemaType=parent.getSchemaType();
+        SchemaParticle contentModel=parentSchemaType.getContentModel();
+        if (contentModel != null) {
+          SchemaParticle[] children=contentModel.getParticleChildren();
+          for (int c=0; children != null && c < children.length; c++) {
+            if (nm.equals(children[c].getName())) {
+              resultType=children[c].getType();
+              documentation=SchemaUtils.getDocumentation(resultType);
+              break;
+            }
+          }
+          if (resultType.isNoType() && nm.equals(contentModel.getName()))           resultType=contentModel.getType();
+          if (resultType.isNoType()) {
+            SchemaType[] anonymousTypes=parentSchemaType.getAnonymousTypes();
+            for (int c=0; anonymousTypes != null && c < anonymousTypes.length; c++) {
+              QName name=anonymousTypes[c].getName();
+              if (name != null && name.equals(nm)) {
+                resultType=anonymousTypes[c];
+                break;
+              }
+ else               if (anonymousTypes[c].getContainerField().getName().equals(nm)) {
+                resultType=anonymousTypes[c].getContainerField().getType();
+                break;
+              }
+            }
+          }
+        }
+      }
+      if (resultType.isNoType()) {
+        SchemaGlobalElement elm=typeSystem.findElement(nm);
+        if (elm != null) {
+          resultType=elm.getType();
+        }
+ else         if (typeSystem.findDocumentType(nm) != null) {
+          resultType=typeSystem.findDocumentType(nm);
+        }
+      }
+    }
+  }
+  if (resultType == null)   resultType=XmlAnyTypeImpl.type;
+  if (documentation == null)   documentation=SchemaUtils.getDocumentation(resultType);
+  return resultType;
+}

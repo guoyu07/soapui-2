@@ -1,7 +1,16 @@
 {
   WsdlTestCase testCase=loadTest.getTestCase();
-  TestCaseConfig config=(TestCaseConfig)testCase.getConfig().copy();
-  config.setLoadTestArray(new LoadTestConfig[0]);
+  TestCaseConfig config=null;
+  if (blueprintConfig == null) {
+    try {
+      blueprintConfig=TestCaseConfig.Factory.parse(testCase.getConfig().xmlText());
+      blueprintConfig.setLoadTestArray(new LoadTestConfig[0]);
+    }
+ catch (    XmlException e) {
+      e.printStackTrace();
+    }
+  }
+  config=(TestCaseConfig)blueprintConfig.copy();
   WsdlTestCase tc=testCase.getTestSuite().buildTestCase(config,true);
   tc.afterLoad();
   tc.addTestRunListener(testRunListener);

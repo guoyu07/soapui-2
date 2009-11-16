@@ -1,7 +1,7 @@
 {
   if (!isOpen() || isDisabled() || isRemote())   return true;
   if (path == null || isRemote()) {
-    path=getName() + "-soapui-project.xml";
+    path=StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml";
     if (folder != null) {
       path=folder + File.separatorChar + path;
     }

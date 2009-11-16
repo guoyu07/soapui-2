@@ -2,7 +2,8 @@
   super(testCase,config,true,forLoadTest);
   if (getConfig().getConfig() != null) {
     httpRequestConfig=RestRequestConverter.updateIfNeeded(getConfig().getConfig());
-    if (httpRequestConfig != getConfig().getConfig())     getConfig().setConfig(httpRequestConfig);
+    getConfig().setConfig(httpRequestConfig);
+    httpRequestConfig=(HttpRequestConfig)getConfig().getConfig();
     testRequest=buildTestRequest(forLoadTest);
     testRequest.addPropertyChangeListener(this);
     testRequest.addTestPropertyListener(new InternalTestPropertyListener());

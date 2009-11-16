@@ -1,0 +1,10 @@
+{
+  if (!values.containsKey(name))   return false;
+  String value=values.get(name).toString();
+  if (value == null || value.length() == 0)   return false;
+  for (  String v : value.split(sep)) {
+    if (arg != null)     args.add(arg);
+    args.add(v.trim());
+  }
+  return true;
+}

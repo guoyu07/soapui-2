@@ -10,10 +10,12 @@
   }
   EndpointDefaults def=defaults.get(uri.toString());
   if (def == null) {
-    for (    String ep : defaults.keySet()) {
-      if (PropertyExpander.expandProperties(context,ep).equals(uri.toString())) {
-        def=defaults.get(ep);
-        break;
+synchronized (defaults) {
+      for (      String ep : defaults.keySet()) {
+        if (PropertyExpander.expandProperties(context,ep).equals(uri.toString())) {
+          def=defaults.get(ep);
+          break;
+        }
       }
     }
     if (def == null)     return;

@@ -11,14 +11,8 @@
       statusBar.add(statusLabel,BorderLayout.CENTER);
       if (addToolbar)       panel.add(buildToolbar(),BorderLayout.NORTH);
       panel.add(statusBar,BorderLayout.SOUTH);
-      SwingUtilities.invokeLater(new Runnable(){
-        public void run(){
-          initBrowser();
-          panel.add(browser.getComponent(),BorderLayout.CENTER);
-          panel.repaint();
-        }
-      }
-);
+      initBrowser();
+      browser.navigate("about:blank");
     }
   }
   return panel;

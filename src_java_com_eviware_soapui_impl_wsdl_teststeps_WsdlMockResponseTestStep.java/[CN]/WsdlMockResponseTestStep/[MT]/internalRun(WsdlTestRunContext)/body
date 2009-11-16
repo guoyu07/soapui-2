@@ -1,5 +1,5 @@
 {
-  iconAnimator.start();
+  if (iconAnimator != null)   iconAnimator.start();
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
     this.lastResult=null;
@@ -61,7 +61,7 @@ synchronized (mockRunListener) {
     SoapUI.logError(e);
   }
  finally {
-    iconAnimator.stop();
+    if (iconAnimator != null)     iconAnimator.stop();
   }
   return result;
 }

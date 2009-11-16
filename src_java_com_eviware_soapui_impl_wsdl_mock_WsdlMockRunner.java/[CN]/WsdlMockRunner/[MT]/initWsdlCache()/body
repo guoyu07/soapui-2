@@ -8,7 +8,7 @@
       for (      String key : parts.keySet()) {
         if (key.toLowerCase().endsWith(".wsdl")) {
           InputSource inputSource=new InputSource(new StringReader(parts.get(key)));
-          String content=WsdlUtils.replacePortEndpoint((WsdlInterface)iface,inputSource,getLocalMockServiceEndpoint());
+          String content=WsdlUtils.replacePortEndpoint((WsdlInterface)iface,inputSource,mockService.getLocalMockServiceEndpoint());
           if (content != null)           parts.put(key,content);
         }
       }

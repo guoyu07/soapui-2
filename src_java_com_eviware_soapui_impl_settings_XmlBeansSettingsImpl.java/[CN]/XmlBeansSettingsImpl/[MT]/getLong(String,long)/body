@@ -1,7 +1,8 @@
 {
-  if (values.containsKey(id)) {
+  String value=getString(id,null);
+  if (value != null) {
     try {
-      return Long.parseLong(values.get(id).getStringValue());
+      return Long.parseLong(value);
     }
  catch (    NumberFormatException e) {
     }

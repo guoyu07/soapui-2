@@ -1,8 +1,6 @@
 {
   if (maxResults < 1)   return;
-synchronized (this) {
-    while (testStepResults.size() > maxResults) {
-      testStepResults.remove(0);
-    }
+  while (testStepResults.size() > maxResults) {
+    testStepResults.remove(0);
   }
 }

@@ -3,5 +3,6 @@
   getModelItem().getMockService().getProject().removeProjectListener(projectListener);
   responseListModel.release();
   inspectorPanel.release();
+  if (dispatcher != null)   dispatcher.releaseEditorComponent();
   return release();
 }

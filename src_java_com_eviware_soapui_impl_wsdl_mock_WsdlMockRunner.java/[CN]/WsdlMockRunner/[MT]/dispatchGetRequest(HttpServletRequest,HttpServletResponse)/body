@@ -14,13 +14,11 @@
           try {
             String pathInfo=request.getPathInfo();
             if (mockService.getPath().length() > 1 && pathInfo.startsWith(mockService.getPath()))             pathInfo=pathInfo.substring(mockService.getPath().length());
-            File file=new File(docroot + pathInfo.replace('/',File.separatorChar));
-            FileInputStream in=new FileInputStream(file);
-            response.setStatus(HttpServletResponse.SC_OK);
-            long length=file.length();
-            response.setContentLength((int)length);
-            response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
-            Tools.readAndWrite(in,length,response.getOutputStream());
+            String filename=docroot + pathInfo.replace('/',File.separatorChar);
+            File file=new File(filename);
+            if (file.exists()) {
+              returnFile(response,file);
+            }
           }
  catch (          Throwable e) {
             throw new DispatchException(e);

@@ -12,6 +12,7 @@
       values.put(id,setting);
     }
     values.get(id).setStringValue(value);
+    valueCache.put(id,value);
   }
   notifySettingChanged(id,value,oldValue);
 }

@@ -1,0 +1,42 @@
+{
+  super(cursor,parent);
+  TokenType token=cursor.toNextToken();
+  while (token == TokenType.ATTR || token == TokenType.NAMESPACE) {
+    if (token == TokenType.ATTR) {
+      elements.add(new AttributeXmlTreeNode(cursor,this));
+    }
+    token=cursor.toNextToken();
+  }
+  attrCount=elements.size();
+  positionCursor(cursor);
+  cursor.toFirstContentToken();
+  while (true) {
+    while (cursor.isComment() || cursor.isProcinst())     cursor.toNextToken();
+    if (cursor.isContainer()) {
+      elements.add(new ElementXmlTreeNode(cursor,this));
+      cursor.toEndToken();
+      cursor.toNextToken();
+    }
+    if (cursor.isText()) {
+      elements.add(new TextXmlTreeNode(cursor,this));
+      cursor.toNextToken();
+    }
+    if (cursor.isEnd() || cursor.isEnddoc())     break;
+  }
+  if (elements.size() == attrCount + 1 && (elements.get(attrCount) instanceof TextXmlTreeNode)) {
+    textTreeNode=(TextXmlTreeNode)elements.remove(attrCount);
+  }
+ else {
+    for (int c=attrCount; c < elements.size(); c++) {
+      if (elements.get(c) instanceof TextXmlTreeNode) {
+        TextXmlTreeNode treeNode=(TextXmlTreeNode)elements.get(c);
+        String text=treeNode.getNodeText().trim();
+        if (text.length() == 0) {
+          elements.remove(c);
+          c--;
+        }
+      }
+    }
+  }
+  positionCursor(cursor);
+}

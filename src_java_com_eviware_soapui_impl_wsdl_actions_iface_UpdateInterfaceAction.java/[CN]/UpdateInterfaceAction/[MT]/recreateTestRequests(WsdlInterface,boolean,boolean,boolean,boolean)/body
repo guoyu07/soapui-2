@@ -8,7 +8,7 @@
         WsdlTestStep testStep=(WsdlTestStep)testCase.getTestStepAt(c);
         if (testStep instanceof WsdlTestRequestStep) {
           WsdlTestRequest testRequest=((WsdlTestRequestStep)testStep).getTestRequest();
-          if (testRequest.getOperation().getInterface() == iface) {
+          if (testRequest != null && testRequest.getOperation() != null && testRequest.getOperation().getInterface() == iface) {
             String newRequest=testRequest.getOperation().createRequest(buildOptional);
             if (keepHeaders) {
               newRequest=SoapUtils.transferSoapHeaders(testRequest.getRequestContent(),newRequest,iface.getSoapVersion());

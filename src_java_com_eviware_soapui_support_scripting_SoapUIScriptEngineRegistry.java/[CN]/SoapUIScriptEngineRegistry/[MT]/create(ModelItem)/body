@@ -1,8 +1,3 @@
 {
-  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
-  String scriptEngineId=null;
-  if (project == null)   SoapUI.log.warn("Project is null");
- else   scriptEngineId=project.getDefaultScriptLanguage();
-  if (StringUtils.isNullOrEmpty(scriptEngineId))   scriptEngineId=DEFAULT_SCRIPT_ENGINE_ID;
-  return factories.get(scriptEngineId).createScriptEngine(modelItem);
+  return factories.get(getScriptEngineId(modelItem)).createScriptEngine(modelItem);
 }

@@ -11,8 +11,10 @@
     }
     loadTest.addLoadTestRunListener(this);
     LoadTestRunner runner=loadTest.run();
-    while (runner.getStatus() == LoadTestRunner.Status.RUNNING) {
-      log.info("LoadTest [" + loadTest.getName() + "] progress: "+ runner.getProgress()+ ", "+ runner.getRunningThreadCount());
+    while (!runner.hasStopped()) {
+      if (runner.getStatus() == Status.RUNNING) {
+        log.info("LoadTest [" + loadTest.getName() + "] progress: "+ runner.getProgress()+ ", "+ runner.getRunningThreadCount());
+      }
       Thread.sleep(1000);
     }
     log.info("LoadTest [" + loadTest.getName() + "] finished with status "+ runner.getStatus().toString());

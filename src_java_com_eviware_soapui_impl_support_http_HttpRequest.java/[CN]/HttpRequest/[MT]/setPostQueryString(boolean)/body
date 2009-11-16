@@ -3,6 +3,6 @@
   getConfig().setPostQueryString(b);
   notifyPropertyChanged("postQueryString",old,b);
   if (!"multipart/form-data".equals(getMediaType())) {
-    setMediaType(b ? "application/x-www-form-urlencoded" : "");
+    setMediaType(b ? "application/x-www-form-urlencoded" : getMediaType());
   }
 }

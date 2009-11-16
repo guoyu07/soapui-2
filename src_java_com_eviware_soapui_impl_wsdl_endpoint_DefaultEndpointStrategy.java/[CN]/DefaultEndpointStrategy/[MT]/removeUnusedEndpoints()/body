@@ -5,13 +5,15 @@
     endpoints.addAll(Arrays.asList(iface.getEndpoints()));
   }
   StringList keys=new StringList();
-  for (  String key : defaults.keySet()) {
-    if (!endpoints.contains(key)) {
-      keys.add(key);
+synchronized (defaults) {
+    for (    String key : defaults.keySet()) {
+      if (!endpoints.contains(key)) {
+        keys.add(key);
+      }
     }
-  }
-  for (  String key : keys) {
-    EndpointDefaults def=defaults.remove(key);
-    config.getEndpointList().remove(def);
+    for (    String key : keys) {
+      EndpointDefaults def=defaults.remove(key);
+      config.getEndpointList().remove(def);
+    }
   }
 }

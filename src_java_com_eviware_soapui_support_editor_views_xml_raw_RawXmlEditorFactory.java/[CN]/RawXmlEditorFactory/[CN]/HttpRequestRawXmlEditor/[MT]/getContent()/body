@@ -1,4 +1,7 @@
 {
   if (request.getResponse() == null || request.getResponse().getRawRequestData() == null)   return "";
- else   return new String(request.getResponse().getRawRequestData());
+  byte[] rawRequestData=request.getResponse().getRawRequestData();
+  int maxSize=(int)SoapUI.getSettings().getLong(UISettings.RAW_REQUEST_MESSAGE_SIZE,10000);
+  if (maxSize < rawRequestData.length)   return new String(Arrays.copyOf(rawRequestData,maxSize));
+ else   return new String(rawRequestData);
 }

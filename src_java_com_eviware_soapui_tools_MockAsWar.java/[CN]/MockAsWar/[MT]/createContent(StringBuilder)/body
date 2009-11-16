@@ -1,0 +1,8 @@
+{
+  content.replace(content.indexOf(PROJECT_FILE_NAME),content.indexOf(PROJECT_FILE_NAME) + PROJECT_FILE_NAME.length(),projectFile.getName());
+  content.replace(content.indexOf(SOAPUI_SETTINGS),content.indexOf(SOAPUI_SETTINGS) + SOAPUI_SETTINGS.length(),settingsFile != null && settingsFile.exists() && settingsFile.isFile() ? settingsFile.getAbsolutePath() : "");
+  content.replace(content.indexOf(MOCKSERVICE_ENDPOINT),content.indexOf(MOCKSERVICE_ENDPOINT) + MOCKSERVICE_ENDPOINT.length(),localEndpoint);
+  if (!includeActions)   content.replace(content.indexOf("WEB-INF/actions"),content.indexOf("WEB-INF/actions") + "WEB-INF/actions".length(),"");
+  if (!includeListeners)   content.replace(content.indexOf("WEB-INF/listeners"),content.indexOf("WEB-INF/listeners") + "WEB-INF/listeners".length(),"");
+  if (!enableWebUI)   content.replace(content.indexOf("<param-value>true</param-value>"),content.indexOf("<param-value>true</param-value>") + "<param-value>true</param-value>".length(),"<param-value>false</param-value>");
+}

@@ -1,6 +1,9 @@
 {
 synchronized (this) {
-    if (scriptEngines.isEmpty())     scriptEngines.push(SoapUIScriptEngineRegistry.create(modelItem));
+    if (scriptEngines.isEmpty()) {
+      if (modelItem != null)       scriptEngines.push(SoapUIScriptEngineRegistry.create(modelItem));
+ else       scriptEngines.push(SoapUIScriptEngineRegistry.getFactory(id).createScriptEngine(null));
+    }
     SoapUIScriptEngine result=scriptEngines.pop();
     if (script != null)     result.setScript(script);
     borrowed++;

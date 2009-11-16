@@ -4,7 +4,7 @@
       while (!entriesStack.isEmpty()) {
         int cnt=0;
         while (cnt < 10 && !entriesStack.isEmpty()) {
-          LoadTestLogEntry entry=entriesStack.pop();
+          LoadTestLogEntry entry=entriesStack.poll();
           if (entry != null) {
             entries.add(entry);
             if (entry.isError()) {

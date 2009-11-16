@@ -1,5 +1,10 @@
 {
-  SoapUIScriptEngine scriptEngine=SoapUIScriptEngineRegistry.create(modelItem);
+  String engineId=SoapUIScriptEngineRegistry.getScriptEngineId(modelItem);
+synchronized (this) {
+    if (!scriptEnginePools.containsKey(engineId))     scriptEnginePools.put(engineId,new ScriptEnginePool(engineId));
+  }
+  ScriptEnginePool scriptEnginePool=scriptEnginePools.get(engineId);
+  SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
   try {
     scriptEngine.setScript(name);
     for (    String key : objects.keySet())     scriptEngine.setVariable(key,objects.get(key));
@@ -12,6 +17,6 @@
   }
  finally {
     scriptEngine.clearVariables();
-    scriptEngine.release();
+    scriptEnginePool.returnScriptEngine(scriptEngine);
   }
 }

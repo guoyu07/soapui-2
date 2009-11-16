@@ -14,6 +14,19 @@
     }
   }
 );
+  pathTextField.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent e){
+      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        try {
+          doSubmit();
+        }
+ catch (        SubmitException e1) {
+          e1.printStackTrace();
+        }
+      }
+    }
+  }
+);
   toolbar.addLabeledFixed("Request URL:",pathTextField);
   toolbar.addSeparator();
 }

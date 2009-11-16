@@ -1,6 +1,6 @@
 {
   List<Element> result=new ArrayList<Element>();
-  List list=item.getExtensibilityElements();
+  List<?> list=item.getExtensibilityElements();
   for (Iterator<?> i=list.iterator(); i.hasNext(); ) {
     ExtensibilityElement elm=(ExtensibilityElement)i.next();
     if (elm.getElementType().equals(qname) && elm instanceof UnknownExtensibilityElement) {

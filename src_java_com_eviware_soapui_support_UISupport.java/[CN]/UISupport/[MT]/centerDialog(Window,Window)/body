@@ -1,7 +1,7 @@
 {
   Dimension sz=dialog.getSize();
   Rectangle b=frame == null ? null : frame.getBounds();
-  if (owner.isVisible()) {
+  if (owner != null && owner.isVisible()) {
     b=owner.getBounds();
   }
  else   if (b == null) {

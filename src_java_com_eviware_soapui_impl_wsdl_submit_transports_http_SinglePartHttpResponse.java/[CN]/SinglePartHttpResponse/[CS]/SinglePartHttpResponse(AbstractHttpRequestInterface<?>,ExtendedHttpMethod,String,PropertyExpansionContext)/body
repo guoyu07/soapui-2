@@ -16,7 +16,13 @@
     }
     if (charset == null)     charset=httpRequest.getEncoding();
     charset=StringUtils.unquote(charset);
-    responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);
+    try {
+      responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody,contentOffset,(int)(responseSize - contentOffset)) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);
+    }
+ catch (    UnsupportedEncodingException e) {
+      SoapUI.getErrorLog().warn(e.toString());
+      responseContent=new String(responseBody,contentOffset,(int)(responseSize - contentOffset));
+    }
     prettyPrint=httpRequest.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
   }
  catch (  Exception e) {

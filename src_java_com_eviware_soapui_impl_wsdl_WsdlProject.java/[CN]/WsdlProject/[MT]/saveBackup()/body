@@ -1,7 +1,7 @@
 {
   File projectFile;
   if (path == null || isRemote()) {
-    projectFile=new File(getName() + "-soapui-project.xml");
+    projectFile=new File(StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml");
   }
  else {
     projectFile=new File(path);

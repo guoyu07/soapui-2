@@ -12,8 +12,10 @@
   ((OperationListModel)operationList.getModel()).release();
   logListModel.clear();
   propertiesTable.release();
-  startGroovyEditor.getEditor().release();
-  stopGroovyEditor.getEditor().release();
+  startGroovyEditor.release();
+  stopGroovyEditor.release();
+  onRequestGroovyEditor.release();
+  afterRequestGroovyEditor.release();
   inspectorPanel.release();
   contentInspector.release();
   return release();

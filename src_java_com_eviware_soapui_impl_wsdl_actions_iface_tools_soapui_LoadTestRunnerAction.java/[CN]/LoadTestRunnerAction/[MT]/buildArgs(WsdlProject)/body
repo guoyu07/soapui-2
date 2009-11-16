@@ -13,7 +13,7 @@
   if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
   if (!values.get(LOADTEST).equals(ALL_VALUE))   builder.addString(LOADTEST,"-l","");
   builder.addString(LIMIT,"-m","");
-  builder.addString(THREADCOUNT,"-h","");
+  builder.addString(THREADCOUNT,"-n","");
   builder.addString(USERNAME,"-u","");
   builder.addStringShadow(PASSWORD,"-p","");
   builder.addString(DOMAIN,"-d","");
@@ -25,7 +25,7 @@
   builder.addString(WSSTYPE,"-w","");
   if (proVersion) {
     builder.addString(GENERATEREPORTSEACHTESTCASE,"-R","");
-    builder.addString(REPORTFORMAT,"-F","");
+    builder.addStrings(REPORTFORMAT,"-F",",");
   }
   addPropertyArguments(builder);
   if (dialog.getBooleanValue(ADDSETTINGS)) {

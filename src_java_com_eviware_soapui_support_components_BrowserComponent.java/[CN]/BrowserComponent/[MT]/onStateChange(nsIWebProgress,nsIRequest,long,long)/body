@@ -1,13 +1,11 @@
 {
   try {
-    if (!getUrl().equals("about:blank")) {
+    if (getUrl() != null && !getUrl().equals("about:blank")) {
       nsIHttpChannel ch=null;
       ch=(nsIHttpChannel)request.queryInterface(nsIHttpChannel.NS_IHTTPCHANNEL_IID);
       if (ch != null) {
-{
-          possibleError=false;
-          showingErrorPage=false;
-        }
+        possibleError=false;
+        showingErrorPage=false;
       }
     }
   }

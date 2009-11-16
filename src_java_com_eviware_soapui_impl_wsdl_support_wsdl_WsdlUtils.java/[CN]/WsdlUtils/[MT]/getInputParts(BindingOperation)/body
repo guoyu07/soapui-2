@@ -1,7 +1,7 @@
 {
   List<Part> result=new ArrayList<Part>();
   Input input=operation.getOperation().getInput();
-  if (input == null)   return new Part[0];
+  if (input == null || operation.getBindingInput() == null)   return new Part[0];
   Message msg=input.getMessage();
   if (msg != null) {
     SOAPBody soapBody=WsdlUtils.getExtensiblityElement(operation.getBindingInput().getExtensibilityElements(),SOAPBody.class);

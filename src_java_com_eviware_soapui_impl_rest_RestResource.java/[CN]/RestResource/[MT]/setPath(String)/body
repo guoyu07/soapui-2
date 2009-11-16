@@ -2,7 +2,4 @@
   String old=getPath();
   getConfig().setPath(path);
   notifyPropertyChanged("path",old,path);
-  for (  String param : RestUtils.extractTemplateParams(path)) {
-    if (!hasProperty(param))     addProperty(param);
-  }
 }

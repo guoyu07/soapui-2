@@ -1,5 +1,5 @@
 {
-  if (name == null || testCase == null)   return null;
+  if (!StringUtils.hasContent(name) || testCase == null)   return null;
   if (name.charAt(0) == PropertyExpansion.SCOPE_PREFIX) {
     if (name.equals(PropertyExpansion.GLOBAL_REFERENCE))     return PropertyExpansionUtils.getGlobalProperties();
     if (name.equals(PropertyExpansion.PROJECT_REFERENCE))     return testCase.getTestSuite().getProject();

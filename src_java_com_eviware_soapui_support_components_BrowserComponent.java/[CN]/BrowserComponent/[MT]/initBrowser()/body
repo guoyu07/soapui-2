@@ -1,6 +1,7 @@
 {
   if (browser != null)   return false;
   browser=webBrowserFactory.createBrowser();
+  panel.add(browser.getComponent(),BorderLayout.CENTER);
   browser.addContentHandler(new ContentHandler(){
     public boolean canHandleContent(    String arg0){
       return true;
@@ -22,5 +23,6 @@
     }
   }
 );
+  setUpProxy();
   return true;
 }

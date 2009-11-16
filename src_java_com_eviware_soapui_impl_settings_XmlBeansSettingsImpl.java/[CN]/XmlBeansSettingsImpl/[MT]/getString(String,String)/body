@@ -1,4 +1,10 @@
 {
-  if (values.containsKey(id))   return values.get(id).getStringValue();
+  if (valueCache.containsKey(id)) {
+    return valueCache.get(id);
+  }
+ else   if (values.containsKey(id)) {
+    valueCache.put(id,values.get(id).getStringValue());
+    return valueCache.get(id);
+  }
   return parent == null ? defaultValue : parent.getString(id,defaultValue);
 }

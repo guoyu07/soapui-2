@@ -1,4 +1,7 @@
 {
   if (request.getResponse() == null)   return "<missing response>";
-  return new String(request.getResponse().getRawResponseData());
+  byte[] rawResponseData=request.getResponse().getRawResponseData();
+  int maxSize=(int)SoapUI.getSettings().getLong(UISettings.RAW_RESPONSE_MESSAGE_SIZE,10000);
+  if (maxSize < rawResponseData.length)   return new String(Arrays.copyOf(rawResponseData,maxSize));
+ else   return new String(rawResponseData);
 }

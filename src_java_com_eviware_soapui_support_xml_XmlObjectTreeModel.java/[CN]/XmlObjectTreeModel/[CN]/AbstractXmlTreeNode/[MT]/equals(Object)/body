@@ -1,0 +1,5 @@
+{
+  if (obj == this)   return true;
+  if (obj instanceof AbstractXmlTreeNode)   return ((AbstractXmlTreeNode)obj).node == this.node;
+ else   return super.equals(obj);
+}

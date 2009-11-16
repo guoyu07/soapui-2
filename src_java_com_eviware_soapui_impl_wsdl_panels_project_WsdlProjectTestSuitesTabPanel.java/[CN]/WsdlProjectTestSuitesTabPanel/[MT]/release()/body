@@ -1,7 +1,9 @@
 {
   inspectorPanel.release();
   testSuiteListInspectorPanel.release();
-  setupGroovyEditor.getEditor().release();
-  tearDownGroovyEditor.getEditor().release();
+  setupGroovyEditor.release();
+  tearDownGroovyEditor.release();
   testRunLog.release();
+  project.removeProjectRunListener(testSuiteRunListener);
+  project.removeProjectListener(testSuiteListener);
 }

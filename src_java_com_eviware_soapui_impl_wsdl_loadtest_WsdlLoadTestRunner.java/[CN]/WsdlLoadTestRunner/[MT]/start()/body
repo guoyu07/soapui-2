@@ -1,6 +1,5 @@
 {
   loadTest.getTestCase().beforeSave();
-  startTime=System.currentTimeMillis();
   runners.clear();
   runCount=0;
   threadCount=0;
@@ -13,7 +12,6 @@
  catch (  Exception e1) {
     SoapUI.logError(e1);
   }
-  status=Status.RUNNING;
   for (  LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
     try {
       listener.beforeLoadTest(this,context);
@@ -22,26 +20,15 @@
       SoapUI.logError(e);
     }
   }
+  status=Status.RUNNING;
   loadTest.addPropertyChangeListener(WsdlLoadTest.THREADCOUNT_PROPERTY,internalPropertyChangeListener);
-  loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest started at " + new Date(startTime)));
-  int startDelay=loadTest.getStartDelay();
-  if (startDelay >= 0) {
-    XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Starting threads",(int)loadTest.getThreadCount(),"",true);
-    try {
-      testCaseStarter=new TestCaseStarter();
-      progressDialog.run(testCaseStarter);
-    }
- catch (    Exception e) {
-      SoapUI.logError(e);
-    }
+  XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Starting threads",(int)loadTest.getThreadCount(),"",true);
+  try {
+    testCaseStarter=new TestCaseStarter();
+    progressDialog.run(testCaseStarter);
   }
- else {
-    List<WsdlTestCase> testCases=new ArrayList<WsdlTestCase>();
-    for (int c=0; c < loadTest.getThreadCount(); c++)     testCases.add(createTestCase());
-    for (int c=0; c < loadTest.getThreadCount(); c++) {
-      if (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT && runners.size() >= loadTest.getTestLimit())       break;
-      startTestCase(testCases.get(c));
-    }
+ catch (  Exception e) {
+    SoapUI.logError(e);
   }
   if (status == Status.RUNNING) {
     for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {

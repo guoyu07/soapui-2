@@ -3,15 +3,7 @@
     throw new RuntimeException("Trying to finish unknown runner.. ");
   }
   runners.remove(runner);
-  if (runners.size() == 0 && (getProgress() >= 1 || status != Status.RUNNING)) {
-    loadTest.removePropertyChangeListener(WsdlLoadTest.THREADCOUNT_PROPERTY,internalPropertyChangeListener);
-    if (testCaseStarter != null)     testCaseStarter.stop();
-    if (status == Status.RUNNING)     status=Status.FINISHED;
-    loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest ended at " + new Date(System.currentTimeMillis())));
-    for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
-      listener.afterLoadTest(this,context);
-    }
-    tearDown();
-    context.clear();
+  if (getProgress() >= 1 || status != Status.RUNNING) {
+    stop();
   }
 }

@@ -1,4 +1,6 @@
 {
+  InternalProjectRunListener projectRunListener=new InternalProjectRunListener();
+  project.addProjectRunListener(projectRunListener);
   try {
     log.info(("Running Project [" + project.getName() + "], runType = "+ project.getRunType()));
     WsdlProjectRunner runner=project.run(new StringToObjectMap(),false);
@@ -6,5 +8,8 @@
   }
  catch (  Exception e) {
     e.printStackTrace();
+  }
+ finally {
+    project.removeProjectRunListener(projectRunListener);
   }
 }

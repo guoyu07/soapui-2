@@ -28,6 +28,10 @@
   setEnableUI(cmd.hasOption("i"));
   setPrintReport(cmd.hasOption("r"));
   setExportAll(cmd.hasOption("a"));
+  if (cmd.hasOption("A")) {
+    setExportAll(true);
+    System.setProperty(SOAPUI_EXPORT_SEPARATOR,File.separator);
+  }
   setJUnitReport(cmd.hasOption("j"));
   setSaveAfterRun(cmd.hasOption("S"));
   return true;

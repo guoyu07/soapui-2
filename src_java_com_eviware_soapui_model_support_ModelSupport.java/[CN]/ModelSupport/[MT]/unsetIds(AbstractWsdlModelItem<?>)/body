@@ -1,7 +1,7 @@
 {
   if (modelItem.getConfig().isSetId())   modelItem.getConfig().unsetId();
   for (  ModelItem child : modelItem.getChildren()) {
-    if (child instanceof AbstractWsdlModelItem) {
+    if (child instanceof AbstractWsdlModelItem<?>) {
       unsetIds((AbstractWsdlModelItem<?>)child);
     }
   }

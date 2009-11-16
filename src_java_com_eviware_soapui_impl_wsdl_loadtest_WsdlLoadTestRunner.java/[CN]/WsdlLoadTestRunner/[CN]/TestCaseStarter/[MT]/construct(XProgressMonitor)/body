@@ -4,6 +4,12 @@
     monitor.setProgress(1,"Creating Virtual User " + (c + 1));
     testCases.add(createTestCase());
   }
+  startTime=System.currentTimeMillis();
+  if (canceled) {
+    loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest canceled during startup at " + new Date(startTime)));
+    return null;
+  }
+  loadTest.getLoadTestLog().addEntry(new LoadTestLogMessageEntry("LoadTest started at " + new Date(startTime)));
   threadsWaitingToStart=testCases.size();
   int cnt=0;
   while (!testCases.isEmpty() && !canceled) {

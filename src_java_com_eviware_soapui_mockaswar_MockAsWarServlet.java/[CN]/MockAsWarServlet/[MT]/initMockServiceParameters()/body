@@ -1,0 +1,37 @@
+{
+  if (StringUtils.hasContent(getInitParameter("listeners"))) {
+    logger.info("Init listeners");
+    System.setProperty("soapui.ext.listeners",getServletContext().getRealPath(getInitParameter("listeners")));
+  }
+ else {
+    logger.info("Listeners not set!");
+  }
+  if (StringUtils.hasContent(getInitParameter("actions"))) {
+    logger.info("Init actions");
+    System.setProperty("soapui.ext.actions",getServletContext().getRealPath(getInitParameter("actions")));
+  }
+ else {
+    logger.info("Actions not set!");
+  }
+  if (StringUtils.hasContent(getInitParameter("soapuiSettings"))) {
+    logger.info("Init settings");
+    SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext(),getInitParameter("soapuiSettings")));
+  }
+ else {
+    logger.info("Settings not set!");
+    SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext()));
+  }
+  if (StringUtils.hasContent(getInitParameter("enableWebUI"))) {
+    if ("true".equals(getInitParameter("enableWebUI"))) {
+      logger.info("WebUI ENABLED");
+      enableWebUI=true;
+    }
+ else {
+      logger.info("WebUI DISABLED");
+      enableWebUI=false;
+    }
+  }
+  SoapUI.ensureGroovyLog().addAppender(new GroovyLogAppender());
+  String mockServiceEndpoint=getInitParameter("mockServiceEndpoint");
+  return mockServiceEndpoint;
+}

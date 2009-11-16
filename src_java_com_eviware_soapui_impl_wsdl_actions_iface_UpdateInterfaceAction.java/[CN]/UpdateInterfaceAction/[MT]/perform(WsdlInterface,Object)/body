@@ -35,14 +35,20 @@
   }
   boolean createRequests=dialog.getBooleanValue(Form.CREATE_REQUESTS);
   try {
+    UISupport.setHourglassCursor();
     if (iface.updateDefinition(expUrl,createRequests)) {
       afterUpdate(iface);
       if (!url.equals(expUrl))       iface.setDefinition(url,false);
     }
- else     UISupport.showInfoMessage("Update of interface failed","Update Definition");
+ else {
+      UISupport.showInfoMessage("Update of interface failed","Update Definition");
+    }
   }
  catch (  Exception e1) {
     UISupport.showInfoMessage("Failed to update interface: [" + e1 + "]","Update Definition");
     SoapUI.logError(e1);
+  }
+ finally {
+    UISupport.resetCursor();
   }
 }

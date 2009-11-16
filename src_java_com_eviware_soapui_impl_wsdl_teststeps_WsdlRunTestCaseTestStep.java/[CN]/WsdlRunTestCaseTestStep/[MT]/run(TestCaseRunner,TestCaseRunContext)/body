@@ -28,14 +28,29 @@ synchronized (runningTestCase) {
         Map<String,TestProperty> props=getProperties();
         for (        String key : props.keySet()) {
           if (runningTestCase.hasProperty(key) && !returnProperties.contains(key)) {
-            String value=props.get(key).getValue();
-            runningTestCase.setPropertyValue(key,PropertyExpander.expandProperties(testRunContext,value));
+            String value=PropertyExpander.expandProperties(testRunContext,props.get(key).getValue());
+            if (StringUtils.hasContent(value) || !isIgnoreEmptyProperties())             runningTestCase.setPropertyValue(key,value);
           }
         }
         currentLabel=getLabel();
         runningTestCase.addTestRunListener(testRunListener);
         result.startTimer();
-        testCaseRunner=runningTestCase.run(new StringToObjectMap(),true);
+        StringToObjectMap properties=new StringToObjectMap();
+        if (isCopyLoadTestProperties()) {
+          properties.put(TestRunContext.THREAD_INDEX,testRunContext.getProperty(TestRunContext.THREAD_INDEX));
+          properties.put(TestRunContext.TOTAL_RUN_COUNT,testRunContext.getProperty(TestRunContext.TOTAL_RUN_COUNT));
+          properties.put(TestRunContext.LOAD_TEST_CONTEXT,testRunContext.getProperty(TestRunContext.LOAD_TEST_CONTEXT));
+          properties.put(TestRunContext.LOAD_TEST_RUNNER,testRunContext.getProperty(TestRunContext.LOAD_TEST_RUNNER));
+          properties.put(TestRunContext.RUN_COUNT,testRunContext.getProperty(TestRunContext.RUN_COUNT));
+        }
+        if (isCopyHttpSession()) {
+          properties.put(TestRunContext.HTTP_STATE_PROPERTY,testRunContext.getProperty(TestRunContext.HTTP_STATE_PROPERTY));
+        }
+        properties.put(TestRunContext.INTERACTIVE,testRunContext.getProperty(TestRunContext.INTERACTIVE));
+        properties.put("#CallingRunTestCaseStep#",this);
+        properties.put("#CallingTestCaseRunner#",testRunner);
+        properties.put("#CallingTestRunContext#",testRunContext);
+        testCaseRunner=runningTestCase.run(properties,true);
         testCaseRunner.waitUntilFinished();
         result.stopTimer();
         for (        String key : returnProperties) {
