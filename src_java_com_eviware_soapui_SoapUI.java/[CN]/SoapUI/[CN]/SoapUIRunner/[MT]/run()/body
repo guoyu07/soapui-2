@@ -1,10 +1,10 @@
 {
   try {
-    String brandedTitleExt=Tools.getFileContent(SOAPUI_TITLE);
+    String brandedTitleExt=Tools.getTitleProperty(SOAPUI_TITLE);
     if (!StringUtils.isNullOrEmpty(brandedTitleExt)) {
       brandedTitleExt=" - " + brandedTitleExt;
     }
-    startSoapUI(mainArgs,"soapUI " + brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
+    startSoapUI(mainArgs,"soapUI " + SOAPUI_VERSION + brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
   }
  catch (  Exception e) {
     e.printStackTrace();
