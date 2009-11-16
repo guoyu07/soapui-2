@@ -1,13 +1,15 @@
 {
   Properties props=new Properties();
   try {
-    props.load(SoapUI.class.getResourceAsStream(BUILDINFO_RESOURCE));
+    props.load(SoapUI.class.getResourceAsStream(SOAPUI_TITLE));
     String brandedTitleExt=props.getProperty("soapui.app.title");
-    System.out.println("soapui.app.title=" + brandedTitleExt);
     if (!StringUtils.isNullOrEmpty(brandedTitleExt)) {
       brandedTitleExt=" - " + brandedTitleExt;
     }
-    startSoapUI(mainArgs,"soapUI " + SOAPUI_VERSION + brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
+ else {
+      brandedTitleExt="";
+    }
+    startSoapUI(mainArgs,"soapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
   }
  catch (  Exception e) {
     e.printStackTrace();
