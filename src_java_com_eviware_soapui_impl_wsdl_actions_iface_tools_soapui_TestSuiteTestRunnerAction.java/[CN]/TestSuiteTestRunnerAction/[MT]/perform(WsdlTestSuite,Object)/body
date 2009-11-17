@@ -1,4 +1,5 @@
 {
   SoapUIAction<ModelItem> action=SoapUI.getActionRegistry().getAction(TestRunnerAction.SOAPUI_ACTION_ID);
+  SoapUI.setLaunchedTestRunner(true);
   action.perform(target.getProject(),target);
 }
