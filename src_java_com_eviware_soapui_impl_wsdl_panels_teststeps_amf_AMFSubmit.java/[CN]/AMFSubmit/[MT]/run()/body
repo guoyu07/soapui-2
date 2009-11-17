@@ -8,7 +8,10 @@
       }
     }
     status=Status.RUNNING;
-    runQuery();
+    Object responseContent=executeAmfCall(getRequest());
+    context.setProperty(AMFRequest.AMF_RESPONSE_CONTENT,responseContent);
+    timeTaken=System.currentTimeMillis() - timestamp;
+    createResponse();
     if (status != Status.CANCELED) {
       status=Status.FINISHED;
     }

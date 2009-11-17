@@ -1,6 +1,8 @@
 {
   configPanel.removeAll();
   inspectorPanel.release();
+  responseEditor.release();
+  requestEditor.removeAll();
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
   amfRequestTestStep.removeAssertionsListener(assertionsListener);
   return release();

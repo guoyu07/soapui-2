@@ -1,0 +1,14 @@
+{
+  AMFConnection amfConnection=new AMFConnection();
+  amfConnection.setInstantiateTypes(false);
+  try {
+    amfConnection.connect(amfRequest.getEndpoint());
+    AMFConnection.registerAlias("","flex.samples.product.Product");
+    Object result=amfConnection.call(amfRequest.getAmfCall(),amfRequest.argumentsToArray());
+    return result;
+  }
+  finally {
+    amfRequest.clearArguments();
+    amfConnection.close();
+  }
+}

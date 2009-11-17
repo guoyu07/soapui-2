@@ -1,0 +1,25 @@
+{
+  HashMap<String,Object> property=new HashMap<String,Object>();
+  try {
+    scriptEngine.setScript(groovyScript);
+    scriptEngine.setVariable("property",property);
+    scriptEngine.setVariable("log",SoapUI.log);
+    scriptEngine.setVariable("context",context);
+    scriptEngine.run();
+    for (    String name : propertyNames) {
+      TestProperty propertyValue=propertyMap.get(name);
+      if ("script".equalsIgnoreCase(propertyValue.getValue())) {
+        addArgument(property.get(name));
+      }
+ else {
+        addArgument(propertyValue.getValue());
+      }
+    }
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    scriptEngine.clearVariables();
+  }
+}

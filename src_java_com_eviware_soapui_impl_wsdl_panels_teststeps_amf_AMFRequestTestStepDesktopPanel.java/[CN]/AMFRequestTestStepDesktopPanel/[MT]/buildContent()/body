@@ -4,6 +4,7 @@
   requestSplitPane.setBorder(null);
   JComponent content;
   submitButton=createActionButton(new SubmitAction(),true);
+  submitButton.setEnabled(enableSubmit());
   cancelButton=createActionButton(new CancelAction(),false);
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);

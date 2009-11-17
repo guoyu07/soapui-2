@@ -1,0 +1,10 @@
+{
+  endpoint.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      if (!updating) {
+        amfRequestTestStep.setEndpoint(configForm.getComponentValue(ENDPOINT));
+      }
+    }
+  }
+);
+}

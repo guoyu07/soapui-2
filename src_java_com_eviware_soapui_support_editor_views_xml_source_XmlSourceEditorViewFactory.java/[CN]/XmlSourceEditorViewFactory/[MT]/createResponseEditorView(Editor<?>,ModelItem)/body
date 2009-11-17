@@ -14,5 +14,8 @@
  else   if (modelItem instanceof JdbcRequestTestStep) {
     return new XmlSourceEditorView<JdbcRequestTestStep>((XmlEditor)editor,(JdbcRequestTestStep)modelItem);
   }
+ else   if (modelItem instanceof AMFRequestTestStep) {
+    return new XmlSourceEditorView<AMFRequestTestStep>((XmlEditor)editor,(AMFRequestTestStep)modelItem);
+  }
   return null;
 }

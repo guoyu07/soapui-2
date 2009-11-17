@@ -8,6 +8,7 @@
   for (int c=0; c < regListeners.size(); c++)   this.listeners[submitListeners.length + c]=regListeners.get(c);
   error=null;
   status=Status.INITIALIZED;
+  timestamp=System.currentTimeMillis();
   if (async)   future=SoapUI.getThreadPool().submit(this);
  else   run();
 }
