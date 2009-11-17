@@ -3,4 +3,5 @@
   this.request=request;
   this.responseContent=submitContext.getProperty(AMFRequest.AMF_RESPONSE_CONTENT);
   this.submitContext=submitContext;
+  if (responseContent != null)   setResponseContentXML(new com.thoughtworks.xstream.XStream().toXML(responseContent));
 }
