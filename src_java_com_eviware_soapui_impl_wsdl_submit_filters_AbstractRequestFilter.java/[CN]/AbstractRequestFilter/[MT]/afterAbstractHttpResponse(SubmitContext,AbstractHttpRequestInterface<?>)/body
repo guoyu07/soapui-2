@@ -1,4 +1,5 @@
 {
   if (request instanceof WsdlRequest)   afterWsdlRequest(context,(WsdlRequest)request);
  else   if (request instanceof RestRequestInterface)   afterRestRequest(context,(RestRequestInterface)request);
+ else   if (request instanceof HttpRequestInterface<?>)   afterHttpRequest(context,(HttpRequestInterface<?>)request);
 }

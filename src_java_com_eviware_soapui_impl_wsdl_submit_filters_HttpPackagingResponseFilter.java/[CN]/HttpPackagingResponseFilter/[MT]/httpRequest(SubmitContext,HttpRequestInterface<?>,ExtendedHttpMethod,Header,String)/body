@@ -1,0 +1,8 @@
+{
+  if (responseContentTypeHeader != null && responseContentTypeHeader.getValue().toUpperCase().startsWith("MULTIPART")) {
+    return new MimeMessageResponse(request,httpMethod,requestContent,context);
+  }
+ else {
+    return new SinglePartHttpResponse(request,httpMethod,requestContent,context);
+  }
+}
