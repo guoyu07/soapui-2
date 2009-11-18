@@ -1,14 +1,6 @@
 {
-  configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"AMF call and intialisation groovy script");
-  if (panel == null) {
-    panel=new JPanel(new BorderLayout());
-    configForm=new SimpleForm();
-    addEndpointToSimpleForm();
-    addAmfCAlltoSimpleForm();
-    addGroovyEditorToSimpleForm();
-    panel.add(configForm.getPanel());
-  }
-  configPanel.add(panel,BorderLayout.CENTER);
+  configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Groovy script");
+  configPanel.add(groovyEditor=new GroovyEditor(new ScriptStepGroovyEditorModel()),BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
   JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(120);

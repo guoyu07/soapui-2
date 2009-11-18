@@ -1,7 +1,9 @@
 {
-  configForm.addSpace(5);
-  endpoint=configForm.appendTextField(ENDPOINT,"http to connect");
+  endpoint=new JTextField();
   endpoint.setText(amfRequestTestStep.getEndpoint());
+  endpoint.setColumns(35);
+  endpoint.setToolTipText("http to connect");
   PropertyExpansionPopupListener.enable(endpoint,amfRequestTestStep);
   addEndpointCallDocumentListener();
+  return endpoint;
 }

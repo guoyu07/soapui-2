@@ -8,7 +8,7 @@
     scriptEngine.run();
     for (    String name : propertyNames) {
       TestProperty propertyValue=propertyMap.get(name);
-      if ("script".equalsIgnoreCase(propertyValue.getValue())) {
+      if (property.containsKey(name)) {
         addArgument(property.get(name));
       }
  else {

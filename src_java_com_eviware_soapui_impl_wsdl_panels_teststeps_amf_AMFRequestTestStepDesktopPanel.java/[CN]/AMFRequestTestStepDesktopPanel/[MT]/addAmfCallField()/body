@@ -1,7 +1,9 @@
 {
-  configForm.addSpace(5);
-  amfCall=configForm.appendTextField(AMF_CALL,"object.methodName for amf method call");
+  amfCall=new JTextField();
   amfCall.setText(amfRequestTestStep.getAmfCall());
+  amfCall.setColumns(20);
+  amfCall.setToolTipText("object.methodName for amf method call");
   PropertyExpansionPopupListener.enable(amfCall,amfRequestTestStep);
   addAmfCallDocumentListener();
+  return amfCall;
 }
