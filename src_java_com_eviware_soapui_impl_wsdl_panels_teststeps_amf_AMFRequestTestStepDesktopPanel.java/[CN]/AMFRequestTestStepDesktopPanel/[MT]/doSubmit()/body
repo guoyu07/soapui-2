@@ -1,12 +1,6 @@
 {
   SubmitContext submitContext=new WsdlTestRunContext(getModelItem());
   AMFRequest amfRequest=amfRequestTestStep.getAMFRequest();
-  amfRequest.setScriptEngine(scriptEngine);
-  amfRequest.setAmfCall(amfCall.getText());
-  amfRequest.setEndpoint(endpoint.getText());
-  amfRequest.setGroovyScript(groovyEditor.getEditArea().getText());
-  amfRequest.setPropertyNames(amfRequestTestStep.getPropertyNames());
-  amfRequest.setPropertyMap((HashMap<String,TestProperty>)amfRequestTestStep.getProperties());
-  amfRequest.extractProperties(submitContext);
+  amfRequest=initAmfRequest(submitContext,amfRequest);
   return amfRequestTestStep.getAMFRequest().submit(submitContext,false);
 }

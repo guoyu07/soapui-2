@@ -12,7 +12,7 @@
         addArgument(property.get(name));
       }
  else {
-        addArgument(propertyValue.getValue());
+        addArgument(PropertyExpander.expandProperties(context,propertyValue.getValue()));
       }
     }
   }
