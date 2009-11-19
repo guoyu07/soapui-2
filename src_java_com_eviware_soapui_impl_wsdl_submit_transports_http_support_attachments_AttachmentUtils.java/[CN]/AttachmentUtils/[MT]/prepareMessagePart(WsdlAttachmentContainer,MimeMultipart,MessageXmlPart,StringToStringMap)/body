@@ -1,6 +1,8 @@
 {
   boolean isXop=false;
+  XmlObjectTreeModel treeModel=null;
   XmlCursor cursor=messagePart.newCursor();
+  XmlObject rootXmlObject=cursor.getObject();
   try {
     while (!cursor.isEnddoc()) {
       if (cursor.isContainer()) {
@@ -11,7 +13,15 @@
           }
           break;
         }
-        SchemaType schemaType=cursor.getObject().schemaType();
+        XmlObject xmlObj=cursor.getObject();
+        SchemaType schemaType=xmlObj.schemaType();
+        if (schemaType.isNoType()) {
+          if (treeModel == null) {
+            treeModel=new XmlObjectTreeModel(messagePart.getSchemaType().getTypeSystem(),rootXmlObject);
+          }
+          XmlTreeNode tn=treeModel.getXmlTreeNode(xmlObj);
+          if (tn != null)           schemaType=tn.getSchemaType();
+        }
         if (AttachmentUtils.isSwaRefType(schemaType)) {
           String textContent=XmlUtils.getNodeValue(cursor.getDomNode());
           if (StringUtils.hasContent(textContent) && textContent.startsWith("cid:")) {
@@ -75,7 +85,7 @@
               isXopAttachment=container.isMtomEnabled();
               contentIds.put(textContent,textContent);
             }
- else             if (container.isMtomEnabled() && SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
+ else             if (container.isMtomEnabled() && (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType))) {
               MimeBodyPart part=new PreencodedMimeBodyPart("binary");
               String xmimeContentType=getXmlMimeContentType(cursor);
               part.setDataHandler(new DataHandler(new XOPPartDataSource(textContent,xmimeContentType,schemaType)));

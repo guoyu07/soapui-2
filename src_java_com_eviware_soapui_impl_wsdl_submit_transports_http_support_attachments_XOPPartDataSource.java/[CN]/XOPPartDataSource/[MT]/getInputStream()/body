@@ -9,6 +9,9 @@
  else     if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type)) {
       return new ByteArrayInputStream(Base64.decodeBase64(content.getBytes()));
     }
+ else     if (SchemaUtils.isAnyType(schemaType)) {
+      return new ByteArrayInputStream(content.getBytes());
+    }
  else     throw new IOException("Invalid type for XOPPartDataSource; " + schemaType.getName());
   }
  catch (  Exception e) {

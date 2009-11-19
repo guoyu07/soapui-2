@@ -8,7 +8,7 @@
     WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
     result=mockService.runOnRequestScript(mockContext,this,mockRequest);
     if (!(result instanceof MockResult)) {
-      String method=request.getMethod();
+      String method=mockRequest.getMethod();
       if (method.equals("POST"))       result=dispatchPostRequest(mockRequest);
  else       result=super.dispatchRequest(request,response);
     }
