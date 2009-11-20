@@ -117,7 +117,7 @@ SoapUI.logError(e);
 }
 }
  else if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
-httpMethod.setRequestHeader("Content-Type",request.getMediaType());
+httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 if (request.isPostQueryString()) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
 }
@@ -147,7 +147,7 @@ initRootPart(request,requestContent,mp);
 }
  else if (attachments.size() == 1) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new InputStreamRequestEntity(attachments.get(0).getInputStream()));
-httpMethod.setRequestHeader("Content-Type",request.getMediaType());
+httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 }
 if (((EntityEnclosingMethod)httpMethod).getRequestEntity() == null) {
 if (mp == null) mp=new MimeMultipart();
@@ -157,7 +157,7 @@ message.setContent(mp);
 message.saveChanges();
 RestRequestMimeMessageRequestEntity mimeMessageRequestEntity=new RestRequestMimeMessageRequestEntity(message,request);
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(mimeMessageRequestEntity);
-httpMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
+httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(mimeMessageRequestEntity.getContentType(),encoding));
 httpMethod.setRequestHeader("MIME-Version","1.0");
 }
 }
