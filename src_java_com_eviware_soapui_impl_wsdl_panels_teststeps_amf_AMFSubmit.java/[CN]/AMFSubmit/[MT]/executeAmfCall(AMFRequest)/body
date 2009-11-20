@@ -6,8 +6,13 @@
     Object result=amfConnection.call(amfRequest.getAmfCall(),amfRequest.argumentsToArray());
     return result;
   }
-  finally {
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+    status=Status.ERROR;
+  }
+ finally {
     amfRequest.clearArguments();
     amfConnection.close();
   }
+  return null;
 }

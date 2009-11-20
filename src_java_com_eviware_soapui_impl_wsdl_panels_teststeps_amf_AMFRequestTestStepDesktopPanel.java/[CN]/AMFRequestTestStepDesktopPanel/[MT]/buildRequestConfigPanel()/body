@@ -1,6 +1,7 @@
 {
   configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Groovy script");
-  configPanel.add(groovyEditor=new GroovyEditor(new ScriptStepGroovyEditorModel()),BorderLayout.CENTER);
+  groovyEditor=(GroovyEditor)UISupport.getEditorFactory().buildGroovyEditor(new ScriptStepGroovyEditorModel());
+  configPanel.add(groovyEditor,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
   JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(120);

@@ -1,7 +1,6 @@
 {
   super(request);
   this.request=request;
-  this.responseContent=submitContext.getProperty(AMFRequest.AMF_RESPONSE_CONTENT);
-  this.submitContext=submitContext;
+  this.responseContent=responseContent;
   if (responseContent != null)   setResponseContentXML(new com.thoughtworks.xstream.XStream().toXML(responseContent));
 }

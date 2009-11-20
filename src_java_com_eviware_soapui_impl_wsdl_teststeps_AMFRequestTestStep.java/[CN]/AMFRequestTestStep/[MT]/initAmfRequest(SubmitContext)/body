@@ -1,0 +1,9 @@
+{
+  amfRequest.setScriptEngine(scriptEngine);
+  amfRequest.setAmfCall(PropertyExpander.expandProperties(submitContext,getAmfCall()));
+  amfRequest.setEndpoint(PropertyExpander.expandProperties(submitContext,getEndpoint()));
+  amfRequest.setGroovyScript(getScript());
+  amfRequest.setPropertyNames(getPropertyNames());
+  amfRequest.setPropertyMap((HashMap<String,TestProperty>)getProperties());
+  amfRequest.extractProperties(submitContext);
+}

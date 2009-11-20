@@ -1,4 +1,5 @@
 {
-  this.amfCall=amfCall;
-  saveAmfCall();
+  String old=getAmfCall();
+  amfRequestTestStepConfig.setAmfCall(amfCall);
+  notifyPropertyChanged("amfCall",old,amfCall);
 }

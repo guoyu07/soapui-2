@@ -1,4 +1,5 @@
 {
-  this.endpoint=endpoint;
-  saveEndpooint();
+  String old=getEndpoint();
+  amfRequestTestStepConfig.setEnpoint(endpoint);
+  notifyPropertyChanged("endpoint",old,endpoint);
 }

@@ -2,6 +2,7 @@
   AMFTestStepResult testStepResult=new AMFTestStepResult(this);
   testStepResult.startTimer();
   runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
+  initAmfRequest(runContext);
   try {
     submit=amfRequest.submit(runContext,false);
     AMFResponse response=submit.getResponse();

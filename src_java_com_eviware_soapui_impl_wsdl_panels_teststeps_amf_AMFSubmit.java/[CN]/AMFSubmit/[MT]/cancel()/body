@@ -1,6 +1,6 @@
 {
   if (status == Status.CANCELED)   return;
-  AMFRequest.logger.info("Canceling request..");
+  SoapUI.log.info("Canceling request..");
   status=Status.CANCELED;
   for (int i=0; i < listeners.length; i++) {
     try {

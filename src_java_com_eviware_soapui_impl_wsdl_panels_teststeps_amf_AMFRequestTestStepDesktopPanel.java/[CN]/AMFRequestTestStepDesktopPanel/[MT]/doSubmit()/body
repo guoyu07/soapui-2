@@ -1,6 +1,5 @@
 {
   SubmitContext submitContext=new WsdlTestRunContext(getModelItem());
-  AMFRequest amfRequest=amfRequestTestStep.getAMFRequest();
-  amfRequest=initAmfRequest(submitContext,amfRequest);
+  amfRequestTestStep.initAmfRequest(submitContext);
   return amfRequestTestStep.getAMFRequest().submit(submitContext,false);
 }

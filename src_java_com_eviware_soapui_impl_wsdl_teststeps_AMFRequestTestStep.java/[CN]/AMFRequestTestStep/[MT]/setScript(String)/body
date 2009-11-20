@@ -1,8 +1,6 @@
 {
-  if (scriptText.equals(this.script))   return;
-  String oldScript=this.script;
-  this.script=scriptText;
-  scriptEngine.setScript(scriptText);
-  notifyPropertyChanged("groovyScript",oldScript,scriptText);
-  saveScript();
+  String old=getScript();
+  scriptEngine.setScript(script);
+  amfRequestTestStepConfig.setGroovyScript(script);
+  notifyPropertyChanged("groovyScript",old,script);
 }

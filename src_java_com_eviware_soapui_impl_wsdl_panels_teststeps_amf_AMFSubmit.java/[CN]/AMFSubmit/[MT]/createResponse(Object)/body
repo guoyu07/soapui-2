@@ -1,0 +1,10 @@
+{
+  try {
+    response=new AMFResponse(request,context,responseContent);
+    response.setTimestamp(timestamp);
+    response.setTimeTaken(System.currentTimeMillis() - timestamp);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}
