@@ -1,6 +1,6 @@
 {
   String old=getScript();
   scriptEngine.setScript(script);
-  amfRequestTestStepConfig.setGroovyScript(script);
+  amfRequestTestStepConfig.getScript().setStringValue(script);
   notifyPropertyChanged("groovyScript",old,script);
 }
