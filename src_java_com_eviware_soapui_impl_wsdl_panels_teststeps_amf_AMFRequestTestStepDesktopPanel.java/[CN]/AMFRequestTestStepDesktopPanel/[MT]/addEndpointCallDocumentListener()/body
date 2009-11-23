@@ -1,8 +1,8 @@
 {
-  endpoint.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+  endpointField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       if (!updating) {
-        amfRequestTestStep.setEndpoint(endpoint.getText());
+        amfRequestTestStep.setEndpoint(endpointField.getText());
       }
     }
   }
