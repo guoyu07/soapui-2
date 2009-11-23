@@ -1,16 +1,3 @@
 {
-  super(resourceConfig,service,"/rest_resource.gif");
-  if (resourceConfig.getParameters() == null)   resourceConfig.addNewParameters();
-  params=new XmlBeansRestParamsTestPropertyHolder(this,resourceConfig.getParameters());
-  for (  RestMethodConfig config : resourceConfig.getMethodList()) {
-    methods.add(new RestMethod(this,config));
-  }
-  for (  RestResourceConfig config : resourceConfig.getResourceList()) {
-    resources.add(new RestResource(this,config));
-  }
-  for (  OldRestRequestConfig config : resourceConfig.getRequestList()) {
-    RestRequestConverter.convert(this,config);
-  }
-  resourceConfig.setRequestArray(new OldRestRequestConfig[]{});
-  service.addPropertyChangeListener(this);
+  this(service,null,resourceConfig);
 }
