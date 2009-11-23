@@ -1,15 +1,15 @@
 {
-  HashMap<String,Object> property=new HashMap<String,Object>();
+  HashMap<String,Object> parameters=new HashMap<String,Object>();
   try {
     scriptEngine.setScript(groovyScript);
-    scriptEngine.setVariable("property",property);
+    scriptEngine.setVariable("parameters",parameters);
     scriptEngine.setVariable("log",SoapUI.log);
     scriptEngine.setVariable("context",context);
     scriptEngine.run();
     for (    String name : propertyNames) {
       TestProperty propertyValue=propertyMap.get(name);
-      if (property.containsKey(name)) {
-        addArgument(property.get(name));
+      if (parameters.containsKey(name)) {
+        addArgument(parameters.get(name));
       }
  else {
         addArgument(PropertyExpander.expandProperties(context,propertyValue.getValue()));
