@@ -4,8 +4,13 @@
   groovyEditor=(GroovyEditor)UISupport.getEditorFactory().buildGroovyEditor(new ScriptStepGroovyEditorModel());
   configPanel.add(groovyEditor,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
-  JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
+  final JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(60);
-  reqEditor.add(split,BorderLayout.NORTH);
+  reqEditor.addEditorView((EditorView)new AbstractEditorView<AMFRequestDocument>("AMF",(Editor<AMFRequestDocument>)reqEditor,""){
+    public JComponent buildUI(){
+      return split;
+    }
+  }
+);
   return reqEditor;
 }
