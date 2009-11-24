@@ -1,0 +1,5 @@
+{
+  super("AMF Headers (" + (response.getHeaders() == null ? "0" : response.getHeaders().size()) + ")","AMF Headers for this amf message",true,AMFHeadersInspectorFactory.INSPECTOR_ID);
+  this.model=response;
+  response.addPropertyChangeListener(this);
+}

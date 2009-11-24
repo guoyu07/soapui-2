@@ -1,0 +1,13 @@
+{
+  if (modelItem instanceof AMFRequestTestStep) {
+    AMFHeadersInspector inspector=new AMFHeadersInspector(new AMFRequestHeadersModel((AMFRequestTestStep)modelItem));
+    inspector.setEnabled(true);
+    return inspector;
+  }
+ else   if (modelItem instanceof MessageExchangeModelItem) {
+    AMFHeadersInspector inspector=new AMFHeadersInspector(new MessageExchangeRequestAMFHeadersModel((MessageExchangeModelItem)modelItem));
+    inspector.setEnabled(true);
+    return inspector;
+  }
+  return null;
+}
