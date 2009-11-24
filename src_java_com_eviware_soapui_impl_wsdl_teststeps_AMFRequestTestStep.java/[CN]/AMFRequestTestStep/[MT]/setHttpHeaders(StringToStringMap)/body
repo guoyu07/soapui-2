@@ -1,3 +1,5 @@
 {
-  this.httpHeaders=httpHeaders;
+  StringToStringMap old=getHttpHeaders();
+  getSettings().setString(HTTP_HEADERS_PROPERTY,httpHeaders.toXml());
+  notifyPropertyChanged(HTTP_HEADERS_PROPERTY,old,httpHeaders);
 }
