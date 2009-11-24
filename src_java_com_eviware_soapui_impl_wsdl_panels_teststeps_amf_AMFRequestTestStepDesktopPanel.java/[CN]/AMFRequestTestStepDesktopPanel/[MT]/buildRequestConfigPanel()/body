@@ -1,16 +1,13 @@
 {
-  ModelItemXmlEditor<?,?> reqEditor=buildRequestEditor();
   configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Script");
   groovyEditor=(GroovyEditor)UISupport.getEditorFactory().buildGroovyEditor(new ScriptStepGroovyEditorModel());
   configPanel.add(groovyEditor,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
   final JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(60);
-  reqEditor.addEditorView((EditorView)new AbstractEditorView<AMFRequestDocument>("AMF",(Editor<AMFRequestDocument>)reqEditor,""){
-    public JComponent buildUI(){
-      return split;
-    }
-  }
-);
-  return reqEditor;
+  JInspectorPanel jp=JInspectorPanelFactory.build(split);
+  ModelItemXmlEditor<?,?> reqEditor=buildRequestEditor();
+  Inspector insp=reqEditor.getInspector("HTTP Headers");
+  jp.addInspector(insp);
+  return jp;
 }

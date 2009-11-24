@@ -33,7 +33,7 @@
   }
 );
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
-  requestEditor=buildRequestConfigPanel();
+  requestEditor=(JComponent)buildRequestConfigPanel();
   responseEditor=buildResponseEditor();
   if (amfRequestTestStep.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Request",requestEditor);
