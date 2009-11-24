@@ -5,7 +5,7 @@
     configForm=new SimpleForm();
     createSimpleJdbcConfigForm();
     addStoreProcedureChangeListener();
-    panel.add(configForm.getPanel());
+    panel.add(new JScrollPane(configForm.getPanel()));
   }
   configPanel.add(panel,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
