@@ -25,7 +25,7 @@
   }
  else {
     if (evt.getSource() == testRequest && evt.getPropertyName().equals(WsdlTestRequest.NAME_PROPERTY)) {
-      if (!super.getName().equals((String)evt.getNewValue()))       super.setName((String)evt.getNewValue());
+      if (!super.getName().equals(evt.getNewValue()))       super.setName((String)evt.getNewValue());
     }
  else     if (evt.getSource() == testRequest && evt.getPropertyName().equals("restMethod")) {
       refreshRequestProperties();
