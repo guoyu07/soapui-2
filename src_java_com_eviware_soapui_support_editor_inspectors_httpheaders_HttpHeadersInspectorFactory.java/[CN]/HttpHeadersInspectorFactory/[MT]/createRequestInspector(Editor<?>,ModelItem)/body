@@ -14,5 +14,10 @@
     inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }
+ else   if (modelItem instanceof AMFRequestTestStep) {
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new AMFRequestHeadersModel((AMFRequestTestStep)modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
   return null;
 }
