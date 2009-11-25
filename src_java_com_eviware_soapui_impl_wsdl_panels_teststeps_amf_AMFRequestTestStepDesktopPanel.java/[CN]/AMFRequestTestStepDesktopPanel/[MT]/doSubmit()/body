@@ -1,5 +1,7 @@
 {
   SubmitContext submitContext=new WsdlTestRunContext(getModelItem());
-  amfRequestTestStep.initAmfRequest(submitContext);
+  if (!amfRequestTestStep.initAmfRequest(submitContext)) {
+    throw new SubmitException("AMF request is not initialised properly !");
+  }
   return amfRequestTestStep.getAMFRequest().submit(submitContext,true);
 }

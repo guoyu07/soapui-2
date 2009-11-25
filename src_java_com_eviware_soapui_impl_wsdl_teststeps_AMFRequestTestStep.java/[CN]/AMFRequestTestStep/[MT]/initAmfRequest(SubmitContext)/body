@@ -5,5 +5,7 @@
   amfRequest.setScript(getScript());
   amfRequest.setPropertyNames(getPropertyNames());
   amfRequest.setPropertyMap((HashMap<String,TestProperty>)getProperties());
-  amfRequest.extractProperties(submitContext);
+  amfRequest.setHttpHeaders(getHttpHeaders());
+  amfRequest.setAmfHeadersString(getAmfHeaders());
+  return amfRequest.executeAmfScript(submitContext);
 }

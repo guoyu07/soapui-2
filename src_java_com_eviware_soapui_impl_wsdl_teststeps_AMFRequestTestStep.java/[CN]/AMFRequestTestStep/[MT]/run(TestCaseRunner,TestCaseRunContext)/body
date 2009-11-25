@@ -2,8 +2,10 @@
   AMFTestStepResult testStepResult=new AMFTestStepResult(this);
   testStepResult.startTimer();
   runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
-  initAmfRequest(runContext);
   try {
+    if (!initAmfRequest(runContext)) {
+      throw new SubmitException("AMF request is not initialised properly !");
+    }
     submit=amfRequest.submit(runContext,false);
     AMFResponse response=submit.getResponse();
     if (submit.getStatus() != Submit.Status.CANCELED) {

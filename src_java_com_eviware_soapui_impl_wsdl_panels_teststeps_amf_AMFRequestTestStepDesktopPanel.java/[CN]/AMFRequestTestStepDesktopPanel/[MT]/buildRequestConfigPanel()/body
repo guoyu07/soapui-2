@@ -5,11 +5,5 @@
   propertiesTableComponent=buildProperties();
   final JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(60);
-  JInspectorPanel jp=JInspectorPanelFactory.build(split);
-  ModelItemXmlEditor<?,?> reqEditor=buildRequestEditor();
-  Inspector httpHeaderInspector=reqEditor.getInspector("HTTP Headers");
-  Inspector amfHeaderInspector=reqEditor.getInspector("AMF Headers");
-  jp.addInspector(httpHeaderInspector);
-  jp.addInspector(amfHeaderInspector);
-  return jp;
+  return addInspectors(split);
 }

@@ -1,0 +1,9 @@
+{
+  JInspectorPanel jInspectorPanel=JInspectorPanelFactory.build(split);
+  ModelItemXmlEditor<?,?> reqEditor=buildRequestEditor();
+  Inspector httpHeaderInspector=reqEditor.getInspector(HttpHeadersInspectorFactory.INSPECTOR_ID);
+  Inspector amfHeaderInspector=reqEditor.getInspector(AMFHeadersInspectorFactory.INSPECTOR_ID);
+  jInspectorPanel.addInspector(httpHeaderInspector);
+  jInspectorPanel.addInspector(amfHeaderInspector);
+  return jInspectorPanel;
+}

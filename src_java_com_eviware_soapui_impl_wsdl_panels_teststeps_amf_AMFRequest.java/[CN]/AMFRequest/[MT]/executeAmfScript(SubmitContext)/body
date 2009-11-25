@@ -1,8 +1,11 @@
 {
+  boolean scriptOK=true;
   HashMap<String,Object> parameters=new HashMap<String,Object>();
+  HashMap<String,Object> amfHeadersTemp=new HashMap<String,Object>();
   try {
     scriptEngine.setScript(script);
     scriptEngine.setVariable("parameters",parameters);
+    scriptEngine.setVariable("amfHeaders",amfHeadersTemp);
     scriptEngine.setVariable("log",SoapUI.log);
     scriptEngine.setVariable("context",context);
     scriptEngine.run();
@@ -15,11 +18,23 @@
         addArgument(PropertyExpander.expandProperties(context,propertyValue.getValue()));
       }
     }
+    StringToObjectMap stringToObjectMap=new StringToObjectMap();
+    for (    String key : getAmfHeadersString().getKeys()) {
+      if (amfHeadersTemp.containsKey(key)) {
+        stringToObjectMap.put(key,amfHeadersTemp.get(key));
+      }
+ else {
+        stringToObjectMap.put(key,PropertyExpander.expandProperties(context,getAmfHeadersString().get(key)));
+      }
+    }
+    setAmfHeaders(stringToObjectMap);
   }
  catch (  Throwable e) {
     SoapUI.logError(e);
+    scriptOK=false;
   }
  finally {
     scriptEngine.clearVariables();
   }
+  return scriptOK;
 }

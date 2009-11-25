@@ -3,6 +3,8 @@
   amfConnection.setInstantiateTypes(false);
   try {
     amfConnection.connect(amfRequest.getEndpoint());
+    addAmfHeaders(amfRequest,amfConnection);
+    addHttpHeaders(amfRequest,amfConnection);
     Object result=amfConnection.call(amfRequest.getAmfCall(),amfRequest.argumentsToArray());
     return result;
   }
