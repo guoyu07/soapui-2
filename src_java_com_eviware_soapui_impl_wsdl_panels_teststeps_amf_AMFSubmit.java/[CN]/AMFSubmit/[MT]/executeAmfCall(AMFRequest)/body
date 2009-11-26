@@ -2,9 +2,8 @@
   SoapUIAMFConnection amfConnection=new SoapUIAMFConnection(){
   }
 ;
-  amfConnection.setInstantiateTypes(false);
   try {
-    amfConnection.connect(amfRequest.getEndpoint());
+    amfConnection.connect(context.expand(amfRequest.getEndpoint()));
     addAmfHeaders(amfRequest,amfConnection);
     addHttpHeaders(amfRequest,amfConnection);
     Object result=amfConnection.call(context,amfRequest.getAmfCall(),amfRequest.argumentsToArray());
