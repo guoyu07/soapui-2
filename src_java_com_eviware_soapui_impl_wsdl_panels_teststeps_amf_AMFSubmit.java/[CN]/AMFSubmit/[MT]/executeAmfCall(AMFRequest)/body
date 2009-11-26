@@ -7,7 +7,7 @@
     amfConnection.connect(amfRequest.getEndpoint());
     addAmfHeaders(amfRequest,amfConnection);
     addHttpHeaders(amfRequest,amfConnection);
-    Object result=amfConnection.call(amfRequest.getAmfCall(),amfRequest.argumentsToArray());
+    Object result=amfConnection.call(context,amfRequest.getAmfCall(),amfRequest.argumentsToArray());
     return result;
   }
  catch (  Throwable e) {
