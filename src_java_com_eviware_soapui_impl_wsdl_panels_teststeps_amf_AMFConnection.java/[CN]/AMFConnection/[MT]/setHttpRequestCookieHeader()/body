@@ -1,0 +1,11 @@
+{
+  if (cookies == null)   return;
+  StringBuffer cookieHeaderValue=null;
+  for (  Map.Entry<String,String> element : cookies.entrySet()) {
+    String name=element.getKey();
+    String value=element.getValue();
+    if (cookieHeaderValue == null)     cookieHeaderValue=new StringBuffer(name + COOKIE_NAMEVALUE_SEPERATOR + value);
+ else     cookieHeaderValue.append(COOKIE_SEPERATOR + " " + name+ COOKIE_NAMEVALUE_SEPERATOR+ value);
+  }
+  if (cookieHeaderValue != null)   urlConnection.setRequestHeader(COOKIE,cookieHeaderValue.toString());
+}

@@ -1,0 +1,14 @@
+{
+  if (connected)   close();
+  this.url=url;
+  try {
+    urlObject=new URL(url);
+    serializationContext=new SerializationContext();
+    serializationContext.createASObjectForMissingType=true;
+    internalConnect();
+  }
+ catch (  IOException e) {
+    ClientStatusException exception=new ClientStatusException(e,ClientStatusException.AMF_CONNECT_FAILED_CODE);
+    throw exception;
+  }
+}

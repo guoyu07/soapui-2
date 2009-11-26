@@ -1,0 +1,11 @@
+{
+  HttpResponseInfo httpResponseInfo=null;
+  try {
+    int responseCode=urlConnection.getStatusCode();
+    String responseMessage=urlConnection.getResponseBodyAsString();
+    httpResponseInfo=new HttpResponseInfo(responseCode,responseMessage);
+  }
+ catch (  IOException ignore) {
+  }
+  return httpResponseInfo;
+}

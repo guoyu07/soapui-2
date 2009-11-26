@@ -1,0 +1,10 @@
+{
+  Header[] headers=urlConnection.getResponseHeaders();
+  for (  Header header : headers) {
+    String headerName=header.getName();
+    HeaderElement[] headerElements=header.getElements();
+    for (    HeaderElement headerElement : headerElements) {
+      if (SET_COOKIE.equals(headerName) || COOKIE.equals(headerName) || SET_COOKIE2.equals(headerName)|| COOKIE2.equals(headerName))       processSetCookieHeader(headerElement.getValue());
+    }
+  }
+}

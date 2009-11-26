@@ -1,0 +1,8 @@
+{
+  boolean exists=false;
+  if (httpRequestHeaders != null) {
+    Object previousValue=httpRequestHeaders.remove(name);
+    exists=(previousValue != null);
+  }
+  return exists;
+}

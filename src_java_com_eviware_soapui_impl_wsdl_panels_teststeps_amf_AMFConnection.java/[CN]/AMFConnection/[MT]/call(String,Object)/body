@@ -1,0 +1,36 @@
+{
+  if (!connected) {
+    String message="AMF connection is not connected";
+    ClientStatusException cse=new ClientStatusException(message,ClientStatusException.AMF_CALL_FAILED_CODE);
+    throw cse;
+  }
+  String responseURI=getResponseURI();
+  ActionMessage requestMessage=new ActionMessage(getObjectEncoding());
+  if (amfHeaders != null) {
+    for (    MessageHeader header : amfHeaders)     requestMessage.addHeader(header);
+  }
+  MessageBody amfMessage=new MessageBody(command,responseURI,arguments);
+  requestMessage.addBody(amfMessage);
+  actionContext.setRequestMessage(requestMessage);
+  ByteArrayOutputStream outBuffer=new ByteArrayOutputStream();
+  AmfMessageSerializer amfMessageSerializer=new AmfMessageSerializer();
+  amfMessageSerializer.initialize(serializationContext,outBuffer,null);
+  try {
+    amfMessageSerializer.writeMessage(requestMessage);
+    Object result=send(outBuffer);
+    return result;
+  }
+ catch (  Exception e) {
+    if (e instanceof ClientStatusException)     throw (ClientStatusException)e;
+ else     if (e instanceof ServerStatusException)     throw (ServerStatusException)e;
+    ClientStatusException exception=new ClientStatusException(e,ClientStatusException.AMF_CALL_FAILED_CODE);
+    throw exception;
+  }
+ finally {
+    try {
+      outBuffer.close();
+    }
+ catch (    IOException ignore) {
+    }
+  }
+}
