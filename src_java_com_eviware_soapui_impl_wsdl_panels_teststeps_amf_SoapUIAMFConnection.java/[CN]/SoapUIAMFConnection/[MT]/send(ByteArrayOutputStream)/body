@@ -1,0 +1,6 @@
+{
+  internalConnect();
+  postMethod.setRequestEntity(new ByteArrayRequestEntity(outBuffer.toByteArray()));
+  HttpClientSupport.getHttpClient().executeMethod(new HostConfiguration(),postMethod,httpState);
+  return processHttpResponse(postMethod.getResponseBodyAsStream());
+}

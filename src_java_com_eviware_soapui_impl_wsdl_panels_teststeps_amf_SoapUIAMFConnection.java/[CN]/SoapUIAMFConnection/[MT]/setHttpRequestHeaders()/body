@@ -1,10 +1,9 @@
 {
-  setHttpRequestCookieHeader();
   if (httpRequestHeaders != null) {
     for (    Map.Entry<String,String> element : httpRequestHeaders.entrySet()) {
       String key=element.getKey();
       String value=element.getValue();
-      urlConnection.setRequestHeader(key,value);
+      postMethod.setRequestHeader(key,value);
     }
   }
 }

@@ -1,8 +1,0 @@
-{
-  String cookie=headerValue;
-  cookie=headerValue.substring(0,cookie.indexOf(COOKIE_SEPERATOR));
-  String name=cookie.substring(0,cookie.indexOf(COOKIE_NAMEVALUE_SEPERATOR));
-  String value=cookie.substring(cookie.indexOf(COOKIE_NAMEVALUE_SEPERATOR) + 1,cookie.length());
-  if (cookies == null)   cookies=new HashMap<String,String>();
-  cookies.put(name,value);
-}

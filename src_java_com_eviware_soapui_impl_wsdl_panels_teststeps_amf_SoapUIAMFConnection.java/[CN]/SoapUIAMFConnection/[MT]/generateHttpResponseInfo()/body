@@ -1,8 +1,8 @@
 {
   HttpResponseInfo httpResponseInfo=null;
   try {
-    int responseCode=urlConnection.getStatusCode();
-    String responseMessage=urlConnection.getResponseBodyAsString();
+    int responseCode=postMethod.getStatusCode();
+    String responseMessage=postMethod.getResponseBodyAsString();
     httpResponseInfo=new HttpResponseInfo(responseCode,responseMessage);
   }
  catch (  IOException ignore) {
