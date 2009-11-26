@@ -5,6 +5,16 @@
   getRequestStepConfig().setService(method.getInterface().getName());
   getRequestStepConfig().setResourcePath(method.getResource().getFullPath());
   getRequestStepConfig().setMethodName(method.getName());
+  RestResource res=findRestResource();
+  if (res != getResource()) {
+    restResource.removePropertyChangeListener(this);
+    restResource.getService().removeInterfaceListener(interfaceListener);
+    restResource.getService().removePropertyChangeListener(this);
+    restResource=res;
+    restResource.getService().addInterfaceListener(interfaceListener);
+    restResource.getService().addPropertyChangeListener(this);
+    restResource.addPropertyChangeListener(this);
+  }
   if (oldMethod != null)   oldMethod.removePropertyChangeListener(this);
   restMethod.addPropertyChangeListener(this);
   getTestRequest().setRestMethod(restMethod);

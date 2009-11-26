@@ -9,6 +9,5 @@
   for (  String key : requestHeaders.keySet()) {
     result.extractAndAddAll(new RequestHeaderHolder(requestHeaders,key),"value");
   }
-  testRequest.addJMSHeaderExpansions(result,testRequest.getJMSHeaderConfig(),this);
   return result.toArray(new PropertyExpansion[result.size()]);
 }

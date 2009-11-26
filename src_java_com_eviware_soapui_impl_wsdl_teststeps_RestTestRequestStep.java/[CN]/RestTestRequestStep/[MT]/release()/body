@@ -2,8 +2,8 @@
   super.release();
   if (restResource != null) {
     restResource.removePropertyChangeListener(this);
-    restResource.getInterface().getProject().removeProjectListener(projectListener);
-    restResource.getInterface().removeInterfaceListener(interfaceListener);
-    restResource.getInterface().removePropertyChangeListener(this);
+    restResource.getService().getProject().removeProjectListener(projectListener);
+    restResource.getService().removeInterfaceListener(interfaceListener);
+    restResource.getService().removePropertyChangeListener(this);
   }
 }

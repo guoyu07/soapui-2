@@ -37,9 +37,9 @@
 );
   initRestTestRequest();
   if (!forLoadTest && restResource != null) {
-    getResource().getInterface().getProject().addProjectListener(projectListener);
-    getResource().getInterface().addInterfaceListener(interfaceListener);
-    getResource().getInterface().addPropertyChangeListener(this);
+    getResource().getService().getProject().addProjectListener(projectListener);
+    getResource().getService().addInterfaceListener(interfaceListener);
+    getResource().getService().addPropertyChangeListener(this);
     getResource().addPropertyChangeListener(this);
   }
   if (getRestMethod() != null) {
