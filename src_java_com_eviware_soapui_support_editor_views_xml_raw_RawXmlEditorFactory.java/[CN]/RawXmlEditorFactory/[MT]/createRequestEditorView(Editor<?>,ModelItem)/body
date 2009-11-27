@@ -8,5 +8,8 @@
  else   if (modelItem instanceof WsdlMockResponse) {
     return new WsdlMockRequestRawXmlEditor((WsdlMockResponse)modelItem,(XmlEditor)editor);
   }
+ else   if (modelItem instanceof AMFRequestTestStep) {
+    return new AmfRequestRawXmlEditor((AMFRequestTestStep)modelItem,(XmlEditor)editor);
+  }
   return null;
 }

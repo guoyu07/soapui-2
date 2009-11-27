@@ -10,7 +10,7 @@
     status=Status.RUNNING;
     Object responseContent=executeAmfCall(getRequest());
     createResponse(responseContent);
-    if (status != Status.CANCELED) {
+    if (status != Status.CANCELED && status != Status.ERROR) {
       status=Status.FINISHED;
     }
   }

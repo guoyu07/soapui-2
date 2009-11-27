@@ -7,8 +7,9 @@
     Object result=amfConnection.call(context,amfRequest.getAmfCall(),amfRequest.argumentsToArray());
     return result;
   }
- catch (  Throwable e) {
+ catch (  Exception e) {
     SoapUI.logError(e);
+    error=e;
     status=Status.ERROR;
   }
  finally {
