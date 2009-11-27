@@ -1,0 +1,42 @@
+{
+  try {
+    ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
+    ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
+    if (!postMethod.isFailed()) {
+      rawResponse.write(String.valueOf(postMethod.getStatusLine()).getBytes());
+      rawResponse.write("\r\n".getBytes());
+    }
+    rawRequest.write((postMethod.getMethod() + " " + postMethod.getURI().toString()+ " "+ postMethod.getParams().getVersion().toString()+ "\r\n").getBytes());
+    requestHeaders=new StringToStringMap();
+    Header[] headers=postMethod.getRequestHeaders();
+    for (    Header header : headers) {
+      requestHeaders.put(header.getName(),header.getValue());
+      rawRequest.write(header.toExternalForm().getBytes());
+    }
+    if (!postMethod.isFailed()) {
+      responseHeaders=new StringToStringMap();
+      headers=postMethod.getResponseHeaders();
+      for (      Header header : headers) {
+        responseHeaders.put(header.getName(),header.getValue());
+        rawResponse.write(header.toExternalForm().getBytes());
+      }
+      responseHeaders.put("#status#",String.valueOf(postMethod.getStatusLine()));
+    }
+    if (postMethod.getRequestEntity() != null) {
+      rawRequest.write("\r\n".getBytes());
+      if (postMethod.getRequestEntity().isRepeatable()) {
+        postMethod.getRequestEntity().writeRequest(rawRequest);
+      }
+ else       rawResponse.write("<request data not available>".getBytes());
+    }
+    if (!postMethod.isFailed()) {
+      rawResponse.write("\r\n".getBytes());
+      rawResponse.write(postMethod.getResponseBody());
+    }
+    rawResponseData=rawResponse.toByteArray();
+    rawRequestData=rawRequest.toByteArray();
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+}
