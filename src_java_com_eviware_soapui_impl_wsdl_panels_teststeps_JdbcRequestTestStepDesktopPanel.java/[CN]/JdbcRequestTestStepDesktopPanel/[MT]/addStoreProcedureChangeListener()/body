@@ -1,7 +1,8 @@
 {
-  isStoredProcedureCheckBox.addChangeListener(new ChangeListener(){
-    public void stateChanged(    ChangeEvent e){
-      jdbcRequestTestStep.setStoredProcedure(((JCheckBox)e.getSource()).isSelected());
+  isStoredProcedureCheckBox.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent arg0){
+      jdbcRequestTestStep.setStoredProcedure(((JCheckBox)arg0.getSource()).isSelected());
+      queryArea.setText("");
     }
   }
 );
