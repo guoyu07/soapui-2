@@ -27,7 +27,7 @@
       if (postMethod.getRequestEntity().isRepeatable()) {
         postMethod.getRequestEntity().writeRequest(rawRequest);
       }
- else       rawResponse.write("<request data not available>".getBytes());
+ else       rawRequest.write("<request data not available>".getBytes());
     }
     if (!postMethod.isFailed()) {
       rawResponse.write("\r\n".getBytes());
