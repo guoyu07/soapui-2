@@ -15,10 +15,16 @@
     form.addTextField(SOCKET_TIMEOUT,"Socket timeout in milliseconds",FieldType.TEXT);
     form.addTextField(TESTCASE_TIMEOUT,"Timeout in milliseconds for entire TestCase",FieldType.TEXT);
     form.addTextField(MAXRESULTS,"Maximum number of TestStep results to keep in memory during a run",FieldType.TEXT);
-    form.addCheckBox(WS_RM_ENABLED,"Use WS-Reliable Messaging");
-    form.addComboBox(WS_RM_VERSION,new String[]{WsrmVersionTypeConfig.X_1_0.toString(),WsrmVersionTypeConfig.X_1_1.toString(),WsrmVersionTypeConfig.X_1_2.toString()},"The  property for managing WS-RM version");
-    form.addTextField(WS_RM_ACK_TO,"Acknowledgments To",FieldType.TEXT);
-    form.addTextField(WS_RM_EXPIRES,"Expires after",FieldType.TEXT);
+    wsrmForm=builder.createForm("WS-RM");
+    wsrmForm.addCheckBox(WS_RM_ENABLED,"Use WS-Reliable Messaging");
+    wsrmForm.addComboBox(WS_RM_VERSION,new String[]{WsrmVersionTypeConfig.X_1_0.toString(),WsrmVersionTypeConfig.X_1_1.toString(),WsrmVersionTypeConfig.X_1_2.toString()},"The  property for managing WS-RM version");
+    wsrmForm.addTextField(WS_RM_ACK_TO,"Acknowledgments To",FieldType.TEXT);
+    wsrmForm.addTextField(WS_RM_EXPIRES,"Expires after",FieldType.TEXT);
+    amfForm=builder.createForm("AMF");
+    amfForm.addCheckBox(AMF_AUTHORISATION_ENABLE,"AMF Authorisation").addFormFieldListener(new AMFXFormFieldListener());
+    amfForm.addTextField(AMF_ENDPOINT,"AMF endpoint",FieldType.TEXT);
+    amfForm.addTextField(AMF_LOGIN,"AMF login",FieldType.TEXT);
+    amfForm.addTextField(AMF_PASSWORD,"AMF password",FieldType.TEXT);
     dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.TESTCASEOPTIONS_HELP_URL),"Specify general options for this TestCase",UISupport.OPTIONS_ICON);
   }
   StringToStringMap values=new StringToStringMap();
@@ -34,6 +40,10 @@
   values.put(WS_RM_VERSION,String.valueOf(testCase.getWsrmVersion()));
   if (testCase.getWsrmAckTo() != null)   values.put(WS_RM_ACK_TO,String.valueOf(testCase.getWsrmAckTo()));
   if (testCase.getWsrmExpires() != 0)   values.put(WS_RM_EXPIRES,String.valueOf(testCase.getWsrmExpires()));
+  values.put(AMF_AUTHORISATION_ENABLE,String.valueOf(testCase.getAmfAuthorisation()));
+  values.put(AMF_ENDPOINT,String.valueOf(testCase.getAmfEndpoint()));
+  values.put(AMF_LOGIN,String.valueOf(testCase.getAmfLogin()));
+  values.put(AMF_PASSWORD,String.valueOf(testCase.getAmfPassword()));
   dialog.getFormField(FAIL_TESTCASE_ON_ERROR).setEnabled(!Boolean.parseBoolean(String.valueOf(testCase.getFailOnError())));
   values=dialog.show(values);
   if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
@@ -52,6 +62,10 @@
       String timeout=values.get(SOCKET_TIMEOUT);
       if (timeout.trim().length() == 0)       testCase.getSettings().clearSetting(HttpSettings.SOCKET_TIMEOUT);
  else       testCase.getSettings().setString(HttpSettings.SOCKET_TIMEOUT,timeout);
+      testCase.setAmfAuthorisation(Boolean.parseBoolean(values.get(AMF_AUTHORISATION_ENABLE)));
+      testCase.setAmfEndpoint(values.get(AMF_ENDPOINT));
+      testCase.setAmfLogin(values.get(AMF_LOGIN));
+      testCase.setAmfPassword(values.get(AMF_PASSWORD));
     }
  catch (    Exception e1) {
       UISupport.showErrorMessage(e1.getMessage());

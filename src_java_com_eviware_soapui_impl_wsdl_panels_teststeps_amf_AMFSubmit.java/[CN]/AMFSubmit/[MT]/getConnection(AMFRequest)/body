@@ -1,0 +1,16 @@
+{
+  SoapUIAMFConnection amfConnection=null;
+  if (isAuthorisationEnabled(amfRequest) && (context.getModelItem() instanceof WsdlTestCase)) {
+    if ((amfConnection=(SoapUIAMFConnection)context.getProperty(AMF_CONNECTION)) != null) {
+      return amfConnection;
+    }
+ else {
+      throw new Exception("amf session connection error! ");
+    }
+  }
+ else {
+    amfConnection=new SoapUIAMFConnection();
+    amfConnection.connect(context.expand(amfRequest.getEndpoint()));
+    return amfConnection;
+  }
+}

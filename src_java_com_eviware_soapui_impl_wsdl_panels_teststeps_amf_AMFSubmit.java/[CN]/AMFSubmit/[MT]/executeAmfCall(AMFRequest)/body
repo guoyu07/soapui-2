@@ -1,7 +1,7 @@
 {
-  SoapUIAMFConnection amfConnection=new SoapUIAMFConnection();
+  SoapUIAMFConnection amfConnection=null;
   try {
-    amfConnection.connect(context.expand(amfRequest.getEndpoint()));
+    amfConnection=getConnection(amfRequest);
     addAmfHeaders(amfRequest,amfConnection);
     addHttpHeaders(amfRequest,amfConnection);
     Object result=amfConnection.call(context,amfRequest.getAmfCall(),amfRequest.argumentsToArray());
@@ -14,7 +14,9 @@
   }
  finally {
     amfRequest.clearArguments();
-    amfConnection.close();
+    if (context.getModelItem() instanceof AMFRequestTestStep) {
+      amfConnection.close();
+    }
   }
   return null;
 }
