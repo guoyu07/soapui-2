@@ -1,0 +1,25 @@
+{
+  super(name);
+  header=new JMenuItem();
+  header.setVisible(false);
+  headerSeparator=new JSeparator();
+  headerSeparator.setVisible(false);
+  add(header,0);
+  add(headerSeparator,1);
+  timerUp=new Timer(scrollSpeed,new ActionListener(){
+    public void actionPerformed(    ActionEvent evt){
+      scrollUp();
+    }
+  }
+);
+  timerDown=new Timer(scrollSpeed,new ActionListener(){
+    public void actionPerformed(    ActionEvent evt){
+      scrollDown();
+    }
+  }
+);
+  Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+  screenHeight=screenSize.getHeight() - 30;
+  createButtons();
+  hideButtons();
+}

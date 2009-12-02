@@ -1,0 +1,18 @@
+{
+  MenuSelectionManager manager=MenuSelectionManager.defaultManager();
+  MenuElement[] path=manager.getSelectedPath();
+  int i=0;
+  JPopupMenu popup=getPopupMenu();
+  for (; i < path.length; i++) {
+    if (path[i] == popup) {
+      break;
+    }
+  }
+  MenuElement[] subPath=new MenuElement[i + 1];
+  try {
+    System.arraycopy(path,0,subPath,0,i + 1);
+    manager.setSelectedPath(subPath);
+  }
+ catch (  Exception ekasd) {
+  }
+}

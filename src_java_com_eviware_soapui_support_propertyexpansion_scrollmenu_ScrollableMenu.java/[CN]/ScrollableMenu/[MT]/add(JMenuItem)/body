@@ -1,0 +1,14 @@
+{
+  System.err.println("Adding " + menuItem.getText());
+  add(menuItem,subMenus.size() + 3);
+  subMenus.add(menuItem);
+  menuHeight+=menuItem.getPreferredSize().getHeight();
+  if (menuHeight > screenHeight) {
+    menuItem.setVisible(false);
+    downButton.setVisible(true);
+  }
+ else {
+    visibleItems++;
+  }
+  return menuItem;
+}
