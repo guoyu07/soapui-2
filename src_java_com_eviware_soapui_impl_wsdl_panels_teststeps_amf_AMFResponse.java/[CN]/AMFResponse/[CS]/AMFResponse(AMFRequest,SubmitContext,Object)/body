@@ -3,5 +3,6 @@
   this.request=request;
   this.responseContent=responseContent;
   if (responseContent != null)   setResponseContentXML(new com.thoughtworks.xstream.XStream().toXML(responseContent));
+  this.actionMessage=(ActionMessage)submitContext.getProperty(AMF_RESPONSE_ACTION_MESSAGE);
   initHeaders((ExtendedPostMethod)submitContext.getProperty(AMF_POST_METHOD));
 }

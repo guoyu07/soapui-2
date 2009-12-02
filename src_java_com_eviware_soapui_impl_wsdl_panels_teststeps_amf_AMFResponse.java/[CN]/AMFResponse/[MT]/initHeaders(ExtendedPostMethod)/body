@@ -31,10 +31,14 @@
     }
     if (!postMethod.isFailed()) {
       rawResponse.write("\r\n".getBytes());
-      rawResponse.write(postMethod.getResponseBody());
+      for (      Object body : actionMessage.getBodies()) {
+        MessageBody mb=(MessageBody)body;
+        rawResponse.write(mb.getData().toString().getBytes());
+      }
     }
     rawResponseData=rawResponse.toByteArray();
     rawRequestData=rawRequest.toByteArray();
+    initAMFHeaders(postMethod);
   }
  catch (  Throwable e) {
     SoapUI.logError(e);
