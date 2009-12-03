@@ -1,9 +1,7 @@
 {
   if (runContext.getProperty(AMFSubmit.AMF_CONNECTION) != null && runContext.getProperty(AMFSubmit.AMF_CONNECTION) instanceof SoapUIAMFConnection) {
     SoapUIAMFConnection connection=(SoapUIAMFConnection)runContext.getProperty(AMFSubmit.AMF_CONNECTION);
-    CommandMessage commandMessage=new CommandMessage();
-    commandMessage.setOperation(CommandMessage.LOGOUT_OPERATION);
-    commandMessage.setDestination("auth");
+    CommandMessage commandMessage=createLogoutCommandMessage();
     try {
       connection.call((SubmitContext)runContext,null,commandMessage);
     }

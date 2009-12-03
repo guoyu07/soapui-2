@@ -6,15 +6,9 @@
         String endpoint=runContext.expand(wsdlTestCase.getConfig().getAmfEndpoint());
         String username=runContext.expand(wsdlTestCase.getConfig().getAmfLogin());
         String password=runContext.expand(wsdlTestCase.getConfig().getAmfPassword());
+        CommandMessage commandMessage=createLoginCommandMessage(username,password);
         SoapUIAMFConnection amfConnection=new SoapUIAMFConnection();
         amfConnection.connect(endpoint);
-        CommandMessage commandMessage=new CommandMessage();
-        commandMessage.setOperation(CommandMessage.LOGIN_OPERATION);
-        String credString=username + ":" + password;
-        Encoder encoder=new Encoder(credString.length());
-        encoder.encode(credString.getBytes());
-        commandMessage.setBody(encoder.drain());
-        commandMessage.setDestination("auth");
         amfConnection.call((SubmitContext)runContext,null,commandMessage);
         runContext.setProperty(AMFSubmit.AMF_CONNECTION,amfConnection);
       }
