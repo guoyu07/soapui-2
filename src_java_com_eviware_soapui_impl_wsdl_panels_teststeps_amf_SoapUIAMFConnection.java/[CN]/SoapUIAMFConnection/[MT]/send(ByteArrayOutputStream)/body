@@ -5,5 +5,5 @@
   ProxyUtils.initProxySettings(context.getModelItem() == null ? SoapUI.getSettings() : context.getModelItem().getSettings(),httpState,hostConfiguration,url,context);
   HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod,httpState);
   context.setProperty(AMFResponse.AMF_POST_METHOD,postMethod);
-  return processHttpResponse(postMethod.getResponseBodyAsStream());
+  return processHttpResponse(responseBodyInputStream());
 }

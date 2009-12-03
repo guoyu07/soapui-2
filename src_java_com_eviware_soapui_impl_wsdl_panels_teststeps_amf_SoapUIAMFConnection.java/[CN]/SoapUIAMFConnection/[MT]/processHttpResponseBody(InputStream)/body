@@ -5,7 +5,7 @@
   MessageDeserializer deserializer=new AmfMessageDeserializer();
   deserializer.initialize(serializationContext,din,null);
   deserializer.readMessage(message,actionContext);
-  context.setProperty(AMFResponse.AMF_RESPONSE_ACTION_MESSAGE,message);
   din.close();
+  context.setProperty(AMFResponse.AMF_RESPONSE_ACTION_MESSAGE,message);
   return processAmfPacket(message);
 }

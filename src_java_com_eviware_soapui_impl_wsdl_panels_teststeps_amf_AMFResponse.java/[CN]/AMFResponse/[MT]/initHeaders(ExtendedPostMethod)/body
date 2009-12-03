@@ -31,10 +31,7 @@
     }
     if (!postMethod.isFailed()) {
       rawResponse.write("\r\n".getBytes());
-      for (      Object body : actionMessage.getBodies()) {
-        MessageBody mb=(MessageBody)body;
-        rawResponse.write(mb.getData().toString().getBytes());
-      }
+      rawResponse.write(rawResponseBody);
     }
     rawResponseData=rawResponse.toByteArray();
     rawRequestData=rawRequest.toByteArray();
