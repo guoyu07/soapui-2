@@ -1,3 +1,4 @@
 {
-  return getConfig().getAmfPassword();
+  if (getConfig().getAmfPassword() == null)   return "";
+ else   return getConfig().getAmfPassword();
 }
