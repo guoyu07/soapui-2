@@ -2,7 +2,14 @@
   isStoredProcedureCheckBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent arg0){
       jdbcRequestTestStep.setStoredProcedure(((JCheckBox)arg0.getSource()).isSelected());
-      emptyQueryArea();
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          if (UISupport.confirm("Would you like to delete current sql?","Reset query")) {
+            queryArea.setText("");
+          }
+        }
+      }
+);
     }
   }
 );
