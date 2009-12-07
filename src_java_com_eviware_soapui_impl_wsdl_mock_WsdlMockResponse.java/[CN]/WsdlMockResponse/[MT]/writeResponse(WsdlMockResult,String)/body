@@ -20,7 +20,7 @@
     }
   }
   if (isRemoveEmptyContent()) {
-    responseContent=RemoveEmptyContentRequestFilter.removeEmptyContent(responseContent,getSoapVersion().getEnvelopeNamespace());
+    responseContent=RemoveEmptyContentRequestFilter.removeEmptyContent(responseContent,getSoapVersion().getEnvelopeNamespace(),true);
   }
   if (isStripWhitespaces()) {
     responseContent=XmlUtils.stripWhitespaces(responseContent);

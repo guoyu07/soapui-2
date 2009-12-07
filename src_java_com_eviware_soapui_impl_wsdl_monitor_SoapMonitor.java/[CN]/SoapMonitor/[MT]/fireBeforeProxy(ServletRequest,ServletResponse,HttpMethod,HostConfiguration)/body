@@ -1,5 +1,10 @@
 {
   for (  MonitorListener listener : listeners.get()) {
-    listener.beforeProxy(this,request,response,method,hostConfiguration);
+    try {
+      listener.beforeProxy(this,request,response,method,hostConfiguration);
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+    }
   }
 }

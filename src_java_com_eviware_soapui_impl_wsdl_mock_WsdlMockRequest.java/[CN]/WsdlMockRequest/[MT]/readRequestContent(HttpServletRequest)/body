@@ -3,10 +3,17 @@
   String encoding=request.getCharacterEncoding();
   if (encoding != null)   encoding=StringUtils.unquote(encoding);
   ServletInputStream is=request.getInputStream();
-  if (is.markSupported())   is.mark(Integer.MAX_VALUE);
+  if (is.markSupported() && request.getContentLength() > 0)   is.mark(request.getContentLength());
   ByteArrayOutputStream out=Tools.readAll(is,Tools.READ_ALL);
   byte[] data=out.toByteArray();
-  if (is.markSupported())   is.reset();
+  if (is.markSupported() && request.getContentLength() > 0) {
+    try {
+      is.reset();
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
+  }
   int contentOffset=0;
   String contentType=request.getContentType();
   if (contentType != null && data.length > 0) {

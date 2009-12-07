@@ -1,6 +1,5 @@
 {
-  System.err.println("Adding " + menuItem.getText());
-  add(menuItem,subMenus.size() + 3);
+  add(menuItem,subMenus.size() + headerCount + 1+ (headerCount == 0 ? 0 : 1));
   subMenus.add(menuItem);
   menuHeight+=menuItem.getPreferredSize().getHeight();
   if (menuHeight > screenHeight) {

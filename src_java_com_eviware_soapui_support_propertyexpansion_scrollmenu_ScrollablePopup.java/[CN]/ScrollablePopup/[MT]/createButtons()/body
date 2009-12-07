@@ -32,7 +32,7 @@ class Up extends MouseAdapter {
   }
   MouseListener scrollUpListener=new Up();
   upButton.addMouseListener(scrollUpListener);
-  add(upButton,2);
+  add(upButton);
   downButton=new JButton(UISupport.createImageIcon("/down_arrow.gif"));
   downButton.setPreferredSize(d);
   downButton.setBorderPainted(false);
@@ -64,5 +64,5 @@ class Down extends MouseAdapter {
   }
   MouseListener scrollDownListener=new Down();
   downButton.addMouseListener(scrollDownListener);
-  add(downButton,3 + subMenus.size());
+  add(downButton,1 + subMenus.size());
 }

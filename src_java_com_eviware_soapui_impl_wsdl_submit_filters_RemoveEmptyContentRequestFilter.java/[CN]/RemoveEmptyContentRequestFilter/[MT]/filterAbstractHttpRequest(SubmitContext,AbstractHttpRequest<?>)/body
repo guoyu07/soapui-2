@@ -7,7 +7,7 @@
   if (wsdlRequest instanceof WsdlRequest)   soapNamespace=((WsdlRequest)wsdlRequest).getOperation().getInterface().getSoapVersion().getEnvelopeNamespace();
   while (!content.equals(newContent)) {
     if (newContent != null)     content=newContent;
-    newContent=removeEmptyContent(content,soapNamespace);
+    newContent=removeEmptyContent(content,soapNamespace,context.hasProperty("RemoveEmptyXsiNil"));
     if (!context.hasProperty("RemoveEmptyRecursive"))     break;
   }
   if (newContent != null)   context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,newContent);
