@@ -1,3 +1,5 @@
 {
-  return properties.remove(arg0);
+synchronized (properties) {
+    return properties.remove(arg0);
+  }
 }

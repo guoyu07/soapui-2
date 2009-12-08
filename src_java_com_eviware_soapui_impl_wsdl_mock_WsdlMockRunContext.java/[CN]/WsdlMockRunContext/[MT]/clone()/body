@@ -1,3 +1,5 @@
 {
-  return properties.clone();
+synchronized (properties) {
+    return properties.clone();
+  }
 }

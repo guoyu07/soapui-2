@@ -1,3 +1,5 @@
 {
-  return PropertyExpander.expandProperties(this,content);
+synchronized (properties) {
+    return PropertyExpander.expandProperties(this,content);
+  }
 }

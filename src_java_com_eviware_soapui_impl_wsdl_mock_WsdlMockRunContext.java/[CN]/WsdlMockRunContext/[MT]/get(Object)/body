@@ -7,5 +7,7 @@
   if ("settings".equals(arg0))   return getSettings();
   if ("testCase".equals(arg0))   return getTestCase();
   if ("testRunner".equals(arg0))   return getTestRunner();
-  return properties.get(arg0);
+synchronized (properties) {
+    return properties.get(arg0);
+  }
 }

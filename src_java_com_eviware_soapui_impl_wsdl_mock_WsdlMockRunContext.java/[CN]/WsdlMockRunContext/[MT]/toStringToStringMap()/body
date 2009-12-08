@@ -1,8 +1,10 @@
 {
-  StringToStringMap result=new StringToStringMap();
-  for (  String key : properties.keySet()) {
-    Object value=properties.get(key);
-    if (value != null)     result.put(key,value.toString());
+synchronized (properties) {
+    StringToStringMap result=new StringToStringMap();
+    for (    String key : properties.keySet()) {
+      Object value=properties.get(key);
+      if (value != null)       result.put(key,value.toString());
+    }
+    return result;
   }
-  return result;
 }

@@ -1,3 +1,5 @@
 {
-  return properties.entrySet();
+synchronized (properties) {
+    return properties.entrySet();
+  }
 }

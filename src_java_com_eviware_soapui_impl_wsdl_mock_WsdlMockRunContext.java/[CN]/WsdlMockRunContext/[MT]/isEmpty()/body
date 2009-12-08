@@ -1,3 +1,5 @@
 {
-  return properties.isEmpty();
+synchronized (properties) {
+    return properties.isEmpty();
+  }
 }

@@ -1,3 +1,5 @@
 {
-  return properties.equals(arg0);
+synchronized (properties) {
+    return properties.equals(arg0);
+  }
 }

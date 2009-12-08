@@ -1,3 +1,5 @@
 {
-  return properties.containsKey(name);
+synchronized (properties) {
+    return properties.containsKey(name);
+  }
 }

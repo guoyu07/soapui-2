@@ -1,3 +1,5 @@
 {
-  return properties.keySet();
+synchronized (properties) {
+    return properties.keySet();
+  }
 }

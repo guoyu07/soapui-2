@@ -1,3 +1,5 @@
 {
-  return properties.hashCode();
+synchronized (properties) {
+    return properties.hashCode();
+  }
 }

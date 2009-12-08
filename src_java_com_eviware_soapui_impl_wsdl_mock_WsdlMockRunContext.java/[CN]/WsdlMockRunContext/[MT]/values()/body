@@ -1,3 +1,5 @@
 {
-  return properties.values();
+synchronized (properties) {
+    return properties.values();
+  }
 }
