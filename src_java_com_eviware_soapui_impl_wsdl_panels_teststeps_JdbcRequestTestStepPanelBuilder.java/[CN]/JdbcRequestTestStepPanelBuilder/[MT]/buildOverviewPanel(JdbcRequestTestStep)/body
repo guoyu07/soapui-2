@@ -1,3 +1,6 @@
 {
-  return buildDefaultProperties(modelItem,"JdbcRequestTestStep Properties");
+  JPropertiesTable<JdbcRequestTestStep> table=buildDefaultProperties(modelItem,"JdbcRequestTestStep Properties");
+  table.addProperty("Max Rows","maxRows",true);
+  table.addProperty("Query Timeout","queryTimeout",true);
+  return table;
 }
