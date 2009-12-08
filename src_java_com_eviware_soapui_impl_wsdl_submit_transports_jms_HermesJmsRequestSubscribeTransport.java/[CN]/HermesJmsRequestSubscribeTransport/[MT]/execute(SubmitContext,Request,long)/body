@@ -11,7 +11,7 @@
     Hermes hermes=getHermes(sessionName,request);
     connectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
     connection=connectionFactory.createTopicConnection();
-    connection.setClientID("" + (Math.random() * 1000));
+    connection.setClientID(sessionName + "-" + topicNameSubscribe);
     connection.start();
     session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicSubscribe=(Topic)hermes.getDestination(topicNameSubscribe,Domain.TOPIC);
