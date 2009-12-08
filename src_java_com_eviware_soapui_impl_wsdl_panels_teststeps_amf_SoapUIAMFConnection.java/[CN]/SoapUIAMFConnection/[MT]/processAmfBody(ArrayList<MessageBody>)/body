@@ -5,10 +5,7 @@
       return message.getData();
     }
  else     if (targetURI.endsWith(MessageIOConstants.STATUS_METHOD)) {
-      String exMessage="Server error";
-      HttpResponseInfo responseInfo=generateHttpResponseInfo();
-      ServerStatusException exception=new ServerStatusException(exMessage,message.getData(),responseInfo);
-      throw exception;
+      return message.getData();
     }
   }
   return null;
