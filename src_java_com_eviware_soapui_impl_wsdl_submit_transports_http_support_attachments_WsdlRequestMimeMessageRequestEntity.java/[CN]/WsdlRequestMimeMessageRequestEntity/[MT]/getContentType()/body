@@ -3,7 +3,7 @@
     SoapVersion soapVersion=wsdlRequest.getOperation().getInterface().getSoapVersion();
     if (isXOP) {
       String header=message.getHeader("Content-Type")[0];
-      return AttachmentUtils.buildMTOMContentType(header,wsdlRequest.getOperation().getAction(),soapVersion);
+      return AttachmentUtils.buildMTOMContentType(header,wsdlRequest.getAction(),soapVersion);
     }
  else {
       String header=message.getHeader("Content-Type")[0];

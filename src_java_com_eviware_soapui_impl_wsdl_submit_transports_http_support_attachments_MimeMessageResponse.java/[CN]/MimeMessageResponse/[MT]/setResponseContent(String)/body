@@ -1,5 +1,5 @@
 {
   String oldContent=getContentAsString();
   mmSupport.setResponseContent(responseContent);
-  getRequest().notifyPropertyChanged(WsdlRequest.RESPONSE_CONTENT_PROPERTY,oldContent,responseContent);
+  ((AbstractHttpRequest<?>)getRequest()).notifyPropertyChanged(WsdlRequest.RESPONSE_CONTENT_PROPERTY,oldContent,responseContent);
 }
