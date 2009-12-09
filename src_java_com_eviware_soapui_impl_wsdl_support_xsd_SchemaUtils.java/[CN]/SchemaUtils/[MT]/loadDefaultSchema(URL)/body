@@ -1,5 +1,6 @@
 {
   XmlObject xmlObject=XmlObject.Factory.parse(url);
+  if (!((Document)xmlObject.getDomNode()).getDocumentElement().getNamespaceURI().equals(Constants.XSD_NS))   return;
   String targetNamespace=getTargetNamespace(xmlObject);
   if (defaultSchemas.containsKey(targetNamespace))   log.warn("Overriding schema for targetNamespace " + targetNamespace);
   defaultSchemas.put(targetNamespace,xmlObject);
