@@ -1,5 +1,5 @@
 {
-  if (StringUtils.hasContent(getWsaConfig().getAction())) {
+  if (isWsaEnabled() && StringUtils.hasContent(getWsaConfig().getAction())) {
     return getWsaConfig().getAction();
   }
   return getOperation().getAction();
