@@ -8,6 +8,7 @@
   SchemaProperty[] attrProps=stype.getAttributeProperties();
   for (int i=0; i < attrProps.length; i++) {
     SchemaProperty attr=attrProps[i];
+    if (attr.getMinOccurs().intValue() == 0 && ignoreOptional)     continue;
     if (attr.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","contentType"))) {
       xmlc.insertAttributeWithValue(attr.getName(),"application/?");
       continue;
