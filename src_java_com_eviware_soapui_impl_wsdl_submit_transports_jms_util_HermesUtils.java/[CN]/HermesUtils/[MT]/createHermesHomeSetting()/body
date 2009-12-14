@@ -1,9 +1,9 @@
 {
-  if (Tools.isEmpty(SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,null))) {
+  if (Tools.isEmpty(SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,defaultHermesJMSPath()))) {
     UISupport.showErrorMessage("HermesJMS Home must be set in global preferences");
     if (UISupport.getMainFrame() != null) {
       if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.INTEGRATED_TOOLS)) {
-        return SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,null);
+        return SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,defaultHermesJMSPath());
       }
     }
   }

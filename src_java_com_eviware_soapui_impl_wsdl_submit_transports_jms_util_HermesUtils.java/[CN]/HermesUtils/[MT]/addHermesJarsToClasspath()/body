@@ -1,5 +1,5 @@
 {
-  String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,null);
+  String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,defaultHermesJMSPath());
   if (hermesHome == null || "".equals(hermesHome)) {
     hermesHome=createHermesHomeSetting();
     if (hermesHome == null)     throw new FileNotFoundException("HermesJMS home not specified !!!");
