@@ -1,3 +1,8 @@
 {
-  propertyChangeSupport.addPropertyChangeListener(propertyName,listener);
+  try {
+    propertyChangeSupport.addPropertyChangeListener(propertyName,listener);
+  }
+ catch (  Throwable t) {
+    SoapUI.logError(t);
+  }
 }

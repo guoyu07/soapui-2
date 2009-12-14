@@ -1,3 +1,8 @@
 {
-  propertyChangeSupport.fireIndexedPropertyChange(propertyName,index,oldValue,newValue);
+  try {
+    propertyChangeSupport.fireIndexedPropertyChange(propertyName,index,oldValue,newValue);
+  }
+ catch (  Throwable t) {
+    SoapUI.logError(t);
+  }
 }
