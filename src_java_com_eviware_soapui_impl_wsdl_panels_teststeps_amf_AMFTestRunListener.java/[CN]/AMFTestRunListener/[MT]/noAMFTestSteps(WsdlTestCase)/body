@@ -1,0 +1,8 @@
+{
+  if (wsdlTestCase.getTestStepsOfType(AMFRequestTestStep.class).isEmpty()) {
+    wsdlTestCase.getConfig().setAmfAuthorisation(false);
+    SoapUI.log(wsdlTestCase.getName() + " does not contain any AMF Test Step therefore AMF Authorisation is disabled!");
+    return true;
+  }
+  return false;
+}
