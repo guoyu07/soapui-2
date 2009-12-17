@@ -1,0 +1,16 @@
+{
+  SoapUIAMFConnection connection=(SoapUIAMFConnection)context.getProperty(AMFSubmit.AMF_CONNECTION);
+  CommandMessage commandMessage=createLogoutCommandMessage();
+  try {
+    connection.call((SubmitContext)context,null,commandMessage);
+  }
+ catch (  ClientStatusException e) {
+    SoapUI.logError(e);
+  }
+catch (  ServerStatusException e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    connection.close();
+  }
+}

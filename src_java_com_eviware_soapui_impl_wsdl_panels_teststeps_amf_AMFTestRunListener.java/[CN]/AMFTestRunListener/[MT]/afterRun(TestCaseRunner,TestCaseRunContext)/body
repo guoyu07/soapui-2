@@ -1,18 +1,5 @@
 {
   if (runContext.getProperty(AMFSubmit.AMF_CONNECTION) != null && runContext.getProperty(AMFSubmit.AMF_CONNECTION) instanceof SoapUIAMFConnection) {
-    SoapUIAMFConnection connection=(SoapUIAMFConnection)runContext.getProperty(AMFSubmit.AMF_CONNECTION);
-    CommandMessage commandMessage=createLogoutCommandMessage();
-    try {
-      connection.call((SubmitContext)runContext,null,commandMessage);
-    }
- catch (    ClientStatusException e) {
-      SoapUI.logError(e);
-    }
-catch (    ServerStatusException e) {
-      SoapUI.logError(e);
-    }
- finally {
-      connection.close();
-    }
+    if (amfCredentials.isLogedIn())     amfCredentials.logout();
   }
 }

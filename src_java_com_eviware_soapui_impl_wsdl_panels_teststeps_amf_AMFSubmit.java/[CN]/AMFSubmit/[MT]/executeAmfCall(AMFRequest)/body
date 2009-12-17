@@ -15,7 +15,13 @@
  finally {
     amfRequest.clearArguments();
     if (context.getModelItem() instanceof AMFRequestTestStep) {
-      amfConnection.close();
+      if (credentials != null && credentials.isLogedIn()) {
+        credentials.logout();
+        credentials=null;
+      }
+ else {
+        amfConnection.close();
+      }
     }
   }
   return null;

@@ -8,6 +8,15 @@
       throw new Exception("amf session connection error! ");
     }
   }
+ else   if (isAuthorisationEnabled(amfRequest) && (context.getModelItem() instanceof AMFRequestTestStep)) {
+    String endpoint=context.expand(getTestCaseConfig(amfRequest).getAmfEndpoint());
+    String username=context.expand(getTestCaseConfig(amfRequest).getAmfLogin());
+    String password=context.expand(getTestCaseConfig(amfRequest).getAmfPassword());
+    credentials=new AMFCredentials(endpoint,username,password,context);
+    amfConnection=credentials.login();
+    context.setProperty(AMF_CONNECTION,amfConnection);
+    return amfConnection;
+  }
  else {
     amfConnection=new SoapUIAMFConnection();
     amfConnection.connect(context.expand(amfRequest.getEndpoint()));
