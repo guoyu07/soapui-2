@@ -7,7 +7,14 @@
     if (path == null && row == -1)     return;
     if (path == null || mainTree.getRowForPath(path) != row)     mainTree.setSelectionRow(row);
     SoapUITreeNode node=(SoapUITreeNode)path.getLastPathComponent();
-    ActionList actions=node.getActions();
-    if (actions != null)     actions.performDefaultAction(new ActionEvent(mainTree,0,null));
+    actions=node.getActions();
+    if (actions != null) {
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          if (actions != null)           actions.performDefaultAction(new ActionEvent(mainTree,0,null));
+        }
+      }
+);
+    }
   }
 }
