@@ -17,7 +17,8 @@
 );
   mainForm.addComboBox(LOADTEST,new String[]{},"The LoadTest to run");
   mainForm.addSeparator();
-  mainForm.addTextField(TESTRUNNERPATH,"Folder containing TestRunner.bat to use",XForm.FieldType.FOLDER);
+  XFormTextField path=mainForm.addTextField(TESTRUNNERPATH,"Folder containing TestRunner.bat to use",XForm.FieldType.FOLDER);
+  path.setValue(System.getProperty("soapui.home",""));
   mainForm.addCheckBox(SAVEPROJECT,"Saves project before running").setEnabled(!modelItem.isRemote());
   mainForm.addCheckBox(SAVEAFTER,"Sets to save the project file after tests have been run");
   mainForm.addCheckBox(ADDSETTINGS,"Adds global settings to command-line");
@@ -35,10 +36,7 @@
   advForm.addTextField(DOMAIN,"The domain to set for all requests",XForm.FieldType.TEXT);
   advForm.addComboBox(WSSTYPE,new String[]{"","Text","Digest"},"The username to set for all requests");
   reportForm=builder.createForm("Reports");
-  reportForm.addCheckBox(PRINTREPORT,"Creates a report in the specified folder");
-  reportForm.addTextField(ROOTFOLDER,"Folder for reporting",XForm.FieldType.FOLDER);
-  reportForm.addTextField(GENERATEREPORTSEACHTESTCASE,"Report to Generate (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
-  reportForm.addTextField(REPORTFORMAT,"Choose report format(s), comma-separated (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
+  createReportTab();
   propertyForm=builder.createForm("Properties");
   propertyForm.addComponent(GLOBALPROPERTIES,createTextArea());
   propertyForm.addComponent(SYSTEMPROPERTIES,createTextArea());
