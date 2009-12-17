@@ -2,8 +2,8 @@
   try {
     return inspectorPanelClass.getConstructor(JComponent.class).newInstance(contentComponent);
   }
- catch (  Exception e) {
-    e.printStackTrace();
+ catch (  Throwable e) {
+    SoapUI.logError(e);
     return null;
   }
 }
