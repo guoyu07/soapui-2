@@ -13,6 +13,10 @@
   passField.setVisible(false);
   passField.setText(jdbcRequestTestStep.getPassword());
   addPasswordDocumentListener();
+  reconfigureConnPropertiesButton=new JButton();
+  configForm.addLeftComponent(reconfigureConnPropertiesButton);
+  reconfigureConnPropertiesButton.setVisible(false);
+  configForm.appendSeparator();
   testConnectionButton=configForm.appendButton("TestConnection","Test selected database connection");
   testConnectionButton.setAction(new TestConnectionAction());
   testConnectionButton.setEnabled(enableTestConnection());
