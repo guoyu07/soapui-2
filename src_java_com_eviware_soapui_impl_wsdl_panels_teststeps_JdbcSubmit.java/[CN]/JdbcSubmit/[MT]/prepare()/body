@@ -7,8 +7,14 @@
     statement=connection.prepareCall(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
   }
  else {
+    List<TestProperty> props=testStep.getPropertyList();
     String sql=PropertyExpander.expandProperties(context,testStep.getQuery());
-    statement=connection.prepareStatement(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+    NamedParameterStatement p=new NamedParameterStatement(connection,sql);
+    for (    TestProperty testProperty : props) {
+      String value=PropertyExpander.expandProperties(context,testProperty.getValue());
+      p.setString(testProperty.getName(),value);
+    }
+    statement=p.getStatement();
   }
   try {
     String queryTimeout=PropertyExpander.expandProperties(testStep,testStep.getQueryTimeout());

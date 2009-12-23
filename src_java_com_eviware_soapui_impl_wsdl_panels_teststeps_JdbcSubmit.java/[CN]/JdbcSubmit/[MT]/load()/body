@@ -6,11 +6,6 @@
       ((CallableStatement)statement).execute();
     }
  else {
-      List<TestProperty> props=testStep.getPropertyList();
-      for (int j=0; j < props.size(); j++) {
-        TestProperty property=props.get(j);
-        ((PreparedStatement)statement).setString(j + 1,property.getValue());
-      }
       timestamp=System.currentTimeMillis();
       ((PreparedStatement)statement).execute();
     }
