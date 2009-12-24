@@ -9,8 +9,17 @@
       timestamp=System.currentTimeMillis();
       ((PreparedStatement)statement).execute();
     }
+    timeTaken=System.currentTimeMillis() - timestamp;
+    if (!StringUtils.isNullOrEmpty(request.getTimeout()) && timeTaken > Long.parseLong(request.getTimeout())) {
+      context.setProperty(JDBC_TIMEOUT,PropertyExpander.expandProperties(context,request.getTimeout()));
+    }
   }
-  finally {
+ catch (  SQLException e) {
+    context.setProperty(JDBC_ERROR,e);
+  }
+catch (  Exception e) {
+  }
+ finally {
     timeTaken=System.currentTimeMillis() - timestamp;
   }
 }

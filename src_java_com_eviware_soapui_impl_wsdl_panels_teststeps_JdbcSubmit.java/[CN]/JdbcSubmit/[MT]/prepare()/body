@@ -17,15 +17,21 @@
     statement=p.getStatement();
   }
   try {
-    String queryTimeout=PropertyExpander.expandProperties(testStep,testStep.getQueryTimeout());
-    statement.setQueryTimeout(Integer.parseInt(queryTimeout));
+    if (!StringUtils.isNullOrEmpty(testStep.getQueryTimeout())) {
+      String queryTimeout=PropertyExpander.expandProperties(testStep,testStep.getQueryTimeout());
+      statement.setQueryTimeout(Integer.parseInt(queryTimeout));
+    }
   }
  catch (  NumberFormatException e) {
+    UISupport.showErrorMessage("Problem setting timeout: " + e.getMessage());
   }
   try {
-    String maxRows=PropertyExpander.expandProperties(testStep,testStep.getMaxRows());
-    statement.setMaxRows(Integer.parseInt(maxRows));
+    if (!StringUtils.isNullOrEmpty(testStep.getMaxRows())) {
+      String maxRows=PropertyExpander.expandProperties(testStep,testStep.getMaxRows());
+      statement.setMaxRows(Integer.parseInt(maxRows));
+    }
   }
  catch (  NumberFormatException e) {
+    UISupport.showErrorMessage("Problem setting maxRows: " + e.getMessage());
   }
 }

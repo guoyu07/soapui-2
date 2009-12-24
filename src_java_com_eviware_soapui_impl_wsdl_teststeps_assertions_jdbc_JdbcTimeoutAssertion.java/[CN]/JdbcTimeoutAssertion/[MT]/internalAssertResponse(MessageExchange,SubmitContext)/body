@@ -1,0 +1,7 @@
+{
+  if (context.getProperty(JdbcSubmit.JDBC_TIMEOUT) != null) {
+    Long timeout=Long.valueOf(context.getProperty(JdbcSubmit.JDBC_TIMEOUT).toString());
+    throw new AssertionException(new AssertionError("JDBC Request timeout error! Query not executed in " + timeout + " ms."));
+  }
+  return "JDBC Timeout OK";
+}

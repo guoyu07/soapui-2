@@ -1,5 +1,10 @@
 {
-  prepare();
-  load();
+  try {
+    prepare();
+    load();
+  }
+ catch (  SQLException e) {
+    throw e;
+  }
   createResponse();
 }
