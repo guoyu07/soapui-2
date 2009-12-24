@@ -1,6 +1,7 @@
 {
   super(modelItem);
   amfRequestTestStep=modelItem;
+  componentEnabler=new TestRunComponentEnabler(amfRequestTestStep.getTestCase());
   initConfig();
   initContent();
   SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);

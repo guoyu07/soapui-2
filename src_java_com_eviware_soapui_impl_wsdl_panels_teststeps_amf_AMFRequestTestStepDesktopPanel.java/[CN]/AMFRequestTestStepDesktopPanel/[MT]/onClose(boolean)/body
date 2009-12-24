@@ -6,5 +6,6 @@
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
   amfRequestTestStep.removeAssertionsListener(assertionsListener);
   amfRequestTestStep.getAMFRequest().removeSubmitListener(this);
+  componentEnabler.release();
   return release();
 }

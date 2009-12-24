@@ -6,9 +6,11 @@
     scriptEngine.setScript(script);
     scriptEngine.setVariable("parameters",parameters);
     scriptEngine.setVariable("amfHeaders",amfHeadersTemp);
-    scriptEngine.setVariable("log",SoapUI.log);
+    scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
     scriptEngine.setVariable("context",context);
     scriptEngine.run();
+    context.setProperty(AMF_SCRIPT_PARAMETERS,parameters);
+    context.setProperty(AMF_SCRIPT_HEADERS,amfHeadersTemp);
     for (    String name : propertyNames) {
       TestProperty propertyValue=propertyMap.get(name);
       if (parameters.containsKey(name)) {
@@ -32,6 +34,7 @@
  catch (  Throwable e) {
     SoapUI.logError(e);
     scriptOK=false;
+    context.setProperty(AMF_SCRIPT_ERROR,e);
   }
  finally {
     scriptEngine.clearVariables();

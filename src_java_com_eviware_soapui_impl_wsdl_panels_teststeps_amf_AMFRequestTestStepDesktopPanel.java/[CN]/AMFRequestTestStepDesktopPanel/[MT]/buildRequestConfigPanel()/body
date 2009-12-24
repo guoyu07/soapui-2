@@ -1,6 +1,7 @@
 {
   ModelItemXmlEditor<?,?> reqEditor=buildRequestEditor();
   configPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Script");
+  configPanel.add(buildToolbarButtonAndText(),BorderLayout.NORTH);
   groovyEditor=(GroovyEditor)UISupport.getEditorFactory().buildGroovyEditor(new ScriptStepGroovyEditorModel());
   configPanel.add(groovyEditor,BorderLayout.CENTER);
   propertiesTableComponent=buildProperties();
