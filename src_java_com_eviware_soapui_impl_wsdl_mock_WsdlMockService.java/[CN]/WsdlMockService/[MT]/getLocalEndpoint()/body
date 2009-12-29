@@ -1,5 +1,7 @@
 {
   String host=getHost();
-  if (StringUtils.isNullOrEmpty(host))   host="127.0.0.1";
-  return "http://" + host + ":"+ getPort()+ getPath();
+  if (StringUtils.isNullOrEmpty(host)) {
+    host="127.0.0.1";
+  }
+  return getProtocol() + host + ":"+ getPort()+ getPath();
 }
