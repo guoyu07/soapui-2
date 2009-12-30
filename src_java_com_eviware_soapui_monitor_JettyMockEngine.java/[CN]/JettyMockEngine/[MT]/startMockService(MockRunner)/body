@@ -5,6 +5,7 @@ synchronized (server) {
     int port=mockService.getPort();
     if (!runners.containsKey(port)) {
       SoapUIConnector connector=new SoapUIConnector();
+      PropertySupport.applySystemProperties(connector,"soapui.mock.connector",runner.getMockService());
       connector.setPort(port);
       if (sslConnector != null)       connector.setConfidentialPort(sslConnector.getPort());
       if (mockService.getBindToHostOnly()) {
