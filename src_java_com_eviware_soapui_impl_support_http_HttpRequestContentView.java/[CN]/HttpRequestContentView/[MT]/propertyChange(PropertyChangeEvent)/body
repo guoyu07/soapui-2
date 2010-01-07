@@ -1,5 +1,5 @@
 {
-  if (evt.getPropertyName().equals("request") && !updatingRequest) {
+  if (evt.getPropertyName().equals(AbstractHttpRequest.REQUEST_PROPERTY) && !updatingRequest) {
     updatingRequest=true;
     contentEditor.setText((String)evt.getNewValue());
     updatingRequest=false;
@@ -14,4 +14,5 @@
     mediaTypeCombo.setModel(new DefaultComboBoxModel(getRequestMediaTypes()));
     mediaTypeCombo.setSelectedItem(httpRequest.getMediaType());
   }
+  super.propertyChange(evt);
 }
