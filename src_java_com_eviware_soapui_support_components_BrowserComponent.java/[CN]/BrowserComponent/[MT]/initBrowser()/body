@@ -1,6 +1,6 @@
 {
   if (browser != null)   return false;
-  browser=webBrowserFactory.createBrowser();
+  browser=webBrowserFactory == null ? new DummyBrowser() : webBrowserFactory.createBrowser();
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   browser.addContentHandler(new ContentHandler(){
     public boolean canHandleContent(    String arg0){
@@ -14,15 +14,17 @@
     }
   }
 );
-  nsIWebBrowser nsWebBrowser=((MozillaWebBrowser)browser).getWebBrowser();
-  nsWebBrowser.addWebBrowserListener(this,nsIWebProgressListener.NS_IWEBPROGRESSLISTENER_IID);
-  browser.addStatusChangeListener(this);
-  browser.setWindowCreator(new WindowCreator(){
-    public WebBrowserWindow createChildWindow(    Component parentComponent,    long flags){
-      return browserWindowAdapter;
+  if (webBrowserFactory != null) {
+    nsIWebBrowser nsWebBrowser=((MozillaWebBrowser)browser).getWebBrowser();
+    nsWebBrowser.addWebBrowserListener(this,nsIWebProgressListener.NS_IWEBPROGRESSLISTENER_IID);
+    browser.addStatusChangeListener(this);
+    browser.setWindowCreator(new WindowCreator(){
+      public WebBrowserWindow createChildWindow(      Component parentComponent,      long flags){
+        return browserWindowAdapter;
+      }
     }
-  }
 );
-  setUpProxy();
+    setUpProxy();
+  }
   return true;
 }
