@@ -16,7 +16,9 @@
     connectionFactory=(ConnectionFactory)hermes.getConnectionFactory();
     topicConnection=topcConnectionFactory.createTopicConnection();
     topicConnection.start();
-    connection=connectionFactory.createConnection();
+    String username=submitContext.expand(request.getUsername());
+    String password=submitContext.expand(request.getPassword());
+    connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
     connection.start();
     topicSession=topicConnection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);

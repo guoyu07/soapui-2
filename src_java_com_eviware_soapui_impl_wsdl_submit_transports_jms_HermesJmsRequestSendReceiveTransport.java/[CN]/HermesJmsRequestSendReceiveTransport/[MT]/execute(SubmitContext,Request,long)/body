@@ -10,7 +10,9 @@
     submitContext.setProperty(HERMES_SESSION_NAME,sessionName);
     Hermes hermes=getHermes(sessionName,request);
     connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
-    connection=connectionFactory.createConnection();
+    String username=submitContext.expand(request.getUsername());
+    String password=submitContext.expand(request.getPassword());
+    connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
     connection.start();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queueSend=(Queue)hermes.getDestination(queueNameSend,Domain.QUEUE);

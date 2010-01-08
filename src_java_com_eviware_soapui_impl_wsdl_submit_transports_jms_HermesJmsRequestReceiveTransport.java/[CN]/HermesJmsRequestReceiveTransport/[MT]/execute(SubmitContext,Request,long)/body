@@ -8,7 +8,9 @@
     String queueName=getEndpointParameter(parameters,2,Domain.QUEUE,submitContext);
     Hermes hermes=getHermes(sessionName,request);
     connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
-    connection=connectionFactory.createConnection();
+    String username=submitContext.expand(request.getUsername());
+    String password=submitContext.expand(request.getPassword());
+    connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
     connection.start();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queue=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
