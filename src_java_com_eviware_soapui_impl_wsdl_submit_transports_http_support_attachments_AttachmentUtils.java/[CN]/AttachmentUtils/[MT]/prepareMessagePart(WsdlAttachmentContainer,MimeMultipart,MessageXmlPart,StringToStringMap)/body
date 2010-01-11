@@ -94,6 +94,9 @@
               mp.addBodyPart(part);
               isXopAttachment=true;
             }
+ else             if (container.isInlineFilesEnabled() && container.getAttachmentsForPart(textContent) != null) {
+              attachment=container.getAttachmentsForPart(textContent)[0];
+            }
             if (isXopAttachment && container.isMtomEnabled()) {
               buildXopInclude(cursor,textContent);
               isXop=true;
