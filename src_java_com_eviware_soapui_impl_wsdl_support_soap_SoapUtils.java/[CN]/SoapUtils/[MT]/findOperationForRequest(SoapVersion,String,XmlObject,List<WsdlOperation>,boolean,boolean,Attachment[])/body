@@ -57,7 +57,7 @@
                 }
               }
             }
-            if (WsdlUtils.isHeaderInputPart(parts.get(x),message,bindingOperation)) {
+            if (x >= 0 && WsdlUtils.isHeaderInputPart(parts.get(x),message,bindingOperation)) {
               parts.remove(x);
               x--;
             }
