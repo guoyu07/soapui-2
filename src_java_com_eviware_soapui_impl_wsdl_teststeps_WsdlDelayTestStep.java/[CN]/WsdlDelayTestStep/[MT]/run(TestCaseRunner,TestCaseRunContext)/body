@@ -11,14 +11,25 @@
  catch (    NumberFormatException e) {
       delay=Integer.parseInt(DEFAULT_DELAY);
     }
-    for (timeWaited=0; !canceled && timeWaited < delay; timeWaited+=DELAY_CHUNK) {
-      if (timeWaited % 1000 == 0 && context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null) {
+    final long stopTime=System.nanoTime() + (long)delay * 1000000;
+    int lastUpdate=0;
+    while (!canceled && timeWaited < delay) {
+      if (timeWaited - lastUpdate > 1000 && context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null) {
         String newLabel=getLabel();
-        notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,newLabel);
+        if (!UISupport.isHeadless()) {
+          final String finalOldLabel=oldLabel, finalNewLabel=newLabel;
+          SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+              notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,finalOldLabel,finalNewLabel);
+            }
+          }
+);
+        }
         oldLabel=newLabel;
+        lastUpdate=timeWaited;
       }
-      if (timeWaited <= delay - DELAY_CHUNK)       Thread.sleep(DELAY_CHUNK);
- else       Thread.sleep(delay % DELAY_CHUNK);
+      Thread.sleep(Math.min(DELAY_CHUNK,delay - timeWaited));
+      timeWaited=delay - (int)((stopTime - System.nanoTime()) / 1000000);
     }
   }
  catch (  InterruptedException e) {
