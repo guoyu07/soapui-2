@@ -16,8 +16,7 @@
   }
  catch (  SQLException e) {
     context.setProperty(JDBC_ERROR,e);
-  }
-catch (  Exception e) {
+    throw e;
   }
  finally {
     timeTaken=System.currentTimeMillis() - timestamp;
