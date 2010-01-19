@@ -1,19 +1,18 @@
 {
-  TopicConnectionFactory connectionFactory=null;
-  TopicConnection connection=null;
-  TopicSession session=null;
+  TopicConnectionFactory topicConnectionFactory=null;
+  TopicConnection topicConnection=null;
+  TopicSession topicSession=null;
   TopicSubscriber topicDurableSubsriber=null;
   try {
     JMSEndpoint jmsEndpoint=new JMSEndpoint(request,submitContext);
     submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
     Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
-    connectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
-    connection=connectionFactory.createTopicConnection();
-    connection.setClientID(jmsEndpoint.getSessionName() + "-" + jmsEndpoint.getReceive());
-    connection.start();
-    session=connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
+    topicConnectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
+    topicConnection=(TopicConnection)createConnection(submitContext,request,topicConnectionFactory,Domain.TOPIC,null);
+    topicConnection.start();
+    topicSession=topicConnection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicSubscribe=(Topic)hermes.getDestination(jmsEndpoint.getReceive(),Domain.TOPIC);
-    topicDurableSubsriber=session.createDurableSubscriber(topicSubscribe,"durableSubscription" + jmsEndpoint.getReceive());
+    topicDurableSubsriber=topicSession.createDurableSubscriber(topicSubscribe,"durableSubscription" + jmsEndpoint.getReceive());
     return makeResponse(submitContext,request,timeStarted,null,topicDurableSubsriber);
   }
  catch (  JMSException jmse) {
@@ -24,7 +23,7 @@ catch (  Throwable t) {
   }
  finally {
     if (topicDurableSubsriber != null)     topicDurableSubsriber.close();
-    closeSessionAndConnection(connection,session);
+    closeSessionAndConnection(topicConnection,topicSession);
   }
   return null;
 }

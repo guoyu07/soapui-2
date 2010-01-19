@@ -1,7 +1,0 @@
-{
-  Connection connection;
-  String username=submitContext.expand(request.getUsername());
-  String password=submitContext.expand(request.getPassword());
-  connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
-  return connection;
-}

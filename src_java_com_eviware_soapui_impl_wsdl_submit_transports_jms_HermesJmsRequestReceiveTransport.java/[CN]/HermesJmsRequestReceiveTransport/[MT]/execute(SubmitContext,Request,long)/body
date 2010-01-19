@@ -1,19 +1,17 @@
 {
-  ConnectionFactory connectionFactory=null;
-  Connection connection=null;
-  Session session=null;
+  QueueConnectionFactory queueConnectionFactory=null;
+  QueueConnection queueConnection=null;
+  QueueSession queueSession=null;
   try {
     JMSEndpoint jmsEndpoint=new JMSEndpoint(request,submitContext);
     submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
     Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
-    connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
-    String username=submitContext.expand(request.getUsername());
-    String password=submitContext.expand(request.getPassword());
-    connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
-    connection.start();
-    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    queueConnectionFactory=(javax.jms.QueueConnectionFactory)hermes.getConnectionFactory();
+    queueConnection=(QueueConnection)createConnection(submitContext,request,queueConnectionFactory,Domain.QUEUE,null);
+    queueConnection.start();
+    queueSession=queueConnection.createQueueSession(false,Session.AUTO_ACKNOWLEDGE);
     Queue queue=(Queue)hermes.getDestination(jmsEndpoint.getReceive(),Domain.QUEUE);
-    MessageConsumer messageConsumer=session.createConsumer(queue);
+    MessageConsumer messageConsumer=queueSession.createConsumer(queue);
     return makeResponse(submitContext,request,timeStarted,null,messageConsumer);
   }
  catch (  JMSException jmse) {
@@ -23,7 +21,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
-    closeSessionAndConnection(connection,session);
+    closeSessionAndConnection(queueConnection,queueSession);
   }
   return null;
 }
