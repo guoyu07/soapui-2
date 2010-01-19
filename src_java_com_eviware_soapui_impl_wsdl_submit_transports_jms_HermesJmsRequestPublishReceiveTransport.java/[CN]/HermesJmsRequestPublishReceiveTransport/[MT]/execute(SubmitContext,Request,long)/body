@@ -1,29 +1,24 @@
 {
-  TopicConnectionFactory topcConnectionFactory=null;
+  TopicConnectionFactory topicConnectionFactory=null;
   TopicConnection topicConnection=null;
   TopicSession topicSession=null;
   ConnectionFactory connectionFactory=null;
   Connection connection=null;
   Session session=null;
   try {
-    String[] parameters=extractEndpointParameters(request);
-    String sessionName=getEndpointParameter(parameters,0,null,submitContext);
-    String topicNamePublish=getEndpointParameter(parameters,1,Domain.TOPIC,submitContext);
-    String queueNameReceive=getEndpointParameter(parameters,2,Domain.QUEUE,submitContext);
-    submitContext.setProperty(HERMES_SESSION_NAME,sessionName);
-    Hermes hermes=getHermes(sessionName,request);
-    topcConnectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
+    JMSEndpoint jmsEndpoint=new JMSEndpoint(request,submitContext);
+    submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
+    Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
+    topicConnectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
     connectionFactory=(ConnectionFactory)hermes.getConnectionFactory();
-    topicConnection=topcConnectionFactory.createTopicConnection();
+    topicConnection=topicConnectionFactory.createTopicConnection();
     topicConnection.start();
-    String username=submitContext.expand(request.getUsername());
-    String password=submitContext.expand(request.getPassword());
-    connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
+    connection=createConnection(submitContext,request,connectionFactory);
     connection.start();
     topicSession=topicConnection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    Topic topicPublish=(Topic)hermes.getDestination(topicNamePublish,Domain.TOPIC);
-    Queue queueReceive=(Queue)hermes.getDestination(queueNameReceive,Domain.QUEUE);
+    Topic topicPublish=(Topic)hermes.getDestination(jmsEndpoint.getSend(),Domain.TOPIC);
+    Queue queueReceive=(Queue)hermes.getDestination(jmsEndpoint.getReceive(),Domain.QUEUE);
     Message messagePublish=messagePublish(submitContext,request,topicSession,hermes,topicPublish);
     MessageConsumer messageConsumer=session.createConsumer(queueReceive);
     return makeResponse(submitContext,request,timeStarted,messagePublish,messageConsumer);

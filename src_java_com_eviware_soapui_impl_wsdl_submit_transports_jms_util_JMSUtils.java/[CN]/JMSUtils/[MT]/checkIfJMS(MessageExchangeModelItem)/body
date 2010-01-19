@@ -3,7 +3,7 @@
     MessageExchange me=((MessageExchangeModelItem)messageExchange).getMessageExchange();
     if (me != null) {
       String r=me.getProperty("Endpoint");
-      return r != null && r.startsWith(JMS_ENDPIONT_PREFIX);
+      return r != null && r.startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX);
     }
  else {
       return false;

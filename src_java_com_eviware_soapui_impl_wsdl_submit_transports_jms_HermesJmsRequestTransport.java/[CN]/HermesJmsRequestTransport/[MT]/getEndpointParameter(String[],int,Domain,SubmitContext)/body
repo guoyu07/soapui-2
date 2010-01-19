@@ -1,5 +1,0 @@
-{
-  if (domain == null)   return PropertyExpander.expandProperties(submitContext,parameters[i]);
- else   if (domain.equals(Domain.QUEUE))   return PropertyExpander.expandProperties(submitContext,parameters[i]).replaceFirst(HermesJmsRequestTransport.QUEUE_ENDPOINT_PREFIX,"");
- else   return PropertyExpander.expandProperties(submitContext,parameters[i]).replaceFirst(HermesJmsRequestTransport.TOPIC_ENDPOINT_PREFIX,"");
-}

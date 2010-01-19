@@ -1,7 +1,7 @@
 {
-  StringBuilder sb=new StringBuilder(JMSUtils.JMS_ENDPIONT_PREFIX);
-  sb.append(session + "/");
+  StringBuilder sb=new StringBuilder(JMSEndpoint.JMS_ENDPIONT_PREFIX);
+  sb.append(session + JMSEndpoint.JMS_ENDPOINT_SEPARATOR);
   sb.append(send);
-  if (!"-".equals(receive))   sb.append("/" + receive);
+  if (!JMSEndpoint.JMS_EMPTY_DESTIONATION.equals(receive))   sb.append(JMSEndpoint.JMS_ENDPOINT_SEPARATOR + receive);
   return sb.toString();
 }

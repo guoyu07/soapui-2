@@ -15,7 +15,7 @@
       return;
     }
     String receive=destinationNameList.get(j).getDestinationName();
-    if ("-".equals(send) && "".equals(receive)) {
+    if (JMSEndpoint.JMS_EMPTY_DESTIONATION.equals(send) && "".equals(receive)) {
       UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
       return;
     }

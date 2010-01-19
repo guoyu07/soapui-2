@@ -1,14 +1,14 @@
 {
   this.domain=domain;
-  if (destinationName.equals("-") || destinationName.equals("")) {
+  if (destinationName.equals(JMSEndpoint.JMS_EMPTY_DESTIONATION) || destinationName.equals("")) {
     this.destinationName=destinationName;
   }
  else {
     if (domain.equals(Domain.QUEUE)) {
-      this.destinationName=HermesJmsRequestTransport.QUEUE_ENDPOINT_PREFIX + destinationName;
+      this.destinationName=JMSEndpoint.QUEUE_ENDPOINT_PREFIX + destinationName;
     }
  else {
-      this.destinationName=HermesJmsRequestTransport.TOPIC_ENDPOINT_PREFIX + destinationName;
+      this.destinationName=JMSEndpoint.TOPIC_ENDPOINT_PREFIX + destinationName;
     }
   }
 }

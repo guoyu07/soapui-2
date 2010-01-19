@@ -3,18 +3,16 @@
   Connection connection=null;
   Session session=null;
   try {
-    String[] parameters=extractEndpointParameters(request);
-    String sessionName=getEndpointParameter(parameters,0,null,submitContext);
-    String queueName=getEndpointParameter(parameters,1,Domain.QUEUE,submitContext);
-    submitContext.setProperty(HERMES_SESSION_NAME,sessionName);
-    Hermes hermes=getHermes(sessionName,request);
+    JMSEndpoint jmsEndpoint=new JMSEndpoint(request,submitContext);
+    submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
+    Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
     connectionFactory=(javax.jms.ConnectionFactory)hermes.getConnectionFactory();
     String username=submitContext.expand(request.getUsername());
     String password=submitContext.expand(request.getPassword());
     connection=StringUtils.hasContent(username) ? connectionFactory.createConnection(username,password) : connectionFactory.createConnection();
     connection.start();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    Queue queueSend=(Queue)hermes.getDestination(queueName,Domain.QUEUE);
+    Queue queueSend=(Queue)hermes.getDestination(jmsEndpoint.getSend(),Domain.QUEUE);
     Message messageSend=messageSend(submitContext,request,session,hermes,queueSend);
     return makeEmptyResponse(submitContext,request,timeStarted,messageSend);
   }
