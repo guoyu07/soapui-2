@@ -15,8 +15,8 @@
       return;
     }
     String receive=destinationNameList.get(j).getDestinationName();
-    if (JMSEndpoint.JMS_EMPTY_DESTIONATION.equals(send) && "".equals(receive)) {
-      UISupport.showErrorMessage("Endpoint with blank send and receive field is discarded");
+    if (JMSEndpoint.JMS_EMPTY_DESTIONATION.equals(send) && JMSEndpoint.JMS_EMPTY_DESTIONATION.equals(receive)) {
+      UISupport.showErrorMessage("Not supported endpoint");
       return;
     }
     iface.addEndpoint(createEndpointString(session,send,receive));

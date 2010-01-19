@@ -8,7 +8,7 @@
     submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
     Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
     topicConnectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
-    topicConnection=(TopicConnection)createConnection(submitContext,request,topicConnectionFactory,Domain.TOPIC,null);
+    topicConnection=(TopicConnection)createConnection(submitContext,request,topicConnectionFactory,Domain.TOPIC,jmsEndpoint.getSessionName() + "-" + jmsEndpoint.getReceive());
     topicConnection.start();
     topicSession=topicConnection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
     Topic topicSubscribe=(Topic)hermes.getDestination(jmsEndpoint.getReceive(),Domain.TOPIC);

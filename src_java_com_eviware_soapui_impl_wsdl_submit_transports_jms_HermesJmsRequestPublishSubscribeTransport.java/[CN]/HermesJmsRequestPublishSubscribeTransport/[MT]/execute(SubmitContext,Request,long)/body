@@ -24,6 +24,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
+    if (topicDurableSubsriber != null)     topicDurableSubsriber.close();
     closeSessionAndConnection(topicConnection,topicSession);
   }
   return null;
