@@ -8,14 +8,17 @@
         String username=runContext.expand(wsdlTestCase.getConfig().getAmfLogin());
         String password=runContext.expand(wsdlTestCase.getConfig().getAmfPassword());
         SoapUIAMFConnection amfConnection=null;
-        if (StringUtils.hasContent(endpoint) && StringUtils.hasContent(username)) {
-          amfCredentials=new AMFCredentials(endpoint,username,password,runContext);
-          amfConnection=amfCredentials.login();
-        }
+        if (StringUtils.hasContent(endpoint)) {
+          if (StringUtils.hasContent(username)) {
+            amfCredentials=new AMFCredentials(endpoint,username,password,runContext);
+            amfConnection=amfCredentials.login();
+          }
  else {
-          amfConnection=new SoapUIAMFConnection();
+            amfConnection=new SoapUIAMFConnection();
+            amfConnection.connect(runContext.expand(endpoint));
+          }
+          runContext.setProperty(AMFSubmit.AMF_CONNECTION,amfConnection);
         }
-        runContext.setProperty(AMFSubmit.AMF_CONNECTION,amfConnection);
       }
     }
  catch (    ClientStatusException e) {
