@@ -5,6 +5,7 @@
   Element resultsElement=xmlDocumentResult.createElement("Results");
   xmlDocumentResult.appendChild(resultsElement);
   ResultSet resultSet=statement.getResultSet();
+  resultSet.setFetchSize(statement.getFetchSize());
   if (resultSet != null) {
     xmlDocumentResult=addResultSetXmlPart(resultsElement,resultSet,xmlDocumentResult);
     while (statement.getMoreResults()) {
