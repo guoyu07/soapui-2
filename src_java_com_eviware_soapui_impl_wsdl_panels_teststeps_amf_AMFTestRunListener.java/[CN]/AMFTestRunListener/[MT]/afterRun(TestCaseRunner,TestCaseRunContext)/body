@@ -1,5 +1,5 @@
 {
-  if (runContext.getProperty(AMFSubmit.AMF_CONNECTION) != null && runContext.getProperty(AMFSubmit.AMF_CONNECTION) instanceof SoapUIAMFConnection) {
-    if (amfCredentials.isLogedIn())     amfCredentials.logout();
+  if (amfCredentials != null && runContext.getProperty(AMFSubmit.AMF_CONNECTION) != null && runContext.getProperty(AMFSubmit.AMF_CONNECTION) instanceof SoapUIAMFConnection) {
+    if (amfCredentials.isLoggedIn())     amfCredentials.logout();
   }
 }

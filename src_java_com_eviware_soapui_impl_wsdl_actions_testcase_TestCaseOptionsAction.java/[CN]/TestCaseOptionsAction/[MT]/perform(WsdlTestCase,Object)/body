@@ -21,10 +21,10 @@
     wsrmForm.addTextField(WS_RM_ACK_TO,"Acknowledgments To",FieldType.TEXT);
     wsrmForm.addTextField(WS_RM_EXPIRES,"Expires after",FieldType.TEXT);
     amfForm=builder.createForm("AMF");
-    amfForm.addCheckBox(AMF_AUTHORISATION_ENABLE,"enable AMF Authorisation").addFormFieldListener(new AMFXFormFieldListener());
-    amfForm.addTextField(AMF_ENDPOINT,"AMF endpoint",FieldType.TEXT);
-    amfForm.addTextField(AMF_LOGIN,"AMF login",FieldType.TEXT);
-    amfForm.addTextField(AMF_PASSWORD,"AMF password",FieldType.TEXT);
+    amfForm.addCheckBox(AMF_AUTHORISATION_ENABLE,"Enable AMF Session").addFormFieldListener(new AMFXFormFieldListener());
+    amfForm.addTextField(AMF_ENDPOINT,"AMF Authorization endpoint",FieldType.TEXT);
+    amfForm.addTextField(AMF_LOGIN,"AMF Authorization usernmae",FieldType.TEXT);
+    amfForm.addTextField(AMF_PASSWORD,"AMF Authorization password",FieldType.TEXT);
     dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.TESTCASEOPTIONS_HELP_URL),"Specify general options for this TestCase",UISupport.OPTIONS_ICON);
   }
   StringToStringMap values=new StringToStringMap();
