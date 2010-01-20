@@ -12,8 +12,13 @@
     String endpoint=context.expand(getTestCaseConfig(amfRequest).getAmfEndpoint());
     String username=context.expand(getTestCaseConfig(amfRequest).getAmfLogin());
     String password=context.expand(getTestCaseConfig(amfRequest).getAmfPassword());
-    credentials=new AMFCredentials(endpoint,username,password,context);
-    amfConnection=credentials.login();
+    if (StringUtils.hasContent(endpoint) && StringUtils.hasContent(username)) {
+      credentials=new AMFCredentials(endpoint,username,password,context);
+      amfConnection=credentials.login();
+    }
+ else {
+      amfConnection=new SoapUIAMFConnection();
+    }
     context.setProperty(AMF_CONNECTION,amfConnection);
     return amfConnection;
   }
