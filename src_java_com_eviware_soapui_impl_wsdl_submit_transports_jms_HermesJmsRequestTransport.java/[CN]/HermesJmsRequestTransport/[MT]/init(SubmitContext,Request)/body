@@ -3,4 +3,7 @@
   this.hermes=getHermes(jmsEndpoint.getSessionName(),request);
   this.username=submitContext.expand(request.getUsername());
   this.password=submitContext.expand(request.getPassword());
+  JMSHeaderConfig jmsConfig=((AbstractHttpRequest<?>)request).getJMSHeaderConfig();
+  this.durableSubscriptionName=submitContext.expand(jmsConfig.getDurableSubscriptionName());
+  this.clientID=submitContext.expand(jmsConfig.getClientID());
 }

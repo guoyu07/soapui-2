@@ -4,7 +4,7 @@
   JMSConnectionHolder jmsConnectionHolder=null;
   try {
     init(submitContext,request);
-    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,true,true,null,username,password);
+    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,true,true,clientID,username,password);
     topicSession=jmsConnectionHolder.getTopicSession();
     queueSession=jmsConnectionHolder.getQueueSession();
     Topic topicPublish=jmsConnectionHolder.getTopic(jmsConnectionHolder.getJmsEndpoint().getSend());
