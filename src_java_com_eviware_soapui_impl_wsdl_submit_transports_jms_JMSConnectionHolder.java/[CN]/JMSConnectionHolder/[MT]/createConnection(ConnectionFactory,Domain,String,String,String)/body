@@ -1,0 +1,17 @@
+{
+  QueueConnection queueConnection;
+  TopicConnection topicConnection;
+  if (domain.equals(Domain.TOPIC)) {
+    topicConnection=StringUtils.hasContent(username) ? ((TopicConnectionFactory)connectionFactory).createTopicConnection(username,password) : ((TopicConnectionFactory)connectionFactory).createTopicConnection();
+    if (!StringUtils.isNullOrEmpty(clientId))     topicConnection.setClientID(clientId);
+    return topicConnection;
+  }
+ else   if (domain.equals(Domain.QUEUE)) {
+    queueConnection=StringUtils.hasContent(username) ? ((QueueConnectionFactory)connectionFactory).createQueueConnection(username,password) : ((QueueConnectionFactory)connectionFactory).createQueueConnection();
+    if (!StringUtils.isNullOrEmpty(clientId))     queueConnection.setClientID(clientId);
+    return queueConnection;
+  }
+ else {
+    return null;
+  }
+}

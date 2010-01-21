@@ -1,0 +1,6 @@
+{
+  this.jmsEndpoint=new JMSEndpoint(request,submitContext);
+  this.hermes=getHermes(jmsEndpoint.getSessionName(),request);
+  this.username=submitContext.expand(request.getUsername());
+  this.password=submitContext.expand(request.getPassword());
+}

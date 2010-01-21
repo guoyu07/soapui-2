@@ -1,17 +1,12 @@
 {
-  TopicConnectionFactory topicConnectionFactory=null;
-  TopicConnection topicConnection=null;
   TopicSession topicSession=null;
+  JMSConnectionHolder jmsConnectionHolder=null;
   try {
-    JMSEndpoint jmsEndpoint=new JMSEndpoint(request,submitContext);
-    submitContext.setProperty(HERMES_SESSION_NAME,jmsEndpoint.getSessionName());
-    Hermes hermes=getHermes(jmsEndpoint.getSessionName(),request);
-    topicConnectionFactory=(TopicConnectionFactory)hermes.getConnectionFactory();
-    topicConnection=(TopicConnection)createConnection(submitContext,request,topicConnectionFactory,Domain.TOPIC,null);
-    topicConnection.start();
-    topicSession=topicConnection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
-    Topic topicPublish=(Topic)hermes.getDestination(jmsEndpoint.getSend(),Domain.TOPIC);
-    Message messagePublish=messagePublish(submitContext,request,topicSession,hermes,topicPublish);
+    init(submitContext,request);
+    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,false,true,null,username,password);
+    topicSession=jmsConnectionHolder.getTopicSession();
+    Topic topicPublish=jmsConnectionHolder.getTopic(jmsConnectionHolder.getJmsEndpoint().getSend());
+    Message messagePublish=messagePublish(submitContext,request,topicSession,jmsConnectionHolder.getHermes(),topicPublish);
     return makeEmptyResponse(submitContext,request,timeStarted,messagePublish);
   }
  catch (  JMSException jmse) {
@@ -21,7 +16,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
-    closeSessionAndConnection(topicConnection,topicSession);
+    closeSessionAndConnection(jmsConnectionHolder.getTopicConnection(),topicSession);
   }
   return null;
 }

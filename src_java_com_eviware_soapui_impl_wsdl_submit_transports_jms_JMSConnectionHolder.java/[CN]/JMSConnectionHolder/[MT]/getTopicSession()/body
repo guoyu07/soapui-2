@@ -1,0 +1,6 @@
+{
+  if (topicSession == null) {
+    return topicSession=getTopicConnection().createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
+  }
+  return topicSession;
+}
