@@ -1,21 +1,21 @@
 {
   JdbcRequestTestStep testStep=request.getTestStep();
   getDatabaseConnection();
+  String sql;
+  List<TestProperty> props=testStep.getPropertyList();
   if (testStep.isStoredProcedure()) {
-    String sql=PropertyExpander.expandProperties(context,testStep.getQuery());
+    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
     if (!sql.startsWith("{call ") && !sql.endsWith("}"))     sql="{call " + sql + "}";
-    statement=connection.prepareCall(sql,ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
   }
  else {
-    List<TestProperty> props=testStep.getPropertyList();
-    String sql=PropertyExpander.expandProperties(context,testStep.getQuery());
-    NamedParameterStatement p=new NamedParameterStatement(connection,sql);
-    for (    TestProperty testProperty : props) {
-      String value=PropertyExpander.expandProperties(context,testProperty.getValue());
-      p.setString(testProperty.getName(),value);
-    }
-    statement=p.getStatement();
+    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
   }
+  NamedParameterStatement p=new NamedParameterStatement(connection,sql);
+  for (  TestProperty testProperty : props) {
+    String value=PropertyExpander.expandProperties(context,testProperty.getValue());
+    p.setString(testProperty.getName(),value);
+  }
+  statement=p.getStatement();
   try {
     if (!StringUtils.isNullOrEmpty(testStep.getQueryTimeout())) {
       String queryTimeout=PropertyExpander.expandProperties(testStep,testStep.getQueryTimeout());

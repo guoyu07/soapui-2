@@ -3,11 +3,11 @@
     JdbcRequestTestStep testStep=request.getTestStep();
     if (testStep.isStoredProcedure()) {
       timestamp=System.currentTimeMillis();
-      ((CallableStatement)statement).execute();
+      statement.execute();
     }
  else {
       timestamp=System.currentTimeMillis();
-      ((PreparedStatement)statement).execute();
+      statement.execute();
     }
     timeTaken=System.currentTimeMillis() - timestamp;
     if (!StringUtils.isNullOrEmpty(request.getTimeout()) && timeTaken > Long.parseLong(request.getTimeout())) {
