@@ -8,7 +8,7 @@
     jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,false,true,clientIDString,username,password);
     topicSession=jmsConnectionHolder.getTopicSession();
     Topic topicSubscribe=jmsConnectionHolder.getTopic(jmsConnectionHolder.getJmsEndpoint().getReceive());
-    topicDurableSubsriber=topicSession.createDurableSubscriber(topicSubscribe,StringUtils.hasContent(durableSubscriptionName) ? durableSubscriptionName : "durableSubscription" + jmsConnectionHolder.getJmsEndpoint().getReceive());
+    topicDurableSubsriber=topicSession.createDurableSubscriber(topicSubscribe,StringUtils.hasContent(durableSubscriptionName) ? durableSubscriptionName : "durableSubscription" + jmsConnectionHolder.getJmsEndpoint().getReceive(),messageSelector,false);
     return makeResponse(submitContext,request,timeStarted,null,topicDurableSubsriber);
   }
  catch (  JMSException jmse) {

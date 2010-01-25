@@ -6,7 +6,7 @@
     jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,true,false,clientID,username,password);
     queueSession=jmsConnectionHolder.getQueueSession();
     Queue queue=jmsConnectionHolder.getQueue(jmsConnectionHolder.getJmsEndpoint().getReceive());
-    MessageConsumer messageConsumer=queueSession.createConsumer(queue);
+    MessageConsumer messageConsumer=queueSession.createConsumer(queue,messageSelector);
     return makeResponse(submitContext,request,timeStarted,null,messageConsumer);
   }
  catch (  JMSException jmse) {

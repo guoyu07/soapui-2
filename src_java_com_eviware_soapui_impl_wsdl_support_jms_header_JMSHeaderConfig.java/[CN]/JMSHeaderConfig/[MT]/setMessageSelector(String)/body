@@ -1,0 +1,5 @@
+{
+  String oldValue=getMessageSelector();
+  jmsHeaderConfConfig.setMessageSelector(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.MESSAGE_SELECTOR,oldValue,newValue);
+}

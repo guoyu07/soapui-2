@@ -10,7 +10,7 @@
     Topic topicPublish=jmsConnectionHolder.getTopic(jmsConnectionHolder.getJmsEndpoint().getSend());
     Queue queueReceive=jmsConnectionHolder.getQueue(jmsConnectionHolder.getJmsEndpoint().getReceive());
     Message messagePublish=messagePublish(submitContext,request,topicSession,jmsConnectionHolder.getHermes(),topicPublish);
-    MessageConsumer messageConsumer=queueSession.createConsumer(queueReceive);
+    MessageConsumer messageConsumer=queueSession.createConsumer(queueReceive,messageSelector);
     return makeResponse(submitContext,request,timeStarted,messagePublish,messageConsumer);
   }
  catch (  JMSException jmse) {
