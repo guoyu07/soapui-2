@@ -4,6 +4,13 @@
   if (ix == targetIndex)   return;
   if (targetIndex < 0)   targetIndex=0;
   String value=property.getValue();
+  String defaultValue=property.getDefaultValue();
+  String style=property.getStyle().name();
+  String[] options=property.getOptions();
+  boolean required=property.getRequired();
+  QName type=property.getType();
+  String description=property.getDescription();
+  boolean disableUrlEncoding=property.isDisableUrlEncoding();
   config.removeParameter(ix);
   RestParameterConfig propertyConfig=null;
   if (targetIndex < properties.size()) {
@@ -16,6 +23,13 @@
   }
   propertyConfig.setName(propertyName);
   propertyConfig.setValue(value);
+  propertyConfig.setDefault(defaultValue);
+  propertyConfig.setStyle(RestParameterConfig.Style.Enum.forString(style));
+  propertyConfig.setOptionArray(options);
+  propertyConfig.setRequired(required);
+  propertyConfig.setType(type);
+  propertyConfig.setDescription(description);
+  propertyConfig.setDisableUrlEncoding(disableUrlEncoding);
   resetPropertiesConfig(config);
   if (targetIndex > properties.size())   targetIndex=properties.size();
   firePropertyMoved(propertyName,ix,targetIndex);
