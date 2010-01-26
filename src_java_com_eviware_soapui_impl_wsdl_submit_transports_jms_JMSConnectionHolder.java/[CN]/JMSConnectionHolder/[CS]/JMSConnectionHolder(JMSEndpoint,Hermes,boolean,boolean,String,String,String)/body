@@ -16,5 +16,7 @@
   }
  catch (  Throwable t) {
     SoapUI.logError(t);
+    if (topicConnection != null)     topicConnection.close();
+    if (queueConnection != null)     queueConnection.close();
   }
 }

@@ -8,7 +8,6 @@
   }
  else   if (domain.equals(Domain.QUEUE)) {
     queueConnection=StringUtils.hasContent(username) ? ((QueueConnectionFactory)connectionFactory).createQueueConnection(username,password) : ((QueueConnectionFactory)connectionFactory).createQueueConnection();
-    if (!StringUtils.isNullOrEmpty(clientId))     queueConnection.setClientID(clientId);
     return queueConnection;
   }
  else {
