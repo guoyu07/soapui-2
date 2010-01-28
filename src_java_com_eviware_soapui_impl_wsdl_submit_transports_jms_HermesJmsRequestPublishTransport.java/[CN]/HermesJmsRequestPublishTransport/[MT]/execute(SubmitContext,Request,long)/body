@@ -16,7 +16,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
-    closeSessionAndConnection(jmsConnectionHolder.getTopicConnection(),topicSession);
+    closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getTopicConnection() : null,topicSession);
   }
   return null;
 }

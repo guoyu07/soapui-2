@@ -19,7 +19,7 @@ catch (  Throwable t) {
   }
  finally {
     if (topicDurableSubsriber != null)     topicDurableSubsriber.close();
-    closeSessionAndConnection(jmsConnectionHolder.getTopicConnection(),topicSession);
+    closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getTopicConnection() : null,topicSession);
   }
   return null;
 }

@@ -18,5 +18,6 @@
     SoapUI.logError(t);
     if (topicConnection != null)     topicConnection.close();
     if (queueConnection != null)     queueConnection.close();
+    throw new JMSException(t.getMessage());
   }
 }
