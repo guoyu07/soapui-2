@@ -86,13 +86,23 @@
               contentIds.put(textContent,textContent);
             }
  else             if (container.isMtomEnabled() && (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType))) {
-              MimeBodyPart part=new PreencodedMimeBodyPart("binary");
-              String xmimeContentType=getXmlMimeContentType(cursor);
-              part.setDataHandler(new DataHandler(new XOPPartDataSource(textContent,xmimeContentType,schemaType)));
-              textContent="http://www.soapui.org/" + System.nanoTime();
-              part.setContentID("<" + textContent + ">");
-              mp.addBodyPart(part);
-              isXopAttachment=true;
+              if ("true".equals(System.getProperty("soapui.mtom.strictcanonicalization"))) {
+                for (int c=0; c < textContent.length(); c++) {
+                  if (Character.isWhitespace(textContent.charAt(c))) {
+                    textContent=null;
+                    break;
+                  }
+                }
+              }
+              if (textContent != null) {
+                MimeBodyPart part=new PreencodedMimeBodyPart("binary");
+                String xmimeContentType=getXmlMimeContentType(cursor);
+                part.setDataHandler(new DataHandler(new XOPPartDataSource(textContent,xmimeContentType,schemaType)));
+                textContent="http://www.soapui.org/" + System.nanoTime();
+                part.setContentID("<" + textContent + ">");
+                mp.addBodyPart(part);
+                isXopAttachment=true;
+              }
             }
  else             if (container.isInlineFilesEnabled() && container.getAttachmentsForPart(textContent) != null) {
               attachment=container.getAttachmentsForPart(textContent)[0];
