@@ -12,6 +12,7 @@
     context.setProperty(AMF_SCRIPT_PARAMETERS,parameters);
     context.setProperty(AMF_SCRIPT_HEADERS,amfHeadersTemp);
     for (    String name : propertyNames) {
+      if (name.equals("ResponseAsXML"))       continue;
       TestProperty propertyValue=propertyMap.get(name);
       if (parameters.containsKey(name)) {
         addArgument(parameters.get(name));

@@ -1,0 +1,15 @@
+{
+  List<PropertiesStepProperty> virtualProperties=new ArrayList<PropertiesStepProperty>();
+  List<PropertiesStepProperty> nonVirtualProperties=new ArrayList<PropertiesStepProperty>();
+  for (  PropertiesStepProperty psp : properties) {
+    if (psp.isVirtualProperty()) {
+      if (!virtualProperties.contains(psp))       virtualProperties.add(psp);
+    }
+ else {
+      nonVirtualProperties.add(psp);
+    }
+  }
+  properties.clear();
+  properties.addAll(nonVirtualProperties);
+  properties.addAll(virtualProperties);
+}

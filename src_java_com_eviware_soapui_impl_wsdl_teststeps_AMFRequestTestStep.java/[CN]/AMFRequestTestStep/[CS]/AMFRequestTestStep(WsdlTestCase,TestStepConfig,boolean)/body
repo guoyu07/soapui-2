@@ -8,7 +8,14 @@
   }
   if (amfRequestTestStepConfig.getProperties() == null)   amfRequestTestStepConfig.addNewProperties();
   amfRequest=new AMFRequest(this);
+  TestStepBeanProperty responseProperty=new TestStepBeanProperty("ResponseAsXML",false,amfRequest,"responseContent",this){
+    @Override public String getDefaultValue(){
+      return "";
+    }
+  }
+;
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,amfRequestTestStepConfig.getProperties());
+  propertyHolderSupport.addVirtualProperty("ResponseAsXML",responseProperty);
   initAssertions();
   amfRequest.initIcons();
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
