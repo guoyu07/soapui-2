@@ -1,5 +1,5 @@
 {
-  if (!postMethod.isFailed()) {
+  if (!postMethod.isFailed() && actionMessage != null) {
     ArrayList<MessageHeader> amfHeaders=actionMessage.getHeaders();
     for (    MessageHeader header : amfHeaders) {
       responseAMFHeaders.put(header.getName(),header.getData().toString());
