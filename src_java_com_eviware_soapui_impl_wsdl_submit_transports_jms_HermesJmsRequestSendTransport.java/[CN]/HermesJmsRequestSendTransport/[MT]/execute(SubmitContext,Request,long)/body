@@ -1,10 +1,10 @@
 {
-  QueueSession queueSession=null;
+  Session queueSession=null;
   JMSConnectionHolder jmsConnectionHolder=null;
   try {
     init(submitContext,request);
-    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,true,false,clientID,username,password);
-    queueSession=jmsConnectionHolder.getQueueSession();
+    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,false,clientID,username,password);
+    queueSession=jmsConnectionHolder.getSession();
     Queue queueSend=jmsConnectionHolder.getQueue(jmsConnectionHolder.getJmsEndpoint().getSend());
     Message messageSend=messageSend(submitContext,request,queueSession,jmsConnectionHolder.getHermes(),queueSend);
     return makeEmptyResponse(submitContext,request,timeStarted,messageSend);
@@ -16,7 +16,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
-    closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getQueueConnection() : null,queueSession);
+    closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getConnection() : null,queueSession);
   }
   return null;
 }

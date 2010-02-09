@@ -1,5 +1,5 @@
 {
-  TopicPublisher topicPublisher=topicSession.createPublisher(topicPublish);
+  MessageProducer topicPublisher=topicSession.createProducer(topicPublish);
   Message messagePublish=createMessage(submitContext,request,topicSession);
   return send(submitContext,request,hermes,topicPublisher,messagePublish);
 }
