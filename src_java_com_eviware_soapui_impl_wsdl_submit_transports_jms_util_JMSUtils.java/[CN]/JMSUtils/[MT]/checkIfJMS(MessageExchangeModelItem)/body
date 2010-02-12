@@ -2,8 +2,14 @@
   try {
     MessageExchange me=((MessageExchangeModelItem)messageExchange).getMessageExchange();
     if (me != null) {
-      String r=me.getProperty("Endpoint");
-      return r != null && r.startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX);
+      StringToStringMap strmap=me.getProperties();
+      if (strmap != null && strmap.containsKey("Endpoint")) {
+        String r=me.getProperty("Endpoint");
+        return r != null && r.startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX);
+      }
+ else {
+        return false;
+      }
     }
  else {
       return false;
