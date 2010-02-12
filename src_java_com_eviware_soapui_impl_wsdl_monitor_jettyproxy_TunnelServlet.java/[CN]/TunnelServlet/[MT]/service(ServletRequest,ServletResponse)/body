@@ -39,7 +39,8 @@
   hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
   hostConfiguration=ProxyUtils.initProxySettings(settings,httpState,hostConfiguration,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
-  if (sslEndPoint.indexOf("/") < 0)   postMethod.setPath(sslEndPoint);
+  HostParams param=hostConfiguration.getParams();
+  if (sslEndPoint.indexOf("/") < 0)   postMethod.setPath("/");
  else   postMethod.setPath(sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length()));
   monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
