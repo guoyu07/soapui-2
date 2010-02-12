@@ -2,4 +2,6 @@
   super.resetConfigOnMove(config);
   jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)config.getConfig().changeType(JdbcRequestTestStepConfig.type);
   propertyHolderSupport.resetPropertiesConfig(jdbcRequestTestStepConfig.getProperties());
+  addResponseAsXMLVirtualProperty();
+  assertionsSupport.refresh();
 }

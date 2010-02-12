@@ -8,14 +8,8 @@
   }
   if (jdbcRequestTestStepConfig.getProperties() == null)   jdbcRequestTestStepConfig.addNewProperties();
   jdbcRequest=new JdbcRequest(this);
-  TestStepBeanProperty responseProperty=new TestStepBeanProperty("ResponseAsXML",false,this,"responseContent",this){
-    @Override public String getDefaultValue(){
-      return "";
-    }
-  }
-;
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,jdbcRequestTestStepConfig.getProperties());
-  propertyHolderSupport.addVirtualProperty("ResponseAsXML",responseProperty);
+  addResponseAsXMLVirtualProperty();
   initAssertions();
   jdbcRequest.initIcons();
 }
