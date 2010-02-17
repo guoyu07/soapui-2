@@ -10,6 +10,7 @@
   }
   initAssertions();
   initMockObjects(testCase);
+  this.forLoadTest=forLoadTest;
   if (!forLoadTest) {
     if (iface != null) {
       iface.getProject().addProjectListener(projectListener);
@@ -18,6 +19,7 @@
     iconAnimator=new ModelItemIconAnimator<WsdlMockResponseTestStep>(this,"/mockResponseStep.gif","/exec_mockResponse",4,"gif");
   }
   initProperties();
+  initIcons();
   testCase.addTestRunListener(testRunListener);
   testCase.addPropertyChangeListener(this);
 }

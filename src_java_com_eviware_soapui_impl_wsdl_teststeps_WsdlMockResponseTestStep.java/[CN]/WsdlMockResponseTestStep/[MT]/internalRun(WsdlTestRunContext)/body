@@ -48,6 +48,9 @@ synchronized (mockRunListener) {
           }
         }
       }
+ else       if (status == AssertionStatus.UNKNOWN) {
+        result.setStatus(TestStepStatus.UNKNOWN);
+      }
  else {
         result.setStatus(TestStepStatus.OK);
       }
