@@ -15,11 +15,13 @@
     SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,oldProxyEnabled);
     ProxyUtils.setProxyEnabled(oldProxyEnabled);
     JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
-    if (oldProxyEnabled) {
-      applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
-    }
+    if (applyProxyButton != null) {
+      if (oldProxyEnabled) {
+        applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
+      }
  else {
-      applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_DISABLED_ICON));
+        applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_DISABLED_ICON));
+      }
     }
   }
 }

@@ -86,11 +86,16 @@
               contentIds.put(textContent,textContent);
             }
  else             if (container.isMtomEnabled() && (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType))) {
-              if ("true".equals(System.getProperty("soapui.mtom.strictcanonicalization"))) {
-                for (int c=0; c < textContent.length(); c++) {
-                  if (Character.isWhitespace(textContent.charAt(c))) {
-                    textContent=null;
-                    break;
+              if ("true".equals(System.getProperty("soapui.mtom.strict"))) {
+                if (SchemaUtils.isAnyType(schemaType)) {
+                  textContent=null;
+                }
+ else {
+                  for (int c=0; c < textContent.length(); c++) {
+                    if (Character.isWhitespace(textContent.charAt(c))) {
+                      textContent=null;
+                      break;
+                    }
                   }
                 }
               }
