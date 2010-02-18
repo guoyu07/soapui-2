@@ -5,7 +5,7 @@
   setPath(pathArea.getText().trim());
   setExpectedContent(contentArea.getText());
   setAllowWildcards(allowWildcardsCheckBox.isSelected());
-  setIgnoreNamspaceDifferences(ignoreNamspaceDifferencesCheckBox.isSelected());
+  setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
   try {
     String msg=assertContent(getAssertable().getAssertableContent(),new WsdlTestRunContext((TestStep)getAssertable().getModelItem()),"Response");
     UISupport.showInfoMessage(msg,"Success");
