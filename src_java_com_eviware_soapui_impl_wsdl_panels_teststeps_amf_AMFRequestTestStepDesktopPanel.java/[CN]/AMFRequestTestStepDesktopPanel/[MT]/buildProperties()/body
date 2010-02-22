@@ -1,5 +1,5 @@
 {
-  PropertyHolderTable holderTable=new PropertyHolderTable(getModelItem()){
+  propertyHolderTable=new PropertyHolderTable(getModelItem()){
     protected JTable buildPropertiesTable(){
       propertiesModel=new DefaultPropertyTableHolderModel(holder){
         @Override public String[] getPropertyNames(){
@@ -38,6 +38,6 @@
 ;
   JUndoableTextField textField=new JUndoableTextField(true);
   PropertyExpansionPopupListener.enable(textField,getModelItem());
-  holderTable.getPropertiesTable().setDefaultEditor(String.class,new DefaultCellEditor(textField));
-  return holderTable;
+  propertyHolderTable.getPropertiesTable().setDefaultEditor(String.class,new DefaultCellEditor(textField));
+  return propertyHolderTable;
 }

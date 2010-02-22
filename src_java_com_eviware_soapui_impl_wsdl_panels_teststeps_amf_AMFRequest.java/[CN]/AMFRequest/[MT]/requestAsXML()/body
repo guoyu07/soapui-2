@@ -6,6 +6,7 @@
   if (getPropertyNames() != null) {
     sb.append(" <parameters>\n");
     for (    String name : getPropertyNames()) {
+      if (name.equals("ResponseAsXML"))       continue;
       sb.append("  <parameter>\n");
       sb.append("   <name>" + name + "</name>\n");
       sb.append("   <value>" + getPropertyMap().get(name).getValue() + "</value>\n");
