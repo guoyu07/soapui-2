@@ -5,6 +5,8 @@
   builder.addGlue();
   okButton=new JButton(new OkAction());
   builder.addFixed(okButton);
+  builder.addRelatedGap();
+  builder.addFixed(new JButton(new CancelAction()));
   builder.setBorder(BorderFactory.createEmptyBorder(0,3,3,3));
   return builder.getPanel();
 }
