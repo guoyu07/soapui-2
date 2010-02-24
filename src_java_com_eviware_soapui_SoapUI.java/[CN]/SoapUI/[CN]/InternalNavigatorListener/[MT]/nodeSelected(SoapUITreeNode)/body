@@ -4,16 +4,19 @@
   }
  else {
     ModelItem modelItem=treeNode.getModelItem();
-    PropertyHolderTable propertyHolderTable=null;
+    if (selectedPropertyHolderTable != null) {
+      selectedPropertyHolderTable.release();
+      selectedPropertyHolderTable=null;
+    }
     if (modelItem instanceof TestPropertyHolder) {
       if (!(modelItem instanceof WsdlProject) || ((WsdlProject)modelItem).isOpen()) {
-        propertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
+        selectedPropertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
       }
     }
     PanelBuilder<ModelItem> panelBuilder=PanelBuilderRegistry.getPanelBuilder(modelItem);
     if (panelBuilder != null && panelBuilder.hasOverviewPanel()) {
       Component overviewPanel=panelBuilder.buildOverviewPanel(modelItem);
-      if (propertyHolderTable != null) {
+      if (selectedPropertyHolderTable != null) {
         JTabbedPane tabs=new JTabbedPane();
         if (overviewPanel instanceof JPropertiesTable<?>) {
           JPropertiesTable<?> t=(JPropertiesTable<?>)overviewPanel;
@@ -23,7 +26,7 @@
  else {
           tabs.addTab("Overview",overviewPanel);
         }
-        tabs.addTab(((TestPropertyHolder)modelItem).getPropertiesLabel(),propertyHolderTable);
+        tabs.addTab(((TestPropertyHolder)modelItem).getPropertiesLabel(),selectedPropertyHolderTable);
         overviewPanel=UISupport.createTabPanel(tabs,false);
       }
       setOverviewPanel(overviewPanel);
