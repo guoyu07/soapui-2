@@ -3,9 +3,14 @@
   inspectorPanel.release();
   responseEditor.release();
   requestEditor.removeAll();
+  requestEditor=null;
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
   amfRequestTestStep.removeAssertionsListener(assertionsListener);
   amfRequestTestStep.getAMFRequest().removeSubmitListener(this);
   componentEnabler.release();
+  groovyEditor.release();
+  runAction=null;
+  amfRequestTestStep.release();
+  this.removeAll();
   return release();
 }
