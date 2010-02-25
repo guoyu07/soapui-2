@@ -4,6 +4,7 @@
   requestEditor.removeAll();
   ((ModelItemXmlEditor<?,?>)requestEditor).release();
   responseEditor.release();
+  responseEditor.removeAll();
   responseEditor=null;
   assertionsPanel.release();
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
