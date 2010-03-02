@@ -13,7 +13,7 @@
     throw new SoapUIException("Please supply connection settings");
   }
   if (connStr.contains(JdbcRequestTestStep.PASS_TEMPLATE)) {
-    connStr=connStr.replaceFirst(JdbcRequestTestStep.PASS_TEMPLATE,pass);
+    connStr=connStr.replaceFirst(JdbcRequestTestStep.PASS_TEMPLATE,Matcher.quoteReplacement(pass));
   }
   try {
     DriverManager.getDriver(connStr);
