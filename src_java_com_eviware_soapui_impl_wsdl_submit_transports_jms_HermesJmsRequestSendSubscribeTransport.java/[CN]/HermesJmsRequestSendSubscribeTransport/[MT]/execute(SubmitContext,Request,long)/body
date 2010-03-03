@@ -13,7 +13,7 @@
     queueSession=jmsConnectionHolderQueue.getSession();
     Queue queueSend=jmsConnectionHolderQueue.getQueue(jmsConnectionHolderQueue.getJmsEndpoint().getSend());
     Topic topicReceive=jmsConnectionHolderTopic.getTopic(jmsConnectionHolderTopic.getJmsEndpoint().getReceive());
-    topicSubsriber=topicSession.createDurableSubscriber(topicReceive,StringUtils.hasContent(durableSubscriptionName) ? durableSubscriptionName : "durableSubscription" + jmsConnectionHolderTopic.getJmsEndpoint().getReceive(),messageSelector,false);
+    topicSubsriber=topicSession.createDurableSubscriber(topicReceive,StringUtils.hasContent(durableSubscriptionName) ? durableSubscriptionName : "durableSubscription" + jmsConnectionHolderTopic.getJmsEndpoint().getReceive(),submitContext.expand(messageSelector),false);
     Message textMessageSend=messageSend(submitContext,request,queueSession,jmsConnectionHolderQueue.getHermes(),queueSend);
     return makeResponse(submitContext,request,timeStarted,textMessageSend,topicSubsriber);
   }
