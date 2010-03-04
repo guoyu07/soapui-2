@@ -1,20 +1,4 @@
 {
-  try {
-    ClassLoader classLoader=SoapUI.class.getClassLoader();
-    if (!(classLoader instanceof URLClassLoader)) {
-      SoapUI.log.error("SoapUI classloader is not an URLClassLoader, failed to add external library");
-      SoapUI.log.info("classloader type is : " + classLoader.getClass().toString());
-      return;
-    }
-    URLClassLoader sysloader=(URLClassLoader)classLoader;
-    Class<URLClassLoader> sysclass=URLClassLoader.class;
-    Method method=sysclass.getDeclaredMethod("addURL",parameters);
-    method.setAccessible(true);
-    method.invoke(sysloader,new Object[]{u});
-    SoapUI.log.info("Added [" + u.toString() + "] to classpath");
-  }
- catch (  Throwable t) {
-    SoapUI.logError(t);
-    throw new IOException("Error, could not add URL to system classloader");
-  }
+  ClassLoader classLoader=SoapUI.class.getClassLoader();
+  addUrlToClassLoader(u,classLoader);
 }
