@@ -9,8 +9,8 @@
   String value=findCombo.getSelectedItem().toString();
   if (value.length() == 0 || (pos == txt.length() && !wrapCheck.isSelected()))   return;
   if (!caseCheck.isSelected()) {
-    value=value.toUpperCase();
-    txt=txt.toUpperCase();
+    value=value.toLowerCase();
+    txt=txt.toLowerCase();
   }
   if (pos == lastPositionF && value.equals(lastSearchedItem))   if (forwardButton.isSelected())   pos+=value.length() + 1;
  else   pos-=value.length() - 1;
