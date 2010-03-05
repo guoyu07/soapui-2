@@ -71,7 +71,6 @@
     }
     if (result.size() > 0) {
       String value=targetXmlObject.xmlText(new XmlOptions().setSaveAggressiveNamespaces());
-      if (getEntitize())       value=XmlUtils.entitize(value);
       targetProperty.setValue(value);
     }
     return result.toArray(new String[result.size()]);
