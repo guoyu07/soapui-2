@@ -1,4 +1,4 @@
 {
   TestCaseTreeNode testCaseTreeNode=(TestCaseTreeNode)getTreeModel().getTreeNode(testStep.getTestCase());
-  testCaseTreeNode.testStepRemoved(testStep,index);
+  if (testCaseTreeNode != null)   testCaseTreeNode.testStepRemoved(testStep,index);
 }

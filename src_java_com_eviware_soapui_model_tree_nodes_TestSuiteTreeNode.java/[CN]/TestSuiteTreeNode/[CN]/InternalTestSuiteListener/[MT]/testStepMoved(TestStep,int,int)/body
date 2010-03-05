@@ -1,4 +1,4 @@
 {
   TestCaseTreeNode testCaseTreeNode=(TestCaseTreeNode)getTreeModel().getTreeNode(testStep.getTestCase());
-  testCaseTreeNode.testStepMoved(testStep,fromIndex,offset);
+  if (testCaseTreeNode != null)   testCaseTreeNode.testStepMoved(testStep,fromIndex,offset);
 }
