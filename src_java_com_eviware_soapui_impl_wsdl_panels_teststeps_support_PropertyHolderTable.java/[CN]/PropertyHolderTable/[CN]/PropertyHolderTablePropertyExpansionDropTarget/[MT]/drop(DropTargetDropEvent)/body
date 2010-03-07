@@ -12,7 +12,7 @@
         String xpath=modelItem.getXPath();
         if (xpath == null && XmlUtils.seemsToBeXml(modelItem.getProperty().getValue())) {
           xpath=UISupport.selectXPath("Create PropertyExpansion","Select XPath below",modelItem.getProperty().getValue(),null);
-          if (xpath != null)           xpath=XmlUtils.removeXPathNamespaceDeclarations(xpath);
+          if (xpath != null)           xpath=PropertyExpansionUtils.shortenXPathForPropertyExpansion(xpath,modelItem.getProperty().getValue());
         }
         PropertyExpansion propertyExpansion=new PropertyExpansionImpl(modelItem.getProperty(),xpath);
         Point point=dtde.getLocation();

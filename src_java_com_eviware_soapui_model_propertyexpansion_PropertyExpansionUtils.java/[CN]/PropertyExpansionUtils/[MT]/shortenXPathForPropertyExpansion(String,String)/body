@@ -1,0 +1,32 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(value);
+    String ns=XmlUtils.declareXPathNamespaces(xmlObject);
+    Node domNode=XmlUtils.selectFirstDomNode(xmlObject,xpath);
+    String shortenedXPath=XmlUtils.removeXPathNamespaceDeclarations(xpath);
+    Node domNode2=XmlUtils.selectFirstDomNode(xmlObject,ns + shortenedXPath);
+    if (domNode == domNode2) {
+      return shortenedXPath;
+    }
+  }
+ catch (  XmlException e) {
+  }
+  if (xpath.length() > 0) {
+    StringBuffer buf=new StringBuffer();
+    for (int c=0; c < xpath.length(); c++) {
+      char ch=xpath.charAt(c);
+switch (ch) {
+case '\n':
+        buf.append(' ');
+      break;
+case '\'':
+    buf.append("\\'");
+  break;
+default :
+buf.append(ch);
+}
+}
+xpath=buf.toString();
+}
+return xpath;
+}
