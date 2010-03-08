@@ -7,4 +7,5 @@
   this.durableSubscriptionName=submitContext.expand(jmsConfig.getDurableSubscriptionName());
   this.clientID=submitContext.expand(jmsConfig.getClientID());
   this.messageSelector=jmsConfig.getMessageSelector();
+  submitContext.setProperty(HermesJmsRequestTransport.JMS_MESSAGE_RECEIVE,null);
 }
