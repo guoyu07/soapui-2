@@ -1,8 +1,9 @@
 {
   int ix=forwardButton.isSelected() ? txt.indexOf(value,pos) : txt.lastIndexOf(value,pos);
   if (wholeWordCheck.isSelected()) {
-    while (ix != -1 && (ix > 0 && Character.isLetterOrDigit(txt.charAt(ix - 1))) || (ix < txt.length() - value.length() - 1 && Character.isLetterOrDigit(txt.charAt(ix + value.length())))) {
-      ix=findNext(ix,txt,value);
+    while (ix != -1 && ((ix > 0 && Character.isLetterOrDigit(txt.charAt(ix - 1))) || (ix < txt.length() - value.length() - 1 && Character.isLetterOrDigit(txt.charAt(ix + value.length()))))) {
+      ix++;
+      ix=forwardButton.isSelected() ? txt.indexOf(value,ix) : txt.lastIndexOf(value,ix);
     }
   }
   if (ix == -1 && wrapCheck.isSelected()) {
