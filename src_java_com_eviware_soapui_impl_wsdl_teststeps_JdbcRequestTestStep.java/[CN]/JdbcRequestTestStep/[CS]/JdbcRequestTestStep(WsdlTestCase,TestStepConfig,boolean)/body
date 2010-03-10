@@ -7,9 +7,8 @@
     jdbcRequestTestStepConfig=(JdbcRequestTestStepConfig)getConfig().addNewConfig().changeType(JdbcRequestTestStepConfig.type);
   }
   if (jdbcRequestTestStepConfig.getProperties() == null)   jdbcRequestTestStepConfig.addNewProperties();
-  jdbcRequest=new JdbcRequest(this);
+  jdbcRequest=new JdbcRequest(this,forLoadTest);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,jdbcRequestTestStepConfig.getProperties());
   addResponseAsXMLVirtualProperty();
   initAssertions();
-  jdbcRequest.initIcons();
 }

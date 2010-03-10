@@ -33,5 +33,12 @@
       e.printStackTrace();
     }
   }
+  if (httpRequest instanceof TestRequest) {
+    TestCase tc=((TestRequest)httpRequest).getTestStep().getTestCase();
+    if (tc instanceof WsdlTestCase && ((WsdlTestCase)tc).isForLoadTest()) {
+      initHeadersForLoadTest(httpMethod);
+      return;
+    }
+  }
   initHeaders(httpMethod);
 }

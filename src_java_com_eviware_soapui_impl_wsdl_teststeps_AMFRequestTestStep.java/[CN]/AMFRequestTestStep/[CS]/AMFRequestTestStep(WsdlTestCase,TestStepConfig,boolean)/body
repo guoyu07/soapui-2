@@ -7,11 +7,10 @@
     amfRequestTestStepConfig=(AMFRequestTestStepConfig)getConfig().addNewConfig().changeType(AMFRequestTestStepConfig.type);
   }
   if (amfRequestTestStepConfig.getProperties() == null)   amfRequestTestStepConfig.addNewProperties();
-  amfRequest=new AMFRequest(this);
+  amfRequest=new AMFRequest(this,forLoadTest);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,amfRequestTestStepConfig.getProperties());
   addResponseAsXMLVirtualProperty();
   initAssertions();
-  amfRequest.initIcons();
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
   if (forLoadTest && !isDisabled())   try {

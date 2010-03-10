@@ -4,5 +4,5 @@
   setSettings(new XmlBeansSettingsImpl(this,testStep.getSettings(),callConfig.getSettings()));
   this.testStep=testStep;
   initAssertions();
-  initIcons();
+  if (!forLoadTest)   initIcons();
 }
