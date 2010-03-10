@@ -1,5 +1,5 @@
 {
   super("Find / Replace");
   putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("F3"));
-  this.target=target;
+  this.target=new ProxyFindAndReplacable(target);
 }

@@ -1,6 +1,6 @@
 {
   int pos=target.getCaretPosition();
-  String txt=target.getText();
+  String txt=target.getDialogText();
   if (findCombo.getSelectedItem() == null) {
     return;
   }
@@ -16,8 +16,10 @@
   int ix=findNext(pos,txt,value);
   int firstIx=ix;
   int valueInNewValueIx=!caseCheck.isSelected() ? newValue.toLowerCase().indexOf(value) : newValue.indexOf(value);
+  target.setReplaceAll(true);
+  target.setSBTarget();
+  target.setNewValue(newValue);
   while (ix != -1) {
-    System.out.println("found match at " + ix + ", "+ firstIx+ ", "+ valueInNewValueIx);
     target.select(ix,ix + value.length());
     target.setSelectedText(newValue);
     target.select(ix,ix + newValue.length());
@@ -36,4 +38,6 @@
       break;
     }
   }
+  target.flushSBText();
+  target.setReplaceAll(false);
 }
