@@ -5,13 +5,19 @@
   }
  else   if (messageReceive instanceof MapMessage) {
     MapMessage mapMessageReceive=(MapMessage)messageReceive;
-    return new JMSResponse(JMSUtils.extractMapMessagePayloadToString(mapMessageReceive),messageSend,mapMessageReceive,request,timeStarted);
+    return new JMSResponse(JMSUtils.extractMapMessagePayloadToXML(mapMessageReceive),messageSend,mapMessageReceive,request,timeStarted);
   }
  else   if (messageReceive instanceof BytesMessage) {
     BytesMessage bytesMessageReceive=(BytesMessage)messageReceive;
-    JMSResponse jmsResponse=new JMSResponse("",messageSend,bytesMessageReceive,request,timeStarted);
-    addAttachment(request,bytesMessageReceive,jmsResponse);
-    return jmsResponse;
+    String bytesMessageAsString=new String(JMSUtils.extractByteArrayFromMessage(bytesMessageReceive));
+    if (XmlUtils.seemsToBeXml(bytesMessageAsString)) {
+      return new JMSResponse(bytesMessageAsString,messageSend,bytesMessageReceive,request,timeStarted);
+    }
+ else {
+      JMSResponse jmsResponse=new JMSResponse("",messageSend,bytesMessageReceive,request,timeStarted);
+      addAttachment(request,bytesMessageReceive,jmsResponse);
+      return jmsResponse;
+    }
   }
   return null;
 }
