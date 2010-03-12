@@ -1,31 +1,10 @@
 {
-  String drvr="";
-  String connStr="";
-  String pass="";
   JdbcRequestTestStep testStep=request.getTestStep();
-  if (!StringUtils.isNullOrEmpty(testStep.getDriver()) && !StringUtils.isNullOrEmpty(testStep.getConnectionString())) {
-    drvr=PropertyExpander.expandProperties(context,testStep.getDriver()).trim();
-    connStr=PropertyExpander.expandProperties(context,testStep.getConnectionString()).trim();
-    if (!StringUtils.isNullOrEmpty(testStep.getPassword()))     pass=PropertyExpander.expandProperties(context,testStep.getPassword()).trim();
-  }
- else {
-    UISupport.showErrorMessage("Please supply connection settings for all DataSources");
-    throw new SoapUIException("Please supply connection settings");
-  }
-  if (connStr.contains(JdbcRequestTestStep.PASS_TEMPLATE)) {
-    connStr=connStr.replaceFirst(JdbcRequestTestStep.PASS_TEMPLATE,Matcher.quoteReplacement(pass));
-  }
   try {
-    DriverManager.getDriver(connStr);
+    connection=JdbcUtils.initConnection(context,testStep.getDriver(),testStep.getConnectionString(),testStep.getPassword());
   }
  catch (  SQLException e) {
-    try {
-      Class.forName(drvr).newInstance();
-    }
- catch (    Exception e1) {
-      throw new Exception("Failed to init connection for drvr [" + drvr + "], connectionString ["+ testStep.getConnectionString()+ "]");
-    }
+    UISupport.showErrorMessage(e);
+    throw e;
   }
-  resultSet=null;
-  connection=DriverManager.getConnection(connStr);
 }

@@ -1,8 +1,11 @@
 {
-  PropertyExpansionContext context=new DefaultPropertyExpansionContext(modelItem);
+  if (JdbcUtils.missingConnSettings(driver,connectionString,password)) {
+    throw new SoapUIException("Some connections settings are missing");
+  }
   String drvr=PropertyExpander.expandProperties(context,driver).trim();
   String connStr=PropertyExpander.expandProperties(context,connectionString).trim();
   String pass=StringUtils.hasContent(password) ? PropertyExpander.expandProperties(context,password).trim() : "";
+  String masskedPass=connStr.replace(PASS_TEMPLATE,"#####");
   if (connStr.contains(PASS_TEMPLATE)) {
     connStr=connStr.replaceFirst(PASS_TEMPLATE,pass);
   }
@@ -10,11 +13,13 @@
     DriverManager.getDriver(connStr);
   }
  catch (  SQLException e) {
+    SoapUI.logError(e);
     try {
       Class.forName(drvr).newInstance();
     }
  catch (    Exception e1) {
-      throw new Exception("Failed to init connection for drvr [" + drvr + "], connectionString ["+ connectionString+ "]");
+      SoapUI.logError(e);
+      throw new SoapUIException("Failed to init connection for drvr [" + drvr + "], connectionString ["+ masskedPass+ "]");
     }
   }
   return DriverManager.getConnection(connStr);
