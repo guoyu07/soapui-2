@@ -6,11 +6,18 @@
   if (contextMap.containsKey(key)) {
     return contextMap.get(key);
   }
-  Properties props=new Properties();
-  props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
-  props.put(Context.PROVIDER_URL,hermesConfigPath + File.separator + HERMES_CONFIG_XML);
-  props.put("hermes.loader",JAXBHermesLoader.class.getName());
-  Context ctx=new InitialContext(props);
-  contextMap.put(key,ctx);
-  return ctx;
+  ClassLoader cl=Thread.currentThread().getContextClassLoader();
+  try {
+    Thread.currentThread().setContextClassLoader(hermesClassLoader);
+    Properties props=new Properties();
+    props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
+    props.put(Context.PROVIDER_URL,hermesConfigPath + File.separator + HERMES_CONFIG_XML);
+    props.put("hermes.loader",JAXBHermesLoader.class.getName());
+    Context ctx=new InitialContext(props);
+    contextMap.put(key,ctx);
+    return ctx;
+  }
+  finally {
+    Thread.currentThread().setContextClassLoader(cl);
+  }
 }

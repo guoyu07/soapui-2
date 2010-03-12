@@ -1,6 +1,5 @@
 {
   try {
-    iconAnimator.start();
     getProperty("Request").setValue(request.getRequestContent());
     long delay=getResponseDelay();
     if (delay > 0)     Thread.sleep(delay);
@@ -43,8 +42,5 @@
  catch (  Throwable e) {
     SoapUI.logError(e);
     throw new DispatchException(e);
-  }
- finally {
-    iconAnimator.stop();
   }
 }

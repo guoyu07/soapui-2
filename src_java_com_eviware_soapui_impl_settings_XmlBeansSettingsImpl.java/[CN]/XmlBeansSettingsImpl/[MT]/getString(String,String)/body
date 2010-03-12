@@ -1,10 +1,15 @@
 {
-  if (valueCache.containsKey(id)) {
-    return valueCache.get(id);
+  String cachedValue=valueCache.get(id);
+  if (cachedValue != null) {
+    return cachedValue;
   }
- else   if (values.containsKey(id)) {
-    valueCache.put(id,values.get(id).getStringValue());
-    return valueCache.get(id);
+ else {
+    SettingConfig setting=values.get(id);
+    if (setting != null) {
+      String value=setting.getStringValue();
+      valueCache.put(id,value);
+      return value;
+    }
   }
   return parent == null ? defaultValue : parent.getString(id,defaultValue);
 }

@@ -1,7 +1,7 @@
 {
   if (future != null) {
     thread=Thread.currentThread();
-    thread.setName("TestRunner Thread for " + testRunnable.getName());
+    if (System.getProperty("soapui.enablenamedthreads") != null)     thread.setName("TestRunner Thread for " + testRunnable.getName());
   }
   try {
     status=Status.RUNNING;
