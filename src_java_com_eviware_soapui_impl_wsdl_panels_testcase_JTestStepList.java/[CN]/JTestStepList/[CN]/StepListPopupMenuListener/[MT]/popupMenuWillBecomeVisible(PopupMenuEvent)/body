@@ -19,8 +19,10 @@
   if (ix >= 0) {
     int[] indices=testStepList.getSelectedIndices();
     if (indices.length == 1) {
-      TestStep testStep=(TestStep)testCase.getTestStepAt(ix);
+      WsdlTestStep testStep=testCase.getTestStepAt(ix);
       ActionSupport.addActions(ActionListBuilder.buildActions(testStep),testListPopup);
+      testListPopup.insert(SwingActionDelegate.createDelegate(new RunFromTestStepAction(),testStep),0);
+      testListPopup.insert(new JSeparator(),1);
     }
  else {
       ModelItem[] modelItems=new ModelItem[indices.length];

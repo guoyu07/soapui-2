@@ -27,7 +27,8 @@
       throw new Exception("Failed to prepare testStep [" + testStep.getName() + "]; "+ e.toString());
     }
   }
-  int currentStepIndex=0;
+  int currentStepIndex=startStep;
+  runContext.setCurrentStep(currentStepIndex);
   for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
     TestStep currentStep=runContext.getCurrentStep();
     if (!currentStep.isDisabled()) {
