@@ -1,5 +1,5 @@
 {
-  if (forLoadTest || UISupport.isHeadless())   return null;
+  if (forLoadTest || UISupport.isHeadless() || getIconAnimator() == null)   return null;
   TestMonitor testMonitor=SoapUI.getTestMonitor();
   if (testMonitor != null && testMonitor.hasRunningLoadTest(getTestStep().getTestCase()))   return disabledRequestIcon;
   ImageIcon icon=getIconAnimator().getIcon();
