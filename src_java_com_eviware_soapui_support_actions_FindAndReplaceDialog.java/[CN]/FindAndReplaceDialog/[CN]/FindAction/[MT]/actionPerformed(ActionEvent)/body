@@ -1,7 +1,6 @@
 {
-  int pos=target.getCaretPosition();
-  int selstart=target.getSelectionStart();
-  if (selstart < pos && selstart != -1)   pos=selstart;
+  int pos=tweakPosition();
+  int lastpos=tweakLastPosition();
   String txt=target.getText();
   if (findCombo.getSelectedItem() == null) {
     return;
@@ -18,7 +17,12 @@
   lastSearchedItem=value;
   lastPositionF=ix;
   if (ix != -1) {
-    target.select(ix,ix + value.length());
+    if (selectedLinesButton.isSelected()) {
+      target.select(ix,lastpos);
+    }
+ else {
+      target.select(ix,ix + value.length());
+    }
     for (int c=0; c < findCombo.getItemCount(); c++) {
       if (findCombo.getItemAt(c).equals(value)) {
         findCombo.removeItem(c);

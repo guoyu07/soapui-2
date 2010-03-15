@@ -1,5 +1,5 @@
 {
-  int pos=target.getCaretPosition();
+  int pos=tweakPosition();
   String txt=target.getDialogText();
   if (findCombo.getSelectedItem() == null) {
     return;
@@ -40,4 +40,5 @@
   }
   target.flushSBText();
   target.setReplaceAll(false);
+  target.setCarretPosition(forwardButton.isSelected());
 }
