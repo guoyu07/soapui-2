@@ -1,6 +1,9 @@
 {
   if (request instanceof WsdlRequest || request instanceof HttpTestRequest || request instanceof RestRequest) {
-    if (hasAttachment(request)) {
+    if (sendAsBytesMessage) {
+      return createBytesMessageFromText(submitContext,request,session);
+    }
+ else     if (hasAttachment(request)) {
       if (isTextAttachment(request)) {
         return createTextMessageFromAttachment(submitContext,request,session);
       }

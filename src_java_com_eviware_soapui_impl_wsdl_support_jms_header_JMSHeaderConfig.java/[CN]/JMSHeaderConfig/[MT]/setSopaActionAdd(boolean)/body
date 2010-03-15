@@ -1,0 +1,5 @@
+{
+  boolean oldValue=getSoapActionAdd();
+  jmsHeaderConfConfig.setSoapActionAdd(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.SOAP_ACTION_ADD,oldValue,newValue);
+}

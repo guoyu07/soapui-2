@@ -1,0 +1,5 @@
+{
+  BytesMessage bytesMessage=session.createBytesMessage();
+  bytesMessage.writeBytes(request.getRequestContent().getBytes());
+  return bytesMessage;
+}
