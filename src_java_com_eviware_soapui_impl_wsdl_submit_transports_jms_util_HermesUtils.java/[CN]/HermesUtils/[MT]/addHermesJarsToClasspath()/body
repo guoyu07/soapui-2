@@ -10,10 +10,9 @@
   File[] children=dir.listFiles();
   List<URL> urls=new ArrayList<URL>();
   for (  File file : children) {
-    if (!file.getName().endsWith(".jar") || file.getName().equals("cglib-2.1.3.jar"))     continue;
+    String filename=file.getName();
+    if (!filename.endsWith(".jar") || filename.equals("cglib-2.1.3.jar"))     continue;
     urls.add(file.toURI().toURL());
+    HermesJMSClasspathHacker.addFile(new File(dir,filename));
   }
-  hermesClassLoader=new URLClassLoader(urls.toArray(new URL[urls.size()]),SoapUI.class.getClassLoader()){
-  }
-;
 }

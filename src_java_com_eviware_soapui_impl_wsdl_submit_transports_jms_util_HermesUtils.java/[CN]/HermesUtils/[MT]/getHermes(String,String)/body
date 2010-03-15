@@ -6,9 +6,7 @@
   if (contextMap.containsKey(key)) {
     return contextMap.get(key);
   }
-  ClassLoader cl=Thread.currentThread().getContextClassLoader();
   try {
-    Thread.currentThread().setContextClassLoader(hermesClassLoader);
     Properties props=new Properties();
     props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
     props.put(Context.PROVIDER_URL,hermesConfigPath + File.separator + HERMES_CONFIG_XML);
@@ -18,6 +16,5 @@
     return ctx;
   }
   finally {
-    Thread.currentThread().setContextClassLoader(cl);
   }
 }
