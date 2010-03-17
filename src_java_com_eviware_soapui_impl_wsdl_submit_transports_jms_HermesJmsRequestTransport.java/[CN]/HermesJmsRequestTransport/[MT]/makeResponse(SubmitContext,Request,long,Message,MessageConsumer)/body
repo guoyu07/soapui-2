@@ -3,7 +3,7 @@
   Message messageReceive=messageConsumer.receive(timeout);
   if (messageReceive != null) {
     JMSResponse response=resolveMessage(request,timeStarted,messageSend,messageReceive);
-    submitContext.setProperty(JMS_MESSAGE_RECEIVE,messageReceive);
+    submitContext.setProperty(IS_JMS_MESSAGE_RECEIVED,true);
     submitContext.setProperty(JMS_RESPONSE,response);
     return response;
   }
