@@ -5,7 +5,7 @@
     UISupport.showInfoMessage("The Connection Successfully Tested");
   }
  catch (  SoapUIException e) {
-    log.error(e.getMessage());
+    SoapUI.logError(e);
   }
 catch (  SQLException e) {
     UISupport.showErrorMessage("Can't get the Connection for specified properties; " + e.toString());
