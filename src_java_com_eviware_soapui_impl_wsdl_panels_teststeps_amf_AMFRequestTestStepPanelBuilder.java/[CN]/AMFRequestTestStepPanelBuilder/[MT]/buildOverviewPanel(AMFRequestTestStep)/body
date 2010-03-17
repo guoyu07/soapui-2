@@ -1,3 +1,5 @@
 {
-  return buildDefaultProperties(modelItem,"AMFRequestTestStep Properties");
+  JPropertiesTable<AMFRequestTestStep> table=buildDefaultProperties(modelItem,"AMFRequestTestStep Properties");
+  table.addProperty("Discard Response","discardResponse",JPropertiesTable.BOOLEAN_OPTIONS);
+  return table;
 }

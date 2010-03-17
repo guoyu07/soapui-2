@@ -74,6 +74,6 @@ break;
 }
 }
 }
-if (!runContext.hasProperty(TestRunContext.INTERACTIVE)) jdbcRequest.setResponse(null);
+if (isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) jdbcRequest.setResponse(null);
 return testStepResult;
 }
