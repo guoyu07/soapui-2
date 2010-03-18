@@ -1,5 +1,5 @@
 {
   StringToStringMap paramValues=StringToStringMap.fromXml(getConfig().getParameters());
-  ((RestRequestParamsPropertyHolder)params).reset(getRestMethod().getOverlayParams(),paramValues);
+  params.reset(getRestMethod().getOverlayParams(),paramValues);
   paramUpdater.setValues(paramValues);
 }

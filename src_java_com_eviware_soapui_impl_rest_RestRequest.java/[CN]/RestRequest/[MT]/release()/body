@@ -1,4 +1,6 @@
 {
   super.release();
-  if (getResource() != null)   getResource().removePropertyChangeListener(this);
+  if (method != null)   method.removePropertyChangeListener(this);
+  params.removeTestPropertyListener(paramUpdater);
+  params.release();
 }
