@@ -3,6 +3,7 @@
     byte[] buff=new byte[1];
     File temp=File.createTempFile("bytesmessage",".tmp");
     OutputStream out=new FileOutputStream(temp);
+    bytesMessageReceive.reset();
     while (bytesMessageReceive.readBytes(buff) != -1) {
       out.write(buff);
     }

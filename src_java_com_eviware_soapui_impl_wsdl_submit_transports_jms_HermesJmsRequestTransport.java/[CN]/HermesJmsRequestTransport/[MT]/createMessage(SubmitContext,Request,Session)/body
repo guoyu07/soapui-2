@@ -1,15 +1,15 @@
 {
   if (request instanceof WsdlRequest || request instanceof HttpTestRequest || request instanceof RestRequest) {
-    if (sendAsBytesMessage) {
-      return createBytesMessageFromText(submitContext,request,session);
-    }
- else     if (hasAttachment(request)) {
-      if (isTextAttachment(request)) {
+    if (hasAttachment(request)) {
+      if (isTextAttachment(request) && !sendAsBytesMessage) {
         return createTextMessageFromAttachment(submitContext,request,session);
       }
  else {
         return createBytesMessage(request,session);
       }
+    }
+ else     if (sendAsBytesMessage) {
+      return createBytesMessageFromText(submitContext,request,session);
     }
  else {
       return createTextMessage(submitContext,request,session);
