@@ -1,8 +1,9 @@
 {
   String sourceValue=sourceProperty.getValue();
-  if (sourceValue == null) {
+  if (!StringUtils.hasContent(sourceValue)) {
     if (!getIgnoreEmpty())     throw new Exception("Missing source value");
     if (getSetNullOnMissingSource())     targetProperty.setValue(null);
+    return null;
   }
   XmlObject sourceXml=sourceValue == null ? null : XmlObject.Factory.parse(sourceValue);
   XmlCursor sourceCursor=sourceValue == null ? null : sourceXml.newCursor();
