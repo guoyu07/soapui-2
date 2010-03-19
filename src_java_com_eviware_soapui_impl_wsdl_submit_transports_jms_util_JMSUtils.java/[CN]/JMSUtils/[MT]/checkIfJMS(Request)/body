@@ -1,6 +1,7 @@
 {
   try {
-    return request.getEndpoint().startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX);
+    String endpoint=request.getEndpoint();
+    return StringUtils.hasContent(endpoint) && endpoint.startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX);
   }
  catch (  NullPointerException e) {
     SoapUI.logError(e);
