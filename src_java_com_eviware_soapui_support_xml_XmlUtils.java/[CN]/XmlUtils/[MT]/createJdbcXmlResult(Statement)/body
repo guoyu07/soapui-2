@@ -17,5 +17,21 @@
     errorElement.appendChild(xmlDocumentResult.createTextNode(String.valueOf(statement.getUpdateCount())));
     resultsElement.appendChild(errorElement);
   }
-  return xmlDocumentResult;
+  StringWriter out=new StringWriter();
+  OutputFormat outputFormat=new OutputFormat(xmlDocumentResult);
+  outputFormat.setOmitComments(true);
+  outputFormat.setOmitDocumentType(true);
+  outputFormat.setOmitXMLDeclaration(true);
+  outputFormat.setLineSeparator("\n");
+  outputFormat.setIndent(3);
+  outputFormat.setIndenting(true);
+  try {
+    XMLSerializer serializer=new XMLSerializer(new PrintWriter(out),outputFormat);
+    serializer.asDOMSerializer();
+    serializer.serialize(xmlDocumentResult);
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+  return out.toString();
 }

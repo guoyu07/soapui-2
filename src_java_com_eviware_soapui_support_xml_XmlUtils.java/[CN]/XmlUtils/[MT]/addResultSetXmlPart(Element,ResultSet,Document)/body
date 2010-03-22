@@ -17,7 +17,9 @@
       String value=rs.getString(ii);
       Element node=xmlDocumentResult.createElement(columnName);
       if (!StringUtils.isNullOrEmpty(value)) {
-        node.appendChild(xmlDocumentResult.createTextNode(value.toString()));
+        Text textNode=xmlDocumentResult.createTextNode("");
+        textNode.setTextContent(value.toString());
+        node.appendChild(textNode);
       }
       rowElement.appendChild(node);
     }
