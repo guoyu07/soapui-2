@@ -21,6 +21,7 @@
       response.setContentLength((int)length);
       response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
       Tools.readAndWrite(in,length,response.getOutputStream());
+      in.close();
     }
  else     if (pathInfo.equals("/master")) {
       printMaster(request,response);
