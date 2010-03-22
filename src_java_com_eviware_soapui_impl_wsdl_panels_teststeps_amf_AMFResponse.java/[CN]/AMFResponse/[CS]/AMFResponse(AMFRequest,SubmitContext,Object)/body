@@ -1,7 +1,6 @@
 {
   super(request);
   this.request=request;
-  this.responseContent=responseContent;
   if (responseContent != null)   setResponseContentXML(new com.thoughtworks.xstream.XStream().toXML(responseContent));
   this.actionMessage=(ActionMessage)submitContext.getProperty(AMF_RESPONSE_ACTION_MESSAGE);
   this.rawResponseBody=(byte[])submitContext.getProperty(AMF_RAW_RESPONSE_BODY);
