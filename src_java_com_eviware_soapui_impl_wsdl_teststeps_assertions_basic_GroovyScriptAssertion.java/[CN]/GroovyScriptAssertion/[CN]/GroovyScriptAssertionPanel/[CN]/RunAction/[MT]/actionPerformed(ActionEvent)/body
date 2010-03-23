@@ -9,12 +9,12 @@
  else   if (testStep instanceof RestTestRequestStepInterface) {
     RestTestRequestStepInterface testRequestStep=(RestTestRequestStepInterface)testStep;
     exchange=new RestResponseMessageExchange((RestRequestInterface)testRequestStep.getTestRequest());
-    ((RestResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
+    ((RestResponseMessageExchange)exchange).setResponse(((AbstractHttpRequestInterface<?>)testRequestStep.getTestRequest()).getResponse());
   }
  else   if (testStep instanceof HttpTestRequestStepInterface) {
     HttpTestRequestStepInterface testRequestStep=(HttpTestRequestStepInterface)testStep;
     exchange=new HttpResponseMessageExchange(testRequestStep.getTestRequest());
-    ((HttpResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
+    ((HttpResponseMessageExchange)exchange).setResponse(((AbstractHttpRequestInterface<?>)testRequestStep.getTestRequest()).getResponse());
   }
  else   if (testStep instanceof WsdlMockResponseTestStep) {
     WsdlMockResponseTestStep mockResponseStep=(WsdlMockResponseTestStep)testStep;
