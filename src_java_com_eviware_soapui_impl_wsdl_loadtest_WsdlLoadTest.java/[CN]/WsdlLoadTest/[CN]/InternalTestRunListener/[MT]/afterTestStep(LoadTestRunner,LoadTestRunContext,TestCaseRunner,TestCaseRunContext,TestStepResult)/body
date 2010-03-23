@@ -1,6 +1,6 @@
 {
+  boolean added=false;
   if (!assertions.isEmpty()) {
-    boolean added=false;
     for (    LoadTestAssertion assertion : assertions) {
       String error=assertion.assertResult(loadTestRunner,context,result,testRunner,runContext);
       if (error != null) {
@@ -26,14 +26,13 @@ synchronized (assertionErrors) {
         added=true;
       }
     }
-    if (!added) {
-      if (getTestCase().getDiscardOkResults() || getTestCase().getMaxResults() == 0) {
-        result.discard();
-      }
- else       if (getTestCase().getMaxResults() > 0 && testRunner instanceof WsdlTestCaseRunner) {
-        ((WsdlTestCaseRunner)testRunner).enforceMaxResults(getTestCase().getMaxResults());
-      }
+  }
+  if (!added) {
+    if (getTestCase().getDiscardOkResults() || getTestCase().getMaxResults() == 0) {
+      result.discard();
+    }
+ else     if (getTestCase().getMaxResults() > 0 && testRunner instanceof WsdlTestCaseRunner) {
+      ((WsdlTestCaseRunner)testRunner).enforceMaxResults(getTestCase().getMaxResults());
     }
   }
- else   result.discard();
 }
