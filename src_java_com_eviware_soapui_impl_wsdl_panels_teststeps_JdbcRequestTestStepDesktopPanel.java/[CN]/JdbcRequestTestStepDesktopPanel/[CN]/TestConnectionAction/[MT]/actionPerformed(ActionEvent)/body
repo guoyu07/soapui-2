@@ -6,6 +6,7 @@
   }
  catch (  SoapUIException e) {
     SoapUI.logError(e);
+    UISupport.showErrorMessage(e.toString());
   }
 catch (  SQLException e) {
     UISupport.showErrorMessage("Can't get the Connection for specified properties; " + e.toString());
