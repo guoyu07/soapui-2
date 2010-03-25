@@ -81,6 +81,7 @@ break;
 }
 for (TestRunListener listener : testRunListeners) runningTestCase.removeTestRunListener(listener);
 if (runMode == RunTestCaseRunModeTypeConfig.PARALLELL) runningTestCase.release();
+runningTestCase.removeTestRunListener(testRunListener);
 runningTestCase=null;
 testCaseRunner=null;
 }
