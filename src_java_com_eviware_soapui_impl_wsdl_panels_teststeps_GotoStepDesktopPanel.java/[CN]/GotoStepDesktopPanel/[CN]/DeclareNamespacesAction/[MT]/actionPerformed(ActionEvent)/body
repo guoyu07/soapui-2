@@ -1,9 +1,10 @@
 {
   try {
-    HttpRequestTestStep previousStep=(HttpRequestTestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,HttpRequestTestStep.class);
+    SamplerTestStep previousStep=(SamplerTestStep)gotoStep.getTestCase().findPreviousStepOfType(gotoStep,SamplerTestStep.class);
     if (previousStep != null) {
-      String xml=previousStep.getHttpRequest().getResponse().getContentAsString();
-      if (StringUtils.hasContent(xml)) {
+      Response response=previousStep.getTestRequest().getResponse();
+      String xml=response == null ? null : response.getContentAsString();
+      if (XmlUtils.seemsToBeXml(xml)) {
         expressionArea.setText(XmlUtils.declareXPathNamespaces(xml) + expressionArea.getText());
       }
  else {
