@@ -37,9 +37,6 @@
     startStrategyThread();
   }
  else {
-    for (    LoadTestRunListener listener : loadTest.getLoadTestRunListeners()) {
-      listener.afterLoadTest(this,context);
-    }
-    tearDown();
+    stop();
   }
 }
