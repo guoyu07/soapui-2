@@ -1,13 +1,13 @@
 {
   HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  String path=PropertyExpansionUtils.expandProperties(context,request.getPath());
+  String path=PropertyExpander.expandProperties(context,request.getPath());
   StringBuffer query=new StringBuffer();
   StringToStringMap responseProperties=(StringToStringMap)context.getProperty(BaseHttpRequestTransport.RESPONSE_PROPERTIES);
   MimeMultipart formMp="multipart/form-data".equals(request.getMediaType()) && httpMethod instanceof EntityEnclosingMethod ? new MimeMultipart() : null;
   RestParamsPropertyHolder params=request.getParams();
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
-    String value=PropertyExpansionUtils.expandProperties(context,param.getValue());
+    String value=PropertyExpander.expandProperties(context,param.getValue());
     responseProperties.put(param.getName(),value);
     if (value != null && !param.isDisableUrlEncoding()) {
       try {
@@ -61,13 +61,7 @@ case PLAIN:
 break;
 }
 }
-String prefix=null;
-if (path.contains("://")) {
-prefix=path.substring(0,path.indexOf("://") + 3);
-path=path.substring(prefix.length());
-}
-path=path.replaceAll("/{2,}","/");
-if (prefix != null) path=prefix + path;
+path=PathUtils.fixForwardSlashesInPath(path);
 if (PathUtils.isHttpPath(path)) {
 try {
 httpMethod.setURI(new URI(URLDecoder.decode(path)));
