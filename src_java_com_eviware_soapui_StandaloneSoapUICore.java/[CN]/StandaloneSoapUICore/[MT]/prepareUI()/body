@@ -2,4 +2,5 @@
   super.prepareUI();
   initSoapUILookAndFeel();
   DesktopRegistry.getInstance().addDesktop(SoapUI.DEFAULT_DESKTOP,new StandaloneDesktopFactory());
+  ToolTipManager.sharedInstance().setEnabled(!getSettings().getBoolean(UISettings.DISABLE_TOOLTIPS));
 }

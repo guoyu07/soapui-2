@@ -16,6 +16,8 @@
   if (SoapUI.isStandalone()) {
     settings.setBoolean(UISettings.SHOW_LOGS_AT_STARTUP,values.getBoolean(SHOW_LOGS_AT_STARTUP));
     settings.setBoolean(UISettings.SHOW_STARTUP_PAGE,values.getBoolean(SHOW_STARTUP_PAGE));
+    settings.setBoolean(UISettings.DISABLE_TOOLTIPS,values.getBoolean(DISABLE_TOOLTIPS));
+    ToolTipManager.sharedInstance().setEnabled(!values.getBoolean(DISABLE_TOOLTIPS));
   }
   settings.setString(UISettings.GC_INTERVAL,values.get(GC_INTERVAL));
   settings.setString(UISettings.RAW_RESPONSE_MESSAGE_SIZE,values.get(RAW_RESPONSE_MESSAGE_SIZE));
