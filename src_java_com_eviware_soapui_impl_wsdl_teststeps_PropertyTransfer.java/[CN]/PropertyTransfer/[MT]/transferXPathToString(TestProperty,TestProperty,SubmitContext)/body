@@ -1,8 +1,8 @@
 {
   String sourceValue=sourceProperty.getValue();
   if (!StringUtils.hasContent(sourceValue)) {
-    if (getSetNullOnMissingSource())     targetProperty.setValue(null);
     if (!getIgnoreEmpty())     throw new Exception("Missing source value");
+    if (getSetNullOnMissingSource())     targetProperty.setValue(null);
     return null;
   }
   XmlObject sourceXml=sourceValue == null ? null : XmlObject.Factory.parse(sourceValue);
