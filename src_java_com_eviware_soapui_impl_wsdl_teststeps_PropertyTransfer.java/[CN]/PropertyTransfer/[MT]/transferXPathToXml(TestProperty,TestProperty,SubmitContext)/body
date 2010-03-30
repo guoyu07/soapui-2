@@ -1,10 +1,23 @@
 {
-  String sourcePropertyValue=sourceProperty.getValue();
-  XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlObject.Factory.parse(sourcePropertyValue);
-  XmlCursor sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
-  String targetPropertyValue=targetProperty.getValue();
-  XmlObject targetXmlObject=XmlObject.Factory.parse(targetPropertyValue);
-  XmlCursor targetXml=targetXmlObject.newCursor();
+  XmlCursor sourceXml;
+  try {
+    String sourcePropertyValue=sourceProperty.getValue();
+    XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlObject.Factory.parse(sourcePropertyValue);
+    sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
+  }
+ catch (  XmlException e) {
+    throw new Exception("Error parsing source property [" + e.getMessage() + "]");
+  }
+  XmlObject targetXmlObject;
+  XmlCursor targetXml;
+  try {
+    String targetPropertyValue=targetProperty.getValue();
+    targetXmlObject=XmlObject.Factory.parse(targetPropertyValue);
+    targetXml=targetXmlObject.newCursor();
+  }
+ catch (  XmlException e) {
+    throw new Exception("Error parsing target property [" + e.getMessage() + "]");
+  }
   XmlCursor lastSource=null;
   try {
     List<String> result=new ArrayList<String>();
