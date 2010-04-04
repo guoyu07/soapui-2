@@ -64,6 +64,8 @@
   }
   IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
   postMethod.releaseConnection();
-  monitor.addMessageExchange(capturedData);
+synchronized (this) {
+    monitor.addMessageExchange(capturedData);
+  }
   capturedData=null;
 }
