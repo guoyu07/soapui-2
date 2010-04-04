@@ -52,10 +52,10 @@
   monitor.fireBeforeProxy(request,response,method,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
-    client.executeMethod(hostConfiguration,method,httpState);
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,method,httpState);
   }
  else {
-    client.executeMethod(hostConfiguration,method);
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,method);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());
@@ -73,5 +73,7 @@
     }
     IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
   }
-  monitor.addMessageExchange(capturedData);
+synchronized (this) {
+    monitor.addMessageExchange(capturedData);
+  }
 }

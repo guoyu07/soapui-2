@@ -39,16 +39,15 @@
   hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(LaunchForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
   hostConfiguration=ProxyUtils.initProxySettings(settings,httpState,hostConfiguration,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
-  HostParams param=hostConfiguration.getParams();
   if (sslEndPoint.indexOf("/") < 0)   postMethod.setPath("/");
  else   postMethod.setPath(sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length()));
   monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new HttpState();
-    client.executeMethod(hostConfiguration,postMethod,httpState);
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod,httpState);
   }
  else {
-    client.executeMethod(hostConfiguration,postMethod);
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());
