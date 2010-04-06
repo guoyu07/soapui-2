@@ -11,5 +11,6 @@
   propertiesTableComponent=buildProperties();
   JSplitPane split=UISupport.createVerticalSplit(propertiesTableComponent,configPanel);
   split.setDividerLocation(120);
-  return split;
+  split.setPreferredSize(new Dimension(300,500));
+  return new JScrollPane(split);
 }
