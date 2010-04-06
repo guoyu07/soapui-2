@@ -18,10 +18,13 @@
     for (    Interface iface : requiredInterfaces) {
       msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
-    msg+="\r\nThese will be cloned to the targetProject as well";
-    if (!UISupport.confirm(msg,"Clone TestSuite"))     return null;
-    for (    Interface iface : requiredInterfaces) {
-      targetProject.importInterface((AbstractInterface<?>)iface,true,true);
+    msg+="\r\nShould these be cloned to the targetProject as well?";
+    Boolean result=UISupport.confirmOrCancel(msg,"Clone TestSuite");
+    if (result == null)     return null;
+    if (result) {
+      for (      Interface iface : requiredInterfaces) {
+        targetProject.importInterface((AbstractInterface<?>)iface,true,true);
+      }
     }
   }
   testSuite=targetProject.importTestSuite(testSuite,name,-1,!move,description);
