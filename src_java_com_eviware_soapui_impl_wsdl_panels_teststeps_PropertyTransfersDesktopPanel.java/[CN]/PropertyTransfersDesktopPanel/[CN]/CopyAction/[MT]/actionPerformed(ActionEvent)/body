@@ -10,6 +10,15 @@
   transfer.setTargetStepName(config.getTargetStepName());
   transfer.setTargetPropertyName(config.getTargetPropertyName());
   transfer.setTargetPath(config.getTargetPath());
+  transfer.setDisabled(config.isDisabled());
+  transfer.setEntitize(config.getEntitize());
+  transfer.setFailOnError(config.getFailOnError());
+  transfer.setIgnoreEmpty(config.getIgnoreEmpty());
+  transfer.setSetNullOnMissingSource(config.getSetNullOnMissingSource());
+  transfer.setTransferChildNodes(config.getTransferChildNodes());
+  transfer.setTransferTextContent(config.getTransferTextContent());
+  transfer.setTransferToAll(config.getTransferToAll());
+  transfer.setUseXQuery(config.getUseXQuery());
   listModel.addElement(name);
   transferList.setSelectedIndex(listModel.getSize() - 1);
 }
