@@ -1,5 +1,7 @@
 {
   for (  ModelItem target : targets) {
-    ((WsdlTestStep)target).setDisabled(true);
+    if (target instanceof WsdlTestStep)     ((WsdlTestStep)target).setDisabled(true);
+ else     if (target instanceof WsdlTestCase)     ((WsdlTestCase)target).setDisabled(true);
+ else     if (target instanceof WsdlTestSuite)     ((WsdlTestSuite)target).setDisabled(true);
   }
 }
