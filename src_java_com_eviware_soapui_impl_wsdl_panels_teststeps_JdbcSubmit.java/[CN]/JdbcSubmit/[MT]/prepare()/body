@@ -13,7 +13,7 @@
   NamedParameterStatement p=new NamedParameterStatement(connection,sql);
   for (  TestProperty testProperty : props) {
     String value=PropertyExpander.expandProperties(context,testProperty.getValue());
-    if (!testProperty.getName().equals("ResponseAsXML")) {
+    if (!testProperty.getName().equals(WsdlTestStepWithProperties.RESPONSE_AS_XML)) {
       p.setString(testProperty.getName(),value);
     }
   }

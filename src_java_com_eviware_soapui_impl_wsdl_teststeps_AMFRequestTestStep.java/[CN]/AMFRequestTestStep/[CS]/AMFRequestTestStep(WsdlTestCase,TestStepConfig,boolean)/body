@@ -9,7 +9,7 @@
   if (amfRequestTestStepConfig.getProperties() == null)   amfRequestTestStepConfig.addNewProperties();
   amfRequest=new AMFRequest(this,forLoadTest);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,amfRequestTestStepConfig.getProperties());
-  addResponseAsXMLVirtualProperty();
+  addResponseAsXmlVirtualProperty();
   initAssertions();
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
