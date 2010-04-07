@@ -36,14 +36,14 @@ synchronized (runningTestCase) {
         runningTestCase.addTestRunListener(testRunListener);
         result.startTimer();
         StringToObjectMap properties=new StringToObjectMap();
-        if (isCopyLoadTestProperties()) {
+        if (isCopyLoadTestProperties() && properties.containsKey(TestRunContext.LOAD_TEST_CONTEXT)) {
           properties.put(TestRunContext.THREAD_INDEX,testRunContext.getProperty(TestRunContext.THREAD_INDEX));
           properties.put(TestRunContext.TOTAL_RUN_COUNT,testRunContext.getProperty(TestRunContext.TOTAL_RUN_COUNT));
           properties.put(TestRunContext.LOAD_TEST_CONTEXT,testRunContext.getProperty(TestRunContext.LOAD_TEST_CONTEXT));
           properties.put(TestRunContext.LOAD_TEST_RUNNER,testRunContext.getProperty(TestRunContext.LOAD_TEST_RUNNER));
           properties.put(TestRunContext.RUN_COUNT,testRunContext.getProperty(TestRunContext.RUN_COUNT));
         }
-        if (isCopyHttpSession()) {
+        if (isCopyHttpSession() && properties.containsKey(TestRunContext.HTTP_STATE_PROPERTY)) {
           properties.put(TestRunContext.HTTP_STATE_PROPERTY,testRunContext.getProperty(TestRunContext.HTTP_STATE_PROPERTY));
         }
         properties.put(TestRunContext.INTERACTIVE,testRunContext.getProperty(TestRunContext.INTERACTIVE));
