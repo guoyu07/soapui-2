@@ -1,20 +1,28 @@
 {
   HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  URI uri=null;
-  try {
-    uri=httpMethod.getURI();
-  }
- catch (  URIException e) {
-    SoapUI.logError(e,"Error for path: " + httpMethod.getPath() + ", QueryString: "+ httpMethod.getQueryString());
-    return;
+  URI uri=(URI)context.getProperty(BaseHttpRequestTransport.REQUEST_URI);
+  if (uri == null) {
+    try {
+      uri=httpMethod.getURI();
+    }
+ catch (    URIException e) {
+      SoapUI.logError(e,"Error for path: " + httpMethod.getPath() + ", QueryString: "+ httpMethod.getQueryString());
+      return;
+    }
   }
   EndpointDefaults def=defaults.get(uri.toString());
   if (def == null) {
 synchronized (defaults) {
       for (      String ep : defaults.keySet()) {
-        if (PropertyExpander.expandProperties(context,ep).equals(uri.toString())) {
-          def=defaults.get(ep);
-          break;
+        try {
+          URL tempUri=new URL(PropertyExpander.expandProperties(context,ep));
+          if (tempUri.toString().equals(uri.toString())) {
+            def=defaults.get(ep);
+            break;
+          }
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
         }
       }
     }
