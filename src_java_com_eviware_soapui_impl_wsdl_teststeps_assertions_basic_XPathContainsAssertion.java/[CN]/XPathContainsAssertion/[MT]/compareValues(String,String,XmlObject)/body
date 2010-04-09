@@ -15,7 +15,12 @@
         Node domNode=paths[0].getDomNode();
         if (domNode.getNodeType() == Node.ATTRIBUTE_NODE)         ((Attr)domNode).getOwnerElement().removeAttributeNode((Attr)domNode);
  else         domNode.getParentNode().removeChild(domNode);
-        object.set(object.copy());
+        try {
+          object.set(object.copy());
+        }
+ catch (        XmlValueDisconnectedException e) {
+          return;
+        }
       }
     }
   }
