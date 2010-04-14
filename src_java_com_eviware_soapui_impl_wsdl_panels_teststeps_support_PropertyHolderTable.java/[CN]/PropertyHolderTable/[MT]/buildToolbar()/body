@@ -14,9 +14,11 @@
     toolbar.add(movePropertyUpButton);
     JButton movePropertyDownButton=UISupport.createToolbarButton(movePropertyDownAction);
     toolbar.add(movePropertyDownButton);
-    toolbar.addRelatedGap();
-    toolbar.add(UISupport.createToolbarButton(new SortPropertiesAction()));
-    toolbar.addRelatedGap();
+    if (!(holder instanceof AMFRequestTestStep || holder instanceof JdbcRequestTestStep)) {
+      toolbar.addRelatedGap();
+      toolbar.add(UISupport.createToolbarButton(new SortPropertiesAction()));
+      toolbar.addRelatedGap();
+    }
   }
   JButton clearPropertiesButton=UISupport.createToolbarButton(new ClearPropertiesAction());
   toolbar.add(clearPropertiesButton);
