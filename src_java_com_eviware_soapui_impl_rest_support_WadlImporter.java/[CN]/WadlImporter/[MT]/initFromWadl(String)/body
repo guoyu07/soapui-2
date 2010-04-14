@@ -35,7 +35,29 @@
       for (      Resource resource : resources.getResourceList()) {
         String name=getFirstTitle(resource.getDocList(),resource.getPath());
         String path=resource.getPath();
-        RestResource newResource=baseResource == null ? service.addNewResource(name,path) : baseResource.addNewChildResource(name,path);
+        RestResource newResource=null;
+        if (baseResource != null) {
+          for (          RestResource res : baseResource.getChildResourceList()) {
+            if (res.getPath().equals(path)) {
+              newResource=res;
+              break;
+            }
+          }
+          if (newResource == null) {
+            newResource=baseResource.addNewChildResource(name,path);
+          }
+        }
+ else {
+          for (          RestResource res : service.getResourceList()) {
+            if (res.getPath().equals(path)) {
+              newResource=res;
+              break;
+            }
+          }
+          if (newResource == null) {
+            newResource=service.addNewResource(name,path);
+          }
+        }
         initResourceFromWadlResource(newResource,resource);
         addSubResources(newResource,resource);
       }
