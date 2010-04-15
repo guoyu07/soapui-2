@@ -88,7 +88,7 @@ String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote
 if (formMp != null) {
 try {
 if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
-String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
+String requestContent=PropertyExpander.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
 if (StringUtils.hasContent(requestContent)) {
 initRootPart(request,requestContent,formMp);
 }
@@ -118,7 +118,7 @@ if (request.isPostQueryString()) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
 }
  else {
-String requestContent=PropertyExpansionUtils.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
+String requestContent=PropertyExpander.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
 List<Attachment> attachments=new ArrayList<Attachment>();
 for (Attachment attachment : request.getAttachments()) {
 if (attachment.getContentType().equals(request.getMediaType())) {
