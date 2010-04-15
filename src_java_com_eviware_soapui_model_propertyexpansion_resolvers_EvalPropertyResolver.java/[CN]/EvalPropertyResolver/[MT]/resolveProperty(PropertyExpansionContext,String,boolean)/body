@@ -19,6 +19,9 @@
   }
  else   if (modelItem instanceof TestStep) {
     objects.put("testStep",modelItem);
+    if (modelItem instanceof SamplerTestStep) {
+      objects.put("request",((SamplerTestStep)modelItem).getTestRequest());
+    }
   }
  else   if (modelItem instanceof TestSuite) {
     objects.put("testSuite",modelItem);
