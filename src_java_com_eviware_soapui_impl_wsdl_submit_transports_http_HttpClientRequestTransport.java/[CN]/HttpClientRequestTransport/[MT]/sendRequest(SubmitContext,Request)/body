@@ -55,7 +55,9 @@
       int ix=str.indexOf('/',str.indexOf("//") + 2);
       if (ix != -1) {
         uri=new URI(str.substring(ix));
+        String qs=httpMethod.getQueryString();
         httpMethod.setURI(uri);
+        if (StringUtils.hasContent(qs))         httpMethod.setQueryString(qs);
         submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
       }
     }
