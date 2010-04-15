@@ -1,9 +1,9 @@
 {
   ModelItem modelItem=context.getModelItem();
-  WsdlTestStep testStep=null;
-  WsdlTestCase testCase=null;
-  WsdlTestSuite testSuite=null;
-  WsdlProject project=null;
+  TestStep testStep=null;
+  TestCase testCase=null;
+  TestSuite testSuite=null;
+  Project project=null;
   WsdlMockService mockService=null;
   WsdlMockResponse mockResponse=null;
   if (modelItem instanceof WsdlTestStep) {
@@ -35,6 +35,12 @@
  else   if (modelItem instanceof WsdlMockService) {
     mockService=(WsdlMockService)modelItem;
     project=mockService.getProject();
+  }
+ else   if (modelItem instanceof TestRequest) {
+    testStep=((TestRequest)modelItem).getTestStep();
+    testCase=testStep.getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
   }
  else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
     project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
