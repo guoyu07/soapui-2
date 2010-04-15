@@ -1,10 +1,4 @@
 {
   JdbcRequestTestStep testStep=request.getTestStep();
-  try {
-    connection=JdbcUtils.initConnection(context,testStep.getDriver(),testStep.getConnectionString(),testStep.getPassword());
-  }
- catch (  SQLException e) {
-    UISupport.showErrorMessage(e);
-    throw e;
-  }
+  connection=JdbcUtils.initConnection(context,testStep.getDriver(),testStep.getConnectionString(),testStep.getPassword());
 }

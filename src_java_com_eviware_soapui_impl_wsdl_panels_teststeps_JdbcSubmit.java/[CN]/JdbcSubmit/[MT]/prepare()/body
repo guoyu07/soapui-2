@@ -25,7 +25,7 @@
     }
   }
  catch (  NumberFormatException e) {
-    UISupport.showErrorMessage("Problem setting timeout: " + e.getMessage());
+    SoapUI.logError(e,"Problem setting timeout");
   }
   try {
     if (!StringUtils.isNullOrEmpty(testStep.getMaxRows())) {
@@ -34,7 +34,7 @@
     }
   }
  catch (  NumberFormatException e) {
-    UISupport.showErrorMessage("Problem setting maxRows: " + e.getMessage());
+    SoapUI.logError(e,"Problem setting maxRows");
   }
   try {
     if (!StringUtils.isNullOrEmpty(testStep.getFetchSize())) {
@@ -43,6 +43,6 @@
     }
   }
  catch (  NumberFormatException e) {
-    UISupport.showErrorMessage("Problem setting fetchSize: " + e.getMessage());
+    SoapUI.logError(e,"Problem setting fetchSize");
   }
 }
