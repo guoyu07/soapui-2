@@ -1,3 +1,5 @@
 {
-  return lines.get(index);
+synchronized (lines) {
+    return lines.get(index);
+  }
 }

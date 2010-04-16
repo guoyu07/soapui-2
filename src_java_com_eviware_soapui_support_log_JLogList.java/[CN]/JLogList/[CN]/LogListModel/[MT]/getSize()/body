@@ -1,3 +1,5 @@
 {
-  return lines.size();
+synchronized (lines) {
+    return lines.size();
+  }
 }
