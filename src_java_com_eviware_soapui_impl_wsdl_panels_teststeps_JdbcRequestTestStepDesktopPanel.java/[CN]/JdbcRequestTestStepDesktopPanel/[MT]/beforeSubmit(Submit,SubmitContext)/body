@@ -2,5 +2,6 @@
   if (submit.getRequest() != jdbcRequestTestStep.getJdbcRequest())   return true;
   setEnabled(false);
   cancelButton.setEnabled(JdbcRequestTestStepDesktopPanel.this.submit != null);
+  startTime=System.currentTimeMillis();
   return true;
 }
