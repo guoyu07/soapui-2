@@ -41,7 +41,7 @@
     }
     WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(httpRequest);
     WssCrypto crypto=null;
-    if (project != null) {
+    if (project != null && project.getWssContainer() != null) {
       crypto=project.getWssContainer().getCryptoByName(PropertyExpander.expandProperties(submitContext,httpRequest.getSslKeystore()));
     }
     if (crypto != null && WssCrypto.STATUS_OK.equals(crypto.getStatus())) {
