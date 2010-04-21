@@ -11,6 +11,7 @@
     testCaseLog.addText("TestCase failed [" + msg + "], time taken = "+ wsdlRunner.getTimeTaken());
   }
  else   testCaseLog.addText("TestCase finished with status [" + testRunner.getStatus() + "], time taken = "+ wsdlRunner.getTimeTaken());
+  lastRunner=runner;
   runner=null;
   JToggleButton loopButton=(JToggleButton)runContext.getProperty("loopButton");
   if (loopButton != null && loopButton.isSelected() && testRunner.getStatus() == TestCaseRunner.Status.FINISHED) {
