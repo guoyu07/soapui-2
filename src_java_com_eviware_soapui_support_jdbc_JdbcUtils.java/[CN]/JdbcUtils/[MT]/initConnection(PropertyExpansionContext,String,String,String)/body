@@ -13,7 +13,6 @@
     DriverManager.getDriver(connStr);
   }
  catch (  SQLException e) {
-    SoapUI.logError(e);
     try {
       Class.forName(drvr).newInstance();
     }
