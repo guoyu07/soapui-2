@@ -18,6 +18,7 @@
         if (cursor != null) {
           String value=PropertyExpander.expandProperties(request.getContext(),query.getMatch());
           if (value.equals(XmlUtils.getValueForMatch(cursor))) {
+            request.getRequestContext().put("#QueryMatch#",query.getName());
             return getMockOperation().getMockResponseByName(query.getResponse());
           }
         }
