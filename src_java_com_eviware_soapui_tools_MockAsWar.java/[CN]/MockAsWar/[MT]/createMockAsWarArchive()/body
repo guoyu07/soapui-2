@@ -5,7 +5,10 @@
       if (prepareWarFile()) {
         createWebXml();
         if (warFile != null) {
-          File[] filez=getAllFilesFrom(webInf).toArray(new File[0]);
+          ArrayList<File> files=getAllFilesFrom(webInf);
+          files.add(new File(warDir,"stylesheet.css"));
+          files.add(new File(warDir,"header_logo.jpg"));
+          File[] filez=files.toArray(new File[files.size()]);
           JarPackager.createJarArchive(warFile,warDir,filez);
         }
       }
