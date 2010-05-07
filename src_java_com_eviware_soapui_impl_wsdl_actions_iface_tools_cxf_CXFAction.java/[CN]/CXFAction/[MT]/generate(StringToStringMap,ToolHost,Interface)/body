@@ -5,7 +5,7 @@
     return;
   }
   ProcessBuilder builder=new ProcessBuilder();
-  ArgumentBuilder args=buildArgs(modelItem);
+  ArgumentBuilder args=buildArgs(values,modelItem);
   builder.command(args.getArgs());
   builder.directory(new File(xfireDir));
   toolHost.run(new ProcessToolRunner(builder,"Apache CXF wsdl2java",modelItem));

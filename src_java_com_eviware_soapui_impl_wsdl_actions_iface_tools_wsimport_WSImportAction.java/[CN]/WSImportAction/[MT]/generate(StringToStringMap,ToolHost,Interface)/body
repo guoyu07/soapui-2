@@ -15,7 +15,7 @@
     return;
   }
   ProcessBuilder builder=new ProcessBuilder();
-  ArgumentBuilder args=buildArgs(UISupport.isWindows(),modelItem);
+  ArgumentBuilder args=buildArgs(values,UISupport.isWindows(),modelItem);
   List<String> argList=args.getArgs();
   if (wsimportExtension.equals(".exe")) {
     int i=argList.indexOf("wsimport.bat");

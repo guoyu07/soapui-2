@@ -5,7 +5,7 @@
     Interface[] ifaces=WsdlInterfaceFactory.importWsdl(project,wsdlUrl,true);
     if (ifaces.length > 0) {
       context.log("Added Interface [" + ifaces[0].getName() + "] to project");
-      ifaces[0].getSettings().setString(WSToolsRegenerateJava2WsdlAction.class.getName() + "@values",dialog.getValues().toXml());
+      ifaces[0].getSettings().setString(WSToolsRegenerateJava2WsdlAction.class.getName() + "@values",getDialog().getValues().toXml());
       UISupport.select(ifaces[0]);
     }
   }

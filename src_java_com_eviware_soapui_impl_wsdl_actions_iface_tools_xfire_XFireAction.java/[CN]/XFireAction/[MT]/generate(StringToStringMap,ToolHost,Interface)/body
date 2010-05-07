@@ -10,7 +10,7 @@
     return;
   }
   ProcessBuilder builder=new ProcessBuilder();
-  ArgumentBuilder args=buildArgs(buildClasspath(xfireDir,antDir,values.get(CLASSPATH)),modelItem);
+  ArgumentBuilder args=buildArgs(values,buildClasspath(xfireDir,antDir,values.get(CLASSPATH)),modelItem);
   builder.command(args.getArgs());
   builder.directory(new File(xfireDir));
   toolHost.run(new ProcessToolRunner(builder,"XFire 1.X WsGen",modelItem));

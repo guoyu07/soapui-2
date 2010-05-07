@@ -1,0 +1,20 @@
+{
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT),""));
+  values.put(SOURCE_OUTPUT,Tools.ensureDir(values.get(SOURCE_OUTPUT),values.get(OUTPUT)));
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("wsconsume");
+  builder.addString(OUTPUT,"-o");
+  builder.addString(CATALOG,"-c");
+  builder.addString(PACKAGE,"-p");
+  builder.addString(SOURCE_OUTPUT,"-s");
+  builder.addString(WSDLLOCATION,"-w");
+  builder.addBoolean(KEEP,"-k");
+  builder.addBoolean(STACKTRACE,"-t");
+  String[] bindingFiles=values.get(BINDING_FILES).split(",");
+  for (  String file : bindingFiles) {
+    if (file.trim().length() > 0)     builder.addArgs("-b",file.trim());
+  }
+  addToolArgs(values,builder);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}

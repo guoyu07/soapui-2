@@ -13,7 +13,7 @@
   org.apache.commons.cli.Options options=initSoapUIOptions();
   CommandLineParser parser=new PosixParser();
   CommandLine cmd=parser.parse(options,args);
-  if (!validateCommandLineArgs(cmd,options)) {
+  if (!processCommandLineArgs(cmd,options)) {
     System.exit(1);
   }
   if (workspaceName != null) {

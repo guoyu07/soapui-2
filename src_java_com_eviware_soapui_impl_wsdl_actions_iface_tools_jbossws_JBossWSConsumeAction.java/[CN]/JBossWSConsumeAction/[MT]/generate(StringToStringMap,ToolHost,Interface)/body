@@ -11,7 +11,7 @@
     return;
   }
   ProcessBuilder builder=new ProcessBuilder();
-  ArgumentBuilder args=buildArgs(UISupport.isWindows(),modelItem);
+  ArgumentBuilder args=buildArgs(values,UISupport.isWindows(),modelItem);
   builder.command(args.getArgs());
   builder.directory(new File(wsimportDir));
   toolHost.run(new ProcessToolRunner(builder,"JBossWS wsconsume",modelItem));

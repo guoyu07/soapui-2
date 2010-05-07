@@ -16,7 +16,7 @@
   ActionList actions=buildDefaultActions(HelpUrls.WSTOOLS_HELP_URL,project);
   actions.addAction(new ShowConfigFileAction("JBossWS Java2Wsdl","Contents of generated wsconfig.xml file"){
     protected String getConfigFile(){
-      ConfigurationDocument configDocument=createConfigFile(dialog.getValues());
+      ConfigurationDocument configDocument=createConfigFile(getDialog().getValues());
       return configDocument.toString();
     }
   }

@@ -1,0 +1,21 @@
+{
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT),""));
+  values.put(SOURCE_OUTPUT,Tools.ensureDir(values.get(SOURCE_OUTPUT),values.get(OUTPUT)));
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("wsimport");
+  builder.addString(OUTPUT,"-d");
+  builder.addString(CATALOG,"-catalog");
+  builder.addString(HTTPPROXY,"-httpproxy",":");
+  builder.addString(PACKAGE,"-p");
+  builder.addString(SOURCE_OUTPUT,"-s");
+  builder.addString(WSDLLOCATION,"-wsdllocation");
+  builder.addBoolean(KEEP,"-keep");
+  String[] bindingFiles=values.get(BINDING_FILES).split(",");
+  for (  String file : bindingFiles) {
+    if (file.trim().length() > 0)     builder.addArgs("-b",file.trim());
+  }
+  builder.addArgs("-verbose");
+  addToolArgs(values,builder);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}
