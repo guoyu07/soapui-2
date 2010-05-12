@@ -1,5 +1,5 @@
 {
-  if (modelItem instanceof AbstractHttpRequest) {
+  if (modelItem instanceof AbstractHttpRequest<?>) {
     JMSHeaderAndPropertyInspector inspector=new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new ResponseJMSHeaderAndPropertiesModel((AbstractHttpRequest<?>)modelItem));
     inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
     return inspector;

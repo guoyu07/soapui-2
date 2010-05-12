@@ -7,8 +7,7 @@ synchronized (compressedStringConfig) {
         GZIPOutputStream out=new GZIPOutputStream(byteOut);
         out.write(value.getBytes());
         out.finish();
-        BASE64Encoder encoder=new BASE64Encoder();
-        value=encoder.encode(byteOut.toByteArray());
+        value=new String(Base64.encodeBase64(byteOut.toByteArray()));
         compressedStringConfig.setCompression("gzip");
       }
  catch (      IOException e) {
