@@ -10,7 +10,12 @@
       ensureUniqueName(testStep);
       testSteps.add(testStep);
     }
- else     removed.add(tsc);
+ else {
+      removed.add(tsc);
+    }
+  }
+  if (removed.size() > 0) {
+    testStepConfigs.removeAll(removed);
   }
   if (!forLoadTest) {
     List<LoadTestConfig> loadTestConfigs=config.getLoadTestList();
