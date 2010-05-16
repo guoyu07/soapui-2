@@ -7,8 +7,7 @@
     dialog=ADialogBuilder.buildDialog(MockAsWarDialog.class);
     dialog.getFormField(MockAsWarDialog.GLOBAL_SETTINGS).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        if (Boolean.valueOf(newValue))         dialog.getFormField(MockAsWarDialog.SETTINGS_FILE).setEnabled(true);
- else         dialog.getFormField(MockAsWarDialog.SETTINGS_FILE).setEnabled(false);
+        dialog.getFormField(MockAsWarDialog.SETTINGS_FILE).setEnabled(Boolean.valueOf(newValue));
       }
     }
 );
@@ -16,7 +15,7 @@
   }
   XFormField settingFile=dialog.getFormField(MockAsWarDialog.SETTINGS_FILE);
   settingFile.setValue(((DefaultSoapUICore)SoapUI.getSoapUICore()).getSettingsFile());
-  settingFile.setEnabled(false);
+  settingFile.setEnabled(dialog.getBooleanValue(MockAsWarDialog.GLOBAL_SETTINGS));
   XFormField warDirectory=dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY);
   XFormField warFile=dialog.getFormField(MockAsWarDialog.WAR_FILE);
   String passwordForEncryption=project.getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
