@@ -4,7 +4,7 @@
     for (    Resources resources : document.getApplication().getResourcesList()) {
       for (      Resource resource : resources.getResourceList()) {
         for (        Method method : resource.getMethodList()) {
-          fixRepresentations(method.getRequest().getRepresentationList());
+          if (method.getRequest() != null)           fixRepresentations(method.getRequest().getRepresentationList());
           for (          Response response : method.getResponseList()) {
             fixRepresentations(response.getRepresentationList());
           }
