@@ -1,6 +1,7 @@
 {
   reportForm.addCheckBox(PRINTREPORTSTATISTICS,"Creates a report statistics in the specified folder");
   reportForm.addTextField(ROOTFOLDER,"Folder for reporting",XForm.FieldType.FOLDER);
+  reportForm.addCheckBox(OPEN_REPORT,"Opens generated report(s) in browser (soapUI Pro only)").setEnabled(proVersion);
   reportForm.addTextField(GENERATEREPORTSEACHTESTCASE,"Report to Generate (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
   reportForm.addTextField(REPORTFORMAT,"Choose report format(s), comma-separated (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
 }
