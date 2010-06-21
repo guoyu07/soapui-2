@@ -1,7 +1,0 @@
-{
-  String oldScript=getAfterRunScript();
-  if (!getConfig().isSetAfterRunScript())   getConfig().addNewAfterRunScript();
-  getConfig().getAfterRunScript().setStringValue(script);
-  if (afterRunScriptEngine != null)   afterRunScriptEngine.setScript(script);
-  notifyPropertyChanged("afterRunScript",oldScript,script);
-}

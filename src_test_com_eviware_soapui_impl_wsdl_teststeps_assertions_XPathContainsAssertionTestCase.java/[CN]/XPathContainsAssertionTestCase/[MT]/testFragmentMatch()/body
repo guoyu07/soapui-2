@@ -1,5 +1,0 @@
-{
-  assertion.setPath("declare namespace urn='urn:schema:v1:companyservice:applications:bis.bonnier.se';" + "declare namespace urn1='urn:v1:companysearch:common:bis.bonnier.se';" + "//urn:searchResponse/urn1:searchResult/company[4]");
-  assertion.setExpectedContent(readResource("/testFragment.xml"));
-  assertNotNull(assertion.assertContent(testResponse,new WsdlSubmitContext(null),""));
-}

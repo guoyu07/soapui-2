@@ -1,7 +1,0 @@
-{
-  String name=context.getCursor().getName().getLocalPart();
-  SchemaTypeSystem sts=XmlBeans.compileXsd(new XmlObject[]{XmlObject.Factory.parse("<schema xmlns=\"http://www.w3.org/2001/XMLSchema\"><element name=\"" + name + "\">"+ xsd+ "</element></schema>")},XmlBeans.getBuiltinTypeSystem(),null);
-  SchemaTypeLoader stl=XmlBeans.typeLoaderUnion(new SchemaTypeLoader[]{sts,XmlBeans.getBuiltinTypeSystem()});
-  if (!stl.parse(context.getCursor().xmlText(),null,null).validate())   throw new XmlException("Element '" + name + "' does not validate for custom type!");
-  return this;
-}

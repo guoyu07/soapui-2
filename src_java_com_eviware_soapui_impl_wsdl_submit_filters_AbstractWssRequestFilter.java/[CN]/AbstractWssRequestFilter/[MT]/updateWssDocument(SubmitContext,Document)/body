@@ -1,7 +1,0 @@
-{
-  StringWriter writer=new StringWriter();
-  XmlUtils.serialize(dom,writer);
-  String request=writer.toString();
-  context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,request);
-  context.setProperty(REQUEST_CONTENT_HASH_CODE,new Integer(request.hashCode()));
-}

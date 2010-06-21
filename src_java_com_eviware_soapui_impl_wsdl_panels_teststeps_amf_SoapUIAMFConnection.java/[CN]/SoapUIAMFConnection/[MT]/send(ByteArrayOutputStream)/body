@@ -1,9 +1,0 @@
-{
-  internalConnect();
-  postMethod.setRequestEntity(new ByteArrayRequestEntity(outBuffer.toByteArray()));
-  HostConfiguration hostConfiguration=new HostConfiguration();
-  ProxyUtils.initProxySettings(context.getModelItem() == null ? SoapUI.getSettings() : context.getModelItem().getSettings(),httpState,hostConfiguration,url,context);
-  HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod,httpState);
-  context.setProperty(AMFResponse.AMF_POST_METHOD,postMethod);
-  return processHttpResponse(responseBodyInputStream());
-}

@@ -1,9 +1,0 @@
-{
-  if (!runners.contains(runner)) {
-    throw new RuntimeException("Trying to finish unknown runner.. ");
-  }
-  runners.remove(runner);
-  if (getProgress() >= 1 || status != Status.RUNNING) {
-    stop();
-  }
-}

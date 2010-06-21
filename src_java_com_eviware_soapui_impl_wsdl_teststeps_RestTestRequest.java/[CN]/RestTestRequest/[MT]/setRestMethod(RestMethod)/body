@@ -1,9 +1,0 @@
-{
-  RestMethod old=this.getRestMethod();
-  if (old != null) {
-    old.getResource().removePropertyChangeListener(this);
-  }
-  super.setRestMethod(restMethod);
-  restMethod.getResource().addPropertyChangeListener(this);
-  notifyPropertyChanged("restMethod",old,restMethod);
-}

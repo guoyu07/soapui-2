@@ -1,6 +1,0 @@
-{
-  File folderName=location == null ? UISupport.getFileDialogs().openDirectory(this,"Select output directory",null) : new File(location);
-  if (folderName == null)   return null;
-  WsdlDefinitionExporter exporter=new WsdlDefinitionExporter(iface);
-  return exporter.export(folderName.getAbsolutePath());
-}

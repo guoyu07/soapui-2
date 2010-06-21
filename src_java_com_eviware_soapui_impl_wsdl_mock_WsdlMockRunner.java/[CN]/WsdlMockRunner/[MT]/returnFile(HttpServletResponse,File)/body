@@ -1,9 +1,0 @@
-{
-  FileInputStream in=new FileInputStream(file);
-  response.setStatus(HttpServletResponse.SC_OK);
-  long length=file.length();
-  response.setContentLength((int)length);
-  response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
-  Tools.readAndWrite(in,length,response.getOutputStream());
-  in.close();
-}

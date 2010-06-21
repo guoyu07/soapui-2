@@ -1,9 +1,0 @@
-{
-synchronized (result.getMockOperation()) {
-synchronized (this) {
-      int currentDispatchIndex=(int)((Math.random() * getMockOperation().getMockResponseCount()) + 0.5F);
-      if (currentDispatchIndex >= getMockOperation().getMockResponseCount())       currentDispatchIndex=0;
-      return getMockOperation().getMockResponseAt(currentDispatchIndex);
-    }
-  }
-}

@@ -1,6 +1,0 @@
-{
-  if (request.getMockResult() == null)   return "<missing response>";
-  StringToStringMap headers=request.getMockResult().getResponseHeaders();
-  byte[] data=request.getMockResult().getRawResponseData();
-  return buildRawContent(headers,data);
-}

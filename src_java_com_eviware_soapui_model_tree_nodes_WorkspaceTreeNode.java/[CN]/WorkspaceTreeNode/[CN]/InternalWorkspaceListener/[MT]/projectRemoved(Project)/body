@@ -1,9 +1,0 @@
-{
-  SoapUITreeNode treeNode=getTreeModel().getTreeNode(project);
-  if (projectNodes.contains(treeNode)) {
-    getTreeModel().notifyNodeRemoved(treeNode);
-    projectNodes.remove(treeNode);
-    project.removePropertyChangeListener(propertyChangeListener);
-  }
- else   throw new RuntimeException("Removing unkown project");
-}

@@ -1,9 +1,0 @@
-{
-  super(config,parent,icon);
-  if (!forLoadTest && !UISupport.isHeadless()) {
-    iconAnimator=initIconAnimator();
-    addSubmitListener(iconAnimator);
-  }
-  initAttachments();
-  dumpFile=new SettingPathPropertySupport(this,DUMP_FILE);
-}

@@ -1,8 +1,0 @@
-{
-  PropertyTransfer transfer=getCurrentTransfer();
-  String newName=UISupport.prompt("Specify new name for transfer","Rename Transfer",transfer.getName());
-  if (newName != null && !transfer.getName().equals(newName)) {
-    listModel.setElementAt(newName,transferList.getSelectedIndex());
-    transfer.setName(newName);
-  }
-}

@@ -1,8 +1,0 @@
-{
-  if (config.getType() == DefinitionCacheTypeConfig.TEXT) {
-    Node domNode=part.getContent().getDomNode();
-    String nodeValue=XmlUtils.getNodeValue(domNode);
-    return XmlObject.Factory.parse(nodeValue,new XmlOptions().setLoadLineNumbers());
-  }
-  return XmlObject.Factory.parse(part.getContent().toString(),new XmlOptions().setLoadLineNumbers());
-}

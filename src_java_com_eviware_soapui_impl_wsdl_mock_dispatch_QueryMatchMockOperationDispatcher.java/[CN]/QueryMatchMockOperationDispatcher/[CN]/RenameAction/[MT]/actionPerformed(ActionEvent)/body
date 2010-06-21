@@ -1,9 +1,0 @@
-{
-  QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
-  if (selectedQuery == null)   return;
-  String newName=UISupport.prompt("Specify new name for Query","Rename Query",selectedQuery.getName());
-  if (newName != null && !selectedQuery.getName().equals(newName)) {
-    selectedQuery.setName(newName);
-    queryItemListModel.refresh();
-  }
-}

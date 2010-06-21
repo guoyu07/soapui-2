@@ -1,5 +1,0 @@
-{
-  Topic topicSubscribe=jmsConnectionHolder.getTopic(jmsConnectionHolder.getJmsEndpoint().getReceive());
-  TopicSubscriber topicDurableSubsriber=topicSession.createDurableSubscriber(topicSubscribe,StringUtils.hasContent(durableSubscriptionName) ? durableSubscriptionName : "durableSubscription" + jmsConnectionHolder.getJmsEndpoint().getReceive(),submitContext.expand(messageSelector),false);
-  return topicDurableSubsriber;
-}

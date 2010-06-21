@@ -1,7 +1,0 @@
-{
-  List<EditorViewFactory> result=new ArrayList<EditorViewFactory>();
-  for (  EditorViewFactory factory : factories) {
-    if (Arrays.asList(factory.getClass().getInterfaces()).contains(type))     result.add(factory);
-  }
-  return result.toArray(new EditorViewFactory[result.size()]);
-}

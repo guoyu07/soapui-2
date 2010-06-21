@@ -1,9 +1,0 @@
-{
-  for (int c=indices.length; c > 0; c--) {
-    int index=indices[c - 1];
-    WsdlMonitorMessageExchange removed=exchanges.remove(logTable.convertRowIndexToModel(index));
-    removed.discard();
-    fireTableRowsDeleted(index,index);
-    updateRowCountLabel();
-  }
-}

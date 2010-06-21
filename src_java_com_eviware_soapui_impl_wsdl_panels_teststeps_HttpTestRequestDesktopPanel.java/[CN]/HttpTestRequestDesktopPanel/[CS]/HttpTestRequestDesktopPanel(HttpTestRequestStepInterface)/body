@@ -1,7 +1,0 @@
-{
-  super(testStep,testStep.getTestRequest());
-  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
-  setEnabled(!SoapUI.getTestMonitor().hasRunningTest(testStep.getTestCase()));
-  testStep.getTestRequest().addAssertionsListener(assertionsListener);
-  getSubmitButton().setEnabled(getSubmit() == null && StringUtils.hasContent(getRequest().getEndpoint()));
-}

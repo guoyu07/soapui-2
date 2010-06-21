@@ -1,9 +1,0 @@
-{
-  XmlObject[] nodes=xmlObject.selectPath(xpath);
-  List<XmlTreeNode> result=new ArrayList<XmlTreeNode>();
-  for (  XmlObject xmlObject : nodes) {
-    XmlTreeNode tn=getXmlTreeNode(xmlObject);
-    if (tn != null)     result.add(tn);
-  }
-  return result.toArray(new XmlTreeNode[result.size()]);
-}

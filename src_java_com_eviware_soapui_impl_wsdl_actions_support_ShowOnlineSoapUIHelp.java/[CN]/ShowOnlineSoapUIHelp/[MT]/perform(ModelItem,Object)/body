@@ -1,9 +1,0 @@
-{
-  if (param == null && url == null) {
-    UISupport.showErrorMessage("Missing help URL");
-    return;
-  }
-  String url=param == null ? this.url : param.toString();
-  if (!url.startsWith("http://"))   url=HelpUrls.HELP_URL_ROOT + url;
-  Tools.openURL(url);
-}

@@ -1,7 +1,0 @@
-{
-  JTabbedPane tabs=new JTabbedPane();
-  paramsTable=new RestParamsTable(getModelItem().getParams(),true);
-  tabs.addTab("Method Parameters",paramsTable);
-  tabs.addTab("Representations",new RestRepresentationsTable(getModelItem(),new RestRepresentation.Type[]{RestRepresentation.Type.REQUEST,RestRepresentation.Type.RESPONSE,RestRepresentation.Type.FAULT},false));
-  return UISupport.createTabPanel(tabs,false);
-}

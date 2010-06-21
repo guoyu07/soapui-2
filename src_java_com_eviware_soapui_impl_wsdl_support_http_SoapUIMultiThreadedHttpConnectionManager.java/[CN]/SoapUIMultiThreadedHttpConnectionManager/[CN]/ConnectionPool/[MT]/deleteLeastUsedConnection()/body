@@ -1,9 +1,0 @@
-{
-  HttpConnection connection=(HttpConnection)freeConnections.removeFirst();
-  if (connection != null) {
-    deleteConnection(connection);
-  }
- else   if (LOG.isDebugEnabled()) {
-    LOG.debug("Attempted to reclaim an unused connection but there were none.");
-  }
-}

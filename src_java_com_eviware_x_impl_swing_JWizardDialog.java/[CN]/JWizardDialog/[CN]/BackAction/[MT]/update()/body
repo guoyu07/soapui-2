@@ -1,9 +1,0 @@
-{
-  boolean enable=false;
-  if (currentPage > 0) {
-    String pageName=pageNames.get(currentPage - 1);
-    WizardPage prevPage=controllers.get(pageName);
-    enable=prevPage.canGoBack();
-  }
-  setEnabled(enable);
-}

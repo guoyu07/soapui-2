@@ -1,8 +1,0 @@
-{
-  JXEditTextArea xmlEditor=JXEditTextArea.createXmlEditor(true);
-  xmlEditor.setText(editorModel.getEditorText());
-  xmlEditor.getDocument().addDocumentListener(new EditorModelDocumentListener(editorModel,xmlEditor));
-  JScrollPane scrollPane=new JScrollPane(xmlEditor);
-  UISupport.addPreviewCorner(scrollPane,false);
-  return scrollPane;
-}

@@ -1,8 +1,0 @@
-{
-  if (endpoint == null || endpoint.trim().length() == 0)   return;
-  endpoint=endpoint.trim();
-  String[] endpoints=getEndpoints();
-  if (Arrays.asList(endpoints).contains(endpoint))   return;
-  getConfig().getEndpoints().addNewEndpoint().setStringValue(endpoint);
-  notifyPropertyChanged(ENDPOINT_PROPERTY,null,endpoint);
-}

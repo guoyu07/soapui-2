@@ -1,6 +1,0 @@
-{
-  dialog=ADialogBuilder.buildDialog(Form.class);
-  dialog.getFormField(Form.STEPNAME).addFormFieldValidator(new RequiredValidator());
-  dialog.getFormField(Form.EXTRACTPARAMS).setProperty("action",new ExtractParamsAction());
-  ((XFormOptionsField)dialog.getFormField(Form.HTTPMETHOD)).setOptions(RestRequestInterface.RequestMethod.getMethods());
-}

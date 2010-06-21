@@ -1,9 +1,0 @@
-{
-  if (getModelItem() instanceof WsdlTestRequest) {
-    WsdlTestRequest testRequest=(WsdlTestRequest)getModelItem();
-    testRequest.assertResponse(new WsdlTestRunContext(testRequest.getTestStep()));
-  }
-  WsdlOperation operation=getModelItem().getOperation();
-  WsdlValidator validator=new WsdlValidator((operation.getInterface()).getWsdlContext());
-  return validator.assertResponse(new WsdlResponseMessageExchange(getModelItem()),false);
-}

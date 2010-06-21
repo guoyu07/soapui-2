@@ -1,9 +1,0 @@
-{
-  dialog=ADialogBuilder.buildTabbedDialog(WizardForm.class,null);
-  dialog.getFormField(SettingsForm.DISABLE_HISTORY).addFormFieldListener(new XFormFieldListener(){
-    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
-      dialog.getFormField(SettingsForm.SAMPLE_INTERVAL).setEnabled(!Boolean.parseBoolean(newValue));
-    }
-  }
-);
-}

@@ -1,9 +1,0 @@
-{
-  PropertyTreeNode propertyTreeNode=new PropertyTreeNode(holder.getProperty(name),getModelItem(),holder,getTreeModel());
-  propertyNodes.add(propertyTreeNode);
-  propertyMap.put(name,propertyTreeNode);
-  getTreeModel().notifyNodeInserted(propertyTreeNode);
-  if (getModelItem() instanceof PropertiesModelItem) {
-    ((PropertiesModelItem)getModelItem()).updateName();
-  }
-}

@@ -1,8 +1,0 @@
-{
-  Properties properties=System.getProperties();
-  Map<String,TestProperty> result=new HashMap<String,TestProperty>();
-  for (  Object key : properties.keySet()) {
-    result.put(key.toString(),new SystemTestProperty(key));
-  }
-  return result;
-}

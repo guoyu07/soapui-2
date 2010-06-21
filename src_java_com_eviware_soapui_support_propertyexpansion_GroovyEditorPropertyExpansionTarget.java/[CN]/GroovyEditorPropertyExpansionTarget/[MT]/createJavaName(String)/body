@@ -1,9 +1,0 @@
-{
-  StringBuffer buf=new StringBuffer();
-  for (int c=0; c < name.length(); c++) {
-    char ch=c == 0 ? name.toLowerCase().charAt(c) : name.charAt(c);
-    if (buf.length() == 0 && Character.isJavaIdentifierStart(ch))     buf.append(ch);
- else     if (buf.length() > 0 && Character.isJavaIdentifierPart(ch))     buf.append(ch);
-  }
-  return buf.toString();
-}

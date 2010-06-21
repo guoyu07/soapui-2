@@ -1,9 +1,0 @@
-{
-  int ix=table.getSelectedRow();
-  if (ix == -1)   return;
-  ix=table.convertRowIndexToModel(ix);
-  LoadTestAssertion assertion=loadTest.getAssertionAt(ix);
-  if (UISupport.confirm("Remove assertion [" + assertion.getName() + "]","Remove Assertion")) {
-    loadTest.removeAssertion(assertion);
-  }
-}

@@ -1,8 +1,0 @@
-{
-  Iterator<?> hermesDestionations=hermes.getDestinations();
-  while (hermesDestionations.hasNext()) {
-    DestinationConfig dest=(DestinationConfig)hermesDestionations.next();
-    Destination temp=new Destination(dest.getName(),Domain.getDomain(dest.getDomain()));
-    destinationList.add(temp);
-  }
-}

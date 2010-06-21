@@ -1,8 +1,0 @@
-{
-  super.beforeLoadTest(loadTestRunner,context);
-  startTime=System.currentTimeMillis();
-  if (infoLabel != null)   infoLabel.setText("starting..");
-  WsdlLoadTest wsdlLoadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
-  threadCount=wsdlLoadTest.getThreadCount();
-  wsdlLoadTest.setThreadCount(0);
-}

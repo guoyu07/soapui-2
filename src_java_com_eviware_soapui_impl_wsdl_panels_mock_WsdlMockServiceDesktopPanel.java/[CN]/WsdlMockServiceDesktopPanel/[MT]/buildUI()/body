@@ -1,9 +1,0 @@
-{
-  add(buildToolbar(),BorderLayout.NORTH);
-  contentInspector=JInspectorPanelFactory.build(buildContent());
-  contentInspector.setDefaultDividerLocation(0.5F);
-  contentInspector.addInspector(new JComponentInspector<JComponent>(buildLog(),"Message Log","A log of processed requests and their responses",true));
-  contentInspector.setCurrentInspector("Message Log");
-  add(contentInspector.getComponent(),BorderLayout.CENTER);
-  add(new JLabel("--"),BorderLayout.PAGE_END);
-}

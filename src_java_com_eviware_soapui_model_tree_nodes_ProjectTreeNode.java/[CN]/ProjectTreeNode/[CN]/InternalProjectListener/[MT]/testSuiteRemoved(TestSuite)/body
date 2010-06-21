@@ -1,8 +1,0 @@
-{
-  SoapUITreeNode treeNode=getTreeModel().getTreeNode(testSuite);
-  if (testSuiteNodes.contains(treeNode)) {
-    getTreeModel().notifyNodeRemoved(treeNode);
-    testSuiteNodes.remove(treeNode);
-  }
- else   throw new RuntimeException("Removing unkown testSuite");
-}

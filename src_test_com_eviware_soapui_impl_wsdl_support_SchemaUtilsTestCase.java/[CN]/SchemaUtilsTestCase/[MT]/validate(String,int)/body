@@ -1,9 +1,0 @@
-{
-  SchemaTypeLoader schemaTypes=SchemaUtils.loadSchemaTypes(url,new UrlWsdlLoader(url));
-  Map<String,XmlObject> definitionUrls=SchemaUtils.getDefinitionParts(new UrlWsdlLoader(url));
-  assertNotNull(schemaTypes);
-  assertNotNull(definitionUrls);
-  assertEquals(cnt,definitionUrls.size());
-  assertNotNull(schemaTypes.findType(new QName("http://schemas.eviware.com/TestService/v1/","PageReference")));
-  return schemaTypes;
-}

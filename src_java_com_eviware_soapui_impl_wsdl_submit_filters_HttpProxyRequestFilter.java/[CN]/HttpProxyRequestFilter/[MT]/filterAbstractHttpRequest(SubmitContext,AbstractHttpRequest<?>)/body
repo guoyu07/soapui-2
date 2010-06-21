@@ -1,7 +1,0 @@
-{
-  Settings settings=wsdlRequest.getSettings();
-  HostConfiguration hostConfiguration=(HostConfiguration)context.getProperty(BaseHttpRequestTransport.HOST_CONFIGURATION);
-  HttpState httpState=(HttpState)context.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
-  String endpoint=PropertyExpander.expandProperties(context,wsdlRequest.getEndpoint());
-  ProxyUtils.initProxySettings(settings,httpState,hostConfiguration,endpoint,context);
-}

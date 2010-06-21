@@ -1,8 +1,0 @@
-{
-  String testSuiteName=UISupport.prompt("Missing TestSuite in project, enter name to create","Create TestSuite","TestSuite " + (project.getTestSuiteCount() + 1));
-  if (testSuiteName == null)   return null;
-  String testCaseName=UISupport.prompt("Enter name for TestCase create","Create TestCase","TestCase 1");
-  if (testCaseName == null)   return null;
-  WsdlTestSuite testSuite=(WsdlTestSuite)project.addNewTestSuite(testSuiteName);
-  return testSuite.addNewTestCase(testCaseName);
-}

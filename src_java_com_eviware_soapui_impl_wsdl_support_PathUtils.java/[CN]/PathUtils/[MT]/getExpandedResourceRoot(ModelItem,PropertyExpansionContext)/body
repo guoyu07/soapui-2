@@ -1,9 +1,0 @@
-{
-  if (!(modelItem instanceof AbstractWsdlModelItem<?>))   return null;
-  WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
-  if (project == null)   return null;
-  String docroot=project.getResourceRoot();
-  if (!StringUtils.hasContent(docroot))   return new File("").getAbsolutePath();
-  docroot=context == null ? PropertyExpander.expandProperties(modelItem,docroot) : PropertyExpander.expandProperties(context,docroot);
-  return docroot;
-}

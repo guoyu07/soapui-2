@@ -1,9 +1,0 @@
-{
-  SoapUIActionGroup group=getActionGroup();
-  List<SoapUIActionMapping<T>> mappings=group.getActionMappings(target);
-  for (  SoapUIActionMapping<T> mapping : mappings) {
-    if (mapping.isDefault()) {
-      ((SoapUIAction<T>)mapping.getAction()).perform(target,param);
-    }
-  }
-}

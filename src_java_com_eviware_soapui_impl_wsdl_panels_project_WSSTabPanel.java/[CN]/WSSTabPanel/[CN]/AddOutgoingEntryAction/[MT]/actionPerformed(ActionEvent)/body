@@ -1,8 +1,0 @@
-{
-  if (selectedOutgoing == null)   return;
-  String type=UISupport.prompt("Select type of entry to add","Add WSS Entry",WssEntryRegistry.get().getTypes());
-  if (type != null) {
-    WssEntry entry=selectedOutgoing.addEntry(type);
-    entriesTabs.setSelectedComponent(entry.getConfigurationPanel());
-  }
-}

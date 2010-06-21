@@ -1,8 +1,0 @@
-{
-  XmlObject configuration=assertionConfig.getConfiguration();
-  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(configuration);
-  setName(reader.readString(TestStepStatusAssertion.NAME_ELEMENT,"Step Status"));
-  minRequests=reader.readInt(TestStepStatusAssertion.MIN_REQUESTS_ELEMENT,0);
-  setTargetStep(reader.readString(TestStepStatusAssertion.TEST_STEP_ELEMENT,ANY_TEST_STEP));
-  maxErrors=reader.readInt(MAX_ERRORS_ELEMENT,-1);
-}

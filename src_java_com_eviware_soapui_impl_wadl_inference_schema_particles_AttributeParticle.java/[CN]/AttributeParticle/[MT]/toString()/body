@@ -1,8 +1,0 @@
-{
-  StringBuilder s=new StringBuilder("<" + schema.getPrefixForNamespace(Settings.xsdns) + ":"+ getPType()+ " name=\""+ name+ "\" type=\"");
-  if (type.getSchema() != schema)   s.append(schema.getPrefixForNamespace(type.getSchema().getNamespace()) + ":");
-  s.append(type.getName() + "\"");
-  for (  Map.Entry<String,String> entry : attributes.entrySet())   s.append(" " + entry.getKey() + "=\""+ entry.getValue()+ "\"");
-  s.append("/>");
-  return s.toString();
-}

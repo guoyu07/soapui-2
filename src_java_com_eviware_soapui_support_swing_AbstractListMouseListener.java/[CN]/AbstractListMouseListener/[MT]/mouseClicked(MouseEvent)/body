@@ -1,7 +1,0 @@
-{
-  if (e.getClickCount() < 2)   return;
-  JList list=(JList)e.getSource();
-  int selectedIndex=list.getSelectedIndex();
-  ActionList actions=selectedIndex == -1 ? getDefaultActions() : getActionsForRow(list,selectedIndex);
-  if (actions != null)   actions.performDefaultAction(new ActionEvent(this,0,null));
-}

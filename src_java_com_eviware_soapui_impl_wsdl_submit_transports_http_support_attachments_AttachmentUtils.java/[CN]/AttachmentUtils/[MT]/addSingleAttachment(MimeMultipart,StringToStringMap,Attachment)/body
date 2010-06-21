@@ -1,7 +1,0 @@
-{
-  String contentType=att.getContentType();
-  MimeBodyPart part=contentType.startsWith("text/") ? new MimeBodyPart() : new PreencodedMimeBodyPart("binary");
-  part.setDataHandler(new DataHandler(new AttachmentDataSource(att)));
-  initPartContentId(contentIds,part,att,false);
-  mp.addBodyPart(part);
-}

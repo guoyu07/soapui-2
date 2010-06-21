@@ -1,5 +1,0 @@
-{
-  Connection connection=StringUtils.hasContent(username) ? ((ConnectionFactory)connectionFactory).createConnection(username,password) : ((ConnectionFactory)connectionFactory).createConnection();
-  if (!StringUtils.isNullOrEmpty(clientId) && domain.equals(Domain.TOPIC))   connection.setClientID(clientId);
-  return connection;
-}

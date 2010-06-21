@@ -1,8 +1,0 @@
-{
-  super.paintComponent(g);
-  g.setColor(underlineColor == null ? getForeground() : underlineColor);
-  Insets insets=getInsets();
-  int left=insets.left;
-  if (getIcon() != null)   left+=getIcon().getIconWidth() + getIconTextGap();
-  g.drawLine(left,getHeight() - 1 - insets.bottom,(int)getPreferredSize().getWidth() - insets.right,getHeight() - 1 - insets.bottom);
-}

@@ -1,9 +1,0 @@
-{
-  File projectFile=new File(fileName);
-  WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile.getAbsolutePath(),this);
-  projectList.add(project);
-  fireProjectAdded(project);
-  resolveProject(project);
-  save(true);
-  return project;
-}

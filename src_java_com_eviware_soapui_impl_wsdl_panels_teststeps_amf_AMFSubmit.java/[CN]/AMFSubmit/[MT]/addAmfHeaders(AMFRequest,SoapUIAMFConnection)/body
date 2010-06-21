@@ -1,9 +1,0 @@
-{
-  if (amfRequest.getAmfHeaders() != null) {
-    for (    String key : amfRequest.getAmfHeaders().keySet()) {
-      Object data=amfRequest.getAmfHeaders().get(key);
-      if (data instanceof String)       data=context.expand((String)data);
-      amfConnection.addAmfHeader(key,data);
-    }
-  }
-}

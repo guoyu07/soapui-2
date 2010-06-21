@@ -1,8 +1,0 @@
-{
-  if (model.getSize() == 0) {
-    UISupport.showErrorMessage("Log is empty; nothing to export");
-    return;
-  }
-  File file=UISupport.getFileDialogs().saveAs(JLogList.this,"Save Log [] to File","*.log","*.log",null);
-  if (file != null)   saveToFile(file);
-}

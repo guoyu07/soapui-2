@@ -1,7 +1,0 @@
-{
-  XmlObject[] envelope=messageObject.selectChildren(soapVersion.getEnvelopeQName());
-  if (envelope.length != 1)   throw new XmlException("Missing/Invalid SOAP Envelope, expecting [" + soapVersion.getEnvelopeQName() + "]");
-  XmlObject[] body=envelope[0].selectChildren(soapVersion.getBodyQName());
-  if (body.length != 1)   throw new XmlException("Missing/Invalid SOAP Body, expecting [" + soapVersion.getBodyQName() + "]");
-  return body[0];
-}

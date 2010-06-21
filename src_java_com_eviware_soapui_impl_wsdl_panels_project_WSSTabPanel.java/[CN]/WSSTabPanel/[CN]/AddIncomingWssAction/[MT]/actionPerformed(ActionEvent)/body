@@ -1,7 +1,0 @@
-{
-  String name=UISupport.prompt("Specify unique name for configuration","New Incoming WSS Configuration","");
-  if (StringUtils.hasContent(name) && wssContainer.getIncomingWssByName(name) == null) {
-    wssContainer.addIncomingWss(name);
-    incomingWssTable.setRowSelectionInterval(incomingWssTable.getRowCount() - 1,incomingWssTable.getRowCount() - 1);
-  }
-}

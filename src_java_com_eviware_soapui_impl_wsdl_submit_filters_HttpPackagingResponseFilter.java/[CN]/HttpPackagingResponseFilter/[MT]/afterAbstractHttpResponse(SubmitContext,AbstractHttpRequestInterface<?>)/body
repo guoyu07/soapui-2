@@ -1,9 +1,0 @@
-{
-  ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  String requestContent=(String)context.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
-  Header responseContentTypeHeader=httpMethod.getResponseHeader("Content-Type");
-  Response response=null;
-  if (request instanceof WsdlRequest)   response=wsdlRequest(context,(WsdlRequest)request,httpMethod,responseContentTypeHeader,requestContent);
- else   if (request instanceof HttpRequestInterface<?>)   response=httpRequest(context,(HttpRequestInterface<?>)request,httpMethod,responseContentTypeHeader,requestContent);
-  context.setProperty(BaseHttpRequestTransport.RESPONSE,response);
-}

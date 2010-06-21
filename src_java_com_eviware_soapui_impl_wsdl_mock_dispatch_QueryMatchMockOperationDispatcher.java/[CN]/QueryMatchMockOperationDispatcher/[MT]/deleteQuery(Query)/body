@@ -1,8 +1,0 @@
-{
-  int ix=queries.indexOf(query);
-  queries.remove(ix);
-  getPropertyChangeSupport().firePropertyChange("queries",query,null);
-  if (queryItemListModel != null)   queryItemListModel.fireRemoved(ix);
-  conf.removeQuery(ix);
-  saveConfig();
-}

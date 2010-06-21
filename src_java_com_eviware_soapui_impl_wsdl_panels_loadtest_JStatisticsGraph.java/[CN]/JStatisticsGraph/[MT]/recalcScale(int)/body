@@ -1,9 +1,0 @@
-{
-  float scale=(index == 0 || maxValues[index] == 0) ? 1 : (float)(getHeight()) / (float)(maxValues[index] + 10);
-  if (scale > 1)   scale=1;
-  if (Float.compare(scale,scales[index]) == 0) {
-    return false;
-  }
-  scales[index]=scale;
-  return true;
-}

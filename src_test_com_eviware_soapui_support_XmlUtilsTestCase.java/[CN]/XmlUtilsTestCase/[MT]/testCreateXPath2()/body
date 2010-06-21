@@ -1,8 +1,0 @@
-{
-  String str="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " + "xmlns:ord=\"http://www.example.org/OrderService/\">" + "<soapenv:Header/><soapenv:Body><purchaseOrder xmlns=\"http://test\"><productId>?</productId>"+ "</purchaseOrder></soapenv:Body></soapenv:Envelope>";
-  XmlObject xml=XmlObject.Factory.parse(str);
-  XmlObject xmlobj=xml.selectPath("declare namespace ns='http://test';//ns:productId")[0];
-  String xpath=XmlUtils.createXPath(xmlobj.getDomNode());
-  System.out.println("created path: " + xpath);
-  assertEquals(xmlobj,xml.selectPath(xpath)[0]);
-}

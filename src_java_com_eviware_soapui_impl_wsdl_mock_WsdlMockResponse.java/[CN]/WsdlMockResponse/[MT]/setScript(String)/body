@@ -1,9 +1,0 @@
-{
-  String oldScript=getScript();
-  if (!script.equals(oldScript)) {
-    if (!getConfig().isSetScript())     getConfig().addNewScript();
-    getConfig().getScript().setStringValue(script);
-    scriptEnginePool.setScript(script);
-    notifyPropertyChanged(SCRIPT_PROPERTY,oldScript,script);
-  }
-}

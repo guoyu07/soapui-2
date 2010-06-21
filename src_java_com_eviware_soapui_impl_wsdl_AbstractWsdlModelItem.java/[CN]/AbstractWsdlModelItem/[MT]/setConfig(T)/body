@@ -1,9 +1,0 @@
-{
-  this.config=config;
-  if (config != null && config.isSetName()) {
-    config.setName(config.getName().trim());
-  }
-  if (settings != null)   settings.release();
-  if (!config.isSetSettings())   config.addNewSettings();
-  settings=new XmlBeansSettingsImpl(this,parent == null ? SoapUI.getSettings() : parent.getSettings(),this.config.getSettings());
-}

@@ -1,9 +1,0 @@
-{
-  if (rect != null && rect.contains(me.getX(),me.getY())) {
-    Point pt=me.getPoint();
-    pt.translate(-offset,0);
-    comp.setBounds(rect);
-    comp.dispatchEvent(new MouseEvent(comp,me.getID(),me.getWhen(),me.getModifiers(),pt.x,pt.y,me.getClickCount(),me.isPopupTrigger(),me.getButton()));
-    if (!comp.isValid())     container.repaint();
-  }
-}

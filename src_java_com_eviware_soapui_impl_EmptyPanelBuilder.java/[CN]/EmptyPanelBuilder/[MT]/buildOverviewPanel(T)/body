@@ -1,9 +1,0 @@
-{
-  String caption="Properties";
-  if (modelItem.getClass().getSimpleName().startsWith("Wsdl")) {
-    caption=modelItem.getClass().getSimpleName().substring(4);
-    if (caption.endsWith("TestStep"))     caption=caption.substring(0,caption.length() - 8);
-    caption+=" Properties";
-  }
-  return buildDefaultProperties(modelItem,caption);
-}

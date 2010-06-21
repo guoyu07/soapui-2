@@ -1,9 +1,0 @@
-{
-  String name=UISupport.prompt("Specify name for new " + typeName,"New " + typeName,def);
-  StringList names=new StringList();
-  for (  ModelItem item : parent.getChildren())   names.add(item.getName());
-  while (name != null && names.contains(name)) {
-    name=UISupport.prompt("Specify unique name for new " + typeName,"New " + typeName,def);
-  }
-  return name;
-}

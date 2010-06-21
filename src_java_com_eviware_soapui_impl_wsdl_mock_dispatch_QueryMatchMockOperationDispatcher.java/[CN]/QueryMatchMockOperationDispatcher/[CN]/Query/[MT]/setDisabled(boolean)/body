@@ -1,8 +1,0 @@
-{
-  boolean old=config.getDisabled();
-  if (old == disabled)   return;
-  config.setDisabled(disabled);
-  saveConfig();
-  firePropertyChange("disabled",old,disabled);
-  queryItemListModel.refresh();
-}

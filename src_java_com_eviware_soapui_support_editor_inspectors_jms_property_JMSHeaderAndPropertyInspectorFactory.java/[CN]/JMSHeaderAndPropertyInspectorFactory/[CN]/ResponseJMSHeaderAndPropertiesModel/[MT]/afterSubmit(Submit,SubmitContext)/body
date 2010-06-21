@@ -1,9 +1,0 @@
-{
-  headersAndProperties=new StringToStringMap();
-  JMSResponse jmsResponse=(JMSResponse)context.getProperty(HermesJmsRequestTransport.JMS_RESPONSE);
-  if (jmsResponse instanceof JMSResponse) {
-    Message message=jmsResponse.getMessageReceive();
-    if (message != null)     headersAndProperties.putAll(JMSHeader.getMessageHeadersAndProperties(message));
-  }
-  inspector.getHeadersTableModel().setData(headersAndProperties);
-}

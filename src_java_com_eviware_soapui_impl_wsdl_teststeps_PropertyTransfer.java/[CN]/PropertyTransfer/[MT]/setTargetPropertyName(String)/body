@@ -1,9 +1,0 @@
-{
-  String old=getTargetPropertyName();
-  if ((name == null && old == null) || (name != null && old != null && name.equals(old)))   return;
-  targetType=name;
-  config.setTargetType(name);
-  TestPropertyHolder targetStep2=getTargetStep();
-  currentTargetProperty=targetStep2 != null && targetType != null ? targetStep2.getProperty(targetType) : null;
-  propertyChangeSupport.firePropertyChange(TARGET_TYPE_PROPERTY,old,name);
-}

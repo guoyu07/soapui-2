@@ -1,9 +1,0 @@
-{
-  if (SoapUI.getTestMonitor().hasRunningTest(testCase)) {
-    UISupport.showErrorMessage("Cannot remove RestCase while tests are running");
-    return;
-  }
-  if (UISupport.confirm("Remove TestCase [" + testCase.getName() + "] from TestSuite","Remove TestCase")) {
-    ((WsdlTestSuite)testCase.getTestSuite()).removeTestCase(testCase);
-  }
-}

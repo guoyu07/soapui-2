@@ -1,8 +1,0 @@
-{
-  setBindingName(tuple.binding.getQName());
-  if (getConfig().isSetDefinitionCache())   getConfig().unsetDefinitionCache();
-  if (getSettings().getBoolean(WsdlSettings.NAME_WITH_BINDING))   setName(tuple.binding.getQName().getLocalPart());
-  wsdlContext=tuple.context;
-  wsdlContext.setInterface(this);
-  if (soapMessageBuilder != null)   soapMessageBuilder.setWsdlContext(wsdlContext);
-}

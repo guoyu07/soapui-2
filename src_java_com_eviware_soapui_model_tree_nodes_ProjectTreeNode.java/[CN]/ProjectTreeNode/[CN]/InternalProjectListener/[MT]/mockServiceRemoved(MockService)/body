@@ -1,8 +1,0 @@
-{
-  SoapUITreeNode treeNode=getTreeModel().getTreeNode(mockService);
-  if (mockServiceNodes.contains(treeNode)) {
-    getTreeModel().notifyNodeRemoved(treeNode);
-    mockServiceNodes.remove(treeNode);
-  }
- else   throw new RuntimeException("Removing unkown mockService");
-}

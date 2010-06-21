@@ -1,8 +1,0 @@
-{
-  if (evt.getPropertyName().equals(AbstractHttpRequest.ENDPOINT_PROPERTY)) {
-    if (inspector != null && request.getEndpoint() != null) {
-      inspector.setEnabled(!request.getEndpoint().startsWith(JMSEndpoint.JMS_ENDPIONT_PREFIX));
-    }
-  }
-  super.propertyChange(evt);
-}

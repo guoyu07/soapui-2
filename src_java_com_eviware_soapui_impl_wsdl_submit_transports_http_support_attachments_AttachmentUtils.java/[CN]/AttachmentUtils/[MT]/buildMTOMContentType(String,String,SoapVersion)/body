@@ -1,6 +1,0 @@
-{
-  int ix=header.indexOf("boundary");
-  String contentType="multipart/related; type=\"application/xop+xml\"; start=\"" + ROOTPART_SOAPUI_ORG + "\"; "+ "start-info=\""+ soapVersion.getContentType();
-  if (soapVersion == SoapVersion.Soap12 && action != null)   contentType+="\"; action=\"" + action;
-  return contentType + "\"; " + header.substring(ix);
-}

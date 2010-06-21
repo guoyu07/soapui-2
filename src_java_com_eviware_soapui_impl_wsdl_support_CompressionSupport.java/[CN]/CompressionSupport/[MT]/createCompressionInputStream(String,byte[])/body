@@ -1,7 +1,0 @@
-{
-  checkAlg(alg);
-  ByteArrayInputStream bais=new ByteArrayInputStream(content);
-  if (ALG_GZIP.equals(alg))   return new GZIPInputStream(bais);
- else   if (ALG_DEFLATE.equals(alg))   return new InflaterInputStream(bais);
- else   return null;
-}

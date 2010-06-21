@@ -1,8 +1,0 @@
-{
-  String[] names=ModelSupport.getNames(((WorkspaceImpl)SoapUI.getWorkspace()).getOpenProjectList());
-  String projectName=UISupport.prompt("Select project to import from","Import WSS Settings",names);
-  if (projectName != null) {
-    WsdlProject prj=(WsdlProject)SoapUI.getWorkspace().getProjectByName(projectName);
-    wssContainer.importConfig(prj.getWssContainer());
-  }
-}

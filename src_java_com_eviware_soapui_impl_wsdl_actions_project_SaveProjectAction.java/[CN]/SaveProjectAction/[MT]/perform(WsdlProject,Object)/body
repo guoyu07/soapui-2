@@ -1,9 +1,0 @@
-{
-  try {
-    if (StringUtils.hasContent(project.getPath()) || project.getWorkspace() == null)     project.save();
- else     project.save(project.getWorkspace().getProjectRoot());
-  }
- catch (  IOException e1) {
-    UISupport.showErrorMessage("Failed to save project; " + e1);
-  }
-}

@@ -1,9 +1,0 @@
-{
-  contentPanel=new JPanel(new BorderLayout());
-  contentEditor=JXEditTextArea.createJavaScriptEditor();
-  HttpResponse response=httpRequest.getResponse();
-  if (response != null)   setEditorContent(response);
-  contentPanel.add(new JScrollPane(contentEditor));
-  contentEditor.setEditable(false);
-  return contentPanel;
-}

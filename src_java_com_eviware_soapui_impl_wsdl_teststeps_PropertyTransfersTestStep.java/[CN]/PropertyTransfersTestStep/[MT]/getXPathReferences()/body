@@ -1,8 +1,0 @@
-{
-  List<XPathReference> result=new ArrayList<XPathReference>();
-  for (  PropertyTransfer transfer : transfers) {
-    if (StringUtils.hasContent(transfer.getSourcePath()))     result.add(new XPathReferenceImpl("Source path for " + transfer.getName() + " PropertyTransfer in "+ getName(),transfer.getSourceProperty(),transfer,"sourcePath"));
-    if (StringUtils.hasContent(transfer.getTargetPath()))     result.add(new XPathReferenceImpl("Target path for " + transfer.getName() + " PropertyTransfer in "+ getName(),transfer.getTargetProperty(),transfer,"targetPath"));
-  }
-  return result.toArray(new XPathReference[result.size()]);
-}

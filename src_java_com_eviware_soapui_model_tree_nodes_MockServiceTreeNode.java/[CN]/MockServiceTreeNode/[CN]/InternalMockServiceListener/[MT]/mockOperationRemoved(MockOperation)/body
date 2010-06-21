@@ -1,9 +1,0 @@
-{
-  SoapUITreeNode treeNode=getTreeModel().getTreeNode(mockOperation);
-  if (mockOperationNodes.contains(treeNode)) {
-    getTreeModel().notifyNodeRemoved(treeNode);
-    mockOperation.removePropertyChangeListener(propertyChangeListener);
-    mockOperationNodes.remove(treeNode);
-  }
- else   throw new RuntimeException("Removing unkown mockOperation");
-}

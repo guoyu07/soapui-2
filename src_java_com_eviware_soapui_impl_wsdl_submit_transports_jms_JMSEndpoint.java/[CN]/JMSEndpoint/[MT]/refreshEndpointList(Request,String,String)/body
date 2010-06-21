@@ -1,8 +1,0 @@
-{
-  Interface iface=request.getOperation().getInterface();
-  for (  String endpoint : iface.getEndpoints()) {
-    if (endpoint.equals(oldEndpoint)) {
-      iface.changeEndpoint(endpoint,newEndpoint);
-    }
-  }
-}

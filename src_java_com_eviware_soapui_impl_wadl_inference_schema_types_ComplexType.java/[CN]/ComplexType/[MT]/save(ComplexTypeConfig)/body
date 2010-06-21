@@ -1,9 +1,0 @@
-{
-  xml.setName(name);
-  xml.setCompleted(completed);
-  xml.setMixed(mixed);
-  List<ParticleConfig> particleList=new ArrayList<ParticleConfig>();
-  for (  Particle item : attributes.values())   particleList.add(item.save());
-  xml.setAttributeArray(particleList.toArray(new ParticleConfig[0]));
-  xml.setContent(content.save());
-}

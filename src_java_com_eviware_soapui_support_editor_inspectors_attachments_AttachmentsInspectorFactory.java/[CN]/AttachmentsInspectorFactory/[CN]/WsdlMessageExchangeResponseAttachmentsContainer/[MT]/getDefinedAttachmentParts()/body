@@ -1,7 +1,0 @@
-{
-  if (response.getMessageExchange() == null || response.getMessageExchange().getOperation() == null)   return new HttpAttachmentPart[0];
-  MessagePart[] responseParts=response.getMessageExchange().getOperation().getDefaultResponseParts();
-  List<HttpAttachmentPart> result=new ArrayList<HttpAttachmentPart>();
-  for (  MessagePart part : responseParts)   if (part instanceof HttpAttachmentPart)   result.add((HttpAttachmentPart)part);
-  return result.toArray(new HttpAttachmentPart[result.size()]);
-}

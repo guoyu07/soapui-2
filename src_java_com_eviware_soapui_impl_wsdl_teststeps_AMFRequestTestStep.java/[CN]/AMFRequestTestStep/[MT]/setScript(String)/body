@@ -1,9 +1,0 @@
-{
-  String old=getScript();
-  scriptEngine.setScript(script);
-  if (amfRequestTestStepConfig.getScript() == null) {
-    amfRequestTestStepConfig.addNewScript();
-  }
-  amfRequestTestStepConfig.getScript().setStringValue(script);
-  notifyPropertyChanged("script",old,script);
-}

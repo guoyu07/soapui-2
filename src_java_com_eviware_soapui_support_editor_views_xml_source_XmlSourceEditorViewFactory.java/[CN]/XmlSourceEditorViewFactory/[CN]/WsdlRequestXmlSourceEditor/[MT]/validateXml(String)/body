@@ -1,7 +1,0 @@
-{
-  WsdlOperation operation=getModelItem().getOperation();
-  WsdlValidator validator=new WsdlValidator((operation.getInterface()).getWsdlContext());
-  WsdlResponseMessageExchange wsdlResponseMessageExchange=new WsdlResponseMessageExchange(getModelItem());
-  wsdlResponseMessageExchange.setRequestContent(xml);
-  return validator.assertRequest(wsdlResponseMessageExchange,false);
-}

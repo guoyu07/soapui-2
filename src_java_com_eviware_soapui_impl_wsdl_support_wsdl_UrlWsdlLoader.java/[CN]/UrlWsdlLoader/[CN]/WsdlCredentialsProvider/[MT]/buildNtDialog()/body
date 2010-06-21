@@ -1,9 +1,0 @@
-{
-  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("NT Authentication");
-  XForm mainForm=builder.createForm("Basic");
-  mainForm.addLabel("Info","");
-  mainForm.addTextField("Username","Username for authentication",XForm.FieldType.TEXT);
-  mainForm.addTextField("Password","Password for authentication",XForm.FieldType.PASSWORD);
-  mainForm.addTextField("Domain","NT Domain for authentication",XForm.FieldType.TEXT);
-  ntDialog=builder.buildDialog(builder.buildOkCancelActions(),"Specify NT Authentication Credentials",UISupport.OPTIONS_ICON);
-}

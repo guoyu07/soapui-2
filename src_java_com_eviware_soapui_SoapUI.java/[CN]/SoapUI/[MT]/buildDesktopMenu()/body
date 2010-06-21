@@ -1,9 +1,0 @@
-{
-  desktopMenu=new JMenu("Desktop");
-  desktopMenu.setMnemonic(KeyEvent.VK_D);
-  desktopMenu.add(new SwitchDesktopPanelAction(desktopPanelsList));
-  desktopMenu.add(new MaximizeDesktopAction((InspectorLog4JMonitor)logMonitor));
-  desktopMenu.addSeparator();
-  ActionSupport.addActions(desktop.getActions(),desktopMenu);
-  return desktopMenu;
-}

@@ -1,8 +1,0 @@
-{
-  if (getConfig().getMediaType() == null) {
-    String mediaType=getRestMethod().getDefaultRequestMediaType();
-    getConfig().setMediaType(mediaType);
-    notifyPropertyChanged("mediaType",null,mediaType);
-  }
-  return getConfig().getMediaType();
-}

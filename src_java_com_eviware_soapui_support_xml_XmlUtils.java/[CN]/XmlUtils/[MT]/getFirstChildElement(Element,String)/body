@@ -1,9 +1,0 @@
-{
-  if (elm == null)   return null;
-  NodeList nl=elm.getChildNodes();
-  for (int c=0; c < nl.getLength(); c++) {
-    Node node=nl.item(c);
-    if (node.getNodeType() == Node.ELEMENT_NODE && (name == null || node.getNodeName().equals(name)))     return (Element)node;
-  }
-  return null;
-}

@@ -1,6 +1,0 @@
-{
-  boolean cached=iface.isCached();
-  if (useCached != null)   useCached.setEnabled(cached);
-  if (!values.containsKey(CACHED_WSDL))   values.put(CACHED_WSDL,Boolean.toString(cached));
-  if (values.getBoolean(CACHED_WSDL) || !values.hasValue(WSDL))   values.put(WSDL,PathUtils.expandPath(iface.getDefinition(),iface));
-}

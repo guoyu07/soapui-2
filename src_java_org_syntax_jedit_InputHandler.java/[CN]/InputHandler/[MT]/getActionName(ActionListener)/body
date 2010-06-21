@@ -1,9 +1,0 @@
-{
-  Enumeration _enum=getActions();
-  while (_enum.hasMoreElements()) {
-    String name=(String)_enum.nextElement();
-    ActionListener _listener=getAction(name);
-    if (_listener == listener)     return name;
-  }
-  return null;
-}

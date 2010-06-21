@@ -1,9 +1,0 @@
-{
-  if (modelItem == null)   return null;
-  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch TcpMon");
-  mainForm=builder.createForm("Basic");
-  mainForm.addComboBox(ENDPOINT,new String[]{""},"endpoint to forward to");
-  mainForm.addTextField(PORT,"Local port to listen on.",XForm.FieldType.TEXT);
-  mainForm.addCheckBox(ADD_ENDPOINT,"adds an endpoint to the interface pointing to the started monitor");
-  return builder.buildDialog(buildDefaultActions(HelpUrls.TCPMON_HELP_URL,modelItem),"Specify arguments for launching TcpMon",UISupport.TOOL_ICON);
-}

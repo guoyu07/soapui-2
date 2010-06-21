@@ -1,8 +1,0 @@
-{
-  int index=testLogList.getSelectedIndex();
-  if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
-    TestStepResult result=logListModel.getResultAt(index);
-    if (result != null && result.getActions() != null)     result.getActions().performDefaultAction(new ActionEvent(this,0,null));
-  }
-  selectedIndex=index;
-}

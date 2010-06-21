@@ -1,9 +1,0 @@
-{
-  sourceProperty.setValue("<ns1:bil xmlns:ns1=\"ns1\"><ns1:name>audi</ns1:name></ns1:bil>");
-  targetProperty.setValue("<bil><name/></bil>");
-  transfer.setTransferTextContent(false);
-  transfer.setSourcePath("declare namespace ns='ns1';//ns:bil/ns:name");
-  transfer.setTargetPath("//bil/name");
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil xmlns:ns1=\"ns1\"><ns1:name>audi</ns1:name></bil>",targetProperty.getValue());
-}

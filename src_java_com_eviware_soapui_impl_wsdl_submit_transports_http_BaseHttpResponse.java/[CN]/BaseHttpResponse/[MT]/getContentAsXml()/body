@@ -1,7 +1,0 @@
-{
-  if (xmlContent == null) {
-    MediaTypeHandler typeHandler=MediaTypeHandlerRegistry.getTypeHandler(getContentType());
-    xmlContent=(typeHandler == null) ? "<xml/>" : typeHandler.createXmlRepresentation(this);
-  }
-  return xmlContent;
-}

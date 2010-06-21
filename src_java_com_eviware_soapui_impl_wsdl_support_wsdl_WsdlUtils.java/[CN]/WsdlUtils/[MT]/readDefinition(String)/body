@@ -1,9 +1,0 @@
-{
-  if (wsdlReader == null) {
-    WSDLFactory factory=WSDLFactory.newInstance();
-    wsdlReader=factory.newWSDLReader();
-    wsdlReader.setFeature("javax.wsdl.verbose",true);
-    wsdlReader.setFeature("javax.wsdl.importDocuments",true);
-  }
-  return wsdlReader.readWSDL(new UrlWsdlLoader(wsdlUrl));
-}
