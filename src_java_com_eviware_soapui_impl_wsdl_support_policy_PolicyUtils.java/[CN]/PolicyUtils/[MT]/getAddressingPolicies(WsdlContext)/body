@@ -1,0 +1,10 @@
+{
+  List<Policy> addressingPolicies=new ArrayList<Policy>();
+  List<Policy> policies=getPolicies(wsdlContext);
+  for (  Policy policy : policies) {
+    if (isAddressing(policy)) {
+      addressingPolicies.add(policy);
+    }
+  }
+  return addressingPolicies;
+}

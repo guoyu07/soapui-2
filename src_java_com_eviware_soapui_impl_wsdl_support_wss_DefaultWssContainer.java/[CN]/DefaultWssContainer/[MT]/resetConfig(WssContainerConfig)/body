@@ -1,0 +1,12 @@
+{
+  getConfig().set(config);
+  for (int c=0; c < cryptos.size(); c++) {
+    ((KeyMaterialWssCrypto)cryptos.get(c)).udpateConfig(getConfig().getCryptoArray(c));
+  }
+  for (int c=0; c < incomingWssConfigs.size(); c++) {
+    incomingWssConfigs.get(c).updateConfig(getConfig().getIncomingArray(c));
+  }
+  for (int c=0; c < outgoingWssConfigs.size(); c++) {
+    outgoingWssConfigs.get(c).updateConfig(getConfig().getOutgoingArray(c));
+  }
+}

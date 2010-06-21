@@ -1,0 +1,13 @@
+{
+  Component comp=super.getTableCellRendererComponent(arg0,arg1,arg2,arg3,arg4,arg5);
+  List<? extends PathToResolve> paths=resolveContextTableModel.getContext().getPathsToResolve();
+  PathToResolve ptr=arg4 >= paths.size() ? null : paths.get(arg4);
+  if (ptr != null && ptr.isResolved()) {
+    comp.setForeground(greenColor);
+    setText(ptr.getPath());
+  }
+ else {
+    comp.setForeground(redColor);
+  }
+  return comp;
+}

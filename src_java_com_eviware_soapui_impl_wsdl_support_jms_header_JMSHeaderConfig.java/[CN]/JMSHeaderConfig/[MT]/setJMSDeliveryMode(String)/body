@@ -1,0 +1,5 @@
+{
+  String oldValue=getJMSDeliveryMode();
+  jmsHeaderConfConfig.setJMSDeliveryMode(JMSDeliveryModeTypeConfig.Enum.forString(newValue));
+  propertyChangeSupport.firePropertyChange(JMSHeader.JMSDELIVERYMODE,oldValue,newValue);
+}

@@ -1,0 +1,5 @@
+{
+  String oldValue=wsrmConfig.getAckTo();
+  wsrmConfig.setAckTo(newAckTo);
+  propertyChangeSupport.firePropertyChange("ackTo",oldValue,newAckTo);
+}

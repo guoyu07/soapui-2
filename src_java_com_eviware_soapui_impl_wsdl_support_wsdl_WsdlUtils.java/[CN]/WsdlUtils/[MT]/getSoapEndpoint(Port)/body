@@ -1,0 +1,23 @@
+{
+  SOAPAddress soapAddress=WsdlUtils.getExtensiblityElement(port.getExtensibilityElements(),SOAPAddress.class);
+  if (soapAddress != null && StringUtils.hasContent(soapAddress.getLocationURI())) {
+    try {
+      return URLDecoder.decode(soapAddress.getLocationURI(),"UTF-8");
+    }
+ catch (    UnsupportedEncodingException e) {
+      e.printStackTrace();
+      return soapAddress.getLocationURI();
+    }
+  }
+  SOAP12Address soap12Address=WsdlUtils.getExtensiblityElement(port.getExtensibilityElements(),SOAP12Address.class);
+  if (soap12Address != null && StringUtils.hasContent(soap12Address.getLocationURI())) {
+    try {
+      return URLDecoder.decode(soap12Address.getLocationURI(),"UTF-8");
+    }
+ catch (    UnsupportedEncodingException e) {
+      e.printStackTrace();
+      return soap12Address.getLocationURI();
+    }
+  }
+  return null;
+}

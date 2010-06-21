@@ -1,0 +1,8 @@
+{
+  assertEquals("http://test2:8080/test",Tools.replaceHost("http://test:8080/test","test2"));
+  assertEquals("http://test2/test",Tools.replaceHost("http://test/test","test2"));
+  assertEquals("http://test2:8080",Tools.replaceHost("http://test:8080","test2"));
+  assertEquals("http://test2",Tools.replaceHost("http://test","test2"));
+  assertEquals("http://test2:8081",Tools.replaceHost("http://test:8080","test2:8081"));
+  assertEquals("http://test2:8081/test",Tools.replaceHost("http://test:8080/test","test2:8081"));
+}

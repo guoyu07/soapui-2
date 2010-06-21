@@ -1,0 +1,8 @@
+{
+  File currentDirectory=StringUtils.hasContent(initialFolder) ? new File(initialFolder) : null;
+  if (textField.getText().length() > 0)   currentDirectory=new File(textField.getText());
+  File file=UISupport.getFileDialogs().openDirectory(this,"Select directory",currentDirectory);
+  if (file != null) {
+    textField.setText(file.getAbsolutePath());
+  }
+}

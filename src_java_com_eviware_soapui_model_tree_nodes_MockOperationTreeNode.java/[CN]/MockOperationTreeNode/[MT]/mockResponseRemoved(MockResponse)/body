@@ -1,0 +1,8 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(mockResponse);
+  if (mockResponseNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    mockResponseNodes.remove(treeNode);
+  }
+ else   throw new RuntimeException("Removing unkown mockResponse; " + mockResponse.getName());
+}

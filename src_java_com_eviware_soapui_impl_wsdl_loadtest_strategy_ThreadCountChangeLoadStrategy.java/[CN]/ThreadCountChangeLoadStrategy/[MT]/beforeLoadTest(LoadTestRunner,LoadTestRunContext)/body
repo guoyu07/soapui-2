@@ -1,0 +1,6 @@
+{
+  super.beforeLoadTest(loadTestRunner,context);
+  stateDependantComponents.setEnabled(false);
+  WsdlLoadTest wsdlLoadTest=((WsdlLoadTest)loadTestRunner.getLoadTest());
+  wsdlLoadTest.setThreadCount(startThreadCount);
+}

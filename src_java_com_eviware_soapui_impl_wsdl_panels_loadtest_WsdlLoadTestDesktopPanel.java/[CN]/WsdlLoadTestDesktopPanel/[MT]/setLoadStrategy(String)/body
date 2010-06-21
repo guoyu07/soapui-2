@@ -1,0 +1,8 @@
+{
+  LoadStrategyFactory factory=LoadStrategyRegistry.getInstance().getFactory(type);
+  LoadStrategy loadStrategy=factory.create(getModelItem());
+  getModelItem().setLoadStrategy(loadStrategy);
+  loadStrategyConfigurationPanel.removeAll();
+  loadStrategyConfigurationPanel.add(loadStrategy.getConfigurationPanel(),BorderLayout.CENTER);
+  loadStrategyConfigurationPanel.revalidate();
+}

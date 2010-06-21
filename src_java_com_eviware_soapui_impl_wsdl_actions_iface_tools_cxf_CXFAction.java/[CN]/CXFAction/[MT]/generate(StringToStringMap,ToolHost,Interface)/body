@@ -1,0 +1,12 @@
+{
+  String xfireDir=SoapUI.getSettings().getString(ToolsSettings.CXF_LOCATION,null);
+  if (Tools.isEmpty(xfireDir)) {
+    UISupport.showErrorMessage("CXF directory must be set in global preferences");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(xfireDir));
+  toolHost.run(new ProcessToolRunner(builder,"Apache CXF wsdl2java",modelItem));
+}

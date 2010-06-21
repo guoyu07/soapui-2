@@ -1,0 +1,11 @@
+{
+  if (evt.getPropertyName().equals(WsdlLoadTest.THREADCOUNT_PROPERTY)) {
+    threadsSpinner.setValue(evt.getNewValue());
+  }
+ else   if (evt.getPropertyName().equals(WsdlLoadTest.HISTORYLIMIT_PROPERTY)) {
+    long lng=(Long)evt.getNewValue();
+    statisticsGraphButton.setEnabled(lng != 0);
+    testTimesGraphButton.setEnabled(lng != 0);
+  }
+  super.propertyChange(evt);
+}

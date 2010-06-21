@@ -1,0 +1,24 @@
+{
+  if (!isNullOrEmpty(str)) {
+    StringTokenizer st=new StringTokenizer(str);
+    if (st.hasMoreTokens()) {
+      StringBuffer sb=new StringBuffer(str.length());
+      while (true) {
+        sb.append(st.nextToken());
+        if (st.hasMoreTokens()) {
+          sb.append(' ');
+        }
+ else {
+          break;
+        }
+      }
+      return sb.toString();
+    }
+ else {
+      return "";
+    }
+  }
+ else {
+    return str;
+  }
+}

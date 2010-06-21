@@ -1,0 +1,10 @@
+{
+  PropertiesStepProperty propertiesStepProperty=new PropertiesStepProperty(propertyConfig,virtualProperty);
+  properties.add(propertiesStepProperty);
+  sortVirtualLast();
+  propertyMap.put(propertiesStepProperty.getName().toUpperCase(),propertiesStepProperty);
+  if (notify) {
+    firePropertyAdded(propertiesStepProperty.getName());
+  }
+  return propertiesStepProperty;
+}

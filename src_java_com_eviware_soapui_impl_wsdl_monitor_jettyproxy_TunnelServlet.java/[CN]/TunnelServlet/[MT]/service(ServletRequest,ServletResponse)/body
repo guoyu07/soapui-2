@@ -1,0 +1,71 @@
+{
+  monitor.fireOnRequest(request,response);
+  if (response.isCommitted())   return;
+  HttpMethodBase postMethod;
+  InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
+  HttpServletRequest httpRequest=(HttpServletRequest)request;
+  if (httpRequest.getMethod().equals("GET"))   postMethod=new ExtendedGetMethod();
+ else   postMethod=new ExtendedPostMethod();
+  JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
+  capturedData.setRequestHost(httpRequest.getRemoteHost());
+  capturedData.setRequestHeader(httpRequest);
+  capturedData.setTargetURL(this.prot + inetAddress.getHostName());
+  CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
+  Enumeration<?> headerNames=httpRequest.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+    String hdr=(String)headerNames.nextElement();
+    String lhdr=hdr.toLowerCase();
+    if ("host".equals(lhdr)) {
+      Enumeration<?> vals=httpRequest.getHeaders(hdr);
+      while (vals.hasMoreElements()) {
+        String val=(String)vals.nextElement();
+        if (val.startsWith("127.0.0.1")) {
+          postMethod.addRequestHeader(hdr,sslEndPoint);
+        }
+      }
+      continue;
+    }
+    Enumeration<?> vals=httpRequest.getHeaders(hdr);
+    while (vals.hasMoreElements()) {
+      String val=(String)vals.nextElement();
+      if (val != null) {
+        postMethod.addRequestHeader(hdr,val);
+      }
+    }
+  }
+  if (postMethod instanceof ExtendedPostMethod)   ((ExtendedPostMethod)postMethod).setRequestEntity(new InputStreamRequestEntity(capture,request.getContentType()));
+  HostConfiguration hostConfiguration=new HostConfiguration();
+  httpRequest.getProtocol();
+  hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
+  hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
+  hostConfiguration=ProxyUtils.initProxySettings(settings,httpState,hostConfiguration,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
+  if (sslEndPoint.indexOf("/") < 0)   postMethod.setPath("/");
+ else   postMethod.setPath(sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length()));
+  monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
+  if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
+    if (httpState == null)     httpState=new HttpState();
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod,httpState);
+  }
+ else {
+    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod);
+  }
+  capturedData.stopCapture();
+  capturedData.setRequest(capture.getCapturedData());
+  capturedData.setRawResponseBody(postMethod.getResponseBody());
+  capturedData.setResponseHeader(postMethod);
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),postMethod,capture));
+  capturedData.setRawResponseData(getResponseToBytes(response.toString(),postMethod,capturedData.getRawResponseBody()));
+  monitor.fireAfterProxy(request,response,postMethod,capturedData);
+  StringToStringMap responseHeaders=capturedData.getResponseHeaders();
+  HttpServletResponse httpResponse=(HttpServletResponse)response;
+  for (  String name : responseHeaders.keySet()) {
+    String header=responseHeaders.get(name);
+    httpResponse.addHeader(name,header);
+  }
+  IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
+  postMethod.releaseConnection();
+synchronized (this) {
+    monitor.addMessageExchange(capturedData);
+  }
+  capturedData=null;
+}

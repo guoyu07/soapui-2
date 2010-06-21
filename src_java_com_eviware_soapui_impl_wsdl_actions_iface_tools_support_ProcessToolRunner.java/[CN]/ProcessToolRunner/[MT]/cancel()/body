@@ -1,0 +1,10 @@
+{
+  getProcess().destroy();
+  try {
+    getProcess().waitFor();
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  running=false;
+}

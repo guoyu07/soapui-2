@@ -1,0 +1,22 @@
+{
+  if (request instanceof WsdlRequest || request instanceof HttpTestRequest || request instanceof RestRequest) {
+    if (hasAttachment(request)) {
+      if (isTextAttachment(request) && !sendAsBytesMessage) {
+        return createTextMessageFromAttachment(submitContext,request,session);
+      }
+ else {
+        return createBytesMessage(request,session);
+      }
+    }
+ else {
+      String requestContent=applyFilters(submitContext,request);
+      if (sendAsBytesMessage) {
+        return createBytesMessageFromText(submitContext,requestContent,session);
+      }
+ else {
+        return createTextMessage(submitContext,requestContent,session);
+      }
+    }
+  }
+  return null;
+}

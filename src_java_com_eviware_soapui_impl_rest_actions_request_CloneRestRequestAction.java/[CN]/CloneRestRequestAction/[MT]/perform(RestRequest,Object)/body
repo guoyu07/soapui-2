@@ -1,0 +1,6 @@
+{
+  String name=UISupport.prompt("Specify name of cloned Request","Clone Request","Copy of " + request.getName());
+  if (name == null)   return;
+  RestRequest newRequest=request.getRestMethod().cloneRequest(request,name);
+  UISupport.selectAndShow(newRequest);
+}

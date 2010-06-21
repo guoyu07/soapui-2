@@ -1,0 +1,25 @@
+{
+  WsdlTestCase testCase=loadTest.getTestCase();
+  TestCaseConfig config=null;
+  if (blueprintConfig == null) {
+    try {
+      blueprintConfig=TestCaseConfig.Factory.parse(testCase.getConfig().xmlText());
+      blueprintConfig.setLoadTestArray(new LoadTestConfig[0]);
+    }
+ catch (    XmlException e) {
+      e.printStackTrace();
+    }
+  }
+  config=(TestCaseConfig)blueprintConfig.copy();
+  WsdlTestCase tc=testCase.getTestSuite().buildTestCase(config,true);
+  tc.afterLoad();
+  tc.addTestRunListener(testRunListener);
+  Settings settings=tc.getSettings();
+  settings.setBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN,loadTest.getSettings().getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN));
+  settings.setBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN,loadTest.getSettings().getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN));
+  settings.setBoolean(HttpSettings.CLOSE_CONNECTIONS,loadTest.getSettings().getBoolean(HttpSettings.CLOSE_CONNECTIONS));
+  settings.setBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES,false);
+  tc.setDiscardOkResults(false);
+  tc.setMaxResults(0);
+  return tc;
+}

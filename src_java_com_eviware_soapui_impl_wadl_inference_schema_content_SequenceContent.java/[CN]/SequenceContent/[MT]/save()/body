@@ -1,0 +1,13 @@
+{
+  SequenceContentConfig xml=SequenceContentConfig.Factory.newInstance();
+  xml.setCompleted(completed);
+  List<ParticleConfig> particleList=new ArrayList<ParticleConfig>();
+  for (  Particle item : particles.values())   particleList.add(item.save());
+  xml.setParticleArray(particleList.toArray(new ParticleConfig[0]));
+  for (  Map.Entry<QName,List<QName>> entry : comesBefore.entrySet()) {
+    ComesBefore comesBeforeEntry=xml.addNewComesBefore();
+    comesBeforeEntry.setQname(entry.getKey());
+    for (    QName item : entry.getValue())     comesBeforeEntry.addOther(item);
+  }
+  return xml;
+}

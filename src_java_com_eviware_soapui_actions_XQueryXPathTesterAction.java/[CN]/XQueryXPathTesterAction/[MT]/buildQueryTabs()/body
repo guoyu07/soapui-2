@@ -1,0 +1,11 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(createToolbar(),BorderLayout.NORTH);
+  queryTabs=new JTabbedPane();
+  queryTabs.addTab("XQuery query",buildXQueryArea());
+  queryTabs.addTab("XPath query",buildXPathArea());
+  queryTabs.setTabPlacement(JTabbedPane.BOTTOM);
+  panel.setBackground(Color.LIGHT_GRAY);
+  panel.add(queryTabs,BorderLayout.CENTER);
+  return panel;
+}

@@ -1,0 +1,10 @@
+{
+  if (!(context instanceof TestCaseRunContext))   return;
+  TestStep step=((TestCaseRunContext)context).getTestCase().getTestStepByName(testStep);
+  if (step != null) {
+    step.setPropertyValue(property,value);
+  }
+ else {
+    throw new Exception("Missing TestStep [" + testStep + "] in TestCase");
+  }
+}

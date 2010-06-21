@@ -1,0 +1,69 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(new URL(wadlUrl));
+    Element element=((Document)xmlObject.getDomNode()).getDocumentElement();
+    if (element.getLocalName().equals("application") && element.getNamespaceURI().startsWith("http://research.sun.com/wadl")) {
+      isWADL11=false;
+      String content=xmlObject.xmlText();
+      content=content.replaceAll("\"" + element.getNamespaceURI() + "\"","\"" + Constants.WADL11_NS + "\"");
+      xmlObject=ApplicationDocument.Factory.parse(content);
+    }
+ else     if (!element.getLocalName().equals("application") || !element.getNamespaceURI().equals(Constants.WADL11_NS)) {
+      throw new Exception("Document is not a WADL application with " + Constants.WADL11_NS + " namespace");
+    }
+    ApplicationDocument applicationDocument=(ApplicationDocument)xmlObject.changeType(ApplicationDocument.type);
+    application=applicationDocument.getApplication();
+    resourcesList=application.getResourcesList();
+    service.setName(getFirstTitle(application.getDocList(),service.getName()));
+    String base=resourcesList.size() == 1 ? resourcesList.get(0).getBase() : "";
+    try {
+      URL baseUrl=new URL(base);
+      service.setBasePath(baseUrl.getPath());
+      service.addEndpoint(Tools.getEndpointFromUrl(baseUrl));
+    }
+ catch (    Exception e) {
+      service.setBasePath(base);
+    }
+    service.setWadlUrl(wadlUrl);
+    service.getConfig().setWadlVersion(isWADL11 ? Constants.WADL11_NS : Constants.WADL10_NS);
+    for (    Resources resources : resourcesList) {
+      RestResource baseResource=null;
+      if (resourcesList.size() > 1) {
+        String path=resources.getBase();
+        baseResource=service.addNewResource(path,path);
+      }
+      for (      Resource resource : resources.getResourceList()) {
+        String name=getFirstTitle(resource.getDocList(),resource.getPath());
+        String path=resource.getPath();
+        RestResource newResource=null;
+        if (baseResource != null) {
+          for (          RestResource res : baseResource.getChildResourceList()) {
+            if (res.getPath().equals(path)) {
+              newResource=res;
+              break;
+            }
+          }
+          if (newResource == null) {
+            newResource=baseResource.addNewChildResource(name,path);
+          }
+        }
+ else {
+          for (          RestResource res : service.getResourceList()) {
+            if (res.getPath().equals(path)) {
+              newResource=res;
+              break;
+            }
+          }
+          if (newResource == null) {
+            newResource=service.addNewResource(name,path);
+          }
+        }
+        initResourceFromWadlResource(newResource,resource);
+        addSubResources(newResource,resource);
+      }
+    }
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+}

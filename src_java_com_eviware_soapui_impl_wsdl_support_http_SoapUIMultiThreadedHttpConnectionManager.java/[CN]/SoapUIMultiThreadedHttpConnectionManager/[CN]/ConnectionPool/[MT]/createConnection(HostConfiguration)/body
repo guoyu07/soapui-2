@@ -1,0 +1,13 @@
+{
+  HostConnectionPool hostPool=getHostPool(hostConfiguration,true);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Allocating new connection, hostConfig=" + hostConfiguration);
+  }
+  HttpConnectionWithReference connection=new HttpConnectionWithReference(hostConfiguration);
+  connection.getParams().setDefaults(SoapUIMultiThreadedHttpConnectionManager.this.params);
+  connection.setHttpConnectionManager(SoapUIMultiThreadedHttpConnectionManager.this);
+  numConnections++;
+  hostPool.numConnections++;
+  storeReferenceToConnection(connection,hostConfiguration,this);
+  return connection;
+}

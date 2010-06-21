@@ -1,0 +1,36 @@
+{
+  if (mainTree.getSelectionCount() < 2) {
+    TreePath path=mainTree.getPathForLocation((int)e.getPoint().getX(),(int)e.getPoint().getY());
+    if (path == null) {
+      int row=(int)e.getPoint().getY() / mainTree.getRowHeight();
+      if (row != -1) {
+        JPopupMenu collapsePopup=new JPopupMenu();
+        collapsePopup.add("Collapse").addActionListener(new CollapseRowAction(row));
+        collapsePopup.add("Expand").addActionListener(new ExpandRowAction(row));
+        collapsePopup.show(mainTree,e.getX(),e.getY());
+      }
+      return;
+    }
+    SoapUITreeNode node=(SoapUITreeNode)path.getLastPathComponent();
+    JPopupMenu popupMenu=node.getPopup();
+    if (popupMenu == null)     return;
+    mainTree.setSelectionPath(path);
+    popupMenu.show(mainTree,e.getX(),e.getY());
+  }
+ else {
+    TreePath[] selectionPaths=mainTree.getSelectionPaths();
+    List<ModelItem> targets=new ArrayList<ModelItem>();
+    for (    TreePath treePath : selectionPaths) {
+      SoapUITreeNode node=(SoapUITreeNode)treePath.getLastPathComponent();
+      targets.add(node.getModelItem());
+    }
+    if (targets.size() > 0) {
+      ActionList actions=ActionListBuilder.buildMultiActions(targets.toArray(new ModelItem[targets.size()]));
+      if (actions.getActionCount() > 0) {
+        JPopupMenu popup=new JPopupMenu();
+        ActionSupport.addActions(actions,popup);
+        popup.show(mainTree,e.getX(),e.getY());
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  inspectorPanel=JInspectorPanelFactory.build(createPropertiesTable());
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildLog(),"TestCase Log","log output from testcase run",true));
+  return inspectorPanel.getComponent();
+}

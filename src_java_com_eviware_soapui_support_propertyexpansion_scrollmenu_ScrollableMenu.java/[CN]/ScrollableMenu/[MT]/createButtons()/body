@@ -1,0 +1,70 @@
+{
+  setHorizontalAlignment(SwingConstants.CENTER);
+  upButton=new JButton(UISupport.createImageIcon("/up_arrow.gif"));
+  Dimension d=new Dimension(100,20);
+  upButton.setPreferredSize(d);
+  upButton.setBorderPainted(false);
+  upButton.setFocusPainted(false);
+  upButton.setRolloverEnabled(true);
+class Up extends MouseAdapter {
+    /** 
+ * When mouse enters over the upbutton, timerUp starts the scrolling
+ * upwards.
+ * @param eMouseEvent
+ */
+    public void mouseEntered(    MouseEvent e){
+      try {
+        timerUp.start();
+      }
+ catch (      Exception ekas) {
+      }
+    }
+    /** 
+ * When mouse exites the upbutton, timerUp stops.
+ * @param eMouseEvent
+ */
+    public void mouseExited(    MouseEvent e){
+      try {
+        timerUp.stop();
+      }
+ catch (      Exception ekas) {
+      }
+    }
+  }
+  MouseListener scrollUpListener=new Up();
+  upButton.addMouseListener(scrollUpListener);
+  add(upButton);
+  downButton=new JButton(UISupport.createImageIcon("/down_arrow.gif"));
+  downButton.setPreferredSize(d);
+  downButton.setBorderPainted(false);
+  downButton.setFocusPainted(false);
+class Down extends MouseAdapter {
+    /** 
+ * When mouse enters over the downbutton, timerDown starts the
+ * scrolling downwards.
+ * @param eMouseEvent
+ */
+    public void mouseEntered(    MouseEvent e){
+      try {
+        timerDown.start();
+      }
+ catch (      Exception ekas) {
+      }
+    }
+    /** 
+ * When mouse exites the downbutton, timerDown stops.
+ * @param eMouseEvent
+ */
+    public void mouseExited(    MouseEvent e){
+      try {
+        timerDown.stop();
+      }
+ catch (      Exception ekas) {
+      }
+    }
+  }
+  MouseListener scrollDownListener=new Down();
+  downButton.addMouseListener(scrollDownListener);
+  add(downButton,subMenus.size() + 1);
+  setHorizontalAlignment(SwingConstants.LEFT);
+}

@@ -1,0 +1,14 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.add(openRequestButton);
+  toolbar.addUnrelatedGap();
+  toolbar.add(recreateButton);
+  toolbar.add(createEmptyButton);
+  toolbar.add(createFaultButton);
+  createToolbar(toolbar);
+  toolbar.add(Box.createHorizontalGlue());
+  toolbar.add(tabsButton);
+  toolbar.add(splitButton);
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(getHelpUrl())));
+  return toolbar;
+}

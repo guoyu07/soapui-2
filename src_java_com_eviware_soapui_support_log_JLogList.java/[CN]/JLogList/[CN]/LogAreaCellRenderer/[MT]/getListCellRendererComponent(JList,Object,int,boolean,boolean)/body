@@ -1,0 +1,11 @@
+{
+  JLabel component=(JLabel)super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+  if (value instanceof LoggingEventWrapper) {
+    LoggingEventWrapper eventWrapper=(LoggingEventWrapper)value;
+    if (levelColors.containsKey(eventWrapper.getLevel()))     component.setForeground(levelColors.get(eventWrapper.getLevel()));
+  }
+  String toolTip=component.getText();
+  if (toolTip != null && toolTip.length() > 1000)   toolTip=toolTip.substring(0,1000);
+  component.setToolTipText(toolTip);
+  return component;
+}

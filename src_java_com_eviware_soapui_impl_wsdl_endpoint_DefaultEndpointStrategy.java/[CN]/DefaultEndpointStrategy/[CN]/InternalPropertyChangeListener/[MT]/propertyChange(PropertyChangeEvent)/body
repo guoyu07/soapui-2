@@ -1,0 +1,18 @@
+{
+  String newValue=evt.getNewValue() == null ? null : evt.getNewValue().toString();
+  if (evt.getOldValue() == null) {
+    getEndpointDefaults(newValue);
+  }
+ else   if (newValue != null) {
+    String oldValue=evt.getOldValue().toString();
+    EndpointDefaults def=defaults.containsKey(newValue) ? defaults.get(newValue) : getEndpointDefaults(oldValue);
+    def.endpointConfig.setStringValue(newValue);
+synchronized (defaults) {
+      defaults.remove(oldValue);
+      defaults.put(newValue,def);
+    }
+  }
+ else {
+    removeUnusedEndpoints();
+  }
+}

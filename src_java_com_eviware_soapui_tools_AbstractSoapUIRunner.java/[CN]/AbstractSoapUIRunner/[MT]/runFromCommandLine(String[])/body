@@ -1,0 +1,14 @@
+{
+  try {
+    if (initFromCommandLine(args,true)) {
+      if (run()) {
+        return 0;
+      }
+    }
+  }
+ catch (  Throwable e) {
+    log.error(e);
+    SoapUI.logError(e);
+  }
+  return -1;
+}

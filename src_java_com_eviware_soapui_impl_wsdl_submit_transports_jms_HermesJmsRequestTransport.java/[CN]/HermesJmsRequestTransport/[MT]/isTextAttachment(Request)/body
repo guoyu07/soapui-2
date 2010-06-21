@@ -1,0 +1,6 @@
+{
+  if (request.getAttachments().length > 0 && (request.getAttachments()[0].getContentType().contains("/text") || request.getAttachments()[0].getContentType().contains("/xml") || request.getAttachments()[0].getContentType().contains("text/plain"))) {
+    return true;
+  }
+  return false;
+}

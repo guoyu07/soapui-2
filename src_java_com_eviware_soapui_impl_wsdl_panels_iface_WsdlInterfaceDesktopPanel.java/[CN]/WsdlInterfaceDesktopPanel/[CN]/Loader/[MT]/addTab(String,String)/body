@@ -1,0 +1,28 @@
+{
+  int ix=url.startsWith("file:") ? url.lastIndexOf(File.separatorChar) : url.lastIndexOf('/');
+  if (ix == -1)   ix=url.lastIndexOf('/');
+  String title=url.substring(ix + 1);
+  metrics.getSection(DEFINITION_PARTS_SECTION).addMetric(title,MetricType.URL).set(url);
+  if (progressBar != null)   progressBar.setString(title);
+ else   if (progressDialog != null)   progressDialog.setProgress(1,title);
+  JPanel panel=new JPanel(new BorderLayout());
+  JLabel label=new JLabel(url);
+  label.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  panel.add(label,BorderLayout.NORTH);
+  JXEditTextArea inputArea=JXEditTextArea.createXmlEditor(false);
+  StringWriter writer=new StringWriter();
+  XmlUtils.serializePretty(XmlObject.Factory.parse(content),writer);
+  String xmlString=writer.toString();
+  XmlObject xmlObject=XmlObject.Factory.parse(xmlString,new XmlOptions().setLoadLineNumbers());
+  inputArea.setText(xmlString);
+  inputArea.setEditable(false);
+  inputArea.getPainter().setLineHighlightEnabled(true);
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(inputArea,BorderLayout.CENTER);
+  p.add(new LineNumbersPanel(inputArea),BorderLayout.WEST);
+  panel.add(new JScrollPane(p),BorderLayout.CENTER);
+  partTabs.addTab(title,panel);
+  if (tree != null) {
+    initInspectionTree(xmlObject,inputArea);
+  }
+}

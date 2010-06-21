@@ -1,0 +1,11 @@
+{
+  try {
+    if (UISupport.confirm("Remove all outgoing wss","Remove all outgoing wss")) {
+      String content=response.getResponseContent();
+      response.setResponseContent(WssUtils.removeWSSOutgoing(content,response));
+    }
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+}

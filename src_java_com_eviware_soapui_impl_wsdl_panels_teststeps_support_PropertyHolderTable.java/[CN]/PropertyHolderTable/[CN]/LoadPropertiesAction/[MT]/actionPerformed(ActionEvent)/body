@@ -1,0 +1,52 @@
+{
+  if (dialog == null)   dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
+  dialog.getFormField(LoadOptionsForm.DELETEREMAINING).setEnabled(holder instanceof MutableTestPropertyHolder);
+  dialog.getFormField(LoadOptionsForm.CREATEMISSING).setEnabled(holder instanceof MutableTestPropertyHolder);
+  if (dialog.show()) {
+    try {
+      BufferedReader reader=new BufferedReader(new FileReader(dialog.getValue(LoadOptionsForm.FILE)));
+      String line=reader.readLine();
+      int count=0;
+      Set<String> names=new HashSet<String>(Arrays.asList(holder.getPropertyNames()));
+      while (line != null) {
+        if (line.trim().length() > 0 && !(line.charAt(0) == '#')) {
+          int ix=line.indexOf('=');
+          if (ix > 0) {
+            String name=line.substring(0,ix).trim();
+            String value=line.length() > ix ? line.substring(ix + 1) : "";
+            if (value.endsWith("\\")) {
+              value=value.substring(0,value.length() - 1);
+              String ln=reader.readLine();
+              while (ln != null && ln.endsWith("\\")) {
+                value+=ln.substring(0,ln.length() - 1);
+                ln=reader.readLine();
+              }
+              if (ln != null)               value+=ln;
+              if (ln == null)               break;
+            }
+            if (holder.hasProperty(name)) {
+              count++;
+              holder.setPropertyValue(name,value);
+            }
+ else             if (dialog.getBooleanValue(LoadOptionsForm.CREATEMISSING) && holder instanceof MutableTestPropertyHolder) {
+              ((MutableTestPropertyHolder)holder).addProperty(name).setValue(value);
+              count++;
+            }
+            names.remove(name);
+          }
+        }
+        line=reader.readLine();
+      }
+      if (dialog.getBooleanValue(LoadOptionsForm.DELETEREMAINING) && holder instanceof MutableTestPropertyHolder) {
+        for (        String name : names) {
+          ((MutableTestPropertyHolder)holder).removeProperty(name);
+        }
+      }
+      reader.close();
+      UISupport.showInfoMessage("Added/Updated " + count + " properties from file");
+    }
+ catch (    Exception ex) {
+      UISupport.showErrorMessage(ex);
+    }
+  }
+}

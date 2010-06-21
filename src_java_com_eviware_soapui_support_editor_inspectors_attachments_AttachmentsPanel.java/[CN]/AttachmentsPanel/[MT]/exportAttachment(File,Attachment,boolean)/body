@@ -1,0 +1,8 @@
+{
+  FileOutputStream out=new FileOutputStream(file);
+  long total=Tools.writeAll(out,attachment.getInputStream());
+  out.close();
+  if (!showOpenQuery || UISupport.confirm("Written [" + total + "] bytes to "+ file.getName()+ ", open in browser?","Saved File")) {
+    Tools.openURL(file.toURI().toURL().toString());
+  }
+}

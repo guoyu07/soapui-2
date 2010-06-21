@@ -1,0 +1,29 @@
+{
+  File projectFile=file;
+  while (projectFile != null && projectFile.exists()) {
+    Boolean result=Boolean.FALSE;
+    while (!result.booleanValue()) {
+      result=UISupport.confirmOrCancel(messages.get("OverwriteProject.Label"),messages.get("OverwriteProject.Title"));
+      if (result == null)       return null;
+      if (result.booleanValue()) {
+        projectFile.delete();
+      }
+ else {
+        projectFile=UISupport.getFileDialogs().saveAs(this,messages.get("CreateProject.Title"),".xml","XML Files (*.xml)",projectFile);
+        if (projectFile == null)         return null;
+ else         break;
+      }
+    }
+  }
+  WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory(WsdlProjectFactory.WSDL_TYPE).createNew(null,this);
+  project.setName(name);
+  projectList.add(project);
+  fireProjectAdded(project);
+  try {
+    if (projectFile != null)     project.saveAs(projectFile.getAbsolutePath());
+  }
+ catch (  IOException e) {
+    log.error(messages.get("FailedToSaveProject.Error") + e.getMessage(),e);
+  }
+  return project;
+}

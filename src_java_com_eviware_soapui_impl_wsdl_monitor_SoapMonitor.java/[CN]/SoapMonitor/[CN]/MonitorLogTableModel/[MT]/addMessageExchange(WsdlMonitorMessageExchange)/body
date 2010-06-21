@@ -1,0 +1,15 @@
+{
+  exchanges.add(exchange);
+  int size=exchanges.size();
+  fireTableRowsInserted(size - 1,size);
+  fitSizeToMaxRows();
+  String requestHost=exchange.getRequestHost();
+  if (requestFilterModel.getIndexOf(requestHost) == -1) {
+    requestFilterModel.addElement(requestHost);
+  }
+  String host=exchange.getTargetUrl().getHost();
+  if (targetHostFilterModel.getIndexOf(host) == -1) {
+    targetHostFilterModel.addElement(host);
+  }
+  updateRowCountLabel();
+}

@@ -1,0 +1,20 @@
+{
+  JPopupMenu componentPopupMenu=textComponent.getComponentPopupMenu();
+  if (componentPopupMenu instanceof JTextComponentPopupMenu)   return (JTextComponentPopupMenu)componentPopupMenu;
+  JTextComponentPopupMenu popupMenu=new JTextComponentPopupMenu(textComponent);
+  if (componentPopupMenu != null && componentPopupMenu.getComponentCount() > 0) {
+    popupMenu.insert(new JSeparator(),0);
+    while (componentPopupMenu.getComponentCount() > 0) {
+      Component comp=componentPopupMenu.getComponent(componentPopupMenu.getComponentCount() - 1);
+      componentPopupMenu.remove(comp);
+      popupMenu.insert(comp,0);
+    }
+  }
+  if (componentPopupMenu != null) {
+    for (    PopupMenuListener listener : componentPopupMenu.getPopupMenuListeners()) {
+      popupMenu.addPopupMenuListener(listener);
+    }
+  }
+  textComponent.setComponentPopupMenu(popupMenu);
+  return popupMenu;
+}

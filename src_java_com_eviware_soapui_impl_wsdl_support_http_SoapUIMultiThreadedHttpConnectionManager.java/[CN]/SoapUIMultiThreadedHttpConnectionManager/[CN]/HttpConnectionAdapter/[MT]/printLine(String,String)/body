@@ -1,0 +1,8 @@
+{
+  if (hasConnection()) {
+    wrappedConnection.printLine(data,charset);
+  }
+ else {
+    throw new IllegalStateException("Connection has been released");
+  }
+}

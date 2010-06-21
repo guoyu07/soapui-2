@@ -1,0 +1,18 @@
+{
+  Properties props=new Properties();
+  try {
+    props.load(SoapUI.class.getResourceAsStream(SOAPUI_TITLE));
+    String brandedTitleExt=props.getProperty("soapui.app.title");
+    if (!StringUtils.isNullOrEmpty(brandedTitleExt)) {
+      brandedTitleExt=" - " + brandedTitleExt;
+    }
+ else {
+      brandedTitleExt="";
+    }
+    startSoapUI(mainArgs,"soapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    System.exit(1);
+  }
+}

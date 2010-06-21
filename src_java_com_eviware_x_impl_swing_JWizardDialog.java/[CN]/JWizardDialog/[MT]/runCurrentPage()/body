@@ -1,0 +1,17 @@
+{
+  String pageName=pageNames.get(currentPage);
+  WizardPage controller=controllers.get(pageName);
+  try {
+    dialog.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+    return controller.run();
+  }
+ catch (  Exception e) {
+    dialog.setCursor(Cursor.getDefaultCursor());
+    SoapUI.logError(e);
+    UISupport.showInfoMessage(pageName + " failed",this.name);
+    return false;
+  }
+ finally {
+    dialog.setCursor(Cursor.getDefaultCursor());
+  }
+}

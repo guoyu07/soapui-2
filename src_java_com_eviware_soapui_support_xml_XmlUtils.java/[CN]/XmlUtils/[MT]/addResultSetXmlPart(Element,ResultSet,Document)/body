@@ -1,0 +1,28 @@
+{
+  ResultSetMetaData rsmd=rs.getMetaData();
+  Element resultSetElement=xmlDocumentResult.createElement("ResultSet");
+  resultSetElement.setAttribute("fetchSize",String.valueOf(rs.getFetchSize()));
+  resultsElement.appendChild(resultSetElement);
+  int colCount=rsmd.getColumnCount();
+  while (rs.next()) {
+    Element rowElement=xmlDocumentResult.createElement("Row");
+    rowElement.setAttribute("rowNumber",String.valueOf(rs.getRow()));
+    resultsElement.appendChild(rowElement);
+    for (int ii=1; ii <= colCount; ii++) {
+      String columnName="";
+      if (!StringUtils.isNullOrEmpty(rsmd.getTableName(ii))) {
+        columnName+=(rsmd.getTableName(ii)).toUpperCase() + ".";
+      }
+      columnName+=(rsmd.getColumnName(ii)).toUpperCase();
+      String value=rs.getString(ii);
+      Element node=xmlDocumentResult.createElement(columnName);
+      if (!StringUtils.isNullOrEmpty(value)) {
+        Text textNode=xmlDocumentResult.createTextNode(value.toString());
+        node.appendChild(textNode);
+      }
+      rowElement.appendChild(node);
+    }
+    resultSetElement.appendChild(rowElement);
+  }
+  return xmlDocumentResult;
+}

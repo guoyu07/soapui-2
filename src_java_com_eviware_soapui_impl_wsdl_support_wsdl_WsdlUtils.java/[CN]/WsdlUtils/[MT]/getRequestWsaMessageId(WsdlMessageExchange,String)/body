@@ -1,0 +1,18 @@
+{
+  String requestMessageId=null;
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(messageExchange.getRequestContent());
+    SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
+    Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+    Element msgNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"MessageID");
+    if (msgNode != null) {
+      requestMessageId=XmlUtils.getElementText(msgNode);
+    }
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+    log.warn(e.toString());
+    return null;
+  }
+  return requestMessageId;
+}

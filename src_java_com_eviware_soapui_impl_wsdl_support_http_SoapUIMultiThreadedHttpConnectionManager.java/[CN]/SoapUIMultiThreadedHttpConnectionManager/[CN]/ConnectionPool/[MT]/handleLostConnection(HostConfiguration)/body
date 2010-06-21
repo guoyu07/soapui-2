@@ -1,0 +1,9 @@
+{
+  HostConnectionPool hostPool=getHostPool(config,true);
+  hostPool.numConnections--;
+  if ((hostPool.numConnections == 0) && hostPool.waitingThreads.isEmpty()) {
+    mapHosts.remove(config);
+  }
+  numConnections--;
+  notifyWaitingThread(config);
+}

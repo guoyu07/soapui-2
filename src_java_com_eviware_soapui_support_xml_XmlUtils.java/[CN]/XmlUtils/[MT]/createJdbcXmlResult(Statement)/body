@@ -1,0 +1,36 @@
+{
+  DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+  DocumentBuilder builder=factory.newDocumentBuilder();
+  org.w3c.dom.Document xmlDocumentResult=builder.newDocument();
+  Element resultsElement=xmlDocumentResult.createElement("Results");
+  xmlDocumentResult.appendChild(resultsElement);
+  ResultSet resultSet=statement.getResultSet();
+  if (resultSet != null) {
+    resultSet.setFetchSize(statement.getFetchSize());
+    xmlDocumentResult=addResultSetXmlPart(resultsElement,resultSet,xmlDocumentResult);
+    while (statement.getMoreResults()) {
+      xmlDocumentResult=addResultSetXmlPart(resultsElement,statement.getResultSet(),xmlDocumentResult);
+    }
+  }
+ else {
+    Element errorElement=xmlDocumentResult.createElement("UpdateCount");
+    errorElement.appendChild(xmlDocumentResult.createTextNode(String.valueOf(statement.getUpdateCount())));
+    resultsElement.appendChild(errorElement);
+  }
+  StringWriter out=new StringWriter();
+  OutputFormat outputFormat=new OutputFormat(xmlDocumentResult);
+  outputFormat.setOmitComments(true);
+  outputFormat.setOmitDocumentType(true);
+  outputFormat.setOmitXMLDeclaration(true);
+  outputFormat.setIndent(3);
+  outputFormat.setIndenting(true);
+  try {
+    XMLSerializer serializer=new XMLSerializer(new PrintWriter(out),outputFormat);
+    serializer.asDOMSerializer();
+    serializer.serialize(xmlDocumentResult);
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+  return out.toString();
+}

@@ -1,0 +1,23 @@
+{
+  if (e.isPopupTrigger())   showPopup(e);
+ else   if (e.getClickCount() < 2)   return;
+  if (mainTree.getSelectionCount() == 1) {
+    int row=mainTree.getRowForLocation(e.getX(),e.getY());
+    TreePath path=mainTree.getSelectionPath();
+    if (path == null && row == -1)     return;
+    if (path == null || mainTree.getRowForPath(path) != row)     mainTree.setSelectionRow(row);
+    SoapUITreeNode node=(SoapUITreeNode)path.getLastPathComponent();
+    actions=node.getActions();
+    if (actions != null) {
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          if (actions != null) {
+            actions.performDefaultAction(new ActionEvent(mainTree,0,null));
+            actions=null;
+          }
+        }
+      }
+);
+    }
+  }
+}

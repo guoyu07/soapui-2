@@ -1,0 +1,14 @@
+{
+  try {
+    if (sourceClass.isAssignableFrom(source.getClass()) && targetClass.isAssignableFrom(target.getClass())) {
+      T1 sourceItem=(T1)source;
+      T2 targetItem=(T2)target;
+      if ((dropAction & DnDConstants.ACTION_COPY) != 0 && canCopy(sourceItem,targetItem,dropType))       return copy(sourceItem,targetItem,dropType);
+      if ((dropAction & DnDConstants.ACTION_MOVE) != 0 && canMove(sourceItem,targetItem,dropType))       return move(sourceItem,targetItem,dropType);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return false;
+}

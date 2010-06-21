@@ -1,0 +1,13 @@
+{
+  JXToolBar toolBar=UISupport.createToolbar();
+  JButton runButton=UISupport.createToolbarButton(runScriptAction);
+  toolBar.add(runButton);
+  toolBar.add(Box.createHorizontalGlue());
+  JLabel label=new JLabel("<html>Script is invoked with <code>log</code>, <code>context</code>, " + "<code>requestContext</code>, <code>mockRequest</code> and <code>mockResponse</code> variables</html>");
+  label.setToolTipText(label.getText());
+  label.setMaximumSize(label.getPreferredSize());
+  toolBar.add(label);
+  toolBar.addUnrelatedGap();
+  toolBar.addFixed(UISupport.createActionButton(new ShowOnlineHelpAction(HelpUrls.MOCKRESPONSE_SCRIPT_HELP_URL),true));
+  return toolBar;
+}

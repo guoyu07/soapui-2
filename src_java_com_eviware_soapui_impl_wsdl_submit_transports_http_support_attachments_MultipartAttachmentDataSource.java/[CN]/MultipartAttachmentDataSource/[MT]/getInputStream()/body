@@ -1,0 +1,11 @@
+{
+  try {
+    ByteArrayOutputStream out=new ByteArrayOutputStream();
+    multipart.writeTo(out);
+    return new ByteArrayInputStream(out.toByteArray());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

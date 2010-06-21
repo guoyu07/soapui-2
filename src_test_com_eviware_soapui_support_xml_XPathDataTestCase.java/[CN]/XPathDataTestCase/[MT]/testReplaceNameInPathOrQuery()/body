@@ -1,0 +1,4 @@
+{
+  String exp="//test:test/bil[@name='test ']/@test > 0 and count(//test[bil/text()='test'] = 5";
+  assertEquals("//test:test/bila[@name='test ']/@test > 0 and count(//test[bila/text()='test'] = 5",XmlUtils.replaceNameInPathOrQuery(exp,"bil","bila"));
+}

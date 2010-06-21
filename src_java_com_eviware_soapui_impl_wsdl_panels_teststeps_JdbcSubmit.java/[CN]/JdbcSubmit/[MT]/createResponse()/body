@@ -1,0 +1,20 @@
+{
+  try {
+    response=new JdbcResponse(request,statement);
+    response.setTimestamp(timestamp);
+    response.setTimeTaken(timeTaken);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    try {
+      if (connection != null)       connection.close();
+      if (statement != null)       statement.close();
+      if (resultSet != null)       resultSet.close();
+    }
+ catch (    Exception e) {
+    }
+  }
+  return null;
+}

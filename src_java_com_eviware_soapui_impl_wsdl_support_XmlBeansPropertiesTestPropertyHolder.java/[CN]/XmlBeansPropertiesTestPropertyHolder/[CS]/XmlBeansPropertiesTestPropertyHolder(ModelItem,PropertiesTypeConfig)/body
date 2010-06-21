@@ -1,0 +1,14 @@
+{
+  this.modelItem=modelItem;
+  this.config=config;
+  for (int c=0; c < config.sizeOfPropertyArray(); c++) {
+    PropertyConfig propertyConfig=config.getPropertyArray(c);
+    if (StringUtils.hasContent(propertyConfig.getName())) {
+      addProperty(propertyConfig,false,null);
+    }
+ else {
+      config.removeProperty(c);
+      c--;
+    }
+  }
+}

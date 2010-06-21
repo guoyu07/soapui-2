@@ -1,0 +1,13 @@
+{
+  xpath=initXPathNamespaces(xpath);
+  XmlCursor cursor=xmlObject.newCursor();
+  try {
+    cursor.selectPath(xpath);
+    if (cursor.toNextSelection()) {
+      XmlUtils.setNodeValue(cursor.getDomNode(),value == null ? null : value.toString());
+    }
+  }
+  finally {
+    cursor.dispose();
+  }
+}

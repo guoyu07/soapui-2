@@ -1,0 +1,23 @@
+{
+  response.setStatus(HttpServletResponse.SC_OK);
+  response.setContentType("text/html");
+  PrintWriter out=response.getWriter();
+  startHtmlPage(out,"MockService Groovy Log","15");
+  out.print("<p><b>Groovy Log output</b>: ");
+  out.print("[<a href=\"log\">Refresh</a>] ");
+  out.print("[<a href=\"log?clear\">Clear</a>]</p>");
+  if ("clear".equals(request.getQueryString())) {
+    events.clear();
+  }
+  out.print("<table border=\"1\">");
+  out.print("<tr><td></td><td>Timestamp</td><td>Message</td></tr>");
+  int cnt=1;
+  for (  LoggingEvent event : events) {
+    out.print("<tr><td>" + (cnt++) + "</td>");
+    out.print("<td>" + new java.util.Date(event.timeStamp) + "</td>");
+    out.print("<td>" + event.getRenderedMessage() + "</td></tr>");
+  }
+  out.print("</table>");
+  out.print("</body></html>");
+  out.flush();
+}

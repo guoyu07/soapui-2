@@ -1,0 +1,5 @@
+{
+  assertEquals(relativePath,PathUtils.relativize(absolutePath,rootPath));
+  if (!rootPath.endsWith("\\"))   rootPath+="\\";
+  assertEquals(absolutePath,Tools.joinRelativeUrl(rootPath,relativePath));
+}

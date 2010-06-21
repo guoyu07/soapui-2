@@ -1,0 +1,9 @@
+{
+  amfCallField=new JTextField();
+  amfCallField.setText(amfRequestTestStep.getAmfCall());
+  amfCallField.setColumns(20);
+  amfCallField.setToolTipText("object.methodName for amf method call");
+  PropertyExpansionPopupListener.enable(amfCallField,amfRequestTestStep);
+  addAmfCallDocumentListener();
+  return amfCallField;
+}

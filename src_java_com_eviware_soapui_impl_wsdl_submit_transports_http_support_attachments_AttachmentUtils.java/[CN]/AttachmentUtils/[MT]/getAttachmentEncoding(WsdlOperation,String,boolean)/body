@@ -1,0 +1,36 @@
+{
+  if (operation == null || operation.getBindingOperation() == null || operation.getBindingOperation().getOperation() == null) {
+    return AttachmentEncoding.NONE;
+  }
+  javax.wsdl.Part part=null;
+  if (isResponse) {
+    Output output=operation.getBindingOperation().getOperation().getOutput();
+    if (output == null || output.getMessage() == null) {
+      return AttachmentEncoding.NONE;
+    }
+ else {
+      part=output.getMessage().getPart(partName);
+    }
+  }
+ else {
+    Input input=operation.getBindingOperation().getOperation().getInput();
+    if (input == null || input.getMessage() == null) {
+      return AttachmentEncoding.NONE;
+    }
+ else {
+      part=input.getMessage().getPart(partName);
+    }
+  }
+  if (part != null) {
+    QName typeName=part.getTypeName();
+    if (typeName.getNamespaceURI().equals("http://www.w3.org/2001/XMLSchema")) {
+      if (typeName.getLocalPart().equals("base64Binary")) {
+        return AttachmentEncoding.BASE64;
+      }
+ else       if (typeName.getLocalPart().equals("hexBinary")) {
+        return AttachmentEncoding.HEX;
+      }
+    }
+  }
+  return AttachmentEncoding.NONE;
+}

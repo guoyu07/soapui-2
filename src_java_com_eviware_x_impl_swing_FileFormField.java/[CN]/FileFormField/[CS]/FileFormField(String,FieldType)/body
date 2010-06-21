@@ -1,0 +1,19 @@
+{
+  super(new JPanel());
+  this.type=type;
+  ButtonBarBuilder builder=new ButtonBarBuilder(getComponent());
+  textField=new JUndoableTextField(30);
+  textField.setToolTipText(tooltip);
+  builder.addGriddedGrowing(textField);
+  builder.addRelatedGap();
+  selectDirectoryButton=new JButton(new SelectDirectoryAction());
+  builder.addFixed(selectDirectoryButton);
+  textField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      String text=textField.getText();
+      if (!updating)       fireValueChanged(text,oldValue);
+      oldValue=text;
+    }
+  }
+);
+}

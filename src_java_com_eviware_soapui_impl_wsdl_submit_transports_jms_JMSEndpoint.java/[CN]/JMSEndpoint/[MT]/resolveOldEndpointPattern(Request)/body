@@ -1,0 +1,9 @@
+{
+  String oldEndpoint=request.getEndpoint();
+  if (oldEndpoint.contains("/queue_") || oldEndpoint.contains("/topic_")) {
+    String newEndpoint=request.getEndpoint().replaceAll(JMS_OLD_ENDPOINT_SEPARATOR + "queue_",JMS_ENDPOINT_SEPARATOR + "queue_").replaceAll(JMS_OLD_ENDPOINT_SEPARATOR + "topic_",JMS_ENDPOINT_SEPARATOR + "topic_").replaceAll(JMS_OLD_ENDPOINT_SEPARATOR + "-",JMS_ENDPOINT_SEPARATOR + "-");
+    request.setEndpoint(newEndpoint);
+    refreshEndpointList(request,oldEndpoint,newEndpoint);
+    SoapUI.log("JMS endpoint resolver changed endpoint pattern from " + oldEndpoint + "to "+ newEndpoint);
+  }
+}

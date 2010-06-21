@@ -1,0 +1,16 @@
+{
+  for (int c=0; c < workspace.getProjectCount(); c++) {
+    Project project=workspace.getProjectAt(c);
+    project.removeProjectListener(projectListener);
+    for (int i=0; i < project.getInterfaceCount(); i++) {
+      project.getInterfaceAt(i).removeInterfaceListener(interfaceListener);
+    }
+    for (int i=0; i < project.getTestSuiteCount(); i++) {
+      project.getTestSuiteAt(i).removeTestSuiteListener(testSuiteListener);
+    }
+    for (int i=0; i < project.getMockServiceCount(); i++) {
+      project.getMockServiceAt(i).removeMockServiceListener(mockServiceListener);
+    }
+  }
+  workspace.removeWorkspaceListener(workspaceListener);
+}

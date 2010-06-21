@@ -1,0 +1,6 @@
+{
+  final JComboBox endpointCombo=new JComboBox(endpointsModel);
+  endpointCombo.addPropertyChangeListener(this);
+  endpointCombo.setToolTipText(endpointsModel.getSelectedItem().toString());
+  return UISupport.addTooltipListener(endpointCombo,"- no endpoint set for request -");
+}

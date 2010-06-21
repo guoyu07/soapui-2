@@ -1,0 +1,12 @@
+{
+  if (enableUI) {
+    StandaloneSoapUICore core=new StandaloneSoapUICore(settingsFile);
+    log.info("Enabling UI Components");
+    core.prepareUI();
+    UISupport.setMainFrame(null);
+    return core;
+  }
+ else {
+    return new DefaultSoapUICore(null,settingsFile,soapUISettingsPassword);
+  }
+}

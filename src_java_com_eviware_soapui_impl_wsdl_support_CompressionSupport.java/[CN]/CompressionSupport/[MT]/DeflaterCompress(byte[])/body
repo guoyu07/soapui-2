@@ -1,0 +1,7 @@
+{
+  ByteArrayOutputStream compressedContent=new ByteArrayOutputStream();
+  DeflaterOutputStream defstream=new DeflaterOutputStream(compressedContent);
+  defstream.write(requestContent);
+  defstream.finish();
+  return compressedContent.toByteArray();
+}

@@ -1,0 +1,20 @@
+{
+  if (UISupport.getDialogs().confirm("Missing soapUI Settings, import from existing installation?","Import Preferences")) {
+    while (true) {
+      File settingsFile=UISupport.getFileDialogs().open(null,"Import Preferences",".xml","soapUI settings XML",fileName);
+      if (settingsFile != null) {
+        try {
+          SoapuiSettingsDocumentConfig.Factory.parse(settingsFile);
+          log.info("imported soapui-settings from [" + settingsFile.getAbsolutePath() + "]");
+          return settingsFile.getAbsolutePath();
+        }
+ catch (        Exception e) {
+          if (!UISupport.getDialogs().confirm("Error loading settings from [" + settingsFile.getAbsolutePath() + "]\r\nspecify another?","Error Importing")) {
+            break;
+          }
+        }
+      }
+    }
+  }
+  return fileName;
+}

@@ -1,0 +1,25 @@
+{
+  if (inspector == currentInspector)   return;
+  if (currentInspector != null) {
+    inspectorButtons.get(currentInspector).setSelected(false);
+    currentInspector.deactivate();
+  }
+  if (inspector == null) {
+    currentInspector=null;
+    inspectorPanel.setVisible(false);
+  }
+ else {
+    JToggleButton button=inspectorButtons.get(inspector);
+    currentInspector=inspector;
+    button.setSelected(true);
+    button.setBackground(Color.WHITE);
+    if (!inspectorPanel.isVisible()) {
+      inspectorPanel.setVisible(true);
+      if (lastDividerLocation == 0)       mainSplit.setDividerLocation(defaultDividerLocation);
+ else       mainSplit.setDividerLocation(lastDividerLocation);
+    }
+    CardLayout cards=(CardLayout)inspectorPanel.getLayout();
+    cards.show(inspectorPanel,inspector.getInspectorId());
+    currentInspector.activate();
+  }
+}

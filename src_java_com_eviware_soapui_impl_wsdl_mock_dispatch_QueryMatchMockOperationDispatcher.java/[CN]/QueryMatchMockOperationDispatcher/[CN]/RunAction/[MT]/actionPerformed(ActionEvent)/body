@@ -1,0 +1,14 @@
+{
+  WsdlMockResult result=getMockOperation().getLastMockResult();
+  if (result != null) {
+    try {
+      UISupport.showInfoMessage("Selected [" + selectMockResponse(result.getMockRequest(),result).getName() + "]");
+    }
+ catch (    DispatchException e1) {
+      UISupport.showErrorMessage(e1);
+    }
+  }
+ else {
+    UISupport.showErrorMessage("Missing request to query");
+  }
+}

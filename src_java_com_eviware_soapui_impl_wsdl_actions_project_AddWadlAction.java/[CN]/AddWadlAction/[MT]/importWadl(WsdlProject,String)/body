@@ -1,0 +1,11 @@
+{
+  RestService restService=(RestService)project.addNewInterface(project.getName(),RestServiceFactory.REST_TYPE);
+  UISupport.select(restService);
+  try {
+    new WadlImporter(restService).initFromWadl(url);
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+  return restService;
+}

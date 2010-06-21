@@ -1,0 +1,17 @@
+{
+  PrintWriter writer=new PrintWriter(new FileWriter(fileName));
+  for (  TestProperty prop : propertyHolder.getPropertyList()) {
+    writer.print(prop.getName());
+    writer.print('=');
+    String value=prop.getValue();
+    if (value == null)     value="";
+    String[] lines=value.split("\n");
+    for (int c=0; c < lines.length; c++) {
+      if (c > 0)       writer.println("\\");
+      writer.print(lines[c]);
+    }
+    writer.println();
+  }
+  writer.close();
+  return propertyHolder.getPropertyCount();
+}

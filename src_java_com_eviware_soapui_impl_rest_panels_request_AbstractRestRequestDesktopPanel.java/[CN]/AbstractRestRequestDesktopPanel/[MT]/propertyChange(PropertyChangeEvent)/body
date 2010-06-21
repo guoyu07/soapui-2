@@ -1,0 +1,23 @@
+{
+  updateFullPathLabel();
+  if (evt.getPropertyName().equals("accept") && !updatingRequest) {
+    acceptCombo.setSelectedItem(evt.getNewValue());
+  }
+ else   if (evt.getPropertyName().equals("responseMediaTypes") && !updatingRequest) {
+    Object item=acceptCombo.getSelectedItem();
+    acceptCombo.setModel(new DefaultComboBoxModel((Object[])evt.getNewValue()));
+    acceptCombo.setSelectedItem(item);
+  }
+ else   if ((evt.getPropertyName().equals("path") || evt.getPropertyName().equals("restMethod")) && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
+    if (pathLabel != null) {
+      updateFullPathLabel();
+    }
+    if (!updating && pathTextField != null) {
+      updating=true;
+      pathTextField.setText((String)evt.getNewValue());
+      pathTextField.setToolTipText(pathTextField.getText());
+      updating=false;
+    }
+  }
+  super.propertyChange(evt);
+}

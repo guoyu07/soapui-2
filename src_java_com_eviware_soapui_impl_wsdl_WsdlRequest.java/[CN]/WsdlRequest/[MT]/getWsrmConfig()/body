@@ -1,0 +1,9 @@
+{
+  if (wsrmConfig == null) {
+    if (!getConfig().isSetWsrmConfig()) {
+      getConfig().addNewWsrmConfig();
+    }
+    wsrmConfig=new WsrmConfig(getConfig().getWsrmConfig(),this);
+  }
+  return wsrmConfig;
+}

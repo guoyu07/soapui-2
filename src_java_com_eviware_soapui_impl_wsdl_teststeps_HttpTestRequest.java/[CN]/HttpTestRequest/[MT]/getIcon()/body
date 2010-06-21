@@ -1,0 +1,13 @@
+{
+  if (forLoadTest || UISupport.isHeadless())   return null;
+  TestMonitor testMonitor=SoapUI.getTestMonitor();
+  if (testMonitor != null && testMonitor.hasRunningLoadTest(testStep.getTestCase()))   return disabledRequestIcon;
+  ImageIcon icon=getIconAnimator().getIcon();
+  if (icon == getIconAnimator().getBaseIcon()) {
+    AssertionStatus status=getAssertionStatus();
+    if (status == AssertionStatus.VALID)     return validRequestIcon;
+ else     if (status == AssertionStatus.FAILED)     return failedRequestIcon;
+ else     if (status == AssertionStatus.UNKNOWN)     return unknownRequestIcon;
+  }
+  return icon;
+}

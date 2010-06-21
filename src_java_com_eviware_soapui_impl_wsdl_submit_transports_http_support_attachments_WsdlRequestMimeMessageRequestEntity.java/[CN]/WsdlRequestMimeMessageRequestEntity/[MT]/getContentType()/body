@@ -1,0 +1,18 @@
+{
+  try {
+    SoapVersion soapVersion=wsdlRequest.getOperation().getInterface().getSoapVersion();
+    if (isXOP) {
+      String header=message.getHeader("Content-Type")[0];
+      return AttachmentUtils.buildMTOMContentType(header,wsdlRequest.getAction(),soapVersion);
+    }
+ else {
+      String header=message.getHeader("Content-Type")[0];
+      int ix=header.indexOf("boundary");
+      return "multipart/related; type=\"" + soapVersion.getContentType() + "\"; "+ "start=\""+ AttachmentUtils.ROOTPART_SOAPUI_ORG+ "\"; "+ header.substring(ix);
+    }
+  }
+ catch (  MessagingException e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

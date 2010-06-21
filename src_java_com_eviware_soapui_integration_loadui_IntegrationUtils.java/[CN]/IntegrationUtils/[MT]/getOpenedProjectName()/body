@@ -1,0 +1,10 @@
+{
+  String projectName="";
+  try {
+    projectName=((String)CajoClient.getInstance().invoke("getOpenedProjectName",null));
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return projectName;
+}

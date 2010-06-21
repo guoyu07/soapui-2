@@ -1,0 +1,13 @@
+{
+  while (elm != null) {
+    NamedNodeMap attributes=elm.getAttributes();
+    for (int c=0; c < attributes.getLength(); c++) {
+      if (attributes.item(c).getNodeValue().equals(namespace) && attributes.item(c).getNodeName().startsWith("xmlns:")) {
+        return attributes.item(c).getNodeName().substring(6);
+      }
+    }
+    if (elm.getParentNode().getNodeType() != Node.ELEMENT_NODE)     break;
+    elm=(Element)elm.getParentNode();
+  }
+  return null;
+}

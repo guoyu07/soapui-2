@@ -1,0 +1,16 @@
+{
+  HashMap<String,String> samplerSettings=new HashMap<String,String>();
+  try {
+    SoapUI.log("createSoapUISampler for soapUIProjectPath=\"" + soapUIProjectPath + "\", soapUITestSuite=\""+ soapUITestSuite+ "\", soapUITestCase=\""+ soapUITestCase+ "\", loadUIProject=\""+ loadUIProject+ "\", loadUITestCase=\""+ loadUITestCase+ ", \"loadUISoapUISampler=\""+ loadUISoapUISampler+ "\"");
+    HashMap<String,Object> context=new ContextMapping(soapUIProjectPath,soapUITestSuite,soapUITestCase,loadUIProject,loadUITestCase,loadUISoapUISampler).setCreateSoapUISamplerContext();
+    samplerSettings=(HashMap<String,String>)CajoClient.getInstance().invoke("createSoapUISampler",context);
+    bringLoadUIToFront();
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return samplerSettings;
+}

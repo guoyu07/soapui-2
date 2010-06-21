@@ -1,0 +1,7 @@
+{
+  SchemaParticle[] spc=sp.getParticleChildren();
+  if (!_skipComments)   xmlc.insertComment("You have a CHOICE of the next " + String.valueOf(spc.length) + " items at this level");
+  for (int i=0; i < spc.length; i++) {
+    processParticle(spc[i],xmlc,mixed);
+  }
+}

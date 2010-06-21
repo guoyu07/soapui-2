@@ -1,0 +1,7 @@
+{
+  Operation operation=wsdlRequest.getOperation();
+  if (operation != null) {
+    EndpointStrategy endpointStrategy=operation.getInterface().getProject().getEndpointStrategy();
+    if (endpointStrategy != null)     endpointStrategy.filterRequest(context,wsdlRequest);
+  }
+}

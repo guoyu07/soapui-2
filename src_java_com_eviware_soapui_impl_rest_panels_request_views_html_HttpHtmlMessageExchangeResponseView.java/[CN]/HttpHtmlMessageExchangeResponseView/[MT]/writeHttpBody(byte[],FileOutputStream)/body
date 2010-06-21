@@ -1,0 +1,15 @@
+{
+  int index=0;
+  byte[] divider="\r\n\r\n".getBytes();
+  for (; index < (rawResponse.length - divider.length); index++) {
+    int i;
+    for (i=0; i < divider.length; i++) {
+      if (rawResponse[index + i] != divider[i])       break;
+    }
+    if (i == divider.length) {
+      out.write(rawResponse,index + divider.length,rawResponse.length - (index + divider.length));
+      return;
+    }
+  }
+  out.write(rawResponse);
+}

@@ -1,0 +1,8 @@
+{
+  Point cursorLocation=_cursorLabel.getLocation();
+  int dx=(int)Math.max(cursorLocation.getX(),0);
+  int dy=(int)Math.max(cursorLocation.getY(),0);
+  dx=(int)(dx * _ratio);
+  dy=(int)(dy * _ratio);
+  ((JComponent)_viewPort.getComponent(0)).scrollRectToVisible(new Rectangle(dx,dy,_viewPort.getWidth(),_viewPort.getHeight()));
+}

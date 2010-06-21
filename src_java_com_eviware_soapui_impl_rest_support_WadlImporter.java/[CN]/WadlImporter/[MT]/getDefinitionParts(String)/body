@@ -1,0 +1,10 @@
+{
+  Map<String,XmlObject> result=new HashMap<String,XmlObject>();
+  try {
+    return SchemaUtils.getSchemas(wadlUrl,new UrlSchemaLoader(wadlUrl));
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return result;
+}

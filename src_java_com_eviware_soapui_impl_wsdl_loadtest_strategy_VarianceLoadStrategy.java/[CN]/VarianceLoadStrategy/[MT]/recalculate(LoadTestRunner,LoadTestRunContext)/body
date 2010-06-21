@@ -1,0 +1,23 @@
+{
+  double timePassed=(System.currentTimeMillis() - startTime) % interval;
+  float threadCount=baseThreadCount;
+  double quarter=(double)interval / 4;
+  if (timePassed < quarter) {
+    threadCount+=(int)Math.round(((timePassed / quarter) * variance * threadCount));
+  }
+ else   if (timePassed < quarter * 2) {
+    threadCount+=(int)Math.round(((1 - ((timePassed % quarter) / quarter)) * variance * threadCount));
+  }
+ else   if (timePassed < quarter * 3) {
+    threadCount-=(int)Math.round((((timePassed % quarter) / quarter) * variance * threadCount));
+  }
+ else {
+    threadCount-=(int)Math.round(((1 - ((timePassed % quarter) / quarter)) * variance * threadCount));
+  }
+  if (threadCount < 1)   threadCount=1;
+  WsdlLoadTest wsdlLoadTest=((WsdlLoadTest)loadTestRunner.getLoadTest());
+  if (wsdlLoadTest.getThreadCount() != (int)threadCount) {
+    log.debug("Changing threadcount to " + threadCount);
+    wsdlLoadTest.setThreadCount((int)threadCount);
+  }
+}

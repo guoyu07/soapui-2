@@ -1,0 +1,15 @@
+{
+  if (modelItem != null) {
+    List<String> endpoints=new ArrayList<String>(Arrays.asList(modelItem.getEndpoints()));
+    endpoints.add(0,null);
+    mainForm.setOptions(ENDPOINT,endpoints.toArray());
+  }
+ else   if (mainForm != null) {
+    mainForm.setOptions(ENDPOINT,new String[]{null});
+  }
+  StringToStringMap values=super.initValues(modelItem,param);
+  if (!values.isEmpty())   return values;
+  values.put(ENDPOINT,getDefinition(modelItem));
+  values.put(PORT,"8080");
+  return values;
+}

@@ -1,0 +1,21 @@
+{
+  int ix=testSteps.indexOf(testStep);
+  if (ix == -1) {
+    logger.error("TestStep [" + testStep.getName() + "] passed to removeTestStep in testCase ["+ getName()+ "] not found");
+    return;
+  }
+  testSteps.remove(ix);
+  try {
+    (getTestSuite()).fireTestStepRemoved(testStep,ix);
+  }
+  finally {
+    notifyPropertyChanged("testSteps",testStep,null);
+    testStep.release();
+    for (int c=0; c < getConfig().sizeOfTestStepArray(); c++) {
+      if (testStep.getConfig() == getConfig().getTestStepArray(c)) {
+        getConfig().removeTestStep(c);
+        break;
+      }
+    }
+  }
+}

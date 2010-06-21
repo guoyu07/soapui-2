@@ -1,0 +1,11 @@
+{
+  String str=UISupport.prompt("Enter new url below","Extract Params","");
+  if (str == null)   return;
+  try {
+    params.resetValues();
+    RestUtils.extractParams(str,params,false);
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+}

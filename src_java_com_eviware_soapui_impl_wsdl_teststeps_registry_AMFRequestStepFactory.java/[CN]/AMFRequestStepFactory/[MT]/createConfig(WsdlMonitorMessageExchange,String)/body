@@ -1,0 +1,9 @@
+{
+  AMFRequestTestStepConfig testRequestConfig=AMFRequestTestStepConfig.Factory.newInstance();
+  testRequestConfig.setEndpoint(me.getEndpoint());
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(AMF_REQUEST_TYPE);
+  testStep.setConfig(testRequestConfig);
+  testStep.setName(stepName);
+  return testStep;
+}

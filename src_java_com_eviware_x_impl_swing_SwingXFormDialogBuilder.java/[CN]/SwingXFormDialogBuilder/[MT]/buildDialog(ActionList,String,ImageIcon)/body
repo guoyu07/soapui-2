@@ -1,0 +1,5 @@
+{
+  XForm[] forms=getForms();
+  dialog=forms.length > 1 ? new JTabbedFormDialog(name,forms,actions,description,icon) : new JFormDialog(name,(SwingXFormImpl)forms[0],actions,description,icon);
+  return dialog;
+}

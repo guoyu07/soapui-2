@@ -1,0 +1,9 @@
+{
+  if (source == target)   return true;
+  ModelItem p=source.getParent();
+  while (p != null) {
+    if (p == target)     return true;
+    p=p.getParent();
+  }
+  return false;
+}

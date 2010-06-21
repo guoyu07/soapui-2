@@ -1,0 +1,63 @@
+{
+  propertiesTable=createPropertyHolderTable();
+  add(propertiesTable,BorderLayout.CENTER);
+  JXToolBar toolbar=propertiesTable.getToolbar();
+  toolbar.addRelatedGap();
+  JButton reloadButton=UISupport.createToolbarButton(new ReloadPropertiesFromSourceAction());
+  toolbar.add(reloadButton);
+  toolbar.addSeparator();
+  toolbar.add(new JLabel("Load from:"));
+  sourceField=new JTextField(testStep.getSource(),20){
+    @Override public String getToolTipText(    MouseEvent event){
+      return testStep.getSource(true);
+    }
+  }
+;
+  sourceField.setToolTipText("The filename/url or referring system-property to load properties from");
+  sourceField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      if (updatingSource)       return;
+      updatingSource=true;
+      testStep.setSource(sourceField.getText());
+      updatingSource=false;
+    }
+  }
+);
+  toolbar.addRelatedGap();
+  toolbar.addFixed(sourceField);
+  JButton setSourceButton=UISupport.createToolbarButton(new SetPropertiesSourceAction());
+  toolbar.addRelatedGap();
+  toolbar.add(setSourceButton);
+  toolbar.addSeparator();
+  toolbar.add(new JLabel("Save to:"));
+  targetField=new JTextField(testStep.getTarget(),20){
+    @Override public String getToolTipText(    MouseEvent event){
+      return testStep.getTarget(true);
+    }
+  }
+;
+  targetField.setToolTipText("The filename/url or referring system-property to save properties to");
+  targetField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    public void update(    Document document){
+      if (updatingTarget)       return;
+      updatingTarget=true;
+      testStep.setTarget(targetField.getText());
+      updatingTarget=false;
+    }
+  }
+);
+  toolbar.addRelatedGap();
+  toolbar.addFixed(targetField);
+  JButton setTargetButton=UISupport.createToolbarButton(new SetPropertiesTargetAction());
+  toolbar.addRelatedGap();
+  toolbar.add(setTargetButton);
+  toolbar.add(Box.createHorizontalGlue());
+  toolbar.addSeparator();
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.PROPERTIESSTEPEDITOR_HELP_URL)));
+  componentEnabler.add(sourceField);
+  componentEnabler.add(targetField);
+  componentEnabler.add(setTargetButton);
+  componentEnabler.add(setSourceButton);
+  componentEnabler.add(propertiesTable);
+  setPreferredSize(new Dimension(600,400));
+}

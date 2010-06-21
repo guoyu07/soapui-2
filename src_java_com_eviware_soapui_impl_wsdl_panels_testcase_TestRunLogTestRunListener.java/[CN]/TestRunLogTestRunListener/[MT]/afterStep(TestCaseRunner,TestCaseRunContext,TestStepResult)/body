@@ -1,0 +1,9 @@
+{
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestCase()))   return;
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      runLog.addTestStepResult(stepResult);
+    }
+  }
+);
+}

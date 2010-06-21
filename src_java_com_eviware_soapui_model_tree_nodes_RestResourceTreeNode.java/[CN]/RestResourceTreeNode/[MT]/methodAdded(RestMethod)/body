@@ -1,0 +1,7 @@
+{
+  RestMethodTreeNode methodTreeNode=new RestMethodTreeNode(method,getTreeModel());
+  methodNodes.add(methodTreeNode);
+  reorder(false);
+  method.addPropertyChangeListener(Request.NAME_PROPERTY,propertyChangeListener);
+  getTreeModel().notifyNodeInserted(methodTreeNode);
+}

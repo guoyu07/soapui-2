@@ -1,0 +1,22 @@
+{
+  LoadStrategy loadStrategy=loadTest.getLoadStrategy();
+  triggerProperties=(HashMap<String,String>)createdItemContext.get(TRIGGER_PROPERTIES);
+  if (loadStrategy instanceof VarianceLoadStrategy) {
+    loadUITriggerType=VARIANCE_TRIGGER;
+    VarianceLoadStrategy currentStrategy=(VarianceLoadStrategy)loadStrategy;
+    long rate=extractLongProperty("rate");
+    triggerProperties.put("shape",createProperyValue(String.class,"Sine-wave"));
+    triggerProperties.put("amplitude",createProperyValue(Long.class,Long.toString(((long)(currentStrategy.getVariance() * rate)))));
+    triggerProperties.put("period",createProperyValue(Long.class,Long.toString(currentStrategy.getInterval())));
+  }
+  if (loadStrategy instanceof ThreadCountChangeLoadStrategy) {
+    loadUITriggerType=RAMP_TRIGGER;
+    ThreadCountChangeLoadStrategy currentStrategy=(ThreadCountChangeLoadStrategy)loadStrategy;
+    long end=extractLongProperty("end");
+    triggerProperties.put("end",createProperyValue(Long.class,Long.toString(end * (currentStrategy.getEndThreadCount() / currentStrategy.getStartThreadCount()))));
+    if (loadTest.getLimitType().equals(LoadTestLimitTypesConfig.TIME)) {
+      triggerProperties.put("period",createProperyValue(Long.class,Long.toString(loadTest.getTestLimit())));
+    }
+  }
+  return triggerProperties;
+}

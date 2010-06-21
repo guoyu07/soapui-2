@@ -1,0 +1,16 @@
+{
+  SchemaType resultType;
+  int ix=xsiType.indexOf(':');
+  QName name=null;
+  if (ix == -1) {
+    name=new QName(xsiType);
+    resultType=typeSystem.findType(name);
+  }
+ else {
+    StringToStringMap map=new StringToStringMap();
+    cursor.getAllNamespaces(map);
+    name=new QName(map.get(xsiType.substring(0,ix)),xsiType.substring(ix + 1));
+    resultType=typeSystem.findType(name);
+  }
+  return resultType;
+}

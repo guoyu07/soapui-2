@@ -1,0 +1,18 @@
+{
+  this.loadTest=loadTest;
+  this.statisticsModel=loadTest.getStatisticsModel();
+  this.data=statisticsModel.getHistory().getTestStepHistory(LoadTestStatistics.TOTAL);
+  setAutoscrolls(true);
+  addMouseMotionListener(new InternalMouseMotionListener());
+  data.addTableModelListener(tableModelListener);
+  initMaxValues();
+  initScales();
+  setBackground(Color.WHITE);
+  setOpaque(true);
+  addComponentListener(new ComponentAdapter(){
+    public void componentResized(    ComponentEvent e){
+      initScales();
+    }
+  }
+);
+}

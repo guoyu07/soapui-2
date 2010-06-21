@@ -1,0 +1,10 @@
+{
+  if (soapMonitor.isRunning() && canCancel) {
+    if (!UISupport.confirm("Close and stop SOAP Monitor","Close SOAP Monitor")) {
+      return false;
+    }
+  }
+  soapMonitor.stop();
+  soapMonitor.release();
+  return true;
+}

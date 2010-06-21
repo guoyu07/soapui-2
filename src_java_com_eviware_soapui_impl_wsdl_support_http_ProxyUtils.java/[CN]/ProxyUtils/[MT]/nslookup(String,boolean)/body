@@ -1,0 +1,13 @@
+{
+  InetAddress host;
+  String address;
+  try {
+    host=InetAddress.getByName(s);
+    if (ip)     address=host.getHostAddress();
+ else     address=host.getHostName();
+  }
+ catch (  UnknownHostException ue) {
+    return s;
+  }
+  return address;
+}

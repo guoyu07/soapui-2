@@ -1,0 +1,19 @@
+{
+  try {
+    sSocket=new ServerSocket(port);
+    for (; ; ) {
+      Socket inSocket=sSocket.accept();
+      if (pleaseStop) {
+        break;
+      }
+      new Connection(getName() + " connection from " + inSocket.getRemoteSocketAddress(),listener,inSocket,slowLink);
+      inSocket=null;
+    }
+  }
+ catch (  Exception exp) {
+    if (!"socket closed".equals(exp.getMessage())) {
+      listener.stop();
+    }
+    SoapUI.log.info("Error stopping SocketWaiter: " + exp.toString());
+  }
+}

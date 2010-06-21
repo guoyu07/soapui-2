@@ -1,0 +1,7 @@
+{
+  this.maxSize=l;
+  while (elements.size() > 0 && elements.size() > maxSize) {
+    removeElementAt(0);
+  }
+  getModelItem().getSettings().setLong(LogListModel.class.getName() + "@maxSize",maxSize);
+}

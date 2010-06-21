@@ -1,0 +1,11 @@
+{
+  String value=getString(id,null);
+  if (value != null) {
+    try {
+      return Long.parseLong(value);
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return parent == null ? defaultValue : parent.getLong(id,defaultValue);
+}

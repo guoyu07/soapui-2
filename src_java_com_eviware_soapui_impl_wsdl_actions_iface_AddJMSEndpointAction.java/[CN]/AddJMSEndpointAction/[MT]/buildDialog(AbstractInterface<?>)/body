@@ -1,0 +1,57 @@
+{
+  if (iface == null)   return null;
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add JMS endpoint");
+  mainForm=builder.createForm("Basic");
+  mainForm.addTextField(HERMES_CONFIG,"choose folder where hermes-config.xml is",XForm.FieldType.FOLDER).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (!"".equals(newValue)) {
+        Hermes hermes=null;
+        try {
+          Context ctx=getHermesContext(iface,newValue);
+          iface.getProject().setHermesConfig(newValue);
+          String[] sessions=getSessionOptions(iface,newValue);
+          mainForm.setOptions(SESSION,sessions);
+          if (sessions != null && sessions.length > 0) {
+            hermes=(Hermes)ctx.lookup(sessions[0]);
+          }
+        }
+ catch (        Exception e) {
+          SoapUI.logError(e);
+        }
+        if (hermes != null) {
+          updateDestinations(hermes);
+        }
+ else {
+          mainForm.setOptions(SESSION,new String[]{});
+          mainForm.setOptions(SEND,new String[]{});
+          mainForm.setOptions(RECEIVE,new String[]{});
+        }
+      }
+    }
+  }
+);
+  mainForm.addComboBox(SESSION,new String[]{},"Session name from HermesJMS").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      String hermesConfigPath=mainForm.getComponent(HERMES_CONFIG).getValue();
+      Hermes hermes=null;
+      try {
+        Context ctx=getHermesContext(iface,hermesConfigPath);
+        hermes=(Hermes)ctx.lookup(newValue);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+      if (hermes != null) {
+        updateDestinations(hermes);
+      }
+ else {
+        mainForm.setOptions(SEND,new String[]{});
+        mainForm.setOptions(RECEIVE,new String[]{});
+      }
+    }
+  }
+);
+  mainForm.addComboBox(SEND,new String[]{},"Queue/Topic  sending/publishing");
+  mainForm.addComboBox(RECEIVE,new String[]{},"Queue/Topic  receive/subscribe");
+  return builder.buildDialog(builder.buildOkCancelActions(),"create JMS endpoint by selecting proper values",null);
+}

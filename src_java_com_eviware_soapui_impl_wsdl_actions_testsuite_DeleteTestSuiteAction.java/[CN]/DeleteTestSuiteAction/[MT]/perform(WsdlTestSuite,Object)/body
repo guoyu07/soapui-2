@@ -1,0 +1,11 @@
+{
+  for (int c=0; c < testSuite.getTestCaseCount(); c++) {
+    if (SoapUI.getTestMonitor().hasRunningTest(testSuite.getTestCaseAt(c))) {
+      UISupport.showErrorMessage("Cannot remove testSuite due to running tests");
+      return;
+    }
+  }
+  if (UISupport.confirm("Remove TestSuite [" + testSuite.getName() + "] from project","Remove TestSuite")) {
+    ((WsdlProject)testSuite.getProject()).removeTestSuite(testSuite);
+  }
+}

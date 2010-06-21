@@ -1,0 +1,37 @@
+{
+  testListPopup.removeAll();
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testCase)) {
+    testListPopup.add("<disabled during LoadTest>").setEnabled(false);
+    return;
+  }
+  Point location=testStepList.getMousePosition();
+  int ix=-1;
+  if (location != null) {
+    int index=testStepList.locationToIndex(location);
+    if (index != -1 && !testStepList.isSelectedIndex(index) && testStepList.getCellBounds(index,index).contains(location)) {
+      testStepList.addSelectionInterval(index,index);
+      ix=index;
+    }
+ else     if (index != -1 && testStepList.isSelectedIndex(index) && testStepList.getCellBounds(index,index).contains(location)) {
+      ix=index;
+    }
+  }
+  if (ix >= 0) {
+    int[] indices=testStepList.getSelectedIndices();
+    if (indices.length == 1) {
+      WsdlTestStep testStep=testCase.getTestStepAt(ix);
+      ActionSupport.addActions(ActionListBuilder.buildActions(testStep),testListPopup);
+      testListPopup.insert(SwingActionDelegate.createDelegate(new RunFromTestStepAction(),testStep),0);
+      testListPopup.insert(new JSeparator(),1);
+    }
+ else {
+      ModelItem[] modelItems=new ModelItem[indices.length];
+      for (int c=0; c < indices.length; c++)       modelItems[c]=testCase.getTestStepAt(indices[c]).getModelItem();
+      ActionSupport.addActions(ActionListBuilder.buildMultiActions(modelItems),testListPopup);
+    }
+  }
+ else {
+    testStepList.clearSelection();
+    testListPopup.add(appendStepMenu);
+  }
+}

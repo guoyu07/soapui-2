@@ -1,0 +1,19 @@
+{
+  HashMap<String,Object> contextSettings=new HashMap<String,Object>();
+  try {
+    ContextMapping contextMapping=new ContextMapping(loadTest,loadUIProject,loadUITestCase,loadUISoapUISampler);
+    HashMap<String,Object> context=contextMapping.setInitExportLoadTestToLoadUIContext();
+    contextSettings=(HashMap<String,Object>)CajoClient.getInstance().invoke("exportSoapUILoadTestToLoadUI",context);
+    if (contextMapping.isFinalTriggerMappingNeeded()) {
+      CajoClient.getInstance().invoke("exportSoapUILoadTestToLoadUI",contextMapping.setFinalExportLoadTestToLoadUIContext(contextSettings));
+    }
+    bringLoadUIToFront();
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return contextSettings;
+}

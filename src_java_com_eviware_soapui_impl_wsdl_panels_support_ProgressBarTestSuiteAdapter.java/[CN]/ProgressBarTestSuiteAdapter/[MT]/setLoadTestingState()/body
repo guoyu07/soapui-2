@@ -1,0 +1,10 @@
+{
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testSuite)) {
+    progressBar.setIndeterminate(true);
+    progressBar.setString("loadTesting");
+  }
+ else {
+    progressBar.setIndeterminate(false);
+    progressBar.setString("");
+  }
+}

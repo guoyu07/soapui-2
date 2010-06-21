@@ -1,0 +1,15 @@
+{
+  String cachedValue=valueCache.get(id);
+  if (cachedValue != null) {
+    return cachedValue;
+  }
+ else {
+    SettingConfig setting=values.get(id);
+    if (setting != null) {
+      String value=setting.getStringValue();
+      valueCache.put(id,value);
+      return value;
+    }
+  }
+  return parent == null ? defaultValue : parent.getString(id,defaultValue);
+}

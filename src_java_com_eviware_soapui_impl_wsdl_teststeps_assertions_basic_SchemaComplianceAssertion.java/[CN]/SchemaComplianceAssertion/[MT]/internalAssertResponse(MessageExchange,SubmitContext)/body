@@ -1,0 +1,9 @@
+{
+  if (messageExchange instanceof WsdlMessageExchange) {
+    return assertWsdlResponse((WsdlMessageExchange)messageExchange,context);
+  }
+ else   if (messageExchange instanceof RestMessageExchange) {
+    return assertWadlResponse((RestMessageExchange)messageExchange,context);
+  }
+  throw new AssertionException(new AssertionError("Unknown MessageExchange type"));
+}

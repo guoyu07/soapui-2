@@ -1,0 +1,15 @@
+{
+  HostConfiguration connectionConfiguration=configurationForConnection(connection);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Reclaiming connection, hostConfig=" + connectionConfiguration);
+  }
+  connection.close();
+  HostConnectionPool hostPool=getHostPool(connectionConfiguration,true);
+  hostPool.freeConnections.remove(connection);
+  hostPool.numConnections--;
+  numConnections--;
+  if ((hostPool.numConnections == 0) && hostPool.waitingThreads.isEmpty()) {
+    mapHosts.remove(connectionConfiguration);
+  }
+  idleConnectionHandler.remove(connection);
+}

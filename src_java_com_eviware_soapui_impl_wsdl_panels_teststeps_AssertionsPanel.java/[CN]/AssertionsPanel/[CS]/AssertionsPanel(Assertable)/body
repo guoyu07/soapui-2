@@ -1,0 +1,72 @@
+{
+  super(new BorderLayout());
+  this.assertable=assertable;
+  assertionListModel=new AssertionListModel();
+  assertionList=new JList(assertionListModel);
+  assertionList.setToolTipText("Assertions for this request");
+  assertionList.setCellRenderer(new AssertionCellRenderer());
+  assertionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  assertionListPopup=new JPopupMenu();
+  addAssertionAction=new AddAssertionAction(assertable);
+  assertionListPopup.add(addAssertionAction);
+  assertionListPopup.addPopupMenuListener(new PopupMenuListener(){
+    public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      while (assertionListPopup.getComponentCount() > 1)       assertionListPopup.remove(1);
+      int ix=assertionList.getSelectedIndex();
+      if (ix == -1) {
+        assertionListPopup.addSeparator();
+        assertionListPopup.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+        return;
+      }
+      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+      ActionSupport.addActions(ActionListBuilder.buildActions(assertion),assertionListPopup);
+    }
+    public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+    }
+    public void popupMenuCanceled(    PopupMenuEvent e){
+    }
+  }
+);
+  assertionList.setComponentPopupMenu(assertionListPopup);
+  assertionList.addMouseListener(new MouseAdapter(){
+    public void mouseClicked(    MouseEvent e){
+      if (e.getClickCount() < 2)       return;
+      int ix=assertionList.getSelectedIndex();
+      if (ix == -1)       return;
+      Object obj=assertionList.getModel().getElementAt(ix);
+      if (obj instanceof TestAssertion) {
+        TestAssertion assertion=(TestAssertion)obj;
+        if (assertion.isConfigurable())         assertion.configure();
+        return;
+      }
+      if (obj instanceof AssertionError) {
+        AssertionError error=(AssertionError)obj;
+        if (error.getLineNumber() >= 0) {
+          selectError(error);
+        }
+ else         Toolkit.getDefaultToolkit().beep();
+      }
+ else       Toolkit.getDefaultToolkit().beep();
+    }
+  }
+);
+  assertionList.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent e){
+      int ix=assertionList.getSelectedIndex();
+      if (ix == -1)       return;
+      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+      if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+        if (assertion.isConfigurable())         assertion.configure();
+      }
+ else {
+        ActionList actions=ActionListBuilder.buildActions(assertion);
+        if (actions != null) {
+          actions.dispatchKeyEvent(e);
+        }
+      }
+    }
+  }
+);
+  add(new JScrollPane(assertionList),BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+}

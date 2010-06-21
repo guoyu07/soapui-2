@@ -1,0 +1,10 @@
+{
+  newRequest.setEncoding(getEncoding());
+  newRequest.setEndpoint(getEndpoint());
+  newRequest.setRequestContent(getRequestContent());
+  newRequest.setWssPasswordType(getWssPasswordType());
+  CredentialsConfig credentials=getConfig().getCredentials();
+  if (credentials != null)   newRequest.getConfig().setCredentials((CredentialsConfig)credentials.copy());
+  if (copyAttachments)   copyAttachmentsTo(newRequest);
+  if (copyHeaders)   newRequest.setRequestHeaders(getRequestHeaders());
+}

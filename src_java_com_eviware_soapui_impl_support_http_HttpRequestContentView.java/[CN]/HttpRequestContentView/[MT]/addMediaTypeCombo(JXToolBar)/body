@@ -1,0 +1,14 @@
+{
+  mediaTypeCombo=new JComboBox(getRequestMediaTypes());
+  mediaTypeCombo.setPreferredSize(new Dimension(120,20));
+  mediaTypeCombo.setEnabled(httpRequest.hasRequestBody());
+  mediaTypeCombo.setEditable(true);
+  if (httpRequest.getMediaType() != null)   mediaTypeCombo.setSelectedItem(httpRequest.getMediaType());
+  mediaTypeCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      httpRequest.setMediaType(String.valueOf(mediaTypeCombo.getSelectedItem()));
+    }
+  }
+);
+  toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
+}

@@ -1,0 +1,10 @@
+{
+  super(operation,operation.getInterface(),treeModel);
+  for (int c=0; c < operation.getRequestCount(); c++) {
+    Request request=operation.getRequestAt(c);
+    request.addPropertyChangeListener(Request.NAME_PROPERTY,propertyChangeListener);
+    requestNodes.add(new RequestTreeNode(request,getTreeModel()));
+  }
+  initOrdering(requestNodes,UISettings.ORDER_REQUESTS);
+  treeModel.mapModelItems(requestNodes);
+}

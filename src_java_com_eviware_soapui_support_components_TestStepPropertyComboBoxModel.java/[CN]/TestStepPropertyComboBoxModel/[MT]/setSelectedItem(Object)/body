@@ -1,0 +1,6 @@
+{
+  if (anItem == null && selectedName == null)   return;
+  if (anItem != null && selectedName != null && anItem.equals(selectedName))   return;
+  selectedName=anItem == null ? null : anItem.toString();
+  fireContentsChanged(this,-1,-1);
+}

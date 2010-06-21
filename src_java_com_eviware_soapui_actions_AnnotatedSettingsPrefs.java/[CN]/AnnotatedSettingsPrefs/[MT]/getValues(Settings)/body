@@ -1,0 +1,15 @@
+{
+  StringToStringMap result=new StringToStringMap();
+  for (  Field field : settingsClass.getFields()) {
+    Setting annotation=field.getAnnotation(Setting.class);
+    if (annotation != null) {
+      try {
+        result.put(annotation.name(),settings.getString(field.get(null).toString(),annotation.defaultValue()));
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  return result;
+}

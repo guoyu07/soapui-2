@@ -1,0 +1,9 @@
+{
+  PropertyExpansionsResult result=new PropertyExpansionsResult(getWssContainer().getModelItem(),this);
+  result.extractAndAddAll("username");
+  result.extractAndAddAll("password");
+  for (  WssEntry entry : entries) {
+    if (entry instanceof PropertyExpansionContainer)     result.addAll(((PropertyExpansionContainer)entry).getPropertyExpansions());
+  }
+  return result.toArray();
+}

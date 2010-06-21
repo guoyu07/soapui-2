@@ -1,0 +1,23 @@
+{
+  super(new BorderLayout());
+  this.editArea=editArea;
+  lineNumberTable=new JTable(new LineNumberTableModel());
+  lineNumberTable.setBackground(StandaloneSoapUICore.SoapUITheme.BACKGROUND_COLOR);
+  lineNumberTable.setRowHeight(editArea.getLineHeight());
+  lineNumberTable.getColumnModel().getColumn(0).setWidth(30);
+  lineNumberTable.setPreferredSize(new Dimension(30,0));
+  lineNumberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,0,1,Color.LIGHT_GRAY),BorderFactory.createEmptyBorder(2,2,0,1)));
+  add(lineNumberTable,BorderLayout.CENTER);
+  lineNumberTable.getColumnModel().getColumn(0).setCellRenderer(new LineNumberCellRenderer());
+  lineNumberTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int row=lineNumberTable.getSelectedRow();
+      if (row != -1) {
+        LineNumbersPanel.this.editArea.setCaretPosition(LineNumbersPanel.this.editArea.getLineStartOffset(row));
+        LineNumbersPanel.this.editArea.requestFocusInWindow();
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,7 @@
+{
+  if (response.getMockOperation() != getModelItem())   return;
+  responses.add((WsdlMockResponse)response);
+  response.addPropertyChangeListener(this);
+  fireIntervalAdded(this,responses.size() - 1,responses.size() - 1);
+  defaultResponseCombo.addItem(response.getName());
+}

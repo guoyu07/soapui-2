@@ -1,0 +1,33 @@
+{
+  StringWriter writer=null;
+  try {
+    WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
+    if (wssCrypto == null) {
+      throw new Exception("Missing crypto [" + crypto + "] for signature entry");
+    }
+    WSSecSignature wssSign=new WSSecSignature();
+    wssSign.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
+    if (keyIdentifierType != 0)     wssSign.setKeyIdentifierType(keyIdentifierType);
+    if (StringUtils.hasContent(signatureAlgorithm))     wssSign.setSignatureAlgorithm(signatureAlgorithm);
+    if (StringUtils.hasContent(signatureCanonicalization))     wssSign.setSigCanonicalization(signatureCanonicalization);
+    wssSign.setUseSingleCertificate(useSingleCert);
+    Vector<WSEncryptionPart> wsParts=createWSParts(parts);
+    if (!wsParts.isEmpty()) {
+      wssSign.setParts(wsParts);
+    }
+    writer=new StringWriter();
+    XmlUtils.serialize(doc,writer);
+    wssSign.build(doc,wssCrypto.getCrypto(),secHeader);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    if (writer != null && writer.getBuffer().length() > 0) {
+      try {
+        doc.replaceChild(doc.importNode(XmlUtils.parseXml(writer.toString()).getDocumentElement(),true),doc.getDocumentElement());
+      }
+ catch (      Exception e1) {
+        SoapUI.logError(e1);
+      }
+    }
+  }
+}

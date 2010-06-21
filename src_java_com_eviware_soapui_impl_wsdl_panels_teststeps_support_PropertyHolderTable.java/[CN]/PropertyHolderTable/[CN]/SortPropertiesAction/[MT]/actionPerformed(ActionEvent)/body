@@ -1,0 +1,13 @@
+{
+  if (holder.getPropertyCount() == 0) {
+    UISupport.showErrorMessage("No properties to sort!");
+    return;
+  }
+  try {
+    UISupport.setHourglassCursor();
+    TestPropertyUtils.sortProperties((MutableTestPropertyHolder)holder);
+  }
+  finally {
+    UISupport.resetCursor();
+  }
+}

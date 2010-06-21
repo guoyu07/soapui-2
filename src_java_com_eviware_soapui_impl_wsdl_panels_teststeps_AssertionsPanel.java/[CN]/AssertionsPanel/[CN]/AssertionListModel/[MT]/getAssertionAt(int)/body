@@ -1,0 +1,7 @@
+{
+  Object object=items.get(index);
+  while (!(object instanceof TestAssertion) && index > 0) {
+    object=items.get(--index);
+  }
+  return (TestAssertion)((object instanceof TestAssertion) ? object : null);
+}

@@ -1,0 +1,10 @@
+{
+  super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+  DesktopPanel desktopPanel=(DesktopPanel)value;
+  String title=desktopPanel.getTitle();
+  setText(title);
+  setToolTipText(desktopPanel.getDescription());
+  setIcon(desktopPanel.getIcon());
+  setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,2,2,2),getBorder()));
+  return this;
+}

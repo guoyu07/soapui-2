@@ -1,0 +1,8 @@
+{
+  RestRepresentation representation=new RestRepresentation(this,getConfig().addNewRepresentation());
+  representation.setType(type);
+  representation.addPropertyChangeListener(representationPropertyChangeListener);
+  representations.add(representation);
+  notifyPropertyChanged("representations",null,representation);
+  return representation;
+}

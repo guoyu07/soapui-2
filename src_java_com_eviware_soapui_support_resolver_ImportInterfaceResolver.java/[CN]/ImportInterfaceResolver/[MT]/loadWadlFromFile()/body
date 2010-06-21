@@ -1,0 +1,8 @@
+{
+  WsdlProject project=item.getTestCase().getTestSuite().getProject();
+  File file=UISupport.getFileDialogs().open(this,"Select WADL file",".wadl","WADL Files (*.wadl)",ProjectDirProvider.getProjectFolder(project));
+  if (file == null)   return;
+  String path=file.getAbsolutePath();
+  if (path == null)   return;
+  importWadl(project,"file:/" + path);
+}

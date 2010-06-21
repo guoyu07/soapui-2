@@ -1,0 +1,11 @@
+{
+  Remote.shutdown();
+  Remote.config(server,Integer.valueOf(SoapUI.getSettings().getString(LoadUISettings.SOAPUI_CAJO_PORT,"1198")),null,0);
+  try {
+    ItemServer.bind(new TestCaseEditIntegrationImpl(),itemName);
+    SoapUI.log("The cajo server is running on localhost:" + SoapUI.getSettings().getString(LoadUISettings.SOAPUI_CAJO_PORT,"1198") + "/"+ itemName);
+  }
+ catch (  IOException e) {
+    SoapUI.log(e.getMessage());
+  }
+}

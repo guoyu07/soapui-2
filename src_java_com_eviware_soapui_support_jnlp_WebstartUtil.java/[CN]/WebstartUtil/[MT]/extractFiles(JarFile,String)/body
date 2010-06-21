@@ -1,0 +1,17 @@
+{
+  Enumeration entries=jar.entries();
+  while (entries.hasMoreElements()) {
+    JarEntry file=(JarEntry)entries.nextElement();
+    File f=new File(eviwareDir + File.separator + file.getName());
+    if (file.isDirectory()) {
+      continue;
+    }
+    InputStream is=jar.getInputStream(file);
+    FileOutputStream fos=new FileOutputStream(f);
+    while (is.available() > 0) {
+      fos.write(is.read());
+    }
+    fos.close();
+    is.close();
+  }
+}

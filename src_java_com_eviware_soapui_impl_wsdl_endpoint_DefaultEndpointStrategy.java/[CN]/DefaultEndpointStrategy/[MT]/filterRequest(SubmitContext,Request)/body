@@ -1,0 +1,32 @@
+{
+  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  URI uri=(URI)context.getProperty(BaseHttpRequestTransport.REQUEST_URI);
+  if (uri == null) {
+    try {
+      uri=httpMethod.getURI();
+    }
+ catch (    URIException e) {
+      SoapUI.logError(e,"Error for path: " + httpMethod.getPath() + ", QueryString: "+ httpMethod.getQueryString());
+      return;
+    }
+  }
+  EndpointDefaults def=defaults.get(uri.toString());
+  if (def == null) {
+synchronized (defaults) {
+      for (      String ep : defaults.keySet()) {
+        try {
+          URL tempUri=new URL(PropertyExpander.expandProperties(context,ep));
+          if (tempUri.toString().equals(uri.toString())) {
+            def=defaults.get(ep);
+            break;
+          }
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    if (def == null)     return;
+  }
+  applyDefaultsToWsdlRequest(context,(AbstractHttpRequestInterface<?>)wsdlRequest,def);
+}

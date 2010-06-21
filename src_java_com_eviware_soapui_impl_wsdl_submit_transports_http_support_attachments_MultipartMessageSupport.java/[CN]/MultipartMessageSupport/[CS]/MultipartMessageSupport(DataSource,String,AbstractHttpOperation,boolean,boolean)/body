@@ -1,0 +1,30 @@
+{
+  this.prettyPrint=prettyPrint;
+  MimeMultipart mp=new MimeMultipart(dataSource);
+  message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+  message.setContent(mp);
+  AttachmentType attachmentType=AttachmentType.MIME;
+  for (int c=0; c < mp.getCount(); c++) {
+    BodyPart bodyPart=mp.getBodyPart(c);
+    String contentType=bodyPart.getContentType().toUpperCase();
+    if (contentType.startsWith("APPLICATION/XOP+XML"))     attachmentType=AttachmentType.XOP;
+    if (contentType.startsWith("MULTIPART/")) {
+      MimeMultipart mp2=new MimeMultipart(new BodyPartDataSource(bodyPart));
+      for (int i=0; i < mp2.getCount(); i++) {
+        attachments.add(new BodyPartAttachment(mp2.getBodyPart(i),operation,isRequest,attachmentType));
+      }
+    }
+ else {
+      BodyPartAttachment attachment=new BodyPartAttachment(bodyPart,operation,isRequest,attachmentType);
+      String[] contentIdHeaders=bodyPart.getHeader("Content-ID");
+      if (contentIdHeaders != null && contentIdHeaders.length > 0 && contentIdHeaders[0].equals(rootPartId)) {
+        rootPart=attachment;
+      }
+ else       attachments.add(attachment);
+    }
+  }
+  if (operation != null && rootPart == null)   rootPart=attachments.remove(0);
+  if (rootPart != null) {
+    ((BodyPartAttachment)rootPart).setAttachmentType(AttachmentType.CONTENT);
+  }
+}

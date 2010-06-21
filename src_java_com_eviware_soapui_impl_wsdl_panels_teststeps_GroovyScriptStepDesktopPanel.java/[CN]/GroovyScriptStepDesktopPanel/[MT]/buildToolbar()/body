@@ -1,0 +1,14 @@
+{
+  JXToolBar toolBar=UISupport.createToolbar();
+  JButton runButton=UISupport.createToolbarButton(runAction);
+  toolBar.add(runButton);
+  toolBar.add(Box.createHorizontalGlue());
+  JLabel label=new JLabel("<html>Script is invoked with <code>log</code>, <code>context</code> " + "and <code>testRunner</code> variables</html>");
+  label.setToolTipText(label.getText());
+  label.setMaximumSize(label.getPreferredSize());
+  toolBar.add(label);
+  toolBar.addRelatedGap();
+  toolBar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.GROOVYSTEPEDITOR_HELP_URL)));
+  componentEnabler.add(runButton);
+  return toolBar;
+}

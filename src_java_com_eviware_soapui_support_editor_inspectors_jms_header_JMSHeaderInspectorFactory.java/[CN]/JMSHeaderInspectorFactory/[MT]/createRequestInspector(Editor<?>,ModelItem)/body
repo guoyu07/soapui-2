@@ -1,0 +1,8 @@
+{
+  if (modelItem instanceof AbstractHttpRequest) {
+    RequestJMSHeaderInspector inspector=new RequestJMSHeaderInspector(((AbstractHttpRequest<?>)modelItem));
+    inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+  return null;
+}

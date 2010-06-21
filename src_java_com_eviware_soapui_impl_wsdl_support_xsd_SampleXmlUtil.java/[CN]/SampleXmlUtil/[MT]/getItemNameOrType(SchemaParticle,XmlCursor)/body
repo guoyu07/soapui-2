@@ -1,0 +1,10 @@
+{
+  String elementOrTypeName=null;
+  if (sp.getParticleType() == SchemaParticle.ELEMENT) {
+    elementOrTypeName="Element (" + sp.getName().getLocalPart() + ")";
+  }
+ else {
+    elementOrTypeName=printParticleType(sp.getParticleType());
+  }
+  return elementOrTypeName;
+}

@@ -1,0 +1,8 @@
+{
+  if (e.getClickCount() < 2)   return;
+  JTable list=(JTable)e.getSource();
+  int selectedIndex=list.getSelectedRow();
+  if (selectedIndex == -1)   return;
+  ActionList actions=getActionsForRow(list,selectedIndex);
+  if (actions != null)   actions.performDefaultAction(new ActionEvent(this,0,null));
+}

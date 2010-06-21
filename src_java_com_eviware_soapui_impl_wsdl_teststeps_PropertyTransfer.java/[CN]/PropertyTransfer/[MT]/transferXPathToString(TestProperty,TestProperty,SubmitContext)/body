@@ -1,0 +1,57 @@
+{
+  String sourceValue=sourceProperty.getValue();
+  if (!StringUtils.hasContent(sourceValue)) {
+    if (!getIgnoreEmpty())     throw new Exception("Missing source value");
+    if (getSetNullOnMissingSource())     targetProperty.setValue(null);
+    return null;
+  }
+  XmlObject sourceXml=sourceValue == null ? null : XmlObject.Factory.parse(sourceValue);
+  XmlCursor sourceCursor=sourceValue == null ? null : sourceXml.newCursor();
+  try {
+    String value=null;
+    String xquery=PropertyExpander.expandProperties(context,getSourcePath());
+    if (getUseXQuery()) {
+      XmlCursor resultCursor=sourceCursor.execQuery(xquery);
+      sourceCursor.dispose();
+      sourceCursor=resultCursor;
+    }
+ else {
+      sourceCursor.selectPath(xquery);
+    }
+    if (!getUseXQuery() && !sourceCursor.toNextSelection()) {
+      if (!getSetNullOnMissingSource() && !getIgnoreEmpty())       throw new Exception("Missing match for Source XPath [" + xquery + "]");
+    }
+ else     if (getUseXQuery() && sourceCursor.toNextToken() != TokenType.START) {
+      if (!getSetNullOnMissingSource() && !getIgnoreEmpty())       throw new Exception("Missing match for Source XQuery [" + xquery + "]");
+    }
+ else {
+      Node sourceNode=sourceCursor.getDomNode();
+      short sourceNodeType=sourceNode.getNodeType();
+      if (sourceNodeType == Node.DOCUMENT_FRAGMENT_NODE) {
+        sourceNode=sourceNode.getFirstChild();
+        if (sourceNode != null)         sourceNodeType=sourceNode.getNodeType();
+ else         throw new Exception("Missing source value for " + getSourcePropertyName());
+      }
+      if (sourceNodeType == Node.TEXT_NODE || sourceNodeType == Node.ATTRIBUTE_NODE) {
+        value=sourceNode.getNodeValue();
+      }
+ else       if (sourceNodeType == Node.ELEMENT_NODE) {
+        if (getTransferTextContent()) {
+          value=XmlUtils.getElementText((Element)sourceNode);
+        }
+        if (value == null || !getTransferTextContent()) {
+          value=sourceCursor.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces());
+        }
+      }
+    }
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0) || (getSetNullOnMissingSource() && !StringUtils.hasContent(value))) {
+      if (StringUtils.hasContent(value) && getEntitize())       value=XmlUtils.entitize(value);
+      targetProperty.setValue(value);
+    }
+ else     value="";
+    return value;
+  }
+  finally {
+    sourceCursor.dispose();
+  }
+}

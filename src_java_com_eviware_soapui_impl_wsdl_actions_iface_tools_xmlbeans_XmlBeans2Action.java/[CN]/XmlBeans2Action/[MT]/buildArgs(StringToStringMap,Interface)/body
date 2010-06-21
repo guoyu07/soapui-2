@@ -1,0 +1,28 @@
+{
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  values.put(XSBTARGET,Tools.ensureDir(values.get(XSBTARGET),""));
+  values.put(SRCTARGET,Tools.ensureDir(values.get(SRCTARGET),""));
+  builder.startScript("scomp",".cmd","");
+  builder.addString(XSBTARGET,"-d");
+  builder.addString(SRCTARGET,"-src");
+  builder.addString(JARFILE,"-out");
+  builder.addBoolean(SRCONLY,"-srconly");
+  builder.addBoolean(DOWNLOADS,"-dl");
+  builder.addBoolean(NOUPA,"-noupa");
+  builder.addBoolean(NOPVR,"-nopvr");
+  builder.addBoolean(NOANN,"-noann");
+  builder.addBoolean(NOVDOC,"-novdoc");
+  builder.addBoolean(DEBUG,"-debug");
+  builder.addString(JAVASOURCE,"-javasource");
+  builder.addString(ALLOWMDEF,"-allowmdef");
+  builder.addString(CATALOG,"-catalog");
+  builder.addBoolean(VERBOSE,"-verbose");
+  String javac=ToolsSupport.getToolLocator().getJavacLocation(false);
+  if (StringUtils.hasContent(javac)) {
+    builder.addArgs("-compiler",javac + File.separatorChar + "javac");
+  }
+  addToolArgs(values,builder);
+  builder.addString(XSDCONFIG,null);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}

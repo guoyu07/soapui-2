@@ -1,0 +1,31 @@
+{
+  if ((e.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
+    return false;
+  }
+  if (!e.isDataFlavorSupported(ModelItemTransferable.MODELITEM_DATAFLAVOR)) {
+    return false;
+  }
+  Transferable transferable=e.getTransferable();
+  DataFlavor[] flavors=transferable.getTransferDataFlavors();
+  for (int i=0; i < flavors.length; i++) {
+    DataFlavor flavor=flavors[i];
+    if (flavor.isMimeTypeEqual(DataFlavor.javaJVMLocalObjectMimeType)) {
+      try {
+        Point pt=e.getLocation();
+        ModelItem pathTarget=dragAndDropable.getModelItemForLocation(pt.x,pt.y);
+        ModelItem pathSource=(ModelItem)transferable.getTransferData(flavor);
+        for (        ModelItemDropHandler<ModelItem> handler : handlers) {
+          if (handler.canDrop(pathSource,pathTarget,e.getDropAction(),dt)) {
+            dropInfo=handler.getDropInfo(pathSource,pathTarget,e.getDropAction(),dt);
+            return true;
+          }
+        }
+        dropInfo=null;
+      }
+ catch (      Exception ex) {
+        SoapUI.logError(ex);
+      }
+    }
+  }
+  return false;
+}

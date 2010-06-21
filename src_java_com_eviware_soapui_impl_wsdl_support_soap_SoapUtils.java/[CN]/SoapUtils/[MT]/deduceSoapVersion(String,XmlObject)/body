@@ -1,0 +1,18 @@
+{
+  if (xmlObject != null) {
+    Element elm=((Document)(xmlObject.getDomNode())).getDocumentElement();
+    if (elm.getLocalName().equals("Envelope")) {
+      if (elm.getNamespaceURI().equals(SoapVersion.Soap11.getEnvelopeNamespace()))       return SoapVersion.Soap11;
+ else       if (elm.getNamespaceURI().equals(SoapVersion.Soap12.getEnvelopeNamespace()))       return SoapVersion.Soap12;
+    }
+  }
+  SoapVersion soapVersion=null;
+  if (StringUtils.isNullOrEmpty(contentType))   return null;
+  soapVersion=contentType.startsWith(SoapVersion.Soap11.getContentType()) ? SoapVersion.Soap11 : null;
+  soapVersion=soapVersion == null && contentType.startsWith(SoapVersion.Soap12.getContentType()) ? SoapVersion.Soap12 : soapVersion;
+  if (soapVersion == null && contentType.startsWith("application/xop+xml")) {
+    if (contentType.indexOf("type=\"" + SoapVersion.Soap11.getContentType() + "\"") > 0)     soapVersion=SoapVersion.Soap11;
+ else     if (contentType.indexOf("type=\"" + SoapVersion.Soap12.getContentType() + "\"") > 0)     soapVersion=SoapVersion.Soap12;
+  }
+  return soapVersion;
+}

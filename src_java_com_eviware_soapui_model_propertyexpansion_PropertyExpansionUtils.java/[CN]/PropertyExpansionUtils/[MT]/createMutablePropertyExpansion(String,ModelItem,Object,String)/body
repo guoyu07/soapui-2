@@ -1,0 +1,84 @@
+{
+  WsdlTestStep testStep=null;
+  WsdlTestCase testCase=null;
+  WsdlTestSuite testSuite=null;
+  WsdlProject project=null;
+  WsdlMockService mockService=null;
+  WsdlMockResponse mockResponse=null;
+  TestPropertyHolder holder=null;
+  if (modelItem instanceof WsdlTestStep) {
+    testStep=(WsdlTestStep)modelItem;
+    testCase=testStep.getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlTestCase) {
+    testCase=(WsdlTestCase)modelItem;
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlTestSuite) {
+    testSuite=(WsdlTestSuite)modelItem;
+    project=testSuite.getProject();
+  }
+ else   if (modelItem instanceof WsdlInterface) {
+    project=((WsdlInterface)modelItem).getProject();
+  }
+ else   if (modelItem instanceof WsdlProject) {
+    project=(WsdlProject)modelItem;
+  }
+ else   if (modelItem instanceof WsdlMockService) {
+    mockService=(WsdlMockService)modelItem;
+    project=mockService.getProject();
+  }
+ else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
+    project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
+  }
+ else   if (modelItem instanceof WsdlMockOperation) {
+    mockService=((WsdlMockOperation)modelItem).getMockService();
+    project=mockService.getProject();
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    mockResponse=(WsdlMockResponse)modelItem;
+    mockService=mockResponse.getMockOperation().getMockService();
+    project=mockService.getProject();
+  }
+  if (pe.startsWith(PropertyExpansion.PROJECT_REFERENCE)) {
+    holder=project;
+    pe=pe.substring(PropertyExpansion.PROJECT_REFERENCE.length());
+  }
+ else   if (pe.startsWith(PropertyExpansion.TESTSUITE_REFERENCE)) {
+    holder=testSuite;
+    pe=pe.substring(PropertyExpansion.TESTSUITE_REFERENCE.length());
+  }
+ else   if (pe.startsWith(PropertyExpansion.TESTCASE_REFERENCE)) {
+    holder=testCase;
+    pe=pe.substring(PropertyExpansion.TESTCASE_REFERENCE.length());
+  }
+ else   if (pe.startsWith(PropertyExpansion.MOCKSERVICE_REFERENCE)) {
+    holder=mockService;
+    pe=pe.substring(PropertyExpansion.MOCKSERVICE_REFERENCE.length());
+  }
+ else   if (pe.startsWith(PropertyExpansion.MOCKRESPONSE_REFERENCE)) {
+    holder=mockResponse;
+    pe=pe.substring(PropertyExpansion.MOCKRESPONSE_REFERENCE.length());
+  }
+ else   if (testCase != null) {
+    int sepIx=pe.indexOf(PropertyExpansion.PROPERTY_SEPARATOR);
+    if (sepIx > 0) {
+      holder=testCase.getTestStepByName(pe.substring(0,sepIx));
+      if (holder != null) {
+        pe=pe.substring(sepIx + 1);
+      }
+    }
+  }
+  int sepIx=pe.indexOf(PropertyExpansion.XPATH_SEPARATOR);
+  String xpath=null;
+  if (sepIx > 0) {
+    xpath=pe.substring(sepIx + 1);
+    pe=pe.substring(0,sepIx);
+  }
+  if (holder == null)   holder=getGlobalProperties();
+  TestProperty tp=holder.getProperty(pe);
+  return tp == null ? null : new MutablePropertyExpansionImpl(tp,xpath,target,propertyName);
+}

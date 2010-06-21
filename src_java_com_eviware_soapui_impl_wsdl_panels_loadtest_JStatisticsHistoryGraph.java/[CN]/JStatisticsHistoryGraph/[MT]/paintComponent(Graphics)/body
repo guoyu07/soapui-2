@@ -1,0 +1,18 @@
+{
+  g.setColor(getBackground());
+  Rectangle clip=g.getClipBounds();
+  g.fillRect((int)clip.getX(),(int)clip.getY(),(int)clip.getWidth(),(int)clip.getHeight());
+  double right=clip.getX() + clip.getWidth();
+  int height=getHeight();
+  for (int c=(int)clip.getX(); c < data.getRowCount() && c < right; c++) {
+    for (int i=0; i < data.getColumnCount(); i++) {
+      if (i == 0)       g.setColor(THREADCOUNT_COLOR);
+ else       if (i == data.getColumnCount() - 1)       g.setColor(TOTAL_COLOR);
+ else       g.setColor(ColorPalette.getColor(loadTest.getTestCase().getTestStepAt(i - 1)));
+      int yOffset=(int)((float)((Long)data.getValueAt(c,i)) * scales[i]);
+      if (clip.contains(c,height - yOffset - 1)) {
+        g.drawLine(c,height - yOffset - 1,c,height - yOffset - 1);
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (isDiscarded())   return;
+  if (actionList == null) {
+    actionList=new DefaultActionList(testStepName);
+  }
+  actionList.addAction(action);
+  if (isDefault)   actionList.setDefaultAction(action);
+}

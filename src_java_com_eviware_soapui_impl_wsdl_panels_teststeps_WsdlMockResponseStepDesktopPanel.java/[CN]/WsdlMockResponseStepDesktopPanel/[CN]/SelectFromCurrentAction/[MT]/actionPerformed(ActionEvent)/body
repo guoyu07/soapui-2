@@ -1,0 +1,5 @@
+{
+  if (getModelItem().getLastResult() != null && getModelItem().getLastResult().getMockRequest() != null && StringUtils.hasContent(getModelItem().getQuery())) {
+    getModelItem().setMatch(XmlUtils.getXPathValue(getModelItem().getLastResult().getMockRequest().getRequestContent(),PropertyExpander.expandProperties(getModelItem(),getModelItem().getQuery())));
+  }
+}

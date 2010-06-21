@@ -1,0 +1,7 @@
+{
+  List<XPathReference> result=new ArrayList<XPathReference>();
+  for (  GotoCondition condition : conditions) {
+    if (StringUtils.hasContent(condition.getExpression()))     result.add(new XPathReferenceImpl("Condition for " + condition.getName() + " GotoCondition in "+ getName(),condition.getSourceProperty(),condition,"expression"));
+  }
+  return result.toArray(new XPathReference[result.size()]);
+}

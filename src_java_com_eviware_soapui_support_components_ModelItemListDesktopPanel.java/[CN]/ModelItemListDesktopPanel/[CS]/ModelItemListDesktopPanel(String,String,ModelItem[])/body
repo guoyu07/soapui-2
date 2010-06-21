@@ -1,0 +1,7 @@
+{
+  super(title,description,new JPanel(new BorderLayout()));
+  this.modelItems=modelItems;
+  buildUI();
+  treeModelListener=new InternalTreeModelListener();
+  SoapUI.getNavigator().getMainTree().getModel().addTreeModelListener(treeModelListener);
+}

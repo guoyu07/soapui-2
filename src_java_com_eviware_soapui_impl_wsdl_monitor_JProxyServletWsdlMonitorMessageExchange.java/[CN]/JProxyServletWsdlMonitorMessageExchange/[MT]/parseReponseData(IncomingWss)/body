@@ -1,0 +1,27 @@
+{
+  ByteArrayInputStream in=new ByteArrayInputStream(response == null ? new byte[0] : response);
+  try {
+    responseContentType=responseHeaders.get("Content-Type");
+    if (responseContentType != null && responseContentType.toUpperCase().startsWith("MULTIPART")) {
+      StringToStringMap values=StringToStringMap.fromHttpHeader(responseContentType);
+      responseMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor response",in,responseContentType),values.get("start"),null,true,false);
+      responseContentType=responseMmSupport.getRootPart().getContentType();
+    }
+ else {
+      String charset=getCharset(responseHeaders);
+      this.responseContent=charset == null ? Tools.readAll(in,0).toString() : Tools.readAll(in,0).toString(charset);
+    }
+    processResponseWss(incomingResponseWss);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    try {
+      in.close();
+    }
+ catch (    IOException e1) {
+      SoapUI.logError(e1);
+    }
+  }
+}

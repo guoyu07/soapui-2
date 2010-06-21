@@ -1,0 +1,11 @@
+{
+  int ix=mockServices.indexOf(mockService);
+  mockServices.remove(ix);
+  try {
+    fireMockServiceRemoved(mockService);
+  }
+  finally {
+    mockService.release();
+    getConfig().removeMockService(ix);
+  }
+}

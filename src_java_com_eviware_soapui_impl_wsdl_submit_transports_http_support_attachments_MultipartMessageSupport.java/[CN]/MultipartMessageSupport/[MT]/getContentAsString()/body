@@ -1,0 +1,8 @@
+{
+  if (responseContent == null)   getResponseContent();
+  if (prettyPrint) {
+    responseContent=XmlUtils.prettyPrintXml(responseContent);
+    prettyPrint=false;
+  }
+  return responseContent;
+}

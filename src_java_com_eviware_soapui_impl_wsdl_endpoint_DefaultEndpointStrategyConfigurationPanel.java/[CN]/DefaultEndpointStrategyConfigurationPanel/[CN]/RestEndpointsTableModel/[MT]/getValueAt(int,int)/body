@@ -1,0 +1,17 @@
+{
+  String endpoint=getEndpointAt(rowIndex);
+  EndpointDefaults defaults=strategy.getEndpointDefaults(endpoint);
+switch (columnIndex) {
+case 0:
+    return endpoint;
+case 1:
+  return defaults.getUsername();
+case 2:
+return defaults.getPassword();
+case 3:
+return defaults.getDomain();
+case 4:
+return defaults.getMode();
+}
+return null;
+}

@@ -1,0 +1,15 @@
+{
+  List<ModelItem> chain=new ArrayList<ModelItem>();
+  ModelItem p=modelItem;
+  while (!(p instanceof Project)) {
+    chain.add(0,p);
+    p=p.getParent();
+  }
+  File dir=new File(getAbsoluteOutputFolder(modelItem));
+  dir.mkdir();
+  for (  ModelItem item : chain) {
+    dir=new File(dir,StringUtils.createFileName(item.getName(),'-'));
+    dir.mkdir();
+  }
+  return dir.getAbsolutePath();
+}

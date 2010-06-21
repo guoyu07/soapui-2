@@ -1,0 +1,12 @@
+{
+  if (tns == null && localName == null)   return getFirstChildElement(elm);
+  if (tns == null)   return getFirstChildElement(elm,localName);
+  NodeList nl=elm.getChildNodes();
+  for (int c=0; c < nl.getLength(); c++) {
+    Node node=nl.item(c);
+    if (node.getNodeType() != Node.ELEMENT_NODE)     continue;
+    if (localName == null && tns.equals(node.getNamespaceURI()))     return (Element)node;
+    if (localName != null && tns.equals(node.getNamespaceURI()) && localName.equals(node.getLocalName()))     return (Element)node;
+  }
+  return null;
+}

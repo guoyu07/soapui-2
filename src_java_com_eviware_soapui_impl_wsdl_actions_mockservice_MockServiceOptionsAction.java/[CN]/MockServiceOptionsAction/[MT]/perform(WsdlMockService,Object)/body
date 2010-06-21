@@ -1,0 +1,22 @@
+{
+  if (mockService.getMockRunner() != null && mockService.getMockRunner().isRunning()) {
+    UISupport.showErrorMessage("Can not set MockService options while running");
+    return;
+  }
+  if (dialog == null)   dialog=ADialogBuilder.buildDialog(OptionsForm.class);
+  dialog.setValue(OptionsForm.PATH,mockService.getPath());
+  dialog.setValue(OptionsForm.HOST,mockService.getHost());
+  dialog.setIntValue(OptionsForm.PORT,mockService.getPort());
+  dialog.setBooleanValue(OptionsForm.HOSTONLY,mockService.getBindToHostOnly());
+  dialog.setValue(OptionsForm.DOCROOT,mockService.getDocroot());
+  dialog.setOptions(OptionsForm.FAULT_OPERATION,ModelSupport.getNames(new String[]{"- none -"},mockService.getMockOperationList()));
+  dialog.setValue(OptionsForm.FAULT_OPERATION,String.valueOf(mockService.getFaultMockOperation()));
+  if (dialog.show()) {
+    mockService.setPath(dialog.getValue(OptionsForm.PATH));
+    mockService.setPort(dialog.getIntValue(OptionsForm.PORT,mockService.getPort()));
+    mockService.setHost(dialog.getValue(OptionsForm.HOST));
+    mockService.setBindToHostOnly(dialog.getBooleanValue(OptionsForm.HOSTONLY));
+    mockService.setDocroot(dialog.getValue(OptionsForm.DOCROOT));
+    mockService.setFaultMockOperation(mockService.getMockOperationByName(dialog.getValue(OptionsForm.FAULT_OPERATION)));
+  }
+}

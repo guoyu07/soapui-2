@@ -1,0 +1,6 @@
+{
+  if (parent.hasProperty(name)) {
+    if (!parent.getPropertyValue(name).equals(overlay.getPropertyValue(name)))     firePropertyValueChanged(name,parent.getPropertyValue(name),overlay.getPropertyValue(name));
+  }
+ else   firePropertyAdded(name);
+}

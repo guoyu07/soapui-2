@@ -1,0 +1,7 @@
+{
+  int nRow=getRowForLocation(pt.x,pt.y);
+  if (nRow < 0)   return;
+  Rectangle raOuter=getBounds();
+  nRow=(pt.y + raOuter.y <= AUTOSCROLL_MARGIN) ? (nRow <= 0 ? 0 : nRow - 1) : (nRow < getRowCount() - 1 ? nRow + 1 : nRow);
+  scrollRowToVisible(nRow);
+}

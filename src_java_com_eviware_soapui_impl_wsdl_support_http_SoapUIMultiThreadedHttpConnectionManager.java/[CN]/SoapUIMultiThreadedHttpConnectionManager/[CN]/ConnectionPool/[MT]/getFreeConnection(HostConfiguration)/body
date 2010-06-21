@@ -1,0 +1,17 @@
+{
+  HttpConnectionWithReference connection=null;
+  HostConnectionPool hostPool=getHostPool(hostConfiguration,false);
+  if ((hostPool != null) && (hostPool.freeConnections.size() > 0)) {
+    connection=(HttpConnectionWithReference)hostPool.freeConnections.removeLast();
+    freeConnections.remove(connection);
+    storeReferenceToConnection(connection,hostConfiguration,this);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Getting free connection, hostConfig=" + hostConfiguration);
+    }
+    idleConnectionHandler.remove(connection);
+  }
+ else   if (LOG.isDebugEnabled()) {
+    LOG.debug("There were no free connections to get, hostConfig=" + hostConfiguration);
+  }
+  return connection;
+}

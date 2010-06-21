@@ -1,0 +1,18 @@
+{
+  super(UISupport.getMainFrame());
+  setTitle(title);
+  setModal(true);
+  getContentPane().setLayout(new BorderLayout());
+  JLabel label=new JLabel(description);
+  label.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
+  getContentPane().add(label,BorderLayout.NORTH);
+  getContentPane().add(buildContent(),BorderLayout.CENTER);
+  ButtonBarBuilder builder=ButtonBarBuilder.createLeftToRightBuilder();
+  builder.addGlue();
+  JButton closeButton=new JButton(new CloseAction());
+  builder.addFixed(closeButton);
+  builder.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+  getContentPane().add(builder.getPanel(),BorderLayout.SOUTH);
+  pack();
+  UISupport.initDialogActions(this,null,closeButton);
+}

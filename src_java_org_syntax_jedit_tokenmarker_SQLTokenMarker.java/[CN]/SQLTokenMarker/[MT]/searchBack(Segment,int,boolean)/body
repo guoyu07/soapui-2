@@ -1,0 +1,11 @@
+{
+  int len=pos - lastKeyword;
+  byte id=keywords.lookup(line,lastKeyword,len);
+  if (id != Token.NULL) {
+    if (lastKeyword != lastOffset)     addToken(lastKeyword - lastOffset,Token.NULL);
+    addToken(len,id);
+    lastOffset=pos;
+  }
+  lastKeyword=pos + 1;
+  if (padNull && lastOffset < pos)   addToken(pos - lastOffset,Token.NULL);
+}

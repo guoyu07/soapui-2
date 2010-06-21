@@ -1,0 +1,11 @@
+{
+  WsdlInterface iface=(WsdlInterface)request.getOperation().getInterface();
+  WsdlContext wsdlContext=iface.getWsdlContext();
+  try {
+    return wsdlContext.getSchemaTypeSystem();
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+    return XmlBeans.getBuiltinTypeSystem();
+  }
+}

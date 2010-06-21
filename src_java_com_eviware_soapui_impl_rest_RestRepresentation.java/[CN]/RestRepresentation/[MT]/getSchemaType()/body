@@ -1,0 +1,22 @@
+{
+  if (schemaType == null) {
+    try {
+      if (getElement() != null) {
+        WadlDefinitionContext context=getRestMethod().getResource().getService().getWadlContext();
+        if (context.hasSchemaTypes()) {
+          schemaType=context.getSchemaTypeSystem().findDocumentType(getElement());
+          if (schemaType == null) {
+            SchemaGlobalElement element=context.getSchemaTypeSystem().findElement(getElement());
+            if (element != null) {
+              schemaType=element.getType();
+            }
+          }
+        }
+      }
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  return schemaType;
+}

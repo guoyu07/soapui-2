@@ -1,0 +1,38 @@
+{
+  super.resolve(context);
+  if (getRestMethod() == null) {
+    if (context.hasThisModelItem(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName()))     return;
+    context.addPathToResolve(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName()).addResolvers(new RemoveTestStepResolver(this),new ImportInterfaceResolver(this){
+      @Override protected boolean update(){
+        RestMethod restMethod=findRestMethod();
+        if (restMethod == null)         return false;
+        setRestMethod(restMethod);
+        initRestTestRequest();
+        setDisabled(false);
+        return true;
+      }
+    }
+,new ChangeRestMethodResolver(this){
+      @Override public boolean update(){
+        RestMethod restMethod=getSelectedRestMethod();
+        if (restMethod == null)         return false;
+        setRestMethod(restMethod);
+        initRestTestRequest();
+        setDisabled(false);
+        return true;
+      }
+      @Override protected Interface[] getInterfaces(      WsdlProject project){
+        List<RestService> interfaces=ModelSupport.getChildren(project,RestService.class);
+        return interfaces.toArray(new Interface[interfaces.size()]);
+      }
+    }
+);
+  }
+ else {
+    getRestMethod().resolve(context);
+    if (context.hasThisModelItem(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName())) {
+      PathToResolve path=context.getPath(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName());
+      path.setSolved(true);
+    }
+  }
+}

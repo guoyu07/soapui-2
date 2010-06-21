@@ -1,0 +1,31 @@
+{
+  if (testRunner.getTestCase() instanceof WsdlTestCase) {
+    try {
+      WsdlTestCase wsdlTestCase=(WsdlTestCase)testRunner.getTestCase();
+      if (wsdlTestCase.getConfig().getAmfAuthorisation()) {
+        if (noAMFTestSteps(wsdlTestCase))         return;
+        String endpoint=runContext.expand(wsdlTestCase.getConfig().getAmfEndpoint());
+        String username=runContext.expand(wsdlTestCase.getConfig().getAmfLogin());
+        String password=runContext.expand(wsdlTestCase.getConfig().getAmfPassword());
+        SoapUIAMFConnection amfConnection=null;
+        if (StringUtils.hasContent(endpoint)) {
+          if (StringUtils.hasContent(username)) {
+            amfCredentials=new AMFCredentials(endpoint,username,password,runContext);
+            amfConnection=amfCredentials.login();
+          }
+ else {
+            amfConnection=new SoapUIAMFConnection();
+            amfConnection.connect(runContext.expand(endpoint));
+          }
+          runContext.setProperty(AMFSubmit.AMF_CONNECTION,amfConnection);
+        }
+      }
+    }
+ catch (    ClientStatusException e) {
+      SoapUI.logError(e);
+    }
+catch (    ServerStatusException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

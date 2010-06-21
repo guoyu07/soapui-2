@@ -1,0 +1,9 @@
+{
+  try {
+    document.getText(start,len,segment);
+  }
+ catch (  BadLocationException bl) {
+    SoapUI.logError(bl);
+    segment.offset=segment.count=0;
+  }
+}

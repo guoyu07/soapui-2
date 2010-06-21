@@ -1,0 +1,15 @@
+{
+  if (modelItem instanceof MessageExchangeModelItem) {
+    return new WsdlMessageExchangeResponseRawXmlEditor((MessageExchangeModelItem)modelItem,(XmlEditor)editor);
+  }
+ else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
+    return new HttpResponseRawXmlEditor((AbstractHttpRequest<?>)modelItem,(XmlEditor)editor);
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    return new WsdlMockResponseRawXmlEditor((WsdlMockResponse)modelItem,(XmlEditor)editor);
+  }
+ else   if (modelItem instanceof AMFRequestTestStep) {
+    return new AmfResponseRawXmlEditor((AMFRequestTestStep)modelItem,(XmlEditor)editor);
+  }
+  return null;
+}

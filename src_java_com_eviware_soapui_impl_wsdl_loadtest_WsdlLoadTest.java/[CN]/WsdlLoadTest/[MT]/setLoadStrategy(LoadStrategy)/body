@@ -1,0 +1,9 @@
+{
+  this.loadStrategy.removeConfigurationChangeListener(loadStrategyListener);
+  removeLoadTestRunListener(this.loadStrategy);
+  this.loadStrategy=loadStrategy;
+  this.loadStrategy.addConfigurationChangeListener(loadStrategyListener);
+  addLoadTestRunListener(this.loadStrategy);
+  getConfig().getLoadStrategy().setType(loadStrategy.getType());
+  getConfig().getLoadStrategy().setConfig(loadStrategy.getConfig());
+}

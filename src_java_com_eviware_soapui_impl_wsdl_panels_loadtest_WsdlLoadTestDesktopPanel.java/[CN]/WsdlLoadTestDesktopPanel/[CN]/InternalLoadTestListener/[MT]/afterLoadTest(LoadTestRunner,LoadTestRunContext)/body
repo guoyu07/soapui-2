@@ -1,0 +1,20 @@
+{
+  runButton.setEnabled(true);
+  cancelButton.setEnabled(false);
+  strategyCombo.setEnabled(true);
+  limitTypeCombo.setEnabled(true);
+  threadsSpinner.setEnabled(true);
+  optionsButton.setEnabled(true);
+  runner=null;
+  loadTestIsRunning=false;
+  if (progressBar.isIndeterminate()) {
+    progressBar.setIndeterminate(false);
+    progressBar.setValue(0);
+  }
+ else   if (testRunner.getStatus() == Status.FINISHED) {
+    progressBar.setValue(100);
+  }
+  if (testRunner.getStatus() == Status.FAILED) {
+    UISupport.showErrorMessage("LoadTest failed; " + testRunner.getReason());
+  }
+}

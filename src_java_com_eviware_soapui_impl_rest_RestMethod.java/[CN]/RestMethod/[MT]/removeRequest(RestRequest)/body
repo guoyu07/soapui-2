@@ -1,0 +1,12 @@
+{
+  int ix=requests.indexOf(request);
+  requests.remove(ix);
+  try {
+    (getInterface()).fireRequestRemoved(request);
+    notifyPropertyChanged("childRequests",request,null);
+  }
+  finally {
+    request.release();
+    getConfig().removeRequest(ix);
+  }
+}

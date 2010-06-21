@@ -1,0 +1,24 @@
+{
+  if (properties != null && properties.containsKey(name))   return properties.get(name);
+  if (testCase != null) {
+    int ix=name.indexOf(PROPERTY_SEPARATOR);
+    if (ix > 0) {
+      String teststepname=name.substring(0,ix);
+      TestStep refTestStep=testCase.getTestStepByName(teststepname);
+      if (refTestStep != null) {
+        TestProperty property=refTestStep.getProperty(name.substring(ix + 1));
+        return property == null ? null : property.getValue();
+      }
+    }
+    if (testCase.getSearchProperties()) {
+      ix=testStep == null ? testCase.getTestStepCount() - 1 : testCase.getIndexOfTestStep(testStep);
+      if (ix >= testCase.getTestStepCount())       ix=testCase.getTestStepCount() - 1;
+      while (ix >= 0) {
+        TestProperty property=testCase.getTestStepAt(ix).getProperty(name);
+        if (property != null)         return property.getValue();
+        ix--;
+      }
+    }
+  }
+  return null;
+}

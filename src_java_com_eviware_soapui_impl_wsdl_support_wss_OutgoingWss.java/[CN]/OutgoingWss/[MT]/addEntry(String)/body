@@ -1,0 +1,6 @@
+{
+  WssEntry newEntry=WssEntryRegistry.get().create(type,this);
+  entries.add(newEntry);
+  container.fireWssEntryAdded(newEntry);
+  return newEntry;
+}

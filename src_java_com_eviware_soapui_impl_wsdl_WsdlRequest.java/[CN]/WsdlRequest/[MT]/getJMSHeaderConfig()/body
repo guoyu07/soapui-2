@@ -1,0 +1,9 @@
+{
+  if (jmsHeaderConfig == null) {
+    if (!getConfig().isSetJmsConfig()) {
+      getConfig().addNewJmsConfig();
+    }
+    jmsHeaderConfig=new JMSHeaderConfig(getConfig().getJmsConfig(),this);
+  }
+  return jmsHeaderConfig;
+}

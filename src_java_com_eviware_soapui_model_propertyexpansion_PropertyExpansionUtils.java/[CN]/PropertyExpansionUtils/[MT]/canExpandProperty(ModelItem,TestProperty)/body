@@ -1,0 +1,26 @@
+{
+  ModelItem propertyModelItem=property.getModelItem();
+  if (propertyModelItem == null || propertyModelItem instanceof Project)   return true;
+  if (contextModelItem instanceof TestSuite) {
+    return propertyModelItem == contextModelItem;
+  }
+  if (contextModelItem instanceof TestCase) {
+    return propertyModelItem == contextModelItem || (propertyModelItem instanceof TestSuite && ((TestCase)contextModelItem).getTestSuite() == propertyModelItem);
+  }
+  if (contextModelItem instanceof TestStep) {
+    TestStep testStep=((TestStep)contextModelItem);
+    return propertyModelItem == contextModelItem || (propertyModelItem instanceof TestSuite && testStep.getTestCase().getTestSuite() == propertyModelItem) || (propertyModelItem instanceof TestCase && testStep.getTestCase() == propertyModelItem) || (propertyModelItem instanceof TestStep && testStep.getTestCase() == ((TestStep)propertyModelItem).getTestCase());
+  }
+  if (contextModelItem instanceof MockService) {
+    return propertyModelItem == contextModelItem;
+  }
+  if (contextModelItem instanceof MockOperation) {
+    return propertyModelItem == contextModelItem || (propertyModelItem instanceof MockService && ((MockOperation)contextModelItem).getMockService() == propertyModelItem);
+  }
+  if (contextModelItem instanceof MockResponse) {
+    MockResponse testStep=((MockResponse)contextModelItem);
+    return propertyModelItem == contextModelItem || (propertyModelItem instanceof MockService && testStep.getMockOperation().getMockService() == propertyModelItem) || (propertyModelItem instanceof MockOperation && testStep.getMockOperation() == propertyModelItem) || (propertyModelItem instanceof MockResponse && testStep.getMockOperation() == ((MockResponse)propertyModelItem).getMockOperation());
+  }
+  System.out.println("property " + property.getName() + " can not be transferred to "+ contextModelItem.getName());
+  return false;
+}

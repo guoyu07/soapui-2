@@ -1,0 +1,20 @@
+{
+  String result=s;
+  try {
+    SimpleValue min=(SimpleValue)sType.getFacet(SchemaType.FACET_LENGTH);
+    if (min == null)     min=(SimpleValue)sType.getFacet(SchemaType.FACET_MIN_LENGTH);
+    if (min != null) {
+      int len=min.getIntValue();
+      while (result.length() < len)       result=result + result;
+    }
+    SimpleValue max=(SimpleValue)sType.getFacet(SchemaType.FACET_LENGTH);
+    if (max == null)     max=(SimpleValue)sType.getFacet(SchemaType.FACET_MAX_LENGTH);
+    if (max != null) {
+      int len=max.getIntValue();
+      if (result.length() > len)       result=result.substring(0,len);
+    }
+  }
+ catch (  Exception e) {
+  }
+  return result;
+}

@@ -1,0 +1,34 @@
+{
+  try {
+    String qs=request.getQueryString();
+    if (qs != null && qs.toUpperCase().startsWith("WSDL")) {
+      dispatchWsdlRequest(request,response);
+    }
+ else {
+      if (qs != null && qs.startsWith("cmd=")) {
+        dispatchCommand(request.getParameter("cmd"),request,response);
+      }
+ else {
+        String docroot=PropertyExpander.expandProperties(mockContext,getMockService().getDocroot());
+        if (StringUtils.hasContent(docroot)) {
+          try {
+            String pathInfo=request.getPathInfo();
+            if (mockService.getPath().length() > 1 && pathInfo.startsWith(mockService.getPath()))             pathInfo=pathInfo.substring(mockService.getPath().length());
+            String filename=docroot + pathInfo.replace('/',File.separatorChar);
+            File file=new File(filename);
+            if (file.exists()) {
+              returnFile(response,file);
+            }
+          }
+ catch (          Throwable e) {
+            throw new DispatchException(e);
+          }
+        }
+      }
+    }
+    return null;
+  }
+ catch (  Exception e) {
+    throw new DispatchException(e);
+  }
+}

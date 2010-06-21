@@ -1,0 +1,4 @@
+{
+  if (getInterface().isGenerated() || StringUtils.isNullOrEmpty(url))   return new GeneratedWadlDefinitionLoader(getInterface());
+ else   return new UrlWsdlLoader(url,getInterface());
+}

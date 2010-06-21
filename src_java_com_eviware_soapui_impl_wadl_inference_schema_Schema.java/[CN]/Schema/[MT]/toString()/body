@@ -1,0 +1,15 @@
+{
+  StringBuilder s=new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + "<" + getPrefixForNamespace(Settings.xsdns) + ":schema ");
+  if (StringUtils.hasContent(namespace))   s.append("targetNamespace=\"" + namespace + "\" "+ "xmlns=\""+ namespace+ "\" ");
+  for (  Map.Entry<String,String> entry : prefixes.entrySet())   s.append("xmlns:" + entry.getValue() + "=\""+ entry.getKey()+ "\" ");
+  s.append("elementFormDefault=\"qualified\">");
+  for (  Particle item : particles) {
+    s.append(item);
+  }
+  for (  Type item : types.values()) {
+    s.append(item);
+  }
+  if (s.toString().contains("type=\"" + empty.getName() + "\""))   s.append(empty);
+  s.append("</" + getPrefixForNamespace(Settings.xsdns) + ":schema>");
+  return s.toString();
+}

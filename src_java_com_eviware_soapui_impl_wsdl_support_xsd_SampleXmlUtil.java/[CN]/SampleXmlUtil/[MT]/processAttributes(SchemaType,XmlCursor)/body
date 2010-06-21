@@ -1,0 +1,33 @@
+{
+  if (_soapEnc) {
+    QName typeName=stype.getName();
+    if (typeName != null) {
+      xmlc.insertAttributeWithValue(XSI_TYPE,formatQName(xmlc,typeName));
+    }
+  }
+  SchemaProperty[] attrProps=stype.getAttributeProperties();
+  for (int i=0; i < attrProps.length; i++) {
+    SchemaProperty attr=attrProps[i];
+    if (attr.getMinOccurs().intValue() == 0 && ignoreOptional)     continue;
+    if (attr.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","contentType"))) {
+      xmlc.insertAttributeWithValue(attr.getName(),"application/?");
+      continue;
+    }
+    if (_soapEnc) {
+      if (SKIPPED_SOAP_ATTRS.contains(attr.getName()))       continue;
+      if (ENC_ARRAYTYPE.equals(attr.getName())) {
+        SOAPArrayType arrayType=((SchemaWSDLArrayType)stype.getAttributeModel().getAttribute(attr.getName())).getWSDLArrayType();
+        if (arrayType != null)         xmlc.insertAttributeWithValue(attr.getName(),formatQName(xmlc,arrayType.getQName()) + arrayType.soap11DimensionString());
+        continue;
+      }
+    }
+    String value=null;
+    if (multiValues != null) {
+      String[] values=multiValues.get(attr.getName());
+      if (values != null)       value=StringUtils.join(values,",");
+    }
+    if (value == null)     value=attr.getDefaultText();
+    if (value == null)     value=sampleDataForSimpleType(attr.getType());
+    xmlc.insertAttributeWithValue(attr.getName(),value);
+  }
+}

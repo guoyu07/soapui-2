@@ -1,0 +1,27 @@
+{
+  Settings settings=SoapUI.getSettings();
+  String keyStore=settings.getString(SSLSettings.KEYSTORE,null);
+  keyStore=keyStore != null ? keyStore.trim() : "";
+  String pass=settings.getString(SSLSettings.KEYSTORE_PASSWORD,"");
+  char[] pwd=pass.toCharArray();
+  if (!"".equals(keyStore)) {
+    log.info("Initializing KeyStore");
+    File f=new File(keyStore);
+    if (f.exists()) {
+      KeyMaterial km=null;
+      try {
+        km=new KeyMaterial(keyStore,pwd);
+        log.info("Set KeyMaterial from file [" + keyStore + "]");
+      }
+ catch (      GeneralSecurityException gse) {
+        SoapUI.logError(gse);
+      }
+      if (km != null) {
+        easySSL.setKeyMaterial(km);
+      }
+    }
+  }
+ else {
+    easySSL.setKeyMaterial(null);
+  }
+}

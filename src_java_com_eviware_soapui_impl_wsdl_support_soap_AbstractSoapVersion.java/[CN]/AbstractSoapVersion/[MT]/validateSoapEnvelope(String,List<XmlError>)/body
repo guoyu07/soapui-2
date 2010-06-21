@@ -1,0 +1,28 @@
+{
+  List<XmlError> errorList=new ArrayList<XmlError>();
+  try {
+    XmlOptions xmlOptions=new XmlOptions();
+    xmlOptions.setLoadLineNumbers();
+    xmlOptions.setValidateTreatLaxAsSkip();
+    xmlOptions.setLoadLineNumbers(XmlOptions.LOAD_LINE_NUMBERS_END_ELEMENT);
+    XmlObject xmlObject=getSoapEnvelopeSchemaLoader().parse(soapMessage,getEnvelopeType(),xmlOptions);
+    xmlOptions.setErrorListener(errorList);
+    xmlObject.validate(xmlOptions);
+  }
+ catch (  XmlException e) {
+    if (e.getErrors() != null)     errorList.addAll(e.getErrors());
+    errors.add(XmlError.forMessage(e.getMessage()));
+  }
+catch (  Exception e) {
+    errors.add(XmlError.forMessage(e.getMessage()));
+  }
+ finally {
+    for (    XmlError error : errorList) {
+      if (error instanceof XmlValidationError && shouldIgnore((XmlValidationError)error)) {
+        log.warn("Ignoring validation error: " + error.toString());
+        continue;
+      }
+      errors.add(error);
+    }
+  }
+}

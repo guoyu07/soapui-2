@@ -1,0 +1,5 @@
+{
+  Type old=getType();
+  config.setType(RestResourceRepresentationTypeConfig.Enum.forString(type.toString()));
+  propertyChangeSupport.firePropertyChange("type",old,type);
+}

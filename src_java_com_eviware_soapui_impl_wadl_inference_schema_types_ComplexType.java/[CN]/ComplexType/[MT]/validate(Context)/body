@@ -1,0 +1,56 @@
+{
+  XmlCursor cursor=context.getCursor();
+  List<QName> seen=new ArrayList<QName>();
+  cursor.push();
+  if (!mixed && isMixed(context)) {
+    mixed=true;
+  }
+  cursor.pop();
+  cursor.push();
+  if (cursor.toFirstAttribute()) {
+    do {
+      QName qname=cursor.getName();
+      if (attributes.containsKey(qname)) {
+        attributes.get(qname).validate(context);
+      }
+ else       if (qname.getNamespaceURI().equals(Settings.xsins)) {
+      }
+ else       if (context.getHandler().callback(ConflictHandler.Event.CREATION,ConflictHandler.Type.ATTRIBUTE,new QName(schema.getNamespace(),qname.getLocalPart()),context.getPath(),"Undeclared attribute.")) {
+        if (qname.getNamespaceURI().equals(schema.getNamespace()) || qname.getNamespaceURI().equals("")) {
+          newAttribute(qname).validate(context);
+        }
+ else {
+          Schema otherSchema=context.getSchemaSystem().getSchemaForNamespace(qname.getNamespaceURI());
+          schema.putPrefixForNamespace(qname.getPrefix(),qname.getNamespaceURI());
+          if (otherSchema == null) {
+            otherSchema=context.getSchemaSystem().newSchema(qname.getNamespaceURI());
+          }
+          Particle ref=otherSchema.getParticle(qname.getLocalPart());
+          if (ref == null) {
+            ref=otherSchema.newAttribute(qname.getLocalPart());
+          }
+          if (completed)           ref.setAttribute("use","optional");
+          Particle newAttribute=Particle.Factory.newReferenceInstance(schema,ref);
+          attributes.put(qname,newAttribute);
+          newAttribute.validate(context);
+        }
+      }
+ else       throw new XmlException("Illegal attribute!");
+      seen.add(qname);
+    }
+ while (cursor.toNextAttribute());
+  }
+  for (  QName item : attributes.keySet()) {
+    if (!seen.contains(item) && !attributes.get(item).getAttribute("use").equals("optional")) {
+      if (context.getHandler().callback(ConflictHandler.Event.MODIFICATION,ConflictHandler.Type.ATTRIBUTE,item,context.getPath(),"Required attribute missing.")) {
+        attributes.get(item).setAttribute("use","optional");
+      }
+ else       throw new XmlException("Required attribute missing!");
+    }
+  }
+  cursor.pop();
+  if (!cursor.toFirstChild())   cursor.toFirstContentToken();
+  if (!context.getAttribute("nil").equals("true"))   validateContent(context);
+  completed=true;
+  return this;
+}

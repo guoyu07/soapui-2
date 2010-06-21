@@ -1,0 +1,7 @@
+{
+  String oldScript=getStopScript();
+  if (!getConfig().isSetStopScript())   getConfig().addNewStopScript();
+  getConfig().getStopScript().setStringValue(script);
+  if (stopScriptEngine != null)   stopScriptEngine.setScript(script);
+  notifyPropertyChanged(STOP_SCRIPT_PROPERTY,oldScript,script);
+}

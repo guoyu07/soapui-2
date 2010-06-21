@@ -1,0 +1,13 @@
+{
+  boolean exists=false;
+  if (amfHeaders != null) {
+    for (Iterator<MessageHeader> iterator=amfHeaders.iterator(); iterator.hasNext(); ) {
+      MessageHeader header=iterator.next();
+      if (name.equals(header.getName())) {
+        iterator.remove();
+        exists=true;
+      }
+    }
+  }
+  return exists;
+}

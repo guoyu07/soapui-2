@@ -1,0 +1,44 @@
+{
+  WsdlTestStepResult result=new WsdlTestStepResult(this);
+  result.startTimer();
+  String oldLabel=getLabel();
+  try {
+    canceled=false;
+    running=true;
+    try {
+      delay=Integer.parseInt(PropertyExpander.expandProperties(context,delayString));
+    }
+ catch (    NumberFormatException e) {
+      delay=Integer.parseInt(DEFAULT_DELAY);
+    }
+    final long stopTime=System.nanoTime() + (long)delay * 1000000;
+    int lastUpdate=0;
+    while (!canceled && timeWaited < delay) {
+      if (timeWaited - lastUpdate > 1000 && context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null) {
+        String newLabel=getLabel();
+        if (!UISupport.isHeadless()) {
+          final String finalOldLabel=oldLabel, finalNewLabel=newLabel;
+          SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+              notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,finalOldLabel,finalNewLabel);
+            }
+          }
+);
+        }
+        oldLabel=newLabel;
+        lastUpdate=timeWaited;
+      }
+      Thread.sleep(Math.min(DELAY_CHUNK,delay - timeWaited));
+      timeWaited=delay - (int)((stopTime - System.nanoTime()) / 1000000);
+    }
+  }
+ catch (  InterruptedException e) {
+    SoapUI.logError(e);
+  }
+  result.stopTimer();
+  result.setStatus(canceled ? TestStepStatus.CANCELED : TestStepStatus.OK);
+  timeWaited=0;
+  running=false;
+  if (context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null)   notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
+  return result;
+}

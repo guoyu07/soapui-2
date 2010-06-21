@@ -1,0 +1,7 @@
+{
+  destinationNameList=new ArrayList<Destination>();
+  destinationNameList.add(new Destination(JMSEndpoint.JMS_EMPTY_DESTIONATION,Domain.UNKNOWN));
+  extractDestinations(hermes,destinationNameList);
+  mainForm.setOptions(SEND,destinationNameList.toArray());
+  mainForm.setOptions(RECEIVE,destinationNameList.toArray());
+}

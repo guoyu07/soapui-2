@@ -1,0 +1,27 @@
+{
+  StringToStringMap values=new StringToStringMap();
+  values.put(CLOSE_PROJECTS,settings.getBoolean(UISettings.CLOSE_PROJECTS));
+  values.put(ORDER_PROJECTS,settings.getBoolean(UISettings.ORDER_PROJECTS));
+  values.put(ORDER_REQUESTS,settings.getBoolean(UISettings.ORDER_REQUESTS));
+  values.put(SHOW_DESCRIPTIONS,settings.getBoolean(UISettings.SHOW_DESCRIPTIONS));
+  values.put(CREATE_BACKUP,settings.getBoolean(UISettings.CREATE_BACKUP));
+  values.put(BACKUP_FOLDER,settings.getString(UISettings.BACKUP_FOLDER,""));
+  values.put(AUTOSAVE_INTERVAL,settings.getString(UISettings.AUTO_SAVE_INTERVAL,"0"));
+  values.put(AUTOSAVE_ONEXIT,settings.getBoolean(UISettings.AUTO_SAVE_PROJECTS_ON_EXIT));
+  values.put(LINEBREAK,settings.getBoolean(UISettings.LINEBREAK));
+  if (SoapUI.isStandalone()) {
+    values.put(DESKTOP_TYPE,settings.getString(UISettings.DESKTOP_TYPE,SoapUI.DEFAULT_DESKTOP));
+    values.put(NATIVE_LAF,settings.getBoolean(UISettings.NATIVE_LAF));
+  }
+  values.put(ENABLE_GROOVY_LOG_DURING_LOADTEST,settings.getBoolean(UISettings.DONT_DISABLE_GROOVY_LOG));
+  if (SoapUI.isStandalone()) {
+    values.put(SHOW_LOGS_AT_STARTUP,settings.getBoolean(UISettings.SHOW_LOGS_AT_STARTUP));
+    values.put(SHOW_STARTUP_PAGE,settings.getBoolean(UISettings.SHOW_STARTUP_PAGE));
+    values.put(DISABLE_TOOLTIPS,settings.getBoolean(UISettings.DISABLE_TOOLTIPS));
+  }
+  values.put(GC_INTERVAL,settings.getString(UISettings.GC_INTERVAL,"0"));
+  values.put(RAW_RESPONSE_MESSAGE_SIZE,settings.getString(UISettings.RAW_RESPONSE_MESSAGE_SIZE,"10000"));
+  values.put(RAW_REQUEST_MESSAGE_SIZE,settings.getString(UISettings.RAW_REQUEST_MESSAGE_SIZE,"10000"));
+  values.put(WRAP_RAW_MESSAGES,settings.getBoolean(UISettings.WRAP_RAW_MESSAGES));
+  return values;
+}

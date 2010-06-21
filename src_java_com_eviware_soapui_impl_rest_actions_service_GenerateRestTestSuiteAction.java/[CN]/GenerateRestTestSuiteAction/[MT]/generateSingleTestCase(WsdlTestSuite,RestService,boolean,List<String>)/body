@@ -1,0 +1,14 @@
+{
+  WsdlTestCase testCase=testSuite.addNewTestCase(service.getName() + " TestSuite");
+  for (  RestResource resource : service.getAllResources()) {
+    if (!resources.contains(resource.getName() + ": " + resource.getFullPath(false)))     continue;
+    if (resource.getRequestCount() > 0) {
+      for (int x=0; x < resource.getRequestCount(); x++) {
+        testCase.addTestStep(RestRequestStepFactory.createConfig(resource.getRequestAt(x),resource.getName()));
+      }
+    }
+  }
+  if (createLoadTest) {
+    testCase.addNewLoadTest("LoadTest 1");
+  }
+}

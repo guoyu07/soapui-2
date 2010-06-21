@@ -1,0 +1,12 @@
+{
+  try {
+    PrintWriter writer=new PrintWriter(file);
+    for (int c=0; c < model.getSize(); c++) {
+      writer.println(model.getElementAt(c));
+    }
+    writer.close();
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+}

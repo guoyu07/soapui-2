@@ -1,0 +1,12 @@
+{
+  super(testSuite,testSuite.getProject(),treeModel);
+  testSuite.addTestSuiteListener(internalTestSuiteListener);
+  for (int c=0; c < testSuite.getTestCaseCount(); c++) {
+    TestCase testCase=testSuite.getTestCaseAt(c);
+    testCase.addPropertyChangeListener(TestCase.NAME_PROPERTY,propertyChangeListener);
+    testCaseNodes.add(new TestCaseTreeNode(testCase,getTreeModel()));
+  }
+  getTreeModel().mapModelItems(testCaseNodes);
+  propertiesTreeNode=PropertiesTreeNode.createDefaultPropertiesNode(testSuite,getTreeModel());
+  getTreeModel().mapModelItem(propertiesTreeNode);
+}

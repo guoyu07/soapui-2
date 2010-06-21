@@ -1,0 +1,6 @@
+{
+  for (  RestRepresentation representation : restRequest.getRepresentations(RestRepresentation.Type.REQUEST,restRequest.getMediaType())) {
+    if (representation.getSchemaType() != null)     return true;
+  }
+  return false;
+}

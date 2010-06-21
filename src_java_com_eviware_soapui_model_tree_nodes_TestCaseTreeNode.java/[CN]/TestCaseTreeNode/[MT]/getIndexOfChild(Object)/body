@@ -1,0 +1,5 @@
+{
+  int propMod=getTreeModel().isShowProperties() ? 0 : 1;
+  if (child == propertiesTreeNode && propMod == 1)   return 0;
+  return childNodes.indexOf(child) - propMod;
+}

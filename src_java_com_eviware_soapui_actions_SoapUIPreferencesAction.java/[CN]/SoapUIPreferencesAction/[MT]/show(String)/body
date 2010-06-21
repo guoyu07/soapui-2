@@ -1,0 +1,14 @@
+{
+  if (dialog == null)   buildDialog();
+  Settings settings=SoapUI.getSettings();
+  for (  Prefs pref : prefs)   pref.setFormValues(settings);
+  if (initialTab != null) {
+    int ix=tabs.indexOfTab(initialTab);
+    if (ix != -1)     tabs.setSelectedIndex(ix);
+  }
+  if (dialog.show(new StringToStringMap())) {
+    for (    Prefs pref : prefs)     pref.getFormValues(settings);
+    return true;
+  }
+  return false;
+}

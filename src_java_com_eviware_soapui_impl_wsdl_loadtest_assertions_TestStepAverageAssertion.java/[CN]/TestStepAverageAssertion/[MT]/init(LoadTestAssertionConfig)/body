@@ -1,0 +1,10 @@
+{
+  XmlObject configuration=assertionConfig.getConfiguration();
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(configuration);
+  setName(reader.readString(NAME_ELEMENT,"Step Average"));
+  minRequests=reader.readInt(MIN_REQUESTS_ELEMENT,100);
+  maxAverage=reader.readInt(MAX_AVERAGE_ELEMENT,1000);
+  setTargetStep(reader.readString(TEST_STEP_ELEMENT,ANY_TEST_STEP));
+  maxErrors=reader.readInt(MAX_ERRORS_ELEMENT,-1);
+  sampleInterval=reader.readInt(SAMPLE_INTERVAL_ELEMENT,20);
+}

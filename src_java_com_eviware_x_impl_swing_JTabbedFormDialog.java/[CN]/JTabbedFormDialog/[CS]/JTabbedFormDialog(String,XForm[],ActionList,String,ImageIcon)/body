@@ -1,0 +1,21 @@
+{
+  dialog=new JDialog(UISupport.getMainFrame(),name,true);
+  tabs=new JTabbedPane();
+  for (  XForm form : forms) {
+    SwingXFormImpl swingFormImpl=((SwingXFormImpl)form);
+    this.forms.add(swingFormImpl);
+    JPanel panel=swingFormImpl.getPanel();
+    panel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+    tabs.addTab(form.getName(),panel);
+  }
+  buttons=UISupport.initDialogActions(actions,dialog);
+  if (description != null || icon != null)   dialog.getContentPane().add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
+  dialog.getContentPane().add(UISupport.createTabPanel(tabs,false),BorderLayout.CENTER);
+  buttons.setBorder(BorderFactory.createEmptyBorder(3,5,3,5));
+  dialog.getContentPane().add(buttons,BorderLayout.SOUTH);
+  dialog.pack();
+  Dimension size=dialog.getSize();
+  if (size.getHeight() < 300) {
+    dialog.setSize(new Dimension((int)size.getWidth(),300));
+  }
+}

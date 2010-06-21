@@ -1,0 +1,7 @@
+{
+  Set<Entry<String,TestProperty>> entrySet=methodParams.entrySet();
+  for (  Entry<String,TestProperty> entry : entrySet) {
+    entry.setValue(getWrapper((RestParamProperty)entry.getValue()));
+  }
+  return entrySet;
+}

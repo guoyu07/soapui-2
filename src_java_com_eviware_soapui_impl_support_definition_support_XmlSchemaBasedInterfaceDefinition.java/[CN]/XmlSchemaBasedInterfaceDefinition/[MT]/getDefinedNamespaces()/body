@@ -1,0 +1,9 @@
+{
+  Set<String> namespaces=new HashSet<String>();
+  SchemaTypeSystem schemaTypes=getSchemaTypeSystem();
+  if (schemaTypes != null) {
+    namespaces.addAll(SchemaUtils.extractNamespaces(getSchemaTypeSystem(),true));
+  }
+  namespaces.add(getTargetNamespace());
+  return namespaces;
+}

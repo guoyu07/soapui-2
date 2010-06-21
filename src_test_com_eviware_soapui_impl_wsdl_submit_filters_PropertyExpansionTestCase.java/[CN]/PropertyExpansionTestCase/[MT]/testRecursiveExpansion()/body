@@ -1,0 +1,8 @@
+{
+  WsdlSubmitContext context=new WsdlSubmitContext(null);
+  context.setProperty("test","value");
+  context.setProperty("testexp","${test}");
+  assertEquals("value",PropertyExpander.expandProperties(context,"${testexp}"));
+  context.setProperty("exp","${exp}");
+  assertEquals("${exp}",PropertyExpander.expandProperties(context,"${exp}"));
+}

@@ -1,0 +1,5 @@
+{
+  super.release();
+  getInterface().removeInterfaceListener(interfaceListener);
+  for (  SoapUITreeNode treeNode : operationNodes)   treeNode.release();
+}

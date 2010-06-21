@@ -1,0 +1,11 @@
+{
+  configPanel.removeAll();
+  SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
+  jdbcRequestTestStep.removeAssertionsListener(assertionsListener);
+  jdbcRequestTestStep.getJdbcRequest().removeSubmitListener(this);
+  responseEditor.release();
+  assertionsPanel.release();
+  inspectorPanel.release();
+  propertyHolderTable.release();
+  return release();
+}

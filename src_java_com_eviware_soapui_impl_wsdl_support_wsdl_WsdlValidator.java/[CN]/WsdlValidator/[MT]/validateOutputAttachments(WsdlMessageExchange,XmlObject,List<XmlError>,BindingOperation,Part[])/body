@@ -1,0 +1,59 @@
+{
+  for (  Part part : outputParts) {
+    MIMEContent[] contents=WsdlUtils.getOutputMultipartContent(part,bindingOperation);
+    if (contents.length == 0)     continue;
+    Attachment[] attachments=messageExchange.getResponseAttachmentsForPart(part.getName());
+    if (attachments.length == 0 && WsdlUtils.isRpc(wsdlContext.getDefinition(),bindingOperation)) {
+      XmlObject[] rpcBodyPart=getRpcBodyPart(bindingOperation,xml,true);
+      if (rpcBodyPart.length == 1) {
+        XmlObject[] children=rpcBodyPart[0].selectChildren(new QName(part.getName()));
+        if (children.length == 1) {
+          String href=((Element)children[0].getDomNode()).getAttribute("href");
+          if (href != null) {
+            if (href.startsWith("cid:"))             href=href.substring(4);
+            attachments=messageExchange.getResponseAttachmentsForPart(href);
+          }
+        }
+      }
+    }
+    if (attachments.length == 0) {
+      errors.add(XmlError.forMessage("Missing attachment for part [" + part.getName() + "]"));
+    }
+ else     if (attachments.length == 1) {
+      Attachment attachment=attachments[0];
+      String types="";
+      for (      MIMEContent content : contents) {
+        String type=content.getType();
+        if (type.equals(attachment.getContentType()) || type.toUpperCase().startsWith("MULTIPART")) {
+          types=null;
+          break;
+        }
+        if (types.length() > 0)         types+=",";
+        types+=type;
+      }
+      if (types != null) {
+        String msg="Missing attachment for part [" + part.getName() + "] with content-type ["+ types+ "], content type is ["+ attachment.getContentType()+ "]";
+        if (SoapUI.getSettings().getBoolean(WsdlSettings.ALLOW_INCORRECT_CONTENTTYPE))         log.warn(msg);
+ else         errors.add(XmlError.forMessage(msg));
+      }
+    }
+ else {
+      String types="";
+      for (      MIMEContent content : contents) {
+        String type=content.getType();
+        if (type.toUpperCase().startsWith("MULTIPART")) {
+          types=null;
+          break;
+        }
+        if (types.length() > 0)         types+=",";
+        types+=type;
+      }
+      if (types != null) {
+        String msg="Too many attachments for part [" + part.getName() + "] with content-type ["+ types+ "]";
+        if (SoapUI.getSettings().getBoolean(WsdlSettings.ALLOW_INCORRECT_CONTENTTYPE))         log.warn(msg);
+ else         errors.add(XmlError.forMessage(msg));
+      }
+    }
+    if (attachments.length > 0)     validateAttachmentsReadability(errors,attachments);
+  }
+}

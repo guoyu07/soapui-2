@@ -1,0 +1,15 @@
+{
+  int ix=forwardButton.isSelected() ? txt.indexOf(value,pos) : txt.lastIndexOf(value,pos);
+  if (selectedLinesButton.isSelected() && (ix < target.getSelectionStart() || ix > target.getSelectionEnd()))   ix=-1;
+  if (wholeWordCheck.isSelected()) {
+    while (ix != -1 && ((ix > 0 && Character.isLetterOrDigit(txt.charAt(ix - 1))) || (ix < txt.length() - value.length() - 1 && Character.isLetterOrDigit(txt.charAt(ix + value.length()))))) {
+      ix=forwardButton.isSelected() ? ++ix : --ix;
+      ix=forwardButton.isSelected() ? txt.indexOf(value,ix) : txt.lastIndexOf(value,ix);
+    }
+  }
+  if (ix == -1 && wrapCheck.isSelected()) {
+    if (forwardButton.isSelected() && pos > 0)     return findNext(0,txt,value);
+ else     if (backwardButton.isSelected() && pos < txt.length() - 1)     return findNext(txt.length() - 1,txt,value);
+  }
+  return ix;
+}

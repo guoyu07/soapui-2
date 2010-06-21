@@ -1,0 +1,98 @@
+{
+  WsdlContext wsdlContext=new WsdlContext(wsdlUrl);
+  if (!wsdlContext.load(wsdlLoader)) {
+    UISupport.showErrorMessage("Failed to import WSDL");
+    return null;
+  }
+  Definition definition=wsdlContext.getDefinition();
+  List<WsdlInterface> result=new ArrayList<WsdlInterface>();
+  if (bindingName != null) {
+    WsdlInterface iface=importBinding(project,wsdlContext,(Binding)definition.getAllBindings().get(bindingName));
+    return iface == null ? new WsdlInterface[0] : new WsdlInterface[]{iface};
+  }
+  Map<Binding,WsdlInterface> importedBindings=new HashMap<Binding,WsdlInterface>();
+  Map<?,?> serviceMap=definition.getAllServices();
+  if (serviceMap.isEmpty())   log.info("Missing services in [" + wsdlUrl + "], check for bindings");
+ else {
+    Iterator<?> i=serviceMap.values().iterator();
+    while (i.hasNext()) {
+      Service service=(Service)i.next();
+      Map<?,?> portMap=service.getPorts();
+      Iterator<?> i2=portMap.values().iterator();
+      while (i2.hasNext()) {
+        Port port=(Port)i2.next();
+        Binding binding=port.getBinding();
+        if (importedBindings.containsKey(binding)) {
+          String endpoint=WsdlUtils.getSoapEndpoint(port);
+          if (endpoint != null)           importedBindings.get(binding).addEndpoint(endpoint);
+          continue;
+        }
+        String ifaceName=getInterfaceNameForBinding(binding);
+        WsdlInterface ifc=(WsdlInterface)project.getInterfaceByName(ifaceName);
+        if (ifc != null) {
+          Boolean res=UISupport.confirmOrCancel("Interface [" + ifc.getName() + "] already exists in project, update instead?","Import WSDL");
+          if (res == null)           return new WsdlInterface[0];
+          if (res.booleanValue()) {
+            if (ifc.updateDefinition(wsdlUrl,false)) {
+              importedBindings.put(binding,ifc);
+              result.add(ifc);
+            }
+          }
+          continue;
+        }
+        WsdlInterface iface=importBinding(project,wsdlContext,binding);
+        if (iface != null) {
+          String endpoint=WsdlUtils.getSoapEndpoint(port);
+          if (endpoint != null)           iface.addEndpoint(endpoint);
+          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString()))           iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
+          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
+            iface.processPolicy(PolicyUtils.getAttachedPolicy(port,wsdlContext.getDefinition()));
+          }
+          result.add(iface);
+          importedBindings.put(binding,iface);
+        }
+      }
+    }
+  }
+  Map<?,?> bindingMap=definition.getAllBindings();
+  if (!bindingMap.isEmpty()) {
+    Iterator<?> i=bindingMap.values().iterator();
+    while (i.hasNext()) {
+      Binding binding=(Binding)i.next();
+      if (importedBindings.containsKey(binding)) {
+        continue;
+      }
+      PortType portType=binding.getPortType();
+      if (portType == null) {
+        log.warn("Missing portType for binding [" + binding.getQName().toString() + "]");
+      }
+ else {
+        String ifaceName=getInterfaceNameForBinding(binding);
+        WsdlInterface ifc=(WsdlInterface)project.getInterfaceByName(ifaceName);
+        if (ifc != null && result.indexOf(ifc) == -1) {
+          Boolean res=UISupport.confirmOrCancel("Interface [" + ifc.getName() + "] already exists in project, update instead?","Import WSDL");
+          if (res == null)           return new WsdlInterface[0];
+          if (res.booleanValue()) {
+            if (ifc.updateDefinition(wsdlUrl,false)) {
+              importedBindings.put(binding,ifc);
+              result.add(ifc);
+            }
+          }
+          continue;
+        }
+        WsdlInterface iface=importBinding(project,wsdlContext,binding);
+        if (iface != null) {
+          result.add(iface);
+          importedBindings.put(binding,ifc);
+        }
+      }
+    }
+  }
+  if (importedBindings.isEmpty() && serviceMap.isEmpty() && bindingMap.isEmpty()) {
+    UISupport.showErrorMessage("Found nothing to import in [" + wsdlUrl + "]");
+  }
+  if (result.size() > 0) {
+    result.get(result.size() - 1).setWsdlContext(wsdlContext);
+  }
+  return result.toArray(new WsdlInterface[result.size()]);
+}

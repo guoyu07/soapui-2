@@ -1,0 +1,11 @@
+{
+  List<QName> order=new ArrayList<QName>();
+  for (  QName item : particles.keySet()) {
+    int i;
+    for (i=order.size(); !canAppend(order.subList(0,i),item); i--)     ;
+    order.add(i,item);
+  }
+  LinkedHashMap<QName,Particle> fixedParticles=new LinkedHashMap<QName,Particle>();
+  for (  QName item : order)   fixedParticles.put(item,particles.get(item));
+  particles=fixedParticles;
+}

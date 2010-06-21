@@ -1,0 +1,9 @@
+{
+  Object[] values=listModel.toArray();
+  StringBuffer buf=new StringBuffer();
+  for (int c=0; c < values.length; c++) {
+    if (c > 0)     buf.append(';');
+    buf.append(values[c]);
+  }
+  return buf.toString();
+}

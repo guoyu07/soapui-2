@@ -1,0 +1,8 @@
+{
+  RestRepresentation restRepresentation=restMethod.addNewRepresentation(type);
+  restRepresentation.setMediaType(representation.getMediaType());
+  restRepresentation.setElement(representation.getElement());
+  if (status != null)   restRepresentation.setStatus(status);
+  restRepresentation.setId(representation.getId());
+  restRepresentation.setDescription(getFirstTitle(representation.getDocList(),null));
+}

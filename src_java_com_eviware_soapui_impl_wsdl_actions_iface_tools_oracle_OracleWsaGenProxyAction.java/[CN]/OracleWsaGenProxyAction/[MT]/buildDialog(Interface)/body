@@ -1,0 +1,10 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Oracle Artifacts");
+  XForm mainForm=builder.createForm("Basic");
+  addWSDLFields(mainForm,modelItem);
+  mainForm.addTextField(OUTPUT,"The root directory for all emitted files.",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(PACKAGE,"The target package for generated classes",XForm.FieldType.JAVA_PACKAGE);
+  buildArgsForm(builder,true,"wsa");
+  ActionList actions=buildDefaultActions(HelpUrls.ORACLEWSA_HELP_URL,modelItem);
+  return builder.buildDialog(actions,"Specify arguments for Oracle wsa.jar genProxy functionality",UISupport.TOOL_ICON);
+}

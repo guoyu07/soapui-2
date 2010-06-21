@@ -1,0 +1,25 @@
+{
+  TestCaseConfig testCaseNewConfig=null;
+  if (!file.exists()) {
+    UISupport.showErrorMessage("Error loading test case ");
+    return;
+  }
+  try {
+    testCaseNewConfig=TestCaseDocumentConfig.Factory.parse(file).getTestCase();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  if (testCaseNewConfig != null) {
+    TestCaseConfig newConfig=(TestCaseConfig)getConfig().addNewTestCase().set(testCaseNewConfig).changeType(TestCaseConfig.type);
+    WsdlTestCase newTestCase=buildTestCase(newConfig,false);
+    ModelSupport.unsetIds(newTestCase);
+    newTestCase.afterLoad();
+    testCases.add(newTestCase);
+    fireTestCaseAdded(newTestCase);
+    resolveImportedTestCase(newTestCase);
+  }
+ else {
+    UISupport.showErrorMessage("Not valild test case xml");
+  }
+}

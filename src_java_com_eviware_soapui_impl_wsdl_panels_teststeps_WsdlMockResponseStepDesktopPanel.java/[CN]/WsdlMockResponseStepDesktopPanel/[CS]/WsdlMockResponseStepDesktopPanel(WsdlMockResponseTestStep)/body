@@ -1,0 +1,9 @@
+{
+  super(mockResponseStep);
+  init(mockResponseStep.getMockResponse());
+  testRunListener=new InternalTestRunListener();
+  mockResponseStep.getTestCase().addTestRunListener(testRunListener);
+  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
+  setEnabled(!SoapUI.getTestMonitor().hasRunningTest(mockResponseStep.getTestCase()));
+  mockResponseStep.addAssertionsListener(assertionsListener);
+}

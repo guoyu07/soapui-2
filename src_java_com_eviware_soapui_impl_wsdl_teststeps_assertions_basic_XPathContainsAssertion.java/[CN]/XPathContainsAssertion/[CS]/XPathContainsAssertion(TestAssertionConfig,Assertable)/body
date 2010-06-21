@@ -1,0 +1,8 @@
+{
+  super(assertionConfig,assertable,true,true,true,true);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  path=reader.readString("path",null);
+  expectedContent=reader.readString("content",null);
+  allowWildcards=reader.readBoolean("allowWildcards",false);
+  ignoreNamespaceDifferences=reader.readBoolean("ignoreNamspaceDifferences",false);
+}

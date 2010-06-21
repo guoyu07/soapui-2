@@ -1,0 +1,9 @@
+{
+  int ix=assertionList.getSelectedIndex();
+  if (ix == -1)   return;
+  TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+  if (assertion.isConfigurable()) {
+    assertion.configure();
+  }
+ else   Toolkit.getDefaultToolkit().beep();
+}

@@ -1,0 +1,11 @@
+{
+  int ix=loadTests.indexOf(loadTest);
+  loadTests.remove(ix);
+  try {
+    (getTestSuite()).fireLoadTestRemoved(loadTest);
+  }
+  finally {
+    loadTest.release();
+    getConfig().removeLoadTest(ix);
+  }
+}

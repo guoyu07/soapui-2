@@ -1,0 +1,12 @@
+{
+  testCase.beforeSave();
+  TestCaseConfig newTestCase=getConfig().addNewTestCase();
+  newTestCase.set(testCase.getConfig());
+  newTestCase.setName(name);
+  WsdlTestCase newWsdlTestCase=buildTestCase(newTestCase,false);
+  ModelSupport.unsetIds(newWsdlTestCase);
+  newWsdlTestCase.afterLoad();
+  testCases.add(newWsdlTestCase);
+  fireTestCaseAdded(newWsdlTestCase);
+  return newWsdlTestCase;
+}

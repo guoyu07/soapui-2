@@ -1,0 +1,10 @@
+{
+  TestProperty property=getProperty(propertyName);
+  int ix=properties.indexOf(property);
+  if (ix == targetIndex)   return;
+  if (targetIndex < 0)   targetIndex=0;
+  if (targetIndex < properties.size())   properties.add(targetIndex,properties.remove(ix));
+ else   properties.add(properties.remove(ix));
+  if (targetIndex > properties.size())   targetIndex=properties.size();
+  firePropertyMoved(propertyName,ix,targetIndex);
+}

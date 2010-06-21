@@ -1,0 +1,11 @@
+{
+  String oldEndpoint=getLocalEndpoint();
+  int oldPort=getPort();
+  if (port != oldPort) {
+    getConfig().setPort(port);
+    notifyPropertyChanged(PORT_PROPERTY,oldPort,port);
+    for (    WsdlInterface iface : getMockedInterfaces()) {
+      if (Arrays.asList(iface.getEndpoints()).contains(oldEndpoint))       iface.changeEndpoint(oldEndpoint,getLocalEndpoint());
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  toolbar=UISupport.createToolbar();
+  toolbar.setBorder(null);
+  toolbar.setPreferredSize(new Dimension(22,22));
+  toggleAction=new ToggleAction();
+  JButton toggleButton=new JButton(toggleAction);
+  toggleButton.setBorder(null);
+  toggleButton.setPreferredSize(new Dimension(15,15));
+  toolbar.addSpace(3);
+  toolbar.addFixed(toggleButton);
+  toolbar.addSpace(3);
+  if (title != null) {
+    JLabel titleLabel=new JLabel(title);
+    titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD));
+    toolbar.addFixed(titleLabel);
+    toolbar.addSpace(3);
+  }
+  return toolbar;
+}

@@ -1,0 +1,6 @@
+{
+  testCase.removeTestRunListener(testRunListener);
+  for (int c=0; c < testCase.getLoadTestCount(); c++) {
+    unmonitorLoadTest(testCase.getLoadTestAt(c));
+  }
+}

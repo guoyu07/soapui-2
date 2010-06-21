@@ -1,0 +1,12 @@
+{
+  String old=getDispatchStyle();
+  if (dispatcher != null && dispatchStyle.equals(old))   return dispatcher;
+  getConfig().setDispatchStyle(MockOperationDispatchStyleConfig.Enum.forString(dispatchStyle));
+  if (dispatcher != null) {
+    dispatcher.release();
+  }
+  if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
+  dispatcher=MockOperationDispatchRegistry.buildDispatcher(dispatchStyle,this);
+  notifyPropertyChanged(DISPATCH_STYLE_PROPERTY,old,dispatchStyle);
+  return dispatcher;
+}

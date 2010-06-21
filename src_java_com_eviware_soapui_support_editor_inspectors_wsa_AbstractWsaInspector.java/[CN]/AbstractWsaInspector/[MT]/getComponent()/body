@@ -1,0 +1,9 @@
+{
+  if (mainPanel == null) {
+    mainPanel=new JPanel(new BorderLayout());
+    form=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(wsaContainer.getWsaConfig()));
+    buildContent(form);
+    mainPanel.add(new JScrollPane(form.getPanel()),BorderLayout.CENTER);
+  }
+  return mainPanel;
+}

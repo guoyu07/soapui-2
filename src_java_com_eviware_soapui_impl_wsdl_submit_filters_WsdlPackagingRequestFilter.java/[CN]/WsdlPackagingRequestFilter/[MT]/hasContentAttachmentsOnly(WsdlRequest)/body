@@ -1,0 +1,6 @@
+{
+  for (  Attachment attachment : wsdlRequest.getAttachments()) {
+    if (attachment.getAttachmentType() != Attachment.AttachmentType.CONTENT && !(attachment.getAttachmentType() == AttachmentType.UNKNOWN && wsdlRequest.isInlineFilesEnabled()))     return false;
+  }
+  return true;
+}

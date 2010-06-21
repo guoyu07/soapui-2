@@ -1,0 +1,20 @@
+{
+  enableRecordingCheckBox=new JCheckBox("Auto-Create");
+  enableRecordingCheckBox.setToolTipText("Automatically create Representations from received Responses");
+  enableRecordingCheckBox.setOpaque(false);
+  UISupport.setFixedSize(enableRecordingCheckBox,150,20);
+  toolbar.addFixed(enableRecordingCheckBox);
+  XmlBeansSettingsImpl settings=getMethod().getSettings();
+  if (settings.isSet(RECORD_RESPONSE_REPRESENTATIONS)) {
+    enableRecordingCheckBox.setSelected(settings.getBoolean(RECORD_RESPONSE_REPRESENTATIONS));
+  }
+ else {
+    enableRecordingCheckBox.setSelected(getMethod().getResource() == null || getMethod().getResource().getService().isGenerated());
+  }
+  enableRecordingCheckBox.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      getMethod().getSettings().setBoolean(RECORD_RESPONSE_REPRESENTATIONS,enableRecordingCheckBox.isSelected());
+    }
+  }
+);
+}

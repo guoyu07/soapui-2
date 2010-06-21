@@ -1,0 +1,12 @@
+{
+  for (int c=0; c < testCase.getTestStepCount(); c++) {
+    TestStep step=testCase.getTestStepAt(c);
+    if (step instanceof WsdlTestRequestStep) {
+      WsdlTestRequestStep requestStep=(WsdlTestRequestStep)step;
+      requestStep.getTestRequest().setUsername(form.getComponentValue(USERNAME));
+      requestStep.getTestRequest().setPassword(form.getComponentValue(PASSWORD));
+      requestStep.getTestRequest().setDomain(form.getComponentValue(DOMAIN));
+    }
+  }
+  dialog.setVisible(false);
+}

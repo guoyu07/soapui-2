@@ -1,0 +1,25 @@
+{
+  if (source.getTestCase() == target) {
+    int ix=target.getIndexOfTestStep(source);
+    if (defaultPosition == -1) {
+      target.moveTestStep(ix,target.getTestStepCount() - ix);
+    }
+ else     if (ix >= 0 && defaultPosition != ix) {
+      int offset=defaultPosition - ix;
+      if (offset > 0)       offset--;
+      target.moveTestStep(ix,offset);
+    }
+  }
+ else {
+    String name=UISupport.prompt("Enter name for moved TestStep","Move TestStep",source.getName());
+    if (name == null)     return false;
+    WsdlProject sourceProject=source.getTestCase().getTestSuite().getProject();
+    WsdlProject targetProject=target.getTestSuite().getProject();
+    if (sourceProject != targetProject) {
+      if (!importRequiredInterfaces(targetProject,new HashSet<Interface>(source.getRequiredInterfaces()),"Move Test Step"))       return false;
+    }
+    target.importTestStep(source,name,defaultPosition,false);
+    source.getTestCase().removeTestStep(source);
+  }
+  return true;
+}

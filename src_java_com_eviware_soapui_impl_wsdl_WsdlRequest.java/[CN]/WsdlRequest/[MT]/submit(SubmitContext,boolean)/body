@@ -1,0 +1,15 @@
+{
+  String endpoint=PropertyExpander.expandProperties(submitContext,getEndpoint());
+  if (endpoint == null || endpoint.trim().length() == 0) {
+    UISupport.showErrorMessage("Missing endpoint for request [" + getName() + "]");
+    return null;
+  }
+  try {
+    WsdlSubmit<WsdlRequest> submitter=new WsdlSubmit<WsdlRequest>(this,getSubmitListeners(),RequestTransportRegistry.getTransport(endpoint,submitContext));
+    submitter.submitRequest(submitContext,async);
+    return submitter;
+  }
+ catch (  Exception e) {
+    throw new SubmitException(e.toString());
+  }
+}

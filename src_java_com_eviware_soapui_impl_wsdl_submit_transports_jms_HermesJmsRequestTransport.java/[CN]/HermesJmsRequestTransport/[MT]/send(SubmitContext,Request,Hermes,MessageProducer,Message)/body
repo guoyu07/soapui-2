@@ -1,0 +1,6 @@
+{
+  JMSHeader jmsHeader=createJMSHeader(submitContext,request,hermes,message);
+  messageProducer.send(message,message.getJMSDeliveryMode(),message.getJMSPriority(),jmsHeader.getTimeTolive());
+  submitContext.setProperty(JMS_MESSAGE_SEND,message);
+  return message;
+}

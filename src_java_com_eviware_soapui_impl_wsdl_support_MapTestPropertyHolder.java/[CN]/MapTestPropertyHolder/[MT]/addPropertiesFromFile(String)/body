@@ -1,0 +1,26 @@
+{
+  try {
+    InputStream input=null;
+    File file=new File(propFile);
+    if (file.exists()) {
+      input=new FileInputStream(file);
+    }
+ else     if (propFile.toLowerCase().startsWith("http://") || propFile.toLowerCase().startsWith("https://")) {
+      UrlWsdlLoader loader=new UrlWsdlLoader(propFile,getModelItem());
+      loader.setUseWorker(false);
+      input=loader.load();
+    }
+    Properties properties=new Properties();
+    properties.load(input);
+    for (    Object key : properties.keySet()) {
+      String name=key.toString();
+      if (!hasProperty(name))       addProperty(name).setValue(properties.getProperty(name));
+ else       setPropertyValue(name,properties.getProperty(name));
+    }
+    return properties.size();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return 0;
+}

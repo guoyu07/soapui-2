@@ -1,0 +1,6 @@
+{
+  if (!UISupport.confirm("Add request to MockOperation [" + mockOperation.getName() + "]","Add Request"))   return false;
+  SoapUIAction<WsdlRequest> action=SoapUI.getActionRegistry().getAction(AddRequestToMockServiceAction.SOAPUI_ACTION_ID);
+  ((AddRequestToMockServiceAction)action).perform(request,mockOperation);
+  return true;
+}

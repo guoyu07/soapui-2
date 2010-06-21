@@ -1,0 +1,9 @@
+{
+  SoapUI.logError(ex);
+  if (ex.toString().length() > 100) {
+    dialogs.showExtendedInfo("Error","An error of type " + ex.getClass().getSimpleName() + " occured.",ex.toString(),null);
+  }
+ else {
+    dialogs.showErrorMessage(ex.toString());
+  }
+}

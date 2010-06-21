@@ -1,0 +1,88 @@
+{
+  RestRequestStepResult testStepResult=new RestRequestStepResult(this);
+  try {
+    submit=testRequest.submit(runContext,false);
+    HttpResponse response=(HttpResponse)submit.getResponse();
+    if (submit.getStatus() != Submit.Status.CANCELED) {
+      if (submit.getStatus() == Submit.Status.ERROR) {
+        testStepResult.setStatus(TestStepStatus.FAILED);
+        testStepResult.addMessage(submit.getError().toString());
+        testRequest.setResponse(null,runContext);
+      }
+ else       if (response == null) {
+        testStepResult.setStatus(TestStepStatus.FAILED);
+        testStepResult.addMessage("Request is missing response");
+        testRequest.setResponse(null,runContext);
+      }
+ else {
+        runContext.setProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY,testStepResult);
+        testRequest.setResponse(response,runContext);
+        testStepResult.setTimeTaken(response.getTimeTaken());
+        testStepResult.setSize(response.getContentLength());
+        testStepResult.setResponse(response);
+switch (testRequest.getAssertionStatus()) {
+case FAILED:
+          testStepResult.setStatus(TestStepStatus.FAILED);
+        break;
+case VALID:
+      testStepResult.setStatus(TestStepStatus.OK);
+    break;
+case UNKNOWN:
+  testStepResult.setStatus(TestStepStatus.UNKNOWN);
+break;
+}
+}
+}
+ else {
+testStepResult.setStatus(TestStepStatus.CANCELED);
+testStepResult.addMessage("Request was canceled");
+}
+if (response != null) {
+testStepResult.setRequestContent(response.getRequestContent());
+testStepResult.addProperty("URL",response.getURL() == null ? "<missing>" : response.getURL().toString());
+testStepResult.addProperty("Method",String.valueOf(response.getMethod()));
+testStepResult.addProperty("StatusCode",String.valueOf(response.getStatusCode()));
+testStepResult.addProperty("HTTP Version",response.getHttpVersion());
+}
+ else {
+testStepResult.addMessage("Missing Response");
+testStepResult.setRequestContent(testRequest.getRequestContent());
+}
+}
+ catch (SubmitException e) {
+testStepResult.setStatus(TestStepStatus.FAILED);
+testStepResult.addMessage("SubmitException: " + e);
+}
+ finally {
+submit=null;
+}
+testStepResult.setDomain(PropertyExpander.expandProperties(runContext,testRequest.getDomain()));
+testStepResult.setUsername(PropertyExpander.expandProperties(runContext,testRequest.getUsername()));
+testStepResult.setEndpoint(PropertyExpander.expandProperties(runContext,testRequest.getEndpoint()));
+testStepResult.setPassword(PropertyExpander.expandProperties(runContext,testRequest.getPassword()));
+testStepResult.setEncoding(PropertyExpander.expandProperties(runContext,testRequest.getEncoding()));
+if (testStepResult.getStatus() != TestStepStatus.CANCELED) {
+AssertionStatus assertionStatus=testRequest.getAssertionStatus();
+switch (assertionStatus) {
+case FAILED:
+{
+testStepResult.setStatus(TestStepStatus.FAILED);
+if (getAssertionCount() == 0) {
+testStepResult.addMessage("Invalid/empty response");
+}
+ else for (int c=0; c < getAssertionCount(); c++) {
+WsdlMessageAssertion assertion=getAssertionAt(c);
+AssertionError[] errors=assertion.getErrors();
+if (errors != null) {
+for (AssertionError error : errors) {
+  testStepResult.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+}
+}
+}
+break;
+}
+}
+}
+if (testRequest.isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) testRequest.setResponse(null,runContext);
+return testStepResult;
+}

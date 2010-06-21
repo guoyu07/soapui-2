@@ -1,0 +1,7 @@
+{
+  WsdlProject project=testSuite.getProject();
+  int ix=project.getIndexOfTestSuite(testSuite);
+  if (ix == -1 || ix == 0)   return;
+  project.moveTestSuite(ix,-1);
+  UISupport.select(testSuite);
+}

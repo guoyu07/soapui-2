@@ -1,0 +1,12 @@
+{
+  context=context2;
+  for (  PathToResolve path : context.getPathsToResolve()) {
+    ArrayList<Object> resolversAndDefaultAction=new ArrayList<Object>();
+    resolversAndDefaultAction.add("Choose one...");
+    for (    Object resolver : path.getResolvers()) {
+      resolversAndDefaultAction.add(resolver);
+    }
+    JComboBox jbc=new JComboBox(resolversAndDefaultAction.toArray());
+    jbcList.add(jbc);
+  }
+}

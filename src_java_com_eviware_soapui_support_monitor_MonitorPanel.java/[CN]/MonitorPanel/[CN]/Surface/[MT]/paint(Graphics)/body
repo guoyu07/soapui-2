@@ -1,0 +1,92 @@
+{
+  Dimension d=getSize();
+  if (d.width != w || d.height != h) {
+    w=d.width;
+    h=d.height;
+    backImage=(BufferedImage)createImage(w,h);
+    backImageGrfx=backImage.createGraphics();
+    backImageGrfx.setFont(font);
+    FontMetrics fm=backImageGrfx.getFontMetrics(font);
+    ascent=fm.getAscent();
+    descent=fm.getDescent();
+  }
+  backImageGrfx.setBackground(Color.DARK_GRAY);
+  backImageGrfx.clearRect(0,0,w,h);
+  float totalMemory=monitorSource.getTotal();
+  float usedMemory=monitorSource.getUsed();
+  float freeMemory=totalMemory - usedMemory;
+  backImageGrfx.setColor(Color.green);
+  backImageGrfx.drawString(String.valueOf((int)totalMemory >> 10) + "K allocated",4.0f,(float)ascent + 0.5f);
+  String usedStr=String.valueOf(((int)usedMemory) >> 10) + "K used";
+  backImageGrfx.drawString(usedStr,4,h - descent);
+  float ssH=ascent + descent;
+  float remainingHeight=(h - ssH * 2 - 0.5f);
+  float blockHeight=remainingHeight / 10;
+  float blockWidth=20.0f;
+  backImageGrfx.setColor(mfColor);
+  int MemUsage=(int)(freeMemory / totalMemory * 10);
+  int i=0;
+  for (; i < MemUsage; i++) {
+    mfRect.setRect(5,ssH + i * blockHeight,blockWidth,blockHeight - 1);
+    backImageGrfx.fill(mfRect);
+  }
+  backImageGrfx.setColor(Color.green);
+  for (; i < 10; i++) {
+    muRect.setRect(5,ssH + i * blockHeight,blockWidth,blockHeight - 1);
+    backImageGrfx.fill(muRect);
+  }
+  backImageGrfx.setColor(graphColor);
+  int graphX=30;
+  int graphY=(int)ssH;
+  int graphW=w - graphX - 5;
+  if (graphW < 0)   graphW=0;
+  int graphH=(int)(ssH + (9 * blockHeight) + blockHeight - 1);
+  i=0;
+  for (; i < 10; i++) {
+    muRect.setRect(graphX,ssH + i * blockHeight - 1,graphW,blockHeight);
+    backImageGrfx.draw(muRect);
+  }
+  int graphColumn=graphW / 15;
+  if (columnInc == 0) {
+    columnInc=graphColumn;
+  }
+  for (int j=graphX + columnInc; j < graphW + graphX; j+=graphColumn) {
+    graphLine.setLine(j,graphY,j,ssH + i * blockHeight - 1);
+    backImageGrfx.draw(graphLine);
+  }
+  --columnInc;
+  if (points == null) {
+    points=new double[graphW];
+    validPoints=0;
+  }
+ else   if (points.length != graphW) {
+    double[] tmp;
+    if (validPoints < graphW) {
+      tmp=new double[validPoints];
+      System.arraycopy(points,0,tmp,0,tmp.length);
+    }
+ else {
+      tmp=new double[graphW];
+      System.arraycopy(points,points.length - tmp.length,tmp,0,tmp.length);
+      validPoints=tmp.length - 2;
+    }
+    points=new double[graphW];
+    System.arraycopy(tmp,0,points,0,tmp.length);
+  }
+ else {
+    backImageGrfx.setColor(Color.yellow);
+    int x=w - 5;
+    int sum=graphH - (ascent + descent);
+    for (int j=x - validPoints, k=0; k < validPoints; k++, j++) {
+      if (k != 0) {
+        if (points[k] != points[k - 1]) {
+          backImageGrfx.drawLine(j - 1,graphY + (int)(sum * points[k - 1]),j,graphY + (int)(sum * points[k]));
+        }
+ else {
+          backImageGrfx.fillRect(j,graphY + (int)(sum * points[k]),1,1);
+        }
+      }
+    }
+  }
+  g.drawImage(backImage,0,0,this);
+}

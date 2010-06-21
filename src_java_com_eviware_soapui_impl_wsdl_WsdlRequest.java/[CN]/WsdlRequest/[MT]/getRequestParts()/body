@@ -1,0 +1,12 @@
+{
+  try {
+    List<MessagePart> result=new ArrayList<MessagePart>();
+    result.addAll(Arrays.asList(getOperation().getDefaultRequestParts()));
+    result.addAll(Arrays.asList(getDefinedAttachmentParts()));
+    return result.toArray(new MessagePart[result.size()]);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return new MessagePart[0];
+  }
+}

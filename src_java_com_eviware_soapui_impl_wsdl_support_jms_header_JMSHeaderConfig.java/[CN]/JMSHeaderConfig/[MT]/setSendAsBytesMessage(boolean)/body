@@ -1,0 +1,5 @@
+{
+  boolean oldValue=getSendAsBytesMessage();
+  jmsHeaderConfConfig.setSendAsBytesMessage(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.SEND_AS_BYTESMESSAGE,oldValue,newValue);
+}

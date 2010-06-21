@@ -1,0 +1,7 @@
+{
+  boolean old=getSearchProperties();
+  if (old != searchProperties) {
+    getConfig().setSearchProperties(searchProperties);
+    notifyPropertyChanged(SEARCH_PROPERTIES_PROPERTY,old,searchProperties);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    if (xml == null)     return null;
+    StringWriter writer=new StringWriter();
+    XmlUtils.serializePretty(xml,writer);
+    return writer.toString();
+  }
+ catch (  Exception e) {
+    log.warn("Failed to prettyPrint xml [" + xml + "]: "+ e);
+    return xml.xmlText();
+  }
+}

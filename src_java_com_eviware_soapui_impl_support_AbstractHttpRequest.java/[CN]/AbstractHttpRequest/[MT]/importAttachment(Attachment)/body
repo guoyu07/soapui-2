@@ -1,0 +1,11 @@
+{
+  if (attachment instanceof FileAttachment<?>) {
+    AttachmentConfig oldConfig=((FileAttachment<?>)attachment).getConfig();
+    AttachmentConfig newConfig=(AttachmentConfig)getConfig().addNewAttachment().set(oldConfig);
+    RequestFileAttachment newAttachment=new RequestFileAttachment(newConfig,this);
+    attachments.add(newAttachment);
+    return newAttachment;
+  }
+ else   log.error("Unkown attachment type: " + attachment);
+  return null;
+}

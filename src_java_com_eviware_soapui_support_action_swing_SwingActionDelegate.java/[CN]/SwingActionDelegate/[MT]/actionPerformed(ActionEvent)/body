@@ -1,0 +1,23 @@
+{
+  if (switchClassloader) {
+    ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
+    Thread.currentThread().setContextClassLoader(SoapUI.class.getClassLoader());
+    try {
+      mapping.getAction().perform(target,param == null ? mapping.getParam() : param);
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+    }
+ finally {
+      Thread.currentThread().setContextClassLoader(contextClassLoader);
+    }
+  }
+ else {
+    try {
+      mapping.getAction().perform(target,mapping.getParam());
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+    }
+  }
+}

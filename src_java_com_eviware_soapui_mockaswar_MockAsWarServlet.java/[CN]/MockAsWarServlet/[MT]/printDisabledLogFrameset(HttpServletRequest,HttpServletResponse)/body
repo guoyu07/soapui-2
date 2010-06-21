@@ -1,0 +1,12 @@
+{
+  response.setStatus(HttpServletResponse.SC_OK);
+  response.setContentType("text/html");
+  PrintWriter out=response.getWriter();
+  out.print("<html><head><title>soapUI MockServices Log for project [" + project.getName() + "]</title></head>");
+  out.print("<body>");
+  out.print("<h3>");
+  out.print("Log is disabled.");
+  out.print("</h3>");
+  out.print("</body></html>");
+  out.flush();
+}

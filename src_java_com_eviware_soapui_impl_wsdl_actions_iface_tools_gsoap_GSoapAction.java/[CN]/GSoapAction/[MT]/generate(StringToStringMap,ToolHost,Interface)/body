@@ -1,0 +1,24 @@
+{
+  String gsoapDir=SoapUI.getSettings().getString(ToolsSettings.GSOAP_LOCATION,null);
+  if (Tools.isEmpty(gsoapDir)) {
+    UISupport.showErrorMessage("GSoap directory must be set in global preferences");
+    return;
+  }
+  List<ProcessBuilder> builders=new ArrayList<ProcessBuilder>();
+  if (values.getBoolean(WSDL2H)) {
+    ProcessBuilder wsdl2hBuilder=new ProcessBuilder();
+    ArgumentBuilder wsdl2hArgs=buildWsdl2HArgs(values,modelItem);
+    wsdl2hBuilder.command(wsdl2hArgs.getArgs());
+    wsdl2hBuilder.directory(new File(Tools.getDir(values.get(WSDL2H_OUTPUT))));
+    builders.add(wsdl2hBuilder);
+  }
+  if (values.getBoolean(SOAPCPP2)) {
+    ProcessBuilder soapcpp2Builder=new ProcessBuilder();
+    ArgumentBuilder soapcpp2Args=buildSoapcpp2Args(values);
+    soapcpp2Builder.command(soapcpp2Args.getArgs());
+    soapcpp2Builder.directory(new File(Tools.getDir(values.get(WSDL2H_OUTPUT))));
+    builders.add(soapcpp2Builder);
+  }
+  if (builders.isEmpty())   UISupport.showErrorMessage("Nothing to run!");
+ else   toolHost.run(new ProcessToolRunner(builders.toArray(new ProcessBuilder[builders.size()]),"GSoap",modelItem));
+}

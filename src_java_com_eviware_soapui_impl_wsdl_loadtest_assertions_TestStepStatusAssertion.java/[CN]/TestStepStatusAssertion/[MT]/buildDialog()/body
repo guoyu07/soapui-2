@@ -1,0 +1,9 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Step Status Assertion");
+  XForm form=builder.createForm("Basic");
+  form.addTextField(NAME_FIELD,"Name of this assertion",FieldType.TEXT);
+  form.addTextField(MINIMUM_REQUESTS_FIELD,"Minimum number of runs before asserting",FieldType.TEXT);
+  form.addTextField(MAX_ERRORS_FIELD,"Maximum number of errors before failing",FieldType.TEXT);
+  form.addComboBox(TEST_STEP_FIELD,new String[0],"TestStep to assert");
+  dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.STEP_STATUS_LOAD_TEST_ASSERTION_HELP_URL),"Specify options for this Step Status Assertion",UISupport.OPTIONS_ICON);
+}

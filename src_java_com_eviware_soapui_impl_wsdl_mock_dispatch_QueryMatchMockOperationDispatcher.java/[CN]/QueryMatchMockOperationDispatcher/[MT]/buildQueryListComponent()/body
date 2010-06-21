@@ -1,0 +1,16 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  queryItemListModel=new QueryItemListModel();
+  itemList=new JList(queryItemListModel);
+  itemList.setCellRenderer(new QueryItemListCellRenderer());
+  itemList.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      queryDetailFormPresentationModel.setBean((Query)itemList.getSelectedValue());
+      setEnabled();
+    }
+  }
+);
+  panel.add(buildItemsToolbar(),BorderLayout.NORTH);
+  panel.add(new JScrollPane(itemList),BorderLayout.CENTER);
+  return panel;
+}

@@ -1,0 +1,19 @@
+{
+  try {
+    TestPropertyHolder previousStep=getCurrentTransfer().getSourceStep();
+    if (previousStep instanceof WsdlTestRequestStep) {
+      WsdlTestRequest testRequest=((WsdlTestRequestStep)previousStep).getTestRequest();
+      sourceArea.setText(XmlUtils.declareXPathNamespaces(testRequest.getOperation().getInterface()) + sourceArea.getText());
+    }
+ else     UISupport.showErrorMessage("Property Source is not a Request");
+    TestPropertyHolder nextStep=getCurrentTransfer().getTargetStep();
+    if (nextStep instanceof WsdlTestRequestStep) {
+      WsdlTestRequest testRequest=((WsdlTestRequestStep)nextStep).getTestRequest();
+      targetArea.setText(XmlUtils.declareXPathNamespaces(testRequest.getOperation().getInterface()) + targetArea.getText());
+    }
+ else     UISupport.showErrorMessage("Property Target is not a Request");
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+}

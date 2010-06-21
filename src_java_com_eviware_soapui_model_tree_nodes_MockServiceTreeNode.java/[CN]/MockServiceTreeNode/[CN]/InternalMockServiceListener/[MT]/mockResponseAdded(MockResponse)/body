@@ -1,0 +1,5 @@
+{
+  MockOperationTreeNode operationTreeNode=(MockOperationTreeNode)getTreeModel().getTreeNode(mockResponse.getMockOperation());
+  if (operationTreeNode != null)   operationTreeNode.mockResponseAdded(mockResponse);
+ else   throw new RuntimeException("Adding mockResponse to unknwown MockOperation");
+}

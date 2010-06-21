@@ -1,0 +1,21 @@
+{
+  AssertionStatus currentStatus=AssertionStatus.UNKNOWN;
+  int cnt=getAssertionCount();
+  if (cnt == 0)   return currentStatus;
+  if (mockResponse.getMockResult() != null) {
+    if (mockResponse.getMockResult().getMockRequest() == null) {
+      currentStatus=AssertionStatus.FAILED;
+    }
+  }
+ else   return currentStatus;
+  for (int c=0; c < cnt; c++) {
+    WsdlMessageAssertion assertion=getAssertionAt(c);
+    if (assertion.isDisabled())     continue;
+    if (assertion.getStatus() == AssertionStatus.FAILED) {
+      currentStatus=AssertionStatus.FAILED;
+      break;
+    }
+  }
+  if (currentStatus == AssertionStatus.UNKNOWN)   currentStatus=AssertionStatus.VALID;
+  return currentStatus;
+}

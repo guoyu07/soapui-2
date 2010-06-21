@@ -1,0 +1,9 @@
+{
+  String editorFont=settings.getString(UISettings.EDITOR_FONT,null);
+  if (StringUtils.hasContent(editorFont))   return Font.decode(editorFont);
+  Integer fontSize=(Integer)UIManager.get("customFontSize");
+  if (fontSize == null) {
+    fontSize=DEFAULT_EDITOR_FONT_SIZE;
+  }
+  return Font.decode(DEFAULT_EDITOR_FONT + " " + fontSize);
+}

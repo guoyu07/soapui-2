@@ -1,0 +1,13 @@
+{
+  RestRequestConfig testRequestConfig=RestRequestConfig.Factory.newInstance();
+  testRequestConfig.setName(stepName);
+  testRequestConfig.setEncoding("UTF-8");
+  testRequestConfig.setEndpoint(me.getEndpoint());
+  String requestContent=me.getRequestContent();
+  testRequestConfig.addNewRequest().setStringValue(requestContent);
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(RESTREQUEST_TYPE);
+  testStep.setConfig(testRequestConfig);
+  testStep.setName(stepName);
+  return testStep;
+}

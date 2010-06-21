@@ -1,0 +1,52 @@
+{
+  int ix=request.getEndpoint().indexOf("://");
+  if (ix == -1)   throw new MissingTransportException("Missing protocol in endpoint [" + request.getEndpoint() + "]");
+  String[] params=JMSEndpoint.extractEndpointParameters(request);
+  if (params.length == 2) {
+    String destinationName=PropertyExpander.expandProperties(submitContext,params[1]);
+    if (destinationName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestSendTransport();
+    }
+ else     if (destinationName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestPublishTransport();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else   if (params.length == 3 && PropertyExpander.expandProperties(submitContext,params[1]).equals("-")) {
+    String destinationName=PropertyExpander.expandProperties(submitContext,params[2]);
+    if (destinationName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestReceiveTransport();
+    }
+ else     if (destinationName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestSubscribeTransport();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else   if (params.length == 3) {
+    String destinationSendName=PropertyExpander.expandProperties(submitContext,params[1]);
+    String destinationReceiveName=PropertyExpander.expandProperties(submitContext,params[2]);
+    if (destinationSendName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX) && destinationReceiveName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestSendReceiveTransport();
+    }
+ else     if (destinationSendName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX) && destinationReceiveName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestSendSubscribeTransport();
+    }
+ else     if (destinationSendName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX) && destinationReceiveName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestPublishSubscribeTransport();
+    }
+ else     if (destinationSendName.startsWith(JMSEndpoint.TOPIC_ENDPOINT_PREFIX) && destinationReceiveName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX)) {
+      return new HermesJmsRequestPublishReceiveTransport();
+    }
+ else {
+      cannotResolve();
+    }
+  }
+ else {
+    cannotResolve();
+  }
+  return null;
+}

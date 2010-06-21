@@ -1,0 +1,12 @@
+{
+  for (  Inspector inspector : getInspectors()) {
+    Component tabComponent=inspector.getComponent();
+    if (tabComponent instanceof JLogList) {
+      JLogList logArea=(JLogList)tabComponent;
+      if (logArea.monitors(loggerName)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

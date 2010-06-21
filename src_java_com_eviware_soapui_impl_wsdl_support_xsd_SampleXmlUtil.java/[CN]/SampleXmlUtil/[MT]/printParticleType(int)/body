@@ -1,0 +1,25 @@
+{
+  StringBuffer returnParticleType=new StringBuffer();
+  returnParticleType.append("Schema Particle Type: ");
+switch (particleType) {
+case SchemaParticle.ALL:
+    returnParticleType.append("ALL\n");
+  break;
+case SchemaParticle.CHOICE:
+returnParticleType.append("CHOICE\n");
+break;
+case SchemaParticle.ELEMENT:
+returnParticleType.append("ELEMENT\n");
+break;
+case SchemaParticle.SEQUENCE:
+returnParticleType.append("SEQUENCE\n");
+break;
+case SchemaParticle.WILDCARD:
+returnParticleType.append("WILDCARD\n");
+break;
+default :
+returnParticleType.append("Schema Particle Type Unknown");
+break;
+}
+return returnParticleType.toString();
+}

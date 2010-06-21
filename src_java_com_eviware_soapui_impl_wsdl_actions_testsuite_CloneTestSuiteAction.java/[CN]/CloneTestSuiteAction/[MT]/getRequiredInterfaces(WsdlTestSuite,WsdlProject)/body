@@ -1,0 +1,21 @@
+{
+  Set<Interface> requiredInterfaces=new HashSet<Interface>();
+  for (int i=0; i < testSuite.getTestCaseCount(); i++) {
+    WsdlTestCase testCase=testSuite.getTestCaseAt(i);
+    for (int y=0; y < testCase.getTestStepCount(); y++) {
+      WsdlTestStep testStep=testCase.getTestStepAt(y);
+      requiredInterfaces.addAll(testStep.getRequiredInterfaces());
+    }
+  }
+  if (requiredInterfaces.size() > 0 && targetProject.getInterfaceCount() > 0) {
+    Map<String,Interface> bindings=new HashMap<String,Interface>();
+    for (    Interface iface : requiredInterfaces) {
+      bindings.put(iface.getTechnicalId(),iface);
+    }
+    for (    Interface iface : targetProject.getInterfaceList()) {
+      bindings.remove(iface.getTechnicalId());
+    }
+    requiredInterfaces.retainAll(bindings.values());
+  }
+  return requiredInterfaces;
+}

@@ -1,0 +1,16 @@
+{
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  try {
+    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionLabel);
+    if (assertion == null)     return null;
+    if (getResponse() != null) {
+      assertion.assertResponse(new WsdlResponseMessageExchange(this),new WsdlTestRunContext(testStep));
+      notifier.notifyChange();
+    }
+    return assertion;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  Thread.currentThread().setName(loadTest.getName() + " LoadTestStatistics");
+  while (running || !samplesStack.isEmpty()) {
+    try {
+      while (!samplesStack.isEmpty()) {
+        SamplesHolder holder=samplesStack.poll();
+        if (holder != null)         addSamples(holder);
+      }
+      Thread.sleep(200);
+    }
+ catch (    EmptyStackException e) {
+    }
+catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  for (  PropertyTransfer transfer : transfers) {
+    result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,transfer,"sourcePath"));
+    result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,transfer,"targetPath"));
+  }
+  return result.toArray(new PropertyExpansion[result.size()]);
+}

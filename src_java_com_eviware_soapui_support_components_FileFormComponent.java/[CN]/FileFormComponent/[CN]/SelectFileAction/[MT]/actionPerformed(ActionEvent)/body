@@ -1,0 +1,7 @@
+{
+  String value=FileFormComponent.this.getValue();
+  File file=UISupport.getFileDialogs().open(this,"Select file",null,null,StringUtils.hasContent(value) ? value : PathUtils.getExpandedResourceRoot(modelItem));
+  if (file != null) {
+    setFile(file);
+  }
+}

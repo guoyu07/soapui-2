@@ -1,0 +1,45 @@
+{
+  _exampleContent=SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_TYPE_EXAMPLE_VALUE);
+  _typeComment=SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_TYPE_COMMENT_TYPE);
+  _skipComments=SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_SKIP_COMMENTS);
+  QName nm=stype.getName();
+  if (nm == null && stype.getContainerField() != null)   nm=stype.getContainerField().getName();
+  if (nm != null && excludedTypes.contains(nm)) {
+    if (!_skipComments)     xmlc.insertComment("Ignoring type [" + nm + "]");
+    return;
+  }
+  if (_typeStack.contains(stype))   return;
+  _typeStack.add(stype);
+  try {
+    if (stype.isSimpleType() || stype.isURType()) {
+      processSimpleType(stype,xmlc);
+      return;
+    }
+    processAttributes(stype,xmlc);
+switch (stype.getContentType()) {
+case SchemaType.NOT_COMPLEX_TYPE:
+case SchemaType.EMPTY_CONTENT:
+      break;
+case SchemaType.SIMPLE_CONTENT:
+{
+      processSimpleType(stype,xmlc);
+    }
+  break;
+case SchemaType.MIXED_CONTENT:
+xmlc.insertChars(pick(WORDS) + " ");
+if (stype.getContentModel() != null) {
+processParticle(stype.getContentModel(),xmlc,true);
+}
+xmlc.insertChars(pick(WORDS));
+break;
+case SchemaType.ELEMENT_CONTENT:
+if (stype.getContentModel() != null) {
+processParticle(stype.getContentModel(),xmlc,false);
+}
+break;
+}
+}
+  finally {
+_typeStack.remove(_typeStack.size() - 1);
+}
+}

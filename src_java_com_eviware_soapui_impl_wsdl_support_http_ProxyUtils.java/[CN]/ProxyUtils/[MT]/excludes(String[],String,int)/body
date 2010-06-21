@@ -1,0 +1,23 @@
+{
+  for (int c=0; c < excludes.length; c++) {
+    String exclude=excludes[c].trim();
+    if (exclude.length() == 0)     continue;
+    int ix=exclude.indexOf(':');
+    if (ix >= 0 && exclude.length() > ix + 1) {
+      String excludePort=exclude.substring(ix + 1);
+      if (proxyPort != -1 && excludePort.equals(String.valueOf(proxyPort))) {
+        exclude=exclude.substring(0,ix);
+      }
+ else {
+        continue;
+      }
+    }
+    String excludeIp=exclude.indexOf('*') >= 0 ? exclude : nslookup(exclude,true);
+    String ip=nslookup(proxyHost,true);
+    Pattern pattern=Pattern.compile(excludeIp);
+    Matcher matcher=pattern.matcher(ip);
+    Matcher matcher2=pattern.matcher(proxyHost);
+    if (matcher.find() || matcher2.find())     return true;
+  }
+  return false;
+}

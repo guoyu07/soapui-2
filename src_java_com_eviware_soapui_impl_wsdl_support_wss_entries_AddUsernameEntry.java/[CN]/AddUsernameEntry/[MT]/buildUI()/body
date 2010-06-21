@@ -1,0 +1,10 @@
+{
+  SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddUsernameEntry>(this));
+  form.addSpace(5);
+  form.appendTextField("username","Username","The username for this token");
+  form.appendPasswordField("password","Password","The password for this token");
+  form.appendCheckBox("addNonce","Add Nonce","Adds a nonce");
+  form.appendCheckBox("addCreated","Add Created","Adds a created");
+  form.appendComboBox("passwordType","Password Type",new String[]{PASSWORD_TEXT,PASSWORD_DIGEST,PASSWORD_DIGEST_EXT},"The password type to generate");
+  return form.getPanel();
+}

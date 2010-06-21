@@ -1,0 +1,33 @@
+{
+  if (isUnidirectional())   return null;
+  WsdlInterface iface=getInterface();
+  Definition definition=iface.getWsdlContext().getDefinition();
+  BindingOperation bindingOperation=findBindingOperation(definition);
+  if (WsdlUtils.isRpc(definition,bindingOperation)) {
+    BindingOutput bindingOutput=bindingOperation.getBindingOutput();
+    String ns=bindingOutput == null ? null : WsdlUtils.getSoapBodyNamespace(bindingOutput.getExtensibilityElements());
+    if (ns == null) {
+      ns=WsdlUtils.getTargetNamespace(definition);
+    }
+    return new QName(ns,bindingOperation.getName() + "Response");
+  }
+ else {
+    Message message=bindingOperation.getOperation().getOutput().getMessage();
+    List<javax.wsdl.Part> parts=message.getOrderedParts(null);
+    if (parts == null || parts.isEmpty())     return null;
+    int ix=0;
+    javax.wsdl.Part part=parts.get(0);
+    while (part != null && (WsdlUtils.isAttachmentOutputPart(part,bindingOperation) || WsdlUtils.isHeaderOutputPart(part,message,bindingOperation))) {
+      ix++;
+      if (ix < parts.size())       part=parts.get(ix);
+ else       part=null;
+    }
+    if (part == null)     return null;
+    if (part.getElementName() != null) {
+      return part.getElementName();
+    }
+ else {
+      return new QName(part.getName());
+    }
+  }
+}

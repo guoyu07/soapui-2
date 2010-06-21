@@ -1,0 +1,12 @@
+{
+  if (project != null) {
+    if (!project.isOpen())     project=workspace.openProject(project);
+  }
+ else {
+    project=workspace.importProject(projectFilePath);
+  }
+  if (project == null) {
+    throw new SoapUIException("Cannot open project on path: " + projectFilePath);
+  }
+  return project;
+}

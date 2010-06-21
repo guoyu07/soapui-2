@@ -1,0 +1,9 @@
+{
+  super(iface,iface.getProject(),treeModel);
+  interfaceListener=new InternalInterfaceListener();
+  iface.addInterfaceListener(interfaceListener);
+  for (int c=0; c < iface.getOperationCount(); c++) {
+    operationNodes.add(TreeNodeFactory.createTreeNode(iface.getOperationAt(c),getTreeModel()));
+  }
+  treeModel.mapModelItems(operationNodes);
+}

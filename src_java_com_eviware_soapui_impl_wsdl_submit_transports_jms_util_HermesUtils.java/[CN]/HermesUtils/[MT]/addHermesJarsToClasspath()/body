@@ -1,0 +1,18 @@
+{
+  String hermesHome=SoapUI.getSettings().getString(ToolsSettings.HERMES_JMS,defaultHermesJMSPath());
+  if (hermesHome == null || "".equals(hermesHome)) {
+    hermesHome=createHermesHomeSetting();
+    if (hermesHome == null)     throw new FileNotFoundException("HermesJMS home not specified !!!");
+  }
+  System.setProperty("hermes.home",hermesHome);
+  String hermesLib=hermesHome + File.separator + "lib";
+  File dir=new File(hermesLib);
+  File[] children=dir.listFiles();
+  List<URL> urls=new ArrayList<URL>();
+  for (  File file : children) {
+    String filename=file.getName();
+    if (!filename.endsWith(".jar") || filename.equals("cglib-2.1.3.jar"))     continue;
+    urls.add(file.toURI().toURL());
+    HermesJMSClasspathHacker.addFile(new File(dir,filename));
+  }
+}

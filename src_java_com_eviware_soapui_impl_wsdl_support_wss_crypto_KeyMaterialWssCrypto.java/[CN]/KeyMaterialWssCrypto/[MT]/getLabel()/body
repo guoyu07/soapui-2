@@ -1,0 +1,7 @@
+{
+  String source=getSource();
+  int ix=source.lastIndexOf(File.separatorChar);
+  if (ix == -1)   ix=source.lastIndexOf('/');
+  if (ix != -1)   source=source.substring(ix + 1);
+  return source;
+}

@@ -1,0 +1,7 @@
+{
+  super(title);
+  this.url=url;
+  putValue(Action.SHORT_DESCRIPTION,description == null ? "Show online help" : description);
+  if (accelerator != null)   putValue(Action.ACCELERATOR_KEY,accelerator);
+  putValue(Action.SMALL_ICON,iconPath == null ? UISupport.HELP_ICON : UISupport.createImageIcon(iconPath));
+}

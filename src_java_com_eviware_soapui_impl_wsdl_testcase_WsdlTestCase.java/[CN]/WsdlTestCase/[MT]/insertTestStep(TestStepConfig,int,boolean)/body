@@ -1,0 +1,17 @@
+{
+  TestStepConfig newStepConfig=ix == -1 ? getConfig().addNewTestStep() : getConfig().insertNewTestStep(ix);
+  newStepConfig.set(stepConfig);
+  WsdlTestStep testStep=createTestStepFromConfig(newStepConfig);
+  if (!ensureUniqueName(testStep)) {
+    testStep.release();
+    getConfig().getTestStepList().remove(newStepConfig);
+    return null;
+  }
+  if (clearIds)   ModelSupport.unsetIds(testStep);
+  if (ix == -1)   testSteps.add(testStep);
+ else   testSteps.add(ix,testStep);
+  testStep.afterLoad();
+  if (getTestSuite() != null)   (getTestSuite()).fireTestStepAdded(testStep,ix == -1 ? testSteps.size() - 1 : ix);
+  notifyPropertyChanged("testSteps",null,testStep);
+  return testStep;
+}

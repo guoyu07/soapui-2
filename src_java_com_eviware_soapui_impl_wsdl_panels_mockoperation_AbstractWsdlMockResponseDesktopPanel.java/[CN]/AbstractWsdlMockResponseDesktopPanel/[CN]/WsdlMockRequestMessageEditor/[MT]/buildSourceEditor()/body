@@ -1,0 +1,9 @@
+{
+  XmlSourceEditorView<?> editor=getSourceEditor();
+  JXEditTextArea inputArea=editor.getInputArea();
+  inputArea.addFocusListener(new InputAreaFocusListener());
+  inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
+  inputArea.getInputHandler().addKeyBinding("F5",recreateButton.getAction());
+  inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
+  return editor;
+}

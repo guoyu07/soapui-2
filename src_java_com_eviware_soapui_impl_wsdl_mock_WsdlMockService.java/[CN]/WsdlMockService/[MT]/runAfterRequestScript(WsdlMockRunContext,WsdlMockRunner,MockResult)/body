@@ -1,0 +1,19 @@
+{
+  String script=getAfterRequestScript();
+  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (afterRequestScriptEnginePool == null) {
+    afterRequestScriptEnginePool=new ScriptEnginePool(this);
+    afterRequestScriptEnginePool.setScript(script);
+  }
+  SoapUIScriptEngine scriptEngine=afterRequestScriptEnginePool.getScriptEngine();
+  try {
+    scriptEngine.setVariable("context",runContext);
+    scriptEngine.setVariable("mockResult",mockResult);
+    scriptEngine.setVariable("mockRunner",runner);
+    scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+    return scriptEngine.run();
+  }
+  finally {
+    afterRequestScriptEnginePool.returnScriptEngine(scriptEngine);
+  }
+}

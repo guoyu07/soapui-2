@@ -1,0 +1,14 @@
+{
+  saver.lockSave();
+  try {
+    if (StringUtils.isNullOrEmpty(scriptText))     return null;
+    if (script == null) {
+      compile();
+    }
+    Object result=script.run();
+    return result;
+  }
+  finally {
+    saver.unlockSave();
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (overrideExisting) {
+    NodeList elmList=header.getElementsByTagName(elementLocalName);
+    Node elm=null;
+    if (elmList.getLength() > 0) {
+      elm=elmList.item(0);
+    }
+    if (elm != null) {
+      header.removeChild(elm);
+    }
+  }
+  return header;
+}

@@ -1,0 +1,10 @@
+{
+  if (textComponent instanceof Undoable) {
+    undoAction.setEnabled(((Undoable)textComponent).canUndo());
+    redoAction.setEnabled(((Undoable)textComponent).canRedo());
+  }
+  cutAction.setEnabled(textComponent.getSelectionEnd() != textComponent.getSelectionStart());
+  copyAction.setEnabled(cutAction.isEnabled());
+  clearAction.setEnabled(cutAction.isEnabled());
+  selectAllAction.setEnabled(textComponent.getText().length() > 0);
+}

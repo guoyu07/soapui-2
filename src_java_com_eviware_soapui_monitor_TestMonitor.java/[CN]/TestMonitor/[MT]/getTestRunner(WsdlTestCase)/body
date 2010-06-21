@@ -1,0 +1,8 @@
+{
+  Iterator<TestCaseRunner> iterator=runningTestCases.iterator();
+  while (iterator.hasNext()) {
+    TestCaseRunner testRunner=iterator.next();
+    if (testRunner.getTestCase() == testCase)     return testRunner;
+  }
+  return null;
+}

@@ -1,0 +1,21 @@
+{
+  boolean createOptional=request.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS);
+  if (!createOptional) {
+    Boolean create=UISupport.confirmOrCancel("Create optional elements in schema?","Create Request");
+    if (create == null)     return;
+    createOptional=create.booleanValue();
+  }
+  WsdlOperation wsdlOperation=(WsdlOperation)request.getOperation();
+  String req=wsdlOperation.createRequest(createOptional);
+  if (req == null) {
+    UISupport.showErrorMessage("Request creation failed");
+    return;
+  }
+  if (request.getRequestContent() != null && request.getRequestContent().trim().length() > 0) {
+    if (UISupport.confirm("Keep existing values","Recreate Request")) {
+      req=SoapUtils.transferSoapHeaders(request.getRequestContent(),req,wsdlOperation.getInterface().getSoapVersion());
+      req=XmlUtils.transferValues(request.getRequestContent(),req);
+    }
+  }
+  request.setRequestContent(req);
+}

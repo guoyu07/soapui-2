@@ -1,0 +1,9 @@
+{
+  if (arg0.getPropertyName().equals(WsdlMockOperation.NAME_PROPERTY)) {
+    int ix=responses.indexOf(arg0.getSource());
+    fireContentsChanged(this,ix,ix);
+    ExtendedComboBoxModel model=(ExtendedComboBoxModel)defaultResponseCombo.getModel();
+    model.setElementAt(arg0.getNewValue(),ix);
+    if (model.getSelectedItem().equals(arg0.getOldValue()))     model.setSelectedItem(arg0.getNewValue());
+  }
+}

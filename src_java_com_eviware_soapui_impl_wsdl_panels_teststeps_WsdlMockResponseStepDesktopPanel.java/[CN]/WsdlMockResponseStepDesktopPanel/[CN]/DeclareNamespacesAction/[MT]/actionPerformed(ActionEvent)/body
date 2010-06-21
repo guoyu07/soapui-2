@@ -1,0 +1,21 @@
+{
+  try {
+    WsdlMockResult lastResult=getMockResponse().getMockResult();
+    String content=null;
+    if (lastResult == null) {
+      if (!UISupport.confirm("Missing last result, declare from default request instead?","Declare Namespaces")) {
+        return;
+      }
+      content=getMockResponse().getMockOperation().getOperation().createRequest(true);
+    }
+ else {
+      content=lastResult.getMockRequest().getRequestContent();
+    }
+    String path=getModelItem().getQuery();
+    if (path == null)     path="";
+    getModelItem().setQuery(XmlUtils.declareXPathNamespaces(content) + path);
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+}

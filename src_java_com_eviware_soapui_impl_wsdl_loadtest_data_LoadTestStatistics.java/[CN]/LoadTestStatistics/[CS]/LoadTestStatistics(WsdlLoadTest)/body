@@ -1,0 +1,15 @@
+{
+  this.loadTest=loadTest;
+  testRunListener=new InternalTestRunListener();
+  testSuiteListener=new InternalTestSuiteListener();
+  propertyChangeListener=new InternalPropertyChangeListener();
+  WsdlTestCase testCase=loadTest.getTestCase();
+  loadTest.addPropertyChangeListener(propertyChangeListener);
+  loadTest.addLoadTestRunListener(testRunListener);
+  testCase.getTestSuite().addTestSuiteListener(testSuiteListener);
+  for (  TestStep testStep : testCase.getTestStepList()) {
+    testStep.addPropertyChangeListener(propertyChangeListener);
+  }
+  history=new StatisticsHistory(this);
+  init();
+}

@@ -1,0 +1,19 @@
+{
+  out.print("<h4>Details for MockResult at " + new java.util.Date(result.getTimestamp()) + " ("+ result.getTimeTaken()+ "ms)</h4>");
+  out.println("<hr/><p><b>Request Headers</b>:</p>");
+  out.print("<table border=\"1\"><tr><td>Header</td><td>Value</td></tr>");
+  com.eviware.soapui.support.types.StringToStringMap headers=result.getMockRequest().getRequestHeaders();
+  for (  String name : headers.getKeys()) {
+    out.println("<tr><td>" + name + "</td><td>"+ headers.get(name)+ "</td></tr>");
+  }
+  out.println("</table>");
+  out.println("<hr/><b>Incoming Request</b>:<br/><pre>" + XmlUtils.entitize(result.getMockRequest().getRequestContent()) + "</pre>");
+  out.println("<hr/><p><b>Response Headers</b>:</p>");
+  out.print("<table border\"1\"><tr><td>Header</td><td>Value</td></tr>");
+  headers=result.getResponseHeaders();
+  for (  String name : headers.getKeys()) {
+    out.println("<tr><td>" + name + "</td><td>"+ headers.get(name)+ "</td></tr>");
+  }
+  out.println("</table>");
+  out.println("<hr/><b>Returned Response</b>:<pre>" + XmlUtils.entitize(result.getResponseContent()) + "</pre>");
+}

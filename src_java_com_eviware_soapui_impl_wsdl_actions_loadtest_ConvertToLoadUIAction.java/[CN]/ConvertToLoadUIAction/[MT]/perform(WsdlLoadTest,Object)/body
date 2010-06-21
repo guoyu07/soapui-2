@@ -1,0 +1,55 @@
+{
+  if (!StartLoadUI.testCajoConnection()) {
+    if (UISupport.confirm(StartLoadUI.LOADUI_LAUNCH_QUESTION,StartLoadUI.LOADUI_LAUNCH_TITLE)) {
+      StartLoadUI.launchLoadUI();
+    }
+    return;
+  }
+  if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.getFormField(Form.PROJECT).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      dialog.setOptions(Form.TESTCASE,IntegrationUtils.getAvailableTestCases(newValue));
+      if (dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
+        dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(newValue,IntegrationUtils.CREATE_ON_PROJECT_LEVEL));
+      }
+    }
+  }
+);
+  dialog.getFormField(Form.TESTCASE).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (newValue.equals(IntegrationUtils.CREATE_NEW_OPTION)) {
+        dialog.setOptions(Form.SOAPUISAMPLER,new String[]{IntegrationUtils.CREATE_NEW_OPTION});
+      }
+ else {
+        dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),newValue));
+      }
+    }
+  }
+);
+  dialog.setOptions(Form.PROJECT,IntegrationUtils.getAvailableProjects());
+  if (!StringUtils.isNullOrEmpty(IntegrationUtils.getOpenedProjectName())) {
+    dialog.setValue(Form.PROJECT,IntegrationUtils.getOpenedProjectName());
+  }
+ else {
+    dialog.setValue(Form.PROJECT,IntegrationUtils.CREATE_NEW_OPTION);
+  }
+  dialog.setOptions(Form.TESTCASE,IntegrationUtils.getAvailableTestCases(dialog.getValue(Form.PROJECT)));
+  if (!dialog.getValue(Form.PROJECT).equals(IntegrationUtils.getOpenedProjectName())) {
+    dialog.setValue(Form.TESTCASE,IntegrationUtils.CREATE_ON_PROJECT_LEVEL);
+  }
+  dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),dialog.getValue(Form.TESTCASE)));
+  dialog.setValue(Form.SOAPUISAMPLER,IntegrationUtils.CREATE_NEW_OPTION);
+  if (dialog.show()) {
+    String targetProjectString=dialog.getValue(Form.PROJECT);
+    String targetTestCaseName=!dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL) ? dialog.getValue(Form.TESTCASE) : null;
+    String targetSamplerName=dialog.getValue(Form.SOAPUISAMPLER);
+    String openedProjectName=IntegrationUtils.getOpenedProjectName();
+    if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))     if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
+      IntegrationUtils.closeOpenedLoadUIProject();
+    }
+ else {
+      return;
+    }
+    exportToLoadUI(loadTest,targetProjectString,targetTestCaseName,targetSamplerName);
+  }
+}

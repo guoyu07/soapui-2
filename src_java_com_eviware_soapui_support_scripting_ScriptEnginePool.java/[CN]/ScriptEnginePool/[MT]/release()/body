@@ -1,0 +1,17 @@
+{
+  int waitcount=10;
+  while (borrowed > 0 && waitcount-- > 0) {
+    try {
+      System.out.println("Waiting for " + borrowed + " script engines");
+      Thread.sleep(1000);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+    }
+  }
+  for (  SoapUIScriptEngine scriptEngine : scriptEngines) {
+    scriptEngine.release();
+  }
+  scriptEngines.clear();
+  if (borrowed > 0)   System.out.println("Failed to release " + borrowed + " script engines");
+}

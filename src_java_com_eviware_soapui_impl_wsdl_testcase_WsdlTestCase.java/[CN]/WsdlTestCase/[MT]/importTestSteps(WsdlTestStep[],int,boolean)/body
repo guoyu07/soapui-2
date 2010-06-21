@@ -1,0 +1,10 @@
+{
+  TestStepConfig[] newStepConfigs=new TestStepConfig[testSteps.length];
+  for (int c=0; c < testSteps.length; c++) {
+    testSteps[c].beforeSave();
+    newStepConfigs[c]=(TestStepConfig)testSteps[c].getConfig().copy();
+  }
+  WsdlTestStep[] result=insertTestSteps(newStepConfigs,index,createCopies);
+  resolveTestCase();
+  return result;
+}

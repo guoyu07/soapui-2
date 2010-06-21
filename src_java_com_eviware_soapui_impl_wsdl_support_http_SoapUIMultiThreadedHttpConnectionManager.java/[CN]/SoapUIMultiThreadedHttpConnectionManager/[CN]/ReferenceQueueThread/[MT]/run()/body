@@ -1,0 +1,13 @@
+{
+  while (!shutdown) {
+    try {
+      Reference ref=REFERENCE_QUEUE.remove();
+      if (ref != null) {
+        handleReference(ref);
+      }
+    }
+ catch (    InterruptedException e) {
+      LOG.debug("ReferenceQueueThread interrupted",e);
+    }
+  }
+}

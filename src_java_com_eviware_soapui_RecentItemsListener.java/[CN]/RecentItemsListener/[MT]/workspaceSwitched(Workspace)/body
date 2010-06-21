@@ -1,0 +1,20 @@
+{
+  switchingWorkspace=false;
+  String filePath=workspace.getPath();
+  String recent=SoapUI.getSettings().getString(RECENT_WORKSPACES_SETTING,null);
+  if (recent != null) {
+    StringToStringMap history=StringToStringMap.fromXml(recent);
+    history.remove(filePath);
+    SoapUI.getSettings().setString(RECENT_WORKSPACES_SETTING,history.toXml());
+  }
+  for (int c=0; c < recentWorkspacesMenu.getItemCount(); c++) {
+    SwingActionDelegate action=(SwingActionDelegate)recentWorkspacesMenu.getItem(c).getAction();
+    if (action == null)     continue;
+    SoapUIActionMapping mapping=action.getMapping();
+    if (filePath.equals(mapping.getParam())) {
+      recentWorkspacesMenu.remove(c);
+      break;
+    }
+  }
+  if (recentWorkspacesMenu.getItemCount() == 0)   recentWorkspacesMenu.add("- empty -").setEnabled(false);
+}

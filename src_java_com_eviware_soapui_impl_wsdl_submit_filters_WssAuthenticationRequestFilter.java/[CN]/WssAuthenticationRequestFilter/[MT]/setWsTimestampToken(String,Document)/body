@@ -1,0 +1,12 @@
+{
+  WSSecTimestamp addTimestamp=new WSSecTimestamp();
+  addTimestamp.setTimeToLive(Integer.parseInt(ttl));
+  WSSConfig wsc=WSSConfig.getNewInstance();
+  wsc.setPrecisionInMilliSeconds(false);
+  wsc.setTimeStampStrict(false);
+  addTimestamp.setWsConfig(wsc);
+  WSSecHeader secHeader=new WSSecHeader();
+  secHeader.insertSecurityHeader(doc);
+  addTimestamp.build(doc,secHeader);
+  return addTimestamp.getElement();
+}

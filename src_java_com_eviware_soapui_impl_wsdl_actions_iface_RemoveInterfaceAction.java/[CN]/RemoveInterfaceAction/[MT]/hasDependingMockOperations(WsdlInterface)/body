@@ -1,0 +1,10 @@
+{
+  for (int c=0; c < iface.getProject().getMockServiceCount(); c++) {
+    MockService mockService=iface.getProject().getMockServiceAt(c);
+    for (int i=0; i < mockService.getMockOperationCount(); i++) {
+      MockOperation mockOperation=mockService.getMockOperationAt(i);
+      if (mockOperation.getOperation().getInterface() == iface)       return true;
+    }
+  }
+  return false;
+}

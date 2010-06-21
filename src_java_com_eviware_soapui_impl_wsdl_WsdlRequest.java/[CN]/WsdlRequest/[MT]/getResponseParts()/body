@@ -1,0 +1,12 @@
+{
+  try {
+    List<MessagePart> result=new ArrayList<MessagePart>();
+    result.addAll(Arrays.asList(getOperation().getDefaultResponseParts()));
+    if (getResponse() != null)     result.addAll(AttachmentUtils.extractAttachmentParts(getOperation(),getResponse().getContentAsString(),true,true,isMtomEnabled()));
+    return result.toArray(new MessagePart[result.size()]);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return new MessagePart[0];
+  }
+}

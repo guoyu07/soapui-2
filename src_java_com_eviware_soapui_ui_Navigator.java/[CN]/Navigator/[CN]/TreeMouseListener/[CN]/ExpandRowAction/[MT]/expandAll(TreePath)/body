@@ -1,0 +1,11 @@
+{
+  if (tp == null)   return;
+  Object node=tp.getLastPathComponent();
+  TreeModel model=mainTree.getModel();
+  if (!model.isLeaf(node)) {
+    mainTree.expandPath(tp);
+    for (int i=0; i < model.getChildCount(node); i++) {
+      expandAll(tp.pathByAddingChild(model.getChild(node,i)));
+    }
+  }
+}

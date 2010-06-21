@@ -1,0 +1,9 @@
+{
+  Enumeration<TreePath> expandedDescendants=mainTree.getExpandedDescendants(getTreePath(workspace));
+  TreePath selectionPath=mainTree.getSelectionPath();
+  treeModel.setShowProperties(!treeModel.isShowProperties());
+  while (expandedDescendants != null && expandedDescendants.hasMoreElements()) {
+    mainTree.expandPath(expandedDescendants.nextElement());
+  }
+  if (selectionPath != null)   mainTree.setSelectionPath(selectionPath);
+}

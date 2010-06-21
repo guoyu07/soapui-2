@@ -1,0 +1,7 @@
+{
+  int ix=methods.indexOf(method);
+  if (!methods.remove(method))   return;
+  notifyPropertyChanged("childMethods",method,null);
+  method.release();
+  getConfig().removeMethod(ix);
+}

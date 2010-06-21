@@ -1,0 +1,11 @@
+{
+  DefaultActionList actions=new DefaultActionList("Actions");
+  if (url != null)   actions.addAction(new HelpAction(url));
+  OKAction okAction=new OKAction();
+  actions.addAction(okAction);
+  if (okAndCancel) {
+    actions.addAction(new CancelAction());
+    actions.setDefaultAction(okAction);
+  }
+  return actions;
+}

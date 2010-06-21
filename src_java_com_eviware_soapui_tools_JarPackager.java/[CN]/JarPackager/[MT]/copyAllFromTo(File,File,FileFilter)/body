@@ -1,0 +1,18 @@
+{
+  if (fromDir.isDirectory() & toDir.isDirectory()) {
+    log.info("Coping files from " + fromDir.getAbsolutePath() + " to "+ toDir.getAbsolutePath());
+    File[] fromFiles=filter == null ? fromDir.listFiles() : fromDir.listFiles(filter);
+    for (    File file : fromFiles) {
+      File toFile=new File(toDir,file.getName());
+      try {
+        copyFile(file,toFile);
+      }
+ catch (      IOException e) {
+        log.error(e.getMessage(),e);
+      }
+    }
+  }
+ else {
+    log.error(fromDir.getAbsolutePath() + " or " + toDir.getAbsolutePath()+ " is not directory!");
+  }
+}

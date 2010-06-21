@@ -1,0 +1,9 @@
+{
+  if (modelItem instanceof WsdlMockResponse) {
+    return new WsdlMockRequestWssInspector((WsdlMockResponse)modelItem);
+  }
+ else   if (modelItem instanceof MessageExchangeModelItem) {
+    return new RequestMessageExchangeWssInspector((MessageExchangeModelItem)modelItem);
+  }
+  return null;
+}

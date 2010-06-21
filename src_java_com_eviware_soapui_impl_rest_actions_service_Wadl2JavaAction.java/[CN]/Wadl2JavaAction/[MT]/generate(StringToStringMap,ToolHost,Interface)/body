@@ -1,0 +1,13 @@
+{
+  String xfireDir=SoapUI.getSettings().getString(ToolsSettings.WADL2JAVA_LOCATION,null);
+  if (Tools.isEmpty(xfireDir)) {
+    UISupport.showErrorMessage("WADL2Java directory must be set in global preferences");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(xfireDir));
+  ((RestService)modelItem).getWadlContext().regenerateWadl();
+  toolHost.run(new ProcessToolRunner(builder,"WADL2Java",modelItem,args));
+}

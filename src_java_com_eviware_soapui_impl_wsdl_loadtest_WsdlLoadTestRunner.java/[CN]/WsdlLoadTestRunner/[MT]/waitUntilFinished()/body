@@ -1,0 +1,11 @@
+{
+  while (runners.size() > 0 || threadsWaitingToStart > 0 || !hasStopped()) {
+    try {
+      Thread.sleep(200);
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e);
+    }
+  }
+  return getStatus();
+}

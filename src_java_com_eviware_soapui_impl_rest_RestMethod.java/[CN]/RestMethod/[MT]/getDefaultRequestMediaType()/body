@@ -1,0 +1,5 @@
+{
+  RestRepresentation[] representations=getRepresentations(RestRepresentation.Type.REQUEST,null);
+  if (representations.length >= 1)   return representations[0].getMediaType();
+  return "application/xml";
+}

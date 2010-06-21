@@ -1,0 +1,11 @@
+{
+  WsdlOperation operation=mockResponse.getMockOperation().getOperation();
+  if (operation == null) {
+    UISupport.showErrorMessage("Missing operation for this mock response");
+    return;
+  }
+  if (UISupport.confirm("Overwrite current response with empty one?","Create Empty")) {
+    WsdlInterface iface=operation.getInterface();
+    mockResponse.setResponseContent(iface.getMessageBuilder().buildEmptyMessage());
+  }
+}

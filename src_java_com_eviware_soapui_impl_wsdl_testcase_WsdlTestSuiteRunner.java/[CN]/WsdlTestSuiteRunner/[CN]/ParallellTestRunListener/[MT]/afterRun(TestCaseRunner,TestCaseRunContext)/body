@@ -1,0 +1,12 @@
+{
+  notifyAfterRunTestCase(testRunner);
+  activeRunners.remove(testRunner);
+  finishedRunners.add(testRunner);
+  testRunner.getTestCase().removeTestRunListener(parallellTestRunListener);
+  if (activeRunners.isEmpty()) {
+    updateStatus();
+synchronized (activeRunners) {
+      activeRunners.notify();
+    }
+  }
+}

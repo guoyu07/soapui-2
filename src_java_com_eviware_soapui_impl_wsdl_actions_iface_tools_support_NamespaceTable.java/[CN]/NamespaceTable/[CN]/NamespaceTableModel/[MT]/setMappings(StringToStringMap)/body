@@ -1,0 +1,11 @@
+{
+  for (int c=0; c < namespaces.size(); c++) {
+    if (mapping.containsKey(namespaces.get(c))) {
+      packages.set(c,mapping.get(namespaces.get(c)));
+    }
+ else {
+      packages.set(c,"");
+    }
+  }
+  fireTableDataChanged();
+}

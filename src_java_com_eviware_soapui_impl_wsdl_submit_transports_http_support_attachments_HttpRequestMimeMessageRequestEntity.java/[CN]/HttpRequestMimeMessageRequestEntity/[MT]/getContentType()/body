@@ -1,0 +1,11 @@
+{
+  try {
+    String header=message.getHeader("Content-Type")[0];
+    int ix=header.indexOf("boundary");
+    return restRequest.getMediaType() + "; " + header.substring(ix);
+  }
+ catch (  MessagingException e) {
+    SoapUI.logError(e);
+  }
+  return restRequest.getMediaType();
+}

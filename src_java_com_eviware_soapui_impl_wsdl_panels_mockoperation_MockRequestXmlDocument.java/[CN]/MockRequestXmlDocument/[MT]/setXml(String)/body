@@ -1,0 +1,12 @@
+{
+  WsdlMockResult mockResult=mockResponse.getMockResult();
+  if (mockResult != null) {
+    String oldXml=getXml();
+    mockResult.getMockRequest().setRequestContent(xml);
+    oldXml="";
+    fireXmlChanged(oldXml,xml);
+  }
+ else {
+    fireXmlChanged(null,xml);
+  }
+}

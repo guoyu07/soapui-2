@@ -1,0 +1,24 @@
+{
+  configureAssertionAction=new ConfigureAssertionAction();
+  removeAssertionAction=new RemoveAssertionAction();
+  moveAssertionUpAction=new MoveAssertionUpAction();
+  moveAssertionDownAction=new MoveAssertionDownAction();
+  JXToolBar toolbar=UISupport.createToolbar();
+  addToolbarButtons(toolbar);
+  toolbar.addGlue();
+  toolbar.add(new ShowOnlineHelpAction(HelpUrls.REQUEST_ASSERTIONS_HELP_URL));
+  assertionList.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int ix=assertionList.getSelectedIndex();
+      configureAssertionAction.setEnabled(ix >= 0);
+      removeAssertionAction.setEnabled(ix >= 0);
+      moveAssertionUpAction.setEnabled(ix >= 0);
+      moveAssertionDownAction.setEnabled(ix >= 0);
+      if (ix == -1)       return;
+      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+      configureAssertionAction.setEnabled(assertion != null && assertion.isConfigurable());
+    }
+  }
+);
+  return toolbar;
+}

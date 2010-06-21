@@ -1,0 +1,18 @@
+{
+  RequestFileAttachment fileAttachment;
+  try {
+    File temp=File.createTempFile("binaryContent",".tmp");
+    OutputStream out=new FileOutputStream(temp);
+    out.write(data);
+    out.close();
+    fileAttachment=new RequestFileAttachment(temp,false,this);
+    fileAttachment.setContentType(contentType);
+    attachments.add(fileAttachment);
+    notifyPropertyChanged(ATTACHMENTS_PROPERTY,null,fileAttachment);
+    return fileAttachment;
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

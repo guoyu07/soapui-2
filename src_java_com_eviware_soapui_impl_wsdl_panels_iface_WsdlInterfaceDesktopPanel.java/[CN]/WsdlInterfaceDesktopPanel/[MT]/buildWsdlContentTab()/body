@@ -1,0 +1,42 @@
+{
+  partTabs=new JTabbedPane();
+  partTabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+  rootNode=new DefaultMutableTreeNode(iface.getName());
+  treeModel=new DefaultTreeModel(rootNode);
+  tree=new JTree(treeModel);
+  tree.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+  tree.setExpandsSelectedPaths(true);
+  tree.addTreeSelectionListener(new InternalTreeSelectionListener());
+  tree.addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent arg0){
+      if (arg0.getClickCount() > 1) {
+        TreePath selectionPath=tree.getSelectionPath();
+        if (selectionPath != null) {
+          DefaultMutableTreeNode treeNode=(DefaultMutableTreeNode)selectionPath.getLastPathComponent();
+          Object userObject=treeNode.getUserObject();
+          if (userObject instanceof InspectItem) {
+            InspectItem item=(InspectItem)userObject;
+            if (item != null && item.selector != null) {
+              item.selector.selectNode(item);
+            }
+          }
+        }
+      }
+    }
+  }
+);
+  JScrollPane scrollPane=new JScrollPane(tree);
+  JSplitPane split=UISupport.createHorizontalSplit(scrollPane,UISupport.createTabPanel(partTabs,true));
+  split.setDividerLocation(250);
+  split.setResizeWeight(0.3);
+  initTreeModel(iface);
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(split,BorderLayout.CENTER);
+  panel.add(buildWsdlTabToolbar(),BorderLayout.PAGE_START);
+  statusBar=new JEditorStatusBar();
+  panel.add(statusBar,BorderLayout.PAGE_END);
+  setPreferredSize(new Dimension(600,500));
+  projectListener=new InternalProjectListener();
+  iface.getProject().addProjectListener(projectListener);
+  return panel;
+}

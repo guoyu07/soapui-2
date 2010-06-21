@@ -1,0 +1,10 @@
+{
+  for (  String key : requestProperties.keySet()) {
+    deleteProperty(key,true);
+  }
+  requestProperties.clear();
+  for (  String key : testRequest.getProperties().keySet()) {
+    requestProperties.put(key,new RestTestStepProperty(key));
+    addProperty(requestProperties.get(key),true);
+  }
+}

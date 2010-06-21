@@ -1,0 +1,25 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.setWidth(450);
+  }
+  dialog.setValue(Form.STEP_NAME,operation.getName());
+  dialog.setBooleanValue(Form.SHOW_TESTCASE,true);
+  dialog.setIntValue(Form.PORT,8181);
+  dialog.setValue(Form.PATH,"/" + operation.getName());
+  if (!dialog.show())   return false;
+  TestStepConfig config=WsdlMockResponseStepFactory.createConfig(operation,false);
+  MockResponseStepConfig mockResponseStepConfig=((MockResponseStepConfig)config.getConfig());
+  config.setName(dialog.getValue(Form.STEP_NAME));
+  mockResponseStepConfig.setPath(dialog.getValue(Form.PATH));
+  mockResponseStepConfig.setPort(dialog.getIntValue(Form.PORT,8181));
+  String response=operation.createResponse(operation.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
+  CompressedStringSupport.setString(mockResponseStepConfig.addNewResponse().addNewResponseContent(),response);
+  WsdlMockResponseTestStep testStep=(WsdlMockResponseTestStep)testCase.addTestStep(config);
+  if (dialog.getBooleanValue(Form.ADD_SCHEMA_ASSERTION))   testStep.addAssertion(SchemaComplianceAssertion.ID);
+  UISupport.selectAndShow(testStep);
+  if (dialog.getBooleanValue(Form.SHOW_TESTCASE)) {
+    UISupport.selectAndShow(testCase);
+  }
+  return true;
+}

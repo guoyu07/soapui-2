@@ -1,0 +1,9 @@
+{
+synchronized (defaults) {
+    EndpointDefaults endpointDefaults=defaults.remove(oldEndpoint);
+    if (endpointDefaults != null) {
+      endpointDefaults.getConfig().setStringValue(newEndpoint);
+      defaults.put(newEndpoint,endpointDefaults);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  GZIPInputStream zipin;
+  InputStream in=new ByteArrayInputStream(content);
+  zipin=new GZIPInputStream(in);
+  ByteArrayOutputStream out=Tools.readAll(zipin,-1);
+  content=out.toByteArray();
+  out.close();
+  zipin.close();
+  return content;
+}

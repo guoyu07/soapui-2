@@ -1,0 +1,32 @@
+{
+  if (jproxyServletWsdlMonitorMessageExchange != null) {
+    String contentType=jproxyServletWsdlMonitorMessageExchange.getResponseContentType();
+    if (contentType.contains("html") || contentType.contains("text")) {
+      try {
+        String content=jproxyServletWsdlMonitorMessageExchange.getResponseContent();
+        content=new String(content.getBytes("UTF-8"),"iso-8859-1");
+        browser.setContent(content,contentType,jproxyServletWsdlMonitorMessageExchange.getEndpoint());
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+    }
+ else     if (!contentType.contains("xml")) {
+      try {
+        String ext=ContentTypeHandler.getExtensionForContentType(contentType);
+        File temp=File.createTempFile("response","." + ext);
+        FileOutputStream fileOutputStream=new FileOutputStream(temp);
+        writeHttpBody(jproxyServletWsdlMonitorMessageExchange.getRawResponseData(),fileOutputStream);
+        fileOutputStream.close();
+        browser.navigate(temp.toURI().toURL().toString(),null);
+        temp.deleteOnExit();
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+ else {
+    browser.setContent("<missing content>","text/plain");
+  }
+}

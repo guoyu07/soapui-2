@@ -1,0 +1,14 @@
+{
+  String dir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,null);
+  File xsltFile=new File(dir + File.separatorChar + "common"+ File.separatorChar+ "xsl"+ File.separatorChar+ "report.xsl");
+  Source xmlSource=new StreamSource(reportFile);
+  Source xsltSource=new StreamSource(xsltFile);
+  TransformerFactory transFact=TransformerFactory.newInstance();
+  Transformer trans=transFact.newTransformer(xsltSource);
+  String outputFolder=SoapUI.getSettings().getString(WSISettings.OUTPUT_FOLDER,null);
+  File output=outputFolder == null || outputFolder.trim().length() == 0 ? null : new File(outputFolder);
+  File tempFile=File.createTempFile("wsi-report",".html",output);
+  trans.transform(xmlSource,new StreamResult(new FileWriter(tempFile)));
+  log.info("WSI Report created at [" + tempFile.getAbsolutePath() + "]");
+  return tempFile;
+}

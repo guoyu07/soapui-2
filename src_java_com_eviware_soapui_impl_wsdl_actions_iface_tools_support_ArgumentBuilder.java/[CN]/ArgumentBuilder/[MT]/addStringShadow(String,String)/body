@@ -1,0 +1,13 @@
+{
+  if (!values.containsKey(name))   return false;
+  String value=values.get(name).toString();
+  if (value == null || value.length() == 0) {
+    return false;
+  }
+  if (arg != null) {
+    args.add(arg);
+  }
+  args.add(value);
+  argsToShadow.add(value);
+  return true;
+}

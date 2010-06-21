@@ -1,0 +1,7 @@
+{
+  boolean old=getKeepSession();
+  if (old != keepSession) {
+    getConfig().setKeepSession(keepSession);
+    notifyPropertyChanged(KEEP_SESSION_PROPERTY,old,keepSession);
+  }
+}

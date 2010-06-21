@@ -1,0 +1,14 @@
+{
+  for (int c=0; c < treeNode.getChildCount(); c++) {
+    XmlTreeNode child=treeNode.getChild(c);
+    XmlLineNumber ln=child.getNodeLineNumber();
+    if (ln != null && (line < ln.getLine() || (line == ln.getLine() && column <= ln.getColumn()))) {
+      if (c == 0)       return treeNode;
+ else       return findXmlTreeNode(treeNode.getChild(c - 1),line,column);
+    }
+  }
+  if (treeNode.getChildCount() > 0) {
+    return findXmlTreeNode(treeNode.getChild(treeNode.getChildCount() - 1),line,column);
+  }
+  return treeNode;
+}

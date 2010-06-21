@@ -1,0 +1,10 @@
+{
+  Element wsaElm=addToElement.getOwnerDocument().createElementNS(wsaVersionNameSpace,elementName);
+  wsaElm.setAttribute("RelationshipType",relationshipType);
+  Text txtElm=addToElement.getOwnerDocument().createTextNode(relatesTo);
+  if (mustUnderstand != null) {
+    wsaElm.setAttributeNS(soapVersion.getEnvelopeNamespace(),"mustUnderstand",mustUnderstand ? "1" : "0");
+  }
+  wsaElm.appendChild(txtElm);
+  return wsaElm;
+}

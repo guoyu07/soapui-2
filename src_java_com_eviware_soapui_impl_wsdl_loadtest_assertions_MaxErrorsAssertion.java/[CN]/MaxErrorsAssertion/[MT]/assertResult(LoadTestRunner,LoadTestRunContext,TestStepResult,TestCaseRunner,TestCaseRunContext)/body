@@ -1,0 +1,15 @@
+{
+  TestStep step=result.getTestStep();
+  if (targetStepMatches(step)) {
+    WsdlLoadTest loadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+    LoadTestLog loadTestLog=loadTest.getLoadTestLog();
+    int errorCount=loadTestLog.getErrorCount(step.getName());
+    if (maxAbsoluteErrors >= 0 && errorCount > maxAbsoluteErrors)     loadTestRunner.fail("Maximum number of errors [" + maxAbsoluteErrors + "] exceeded for step ["+ step.getName()+ "]");
+    int index=step.getTestCase().getIndexOfTestStep(step);
+    LoadTestStatistics statisticsModel=loadTest.getStatisticsModel();
+    long totalSteps=statisticsModel.getStatistic(index,Statistic.COUNT);
+    float relativeErrors=(float)errorCount / (float)totalSteps;
+    if (maxRelativeErrors > 0 && relativeErrors > maxRelativeErrors)     loadTestRunner.fail("Maximum relative number of errors [" + maxRelativeErrors + "] exceeded for step ["+ step.getName()+ "]");
+  }
+  return null;
+}

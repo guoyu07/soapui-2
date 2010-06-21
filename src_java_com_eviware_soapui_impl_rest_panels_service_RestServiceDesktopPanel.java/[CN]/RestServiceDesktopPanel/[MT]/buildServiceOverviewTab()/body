@@ -1,0 +1,18 @@
+{
+  metrics=new MetricsPanel();
+  MetricsSection section=metrics.addSection("WSDL Definition");
+  try {
+    section.addMetric("WADL URL",MetricType.URL).set(restService.getWadlUrl() + (restService.isGenerated() ? " - generated" : ""));
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+  }
+  section.finish();
+  metrics.addSection("Definition Parts");
+  section=metrics.addSection("Resources");
+  operationsTableModel=new ResourcesTableModel();
+  JXTable table=section.addTable(operationsTableModel);
+  table.getColumn(1).setPreferredWidth(60);
+  section.finish();
+  return new JScrollPane(metrics);
+}

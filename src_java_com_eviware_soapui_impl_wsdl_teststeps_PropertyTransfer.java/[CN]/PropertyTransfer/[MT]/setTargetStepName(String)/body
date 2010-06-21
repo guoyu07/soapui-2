@@ -1,0 +1,19 @@
+{
+  String old=getTargetStepName();
+  if ((targetStep == null && old == null) || (targetStep != null && old != null && targetStep.equals(old)))   return;
+  if (targetStep == null)   log.debug("Setting targetStep for transfer [" + getName() + "] to null");
+  this.targetStep=targetStep;
+  config.setTargetStep(targetStep);
+  if (currentTargetStep != null) {
+    if (currentTargetStep instanceof TestStep)     ((TestStep)currentTargetStep).removePropertyChangeListener(TestStep.NAME_PROPERTY,stepNameChangeListener);
+    currentTargetStep.removeTestPropertyListener(propertyNameChangeListener);
+  }
+  currentTargetStep=getPropertyHolder(targetStep);
+  if (currentTargetStep != null) {
+    if (currentTargetStep instanceof TestStep)     ((TestStep)currentTargetStep).addPropertyChangeListener(TestStep.NAME_PROPERTY,stepNameChangeListener);
+    currentTargetStep.addTestPropertyListener(propertyNameChangeListener);
+  }
+ else   log.warn("Failed to get targetStep [" + targetStep + "]");
+  propertyChangeSupport.firePropertyChange(TARGET_STEP_PROPERTY,old,targetStep);
+  setTargetPropertyName(null);
+}

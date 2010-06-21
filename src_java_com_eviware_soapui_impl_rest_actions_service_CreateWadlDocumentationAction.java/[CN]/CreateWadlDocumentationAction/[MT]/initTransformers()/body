@@ -1,0 +1,5 @@
+{
+  transformers=new HashMap<String,Transformer>();
+  TransformerFactory xformFactory=new org.apache.xalan.processor.TransformerFactoryImpl();
+  transformers.put("WADL",xformFactory.newTemplates(new StreamSource(SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/doc/wadl_documentation.xsl"))).newTransformer());
+}

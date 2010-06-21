@@ -1,0 +1,6 @@
+{
+  if (UISupport.confirm("Delete request [" + request.getName() + "] from operation ["+ request.getOperation().getName()+ "]","Delete Request")) {
+    WsdlOperation operation=(WsdlOperation)request.getOperation();
+    operation.removeRequest(request);
+  }
+}

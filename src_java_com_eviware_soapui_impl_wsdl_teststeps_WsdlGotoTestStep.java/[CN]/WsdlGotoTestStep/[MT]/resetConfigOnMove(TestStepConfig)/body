@@ -1,0 +1,7 @@
+{
+  super.resetConfigOnMove(config);
+  gotoStepConfig=(GotoStepConfig)config.getConfig().changeType(GotoStepConfig.type);
+  for (int c=0; c < gotoStepConfig.sizeOfConditionArray(); c++) {
+    conditions.get(c).setConfig(gotoStepConfig.getConditionArray(c));
+  }
+}

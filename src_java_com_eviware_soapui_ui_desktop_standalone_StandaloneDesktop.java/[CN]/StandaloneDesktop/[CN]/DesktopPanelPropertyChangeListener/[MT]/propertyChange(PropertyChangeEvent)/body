@@ -1,0 +1,12 @@
+{
+  DesktopPanel desktopPanel=(DesktopPanel)evt.getSource();
+  JInternalFrame frame=getFrameForDesktopPanel(desktopPanel);
+  if (frame != null) {
+    if (evt.getPropertyName().equals(DesktopPanel.TITLE_PROPERTY)) {
+      frame.setTitle(desktopPanel.getTitle());
+    }
+ else     if (evt.getPropertyName().equals(DesktopPanel.ICON_PROPERTY)) {
+      frame.setFrameIcon(desktopPanel.getIcon());
+    }
+  }
+}

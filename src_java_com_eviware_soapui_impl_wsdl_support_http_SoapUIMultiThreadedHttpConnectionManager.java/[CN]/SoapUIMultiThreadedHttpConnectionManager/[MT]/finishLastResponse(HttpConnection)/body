@@ -1,0 +1,12 @@
+{
+  InputStream lastResponse=conn.getLastResponseInputStream();
+  if (lastResponse != null) {
+    conn.setLastResponseInputStream(null);
+    try {
+      lastResponse.close();
+    }
+ catch (    IOException ioe) {
+      conn.close();
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  String wsdl=values.get(WSDL);
+  boolean useCached=values.getBoolean(CACHED_WSDL);
+  if (modelItem instanceof AbstractInterface) {
+    AbstractInterface<?> iface=(AbstractInterface<?>)modelItem;
+    boolean hasDefinition=StringUtils.hasContent(iface.getDefinition());
+    if (wsdl == null && !useCached && hasDefinition) {
+      return PathUtils.expandPath(iface.getDefinition(),iface);
+    }
+    if (!hasDefinition || (useCached && iface.getDefinitionContext().isCached())) {
+      try {
+        File tempFile=File.createTempFile("tempdir",null);
+        String path=tempFile.getAbsolutePath();
+        tempFile.delete();
+        wsdl=iface.getDefinitionContext().export(path);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  return wsdl;
+}

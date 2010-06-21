@@ -1,0 +1,16 @@
+{
+synchronized (compressedStringConfig) {
+    String compression=compressedStringConfig.getCompression();
+    if ("gzip".equals(compression)) {
+      try {
+        byte[] bytes=Base64.decodeBase64(compressedStringConfig.getStringValue().getBytes());
+        GZIPInputStream in=new GZIPInputStream(new ByteArrayInputStream(bytes));
+        return Tools.readAll(in,-1).toString();
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+      }
+    }
+    return compressedStringConfig.getStringValue();
+  }
+}

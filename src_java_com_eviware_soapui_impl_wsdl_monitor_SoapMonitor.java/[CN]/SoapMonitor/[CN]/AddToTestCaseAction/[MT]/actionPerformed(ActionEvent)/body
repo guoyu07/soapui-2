@@ -1,0 +1,80 @@
+{
+  int[] rows=logTable.getSelectedRows();
+  if (rows.length == 0)   return;
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(this.getClass());
+    dialog.getFormField(TESTSUITE).addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        if (newValue.equals(CREATE_NEW_OPTION)) {
+          dialog.setOptions(TESTCASE,new String[]{CREATE_NEW_OPTION});
+        }
+ else {
+          testSuite=getProject().getTestSuiteByName(newValue);
+          dialog.setOptions(TESTCASE,testSuite == null ? new String[]{CREATE_NEW_OPTION} : ModelSupport.getNames(testSuite.getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+        }
+      }
+    }
+);
+  }
+  String[] testSuiteNames=ModelSupport.getNames(new String[]{CREATE_NEW_OPTION},getProject().getTestSuiteList());
+  dialog.setOptions(TESTSUITE,testSuiteNames);
+  testSuite=getProject().getTestSuiteByName(dialog.getValue(TESTSUITE));
+  dialog.setOptions(TESTCASE,testSuite == null ? new String[]{CREATE_NEW_OPTION} : ModelSupport.getNames(testSuite.getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+  if (dialog.show()) {
+    String targetTestSuiteName=dialog.getValue(TESTSUITE);
+    String targetTestCaseName=dialog.getValue(TESTCASE);
+    WsdlTestSuite testSuite=getProject().getTestSuiteByName(targetTestSuiteName);
+    if (testSuite == null) {
+      targetTestSuiteName=ModelSupport.promptForUniqueName("TestSuite",getProject(),"");
+      if (targetTestSuiteName == null)       return;
+      testSuite=getProject().addNewTestSuite(targetTestSuiteName);
+    }
+    WsdlTestCase testCase=testSuite.getTestCaseByName(targetTestCaseName);
+    if (testCase == null) {
+      targetTestCaseName=ModelSupport.promptForUniqueName("TestCase",testSuite,"");
+      if (targetTestCaseName == null)       return;
+      testCase=testSuite.addNewTestCase(targetTestCaseName);
+    }
+    for (    int row : rows) {
+      WsdlMonitorMessageExchange me=tableModel.getMessageExchangeAt(row);
+      if (me.getOperation() != null) {
+        WsdlTestRequestStep test=(WsdlTestRequestStep)testCase.insertTestStep(WsdlTestRequestStepFactory.createConfig(me.getOperation(),"Monitor Request " + (row + 1)),-1);
+        WsdlTestRequest request=test.getTestRequest();
+        request.setRequestContent(me.getRequestContent());
+        request.setEndpoint(me.getTargetUrl().toString());
+        request.setIncomingWss(incomingRequestWss);
+        Attachment[] requestAttachments=me.getRequestAttachments();
+        if (requestAttachments != null) {
+          for (          Attachment attachment : requestAttachments) {
+            request.importAttachment(attachment);
+          }
+        }
+      }
+ else {
+        HttpRequestStepFactory httpRequestStepFactory=new HttpRequestStepFactory();
+        HttpTestRequestStep test=(HttpTestRequestStep)testCase.insertTestStep(httpRequestStepFactory.createConfig(me,"Monitor Request " + (row + 1)),-1);
+        test.getTestRequest().setRequestHeaders(me.getRequestHeaders());
+        HttpTestRequest request=(HttpTestRequest)test.getHttpRequest();
+        request.setEndpoint(me.getTargetUrl().toString());
+        String existingMediaType=me.getResponseHeaders().get("Content-Type");
+        if (!StringUtils.isNullOrEmpty(existingMediaType)) {
+          request.setMediaType(existingMediaType);
+        }
+        if ("application/octet-stream".equals(existingMediaType) || "application/x-amf".equals(existingMediaType)) {
+          request.attachBinaryData(me.getRawRequestData(),existingMediaType);
+        }
+ else {
+          request.setRequestContent(me.getRequestContent());
+          test.getTestRequest().setRequestContent(me.getRequestContent());
+        }
+        Attachment[] requestAttachments=me.getRequestAttachments();
+        if (requestAttachments != null) {
+          for (          Attachment attachment : requestAttachments) {
+            request.importAttachment(attachment);
+          }
+        }
+      }
+    }
+    if (dialog.getBooleanValue(OPENEDITOR))     UISupport.selectAndShow(testCase);
+  }
+}

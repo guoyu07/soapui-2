@@ -1,0 +1,83 @@
+{
+  requestFilterModel=new DefaultComboBoxModel(new String[]{ALL_FILTER_OPTION});
+  targetHostFilterModel=new DefaultComboBoxModel(new String[]{ALL_FILTER_OPTION});
+  Dimension comboBoxSize=new Dimension(90,18);
+  requestHostFilterCombo=UISupport.setFixedSize(new JComboBox(requestFilterModel),comboBoxSize);
+  ButtonBarBuilder toolbar=new ButtonBarBuilder();
+  toolbar.addFixed(new JLabel("Request Host"));
+  toolbar.addRelatedGap();
+  toolbar.addFixed(requestHostFilterCombo);
+  toolbar.addUnrelatedGap();
+  requestHostFilterCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      int ix=requestHostFilterCombo.getSelectedIndex();
+      if (ix == -1)       return;
+      requestHostFilter.setAcceptNull(ix == 0);
+      if (ix == 0)       requestHostFilter.setPattern(".*",0);
+ else       requestHostFilter.setPattern(requestHostFilterCombo.getSelectedItem().toString(),0);
+      updateRowCountLabel();
+    }
+  }
+);
+  toolbar.addFixed(new JLabel("Target Host"));
+  toolbar.addRelatedGap();
+  targetHostFilterCombo=UISupport.setFixedSize(new JComboBox(targetHostFilterModel),comboBoxSize);
+  toolbar.addFixed(targetHostFilterCombo);
+  toolbar.addUnrelatedGap();
+  targetHostFilterCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      int ix=targetHostFilterCombo.getSelectedIndex();
+      if (ix == -1)       return;
+      targetHostFilter.setAcceptNull(ix == 0);
+      if (ix == 0)       targetHostFilter.setPattern(".*",0);
+ else       targetHostFilter.setPattern(targetHostFilterCombo.getSelectedItem().toString(),0);
+      updateRowCountLabel();
+    }
+  }
+);
+  String[] interfaceNames=ModelSupport.getNames(new String[]{ALL_FILTER_OPTION},ModelSupport.getChildren(getProject(),WsdlInterface.class));
+  toolbar.addFixed(new JLabel("Interface"));
+  toolbar.addRelatedGap();
+  interfaceFilterCombo=UISupport.setFixedSize(new JComboBox(interfaceNames),comboBoxSize);
+  toolbar.addFixed(interfaceFilterCombo);
+  toolbar.addUnrelatedGap();
+  operationFilterModel=new DefaultComboBoxModel(new String[]{ALL_FILTER_OPTION});
+  interfaceFilterCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      String item=(String)interfaceFilterCombo.getSelectedItem();
+      operationFilterModel.removeAllElements();
+      if (item == null || getProject().getInterfaceByName(item) == null) {
+        operationFilterModel.addElement(ALL_FILTER_OPTION);
+        interfaceFilter.setPattern(".*",0);
+      }
+ else       if (getProject().getInterfaceByName(item) != null) {
+        WsdlInterface iface=(WsdlInterface)getProject().getInterfaceByName(item);
+        String[] operationNames=ModelSupport.getNames(new String[]{ALL_FILTER_OPTION},iface.getOperationList());
+        for (        String s : operationNames)         operationFilterModel.addElement(s);
+        interfaceFilter.setPattern(iface.getName(),0);
+      }
+    }
+  }
+);
+  toolbar.addFixed(new JLabel("Operation"));
+  toolbar.addRelatedGap();
+  operationFilterCombo=UISupport.setFixedSize(new JComboBox(operationFilterModel),comboBoxSize);
+  toolbar.addFixed(operationFilterCombo);
+  operationFilterCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      int ix=operationFilterCombo.getSelectedIndex();
+      if (ix == -1) {
+        operationFilter.setPattern(".*",0);
+        updateRowCountLabel();
+        return;
+      }
+      operationFilter.setAcceptNull(ix == 0);
+      if (ix == 0)       operationFilter.setPattern(".*",0);
+ else       operationFilter.setPattern(operationFilterCombo.getSelectedItem().toString(),0);
+      updateRowCountLabel();
+    }
+  }
+);
+  toolbar.setBorder(BorderFactory.createEmptyBorder(3,2,3,0));
+  return toolbar.getPanel();
+}

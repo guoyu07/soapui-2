@@ -1,0 +1,18 @@
+{
+  String wsimportDir=SoapUI.getSettings().getString(ToolsSettings.JBOSSWS_WSTOOLS_LOCATION,null);
+  if (Tools.isEmpty(wsimportDir)) {
+    UISupport.showErrorMessage("JBossWS wstools/wsconsume directory must be set in global preferences");
+    return;
+  }
+  String wsimportExtension=UISupport.isWindows() ? ".bat" : ".sh";
+  File wscompileFile=new File(wsimportDir + File.separatorChar + "wsconsume"+ wsimportExtension);
+  if (!wscompileFile.exists()) {
+    UISupport.showErrorMessage("Could not find wsconsume script at [" + wscompileFile + "]");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,UISupport.isWindows(),modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(wsimportDir));
+  toolHost.run(new ProcessToolRunner(builder,"JBossWS wsconsume",modelItem));
+}

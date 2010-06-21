@@ -1,0 +1,21 @@
+{
+  WsdlLoadTest loadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+  LoadTestStatistics statisticsModel=loadTest.getStatisticsModel();
+  TestStep step=result.getTestStep();
+  if (targetStepMatches(step)) {
+    int index=step.getTestCase().getIndexOfTestStep(step);
+    long average=statisticsModel.getStatistic(index,Statistic.AVERAGE);
+    long count=statisticsModel.getStatistic(index,Statistic.AVERAGE);
+    if (count > minRequests && (count % sampleInterval == 0) && average >= maxAverage) {
+      return returnErrorOrFail("Average [" + average + "] exceeds limit ["+ maxAverage+ "]",maxErrors,loadTestRunner,context);
+    }
+  }
+ else   if (ALL_TEST_STEPS.equals(getTargetStep())) {
+    long average=statisticsModel.getStatistic(LoadTestStatistics.TOTAL,Statistic.AVERAGE);
+    long count=statisticsModel.getStatistic(LoadTestStatistics.TOTAL,Statistic.COUNT);
+    if (count > minRequests && (count % sampleInterval == 0) && average >= maxAverage) {
+      return returnErrorOrFail("Average [" + average + "] exceeds limit ["+ maxAverage+ "]",maxErrors,loadTestRunner,context);
+    }
+  }
+  return null;
+}

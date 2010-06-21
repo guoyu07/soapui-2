@@ -1,0 +1,16 @@
+{
+  File wsFile=new File("test-workspace.xml");
+  WorkspaceImpl ws=new WorkspaceImpl(wsFile.getAbsolutePath(),null);
+  WsdlProject project=ws.createProject("Test Project",null);
+  project.saveAs(new File("test-project.xml").getAbsolutePath());
+  ws.save(false);
+  ws.switchWorkspace(wsFile);
+  assertEquals(1,ws.getProjectCount());
+  assertEquals("Test Project",ws.getProjectAt(0).getName());
+  ws.setProjectRoot("${workspaceDir}");
+  ws.save(false);
+  ws.switchWorkspace(wsFile);
+  assertEquals("${workspaceDir}",ws.getProjectRoot());
+  assertEquals(1,ws.getProjectCount());
+  assertEquals("Test Project",ws.getProjectAt(0).getName());
+}

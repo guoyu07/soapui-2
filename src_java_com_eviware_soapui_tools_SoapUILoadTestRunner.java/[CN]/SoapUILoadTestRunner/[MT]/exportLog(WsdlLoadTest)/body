@@ -1,0 +1,29 @@
+{
+  LoadTestLog loadTestLog=loadTest.getLoadTestLog();
+  ExportLoadTestLogAction exportLoadTestLogAction=new ExportLoadTestLogAction(loadTestLog,null);
+  String logFileName=StringUtils.createFileName(loadTest.getName(),'_') + "-log.txt";
+  if (getOutputFolder() != null) {
+    ensureOutputFolder(loadTest);
+    logFileName=getAbsoluteOutputFolder(loadTest) + File.separator + logFileName;
+  }
+  int cnt=exportLoadTestLogAction.exportToFile(new File(logFileName));
+  log.info("Exported " + cnt + " log items to ["+ logFileName+ "]");
+  int errorCnt=0;
+  for (int c=0; c < loadTestLog.getSize(); c++) {
+    LoadTestLogEntry entry=(LoadTestLogEntry)loadTestLog.getElementAt(c);
+    if (entry != null && entry.isError()) {
+      String entryFileName=StringUtils.createFileName(loadTest.getName(),'_') + "-error-" + errorCnt+++ "-entry.txt";
+      if (getOutputFolder() != null) {
+        ensureOutputFolder(loadTest);
+        entryFileName=getAbsoluteOutputFolder(loadTest) + File.separator + entryFileName;
+      }
+      try {
+        entry.exportToFile(entryFileName);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  log.info("Exported " + errorCnt + " error results");
+}

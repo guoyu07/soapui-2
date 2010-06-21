@@ -1,0 +1,18 @@
+{
+  try {
+    if (desktopPanel.getModelItem() != null) {
+      return closeDesktopPanel(desktopPanel.getModelItem());
+    }
+ else {
+      JInternalFrame frame=getFrameForDesktopPanel(desktopPanel);
+      if (frame != null) {
+        frame.doDefaultCloseAction();
+        return frame.isClosed();
+      }
+      return false;
+    }
+  }
+  finally {
+    enableWindowActions();
+  }
+}

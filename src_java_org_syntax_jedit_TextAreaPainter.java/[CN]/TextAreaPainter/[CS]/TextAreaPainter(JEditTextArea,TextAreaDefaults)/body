@@ -1,0 +1,25 @@
+{
+  this.textArea=textArea;
+  setAutoscrolls(true);
+  setDoubleBuffered(true);
+  setOpaque(true);
+  setBorder(null);
+  ToolTipManager.sharedInstance().registerComponent(this);
+  currentLine=new Segment();
+  currentLineIndex=-1;
+  setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+  setFont(new Font("Monospaced",Font.PLAIN,14));
+  setForeground(Color.black);
+  setBackground(Color.white);
+  blockCaret=defaults.blockCaret;
+  styles=defaults.styles;
+  caretColor=defaults.caretColor;
+  selectionColor=defaults.selectionColor;
+  lineHighlightColor=defaults.lineHighlightColor;
+  lineHighlight=defaults.lineHighlight;
+  bracketHighlightColor=defaults.bracketHighlightColor;
+  bracketHighlight=defaults.bracketHighlight;
+  paintInvalid=defaults.paintInvalid;
+  eolMarkerColor=defaults.eolMarkerColor;
+  eolMarkers=defaults.eolMarkers;
+}

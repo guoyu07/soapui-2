@@ -1,0 +1,48 @@
+{
+  JdbcRequestTestStep testStep=request.getTestStep();
+  getDatabaseConnection();
+  String sql;
+  List<TestProperty> props=testStep.getPropertyList();
+  if (testStep.isStoredProcedure()) {
+    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
+    if (!sql.startsWith("{call ") && !sql.endsWith("}"))     sql="{call " + sql + "}";
+  }
+ else {
+    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
+  }
+  NamedParameterStatement p=new NamedParameterStatement(connection,sql);
+  for (  TestProperty testProperty : props) {
+    String value=PropertyExpander.expandProperties(context,testProperty.getValue());
+    if (!testProperty.getName().equals(WsdlTestStepWithProperties.RESPONSE_AS_XML)) {
+      p.setString(testProperty.getName(),value);
+    }
+  }
+  statement=p.getStatement();
+  try {
+    if (!StringUtils.isNullOrEmpty(testStep.getQueryTimeout())) {
+      String queryTimeout=PropertyExpander.expandProperties(testStep,testStep.getQueryTimeout());
+      statement.setQueryTimeout(Integer.parseInt(queryTimeout));
+    }
+  }
+ catch (  NumberFormatException e) {
+    SoapUI.logError(e,"Problem setting timeout");
+  }
+  try {
+    if (!StringUtils.isNullOrEmpty(testStep.getMaxRows())) {
+      String maxRows=PropertyExpander.expandProperties(testStep,testStep.getMaxRows());
+      statement.setMaxRows(Integer.parseInt(maxRows));
+    }
+  }
+ catch (  NumberFormatException e) {
+    SoapUI.logError(e,"Problem setting maxRows");
+  }
+  try {
+    if (!StringUtils.isNullOrEmpty(testStep.getFetchSize())) {
+      String fetchSize=PropertyExpander.expandProperties(testStep,testStep.getFetchSize());
+      statement.setFetchSize(Integer.parseInt(fetchSize));
+    }
+  }
+ catch (  NumberFormatException e) {
+    SoapUI.logError(e,"Problem setting fetchSize");
+  }
+}

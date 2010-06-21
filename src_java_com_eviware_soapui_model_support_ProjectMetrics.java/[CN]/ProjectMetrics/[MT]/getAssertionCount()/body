@@ -1,0 +1,13 @@
+{
+  int result=0;
+  for (  TestSuite testSuite : project.getTestSuiteList()) {
+    for (    TestCase testCase : testSuite.getTestCaseList()) {
+      for (      TestStep testStep : testCase.getTestStepList()) {
+        if (testStep instanceof Assertable) {
+          result+=((Assertable)testStep).getAssertionCount();
+        }
+      }
+    }
+  }
+  return result;
+}

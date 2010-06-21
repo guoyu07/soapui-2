@@ -1,0 +1,16 @@
+{
+  try {
+    ByteArrayOutputStream tempData=new ByteArrayOutputStream();
+    ZipOutputStream out=new ZipOutputStream(tempData);
+    out.putNextEntry(new ZipEntry(config.getName()));
+    config.setSize(data.length);
+    out.write(data);
+    out.closeEntry();
+    out.finish();
+    out.close();
+    config.setData(tempData.toByteArray());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

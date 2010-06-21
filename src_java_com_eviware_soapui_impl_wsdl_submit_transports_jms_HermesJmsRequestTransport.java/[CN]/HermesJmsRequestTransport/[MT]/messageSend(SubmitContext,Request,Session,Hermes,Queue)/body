@@ -1,0 +1,5 @@
+{
+  MessageProducer messageProducer=session.createProducer(queueSend);
+  Message messageSend=createMessage(submitContext,request,session);
+  return send(submitContext,request,hermes,messageProducer,messageSend);
+}

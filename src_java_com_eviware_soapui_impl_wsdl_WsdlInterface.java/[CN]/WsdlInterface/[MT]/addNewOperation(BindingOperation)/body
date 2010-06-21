@@ -1,0 +1,7 @@
+{
+  WsdlOperation operationImpl=new WsdlOperation(this,getConfig().addNewOperation());
+  operations.add(operationImpl);
+  operationImpl.initFromBindingOperation(operation);
+  fireOperationAdded(operationImpl);
+  return operationImpl;
+}

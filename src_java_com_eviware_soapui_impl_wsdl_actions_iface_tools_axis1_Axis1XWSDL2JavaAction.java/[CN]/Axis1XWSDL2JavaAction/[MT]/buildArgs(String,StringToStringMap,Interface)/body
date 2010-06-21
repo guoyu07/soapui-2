@@ -1,0 +1,35 @@
+{
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.addArgs("java");
+  addJavaArgs(values,builder);
+  builder.addArgs("-cp",classpath,"org.apache.axis.wsdl.WSDL2Java","-v");
+  builder.addBoolean(NO_IMPORTS,"-n");
+  builder.addBoolean(NO_WRAPPED,"-W");
+  builder.addBoolean(SERVER_SIDE,"-s");
+  builder.addBoolean(TEST_CASE,"-t");
+  builder.addBoolean(ALL,"-a");
+  builder.addBoolean(HELPER_GEN,"-H");
+  builder.addBoolean(WRAP_ARRAYS,"-w");
+  if (!values.get(SKELETON_DEPLOY).equals("none"))   builder.addString(SKELETON_DEPLOY,"-S");
+  if (!values.get(DEPLOY_SCOPE).equals("none"))   builder.addString(DEPLOY_SCOPE,"-d");
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT)));
+  builder.addString(TYPE_MAPPING_VERSION,"-T");
+  builder.addString(PACKAGE,"-p");
+  builder.addString(OUTPUT,"-o");
+  builder.addString(FACTORY,"-F");
+  builder.addString(IMPLCLASS,"-c");
+  builder.addString(USERNAME,"-U");
+  builder.addString(PASSWORD,"-P");
+  try {
+    StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
+    for (    String namespace : nsMappings.keySet()) {
+      builder.addArgs("-N" + namespace + "="+ nsMappings.get(namespace));
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  addToolArgs(values,builder);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}

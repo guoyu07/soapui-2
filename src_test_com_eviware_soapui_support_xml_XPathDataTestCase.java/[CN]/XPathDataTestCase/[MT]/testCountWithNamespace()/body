@@ -1,0 +1,6 @@
+{
+  String namespace="declare namespace tes='http://www.example.org/TestService/';\n";
+  XPathData data=new XPathData(namespace + "count(//in/name)",false);
+  assertEquals(namespace + "count(//in/name)",data.getFullPath());
+  assertEquals("count",data.getFunction());
+}

@@ -1,0 +1,9 @@
+{
+  WsdlLoadTest loadTest=buildLoadTest(getConfig().addNewLoadTest());
+  loadTest.setStartDelay(0);
+  loadTest.setName(name);
+  loadTests.add(loadTest);
+  loadTest.addAssertion(TestStepStatusAssertion.STEP_STATUS_TYPE,LoadTestAssertion.ANY_TEST_STEP,false);
+  (getTestSuite()).fireLoadTestAdded(loadTest);
+  return loadTest;
+}

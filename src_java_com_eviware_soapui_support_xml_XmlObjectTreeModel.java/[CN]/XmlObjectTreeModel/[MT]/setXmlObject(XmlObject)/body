@@ -1,0 +1,7 @@
+{
+  if (cursor != null)   cursor.dispose();
+  this.xmlObject=xmlObject;
+  init();
+  XmlTreeNode xmlTreeNode=((XmlTreeNode)getRoot());
+  fireTreeStructureChanged(xmlTreeNode);
+}

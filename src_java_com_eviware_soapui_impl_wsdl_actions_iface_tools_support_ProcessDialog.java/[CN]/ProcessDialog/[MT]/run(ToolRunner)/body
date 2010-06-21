@@ -1,0 +1,9 @@
+{
+  if (!SoapUI.getLogMonitor().hasLogArea("toolLogger"))   SoapUI.getLogMonitor().addLogArea("tools","toolLogger",false);
+  this.runner=toolRunner;
+  runner.setContext(this);
+  Thread thread=new Thread(runner,toolRunner.getName());
+  thread.start();
+  UISupport.centerDialog(this);
+  setVisible(true);
+}

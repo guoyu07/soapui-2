@@ -1,0 +1,11 @@
+{
+  DefaultMutableTreeNode treeRoot=rootNode;
+  targetNamespaces.add(SchemaUtils.getTargetNamespace(xmlObject));
+  int tabCount=partTabs.getTabCount() - 1;
+  String wadlNsDeclaration="declare namespace wadl='" + Constants.WADL10_NS + "';";
+  mapWadlItems(xmlObject,treeRoot,tabCount,wadlNsDeclaration);
+  wadlNsDeclaration="declare namespace wadl='" + Constants.WADL11_NS + "';";
+  mapWadlItems(xmlObject,treeRoot,tabCount,wadlNsDeclaration);
+  tree.expandRow(0);
+  editors.add(inputArea);
+}

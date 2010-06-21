@@ -1,0 +1,23 @@
+{
+  metrics=new MetricsPanel();
+  JXToolBar toolbar=buildOverviewToolbar();
+  metrics.add(toolbar,BorderLayout.NORTH);
+  MetricsSection section=metrics.addSection("Project Summary");
+  section.addMetric(ModelItemIconFactory.getIcon(Project.class),"File Path",MetricType.URL);
+  section.finish();
+  section=metrics.addSection("Interface Summary");
+  buildInterfaceSummary(section);
+  section=metrics.addSection("Test Summary");
+  section.addMetric(ModelItemIconFactory.getIcon(TestSuite.class),TESTSUITES_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(TestCase.class),TESTCASES_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(TestStep.class),TESTSTEPS_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(TestAssertion.class),ASSERTIONS_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(LoadTest.class),LOADTESTS_STATISTICS);
+  section.finish();
+  section=metrics.addSection("Mock Summary");
+  section.addMetric(ModelItemIconFactory.getIcon(MockService.class),MOCKSERVICES_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(MockOperation.class),MOCKOPERATIONS_STATISTICS);
+  section.addMetric(ModelItemIconFactory.getIcon(MockResponse.class),MOCKRESPONSES_STATISTICS);
+  section.finish();
+  return new JScrollPane(metrics);
+}

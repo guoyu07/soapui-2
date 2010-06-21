@@ -1,0 +1,10 @@
+{
+  if (getSchemaType() != null) {
+    SampleXmlUtil generator=new SampleXmlUtil(false);
+    generator.setIgnoreOptional(false);
+    return generator.createSample(getSchemaType());
+  }
+ else {
+    return "";
+  }
+}

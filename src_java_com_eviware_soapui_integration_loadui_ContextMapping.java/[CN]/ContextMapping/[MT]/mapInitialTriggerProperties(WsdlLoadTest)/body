@@ -1,0 +1,32 @@
+{
+  triggerProperties=new HashMap<String,String>();
+  LoadStrategy loadStrategy=loadTest.getLoadStrategy();
+  if (loadStrategy instanceof SimpleLoadStrategy) {
+    SimpleLoadStrategy currentStrategy=(SimpleLoadStrategy)loadStrategy;
+    loadUITriggerType=FIXED_LOAD_TRIGGER;
+    triggerProperties.put("load",createProperyValue(Long.class,Long.toString(loadTest.getThreadCount())));
+    long testDelay=currentStrategy.getTestDelay();
+    if (testDelay > 0) {
+      delayProperties=new HashMap<String,String>();
+      delayProperties.put("delay",createProperyValue(Long.class,Long.toString(testDelay)));
+      int randomFactor=(int)(currentStrategy.getRandomFactor() * 100);
+      delayProperties.put("randomDelay",createProperyValue(Long.class,Integer.toString(randomFactor)));
+    }
+    return;
+  }
+  if (loadStrategy instanceof VarianceLoadStrategy) {
+    loadUITriggerType=VARIANCE_TRIGGER;
+    VarianceLoadStrategy currentStrategy=(VarianceLoadStrategy)loadStrategy;
+    return;
+  }
+  if (loadStrategy instanceof ThreadCountChangeLoadStrategy) {
+    loadUITriggerType=RAMP_TRIGGER;
+    ThreadCountChangeLoadStrategy currentStrategy=(ThreadCountChangeLoadStrategy)loadStrategy;
+    return;
+  }
+  if (loadStrategy instanceof BurstLoadStrategy) {
+    loadUITriggerType=FIXED_LOAD_TRIGGER;
+    triggerProperties.put("load",createProperyValue(Long.class,Long.toString(loadTest.getThreadCount())));
+    return;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  super.resetConfigOnMove(config);
+  mockResponseStepConfig=(MockResponseStepConfig)config.getConfig().changeType(MockResponseStepConfig.type);
+  mockResponseConfig=mockResponseStepConfig.getResponse();
+  mockResponse.setConfig(mockResponseConfig);
+  assertionsSupport.refresh();
+}

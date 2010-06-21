@@ -1,0 +1,11 @@
+{
+  beforeSave();
+  TestStepConfig config=(TestStepConfig)getConfig().copy();
+  RequestStepConfig stepConfig=(RequestStepConfig)config.getConfig().changeType(RequestStepConfig.type);
+  while (stepConfig.getRequest().sizeOfAttachmentArray() > 0)   stepConfig.getRequest().removeAttachment(0);
+  config.setName(name);
+  stepConfig.getRequest().setName(name);
+  WsdlTestRequestStep result=(WsdlTestRequestStep)targetTestCase.addTestStep(config);
+  testRequest.copyAttachmentsTo(result.getTestRequest());
+  return result;
+}

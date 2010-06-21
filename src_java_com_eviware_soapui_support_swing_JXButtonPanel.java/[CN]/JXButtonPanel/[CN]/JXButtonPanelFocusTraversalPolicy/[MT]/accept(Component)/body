@@ -1,0 +1,10 @@
+{
+  if (!isAlternativeFocusMode() && c instanceof AbstractButton) {
+    AbstractButton button=(AbstractButton)c;
+    ButtonGroup group=JXButtonPanel.getButtonGroup(button);
+    if (group != null && group.getSelection() != null && !button.isSelected()) {
+      return false;
+    }
+  }
+  return super.accept(c);
+}

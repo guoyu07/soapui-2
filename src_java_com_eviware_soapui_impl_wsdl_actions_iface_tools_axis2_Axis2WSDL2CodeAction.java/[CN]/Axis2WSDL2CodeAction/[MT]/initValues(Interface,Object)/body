@@ -1,0 +1,5 @@
+{
+  StringToStringMap values=super.initValues(modelItem,param);
+  if (!values.hasValue(PORT_NAME) || !values.hasValue(SERVICE_NAME))   initServiceAndPort(values,(WsdlInterface)modelItem);
+  return values;
+}

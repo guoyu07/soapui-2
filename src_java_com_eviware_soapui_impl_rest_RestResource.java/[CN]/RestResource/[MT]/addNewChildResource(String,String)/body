@@ -1,0 +1,10 @@
+{
+  RestResourceConfig resourceConfig=getConfig().addNewResource();
+  resourceConfig.setName(name);
+  resourceConfig.setPath(path);
+  RestResource resource=new RestResource(this,resourceConfig);
+  resources.add(resource);
+  getInterface().fireOperationAdded(resource);
+  notifyPropertyChanged("childResources",null,resource);
+  return resource;
+}

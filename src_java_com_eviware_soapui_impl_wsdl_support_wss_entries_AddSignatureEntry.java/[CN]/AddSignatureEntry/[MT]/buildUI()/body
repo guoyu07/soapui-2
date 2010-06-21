@@ -1,0 +1,21 @@
+{
+  SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddSignatureEntry>(this));
+  form.addSpace(5);
+  wssContainerListener=new InternalWssContainerListener();
+  getWssContainer().addWssContainerListener(wssContainerListener);
+  form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing").addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));
+    }
+  }
+);
+  keyAliasComboBoxModel=new KeyAliasComboBoxModel(getWssContainer().getCryptoByName(crypto));
+  form.appendComboBox("username","Alias",keyAliasComboBoxModel,"The alias for the key to use for encryption");
+  form.appendPasswordField("password","Password","The certificate password");
+  form.appendComboBox("keyIdentifierType","Key Identifier Type",new Integer[]{0,1,2,3,4},"Sets which key identifier to use").setRenderer(new KeyIdentifierTypeRenderer());
+  form.appendComboBox("signatureAlgorithm","Signature Algorithm",new String[]{DEFAULT_OPTION,WSConstants.RSA,WSConstants.DSA,XMLSignature.ALGO_ID_MAC_HMAC_SHA1,XMLSignature.ALGO_ID_MAC_HMAC_SHA256,XMLSignature.ALGO_ID_MAC_HMAC_SHA384,XMLSignature.ALGO_ID_MAC_HMAC_SHA512,XMLSignature.ALGO_ID_MAC_HMAC_RIPEMD160,XMLSignature.ALGO_ID_MAC_HMAC_NOT_RECOMMENDED_MD5,XMLSignature.ALGO_ID_SIGNATURE_ECDSA_SHA1,XMLSignature.ALGO_ID_SIGNATURE_NOT_RECOMMENDED_RSA_MD5,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA1,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA384,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA512,XMLSignature.ALGO_ID_SIGNATURE_RSA_RIPEMD160},"Set the name of the signature encryption algorithm to use");
+  form.appendComboBox("signatureCanonicalization","Signature Canonicalization",new String[]{DEFAULT_OPTION,WSConstants.C14N_OMIT_COMMENTS,WSConstants.C14N_WITH_COMMENTS,WSConstants.C14N_EXCL_OMIT_COMMENTS,WSConstants.C14N_EXCL_WITH_COMMENTS},"Set the canonicalization method to use.");
+  form.appendCheckBox("useSingleCert","Use Single Certificate","Use single certificate for signing");
+  form.append("Parts",new WSPartsTable(parts,this));
+  return new JScrollPane(form.getPanel());
+}

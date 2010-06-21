@@ -1,0 +1,13 @@
+{
+  writer.println("Status: " + getStatus());
+  writer.println("Time Taken: " + getTimeTaken());
+  writer.println("Size: " + getSize());
+  writer.println("Timestamp: " + new Date(getTimeStamp()).toString());
+  writer.println("TestStep: " + getTestStep().getName());
+  if (error != null)   writer.println("Error:" + error.toString());
+  if (messages != null) {
+    writer.println("\r\n----------------- Messages ------------------------------");
+    for (    String message : messages)     if (message != null)     writer.println(message);
+  }
+  if (isDiscarded())   writer.println("Result has been Discarded!");
+}

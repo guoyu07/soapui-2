@@ -1,0 +1,8 @@
+{
+  WsdlOperation operation=getModelItem().getMockOperation().getOperation();
+  if (operation == null) {
+    return new ValidationError[]{new AssertionError("Missing operation for MockResponse")};
+  }
+  WsdlValidator validator=new WsdlValidator((operation.getInterface()).getWsdlContext());
+  return validator.assertRequest(new WsdlMockResultMessageExchange(getModelItem().getMockResult(),getModelItem()),false);
+}

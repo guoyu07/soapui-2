@@ -1,0 +1,8 @@
+{
+  if (evt.getPropertyName().equals(Interface.ENDPOINT_PROPERTY)) {
+    String endpoint=getEndpoint();
+    if (evt.getOldValue() != null && evt.getOldValue().equals(endpoint)) {
+      setEndpoint((String)evt.getNewValue());
+    }
+  }
+}

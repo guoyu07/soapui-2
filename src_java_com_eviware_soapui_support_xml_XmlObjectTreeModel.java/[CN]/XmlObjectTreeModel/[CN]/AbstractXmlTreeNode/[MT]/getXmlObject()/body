@@ -1,0 +1,8 @@
+{
+  if (cursor != null && cursor.toBookmark(bm)) {
+    XmlObject object=cursor.getObject();
+    if (object != null)     return object;
+ else     if (parent != null)     return parent.getXmlObject();
+  }
+  return null;
+}

@@ -1,0 +1,22 @@
+{
+  if (mockRunner != null && mockRunner.isRunning() && canCancel) {
+    if (!UISupport.confirm("Close and stop MockService","Close MockService")) {
+      return false;
+    }
+  }
+  if (mockRunner != null) {
+    if (mockRunner.isRunning())     mockRunner.stop();
+    mockRunner.release();
+  }
+  getModelItem().removeMockRunListener(mockRunListener);
+  ((OperationListModel)operationList.getModel()).release();
+  logListModel.clear();
+  propertiesTable.release();
+  startGroovyEditor.release();
+  stopGroovyEditor.release();
+  onRequestGroovyEditor.release();
+  afterRequestGroovyEditor.release();
+  inspectorPanel.release();
+  contentInspector.release();
+  return release();
+}

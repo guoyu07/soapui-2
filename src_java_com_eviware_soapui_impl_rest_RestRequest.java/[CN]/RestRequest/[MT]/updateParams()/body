@@ -1,0 +1,5 @@
+{
+  StringToStringMap paramValues=StringToStringMap.fromXml(getConfig().getParameters());
+  params.reset(getRestMethod().getOverlayParams(),paramValues);
+  paramUpdater.setValues(paramValues);
+}

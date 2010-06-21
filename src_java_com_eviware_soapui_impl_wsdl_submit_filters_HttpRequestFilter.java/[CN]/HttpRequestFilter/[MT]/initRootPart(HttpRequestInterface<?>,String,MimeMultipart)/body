@@ -1,0 +1,6 @@
+{
+  MimeBodyPart rootPart=new PreencodedMimeBodyPart("8bit");
+  mp.addBodyPart(rootPart,0);
+  DataHandler dataHandler=new DataHandler(new RestRequestDataSource(wsdlRequest,requestContent));
+  rootPart.setDataHandler(dataHandler);
+}

@@ -1,0 +1,11 @@
+{
+  int ix=getIndexOf(this);
+  if (pt.getY() < 12 && ix > 0) {
+    Rectangle bounds=JTestSuiteTestCaseList.this.getComponent(ix - 1).getBounds();
+    JTestSuiteTestCaseList.this.scrollRectToVisible(bounds);
+  }
+ else   if (pt.getY() > getHeight() - 12 && ix < testSuite.getTestCaseCount() - 1) {
+    Rectangle bounds=JTestSuiteTestCaseList.this.getComponent(ix + 1).getBounds();
+    JTestSuiteTestCaseList.this.scrollRectToVisible(bounds);
+  }
+}

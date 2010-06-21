@@ -1,0 +1,13 @@
+{
+  WebstartUtilCore.init();
+  CajoServer.getInstance().start();
+  mainArgs=args;
+  BrowserComponent.initialize();
+  SoapUIRunner soapuiRunner=new SoapUIRunner();
+  if (!BrowserComponent.isJXBrowserDisabled() && Xpcom.isJVMValid()) {
+    SwingUtilities.invokeLater(soapuiRunner);
+  }
+ else {
+    soapuiRunner.run();
+  }
+}

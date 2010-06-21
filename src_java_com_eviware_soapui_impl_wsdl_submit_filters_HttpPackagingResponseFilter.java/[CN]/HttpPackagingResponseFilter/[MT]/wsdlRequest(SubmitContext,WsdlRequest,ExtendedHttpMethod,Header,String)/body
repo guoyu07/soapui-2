@@ -1,0 +1,10 @@
+{
+  if (context.hasProperty("PreWssProcessedDocument"))   requestContent=String.valueOf(context.getProperty("PreWssProcessedDocument"));
+  XmlBeansSettingsImpl settings=request.getSettings();
+  if (!settings.getBoolean(WsdlRequest.INLINE_RESPONSE_ATTACHMENTS) && responseContentTypeHeader != null && responseContentTypeHeader.getValue().toUpperCase().startsWith("MULTIPART")) {
+    return new WsdlMimeMessageResponse(request,httpMethod,requestContent,context);
+  }
+ else {
+    return new WsdlSinglePartHttpResponse(request,httpMethod,requestContent,context);
+  }
+}

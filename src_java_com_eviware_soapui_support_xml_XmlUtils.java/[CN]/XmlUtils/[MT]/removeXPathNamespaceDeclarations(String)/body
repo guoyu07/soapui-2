@@ -1,0 +1,8 @@
+{
+  while (xpath.startsWith("declare namespace")) {
+    int ix=xpath.indexOf(';');
+    if (ix == -1)     break;
+    xpath=xpath.substring(ix + 1).trim();
+  }
+  return xpath;
+}

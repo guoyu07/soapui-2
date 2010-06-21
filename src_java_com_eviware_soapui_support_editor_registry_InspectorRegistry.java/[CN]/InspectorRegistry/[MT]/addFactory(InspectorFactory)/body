@@ -1,0 +1,10 @@
+{
+  for (int c=0; c < factories.size(); c++) {
+    InspectorFactory f=factories.get(c);
+    if (f.getInspectorId().equals(factory.getInspectorId())) {
+      factories.set(c,factory);
+      return;
+    }
+  }
+  factories.add(factory);
+}

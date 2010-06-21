@@ -1,0 +1,28 @@
+{
+  int count=0;
+  List<Request> result=new ArrayList<Request>();
+  for (int c=0; c < iface.getOperationCount(); c++) {
+    WsdlOperation operation=iface.getOperationAt(c);
+    String newRequest=operation.createRequest(buildOptional);
+    List<Request> requests=operation.getRequestList();
+    for (    Request request : requests) {
+      String requestContent=request.getRequestContent();
+      if (keepHeaders) {
+        newRequest=SoapUtils.transferSoapHeaders(requestContent,newRequest,iface.getSoapVersion());
+      }
+      String req=XmlUtils.transferValues(requestContent,newRequest);
+      if (!req.equals(requestContent)) {
+        if (!XmlUtils.prettyPrintXml(req).equals(XmlUtils.prettyPrintXml(requestContent))) {
+          if (createBackups) {
+            WsdlRequest backupRequest=operation.addNewRequest("Backup of [" + request.getName() + "]");
+            ((WsdlRequest)request).copyTo(backupRequest,false,false);
+          }
+          ((WsdlRequest)request).setRequestContent(req);
+          count++;
+          result.add(request);
+        }
+      }
+    }
+  }
+  return result;
+}

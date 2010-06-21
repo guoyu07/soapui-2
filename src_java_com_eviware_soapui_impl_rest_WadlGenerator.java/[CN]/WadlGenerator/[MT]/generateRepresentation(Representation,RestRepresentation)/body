@@ -1,0 +1,13 @@
+{
+  representationConfig.setMediaType(representation.getMediaType());
+  if (StringUtils.hasContent(representation.getId()))   representationConfig.setId(representation.getId());
+  if (!isWADL11) {
+    List<?> status=representation.getStatus();
+    if (status != null && status.size() > 0) {
+      StringBuilder statusStr=new StringBuilder();
+      for (      Object s : status)       statusStr.append(s).append(" ");
+      ((Element)representationConfig.getDomNode()).setAttribute("status",statusStr.toString().trim());
+    }
+  }
+  if (representation.getElement() != null)   representationConfig.setElement(representation.getElement());
+}

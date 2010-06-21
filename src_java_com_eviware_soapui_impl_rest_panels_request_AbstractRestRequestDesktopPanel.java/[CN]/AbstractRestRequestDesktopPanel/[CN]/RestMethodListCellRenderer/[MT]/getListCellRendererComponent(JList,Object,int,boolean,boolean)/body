@@ -1,0 +1,9 @@
+{
+  Component result=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+  if (value instanceof RestMethod) {
+    RestMethod item=(RestMethod)value;
+    setIcon(item.getIcon());
+    setText(item.getResource().getName() + " -> " + item.getName());
+  }
+  return result;
+}

@@ -1,0 +1,6 @@
+{
+  transformers=new HashMap<String,Transformer>();
+  TransformerFactory xformFactory=TransformerFactory.newInstance();
+  Transformer transformer=xformFactory.newTransformer(new StreamSource(SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/doc/wsdl-viewer.xsl")));
+  transformers.put("WSDL",transformer);
+}

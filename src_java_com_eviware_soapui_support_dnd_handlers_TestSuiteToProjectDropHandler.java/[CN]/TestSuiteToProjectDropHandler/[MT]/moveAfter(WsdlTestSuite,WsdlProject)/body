@@ -1,0 +1,10 @@
+{
+  String name=UISupport.prompt("Specify name for moved TestSuite","Move TestSuite",source.getName());
+  if (name == null)   return false;
+  WsdlTestSuite testSuite=CloneTestSuiteAction.cloneToAnotherProject(source,target.getName(),name,true,source.getDescription());
+  if (testSuite != null) {
+    source.getProject().removeTestSuite(source);
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,12 @@
+{
+  HashMap<String,Object> context=new HashMap<String,Object>();
+  HashMap<String,String> properties=new HashMap<String,String>();
+  properties.put(PROJECT_FILE,createProperyValue(File.class,soapUIProjectPath));
+  properties.put(TEST_SUITE,createProperyValue(String.class,soapUITestSuite));
+  properties.put(TEST_CASE,createProperyValue(String.class,soapUITestCase));
+  context.put(LOADUI_PROJECT_NAME,loadUIProject);
+  context.put(LOADUI_TEST_CASE_NAME,loadUITestCase);
+  context.put(SOAPUI_SAMPLER_LABEL,loadUISoapUISampler);
+  context.put(SOAPUI_SAMPLER_PROPERTIES,properties);
+  return context;
+}

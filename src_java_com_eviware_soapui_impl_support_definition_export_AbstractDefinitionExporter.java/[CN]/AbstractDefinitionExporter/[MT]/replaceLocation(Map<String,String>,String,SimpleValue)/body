@@ -1,0 +1,16 @@
+{
+  String location=wsdlImport.getStringValue();
+  if (location != null) {
+    if (location.startsWith("file:") || location.indexOf("://") > 0) {
+      String newLocation=urlToFileMap.get(location);
+      if (newLocation != null)       wsdlImport.setStringValue(newLocation);
+ else       throw new Exception("Missing local file for [" + newLocation + "]");
+    }
+ else {
+      String loc=Tools.joinRelativeUrl(baseUrl,location);
+      String newLocation=urlToFileMap.get(loc);
+      if (newLocation != null)       wsdlImport.setStringValue(newLocation);
+ else       throw new Exception("Missing local file for [" + loc + "]");
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  File file=UISupport.getFileDialogs().open(this,dialogTitle,null,null,null);
+  if (file == null)   return;
+  try {
+    byte[] ba=FileUtils.readFileToByteArray(file);
+    Base64 b64=new Base64();
+    String hex=new String(b64.encode(ba));
+    int pos=textArea.getCaretPosition();
+    StringBuffer text=new StringBuffer(textArea.getText());
+    text.insert(pos,hex);
+    textArea.setText(text.toString());
+  }
+ catch (  IOException e1) {
+    UISupport.showErrorMessage("Error reading from file: " + e1.getMessage());
+  }
+}

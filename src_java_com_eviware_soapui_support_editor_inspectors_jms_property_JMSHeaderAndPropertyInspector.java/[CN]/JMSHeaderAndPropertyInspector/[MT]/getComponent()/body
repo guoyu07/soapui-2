@@ -1,0 +1,15 @@
+{
+  if (panel != null)   return panel;
+  headersTableModel=new StringToStringMapTableModel(model.getJMSHeadersAndProperties(),"Key","Value",!model.isReadOnly());
+  headersTableModel.addTableModelListener(new TableModelListener(){
+    public void tableChanged(    TableModelEvent arg0){
+      StringToStringMap map=model.getJMSHeadersAndProperties();
+      setTitle("JMS (" + (map == null ? "0" : map.size()) + ")");
+    }
+  }
+);
+  headersTable=new JTable(headersTableModel);
+  panel=new JPanel(new BorderLayout());
+  panel.add(new JScrollPane(headersTable),BorderLayout.CENTER);
+  return panel;
+}

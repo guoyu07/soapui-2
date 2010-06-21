@@ -1,0 +1,21 @@
+{
+  TestProperty pivotValue=array.getPropertyAt(pivotIndex);
+  swap(array,pivotIndex,hi);
+  int index=lo;
+  for (int i=lo; i < hi; i++) {
+    if (ascending) {
+      if ((array.getPropertyAt(i).getName().toUpperCase().compareTo(pivotValue.getName().toUpperCase()) >= 0)) {
+        swap(array,i,index);
+        index++;
+      }
+    }
+ else {
+      if ((array.getPropertyAt(i).getName().toUpperCase().compareTo(pivotValue.getName().toUpperCase()) <= 0)) {
+        swap(array,i,index);
+        index++;
+      }
+    }
+  }
+  swap(array,hi,index);
+  return index;
+}

@@ -1,0 +1,27 @@
+{
+  SoapUI.getThreadPool().execute(new Runnable(){
+    public void run(){
+      SubmitContext context=new WsdlTestRunContext(getModelItem());
+      statusBar.setIndeterminate(true);
+      amfRequestTestStep.initAmfRequest(context);
+      if (context.getProperty(AMFRequest.AMF_SCRIPT_ERROR) != null) {
+        UISupport.showInfoMessage(((Throwable)context.getProperty(AMFRequest.AMF_SCRIPT_ERROR)).getMessage());
+      }
+ else {
+        UISupport.showInfoMessage(scriptInfo(context));
+      }
+      statusBar.setIndeterminate(false);
+      amfRequestTestStep.getAMFRequest().clearArguments();
+    }
+    @SuppressWarnings("unchecked") private String scriptInfo(    SubmitContext context){
+      HashMap<String,Object> parameters=(HashMap<String,Object>)context.getProperty(AMFRequest.AMF_SCRIPT_PARAMETERS);
+      HashMap<String,Object> amfHeaders=(HashMap<String,Object>)context.getProperty(AMFRequest.AMF_SCRIPT_HEADERS);
+      StringBuilder sb=new StringBuilder();
+      sb.append("parameters " + (parameters != null ? parameters.toString() : ""));
+      sb.append("\n");
+      sb.append("amfHeaders " + (amfHeaders != null ? amfHeaders.toString() : ""));
+      return sb.toString();
+    }
+  }
+);
+}

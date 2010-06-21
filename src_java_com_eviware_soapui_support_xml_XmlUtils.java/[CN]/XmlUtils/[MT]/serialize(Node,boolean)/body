@@ -1,0 +1,9 @@
+{
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(node);
+    return prettyPrint ? xmlObject.xmlText(new XmlOptions().setSavePrettyPrint()) : xmlObject.xmlText();
+  }
+ catch (  XmlException e) {
+    return e.toString();
+  }
+}

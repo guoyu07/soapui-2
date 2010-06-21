@@ -1,0 +1,45 @@
+{
+  Thread.currentThread().setName("LogList Updater for " + title);
+  try {
+    while (!released && !linesToAdd.isEmpty()) {
+      try {
+        if (!linesToAdd.isEmpty()) {
+          SwingUtilities.invokeAndWait(new Runnable(){
+            public void run(){
+              try {
+synchronized (lines) {
+                  while (!linesToAdd.isEmpty()) {
+                    int sz=lines.size();
+                    lines.addAll(linesToAdd);
+                    linesToAdd.clear();
+                    fireIntervalAdded(LogListModel.this,sz,lines.size() - sz);
+                  }
+                  int cnt=0;
+                  while (lines.size() > maxRows) {
+                    lines.remove(0);
+                    cnt++;
+                  }
+                  if (cnt > 0)                   fireIntervalRemoved(LogListModel.this,0,cnt - 1);
+                  if (tailing) {
+                    logList.ensureIndexIsVisible(lines.size() - 1);
+                  }
+                }
+              }
+ catch (              Throwable e) {
+                SoapUI.logError(e);
+              }
+            }
+          }
+);
+        }
+        Thread.sleep(500);
+      }
+ catch (      Throwable e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  finally {
+    future=null;
+  }
+}

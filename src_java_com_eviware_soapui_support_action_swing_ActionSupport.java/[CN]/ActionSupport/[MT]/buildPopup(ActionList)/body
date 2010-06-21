@@ -1,0 +1,5 @@
+{
+  if (actions == null || actions.getActionCount() == 0)   return null;
+  JPopupMenu popup=new JPopupMenu(actions.getLabel());
+  return ActionSupport.addActions(actions,popup);
+}

@@ -1,0 +1,9 @@
+{
+  JLabel jlabel=null;
+  if (label != null) {
+    jlabel=new JLabel(label.endsWith(":") ? label : label + ":");
+    jlabel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
+    if (labelFont != null)     jlabel.setFont(labelFont);
+  }
+  return append(label,jlabel,component,alignments);
+}

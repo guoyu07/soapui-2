@@ -1,0 +1,43 @@
+{
+  if (!StartLoadUI.testCajoConnection()) {
+    if (UISupport.confirm(StartLoadUI.LOADUI_LAUNCH_QUESTION,StartLoadUI.LOADUI_LAUNCH_TITLE)) {
+      StartLoadUI.launchLoadUI();
+    }
+    return;
+  }
+  XFormDialog dialog=ADialogBuilder.buildDialog(TestCaseForm.class);
+  dialog.setOptions(TestCaseForm.LOADUIPROJECT,IntegrationUtils.getAvailableProjects());
+  if (!StringUtils.isNullOrEmpty(IntegrationUtils.getOpenedProjectName())) {
+    dialog.setValue(TestCaseForm.LOADUIPROJECT,IntegrationUtils.getOpenedProjectName());
+  }
+ else {
+    dialog.setValue(TestCaseForm.LOADUIPROJECT,IntegrationUtils.CREATE_NEW_OPTION);
+  }
+  dialog.setOptions(TestCaseForm.LOADTESTS,ModelSupport.getNames(testCase.getLoadTestList()));
+  if (dialog.show()) {
+    if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+      String loadUIProject=dialog.getValue(TestCaseForm.LOADUIPROJECT);
+      String openedProjectName=IntegrationUtils.getOpenedProjectName();
+      if (!StringUtils.isNullOrEmpty(openedProjectName) && !loadUIProject.equals(openedProjectName)) {
+        if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
+          IntegrationUtils.closeOpenedLoadUIProject();
+        }
+ else {
+          return;
+        }
+      }
+      String[] soapuiLoadTests=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(TestCaseForm.LOADTESTS)).getSelectedOptions());
+      if (soapuiLoadTests.length == 0) {
+        UISupport.showErrorMessage("No LoadTests selected.");
+        return;
+      }
+      try {
+        IntegrationUtils.exportMultipleLoadTestToLoadUI(testCase,soapuiLoadTests,loadUIProject);
+      }
+ catch (      IOException e) {
+        UISupport.showInfoMessage("Error while opening selected loadUI project");
+        return;
+      }
+    }
+  }
+}

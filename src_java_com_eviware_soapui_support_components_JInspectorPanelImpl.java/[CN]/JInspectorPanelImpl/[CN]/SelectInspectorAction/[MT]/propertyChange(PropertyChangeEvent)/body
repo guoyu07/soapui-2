@@ -1,0 +1,12 @@
+{
+  if (evt.getPropertyName().equals(Inspector.TITLE_PROPERTY))   putValue(AbstractAction.NAME,evt.getNewValue());
+ else   if (evt.getPropertyName().equals(Inspector.ICON_PROPERTY))   putValue(AbstractAction.SMALL_ICON,evt.getNewValue());
+ else   if (evt.getPropertyName().equals(Inspector.DESCRIPTION_PROPERTY))   putValue(AbstractAction.SHORT_DESCRIPTION,evt.getNewValue());
+ else   if (evt.getPropertyName().equals(Inspector.ENABLED_PROPERTY)) {
+    boolean enable=((Boolean)evt.getNewValue()).booleanValue();
+    setEnabled(enable);
+    if (!enable && currentInspector == inspector) {
+      inspectorButtons.get(currentInspector).setSelected(false);
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  if (StringUtils.isNullOrEmpty(xml))   return xml;
+  XmlObject xmlObject=null;
+  XmlCursor cursor=null;
+  try {
+    xmlObject=XmlObject.Factory.parse(xml);
+    cursor=xmlObject.newCursor();
+    while (cursor.currentTokenType() != TokenType.START && cursor.currentTokenType() != TokenType.ENDDOC) {
+      cursor.toNextToken();
+    }
+    if (cursor.currentTokenType() == TokenType.START) {
+      Map<?,?> nsMap=new HashMap<Object,Object>();
+      cursor.getAllNamespaces(nsMap);
+      nsMap.remove(cursor.getDomNode().getPrefix());
+      NamedNodeMap attributes=cursor.getDomNode().getAttributes();
+      for (int c=0; attributes != null && c < attributes.getLength(); c++) {
+        nsMap.remove(attributes.item(c).getPrefix());
+      }
+      if (cursor.toFirstChild()) {
+        while (cursor.getDomNode() != xmlObject.getDomNode()) {
+          attributes=cursor.getDomNode().getAttributes();
+          for (int c=0; attributes != null && c < attributes.getLength(); c++) {
+            nsMap.remove(attributes.item(c).getPrefix());
+          }
+          nsMap.remove(cursor.getDomNode().getPrefix());
+          cursor.toNextToken();
+        }
+      }
+      xml=xmlObject.xmlText(new XmlOptions().setSaveOuter().setSavePrettyPrint().setSaveImplicitNamespaces(nsMap));
+    }
+  }
+ catch (  XmlException e) {
+  }
+ finally {
+    if (cursor != null)     cursor.dispose();
+  }
+  return xml;
+}

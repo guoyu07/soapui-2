@@ -1,0 +1,24 @@
+{
+  int ix=transferList.getSelectedIndex();
+  PropertyTransfer config=transferStep.getTransferAt(ix);
+  String name=UISupport.prompt("Specify name for value transfer","Copy Transfer",config.getName());
+  if (name == null || name.trim().length() == 0)   return;
+  PropertyTransfer transfer=transferStep.addTransfer(name);
+  transfer.setSourceStepName(config.getSourceStepName());
+  transfer.setSourcePropertyName(config.getSourcePropertyName());
+  transfer.setSourcePath(config.getSourcePath());
+  transfer.setTargetStepName(config.getTargetStepName());
+  transfer.setTargetPropertyName(config.getTargetPropertyName());
+  transfer.setTargetPath(config.getTargetPath());
+  transfer.setDisabled(config.isDisabled());
+  transfer.setEntitize(config.getEntitize());
+  transfer.setFailOnError(config.getFailOnError());
+  transfer.setIgnoreEmpty(config.getIgnoreEmpty());
+  transfer.setSetNullOnMissingSource(config.getSetNullOnMissingSource());
+  transfer.setTransferChildNodes(config.getTransferChildNodes());
+  transfer.setTransferTextContent(config.getTransferTextContent());
+  transfer.setTransferToAll(config.getTransferToAll());
+  transfer.setUseXQuery(config.getUseXQuery());
+  listModel.addElement(name);
+  transferList.setSelectedIndex(listModel.getSize() - 1);
+}

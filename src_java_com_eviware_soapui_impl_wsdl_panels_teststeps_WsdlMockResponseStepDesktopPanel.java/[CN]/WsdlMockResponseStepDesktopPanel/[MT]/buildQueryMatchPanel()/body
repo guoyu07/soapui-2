@@ -1,0 +1,8 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(buildQueryMatchToolbar(),BorderLayout.NORTH);
+  JSplitPane splitPane=UISupport.createHorizontalSplit(buildQueryEditor(),buildMatchEditor());
+  panel.add(splitPane,BorderLayout.CENTER);
+  splitPane.setDividerLocation(200);
+  return panel;
+}

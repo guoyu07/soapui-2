@@ -1,0 +1,9 @@
+{
+  elements.add(result);
+  fireIntervalAdded(this,elements.size() - 1,elements.size() - 1);
+synchronized (this) {
+    while (elements.size() > maxSize) {
+      removeElementAt(0);
+    }
+  }
+}

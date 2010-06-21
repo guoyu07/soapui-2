@@ -1,0 +1,21 @@
+{
+  XmlObject bodyElement=SoapUtils.getBodyElement(messageObject,soapVersion);
+  if (bodyElement != null) {
+    XmlCursor cursor=bodyElement.newCursor();
+    try {
+      if (cursor.toFirstChild()) {
+        while (!cursor.isContainer())         cursor.toNextSibling();
+        if (cursor.isContainer()) {
+          return cursor.getObject();
+        }
+      }
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+ finally {
+      cursor.dispose();
+    }
+  }
+  return null;
+}

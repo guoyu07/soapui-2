@@ -1,0 +1,18 @@
+{
+  switchingWorkspace=true;
+  recentEditorsMenu.removeAll();
+  if (recentEditorsMenu.getItemCount() == 0)   recentEditorsMenu.add("- empty -").setEnabled(false);
+  String filePath=workspace.getPath();
+  DefaultActionMapping<WorkspaceImpl> mapping=new DefaultActionMapping<WorkspaceImpl>(SwitchWorkspaceAction.SOAPUI_ACTION_ID,null,null,false,filePath);
+  mapping.setName(workspace.getName());
+  mapping.setDescription("Switches to the [" + workspace.getName() + "] workspace");
+  AbstractAction delegate=new SwingActionDelegate(mapping,SoapUI.getWorkspace());
+  recentWorkspacesMenu.add(new JMenuItem(delegate));
+  String recent=SoapUI.getSettings().getString(RECENT_WORKSPACES_SETTING,null);
+  StringToStringMap history=recent == null ? new StringToStringMap() : StringToStringMap.fromXml(recent);
+  history.put(filePath,workspace.getName());
+  SoapUI.getSettings().setString(RECENT_WORKSPACES_SETTING,history.toXml());
+  SwingActionDelegate action=(SwingActionDelegate)recentWorkspacesMenu.getItem(0).getAction();
+  if (action == null)   recentWorkspacesMenu.remove(0);
+  recentEditorsMenu.removeAll();
+}

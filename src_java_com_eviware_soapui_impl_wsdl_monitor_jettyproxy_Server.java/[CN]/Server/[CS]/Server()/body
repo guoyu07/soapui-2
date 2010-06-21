@@ -1,0 +1,5 @@
+{
+  super();
+  if (SoapUI.getLogMonitor() == null || SoapUI.getLogMonitor().getLogArea("jetty log") == null)   return;
+  SoapUI.getLogMonitor().getLogArea("jetty log").addLogger(log.getName(),true);
+}

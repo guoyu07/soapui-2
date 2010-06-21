@@ -1,0 +1,9 @@
+{
+  if (particles.size() == 0)   return attrs;
+  fixOrder();
+  String type=isChoice() ? ":choice" : (isAll() ? ":all" : ":sequence");
+  StringBuilder s=new StringBuilder("<" + schema.getPrefixForNamespace(Settings.xsdns) + type+ ">");
+  for (  Particle item : particles.values())   s.append(item);
+  s.append("</" + schema.getPrefixForNamespace(Settings.xsdns) + type+ ">"+ attrs);
+  return s.toString();
+}

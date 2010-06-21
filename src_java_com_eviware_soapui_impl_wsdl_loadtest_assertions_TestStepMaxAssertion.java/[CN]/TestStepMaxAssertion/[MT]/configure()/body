@@ -1,0 +1,28 @@
+{
+  if (dialog == null) {
+    buildDialog();
+  }
+  StringToStringMap values=new StringToStringMap();
+  values.put(TestStepMaxAssertion.NAME_FIELD,getName());
+  values.put(TestStepMaxAssertion.MINIMUM_REQUESTS_FIELD,String.valueOf(minRequests));
+  values.put(TestStepMaxAssertion.MAX_VALUE_FIELD,String.valueOf(maxValue));
+  values.put(TestStepMaxAssertion.TEST_STEP_FIELD,getTargetStep());
+  values.put(TestStepMaxAssertion.MAX_ERRORS_FIELD,String.valueOf(maxErrors));
+  dialog.setOptions(TestStepMaxAssertion.TEST_STEP_FIELD,getTargetStepOptions(true));
+  values=dialog.show(values);
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    try {
+      minRequests=Integer.parseInt(values.get(TestStepMaxAssertion.MINIMUM_REQUESTS_FIELD));
+      maxValue=Integer.parseInt(values.get(TestStepMaxAssertion.MAX_VALUE_FIELD));
+      maxErrors=Integer.parseInt(values.get(TestStepMaxAssertion.MAX_ERRORS_FIELD));
+      setTargetStep(values.get(TestStepMaxAssertion.TEST_STEP_FIELD));
+      setName(values.get(TestStepMaxAssertion.NAME_FIELD));
+    }
+ catch (    Exception e) {
+      UISupport.showErrorMessage(e.getMessage());
+    }
+    updateConfiguration();
+    return true;
+  }
+  return false;
+}

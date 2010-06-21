@@ -1,0 +1,14 @@
+{
+  String content="";
+  try {
+    FileInputStream fstream=new FileInputStream(path);
+    Properties props=new Properties();
+    props.load(fstream);
+    fstream.close();
+    content=props.getProperty("soapui.app.title");
+  }
+ catch (  Exception e) {
+    System.err.println("Error: " + e.getMessage());
+  }
+  return content;
+}

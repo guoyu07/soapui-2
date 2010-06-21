@@ -1,0 +1,5 @@
+{
+  resolveOldEndpointPattern(request);
+  String[] parameters=request.getEndpoint().replaceFirst(JMS_ENDPIONT_PREFIX,"").split(JMS_ENDPOINT_SEPARATOR);
+  return parameters;
+}

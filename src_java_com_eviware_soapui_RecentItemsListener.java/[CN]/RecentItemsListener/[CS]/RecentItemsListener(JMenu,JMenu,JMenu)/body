@@ -1,0 +1,35 @@
+{
+  recentWorkspacesMenu=recentWorkspacesMenu2;
+  recentProjectsMenu=recentProjectsMenu2;
+  recentEditorsMenu=recentEditorsMenu2;
+  recentEditorsMenu.add("- empty -").setEnabled(false);
+  recentEditorsMenu.getPopupMenu().addPopupMenuListener(new PopupMenuListener(){
+    public void popupMenuCanceled(    PopupMenuEvent e){
+    }
+    public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+    }
+    public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      for (int c=0; c < recentEditorsMenu.getItemCount(); c++) {
+        ShowEditorAction action=(ShowEditorAction)recentEditorsMenu.getItem(c).getAction();
+        if (action == null)         continue;
+        if (action.isReleased()) {
+          recentEditorsMenu.remove(c);
+          c--;
+        }
+ else {
+          try {
+            action.update();
+          }
+ catch (          Throwable e1) {
+            recentEditorsMenu.remove(c);
+            c--;
+          }
+        }
+      }
+      if (recentEditorsMenu.getItemCount() == 0)       recentEditorsMenu.add("- empty -").setEnabled(false);
+    }
+  }
+);
+  updateRecentWorkspacesMenu();
+  updateRecentProjectsMenu();
+}

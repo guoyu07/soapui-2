@@ -1,0 +1,8 @@
+{
+  int ix=assertionList.getSelectedIndex();
+  if (ix == -1)   return;
+  TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+  if (UISupport.confirm("Remove assertion [" + assertion.getName() + "]","Remove Assertion")) {
+    assertable.removeAssertion(assertion);
+  }
+}

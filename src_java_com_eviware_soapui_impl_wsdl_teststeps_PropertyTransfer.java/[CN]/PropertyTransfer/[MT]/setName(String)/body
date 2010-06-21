@@ -1,0 +1,6 @@
+{
+  String old=this.name;
+  this.name=name;
+  config.setName(name);
+  propertyChangeSupport.firePropertyChange(NAME_PROPERTY,old,name);
+}

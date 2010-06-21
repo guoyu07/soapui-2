@@ -1,0 +1,18 @@
+{
+  new Thread(new Runnable(){
+    public void run(){
+      while (getStatus() == Status.RUNNING) {
+        try {
+          loadTest.getLoadStrategy().recalculate(WsdlLoadTestRunner.this,context);
+          long strategyInterval=loadTest.getStrategyInterval();
+          if (strategyInterval < 1)           strategyInterval=WsdlLoadTest.DEFAULT_STRATEGY_INTERVAL;
+          Thread.sleep(strategyInterval);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+).start();
+}

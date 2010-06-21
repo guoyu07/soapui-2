@@ -1,0 +1,10 @@
+{
+  if (runContext.getCurrentStep() == startTestStep && testMockResponse == null) {
+    if (startTestStep instanceof WsdlMockResponseTestStep) {
+    }
+ else {
+      initTestMockResponse(runContext);
+      mockRunListener.setWaiting(true);
+    }
+  }
+}

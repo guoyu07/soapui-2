@@ -1,0 +1,7 @@
+{
+  File folder=new File(path);
+  if (!folder.exists())   return null;
+  if (folder.isDirectory())   return folder.getAbsolutePath();
+  File parentFile=folder.getParentFile();
+  return parentFile == null ? null : parentFile.getAbsolutePath();
+}

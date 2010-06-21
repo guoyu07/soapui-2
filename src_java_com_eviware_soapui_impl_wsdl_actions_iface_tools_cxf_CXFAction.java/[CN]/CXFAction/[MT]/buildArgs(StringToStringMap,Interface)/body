@@ -1,0 +1,35 @@
+{
+  values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT),""));
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("wsdl2java");
+  StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
+  String packages=values.get(PACKAGE).trim();
+  for (  String key : nsMappings.keySet()) {
+    packages+=" " + key + "="+ nsMappings.get(key);
+  }
+  if (packages.length() > 0)   builder.addBoolean(NAMESPACE_MAPPING,"-p",null,packages);
+  builder.addString(BINDING_FILES,"-b");
+  builder.addString(CATALOG_FILE,"-catalog");
+  builder.addString(OUTPUT,"-d");
+  builder.addBoolean(COMPILE,"-compile");
+  builder.addString(CLASSDIR,"-classdir");
+  builder.addBoolean(CLIENT_STUBS,"-client");
+  builder.addBoolean(SERVER_STUBS,"-server");
+  builder.addBoolean(IMPL_STUBS,"-impl");
+  builder.addBoolean(GENERATE_ALL,"-all");
+  builder.addBoolean(ANT_FILE,"-ant");
+  StringToStringMap excludes=StringToStringMap.fromXml(values.get(EXCLUDE_NAMESPACES));
+  for (  String key : excludes.keySet()) {
+    String value=excludes.get(key);
+    if (value.equals("-"))     builder.addArgs("-b",key);
+ else     builder.addArgs("-b",key + "=" + value);
+  }
+  builder.addBoolean(EXSH,"-exsh","true","false");
+  builder.addBoolean(DNS,"-dns","true","false");
+  builder.addBoolean(DEX,"-dex","true","false");
+  builder.addBoolean(VALIDATE,"-validate");
+  builder.addArgs("-verbose");
+  addToolArgs(values,builder);
+  builder.addArgs(getWsdlUrl(values,modelItem));
+  return builder;
+}

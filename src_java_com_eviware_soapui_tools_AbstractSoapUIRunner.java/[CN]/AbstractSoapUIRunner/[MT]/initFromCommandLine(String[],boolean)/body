@@ -1,0 +1,18 @@
+{
+  SoapUIOptions options=initCommandLineOptions();
+  CommandLineParser parser=new PosixParser();
+  CommandLine cmd=parser.parse(options,args);
+  if (options.requiresProject()) {
+    args=cmd.getArgs();
+    if (args.length != 1) {
+      if (printHelp) {
+        HelpFormatter formatter=new HelpFormatter();
+        formatter.printHelp(options.getRunnerName() + " [options] <soapui-project-file>",options);
+      }
+      System.err.println("Missing soapUI project file..");
+      return false;
+    }
+    setProjectFile(args[0]);
+  }
+  return processCommandLine(cmd);
+}

@@ -1,0 +1,25 @@
+{
+  if (dialog == null)   buildDialog();
+  dialogValues.put(STEP_NAME,request.getRestMethod().getName() + " - " + request.getName());
+  dialogValues.put(CLOSE_REQUEST,"true");
+  dialogValues.put(SHOW_TESTCASE,"true");
+  dialogValues.put(SHOW_REQUEST,"true");
+  SoapUIDesktop desktop=SoapUI.getDesktop();
+  closeRequestCheckBox.setEnabled(desktop != null && desktop.hasDesktopPanel(request));
+  dialogValues=dialog.show(dialogValues);
+  if (dialog.getReturnValue() != XFormDialog.OK_OPTION)   return null;
+  ;
+  String name=dialogValues.get(STEP_NAME);
+  RestTestRequestStep testStep=(RestTestRequestStep)testCase.insertTestStep(RestRequestStepFactory.createConfig(request,name),position);
+  if (testStep == null)   return null;
+  if (dialogValues.getBoolean(CLOSE_REQUEST) && desktop != null) {
+    desktop.closeDesktopPanel(request);
+  }
+  if (dialogValues.getBoolean(SHOW_TESTCASE)) {
+    UISupport.selectAndShow(testCase);
+  }
+  if (dialogValues.getBoolean(SHOW_REQUEST)) {
+    UISupport.selectAndShow(testStep);
+  }
+  return testStep;
+}

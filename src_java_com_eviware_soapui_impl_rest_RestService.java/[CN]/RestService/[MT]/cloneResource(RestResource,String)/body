@@ -1,0 +1,8 @@
+{
+  RestResourceConfig resourceConfig=(RestResourceConfig)getConfig().addNewResource().set(resource.getConfig());
+  resourceConfig.setName(name);
+  RestResource newResource=new RestResource(this,resourceConfig);
+  resources.add(newResource);
+  fireOperationAdded(newResource);
+  return newResource;
+}

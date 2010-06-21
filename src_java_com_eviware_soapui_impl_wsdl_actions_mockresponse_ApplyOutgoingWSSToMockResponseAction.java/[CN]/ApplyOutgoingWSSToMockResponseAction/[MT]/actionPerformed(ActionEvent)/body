@@ -1,0 +1,17 @@
+{
+  String req=mockResponse.getResponseContent();
+  try {
+    UISupport.setHourglassCursor();
+    Document dom=XmlUtils.parseXml(req);
+    outgoing.processOutgoing(dom,new DefaultPropertyExpansionContext(mockResponse));
+    StringWriter writer=new StringWriter();
+    XmlUtils.serialize(dom,writer);
+    mockResponse.setResponseContent(writer.toString());
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage(e1);
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

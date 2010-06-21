@@ -1,0 +1,30 @@
+{
+  if (future != null) {
+    thread=Thread.currentThread();
+    if (System.getProperty("soapui.enablenamedthreads") != null)     thread.setName("TestRunner Thread for " + testRunnable.getName());
+  }
+  try {
+    status=Status.RUNNING;
+    setStartTime();
+    internalRun(runContext);
+  }
+ catch (  Throwable t) {
+    log.error("Exception during Test Execution",t);
+    if (t instanceof OutOfMemoryError && UISupport.confirm("Exit now without saving?","Out of Memory Error")) {
+      System.exit(0);
+    }
+    status=Status.FAILED;
+    error=t;
+    reason=t.toString();
+  }
+ finally {
+    setTimeTaken();
+    if (timeoutTimer != null) {
+      timeoutTimer.cancel();
+    }
+    if (status == Status.RUNNING) {
+      status=Status.FINISHED;
+    }
+    internalFinally(runContext);
+  }
+}

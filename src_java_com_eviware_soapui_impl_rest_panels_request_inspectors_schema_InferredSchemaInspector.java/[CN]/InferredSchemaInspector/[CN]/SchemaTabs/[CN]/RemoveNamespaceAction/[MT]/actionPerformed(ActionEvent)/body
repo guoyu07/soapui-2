@@ -1,0 +1,9 @@
+{
+  if (!schemaList.isSelectionEmpty()) {
+    String ns=(String)schemaList.getSelectedValue();
+    if (UISupport.confirm("Remove inferred namespace '" + ns + "'?","Remove namespace")) {
+      if (ns.equals(NO_NAMESPACE))       ns="";
+      InferredSchemaManager.deleteNamespace(service,ns);
+    }
+  }
+}

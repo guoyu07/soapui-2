@@ -1,0 +1,29 @@
+{
+  if (url.endsWith(config.getRootPart().getUrl())) {
+    rootInConfig=url.substring(0,url.length() - config.getRootPart().getUrl().length());
+  }
+  List<InterfaceDefinitionPart> partList=config.getDefinitionParts();
+  for (  InterfaceDefinitionPart part : partList) {
+    if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+      return getPartContent(part);
+    }
+  }
+  if (File.separatorChar == '/') {
+    url=url.replace('/','\\');
+    for (    InterfaceDefinitionPart part : partList) {
+      if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+        return getPartContent(part);
+      }
+    }
+  }
+ else   if (File.separatorChar == '\\') {
+    url=url.replace('\\','/');
+    for (    InterfaceDefinitionPart part : partList) {
+      if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+        return getPartContent(part);
+      }
+    }
+  }
+  log.error("Failed to find [" + url + "] in InterfaceCache");
+  return null;
+}

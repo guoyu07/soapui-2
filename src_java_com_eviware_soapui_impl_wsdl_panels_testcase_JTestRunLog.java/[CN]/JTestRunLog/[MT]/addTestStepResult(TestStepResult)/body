@@ -1,0 +1,11 @@
+{
+  if (errorsOnly && stepResult.getStatus() != TestStepResult.TestStepStatus.FAILED)   return;
+  logListModel.addTestStepResult(stepResult);
+  if (follow) {
+    try {
+      testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);
+    }
+ catch (    RuntimeException e) {
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  BindingOperation bindingOperation=findBindingOperation(operationName);
+  if (bindingOperation == null) {
+    throw new Exception("Missing operation [" + operationName + "] in wsdl definition");
+  }
+  if (!wsdlContext.hasSchemaTypes()) {
+    throw new Exception("Missing schema types for message");
+  }
+  XmlObject msgXml=XmlObject.Factory.parse(messageContent);
+  Part[] parts=isResponse ? WsdlUtils.getOutputParts(bindingOperation) : WsdlUtils.getInputParts(bindingOperation);
+  if (parts == null || parts.length == 0)   throw new Exception("Missing parts for operation [" + operationName + "]");
+  List<XmlObject> result=new ArrayList<XmlObject>();
+  if (WsdlUtils.isRpc(wsdlContext.getDefinition(),bindingOperation)) {
+    XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ WsdlUtils.getTargetNamespace(wsdlContext.getDefinition())+ "';"+ "$this/env:Envelope/env:Body/ns:"+ bindingOperation.getName()+ (isResponse ? "Response" : ""));
+    if (paths.length != 1) {
+      throw new Exception("Missing message wrapper element [" + WsdlUtils.getTargetNamespace(wsdlContext.getDefinition()) + "@"+ bindingOperation.getName()+ (isResponse ? "Response]" : "]"));
+    }
+ else {
+      XmlObject wrapper=paths[0];
+      for (int i=0; i < parts.length; i++) {
+        Part part=parts[i];
+        if ((isResponse && WsdlUtils.isAttachmentOutputPart(part,bindingOperation)) || (!isResponse && WsdlUtils.isAttachmentInputPart(part,bindingOperation)))         continue;
+        QName partName=part.getElementName();
+        if (partName == null)         partName=new QName(part.getName());
+        XmlObject[] children=wrapper.selectChildren(partName);
+        if (children.length != 1) {
+          log.error("Missing message part [" + part.getName() + "]");
+        }
+ else {
+          QName typeName=part.getTypeName();
+          if (typeName == null) {
+            typeName=partName;
+            SchemaGlobalElement type=wsdlContext.getSchemaTypeLoader().findElement(typeName);
+            if (type != null) {
+              result.add(children[0].copy().changeType(type.getType()));
+            }
+ else             log.error("Missing element [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+          }
+ else {
+            SchemaType type=wsdlContext.getSchemaTypeLoader().findType(typeName);
+            if (type != null) {
+              result.add(children[0].copy().changeType(type));
+            }
+ else             log.error("Missing type [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+          }
+        }
+      }
+    }
+  }
+ else {
+    Part part=parts[0];
+    QName elementName=part.getElementName();
+    if (elementName != null) {
+      XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "declare namespace ns='"+ elementName.getNamespaceURI()+ "';"+ "$this/env:Envelope/env:Body/ns:"+ elementName.getLocalPart());
+      if (paths.length == 1) {
+        SchemaGlobalElement elm=wsdlContext.getSchemaTypeLoader().findElement(elementName);
+        if (elm != null) {
+          result.add(paths[0].copy().changeType(elm.getType()));
+        }
+ else         throw new Exception("Missing part type in associated schema");
+      }
+ else       throw new Exception("Missing message part with name [" + elementName + "]");
+    }
+  }
+  return result.toArray(new XmlObject[result.size()]);
+}

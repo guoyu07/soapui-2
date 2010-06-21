@@ -1,0 +1,10 @@
+{
+  if (getRequest().getResource() != null) {
+    getRequest().getResource().removePropertyChangeListener(this);
+  }
+  getRequest().removeTestPropertyListener(testPropertyListener);
+  for (  TestProperty param : getRequest().getParams().getProperties().values()) {
+    ((RestParamProperty)param).removePropertyChangeListener(restParamPropertyChangeListener);
+  }
+  return super.release();
+}

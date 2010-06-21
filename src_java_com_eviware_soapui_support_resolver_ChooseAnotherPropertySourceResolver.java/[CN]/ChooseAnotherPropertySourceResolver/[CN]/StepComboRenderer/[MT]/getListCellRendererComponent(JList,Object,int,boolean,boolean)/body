@@ -1,0 +1,19 @@
+{
+  Component result=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+  try {
+    if (value instanceof TestModelItem) {
+      TestModelItem item=(TestModelItem)value;
+      setIcon(item.getIcon());
+      setText(item.getName());
+    }
+ else     if (value == PropertyExpansionUtils.getGlobalProperties()) {
+      setText("Global");
+    }
+  }
+ catch (  Exception e) {
+    setText("Removed element");
+  }
+ finally {
+    return result;
+  }
+}

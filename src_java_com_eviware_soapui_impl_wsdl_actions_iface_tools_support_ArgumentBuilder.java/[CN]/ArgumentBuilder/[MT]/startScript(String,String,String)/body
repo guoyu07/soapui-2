@@ -1,0 +1,11 @@
+{
+  if (UISupport.isWindows() && windowsExt != null) {
+    addArgs("cmd.exe","/C",script + windowsExt);
+  }
+ else {
+    isUnix=true;
+    if (!script.startsWith(".") && !script.startsWith(File.separator))     script="./" + script;
+    addArgs("sh","-c",script + unixExt);
+  }
+  return this;
+}

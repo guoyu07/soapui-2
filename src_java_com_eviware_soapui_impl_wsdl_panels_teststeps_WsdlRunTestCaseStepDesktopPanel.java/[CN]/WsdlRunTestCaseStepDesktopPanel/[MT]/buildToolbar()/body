@@ -1,0 +1,10 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.add(UISupport.createToolbarButton(runAction=new RunAction()));
+  toolbar.add(UISupport.createToolbarButton(cancelAction=new CancelRunTestCaseAction(),false));
+  toolbar.add(UISupport.createToolbarButton(optionsAction=new OptionsAction()));
+  toolbar.add(UISupport.createToolbarButton(openTestCaseAction=new OpenTestCaseAction()));
+  toolbar.addGlue();
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.RUNTESTCASESTEP_HELP_URL)));
+  return toolbar;
+}

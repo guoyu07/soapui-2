@@ -1,0 +1,12 @@
+{
+  loadTest.beforeSave();
+  LoadTestConfig loadTestConfig=getConfig().addNewLoadTest();
+  loadTestConfig.set(loadTest.getConfig().copy());
+  WsdlLoadTest newLoadTest=buildLoadTest(loadTestConfig);
+  newLoadTest.setName(name);
+  ModelSupport.unsetIds(newLoadTest);
+  newLoadTest.afterLoad();
+  loadTests.add(newLoadTest);
+  (getTestSuite()).fireLoadTestAdded(newLoadTest);
+  return newLoadTest;
+}

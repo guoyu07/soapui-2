@@ -1,0 +1,24 @@
+{
+  Session queueSession=null;
+  JMSConnectionHolder jmsConnectionHolder=null;
+  try {
+    init(submitContext,request);
+    jmsConnectionHolder=new JMSConnectionHolder(jmsEndpoint,hermes,false,clientID,username,password);
+    queueSession=jmsConnectionHolder.getSession();
+    Queue queueSend=jmsConnectionHolder.getQueue(jmsConnectionHolder.getJmsEndpoint().getSend());
+    Queue queueReceive=jmsConnectionHolder.getQueue(jmsConnectionHolder.getJmsEndpoint().getReceive());
+    Message messageSend=messageSend(submitContext,request,queueSession,jmsConnectionHolder.getHermes(),queueSend);
+    MessageConsumer messageConsumer=queueSession.createConsumer(queueReceive,submitContext.expand(messageSelector));
+    return makeResponse(submitContext,request,timeStarted,messageSend,messageConsumer);
+  }
+ catch (  JMSException jmse) {
+    return errorResponse(submitContext,request,timeStarted,jmse);
+  }
+catch (  Throwable t) {
+    SoapUI.logError(t);
+  }
+ finally {
+    closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getConnection() : null,queueSession);
+  }
+  return null;
+}

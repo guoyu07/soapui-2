@@ -1,0 +1,10 @@
+{
+  String oldLabel=getLabel();
+  boolean oldDisabled=isDisabled();
+  if (oldDisabled == disabled)   return;
+  if (disabled)   getConfig().setDisabled(disabled);
+ else   if (getConfig().isSetDisabled())   getConfig().unsetDisabled();
+  notifyPropertyChanged(DISABLED_PROPERTY,oldDisabled,disabled);
+  String label=getLabel();
+  notifyPropertyChanged(LABEL_PROPERTY,oldLabel,label);
+}

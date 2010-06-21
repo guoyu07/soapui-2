@@ -1,0 +1,14 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      try {
+        MockTestSuiteRunner mockRunner=new MockTestSuiteRunner(WsdlTestSuiteDesktopPanel.this.getModelItem());
+        WsdlTestSuiteDesktopPanel.this.getModelItem().runSetupScript((TestSuiteRunContext)mockRunner.getRunContext(),mockRunner);
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage(e1);
+      }
+    }
+  }
+;
+}

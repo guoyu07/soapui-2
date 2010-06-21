@@ -1,0 +1,13 @@
+{
+  if ("mockService".equals(arg0))   return getMockService();
+  if ("mockResponse".equals(arg0))   return getMockResponse();
+  if ("modelItem".equals(arg0))   return getModelItem();
+  if ("currentStep".equals(arg0))   return getCurrentStep();
+  if ("currentStepIndex".equals(arg0))   return getCurrentStepIndex();
+  if ("settings".equals(arg0))   return getSettings();
+  if ("testCase".equals(arg0))   return getTestCase();
+  if ("testRunner".equals(arg0))   return getTestRunner();
+synchronized (properties) {
+    return properties.get(arg0);
+  }
+}

@@ -1,0 +1,29 @@
+{
+  int bytes=0;
+  if (target.exists()) {
+    if (overwrite)     target.delete();
+ else     return -1;
+  }
+ else {
+    String path=target.getAbsolutePath();
+    int ix=path.lastIndexOf(File.separatorChar);
+    if (ix != -1) {
+      path=path.substring(0,ix);
+      File pathFile=new File(path);
+      if (!pathFile.exists())       pathFile.mkdirs();
+    }
+  }
+  BufferedInputStream in=new BufferedInputStream(new FileInputStream(source));
+  BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(target));
+  int read=in.read(copyBuffer);
+  while (read != -1) {
+    if (read > 0) {
+      out.write(copyBuffer,0,read);
+      bytes+=read;
+    }
+    read=in.read(copyBuffer);
+  }
+  in.close();
+  out.close();
+  return bytes;
+}

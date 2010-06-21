@@ -1,0 +1,10 @@
+{
+  XmlObjectConfigurationBuilder builder=new XmlObjectConfigurationBuilder();
+  builder.add(NAME_ELEMENT,getName());
+  builder.add(MIN_REQUESTS_ELEMENT,minRequests);
+  builder.add(MAX_AVERAGE_ELEMENT,maxAverage);
+  builder.add(TEST_STEP_ELEMENT,getTargetStep());
+  builder.add(MAX_ERRORS_ELEMENT,maxErrors);
+  builder.add(SAMPLE_INTERVAL_ELEMENT,sampleInterval);
+  setConfiguration(builder.finish());
+}

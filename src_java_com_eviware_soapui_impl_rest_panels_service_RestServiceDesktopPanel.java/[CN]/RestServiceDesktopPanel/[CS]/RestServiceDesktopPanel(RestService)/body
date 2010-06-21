@@ -1,0 +1,16 @@
+{
+  super(service);
+  this.restService=service;
+  try {
+    buildUI();
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        SoapUI.getDesktop().closeDesktopPanel(RestServiceDesktopPanel.this);
+      }
+    }
+);
+  }
+}

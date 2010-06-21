@@ -1,0 +1,13 @@
+{
+  String url=UISupport.prompt("Enter WSDL URL","Add WSDL from URL","");
+  if (url == null)   return;
+  try {
+    Boolean createRequests=UISupport.confirmOrCancel("Create default requests for all operations","Import WSDL");
+    if (createRequests == null)     return;
+    Interface[] ifaces=WsdlInterfaceFactory.importWsdl(project,url,createRequests);
+    if (ifaces != null && ifaces.length > 0)     UISupport.select(ifaces[0]);
+  }
+ catch (  Exception ex) {
+    UISupport.showErrorMessage(ex.getMessage() + ":" + ex.getCause());
+  }
+}

@@ -1,0 +1,33 @@
+{
+  String partName=attachment.getPart();
+  String contentID=attachment.getContentID();
+  if (StringUtils.hasContent(contentID)) {
+    contentID=contentID.trim();
+    int ix=contentID.indexOf(' ');
+    if (ix != -1)     part.setContentID("<" + (isMultipart ? contentID.substring(ix + 1) : contentID.substring(0,ix)) + ">");
+ else {
+      if (!contentID.startsWith("<"))       contentID="<" + contentID;
+      if (!contentID.endsWith(">"))       contentID=contentID + ">";
+      part.setContentID(contentID);
+    }
+  }
+ else   if (partName != null && !partName.equals(HttpAttachmentPart.ANONYMOUS_NAME)) {
+    if (contentIds.containsKey(partName)) {
+      part.setContentID("<" + contentIds.get(partName) + ">");
+    }
+ else {
+      part.setContentID("<" + partName + "="+ System.nanoTime()+ "@soapui.org>");
+    }
+  }
+  String name=attachment.getName();
+  String file=attachment.getUrl();
+  if (PathUtils.isFilePath(file)) {
+    int ix=file.lastIndexOf(File.separatorChar);
+    if (ix == -1)     ix=file.lastIndexOf('/');
+    if (ix > 0 && ix < file.length() - 1)     file=file.substring(ix + 1);
+    part.setDisposition("attachment; name=\"" + name + "\"; filename=\""+ file+ "\"");
+  }
+ else {
+    part.setDisposition("attachment; name=\"" + name + "\"");
+  }
+}

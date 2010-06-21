@@ -1,0 +1,9 @@
+{
+  Insets borderInsets=border.getBorderInsets(c);
+  Insets insets=getBorderInsets(c);
+  int temp=(insets.top - borderInsets.top) / 2;
+  border.paintBorder(c,g,x,y + temp,width,height - temp);
+  Dimension size=comp.getPreferredSize();
+  rect=new Rectangle(offset,0,size.width,size.height);
+  SwingUtilities.paintComponent(g,comp,(Container)c,rect);
+}

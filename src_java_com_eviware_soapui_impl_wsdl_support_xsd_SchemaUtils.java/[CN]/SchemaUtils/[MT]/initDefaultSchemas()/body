@@ -1,0 +1,26 @@
+{
+  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
+  Thread.currentThread().setContextClassLoader(SoapUI.class.getClassLoader());
+  try {
+    defaultSchemas.clear();
+    String root="/com/eviware/soapui/resources/xsds";
+    loadDefaultSchema(SoapUI.class.getResource(root + "/xop.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/XMLSchema.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/xml.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/swaref.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/xmime200505.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/xmime200411.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/soapEnvelope.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/soapEncoding.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/soapEnvelope12.xsd"));
+    loadDefaultSchema(SoapUI.class.getResource(root + "/soapEncoding12.xsd"));
+    String schemaDirectory=SoapUI.getSettings().getString(WsdlSettings.SCHEMA_DIRECTORY,null);
+    if (StringUtils.hasContent(schemaDirectory))     loadSchemaDirectory(schemaDirectory);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    Thread.currentThread().setContextClassLoader(contextClassLoader);
+  }
+}

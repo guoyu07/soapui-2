@@ -1,0 +1,5 @@
+{
+  String oldValue=getTimeToLive();
+  jmsHeaderConfConfig.setClientID(newValue);
+  propertyChangeSupport.firePropertyChange(JMSHeader.CLIENT_ID,oldValue,newValue);
+}

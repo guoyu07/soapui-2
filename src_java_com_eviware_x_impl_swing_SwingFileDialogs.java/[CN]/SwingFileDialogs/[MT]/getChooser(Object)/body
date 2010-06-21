@@ -1,0 +1,10 @@
+{
+  action=null;
+  JFileChooser chooser=choosers.get(action);
+  if (chooser == null) {
+    chooser=new JFileChooser();
+    choosers.put(action,chooser);
+  }
+  chooser.resetChoosableFileFilters();
+  return chooser;
+}

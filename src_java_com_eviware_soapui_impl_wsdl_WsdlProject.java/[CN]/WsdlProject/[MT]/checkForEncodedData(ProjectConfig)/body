@@ -1,0 +1,49 @@
+{
+  byte[] encryptedContent=soapuiProject.getEncryptedContent();
+  char[] password=null;
+  if (encryptedContent == null || encryptedContent.length == 0)   return 0;
+  String projectPassword=null;
+  if (workspace != null) {
+    projectPassword=workspace.getProjectPassword(soapuiProject.getName());
+  }
+ else {
+    projectPassword=this.projectPassword;
+  }
+  if (projectPassword == null) {
+    password=UISupport.promptPassword("Enter Password:",soapuiProject.getName());
+  }
+ else {
+    password=projectPassword.toCharArray();
+  }
+  byte[] data=null;
+  if (password == null) {
+    return -1;
+  }
+  try {
+    data=OpenSSL.decrypt("des3",password,encryptedContent);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return -1;
+  }
+  String decryptedData=new String(data,"UTF-8");
+  if (decryptedData != null) {
+    if (decryptedData.length() > 0) {
+      try {
+        projectDocument.getSoapuiProject().set(XmlObject.Factory.parse(decryptedData));
+      }
+ catch (      XmlException e) {
+        UISupport.showErrorMessage("Wrong password. Project need to be reloaded.");
+        getWorkspace().clearProjectPassword(soapuiProject.getName());
+        return -1;
+      }
+    }
+  }
+ else {
+    UISupport.showErrorMessage("Wrong project password");
+    getWorkspace().clearProjectPassword(soapuiProject.getName());
+    return -1;
+  }
+  projectDocument.getSoapuiProject().setEncryptedContent(null);
+  return 1;
+}

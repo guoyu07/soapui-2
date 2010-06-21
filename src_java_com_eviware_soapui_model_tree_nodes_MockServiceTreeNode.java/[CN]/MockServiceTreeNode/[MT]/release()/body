@@ -1,0 +1,9 @@
+{
+  super.release();
+  getModelItem().removeMockServiceListener(mockServiceListener);
+  for (  MockOperationTreeNode treeNode : mockOperationNodes) {
+    treeNode.getModelItem().removePropertyChangeListener(propertyChangeListener);
+    treeNode.release();
+  }
+  propertiesTreeNode.release();
+}

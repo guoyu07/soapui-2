@@ -1,0 +1,13 @@
+{
+  JPanel p=new JPanel(new BorderLayout());
+  JXToolBar toolbar=UISupport.createToolbar();
+  WsdlTestStepFactory[] factories=WsdlTestStepRegistry.getInstance().getFactories();
+  for (  WsdlTestStepFactory factory : factories) {
+    toolbar.addFixed(UISupport.createToolbarButton(new AddWsdlTestStepAction(factory)));
+  }
+  p.add(toolbar,BorderLayout.NORTH);
+  testStepList=new JTestStepList(getModelItem());
+  stateDependantComponents.add(testStepList);
+  p.add(new JScrollPane(testStepList),BorderLayout.CENTER);
+  return p;
+}

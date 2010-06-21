@@ -1,0 +1,24 @@
+{
+  resolutionCombo=new JComboBox(new String[]{"data","250","500","1000"});
+  resolutionCombo.setEditable(true);
+  resolutionCombo.setToolTipText("Sets update interval of graph in milliseconds");
+  long resolution=historyGraph.getResolution();
+  resolutionCombo.setSelectedItem(resolution == 0 ? "data" : String.valueOf(resolution));
+  resolutionCombo.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      try {
+        String value=resolutionCombo.getSelectedItem().toString();
+        long resolution=value.equals("data") ? 0 : Long.parseLong(value);
+        if (resolution != historyGraph.getResolution()) {
+          historyGraph.setResolution(resolution);
+        }
+      }
+ catch (      Exception ex) {
+        long resolution=historyGraph.getResolution();
+        resolutionCombo.setSelectedItem(resolution == 0 ? "data" : String.valueOf(resolution));
+      }
+    }
+  }
+);
+  return resolutionCombo;
+}

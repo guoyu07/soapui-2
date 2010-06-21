@@ -1,0 +1,22 @@
+{
+  if (httpResponse == null) {
+    contentEditor.setText("");
+  }
+ else {
+    String content="<Not JSON content>";
+    if (JsonMediaTypeHandler.couldBeJsonContent(httpResponse.getContentType())) {
+      try {
+        JSON json=JSONSerializer.toJSON(httpResponse.getContentAsString());
+        if (json.isEmpty())         content="<Empty JSON content>";
+ else         content=json.toString(3);
+      }
+ catch (      Throwable e) {
+        e.printStackTrace();
+      }
+      contentEditor.setText(content);
+    }
+ else {
+      contentEditor.setText("<Not JSON content>");
+    }
+  }
+}

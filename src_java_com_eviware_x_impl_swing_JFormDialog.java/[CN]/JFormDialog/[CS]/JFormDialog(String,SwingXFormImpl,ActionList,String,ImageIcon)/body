@@ -1,0 +1,13 @@
+{
+  dialog=new JDialog(UISupport.getMainFrame(),name,true);
+  buttons=UISupport.initDialogActions(actions,dialog);
+  buttons.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
+  JPanel panel=new JPanel(new BorderLayout());
+  this.form=(SwingXFormImpl)form;
+  panel.add((this.form.getPanel()),BorderLayout.CENTER);
+  panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+  if (description != null || icon != null)   dialog.getContentPane().add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
+  dialog.getContentPane().add(panel,BorderLayout.CENTER);
+  buttons.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.GRAY),BorderFactory.createMatteBorder(1,0,0,0,Color.WHITE)),BorderFactory.createEmptyBorder(3,5,3,5)));
+  dialog.getContentPane().add(buttons,BorderLayout.SOUTH);
+}

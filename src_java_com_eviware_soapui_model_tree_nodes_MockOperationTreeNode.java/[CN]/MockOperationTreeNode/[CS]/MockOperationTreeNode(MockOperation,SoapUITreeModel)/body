@@ -1,0 +1,8 @@
+{
+  super(mockOperation,mockOperation.getMockService(),treeModel);
+  for (int c=0; c < mockOperation.getMockResponseCount(); c++) {
+    MockResponse mockResponse=mockOperation.getMockResponseAt(c);
+    mockResponseNodes.add(new MockResponseTreeNode(mockResponse,getTreeModel()));
+  }
+  treeModel.mapModelItems(mockResponseNodes);
+}

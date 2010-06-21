@@ -1,0 +1,18 @@
+{
+  String wstoolsDir=SoapUI.getSettings().getString(ToolsSettings.JBOSSWS_WSTOOLS_LOCATION,null);
+  if (Tools.isEmpty(wstoolsDir)) {
+    UISupport.showErrorMessage("wstools directory must be set in global preferences");
+    return;
+  }
+  String wsToolsExtension=UISupport.isWindows() ? ".bat" : ".sh";
+  File wstoolsFile=new File(wstoolsDir + File.separatorChar + "wstools"+ wsToolsExtension);
+  if (!wstoolsFile.exists()) {
+    UISupport.showErrorMessage("Could not find wstools script at [" + wstoolsFile + "]");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,UISupport.isWindows(),modelItem);
+  builder.command(args.getArgs());
+  builder.directory(new File(wstoolsDir));
+  toolHost.run(new ProcessToolRunner(builder,"JBossWS wstools",modelItem,args));
+}

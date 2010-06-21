@@ -1,0 +1,19 @@
+{
+  List<T> result=new ArrayList<T>();
+  if (listeners.containsKey(listenerType)) {
+    List<Class<?>> list=listeners.get(listenerType);
+    for (    Class<?> listenerClass : list) {
+      try {
+        T listener=(T)listenerClass.newInstance();
+        if (listenerConfigs.containsKey(listenerClass) && listener instanceof InitializableListener)         ((InitializableListener)listener).init(listenerConfigs.get(listenerClass));
+        result.add(listener);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  if (singletonListeners.containsKey(listenerType))   result.addAll((Collection<? extends T>)singletonListeners.get(listenerType));
+  result.addAll(existing);
+  return result;
+}

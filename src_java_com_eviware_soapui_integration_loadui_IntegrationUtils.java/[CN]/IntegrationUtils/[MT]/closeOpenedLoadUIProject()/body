@@ -1,0 +1,8 @@
+{
+  try {
+    CajoClient.getInstance().invoke("closeOpenedProject",null);
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+}

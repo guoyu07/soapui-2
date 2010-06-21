@@ -1,0 +1,11 @@
+{
+  if (modelItem instanceof Request) {
+    return checkIfJMS((Request)modelItem);
+  }
+ else {
+    if (modelItem instanceof MessageExchangeModelItem) {
+      return checkIfJMS((MessageExchangeModelItem)modelItem);
+    }
+  }
+  return false;
+}

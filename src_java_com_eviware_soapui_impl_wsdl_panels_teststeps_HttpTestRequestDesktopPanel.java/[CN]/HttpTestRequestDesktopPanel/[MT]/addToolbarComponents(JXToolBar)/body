@@ -1,0 +1,32 @@
+{
+  toolbar.addSeparator();
+  addMethodCombo(toolbar);
+  pathTextField=new JUndoableTextField();
+  pathTextField.setPreferredSize(new Dimension(300,20));
+  pathTextField.setText(getRequest().getEndpoint());
+  pathTextField.setToolTipText(pathTextField.getText());
+  pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      if (updating)       return;
+      updating=true;
+      getRequest().setEndpoint(pathTextField.getText());
+      updating=false;
+    }
+  }
+);
+  pathTextField.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent e){
+      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        try {
+          doSubmit();
+        }
+ catch (        SubmitException e1) {
+          e1.printStackTrace();
+        }
+      }
+    }
+  }
+);
+  toolbar.addLabeledFixed("Request URL:",pathTextField);
+  toolbar.addSeparator();
+}

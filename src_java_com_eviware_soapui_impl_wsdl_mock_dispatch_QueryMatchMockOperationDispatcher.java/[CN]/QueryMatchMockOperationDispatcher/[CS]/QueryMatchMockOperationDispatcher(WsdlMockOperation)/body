@@ -1,0 +1,13 @@
+{
+  super(mockOperation);
+  try {
+    conf=MockOperationQueryMatchDispatchConfig.Factory.parse(getConfig().xmlText());
+    for (    MockOperationQueryMatchDispatchConfig.Query query : conf.getQueryList()) {
+      queries.add(new Query(query));
+    }
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+  mockOperation.addPropertyChangeListener("mockResponses",this);
+}

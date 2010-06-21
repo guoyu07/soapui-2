@@ -1,0 +1,10 @@
+{
+  try {
+    data=Tools.readAll(request.getInputStream(),0).toByteArray();
+    contentType=request.getContentType();
+    name="Request for " + request.getPathInfo();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

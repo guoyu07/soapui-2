@@ -1,0 +1,51 @@
+{
+  wsaVersionNameSpace=WS_A_NAMESPACE_200508;
+  if (wsaContainer.getWsaConfig().getVersion().equals(WsaVersionTypeConfig.X_200408.toString())) {
+    wsaVersionNameSpace=WS_A_NAMESPACE_200408;
+  }
+  anonymousAddress=wsaVersionNameSpace + "/anonymous";
+  noneAddress=wsaVersionNameSpace + "/none";
+  relationshipTypeReply=wsaVersionNameSpace + "/reply";
+  unspecifiedMessage=wsaVersionNameSpace + "/unspecified";
+  anonymousType=wsaContainer.getOperation().getAnonymous();
+  if (anonymousType.equals(AnonymousTypeConfig.OPTIONAL.toString())) {
+    anonymousType=wsaContainer.getOperation().getInterface().getAnonymous();
+  }
+  Element header=(Element)SoapUtils.getHeaderElement(xmlContentObject,soapVersion,true).getDomNode();
+  wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200508);
+  if (wsaPrefix != null) {
+    wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200508;
+  }
+ else {
+    wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200408);
+    if (wsaPrefix != null) {
+      wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200408;
+    }
+ else {
+      wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200508);
+      if (wsaPrefix != null) {
+        wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200508;
+      }
+ else {
+        wsaPrefix=XmlUtils.findPrefixForNamespace(header,WsaUtils.WS_A_NAMESPACE_200408);
+        if (wsaPrefix != null) {
+          wsaVersionNamespaceOld=WsaUtils.WS_A_NAMESPACE_200408;
+        }
+ else {
+          wsaPrefix="wsa";
+        }
+      }
+    }
+  }
+  XmlObject[] envelope=xmlContentObject.selectChildren(soapVersion.getEnvelopeQName());
+  envelopeElement=(Element)envelope[0].getDomNode();
+  Boolean mustUnderstand=null;
+  if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.FALSE.toString())) {
+    mustUnderstand=false;
+  }
+ else   if (wsaContainer.getWsaConfig().getMustUnderstand().equals(MustUnderstandTypeConfig.TRUE.toString())) {
+    mustUnderstand=true;
+  }
+  builder=new WsaBuilder(wsaVersionNameSpace,mustUnderstand);
+  return header;
+}

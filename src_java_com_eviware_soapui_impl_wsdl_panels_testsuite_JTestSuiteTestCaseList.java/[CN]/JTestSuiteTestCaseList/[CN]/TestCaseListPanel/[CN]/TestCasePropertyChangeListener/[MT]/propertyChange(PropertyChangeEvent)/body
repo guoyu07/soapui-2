@@ -1,0 +1,9 @@
+{
+  if (evt.getPropertyName().equals(TestCase.LABEL_PROPERTY)) {
+    label.setEnabled(!testCase.isDisabled());
+    label.setText(testCase.getLabel());
+  }
+ else   if (evt.getPropertyName().equals(TestCase.DISABLED_PROPERTY)) {
+    initPopup(testCase);
+  }
+}

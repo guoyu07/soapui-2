@@ -1,0 +1,11 @@
+{
+  StringList result=new StringList();
+  Map map=item.getExtensionAttributes();
+  for (Iterator<?> i=map.keySet().iterator(); i.hasNext(); ) {
+    QName name=(QName)i.next();
+    if (name.equals(qname)) {
+      result.add(map.get(name).toString());
+    }
+  }
+  return result.toStringArray();
+}

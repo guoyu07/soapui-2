@@ -1,0 +1,13 @@
+{
+  if (modelItem instanceof AbstractHttpRequest<?>) {
+    JMSHeaderAndPropertyInspector inspector=new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new ResponseJMSHeaderAndPropertiesModel((AbstractHttpRequest<?>)modelItem));
+    inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+ else   if (modelItem instanceof MessageExchangeModelItem) {
+    JMSHeaderAndPropertyInspector inspector=new JMSHeaderAndPropertyInspector((JMSHeaderAndPropertyInspectorModel)new MessageExchangeResponseJMSHeaderAndPropertiesModel((MessageExchangeModelItem)modelItem));
+    inspector.setEnabled(JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+  return null;
+}

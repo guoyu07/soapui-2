@@ -1,0 +1,28 @@
+{
+  if (url.endsWith(config.getRootPart())) {
+    rootInConfig=url.substring(0,url.length() - config.getRootPart().length());
+  }
+  List<DefintionPartConfig> partList=config.getPartList();
+  for (  DefintionPartConfig part : partList) {
+    if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+      return getPartContent(config,part);
+    }
+  }
+  if (File.separatorChar == '/') {
+    url=url.replace('/','\\');
+    for (    DefintionPartConfig part : partList) {
+      if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+        return getPartContent(config,part);
+      }
+    }
+  }
+ else   if (File.separatorChar == '\\') {
+    url=url.replace('\\','/');
+    for (    DefintionPartConfig part : partList) {
+      if ((rootInConfig + part.getUrl()).equalsIgnoreCase(url)) {
+        return getPartContent(config,part);
+      }
+    }
+  }
+  return null;
+}

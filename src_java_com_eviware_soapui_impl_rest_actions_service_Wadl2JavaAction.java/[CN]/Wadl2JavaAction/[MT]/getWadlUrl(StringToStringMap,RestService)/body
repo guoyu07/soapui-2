@@ -1,0 +1,12 @@
+{
+  String expandPath=PathUtils.expandPath(modelItem.getDefinition(),modelItem);
+  if (PathUtils.isHttpPath(expandPath) && !modelItem.isGenerated()) {
+    return expandPath;
+  }
+ else {
+    File tempFile=File.createTempFile("tempdir",null);
+    String path=tempFile.getAbsolutePath();
+    tempFile.delete();
+    return modelItem.getDefinitionContext().export(path);
+  }
+}

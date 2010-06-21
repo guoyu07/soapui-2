@@ -1,0 +1,16 @@
+{
+  if (definedAttachmentParts == null) {
+    try {
+      UISupport.setHourglassCursor();
+      definedAttachmentParts=AttachmentUtils.extractAttachmentParts(operation,getRequestContent(),true,false,isMtomEnabled());
+    }
+ catch (    Exception e) {
+      log.warn(e.toString());
+      definedAttachmentParts=new ArrayList<HttpAttachmentPart>();
+    }
+ finally {
+      UISupport.resetCursor();
+    }
+  }
+  return definedAttachmentParts.toArray(new HttpAttachmentPart[definedAttachmentParts.size()]);
+}

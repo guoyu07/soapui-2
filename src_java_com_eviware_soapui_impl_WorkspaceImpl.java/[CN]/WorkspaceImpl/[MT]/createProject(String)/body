@@ -1,0 +1,6 @@
+{
+  File projectFile=new File(createProjectFileName(name));
+  File file=UISupport.getFileDialogs().saveAs(this,messages.get("CreateProject.Title"),".xml","XML Files (*.xml)",projectFile);
+  if (file == null)   return null;
+  return createProject(name,file);
+}

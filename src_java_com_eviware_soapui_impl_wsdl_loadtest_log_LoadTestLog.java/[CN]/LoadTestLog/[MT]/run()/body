@@ -1,0 +1,31 @@
+{
+  while (true) {
+    try {
+      while (!entriesStack.isEmpty()) {
+        int cnt=0;
+        while (cnt < 10 && !entriesStack.isEmpty()) {
+          LoadTestLogEntry entry=entriesStack.poll();
+          if (entry != null) {
+            entries.add(entry);
+            if (entry.isError()) {
+              totalErrorCount++;
+              String stepName=entry.getTargetStepName();
+              Integer errorCount=errorCounts.get(stepName);
+              if (errorCount == null)               errorCount=1;
+ else               errorCount=errorCount + 1;
+              errorCounts.put(stepName,errorCount);
+            }
+            cnt++;
+          }
+        }
+        if (cnt > 0)         fireIntervalAdded(this,entries.size() - cnt,entries.size() - 1);
+      }
+      if (!loadTest.isRunning())       break;
+      Thread.sleep(200);
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  modelThread=null;
+}

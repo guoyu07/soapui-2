@@ -1,0 +1,18 @@
+{
+  fileMenu=new JMenu("File");
+  fileMenu.setMnemonic(KeyEvent.VK_F);
+  ActionList actions=ActionListBuilder.buildActions(workspace);
+  actions.removeAction(actions.getActionCount() - 1);
+  ActionSupport.addActions(actions,fileMenu);
+  fileMenu.add(SoapUIPreferencesAction.getInstance());
+  fileMenu.add(new SavePreferencesAction());
+  fileMenu.add(new ImportPreferencesAction());
+  fileMenu.addSeparator();
+  fileMenu.add(buildRecentMenu());
+  fileMenu.addSeparator();
+  fileMenu.add(new ExitAction());
+  fileMenu.add(new ExitWithoutSavingAction());
+  fileMenu.addSeparator();
+  fileMenu.add(new ShowOnlineHelpAction(HelpUrls.OVERVIEW_HELP_URL));
+  return fileMenu;
+}

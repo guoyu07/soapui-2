@@ -1,0 +1,7 @@
+{
+  PropertyExpansionsResult result=new PropertyExpansionsResult(this,this);
+  result.addAll(super.getPropertyExpansions());
+  result.addAll(getRestMethod().getPropertyExpansions());
+  addJMSHeaderExpansions(result,getJMSHeaderConfig(),this);
+  return result.toArray();
+}

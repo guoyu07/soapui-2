@@ -1,0 +1,50 @@
+{
+  super(config,testCase,"/loadTest.gif");
+  this.testCase=testCase;
+  if (getConfig().getThreadCount() < 1)   getConfig().setThreadCount(5);
+  if (getConfig().getLimitType() == null) {
+    getConfig().setLimitType(LoadTestLimitTypesConfig.TIME);
+    getConfig().setTestLimit(60);
+  }
+  if (!getConfig().isSetHistoryLimit()) {
+    getConfig().setHistoryLimit(-1);
+  }
+  addLoadTestRunListener(internalTestRunListener);
+  LoadStrategyConfig ls=getConfig().getLoadStrategy();
+  if (ls == null) {
+    ls=getConfig().addNewLoadStrategy();
+    ls.setType(SimpleLoadStrategy.STRATEGY_TYPE);
+  }
+  LoadStrategyFactory factory=LoadStrategyRegistry.getInstance().getFactory(ls.getType());
+  if (factory == null) {
+    ls.setType(SimpleLoadStrategy.STRATEGY_TYPE);
+    factory=LoadStrategyRegistry.getInstance().getFactory(ls.getType());
+  }
+  loadStrategy=factory.build(ls.getConfig(),this);
+  loadStrategy.addConfigurationChangeListener(loadStrategyListener);
+  addLoadTestRunListener(loadStrategy);
+  statisticsModel=new LoadTestStatistics(this);
+  if (getConfig().xgetSampleInterval() == null)   setSampleInterval(LoadTestStatistics.DEFAULT_SAMPLE_INTERVAL);
+  statisticsModel.setUpdateFrequency(getSampleInterval());
+  List<LoadTestAssertionConfig> assertionList=getConfig().getAssertionList();
+  for (  LoadTestAssertionConfig assertionConfig : assertionList) {
+    AbstractLoadTestAssertion assertion=LoadTestAssertionRegistry.buildAssertion(assertionConfig,this);
+    if (assertion != null) {
+      assertions.add(assertion);
+      assertion.addPropertyChangeListener(LoadTestAssertion.CONFIGURATION_PROPERTY,configurationChangeListener);
+    }
+ else {
+      logger.warn("Failed to build LoadTestAssertion from getConfig() [" + assertionConfig + "]");
+    }
+  }
+  if (getConfig().xgetResetStatisticsOnThreadCountChange() == null)   getConfig().setResetStatisticsOnThreadCountChange(true);
+  if (getConfig().xgetCalculateTPSOnTimePassed() == null)   getConfig().setCalculateTPSOnTimePassed(true);
+  if (!getConfig().isSetMaxAssertionErrors())   getConfig().setMaxAssertionErrors(100);
+  if (getConfig().xgetCancelExcessiveThreads() == null)   getConfig().setCancelExcessiveThreads(true);
+  if (getConfig().xgetStrategyInterval() == null)   getConfig().setStrategyInterval(DEFAULT_STRATEGY_INTERVAL);
+  loadTestLog=new LoadTestLog(this);
+  for (  LoadTestRunListener listener : SoapUI.getListenerRegistry().getListeners(LoadTestRunListener.class)) {
+    addLoadTestRunListener(listener);
+  }
+  if (!getSettings().isSet(HttpSettings.CLOSE_CONNECTIONS))   getSettings().setBoolean(HttpSettings.CLOSE_CONNECTIONS,SoapUI.getSettings().getBoolean(HttpSettings.CLOSE_CONNECTIONS));
+}

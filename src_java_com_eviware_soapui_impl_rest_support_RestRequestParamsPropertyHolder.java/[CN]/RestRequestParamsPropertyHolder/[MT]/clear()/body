@@ -1,0 +1,7 @@
+{
+  for (  String key : getPropertyNames()) {
+    String oldValue=getPropertyValue(key);
+    values.put(key,"");
+    firePropertyValueChanged(key,oldValue,"");
+  }
+}

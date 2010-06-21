@@ -1,0 +1,15 @@
+{
+  try {
+    String str=key.toString();
+    if (str.equals("prettyXml"))     return getPrettyXml();
+ else     if (str.equals("xmlObject"))     return getXmlObject();
+ else     if (str.equals("namespaces"))     return getNamespaces();
+ else     if (str.equals("xml"))     return getXml();
+    String[] nodeValues=getNodeValues(str);
+    return nodeValues != null && nodeValues.length == 1 ? nodeValues[0] : nodeValues;
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+    return null;
+  }
+}

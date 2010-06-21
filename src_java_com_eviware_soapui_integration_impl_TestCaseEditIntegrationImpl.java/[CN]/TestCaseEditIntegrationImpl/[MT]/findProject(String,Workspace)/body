@@ -1,0 +1,11 @@
+{
+  Project project=null;
+  List<? extends Project> projectList=workspace.getProjectList();
+  for (  Project proj : projectList) {
+    if (proj.getPath().equalsIgnoreCase(projectFile)) {
+      project=workspace.getProjectByName(proj.getName());
+      break;
+    }
+  }
+  return project;
+}

@@ -1,0 +1,10 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("WADL2Java");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addTextField(OUTPUT,"Root directory for all emitted files.",XForm.FieldType.PROJECT_FOLDER);
+  mainForm.addTextField(PACKAGE,"Default Package for generated classes",XForm.FieldType.JAVA_PACKAGE);
+  mainForm.addCheckBox(AUTOMATIC_PACKAGE_NAMES,"Generates starting point code for a client mainline");
+  mainForm.addTextField(JAXB_CUSTOMIZATION,"Space-separated list of JAXWS or JAXB binding files",XForm.FieldType.TEXT);
+  buildArgsForm(builder,true,"wadl2java");
+  return builder.buildDialog(buildDefaultActions(HelpUrls.WADL2JAVA_HELP_URL,modelItem),"Specify arguments for reference wadl2java",UISupport.TOOL_ICON);
+}

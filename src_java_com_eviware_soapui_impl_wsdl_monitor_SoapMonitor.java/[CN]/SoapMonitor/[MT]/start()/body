@@ -1,0 +1,33 @@
+{
+  int localPort=getLocalPort();
+  monitorEngine=new SoapMonitorEngineImpl();
+  ((SoapMonitorEngineImpl)monitorEngine).setSslEndpoint(null);
+  monitorEngine.start(this,localPort);
+  if (monitorEngine.isRunning()) {
+    stopButton.setEnabled(true);
+    startButton.setEnabled(false);
+    optionsButton.setEnabled(false);
+    infoLabel.setText((monitorEngine.isProxy() ? "HTTP Proxy " : "SSL Tunnel ") + "on port " + localPort);
+    progressBar.setIndeterminate(true);
+    if (setAsProxy) {
+      oldProxyHost=SoapUI.getSettings().getString(ProxySettings.HOST,"");
+      oldProxyPort=SoapUI.getSettings().getString(ProxySettings.PORT,"");
+      oldProxyEnabled=SoapUI.getSettings().getBoolean(ProxySettings.ENABLE_PROXY);
+      SoapUI.getSettings().setString(ProxySettings.HOST,"127.0.0.1");
+      SoapUI.getSettings().setString(ProxySettings.PORT,String.valueOf(localPort));
+      SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,true);
+      ProxyUtils.setProxyEnabled(true);
+      JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
+      if (applyProxyButton != null)       applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
+    }
+    SoapUI.log.info("Started SOAP Monitor on local port " + localPort);
+  }
+ else {
+    stopButton.setEnabled(false);
+    startButton.setEnabled(true);
+    optionsButton.setEnabled(true);
+    infoLabel.setText("Stoped");
+    progressBar.setIndeterminate(false);
+    SoapUI.log.info("Could not start SOAP Monitor on local port " + localPort);
+  }
+}

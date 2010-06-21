@@ -1,0 +1,7 @@
+{
+  String oldScript=getAfterLoadScript();
+  if (!getConfig().isSetAfterLoadScript())   getConfig().addNewAfterLoadScript();
+  getConfig().getAfterLoadScript().setStringValue(script);
+  if (afterLoadScriptEngine != null)   afterLoadScriptEngine.setScript(script);
+  notifyPropertyChanged(AFTER_LOAD_SCRIPT_PROPERTY,oldScript,script);
+}

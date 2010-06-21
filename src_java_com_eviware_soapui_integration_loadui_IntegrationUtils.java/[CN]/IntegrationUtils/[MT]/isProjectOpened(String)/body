@@ -1,0 +1,10 @@
+{
+  boolean isOpened=false;
+  try {
+    isOpened=((Boolean)CajoClient.getInstance().invoke("isProjectOpened",new String[]{projectName})).booleanValue();
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return isOpened;
+}

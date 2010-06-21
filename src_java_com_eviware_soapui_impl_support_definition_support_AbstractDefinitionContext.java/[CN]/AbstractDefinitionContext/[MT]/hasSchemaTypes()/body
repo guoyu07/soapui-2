@@ -1,0 +1,11 @@
+{
+  try {
+    loadIfNecessary();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return false;
+  }
+  InterfaceDefinition<?> def=(definition != null ? definition : definitionCache.get(url));
+  return def != null && def.hasSchemaTypes();
+}

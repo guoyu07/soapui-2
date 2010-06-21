@@ -1,0 +1,5 @@
+{
+  String oldContent=this.responseContent;
+  this.responseContent=responseContent;
+  ((AbstractHttpRequest<?>)getRequest()).notifyPropertyChanged(WsdlRequest.RESPONSE_CONTENT_PROPERTY,oldContent,responseContent);
+}

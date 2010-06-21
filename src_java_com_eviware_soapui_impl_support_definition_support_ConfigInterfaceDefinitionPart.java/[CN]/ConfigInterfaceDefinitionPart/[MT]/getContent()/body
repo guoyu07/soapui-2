@@ -1,0 +1,9 @@
+{
+  if (type == DefinitionCacheTypeConfig.TEXT) {
+    Node domNode=config.getContent().getDomNode();
+    return XmlUtils.getNodeValue(domNode);
+  }
+ else {
+    return config.getContent().toString();
+  }
+}

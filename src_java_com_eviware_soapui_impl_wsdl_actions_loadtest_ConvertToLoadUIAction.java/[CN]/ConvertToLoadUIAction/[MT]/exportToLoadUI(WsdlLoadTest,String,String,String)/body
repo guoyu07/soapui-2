@@ -1,0 +1,17 @@
+{
+  HashMap<String,Object> createdSamplerSettings=null;
+  try {
+    createdSamplerSettings=IntegrationUtils.exportLoadTestToLoadUI(loadTest,targetProjectString,targetTestCaseName,targetSamplerName);
+  }
+ catch (  IOException e) {
+    UISupport.showInfoMessage("Error while opening selected loadUI project");
+    return;
+  }
+  if (createdSamplerSettings != null) {
+    String creationInfo="SoapUISampler created under project: '" + createdSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME) + "'";
+    if (!targetTestCaseName.equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
+      creationInfo+=", TestCase: '" + createdSamplerSettings.get(ContextMapping.LOADUI_TEST_CASE_NAME) + "'";
+    }
+    UISupport.showInfoMessage(creationInfo);
+  }
+}

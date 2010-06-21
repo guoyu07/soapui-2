@@ -1,0 +1,8 @@
+{
+  super(STRATEGY_TYPE,loadTest);
+  if (config != null) {
+    XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(config);
+    testDelay=reader.readInt("testDelay",DEFAULT_TEST_DELAY);
+    randomFactor=reader.readFloat("randomFactor",DEFAULT_RANDOM_FACTOR);
+  }
+}

@@ -1,0 +1,23 @@
+{
+synchronized (compressedStringConfig) {
+    long limit=SoapUI.getSettings().getLong(WsdlSettings.COMPRESSION_LIMIT,0);
+    if (limit > 0 && value.length() >= limit) {
+      try {
+        ByteArrayOutputStream byteOut=new ByteArrayOutputStream();
+        GZIPOutputStream out=new GZIPOutputStream(byteOut);
+        out.write(value.getBytes());
+        out.finish();
+        value=new String(Base64.encodeBase64(byteOut.toByteArray()));
+        compressedStringConfig.setCompression("gzip");
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+        compressedStringConfig.unsetCompression();
+      }
+    }
+ else     if (compressedStringConfig.isSetCompression()) {
+      compressedStringConfig.unsetCompression();
+    }
+    compressedStringConfig.setStringValue(value);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  super(testStep);
+  this.testStep=testStep;
+  componentEnabler=new TestRunComponentEnabler(testStep.getTestCase());
+  buildUI();
+  testStep.addPropertyChangeListener(this);
+}

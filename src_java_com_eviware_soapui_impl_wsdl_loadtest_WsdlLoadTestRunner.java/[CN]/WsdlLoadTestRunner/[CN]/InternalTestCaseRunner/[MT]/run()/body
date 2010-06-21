@@ -1,0 +1,30 @@
+{
+  try {
+    if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName(testCase.getName() + " " + loadTest.getName()+ " ThreadIndex = "+ threadIndex);
+    runner=new WsdlTestCaseRunner(testCase,new StringToObjectMap());
+    while (!canceled) {
+      try {
+        runner.getRunContext().reset();
+        runner.getRunContext().setProperty(TestCaseRunContext.THREAD_INDEX,threadIndex);
+        runner.getRunContext().setProperty(TestCaseRunContext.RUN_COUNT,runCount);
+        runner.getRunContext().setProperty(TestCaseRunContext.LOAD_TEST_RUNNER,WsdlLoadTestRunner.this);
+        runner.getRunContext().setProperty(TestCaseRunContext.LOAD_TEST_CONTEXT,context);
+synchronized (this) {
+          runner.getRunContext().setProperty(TestCaseRunContext.TOTAL_RUN_COUNT,startedCount++);
+        }
+        runner.run();
+      }
+ catch (      Throwable e) {
+        System.err.println("Error running testcase: " + e);
+        SoapUI.logError(e);
+      }
+      runCount++;
+      if (!afterRun(this))       break;
+    }
+  }
+  finally {
+    finishRunner(this);
+    testCase.release();
+    testCase.removeTestRunListener(testRunListener);
+  }
+}

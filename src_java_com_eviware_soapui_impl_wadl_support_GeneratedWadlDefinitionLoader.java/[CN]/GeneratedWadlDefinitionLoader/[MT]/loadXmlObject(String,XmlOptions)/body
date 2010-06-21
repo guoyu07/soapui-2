@@ -1,0 +1,4 @@
+{
+  if (wsdlUrl.toLowerCase().endsWith(".xsd"))   return XmlObject.Factory.parse(InferredSchemaManager.getInferredSchema(restService).getXsdForNamespace(InferredSchemaManager.namespaceForFilename(wsdlUrl)));
+  return new WadlGenerator(restService).generateWadl();
+}

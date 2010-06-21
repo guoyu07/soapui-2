@@ -1,0 +1,30 @@
+{
+  if (testSuite.getProject() == target) {
+    int ix=target.getIndexOfTestSuite(testSuite);
+    if (position == -1) {
+      target.moveTestSuite(ix,target.getTestSuiteCount() - ix);
+    }
+ else     if (ix >= 0 && position != ix) {
+      int offset=position - ix;
+      if (offset > 0)       offset--;
+      target.moveTestSuite(ix,offset);
+    }
+  }
+ else   if (UISupport.confirm("Move TestSuite [" + testSuite.getName() + "] to Project ["+ target.getName()+ "]","Move TestSuite")) {
+    Set<Interface> requiredInterfaces=new HashSet<Interface>();
+    for (    TestCase testCase : testSuite.getTestCaseList()) {
+      for (int y=0; y < testCase.getTestStepCount(); y++) {
+        WsdlTestStep testStep=(WsdlTestStep)testCase.getTestStepAt(y);
+        requiredInterfaces.addAll(testStep.getRequiredInterfaces());
+      }
+    }
+    if (DragAndDropSupport.importRequiredInterfaces(target,requiredInterfaces,"Move TestSuite")) {
+      WsdlTestSuite importedTestSuite=target.importTestSuite(testSuite,testSuite.getName(),position,true,null);
+      if (importedTestSuite != null) {
+        testSuite.getProject().removeTestSuite(testSuite);
+        return importedTestSuite;
+      }
+    }
+  }
+  return null;
+}

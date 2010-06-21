@@ -1,0 +1,12 @@
+{
+  List<String> availableSamplers=new ArrayList<String>();
+  if (!projectName.equals(CREATE_NEW_OPTION) && isProjectOpened(projectName)) {
+    availableSamplers.addAll(getSoapUISamplersNames(projectName,testCaseName));
+  }
+  availableSamplers.add(CREATE_NEW_OPTION);
+  String[] names=new String[availableSamplers.size()];
+  for (int c=0; c < availableSamplers.size(); c++) {
+    names[c]=availableSamplers.get(c);
+  }
+  return names;
+}

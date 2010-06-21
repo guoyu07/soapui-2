@@ -1,0 +1,22 @@
+{
+  HashMap<String,String> samplerSettings=new HashMap<String,String>();
+  try {
+    String loadTestName=loadTests[0];
+    WsdlLoadTest loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);
+    HashMap<String,Object> firstSamplerSettings=exportLoadTestToLoadUI(loadTest,loadUIProject,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+    String loadUIProjectAddedTo=(String)firstSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME);
+    for (int i=1; i < loadTests.length; i++) {
+      loadTestName=loadTests[i];
+      loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);
+      exportLoadTestToLoadUI(loadTest,loadUIProjectAddedTo,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+    }
+    bringLoadUIToFront();
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return samplerSettings;
+}

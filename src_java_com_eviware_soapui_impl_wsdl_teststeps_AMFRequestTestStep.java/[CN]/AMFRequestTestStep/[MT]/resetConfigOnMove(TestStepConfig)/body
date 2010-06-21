@@ -1,0 +1,6 @@
+{
+  super.resetConfigOnMove(config);
+  amfRequestTestStepConfig=(AMFRequestTestStepConfig)config.getConfig().changeType(AMFRequestTestStepConfig.type);
+  propertyHolderSupport.resetPropertiesConfig(amfRequestTestStepConfig.getProperties());
+  assertionsSupport.refresh();
+}

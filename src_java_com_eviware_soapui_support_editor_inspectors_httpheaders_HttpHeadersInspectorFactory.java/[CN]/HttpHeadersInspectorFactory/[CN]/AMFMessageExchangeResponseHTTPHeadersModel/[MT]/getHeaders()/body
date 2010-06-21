@@ -1,0 +1,7 @@
+{
+  if (getModelItem().getMessageExchange() instanceof AMFTestStepResult) {
+    AMFTestStepResult messageExchange=(AMFTestStepResult)getModelItem().getMessageExchange();
+    return ((AMFResponse)messageExchange.getResponse()).getResponseHeaders();
+  }
+  return new StringToStringMap();
+}

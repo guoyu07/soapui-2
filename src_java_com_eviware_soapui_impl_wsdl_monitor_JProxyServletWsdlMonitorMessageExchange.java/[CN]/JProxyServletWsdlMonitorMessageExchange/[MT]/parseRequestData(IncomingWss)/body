@@ -1,0 +1,30 @@
+{
+  ByteArrayInputStream in=request == null ? new ByteArrayInputStream(new byte[0]) : new ByteArrayInputStream(request);
+  try {
+    requestContentType=requestHeaders.get("Content-Type");
+    if (requestContentType != null && requestContentType.toUpperCase().startsWith("MULTIPART")) {
+      StringToStringMap values=StringToStringMap.fromHttpHeader(requestContentType);
+      requestMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor request",in,requestContentType),values.get("start"),null,true,false);
+      requestContentType=requestMmSupport.getRootPart() != null ? requestMmSupport.getRootPart().getContentType() : null;
+    }
+ else {
+      String charset=getCharset(requestHeaders);
+      this.requestContent=charset == null ? Tools.readAll(in,0).toString() : Tools.readAll(in,0).toString(charset);
+    }
+    processRequestWss(incomingRequestWss);
+    if (checkParse()) {
+      operation=findOperation();
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    try {
+      in.close();
+    }
+ catch (    IOException e1) {
+      SoapUI.logError(e1);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  this.project=testSuite;
+  setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+  for (int c=0; c < testSuite.getTestSuiteCount(); c++) {
+    TestSuiteListPanel testSuiteListPanel=createTestSuiteListPanel(testSuite.getTestSuiteAt(c));
+    panels.put(testSuite.getTestSuiteAt(c),testSuiteListPanel);
+    add(testSuiteListPanel);
+  }
+  add(Box.createVerticalGlue());
+  setBackground(Color.WHITE);
+  testSuite.addProjectListener(testSuiteListener);
+  ActionList actions=ActionListBuilder.buildActions(testSuite);
+  actions.removeAction(0);
+  actions.removeAction(0);
+  setComponentPopupMenu(ActionSupport.buildPopup(actions));
+  DragSource dragSource=DragSource.getDefaultDragSource();
+  SoapUIDragAndDropHandler dragAndDropHandler=new SoapUIDragAndDropHandler(new TestSuiteListDragAndDropable(this),DropType.AFTER);
+  dragSource.createDefaultDragGestureRecognizer(this,DnDConstants.ACTION_COPY_OR_MOVE,dragAndDropHandler);
+}

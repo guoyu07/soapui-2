@@ -1,0 +1,14 @@
+{
+  Element propertyNode;
+  if (wsaVersionNameSpace != null) {
+    propertyNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,wsaProperty);
+    parsePropertyNode(propertyName,propertyNode,expectedValue);
+  }
+ else {
+    propertyNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,wsaProperty);
+    if (propertyNode == null) {
+      propertyNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,wsaProperty);
+    }
+    parsePropertyNode(propertyName,propertyNode,expectedValue);
+  }
+}

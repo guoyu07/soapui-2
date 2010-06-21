@@ -1,0 +1,6 @@
+{
+  beforeSave();
+  TestStepConfig config=(TestStepConfig)getConfig().copy();
+  JdbcRequestTestStep result=(JdbcRequestTestStep)targetTestCase.addTestStep(config);
+  return result;
+}

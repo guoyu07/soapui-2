@@ -1,0 +1,8 @@
+{
+  if (pathName == null)   return true;
+  PathToResolve pathToCheck=new PathToResolve(modelItem,description,pathName);
+  for (  PathToResolve path : pathsToResolve) {
+    if (path.equals(pathToCheck))     return true;
+  }
+  return false;
+}

@@ -1,0 +1,10 @@
+{
+  if (editorForm == null) {
+    editorForm=new SimpleForm();
+    editorForm.addSpace(5);
+    editorForm.append(LOADUI_PATH,new DirectoryFormComponent("Folder contains loadUI.bat "));
+    editorForm.appendTextField(LOADUI_CAJO_PORT,"Client port for LoadUI");
+    editorForm.appendTextField(SOAPUI_CAJO_PORT,"Server port of SoapUI  (change requires restart of SoapUI)");
+  }
+  return editorForm;
+}

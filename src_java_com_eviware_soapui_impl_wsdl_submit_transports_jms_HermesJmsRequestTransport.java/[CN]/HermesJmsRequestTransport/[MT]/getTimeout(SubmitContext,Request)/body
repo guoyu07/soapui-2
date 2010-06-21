@@ -1,0 +1,10 @@
+{
+  String timeout=PropertyExpander.expandProperties(submitContext,request.getTimeout());
+  long to=0;
+  try {
+    to=Long.parseLong(timeout);
+  }
+ catch (  Exception e) {
+  }
+  return to;
+}

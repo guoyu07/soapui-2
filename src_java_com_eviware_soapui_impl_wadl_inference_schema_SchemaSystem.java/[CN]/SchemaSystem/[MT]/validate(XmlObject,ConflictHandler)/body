@@ -1,0 +1,18 @@
+{
+  XmlCursor cursor=xmlo.newCursor();
+  cursor.toFirstChild();
+  Schema s=getSchemaForNamespace(cursor.getName().getNamespaceURI());
+  boolean created=false;
+  if (s == null) {
+    s=newSchema(cursor.getName().getNamespaceURI());
+    created=true;
+  }
+  Context context=new Context(this,handler,cursor);
+  try {
+    s.validate(context);
+  }
+ catch (  XmlException e) {
+    if (created)     schemas.remove(s.getNamespace());
+    throw e;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  if (schemaType != null) {
+    XmlAnySimpleType[] enumerationValues=schemaType.getEnumerationValues();
+    if (enumerationValues != null && enumerationValues.length > 0) {
+      if (addNull) {
+        String[] values=new String[enumerationValues.length + 1];
+        values[0]=null;
+        for (int c=1; c < values.length; c++)         values[c]=enumerationValues[c - 1].getStringValue();
+        return values;
+      }
+ else {
+        String[] values=new String[enumerationValues.length];
+        for (int c=0; c < values.length; c++)         values[c]=enumerationValues[c].getStringValue();
+        return values;
+      }
+    }
+  }
+  return new String[0];
+}

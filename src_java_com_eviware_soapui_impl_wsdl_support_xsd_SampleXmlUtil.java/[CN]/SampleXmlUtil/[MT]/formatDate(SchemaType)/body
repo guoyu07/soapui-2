@@ -1,0 +1,140 @@
+{
+  GDateBuilder gdateb=new GDateBuilder(new Date(1000L * pick(365 * 24 * 60* 60) + (30L + pick(20)) * 365 * 24* 60* 60* 1000));
+  GDate min=null, max=null;
+switch (sType.getPrimitiveType().getBuiltinTypeCode()) {
+case SchemaType.BTC_DATE_TIME:
+{
+      XmlDateTime x=(XmlDateTime)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+      if (x != null)       min=x.getGDateValue();
+      x=(XmlDateTime)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+      if (x != null)       if (min == null || min.compareToGDate(x.getGDateValue()) <= 0)       min=x.getGDateValue();
+      x=(XmlDateTime)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+      if (x != null)       max=x.getGDateValue();
+      x=(XmlDateTime)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+      if (x != null)       if (max == null || max.compareToGDate(x.getGDateValue()) >= 0)       max=x.getGDateValue();
+      break;
+    }
+case SchemaType.BTC_TIME:
+{
+    XmlTime x=(XmlTime)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+    if (x != null)     min=x.getGDateValue();
+    x=(XmlTime)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+    if (x != null)     if (min == null || min.compareToGDate(x.getGDateValue()) <= 0)     min=x.getGDateValue();
+    x=(XmlTime)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+    if (x != null)     max=x.getGDateValue();
+    x=(XmlTime)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+    if (x != null)     if (max == null || max.compareToGDate(x.getGDateValue()) >= 0)     max=x.getGDateValue();
+    break;
+  }
+case SchemaType.BTC_DATE:
+{
+  XmlDate x=(XmlDate)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+  if (x != null)   min=x.getGDateValue();
+  x=(XmlDate)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+  if (x != null)   if (min == null || min.compareToGDate(x.getGDateValue()) <= 0)   min=x.getGDateValue();
+  x=(XmlDate)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+  if (x != null)   max=x.getGDateValue();
+  x=(XmlDate)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+  if (x != null)   if (max == null || max.compareToGDate(x.getGDateValue()) >= 0)   max=x.getGDateValue();
+  break;
+}
+case SchemaType.BTC_G_YEAR_MONTH:
+{
+XmlGYearMonth x=(XmlGYearMonth)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+if (x != null) min=x.getGDateValue();
+x=(XmlGYearMonth)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+if (x != null) if (min == null || min.compareToGDate(x.getGDateValue()) <= 0) min=x.getGDateValue();
+x=(XmlGYearMonth)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+if (x != null) max=x.getGDateValue();
+x=(XmlGYearMonth)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+if (x != null) if (max == null || max.compareToGDate(x.getGDateValue()) >= 0) max=x.getGDateValue();
+break;
+}
+case SchemaType.BTC_G_YEAR:
+{
+XmlGYear x=(XmlGYear)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+if (x != null) min=x.getGDateValue();
+x=(XmlGYear)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+if (x != null) if (min == null || min.compareToGDate(x.getGDateValue()) <= 0) min=x.getGDateValue();
+x=(XmlGYear)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+if (x != null) max=x.getGDateValue();
+x=(XmlGYear)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+if (x != null) if (max == null || max.compareToGDate(x.getGDateValue()) >= 0) max=x.getGDateValue();
+break;
+}
+case SchemaType.BTC_G_MONTH_DAY:
+{
+XmlGMonthDay x=(XmlGMonthDay)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+if (x != null) min=x.getGDateValue();
+x=(XmlGMonthDay)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+if (x != null) if (min == null || min.compareToGDate(x.getGDateValue()) <= 0) min=x.getGDateValue();
+x=(XmlGMonthDay)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+if (x != null) max=x.getGDateValue();
+x=(XmlGMonthDay)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+if (x != null) if (max == null || max.compareToGDate(x.getGDateValue()) >= 0) max=x.getGDateValue();
+break;
+}
+case SchemaType.BTC_G_DAY:
+{
+XmlGDay x=(XmlGDay)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+if (x != null) min=x.getGDateValue();
+x=(XmlGDay)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+if (x != null) if (min == null || min.compareToGDate(x.getGDateValue()) <= 0) min=x.getGDateValue();
+x=(XmlGDay)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+if (x != null) max=x.getGDateValue();
+x=(XmlGDay)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+if (x != null) if (max == null || max.compareToGDate(x.getGDateValue()) >= 0) max=x.getGDateValue();
+break;
+}
+case SchemaType.BTC_G_MONTH:
+{
+XmlGMonth x=(XmlGMonth)sType.getFacet(SchemaType.FACET_MIN_INCLUSIVE);
+if (x != null) min=x.getGDateValue();
+x=(XmlGMonth)sType.getFacet(SchemaType.FACET_MIN_EXCLUSIVE);
+if (x != null) if (min == null || min.compareToGDate(x.getGDateValue()) <= 0) min=x.getGDateValue();
+x=(XmlGMonth)sType.getFacet(SchemaType.FACET_MAX_INCLUSIVE);
+if (x != null) max=x.getGDateValue();
+x=(XmlGMonth)sType.getFacet(SchemaType.FACET_MAX_EXCLUSIVE);
+if (x != null) if (max == null || max.compareToGDate(x.getGDateValue()) >= 0) max=x.getGDateValue();
+break;
+}
+}
+if (min != null && max == null) {
+if (min.compareToGDate(gdateb) >= 0) {
+Calendar c=gdateb.getCalendar();
+c.add(Calendar.HOUR_OF_DAY,pick(8));
+gdateb=new GDateBuilder(c);
+}
+}
+ else if (min == null && max != null) {
+if (max.compareToGDate(gdateb) <= 0) {
+Calendar c=gdateb.getCalendar();
+c.add(Calendar.HOUR_OF_DAY,0 - pick(8));
+gdateb=new GDateBuilder(c);
+}
+}
+ else if (min != null && max != null) {
+if (min.compareToGDate(gdateb) >= 0 || max.compareToGDate(gdateb) <= 0) {
+Calendar c=min.getCalendar();
+Calendar cmax=max.getCalendar();
+c.add(Calendar.HOUR_OF_DAY,1);
+if (c.after(cmax)) {
+c.add(Calendar.HOUR_OF_DAY,-1);
+c.add(Calendar.MINUTE,1);
+if (c.after(cmax)) {
+c.add(Calendar.MINUTE,-1);
+c.add(Calendar.SECOND,1);
+if (c.after(cmax)) {
+c.add(Calendar.SECOND,-1);
+c.add(Calendar.MILLISECOND,1);
+if (c.after(cmax)) c.add(Calendar.MILLISECOND,-1);
+}
+}
+}
+gdateb=new GDateBuilder(c);
+}
+}
+gdateb.setBuiltinTypeCode(sType.getPrimitiveType().getBuiltinTypeCode());
+if (pick(2) == 0) gdateb.clearTimeZone();
+return gdateb.toString();
+}

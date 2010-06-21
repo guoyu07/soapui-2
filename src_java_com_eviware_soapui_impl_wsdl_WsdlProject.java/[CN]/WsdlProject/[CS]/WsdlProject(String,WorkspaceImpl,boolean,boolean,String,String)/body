@@ -1,0 +1,65 @@
+{
+  super(null,workspace,"/project.gif");
+  pcs=new PropertyChangeSupport(this);
+  this.workspace=workspace;
+  this.path=path;
+  this.projectPassword=projectPassword;
+  for (  ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
+    addProjectListener(listener);
+  }
+  for (  ProjectRunListener listener : SoapUI.getListenerRegistry().getListeners(ProjectRunListener.class)) {
+    addProjectRunListener(listener);
+  }
+  try {
+    if (path != null && open) {
+      File file=new File(path.trim());
+      if (file.exists()) {
+        try {
+          loadProject(new URL("file:" + file.getAbsolutePath()));
+          lastModified=file.lastModified();
+        }
+ catch (        MalformedURLException e) {
+          SoapUI.logError(e);
+          disabled=true;
+        }
+      }
+ else {
+        try {
+          if (!PathUtils.isHttpPath(path))           SoapUI.log.info("File [" + file.getAbsolutePath() + "] does not exist, trying URL instead");
+          remote=true;
+          loadProject(new URL(path));
+        }
+ catch (        MalformedURLException e) {
+          SoapUI.logError(e);
+          disabled=true;
+        }
+      }
+    }
+  }
+ catch (  SoapUIException e) {
+    SoapUI.logError(e);
+    disabled=true;
+  }
+ finally {
+    closedIcon=UISupport.createImageIcon("/closedProject.gif");
+    remoteIcon=UISupport.createImageIcon("/remoteProject.gif");
+    disabledIcon=UISupport.createImageIcon("/disabledProject.gif");
+    openEncyptedIcon=UISupport.createImageIcon("/openEncryptedProject.gif");
+    closedEncyptedIcon=UISupport.createImageIcon("/closedEncryptedProject.gif");
+    this.open=open && !disabled && (this.encrypted != -1);
+    if (projectDocument == null) {
+      projectDocument=SoapuiProjectDocumentConfig.Factory.newInstance();
+      setConfig(projectDocument.addNewSoapuiProject());
+      if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
+      setPropertiesConfig(getConfig().addNewProperties());
+      wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
+    }
+    if (getConfig() != null) {
+      endpointStrategy.init(this);
+    }
+    if (getSettings() != null) {
+      setProjectRoot(path);
+    }
+    addPropertyChangeListener(this);
+  }
+}

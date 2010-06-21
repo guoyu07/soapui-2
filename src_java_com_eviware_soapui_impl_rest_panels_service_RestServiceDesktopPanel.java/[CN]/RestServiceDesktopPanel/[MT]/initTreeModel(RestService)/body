@@ -1,0 +1,14 @@
+{
+  try {
+    if (iface.getWadlContext().loadIfNecessary()) {
+      XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Loading Defintion",3,"Initializing definition..",true);
+      Loader loader=new Loader(iface);
+      progressDialog.run(loader);
+      loader=null;
+      treeModel.nodeStructureChanged(rootNode);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

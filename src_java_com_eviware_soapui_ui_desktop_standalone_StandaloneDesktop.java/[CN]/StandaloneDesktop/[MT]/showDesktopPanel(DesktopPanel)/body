@@ -1,0 +1,25 @@
+{
+  JInternalFrame frame=getFrameForDesktopPanel(desktopPanel);
+  if (frame != null) {
+    try {
+      desktopPane.getDesktopManager().deiconifyFrame(frame);
+      frame.setSelected(true);
+      frame.moveToFront();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+ else {
+    frame=createContentFrame(desktopPanel);
+    desktopPane.add(frame);
+    if (desktopPanel.getModelItem() != null)     modelItemToInternalFrameMap.put(desktopPanel.getModelItem(),frame);
+    internalFrameToDesktopPanelMap.put(frame,desktopPanel);
+    fireDesktopPanelCreated(desktopPanel);
+    frame.moveToFront();
+    desktopPanel.getComponent().requestFocusInWindow();
+  }
+  currentPanel=desktopPanel;
+  enableWindowActions();
+  return desktopPanel;
+}

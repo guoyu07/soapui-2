@@ -1,0 +1,9 @@
+{
+  try {
+    return WsdlUtils.getFaultParts(getBindingOperation(),name);
+  }
+ catch (  Exception e) {
+    log.error(e.toString(),e);
+  }
+  return new javax.wsdl.Part[0];
+}

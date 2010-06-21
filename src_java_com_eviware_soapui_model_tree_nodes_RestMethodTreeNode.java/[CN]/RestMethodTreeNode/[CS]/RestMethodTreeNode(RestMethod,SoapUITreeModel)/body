@@ -1,0 +1,7 @@
+{
+  super(method,method.getParent(),treeModel);
+  treeModel.mapModelItem(this);
+  for (  RestRequest request : method.getRequestList()) {
+    requestAdded(request);
+  }
+}

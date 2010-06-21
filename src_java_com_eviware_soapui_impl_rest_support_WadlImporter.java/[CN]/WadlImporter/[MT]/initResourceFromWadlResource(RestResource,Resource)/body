@@ -1,0 +1,28 @@
+{
+  for (  Param param : resource.getParamList()) {
+    String nm=param.getName();
+    RestParamProperty prop=newResource.hasProperty(nm) ? newResource.getProperty(nm) : newResource.addProperty(nm);
+    initParam(param,prop);
+  }
+  for (  Method method : resource.getMethodList()) {
+    method=resolveMethod(method);
+    initMethod(newResource,method);
+  }
+  List<?> types=resource.getType();
+  if (types != null && types.size() > 0) {
+    for (    Object obj : types) {
+      ResourceTypeDocument.ResourceType type=resolveResource(obj.toString());
+      if (type != null) {
+        for (        Method method : type.getMethodList()) {
+          method=resolveMethod(method);
+          RestMethod restMethod=initMethod(newResource,method);
+          for (          Param param : type.getParamList()) {
+            String nm=param.getName();
+            RestParamProperty prop=restMethod.hasProperty(nm) ? restMethod.getProperty(nm) : restMethod.addProperty(nm);
+            initParam(param,prop);
+          }
+        }
+      }
+    }
+  }
+}

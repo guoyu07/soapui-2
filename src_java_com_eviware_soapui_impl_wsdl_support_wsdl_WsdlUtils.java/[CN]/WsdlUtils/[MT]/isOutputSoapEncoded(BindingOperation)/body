@@ -1,0 +1,14 @@
+{
+  if (bindingOperation == null)   return false;
+  BindingOutput bindingOutput=bindingOperation.getBindingOutput();
+  if (bindingOutput == null)   return false;
+  SOAPBody soapBody=WsdlUtils.getExtensiblityElement(bindingOutput.getExtensibilityElements(),SOAPBody.class);
+  if (soapBody != null) {
+    return soapBody.getUse() != null && soapBody.getUse().equalsIgnoreCase("encoded") && (soapBody.getEncodingStyles() == null || soapBody.getEncodingStyles().contains("http://schemas.xmlsoap.org/soap/encoding/"));
+  }
+  SOAP12Body soap12Body=WsdlUtils.getExtensiblityElement(bindingOutput.getExtensibilityElements(),SOAP12Body.class);
+  if (soap12Body != null) {
+    return soap12Body.getUse() != null && soap12Body.getUse().equalsIgnoreCase("encoded") && (soap12Body.getEncodingStyle() == null || soap12Body.getEncodingStyle().equals("http://schemas.xmlsoap.org/soap/encoding/"));
+  }
+  return false;
+}

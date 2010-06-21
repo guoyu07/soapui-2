@@ -1,0 +1,8 @@
+{
+  Object selectedItem=operationCombo.getSelectedItem();
+  operationCombo.removeItem(operation.getName());
+  if (selectedItem.equals(operation.getName())) {
+    getModelItem().setOperation(null);
+    interfaceCombo.setSelectedIndex(-1);
+  }
+}

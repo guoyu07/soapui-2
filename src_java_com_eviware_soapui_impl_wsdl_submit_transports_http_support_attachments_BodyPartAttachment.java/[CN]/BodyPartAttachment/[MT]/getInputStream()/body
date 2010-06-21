@@ -1,0 +1,14 @@
+{
+  if (data != null)   return new ByteArrayInputStream(data);
+  AttachmentEncoding encoding=getEncoding();
+  if (encoding == AttachmentEncoding.NONE)   return bodyPart.getInputStream();
+  data=Tools.readAll(bodyPart.getInputStream(),Tools.READ_ALL).toByteArray();
+  if (encoding == AttachmentEncoding.BASE64) {
+    if (Base64.isArrayByteBase64(data))     data=Tools.readAll(new ByteArrayInputStream(Base64.decodeBase64(data)),Tools.READ_ALL).toByteArray();
+ else     throw new Exception("Attachment content for part [" + getPart() + "] is not base64 encoded");
+  }
+ else   if (encoding == AttachmentEncoding.HEX) {
+    data=Hex.decodeHex(new String(data).toCharArray());
+  }
+  return new ByteArrayInputStream(data);
+}

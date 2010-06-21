@@ -1,0 +1,10 @@
+{
+  if (logTable.getRowCount() == 0)   return;
+  int[] rows=logTable.getSelectedRows();
+  if (rows.length == 0) {
+    if (UISupport.confirm("Clear monitor log?","Clear Log"))     tableModel.clear();
+  }
+ else   if (UISupport.confirm("Clear " + rows.length + " rows from monitor log?","Clear Log")) {
+    tableModel.clearRows(rows);
+  }
+}

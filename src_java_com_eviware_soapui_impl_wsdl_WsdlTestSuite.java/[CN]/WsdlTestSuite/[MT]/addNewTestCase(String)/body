@@ -1,0 +1,9 @@
+{
+  WsdlTestCase testCase=buildTestCase(getConfig().addNewTestCase(),false);
+  testCase.setName(name);
+  testCase.setFailOnError(true);
+  testCase.setSearchProperties(true);
+  testCases.add(testCase);
+  fireTestCaseAdded(testCase);
+  return testCase;
+}

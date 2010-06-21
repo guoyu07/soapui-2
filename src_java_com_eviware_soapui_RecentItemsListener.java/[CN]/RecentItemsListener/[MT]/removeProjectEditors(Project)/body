@@ -1,0 +1,23 @@
+{
+  for (int c=0; c < recentEditorsMenu.getItemCount(); c++) {
+    ShowEditorAction action=(ShowEditorAction)recentEditorsMenu.getItem(c).getAction();
+    if (action == null)     continue;
+    if (action.isReleased()) {
+      recentEditorsMenu.remove(c);
+      c--;
+    }
+ else {
+      try {
+        action.update();
+        if (dependsOnProject(action.getModelItem(),project)) {
+          recentEditorsMenu.remove(c);
+          c--;
+        }
+      }
+ catch (      Throwable e1) {
+        recentEditorsMenu.remove(c);
+        c--;
+      }
+    }
+  }
+}

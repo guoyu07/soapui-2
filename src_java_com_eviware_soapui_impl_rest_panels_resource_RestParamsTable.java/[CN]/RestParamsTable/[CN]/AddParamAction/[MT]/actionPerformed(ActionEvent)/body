@@ -1,0 +1,22 @@
+{
+  String name=UISupport.prompt("Specify parameter name","Add Parameter","");
+  if (StringUtils.hasContent(name)) {
+    params.addProperty(name);
+    final int row=params.getPropertyNames().length - 1;
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        requestFocusInWindow();
+        scrollRectToVisible(paramsTable.getCellRect(row,1,true));
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            paramsTable.editCellAt(row,1);
+            paramsTable.getEditorComponent().requestFocusInWindow();
+          }
+        }
+);
+      }
+    }
+);
+    clearParamsAction.setEnabled(true);
+  }
+}

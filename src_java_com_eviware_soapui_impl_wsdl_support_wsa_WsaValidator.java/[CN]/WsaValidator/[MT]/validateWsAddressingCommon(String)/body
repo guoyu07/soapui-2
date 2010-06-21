@@ -1,0 +1,31 @@
+{
+  if (wsaAssertionConfiguration.isAssertTo()) {
+    Element toNode;
+    if (wsaVersionNameSpace != null) {
+      toNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"To");
+      parseToNode(toNode);
+    }
+ else {
+      toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,"To");
+      if (toNode == null) {
+        toNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,"To");
+      }
+      parseToNode(toNode);
+    }
+  }
+  Element faultToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"FaultTo");
+  if (faultToNode != null) {
+    Element addressNode=XmlUtils.getFirstChildElementNS(faultToNode,wsaVersionNameSpace,"Address");
+    if (addressNode != null) {
+      String faultToAddressValue=XmlUtils.getElementText(addressNode);
+      if (!StringUtils.isNullOrEmpty(faultToAddressValue)) {
+        if (AnonymousTypeConfig.PROHIBITED.toString().equals(messageExchange.getOperation().getAnonymous()) && WsaUtils.isAnonymousAddress(faultToAddressValue,wsaVersionNameSpace)) {
+          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are prohibited. ");
+        }
+ else         if (AnonymousTypeConfig.REQUIRED.toString().equals(((WsdlMessageExchange)messageExchange).getOperation().getAnonymous()) && !(WsaUtils.isAnonymousAddress(faultToAddressValue,wsaVersionNameSpace) || WsaUtils.isNoneAddress(faultToAddressValue,wsaVersionNameSpace))) {
+          cumulativeErrorMsg.append("WS-A InvalidAddressingHeader FaultTo , Anonymous addresses are required. ");
+        }
+      }
+    }
+  }
+}

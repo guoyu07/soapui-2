@@ -1,0 +1,10 @@
+{
+  String folder=outputFolder;
+  if (StringUtils.isNullOrEmpty(folder)) {
+    folder=PathUtils.getExpandedResourceRoot(modelItem);
+  }
+ else   if (PathUtils.isRelativePath(folder)) {
+    folder=PathUtils.resolveResourcePath(folder,modelItem);
+  }
+  return folder;
+}

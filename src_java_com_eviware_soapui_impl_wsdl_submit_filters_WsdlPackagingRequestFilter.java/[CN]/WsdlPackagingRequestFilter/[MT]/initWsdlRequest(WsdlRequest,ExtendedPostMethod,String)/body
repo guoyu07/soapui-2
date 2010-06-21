@@ -1,0 +1,37 @@
+{
+  MimeMultipart mp=null;
+  StringToStringMap contentIds=new StringToStringMap();
+  boolean isXOP=wsdlRequest.isMtomEnabled() && wsdlRequest.isForceMtom();
+  if (wsdlRequest.isMtomEnabled() || wsdlRequest.isInlineFilesEnabled() || wsdlRequest.getAttachmentCount() > 0) {
+    try {
+      mp=new MimeMultipart();
+      MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlRequest.getOperation(),requestContent,true);
+      MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
+      for (      MessageXmlPart requestPart : requestParts) {
+        if (AttachmentUtils.prepareMessagePart(wsdlRequest,mp,requestPart,contentIds))         isXOP=true;
+      }
+      requestContent=requestXmlObject.getMessageContent();
+    }
+ catch (    Throwable e) {
+      SoapUI.log.warn("Failed to process inline/MTOM attachments; " + e);
+    }
+  }
+  if (!isXOP && (mp == null || mp.getCount() == 0) && hasContentAttachmentsOnly(wsdlRequest)) {
+    String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(wsdlRequest.getEncoding()));
+    byte[] content=StringUtils.isNullOrEmpty(encoding) ? requestContent.getBytes() : requestContent.getBytes(encoding);
+    postMethod.setRequestEntity(new ByteArrayRequestEntity(content));
+  }
+ else {
+    if (mp == null)     mp=new MimeMultipart();
+    initRootPart(wsdlRequest,requestContent,mp,isXOP);
+    AttachmentUtils.addMimeParts(wsdlRequest,Arrays.asList(wsdlRequest.getAttachments()),mp,contentIds);
+    MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+    message.setContent(mp);
+    message.saveChanges();
+    WsdlRequestMimeMessageRequestEntity mimeMessageRequestEntity=new WsdlRequestMimeMessageRequestEntity(message,isXOP,wsdlRequest);
+    postMethod.setRequestEntity(mimeMessageRequestEntity);
+    postMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
+    postMethod.setRequestHeader("MIME-Version","1.0");
+  }
+  return requestContent;
+}

@@ -1,0 +1,132 @@
+{
+  boolean isXop=false;
+  XmlObjectTreeModel treeModel=null;
+  XmlCursor cursor=messagePart.newCursor();
+  XmlObject rootXmlObject=cursor.getObject();
+  try {
+    while (!cursor.isEnddoc()) {
+      if (cursor.isContainer()) {
+        if (messagePart.isAttachmentPart()) {
+          String href=cursor.getAttributeText(XOP_HREF_QNAME);
+          if (href != null && href.length() > 0) {
+            contentIds.put(messagePart.getPart().getName(),href);
+          }
+          break;
+        }
+        XmlObject xmlObj=cursor.getObject();
+        SchemaType schemaType=xmlObj.schemaType();
+        if (schemaType.isNoType()) {
+          if (treeModel == null) {
+            treeModel=new XmlObjectTreeModel(messagePart.getSchemaType().getTypeSystem(),rootXmlObject);
+          }
+          XmlTreeNode tn=treeModel.getXmlTreeNode(xmlObj);
+          if (tn != null)           schemaType=tn.getSchemaType();
+        }
+        if (AttachmentUtils.isSwaRefType(schemaType)) {
+          String textContent=XmlUtils.getNodeValue(cursor.getDomNode());
+          if (StringUtils.hasContent(textContent) && textContent.startsWith("cid:")) {
+            textContent=textContent.substring(4);
+            try {
+              new URI(textContent);
+              contentIds.put(textContent,textContent);
+            }
+ catch (            RuntimeException e) {
+              String contentId=textContent + "@soapui.org";
+              cursor.setTextValue("cid:" + contentId);
+              contentIds.put(textContent,contentId);
+            }
+          }
+        }
+ else         if (AttachmentUtils.isXopInclude(schemaType)) {
+          String contentId=cursor.getAttributeText(new QName("href"));
+          if (contentId != null && contentId.length() > 0) {
+            contentIds.put(contentId,contentId);
+            isXop=true;
+            Attachment[] attachments=container.getAttachmentsForPart(contentId);
+            if (attachments.length == 1) {
+              XmlCursor cur=cursor.newCursor();
+              if (cur.toParent()) {
+                String contentType=getXmlMimeContentType(cur);
+                if (contentType != null && contentType.length() > 0)                 attachments[0].setContentType(contentType);
+              }
+              cur.dispose();
+            }
+          }
+        }
+ else {
+          String textContent=XmlUtils.getNodeValue(cursor.getDomNode());
+          if (StringUtils.hasContent(textContent)) {
+            Attachment attachment=null;
+            boolean isXopAttachment=false;
+            if (container.isInlineFilesEnabled() && textContent.startsWith("file:")) {
+              String filename=textContent.substring(5);
+              if (container.isMtomEnabled()) {
+                MimeBodyPart part=new PreencodedMimeBodyPart("binary");
+                String xmimeContentType=getXmlMimeContentType(cursor);
+                if (StringUtils.isNullOrEmpty(xmimeContentType))                 xmimeContentType=ContentTypeHandler.getContentTypeFromFilename(filename);
+                part.setDataHandler(new DataHandler(new XOPPartDataSource(new File(filename),xmimeContentType,schemaType)));
+                part.setContentID("<" + filename + ">");
+                mp.addBodyPart(part);
+                isXopAttachment=true;
+              }
+ else {
+                inlineData(cursor,schemaType,new FileInputStream(filename));
+              }
+            }
+ else             if (textContent.startsWith("cid:")) {
+              textContent=textContent.substring(4);
+              Attachment[] attachments=container.getAttachmentsForPart(textContent);
+              if (attachments.length == 1) {
+                attachment=attachments[0];
+              }
+ else               if (attachments.length > 1) {
+                attachment=buildMulitpartAttachment(attachments);
+              }
+              isXopAttachment=container.isMtomEnabled();
+              contentIds.put(textContent,textContent);
+            }
+ else             if (container.isMtomEnabled() && (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType))) {
+              if ("true".equals(System.getProperty("soapui.mtom.strict"))) {
+                if (SchemaUtils.isAnyType(schemaType)) {
+                  textContent=null;
+                }
+ else {
+                  for (int c=0; c < textContent.length(); c++) {
+                    if (Character.isWhitespace(textContent.charAt(c))) {
+                      textContent=null;
+                      break;
+                    }
+                  }
+                }
+              }
+              if (textContent != null) {
+                MimeBodyPart part=new PreencodedMimeBodyPart("binary");
+                String xmimeContentType=getXmlMimeContentType(cursor);
+                part.setDataHandler(new DataHandler(new XOPPartDataSource(textContent,xmimeContentType,schemaType)));
+                textContent="http://www.soapui.org/" + System.nanoTime();
+                part.setContentID("<" + textContent + ">");
+                mp.addBodyPart(part);
+                isXopAttachment=true;
+              }
+            }
+ else             if (container.isInlineFilesEnabled() && container.getAttachmentsForPart(textContent) != null) {
+              attachment=container.getAttachmentsForPart(textContent)[0];
+            }
+            if (isXopAttachment && container.isMtomEnabled()) {
+              buildXopInclude(cursor,textContent);
+              isXop=true;
+            }
+ else             if (attachment != null) {
+              inlineAttachment(cursor,schemaType,attachment);
+            }
+          }
+        }
+      }
+      cursor.toNextToken();
+    }
+  }
+  finally {
+    cursor.dispose();
+  }
+  return isXop;
+}

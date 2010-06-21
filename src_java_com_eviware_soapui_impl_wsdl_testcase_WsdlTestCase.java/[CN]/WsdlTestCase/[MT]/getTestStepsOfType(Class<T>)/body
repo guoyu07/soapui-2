@@ -1,0 +1,5 @@
+{
+  List<T> result=new ArrayList<T>();
+  for (  TestStep step : testSteps)   if (step.getClass().isAssignableFrom(stepType))   result.add((T)step);
+  return result;
+}

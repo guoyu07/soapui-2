@@ -1,0 +1,11 @@
+{
+  if (config == null)   return def;
+  XmlObject[] paths=config.selectPath("$this/" + name);
+  if (paths.length == 1) {
+    XmlCursor cursor=paths[0].newCursor();
+    String textValue=cursor.getTextValue();
+    cursor.dispose();
+    return textValue;
+  }
+  return def;
+}

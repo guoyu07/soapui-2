@@ -1,0 +1,9 @@
+{
+  endpointField=new JTextField();
+  endpointField.setText(amfRequestTestStep.getEndpoint());
+  endpointField.setColumns(35);
+  endpointField.setToolTipText("http to connect");
+  PropertyExpansionPopupListener.enable(endpointField,amfRequestTestStep);
+  addEndpointCallDocumentListener();
+  return endpointField;
+}

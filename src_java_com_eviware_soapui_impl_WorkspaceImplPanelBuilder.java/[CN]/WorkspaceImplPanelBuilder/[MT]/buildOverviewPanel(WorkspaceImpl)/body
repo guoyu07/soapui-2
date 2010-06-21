@@ -1,0 +1,6 @@
+{
+  JPropertiesTable<WorkspaceImpl> table=buildDefaultProperties(workspace,messages.get("OverviewPanel.Title"));
+  table.addProperty(messages.get("OverviewPanel.File.Label"),"path",false);
+  table.addProperty(messages.get("OverviewPanel.ProjectRoot.Label"),"projectRoot",new String[]{null,"${workspaceDir}"}).setDescription(messages.get("OverviewPanel.ProjectRoot.Description"));
+  return table;
+}

@@ -1,0 +1,9 @@
+{
+  if (evt.getPropertyName().equals(TestSuite.LABEL_PROPERTY)) {
+    label.setEnabled(!testSuite.isDisabled());
+    label.setText(testSuite.getLabel());
+  }
+ else   if (evt.getPropertyName().equals(TestSuite.DISABLED_PROPERTY)) {
+    initPopup(testSuite);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  WsdlMockService mockService=new WsdlMockService(this,getConfig().addNewMockService());
+  mockService.setName(name);
+  mockServices.add(mockService);
+  fireMockServiceAdded(mockService);
+  return mockService;
+}

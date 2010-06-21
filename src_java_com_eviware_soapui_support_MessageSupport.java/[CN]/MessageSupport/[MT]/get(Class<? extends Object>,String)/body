@@ -1,0 +1,17 @@
+{
+  ResourceBundle bundle=null;
+  try {
+    bundle=getResourceBundleForClass(clazz);
+    if (bundle == null)     return key;
+    String name=clazz.isMemberClass() ? clazz.getEnclosingClass().getSimpleName() : clazz.getSimpleName();
+    return bundle.getString(name + '.' + key);
+  }
+ catch (  MissingResourceException e) {
+    try {
+      return bundle.getString(key);
+    }
+ catch (    MissingResourceException e1) {
+      return key;
+    }
+  }
+}

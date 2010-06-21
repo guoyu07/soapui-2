@@ -1,0 +1,19 @@
+{
+  assertionPropertiesList=new ArrayList<HashMap<String,String>>();
+  List<LoadTestAssertion> loadTestAssertions=loadTest.getAssertionList();
+  for (  LoadTestAssertion loadTestAssertion : loadTestAssertions) {
+    if (loadTestAssertion.getTargetStep().equals(LoadTestAssertion.ALL_TEST_STEPS)) {
+      HashMap<String,String> asrtProperties=new HashMap<String,String>();
+      if (loadTestAssertion instanceof TestStepTpsAssertion) {
+        asrtProperties.put("value",createProperyValue(String.class,"Tps"));
+      }
+      if (loadTestAssertion instanceof TestStepMaxAssertion) {
+        asrtProperties.put("value",createProperyValue(String.class,"Max"));
+      }
+      if (loadTestAssertion instanceof TestStepAverageAssertion) {
+        asrtProperties.put("value",createProperyValue(String.class,"Avg"));
+      }
+      assertionPropertiesList.add(asrtProperties);
+    }
+  }
+}

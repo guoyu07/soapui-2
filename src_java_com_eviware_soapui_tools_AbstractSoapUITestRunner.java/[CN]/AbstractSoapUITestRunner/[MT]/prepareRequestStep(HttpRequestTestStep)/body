@@ -1,0 +1,29 @@
+{
+  AbstractHttpRequest<?> httpRequest=requestStep.getHttpRequest();
+  if (StringUtils.hasContent(endpoint)) {
+    httpRequest.setEndpoint(endpoint);
+  }
+ else   if (StringUtils.hasContent(host)) {
+    try {
+      String ep=Tools.replaceHost(httpRequest.getEndpoint(),host);
+      httpRequest.setEndpoint(ep);
+    }
+ catch (    Exception e) {
+      log.error("Failed to set host on endpoint",e);
+    }
+  }
+  if (StringUtils.hasContent(username)) {
+    httpRequest.setUsername(username);
+  }
+  if (StringUtils.hasContent(password)) {
+    httpRequest.setPassword(password);
+  }
+  if (StringUtils.hasContent(domain)) {
+    httpRequest.setDomain(domain);
+  }
+  if (httpRequest instanceof WsdlRequest) {
+    if (wssPasswordType != null && wssPasswordType.length() > 0) {
+      ((WsdlRequest)httpRequest).setWssPasswordType(wssPasswordType.equals("Digest") ? WsdlTestRequest.PW_TYPE_DIGEST : WsdlTestRequest.PW_TYPE_TEXT);
+    }
+  }
+}

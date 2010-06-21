@@ -1,0 +1,8 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Basic Authentication");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addLabel("Info","");
+  mainForm.addTextField("Username","Username for authentication",XForm.FieldType.TEXT);
+  mainForm.addTextField("Password","Password for authentication",XForm.FieldType.PASSWORD);
+  basicDialog=builder.buildDialog(builder.buildOkCancelActions(),"Specify Basic Authentication Credentials",UISupport.OPTIONS_ICON);
+}

@@ -1,0 +1,13 @@
+{
+  try {
+    log.info(("Running TestSuite [" + suite.getName() + "], runType = "+ suite.getRunType()));
+    WsdlTestSuiteRunner runner=suite.run(new StringToObjectMap(),false);
+    log.info("TestSuite [" + suite.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ (runner.getTimeTaken())+ "ms");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+ finally {
+    testSuiteCount++;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  int ix=names.indexOf(name);
+  if (ix >= 0) {
+    names.remove(ix);
+    fireIntervalRemoved(TestStepPropertyComboBoxModel.this,ix,ix);
+    if (name.equals(selectedName))     setSelectedItem(null);
+  }
+}

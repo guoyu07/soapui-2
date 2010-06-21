@@ -1,0 +1,47 @@
+{
+  if (modelItem == null)   return null;
+  proVersion=isProVersion(modelItem);
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch LoadTestRunner");
+  mainForm=builder.createForm("Basic");
+  mainForm.addComboBox(TESTSUITE,new String[]{},"The TestSuite to run").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      updateCombos();
+    }
+  }
+);
+  mainForm.addComboBox(TESTCASE,new String[]{},"The TestCase to run").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      updateCombos();
+    }
+  }
+);
+  mainForm.addComboBox(LOADTEST,new String[]{},"The LoadTest to run");
+  mainForm.addSeparator();
+  XFormTextField path=mainForm.addTextField(TESTRUNNERPATH,"Folder containing TestRunner.bat to use",XForm.FieldType.FOLDER);
+  path.setValue(System.getProperty("soapui.home",""));
+  mainForm.addCheckBox(SAVEPROJECT,"Saves project before running").setEnabled(!modelItem.isRemote());
+  mainForm.addCheckBox(SAVEAFTER,"Sets to save the project file after tests have been run");
+  mainForm.addCheckBox(ADDSETTINGS,"Adds global settings to command-line");
+  mainForm.addSeparator();
+  mainForm.addTextField(PROJECTPASSWORD,"Set project password",XForm.FieldType.PASSWORD);
+  mainForm.addTextField(SOAPUISETTINGSPASSWORD,"Set soapui-settings.xml password",XForm.FieldType.PASSWORD);
+  advForm=builder.createForm("Overrides");
+  advForm.addComboBox(ENDPOINT,new String[]{""},"endpoint to forward to");
+  advForm.addTextField(HOSTPORT,"Host:Port to use for requests",XForm.FieldType.TEXT);
+  advForm.addTextField(LIMIT,"Limit for LoadTest",XForm.FieldType.TEXT);
+  advForm.addTextField(THREADCOUNT,"ThreadCount for LoadTest",XForm.FieldType.TEXT);
+  advForm.addSeparator();
+  advForm.addTextField(USERNAME,"The username to set for all requests",XForm.FieldType.TEXT);
+  advForm.addTextField(PASSWORD,"The password to set for all requests",XForm.FieldType.PASSWORD);
+  advForm.addTextField(DOMAIN,"The domain to set for all requests",XForm.FieldType.TEXT);
+  advForm.addComboBox(WSSTYPE,new String[]{"","Text","Digest"},"The username to set for all requests");
+  reportForm=builder.createForm("Reports");
+  createReportTab();
+  propertyForm=builder.createForm("Properties");
+  propertyForm.addComponent(GLOBALPROPERTIES,createTextArea());
+  propertyForm.addComponent(SYSTEMPROPERTIES,createTextArea());
+  propertyForm.addComponent(PROJECTPROPERTIES,createTextArea());
+  setToolsSettingsAction(null);
+  buildArgsForm(builder,false,"TestRunner");
+  return builder.buildDialog(buildDefaultActions(HelpUrls.TESTRUNNER_HELP_URL,modelItem),"Specify arguments for launching soapUI LoadTestRunner",UISupport.TOOL_ICON);
+}

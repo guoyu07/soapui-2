@@ -1,0 +1,29 @@
+{
+  if (!restRequestStepConfig.isSetMethodName()) {
+    RestRequestConverter.updateRestTestRequest(this);
+    if (getResource() == null) {
+      restResource=RestRequestConverter.resolveResource(this);
+      if (restResource == null)       return null;
+      getRequestStepConfig().setService(restResource.getInterface().getName());
+      getRequestStepConfig().setResourcePath(restResource.getFullPath());
+    }
+    RestMethod method=RestRequestConverter.getMethod(getResource(),getRequestStepConfig().getRestRequest().selectAttribute(null,"method").newCursor().getTextValue(),getRequestStepConfig().getRestRequest().getName());
+    restRequestStepConfig.setMethodName(method.getName());
+    return method;
+  }
+ else   if (getResource() == null) {
+    restResource=RestRequestConverter.resolveResource(this);
+    if (restResource == null)     return null;
+    getRequestStepConfig().setService(restResource.getInterface().getName());
+    getRequestStepConfig().setResourcePath(restResource.getFullPath());
+    RestMethod m=(RestMethod)getWsdlModelItemByName(getResource().getRestMethodList(),getRequestStepConfig().getMethodName());
+    if (m == null) {
+      String mn=null;
+      while (mn == null) {
+        mn=UISupport.prompt("Select method in REST Resource [" + restResource.getName() + "]","Missing REST Method",ModelSupport.getNames(restResource.getRestMethodList()));
+      }
+      return restResource.getRestMethodByName(mn);
+    }
+  }
+  return (RestMethod)getWsdlModelItemByName(getResource().getRestMethodList(),getRequestStepConfig().getMethodName());
+}

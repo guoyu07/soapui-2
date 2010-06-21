@@ -1,0 +1,29 @@
+{
+  if (settingsFile == null)   settingsFile=DEFAULT_SETTINGS_FILE;
+  File file=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
+  if (!file.canWrite()) {
+    file=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);
+  }
+  SoapuiSettingsDocumentConfig settingsDocument=(SoapuiSettingsDocumentConfig)this.settingsDocument.copy();
+  String password=settings.getString(SecuritySettings.SHADOW_PASSWORD,null);
+  if (password != null && password.length() > 0) {
+    try {
+      byte[] data=settingsDocument.xmlText().getBytes();
+      byte[] encryptedData=OpenSSL.encrypt("des3",password.toCharArray(),data);
+      settingsDocument.setSoapuiSettings(null);
+      settingsDocument.getSoapuiSettings().setEncryptedContent(encryptedData);
+    }
+ catch (    UnsupportedEncodingException e) {
+      log.error("Encryption error",e);
+    }
+catch (    IOException e) {
+      log.error("Encryption error",e);
+    }
+catch (    GeneralSecurityException e) {
+      log.error("Encryption error",e);
+    }
+  }
+  settingsDocument.save(file);
+  log.info("Settings saved to [" + file.getAbsolutePath() + "]");
+  return file.getAbsolutePath();
+}

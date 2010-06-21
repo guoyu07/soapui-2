@@ -1,0 +1,11 @@
+{
+  String prefix=findPrefixForNamespace(elm,name.getNamespaceURI());
+  if (prefix == null) {
+    prefix=generatePrefixForNamespace(name.getNamespaceURI());
+    while (findNamespaceForPrefix(elm,prefix) != null) {
+      prefix=generatePrefixForNamespace(name.getNamespaceURI());
+    }
+    elm.setAttribute("xmlns:" + prefix,name.getNamespaceURI());
+  }
+  elm.setAttributeNS(Constants.XSI_NS,"type",prefix + ":" + name.getLocalPart());
+}

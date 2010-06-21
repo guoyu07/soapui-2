@@ -1,0 +1,41 @@
+{
+  HashMap<String,String> samplerSettings=new HashMap<String,String>();
+  try {
+    String compositeLoadTestName=loadTests[0];
+    String[] names=compositeLoadTestName.split(" - ");
+    String testCaseName=names[0];
+    String loadTestName=names[1];
+    WsdlTestCase testCase=testSuite.getTestCaseByName(testCaseName);
+    HashMap<String,Object> firstSamplerSettings=new HashMap<String,Object>();
+    String loadUIProjectAddedTo="";
+    if (testCase != null) {
+      WsdlLoadTest loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);
+      if (loadTest != null) {
+        firstSamplerSettings=exportLoadTestToLoadUI(loadTest,loadUIProject,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+        loadUIProjectAddedTo=(String)firstSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME);
+      }
+    }
+    for (int i=1; i < loadTests.length; i++) {
+      compositeLoadTestName=loadTests[i];
+      loadTestName=loadTests[i];
+      WsdlLoadTest loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);
+      testCaseName=names[0];
+      loadTestName=names[1];
+      testCase=testSuite.getTestCaseByName(testCaseName);
+      if (testCase != null) {
+        loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);
+        if (loadTest != null) {
+          exportLoadTestToLoadUI(loadTest,loadUIProjectAddedTo,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+        }
+      }
+    }
+    bringLoadUIToFront();
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return samplerSettings;
+}

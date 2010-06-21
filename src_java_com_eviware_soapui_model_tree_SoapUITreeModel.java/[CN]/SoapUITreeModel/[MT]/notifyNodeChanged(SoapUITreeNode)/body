@@ -1,0 +1,15 @@
+{
+  SoapUITreeNode parent=treeNode.getParentTreeNode();
+  if (parent == null) {
+    notifyNodesChanged(new TreeModelEvent(this,new Object[]{treeNode}));
+    return;
+  }
+  int ix=parent.getIndexOfChild(treeNode);
+  if (ix == -1) {
+    if ((!(treeNode instanceof PropertyTreeNode) && !(treeNode instanceof PropertiesTreeNode)) || isShowProperties())     logger.error("Changed node [" + treeNode + "] not found in parent ["+ parent+ "]");
+    return;
+  }
+  if (!(treeNode instanceof PropertyTreeNode) || showProperties) {
+    notifyNodesChanged(new TreeModelEvent(this,getPath(parent),new int[]{ix},new Object[]{parent.getChildNode(ix)}));
+  }
+}

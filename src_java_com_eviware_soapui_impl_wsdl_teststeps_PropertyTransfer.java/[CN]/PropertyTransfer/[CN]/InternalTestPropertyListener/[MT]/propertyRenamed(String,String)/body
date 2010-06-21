@@ -1,0 +1,12 @@
+{
+  if (oldName.equals(sourceType)) {
+    sourceType=newName;
+    config.setSourceType(sourceType);
+    propertyChangeSupport.firePropertyChange(SOURCE_TYPE_PROPERTY,oldName,sourceType);
+  }
+  if (oldName.equals(targetType)) {
+    targetType=newName;
+    config.setTargetType(targetType);
+    propertyChangeSupport.firePropertyChange(TARGET_TYPE_PROPERTY,oldName,targetType);
+  }
+}

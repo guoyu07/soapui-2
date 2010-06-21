@@ -1,0 +1,25 @@
+{
+  if (listModel.getSize() == 0) {
+    UISupport.showErrorMessage("Missing conditions!");
+    return;
+  }
+  SamplerTestStep previousStep=gotoStep.getTestCase().findPreviousStepOfType(gotoStep,SamplerTestStep.class);
+  if (previousStep == null) {
+    UISupport.showErrorMessage("Missing previous request step");
+  }
+ else {
+    if (previousStep.getTestRequest().getResponse() == null || !XmlUtils.seemsToBeXml(previousStep.getTestRequest().getResponse().getContentAsXml())) {
+      UISupport.showErrorMessage("Missing response in previous message");
+      return;
+    }
+    WsdlTestRunContext context=new WsdlTestRunContext(gotoStep);
+    GotoCondition target=gotoStep.runConditions(previousStep,context);
+    if (target == null) {
+      logList.addLine("No condition true for current response in [" + previousStep.getName() + "]");
+    }
+ else {
+      logList.addLine("Condition triggered for go to [" + target.getTargetStep() + "]");
+    }
+    inspectorPanel.setCurrentInspector("Log");
+  }
+}

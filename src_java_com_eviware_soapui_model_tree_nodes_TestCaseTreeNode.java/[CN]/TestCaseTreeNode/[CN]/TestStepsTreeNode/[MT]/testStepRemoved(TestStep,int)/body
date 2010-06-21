@@ -1,0 +1,8 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(testStep);
+  if (testStepNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    testStepNodes.remove(treeNode);
+  }
+ else   throw new RuntimeException("Removing unkown testStep");
+}

@@ -1,0 +1,5 @@
+{
+  long oldLimit=getHistoryLimit();
+  getConfig().setHistoryLimit(historyLimit);
+  if (historyLimit == 0)   notifyPropertyChanged(HISTORYLIMIT_PROPERTY,oldLimit,historyLimit);
+}

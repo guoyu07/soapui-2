@@ -1,0 +1,42 @@
+{
+  for (  MockRunner mockRunner : getMockRunners()) {
+    if (request.getPathInfo().equals(mockRunner.getMockService().getPath())) {
+      MockResult result=mockRunner.dispatchRequest(request,response);
+      while (maxResults > 0 && results.size() > maxResults) {
+        results.remove(0);
+      }
+      if (result != null) {
+        results.add(result);
+      }
+      return;
+    }
+  }
+  if (enableWebUI) {
+    String pathInfo=request.getPathInfo();
+    File file=new File(servletContext.getRealPath(pathInfo));
+    if (file.exists() && file.isFile()) {
+      FileInputStream in=new FileInputStream(file);
+      response.setStatus(HttpServletResponse.SC_OK);
+      long length=file.length();
+      response.setContentLength((int)length);
+      response.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+      Tools.readAndWrite(in,length,response.getOutputStream());
+      in.close();
+    }
+ else     if (pathInfo.equals("/master")) {
+      printMaster(request,response);
+    }
+ else     if (request.getPathInfo().equals("/detail")) {
+      printDetail(request,response);
+    }
+ else     if (request.getPathInfo().equals("/log")) {
+      printLog(request,response);
+    }
+ else {
+      printFrameset(request,response);
+    }
+  }
+ else {
+    printDisabledLogFrameset(request,response);
+  }
+}

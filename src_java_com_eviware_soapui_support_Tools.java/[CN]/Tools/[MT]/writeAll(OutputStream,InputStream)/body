@@ -1,0 +1,11 @@
+{
+  byte[] buffer=new byte[COPY_BUFFER_SIZE];
+  long total=0;
+  int sz=in.read(buffer);
+  while (sz != -1) {
+    out.write(buffer,0,sz);
+    total+=sz;
+    sz=in.read(buffer);
+  }
+  return total;
+}

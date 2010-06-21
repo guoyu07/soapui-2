@@ -1,0 +1,7 @@
+{
+  String name=UISupport.prompt("Specify name of MockService","New MockService","MockService " + (project.getMockServiceCount() + 1));
+  if (name == null)   return null;
+  WsdlMockService mockService=project.addNewMockService(name);
+  UISupport.select(mockService);
+  return mockService;
+}

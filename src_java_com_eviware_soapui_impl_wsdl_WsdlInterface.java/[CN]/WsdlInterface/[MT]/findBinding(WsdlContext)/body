@@ -1,0 +1,30 @@
+{
+  BindingTuple tuple=new BindingTuple();
+  tuple.context=newContext;
+  Definition definition=newContext.getDefinition();
+  Map serviceMap=definition.getAllServices();
+  Iterator<String> i=serviceMap.keySet().iterator();
+  while (i.hasNext()) {
+    tuple.service=(Service)serviceMap.get(i.next());
+    Map portMap=tuple.service.getPorts();
+    Iterator i2=portMap.keySet().iterator();
+    while (i2.hasNext()) {
+      tuple.port=(Port)portMap.get(i2.next());
+      if (tuple.port.getBinding().getQName().equals(getBindingName())) {
+        tuple.binding=tuple.port.getBinding();
+      }
+    }
+    if (tuple.binding != null)     break;
+    tuple.service=null;
+  }
+  if (tuple.service == null && tuple.binding == null) {
+    tuple.binding=definition.getBinding(getBindingName());
+  }
+  if (tuple.binding == null) {
+    Map bindings=definition.getAllBindings();
+    Object retval=UISupport.prompt("Missing matching binding [" + getBindingName() + "] in definition, select new\nbinding to map to","Map Binding",bindings.keySet().toArray());
+    if (retval == null)     return null;
+    tuple.binding=(Binding)bindings.get(retval);
+  }
+  return tuple;
+}

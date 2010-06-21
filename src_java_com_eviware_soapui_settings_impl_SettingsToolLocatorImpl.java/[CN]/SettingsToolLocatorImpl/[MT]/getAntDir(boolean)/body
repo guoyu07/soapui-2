@@ -1,0 +1,7 @@
+{
+  String antDir=SoapUI.getSettings().getString(ToolsSettings.ANT_LOCATION,null);
+  if (mandatory && antDir == null) {
+    UISupport.showErrorMessage("ANT 1.6.5 (or later) directory must be set in global preferences");
+  }
+  return antDir;
+}

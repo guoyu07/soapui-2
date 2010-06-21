@@ -1,0 +1,8 @@
+{
+  beforeSave();
+  TestStepConfig newConfig=(TestStepConfig)getConfig().copy();
+  newConfig.setName(name);
+  WsdlTestStep result=targetTestCase.addTestStep(newConfig);
+  ModelSupport.unsetIds(result);
+  return result;
+}

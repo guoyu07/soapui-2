@@ -1,0 +1,5 @@
+{
+  int rowForLocation=tree.getRowForLocation(x,y);
+  if (rowForLocation == -1)   rowForLocation=tree.getClosestRowForLocation(x,y);
+  return getModelItemAtRow(rowForLocation);
+}

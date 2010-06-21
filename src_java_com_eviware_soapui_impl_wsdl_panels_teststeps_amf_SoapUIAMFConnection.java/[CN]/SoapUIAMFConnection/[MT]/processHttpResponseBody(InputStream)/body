@@ -1,0 +1,11 @@
+{
+  DataInputStream din=new DataInputStream(inputStream);
+  ActionMessage message=new ActionMessage();
+  actionContext.setRequestMessage(message);
+  MessageDeserializer deserializer=new AmfMessageDeserializer();
+  deserializer.initialize(serializationContext,din,null);
+  deserializer.readMessage(message,actionContext);
+  din.close();
+  context.setProperty(AMFResponse.AMF_RESPONSE_ACTION_MESSAGE,message);
+  return processAmfPacket(message);
+}

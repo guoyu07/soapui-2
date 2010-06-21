@@ -1,0 +1,45 @@
+{
+  String name=method.getName();
+  if (StringUtils.hasContent(method.getId()))   name+=" - " + method.getId();
+  RestMethod restMethod=newResource.addNewMethod(getFirstTitle(method.getDocList(),name));
+  restMethod.setMethod(RestRequestInterface.RequestMethod.valueOf(method.getName()));
+  if (method.getRequest() != null) {
+    for (    Param param : method.getRequest().getParamList()) {
+      RestParamProperty p=restMethod.addProperty(param.getName());
+      initParam(param,p);
+    }
+    for (    Representation representation : method.getRequest().getRepresentationList()) {
+      representation=resolveRepresentation(representation);
+      addRepresentationFromConfig(restMethod,representation,RestRepresentation.Type.REQUEST,null);
+    }
+  }
+  for (  Response response : method.getResponseList()) {
+    for (    Representation representation : response.getRepresentationList()) {
+      addRepresentation(response,restMethod,representation);
+    }
+    if (!isWADL11) {
+      NodeList children=response.getDomNode().getChildNodes();
+      for (int i=0; i < children.getLength(); i++) {
+        Node n=children.item(i);
+        if ("fault".equals(n.getNodeName())) {
+          String content=XmlUtils.serialize(n,false);
+          try {
+            Map<Object,Object> map=new HashMap<Object,Object>();
+            XmlCursor cursor=response.newCursor();
+            cursor.getAllNamespaces(map);
+            cursor.dispose();
+            XmlOptions options=new XmlOptions();
+            options.setLoadAdditionalNamespaces(map);
+            XmlObject obj=XmlObject.Factory.parse(content.replaceFirst("<(([a-z]+:)?)fault ","<$1representation "),options);
+            RepresentationDocument representation=(RepresentationDocument)obj.changeType(RepresentationDocument.type);
+            addRepresentation(response,restMethod,representation.getRepresentation());
+          }
+ catch (          XmlException e) {
+          }
+        }
+      }
+    }
+  }
+  restMethod.addNewRequest("Request 1");
+  return restMethod;
+}

@@ -1,0 +1,6 @@
+{
+  inspectorPanel.addInspector(new JFocusableComponentInspector<JPanel>(buildDescriptionPanel(),descriptionArea,"Description","Description for this TestSuite",true));
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildPropertiesPanel(),"Properties","TestSuite level properties",true));
+  inspectorPanel.addInspector(new GroovyEditorInspector(buildSetupScriptPanel(),"Setup Script","Script to run before running TestSuite"));
+  inspectorPanel.addInspector(new GroovyEditorInspector(buildTearDownScriptPanel(),"TearDown Script","Script to run after running TestSuite"));
+}

@@ -1,0 +1,28 @@
+{
+  super.prepare(testRunner,testRunContext);
+  LoadTestRunner loadTestRunner=(LoadTestRunner)testRunContext.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER);
+  mockRunListener=new InternalMockRunListener();
+  for (  TestAssertion assertion : getAssertionList()) {
+    assertion.prepare(testRunner,testRunContext);
+  }
+  if (loadTestRunner == null) {
+    mockService.addMockRunListener(mockRunListener);
+    mockRunner=mockService.start((WsdlTestRunContext)testRunContext);
+  }
+ else {
+synchronized (STATUS_PROPERTY) {
+      mockRunner=(WsdlMockRunner)testRunContext.getProperty("sharedMockServiceRunner");
+      if (mockRunner == null) {
+        mockService.addMockRunListener(mockRunListener);
+        mockRunner=mockService.start((WsdlTestRunContext)testRunContext);
+      }
+ else {
+        mockRunner.getMockService().addMockRunListener(mockRunListener);
+      }
+    }
+  }
+  if (startTestStep instanceof WsdlMockResponseTestStep) {
+    System.out.println("Adding StartStepMockRunListener from [" + getName() + "] to ["+ startTestStep.getName()+ "]");
+    startStepMockRunListener=new StartStepMockRunListener(testRunContext,(WsdlMockResponseTestStep)startTestStep);
+  }
+}

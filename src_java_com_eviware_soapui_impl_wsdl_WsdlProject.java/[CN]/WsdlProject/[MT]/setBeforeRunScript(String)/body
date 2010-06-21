@@ -1,0 +1,7 @@
+{
+  String oldScript=getBeforeRunScript();
+  if (!getConfig().isSetBeforeRunScript())   getConfig().addNewBeforeRunScript();
+  getConfig().getBeforeRunScript().setStringValue(script);
+  if (beforeRunScriptEngine != null)   beforeRunScriptEngine.setScript(script);
+  notifyPropertyChanged("beforeRunScript",oldScript,script);
+}

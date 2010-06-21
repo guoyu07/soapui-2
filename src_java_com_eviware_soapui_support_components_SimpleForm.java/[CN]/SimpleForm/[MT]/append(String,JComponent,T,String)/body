@@ -1,0 +1,31 @@
+{
+  int spaceRowIndex=-1;
+  if (rowSpacing > 0 && appended) {
+    addSpace(rowSpacing);
+    spaceRowIndex=layout.getRowCount();
+  }
+  layout.appendRow(rowSpec);
+  int row=layout.getRowCount();
+  if (label != null) {
+    panel.add(label,cc.xy(2,row));
+    component.addComponentListener(new LabelHider(label,spaceRowIndex));
+    if (label instanceof JLabel) {
+      JLabel jl=((JLabel)label);
+      jl.setLabelFor(component);
+      String text=jl.getText();
+      int ix=text.indexOf('&');
+      if (ix >= 0) {
+        jl.setText(text.substring(0,ix) + text.substring(ix + 1));
+        jl.setDisplayedMnemonicIndex(ix);
+        jl.setDisplayedMnemonic(text.charAt(ix + 1));
+      }
+      if (component.getAccessibleContext() != null)       component.getAccessibleContext().setAccessibleName(text);
+    }
+  }
+ else   component.addComponentListener(new LabelHider(null,spaceRowIndex));
+  if (alignments == null)   panel.add(component,cc.xy(4,row));
+ else   panel.add(component,cc.xy(4,row,alignments));
+  components.put(name,component);
+  appended=true;
+  return component;
+}

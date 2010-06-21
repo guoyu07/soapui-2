@@ -1,0 +1,14 @@
+{
+  responseHasFocus=true;
+  if (!splitButton.isEnabled()) {
+    requestTabs.setSelectedIndex(1);
+    return;
+  }
+  if (getModelItem().getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR))   return;
+  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged() || amfRequestTestStep.getAMFRequest().getResponse() == null)   return;
+  int pos=requestSplitPane.getDividerLocation();
+  int maximumDividerLocation=requestSplitPane.getMaximumDividerLocation();
+  if (pos + 600 < maximumDividerLocation)   return;
+  if (maximumDividerLocation > 700)   requestSplitPane.setDividerLocation(maximumDividerLocation - 600);
+ else   requestSplitPane.setDividerLocation(0.2);
+}

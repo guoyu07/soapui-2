@@ -1,0 +1,28 @@
+{
+  if (modelItem instanceof AbstractHttpRequestInterface<?>) {
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlRequestResponseHeadersModel((AbstractHttpRequest<?>)modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlMockResponseHeadersModel((WsdlMockResponse)modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+ else   if (modelItem instanceof MessageExchangeModelItem) {
+    if (((MessageExchangeModelItem)modelItem).getMessageExchange() instanceof AMFTestStepResult) {
+      HttpHeadersInspector inspector=new HttpHeadersInspector(new AMFMessageExchangeResponseHTTPHeadersModel((MessageExchangeModelItem)modelItem));
+      inspector.setEnabled(true);
+      return inspector;
+    }
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlMessageExchangeResponseHeadersModel((MessageExchangeModelItem)modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+ else   if (modelItem instanceof AMFRequestTestStep) {
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new AMFResponseHeadersModel((AMFRequestTestStep)modelItem));
+    inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
+    return inspector;
+  }
+  return null;
+}

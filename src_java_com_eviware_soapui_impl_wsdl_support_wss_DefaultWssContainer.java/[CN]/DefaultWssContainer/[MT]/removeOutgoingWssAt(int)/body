@@ -1,0 +1,6 @@
+{
+  OutgoingWss outgoingWss=outgoingWssConfigs.remove(row);
+  fireOutgoingWssRemoved(outgoingWss);
+  outgoingWss.release();
+  getConfig().removeOutgoing(row);
+}

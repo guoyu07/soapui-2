@@ -1,0 +1,18 @@
+{
+  if (config == null)   return;
+  removeUnusedEndpoints();
+  for (int c=0; c < config.sizeOfEndpointArray(); c++) {
+    EndpointConfig ec=config.getEndpointArray(c);
+    if (StringUtils.isNullOrEmpty(ec.getDomain()) && StringUtils.isNullOrEmpty(ec.getUsername()) && StringUtils.isNullOrEmpty(ec.getPassword())&& StringUtils.isNullOrEmpty(ec.getWssType())&& StringUtils.isNullOrEmpty(ec.getWssTimeToLive())&& StringUtils.isNullOrEmpty(ec.getIncomingWss())&& StringUtils.isNullOrEmpty(ec.getOutgoingWss())&& ec.getMode() == EndpointConfig.Mode.COMPLEMENT) {
+synchronized (defaults) {
+        defaults.remove(ec.getStringValue());
+        config.removeEndpoint(c);
+        c--;
+      }
+    }
+  }
+  if (config.sizeOfEndpointArray() == 0) {
+    project.getConfig().unsetEndpointStrategy();
+    config=null;
+  }
+}

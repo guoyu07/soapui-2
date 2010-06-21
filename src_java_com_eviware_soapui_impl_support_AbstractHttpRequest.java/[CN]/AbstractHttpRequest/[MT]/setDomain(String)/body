@@ -1,0 +1,7 @@
+{
+  String old=getDomain();
+  CredentialsConfig credentialsConfig=getConfig().getCredentials();
+  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  credentialsConfig.setDomain(domain);
+  notifyPropertyChanged("domain",old,domain);
+}

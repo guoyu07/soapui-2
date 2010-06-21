@@ -1,0 +1,37 @@
+{
+  BindingOutput bindingOutput=operation.getBindingOutput();
+  if (bindingOutput == null)   return new Part[0];
+  List<Part> result=new ArrayList<Part>();
+  Output output=operation.getOperation().getOutput();
+  if (output == null)   return new Part[0];
+  Message msg=output.getMessage();
+  if (msg != null) {
+    SOAPBody soapBody=WsdlUtils.getExtensiblityElement(bindingOutput.getExtensibilityElements(),SOAPBody.class);
+    if (soapBody == null || soapBody.getParts() == null) {
+      SOAP12Body soap12Body=WsdlUtils.getExtensiblityElement(bindingOutput.getExtensibilityElements(),SOAP12Body.class);
+      if (soap12Body == null || soap12Body.getParts() == null) {
+        result.addAll(msg.getOrderedParts(null));
+      }
+ else {
+        Iterator i=soap12Body.getParts().iterator();
+        while (i.hasNext()) {
+          String partName=(String)i.next();
+          Part part=msg.getPart(partName);
+          result.add(part);
+        }
+      }
+    }
+ else {
+      Iterator i=soapBody.getParts().iterator();
+      while (i.hasNext()) {
+        String partName=(String)i.next();
+        Part part=msg.getPart(partName);
+        result.add(part);
+      }
+    }
+  }
+ else {
+    log.warn("Missing output message for binding operation [" + operation.getName() + "]");
+  }
+  return result.toArray(new Part[result.size()]);
+}

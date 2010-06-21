@@ -1,0 +1,7 @@
+{
+  String oldScript=getBeforeSaveScript();
+  if (!getConfig().isSetBeforeSaveScript())   getConfig().addNewBeforeSaveScript();
+  getConfig().getBeforeSaveScript().setStringValue(script);
+  if (beforeSaveScriptEngine != null)   beforeSaveScriptEngine.setScript(script);
+  notifyPropertyChanged(BEFORE_SAVE_SCRIPT_PROPERTY,oldScript,script);
+}

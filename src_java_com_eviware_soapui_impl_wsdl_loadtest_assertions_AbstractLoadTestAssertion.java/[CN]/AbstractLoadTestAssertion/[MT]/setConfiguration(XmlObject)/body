@@ -1,0 +1,5 @@
+{
+  XmlObject oldConfig=assertionConfig.getConfiguration();
+  assertionConfig.setConfiguration(configuration);
+  propertyChangeSupport.firePropertyChange(AbstractLoadTestAssertion.CONFIGURATION_PROPERTY,oldConfig,configuration);
+}

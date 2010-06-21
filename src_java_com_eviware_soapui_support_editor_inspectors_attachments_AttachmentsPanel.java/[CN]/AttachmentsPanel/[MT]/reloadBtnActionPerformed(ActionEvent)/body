@@ -1,0 +1,18 @@
+{
+  int selectedRow=fileTable.getSelectedRow();
+  if (selectedRow == -1)   return;
+  WsdlAttachment attachment=(WsdlAttachment)tableModel.getAttachmentAt(selectedRow);
+  if (attachment == null)   return;
+  File file=UISupport.getFileDialogs().open(this,"Reload Attachment..","*","Any File",attachment.getUrl());
+  if (file != null) {
+    Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Reload Attachment");
+    if (retval == null)     return;
+    try {
+      attachment.reload(file,retval);
+      tableModel.fireTableRowsUpdated(selectedRow,selectedRow);
+    }
+ catch (    IOException e) {
+      UISupport.showErrorMessage(e);
+    }
+  }
+}

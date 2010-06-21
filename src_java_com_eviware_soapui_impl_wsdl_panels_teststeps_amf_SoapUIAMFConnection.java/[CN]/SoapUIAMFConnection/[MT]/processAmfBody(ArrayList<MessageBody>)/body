@@ -1,0 +1,12 @@
+{
+  for (  MessageBody message : messages) {
+    String targetURI=message.getTargetURI();
+    if (targetURI.endsWith(MessageIOConstants.RESULT_METHOD)) {
+      return message.getData();
+    }
+ else     if (targetURI.endsWith(MessageIOConstants.STATUS_METHOD)) {
+      return message.getData();
+    }
+  }
+  return null;
+}

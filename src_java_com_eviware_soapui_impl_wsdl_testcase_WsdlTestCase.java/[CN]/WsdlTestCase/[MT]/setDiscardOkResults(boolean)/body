@@ -1,0 +1,7 @@
+{
+  boolean old=getDiscardOkResults();
+  if (old != discardOkResults) {
+    getConfig().setDiscardOkResults(discardOkResults);
+    notifyPropertyChanged(DISCARD_OK_RESULTS,old,discardOkResults);
+  }
+}

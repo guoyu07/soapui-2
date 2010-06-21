@@ -1,0 +1,8 @@
+{
+  super.release();
+  statisticsModel.release();
+  loadTestLog.release();
+  for (  LoadTestAssertion assertion : assertions)   assertion.release();
+  loadTestRunListeners.clear();
+  loadTestListeners.clear();
+}

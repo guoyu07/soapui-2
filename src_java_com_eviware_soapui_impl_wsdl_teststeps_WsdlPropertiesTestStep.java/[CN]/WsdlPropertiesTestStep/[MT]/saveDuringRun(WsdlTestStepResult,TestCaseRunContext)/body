@@ -1,0 +1,19 @@
+{
+  String target=targetProperty.expand(context);
+  if (StringUtils.hasContent(target)) {
+    try {
+      int cnt=saveProperties(target);
+      result.setStatus(TestStepStatus.OK);
+      result.addMessage("Saved " + cnt + " properties to ["+ target+ "]");
+    }
+ catch (    IOException e) {
+      result.stopTimer();
+      result.addMessage("Failed to save properties to [" + target + "]");
+      result.setStatus(TestStepStatus.FAILED);
+      result.setError(e);
+      if (failedIcon != null)       setIcon(failedIcon);
+      return false;
+    }
+  }
+  return true;
+}

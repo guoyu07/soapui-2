@@ -1,0 +1,11 @@
+{
+  super(workspace,null,treeModel);
+  workspace.addWorkspaceListener(workspaceListener);
+  for (int c=0; c < workspace.getProjectCount(); c++) {
+    Project project=workspace.getProjectAt(c);
+    project.addPropertyChangeListener(Project.NAME_PROPERTY,propertyChangeListener);
+    projectNodes.add(new ProjectTreeNode(project,this));
+  }
+  initOrdering(projectNodes,UISettings.ORDER_PROJECTS);
+  getTreeModel().mapModelItems(projectNodes);
+}

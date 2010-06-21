@@ -1,0 +1,7 @@
+{
+  super.beforeSave();
+  if (mockResponse != null) {
+    mockResponse.beforeSave();
+    mockResponseConfig.set(mockResponse.getConfig());
+  }
+}

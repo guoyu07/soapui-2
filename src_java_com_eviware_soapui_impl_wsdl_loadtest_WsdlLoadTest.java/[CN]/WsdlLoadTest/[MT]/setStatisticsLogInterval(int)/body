@@ -1,0 +1,7 @@
+{
+  if (sampleInterval < 0)   return;
+  long oldInterval=getStatisticsLogInterval();
+  getConfig().setStatisticsLogInterval(sampleInterval);
+  notifyPropertyChanged(SAMPLEINTERVAL_PROPERRY,oldInterval,sampleInterval);
+  if (oldInterval == 0 && sampleInterval > 0 && isRunning())   statisticsLogger.start();
+}

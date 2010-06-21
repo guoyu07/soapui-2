@@ -1,0 +1,11 @@
+{
+  if (keyList.contains(key)) {
+    data.put(key,value);
+    fireTableCellUpdated(keyList.indexOf(key),1);
+  }
+ else {
+    data.put(key,value);
+    keyList.add(key);
+    fireTableRowsInserted(keyList.size() - 1,keyList.size() - 1);
+  }
+}

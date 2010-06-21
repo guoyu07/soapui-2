@@ -1,0 +1,13 @@
+{
+  if (source.available() > 0) {
+    data=null;
+  }
+  if (data == null) {
+    ByteArrayOutputStream out=Tools.readAll(source,Tools.READ_ALL);
+    data=out.toByteArray();
+  }
+  if (buffer1 == null) {
+    buffer1=new ByteArrayInputStream(data);
+  }
+  return buffer1;
+}

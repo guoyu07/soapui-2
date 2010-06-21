@@ -1,0 +1,28 @@
+{
+  ConfigurationDocument configDoc=ConfigurationDocument.Factory.newInstance();
+  Configuration config=configDoc.addNewConfiguration();
+  config.setVerbose(settings.getBoolean(WSISettings.VERBOSE));
+  AssertionResults results=config.addNewAssertionResults();
+  results.setType(AssertionResults.Type.Enum.forString(settings.getString(WSISettings.RESULTS_TYPE,AssertionResults.Type.ONLY_FAILED.toString())));
+  results.setMessageEntry(settings.getBoolean(WSISettings.MESSAGE_ENTRY));
+  results.setFailureMessage(settings.getBoolean(WSISettings.FAILURE_MESSAGE));
+  results.setAssertionDescription(settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION));
+  ReportFile report=config.addNewReportFile();
+  report.setLocation(reportFile.getAbsolutePath());
+  report.setReplace(true);
+  AddStyleSheet stylesheet=report.addNewAddStyleSheet();
+  stylesheet.setHref("./../common/Profiles/SSBP10_BP11_TAD.xml");
+  stylesheet.setType("text/xsl");
+  stylesheet.setAlternate(false);
+  config.setTestAssertionsFile("../../common/profiles/SSBP10_BP11_TAD.xml");
+  WsdlReference wsdlRef=config.addNewWsdlReference();
+  StringToStringMap values=new StringToStringMap();
+  values.put(WSDL,iface.getDefinition());
+  values.put(CACHED_WSDL,Boolean.toString(iface.isCached()));
+  wsdlRef.setWsdlURI(getWsdlUrl(values,iface));
+  WsdlElementReference wsdlElement=wsdlRef.addNewWsdlElement();
+  wsdlElement.setType(WsdlElementType.BINDING);
+  wsdlElement.setStringValue(iface.getBindingName().getLocalPart());
+  wsdlElement.setNamespace(iface.getBindingName().getNamespaceURI());
+  return configDoc;
+}

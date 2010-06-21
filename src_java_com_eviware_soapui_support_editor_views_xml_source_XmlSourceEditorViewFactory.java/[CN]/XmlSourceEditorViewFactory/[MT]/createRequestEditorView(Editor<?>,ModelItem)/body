@@ -1,0 +1,12 @@
+{
+  if (modelItem instanceof WsdlRequest) {
+    return new WsdlRequestXmlSourceEditor((XmlEditor)editor,(WsdlRequest)modelItem);
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    return new WsdlMockRequestXmlSourceEditor((XmlEditor)editor,(WsdlMockResponse)modelItem);
+  }
+ else   if (modelItem instanceof MessageExchangeModelItem) {
+    return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);
+  }
+  return null;
+}

@@ -1,0 +1,12 @@
+{
+  SoapUITreeNode parent=treeNode.getParentTreeNode();
+  int ix=parent.getIndexOfChild(treeNode);
+  if (ix == -1) {
+    logger.error("Inserted node [" + treeNode + "] not found in parent ["+ parent+ "]");
+    return;
+  }
+  mapModelItem(treeNode);
+  if (!(treeNode instanceof PropertyTreeNode) || showProperties) {
+    notifyNodesInserted(new TreeModelEvent(this,getPath(parent),new int[]{ix},new Object[]{parent.getChildNode(ix)}));
+  }
+}

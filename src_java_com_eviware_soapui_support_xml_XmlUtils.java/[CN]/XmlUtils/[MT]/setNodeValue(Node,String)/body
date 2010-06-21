@@ -1,0 +1,32 @@
+{
+  if (domNode == null)   return false;
+  short nodeType=domNode.getNodeType();
+switch (nodeType) {
+case Node.ELEMENT_NODE:
+{
+      setElementText((Element)domNode,string);
+      break;
+    }
+case Node.ATTRIBUTE_NODE:
+case Node.TEXT_NODE:
+{
+    domNode.setNodeValue(string);
+    break;
+  }
+case Node.PROCESSING_INSTRUCTION_NODE:
+{
+  ((ProcessingInstruction)domNode).setData(string);
+  break;
+}
+case Node.CDATA_SECTION_NODE:
+{
+((CDATASection)domNode).setData(string);
+break;
+}
+default :
+{
+return false;
+}
+}
+return true;
+}

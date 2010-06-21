@@ -1,0 +1,53 @@
+{
+  if (!PathUtils.isHttpPath(url)) {
+    try {
+      File file=new File(url.replace('/',File.separatorChar));
+      if (file.exists())       url=file.toURI().toURL().toString();
+    }
+ catch (    Exception e) {
+    }
+  }
+  if (urlCache.containsKey(url)) {
+    setNewBaseURI(url);
+    return new ByteArrayInputStream(urlCache.get(url));
+  }
+  if (url.startsWith("file:")) {
+    return handleFile(url);
+  }
+  log.debug("Getting wsdl component from [" + url + "]");
+  createGetMethod(url);
+  if (aborted)   return null;
+  LoaderWorker worker=new LoaderWorker();
+  if (useWorker)   worker.start();
+ else   worker.construct();
+  while (!aborted && !finished) {
+    Thread.sleep(200);
+  }
+  while (!aborted && getMethod.getResponseBody() == null) {
+    Thread.sleep(200);
+  }
+  try {
+    if (aborted) {
+      throw new Exception("Load of url [" + url + "] was aborted");
+    }
+ else {
+      byte[] content=getMethod.getResponseBody();
+      if (content != null) {
+        String compressionAlg=HttpClientSupport.getResponseCompressionType(getMethod);
+        if (compressionAlg != null)         content=CompressionSupport.decompress(compressionAlg,content);
+        urlCache.put(url,content);
+        String newUrl=getMethod.getURI().getURI();
+        if (!url.equals(newUrl))         log.info("BaseURI was redirected to [" + newUrl + "]");
+        setNewBaseURI(newUrl);
+        urlCache.put(newUrl,content);
+        return new ByteArrayInputStream(content);
+      }
+ else {
+        throw new Exception("Failed to load url; " + getMethod.getStatusCode() + " - "+ getMethod.getStatusText());
+      }
+    }
+  }
+  finally {
+    getMethod.releaseConnection();
+  }
+}

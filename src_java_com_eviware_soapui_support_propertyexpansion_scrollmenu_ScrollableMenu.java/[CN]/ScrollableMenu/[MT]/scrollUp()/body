@@ -1,0 +1,16 @@
+{
+  closeOpenedSubMenus();
+  if (indexVisible == 0) {
+    upButton.setVisible(false);
+    return;
+  }
+ else {
+    indexVisible--;
+    ((JComponent)subMenus.get(indexVisible + visibleItems)).setVisible(false);
+    ((JComponent)subMenus.get(indexVisible)).setVisible(true);
+    downButton.setVisible(true);
+    if (indexVisible == 0) {
+      upButton.setVisible(false);
+    }
+  }
+}

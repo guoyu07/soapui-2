@@ -1,0 +1,7 @@
+{
+  String old=getUsername();
+  CredentialsConfig credentialsConfig=getConfig().getCredentials();
+  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  credentialsConfig.setUsername(username);
+  notifyPropertyChanged("username",old,username);
+}

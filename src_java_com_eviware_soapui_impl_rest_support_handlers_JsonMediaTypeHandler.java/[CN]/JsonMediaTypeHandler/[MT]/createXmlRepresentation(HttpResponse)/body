@@ -1,0 +1,19 @@
+{
+  try {
+    String content=response.getContentAsString().trim();
+    if (!StringUtils.hasContent(content))     return null;
+    JSON json=JSONSerializer.toJSON(content);
+    XMLSerializer serializer=new XMLSerializer();
+    serializer.setTypeHintsEnabled(false);
+    serializer.setRootName(HttpUtils.isErrorStatus(response.getStatusCode()) ? "Fault" : "Response");
+    URL url=response.getURL();
+    serializer.setNamespace("",url.getProtocol() + "://" + url.getHost()+ url.getPath());
+    content=serializer.write(json);
+    content=XmlUtils.prettyPrintXml(content);
+    return content;
+  }
+ catch (  Throwable e) {
+    if (!(e instanceof JSONException))     e.printStackTrace();
+  }
+  return "<xml/>";
+}

@@ -1,0 +1,16 @@
+{
+  int selectedRow=logTable.rowAtPoint(e.getPoint());
+  if (selectedRow == -1)   return;
+  if (logTable.getSelectedRow() != selectedRow) {
+    logTable.getSelectionModel().setSelectionInterval(selectedRow,selectedRow);
+  }
+  int row=logTable.convertRowIndexToModel(selectedRow);
+  if (row < 0)   return;
+  LoadTestLogEntry entry=(LoadTestLogEntry)loadTestLog.getElementAt(row);
+  ActionList actions=entry.getActions();
+  if (actions == null || actions.getActionCount() == 0)   return;
+  JPopupMenu popup=ActionSupport.buildPopup(actions);
+  popup.setInvoker(logTable);
+  popup.setLocation((int)(logTable.getLocationOnScreen().getX() + e.getPoint().getX()),(int)(logTable.getLocationOnScreen().getY() + e.getPoint().getY()));
+  popup.setVisible(true);
+}

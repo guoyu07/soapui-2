@@ -1,0 +1,14 @@
+{
+  JTabbedPane messageTabs=new JTabbedPane();
+  messageTabs.addTab("Request",buildRequestTab());
+  messageTabs.addTab("Response",buildResponseTab());
+  messageTabs.setPreferredSize(new Dimension(500,400));
+  JPanel panel=new JPanel(new BorderLayout());
+  panel.add(UISupport.createTabPanel(messageTabs,true),BorderLayout.CENTER);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  builder.addFixed(new JLabel("Mock Request handled at " + new Date(result.getTimestamp()) + ", time taken: "+ result.getTimeTaken()+ "ms"));
+  builder.addGlue();
+  builder.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+  panel.add(builder.getPanel(),BorderLayout.PAGE_START);
+  return panel;
+}

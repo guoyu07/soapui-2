@@ -1,0 +1,9 @@
+{
+  SoapUITreeNode requestTreeNode=getTreeModel().getTreeNode(request);
+  if (requestNodes.contains(requestTreeNode)) {
+    getTreeModel().notifyNodeRemoved(requestTreeNode);
+    requestNodes.remove(requestTreeNode);
+    request.removePropertyChangeListener(propertyChangeListener);
+  }
+ else   throw new RuntimeException("Removing unknown request");
+}

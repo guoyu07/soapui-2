@@ -1,0 +1,5 @@
+{
+  HttpAttachmentPart attachmentPart=getAttachmentPart(partName);
+  if (attachmentPart == null)   return AttachmentUtils.getAttachmentEncoding(getOperation(),partName,false);
+ else   return AttachmentUtils.getAttachmentEncoding(getOperation(),attachmentPart,false);
+}

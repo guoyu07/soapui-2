@@ -1,0 +1,9 @@
+{
+  XmlObjectConfigurationBuilder builder=new XmlObjectConfigurationBuilder();
+  builder.add(TestStepMaxAssertion.NAME_ELEMENT,getName());
+  builder.add(TestStepMaxAssertion.MIN_REQUESTS_ELEMENT,minRequests);
+  builder.add(TestStepMaxAssertion.MAX_VALUE_ELEMENT,maxValue);
+  builder.add(TestStepMaxAssertion.TEST_STEP_ELEMENT,getTargetStep());
+  builder.add(TestStepMaxAssertion.MAX_ERRORS_ELEMENT,maxErrors);
+  setConfiguration(builder.finish());
+}

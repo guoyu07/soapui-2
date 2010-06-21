@@ -1,0 +1,21 @@
+{
+  try {
+    if (panel.awaitButton(this)) {
+      try {
+        wait();
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+ else     yesToAll=true;
+    if (kill)     return;
+    InferredSchemaManager.getInferredSchema(service).learningValidate(xml,this);
+    panel.update();
+    setTitle("Schema");
+    InferredSchemaManager.save(service);
+  }
+ catch (  XmlException e) {
+    setTitle("Schema (invalid)");
+  }
+}

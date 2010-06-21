@@ -1,0 +1,10 @@
+{
+  if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+    UISupport.selectAndShow(testCase);
+    e.consume();
+  }
+ else {
+    ActionList actions=ActionListBuilder.buildActions(testCase);
+    if (actions != null)     actions.dispatchKeyEvent(e);
+  }
+}

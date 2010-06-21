@@ -1,0 +1,13 @@
+{
+  String pwType=PropertyExpander.expandProperties(context,wsdlRequest.getWssPasswordType());
+  String wsTimestamp=wsdlRequest.getWssTimeToLive();
+  if ((StringUtils.isNullOrEmpty(pwType) || WsdlRequest.PW_TYPE_NONE.equals(pwType)) && (StringUtils.isNullOrEmpty(wsTimestamp)))   return;
+  try {
+    String password=PropertyExpander.expandProperties(context,wsdlRequest.getPassword());
+    String username=PropertyExpander.expandProperties(context,wsdlRequest.getUsername());
+    setWssHeaders(context,username,password,pwType,wsTimestamp);
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+}

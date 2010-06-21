@@ -1,0 +1,6 @@
+{
+  this.config=config;
+  for (int c=0; c < config.sizeOfParameterArray(); c++) {
+    ((XmlBeansRestParamProperty)properties.get(c)).setConfig(config.getParameterArray(c));
+  }
+}

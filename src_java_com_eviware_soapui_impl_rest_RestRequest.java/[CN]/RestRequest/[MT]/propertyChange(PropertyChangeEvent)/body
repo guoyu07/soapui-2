@@ -1,0 +1,8 @@
+{
+  if (evt.getPropertyName().equals("path")) {
+    notifyPropertyChanged("path",null,getPath());
+  }
+ else   if (evt.getPropertyName().equals("method")) {
+    notifyPropertyChanged("method",evt.getOldValue(),evt.getNewValue());
+  }
+}

@@ -1,0 +1,42 @@
+{
+  mainToolbar=new JXToolBar();
+  mainToolbar.setRollover(true);
+  mainToolbar.putClientProperty(Options.HEADER_STYLE_KEY,HeaderStyle.BOTH);
+  mainToolbar.add(new NewWsdlProjectActionDelegate());
+  mainToolbar.add(new ImportWsdlProjectActionDelegate());
+  mainToolbar.add(new SaveAllActionDelegate());
+  mainToolbar.addSeparator();
+  mainToolbar.add(new ShowOnlineHelpAction("User Guide",HelpUrls.USERGUIDE_HELP_URL,"Opens the soapUI User-Guide in a browser"));
+  mainToolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.FORUMS_HELP_URL,"Opens the soapUI Forum in a browser","/group_go.png"));
+  mainToolbar.addSeparator();
+  mainToolbar.add(new ShowOnlineHelpAction("Trial",HelpUrls.TRIAL_URL,"Apply for soapUI Pro Trial License","/favicon.png"));
+  mainToolbar.addSeparator();
+  mainToolbar.add(new PreferencesActionDelegate());
+  applyProxyButton=mainToolbar.add(new ApplyProxyButtonAction());
+  ProxyUtils.setProxyEnabled(getSettings().getBoolean(ProxySettings.ENABLE_PROXY));
+  if (ProxyUtils.isProxyEnabled()) {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_ENABLED_ICON));
+    ProxyUtils.setProxyEnabled(true);
+  }
+ else {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_DISABLED_ICON));
+    ProxyUtils.setProxyEnabled(false);
+  }
+  launchLoadUIButton=mainToolbar.add(new LaunchLoadUIButtonAction());
+  mainToolbar.add(new ExitButtonAction());
+  mainToolbar.addGlue();
+  searchField=new JTextField(20);
+  searchField.addKeyListener(new KeyAdapter(){
+    @Override public void keyTyped(    KeyEvent e){
+      if (e.getKeyChar() == '\n') {
+        doForumSearch(searchField.getText());
+      }
+    }
+  }
+);
+  mainToolbar.addLabeledFixed("Search Forum",searchField);
+  mainToolbar.add(new ToolbarForumSearchAction());
+  mainToolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
+  mainToolbar.setBorder(BorderFactory.createEtchedBorder());
+  return mainToolbar;
+}

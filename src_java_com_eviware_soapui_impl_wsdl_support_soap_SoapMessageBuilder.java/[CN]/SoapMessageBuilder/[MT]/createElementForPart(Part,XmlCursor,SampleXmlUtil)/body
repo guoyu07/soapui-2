@@ -1,0 +1,28 @@
+{
+  QName elementName=part.getElementName();
+  QName typeName=part.getTypeName();
+  if (elementName != null) {
+    cursor.beginElement(elementName);
+    if (wsdlContext.hasSchemaTypes()) {
+      SchemaGlobalElement elm=wsdlContext.getSchemaTypeLoader().findElement(elementName);
+      if (elm != null) {
+        cursor.toFirstChild();
+        xmlGenerator.createSampleForType(elm.getType(),cursor);
+      }
+ else       log.error("Could not find element [" + elementName + "] specified in part ["+ part.getName()+ "]");
+    }
+    cursor.toParent();
+  }
+ else {
+    cursor.beginElement(part.getName());
+    if (typeName != null && wsdlContext.hasSchemaTypes()) {
+      SchemaType type=wsdlContext.getSchemaTypeLoader().findType(typeName);
+      if (type != null) {
+        cursor.toFirstChild();
+        xmlGenerator.createSampleForType(type,cursor);
+      }
+ else       log.error("Could not find type [" + typeName + "] specified in part ["+ part.getName()+ "]");
+    }
+    cursor.toParent();
+  }
+}

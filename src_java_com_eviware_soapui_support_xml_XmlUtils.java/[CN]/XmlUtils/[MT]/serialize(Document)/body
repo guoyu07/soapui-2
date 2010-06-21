@@ -1,0 +1,10 @@
+{
+  StringWriter writer=new StringWriter();
+  try {
+    serialize(document,writer);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  return writer.toString();
+}

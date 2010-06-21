@@ -1,0 +1,13 @@
+{
+  WsdlOperation oldOperation=getOperation();
+  if (operation == null) {
+    getConfig().unsetInterface();
+    getConfig().unsetOperation();
+  }
+ else {
+    getConfig().setInterface(operation.getInterface().getName());
+    getConfig().setOperation(operation.getName());
+  }
+  this.operation=operation;
+  notifyPropertyChanged(OPERATION_PROPERTY,oldOperation,operation);
+}

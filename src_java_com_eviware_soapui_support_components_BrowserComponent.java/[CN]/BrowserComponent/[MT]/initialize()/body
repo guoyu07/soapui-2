@@ -1,0 +1,19 @@
+{
+  if (initialized)   return;
+  try {
+    if (!isJXBrowserDisabled()) {
+      if (Xpcom.isMacOSX()) {
+        final String currentCP=System.getProperty("java.class.path");
+        final String appleJavaExtentions=":/System/Library/Java";
+        System.setProperty("java.class.path",currentCP + appleJavaExtentions);
+      }
+      Xpcom.initialize();
+      webBrowserFactory=WebBrowserFactory.getInstance();
+    }
+    initialized=true;
+  }
+ catch (  Throwable t) {
+    disabledReason=t.getMessage();
+    t.printStackTrace();
+  }
+}

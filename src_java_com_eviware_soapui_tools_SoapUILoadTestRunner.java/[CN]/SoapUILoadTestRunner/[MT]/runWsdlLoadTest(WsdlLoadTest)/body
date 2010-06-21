@@ -1,0 +1,32 @@
+{
+  try {
+    log.info("Running LoadTest [" + loadTest.getName() + "]");
+    if (limit >= 0) {
+      log.info("Overriding limit [" + loadTest.getTestLimit() + "] with specified ["+ limit+ "]");
+      loadTest.setTestLimit(limit);
+    }
+    if (threadCount >= 0) {
+      log.info("Overriding threadCount [" + loadTest.getThreadCount() + "] with specified ["+ threadCount+ "]");
+      loadTest.setThreadCount(threadCount);
+    }
+    loadTest.addLoadTestRunListener(this);
+    LoadTestRunner runner=loadTest.run();
+    while (!runner.hasStopped()) {
+      if (runner.getStatus() == Status.RUNNING) {
+        log.info("LoadTest [" + loadTest.getName() + "] progress: "+ runner.getProgress()+ ", "+ runner.getRunningThreadCount());
+      }
+      Thread.sleep(1000);
+    }
+    log.info("LoadTest [" + loadTest.getName() + "] finished with status "+ runner.getStatus().toString());
+    if (printReport) {
+      log.info("Exporting log and statistics for LoadTest [" + loadTest.getName() + "]");
+      loadTest.getStatisticsModel().finish();
+      exportLog(loadTest);
+      exportStatistics(loadTest);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    log.error(e);
+  }
+}

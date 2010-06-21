@@ -1,0 +1,9 @@
+{
+  if (getConfig().getWsaVersion().equals(WsaVersionTypeConfig.X_200408)) {
+    return WsaVersionTypeConfig.X_200408.toString();
+  }
+ else   if (getConfig().getWsaVersion().equals(WsaVersionTypeConfig.X_200508)) {
+    return WsaVersionTypeConfig.X_200508.toString();
+  }
+  return WsaVersionTypeConfig.NONE.toString();
+}

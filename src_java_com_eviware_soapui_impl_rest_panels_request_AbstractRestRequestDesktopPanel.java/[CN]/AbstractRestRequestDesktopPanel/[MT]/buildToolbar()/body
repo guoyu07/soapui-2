@@ -1,0 +1,13 @@
+{
+  if (getRequest().getResource() != null) {
+    JPanel panel=new JPanel(new BorderLayout());
+    panel.add(super.buildToolbar(),BorderLayout.NORTH);
+    JXToolBar toolbar=UISupport.createToolbar();
+    addToolbarComponents(toolbar);
+    panel.add(toolbar,BorderLayout.SOUTH);
+    return panel;
+  }
+ else {
+    return super.buildToolbar();
+  }
+}

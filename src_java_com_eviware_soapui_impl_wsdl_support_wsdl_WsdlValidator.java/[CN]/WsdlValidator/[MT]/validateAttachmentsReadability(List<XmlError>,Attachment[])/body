@@ -1,0 +1,10 @@
+{
+  for (  Attachment attachment : attachments) {
+    try {
+      attachment.getInputStream();
+    }
+ catch (    Exception e) {
+      errors.add(XmlError.forMessage(e.toString()));
+    }
+  }
+}

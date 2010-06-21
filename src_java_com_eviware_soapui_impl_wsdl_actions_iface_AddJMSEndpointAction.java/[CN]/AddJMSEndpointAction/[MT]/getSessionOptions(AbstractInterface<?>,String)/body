@@ -1,0 +1,17 @@
+{
+  List<Hermes> hermesList=new ArrayList<Hermes>();
+  try {
+    Context ctx=getHermesContext(iface,hermesConfigPath);
+    JAXBHermesLoader loader=(JAXBHermesLoader)ctx.lookup(HermesContext.LOADER);
+    hermesList=loader.load();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    SoapUI.log.warn("no HermesJMS context!");
+  }
+  List<String> hermesSessionList=new ArrayList<String>();
+  for (  Hermes h : hermesList) {
+    if (!h.getSessionConfig().getId().equals("<new>"))     hermesSessionList.add(h.getSessionConfig().getId());
+  }
+  return hermesSessionList.toArray(new String[hermesSessionList.size()]);
+}

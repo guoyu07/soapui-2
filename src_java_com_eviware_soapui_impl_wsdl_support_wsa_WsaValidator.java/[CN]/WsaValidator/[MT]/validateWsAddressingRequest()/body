@@ -1,0 +1,38 @@
+{
+  String content=messageExchange.getRequestContent();
+  SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
+  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
+  wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
+  WsdlOperation operation=messageExchange.getOperation();
+  if (wsaAssertionConfiguration.isAssertAction()) {
+    assertProperty("Wsa:Action","Action");
+  }
+  validateWsAddressingCommon(content);
+  if (operation.isRequestResponse()) {
+    if (wsaAssertionConfiguration.isAssertMessageId()) {
+      assertProperty("Wsa:MessageId","MessageId");
+    }
+    if (wsaAssertionConfiguration.isAssertReplyTo()) {
+      Element replyToNode;
+      String currentTagWsaNs;
+      if (!StringUtils.isNullOrEmpty(wsaVersionNameSpace)) {
+        replyToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"ReplyTo");
+        parseReplyToNode(replyToNode,wsaVersionNameSpace);
+      }
+ else {
+        replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200508,"ReplyTo");
+        currentTagWsaNs=WsaUtils.WS_A_NAMESPACE_200508;
+        if (replyToNode == null) {
+          replyToNode=XmlUtils.getFirstChildElementNS(header,WsaUtils.WS_A_NAMESPACE_200408,"ReplyTo");
+          currentTagWsaNs=WsaUtils.WS_A_NAMESPACE_200408;
+        }
+        parseReplyToNode(replyToNode,currentTagWsaNs);
+      }
+    }
+  }
+  String cumulativeError=cumulativeErrorMsg.toString();
+  if (!StringUtils.isNullOrEmpty(cumulativeError)) {
+    throw new AssertionException(new AssertionError(cumulativeError));
+  }
+}

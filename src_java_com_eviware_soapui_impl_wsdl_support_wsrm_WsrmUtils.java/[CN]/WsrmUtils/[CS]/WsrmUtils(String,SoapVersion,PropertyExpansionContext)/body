@@ -1,0 +1,10 @@
+{
+  this.soapVersion=soapVersion;
+  this.content=content;
+  try {
+    xmlContentObject=XmlObject.Factory.parse(content);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

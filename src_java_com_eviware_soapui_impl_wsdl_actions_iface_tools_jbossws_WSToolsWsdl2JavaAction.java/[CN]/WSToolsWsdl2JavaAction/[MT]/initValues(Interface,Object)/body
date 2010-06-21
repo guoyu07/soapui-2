@@ -1,0 +1,16 @@
+{
+  StringToStringMap values=super.initValues(modelItem,param);
+  boolean hasEjbLink=values.get(EJB_LINK,"").length() > 0;
+  boolean hasServletLink=values.get(SERVLET_LINK,"").length() > 0;
+  if (!hasEjbLink && !hasServletLink) {
+    ejbLinkField.setEnabled(true);
+    servletLinkField.setEnabled(true);
+  }
+ else {
+    ejbLinkField.setEnabled(hasEjbLink && !hasServletLink);
+    servletLinkField.setEnabled(hasServletLink && !hasEjbLink);
+    if (hasEjbLink && hasServletLink)     values.put(SERVLET_LINK,"");
+  }
+  appendField.setEnabled(hasEjbLink || hasServletLink);
+  return values;
+}

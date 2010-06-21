@@ -1,0 +1,18 @@
+{
+  if (definition.getDefinitionCache() == null || !definition.getDefinitionCache().validate())   throw new Exception("Definition is not cached for export");
+  File outFolder=new File(folderName);
+  if (!outFolder.exists() && !outFolder.mkdirs())   throw new Exception("Failed to create directory [" + folderName + "]");
+  Map<String,String> urlToFileMap=new HashMap<String,String>();
+  setFilenameForPart(definition.getDefinitionCache().getRootPart(),urlToFileMap,null);
+  List<InterfaceDefinitionPart> partList=definition.getDefinitionCache().getDefinitionParts();
+  for (  InterfaceDefinitionPart part : partList) {
+    setFilenameForPart(part,urlToFileMap,null);
+  }
+  for (  InterfaceDefinitionPart part : partList) {
+    XmlObject obj=XmlObject.Factory.parse(part.getContent());
+    replaceImportsAndIncludes(obj,urlToFileMap,part.getUrl());
+    postProcessing(obj,part);
+    obj.save(new File(outFolder,urlToFileMap.get(part.getUrl())));
+  }
+  return folderName + File.separatorChar + urlToFileMap.get(definition.getDefinitionCache().getRootPart().getUrl());
+}

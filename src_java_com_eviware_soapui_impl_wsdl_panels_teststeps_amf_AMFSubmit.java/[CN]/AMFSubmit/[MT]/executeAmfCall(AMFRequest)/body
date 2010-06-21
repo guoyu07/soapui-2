@@ -1,0 +1,28 @@
+{
+  SoapUIAMFConnection amfConnection=null;
+  try {
+    amfConnection=getConnection(amfRequest);
+    addAmfHeaders(amfRequest,amfConnection);
+    addHttpHeaders(amfRequest,amfConnection);
+    Object result=amfConnection.call(context,amfRequest.getAmfCall(),amfRequest.argumentsToArray());
+    return result;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    error=e;
+    status=Status.ERROR;
+  }
+ finally {
+    amfRequest.clearArguments();
+    if (context.getModelItem() instanceof AMFRequestTestStep) {
+      if (credentials != null && credentials.isLoggedIn()) {
+        credentials.logout();
+        credentials=null;
+      }
+ else {
+        amfConnection.close();
+      }
+    }
+  }
+  return null;
+}

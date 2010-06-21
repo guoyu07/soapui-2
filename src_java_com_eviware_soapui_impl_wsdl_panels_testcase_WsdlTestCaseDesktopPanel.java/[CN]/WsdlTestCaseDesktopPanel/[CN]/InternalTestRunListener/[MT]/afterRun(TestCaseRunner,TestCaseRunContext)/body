@@ -1,0 +1,28 @@
+{
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()))   return;
+  WsdlTestCaseRunner wsdlRunner=(WsdlTestCaseRunner)testRunner;
+  if (testRunner.getStatus() == TestCaseRunner.Status.CANCELED)   testCaseLog.addText("TestCase canceled [" + testRunner.getReason() + "], time taken = "+ wsdlRunner.getTimeTaken());
+ else   if (testRunner.getStatus() == TestCaseRunner.Status.FAILED) {
+    String msg=wsdlRunner.getReason();
+    if (wsdlRunner.getError() != null) {
+      if (msg != null)       msg+=":";
+      msg+=wsdlRunner.getError();
+    }
+    testCaseLog.addText("TestCase failed [" + msg + "], time taken = "+ wsdlRunner.getTimeTaken());
+  }
+ else   testCaseLog.addText("TestCase finished with status [" + testRunner.getStatus() + "], time taken = "+ wsdlRunner.getTimeTaken());
+  lastRunner=runner;
+  runner=null;
+  JToggleButton loopButton=(JToggleButton)runContext.getProperty("loopButton");
+  if (loopButton != null && loopButton.isSelected() && testRunner.getStatus() == TestCaseRunner.Status.FINISHED) {
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        runTestCase();
+      }
+    }
+);
+  }
+ else {
+    WsdlTestCaseDesktopPanel.this.afterRun();
+  }
+}

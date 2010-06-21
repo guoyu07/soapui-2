@@ -1,0 +1,7 @@
+{
+  SOAPBinding soapBinding=WsdlUtils.getExtensiblityElement(binding.getExtensibilityElements(),SOAPBinding.class);
+  if (soapBinding != null)   return "rpc".equalsIgnoreCase(soapBinding.getStyle());
+  SOAP12Binding soap12Binding=WsdlUtils.getExtensiblityElement(binding.getExtensibilityElements(),SOAP12Binding.class);
+  if (soap12Binding != null)   return "rpc".equalsIgnoreCase(soap12Binding.getStyle());
+  return false;
+}

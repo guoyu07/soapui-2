@@ -1,0 +1,8 @@
+{
+  TestAssertionConfig conf=mockResponseStepConfig.addNewAssertion();
+  conf.set(((WsdlMessageAssertion)source).getConfig());
+  conf.setName(name);
+  WsdlMessageAssertion result=assertionsSupport.addWsdlAssertion(conf);
+  assertionsSupport.fireAssertionAdded(result);
+  return result;
+}

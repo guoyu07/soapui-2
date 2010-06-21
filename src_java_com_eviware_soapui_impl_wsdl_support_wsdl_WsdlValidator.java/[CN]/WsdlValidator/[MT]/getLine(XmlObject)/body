@@ -1,0 +1,10 @@
+{
+  List<?> list=new ArrayList<Object>();
+  object.newCursor().getAllBookmarkRefs(list);
+  for (int c=0; c < list.size(); c++) {
+    if (list.get(c) instanceof XmlLineNumber) {
+      return ((XmlLineNumber)list.get(c)).getLine();
+    }
+  }
+  return -1;
+}

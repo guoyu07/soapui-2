@@ -1,0 +1,11 @@
+{
+  if (!rFilenames.containsKey(filename)) {
+    for (    InferredSchema is : schemas.values()) {
+      for (      String ns : is.getNamespaces()) {
+        if (filenameForNamespace(ns).equals(filename))         return ns;
+      }
+    }
+  }
+ else   return rFilenames.get(filename);
+  return null;
+}

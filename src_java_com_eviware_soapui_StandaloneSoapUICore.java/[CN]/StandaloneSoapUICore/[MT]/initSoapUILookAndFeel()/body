@@ -1,0 +1,23 @@
+{
+  try {
+    if (!BrowserComponent.isJXBrowserDisabled() && Xpcom.isLinux() && !Xpcom.isSilentMode()) {
+      javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+    }
+ else     if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {
+      javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    }
+ else {
+      SoapUITheme theme=new SoapUITheme();
+      PlasticXPLookAndFeel.setCurrentTheme(theme);
+      PlasticXPLookAndFeel.setTabStyle("Metal");
+      UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
+      UIManager.put("TabbedPane.tabAreaInsets",new Insets(3,2,0,0));
+      UIManager.put("TabbedPane.unselectedBackground",new Color(220,220,220));
+      UIManager.put("TabbedPane.selected",new Color(240,240,240));
+      PlasticXPLookAndFeel.setPlasticTheme(theme);
+    }
+  }
+ catch (  Throwable e) {
+    System.err.println("Error initializing PlasticXPLookAndFeel; " + e.getMessage());
+  }
+}

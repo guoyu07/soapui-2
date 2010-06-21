@@ -1,0 +1,5 @@
+{
+  WsdlTestCase testCase=(WsdlTestCase)getTestCase();
+  TestStep testStep=currentStepIndex >= 0 && currentStepIndex < testCase.getTestStepCount() ? testCase.getTestStepAt(currentStepIndex) : null;
+  return getProperty(name,testStep,testCase);
+}

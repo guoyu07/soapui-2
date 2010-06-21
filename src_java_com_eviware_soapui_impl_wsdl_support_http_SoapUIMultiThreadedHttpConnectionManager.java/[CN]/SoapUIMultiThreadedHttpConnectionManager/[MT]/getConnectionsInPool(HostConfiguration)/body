@@ -1,0 +1,6 @@
+{
+synchronized (connectionPool) {
+    HostConnectionPool hostPool=connectionPool.getHostPool(hostConfiguration,false);
+    return (hostPool != null) ? hostPool.numConnections : 0;
+  }
+}

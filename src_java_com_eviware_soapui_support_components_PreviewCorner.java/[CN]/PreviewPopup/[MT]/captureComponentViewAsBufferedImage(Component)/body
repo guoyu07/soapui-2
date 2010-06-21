@@ -1,0 +1,7 @@
+{
+  Dimension size=c.getSize();
+  BufferedImage bufferedImage=new BufferedImage(size.width,size.height,BufferedImage.TYPE_INT_RGB);
+  Graphics bufferedGraphics=bufferedImage.createGraphics();
+  c.paint(bufferedGraphics);
+  return bufferedImage;
+}

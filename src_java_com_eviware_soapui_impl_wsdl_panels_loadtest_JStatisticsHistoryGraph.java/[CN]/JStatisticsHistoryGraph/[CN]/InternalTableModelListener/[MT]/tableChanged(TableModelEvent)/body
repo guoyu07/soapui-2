@@ -1,0 +1,40 @@
+{
+  boolean repaint=false;
+  if (e.getType() == TableModelEvent.INSERT) {
+    int firstRow=e.getFirstRow();
+    int lastRow=e.getLastRow();
+    int height=getHeight();
+    for (int c=firstRow; c <= lastRow; c++) {
+      for (int i=0; i < data.getColumnCount(); i++) {
+        long value=(Long)data.getValueAt(c,i);
+        if (value > maxValues[i]) {
+          maxValues[i]=value;
+          repaint=recalcScale(i);
+        }
+      }
+    }
+    if (!repaint) {
+      Rectangle rect=new Rectangle(firstRow,0,(lastRow - firstRow) + 1,height);
+      repaint(rect);
+    }
+    Dimension size=getSize();
+    Rectangle r=getVisibleRect();
+    double x2=r.getX() + r.getWidth();
+    if (x2 >= data.getRowCount() && x2 < data.getRowCount() + SCROLL_AHEAD) {
+      scrollRectToVisible(new Rectangle(firstRow + SCROLL_AHEAD / 2,0,(lastRow - firstRow) + 1,height));
+    }
+    if (!repaint && size.getWidth() < data.getRowCount() + SCROLL_AHEAD) {
+      revalidate();
+    }
+  }
+ else   if (e.getType() == TableModelEvent.UPDATE) {
+    initMaxValues();
+    initScales();
+    repaint=true;
+  }
+  if (repaint) {
+    getParent().invalidate();
+    revalidate();
+    repaint();
+  }
+}

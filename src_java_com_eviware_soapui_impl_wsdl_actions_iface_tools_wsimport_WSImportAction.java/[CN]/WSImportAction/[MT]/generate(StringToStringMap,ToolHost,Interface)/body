@@ -1,0 +1,28 @@
+{
+  String wsimportDir=SoapUI.getSettings().getString(ToolsSettings.JWSDP_WSIMPORT_LOCATION,null);
+  if (Tools.isEmpty(wsimportDir)) {
+    UISupport.showErrorMessage("wsimport directory must be set in global preferences");
+    return;
+  }
+  String wsimportExtension=UISupport.isWindows() ? ".bat" : ".sh";
+  File wscompileFile=new File(wsimportDir + File.separatorChar + "wsimport"+ wsimportExtension);
+  if (!wscompileFile.exists() && wsimportExtension.equals(".bat")) {
+    wsimportExtension=".exe";
+    wscompileFile=new File(wsimportDir + File.separatorChar + "wsimport"+ wsimportExtension);
+  }
+  if (!wscompileFile.exists()) {
+    UISupport.showErrorMessage("Could not find wsimport script at [" + wscompileFile + "]");
+    return;
+  }
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(values,UISupport.isWindows(),modelItem);
+  List<String> argList=args.getArgs();
+  if (wsimportExtension.equals(".exe")) {
+    int i=argList.indexOf("wsimport.bat");
+    argList.remove(i);
+    argList.add(i,"wsimport.exe");
+  }
+  builder.command(argList);
+  builder.directory(new File(wsimportDir));
+  toolHost.run(new ProcessToolRunner(builder,"JAX-WS wsimport",modelItem));
+}

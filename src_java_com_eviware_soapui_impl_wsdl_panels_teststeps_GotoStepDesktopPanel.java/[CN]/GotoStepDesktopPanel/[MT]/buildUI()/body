@@ -1,0 +1,23 @@
+{
+  JSplitPane splitPane=UISupport.createHorizontalSplit();
+  splitPane.setLeftComponent(buildConditionList());
+  splitPane.setRightComponent(buildExpressionArea());
+  splitPane.setResizeWeight(0.1);
+  splitPane.setDividerLocation(120);
+  inspectorPanel=JInspectorPanelFactory.build(splitPane);
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildLog(),"Log","A log of evaluated conditions",true));
+  add(inspectorPanel.getComponent(),BorderLayout.CENTER);
+  setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  setPreferredSize(new Dimension(550,300));
+  if (listModel.getSize() > 0)   conditionList.setSelectedIndex(0);
+  componentEnabler.add(conditionList);
+  componentEnabler.add(expressionArea);
+  componentEnabler.add(testStepsCombo);
+  componentEnabler.add(testConditionButton);
+  componentEnabler.add(copyButton);
+  componentEnabler.add(declareButton);
+  componentEnabler.add(deleteButton);
+  componentEnabler.add(addButton);
+  componentEnabler.add(runButton);
+  componentEnabler.add(renameButton);
+}

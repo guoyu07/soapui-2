@@ -1,0 +1,23 @@
+{
+  Object header=UISupport.prompt("Specify name of header to add","Add HTTP Header","");
+  if (header != null) {
+    changing=true;
+    headersTableModel.add(header.toString(),"");
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        int row=headersTable.getRowCount() - 1;
+        headersTable.scrollRectToVisible(headersTable.getCellRect(row,1,true));
+        headersTable.setRowSelectionInterval(row,row);
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            headersTable.editCellAt(headersTable.getRowCount() - 1,1);
+            headersTable.getEditorComponent().requestFocusInWindow();
+          }
+        }
+);
+      }
+    }
+);
+    changing=false;
+  }
+}

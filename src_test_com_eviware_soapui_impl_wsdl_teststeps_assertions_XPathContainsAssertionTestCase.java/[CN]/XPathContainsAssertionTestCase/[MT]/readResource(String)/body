@@ -1,0 +1,10 @@
+{
+  BufferedReader reader=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(string)));
+  StringBuffer result=new StringBuffer();
+  String line=reader.readLine();
+  while (line != null) {
+    result.append(line);
+    line=reader.readLine();
+  }
+  return result.toString();
+}

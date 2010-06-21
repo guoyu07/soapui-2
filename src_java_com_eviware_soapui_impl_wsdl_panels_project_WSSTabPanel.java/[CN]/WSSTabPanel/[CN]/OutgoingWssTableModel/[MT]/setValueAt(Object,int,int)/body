@@ -1,0 +1,17 @@
+{
+  OutgoingWss outgoing=outgoingWss.get(rowIndex);
+switch (columnIndex) {
+case 1:
+    outgoing.setUsername(aValue == null ? null : aValue.toString());
+  break;
+case 2:
+outgoing.setPassword(aValue == null ? null : aValue.toString());
+break;
+case 3:
+outgoing.setActor(aValue == null ? null : aValue.toString());
+break;
+case 4:
+outgoing.setMustUnderstand(aValue == null ? false : (Boolean)aValue);
+break;
+}
+}

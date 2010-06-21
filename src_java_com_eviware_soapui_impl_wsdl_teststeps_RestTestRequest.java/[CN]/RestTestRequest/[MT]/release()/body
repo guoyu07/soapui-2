@@ -1,0 +1,8 @@
+{
+  super.release();
+  assertionsSupport.release();
+  if (getRestMethod() != null) {
+    getRestMethod().getResource().removePropertyChangeListener(this);
+  }
+  messageExchange=null;
+}

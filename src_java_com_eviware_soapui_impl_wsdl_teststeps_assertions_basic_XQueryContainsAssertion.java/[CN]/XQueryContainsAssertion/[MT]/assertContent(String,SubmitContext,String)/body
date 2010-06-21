@@ -1,0 +1,54 @@
+{
+  try {
+    if (path == null)     return "Missing path for XQuery Assertion";
+    if (expectedContent == null)     return "Missing content for XQuery Assertion";
+    XmlObject xml=XmlObject.Factory.parse(response);
+    String expandedPath=PropertyExpander.expandProperties(context,path);
+    XmlObject[] items=xml.execQuery(expandedPath);
+    XmlObject contentObj=null;
+    String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
+    try {
+      contentObj=XmlObject.Factory.parse(expandedContent);
+    }
+ catch (    Exception e) {
+    }
+    if (items.length == 0)     throw new Exception("Missing content for xquery [" + path + "] in "+ type);
+    XmlOptions options=new XmlOptions();
+    options.setSavePrettyPrint();
+    options.setSaveOuter();
+    for (int c=0; c < items.length; c++) {
+      try {
+        if (contentObj == null) {
+          if (items[c] instanceof XmlAnySimpleType) {
+            String value=((XmlAnySimpleType)items[c]).getStringValue();
+            String expandedValue=PropertyExpander.expandProperties(context,value);
+            XMLAssert.assertEquals(expandedContent,expandedValue);
+          }
+ else {
+            Node domNode=items[c].getDomNode();
+            if (domNode.getNodeType() == Node.ELEMENT_NODE) {
+              String expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText((Element)domNode));
+              XMLAssert.assertEquals(expandedContent,expandedValue);
+            }
+ else {
+              String expandedValue=PropertyExpander.expandProperties(context,items[c].xmlText(options));
+              XMLAssert.assertEquals(expandedContent,expandedValue);
+            }
+          }
+        }
+ else {
+          compareValues(contentObj.xmlText(options),items[c].xmlText(options));
+        }
+        break;
+      }
+ catch (      Throwable e) {
+        if (c == items.length - 1)         throw e;
+      }
+    }
+  }
+ catch (  Throwable e) {
+    String msg="XQuery Match Assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();
+    throw new AssertionException(new AssertionError(msg));
+  }
+  return type + " matches content for [" + path+ "]";
+}

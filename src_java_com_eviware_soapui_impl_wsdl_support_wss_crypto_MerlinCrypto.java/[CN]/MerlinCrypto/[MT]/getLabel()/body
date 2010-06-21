@@ -1,0 +1,5 @@
+{
+  if (StringUtils.isNullOrEmpty(keystore))   return super.getLabel();
+  int ix=keystore.lastIndexOf(File.separatorChar);
+  return ix == -1 ? keystore : keystore.substring(ix + 1);
+}

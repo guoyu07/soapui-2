@@ -1,0 +1,7 @@
+{
+  String oldName=getName();
+  propertyConfig.setName(name);
+  propertyMap.remove(oldName.toUpperCase());
+  propertyMap.put(name.toUpperCase(),this);
+  firePropertyRenamed(oldName,name);
+}

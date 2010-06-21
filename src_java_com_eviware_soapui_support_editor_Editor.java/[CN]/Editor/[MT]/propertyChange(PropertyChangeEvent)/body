@@ -1,0 +1,7 @@
+{
+  if (evt.getPropertyName().equals(EditorView.TITLE_PROPERTY)) {
+    int ix=views.indexOf(evt.getSource());
+    if (ix == -1)     return;
+    inputTabs.setTitleAt(ix,(String)evt.getNewValue());
+  }
+}

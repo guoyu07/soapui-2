@@ -1,0 +1,14 @@
+{
+  iface.beforeSave();
+  InterfaceConfig ifaceConfig=(InterfaceConfig)iface.getConfig().copy();
+  ifaceConfig=(InterfaceConfig)getConfig().addNewInterface().set(ifaceConfig);
+  AbstractInterface<?> imported=InterfaceFactoryRegistry.build(this,ifaceConfig);
+  interfaces.add(imported);
+  if (iface.getProject() != this && importEndpoints) {
+    endpointStrategy.importEndpoints(iface);
+  }
+  if (createCopy)   ModelSupport.unsetIds(imported);
+  imported.afterLoad();
+  fireInterfaceAdded(imported);
+  return imported;
+}

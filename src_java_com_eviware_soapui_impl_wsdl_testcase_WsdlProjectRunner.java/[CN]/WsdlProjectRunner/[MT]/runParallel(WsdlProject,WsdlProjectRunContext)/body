@@ -1,0 +1,19 @@
+{
+  currentTestSuiteIndex=-1;
+  currentTestSuite=null;
+  for (  TestSuite testSuite : project.getTestSuiteList()) {
+    if (!testSuite.isDisabled()) {
+      testSuite.addTestSuiteRunListener(internalTestRunListener);
+      notifyBeforeRunTestSuite(testSuite);
+      runTestSuite((WsdlTestSuite)testSuite,true);
+    }
+  }
+  try {
+synchronized (activeRunners) {
+      activeRunners.wait();
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+}

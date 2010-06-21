@@ -1,0 +1,18 @@
+{
+  UISupport.setHourglassCursor();
+  try {
+    if (target instanceof WsdlInterface) {
+      try {
+        ((WsdlInterface)target).getWsdlContext().loadIfNecessary();
+      }
+ catch (      Exception e) {
+        UISupport.showErrorMessage(e);
+        return;
+      }
+    }
+    UISupport.selectAndShow(target);
+  }
+  finally {
+    UISupport.resetCursor();
+  }
+}

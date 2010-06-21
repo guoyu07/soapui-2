@@ -1,0 +1,9 @@
+{
+  super.propertyChange(evt);
+  if (evt.getPropertyName().equals("script") && !updating) {
+    updating=true;
+    groovyEditor.getEditArea().setText((String)evt.getNewValue());
+    updating=false;
+  }
+  if (evt.getPropertyName().equals(AMFRequestTestStep.STATUS_PROPERTY))   updateStatusIcon();
+}

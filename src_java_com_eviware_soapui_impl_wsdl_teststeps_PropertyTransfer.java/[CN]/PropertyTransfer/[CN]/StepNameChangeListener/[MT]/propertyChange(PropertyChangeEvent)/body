@@ -1,0 +1,19 @@
+{
+  String oldName=(String)evt.getOldValue();
+  String newValue=(String)evt.getNewValue();
+  if (newValue == null) {
+    log.error("Tried to change stepname to null!");
+    Thread.dumpStack();
+    return;
+  }
+  if (oldName.equals(sourceStep) && currentSourceStep instanceof TestStep) {
+    sourceStep=newValue;
+    config.setSourceStep(sourceStep);
+    propertyChangeSupport.firePropertyChange(SOURCE_STEP_PROPERTY,oldName,sourceStep);
+  }
+  if (oldName.equals(targetStep) && currentTargetStep instanceof TestStep) {
+    targetStep=newValue;
+    config.setTargetStep(targetStep);
+    propertyChangeSupport.firePropertyChange(TARGET_STEP_PROPERTY,oldName,targetStep);
+  }
+}

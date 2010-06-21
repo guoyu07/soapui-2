@@ -1,0 +1,13 @@
+{
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      for (int c=0; c < listModel.getSize(); c++) {
+        if (SoapUI.getNavigator().getTreePath((ModelItem)listModel.elementAt(c)) == null) {
+          listModel.remove(c);
+          c--;
+        }
+      }
+    }
+  }
+);
+}

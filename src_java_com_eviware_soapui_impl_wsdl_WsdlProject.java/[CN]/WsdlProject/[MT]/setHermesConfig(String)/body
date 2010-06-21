@@ -1,0 +1,5 @@
+{
+  String oldHermesConfigPath=getSettings().getString(ProjectSettings.HERMES_CONFIG,null);
+  getSettings().setString(ProjectSettings.HERMES_CONFIG,hermesConfigPath);
+  this.pcs.firePropertyChange("hermesConfig",oldHermesConfigPath,hermesConfigPath);
+}

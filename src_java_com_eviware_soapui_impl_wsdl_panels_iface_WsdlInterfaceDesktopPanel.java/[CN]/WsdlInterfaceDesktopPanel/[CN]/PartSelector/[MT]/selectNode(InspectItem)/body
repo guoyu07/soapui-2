@@ -1,0 +1,11 @@
+{
+  Element elm=item.getElement();
+  String type=elm.getAttribute("type");
+  String element=elm.getAttribute("element");
+  if (type.length() > 0) {
+    simpleSelect(item,"type","Complex Types");
+  }
+ else   if (element.length() > 0) {
+    simpleSelect(item,"element","Global Elements");
+  }
+}

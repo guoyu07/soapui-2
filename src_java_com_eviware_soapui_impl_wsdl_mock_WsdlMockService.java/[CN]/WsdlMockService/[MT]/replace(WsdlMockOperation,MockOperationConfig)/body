@@ -1,0 +1,13 @@
+{
+  int ix=mockOperations.indexOf(mockOperation);
+  if (ix == -1)   throw new RuntimeException("Unkonws MockOperation specified to removeMockOperation");
+  mockOperations.remove(ix);
+  fireMockOperationRemoved(mockOperation);
+  mockOperation.release();
+  getConfig().removeMockOperation(ix);
+  MockOperationConfig newConfig=(MockOperationConfig)getConfig().insertNewMockOperation(ix).set(reloadedMockOperation).changeType(MockOperationConfig.type);
+  WsdlMockOperation newOperation=new WsdlMockOperation(this,newConfig);
+  mockOperations.add(ix,newOperation);
+  newOperation.afterLoad();
+  fireMockOperationAdded(newOperation);
+}

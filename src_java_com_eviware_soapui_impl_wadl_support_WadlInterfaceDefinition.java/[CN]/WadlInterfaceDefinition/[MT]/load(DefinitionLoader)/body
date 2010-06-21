@@ -1,0 +1,9 @@
+{
+  XmlObject obj=loader.loadXmlObject(loader.getBaseURI(),null);
+  applicationDocument=(ApplicationDocument)obj.changeType(ApplicationDocument.type);
+  if (!loader.isAborted()) {
+    super.loadSchemaTypes(loader);
+  }
+ else   throw new Exception("Loading of WADL from [" + loader.getBaseURI() + "] was aborted");
+  return this;
+}

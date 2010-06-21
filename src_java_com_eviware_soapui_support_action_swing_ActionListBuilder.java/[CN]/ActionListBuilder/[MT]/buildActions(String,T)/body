@@ -1,0 +1,8 @@
+{
+  DefaultActionList actions=new DefaultActionList();
+  SoapUIActionGroup<T> group=SoapUI.getActionRegistry().getActionGroup(actionGroup);
+  if (group != null) {
+    addActions(modelItem,actions,group);
+  }
+  return actions;
+}

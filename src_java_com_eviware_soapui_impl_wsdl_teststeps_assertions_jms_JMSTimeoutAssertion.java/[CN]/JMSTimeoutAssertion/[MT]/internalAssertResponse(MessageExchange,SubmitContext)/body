@@ -1,0 +1,9 @@
+{
+  Boolean temp=(Boolean)context.getProperty(HermesJmsRequestTransport.IS_JMS_MESSAGE_RECEIVED);
+  Boolean messageReceived=temp != null ? temp : false;
+  Long timeout=(Long)context.getProperty(HermesJmsRequestTransport.JMS_RECEIVE_TIMEOUT);
+  if (messageReceived != null && !messageReceived) {
+    throw new AssertionException(new AssertionError("JMS Message timeout error! Message is not received in " + timeout + " ms."));
+  }
+  return "JMS Timeout OK";
+}

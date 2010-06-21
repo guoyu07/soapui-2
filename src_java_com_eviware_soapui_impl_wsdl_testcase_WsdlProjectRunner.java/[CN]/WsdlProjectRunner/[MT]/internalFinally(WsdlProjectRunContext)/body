@@ -1,0 +1,12 @@
+{
+  WsdlProject project=getTestRunnable();
+  try {
+    project.runAfterRunScript(runContext,this);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  notifyAfterRun();
+  runContext.clear();
+  listeners=null;
+}

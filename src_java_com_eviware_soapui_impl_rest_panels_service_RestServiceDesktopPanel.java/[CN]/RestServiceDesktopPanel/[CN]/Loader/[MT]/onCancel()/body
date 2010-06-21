@@ -1,0 +1,14 @@
+{
+  progressBar=new JProgressBar(0,1);
+  progressBar.setSize(new Dimension(120,20));
+  progressBar.setStringPainted(true);
+  progressBar.setString("Loading Definition..");
+  progressBar.setIndeterminate(true);
+  ButtonBarBuilder builder=ButtonBarBuilder.createLeftToRightBuilder();
+  builder.addGlue();
+  builder.addFixed(progressBar);
+  builder.addGlue();
+  builder.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+  partTabs.addTab("Loading.. ",builder.getPanel());
+  return true;
+}

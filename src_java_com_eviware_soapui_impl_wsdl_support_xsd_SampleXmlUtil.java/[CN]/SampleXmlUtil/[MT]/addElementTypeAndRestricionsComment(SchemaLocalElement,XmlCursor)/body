@@ -1,0 +1,17 @@
+{
+  SchemaType type=element.getType();
+  if (_typeComment && (type != null && type.isSimpleType())) {
+    String info="";
+    XmlAnySimpleType[] values=type.getEnumerationValues();
+    if (values != null && values.length > 0) {
+      info=" - enumeration: [";
+      for (int c=0; c < values.length; c++) {
+        if (c > 0)         info+=",";
+        info+=values[c].getStringValue();
+      }
+      info+="]";
+    }
+    if (type.isAnonymousType())     xmlc.insertComment("anonymous type" + info);
+ else     xmlc.insertComment("type: " + type.getName().getLocalPart() + info);
+  }
+}

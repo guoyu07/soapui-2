@@ -1,0 +1,20 @@
+{
+  OperationConfig config=getConfig();
+  if (type == null) {
+    if (config.isSetType())     config.unsetType();
+  }
+ else {
+    if (OperationType.ONE_WAY.equals(type)) {
+      config.setType(OperationTypesConfig.ONE_WAY);
+    }
+ else     if (OperationType.NOTIFICATION.equals(type)) {
+      config.setType(OperationTypesConfig.NOTIFICATION);
+    }
+ else     if (OperationType.SOLICIT_RESPONSE.equals(type)) {
+      config.setType(OperationTypesConfig.SOLICIT_RESPONSE);
+    }
+ else {
+      config.setType(OperationTypesConfig.REQUEST_RESPONSE);
+    }
+  }
+}

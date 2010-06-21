@@ -1,0 +1,11 @@
+{
+  int sz=exchanges.size();
+  while (exchanges.size() > 0) {
+    WsdlMonitorMessageExchange removed=exchanges.remove(0);
+    removed.discard();
+  }
+  fireTableRowsDeleted(0,sz);
+  while (requestFilterModel.getSize() > 1)   requestFilterModel.removeElementAt(1);
+  while (targetHostFilterModel.getSize() > 1)   targetHostFilterModel.removeElementAt(1);
+  updateRowCountLabel();
+}

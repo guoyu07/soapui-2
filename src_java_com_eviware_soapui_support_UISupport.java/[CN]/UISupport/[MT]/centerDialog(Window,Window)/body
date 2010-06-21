@@ -1,0 +1,12 @@
+{
+  Dimension sz=dialog.getSize();
+  Rectangle b=frame == null ? null : frame.getBounds();
+  if (owner != null && owner.isVisible()) {
+    b=owner.getBounds();
+  }
+ else   if (b == null) {
+    GraphicsEnvironment ge=GraphicsEnvironment.getLocalGraphicsEnvironment();
+    b=ge.getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+  }
+  dialog.setLocation((int)((b.getWidth() - sz.getWidth()) / 2) + (int)b.getX(),(int)((b.getHeight() - sz.getHeight()) / 2) + (int)b.getY());
+}

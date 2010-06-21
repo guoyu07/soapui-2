@@ -1,0 +1,13 @@
+{
+  try {
+    String content=convertStreamToString(request.getAttachments()[0].getInputStream());
+    TextMessage textMessageSend=session.createTextMessage();
+    String messageBody=PropertyExpander.expandProperties(submitContext,content);
+    textMessageSend.setText(messageBody);
+    return textMessageSend;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

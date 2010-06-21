@@ -1,0 +1,11 @@
+{
+  Long value=null;
+  String[] parts=triggerProperties.get(propertyKey).split("@");
+  try {
+    value=new Long(parts[1]);
+  }
+ catch (  NumberFormatException e) {
+    SoapUI.logError(e,"property " + propertyKey + "is not a Long");
+  }
+  return value;
+}

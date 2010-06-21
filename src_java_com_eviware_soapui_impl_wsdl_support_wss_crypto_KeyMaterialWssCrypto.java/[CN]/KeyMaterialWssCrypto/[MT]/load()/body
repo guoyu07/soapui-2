@@ -1,0 +1,17 @@
+{
+  if (keyStore != null)   return keyStore;
+  try {
+    UISupport.setHourglassCursor();
+    if (StringUtils.hasContent(getDefaultAlias()) && StringUtils.hasContent(getAliasPassword())) {
+      keyStore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),getDefaultAlias().getBytes(),getPassword().toCharArray(),getAliasPassword().toCharArray());
+    }
+ else     keyStore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),getPassword().toCharArray());
+    return keyStore;
+  }
+ catch (  Throwable t) {
+    throw new Exception(t);
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

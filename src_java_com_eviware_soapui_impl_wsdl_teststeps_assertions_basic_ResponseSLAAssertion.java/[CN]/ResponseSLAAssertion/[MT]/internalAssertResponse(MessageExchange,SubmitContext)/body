@@ -1,0 +1,6 @@
+{
+  if (messageExchange.getTimeTaken() > Long.parseLong(PropertyExpander.expandProperties(context,SLA))) {
+    throw new AssertionException(new AssertionError("Response did not meet SLA " + messageExchange.getTimeTaken() + "/"+ SLA));
+  }
+  return "Response meets SLA";
+}

@@ -1,0 +1,8 @@
+{
+  CommandMessage commandMessage=createLoginCommandMessage();
+  SoapUIAMFConnection amfConnection=new SoapUIAMFConnection();
+  amfConnection.connect(endpoint);
+  amfConnection.call((SubmitContext)context,null,commandMessage);
+  logedIn=true;
+  return amfConnection;
+}

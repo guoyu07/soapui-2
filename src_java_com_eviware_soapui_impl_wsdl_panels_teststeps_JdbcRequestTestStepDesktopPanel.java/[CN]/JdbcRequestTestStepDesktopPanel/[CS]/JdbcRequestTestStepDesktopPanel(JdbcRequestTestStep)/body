@@ -1,0 +1,9 @@
+{
+  super(modelItem);
+  jdbcRequestTestStep=modelItem;
+  initConfig();
+  initContent();
+  SoapUI.getTestMonitor().addTestMonitorListener(testMonitorListener);
+  setEnabled(!SoapUI.getTestMonitor().hasRunningTest(jdbcRequestTestStep.getTestCase()));
+  jdbcRequestTestStep.addAssertionsListener(assertionsListener);
+}

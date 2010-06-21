@@ -1,0 +1,60 @@
+{
+  List<HttpAttachmentPart> result=new ArrayList<HttpAttachmentPart>();
+  PartsConfig messageParts=isResponse ? operation.getConfig().getResponseParts() : operation.getConfig().getRequestParts();
+  if (messageParts != null) {
+    for (    Part part : messageParts.getPartList()) {
+      HttpAttachmentPart attachmentPart=new HttpAttachmentPart(part.getName(),part.getContentTypeList());
+      attachmentPart.setType(Attachment.AttachmentType.MIME);
+      result.add(attachmentPart);
+    }
+  }
+  if (messageContent.length() > 0) {
+    WsdlContext wsdlContext=operation.getInterface().getWsdlContext();
+    WsdlValidator validator=new WsdlValidator(wsdlContext);
+    try {
+      XmlObject[] requestDocuments=validator.getMessageParts(messageContent,operation.getName(),isResponse);
+      for (      XmlObject partDoc : requestDocuments) {
+        XmlCursor cursor=partDoc.newCursor();
+        while (!cursor.isEnddoc()) {
+          if (cursor.isContainer()) {
+            SchemaType schemaType=cursor.getObject().schemaType();
+            if (schemaType != null) {
+              String attributeText=AttachmentUtils.getXmlMimeContentType(cursor);
+              if (SchemaUtils.isBinaryType(schemaType) || SchemaUtils.isAnyType(schemaType)) {
+                String contentId=cursor.getTextValue();
+                if (contentId.startsWith("cid:")) {
+                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
+                  attachmentPart.setType(attributeText == null && !forceMtom ? Attachment.AttachmentType.CONTENT : Attachment.AttachmentType.XOP);
+                  result.add(attachmentPart);
+                }
+              }
+ else               if (AttachmentUtils.isXopInclude(schemaType)) {
+                String contentId=cursor.getAttributeText(new QName("href"));
+                if (contentId != null && contentId.length() > 0) {
+                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId,attributeText);
+                  attachmentPart.setType(Attachment.AttachmentType.XOP);
+                  result.add(attachmentPart);
+                }
+              }
+ else               if (AttachmentUtils.isSwaRefType(schemaType)) {
+                String contentId=cursor.getTextValue();
+                if (contentId.startsWith("cid:")) {
+                  HttpAttachmentPart attachmentPart=new HttpAttachmentPart(contentId.substring(4),attributeText);
+                  attachmentPart.setType(Attachment.AttachmentType.SWAREF);
+                  result.add(attachmentPart);
+                }
+              }
+            }
+          }
+          cursor.toNextToken();
+        }
+      }
+    }
+ catch (    Exception e) {
+      if (e instanceof NullPointerException)       SoapUI.logError(e);
+      log.warn(e.getMessage());
+    }
+  }
+  if (addAnonymous)   result.add(new HttpAttachmentPart());
+  return result;
+}

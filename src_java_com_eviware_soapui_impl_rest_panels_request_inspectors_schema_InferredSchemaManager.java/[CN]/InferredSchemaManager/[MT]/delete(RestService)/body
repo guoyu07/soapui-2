@@ -1,0 +1,7 @@
+{
+  service.setInferredSchema(null);
+  if (schemas.containsKey(service)) {
+    schemas.remove(service);
+  }
+  propertyChangeSupports.get(service).firePropertyChange("inferredSchema",service.getInferredSchema(),null);
+}

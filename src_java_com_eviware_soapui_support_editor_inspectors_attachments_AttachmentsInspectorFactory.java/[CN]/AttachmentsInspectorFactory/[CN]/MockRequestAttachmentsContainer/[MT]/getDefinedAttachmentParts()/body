@@ -1,0 +1,6 @@
+{
+  MessagePart[] responseParts=mockResponse.getRequestParts();
+  List<HttpAttachmentPart> result=new ArrayList<HttpAttachmentPart>();
+  for (  MessagePart part : responseParts)   if (part instanceof HttpAttachmentPart)   result.add((HttpAttachmentPart)part);
+  return result.toArray(new HttpAttachmentPart[result.size()]);
+}

@@ -1,0 +1,10 @@
+{
+  for (  MonitorListener listener : listeners.get()) {
+    try {
+      listener.onRequest(this,request,response);
+    }
+ catch (    Throwable t) {
+      SoapUI.logError(t);
+    }
+  }
+}

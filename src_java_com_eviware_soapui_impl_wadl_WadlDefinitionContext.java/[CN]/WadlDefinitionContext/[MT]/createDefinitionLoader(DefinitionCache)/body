@@ -1,0 +1,4 @@
+{
+  if (getInterface().isGenerated() || StringUtils.isNullOrEmpty(getInterface().getWadlUrl()))   return new GeneratedWadlDefinitionLoader(getInterface());
+ else   return new InterfaceCacheDefinitionLoader(restServiceDefinitionCache);
+}

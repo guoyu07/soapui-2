@@ -1,0 +1,10 @@
+{
+  try {
+    UISupport.setHourglassCursor();
+    SoapUIDesktop desktop=SoapUI.getDesktop();
+    return desktop == null ? null : desktop.showDesktopPanel(desktopPanel);
+  }
+  finally {
+    UISupport.resetCursor();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  propertiesTable.release();
+  inspectorPanel.release();
+  testCaseListInspectorPanel.release();
+  setupGroovyEditor.getEditor().release();
+  tearDownGroovyEditor.getEditor().release();
+  testRunLog.release();
+  getModelItem().removeTestSuiteRunListener(testSuiteRunListener);
+  getModelItem().removeTestSuiteListener(testSuiteListener);
+  return super.release();
+}

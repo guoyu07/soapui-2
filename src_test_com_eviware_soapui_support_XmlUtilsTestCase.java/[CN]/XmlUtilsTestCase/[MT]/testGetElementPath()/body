@@ -1,0 +1,6 @@
+{
+  Document dom=XmlUtils.parseXml("<h1><p>p1</p><h2>lkj</h2><p>p2</p></h1>");
+  NodeList nl=dom.getDocumentElement().getElementsByTagName("p");
+  assertEquals("/h1[1]/p[1]",XmlUtils.getElementPath((Element)nl.item(0)));
+  assertEquals("/h1[1]/p[2]",XmlUtils.getElementPath((Element)nl.item(1)));
+}

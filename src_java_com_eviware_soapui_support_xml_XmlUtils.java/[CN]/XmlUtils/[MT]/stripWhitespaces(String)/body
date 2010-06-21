@@ -1,0 +1,10 @@
+{
+  try {
+    XmlObject xml=XmlObject.Factory.parse(content,new XmlOptions().setLoadStripWhitespace().setLoadStripComments());
+    content=xml.xmlText();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return content;
+}

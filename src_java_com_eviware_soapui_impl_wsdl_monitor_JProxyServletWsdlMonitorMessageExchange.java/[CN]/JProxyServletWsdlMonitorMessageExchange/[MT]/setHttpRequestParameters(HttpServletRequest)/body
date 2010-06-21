@@ -1,0 +1,9 @@
+{
+  Enumeration<String> parameterNames=httpRequest.getParameterNames();
+  Map<String,String> parameterMap=new HashMap<String,String>();
+  while (parameterNames.hasMoreElements()) {
+    String name=parameterNames.nextElement();
+    parameterMap.put(name,httpRequest.getParameter(name));
+  }
+  this.httpRequestParameters=parameterMap;
+}

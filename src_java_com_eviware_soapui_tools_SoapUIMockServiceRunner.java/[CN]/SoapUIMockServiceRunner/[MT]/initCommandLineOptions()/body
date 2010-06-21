@@ -1,0 +1,15 @@
+{
+  SoapUIOptions options=new SoapUIOptions("mockservicerunner");
+  options.addOption("m",true,"Specified the name of the MockService to run");
+  options.addOption("p",true,"Sets the local port to listen on");
+  options.addOption("a",true,"Sets the url path to listen on");
+  options.addOption("s",true,"Sets the soapui-settings.xml file to use");
+  options.addOption("b",false,"Turns off blocking read for termination");
+  options.addOption("x",true,"Sets project password for decryption if project is encrypted");
+  options.addOption("v",true,"Sets password for soapui-settings.xml file");
+  options.addOption("D",true,"Sets system property with name=value");
+  options.addOption("G",true,"Sets global property with name=value");
+  options.addOption("P",true,"Sets or overrides project property with name=value");
+  options.addOption("S",false,"Saves the project after running the mockService(s)");
+  return options;
+}

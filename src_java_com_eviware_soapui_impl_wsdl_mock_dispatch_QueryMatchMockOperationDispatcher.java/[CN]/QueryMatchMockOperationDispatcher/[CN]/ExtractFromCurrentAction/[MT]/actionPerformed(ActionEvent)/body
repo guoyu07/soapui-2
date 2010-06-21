@@ -1,0 +1,35 @@
+{
+  QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
+  if (selectedQuery == null)   return;
+  WsdlMockResult result=getMockOperation().getLastMockResult();
+  String content;
+  if (result != null && StringUtils.hasContent(result.getMockRequest().getRequestContent())) {
+    content=result.getMockRequest().getRequestContent();
+  }
+ else {
+    if (!UISupport.confirm("Missing last result, extract from default request instead?","Extract Match")) {
+      return;
+    }
+    content=getMockOperation().getOperation().createRequest(true);
+  }
+  XmlCursor cursor=null;
+  try {
+    XmlObject xmlObject=XmlObject.Factory.parse(content);
+    cursor=xmlObject.newCursor();
+    cursor.selectPath(selectedQuery.getQuery());
+    if (!cursor.toNextSelection()) {
+      UISupport.showErrorMessage("Missing match in request");
+    }
+ else {
+      selectedQuery.setMatch(XmlUtils.getValueForMatch(cursor));
+    }
+  }
+ catch (  Throwable e1) {
+    SoapUI.logError(e1);
+  }
+ finally {
+    if (cursor != null) {
+      cursor.dispose();
+    }
+  }
+}

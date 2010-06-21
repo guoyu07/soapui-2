@@ -1,0 +1,13 @@
+{
+  List<String> availableTestCases=new ArrayList<String>();
+  if (!projectName.equals(CREATE_NEW_OPTION) && isProjectOpened(projectName)) {
+    availableTestCases.addAll(getTestCasesNames());
+  }
+  availableTestCases.add(CREATE_ON_PROJECT_LEVEL);
+  availableTestCases.add(CREATE_NEW_OPTION);
+  String[] names=new String[availableTestCases.size()];
+  for (int c=0; c < availableTestCases.size(); c++) {
+    names[c]=availableTestCases.get(c);
+  }
+  return names;
+}

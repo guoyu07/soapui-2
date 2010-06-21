@@ -1,0 +1,17 @@
+{
+  String root=ModelSupport.getResourceRoot(testStep);
+  File file=UISupport.getFileDialogs().saveAs(this,"Set properties target","properties","Properties Files (*.properties)",new File(root));
+  if (file != null) {
+    updatingTarget=true;
+    testStep.setTarget(file.getAbsolutePath());
+    targetField.setText(testStep.getTarget());
+    updatingTarget=false;
+    try {
+      int cnt=testStep.saveProperties();
+      UISupport.showInfoMessage("Saved " + cnt + " properties to ["+ testStep.getTarget()+ "]");
+    }
+ catch (    IOException e1) {
+      UISupport.showErrorMessage("Failed to save properties to [" + testStep.getTarget() + "]; "+ e1);
+    }
+  }
+}

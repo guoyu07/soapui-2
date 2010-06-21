@@ -1,0 +1,14 @@
+{
+  String value=definition;
+  AbstractInterface<?> iface=(AbstractInterface<?>)getAssertable().getInterface();
+  String orgDef=iface == null ? null : iface.getDefinition();
+  if (StringUtils.isNullOrEmpty(value)) {
+    value=orgDef;
+  }
+  value=UISupport.prompt("Specify definition url to validate by","Configure SchemaCompliance Assertion",value);
+  if (value == null)   return false;
+  if (StringUtils.isNullOrEmpty(value) || value.equals(orgDef))   definition="";
+ else   definition=value;
+  setConfiguration(createConfiguration());
+  return true;
+}

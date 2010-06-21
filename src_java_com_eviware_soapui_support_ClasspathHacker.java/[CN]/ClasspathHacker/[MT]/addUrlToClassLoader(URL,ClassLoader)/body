@@ -1,0 +1,45 @@
+{
+  try {
+    Method method=classLoader.getClass().getDeclaredMethod("addURL",new Class[]{java.net.URL.class});
+    method.setAccessible(true);
+    method.invoke(classLoader,new Object[]{u});
+    SoapUI.log.info("Added [" + u.toString() + "] to classpath");
+  }
+ catch (  NoSuchMethodException e) {
+    try {
+      Method method=classLoader.getClass().getSuperclass().getDeclaredMethod("addURL",new Class[]{java.net.URL.class});
+      method.setAccessible(true);
+      method.invoke(classLoader,new Object[]{u});
+      SoapUI.log.info("Added [" + u.toString() + "] to classpath");
+    }
+ catch (    NoSuchMethodException ex) {
+      try {
+        Method method=classLoader.getClass().getSuperclass().getSuperclass().getDeclaredMethod("addURL",new Class[]{java.net.URL.class});
+        method.setAccessible(true);
+        method.invoke(classLoader,new Object[]{u});
+        SoapUI.log.info("Added [" + u.toString() + "] to classpath");
+      }
+ catch (      Throwable t) {
+        try {
+          if (classLoader.getParent() != null) {
+            SoapUI.log.info("Failed to add jar to " + classLoader.getClass().getName() + ", trying parent");
+            addUrlToClassLoader(u,classLoader.getParent());
+          }
+ else           throw new IOException("Error, could not add URL to classloader " + classLoader.getClass().getName());
+        }
+ catch (        IOException e3) {
+          SoapUI.logError(t);
+          throw e3;
+        }
+      }
+    }
+catch (    Throwable t) {
+      SoapUI.logError(t);
+      throw new IOException("Error, could not add URL to system classloader " + classLoader.getClass().getName());
+    }
+  }
+catch (  Throwable t) {
+    SoapUI.logError(t);
+    throw new IOException("Error, could not add URL to system classloader " + classLoader.getClass().getName());
+  }
+}

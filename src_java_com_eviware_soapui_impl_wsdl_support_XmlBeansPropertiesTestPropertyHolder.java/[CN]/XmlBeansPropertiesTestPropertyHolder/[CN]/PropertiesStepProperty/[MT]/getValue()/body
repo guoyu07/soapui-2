@@ -1,0 +1,5 @@
+{
+  if (overrideProperties != null && overrideProperties.containsKey(getName()))   return overrideProperties.getProperty(getName());
+  if (virtualProperty != null)   return virtualProperty.getValue();
+  return propertyConfig.getValue();
+}

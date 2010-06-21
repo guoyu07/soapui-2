@@ -1,0 +1,14 @@
+{
+  XmlObject object=XmlObject.Factory.newInstance();
+  XmlCursor cursor=object.newCursor();
+  cursor.toNextToken();
+  createSampleForType(sType,cursor);
+  cursor.dispose();
+  XmlOptions options=new XmlOptions();
+  options.put(XmlOptions.SAVE_PRETTY_PRINT);
+  options.put(XmlOptions.SAVE_PRETTY_PRINT_INDENT,3);
+  options.put(XmlOptions.SAVE_AGGRESSIVE_NAMESPACES);
+  options.setSaveOuter();
+  String result=object.xmlText(options);
+  return result;
+}

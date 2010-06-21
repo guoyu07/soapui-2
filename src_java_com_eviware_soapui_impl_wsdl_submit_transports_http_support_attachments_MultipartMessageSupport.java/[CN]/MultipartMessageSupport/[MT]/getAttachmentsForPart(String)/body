@@ -1,0 +1,7 @@
+{
+  List<Attachment> results=new ArrayList<Attachment>();
+  for (  Attachment attachment : attachments) {
+    if (attachment.getPart().equals(partName))     results.add(attachment);
+  }
+  return results.toArray(new Attachment[results.size()]);
+}

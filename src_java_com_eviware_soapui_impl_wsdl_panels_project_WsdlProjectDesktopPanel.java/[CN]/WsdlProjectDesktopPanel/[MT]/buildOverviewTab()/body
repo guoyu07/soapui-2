@@ -1,0 +1,12 @@
+{
+  inspectorPanel=JInspectorPanelFactory.build(buildProjectOverview());
+  addOverviewInspectors(inspectorPanel);
+  inspectorPanel.setCurrentInspector("Properties");
+  if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
+    inspectorPanel.setCurrentInspector("Description");
+  }
+  treeModelListener=new InternalTreeModelListener();
+  SoapUI.getNavigator().getMainTree().getModel().addTreeModelListener(treeModelListener);
+  updateStatistics();
+  return inspectorPanel.getComponent();
+}

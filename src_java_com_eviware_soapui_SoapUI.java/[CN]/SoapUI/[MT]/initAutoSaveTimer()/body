@@ -1,0 +1,15 @@
+{
+  Settings settings=SoapUI.getSettings();
+  long interval=settings.getLong(UISettings.AUTO_SAVE_INTERVAL,0);
+  if (autoSaveTimerTask != null) {
+    if (interval == 0)     SoapUI.log("Cancelling AutoSave Timer");
+    autoSaveTimerTask.cancel();
+    autoSaveTimerTask=null;
+  }
+  if (interval > 0) {
+    autoSaveTimerTask=new AutoSaveTimerTask();
+    SoapUI.log("Scheduling autosave every " + interval + " minutes");
+    if (backgroundTimer == null)     backgroundTimer=new Timer("AutoSave Timer");
+    backgroundTimer.schedule(autoSaveTimerTask,interval * 1000 * 60,interval * 1000 * 60);
+  }
+}

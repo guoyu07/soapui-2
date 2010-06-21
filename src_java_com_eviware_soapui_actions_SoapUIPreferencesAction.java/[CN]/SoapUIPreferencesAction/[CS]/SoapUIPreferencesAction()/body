@@ -1,0 +1,18 @@
+{
+  super("Preferences");
+  putValue(Action.SHORT_DESCRIPTION,"Sets global soapUI preferences");
+  putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("menu alt P"));
+  addPrefs(new AnnotatedSettingsPrefs(HttpSettings.class,HTTP_SETTINGS));
+  addPrefs(new ProxyPrefs(PROXY_SETTINGS));
+  addPrefs(new AnnotatedSettingsPrefs(SSLSettings.class,SSL_SETTINGS));
+  addPrefs(new AnnotatedSettingsPrefs(WsdlSettings.class,WSDL_SETTINGS));
+  addPrefs(new UIPrefs(UI_SETTINGS));
+  addPrefs(new EditorPrefs(EDITOR_SETTINGS));
+  addPrefs(new ToolsPrefs(INTEGRATED_TOOLS));
+  addPrefs(new AnnotatedSettingsPrefs(WSISettings.class,WS_I_SETTINGS));
+  addPrefs(new GlobalPropertiesPrefs());
+  addPrefs(new AnnotatedSettingsPrefs(SecuritySettings.class,GLOBAL_SECURITY_SETTINGS));
+  addPrefs(new AnnotatedSettingsPrefs(WsaSettings.class,WSA_SETTINGS));
+  addPrefs(new LoadUIPrefs(LOADUI_SETTINGS));
+  instance=this;
+}

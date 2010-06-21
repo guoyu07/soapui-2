@@ -1,0 +1,8 @@
+{
+  Map<String,String> properties=System.getenv();
+  Map<String,TestProperty> result=new HashMap<String,TestProperty>();
+  for (  Object key : properties.keySet()) {
+    result.put(key.toString(),new EnviromentTestProperty(key));
+  }
+  return result;
+}

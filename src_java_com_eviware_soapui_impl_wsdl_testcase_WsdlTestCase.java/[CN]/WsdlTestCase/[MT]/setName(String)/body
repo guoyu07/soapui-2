@@ -1,0 +1,8 @@
+{
+  String oldLabel=getLabel();
+  super.setName(name);
+  String label=getLabel();
+  if (oldLabel != null && !oldLabel.equals(label)) {
+    notifyPropertyChanged(LABEL_PROPERTY,oldLabel,label);
+  }
+}

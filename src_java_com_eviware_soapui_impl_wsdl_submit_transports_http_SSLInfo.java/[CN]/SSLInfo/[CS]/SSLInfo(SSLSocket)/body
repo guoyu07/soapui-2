@@ -1,0 +1,13 @@
+{
+  SSLSession session=socket.getSession();
+  cipherSuite=session.getCipherSuite();
+  localPrincipal=session.getLocalPrincipal();
+  localCertificates=session.getLocalCertificates();
+  try {
+    peerPrincipal=session.getPeerPrincipal();
+    peerCertificates=session.getPeerCertificates();
+  }
+ catch (  SSLPeerUnverifiedException e) {
+    peerUnverified=true;
+  }
+}

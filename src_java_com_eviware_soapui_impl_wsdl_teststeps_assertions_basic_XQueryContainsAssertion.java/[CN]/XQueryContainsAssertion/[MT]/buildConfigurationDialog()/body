@@ -1,0 +1,51 @@
+{
+  configurationDialog=new JDialog(UISupport.getMainFrame());
+  configurationDialog.setTitle("XQuery Match configuration");
+  configurationDialog.addWindowListener(new WindowAdapter(){
+    public void windowOpened(    WindowEvent event){
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          pathArea.requestFocusInWindow();
+        }
+      }
+);
+    }
+  }
+);
+  JPanel contentPanel=new JPanel(new BorderLayout());
+  contentPanel.add(UISupport.buildDescription("Specify XQuery expression and expected result","declare namespaces with <code>declare namespace &lt;prefix&gt;='&lt;namespace&gt;';</code>",null),BorderLayout.NORTH);
+  JSplitPane splitPane=UISupport.createVerticalSplit();
+  JPanel pathPanel=new JPanel(new BorderLayout());
+  JXToolBar pathToolbar=UISupport.createToolbar();
+  addPathEditorActions(pathToolbar);
+  pathArea=new JUndoableTextArea();
+  pathArea.setToolTipText("Specifies the XQuery expression to select from the message for validation");
+  pathPanel.add(pathToolbar,BorderLayout.NORTH);
+  pathPanel.add(new JScrollPane(pathArea),BorderLayout.CENTER);
+  splitPane.setTopComponent(UISupport.addTitledBorder(pathPanel,"XQuery Expression"));
+  JPanel matchPanel=new JPanel(new BorderLayout());
+  JXToolBar contentToolbar=UISupport.createToolbar();
+  addMatchEditorActions(contentToolbar);
+  contentArea=new JUndoableTextArea();
+  contentArea.setToolTipText("Specifies the expected result of the XQuery expression");
+  matchPanel.add(contentToolbar,BorderLayout.NORTH);
+  matchPanel.add(new JScrollPane(contentArea),BorderLayout.CENTER);
+  splitPane.setBottomComponent(UISupport.addTitledBorder(matchPanel,"Expected Result"));
+  splitPane.setDividerLocation(150);
+  splitPane.setBorder(BorderFactory.createEmptyBorder(0,1,0,1));
+  contentPanel.add(splitPane,BorderLayout.CENTER);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.XQUERYASSERTIONEDITOR_HELP_URL);
+  builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
+  builder.addGlue();
+  JButton okButton=new JButton(new OkAction());
+  builder.addFixed(okButton);
+  builder.addRelatedGap();
+  builder.addFixed(new JButton(new CancelAction()));
+  builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
+  contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
+  configurationDialog.setContentPane(contentPanel);
+  configurationDialog.setSize(600,500);
+  configurationDialog.setModal(true);
+  UISupport.initDialogActions(configurationDialog,showOnlineHelpAction,okButton);
+}

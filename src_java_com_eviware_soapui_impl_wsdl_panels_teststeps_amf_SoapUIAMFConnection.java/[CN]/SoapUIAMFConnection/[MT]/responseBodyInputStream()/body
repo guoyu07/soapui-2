@@ -1,0 +1,6 @@
+{
+  byte[] responseBody=postMethod.getResponseBody();
+  ByteArrayInputStream bais=new ByteArrayInputStream(responseBody);
+  context.setProperty(AMFResponse.AMF_RAW_RESPONSE_BODY,responseBody);
+  return bais;
+}

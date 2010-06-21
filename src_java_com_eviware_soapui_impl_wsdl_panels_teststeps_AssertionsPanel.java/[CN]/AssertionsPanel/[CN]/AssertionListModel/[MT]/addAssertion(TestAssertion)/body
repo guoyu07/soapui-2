@@ -1,0 +1,8 @@
+{
+  assertion.addPropertyChangeListener(this);
+  items.add(assertion);
+  AssertionError[] errors=assertion.getErrors();
+  if (errors != null) {
+    for (int i=0; i < errors.length; i++)     items.add(errors[i]);
+  }
+}

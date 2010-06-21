@@ -1,0 +1,7 @@
+{
+  HttpAttachmentPart[] parts=getDefinedAttachmentParts();
+  for (  HttpAttachmentPart part : parts) {
+    if (part.getName().equals(partName))     return part;
+  }
+  return null;
+}

@@ -1,0 +1,8 @@
+{
+  super(operation,callConfig,forLoadTest);
+  this.forLoadTest=forLoadTest;
+  setSettings(new XmlBeansSettingsImpl(this,testStep.getSettings(),callConfig.getSettings()));
+  this.testStep=testStep;
+  initAssertions();
+  if (!forLoadTest)   initIcons();
+}

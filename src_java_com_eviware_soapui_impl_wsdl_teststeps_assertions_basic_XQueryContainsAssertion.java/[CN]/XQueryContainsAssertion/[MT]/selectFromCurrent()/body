@@ -1,0 +1,50 @@
+{
+  try {
+    XmlOptions options=new XmlOptions();
+    options.setSavePrettyPrint();
+    options.setSaveAggressiveNamespaces();
+    String assertableContent=getAssertable().getAssertableContent();
+    if (assertableContent == null || assertableContent.trim().length() == 0) {
+      UISupport.showErrorMessage("Missing content to select from");
+      return;
+    }
+    XmlObject xml=XmlObject.Factory.parse(assertableContent);
+    String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
+    if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
+    WsdlTestRunContext context=new WsdlTestRunContext((TestStep)getAssertable().getModelItem());
+    String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
+    if (contentArea != null && contentArea.isVisible())     contentArea.setText("");
+    XmlObject[] paths=xml.execQuery(expandedPath);
+    if (paths.length == 0) {
+      UISupport.showErrorMessage("No match in current response");
+    }
+ else     if (paths.length > 1) {
+      UISupport.showErrorMessage("More than one match in current response");
+    }
+ else {
+      Node domNode=paths[0].getDomNode();
+      String stringValue=null;
+      if (domNode.getNodeType() == Node.ATTRIBUTE_NODE || domNode.getNodeType() == Node.TEXT_NODE) {
+        stringValue=domNode.getNodeValue();
+      }
+ else {
+        if (domNode.getNodeType() == Node.ELEMENT_NODE) {
+          Element elm=(Element)domNode;
+          if (elm.getChildNodes().getLength() == 1 && elm.getAttributes().getLength() == 0)           stringValue=XmlUtils.getElementText(elm);
+ else           stringValue=paths[0].xmlText(options);
+        }
+ else {
+          stringValue=paths[0].xmlText(options);
+        }
+      }
+      if (contentArea != null && contentArea.isVisible())       contentArea.setText(stringValue);
+ else       setContent(stringValue);
+    }
+  }
+ catch (  Throwable e) {
+    UISupport.showErrorMessage(e.toString());
+    SoapUI.logError(e);
+  }
+ finally {
+  }
+}

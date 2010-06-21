@@ -1,0 +1,33 @@
+{
+  ApplicationDocument applicationDocument=ApplicationDocument.Factory.newInstance();
+  Application application=applicationDocument.addNewApplication();
+  createDoc(application.addNewDoc(),restService);
+  Resources resources=application.addNewResources();
+  String basePath=restService.getBasePath();
+  String[] endpoints=restService.getEndpoints();
+  if (endpoints.length > 0)   basePath=endpoints[0] + basePath;
+  resources.setBase(basePath);
+  for (int c=0; c < restService.getOperationCount(); c++) {
+    resources.addNewResource().set(generateWadlResource(restService.getOperationAt(c)));
+  }
+  String[] namespaces=InferredSchemaManager.getInferredSchema(restService).getNamespaces();
+  if (namespaces.length > 0) {
+    Grammars grammars=application.addNewGrammars();
+    for (    String namespace : namespaces) {
+      grammars.addNewInclude().setHref(InferredSchemaManager.filenameForNamespace(namespace));
+    }
+  }
+  if (!isWADL11) {
+    XmlOptions options=new XmlOptions();
+    StringToStringMap subst=new StringToStringMap();
+    subst.put(Constants.WADL11_NS,Constants.WADL10_NS);
+    options.setLoadSubstituteNamespaces(subst);
+    try {
+      return XmlObject.Factory.parse(applicationDocument.xmlText(),options);
+    }
+ catch (    XmlException e) {
+      e.printStackTrace();
+    }
+  }
+  return applicationDocument;
+}

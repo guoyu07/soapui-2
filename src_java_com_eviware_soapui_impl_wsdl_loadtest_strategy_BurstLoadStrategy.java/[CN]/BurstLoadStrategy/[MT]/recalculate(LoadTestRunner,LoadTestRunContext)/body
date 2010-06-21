@@ -1,0 +1,17 @@
+{
+  long timePassed=System.currentTimeMillis() - startTime;
+  if (loadTestRunner.getStatus() == Status.RUNNING) {
+    WsdlLoadTest wsdlLoadTest=(WsdlLoadTest)loadTestRunner.getLoadTest();
+    String label=null;
+    long mod=timePassed % (burstDelay + burstDuration);
+    if (mod < burstDelay) {
+      wsdlLoadTest.setThreadCount(0);
+      label=(burstDelay - mod) / 1000 + "s delay left";
+    }
+ else {
+      wsdlLoadTest.setThreadCount(threadCount);
+      label=((burstDelay + burstDuration) - mod) / 1000 + "s burst left";
+    }
+    if (infoLabel != null && !infoLabel.getText().equals(label))     infoLabel.setText(label);
+  }
+}

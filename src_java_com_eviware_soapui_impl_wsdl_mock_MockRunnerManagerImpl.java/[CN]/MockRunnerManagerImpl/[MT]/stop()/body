@@ -1,0 +1,15 @@
+{
+  if (log.isDebugEnabled()) {
+    log.debug("Stopping MockRunnerManager");
+  }
+  for (  WsdlMockRunner runner : mockRunners) {
+    try {
+      runner.stop();
+    }
+ catch (    Exception e) {
+      log.error(e);
+    }
+  }
+  mockServices.clear();
+  mockRunners.clear();
+}

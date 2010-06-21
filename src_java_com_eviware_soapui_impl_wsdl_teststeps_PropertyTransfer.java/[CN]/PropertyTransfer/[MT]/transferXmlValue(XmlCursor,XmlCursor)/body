@@ -1,0 +1,69 @@
+{
+  Node destNode=dest.getDomNode();
+  Node sourceNode=source.getDomNode();
+  short destNodeType=destNode.getNodeType();
+  short sourceNodeType=sourceNode.getNodeType();
+  String value=null;
+  if (getTransferChildNodes()) {
+    while (destNode.hasChildNodes()) {
+      destNode.removeChild(destNode.getFirstChild());
+    }
+    NodeList childNodes=sourceNode.getChildNodes();
+    for (int c=0; c < childNodes.getLength(); c++) {
+      destNode.appendChild(destNode.getOwnerDocument().importNode(childNodes.item(c),true));
+    }
+    return XmlUtils.serialize(destNode,false);
+  }
+  if (sourceNodeType == Node.DOCUMENT_FRAGMENT_NODE) {
+    sourceNode=sourceNode.getFirstChild();
+    if (sourceNode != null)     sourceNodeType=sourceNode.getNodeType();
+ else     throw new Exception("Missing source value for " + source);
+  }
+  if (destNodeType == sourceNodeType) {
+    if (destNodeType == Node.TEXT_NODE || destNodeType == Node.ATTRIBUTE_NODE) {
+      value=sourceNode.getNodeValue();
+      if (!getIgnoreEmpty() || (value != null && value.length() > 0)) {
+        if (getEntitize())         value=XmlUtils.entitize(value);
+        destNode.setNodeValue(value);
+      }
+    }
+ else     if (config.getTransferTextContent() && destNodeType == Node.ELEMENT_NODE) {
+      value=XmlUtils.getElementText((Element)sourceNode);
+      if (value == null && sourceNode.getFirstChild() != null) {
+        value=source.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces());
+        if (getEntitize())         value=XmlUtils.entitize(value);
+        destNode.getParentNode().replaceChild(destNode.getOwnerDocument().importNode(sourceNode,true),destNode);
+      }
+ else       if (!getIgnoreEmpty() || (value != null && value.length() > 0)) {
+        if (getEntitize())         value=XmlUtils.entitize(value);
+        XmlUtils.setElementText((Element)destNode,value);
+      }
+    }
+ else {
+      destNode=destNode.getParentNode().replaceChild(destNode.getOwnerDocument().importNode(sourceNode,true),destNode);
+      value=dest.xmlText();
+    }
+  }
+ else   if ((sourceNodeType == Node.TEXT_NODE && destNodeType == Node.ATTRIBUTE_NODE) || (sourceNodeType == Node.ATTRIBUTE_NODE && destNodeType == Node.TEXT_NODE)) {
+    value=sourceNode.getNodeValue();
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0)) {
+      if (getEntitize())       value=XmlUtils.entitize(value);
+      destNode.setNodeValue(value);
+    }
+  }
+ else   if (sourceNodeType == Node.ELEMENT_NODE && destNodeType == Node.ATTRIBUTE_NODE || destNodeType == Node.TEXT_NODE) {
+    value=XmlUtils.getElementText((Element)sourceNode);
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0)) {
+      if (getEntitize())       value=XmlUtils.entitize(value);
+      destNode.setNodeValue(value);
+    }
+  }
+ else   if (destNodeType == Node.ELEMENT_NODE && sourceNodeType == Node.ATTRIBUTE_NODE || sourceNodeType == Node.TEXT_NODE) {
+    value=sourceNode.getNodeValue();
+    if (!getIgnoreEmpty() || (value != null && value.length() > 0)) {
+      if (getEntitize())       value=XmlUtils.entitize(value);
+      XmlUtils.setElementText((Element)destNode,value);
+    }
+  }
+  return value;
+}

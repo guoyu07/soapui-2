@@ -1,0 +1,39 @@
+{
+  ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  Settings settings=httpRequest.getSettings();
+  if (settings.getBoolean(HttpSettings.CLOSE_CONNECTIONS)) {
+    httpMethod.setRequestHeader("Connection","close");
+  }
+  if (settings.getBoolean(HttpSettings.EXPECT_CONTINUE) && httpMethod instanceof EntityEnclosingMethod) {
+    httpMethod.getParams().setParameter(HttpMethodParams.USE_EXPECT_CONTINUE,Boolean.TRUE);
+  }
+  String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
+  if (!"None".equals(compressionAlg))   httpMethod.setRequestHeader("Content-Encoding",compressionAlg);
+  if (settings.getBoolean(HttpSettings.RESPONSE_COMPRESSION)) {
+    httpMethod.setRequestHeader("Accept-Encoding",CompressionSupport.getAvailableAlgorithms(","));
+  }
+  String httpVersion=settings.getString(HttpSettings.HTTP_VERSION,"1.1");
+  if (httpVersion.equals(HttpSettings.HTTP_VERSION_1_1)) {
+    httpMethod.getParams().setVersion(HttpVersion.HTTP_1_1);
+  }
+ else   if (httpVersion.equals(HttpSettings.HTTP_VERSION_1_0)) {
+    httpMethod.getParams().setVersion(HttpVersion.HTTP_1_0);
+  }
+ else   if (httpVersion.equals(HttpSettings.HTTP_VERSION_0_9)) {
+    httpMethod.getParams().setVersion(HttpVersion.HTTP_1_1);
+  }
+  long maxSize=httpRequest.getMaxSize();
+  if (maxSize == 0)   maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
+  if (maxSize > 0)   httpMethod.setMaxSize(maxSize);
+  httpMethod.setFollowRedirects(httpRequest.isFollowRedirects());
+  HttpClientSupport.applyHttpSettings(httpMethod,settings);
+  String timeout=context.expand(httpRequest.getTimeout());
+  if (StringUtils.hasContent(timeout)) {
+    try {
+      httpMethod.getParams().setSoTimeout(Integer.parseInt(timeout));
+    }
+ catch (    NumberFormatException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

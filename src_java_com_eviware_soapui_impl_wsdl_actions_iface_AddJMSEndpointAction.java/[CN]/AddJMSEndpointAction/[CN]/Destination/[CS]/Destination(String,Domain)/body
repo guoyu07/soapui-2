@@ -1,0 +1,14 @@
+{
+  this.domain=domain;
+  if (destinationName.equals(JMSEndpoint.JMS_EMPTY_DESTIONATION) || destinationName.equals("")) {
+    this.destinationName=destinationName;
+  }
+ else {
+    if (domain.equals(Domain.QUEUE)) {
+      this.destinationName=JMSEndpoint.QUEUE_ENDPOINT_PREFIX + destinationName;
+    }
+ else {
+      this.destinationName=JMSEndpoint.TOPIC_ENDPOINT_PREFIX + destinationName;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,System.getProperty("wsi.dir",System.getenv("WSI_HOME")));
+  if (Tools.isEmpty(wsiDir)) {
+    UISupport.showErrorMessage("WSI Test Tools directory must be set in global preferences");
+    if (UISupport.getMainFrame() != null) {
+      if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.WS_I_SETTINGS)) {
+        wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,null);
+      }
+    }
+  }
+  if (Tools.isEmpty(wsiDir))   return;
+  ProcessBuilder builder=new ProcessBuilder();
+  File reportFile=File.createTempFile("wsi-report",".xml");
+  File wsiToolDir=new File(wsiDir + File.separatorChar + "cs"+ File.separatorChar+ "bin");
+  if (!wsiToolDir.exists())   wsiToolDir=new File(wsiDir + File.separatorChar + "java"+ File.separatorChar+ "bin");
+  ArgumentBuilder args=buildArgs(wsiToolDir,reportFile,modelItem);
+  builder.command(args.getArgs());
+  builder.directory(wsiToolDir);
+  toolHost.run(new WSIProcessToolRunner(builder,reportFile,modelItem));
+}

@@ -1,0 +1,12 @@
+{
+  super(config,operation,"/mockResponse.gif");
+  for (  AttachmentConfig ac : getConfig().getAttachmentList()) {
+    attachments.add(new MockFileAttachment(ac,this));
+  }
+  if (!config.isSetEncoding())   config.setEncoding("UTF-8");
+  iconAnimator=new ModelItemIconAnimator<WsdlMockResponse>(this,"/mockResponse.gif","/exec_request",4,"gif");
+  scriptEnginePool=new ScriptEnginePool(this);
+  scriptEnginePool.setScript(getScript());
+  propertyHolder=new MapTestPropertyHolder(this);
+  propertyHolder.addProperty("Request");
+}

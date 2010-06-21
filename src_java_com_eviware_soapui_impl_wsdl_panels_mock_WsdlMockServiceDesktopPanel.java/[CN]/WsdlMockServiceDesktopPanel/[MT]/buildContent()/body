@@ -1,0 +1,10 @@
+{
+  JTabbedPane tabs=new JTabbedPane();
+  inspectorPanel=JInspectorPanelFactory.build(buildOperationList());
+  tabs.addTab("Operations",inspectorPanel.getComponent());
+  addTabs(tabs,inspectorPanel);
+  if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
+    inspectorPanel.setCurrentInspector("Description");
+  }
+  return UISupport.createTabPanel(tabs,true);
+}

@@ -1,0 +1,39 @@
+{
+  configForm.addSpace(5);
+  configForm.setDefaultTextFieldColumns(50);
+  driverTextField=configForm.appendTextField(DRIVER_FIELD,"JDBC Driver to use");
+  driverTextField.setText(jdbcRequestTestStep.getDriver());
+  PropertyExpansionPopupListener.enable(driverTextField,jdbcRequestTestStep);
+  addDriverDocumentListener();
+  connStrTextField=configForm.appendTextField(CONNSTR_FIELD,"JDBC Driver Connection String");
+  connStrTextField.setText(jdbcRequestTestStep.getConnectionString());
+  PropertyExpansionPopupListener.enable(connStrTextField,jdbcRequestTestStep);
+  addConnStrDocumentListener();
+  passField=configForm.appendPasswordField(PASS_FIELD,"Connection string Password");
+  passField.setVisible(false);
+  passField.setText(jdbcRequestTestStep.getPassword());
+  addPasswordDocumentListener();
+  reconfigureConnPropertiesButton=new JButton();
+  configForm.addLeftComponent(reconfigureConnPropertiesButton);
+  reconfigureConnPropertiesButton.setVisible(false);
+  configForm.appendSeparator();
+  testConnectionButton=configForm.appendButton("TestConnection","Test selected database connection");
+  testConnectionButton.setAction(new TestConnectionAction());
+  testConnectionButton.setEnabled(enableTestConnection());
+  submitButton.setEnabled(enableSubmit());
+  queryArea=JXEditTextArea.createSqlEditor();
+  JXEditAreaPopupMenu.add(queryArea);
+  PropertyExpansionPopupListener.enable(queryArea,jdbcRequestTestStep);
+  queryArea.setText(jdbcRequestTestStep.getQuery());
+  JScrollPane scrollPane=new JScrollPane(queryArea);
+  scrollPane.setPreferredSize(new Dimension(400,150));
+  configForm.append(QUERY_FIELD,scrollPane);
+  queryArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      jdbcRequestTestStep.setQuery(queryArea.getText());
+      submitButton.setEnabled(enableSubmit());
+    }
+  }
+);
+  isStoredProcedureCheckBox=configForm.appendCheckBox(STOREDPROCEDURE_FIELD,"Select if this is a stored procedure",jdbcRequestTestStep.isStoredProcedure());
+}

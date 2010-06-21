@@ -1,0 +1,13 @@
+{
+  Testcase testcase=testsuiteDoc.getTestsuite().addNewTestcase();
+  testcase.setName(name);
+  testcase.setTime(String.valueOf(time / 1000));
+  com.eviware.soapui.junit.ErrorDocument.Error err=testcase.addNewError();
+  err.setType(error);
+  err.setMessage(error);
+  err.setStringValue(stacktrace);
+  noofTestCases++;
+  noofErrors++;
+  totalTime+=time;
+  return testcase;
+}

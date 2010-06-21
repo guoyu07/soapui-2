@@ -1,0 +1,23 @@
+{
+  HttpClient httpClient=(HttpClient)context.getProperty(BaseHttpRequestTransport.HTTP_CLIENT);
+  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  if (StringUtils.isNullOrEmpty(username) && StringUtils.isNullOrEmpty(password)) {
+    httpClient.getParams().setAuthenticationPreemptive(false);
+    httpMethod.setDoAuthentication(false);
+  }
+ else {
+    if (settings.getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
+      httpClient.getParams().setAuthenticationPreemptive(true);
+      HttpState state=(HttpState)context.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
+      if (state != null) {
+        Credentials defaultcreds=new UsernamePasswordCredentials(username,password == null ? "" : password);
+        state.setCredentials(AuthScope.ANY,defaultcreds);
+      }
+    }
+ else {
+      httpClient.getParams().setAuthenticationPreemptive(false);
+    }
+    httpMethod.getParams().setParameter(CredentialsProvider.PROVIDER,new UPDCredentialsProvider(username,password,domain));
+    httpMethod.setDoAuthentication(true);
+  }
+}

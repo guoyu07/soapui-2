@@ -1,0 +1,14 @@
+{
+  try {
+    PropertyExpansionContext context=new DefaultPropertyExpansionContext(getModelItem());
+    JdbcUtils.initConnection(context,jdbcRequestTestStep.getDriver(),jdbcRequestTestStep.getConnectionString(),jdbcRequestTestStep.getPassword());
+    UISupport.showInfoMessage("The Connection Successfully Tested");
+  }
+ catch (  SoapUIException e) {
+    SoapUI.logError(e);
+    UISupport.showErrorMessage(e.toString());
+  }
+catch (  SQLException e) {
+    UISupport.showErrorMessage("Can't get the Connection for specified properties; " + e.toString());
+  }
+}

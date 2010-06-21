@@ -1,0 +1,38 @@
+{
+  if (pe.charAt(0) == PropertyExpansion.SCOPE_PREFIX)   return getScopedProperty(context,pe,globalOverride);
+  ModelItem modelItem=context.getModelItem();
+  if (modelItem instanceof WsdlLoadTest)   modelItem=((WsdlLoadTest)modelItem).getTestCase();
+ else   if (modelItem instanceof TestRequest)   modelItem=((TestRequest)modelItem).getTestStep();
+ else   if (modelItem instanceof WsdlMockResponse && ((WsdlMockResponse)modelItem).getMockOperation().getMockService() instanceof WsdlTestMockService)   modelItem=((WsdlTestMockService)((WsdlMockResponse)modelItem).getMockOperation().getMockService()).getMockResponseStep();
+  if (modelItem instanceof WsdlTestStep || modelItem instanceof WsdlTestCase) {
+    WsdlTestStep testStep=(WsdlTestStep)(modelItem instanceof WsdlTestStep ? modelItem : null);
+    WsdlTestCase testCase=(WsdlTestCase)(testStep == null ? modelItem : testStep.getTestCase());
+    int sepIx=pe.indexOf(PropertyExpansion.PROPERTY_SEPARATOR);
+    Object property=null;
+    if (sepIx > 0) {
+      String step=pe.substring(0,sepIx);
+      String name=pe.substring(sepIx + 1);
+      String xpath=null;
+      sepIx=name.indexOf(PropertyExpansion.PROPERTY_SEPARATOR);
+      WsdlTestStep ts=testCase.getTestStepByName(step);
+      if (sepIx != -1) {
+        xpath=name.substring(sepIx + 1);
+        name=name.substring(0,sepIx);
+      }
+      if (step != null) {
+        if (ts != null) {
+          TestProperty p=ts.getProperty(name);
+          if (p != null)           property=p.getValue();
+        }
+      }
+ else {
+        property=context.getProperty(name);
+      }
+      if (property != null && xpath != null) {
+        property=ResolverUtils.extractXPathPropertyValue(property,PropertyExpander.expandProperties(context,xpath));
+      }
+    }
+    if (property != null)     return property.toString();
+  }
+  return null;
+}

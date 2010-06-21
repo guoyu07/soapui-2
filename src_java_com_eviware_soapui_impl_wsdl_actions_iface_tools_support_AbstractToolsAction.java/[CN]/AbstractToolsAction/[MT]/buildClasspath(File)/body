@@ -1,0 +1,14 @@
+{
+  String[] jars=jarDir.list(new FilenameFilter(){
+    public boolean accept(    File dir,    String name){
+      return name.endsWith(".jar");
+    }
+  }
+);
+  StringBuilder classpath=new StringBuilder();
+  for (int c=0; c < jars.length; c++) {
+    if (c > 0)     classpath.append(File.pathSeparatorChar);
+    classpath.append(jars[c]);
+  }
+  return classpath.toString();
+}

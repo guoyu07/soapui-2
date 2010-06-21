@@ -1,0 +1,23 @@
+{
+  if (hasRunningTests(project)) {
+    UISupport.showErrorMessage("Cannot remove Interface due to running tests");
+    return;
+  }
+  Boolean retval=Boolean.FALSE;
+  if (project.isOpen()) {
+    retval=UISupport.confirmOrCancel("Save project [" + project.getName() + "] before removing?","Remove Project");
+    if (retval == null)     return;
+  }
+ else {
+    if (!UISupport.confirm("Remove project [" + project.getName() + "] from workspace","Remove Project"))     return;
+  }
+  if (retval.booleanValue()) {
+    try {
+      project.save();
+    }
+ catch (    IOException e1) {
+      UISupport.showErrorMessage(e1);
+    }
+  }
+  project.getWorkspace().removeProject(project);
+}

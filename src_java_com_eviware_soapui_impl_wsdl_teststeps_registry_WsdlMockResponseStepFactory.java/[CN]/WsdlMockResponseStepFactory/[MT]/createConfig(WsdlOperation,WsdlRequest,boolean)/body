@@ -1,0 +1,24 @@
+{
+  if (interactive) {
+    ensureDialog();
+    dialog.setValue(CreateForm.INTERFACE,operation.getInterface().getName());
+    dialog.setValue(CreateForm.OPERATION,operation.getName());
+    dialog.setBooleanValue(CreateForm.CREATE_RESPONSE,request.getResponse() == null);
+    return createFromDialog(operation.getInterface().getProject(),request.getName() + " Response");
+  }
+ else {
+    TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+    testStepConfig.setType(MOCKRESPONSE_TYPE);
+    testStepConfig.setName("Mock Response");
+    MockResponseStepConfig config=MockResponseStepConfig.Factory.newInstance();
+    config.setInterface(operation.getInterface().getName());
+    config.setOperation(operation.getName());
+    MockResponseConfig response=config.addNewResponse();
+    response.addNewResponseContent();
+    if (request != null && request.getResponse() != null) {
+      CompressedStringSupport.setString(response.getResponseContent(),request.getResponse().getContentAsString());
+    }
+    testStepConfig.addNewConfig().set(config);
+    return testStepConfig;
+  }
+}

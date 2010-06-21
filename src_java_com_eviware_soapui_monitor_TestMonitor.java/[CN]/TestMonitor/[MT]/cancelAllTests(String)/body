@@ -1,0 +1,11 @@
+{
+  for (  TestCaseRunner testRunner : runningTestCases) {
+    testRunner.cancel(reason);
+  }
+  for (  LoadTestRunner loadTestRunner : runningLoadTests) {
+    loadTestRunner.cancel(reason);
+  }
+  for (  MockRunner mockRunner : runningMockServices) {
+    mockRunner.stop();
+  }
+}

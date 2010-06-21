@@ -1,0 +1,33 @@
+{
+  String firstTestCase=soapUITestCases[0];
+  HashMap<String,String> firstSamplerSettings=new HashMap<String,String>();
+  String loadUITestCaseAddedTo="";
+  String loadUIProjectAddedTo="";
+switch (levelToAdd) {
+case ADD_TO_PROJECT_LEVEL:
+    firstSamplerSettings=createSoapUISampler(soapUIProjectPath,soapUITestSuite,firstTestCase,loadUIProject,null,CREATE_NEW_OPTION);
+  loadUIProjectAddedTo=firstSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME);
+for (int i=1; i < soapUITestCases.length; i++) {
+  String testCase=soapUITestCases[i];
+  createSoapUISampler(soapUIProjectPath,soapUITestSuite,testCase,loadUIProjectAddedTo,null,CREATE_NEW_OPTION);
+}
+break;
+case ADD_TO_SINGLE_TESTCASE:
+firstSamplerSettings=createSoapUISampler(soapUIProjectPath,soapUITestSuite,firstTestCase,loadUIProject,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+loadUITestCaseAddedTo=firstSamplerSettings.get(ContextMapping.LOADUI_TEST_CASE_NAME);
+loadUIProjectAddedTo=firstSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME);
+for (int i=1; i < soapUITestCases.length; i++) {
+String testCase=soapUITestCases[i];
+createSoapUISampler(soapUIProjectPath,soapUITestSuite,testCase,loadUIProjectAddedTo,loadUITestCaseAddedTo,CREATE_NEW_OPTION);
+}
+break;
+case ADD_TO_SEPARATE_TESTCASES:
+firstSamplerSettings=createSoapUISampler(soapUIProjectPath,soapUITestSuite,firstTestCase,loadUIProject,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+loadUIProjectAddedTo=firstSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME);
+for (int i=1; i < soapUITestCases.length; i++) {
+String testCase=soapUITestCases[i];
+createSoapUISampler(soapUIProjectPath,soapUITestSuite,testCase,loadUIProjectAddedTo,CREATE_NEW_OPTION,CREATE_NEW_OPTION);
+}
+break;
+}
+}

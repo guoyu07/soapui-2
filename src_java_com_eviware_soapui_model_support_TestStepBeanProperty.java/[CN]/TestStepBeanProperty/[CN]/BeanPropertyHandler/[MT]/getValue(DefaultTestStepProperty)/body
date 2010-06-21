@@ -1,0 +1,15 @@
+{
+  try {
+    Object property=PropertyUtils.getProperty(target,targetName);
+    return property == null ? null : property.toString();
+  }
+ catch (  Exception e) {
+    if (target instanceof ModelItem) {
+      SoapUI.logError(new Exception("Error getting property [" + targetName + "] from modelItem ["+ ((ModelItem)target).getName()+ "]",e));
+    }
+ else {
+      SoapUI.logError(new Exception("Error getting property [" + targetName + "] from bean ["+ target+ "]",e));
+    }
+    return null;
+  }
+}

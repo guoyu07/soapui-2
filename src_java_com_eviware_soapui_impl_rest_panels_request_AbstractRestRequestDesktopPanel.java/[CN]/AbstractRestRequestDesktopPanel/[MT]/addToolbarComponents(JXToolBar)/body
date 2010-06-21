@@ -1,0 +1,51 @@
+{
+  toolbar.addSeparator();
+  if (getRequest().getResource() != null) {
+    acceptCombo=new JComboBox(getRequest().getResponseMediaTypes());
+    acceptCombo.setEditable(true);
+    acceptCombo.setToolTipText("Sets accepted encoding(s) for response");
+    acceptCombo.setSelectedItem(getRequest().getAccept());
+    acceptCombo.addItemListener(new ItemListener(){
+      public void itemStateChanged(      ItemEvent e){
+        updatingRequest=true;
+        getRequest().setAccept(String.valueOf(acceptCombo.getSelectedItem()));
+        updatingRequest=false;
+      }
+    }
+);
+    toolbar.addLabeledFixed("Accept",acceptCombo);
+    toolbar.addSeparator();
+    if (getRequest() instanceof RestTestRequestInterface) {
+      pathCombo=new JComboBox(new PathComboBoxModel());
+      pathCombo.setRenderer(new RestMethodListCellRenderer());
+      pathCombo.setPreferredSize(new Dimension(200,20));
+      pathCombo.setSelectedItem(getRequest().getRestMethod());
+      toolbar.addLabeledFixed("Resource/Method:",pathCombo);
+      toolbar.addSeparator();
+    }
+ else {
+      toolbar.add(new JLabel("Full Path: "));
+    }
+    pathLabel=new JLabel();
+    updateFullPathLabel();
+    toolbar.add(pathLabel);
+  }
+ else {
+    pathTextField=new JUndoableTextField();
+    pathTextField.setPreferredSize(new Dimension(300,20));
+    pathTextField.setText(getRequest().getPath());
+    pathTextField.setToolTipText(pathTextField.getText());
+    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+      @Override public void update(      Document document){
+        if (updating)         return;
+        updating=true;
+        getRequest().setPath(pathTextField.getText());
+        updating=false;
+      }
+    }
+);
+    PropertyExpansionPopupListener.enable(pathTextField,getModelItem());
+    toolbar.addLabeledFixed("Request URL:",pathTextField);
+  }
+  toolbar.addSeparator();
+}

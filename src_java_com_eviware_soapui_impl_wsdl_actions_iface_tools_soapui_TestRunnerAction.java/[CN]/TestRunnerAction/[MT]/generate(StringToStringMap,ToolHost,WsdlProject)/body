@@ -1,0 +1,17 @@
+{
+  String testRunnerDir=mainForm.getComponentValue(TESTRUNNERPATH);
+  ProcessBuilder builder=new ProcessBuilder();
+  ArgumentBuilder args=buildArgs(modelItem);
+  builder.command(args.getArgs());
+  if (StringUtils.isNullOrEmpty(testRunnerDir))   builder.directory(new File("."));
+ else   builder.directory(new File(testRunnerDir));
+  if (mainForm.getComponentValue(SAVEPROJECT).equals(Boolean.TRUE.toString())) {
+    modelItem.save();
+  }
+ else   if (StringUtils.isNullOrEmpty(modelItem.getPath())) {
+    UISupport.showErrorMessage("Project [" + modelItem.getName() + "] has not been saved to file.");
+    return;
+  }
+  if (log.isDebugEnabled())   log.debug("Launching testrunner in directory [" + builder.directory() + "] with arguments ["+ args.toString()+ "]");
+  toolHost.run(new ProcessToolRunner(builder,"soapUI TestRunner",modelItem,args));
+}

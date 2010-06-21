@@ -1,0 +1,13 @@
+{
+  if (projectProperties != null) {
+    for (    String option : projectProperties) {
+      int ix=option.indexOf('=');
+      if (ix != -1) {
+        String name=option.substring(0,ix);
+        String value=option.substring(ix + 1);
+        log.info("Setting project property [" + name + "] to ["+ value+ "]");
+        project.setPropertyValue(name,value);
+      }
+    }
+  }
+}

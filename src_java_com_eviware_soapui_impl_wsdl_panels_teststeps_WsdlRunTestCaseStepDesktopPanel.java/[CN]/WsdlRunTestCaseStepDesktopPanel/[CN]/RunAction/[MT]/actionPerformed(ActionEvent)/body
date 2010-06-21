@@ -1,0 +1,29 @@
+{
+  runAction.setEnabled(false);
+  cancelAction.setEnabled(true);
+  new Thread(new Runnable(){
+    public void run(){
+      WsdlRunTestCaseTestStep testStep=getModelItem();
+      InternalTestRunListener testRunListener=new InternalTestRunListener();
+      testStep.addTestRunListener(testRunListener);
+      try {
+        testRunLog.clear();
+        MockTestRunner mockTestRunner=new MockTestRunner(testStep.getTestCase(),SoapUI.ensureGroovyLog());
+        WsdlTestStepResult result=(WsdlTestStepResult)testStep.run(mockTestRunner,new MockTestRunContext(mockTestRunner,testStep));
+        Throwable er=result.getError();
+        if (er != null) {
+          UISupport.showErrorMessage(er.toString());
+        }
+      }
+ catch (      Throwable t) {
+        UISupport.showErrorMessage(t);
+      }
+ finally {
+        testStep.removeTestRunListener(testRunListener);
+        runAction.setEnabled(true);
+        cancelAction.setEnabled(false);
+      }
+    }
+  }
+).start();
+}

@@ -1,0 +1,7 @@
+{
+  TypeTree p=typeTable.get(type);
+  while (!validateSimpleType(value,p.type)) {
+    p=p.parent;
+  }
+  return p.type;
+}

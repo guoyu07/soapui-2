@@ -1,0 +1,21 @@
+{
+  if (writers.isEmpty())   return;
+  long timestamp=System.nanoTime();
+  String elapsedString=String.valueOf((timestamp - startTime) / 1000000);
+  String dateString=new Date().toString();
+  String threadCountString=String.valueOf(getThreadCount());
+  StringList[] snapshot=statisticsModel.getSnapshot();
+  for (int c=0; c < snapshot.length; c++) {
+    PrintWriter writer=writers.get(c);
+    if (writer == null)     continue;
+    StringList values=snapshot[c];
+    writer.append(dateString).append(',');
+    writer.append(threadCountString).append(',');
+    writer.append(elapsedString);
+    for (    String value : values) {
+      writer.append(',').append(value);
+    }
+    writer.append(',').append(trigger).append('\n');
+    writer.flush();
+  }
+}

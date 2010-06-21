@@ -1,0 +1,11 @@
+{
+  if (declaredNamespaces != null && !declaredNamespaces.isEmpty()) {
+    for (    String prefix : declaredNamespaces.keySet()) {
+      xpath="declare namespace " + prefix + "='"+ declaredNamespaces.get(prefix)+ "';\n"+ xpath;
+    }
+  }
+ else   if (!xpath.trim().startsWith("declare namespace")) {
+    xpath=XmlUtils.declareXPathNamespaces(xmlObject) + xpath;
+  }
+  return xpath;
+}

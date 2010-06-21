@@ -1,0 +1,8 @@
+{
+  long testLimit=loadTest.getTestLimit();
+  if (testLimit == 0)   return -1;
+  if (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT)   return (float)runCount / (float)testLimit;
+  if (loadTest.getLimitType() == LoadTestLimitTypesConfig.COUNT_PER_THREAD)   return (float)runCount / (float)(testLimit * loadTest.getThreadCount());
+  if (loadTest.getLimitType() == LoadTestLimitTypesConfig.TIME)   return startTime == 0 ? 0 : (float)getTimeTaken() / (float)(testLimit * 1000);
+  return -1;
+}

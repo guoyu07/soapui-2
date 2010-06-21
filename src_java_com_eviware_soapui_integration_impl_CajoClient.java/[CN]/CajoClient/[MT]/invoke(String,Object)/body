@@ -1,0 +1,17 @@
+{
+  try {
+    return gnu.cajo.invoke.Remote.invoke(getItem(),method,object);
+  }
+ catch (  ConnectException e) {
+    SoapUI.log.info("Could not connect to SoapUI cajo server on " + getConnectionString());
+    return null;
+  }
+catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.info("Connected SoapUI cajo server, but with exception: ");
+    e.printStackTrace();
+    return null;
+  }
+}

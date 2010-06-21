@@ -1,0 +1,14 @@
+{
+  GradientPanel panel=new GradientPanel(new BorderLayout());
+  Color color=UIManager.getDefaults().getColor("Panel.background");
+  Color darker=color.darker();
+  panel.setForeground(new Color((color.getRed() + darker.getRed()) / 2,(color.getGreen() + darker.getGreen()) / 2,(color.getBlue() + darker.getBlue()) / 2));
+  if (tabs.getTabPlacement() == JTabbedPane.LEFT || tabs.getTabPlacement() == JTabbedPane.RIGHT)   panel.setDirection(GradientPanel.VERTICAL);
+  panel.add(tabs,BorderLayout.CENTER);
+  if (addBorder) {
+    if (tabs.getTabPlacement() == JTabbedPane.TOP)     panel.setBorder(BorderFactory.createMatteBorder(1,1,0,0,Color.GRAY));
+ else     panel.setBorder(BorderFactory.createMatteBorder(0,1,0,0,Color.GRAY));
+  }
+  tabs.setBorder(null);
+  return panel;
+}

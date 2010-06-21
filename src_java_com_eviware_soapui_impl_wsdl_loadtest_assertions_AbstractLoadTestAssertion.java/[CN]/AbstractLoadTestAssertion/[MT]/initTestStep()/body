@@ -1,0 +1,9 @@
+{
+  if (testStep != null) {
+    testStep.removePropertyChangeListener(testStepPropertyChangeListener);
+  }
+  testStep=getLoadTest().getTestCase().getTestStepByName(testStepName);
+  if (testStep != null) {
+    testStep.addPropertyChangeListener(TestStep.NAME_PROPERTY,testStepPropertyChangeListener);
+  }
+}
