@@ -54,7 +54,7 @@
       String str=uri.toString();
       int ix=str.indexOf('/',str.indexOf("//") + 2);
       if (ix != -1) {
-        uri=new URI(str.substring(ix));
+        uri=new URI(str.substring(ix),true);
         String qs=httpMethod.getQueryString();
         httpMethod.setURI(uri);
         if (StringUtils.hasContent(qs))         httpMethod.setQueryString(qs);
