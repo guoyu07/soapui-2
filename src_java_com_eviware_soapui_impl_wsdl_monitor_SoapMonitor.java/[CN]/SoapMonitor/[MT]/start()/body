@@ -20,7 +20,7 @@
       JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
       if (applyProxyButton != null)       applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
     }
-    SoapUI.log.info("Started SOAP Monitor on local port " + localPort);
+    SoapUI.log.info("Started HTTP Monitor on local port " + localPort);
   }
  else {
     stopButton.setEnabled(false);
@@ -28,6 +28,6 @@
     optionsButton.setEnabled(true);
     infoLabel.setText("Stoped");
     progressBar.setIndeterminate(false);
-    SoapUI.log.info("Could not start SOAP Monitor on local port " + localPort);
+    SoapUI.log.info("Could not start HTTP Monitor on local port " + localPort);
   }
 }
