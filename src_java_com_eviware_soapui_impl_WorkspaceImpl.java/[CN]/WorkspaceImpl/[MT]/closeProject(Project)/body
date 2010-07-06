@@ -4,6 +4,7 @@
   if (ix == -1)   throw new RuntimeException("Project [" + project.getName() + "] not available in workspace for close");
   projectList.remove(ix);
   fireProjectRemoved(project);
+  fireProjectClosed(project);
   String name=project.getName();
   project.release();
   try {
