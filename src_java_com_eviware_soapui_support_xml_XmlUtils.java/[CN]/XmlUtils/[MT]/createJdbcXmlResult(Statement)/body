@@ -4,18 +4,20 @@
   org.w3c.dom.Document xmlDocumentResult=builder.newDocument();
   Element resultsElement=xmlDocumentResult.createElement("Results");
   xmlDocumentResult.appendChild(resultsElement);
-  ResultSet resultSet=statement.getResultSet();
-  if (resultSet != null) {
-    resultSet.setFetchSize(statement.getFetchSize());
-    xmlDocumentResult=addResultSetXmlPart(resultsElement,resultSet,xmlDocumentResult);
-    while (statement.getMoreResults()) {
-      xmlDocumentResult=addResultSetXmlPart(resultsElement,statement.getResultSet(),xmlDocumentResult);
+  if (statement != null) {
+    ResultSet resultSet=statement.getResultSet();
+    if (resultSet != null) {
+      resultSet.setFetchSize(statement.getFetchSize());
+      xmlDocumentResult=addResultSetXmlPart(resultsElement,resultSet,xmlDocumentResult);
+      while (statement.getMoreResults()) {
+        xmlDocumentResult=addResultSetXmlPart(resultsElement,statement.getResultSet(),xmlDocumentResult);
+      }
     }
-  }
  else {
-    Element errorElement=xmlDocumentResult.createElement("UpdateCount");
-    errorElement.appendChild(xmlDocumentResult.createTextNode(String.valueOf(statement.getUpdateCount())));
-    resultsElement.appendChild(errorElement);
+      Element errorElement=xmlDocumentResult.createElement("UpdateCount");
+      errorElement.appendChild(xmlDocumentResult.createTextNode(String.valueOf(statement.getUpdateCount())));
+      resultsElement.appendChild(errorElement);
+    }
   }
   StringWriter out=new StringWriter();
   OutputFormat outputFormat=new OutputFormat(xmlDocumentResult);
