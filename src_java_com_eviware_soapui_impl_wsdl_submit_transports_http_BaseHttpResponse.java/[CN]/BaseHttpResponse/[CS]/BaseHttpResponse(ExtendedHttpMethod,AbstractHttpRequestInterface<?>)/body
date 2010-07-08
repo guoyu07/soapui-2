@@ -41,11 +41,13 @@
     }
   }
   initHeaders(httpMethod);
-  downloadIncludedResources=((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources();
-  if (downloadIncludedResources) {
-    long before=(new Date()).getTime();
-    addIncludedContentsAsAttachments();
-    long after=(new Date()).getTime();
-    timeTaken+=(after - before);
+  if (this.httpRequest.get() instanceof HttpRequest) {
+    downloadIncludedResources=((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources();
+    if (downloadIncludedResources) {
+      long before=(new Date()).getTime();
+      addIncludedContentsAsAttachments();
+      long after=(new Date()).getTime();
+      timeTaken+=(after - before);
+    }
   }
 }
