@@ -1,0 +1,19 @@
+{
+  HTMLPageSourceDownloader downloader=new HTMLPageSourceDownloader();
+  try {
+    List<Attachment> attachmentList=downloader.downloadCssAndImages(url.toString(),(HttpRequest)httpRequest.get());
+    attachments=attachmentList.toArray(new Attachment[attachmentList.size()]);
+  }
+ catch (  ClassCastException cce) {
+    attachments=new Attachment[1];
+    try {
+      attachments[0]=downloader.createAttachment(rawResponseData,url,(HttpRequest)httpRequest.get());
+    }
+ catch (    IOException e) {
+      SoapUI.log.error(e);
+    }
+  }
+catch (  Exception e) {
+    SoapUI.log.error(e);
+  }
+}

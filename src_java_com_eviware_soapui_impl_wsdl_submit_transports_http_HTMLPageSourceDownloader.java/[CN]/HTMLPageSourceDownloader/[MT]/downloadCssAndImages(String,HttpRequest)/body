@@ -1,0 +1,23 @@
+{
+  HtmlPage htmlPage=client.getPage(endpoint);
+  String xPathExpression="//*[name() = 'img' or name() = 'link' and @type = 'text/css']";
+  List<?> resultList=htmlPage.getByXPath(xPathExpression);
+  byte[] bytes=null;
+  List<Attachment> attachmentList=new ArrayList<Attachment>();
+  Iterator<?> i=resultList.iterator();
+  while (i.hasNext()) {
+    try {
+      HtmlElement htmlElement=(HtmlElement)i.next();
+      String path=htmlElement.getAttribute("src").equals("") ? htmlElement.getAttribute("href") : htmlElement.getAttribute("src");
+      if (path == null || path.equals(""))       continue;
+      URL url=htmlPage.getFullyQualifiedUrl(path);
+      bytes=downloadResource(htmlPage,htmlElement,url);
+      attachmentList.add(createAttachment(bytes,url,request));
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  client.removeRequestHeader("Accept");
+  return attachmentList;
+}

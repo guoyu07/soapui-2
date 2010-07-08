@@ -1,0 +1,9 @@
+{
+  String fileName=url.getPath().substring(url.getPath().lastIndexOf("/") + 1,url.getPath().lastIndexOf("."));
+  String extension=url.getPath().substring(url.getPath().lastIndexOf("."));
+  File temp=File.createTempFile(fileName,extension);
+  OutputStream out=new FileOutputStream(temp);
+  out.write(bytes);
+  out.close();
+  return new RequestFileAttachment(temp,false,(AbstractHttpRequest<?>)request);
+}

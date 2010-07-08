@@ -1,0 +1,26 @@
+{
+  downloadResources=new JCheckBox();
+  try {
+    downloadResources.setSelected(((HttpRequest)((HttpTestRequestStep)getModelItem()).getHttpRequest()).getDownloadIncludedResources());
+  }
+ catch (  Exception cce) {
+    SoapUI.logError(cce);
+  }
+  downloadResources.setPreferredSize(new Dimension(17,17));
+  downloadResources.setToolTipText("Download all included resources as attachments!");
+  downloadResources.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      try {
+        if (1001 == e.getID() && getModelItem() instanceof HttpTestRequestStep) {
+          ((HttpRequest)((HttpTestRequestStep)getModelItem()).getHttpRequest()).setDownloadIncludedResources(((JCheckBox)e.getSource()).isSelected());
+        }
+      }
+ catch (      Exception cce) {
+        SoapUI.logError(cce);
+      }
+    }
+  }
+);
+  toolbar.addLabeledFixed("Download Resources",downloadResources);
+  toolbar.addSeparator();
+}

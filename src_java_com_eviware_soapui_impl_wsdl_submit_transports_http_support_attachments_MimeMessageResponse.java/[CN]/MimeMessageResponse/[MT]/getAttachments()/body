@@ -1,3 +1,11 @@
 {
-  return mmSupport.getAttachments();
+  int lengthA=super.getAttachments().length;
+  int lengthB=mmSupport.getAttachments().length;
+  if (lengthA > 0) {
+    Attachment[] all=new Attachment[lengthA + lengthB];
+    System.arraycopy(super.getAttachments(),0,all,0,lengthA);
+    System.arraycopy(mmSupport.getAttachments(),0,all,lengthA,lengthB);
+    return all;
+  }
+ else   return mmSupport.getAttachments();
 }

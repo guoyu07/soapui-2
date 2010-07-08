@@ -1,0 +1,7 @@
+{
+  WebRequestSettings wrs=new WebRequestSettings(url);
+  wrs.setAdditionalHeader("Referer",page.getWebResponse().getRequestSettings().getUrl().toString());
+  client.addRequestHeader("Accept",acceptTypes.get(htmlElement.getTagName().toLowerCase()));
+  byte[] bytes=client.getPage(wrs).getWebResponse().getContentAsBytes();
+  return bytes;
+}
