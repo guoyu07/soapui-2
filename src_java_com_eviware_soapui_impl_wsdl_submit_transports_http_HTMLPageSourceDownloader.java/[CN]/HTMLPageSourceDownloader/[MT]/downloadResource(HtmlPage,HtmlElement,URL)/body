@@ -1,7 +1,13 @@
 {
-  WebRequestSettings wrs=new WebRequestSettings(url);
-  wrs.setAdditionalHeader("Referer",page.getWebResponse().getRequestSettings().getUrl().toString());
-  client.addRequestHeader("Accept",acceptTypes.get(htmlElement.getTagName().toLowerCase()));
-  byte[] bytes=client.getPage(wrs).getWebResponse().getContentAsBytes();
-  return bytes;
+  WebRequestSettings wrs=null;
+  try {
+    wrs=new WebRequestSettings(url);
+    wrs.setAdditionalHeader("Referer",page.getWebResponse().getRequestSettings().getUrl().toString());
+    client.addRequestHeader("Accept",acceptTypes.get(htmlElement.getTagName().toLowerCase()));
+    return client.getPage(wrs).getWebResponse().getContentAsBytes();
+  }
+ catch (  FailingHttpStatusCodeException fhsce) {
+    SoapUI.log.warn(fhsce.getMessage());
+    return new byte[0];
+  }
 }

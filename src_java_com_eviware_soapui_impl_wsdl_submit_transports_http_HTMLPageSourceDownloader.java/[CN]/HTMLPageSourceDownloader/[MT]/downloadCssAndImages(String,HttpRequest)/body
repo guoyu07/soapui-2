@@ -15,7 +15,7 @@
       attachmentList.add(createAttachment(bytes,url,request));
     }
  catch (    Exception e) {
-      SoapUI.log.warn(e.getMessage());
+      SoapUI.logError(e);
     }
   }
   client.removeRequestHeader("Accept");
