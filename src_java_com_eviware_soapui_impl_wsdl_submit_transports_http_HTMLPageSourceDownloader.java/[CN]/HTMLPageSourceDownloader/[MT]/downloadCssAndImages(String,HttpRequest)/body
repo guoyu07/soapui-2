@@ -11,7 +11,14 @@
       String path=htmlElement.getAttribute("src").equals("") ? htmlElement.getAttribute("href") : htmlElement.getAttribute("src");
       if (path == null || path.equals(""))       continue;
       URL url=htmlPage.getFullyQualifiedUrl(path);
-      bytes=downloadResource(htmlPage,htmlElement,url);
+      try {
+        bytes=downloadResource(htmlPage,htmlElement,url);
+      }
+ catch (      FailingHttpStatusCodeException fhsce) {
+        SoapUI.log.warn(fhsce.getMessage());
+        attachmentList.add(createMissingAttachment(request,url,fhsce));
+        continue;
+      }
       attachmentList.add(createAttachment(bytes,url,request));
     }
  catch (    Exception e) {

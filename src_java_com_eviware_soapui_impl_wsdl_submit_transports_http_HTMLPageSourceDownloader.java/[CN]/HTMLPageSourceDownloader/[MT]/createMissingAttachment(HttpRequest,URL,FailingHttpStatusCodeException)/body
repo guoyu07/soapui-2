@@ -1,0 +1,6 @@
+{
+  File temp=new File(fhsce.getStatusCode() + "_" + fhsce.getStatusMessage()+ "_"+ url.toString());
+  RequestFileAttachment missingFile=new RequestFileAttachment(temp,false,(AbstractHttpRequest<?>)request);
+  missingResourcesList.add(fhsce.getStatusCode() + " " + fhsce.getStatusMessage()+ " "+ url.toString());
+  return missingFile;
+}

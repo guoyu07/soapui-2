@@ -1,17 +1,12 @@
 {
   String fileName=url.getPath().substring(url.getPath().lastIndexOf("/") + 1,url.getPath().lastIndexOf("."));
   String extension=url.getPath().substring(url.getPath().lastIndexOf("."));
-  if (bytes.length > 0) {
-    File temp=File.createTempFile(fileName,extension);
-    OutputStream out=new FileOutputStream(temp);
-    out.write(bytes);
-    out.close();
-    return new RequestFileAttachment(temp,false,(AbstractHttpRequest<?>)request);
+  if (fileName.length() < 3) {
+    fileName+="___";
   }
- else {
-    File temp=new File("404_Not_Found___" + url.toString());
-    RequestFileAttachment missingFile=new RequestFileAttachment(temp,false,(AbstractHttpRequest<?>)request);
-    notFound404List.add(url.toString());
-    return missingFile;
-  }
+  File temp=File.createTempFile(fileName,extension);
+  OutputStream out=new FileOutputStream(temp);
+  out.write(bytes);
+  out.close();
+  return new RequestFileAttachment(temp,false,(AbstractHttpRequest<?>)request);
 }

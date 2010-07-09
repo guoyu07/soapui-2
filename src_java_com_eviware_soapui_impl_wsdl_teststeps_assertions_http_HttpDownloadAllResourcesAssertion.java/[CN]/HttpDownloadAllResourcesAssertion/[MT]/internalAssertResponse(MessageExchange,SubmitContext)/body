@@ -1,0 +1,11 @@
+{
+  List<String> missingResourcesList=(List<String>)context.getProperty(HTMLPageSourceDownloader.MISSING_RESOURCES_LIST);
+  if (missingResourcesList != null && !missingResourcesList.isEmpty()) {
+    StringBuilder sb=new StringBuilder("Missing resources: \n");
+    for (    String url : missingResourcesList) {
+      sb.append(url + "  ;\n");
+    }
+    throw new AssertionException(new AssertionError(sb.toString()));
+  }
+  return "HTTP Download all resources OK";
+}

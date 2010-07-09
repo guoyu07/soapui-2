@@ -24,8 +24,14 @@
       infoMessage="Error getting response for [" + requestName + "]; "+ submit.getError();
     }
  else {
-      message="response time: " + response.getTimeTaken() + "ms ("+ response.getContentLength()+ " bytes)";
-      infoMessage="Got response for [" + requestName + "] in "+ response.getTimeTaken()+ "ms ("+ response.getContentLength()+ " bytes)";
+      long attchmentsSize=0;
+      if (response.getAttachments().length > 0) {
+        for (        Attachment att : response.getAttachments()) {
+          attchmentsSize+=att.getSize();
+        }
+      }
+      message="response time: " + response.getTimeTaken() + "ms ("+ (response.getContentLength() + attchmentsSize)+ " bytes)";
+      infoMessage="Got response for [" + requestName + "] in "+ response.getTimeTaken()+ "ms ("+ (response.getContentLength() + attchmentsSize)+ " bytes)";
       if (!splitButton.isEnabled())       requestTabs.setSelectedIndex(1);
       responseEditor.requestFocus();
     }

@@ -48,6 +48,7 @@
       addIncludedContentsAsAttachments();
       long after=(new Date()).getTime();
       timeTaken+=(after - before);
+      context.setProperty(HTMLPageSourceDownloader.MISSING_RESOURCES_LIST,downloader.getMissingResourcesList());
     }
   }
 }
