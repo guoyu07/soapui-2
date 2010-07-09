@@ -4,7 +4,7 @@
   mainArgs=args;
   BrowserComponent.initialize();
   SoapUIRunner soapuiRunner=new SoapUIRunner();
-  if (!BrowserComponent.isJXBrowserDisabled() && Xpcom.isJVMValid()) {
+  if (!BrowserComponent.isJXBrowserDisabled()) {
     SwingUtilities.invokeLater(soapuiRunner);
   }
  else {

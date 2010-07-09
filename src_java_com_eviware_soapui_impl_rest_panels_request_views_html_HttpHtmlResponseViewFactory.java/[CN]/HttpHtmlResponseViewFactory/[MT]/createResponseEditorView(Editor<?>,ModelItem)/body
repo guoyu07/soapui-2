@@ -2,5 +2,8 @@
   if (editor instanceof HttpResponseMessageEditor && modelItem instanceof HttpRequestInterface<?>) {
     return new HttpHtmlResponseView((HttpResponseMessageEditor)editor,(HttpRequestInterface<?>)modelItem);
   }
+  if (modelItem instanceof MessageExchangeModelItem) {
+    return new HttpHtmlMessageExchangeResponseView((MessageExchangeResponseMessageEditor)editor,(MessageExchangeModelItem)modelItem);
+  }
   return null;
 }

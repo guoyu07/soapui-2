@@ -1,6 +1,6 @@
 {
   try {
-    if (!BrowserComponent.isJXBrowserDisabled() && Xpcom.isLinux() && !Xpcom.isSilentMode()) {
+    if (!BrowserComponent.isJXBrowserDisabled() && PlatformContext.isMacOS()) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     }
  else     if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {
