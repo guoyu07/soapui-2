@@ -3,7 +3,9 @@
     if (path != null)     mockService.setPath(path);
     if (port != null)     mockService.setPort(Integer.parseInt(port));
     mockService.addMockRunListener(new LogListener());
-    runners.add(mockService.start());
+    WsdlMockRunner runner=mockService.start();
+    runner.setLogEnabled(false);
+    runners.add(runner);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
