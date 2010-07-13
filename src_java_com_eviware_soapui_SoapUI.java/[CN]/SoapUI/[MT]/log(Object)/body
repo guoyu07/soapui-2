@@ -1,6 +1,6 @@
 {
   if (logMonitor == null) {
-    logCache.add(msg);
+    if (!isCommandLine && logCache.size() < 100)     logCache.add(msg);
     return;
   }
   if (SwingUtilities.isEventDispatchThread()) {
