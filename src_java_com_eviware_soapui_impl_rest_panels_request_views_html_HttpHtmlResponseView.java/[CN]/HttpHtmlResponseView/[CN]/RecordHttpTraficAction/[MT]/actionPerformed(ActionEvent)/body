@@ -1,0 +1,13 @@
+{
+  if (httpRequest.isRecordHttpTrafic()) {
+    httpRequest.setRecordHttpTrafic(false);
+    recordButton.setIcon(UISupport.createImageIcon("/record_http_false.gif"));
+  }
+ else {
+    httpRequest.setRecordHttpTrafic(true);
+    recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
+  }
+  if (browser != null) {
+    browser.setRecordTrafic(httpRequest.isRecordHttpTrafic());
+  }
+}
