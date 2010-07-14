@@ -4,6 +4,9 @@
   panel.add(super.buildToolbar(),BorderLayout.NORTH);
   JXToolBar toolbar=UISupport.createToolbar();
   addToolbarComponents(toolbar);
-  panel.add(toolbar,BorderLayout.SOUTH);
+  panel.add(toolbar,BorderLayout.CENTER);
+  JXToolBar toggleToolbar=UISupport.createToolbar();
+  addToggleButton(toggleToolbar);
+  panel.add(toggleToolbar,BorderLayout.SOUTH);
   return panel;
 }
