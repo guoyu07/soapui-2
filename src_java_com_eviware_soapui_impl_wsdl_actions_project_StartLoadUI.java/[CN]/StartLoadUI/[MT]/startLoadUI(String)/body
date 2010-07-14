@@ -8,21 +8,21 @@
       SoapUI.log.error("Error while invoke cajo server in loadui ",e);
     }
   }
-  String extension=UISupport.isWindows() ? ".bat" : ".sh";
-  if (extension.equals(".sh")) {
-    loadUIbatPath=loadUIbatPath.replace(".bat",".sh");
-  }
+  String extension=(UISupport.isWindows() ? BAT : SH);
   try {
-    File file=new File(loadUIbatPath);
-    if (!file.exists()) {
-      UISupport.showErrorMessage("No LoadUI" + extension + " file  on this path!");
-      return;
+    while (!(new File(loadUIbatPath)).exists()) {
+      UISupport.showErrorMessage("No path added to loadUI" + extension);
+      if (UISupport.getMainFrame() != null) {
+        if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.LOADUI_SETTINGS)) {
+          loadUIbatPath=SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"") + File.separator + LOADUI+ (UISupport.isWindows() ? BAT : SH);
+        }
+      }
     }
-    String[] commandsWin=new String[]{"cmd.exe","/c","loadUI" + extension};
-    String[] commandsLinux=new String[]{"sh","loadUI" + extension};
+    String[] commandsWin=new String[]{"cmd.exe","/c",LOADUI + extension};
+    String[] commandsLinux=new String[]{"sh",LOADUI + extension};
     ProcessBuilder pb=new ProcessBuilder(UISupport.isWindows() ? commandsWin : commandsLinux);
     pb.directory(new File(SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"")));
-    Process p=pb.start();
+    pb.start();
   }
  catch (  Exception e) {
     SoapUI.logError(e);

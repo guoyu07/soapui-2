@@ -1,4 +1,4 @@
 {
-  String loadUIBatPath=SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"") + File.separator + "loadUI.bat";
+  String loadUIBatPath=SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"") + File.separator + LOADUI+ (UISupport.isWindows() ? BAT : SH);
   startLoadUI(loadUIBatPath);
 }
