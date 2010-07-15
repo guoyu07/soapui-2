@@ -1,0 +1,11 @@
+{
+  HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
+  httpRequest.setEndpoint(endpoint);
+  httpRequest.setMethod("GET");
+  new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters());
+  TestStepConfig testStep=TestStepConfig.Factory.newInstance();
+  testStep.setType(HTTPREQUEST_TYPE);
+  testStep.setConfig(httpRequest);
+  testStep.setName(name);
+  return testStep;
+}

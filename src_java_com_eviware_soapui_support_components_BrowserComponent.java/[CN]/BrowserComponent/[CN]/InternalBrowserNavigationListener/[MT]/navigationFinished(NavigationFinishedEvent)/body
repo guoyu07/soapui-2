@@ -1,0 +1,8 @@
+{
+  if (recordTrafic) {
+    String newEndpoint=arg0.getUrl();
+    WsdlTestCase testCase=(WsdlTestCase)httpRequestTestStep.getTestCase();
+    int count=testCase.getTestStepList().size();
+    WsdlTestStep testStep=testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,newEndpoint);
+  }
+}

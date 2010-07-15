@@ -8,6 +8,7 @@
     recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
   }
   if (browser != null) {
-    browser.setRecordTrafic(httpRequest.isRecordHttpTrafic());
+    HttpTestRequest httpTestRequest=(HttpTestRequest)(httpRequestMessageEditor.getModelItem());
+    browser.setRecordTrafic(httpRequest.isRecordHttpTrafic(),httpTestRequest.getTestStep());
   }
 }

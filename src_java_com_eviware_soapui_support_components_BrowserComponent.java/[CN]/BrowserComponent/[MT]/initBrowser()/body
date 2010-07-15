@@ -7,17 +7,38 @@
  else {
     browser=BrowserFactory.createBrowser();
   }
-  browser.addNavigationListener(new NavigationListener(){
-    @Override public void navigationStarted(    NavigationEvent arg0){
-    }
-    @Override public void navigationFinished(    NavigationFinishedEvent arg0){
-      System.out.println("navigationFinished");
-      if (recordTrafic) {
-        String currLoc=arg0.getUrl();
-        System.out.println("currLoc " + currLoc);
-        WsdlTestStep cc=((WsdlTestCase)httpRequestTestStep.getTestCase()).addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"new http request");
-        ((HttpTestRequestStep)cc).getRequestStepConfig().setEndpoint(currLoc);
+  internalNavigationListener=new InternalBrowserNavigationListener();
+  browser.addNavigationListener(internalNavigationListener);
+  browser.getServices().setNewWindowManager(new NewWindowManager(){
+    public NewWindowContainer evaluateWindow(    final NewWindowParams params){
+      return new NewWindowContainer(){
+        public void insertBrowser(        final Browser browser){
+          final JFrame popupFrame=new JFrame();
+          Container contentPane=popupFrame.getContentPane();
+          contentPane.add(browser.getComponent(),BorderLayout.CENTER);
+          popupFrame.setBounds(params.getBounds());
+          popupFrame.setVisible(true);
+          popupFrame.addWindowListener(new WindowAdapter(){
+            @Override public void windowClosing(            WindowEvent e){
+              browser.dispose();
+            }
+          }
+);
+          browser.addDisposeListener(new DisposeListener(){
+            public void browserDisposed(            DisposeEvent event){
+              SwingUtilities.invokeLater(new Runnable(){
+                public void run(){
+                  popupFrame.dispose();
+                }
+              }
+);
+            }
+          }
+);
+          browser.addNavigationListener(internalNavigationListener);
+        }
       }
+;
     }
   }
 );
