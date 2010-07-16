@@ -1,14 +1,13 @@
 {
-  if (httpRequest.isRecordHttpTrafic()) {
-    httpRequest.setRecordHttpTrafic(false);
+  if (HttpHtmlResponseView.this.isRecordHttpTrafic()) {
+    HttpHtmlResponseView.this.setRecordHttpTrafic(false);
     recordButton.setIcon(UISupport.createImageIcon("/record_http_false.gif"));
   }
  else {
-    httpRequest.setRecordHttpTrafic(true);
+    HttpHtmlResponseView.this.setRecordHttpTrafic(true);
     recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
   }
   if (browser != null) {
-    HttpTestRequest httpTestRequest=(HttpTestRequest)(httpRequestMessageEditor.getModelItem());
-    browser.setRecordTrafic(httpRequest.isRecordHttpTrafic(),httpTestRequest.getTestStep());
+    browser.setHttpHtmlResponseView(HttpHtmlResponseView.this);
   }
 }
