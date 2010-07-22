@@ -24,17 +24,8 @@
             }
           }
 );
-          browser.addDisposeListener(new DisposeListener(){
-            public void browserDisposed(            DisposeEvent event){
-              SwingUtilities.invokeLater(new Runnable(){
-                public void run(){
-                  popupFrame.dispose();
-                }
-              }
-);
-            }
-          }
-);
+          internalDisposeListener=new InternalDisposeListener(popupFrame);
+          browser.addDisposeListener(internalDisposeListener);
           browser.addNavigationListener(internalNavigationListener);
         }
       }
