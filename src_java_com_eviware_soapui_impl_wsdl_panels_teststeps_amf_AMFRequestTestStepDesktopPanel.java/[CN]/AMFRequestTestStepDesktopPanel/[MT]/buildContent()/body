@@ -12,6 +12,7 @@
   addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(amfRequestTestStep));
   addAssertionButton.setEnabled(true);
   requestTabs=new JTabbedPane();
+  requestTabs.setTabPlacement(JTabbedPane.LEFT);
   requestTabs.addChangeListener(new ChangeListener(){
     public void stateChanged(    ChangeEvent e){
       SwingUtilities.invokeLater(new Runnable(){
