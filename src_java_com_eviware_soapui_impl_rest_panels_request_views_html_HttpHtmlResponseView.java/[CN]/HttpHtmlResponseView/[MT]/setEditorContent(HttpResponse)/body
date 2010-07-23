@@ -5,6 +5,7 @@
       try {
         String content=httpResponse.getContentAsString();
         content=new String(content.getBytes("UTF-8"),"iso-8859-1");
+        contentType=contentType + "; charset=utf-8";
         browser.setContent(content,contentType,new URL(httpResponse.getURL().toURI().toString()).toString());
       }
  catch (      Exception e) {
