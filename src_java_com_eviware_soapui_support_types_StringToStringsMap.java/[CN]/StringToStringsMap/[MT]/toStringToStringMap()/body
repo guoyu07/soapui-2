@@ -1,0 +1,9 @@
+{
+  StringToStringMap result=new StringToStringMap();
+  for (  String key : keySet()) {
+    List<String> list=get(key);
+    if (list.size() == 1)     result.put(key,list.get(0));
+ else     result.put(key,list.toString());
+  }
+  return result;
+}

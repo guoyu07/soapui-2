@@ -67,11 +67,10 @@
   capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
   monitor.fireAfterProxy(request,response,method,capturedData);
   if (!response.isCommitted()) {
-    StringToStringMap responseHeaders=capturedData.getResponseHeaders();
+    StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
     HttpServletResponse httpResponse=(HttpServletResponse)response;
     for (    String name : responseHeaders.keySet()) {
-      String header=responseHeaders.get(name);
-      if (!httpResponse.containsHeader(name))       httpResponse.addHeader(name,header);
+      for (      String header : responseHeaders.get(name))       httpResponse.addHeader(name,header);
     }
     IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
   }

@@ -3,7 +3,7 @@
   this.response=response;
   this.context=context;
   requestContext=new WsdlMockRunContext(context.getMockService(),null);
-  requestHeaders=new StringToStringMap();
+  requestHeaders=new StringToStringsMap();
   for (Enumeration<?> e=request.getHeaderNames(); e.hasMoreElements(); ) {
     String header=(String)e.nextElement();
     String lcHeader=header.toLowerCase();

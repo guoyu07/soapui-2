@@ -1,0 +1,11 @@
+{
+  StringToStringMapConfig xmlConfig=StringToStringMapConfig.Factory.newInstance();
+  for (  String key : keySet()) {
+    for (    String value : get(key)) {
+      Entry entry=xmlConfig.addNewEntry();
+      entry.setKey(key);
+      entry.setValue(value);
+    }
+  }
+  return xmlConfig.toString();
+}

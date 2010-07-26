@@ -4,7 +4,7 @@
   resultArea.setEditable(false);
   resultArea.setToolTipText("Request Content");
   JScrollPane scrollPane=new JScrollPane(resultArea);
-  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringMapTableModel(result.getMockRequest().getRequestHeaders(),"Header","Value",false))),scrollPane);
+  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringsMapTableModel(result.getMockRequest().getRequestHeaders(),"Header","Value",false))),scrollPane);
   split.setDividerLocation(150);
   return split;
 }

@@ -1,4 +1,5 @@
 {
-  valueMap.put(key,value);
-  setResponseHeaders(valueMap);
+  StringToStringsMap valueMap=mockResponse.getResponseHeaders();
+  valueMap.replace(key,oldValue,value);
+  mockResponse.setResponseHeaders(valueMap);
 }

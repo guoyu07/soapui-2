@@ -4,7 +4,7 @@
   responseArea.setEditable(false);
   responseArea.setToolTipText("Response Content");
   JScrollPane scrollPane=new JScrollPane(responseArea);
-  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringMapTableModel(result.getResponseHeaders(),"Header","Value",false))),scrollPane);
+  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringsMapTableModel(result.getResponseHeaders(),"Header","Value",false))),scrollPane);
   split.setDividerLocation(150);
   return split;
 }

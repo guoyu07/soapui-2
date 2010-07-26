@@ -1,0 +1,9 @@
+{
+  int ix;
+  ix=value.indexOf('=');
+  if (ix != -1) {
+    String str=value.substring(ix + 1).trim();
+    if (str.startsWith("\"") && str.endsWith("\""))     str=str.substring(1,str.length() - 1);
+    result.add(value.substring(0,ix).trim(),str);
+  }
+}

@@ -4,7 +4,7 @@
     Enumeration<String> e=httpFields.getFieldNames();
     while (e.hasMoreElements()) {
       String nextElement=e.nextElement();
-      responseHeaders.put(nextElement,httpFields.getStringField(nextElement));
+      responseHeaders.add(nextElement,httpFields.getStringField(nextElement));
     }
   }
 }

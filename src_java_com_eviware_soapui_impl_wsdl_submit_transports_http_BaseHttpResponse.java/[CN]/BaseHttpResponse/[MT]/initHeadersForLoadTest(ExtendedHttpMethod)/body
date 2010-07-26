@@ -1,12 +1,12 @@
 {
   try {
-    requestHeaders=new StringToStringMap();
+    requestHeaders=new StringToStringsMap();
     Header[] headers=httpMethod.getRequestHeaders();
     for (    Header header : headers) {
       requestHeaders.put(header.getName(),header.getValue());
     }
     if (!httpMethod.isFailed()) {
-      responseHeaders=new StringToStringMap();
+      responseHeaders=new StringToStringsMap();
       headers=httpMethod.getResponseHeaders();
       for (      Header header : headers) {
         responseHeaders.put(header.getName(),header.getValue());

@@ -12,9 +12,9 @@
     context.setMockResponse(this);
     context.putAll(request.getContext());
     context.putAll(request.getRequestContext());
-    StringToStringMap responseHeaders=getResponseHeaders();
+    StringToStringsMap responseHeaders=getResponseHeaders();
     for (    String name : responseHeaders.keySet()) {
-      result.addHeader(name,PropertyExpander.expandProperties(context,responseHeaders.get(name)));
+      for (      String value : responseHeaders.get(name))       result.addHeader(name,PropertyExpander.expandProperties(context,value));
     }
     responseContent=PropertyExpander.expandProperties(context,responseContent,isEntitizeProperties());
     if (this.getWsaConfig().isWsaEnabled()) {

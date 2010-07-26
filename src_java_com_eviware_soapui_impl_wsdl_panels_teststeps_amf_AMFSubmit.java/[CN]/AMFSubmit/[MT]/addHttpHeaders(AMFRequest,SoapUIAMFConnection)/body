@@ -1,7 +1,8 @@
 {
-  if (amfRequest.getHttpHeaders() != null) {
-    for (    String key : amfRequest.getHttpHeaders().getKeys()) {
-      amfConnection.addHttpRequestHeader(key,context.expand(amfRequest.getHttpHeaders().get(key)));
+  StringToStringsMap httpHeaders=amfRequest.getHttpHeaders();
+  if (httpHeaders != null) {
+    for (    String key : httpHeaders.getKeys()) {
+      for (      String value : httpHeaders.get(key))       amfConnection.addHttpRequestHeader(key,context.expand(value));
     }
   }
 }

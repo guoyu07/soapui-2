@@ -1,0 +1,12 @@
+{
+  StringToStringsMap oldHeaders=getResponseHeaders();
+  getConfig().setHeaderArray(new HeaderConfig[0]);
+  for (  String header : headers.keySet()) {
+    for (    String value : headers.get(header)) {
+      HeaderConfig headerConfig=getConfig().addNewHeader();
+      headerConfig.setName(header);
+      headerConfig.setValue(value);
+    }
+  }
+  notifyPropertyChanged(HEADERS_PROPERTY,oldHeaders,headers);
+}

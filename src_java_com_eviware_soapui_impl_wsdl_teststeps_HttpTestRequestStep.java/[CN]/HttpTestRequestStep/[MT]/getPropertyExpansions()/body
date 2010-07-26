@@ -6,9 +6,9 @@
   result.extractAndAddAll("username");
   result.extractAndAddAll("password");
   result.extractAndAddAll("domain");
-  StringToStringMap requestHeaders=testRequest.getRequestHeaders();
+  StringToStringsMap requestHeaders=testRequest.getRequestHeaders();
   for (  String key : requestHeaders.keySet()) {
-    result.extractAndAddAll(new RequestHeaderHolder(requestHeaders,key),"value");
+    for (    String value : requestHeaders.get(key))     result.extractAndAddAll(new RequestHeaderHolder(key,value,testRequest),"value");
   }
   for (  String key : testRequest.getParams().getPropertyNames()) {
     result.extractAndAddAll(new RequestParamHolder(key),"value");

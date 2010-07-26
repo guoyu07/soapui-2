@@ -1,5 +1,5 @@
 {
-  String responseContentType=response.getRequestHeaders().get("Content-Type");
+  String responseContentType=response.getRequestHeaders().get("Content-Type","");
   if (StringUtils.isNullOrEmpty(responseContentType))   return;
   responseContentType=responseContentType.split(";")[0].trim();
   RestRepresentation[] representations=getMethod().getRepresentations(RestRepresentation.Type.REQUEST,null);

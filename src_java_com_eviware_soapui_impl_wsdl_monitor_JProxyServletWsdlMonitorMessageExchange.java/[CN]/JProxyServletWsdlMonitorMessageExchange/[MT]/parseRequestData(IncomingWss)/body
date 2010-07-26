@@ -1,7 +1,7 @@
 {
   ByteArrayInputStream in=request == null ? new ByteArrayInputStream(new byte[0]) : new ByteArrayInputStream(request);
   try {
-    requestContentType=requestHeaders.get("Content-Type");
+    requestContentType=requestHeaders.get("Content-Type","");
     if (requestContentType != null && requestContentType.toUpperCase().startsWith("MULTIPART")) {
       StringToStringMap values=StringToStringMap.fromHttpHeader(requestContentType);
       requestMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor request",in,requestContentType),values.get("start"),null,true,false);

@@ -1,0 +1,13 @@
+{
+  NameValuePair nvpair=keyList.get(arg1);
+  if (arg2 == 0) {
+    data.get(nvpair.getKey()).remove(nvpair.getIndex());
+    nvpair.setKey(String.valueOf(arg0));
+    data.put(nvpair.getKey(),nvpair.getIndex());
+  }
+ else   if (arg2 == 1) {
+    data.replace(nvpair.getKey(),nvpair.getIndex(),String.valueOf(arg0));
+    nvpair.setValue(String.valueOf(arg0));
+  }
+  fireTableCellUpdated(arg1,arg2);
+}

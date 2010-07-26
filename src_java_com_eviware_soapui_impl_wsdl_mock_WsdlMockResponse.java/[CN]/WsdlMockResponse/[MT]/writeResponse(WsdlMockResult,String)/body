@@ -54,7 +54,7 @@
     if (responseContent == null)     responseContent="";
     byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
     if (!response.getResponseHeaders().containsKeyIgnoreCase("Content-Type"))     response.setContentType(soapVersion.getContentTypeHttpHeader(encoding,null));
-    String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding");
+    String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
       response.addHeader("Content-Encoding","gzip");
       outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));

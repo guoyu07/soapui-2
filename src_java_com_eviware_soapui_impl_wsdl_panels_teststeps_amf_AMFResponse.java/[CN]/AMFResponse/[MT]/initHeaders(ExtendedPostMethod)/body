@@ -7,20 +7,20 @@
       rawResponse.write("\r\n".getBytes());
     }
     rawRequest.write((postMethod.getMethod() + " " + postMethod.getURI().toString()+ " "+ postMethod.getParams().getVersion().toString()+ "\r\n").getBytes());
-    requestHeaders=new StringToStringMap();
+    requestHeaders=new StringToStringsMap();
     Header[] headers=postMethod.getRequestHeaders();
     for (    Header header : headers) {
-      requestHeaders.put(header.getName(),header.getValue());
+      requestHeaders.add(header.getName(),header.getValue());
       rawRequest.write(header.toExternalForm().getBytes());
     }
     if (!postMethod.isFailed()) {
-      responseHeaders=new StringToStringMap();
+      responseHeaders=new StringToStringsMap();
       headers=postMethod.getResponseHeaders();
       for (      Header header : headers) {
-        responseHeaders.put(header.getName(),header.getValue());
+        responseHeaders.add(header.getName(),header.getValue());
         rawResponse.write(header.toExternalForm().getBytes());
       }
-      responseHeaders.put("#status#",String.valueOf(postMethod.getStatusLine()));
+      responseHeaders.add("#status#",String.valueOf(postMethod.getStatusLine()));
     }
     if (postMethod.getRequestEntity() != null) {
       rawRequest.write("\r\n".getBytes());

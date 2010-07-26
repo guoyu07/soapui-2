@@ -1,0 +1,12 @@
+{
+  StringBuffer buffer=new StringBuffer();
+  if (headers.containsKey("#status#")) {
+    buffer.append(headers.get("#status#")).append("\r\n");
+  }
+  for (  String header : headers.keySet()) {
+    if (!header.equals("#status#")) {
+      for (      String value : headers.get(header))       buffer.append(header).append(": ").append(value).append("\r\n");
+    }
+  }
+  return buffer.toString();
+}

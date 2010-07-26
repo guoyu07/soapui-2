@@ -1,10 +1,10 @@
 {
   if (panel != null)   return panel;
-  headersTableModel=new StringToStringMapTableModel(model.getHeaders(),"Header","Value",!model.isReadOnly());
+  headersTableModel=new StringToStringsMapTableModel(model.getHeaders(),"Header","Value",!model.isReadOnly());
   headersTableModel.addTableModelListener(new TableModelListener(){
     public void tableChanged(    TableModelEvent arg0){
       model.setHeaders(headersTableModel.getData());
-      setTitle("Headers (" + (model.getHeaders() == null ? "0" : model.getHeaders().size()) + ")");
+      setTitle("Headers (" + (model.getHeaders() == null ? "0" : model.getHeaders().valueCount()) + ")");
     }
   }
 );

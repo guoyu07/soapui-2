@@ -56,7 +56,7 @@
         test.getTestRequest().setRequestHeaders(me.getRequestHeaders());
         HttpTestRequest request=(HttpTestRequest)test.getHttpRequest();
         request.setEndpoint(me.getTargetUrl().toString());
-        String existingMediaType=me.getResponseHeaders().get("Content-Type");
+        String existingMediaType=me.getResponseHeaders().get("Content-Type","");
         if (!StringUtils.isNullOrEmpty(existingMediaType)) {
           request.setMediaType(existingMediaType);
         }

@@ -8,7 +8,7 @@
   }
   writer.println("\r\n---------------- Request ---------------------------");
   if (response != null) {
-    StringToStringMap headers=response.getRequestHeaders();
+    StringToStringsMap headers=response.getRequestHeaders();
     for (    String key : headers.keySet()) {
       if (headers.get(key) != null)       writer.println(key + ": " + headers.get(key));
     }
@@ -17,7 +17,7 @@
  else   writer.println("\r\n- missing request / garbage collected -");
   writer.println("\r\n---------------- Response --------------------------");
   if (response != null) {
-    StringToStringMap headers=response.getResponseHeaders();
+    StringToStringsMap headers=response.getResponseHeaders();
     for (    String key : headers.keySet()) {
       if (headers.get(key) != null)       writer.println(key + ": " + headers.get(key));
     }

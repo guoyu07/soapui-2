@@ -16,7 +16,7 @@
         requestHeaders.put(header.getName(),header.getValue());
       }
     }
-    requestContentType=requestHeaders.get("Content-Type");
+    requestContentType=requestHeaders.get("Content-Type","");
     if (requestContentType != null && requestContentType.toUpperCase().startsWith("MULTIPART")) {
       StringToStringMap values=StringToStringMap.fromHttpHeader(requestContentType);
       requestMmSupport=new MultipartMessageSupport(new MonitorMessageExchangeDataSource("monitor request",in,requestContentType),values.get("start"),null,true,SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES));

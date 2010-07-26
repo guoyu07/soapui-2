@@ -1,8 +1,8 @@
 {
-  StringToStringMap result=new StringToStringMap();
+  StringToStringsMap result=new StringToStringsMap();
   List<HeaderConfig> headerList=getConfig().getHeaderList();
   for (  HeaderConfig header : headerList) {
-    result.put(header.getName(),header.getValue());
+    result.add(header.getName(),header.getValue());
   }
   return result;
 }
