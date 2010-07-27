@@ -6,6 +6,7 @@
   desktopPanel.removePropertyChangeListener(desktopPanelPropertyChangeListener);
   modelItemToInternalFrameMap.remove(desktopPanel.getModelItem());
   internalFrameToDesktopPanelMap.remove(e.getInternalFrame());
+  e.getInternalFrame().setContentPane(new JPanel());
   e.getInternalFrame().dispose();
   if (!transferring)   fireDesktopPanelClosed(desktopPanel);
   if (currentPanel == desktopPanel)   currentPanel=null;
