@@ -1,7 +1,7 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.addSpace(3);
-  toolbar.addFixed(new JLabel("<html><b>Source:</b></html>"));
+  toolbar.addFixed(new JLabel("<html><b>Source: </b></html>"));
   toolbar.addUnrelatedGap();
   sourcePropertyCombo=UISupport.addTooltipListener(new JComboBox(),"Source Property");
   sourceStepModel=new DefaultComboBoxModel();
@@ -52,7 +52,7 @@
 );
   toolbar.add(UISupport.setFixedSize(sourceStepCombo,180,21));
   toolbar.addUnrelatedGap();
-  toolbar.addFixed(new JLabel("Property:"));
+  toolbar.addFixed(new JLabel(" Property: "));
   toolbar.addRelatedGap();
   sourcePropertyCombo.setToolTipText("The property the value will be transferred from");
   sourcePropertyCombo.setEnabled(false);
