@@ -1,9 +1,18 @@
 {
   if (panel == null) {
     panel=new JPanel(new BorderLayout());
-    panel.add(buildToolbar(),BorderLayout.NORTH);
-    panel.add(buildContent(),BorderLayout.CENTER);
-    panel.add(buildStatus(),BorderLayout.SOUTH);
+    if (BrowserComponent.isJXBrowserDisabled()) {
+      panel.add(new JLabel("Browser Component is disabled"));
+    }
+ else {
+      browser=new BrowserComponent(false);
+      Component component=browser.getComponent();
+      component.setMinimumSize(new Dimension(100,100));
+      panel.add(buildToolbar(),BorderLayout.NORTH);
+      panel.add(component,BorderLayout.CENTER);
+      HttpResponse response=httpRequest.getResponse();
+      if (response != null)       setEditorContent(response);
+    }
   }
   return panel;
 }

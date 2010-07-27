@@ -41,7 +41,7 @@
   core.afterStartup(workspace);
   Thread.sleep(500);
   splash.setVisible(false);
-  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE)) {
+  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !BrowserComponent.isJXBrowserDisabled()) {
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){
         showPushPage();

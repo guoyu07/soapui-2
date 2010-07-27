@@ -3,5 +3,10 @@
   CajoServer.getInstance().start();
   mainArgs=args;
   SoapUIRunner soapuiRunner=new SoapUIRunner();
-  soapuiRunner.run();
+  if (!BrowserComponent.isJXBrowserDisabled() && PlatformContext.isMacOS()) {
+    SwingUtilities.invokeLater(soapuiRunner);
+  }
+ else {
+    soapuiRunner.run();
+  }
 }
