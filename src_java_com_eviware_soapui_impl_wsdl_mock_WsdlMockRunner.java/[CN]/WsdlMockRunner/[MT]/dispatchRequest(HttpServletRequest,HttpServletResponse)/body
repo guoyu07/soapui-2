@@ -15,7 +15,7 @@
     mockService.runAfterRequestScript(mockContext,this,(MockResult)result);
     return (MockResult)result;
   }
- catch (  Exception e) {
+ catch (  Throwable e) {
     if (e instanceof DispatchException)     throw (DispatchException)e;
  else     throw new DispatchException(e);
   }
