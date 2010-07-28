@@ -1,5 +1,6 @@
 {
   super.release();
   if (browser != null)   browser.release();
-  httpRequest.removePropertyChangeListener(this);
+  if (messageExchangeModelItem != null)   messageExchangeModelItem.removePropertyChangeListener(this);
+ else   httpRequest.removePropertyChangeListener(this);
 }

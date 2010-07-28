@@ -1,5 +1,5 @@
 {
-  if (httpHtmlResponseView.isRecordHttpTrafic()) {
+  if (httpHtmlResponseView != null && httpHtmlResponseView.isRecordHttpTrafic()) {
     String newEndpoint=arg0.getUrl();
     HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
     WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
