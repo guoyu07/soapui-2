@@ -8,30 +8,10 @@
   }
   internalNavigationListener=new InternalBrowserNavigationListener();
   browser.addNavigationListener(internalNavigationListener);
-  browser.getServices().setNewWindowManager(new NewWindowManager(){
-    public NewWindowContainer evaluateWindow(    final NewWindowParams params){
-      return new NewWindowContainer(){
-        public void insertBrowser(        final Browser browser){
-          final JFrame popupFrame=new JFrame();
-          Container contentPane=popupFrame.getContentPane();
-          contentPane.add(browser.getComponent(),BorderLayout.CENTER);
-          popupFrame.setBounds(params.getBounds());
-          popupFrame.setVisible(true);
-          popupFrame.addWindowListener(new WindowAdapter(){
-            @Override public void windowClosing(            WindowEvent e){
-              browser.dispose();
-            }
-          }
-);
-          internalDisposeListener=new InternalDisposeListener(popupFrame);
-          browser.addDisposeListener(internalDisposeListener);
-          browser.addNavigationListener(internalNavigationListener);
-        }
-      }
-;
-    }
+  if (newWindowManager == null) {
+    newWindowManager=new SoapUINewWindowManager();
+    browser.getServices().setNewWindowManager(newWindowManager);
   }
-);
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   return true;
 }

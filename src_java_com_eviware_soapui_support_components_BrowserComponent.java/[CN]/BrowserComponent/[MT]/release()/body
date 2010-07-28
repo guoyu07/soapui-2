@@ -1,15 +1,7 @@
 {
   if (browser != null) {
     disposed=true;
-    if (!SwingUtilities.isEventDispatchThread()) {
-      SwingUtilities.invokeLater(new Runnable(){
-        public void run(){
-          cleanup();
-        }
-      }
-);
-    }
- else     cleanup();
+    cleanup();
   }
   possibleError=false;
 }
