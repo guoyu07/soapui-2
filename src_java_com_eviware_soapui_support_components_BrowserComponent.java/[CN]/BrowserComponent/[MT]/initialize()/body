@@ -1,0 +1,12 @@
+{
+  if (initialized)   return;
+  try {
+    if (!isJXBrowserDisabled()) {
+      Xpcom.initialize();
+    }
+    initialized=true;
+  }
+ catch (  Throwable t) {
+    t.printStackTrace();
+  }
+}
