@@ -6,8 +6,6 @@
  else {
     browser=BrowserFactory.createBrowser();
   }
-  internalNavigationListener=new InternalBrowserNavigationListener();
-  browser.addNavigationListener(internalNavigationListener);
   if (newWindowManager == null) {
     newWindowManager=new SoapUINewWindowManager();
     browser.getServices().setNewWindowManager(newWindowManager);

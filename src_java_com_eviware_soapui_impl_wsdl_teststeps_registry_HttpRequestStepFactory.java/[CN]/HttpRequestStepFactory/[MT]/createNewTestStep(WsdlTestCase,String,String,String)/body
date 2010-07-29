@@ -1,19 +1,12 @@
 {
-  RestParametersConfig ccc=RestParametersConfig.Factory.newInstance();
-  params=new XmlBeansRestParamsTestPropertyHolder(testCase,ccc);
+  RestParametersConfig restParamConf=RestParametersConfig.Factory.newInstance();
+  params=new XmlBeansRestParamsTestPropertyHolder(testCase,restParamConf);
   HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
   httpRequest.setMethod(method);
   String path=RestUtils.extractParams(endpoint,params,true);
   endpoint=path;
+  new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters()).addParameters(params);
   httpRequest.setEndpoint(endpoint);
-  RestParametersConfig r;
-  for (  String xx : params.keySet()) {
-    RestParameterConfig parameterConf=RestParameterConfig.Factory.newInstance();
-    parameterConf.setName(xx);
-    parameterConf.setValue(params.get(xx).getValue());
-    ccc.addNewParameter().set(parameterConf);
-  }
-  httpRequest.setParameters(ccc);
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(HTTPREQUEST_TYPE);
   testStep.setConfig(httpRequest);

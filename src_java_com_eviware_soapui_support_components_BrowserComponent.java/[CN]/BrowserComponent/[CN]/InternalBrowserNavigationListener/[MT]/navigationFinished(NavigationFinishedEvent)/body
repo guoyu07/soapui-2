@@ -1,9 +1,8 @@
 {
   if (httpHtmlResponseView != null && httpHtmlResponseView.isRecordHttpTrafic()) {
-    final String newEndpoint=arg0.getUrl();
+    String newEndpoint=arg0.getUrl();
     HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
     WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
     int count=testCase.getTestStepList().size();
-    testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,newEndpoint,"GET");
   }
 }
