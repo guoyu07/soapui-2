@@ -15,8 +15,11 @@
           nsIDOMWindow window=(nsIDOMWindow)interfaceRequestor.getInterface(nsIDOMWindow.NS_IDOMWINDOW_IID);
           if (browserMap.containsKey(window) && browserMap.get(window).isRecording()) {
             nsIURI originalUri=httpChannel.getOriginalURI();
+            nsIURI referrer=httpChannel.getReferrer();
+            nsIURI uri=httpChannel.getURI();
             nsIUploadChannel upload=(nsIUploadChannel)httpChannel.queryInterface(nsIUploadChannel.NS_IUPLOADCHANNEL_IID);
             byte[] requestData=null;
+            String requestSource="";
             if (upload != null) {
               nsIInputStream uploadStream=(nsIInputStream)upload.getUploadStream();
               if (uploadStream != null && uploadStream.available() > 0) {
@@ -28,6 +31,8 @@
 synchronized (mozilla) {
                       in.setInputStream(uploadStream);
                       requestData=in.readByteArray(available);
+                      int contentLength=getContentLength(requestData);
+                      requestSource=new String(requestData,requestData.length - contentLength,contentLength);
                     }
                   }
  catch (                  Throwable e) {
@@ -50,14 +55,19 @@ synchronized (mozilla) {
             }
 );
             HttpHtmlResponseView httpHtmlResponseView=browserMap.get(window).httpHtmlResponseView;
+            String requestUrl=originalUri.getSpec();
+            String referrerUrlValue=referrer.getSpec();
             if (httpHtmlResponseView != null && httpHtmlResponseView.isRecordHttpTrafic()) {
               HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
               WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
               int count=testCase.getTestStepList().size();
-              HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,originalUri.getSpec(),httpChannel.getRequestMethod());
+              HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,requestUrl,httpChannel.getRequestMethod(),requestSource);
               newHttpStep.getTestRequest().setRequestHeaders(headersMap);
+              String contentType=getContentType(requestData);
+              newHttpStep.getTestRequest().setMediaType(contentType);
               if (requestData != null) {
-                System.out.println(new String(requestData));
+                System.out.println("RequestData\n" + new String(requestData));
+                System.out.println("requestContent\n" + new String(requestSource));
               }
             }
           }

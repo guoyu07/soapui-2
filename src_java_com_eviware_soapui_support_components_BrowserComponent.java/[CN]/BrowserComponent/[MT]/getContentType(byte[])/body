@@ -1,0 +1,6 @@
+{
+  String request=new String(requestData);
+  String contentType=request.substring(request.indexOf("Content-Type") + 14);
+  contentType=contentType.substring(0,contentType.indexOf("\n") - 1);
+  return contentType;
+}
