@@ -9,6 +9,8 @@
     newWindowManager=new SoapUINewWindowManager();
     browser.getServices().setNewWindowManager(newWindowManager);
   }
+  internalNavigationListener=new InternalBrowserNavigationListener();
+  browser.addNavigationListener(internalNavigationListener);
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   return true;
 }

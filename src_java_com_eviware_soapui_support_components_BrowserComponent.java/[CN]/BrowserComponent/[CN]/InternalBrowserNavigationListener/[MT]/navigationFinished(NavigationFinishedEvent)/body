@@ -1,2 +1,20 @@
 {
+  if (isRecording() && browserRecordingMap.containsKey(BrowserComponent.this)) {
+    Map<String,RecordedRequest> map=browserRecordingMap.get(BrowserComponent.this);
+    RecordedRequest recordedRequest=map.get(arg0.getUrl());
+    if (recordedRequest != null) {
+      if (httpHtmlResponseView != null && httpHtmlResponseView.isRecordHttpTrafic()) {
+        HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
+        WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
+        int count=testCase.getTestStepList().size();
+        HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,recordedRequest.getUrl(),recordedRequest.getMethod(),null);
+        newHttpStep.getTestRequest().setRequestHeaders(recordedRequest.getHeaders());
+        if (recordedRequest.getContent() != null) {
+          newHttpStep.getTestRequest().setMediaType(recordedRequest.getContentType());
+          newHttpStep.getTestRequest().setRequestContent(recordedRequest.getContent());
+        }
+      }
+    }
+  }
+  browserRecordingMap.remove(BrowserComponent.this);
 }

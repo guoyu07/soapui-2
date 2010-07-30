@@ -1,6 +1,0 @@
-{
-  String request=new String(requestData);
-  String contentLength=request.substring(request.indexOf("Content-Length") + 16);
-  contentLength=contentLength.substring(0,contentLength.indexOf("\n") - 1);
-  return Integer.parseInt(contentLength);
-}
