@@ -7,7 +7,7 @@
     long rate=extractLongProperty("rate");
     triggerProperties.put("shape",createProperyValue(String.class,"Sine-wave"));
     triggerProperties.put("amplitude",createProperyValue(Long.class,Long.toString(((long)(currentStrategy.getVariance() * rate)))));
-    triggerProperties.put("period",createProperyValue(Long.class,Long.toString(currentStrategy.getInterval())));
+    triggerProperties.put("period",createProperyValue(Long.class,Long.toString(currentStrategy.getInterval() / 1000)));
   }
   if (loadStrategy instanceof ThreadCountChangeLoadStrategy) {
     loadUITriggerType=RAMP_TRIGGER;
