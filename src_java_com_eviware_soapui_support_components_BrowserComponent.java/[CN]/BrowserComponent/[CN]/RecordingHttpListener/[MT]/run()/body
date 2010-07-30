@@ -1,0 +1,80 @@
+{
+  final Mozilla mozilla=Mozilla.getInstance();
+  nsIServiceManager serviceManager=mozilla.getServiceManager();
+  nsIObserverService observerService=(nsIObserverService)serviceManager.getServiceByContractID("@mozilla.org/observer-service;1",nsIObserverService.NS_IOBSERVERSERVICE_IID);
+  final nsIBinaryInputStream in=(nsIBinaryInputStream)XPCOMManager.getInstance().newComponent("@mozilla.org/binaryinputstream;1",nsIBinaryInputStream.class);
+  nsIObserver httpObserver=new nsIObserver(){
+    protected long _lRequestCounter=0;
+    public void observe(    nsISupports subject,    String sTopic,    String sData){
+      try {
+        if (EVENT_HTTP_ON_MODIFY_REQUEST.equals(sTopic)) {
+          _lRequestCounter++;
+          nsIHttpChannel httpChannel=(nsIHttpChannel)subject.queryInterface(nsIHttpChannel.NS_IHTTPCHANNEL_IID);
+          if (httpChannel.getNotificationCallbacks() == null)           return;
+          nsIInterfaceRequestor interfaceRequestor=(nsIInterfaceRequestor)httpChannel.getNotificationCallbacks().queryInterface(nsIInterfaceRequestor.NS_IINTERFACEREQUESTOR_IID);
+          nsIDOMWindow window=(nsIDOMWindow)interfaceRequestor.getInterface(nsIDOMWindow.NS_IDOMWINDOW_IID);
+          if (browserMap.containsKey(window) && browserMap.get(window).isRecording()) {
+            nsIURI originalUri=httpChannel.getOriginalURI();
+            nsIUploadChannel upload=(nsIUploadChannel)httpChannel.queryInterface(nsIUploadChannel.NS_IUPLOADCHANNEL_IID);
+            byte[] requestData=null;
+            if (upload != null) {
+              nsIInputStream uploadStream=(nsIInputStream)upload.getUploadStream();
+              if (uploadStream != null && uploadStream.available() > 0) {
+                nsISeekableStream seekable=(nsISeekableStream)uploadStream.queryInterface(nsISeekableStream.NS_ISEEKABLESTREAM_IID);
+                long pos=seekable.tell();
+                long available=uploadStream.available();
+                if (available > 0) {
+                  try {
+synchronized (mozilla) {
+                      in.setInputStream(uploadStream);
+                      requestData=in.readByteArray(available);
+                    }
+                  }
+ catch (                  Throwable e) {
+                    e.printStackTrace();
+                  }
+ finally {
+                    seekable.seek(nsISeekableStream.NS_SEEK_SET,pos);
+                  }
+                }
+              }
+            }
+            final StringToStringsMap headersMap=new StringToStringsMap();
+            httpChannel.visitRequestHeaders(new nsIHttpHeaderVisitor(){
+              public void visitHeader(              String header,              String value){
+                headersMap.put(header,value);
+              }
+              public nsISupports queryInterface(              String sIID){
+                return Mozilla.queryInterface(this,sIID);
+              }
+            }
+);
+            HttpHtmlResponseView httpHtmlResponseView=browserMap.get(window).httpHtmlResponseView;
+            if (httpHtmlResponseView != null && httpHtmlResponseView.isRecordHttpTrafic()) {
+              HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
+              WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
+              int count=testCase.getTestStepList().size();
+              HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,originalUri.getSpec(),httpChannel.getRequestMethod());
+              newHttpStep.getTestRequest().setRequestHeaders(headersMap);
+              if (requestData != null) {
+                System.out.println(new String(requestData));
+              }
+            }
+          }
+        }
+ else {
+          System.out.println("HTTPObserver: Unknown event '" + sTopic + "'");
+        }
+      }
+ catch (      Throwable e) {
+        e.printStackTrace();
+      }
+    }
+    public nsISupports queryInterface(    String sIID){
+      return Mozilla.queryInterface(this,sIID);
+    }
+  }
+;
+  boolean blnObserverIsWeakReference=false;
+  observerService.addObserver(httpObserver,EVENT_HTTP_ON_MODIFY_REQUEST,blnObserverIsWeakReference);
+}

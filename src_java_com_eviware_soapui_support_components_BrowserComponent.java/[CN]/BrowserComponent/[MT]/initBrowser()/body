@@ -1,12 +1,11 @@
 {
   if (browser != null)   return false;
-  if (PlatformContext.isWindows()) {
-    browser=BrowserFactory.createBrowser(BrowserType.Mozilla);
-  }
- else {
-    browser=BrowserFactory.createBrowser();
+{
+    browser=(MozillaBrowser)BrowserFactory.createBrowser(BrowserType.Mozilla);
+    browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
   }
   if (newWindowManager == null) {
+    registerHttpListener();
     newWindowManager=new SoapUINewWindowManager();
     browser.getServices().setNewWindowManager(newWindowManager);
   }

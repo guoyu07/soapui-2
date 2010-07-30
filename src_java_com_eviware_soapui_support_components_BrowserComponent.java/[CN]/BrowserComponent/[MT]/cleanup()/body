@@ -1,10 +1,11 @@
 {
   httpHtmlResponseView=null;
   if (browser != null) {
+    browserMap.remove(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow());
     browser.stop();
     browser.dispose();
     browser.removeDisposeListener(internalDisposeListener);
-    browser=null;
     panel.removeAll();
+    browser=null;
   }
 }
