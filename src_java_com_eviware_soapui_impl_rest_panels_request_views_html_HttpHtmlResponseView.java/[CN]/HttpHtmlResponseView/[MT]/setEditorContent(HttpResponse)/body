@@ -4,9 +4,8 @@
     if (contentType.contains("html") || contentType.contains("text")) {
       try {
         String content=httpResponse.getContentAsString();
-        content=new String(content.getBytes("UTF-8"),"iso-8859-1");
         contentType=contentType + "; charset=utf-8";
-        browser.setContent(content,contentType,httpResponse.getURL().toURI().toString());
+        browser.setContent(content,httpResponse.getURL().toURI().toString());
       }
  catch (      Exception e) {
         e.printStackTrace();
@@ -28,6 +27,6 @@
     }
   }
  else {
-    browser.setContent("<missing content>","text/plain");
+    browser.setContent("<missing content>");
   }
 }

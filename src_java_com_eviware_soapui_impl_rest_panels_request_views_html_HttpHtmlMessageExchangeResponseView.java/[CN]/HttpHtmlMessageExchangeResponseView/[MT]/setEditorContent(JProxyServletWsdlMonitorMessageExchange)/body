@@ -4,8 +4,7 @@
     if (contentType.contains("html") || contentType.contains("text")) {
       try {
         String content=jproxyServletWsdlMonitorMessageExchange.getResponseContent();
-        content=new String(content.getBytes("UTF-8"),"iso-8859-1");
-        browser.setContent(content,contentType,jproxyServletWsdlMonitorMessageExchange.getEndpoint());
+        browser.setContent(content,jproxyServletWsdlMonitorMessageExchange.getEndpoint());
       }
  catch (      Exception e) {
         e.printStackTrace();
@@ -27,6 +26,6 @@
     }
   }
  else {
-    browser.setContent("<missing content>","text/plain");
+    browser.setContent("<missing content>");
   }
 }

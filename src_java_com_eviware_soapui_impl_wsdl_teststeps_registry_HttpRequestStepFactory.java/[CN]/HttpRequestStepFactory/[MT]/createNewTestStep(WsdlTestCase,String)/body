@@ -14,7 +14,9 @@
       HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
       httpRequest.setEndpoint(dialog.getValue(Form.ENDPOINT));
       httpRequest.setMethod(dialog.getValue(Form.HTTPMETHOD));
-      new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters()).addParameters(params);
+      XmlBeansRestParamsTestPropertyHolder tempParams=new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters());
+      tempParams.addParameters(params);
+      tempParams.release();
       TestStepConfig testStep=TestStepConfig.Factory.newInstance();
       testStep.setType(HTTPREQUEST_TYPE);
       testStep.setConfig(httpRequest);

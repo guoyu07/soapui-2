@@ -3,12 +3,10 @@
   params=new XmlBeansRestParamsTestPropertyHolder(testCase,restParamConf);
   HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
   httpRequest.setMethod(method);
-  if (HttpMethodType.POST.toString().equals(method)) {
-    endpoint=endpoint + "?" + requestSource;
-  }
   String path=RestUtils.extractParams(endpoint,params,true);
   endpoint=path;
-  new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters()).addParameters(params);
+  XmlBeansRestParamsTestPropertyHolder tempParams=new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters());
+  tempParams.addParameters(params);
   httpRequest.setEndpoint(endpoint);
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(HTTPREQUEST_TYPE);
