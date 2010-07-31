@@ -31,5 +31,7 @@
     }
     findCombo.insertItemAt(value,0);
   }
- else   Toolkit.getDefaultToolkit().beep();
+ else {
+    UISupport.showErrorMessage("String [" + value + "] not found");
+  }
 }
