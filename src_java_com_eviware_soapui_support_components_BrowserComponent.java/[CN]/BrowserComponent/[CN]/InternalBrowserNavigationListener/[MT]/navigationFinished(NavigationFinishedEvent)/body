@@ -7,11 +7,22 @@
         HttpTestRequest httpTestRequest=(HttpTestRequest)(httpHtmlResponseView.getDocument().getRequest());
         WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
         int count=testCase.getTestStepList().size();
-        HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count,recordedRequest.getUrl(),recordedRequest.getMethod(),null);
+        String url2=recordedRequest.getUrl();
+        int ix=url2.lastIndexOf('/');
+        if (ix > 0)         url2=url2.substring(ix);
+        ix=url2.indexOf('?');
+        if (ix > 0)         url2=url2.substring(0,ix);
+        HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count + " ["+ url2+ "]",recordedRequest.getUrl(),recordedRequest.getMethod());
         newHttpStep.getTestRequest().setRequestHeaders(recordedRequest.getHeaders());
         if (recordedRequest.getContent() != null) {
           newHttpStep.getTestRequest().setMediaType(recordedRequest.getContentType());
-          newHttpStep.getTestRequest().setRequestContent(recordedRequest.getContent());
+          if (newHttpStep.getTestRequest().getMediaType().equals(CONTENT_TYPE_FORM_URLENCODED)) {
+            newHttpStep.getTestRequest().setPostQueryString(true);
+            RestUtils.extractParamsFromQueryString(newHttpStep.getTestRequest().getParams(),recordedRequest.getContent());
+          }
+ else {
+            newHttpStep.getTestRequest().setRequestContent(recordedRequest.getContent());
+          }
         }
       }
     }
