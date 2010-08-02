@@ -1,7 +1,7 @@
 {
   monitor.fireOnRequest(request,response);
   if (response.isCommitted())   return;
-  HttpMethodBase postMethod;
+  ExtendedHttpMethod postMethod;
   InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   if (httpRequest.getMethod().equals("GET"))   postMethod=new ExtendedGetMethod();

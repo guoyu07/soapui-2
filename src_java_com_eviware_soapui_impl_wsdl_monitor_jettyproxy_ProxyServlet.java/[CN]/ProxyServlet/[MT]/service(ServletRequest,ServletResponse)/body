@@ -1,10 +1,11 @@
 {
   monitor.fireOnRequest(request,response);
   if (response.isCommitted())   return;
-  HttpMethodBase method;
+  ExtendedHttpMethod method;
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   if (httpRequest.getMethod().equals("GET"))   method=new ExtendedGetMethod();
  else   method=new ExtendedPostMethod();
+  method.setDecompress(false);
   JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
   capturedData.setRequestHost(httpRequest.getServerName());
   capturedData.setRequestMethod(httpRequest.getMethod());
@@ -65,6 +66,7 @@
   capturedData.setResponseHeader(method);
   capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,capture));
   capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
+  capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
   monitor.fireAfterProxy(request,response,method,capturedData);
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();

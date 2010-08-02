@@ -16,7 +16,7 @@
  catch (    IOException e) {
       e.printStackTrace();
     }
-    if (!SoapUI.getSettings().getBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION)) {
+    if (decompress) {
       String compressionAlg=HttpClientSupport.getResponseCompressionType(httpMethod);
       if (compressionAlg != null) {
         try {

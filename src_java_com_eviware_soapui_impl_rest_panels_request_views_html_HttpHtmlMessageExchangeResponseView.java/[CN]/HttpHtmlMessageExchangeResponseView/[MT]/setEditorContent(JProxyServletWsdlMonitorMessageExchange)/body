@@ -10,7 +10,7 @@
         e.printStackTrace();
       }
     }
- else     if (!contentType.contains("xml")) {
+ else     if (isSupportedContentType(contentType)) {
       try {
         String ext=ContentTypeHandler.getExtensionForContentType(contentType);
         File temp=File.createTempFile("response","." + ext);
@@ -24,8 +24,11 @@
         e.printStackTrace();
       }
     }
+ else {
+      browser.setContent("unsupported content-type [" + contentType + "]");
+    }
   }
  else {
-    browser.setContent("<missing content>");
+    browser.setContent("-missing content-");
   }
 }

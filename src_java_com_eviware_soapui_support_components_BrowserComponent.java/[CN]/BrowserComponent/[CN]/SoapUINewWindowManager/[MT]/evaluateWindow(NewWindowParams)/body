@@ -1,8 +1,15 @@
 {
-  this.url=params.getUrl();
   return new NewWindowContainer(){
-    public void insertBrowser(    final Browser browser){
-      Tools.openURL(url);
+    public void insertBrowser(    Browser browser){
+      browser.addNavigationListener(new NavigationListener(){
+        @Override public void navigationStarted(        NavigationEvent arg0){
+          Tools.openURL(arg0.getUrl());
+          arg0.getBrowser().dispose();
+        }
+        @Override public void navigationFinished(        NavigationFinishedEvent arg0){
+        }
+      }
+);
     }
   }
 ;

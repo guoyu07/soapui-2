@@ -11,7 +11,7 @@
  else         content=json.toString(3);
       }
  catch (      Throwable e) {
-        e.printStackTrace();
+        if (!"Invalid JSON String".equals(e.getMessage()))         e.printStackTrace();
       }
       contentEditor.setText(content);
     }
