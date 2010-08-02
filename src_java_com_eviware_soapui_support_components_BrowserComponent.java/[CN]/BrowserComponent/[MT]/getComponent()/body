@@ -6,11 +6,12 @@
   }
  else {
     if (browser == null) {
-      statusBar=new JPanel();
-      statusLabel=new JLabel();
-      statusBar.add(statusLabel,BorderLayout.CENTER);
-      if (addToolbar)       panel.add(buildToolbar(),BorderLayout.NORTH);
-      panel.add(statusBar,BorderLayout.SOUTH);
+      if (addStatusBar) {
+        statusBar=new JPanel(new BorderLayout());
+        statusLabel=new JLabel();
+        statusBar.add(statusLabel,BorderLayout.WEST);
+        panel.add(statusBar,BorderLayout.SOUTH);
+      }
       initBrowser();
       browser.navigate("about:blank");
     }

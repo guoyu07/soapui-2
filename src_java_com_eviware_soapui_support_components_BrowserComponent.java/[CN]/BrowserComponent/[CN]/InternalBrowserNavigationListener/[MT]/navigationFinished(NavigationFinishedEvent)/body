@@ -1,5 +1,5 @@
 {
-  if (isRecording() && browserRecordingMap.containsKey(BrowserComponent.this)) {
+  if (BrowserComponent.recordingBrowser == BrowserComponent.this && browserRecordingMap.containsKey(BrowserComponent.this)) {
     Map<String,RecordedRequest> map=browserRecordingMap.get(BrowserComponent.this);
     RecordedRequest recordedRequest=map.get(arg0.getUrl());
     if (recordedRequest != null) {
@@ -8,10 +8,11 @@
         WsdlTestCase testCase=(WsdlTestCase)httpTestRequest.getTestStep().getTestCase();
         int count=testCase.getTestStepList().size();
         String url2=recordedRequest.getUrl();
-        int ix=url2.lastIndexOf('/');
-        if (ix > 0)         url2=url2.substring(ix);
-        ix=url2.indexOf('?');
-        if (ix > 0)         url2=url2.substring(0,ix);
+        try {
+          url2=new URL(recordedRequest.getUrl()).getPath();
+        }
+ catch (        MalformedURLException e) {
+        }
         HttpTestRequestStep newHttpStep=(HttpTestRequestStep)testCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"Http Test Step " + ++count + " ["+ url2+ "]",recordedRequest.getUrl(),recordedRequest.getMethod());
         newHttpStep.getTestRequest().setRequestHeaders(recordedRequest.getHeaders());
         if (recordedRequest.getContent() != null) {

@@ -1,13 +1,14 @@
 {
-  if (HttpHtmlResponseView.this.isRecordHttpTrafic()) {
-    HttpHtmlResponseView.this.setRecordHttpTrafic(false);
-    recordButton.setIcon(UISupport.createImageIcon("/record_http_false.gif"));
+  if (browser == null)   return;
+  if (isRecordHttpTrafic()) {
+    setRecordHttpTrafic(false);
   }
  else {
-    HttpHtmlResponseView.this.setRecordHttpTrafic(true);
-    recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
-  }
-  if (browser != null) {
-    browser.setHttpHtmlResponseView(HttpHtmlResponseView.this);
+    if (BrowserComponent.isRecording()) {
+      UISupport.showErrorMessage("Only one browser can record at a time");
+    }
+ else {
+      setRecordHttpTrafic(true);
+    }
   }
 }

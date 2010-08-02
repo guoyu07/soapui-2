@@ -4,7 +4,6 @@
     if (contentType.contains("html") || contentType.contains("text")) {
       try {
         String content=httpResponse.getContentAsString();
-        contentType=contentType + "; charset=utf-8";
         browser.setContent(content,httpResponse.getURL().toURI().toString());
       }
  catch (      Exception e) {

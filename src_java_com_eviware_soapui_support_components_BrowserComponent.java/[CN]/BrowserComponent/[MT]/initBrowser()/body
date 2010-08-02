@@ -1,9 +1,7 @@
 {
   if (browser != null)   return false;
-{
-    browser=(MozillaBrowser)BrowserFactory.createBrowser(BrowserType.Mozilla);
-    browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
-  }
+  browser=(MozillaBrowser)BrowserFactory.createBrowser(BrowserType.Mozilla);
+  browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
   if (newWindowManager == null) {
     registerHttpListener();
     newWindowManager=new SoapUINewWindowManager();
@@ -12,6 +10,7 @@
   }
   internalNavigationListener=new InternalBrowserNavigationListener();
   browser.addNavigationListener(internalNavigationListener);
+  browser.addStatusListener(this);
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   return true;
 }

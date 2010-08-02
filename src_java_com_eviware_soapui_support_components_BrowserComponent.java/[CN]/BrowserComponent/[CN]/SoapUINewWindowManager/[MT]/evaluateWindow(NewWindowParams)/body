@@ -2,9 +2,20 @@
   return new NewWindowContainer(){
     public void insertBrowser(    Browser browser){
       browser.addNavigationListener(new NavigationListener(){
-        @Override public void navigationStarted(        NavigationEvent arg0){
-          Tools.openURL(arg0.getUrl());
-          arg0.getBrowser().dispose();
+        @Override public void navigationStarted(        final NavigationEvent arg0){
+          arg0.getBrowser().removeNavigationListener(this);
+          if (BrowserComponent.recordingBrowser != null) {
+            BrowserComponent.recordingBrowser.replaceBrowser(arg0.getBrowser());
+          }
+ else {
+            SwingUtilities.invokeLater(new Runnable(){
+              @Override public void run(){
+                if (UISupport.confirm("Open [" + arg0.getUrl() + "] with system Browser?","Open URL"))                 Tools.openURL(arg0.getUrl());
+              }
+            }
+);
+            arg0.getBrowser().dispose();
+          }
         }
         @Override public void navigationFinished(        NavigationFinishedEvent arg0){
         }

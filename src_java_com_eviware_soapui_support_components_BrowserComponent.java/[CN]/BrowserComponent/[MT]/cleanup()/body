@@ -1,11 +1,15 @@
 {
-  httpHtmlResponseView=null;
+  if (recordingBrowser == this) {
+    httpHtmlResponseView=null;
+    recordingBrowser=null;
+  }
   if (browser != null) {
     browserMap.remove(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow());
+    browserRecordingMap.remove(this);
     browser.stop();
     browser.dispose();
-    browser.removeDisposeListener(internalDisposeListener);
     browser.removeNavigationListener(internalNavigationListener);
+    browser.removeStatusListener(this);
     panel.removeAll();
     browser=null;
   }

@@ -1,0 +1,13 @@
+{
+  browserMap.remove(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow());
+  browser.stop();
+  browser.removeNavigationListener(internalNavigationListener);
+  browser.removeStatusListener(this);
+  panel.remove(browser.getComponent());
+  browser.dispose();
+  browser=(MozillaBrowser)browser2;
+  browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
+  browser.addNavigationListener(internalNavigationListener);
+  browser.addStatusListener(this);
+  panel.add(browser.getComponent(),BorderLayout.CENTER);
+}
