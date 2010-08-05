@@ -1,0 +1,47 @@
+{
+  if (!StartLoadUI.testCajoConnection()) {
+    if (UISupport.confirm(StartLoadUI.LOADUI_LAUNCH_QUESTION,StartLoadUI.LOADUI_LAUNCH_TITLE)) {
+      StartLoadUI.launchLoadUI();
+    }
+    return;
+  }
+  this.project=target;
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.getFormField(Form.TESTSUITE).addFormFieldListener(new XFormFieldListener(){
+      @Override public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        if (newValue.equals(CREATE_NEW_OPTION)) {
+          dialog.setOptions(Form.TESTCASE,new String[]{CREATE_NEW_OPTION});
+        }
+ else {
+          TestSuite testSuite=project.getTestSuiteByName(newValue);
+          dialog.setOptions(Form.TESTCASE,testSuite == null ? new String[]{CREATE_NEW_OPTION} : ModelSupport.getNames(testSuite.getTestCaseList(),new String[]{CREATE_NEW_OPTION}));
+        }
+      }
+    }
+);
+  }
+  dialog.setOptions(Form.TESTSUITE,ModelSupport.getNames(new String[]{CREATE_NEW_OPTION},project.getTestSuiteList()));
+  dialog.setValue(Form.TESTSUITE,CREATE_NEW_OPTION);
+  dialog.setOptions(Form.TESTCASE,new String[]{CREATE_NEW_OPTION});
+  dialog.setValue(Form.TESTCASE,CREATE_NEW_OPTION);
+  if (dialog.show()) {
+    String targetTestSuiteName=dialog.getValue(Form.TESTSUITE);
+    String targetTestCaseName=dialog.getValue(Form.TESTCASE);
+    WsdlTestSuite targetTestSuite=null;
+    WsdlTestCase targetTestCase=null;
+    targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
+    if (targetTestSuite == null) {
+      targetTestSuiteName=UISupport.prompt("Specify name for new TestSuite","Clone TestStep","WebTest TestSuite");
+      if (targetTestSuiteName == null)       return;
+      targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
+    }
+    targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
+    if (targetTestCase == null) {
+      targetTestCaseName=UISupport.prompt("Specify name for new TestCase","Clone TestStep","WebTest TestCase");
+      if (targetTestCaseName == null)       return;
+      targetTestCase=targetTestSuite.addNewTestCase(targetTestCaseName);
+    }
+    createWebTest(targetTestCase);
+  }
+}

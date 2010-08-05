@@ -1,0 +1,13 @@
+{
+  WsdlTestStep testStep=targetTestCase.addTestStep(HttpRequestStepFactory.HTTPREQUEST_TYPE,"WebTest");
+  HttpTestRequestDesktopPanel desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
+  try {
+    ((HttpTestRequestStep)testStep).getTestRequest().submit(new WsdlTestRunContext(testStep),true);
+  }
+ catch (  SubmitException e) {
+    e.printStackTrace();
+  }
+  HttpHtmlResponseView cc=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
+  cc.setRecordHttpTrafic(true);
+  desktopPanel.getResponseEditor().selectView(2);
+}
