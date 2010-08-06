@@ -1,0 +1,10 @@
+{
+  removeContent(requestSplitPane);
+  setContent(requestTabPanel);
+  requestTabs.addTab("Request",requestEditor);
+  if (responseEditor != null)   requestTabs.addTab("Response",responseEditor);
+  if (respFocus) {
+    requestTabs.setSelectedIndex(1);
+    requestEditor.requestFocus();
+  }
+}

@@ -6,17 +6,17 @@
   testStepConfig.setType(HttpRequestStepFactory.HTTPREQUEST_TYPE);
   testStepConfig.setConfig(httpRequest);
   testStepConfig.setName(name);
-  WsdlTestStep testStep=targetTestCase.addTestStep(testStepConfig);
+  HttpTestRequestStep testStep=(HttpTestRequestStep)targetTestCase.addTestStep(testStepConfig);
   HttpTestRequestDesktopPanel desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
   try {
-    ((HttpTestRequestStep)testStep).getTestRequest().submit(new WsdlTestRunContext(testStep),true);
+    testStep.getTestRequest().submit(new WsdlTestRunContext(testStep),true);
   }
  catch (  SubmitException e) {
     e.printStackTrace();
   }
-  HttpHtmlResponseView cc=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
+  HttpHtmlResponseView htmlResponseView=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
   if (startRecording) {
-    cc.setRecordHttpTrafic(true);
+    htmlResponseView.setRecordHttpTrafic(true);
   }
-  desktopPanel.getResponseEditor().selectView(2);
+  desktopPanel.focusResponseInTabbedView(true);
 }
