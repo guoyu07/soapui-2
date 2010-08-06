@@ -1,0 +1,18 @@
+{
+  ManualTestStepResult testStepResult=new ManualTestStepResult(this);
+  testStepResult.startTimer();
+  try {
+    if (!initManualStep(runContext)) {
+      throw new SubmitException("Manual step is not initialised properly !");
+    }
+    testStepResult.setStatus(TestStepStatus.CANCELED);
+    testStepResult.addMessage("Request was canceled");
+    testStepResult.stopTimer();
+  }
+ catch (  SubmitException e) {
+    testStepResult.setStatus(TestStepStatus.FAILED);
+    testStepResult.addMessage("SubmitException: " + e);
+    testStepResult.stopTimer();
+  }
+  return testStepResult;
+}

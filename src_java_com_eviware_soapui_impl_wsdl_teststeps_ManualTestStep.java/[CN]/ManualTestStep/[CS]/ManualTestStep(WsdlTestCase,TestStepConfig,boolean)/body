@@ -1,0 +1,9 @@
+{
+  super(testCase,config,true,forLoadTest);
+  if (getConfig().getConfig() != null) {
+    manualTestStepConfig=(ManualTestStepConfig)getConfig().getConfig().changeType(ManualTestStepConfig.type);
+  }
+ else {
+    manualTestStepConfig=(ManualTestStepConfig)getConfig().addNewConfig().changeType(ManualTestStepConfig.type);
+  }
+}
