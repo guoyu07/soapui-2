@@ -25,7 +25,6 @@
     }
     targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
     if (targetTestCase == null) {
-      targetTestCaseName=testStepName;
       while (targetTestSuite.getTestCaseByName(targetTestCaseName) != null) {
         targetTestCaseName=UISupport.prompt("TestCase name must be unique, please specify new name for TestCase\n" + "[" + targetTestCaseName + "] in TestSuite ["+ project.getName()+ "->"+ targetTestSuiteName+ "]","Change TestCase name",targetTestCaseName);
         if (targetTestCaseName == null)         return;
