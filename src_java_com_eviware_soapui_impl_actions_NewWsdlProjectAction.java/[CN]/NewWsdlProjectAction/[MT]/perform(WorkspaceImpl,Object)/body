@@ -60,7 +60,7 @@
             SoapUI.getActionRegistry().getAction(NewRestServiceAction.SOAPUI_ACTION_ID).perform(project,project);
           }
           if (dialog.getBooleanValue(Form.CREATEWEBTEST)) {
-            createWebTest(project);
+            new CreateWebTestAction().perform(project,param);
           }
           break;
         }

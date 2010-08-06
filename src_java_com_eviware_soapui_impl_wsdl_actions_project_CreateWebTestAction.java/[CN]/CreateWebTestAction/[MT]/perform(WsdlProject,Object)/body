@@ -1,10 +1,4 @@
 {
-  if (!StartLoadUI.testCajoConnection()) {
-    if (UISupport.confirm(StartLoadUI.LOADUI_LAUNCH_QUESTION,StartLoadUI.LOADUI_LAUNCH_TITLE)) {
-      StartLoadUI.launchLoadUI();
-    }
-    return;
-  }
   this.project=target;
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
@@ -25,23 +19,37 @@
   dialog.setValue(Form.TESTSUITE,CREATE_NEW_OPTION);
   dialog.setOptions(Form.TESTCASE,new String[]{CREATE_NEW_OPTION});
   dialog.setValue(Form.TESTCASE,CREATE_NEW_OPTION);
+  dialog.setValue(Form.WEBTESTNAME,"Web Test");
+  dialog.setValue(Form.ENDPOINT,"");
+  dialog.setValue(Form.STARTRECORDING,Boolean.toString(true));
   if (dialog.show()) {
     String targetTestSuiteName=dialog.getValue(Form.TESTSUITE);
     String targetTestCaseName=dialog.getValue(Form.TESTCASE);
+    String name=dialog.getValue(Form.WEBTESTNAME);
     WsdlTestSuite targetTestSuite=null;
     WsdlTestCase targetTestCase=null;
     targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
     if (targetTestSuite == null) {
-      targetTestSuiteName=UISupport.prompt("Specify name for new TestSuite","Clone TestStep","WebTest TestSuite");
-      if (targetTestSuiteName == null)       return;
+      targetTestSuiteName="WebTest TestSuite";
+      while (project.getTestSuiteByName(targetTestSuiteName) != null) {
+        targetTestSuiteName=UISupport.prompt("TestSuite name must be unique, please specify new name for TestSuite\n" + "[" + targetTestSuiteName + "]","Change TestSuite name",targetTestSuiteName);
+        if (targetTestSuiteName == null)         return;
+      }
       targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
     }
     targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
     if (targetTestCase == null) {
-      targetTestCaseName=UISupport.prompt("Specify name for new TestCase","Clone TestStep","WebTest TestCase");
-      if (targetTestCaseName == null)       return;
+      targetTestCaseName="WebTest TestCase";
+      while (targetTestSuite.getTestCaseByName(targetTestCaseName) != null) {
+        targetTestCaseName=UISupport.prompt("TestCase name must be unique, please specify new name for TestCase\n" + "[" + targetTestCaseName + "] in TestSuite ["+ targetTestSuiteName+ "]","Change TestCase name",targetTestCaseName);
+        if (targetTestCaseName == null)         return;
+      }
       targetTestCase=targetTestSuite.addNewTestCase(targetTestCaseName);
     }
-    createWebTest(targetTestCase);
+    while (name == null || targetTestCase.getTestStepByName(name) != null) {
+      name=UISupport.prompt("TestStep name must be unique, please specify new name for step\n" + "[" + name + "] in TestCase ["+ targetTestSuiteName+ "->"+ targetTestCaseName+ "]","Change TestStep name",name);
+      if (name == null)       return;
+    }
+    createWebTest(targetTestCase,dialog.getValue(Form.ENDPOINT),name,dialog.getBooleanValue(Form.STARTRECORDING));
   }
 }
