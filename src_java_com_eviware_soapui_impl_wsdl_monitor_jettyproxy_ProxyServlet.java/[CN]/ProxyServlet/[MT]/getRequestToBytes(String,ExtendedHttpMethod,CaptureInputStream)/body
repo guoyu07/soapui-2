@@ -1,6 +1,6 @@
 {
-  String request=footer;
-  request+="\n";
-  request+=XmlUtils.prettyPrintXml(new String(capture.getCapturedData()));
+  String request=footer.trim();
+  request+="\r\n\r\n";
+  request+=new String(capture.getCapturedData());
   return request.getBytes();
 }
