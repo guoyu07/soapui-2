@@ -1,5 +1,4 @@
 {
-  super.release();
   transferStep.getTestCase().getTestSuite().removeTestSuiteListener(testSuiteListener);
   transferStep.getTestCase().removeTestRunListener(testRunListener);
   PropertyTransfer transfer=getCurrentTransfer();
@@ -17,5 +16,5 @@
   componentEnabler.release();
   if (resultDesktopPanel != null)   SoapUI.getDesktop().closeDesktopPanel(resultDesktopPanel);
   inspectorPanel.release();
-  return true;
+  return release();
 }
