@@ -1,6 +1,7 @@
 {
   config.setName(file.getName());
   config.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
+  config.setContentId(file.getName());
   if (cache) {
     cacheFileLocally(file);
   }
