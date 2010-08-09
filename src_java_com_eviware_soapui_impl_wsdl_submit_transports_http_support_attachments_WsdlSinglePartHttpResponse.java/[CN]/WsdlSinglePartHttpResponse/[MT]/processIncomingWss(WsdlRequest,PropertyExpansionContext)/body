@@ -6,7 +6,7 @@
       wssResult=incomingWss.processIncoming(document,context);
       if (wssResult != null && wssResult.size() > 0) {
         StringWriter writer=new StringWriter();
-        XmlUtils.serializePretty(document,writer);
+        XmlUtils.serialize(document,writer);
         setResponseContent(writer.toString());
       }
     }
