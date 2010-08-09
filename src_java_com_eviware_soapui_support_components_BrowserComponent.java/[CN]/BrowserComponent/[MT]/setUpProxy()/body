@@ -1,4 +1,6 @@
 {
+  if (isJXBrowserDisabled())   return;
+  initialize();
   ProxyConfiguration proxyConf=Services.getProxyConfiguration();
   if (proxyConf == null)   return;
   Settings settings=SoapUI.getSettings();
