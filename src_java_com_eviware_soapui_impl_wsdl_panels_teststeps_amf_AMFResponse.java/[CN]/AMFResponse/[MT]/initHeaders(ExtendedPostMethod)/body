@@ -1,4 +1,7 @@
 {
+  requestHeaders=new StringToStringsMap();
+  responseHeaders=new StringToStringsMap();
+  if (postMethod == null)   return;
   try {
     ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
     ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
@@ -7,14 +10,12 @@
       rawResponse.write("\r\n".getBytes());
     }
     rawRequest.write((postMethod.getMethod() + " " + postMethod.getURI().toString()+ " "+ postMethod.getParams().getVersion().toString()+ "\r\n").getBytes());
-    requestHeaders=new StringToStringsMap();
     Header[] headers=postMethod.getRequestHeaders();
     for (    Header header : headers) {
       requestHeaders.add(header.getName(),header.getValue());
       rawRequest.write(header.toExternalForm().getBytes());
     }
     if (!postMethod.isFailed()) {
-      responseHeaders=new StringToStringsMap();
       headers=postMethod.getResponseHeaders();
       for (      Header header : headers) {
         responseHeaders.add(header.getName(),header.getValue());
