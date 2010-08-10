@@ -1,4 +1,5 @@
 {
+  if (messageObject == null)   return null;
   XmlObject bodyElement=SoapUtils.getBodyElement(messageObject,soapVersion);
   if (bodyElement != null) {
     XmlCursor cursor=bodyElement.newCursor();
