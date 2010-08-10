@@ -1,5 +1,15 @@
 {
   setReturnValue(XFormDialog.CANCEL_OPTION);
   show(new StringToStringMap());
+  if (dialog.getModalityType() == ModalityType.MODELESS) {
+    startSignal=new CountDownLatch(1);
+    try {
+      startSignal.await();
+    }
+ catch (    InterruptedException e) {
+      e.printStackTrace();
+    }
+    startSignal=null;
+  }
   return getReturnValue() == XFormDialog.OK_OPTION;
 }

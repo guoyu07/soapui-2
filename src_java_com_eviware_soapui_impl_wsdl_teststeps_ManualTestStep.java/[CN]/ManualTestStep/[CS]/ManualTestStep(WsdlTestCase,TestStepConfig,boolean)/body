@@ -16,11 +16,5 @@
     }
   }
 ,this));
-  addProperty(new DefaultTestStepProperty("Result",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
-    @Override public String getValue(    DefaultTestStepProperty property){
-      return getLastResult() == null ? null : getLastResult().getResult();
-    }
-  }
-,this));
-  addProperty(new TestStepBeanProperty("ExpectedResult",false,this,"endpoint",this));
+  addProperty(new TestStepBeanProperty("ExpectedResult",false,this,"expectedResult",this));
 }

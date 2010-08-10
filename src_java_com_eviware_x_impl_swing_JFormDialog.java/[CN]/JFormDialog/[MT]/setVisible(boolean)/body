@@ -1,5 +1,5 @@
 {
-  if (!resized) {
+  if (!resized && visible) {
     dialog.pack();
     if (dialog.getHeight() < 270) {
       dialog.setSize(new Dimension(dialog.getWidth(),270));
@@ -8,6 +8,9 @@
       dialog.setSize(new Dimension(450,dialog.getHeight()));
     }
   }
-  UISupport.centerDialog(dialog);
+  if (visible) {
+    UISupport.centerDialog(dialog);
+  }
   dialog.setVisible(visible);
+  if (startSignal != null)   startSignal.countDown();
 }
