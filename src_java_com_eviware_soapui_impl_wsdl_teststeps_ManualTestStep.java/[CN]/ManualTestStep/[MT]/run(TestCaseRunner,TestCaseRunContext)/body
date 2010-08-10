@@ -2,7 +2,7 @@
   testStepResult=new ManualTestStepResult(this);
   testStepResult.startTimer();
   if (!forLoadTest && !UISupport.isHeadless() && !SoapUI.isCommandLine()) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
+    XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.setSize(450,550);
     dialog.setValue(Form.DESCRIPTION,runContext.expand(getDescription()));
     dialog.setValue(Form.EXPECTED_DESULT,runContext.expand(getExpectedResult()));
