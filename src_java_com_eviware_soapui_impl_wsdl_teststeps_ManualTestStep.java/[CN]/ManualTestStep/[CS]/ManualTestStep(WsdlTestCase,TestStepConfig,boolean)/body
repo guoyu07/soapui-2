@@ -1,9 +1,26 @@
 {
   super(testCase,config,true,forLoadTest);
+  this.forLoadTest=forLoadTest;
+  if (!forLoadTest) {
+    setIcon(UISupport.createImageIcon("/manualteststep.gif"));
+  }
   if (getConfig().getConfig() != null) {
     manualTestStepConfig=(ManualTestStepConfig)getConfig().getConfig().changeType(ManualTestStepConfig.type);
   }
  else {
     manualTestStepConfig=(ManualTestStepConfig)getConfig().addNewConfig().changeType(ManualTestStepConfig.type);
   }
+  addProperty(new DefaultTestStepProperty("Result",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
+    @Override public String getValue(    DefaultTestStepProperty property){
+      return getLastResult() == null ? null : getLastResult().getResult();
+    }
+  }
+,this));
+  addProperty(new DefaultTestStepProperty("Result",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
+    @Override public String getValue(    DefaultTestStepProperty property){
+      return getLastResult() == null ? null : getLastResult().getResult();
+    }
+  }
+,this));
+  addProperty(new TestStepBeanProperty("ExpectedResult",false,this,"endpoint",this));
 }

@@ -1,0 +1,15 @@
+{
+  JPanel panel=UISupport.createEmptyPanel(3,3,3,3);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  builder.addFixed(new JLabel("<html><b>Description - Describe what actions to perform</b></html>"));
+  panel.add(builder.getPanel(),BorderLayout.NORTH);
+  descriptionField=new JUndoableTextArea(getModelItem().getDescription());
+  descriptionField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getModelItem().setDescription(descriptionField.getText());
+    }
+  }
+);
+  panel.add(new JScrollPane(descriptionField));
+  return panel;
+}

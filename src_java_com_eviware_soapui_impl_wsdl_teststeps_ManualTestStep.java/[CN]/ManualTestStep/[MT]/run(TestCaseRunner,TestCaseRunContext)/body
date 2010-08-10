@@ -1,18 +1,26 @@
 {
-  ManualTestStepResult testStepResult=new ManualTestStepResult(this);
+  testStepResult=new ManualTestStepResult(this);
   testStepResult.startTimer();
-  try {
-    if (!initManualStep(runContext)) {
-      throw new SubmitException("Manual step is not initialised properly !");
+  if (!forLoadTest && !UISupport.isHeadless()) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog.setSize(450,550);
+    dialog.setValue(Form.DESCRIPTION,runContext.expand(getDescription()));
+    dialog.setValue(Form.EXPECTED_DESULT,runContext.expand(getExpectedResult()));
+    dialog.setValue(Form.STATUS,"Unknown");
+    while (!dialog.show()) {
+      if (UISupport.confirm("Are you sure? This will stop the entire test","Cancel TestStep")) {
+        testStepResult.setStatus(TestStepStatus.CANCELED);
+        runner.cancel("Canceled by user");
+        break;
+      }
     }
-    testStepResult.setStatus(TestStepStatus.CANCELED);
-    testStepResult.addMessage("Request was canceled");
-    testStepResult.stopTimer();
+    if (dialog.getValue(Form.STATUS).equals("Pass"))     testStepResult.setStatus(TestStepStatus.OK);
+ else     if (dialog.getValue(Form.STATUS).equals("Fail"))     testStepResult.setStatus(TestStepStatus.FAILED);
+    String result=dialog.getValue(Form.RESULT);
+    if (StringUtils.hasContent(result))     testStepResult.setResult(result);
+    testStepResult.setUrls(((XFormOptionsField)dialog.getFormField(Form.URLS)).getOptions());
+    dialog.release();
   }
- catch (  SubmitException e) {
-    testStepResult.setStatus(TestStepStatus.FAILED);
-    testStepResult.addMessage("SubmitException: " + e);
-    testStepResult.stopTimer();
-  }
+  testStepResult.stopTimer();
   return testStepResult;
 }

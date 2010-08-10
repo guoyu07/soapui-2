@@ -1,5 +1,6 @@
 {
   String old=getDescription();
+  if (String.valueOf(old).equals(description))   return;
   config.setDescription(description);
   notifyPropertyChanged(DESCRIPTION_PROPERTY,old,description);
 }

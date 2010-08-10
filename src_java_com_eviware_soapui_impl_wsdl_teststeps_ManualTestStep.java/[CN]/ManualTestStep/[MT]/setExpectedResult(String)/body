@@ -1,5 +1,6 @@
 {
   String old=getExpectedResult();
+  if (String.valueOf(old).equals(expectedResult))   return;
   manualTestStepConfig.setExpectedResult(expectedResult);
   notifyPropertyChanged("expectedResult",old,expectedResult);
 }

@@ -1,0 +1,24 @@
+{
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  builder.addFixed(new JLabel("TestStep Name"));
+  builder.addRelatedGap();
+  nameField=new JUndoableTextField(getModelItem().getName());
+  nameField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getModelItem().setName(nameField.getText());
+    }
+  }
+);
+  nameField.setPreferredSize(new Dimension(200,20));
+  builder.addFixed(nameField);
+  builder.getPanel().setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  add(builder.getPanel(),BorderLayout.NORTH);
+  split=UISupport.createVerticalSplit(createDescriptionField(),createExpectedResultField());
+  add(split,BorderLayout.CENTER);
+  SwingUtilities.invokeLater(new Runnable(){
+    @Override public void run(){
+      split.setDividerLocation(200);
+    }
+  }
+);
+}

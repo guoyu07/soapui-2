@@ -1,0 +1,15 @@
+{
+  JPanel panel=UISupport.createEmptyPanel(3,3,3,3);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  builder.addFixed(new JLabel("<html><b>Expected Result - Describe the expected outcome</b></html>"));
+  panel.add(builder.getPanel(),BorderLayout.NORTH);
+  expectedResultField=new JUndoableTextArea(getModelItem().getExpectedResult());
+  expectedResultField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getModelItem().setExpectedResult(expectedResultField.getText());
+    }
+  }
+);
+  panel.add(new JScrollPane(expectedResultField));
+  return panel;
+}

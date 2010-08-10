@@ -1,0 +1,13 @@
+{
+  super.propertyChange(evt);
+  String newValue=String.valueOf(evt.getNewValue());
+  if (evt.getPropertyName().equals(ManualTestStep.NAME_PROPERTY)) {
+    if (!newValue.equals(nameField.getText()))     nameField.setText(newValue);
+  }
+ else   if (evt.getPropertyName().equals(ManualTestStep.DESCRIPTION_PROPERTY)) {
+    if (!newValue.equals(descriptionField.getText()))     descriptionField.setText(newValue);
+  }
+ else   if (evt.getPropertyName().equals("expectedResult")) {
+    if (!newValue.equals(expectedResultField.getText()))     expectedResultField.setText(newValue);
+  }
+}
