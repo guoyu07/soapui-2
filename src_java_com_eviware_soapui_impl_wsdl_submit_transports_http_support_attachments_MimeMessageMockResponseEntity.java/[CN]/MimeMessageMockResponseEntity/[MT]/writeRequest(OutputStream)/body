@@ -1,10 +1,7 @@
 {
   try {
-    if (buffer == null) {
-      arg0.write("\r\n".getBytes());
-      ((MimeMultipart)message.getContent()).writeTo(arg0);
-    }
- else     arg0.write(buffer);
+    arg0.write("\r\n".getBytes());
+    ((MimeMultipart)message.getContent()).writeTo(arg0);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

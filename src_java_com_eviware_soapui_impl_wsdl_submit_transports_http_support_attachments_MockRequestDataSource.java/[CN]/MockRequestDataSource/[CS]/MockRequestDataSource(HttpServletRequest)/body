@@ -1,8 +1,9 @@
 {
+  this.request=request;
   try {
-    data=Tools.readAll(request.getInputStream(),0).toByteArray();
     contentType=request.getContentType();
     name="Request for " + request.getPathInfo();
+    capture=new CaptureInputStream(request.getInputStream(),SoapUI.getSettings().getLong(UISettings.RAW_REQUEST_MESSAGE_SIZE,0));
   }
  catch (  Exception e) {
     SoapUI.logError(e);

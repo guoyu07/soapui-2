@@ -1,0 +1,6 @@
+{
+  if (maxSize > 0 && size() < maxSize) {
+    if (size() + len < maxSize)     super.write(b,off,len);
+ else     super.write(b,off,(int)(maxSize - size()));
+  }
+}

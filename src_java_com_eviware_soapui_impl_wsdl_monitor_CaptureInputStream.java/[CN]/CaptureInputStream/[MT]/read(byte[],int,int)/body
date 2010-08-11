@@ -1,5 +1,8 @@
 {
   int i=super.read(b,off,len);
-  if (i > 0)   capture.write(b,off,i);
+  if (i > 0 && maxData > 0 && capture.size() < maxData) {
+    if (i + capture.size() < maxData)     capture.write(b,off,i);
+ else     capture.write(b,off,(int)(maxData - capture.size()));
+  }
   return i;
 }
