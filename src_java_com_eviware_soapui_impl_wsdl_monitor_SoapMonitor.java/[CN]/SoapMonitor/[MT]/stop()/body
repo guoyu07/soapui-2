@@ -14,7 +14,7 @@
     SoapUI.getSettings().setString(ProxySettings.PORT,oldProxyPort);
     SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,oldProxyEnabled);
     ProxyUtils.setProxyEnabled(oldProxyEnabled);
-    JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
+    JToggleButton applyProxyButton=(JToggleButton)SoapUI.getApplyProxyButton();
     if (applyProxyButton != null) {
       if (oldProxyEnabled) {
         applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));

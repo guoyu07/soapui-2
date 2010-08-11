@@ -17,7 +17,7 @@
       SoapUI.getSettings().setString(ProxySettings.PORT,String.valueOf(localPort));
       SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,true);
       ProxyUtils.setProxyEnabled(true);
-      JButton applyProxyButton=(JButton)SoapUI.getApplyProxyButton();
+      JToggleButton applyProxyButton=(JToggleButton)SoapUI.getApplyProxyButton();
       if (applyProxyButton != null)       applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
     }
     SoapUI.log.info("Started HTTP Monitor on local port " + localPort);
