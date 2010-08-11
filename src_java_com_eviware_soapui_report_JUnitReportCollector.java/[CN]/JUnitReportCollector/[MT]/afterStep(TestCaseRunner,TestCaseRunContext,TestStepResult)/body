@@ -22,7 +22,6 @@
       }
       buf.append("\r\n");
     }
-    buf.append("<pre>" + XmlUtils.entitize(Arrays.toString(result.getMessages())) + "\n");
     if (testRunner.getTestCase().getSettings().getBoolean("Complete Error Logs")) {
       StringWriter stringWriter=new StringWriter();
       PrintWriter writer=new PrintWriter(stringWriter);
