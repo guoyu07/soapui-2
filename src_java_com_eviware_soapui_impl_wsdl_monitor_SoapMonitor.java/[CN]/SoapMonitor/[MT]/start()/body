@@ -16,7 +16,7 @@
       SoapUI.getSettings().setString(ProxySettings.HOST,"127.0.0.1");
       SoapUI.getSettings().setString(ProxySettings.PORT,String.valueOf(localPort));
       SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,true);
-      ProxyUtils.setProxyEnabled(true);
+      SoapUI.setProxyEnabled(true);
       JToggleButton applyProxyButton=(JToggleButton)SoapUI.getApplyProxyButton();
       if (applyProxyButton != null)       applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
     }

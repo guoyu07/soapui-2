@@ -1,6 +1,12 @@
 {
-  String request=footer.trim();
-  request+="\r\n\r\n";
-  request+=new String(capture.getCapturedData());
-  return request.getBytes();
+  ByteArrayOutputStream out=new ByteArrayOutputStream();
+  try {
+    out.write(footer.trim().getBytes());
+    out.write("\r\n\r\n".getBytes());
+    out.write(capture.getCapturedData());
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  return out.toByteArray();
 }
