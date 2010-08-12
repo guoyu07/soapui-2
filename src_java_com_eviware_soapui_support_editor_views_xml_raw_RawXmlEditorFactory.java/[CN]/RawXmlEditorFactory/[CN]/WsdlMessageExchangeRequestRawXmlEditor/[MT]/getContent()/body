@@ -1,4 +1,4 @@
 {
   MessageExchange me=request.getMessageExchange();
-  return me == null || me.getRawRequestData() == null ? "" : new String(me.getRawRequestData());
+  return me == null || me.getRawRequestData() == null ? "<missing raw request data>" : new String(me.getRawRequestData());
 }

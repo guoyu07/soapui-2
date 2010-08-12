@@ -23,6 +23,7 @@
     status=Status.ERROR;
     logger.error("Exception in request: " + e1);
     SoapUI.logError(e1);
+    if (response == null)     response=(Response)submitContext.getProperty(BaseHttpRequestTransport.RESPONSE);
   }
  finally {
     if (status != Status.CANCELED) {

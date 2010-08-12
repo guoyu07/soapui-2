@@ -3,8 +3,12 @@
     ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
     ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
     if (!httpMethod.isFailed()) {
-      rawResponse.write(String.valueOf(httpMethod.getStatusLine()).getBytes());
-      rawResponse.write("\r\n".getBytes());
+      try {
+        rawResponse.write(String.valueOf(httpMethod.getStatusLine()).getBytes());
+        rawResponse.write("\r\n".getBytes());
+      }
+ catch (      Throwable e) {
+      }
     }
     rawRequest.write((method + " " + String.valueOf(url)+ " "+ version+ "\r\n").getBytes());
     requestHeaders=new StringToStringsMap();
@@ -30,7 +34,7 @@
         httpMethod.getRequestEntity().writeRequest(tempOut);
         tempOut.writeTo(rawRequest);
       }
- else       rawResponse.write("<request data not available>".getBytes());
+ else       rawRequest.write("<request data not available>".getBytes());
     }
     if (!httpMethod.isFailed()) {
       rawResponse.write("\r\n".getBytes());
