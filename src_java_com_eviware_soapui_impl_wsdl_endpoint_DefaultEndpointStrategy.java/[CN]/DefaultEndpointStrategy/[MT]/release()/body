@@ -3,4 +3,5 @@
   for (  Interface iface : project.getInterfaceList()) {
     iface.removePropertyChangeListener(AbstractInterface.ENDPOINT_PROPERTY,propertyChangeListener);
   }
+  if (configurationPanel != null)   configurationPanel.release();
 }
