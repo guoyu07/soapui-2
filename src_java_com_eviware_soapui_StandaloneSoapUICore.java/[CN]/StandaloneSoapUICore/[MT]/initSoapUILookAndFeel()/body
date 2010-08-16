@@ -1,9 +1,6 @@
 {
   try {
-    if (PlatformContext.isMacOS()) {
-      javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-    }
- else     if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {
+    if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
  else {
