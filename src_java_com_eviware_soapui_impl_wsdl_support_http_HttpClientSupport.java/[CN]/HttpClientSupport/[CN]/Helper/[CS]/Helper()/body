@@ -6,7 +6,7 @@
     Protocol.registerProtocol("https",easyhttps);
   }
  catch (  Throwable e) {
-    SoapUI.logError(e);
+    SoapUI.log(e);
   }
   Settings settings=SoapUI.getSettings();
   connectionManager=new SoapUIMultiThreadedHttpConnectionManager();
