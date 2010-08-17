@@ -1,7 +1,15 @@
 {
-  String name=method.getName();
+  String name=getFirstTitle(method.getDocList(),method.getName());
   if (StringUtils.hasContent(method.getId()))   name+=" - " + method.getId();
-  RestMethod restMethod=newResource.addNewMethod(getFirstTitle(method.getDocList(),name));
+  if (newResource.getRestMethodByName(name) != null) {
+    int cnt=0;
+    String orgName=name;
+    while (newResource.getRestMethodByName(name) != null) {
+      cnt++;
+      name=orgName + "-" + cnt;
+    }
+  }
+  RestMethod restMethod=newResource.addNewMethod(name);
   restMethod.setMethod(RestRequestInterface.RequestMethod.valueOf(method.getName()));
   if (method.getRequest() != null) {
     for (    Param param : method.getRequest().getParamList()) {
