@@ -9,7 +9,7 @@
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpander.expandProperties(context,param.getValue());
     responseProperties.put(param.getName(),value);
-    if (value != null && !param.isDisableUrlEncoding()) {
+    if (value != null && param.getStyle() != ParameterStyle.HEADER && !param.isDisableUrlEncoding()) {
       try {
         String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
         if (StringUtils.hasContent(encoding))         value=URLEncoder.encode(value,encoding);
