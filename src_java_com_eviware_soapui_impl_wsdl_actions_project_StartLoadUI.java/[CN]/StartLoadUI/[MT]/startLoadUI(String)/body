@@ -9,11 +9,11 @@
     }
   }
   try {
-    while (!(new File(loadUIbatPath)).exists()) {
-      UISupport.showInfoMessage("No loadUI" + LOADUI_LAUNCH_EXTENSION + " in this path!");
+    while (!(new File(loadUILaunchPath)).exists()) {
+      UISupport.showInfoMessage("No loadUI" + LOADUI_LAUNCH_EXTENSION + " in path:\""+ loadUILaunchPath+ "\"");
       if (UISupport.getMainFrame() != null) {
         if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.LOADUI_SETTINGS)) {
-          loadUIbatPath=LOADUI_LAUNCH_PATH;
+          loadUILaunchPath=LOADUI_LAUNCH_PATH;
         }
  else {
           return;
