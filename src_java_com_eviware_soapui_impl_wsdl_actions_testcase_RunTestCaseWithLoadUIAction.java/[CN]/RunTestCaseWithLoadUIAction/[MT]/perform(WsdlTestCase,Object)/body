@@ -13,7 +13,7 @@
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       dialog.setOptions(Form.TESTCASE,IntegrationUtils.getAvailableTestCases(newValue));
       if (dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
-        dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(newValue,IntegrationUtils.CREATE_ON_PROJECT_LEVEL));
+        dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableSamplers(newValue,IntegrationUtils.CREATE_ON_PROJECT_LEVEL));
       }
     }
   }
@@ -21,10 +21,10 @@
   dialog.getFormField(Form.TESTCASE).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       if (newValue.equals(IntegrationUtils.CREATE_NEW_OPTION)) {
-        dialog.setOptions(Form.SOAPUISAMPLER,new String[]{IntegrationUtils.CREATE_NEW_OPTION});
+        dialog.setOptions(Form.SOAPUIRUNNER,new String[]{IntegrationUtils.CREATE_NEW_OPTION});
       }
  else {
-        dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),newValue));
+        dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),newValue));
       }
     }
   }
@@ -40,12 +40,12 @@
   if (!dialog.getValue(Form.PROJECT).equals(IntegrationUtils.getOpenedProjectName())) {
     dialog.setValue(Form.TESTCASE,IntegrationUtils.CREATE_ON_PROJECT_LEVEL);
   }
-  dialog.setOptions(Form.SOAPUISAMPLER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),dialog.getValue(Form.TESTCASE)));
-  dialog.setValue(Form.SOAPUISAMPLER,IntegrationUtils.CREATE_NEW_OPTION);
+  dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableSamplers(dialog.getValue(Form.PROJECT),dialog.getValue(Form.TESTCASE)));
+  dialog.setValue(Form.SOAPUIRUNNER,IntegrationUtils.CREATE_NEW_OPTION);
   if (dialog.show()) {
     String targetProjectString=dialog.getValue(Form.PROJECT);
     String targetTestCaseName=!dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL) ? dialog.getValue(Form.TESTCASE) : null;
-    String targetSamplerName=dialog.getValue(Form.SOAPUISAMPLER);
+    String targetSamplerName=dialog.getValue(Form.SOAPUIRUNNER);
     if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
       String openedProjectName=IntegrationUtils.getOpenedProjectName();
       if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))       if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
@@ -63,7 +63,7 @@
         return;
       }
       if (createdSamplerSettings != null) {
-        String creationInfo="SoapUISampler created under project: '" + createdSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME) + "'";
+        String creationInfo="SoapUI Runner created under project: '" + createdSamplerSettings.get(ContextMapping.LOADUI_PROJECT_NAME) + "'";
         if (targetTestCaseName != null && !targetTestCaseName.equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
           creationInfo+=", TestCase: '" + createdSamplerSettings.get(ContextMapping.LOADUI_TEST_CASE_NAME) + "'";
         }
