@@ -8,22 +8,22 @@
       SoapUI.log.error("Error while invoke cajo server in loadui ",e);
     }
   }
-  String extension=(UISupport.isWindows() ? BAT : SH);
   try {
     while (!(new File(loadUIbatPath)).exists()) {
-      UISupport.showInfoMessage("No loadUI" + extension + " in this path!");
+      UISupport.showInfoMessage("No loadUI" + LOADUI_LAUNCH_EXTENSION + " in this path!");
       if (UISupport.getMainFrame() != null) {
         if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.LOADUI_SETTINGS)) {
-          loadUIbatPath=SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"") + File.separator + LOADUI+ (UISupport.isWindows() ? BAT : SH);
+          loadUIbatPath=LOADUI_LAUNCH_PATH;
         }
  else {
           return;
         }
       }
     }
-    String[] commandsWin=new String[]{"cmd.exe","/c",LOADUI + extension};
-    String[] commandsLinux=new String[]{"sh",LOADUI + extension};
-    ProcessBuilder pb=new ProcessBuilder(UISupport.isWindows() ? commandsWin : commandsLinux);
+    String[] commandsWin=new String[]{"cmd.exe","/c",LOADUI + LOADUI_LAUNCH_EXTENSION};
+    String[] commandsLinux=new String[]{"sh",LOADUI + LOADUI_LAUNCH_EXTENSION};
+    String[] commandsMac=new String[]{"sh",LOADUI + LOADUI_LAUNCH_EXTENSION};
+    ProcessBuilder pb=new ProcessBuilder(UISupport.isWindows() ? commandsWin : UISupport.isMac() ? commandsMac : commandsLinux);
     pb.directory(new File(SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"")));
     Process p=pb.start();
   }
