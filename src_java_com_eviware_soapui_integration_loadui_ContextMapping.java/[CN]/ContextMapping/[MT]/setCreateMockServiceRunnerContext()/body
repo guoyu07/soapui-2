@@ -1,0 +1,13 @@
+{
+  HashMap<String,Object> context=new HashMap<String,Object>();
+  HashMap<String,String> properties=new HashMap<String,String>();
+  properties.put(PROJECT_FILE,createProperyValue(File.class,soapUIProjectPath));
+  properties.put(MOCK_SERVICE,createProperyValue(String.class,soapUIMockService));
+  properties.put(PATH,createProperyValue(String.class,mockServicePath));
+  properties.put(PORT,createProperyValue(String.class,mockServicePort));
+  context.put(LOADUI_PROJECT_NAME,loadUIProject);
+  context.put(LOADUI_TEST_CASE_NAME,loadUITestCase);
+  context.put(MOCKSERVICE_RUNNER_LABEL,loadUIMockServiceRunner);
+  context.put(MOCKSERVICE_RUNNER_PROPERTIES,properties);
+  return context;
+}

@@ -1,0 +1,16 @@
+{
+  HashMap<String,String> mockServiceSettings=new HashMap<String,String>();
+  try {
+    SoapUI.log("createMockRunner for soapUIProjectPath=\"" + soapUIProjectPath + "\", soapUIMockService=\""+ soapUIMockService+ "\", path=\""+ path+ "\", port=\""+ port+ "\", loadUIProject=\""+ loadUIProject+ "\", loadUITestCase=\""+ loadUITestCase+ ", \"loadUIMockRunner=\""+ mockServiceRunner+ "\"");
+    HashMap<String,Object> context=new ContextMapping(soapUIProjectPath,soapUIMockService,"","",loadUIProject,loadUITestCase,mockServiceRunner).setCreateMockServiceRunnerContext();
+    mockServiceSettings=(HashMap<String,String>)CajoClient.getInstance().invoke("createMockServiceRunner",context);
+    bringLoadUIToFront();
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return mockServiceSettings;
+}

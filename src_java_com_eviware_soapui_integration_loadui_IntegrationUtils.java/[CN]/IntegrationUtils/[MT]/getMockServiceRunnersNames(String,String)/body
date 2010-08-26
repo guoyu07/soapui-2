@@ -1,0 +1,10 @@
+{
+  List<String> mockServiceRunnersNames=new ArrayList<String>();
+  try {
+    mockServiceRunnersNames=(List<String>)CajoClient.getInstance().invoke("getMockServiceRunners",new String[]{projectName,testCaseName});
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return mockServiceRunnersNames;
+}

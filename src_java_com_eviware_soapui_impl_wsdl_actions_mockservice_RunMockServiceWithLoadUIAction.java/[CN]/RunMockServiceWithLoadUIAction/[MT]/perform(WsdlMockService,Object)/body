@@ -5,15 +5,16 @@
     }
     return;
   }
-  final String soapUITestCase=testCase.getName();
-  final String soapUITestSuite=testCase.getTestSuite().getName();
-  final String soapUIProjectPath=testCase.getTestSuite().getProject().getPath();
+  final String soapUIMockService=mockService.getName();
+  final String mockServicePath=mockService.getPath();
+  final String mockservicePort=Integer.toString(mockService.getPort());
+  final String soapUIProjectPath=mockService.getProject().getPath();
   if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
   dialog.getFormField(Form.PROJECT).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       dialog.setOptions(Form.TESTCASE,IntegrationUtils.getAvailableTestCases(newValue));
       if (dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
-        dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableRunners(newValue,IntegrationUtils.CREATE_ON_PROJECT_LEVEL));
+        dialog.setOptions(Form.MOCKSERVICERUNNER,IntegrationUtils.getAvailableRunners(newValue,IntegrationUtils.CREATE_ON_PROJECT_LEVEL));
       }
     }
   }
@@ -21,10 +22,10 @@
   dialog.getFormField(Form.TESTCASE).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       if (newValue.equals(IntegrationUtils.CREATE_NEW_OPTION)) {
-        dialog.setOptions(Form.SOAPUIRUNNER,new String[]{IntegrationUtils.CREATE_NEW_OPTION});
+        dialog.setOptions(Form.MOCKSERVICERUNNER,new String[]{IntegrationUtils.CREATE_NEW_OPTION});
       }
  else {
-        dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableRunners(dialog.getValue(Form.PROJECT),newValue));
+        dialog.setOptions(Form.MOCKSERVICERUNNER,IntegrationUtils.getAvailableMockServiceRunners(dialog.getValue(Form.PROJECT),newValue));
       }
     }
   }
@@ -40,12 +41,12 @@
   if (!dialog.getValue(Form.PROJECT).equals(IntegrationUtils.getOpenedProjectName())) {
     dialog.setValue(Form.TESTCASE,IntegrationUtils.CREATE_ON_PROJECT_LEVEL);
   }
-  dialog.setOptions(Form.SOAPUIRUNNER,IntegrationUtils.getAvailableRunners(dialog.getValue(Form.PROJECT),dialog.getValue(Form.TESTCASE)));
-  dialog.setValue(Form.SOAPUIRUNNER,IntegrationUtils.CREATE_NEW_OPTION);
+  dialog.setOptions(Form.MOCKSERVICERUNNER,IntegrationUtils.getAvailableMockServiceRunners(dialog.getValue(Form.PROJECT),dialog.getValue(Form.TESTCASE)));
+  dialog.setValue(Form.MOCKSERVICERUNNER,IntegrationUtils.CREATE_NEW_OPTION);
   if (dialog.show()) {
     String targetProjectString=dialog.getValue(Form.PROJECT);
     String targetTestCaseName=!dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL) ? dialog.getValue(Form.TESTCASE) : null;
-    String targetSoapUIRunnerName=dialog.getValue(Form.SOAPUIRUNNER);
+    String targetMockRunnerNameName=dialog.getValue(Form.MOCKSERVICERUNNER);
     if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
       String openedProjectName=IntegrationUtils.getOpenedProjectName();
       if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))       if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
@@ -56,14 +57,14 @@
       }
       HashMap<String,String> createdRunnerSettings=null;
       try {
-        createdRunnerSettings=IntegrationUtils.createSoapUIRunner(soapUIProjectPath,soapUITestSuite,soapUITestCase,targetProjectString,targetTestCaseName,targetSoapUIRunnerName);
+        createdRunnerSettings=IntegrationUtils.createMockServiceRunner(soapUIProjectPath,soapUIMockService,mockServicePath,mockservicePort,targetProjectString,targetTestCaseName,targetMockRunnerNameName);
       }
  catch (      IOException e) {
         UISupport.showInfoMessage("Error while opening selected loadUI project");
         return;
       }
       if (createdRunnerSettings != null) {
-        String creationInfo="SoapUI Runner created/updated under project: '" + createdRunnerSettings.get(ContextMapping.LOADUI_PROJECT_NAME) + "'";
+        String creationInfo="MockService Runner created/updated under project: '" + createdRunnerSettings.get(ContextMapping.LOADUI_PROJECT_NAME) + "'";
         if (targetTestCaseName != null && !targetTestCaseName.equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL)) {
           creationInfo+=", TestCase: '" + createdRunnerSettings.get(ContextMapping.LOADUI_TEST_CASE_NAME) + "'";
         }

@@ -1,0 +1,12 @@
+{
+  List<String> availableMockServiceRunners=new ArrayList<String>();
+  if (!projectName.equals(CREATE_NEW_OPTION) && isProjectOpened(projectName)) {
+    availableMockServiceRunners.addAll(getMockServiceRunnersNames(projectName,testCaseName));
+  }
+  availableMockServiceRunners.add(CREATE_NEW_OPTION);
+  String[] names=new String[availableMockServiceRunners.size()];
+  for (int c=0; c < availableMockServiceRunners.size(); c++) {
+    names[c]=availableMockServiceRunners.get(c);
+  }
+  return names;
+}

@@ -1,7 +1,7 @@
 {
   List<String> soapUISamplersNames=new ArrayList<String>();
   try {
-    soapUISamplersNames=(List<String>)CajoClient.getInstance().invoke("getSoapUISamplers",new String[]{projectName,testCaseName});
+    soapUISamplersNames=(List<String>)CajoClient.getInstance().invoke("getSoapUIRunners",new String[]{projectName,testCaseName});
   }
  catch (  Exception e) {
     SoapUI.log.error("Error while invoking cajo server in loadui ",e);

@@ -2,8 +2,8 @@
   HashMap<String,String> samplerSettings=new HashMap<String,String>();
   try {
     SoapUI.log("createSoapUISampler for soapUIProjectPath=\"" + soapUIProjectPath + "\", soapUITestSuite=\""+ soapUITestSuite+ "\", soapUITestCase=\""+ soapUITestCase+ "\", loadUIProject=\""+ loadUIProject+ "\", loadUITestCase=\""+ loadUITestCase+ ", \"loadUISoapUISampler=\""+ loadUISoapUISampler+ "\"");
-    HashMap<String,Object> context=new ContextMapping(soapUIProjectPath,soapUITestSuite,soapUITestCase,loadUIProject,loadUITestCase,loadUISoapUISampler).setCreateSoapUISamplerContext();
-    samplerSettings=(HashMap<String,String>)CajoClient.getInstance().invoke("createSoapUISampler",context);
+    HashMap<String,Object> context=new ContextMapping(soapUIProjectPath,soapUITestSuite,soapUITestCase,loadUIProject,loadUITestCase,loadUISoapUISampler).setCreateSoapUIRunnerContext();
+    samplerSettings=(HashMap<String,String>)CajoClient.getInstance().invoke("createSoapUIRunner",context);
     bringLoadUIToFront();
   }
  catch (  IOException e) {
