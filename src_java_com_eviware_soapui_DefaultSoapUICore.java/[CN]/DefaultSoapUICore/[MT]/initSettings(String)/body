@@ -63,6 +63,11 @@
     list.add("schema@http://www.w3.org/2001/XMLSchema");
     settings.setString(WsdlSettings.EXCLUDED_TYPES,list.toXml());
   }
+  if (!settings.isSet(WebRecordingSettings.EXCLUDED_HEADERS)) {
+    StringList list=new StringList();
+    list.add("Host");
+    settings.setString(WebRecordingSettings.EXCLUDED_HEADERS,list.toXml());
+  }
   if (settings.getString(HttpSettings.HTTP_VERSION,HttpSettings.HTTP_VERSION_1_1).equals(HttpSettings.HTTP_VERSION_0_9)) {
     settings.setString(HttpSettings.HTTP_VERSION,HttpSettings.HTTP_VERSION_1_1);
   }
