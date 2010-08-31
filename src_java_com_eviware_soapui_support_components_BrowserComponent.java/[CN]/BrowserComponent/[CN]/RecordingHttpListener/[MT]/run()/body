@@ -14,7 +14,7 @@
           nsIInterfaceRequestor interfaceRequestor=(nsIInterfaceRequestor)httpChannel.getNotificationCallbacks().queryInterface(nsIInterfaceRequestor.NS_IINTERFACEREQUESTOR_IID);
           nsIDOMWindow window=(nsIDOMWindow)interfaceRequestor.getInterface(nsIDOMWindow.NS_IDOMWINDOW_IID);
           BrowserComponent browserComponent=browserMap.get(window);
-          if (browserComponent != null && browserComponent == BrowserComponent.recordingBrowser) {
+          if (browserComponent != null && browserRecordingMap.containsKey(browserComponent)) {
             RecordedRequest rr=new RecordedRequest(dumpUri(httpChannel.getURI()),httpChannel.getRequestMethod());
             nsIUploadChannel upload=(nsIUploadChannel)httpChannel.queryInterface(nsIUploadChannel.NS_IUPLOADCHANNEL_IID);
             byte[] requestData=null;
@@ -55,9 +55,6 @@ synchronized (mozilla) {
             }
 );
             rr.setHeaders(headersMap);
-            if (!browserRecordingMap.containsKey(browserComponent)) {
-              browserRecordingMap.put(browserComponent,new HashMap<String,RecordedRequest>());
-            }
             browserRecordingMap.get(browserComponent).put(rr.getUrl(),rr);
           }
         }

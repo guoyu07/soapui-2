@@ -1,11 +1,12 @@
 {
   return new NewWindowContainer(){
-    public void insertBrowser(    Browser browser){
+    public void insertBrowser(    final Browser browser){
       browser.addNavigationListener(new NavigationListener(){
         @Override public void navigationStarted(        final NavigationEvent arg0){
           arg0.getBrowser().removeNavigationListener(this);
-          if (BrowserComponent.recordingBrowser != null) {
-            BrowserComponent.recordingBrowser.replaceBrowser(arg0.getBrowser());
+          BrowserComponent browserComponent=browserMap.get((((MozillaWebBrowser)((MozillaBrowser)params.getParent()).getPeer())).getWebBrowser().getContentDOMWindow());
+          if (browserRecordingMap.containsKey(browserComponent)) {
+            browserComponent.replaceBrowser(arg0.getBrowser());
           }
  else {
             SwingUtilities.invokeLater(new Runnable(){

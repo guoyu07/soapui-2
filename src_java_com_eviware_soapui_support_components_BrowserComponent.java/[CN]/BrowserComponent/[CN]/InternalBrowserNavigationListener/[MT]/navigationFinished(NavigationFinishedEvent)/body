@@ -1,5 +1,5 @@
 {
-  if (BrowserComponent.recordingBrowser == BrowserComponent.this && browserRecordingMap.containsKey(BrowserComponent.this)) {
+  if (browserRecordingMap.containsKey(BrowserComponent.this)) {
     Map<String,RecordedRequest> map=browserRecordingMap.get(BrowserComponent.this);
     RecordedRequest recordedRequest=map.get(arg0.getUrl());
     if (recordedRequest != null) {
@@ -28,5 +28,4 @@
       }
     }
   }
-  browserRecordingMap.remove(BrowserComponent.this);
 }

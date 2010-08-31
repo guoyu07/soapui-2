@@ -1,11 +1,8 @@
 {
-  if (recordingBrowser == this) {
-    httpHtmlResponseView=null;
-    recordingBrowser=null;
-  }
   if (browser != null) {
     browserMap.remove(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow());
     browserRecordingMap.remove(this);
+    httpHtmlResponseView=null;
     browser.stop();
     browser.dispose();
     browser.removeNavigationListener(internalNavigationListener);
