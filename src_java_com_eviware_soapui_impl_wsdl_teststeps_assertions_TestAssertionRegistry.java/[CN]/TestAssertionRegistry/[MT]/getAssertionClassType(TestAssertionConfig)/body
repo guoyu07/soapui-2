@@ -1,0 +1,16 @@
+{
+  try {
+    String type=config.getType();
+    TestAssertionFactory factory=availableAssertions.get(type);
+    if (factory == null) {
+      log.error("Missing assertion for type [" + type + "]");
+    }
+ else {
+      return factory.getAssertionClassType();
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}
