@@ -8,5 +8,19 @@
   context.put(LOADUI_TEST_CASE_NAME,loadUITestCase);
   context.put(SOAPUI_RUNNER_LABEL,loadUISoapUISampler);
   context.put(SOAPUI_RUNNER_PROPERTIES,properties);
+  if (!NOT_SELECTED.equals(generatorType)) {
+    mapDefaultTriggerProperties(generatorType);
+    context.put(TRIGGER_PROPERTIES,triggerProperties);
+    context.put(TRIGGER_LABEL,loadUITriggerType);
+    context.put(TRIGGER_TYPE,loadUITriggerType);
+    context.put(TRIGGER_CREATE_NEW,new Boolean(true));
+  }
+  if (!NOT_SELECTED.equals(analisysType)) {
+    mapStatisticsProperties(null);
+    context.put(STATISTICS_PROPERTIES,statisticsProperties);
+    context.put(STATISTICS_LABEL,STATISTICS);
+    context.put(STATISTICS_TYPE,STATISTICS);
+    context.put(STATISTICS_CREATE_NEW,new Boolean(true));
+  }
   return context;
 }
