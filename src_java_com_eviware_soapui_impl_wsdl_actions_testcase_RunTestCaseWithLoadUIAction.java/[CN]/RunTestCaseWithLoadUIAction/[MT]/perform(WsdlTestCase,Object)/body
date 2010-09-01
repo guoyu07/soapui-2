@@ -47,14 +47,14 @@
   dialog.setValue(Form.SOAPUIRUNNER,IntegrationUtils.CREATE_NEW_OPTION);
   dialog.setOptions(Form.GENERATOR,new String[]{EMPTY_OPTION,"Fixed Rate","Variance","Random","Ramp","Virtual Users","Fixed Load"});
   dialog.setValue(Form.GENERATOR,EMPTY_OPTION);
-  dialog.setOptions(Form.ANALISYS,new String[]{EMPTY_OPTION,"Statistics"});
-  dialog.setValue(Form.ANALISYS,EMPTY_OPTION);
+  dialog.setOptions(Form.STATISTICS,new String[]{EMPTY_OPTION,"Statistics"});
+  dialog.setValue(Form.STATISTICS,EMPTY_OPTION);
   if (dialog.show()) {
     String targetProjectString=dialog.getValue(Form.PROJECT);
     String targetTestCaseName=!dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL) ? dialog.getValue(Form.TESTCASE) : null;
     String targetSoapUIRunnerName=dialog.getValue(Form.SOAPUIRUNNER);
     generatorType=dialog.getValue(Form.GENERATOR);
-    analisysType=dialog.getValue(Form.ANALISYS);
+    analisysType=dialog.getValue(Form.STATISTICS);
     if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
       String openedProjectName=IntegrationUtils.getOpenedProjectName();
       if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))       if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
