@@ -13,7 +13,7 @@
       UISupport.showInfoMessage("No loadUI" + LOADUI_LAUNCH_EXTENSION + " in path:\""+ loadUILaunchPath+ "\"");
       if (UISupport.getMainFrame() != null) {
         if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.LOADUI_SETTINGS)) {
-          loadUILaunchPath=LOADUI_LAUNCH_PATH;
+          loadUILaunchPath=getLoadUIPath();
         }
  else {
           return;
