@@ -1,6 +1,7 @@
 {
   TestAssertionConfig conf=modelItemConfig.addNewAssertion();
   conf.set(source.getConfig());
+  conf.setName(newName);
   if (createCopy && conf.isSetId())   conf.unsetId();
   if (!source.isAllowMultiple()) {
     List<WsdlMessageAssertion> existing=getAssertionsOfType(source.getClass());
