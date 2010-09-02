@@ -3,6 +3,7 @@
   if (name == null)   return;
   while (testSuite.getTestCaseByName(name.trim()) != null) {
     name=UISupport.prompt("Specify unique name of TestCase","Rename TestCase",name);
+    if (StringUtils.isNullOrEmpty(name))     return;
   }
   WsdlTestCase testCase=testSuite.addNewTestCase(name);
   UISupport.showDesktopPanel(testCase);

@@ -1,10 +1,10 @@
 {
   String name=testStep.getName();
-  while (name == null || getTestStepByName(name) != null) {
+  while (name == null || getTestStepByName(name.trim()) != null) {
     if (name == null)     name=testStep.getName();
  else {
       int cnt=0;
-      while (getTestStepByName(name) != null) {
+      while (getTestStepByName(name.trim()) != null) {
         cnt++;
         name=testStep.getName() + " " + cnt;
       }
