@@ -11,6 +11,10 @@
   if (dialog.show()) {
     String targetTestSuiteName=dialog.getValue(Form.TESTSUITE);
     String targetTestCaseName=dialog.getValue(Form.TESTCASENAME);
+    while (StringUtils.isNullOrEmpty(dialog.getValue(Form.URL))) {
+      UISupport.showErrorMessage("You must specify the web address to start at");
+      dialog.show();
+    }
     String testStepName=dialog.getValue(Form.URL);
     WsdlTestSuite targetTestSuite=null;
     WsdlTestCase targetTestCase=null;
