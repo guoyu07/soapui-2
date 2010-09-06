@@ -2,7 +2,7 @@
   String contentType=request.getContentType();
   if (contentType != null && contentType.toUpperCase().startsWith("MULTIPART")) {
     readMultipartRequest(request);
-    contentType=mmSupport.getRootPart().getContentType();
+    if (mmSupport != null && mmSupport.getRootPart() != null)     contentType=mmSupport.getRootPart().getContentType();
   }
  else {
     this.requestContent=readRequestContent(request);
