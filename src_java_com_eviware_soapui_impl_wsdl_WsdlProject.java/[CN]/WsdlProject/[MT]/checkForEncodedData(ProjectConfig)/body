@@ -31,9 +31,11 @@
     if (decryptedData.length() > 0) {
       try {
         projectDocument.getSoapuiProject().set(XmlObject.Factory.parse(decryptedData));
+        wrongPasswordSupplied=false;
       }
  catch (      XmlException e) {
-        UISupport.showErrorMessage("Wrong password. Project need to be reloaded.");
+        UISupport.showErrorMessage("Wrong password. Project needs to be reloaded.");
+        wrongPasswordSupplied=true;
         getWorkspace().clearProjectPassword(soapuiProject.getName());
         return -1;
       }
@@ -41,6 +43,7 @@
   }
  else {
     UISupport.showErrorMessage("Wrong project password");
+    wrongPasswordSupplied=true;
     getWorkspace().clearProjectPassword(soapuiProject.getName());
     return -1;
   }
