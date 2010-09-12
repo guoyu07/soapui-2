@@ -29,8 +29,12 @@
 synchronized (mozilla) {
                       in.setInputStream(uploadStream);
                       requestData=in.readByteArray(available);
-                      rr.setContent(getRequestBody(requestData));
-                      rr.setContentType(getContentType(requestData));
+                      String requestBody=getRequestBody(requestData);
+                      if (requestBody != null && requestBody.length() > 0) {
+                        rr.setContent(requestBody);
+                        String contentType=getContentType(requestData);
+                        if (StringUtils.hasContent(contentType))                         rr.setContentType(contentType);
+                      }
                     }
                   }
  catch (                  Throwable e) {

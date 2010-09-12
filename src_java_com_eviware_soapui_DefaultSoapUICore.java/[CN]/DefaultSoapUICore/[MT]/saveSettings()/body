@@ -1,6 +1,6 @@
 {
-  if (settingsFile == null)   settingsFile=DEFAULT_SETTINGS_FILE;
-  File file=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
+  if (settingsFile == null)   settingsFile=getRoot() + File.separatorChar + DEFAULT_SETTINGS_FILE;
+  File file=new File(settingsFile);
   if (!file.canWrite()) {
     file=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);
   }
@@ -23,7 +23,11 @@ catch (    GeneralSecurityException e) {
       log.error("Encryption error",e);
     }
   }
-  settingsDocument.save(file);
+  FileOutputStream out=new FileOutputStream(file);
+  settingsDocument.save(out);
+  out.flush();
+  out.close();
   log.info("Settings saved to [" + file.getAbsolutePath() + "]");
+  lastSettingsLoad=file.lastModified();
   return file.getAbsolutePath();
 }

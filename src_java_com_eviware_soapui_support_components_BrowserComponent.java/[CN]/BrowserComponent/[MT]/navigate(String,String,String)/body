@@ -1,0 +1,14 @@
+{
+  if (errorPage != null)   setErrorPage(errorPage);
+  this.url=url;
+  if (browser == null) {
+    initBrowser();
+  }
+  if (postData != null && postData.length() > 0) {
+    browser.navigate(url,postData);
+  }
+ else {
+    browser.navigate(url);
+  }
+  if (showingErrorPage)   showingErrorPage=false;
+}

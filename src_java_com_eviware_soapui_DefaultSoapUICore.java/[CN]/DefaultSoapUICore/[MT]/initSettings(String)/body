@@ -5,10 +5,12 @@
       settingsFile=new File(new File(getRoot()),DEFAULT_SETTINGS_FILE);
       if (!settingsFile.exists()) {
         settingsFile=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);
+        lastSettingsLoad=0;
       }
     }
  else {
       settingsFile=new File(fileName);
+      if (!settingsFile.getAbsolutePath().equals(this.settingsFile))       lastSettingsLoad=0;
     }
     if (!settingsFile.exists()) {
       if (settingsDocument == null) {
@@ -16,8 +18,9 @@
         settingsDocument=SoapuiSettingsDocumentConfig.Factory.newInstance();
         setInitialImport(true);
       }
+      lastSettingsLoad=System.currentTimeMillis();
     }
- else {
+ else     if (settingsFile.lastModified() > lastSettingsLoad) {
       settingsDocument=SoapuiSettingsDocumentConfig.Factory.parse(settingsFile);
       byte[] encryptedContent=settingsDocument.getSoapuiSettings().getEncryptedContent();
       if (encryptedContent != null) {
@@ -43,11 +46,17 @@
         }
       }
       log.info("initialized soapui-settings from [" + settingsFile.getAbsolutePath() + "]");
+      lastSettingsLoad=settingsFile.lastModified();
+      if (settingsWatcher == null) {
+        settingsWatcher=new SettingsWatcher();
+        SoapUI.getSoapUITimer().scheduleAtFixedRate(settingsWatcher,10000,10000);
+      }
     }
   }
  catch (  Exception e) {
     log.warn("Failed to load settings from [" + e.getMessage() + "], creating new");
     settingsDocument=SoapuiSettingsDocumentConfig.Factory.newInstance();
+    lastSettingsLoad=0;
   }
   if (settingsDocument.getSoapuiSettings() == null) {
     settingsDocument.addNewSoapuiSettings();

@@ -9,7 +9,6 @@
   if (interval > 0) {
     gcTimerTask=new GCTimerTask();
     SoapUI.log("Scheduling garbage collection every " + interval + " seconds");
-    if (backgroundTimer == null)     backgroundTimer=new Timer("AutoSave Timer");
-    backgroundTimer.schedule(gcTimerTask,interval * 1000,interval * 1000);
+    soapUITimer.schedule(gcTimerTask,interval * 1000,interval * 1000);
   }
 }
