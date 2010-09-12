@@ -9,7 +9,14 @@
     @Override public void update(    Document document){
       if (updating)       return;
       updating=true;
-      getRequest().setEndpoint(pathTextField.getText());
+      String text=pathTextField.getText();
+      getRequest().setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(text));
+      if (!text.equals(getRequest().getEndpoint()))       SwingUtilities.invokeLater(new Runnable(){
+        @Override public void run(){
+          pathTextField.setText(getRequest().getEndpoint());
+        }
+      }
+);
       updating=false;
     }
   }
@@ -17,12 +24,7 @@
   pathTextField.addKeyListener(new KeyAdapter(){
     public void keyPressed(    KeyEvent e){
       if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-        try {
-          doSubmit();
-        }
- catch (        SubmitException e1) {
-          e1.printStackTrace();
-        }
+        onSubmit();
       }
     }
   }

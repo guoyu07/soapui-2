@@ -12,7 +12,7 @@
   try {
     if (dialog.show()) {
       HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
-      httpRequest.setEndpoint(dialog.getValue(Form.ENDPOINT));
+      httpRequest.setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(dialog.getValue(Form.ENDPOINT)));
       httpRequest.setMethod(dialog.getValue(Form.HTTPMETHOD));
       XmlBeansRestParamsTestPropertyHolder tempParams=new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters());
       tempParams.addParameters(params);
