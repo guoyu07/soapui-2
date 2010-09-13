@@ -1,5 +1,5 @@
 {
-  if (settingsFile != null) {
+  if (settingsFile != null && !isSavingSettings) {
     File file=new File(settingsFile);
     if (file.exists() && file.lastModified() > lastSettingsLoad) {
       log.info("Reloading updated settings file");
