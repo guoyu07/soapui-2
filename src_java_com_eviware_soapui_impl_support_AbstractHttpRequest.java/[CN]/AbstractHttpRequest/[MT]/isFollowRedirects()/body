@@ -1,3 +1,4 @@
 {
-  return getSettings().getBoolean(FOLLOW_REDIRECTS);
+  if (!getSettings().isSet(FOLLOW_REDIRECTS))   return true;
+ else   return getSettings().getBoolean(FOLLOW_REDIRECTS);
 }

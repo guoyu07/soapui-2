@@ -1,7 +1,9 @@
 {
-  if (httpResponse != null) {
+  hasResponseForRecording=false;
+  if (httpResponse != null && (preparingToRecord || isRecordHttpTrafic())) {
     try {
       browser.navigate(httpResponse.getURL().toURI().toString(),httpResponse.getRequestContent(),null);
+      hasResponseForRecording=true;
     }
  catch (    Throwable e) {
       e.printStackTrace();

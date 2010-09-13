@@ -4,6 +4,16 @@
     setRecordHttpTrafic(false);
   }
  else {
-    setRecordHttpTrafic(true);
+    if (!hasResponseForRecording) {
+      try {
+        preparingToRecord=true;
+        getHttpRequest().submit(new WsdlSubmitContext(getHttpRequest()),false);
+      }
+ catch (      SubmitException e) {
+        e.printStackTrace();
+      }
+      preparingToRecord=false;
+      setRecordHttpTrafic(true);
+    }
   }
 }
