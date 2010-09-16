@@ -1,0 +1,15 @@
+{
+  if (parameters != null && parameters.length == 1) {
+    String projectFilePath=parameters[0];
+    try {
+      Workspace workspace=SoapUI.getWorkspace();
+      Project project=findProject(projectFilePath,workspace);
+      project=openProject(projectFilePath,workspace,project);
+      showModelItem(project);
+      bringToFront();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+}
