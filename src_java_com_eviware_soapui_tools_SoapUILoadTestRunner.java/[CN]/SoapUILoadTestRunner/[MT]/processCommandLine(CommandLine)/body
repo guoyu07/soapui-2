@@ -1,7 +1,16 @@
 {
+  String message="";
   if (cmd.hasOption("e"))   setEndpoint(cmd.getOptionValue("e"));
-  if (cmd.hasOption("s"))   setTestSuite(getCommandLineOptionSubstSpace(cmd,"s"));
-  if (cmd.hasOption("c"))   setTestCase(cmd.getOptionValue("c"));
+  if (cmd.hasOption("s")) {
+    String testSuite=getCommandLineOptionSubstSpace(cmd,"s");
+    setTestSuite(testSuite);
+    message+=validateTestSuite();
+  }
+  if (cmd.hasOption("c")) {
+    String testCase=cmd.getOptionValue("c");
+    setTestCase(testCase);
+    message+=validateTestCase();
+  }
   if (cmd.hasOption("l"))   setLoadTest(cmd.getOptionValue("l"));
   if (cmd.hasOption("u"))   setUsername(cmd.getOptionValue("u"));
   if (cmd.hasOption("p"))   setPassword(cmd.getOptionValue("p"));
@@ -28,6 +37,10 @@
   }
   if (cmd.hasOption("P")) {
     setProjectProperties(cmd.getOptionValues("P"));
+  }
+  if (message.length() > 0) {
+    log.error(message);
+    return false;
   }
   return true;
 }

@@ -1,7 +1,16 @@
 {
+  String message="";
   if (cmd.hasOption("e"))   setEndpoint(cmd.getOptionValue("e"));
-  if (cmd.hasOption("s"))   setTestSuite(getCommandLineOptionSubstSpace(cmd,"s"));
-  if (cmd.hasOption("c"))   setTestCase(getCommandLineOptionSubstSpace(cmd,"c"));
+  if (cmd.hasOption("s")) {
+    String testSuite=getCommandLineOptionSubstSpace(cmd,"s");
+    setTestSuite(testSuite);
+    message+=validateTestSuite();
+  }
+  if (cmd.hasOption("c")) {
+    String testCase=getCommandLineOptionSubstSpace(cmd,"c");
+    setTestCase(testCase);
+    message+=validateTestCase();
+  }
   if (cmd.hasOption("u"))   setUsername(cmd.getOptionValue("u"));
   if (cmd.hasOption("p"))   setPassword(cmd.getOptionValue("p"));
   if (cmd.hasOption("w"))   setWssPasswordType(cmd.getOptionValue("w"));
@@ -35,5 +44,9 @@
   setJUnitReport(cmd.hasOption("j"));
   if (cmd.hasOption("m"))   setMaxErrors(Integer.parseInt(cmd.getOptionValue("m")));
   setSaveAfterRun(cmd.hasOption("S"));
+  if (message.length() > 0) {
+    log.error(message);
+    return false;
+  }
   return true;
 }
