@@ -5,7 +5,7 @@
   }
   dialog.setOptions(Form.TESTSUITE,ModelSupport.getNames(new String[]{CREATE_NEW_OPTION},project.getTestSuiteList()));
   dialog.setValue(Form.TESTSUITE,CREATE_NEW_OPTION);
-  dialog.setValue(Form.TESTCASENAME,"Web Test");
+  dialog.setValue(Form.TESTCASENAME,"Web TestCase");
   dialog.setValue(Form.URL,"");
   dialog.setValue(Form.STARTRECORDING,Boolean.toString(true));
   if (dialog.show()) {
@@ -20,7 +20,7 @@
     WsdlTestCase targetTestCase=null;
     targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
     if (targetTestSuite == null) {
-      targetTestSuiteName="Web Test TestSuite";
+      targetTestSuiteName="Web TestSuite";
       while (project.getTestSuiteByName(targetTestSuiteName) != null) {
         targetTestSuiteName=UISupport.prompt("TestSuite name must be unique, please specify new name for TestSuite\n" + "[" + project.getName() + "->"+ targetTestSuiteName+ "]","Change TestSuite name",targetTestSuiteName);
         if (targetTestSuiteName == null)         return;
