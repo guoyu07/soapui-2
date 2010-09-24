@@ -131,5 +131,6 @@
     String wsiDir=System.getProperty("wsi.dir",new File(".").getAbsolutePath());
     settings.setString(WSISettings.WSI_LOCATION,wsiDir);
   }
+  HttpClientSupport.addSSLListener(settings);
   return settings;
 }
