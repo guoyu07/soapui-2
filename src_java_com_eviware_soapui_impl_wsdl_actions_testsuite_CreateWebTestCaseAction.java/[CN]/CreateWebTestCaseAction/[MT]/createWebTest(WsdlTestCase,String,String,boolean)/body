@@ -1,0 +1,22 @@
+{
+  HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
+  httpRequest.setMethod(HttpMethodType.GET.toString());
+  httpRequest.setEndpoint(endpoint);
+  TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+  testStepConfig.setType(HttpRequestStepFactory.HTTPREQUEST_TYPE);
+  testStepConfig.setConfig(httpRequest);
+  testStepConfig.setName(name);
+  HttpTestRequestStep testStep=(HttpTestRequestStep)targetTestCase.addTestStep(testStepConfig);
+  HttpTestRequestDesktopPanel desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
+  try {
+    testStep.getTestRequest().submit(new WsdlTestRunContext(testStep),true);
+  }
+ catch (  SubmitException e) {
+    e.printStackTrace();
+  }
+  HttpHtmlResponseView htmlResponseView=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
+  if (startRecording) {
+    htmlResponseView.setRecordHttpTrafic(true);
+  }
+  desktopPanel.focusResponseInTabbedView(true);
+}
