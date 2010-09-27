@@ -14,6 +14,8 @@
     }
   }
  else {
-    recentProjectsMenu.add("- empty -").setEnabled(false);
+    recentProjectsMenu.add(EMPTYMARKER).setEnabled(false);
   }
+  recentProjectsMenu.addSeparator();
+  recentProjectsMenu.add(new ClearProjectsAction()).setEnabled(history.size() > 0);
 }

@@ -1,6 +1,6 @@
 {
   for (int c=0; c < recentEditorsMenu.getItemCount(); c++) {
-    ShowEditorAction action=(ShowEditorAction)recentEditorsMenu.getItem(c).getAction();
+    ShowEditorAction action=getShowEditorAction(recentEditorsMenu,c);
     if (action == null)     continue;
     if (action.isReleased()) {
       recentEditorsMenu.remove(c);

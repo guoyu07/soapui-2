@@ -1,0 +1,7 @@
+{
+  if (!UISupport.confirm("Remove all Editors from this menu?","Question"))   return;
+  recentEditorsMenu.removeAll();
+  recentEditorsMenu.add(EMPTYMARKER).setEnabled(false);
+  recentEditorsMenu.addSeparator();
+  recentEditorsMenu.add(new ClearEditorsAction());
+}

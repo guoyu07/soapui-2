@@ -2,16 +2,18 @@
   recentWorkspacesMenu=recentWorkspacesMenu2;
   recentProjectsMenu=recentProjectsMenu2;
   recentEditorsMenu=recentEditorsMenu2;
-  recentEditorsMenu.add("- empty -").setEnabled(false);
+  recentEditorsMenu.add(EMPTYMARKER).setEnabled(false);
   recentEditorsMenu.getPopupMenu().addPopupMenuListener(new PopupMenuListener(){
     public void popupMenuCanceled(    PopupMenuEvent e){
     }
     public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
     }
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      int editorCount=0;
       for (int c=0; c < recentEditorsMenu.getItemCount(); c++) {
-        ShowEditorAction action=(ShowEditorAction)recentEditorsMenu.getItem(c).getAction();
+        ShowEditorAction action=getShowEditorAction(recentEditorsMenu,c);
         if (action == null)         continue;
+        editorCount++;
         if (action.isReleased()) {
           recentEditorsMenu.remove(c);
           c--;
@@ -26,7 +28,19 @@
           }
         }
       }
-      if (recentEditorsMenu.getItemCount() == 0)       recentEditorsMenu.add("- empty -").setEnabled(false);
+      JMenuItem clearAllItem=null;
+      for (int i=0; i < recentEditorsMenu.getItemCount(); ++i) {
+        JMenuItem editorItem=recentEditorsMenu.getItem(i);
+        if (editorItem == null)         continue;
+        if (editorItem.getText().equals(CLEAR_ITEMS))         clearAllItem=editorItem;
+      }
+      if (clearAllItem == null) {
+        clearAllItem=new JMenuItem(new ClearEditorsAction());
+        recentEditorsMenu.addSeparator();
+        recentEditorsMenu.add(clearAllItem);
+      }
+      clearAllItem.setEnabled(editorCount > 0);
+      if (editorCount == 0 && recentEditorsMenu.getItemCount() <= 2)       recentEditorsMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
     }
   }
 );

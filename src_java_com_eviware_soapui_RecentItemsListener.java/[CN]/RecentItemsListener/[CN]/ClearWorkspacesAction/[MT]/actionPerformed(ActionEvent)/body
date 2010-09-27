@@ -1,0 +1,6 @@
+{
+  if (!UISupport.confirm("Remove all Workspaces from this menu?","Question"))   return;
+  StringToStringMap emptyMap=new StringToStringMap();
+  SoapUI.getSettings().setString(RECENT_WORKSPACES_SETTING,emptyMap.toXml());
+  updateRecentWorkspacesMenu();
+}

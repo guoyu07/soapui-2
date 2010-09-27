@@ -1,0 +1,7 @@
+{
+  JMenuItem menuItem=recentEditorsMenu.getItem(i);
+  if (menuItem == null)   return null;
+  Action unknownAction=menuItem.getAction();
+  if (unknownAction == null || !(unknownAction instanceof ShowEditorAction))   return null;
+  return (ShowEditorAction)unknownAction;
+}

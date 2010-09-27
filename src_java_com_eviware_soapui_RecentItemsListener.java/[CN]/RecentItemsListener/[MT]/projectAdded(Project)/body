@@ -17,5 +17,8 @@
       break;
     }
   }
-  if (recentProjectsMenu.getItemCount() == 0)   recentProjectsMenu.add("- empty -").setEnabled(false);
+  if (recentProjectsMenu.getItemCount() == 2) {
+    recentProjectsMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
+    recentProjectsMenu.getItem(recentProjectsMenu.getItemCount() - 1).setEnabled(false);
+  }
 }

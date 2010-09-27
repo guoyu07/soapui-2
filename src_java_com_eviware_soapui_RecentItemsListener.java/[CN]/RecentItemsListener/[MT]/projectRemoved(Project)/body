@@ -9,8 +9,8 @@
   mapping.setName(project.getName());
   mapping.setDescription("Switches to the [" + project.getName() + "] project");
   AbstractAction delegate=new SwingActionDelegate(mapping,SoapUI.getWorkspace());
-  recentProjectsMenu.add(new JMenuItem(delegate));
-  SwingActionDelegate action=(SwingActionDelegate)recentProjectsMenu.getItem(0).getAction();
-  if (action == null)   recentProjectsMenu.remove(0);
+  recentProjectsMenu.add(new JMenuItem(delegate),recentProjectsMenu.getItemCount() - 2);
+  recentProjectsMenu.getItem(recentProjectsMenu.getItemCount() - 1).setEnabled(true);
+  if (isEmptyMarker(recentProjectsMenu.getItem(0)))   recentProjectsMenu.remove(0);
   removeProjectEditors(project);
 }

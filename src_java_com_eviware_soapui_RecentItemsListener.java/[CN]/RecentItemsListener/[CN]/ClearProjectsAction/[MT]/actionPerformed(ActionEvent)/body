@@ -1,0 +1,6 @@
+{
+  if (!UISupport.confirm("Remove all Projects from this menu?","Question"))   return;
+  StringToStringMap emptyMap=new StringToStringMap();
+  SoapUI.getSettings().setString(RECENT_PROJECTS_SETTING,emptyMap.toXml());
+  updateRecentProjectsMenu();
+}
