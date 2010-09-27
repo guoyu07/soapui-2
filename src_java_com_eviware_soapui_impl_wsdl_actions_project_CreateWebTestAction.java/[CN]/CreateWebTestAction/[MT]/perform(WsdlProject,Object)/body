@@ -15,7 +15,8 @@
       UISupport.showErrorMessage("You must specify the web address to start at");
       dialog.show();
     }
-    String testStepName=dialog.getValue(Form.URL);
+    String url=dialog.getValue(Form.URL);
+    String testStepName=HttpUtils.ensureEndpointStartsWithProtocol(url);
     WsdlTestSuite targetTestSuite=null;
     WsdlTestCase targetTestCase=null;
     targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
@@ -39,6 +40,6 @@
       testStepName=UISupport.prompt("TestStep name must be unique, please specify new name for step\n" + "[" + testStepName + "] in TestCase ["+ project.getName()+ "->"+ targetTestSuiteName+ "->"+ targetTestCaseName+ "]","Change TestStep name",testStepName);
       if (testStepName == null)       return;
     }
-    createWebTest(targetTestCase,dialog.getValue(Form.URL),testStepName,dialog.getBooleanValue(Form.STARTRECORDING));
+    createWebTest(targetTestCase,HttpUtils.ensureEndpointStartsWithProtocol(url),testStepName,dialog.getBooleanValue(Form.STARTRECORDING));
   }
 }
