@@ -11,6 +11,12 @@
   internalNavigationListener=new InternalBrowserNavigationListener();
   browser.addNavigationListener(internalNavigationListener);
   browser.addStatusListener(this);
+  browser.addNavigationListener(new NavigationAdapter(){
+    @Override public void navigationFinished(    NavigationFinishedEvent evt){
+      if (evt.getUrl().equals(SoapUI.PUSH_PAGE_URL) && !(NavigationStatusCode.OK == evt.getStatusCode()))       browser.navigate(SoapUI.PUSH_PAGE_ERROR_URL);
+    }
+  }
+);
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   return true;
 }
