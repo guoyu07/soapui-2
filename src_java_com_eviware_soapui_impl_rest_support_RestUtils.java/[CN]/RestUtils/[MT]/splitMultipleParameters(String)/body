@@ -1,0 +1,11 @@
+{
+  Matcher matcher=splitPattern.matcher(paramStr);
+  List<String> parts=new ArrayList<String>();
+  int i=0;
+  while (matcher.find()) {
+    parts.add(paramStr.substring(i,matcher.start() + 1).replaceAll("\\|\\|","|"));
+    i=matcher.start() + 2;
+  }
+  parts.add(paramStr.substring(i,paramStr.length()).replaceAll("\\|\\|","|"));
+  return parts;
+}
