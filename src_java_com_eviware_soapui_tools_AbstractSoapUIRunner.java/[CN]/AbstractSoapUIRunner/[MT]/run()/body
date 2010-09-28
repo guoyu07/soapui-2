@@ -1,5 +1,11 @@
 {
   SoapUI.setSoapUICore(createSoapUICore(),true);
   SoapUI.initGCTimer();
-  return runRunner();
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
+  try {
+    return runRunner();
+  }
+  finally {
+    state.restore();
+  }
 }
