@@ -1,0 +1,18 @@
+{
+  String extDir=System.getProperty("soapui.ext.libraries");
+  File dir=extDir != null ? new File(extDir) : new File(new File(root),"ext");
+  List<URL> urls=new ArrayList<URL>();
+  if (dir.exists() && dir.isDirectory()) {
+    File[] files=dir.listFiles();
+    for (    File file : files) {
+      if (file.getName().toLowerCase().endsWith(".jar")) {
+        urls.add(file.toURI().toURL());
+        SoapUI.log.info("Adding [" + file.getAbsolutePath() + "] to extensions classpath");
+      }
+    }
+  }
+ else {
+    SoapUI.log.warn("Missing folder [" + dir.getAbsolutePath() + "] for external libraries");
+  }
+  return new SoapUIExtensionClassLoader(urls.toArray(new URL[urls.size()]),parent);
+}

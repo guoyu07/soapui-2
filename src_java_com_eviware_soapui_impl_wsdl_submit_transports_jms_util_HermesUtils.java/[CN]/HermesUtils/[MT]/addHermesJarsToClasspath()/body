@@ -13,6 +13,7 @@
     String filename=file.getName();
     if (!filename.endsWith(".jar") || filename.equals("cglib-2.1.3.jar"))     continue;
     urls.add(file.toURI().toURL());
-    HermesJMSClasspathHacker.addFile(new File(dir,filename));
+    SoapUIExtensionClassLoader cl=SoapUI.getSoapUICore().getExtensionClassLoader();
+    cl.addFile(new File(dir,filename));
   }
 }

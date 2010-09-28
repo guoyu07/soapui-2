@@ -1,3 +1,4 @@
 {
-  return SoapUI.class.getClassLoader();
+  if (extClassLoader == null)   loadExternalLibraries();
+  return extClassLoader;
 }

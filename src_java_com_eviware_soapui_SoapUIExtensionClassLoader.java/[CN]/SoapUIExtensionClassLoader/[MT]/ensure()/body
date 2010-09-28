@@ -1,0 +1,13 @@
+{
+  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
+  SoapUIClassLoaderState state=clStates.get(contextClassLoader);
+  if (state == null) {
+    ClassLoader cl=contextClassLoader;
+    while (cl != null && !(cl instanceof SoapUIExtensionClassLoader)) {
+      cl=cl.getParent();
+    }
+    state=new SoapUIClassLoaderState(cl == null ? contextClassLoader : null);
+    clStates.put(contextClassLoader,state);
+  }
+  return state.activate();
+}
