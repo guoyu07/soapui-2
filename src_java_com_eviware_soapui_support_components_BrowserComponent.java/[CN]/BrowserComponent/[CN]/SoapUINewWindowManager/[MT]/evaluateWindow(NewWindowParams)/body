@@ -2,7 +2,7 @@
   return new NewWindowContainer(){
     public void insertBrowser(    final Browser browser){
       browser.addNavigationListener(new NavigationListener(){
-        @Override public void navigationStarted(        final NavigationEvent arg0){
+        public void navigationStarted(        final NavigationEvent arg0){
           arg0.getBrowser().removeNavigationListener(this);
           BrowserComponent browserComponent=browserMap.get((((MozillaWebBrowser)((MozillaBrowser)params.getParent()).getPeer())).getWebBrowser().getContentDOMWindow());
           if (browserRecordingMap.containsKey(browserComponent)) {
@@ -10,7 +10,7 @@
           }
  else {
             SwingUtilities.invokeLater(new Runnable(){
-              @Override public void run(){
+              public void run(){
                 if (UISupport.confirm("Open [" + arg0.getUrl() + "] with system Browser?","Open URL"))                 Tools.openURL(arg0.getUrl());
               }
             }
@@ -18,7 +18,7 @@
             arg0.getBrowser().dispose();
           }
         }
-        @Override public void navigationFinished(        NavigationFinishedEvent arg0){
+        public void navigationFinished(        NavigationFinishedEvent arg0){
         }
       }
 );

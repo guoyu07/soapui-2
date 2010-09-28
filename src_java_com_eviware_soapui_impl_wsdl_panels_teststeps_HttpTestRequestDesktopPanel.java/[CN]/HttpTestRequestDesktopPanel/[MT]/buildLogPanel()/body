@@ -1,7 +1,7 @@
 {
   logArea=new JLogList("Request Log");
   logArea.getLogList().getModel().addListDataListener(new ListDataChangeListener(){
-    public void dataChanged(    ListModel model){
+    @Override public void dataChanged(    ListModel model){
       logInspector.setTitle("Request Log (" + model.getSize() + ")");
     }
   }
