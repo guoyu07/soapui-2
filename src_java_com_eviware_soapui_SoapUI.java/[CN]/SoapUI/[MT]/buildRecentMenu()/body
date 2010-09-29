@@ -6,6 +6,9 @@
   recentMenu.add(recentEditorsMenu);
   recentMenu.add(recentProjectsMenu);
   recentMenu.add(recentWorkspacesMenu);
+  MenuScroller.setScrollerFor(recentEditorsMenu,24,125,0,1);
+  MenuScroller.setScrollerFor(recentProjectsMenu,24,125,0,1);
+  MenuScroller.setScrollerFor(recentWorkspacesMenu,24,125,0,1);
   RecentItemsListener recentItemsListener=new RecentItemsListener(recentWorkspacesMenu,recentProjectsMenu,recentEditorsMenu);
   workspace.addWorkspaceListener(recentItemsListener);
   desktop.addDesktopListener(recentItemsListener);

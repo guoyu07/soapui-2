@@ -8,9 +8,13 @@
     SoapUI.getSettings().setString(RECENT_WORKSPACES_SETTING,history.toXml());
   }
   for (int c=0; c < recentWorkspacesMenu.getItemCount(); c++) {
-    SwingActionDelegate action=(SwingActionDelegate)recentWorkspacesMenu.getItem(c).getAction();
-    if (action == null)     continue;
-    SoapUIActionMapping mapping=action.getMapping();
+    JMenuItem item=recentWorkspacesMenu.getItem(c);
+    if (item == null)     continue;
+    Action action=item.getAction();
+    if (!(action instanceof SwingActionDelegate))     continue;
+    SwingActionDelegate actionDelegate=(SwingActionDelegate)action;
+    if (actionDelegate == null)     continue;
+    SoapUIActionMapping mapping=actionDelegate.getMapping();
     if (filePath.equals(mapping.getParam())) {
       recentWorkspacesMenu.remove(c);
       break;
