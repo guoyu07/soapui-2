@@ -1,0 +1,13 @@
+{
+  String loadUIPath=SoapUI.getSettings().getString(LoadUISettings.LOADUI_PATH,"");
+  if (loadUIPath == null || loadUIPath.trim().length() == 0) {
+    try {
+      loadUIPath=(String)invoke("getLoadUIPath",null);
+      if (loadUIPath != null) {
+        SoapUI.getSettings().setString(LoadUISettings.LOADUI_PATH,loadUIPath);
+      }
+    }
+ catch (    Exception e) {
+    }
+  }
+}
