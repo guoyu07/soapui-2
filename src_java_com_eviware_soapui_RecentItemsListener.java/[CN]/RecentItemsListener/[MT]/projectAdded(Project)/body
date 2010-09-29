@@ -8,7 +8,7 @@
     history.remove(filePath);
     SoapUI.getSettings().setString(RECENT_PROJECTS_SETTING,history.toXml());
   }
-  for (int c=0; c < recentProjectsMenu.getItemCount(); c++) {
+  for (int c=0; c < recentProjectsMenu.getItemCount() - 2; c++) {
     JMenuItem item=recentWorkspacesMenu.getItem(c);
     if (item == null)     continue;
     Action action=item.getAction();
