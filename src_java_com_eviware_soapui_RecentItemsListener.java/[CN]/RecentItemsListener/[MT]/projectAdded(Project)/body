@@ -9,7 +9,7 @@
     SoapUI.getSettings().setString(RECENT_PROJECTS_SETTING,history.toXml());
   }
   for (int c=0; c < recentProjectsMenu.getItemCount() - 2; c++) {
-    JMenuItem item=recentWorkspacesMenu.getItem(c);
+    JMenuItem item=recentProjectsMenu.getItem(c);
     if (item == null)     continue;
     Action action=item.getAction();
     if (!(action instanceof SwingActionDelegate))     continue;
