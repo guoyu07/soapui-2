@@ -1,6 +1,5 @@
 {
-  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
-  Thread.currentThread().setContextClassLoader(SoapUI.class.getClassLoader());
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     log.info("Loading schema types from [" + wsdlUrl + "]");
     ArrayList<XmlObject> schemas=new ArrayList<XmlObject>(getSchemas(wsdlUrl,loader).values());
@@ -11,6 +10,6 @@
     throw new SchemaException("Error loading schema types",e);
   }
  finally {
-    Thread.currentThread().setContextClassLoader(contextClassLoader);
+    state.restore();
   }
 }

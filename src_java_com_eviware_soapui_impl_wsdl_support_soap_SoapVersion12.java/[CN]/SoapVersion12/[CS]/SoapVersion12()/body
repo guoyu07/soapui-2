@@ -1,6 +1,5 @@
 {
-  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
-  Thread.currentThread().setContextClassLoader(SoapUI.class.getClassLoader());
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     soapSchemaXml=XmlObject.Factory.parse(SoapUI.class.getResource("/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd"));
     soapSchema=XmlBeans.loadXsd(new XmlObject[]{soapSchemaXml});
@@ -10,6 +9,6 @@
     SoapUI.logError(e);
   }
  finally {
-    Thread.currentThread().setContextClassLoader(contextClassLoader);
+    state.restore();
   }
 }

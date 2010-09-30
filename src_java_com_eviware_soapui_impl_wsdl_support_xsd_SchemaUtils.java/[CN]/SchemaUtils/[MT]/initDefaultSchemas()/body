@@ -1,6 +1,5 @@
 {
-  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
-  Thread.currentThread().setContextClassLoader(SoapUI.class.getClassLoader());
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     defaultSchemas.clear();
     String root="/com/eviware/soapui/resources/xsds";
@@ -21,6 +20,6 @@
     SoapUI.logError(e);
   }
  finally {
-    Thread.currentThread().setContextClassLoader(contextClassLoader);
+    state.restore();
   }
 }
