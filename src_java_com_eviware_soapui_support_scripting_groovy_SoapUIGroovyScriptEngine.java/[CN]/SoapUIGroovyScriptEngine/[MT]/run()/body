@@ -1,5 +1,6 @@
 {
   saver.lockSave();
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     if (StringUtils.isNullOrEmpty(scriptText))     return null;
     if (script == null) {
@@ -9,6 +10,7 @@
     return result;
   }
   finally {
+    state.restore();
     saver.unlockSave();
   }
 }

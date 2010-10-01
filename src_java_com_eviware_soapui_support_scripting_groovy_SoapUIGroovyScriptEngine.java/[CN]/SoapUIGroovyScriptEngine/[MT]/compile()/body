@@ -1,6 +1,12 @@
 {
   if (script == null) {
-    script=shell.parse(scriptText);
-    script.setBinding(binding);
+    SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
+    try {
+      script=shell.parse(scriptText);
+      script.setBinding(binding);
+    }
+  finally {
+      state.restore();
+    }
   }
 }
