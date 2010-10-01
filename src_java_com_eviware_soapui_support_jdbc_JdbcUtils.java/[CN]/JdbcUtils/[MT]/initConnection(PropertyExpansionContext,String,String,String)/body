@@ -10,6 +10,7 @@
     connStr=connStr.replaceFirst(PASS_TEMPLATE,pass);
   }
   try {
+    GroovyUtils.registerJdbcDriver(drvr);
     DriverManager.getDriver(connStr);
   }
  catch (  SQLException e) {
