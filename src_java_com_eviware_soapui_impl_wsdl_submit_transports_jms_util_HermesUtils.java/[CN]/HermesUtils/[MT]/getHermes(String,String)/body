@@ -1,4 +1,5 @@
 {
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   if (!hermesJarsLoaded) {
     addHermesJarsToClasspath();
     hermesJarsLoaded=true;
@@ -16,5 +17,6 @@
     return ctx;
   }
   finally {
+    state.restore();
   }
 }

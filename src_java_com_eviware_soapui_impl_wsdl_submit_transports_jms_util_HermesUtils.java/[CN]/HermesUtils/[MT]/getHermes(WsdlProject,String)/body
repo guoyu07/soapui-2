@@ -1,5 +1,5 @@
 {
-  ClassLoader contextClassLoader=Thread.currentThread().getContextClassLoader();
+  SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     Context ctx=hermesContext(project);
     Hermes hermes=(Hermes)ctx.lookup(sessionName);
@@ -16,7 +16,7 @@ catch (  IOException ioe) {
     SoapUI.logError(ioe);
   }
  finally {
-    Thread.currentThread().setContextClassLoader(contextClassLoader);
+    state.restore();
   }
   return null;
 }
