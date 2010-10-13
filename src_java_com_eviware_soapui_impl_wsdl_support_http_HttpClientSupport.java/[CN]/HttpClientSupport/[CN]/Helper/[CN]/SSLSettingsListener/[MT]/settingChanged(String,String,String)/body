@@ -1,5 +1,5 @@
 {
-  if (newValue == null)   return;
+  if (!StringUtils.hasContent(newValue))   return;
   if (name.equals(SSLSettings.KEYSTORE) || name.equals(SSLSettings.KEYSTORE_PASSWORD)) {
     try {
       log.info("Updating keyStore..");
