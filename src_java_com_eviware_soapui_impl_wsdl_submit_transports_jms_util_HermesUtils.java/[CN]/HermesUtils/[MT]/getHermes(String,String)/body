@@ -8,6 +8,7 @@
     return contextMap.get(key);
   }
   try {
+    Thread.currentThread().setContextClassLoader(JAXBHermesLoader.class.getClassLoader());
     Properties props=new Properties();
     props.put(Context.INITIAL_CONTEXT_FACTORY,HermesInitialContextFactory.class.getName());
     props.put(Context.PROVIDER_URL,hermesConfigPath + File.separator + HERMES_CONFIG_XML);
