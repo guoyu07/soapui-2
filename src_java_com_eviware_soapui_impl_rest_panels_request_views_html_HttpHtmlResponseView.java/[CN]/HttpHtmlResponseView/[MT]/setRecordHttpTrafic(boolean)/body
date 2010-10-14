@@ -3,12 +3,14 @@
   if (recordHttpTrafic) {
     recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
     recordButton.setToolTipText("Stop recording");
+    recordButton.setSelected(true);
     browser.setRecordingHttpHtmlResponseView(HttpHtmlResponseView.this);
   }
  else {
     browser.setRecordingHttpHtmlResponseView(null);
     recordButton.setIcon(UISupport.createImageIcon("/record_http_false.gif"));
     recordButton.setToolTipText("Start recording");
+    recordButton.setSelected(false);
   }
   this.recordHttpTrafic=recordHttpTrafic;
 }
