@@ -7,16 +7,16 @@
   testStepConfig.setConfig(httpRequest);
   testStepConfig.setName(name);
   HttpTestRequestStep testStep=(HttpTestRequestStep)targetTestCase.addTestStep(testStepConfig);
-  HttpTestRequestDesktopPanel desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
+  desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
+  HttpTestRequest testRequest=null;
+  WebTestSubmitListener wtListener=new WebTestSubmitListener(startRecording);
   try {
-    testStep.getTestRequest().submit(new WsdlTestRunContext(testStep),true);
+    testRequest=testStep.getTestRequest();
+    testRequest.addSubmitListener(wtListener);
+    testRequest.submit(new WsdlTestRunContext(testStep),true);
   }
  catch (  SubmitException e) {
     e.printStackTrace();
-  }
-  HttpHtmlResponseView htmlResponseView=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
-  if (startRecording) {
-    htmlResponseView.setRecordHttpTrafic(true);
   }
   desktopPanel.focusResponseInTabbedView(true);
 }
