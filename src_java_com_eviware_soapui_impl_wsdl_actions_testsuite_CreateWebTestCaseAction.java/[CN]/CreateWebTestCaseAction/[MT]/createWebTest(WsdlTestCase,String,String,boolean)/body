@@ -9,11 +9,16 @@
   HttpTestRequestStep testStep=(HttpTestRequestStep)targetTestCase.addTestStep(testStepConfig);
   desktopPanel=(HttpTestRequestDesktopPanel)UISupport.selectAndShow(testStep);
   HttpTestRequest testRequest=null;
-  WebTestSubmitListener wtListener=new WebTestSubmitListener(startRecording);
   try {
     testRequest=testStep.getTestRequest();
-    testRequest.addSubmitListener(wtListener);
-    testRequest.submit(new WsdlTestRunContext(testStep),true);
+    WsdlSubmit<HttpRequest> submitRequest=testRequest.submit(new WsdlTestRunContext(testStep),true);
+    while (submitRequest.getStatus() != Status.FINISHED) {
+      submitRequest.waitUntilFinished();
+    }
+    if (startRecording) {
+      HttpHtmlResponseView htmlResponseView=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
+      htmlResponseView.setRecordHttpTrafic(true);
+    }
   }
  catch (  SubmitException e) {
     e.printStackTrace();
