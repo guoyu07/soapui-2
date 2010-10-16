@@ -35,6 +35,9 @@
     Settings settings=httpRequest.getSettings();
     StringToStringsMap headers=httpRequest.getRequestHeaders();
     for (    String header : headers.keySet()) {
+      httpMethod.removeRequestHeader(header);
+    }
+    for (    String header : headers.keySet()) {
       for (      String headerValue : headers.get(header)) {
         headerValue=PropertyExpander.expandProperties(submitContext,headerValue);
         httpMethod.addRequestHeader(header,headerValue);
