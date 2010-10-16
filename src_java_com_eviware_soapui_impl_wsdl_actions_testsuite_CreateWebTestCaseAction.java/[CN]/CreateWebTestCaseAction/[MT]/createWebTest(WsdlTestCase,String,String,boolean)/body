@@ -12,16 +12,14 @@
   try {
     testRequest=testStep.getTestRequest();
     WsdlSubmit<HttpRequest> submitRequest=testRequest.submit(new WsdlTestRunContext(testStep),true);
-    while (submitRequest.getStatus() != Status.FINISHED) {
-      submitRequest.waitUntilFinished();
-    }
     if (startRecording) {
+      submitRequest.waitUntilFinished();
       HttpHtmlResponseView htmlResponseView=(HttpHtmlResponseView)desktopPanel.getResponseEditor().getViews().get(2);
       htmlResponseView.setRecordHttpTrafic(true);
     }
   }
- catch (  SubmitException e) {
-    e.printStackTrace();
+ catch (  Exception e) {
+    SoapUI.logError(e);
   }
   desktopPanel.focusResponseInTabbedView(true);
 }

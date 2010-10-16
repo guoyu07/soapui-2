@@ -6,13 +6,11 @@
  else {
     if (!hasResponseForRecording) {
       try {
-        preparingToRecord=true;
-        getHttpRequest().submit(new WsdlSubmitContext(getHttpRequest()),false);
+        getHttpRequest().submit(new WsdlSubmitContext(getHttpRequest()),false).waitUntilFinished();
       }
  catch (      SubmitException e) {
-        e.printStackTrace();
+        SoapUI.logError(e);
       }
-      preparingToRecord=false;
       setRecordHttpTrafic(true);
     }
  else {
