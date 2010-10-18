@@ -27,7 +27,7 @@
     if (value == null)     value="";
 switch (param.getStyle()) {
 case QUERY:
-      if (query != null) {
+      if (query != null && valueParts != null) {
         for (        String valuePart : valueParts) {
           if (query.length() > 0)           query.append('&');
           query.append(URLEncoder.encode(param.getName()));
