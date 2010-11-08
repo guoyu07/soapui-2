@@ -1,12 +1,12 @@
 {
   List<SecurityCheck> checks=null;
-  if (securityChecksMap.containsKey(testStep)) {
-    checks=securityChecksMap.get(testStep);
+  if (securityChecksMap.containsKey(testStepName)) {
+    checks=securityChecksMap.get(testStepName);
   }
  else {
     checks=new ArrayList<SecurityCheck>();
   }
   checks.add(securityCheck);
-  securityChecksMap.put(testStep,checks);
+  securityChecksMap.put(testStepName,checks);
   return securityChecksMap;
 }
