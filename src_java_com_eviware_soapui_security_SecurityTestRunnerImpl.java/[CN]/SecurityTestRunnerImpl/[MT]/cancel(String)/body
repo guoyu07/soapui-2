@@ -1,2 +1,9 @@
 {
+  if (status != Status.RUNNING)   return;
+  this.reason=reason;
+  status=Status.CANCELED;
+  String msg="SecurityTest [" + securityTest.getName() + "] canceled";
+  if (reason != null)   msg+="; " + reason;
+  securityTest.getSecurityTestLog().addEntry(new SecurityTestLogMessageEntry(msg));
+  stop();
 }
