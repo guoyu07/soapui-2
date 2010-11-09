@@ -1,0 +1,12 @@
+{
+  if (securityChecksMap.containsKey(testStepName)) {
+    List<SecurityCheck> checks=securityChecksMap.get(testStepName);
+    for (    SecurityCheck check : checks) {
+      if (check == securityCheck) {
+        checks.remove(check);
+      }
+    }
+    securityChecksMap.put(testStepName,checks);
+  }
+  return securityChecksMap;
+}
