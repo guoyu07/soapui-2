@@ -1,6 +1,12 @@
 {
   HashMap<String,List<SecurityCheck>> scm=new HashMap<String,List<SecurityCheck>>();
   for (  SecurityCheckEntryConfig sceConfig : config.getSecurityCheckMapList()) {
+    List<SecurityCheck> checkList=new ArrayList<SecurityCheck>();
+    for (    SecurityCheckConfig secCheckConfig : sceConfig.getSecurityChecksList()) {
+      SecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(secCheckConfig);
+      checkList.add(securityCheck);
+    }
+    scm.put(sceConfig.getTestStepName(),checkList);
   }
   return scm;
 }
