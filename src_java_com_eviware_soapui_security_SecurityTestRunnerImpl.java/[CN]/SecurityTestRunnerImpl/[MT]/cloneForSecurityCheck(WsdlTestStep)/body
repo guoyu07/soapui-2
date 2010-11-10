@@ -1,9 +1,14 @@
 {
-  TestStep clonedTestStep=null;
+  WsdlTestStep clonedTestStep=null;
   TestStepConfig testStepConfig=(TestStepConfig)sourceTestStep.getConfig().copy();
   WsdlTestStepFactory factory=WsdlTestStepRegistry.getInstance().getFactory(testStepConfig.getType());
   if (factory != null) {
     clonedTestStep=factory.buildTestStep(securityTest.getTestCase(),testStepConfig,false);
+    if (clonedTestStep instanceof Assertable) {
+      for (      TestAssertion assertion : ((Assertable)clonedTestStep).getAssertionList()) {
+        ((Assertable)clonedTestStep).removeAssertion(assertion);
+      }
+    }
   }
   return clonedTestStep;
 }
