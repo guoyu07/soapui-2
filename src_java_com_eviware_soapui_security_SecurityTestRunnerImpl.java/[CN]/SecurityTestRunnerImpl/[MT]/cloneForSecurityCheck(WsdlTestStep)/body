@@ -1,0 +1,9 @@
+{
+  TestStep clonedTestStep=null;
+  TestStepConfig testStepConfig=(TestStepConfig)sourceTestStep.getConfig().copy();
+  WsdlTestStepFactory factory=WsdlTestStepRegistry.getInstance().getFactory(testStepConfig.getType());
+  if (factory != null) {
+    clonedTestStep=factory.buildTestStep(securityTest.getTestCase(),testStepConfig,false);
+  }
+  return clonedTestStep;
+}
