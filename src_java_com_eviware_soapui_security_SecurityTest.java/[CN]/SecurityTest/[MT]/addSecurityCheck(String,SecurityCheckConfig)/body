@@ -1,0 +1,19 @@
+{
+  boolean hasChecks=false;
+  List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
+  if (!testStepSecurityTestList.isEmpty()) {
+    for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
+      if (testStepSecurityTest.getTestStepName().equals(testStepName)) {
+        List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
+        securityCheckList.add(securityCheckConfig);
+        hasChecks=true;
+      }
+    }
+  }
+  if (!hasChecks) {
+    TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
+    testStepSecurityTest.setTestStepName(testStepName);
+    SecurityCheckConfig newSecurityCheck=testStepSecurityTest.addNewTestStepSecurityCheck();
+    newSecurityCheck.setConfiguration(securityCheckConfig);
+  }
+}
