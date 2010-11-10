@@ -1,3 +1,3 @@
 {
-  return getConfig().isSetTearDownScript() ? getConfig().getTearDownScript().getStringValue() : null;
+  return getConfig() != null ? (getConfig().isSetTearDownScript() ? getConfig().getTearDownScript().getStringValue() : "") : "";
 }

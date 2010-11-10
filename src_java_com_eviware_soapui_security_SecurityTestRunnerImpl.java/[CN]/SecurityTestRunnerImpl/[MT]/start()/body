@@ -9,6 +9,22 @@
   }
   status=Status.RUNNING;
   if (status == Status.RUNNING) {
+    WsdlTestCase testCase=securityTest.getTestCase();
+    List<TestStep> testStepsList=testCase.getTestStepList();
+    HashMap<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
+    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner(testCase,new StringToObjectMap());
+    for (    TestStep testStep : testStepsList) {
+      if (secCheckMap.containsKey(testStep.getName())) {
+        List<SecurityCheck> testStepChecksList=secCheckMap.get(testStep.getName());
+        for (        SecurityCheck securityCheck : testStepChecksList) {
+          securityCheck.run(testStep);
+        }
+      }
+ else {
+        testCaseRunner.runTestStepByName(testStep.getName());
+      }
+    }
+    testCase.release();
   }
  else {
     stop();
