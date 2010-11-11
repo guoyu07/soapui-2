@@ -1,5 +1,5 @@
 {
-  WsdlProject project=new WsdlProject("D:" + File.separatorChar + "temp"+ File.separatorChar+ "dragica"+ File.separator+ "sample-soapui-project.xml");
+  WsdlProject project=new WsdlProject("src" + File.separatorChar + "test-resources"+ File.separatorChar+ "sample-soapui-project.xml");
   TestSuite testSuite=project.getTestSuiteByName("Test Suite");
   List<SecurityCheck> secCheckList=new ArrayList();
   GroovySecurityCheck gsc=new GroovySecurityCheck(SecurityCheckConfig.Factory.newInstance());
