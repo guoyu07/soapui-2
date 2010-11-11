@@ -2,4 +2,5 @@
   SecurityTest securityTest=new SecurityTest(testCase,config);
   SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(securityTest);
   testRunner.start();
+  assertEquals(TestStepResult.TestStepStatus.OK,testRunner.getStatus());
 }
