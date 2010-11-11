@@ -1,5 +1,8 @@
 {
   String old=getScript();
-  getSettings().setString(SCRIPT_PROPERTY,script);
+  if (groovySecurityCheckConfig.getScript() == null) {
+    groovySecurityCheckConfig.addNewScript();
+  }
+  groovySecurityCheckConfig.getScript().setStringValue(script);
   notifyPropertyChanged(SCRIPT_PROPERTY,old,script);
 }
