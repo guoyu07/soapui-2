@@ -1,5 +1,5 @@
 {
-  if (testStep instanceof HttpTestRequestStep) {
+  if (acceptsTestStep(testStep)) {
     WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
     testCaseRunner.runTestStepByName(testStep.getName());
   }
