@@ -16,7 +16,7 @@
         containsAssertion.setToken(param.getValue());
         containsAssertion.assertResponse(messageExchange,context);
         if (containsAssertion.getStatus().equals(AssertionStatus.VALID)) {
-          logEntries.add(new SecurityTestLogMessageEntry("Parameter " + param.getName() + " is exposed in the response"));
+          securityTestLog.addEntry(new SecurityTestLogMessageEntry("Parameter " + param.getName() + " is exposed in the response"));
         }
       }
     }
