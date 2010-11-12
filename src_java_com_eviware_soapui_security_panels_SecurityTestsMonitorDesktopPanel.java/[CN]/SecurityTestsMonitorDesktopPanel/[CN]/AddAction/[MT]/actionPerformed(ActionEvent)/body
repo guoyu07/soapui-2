@@ -1,0 +1,12 @@
+{
+  SecurityCheckFactory[] scf=SecurityCheckRegistry.getInstance().getFactories();
+  List<String> alist=new ArrayList<String>();
+  for (  SecurityCheckFactory c : scf) {
+    alist.add(c.getSecurityCheckName());
+  }
+  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",alist);
+  if (name == null || name.trim().length() == 0)   return;
+  monitorSecurityTest.addSecurityTest(name);
+  listModel.addElement(name);
+  securityChecksList.setSelectedIndex(listModel.getSize() - 1);
+}

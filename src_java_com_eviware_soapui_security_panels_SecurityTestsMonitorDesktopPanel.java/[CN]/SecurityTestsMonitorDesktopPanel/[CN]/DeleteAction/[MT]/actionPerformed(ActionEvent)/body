@@ -1,0 +1,11 @@
+{
+  if (UISupport.confirm("Delete selected transfer","Delete Transfer")) {
+    securityChecksList.setSelectedIndex(-1);
+    int ix=securityChecksList.getSelectedIndex();
+    monitorSecurityTest.removeSecurityCheckAt(ix);
+    listModel.remove(ix);
+    if (listModel.getSize() > 0) {
+      securityChecksList.setSelectedIndex(ix > listModel.getSize() - 1 ? listModel.getSize() - 1 : ix);
+    }
+  }
+}

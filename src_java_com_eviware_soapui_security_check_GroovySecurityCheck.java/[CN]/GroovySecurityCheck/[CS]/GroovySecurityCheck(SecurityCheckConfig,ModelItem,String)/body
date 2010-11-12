@@ -1,0 +1,11 @@
+{
+  super(config,parent,icon);
+  if (config.getConfig() == null) {
+    groovySecurityCheckConfig=(GroovySecurityCheckConfig)config.addNewConfig().changeType(GroovySecurityCheckConfig.type);
+    groovySecurityCheckConfig.addNewScript();
+  }
+ else {
+    groovySecurityCheckConfig=(GroovySecurityCheckConfig)config.getConfig().changeType(GroovySecurityCheckConfig.type);
+  }
+  this.script=groovySecurityCheckConfig.getScript().getStringValue();
+}

@@ -1,0 +1,7 @@
+{
+  SecurityCheck securityCheck=getCurrentSecurityCheck();
+  securityCheck.setDisabled(disableButton.isSelected());
+  String name=securityCheck.getName();
+  if (securityCheck.isDisabled())   name+=" (disabled)";
+  listModel.setElementAt(name,securityChecksList.getSelectedIndex());
+}

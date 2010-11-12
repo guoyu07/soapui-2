@@ -1,0 +1,10 @@
+{
+  int ix=securityChecksList.getSelectedIndex();
+  SecurityCheck config=monitorSecurityTest.getSecurityCheckAt(ix);
+  String name=UISupport.prompt("Specify name for SecurityCheck","Copy SecurityCheck",config.getName());
+  if (name == null || name.trim().length() == 0)   return;
+  SecurityCheck securityCheck=monitorSecurityTest.addSecurityTest(name);
+  securityCheck.setDisabled(config.isDisabled());
+  listModel.addElement(name);
+  securityChecksList.setSelectedIndex(listModel.getSize() - 1);
+}
