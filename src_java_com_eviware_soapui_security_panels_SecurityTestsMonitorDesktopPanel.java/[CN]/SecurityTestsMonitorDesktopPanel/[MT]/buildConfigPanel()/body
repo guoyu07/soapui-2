@@ -1,0 +1,12 @@
+{
+  securityTestConfigPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Configuration");
+  securityTestConfigPanel.setPreferredSize(new Dimension(330,400));
+  securityTestConfigPanel.add(new JTextArea());
+  if (securityChecksList != null && securityChecksList.getSelectedValue() != null) {
+    SecurityCheck selected=monitorSecurityTest.getSecurityCheckByName((String)securityChecksList.getSelectedValue());
+    securityTestConfigPanel.removeAll();
+    securityTestConfigPanel.add(selected.getComponent());
+  }
+  securityTestConfigPanel.revalidate();
+  return new JScrollPane(securityTestConfigPanel);
+}

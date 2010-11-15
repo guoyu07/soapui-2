@@ -2,7 +2,7 @@
   String[] availableChecksNames=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames();
   String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",availableChecksNames);
   if (name == null || name.trim().length() == 0)   return;
-  monitorSecurityTest.addSecurityCheck(name,GroovySecurityCheck.TYPE);
+  monitorSecurityTest.addSecurityCheck(name,name);
   listModel.addElement(name);
   securityChecksList.setSelectedIndex(listModel.getSize() - 1);
 }
