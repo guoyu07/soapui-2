@@ -1,11 +1,12 @@
 {
   super(config,parent,icon);
   monitorApplicable=true;
-  if (config.getConfig() == null) {
-    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.addNewConfig().changeType(ParameterExposureCheckConfig.type);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.changeType(ParameterExposureCheckConfig.type);
   }
  else {
-    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.getConfig().changeType(ParameterExposureCheckConfig.type);
+    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.changeType(ParameterExposureCheckConfig.type);
   }
-  minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
+  minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config).getMinimumLength());
 }
