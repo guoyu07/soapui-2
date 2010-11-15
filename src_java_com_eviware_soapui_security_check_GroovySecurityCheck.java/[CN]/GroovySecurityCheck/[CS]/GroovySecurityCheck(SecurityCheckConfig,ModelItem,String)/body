@@ -7,5 +7,5 @@
  else {
     groovySecurityCheckConfig=(GroovySecurityCheckConfig)config.getConfig().changeType(GroovySecurityCheckConfig.type);
   }
-  this.script=groovySecurityCheckConfig.getScript().getStringValue();
+  this.script=groovySecurityCheckConfig.getScript() != null ? groovySecurityCheckConfig.getScript().getStringValue() : "";
 }

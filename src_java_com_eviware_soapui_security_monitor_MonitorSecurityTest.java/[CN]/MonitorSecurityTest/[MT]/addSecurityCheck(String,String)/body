@@ -1,0 +1,6 @@
+{
+  SecurityCheckFactory factory=SecurityCheckRegistry.getInstance().getFactory(type);
+  SecurityCheckConfig scc=factory.createNewSecurityCheck(name);
+  monitorSecurityChecksList.add(factory.buildSecurityCheck(scc));
+  return null;
+}

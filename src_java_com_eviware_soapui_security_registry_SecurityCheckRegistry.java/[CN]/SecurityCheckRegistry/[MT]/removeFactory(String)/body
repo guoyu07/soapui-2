@@ -1,7 +1,8 @@
 {
-  for (  SecurityCheckFactory factory : factories) {
-    if (factory.getType().equals(type)) {
-      factories.remove(factory);
+  for (  String scfName : availableSecurityChecks.keySet()) {
+    SecurityCheckFactory csf=availableSecurityChecks.get(scfName);
+    if (csf.getType().equals(type)) {
+      availableSecurityChecks.remove(scfName);
       break;
     }
   }

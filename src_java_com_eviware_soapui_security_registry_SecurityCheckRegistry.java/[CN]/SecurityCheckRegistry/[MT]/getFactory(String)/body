@@ -1,4 +1,7 @@
 {
-  for (  SecurityCheckFactory factory : factories)   if (factory.getType().equals(type))   return factory;
+  for (  String cc : availableSecurityChecks.keySet()) {
+    SecurityCheckFactory scf=availableSecurityChecks.get(cc);
+    if (scf.getType().equals(type))     return scf;
+  }
   return null;
 }

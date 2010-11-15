@@ -1,12 +1,8 @@
 {
-  SecurityCheckFactory[] scf=SecurityCheckRegistry.getInstance().getFactories();
-  List<String> alist=new ArrayList<String>();
-  for (  SecurityCheckFactory c : scf) {
-    alist.add(c.getSecurityCheckName());
-  }
-  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",alist);
+  String[] availableChecksNames=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames();
+  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",availableChecksNames);
   if (name == null || name.trim().length() == 0)   return;
-  monitorSecurityTest.addSecurityTest(name);
+  monitorSecurityTest.addSecurityCheck(name,GroovySecurityCheck.TYPE);
   listModel.addElement(name);
   securityChecksList.setSelectedIndex(listModel.getSize() - 1);
 }
