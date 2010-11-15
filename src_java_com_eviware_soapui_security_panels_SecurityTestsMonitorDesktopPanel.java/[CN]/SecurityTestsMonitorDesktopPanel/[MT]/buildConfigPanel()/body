@@ -1,12 +1,11 @@
 {
-  securityTestConfigPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Configuration");
-  securityTestConfigPanel.setPreferredSize(new Dimension(330,400));
-  securityTestConfigPanel.add(new JTextArea());
+  securityCheckConfigPanel=new JEditorPane();
+  securityCheckConfigPanel.setText("currently no security checks");
   if (securityChecksList != null && securityChecksList.getSelectedValue() != null) {
     SecurityCheck selected=monitorSecurityTest.getSecurityCheckByName((String)securityChecksList.getSelectedValue());
-    securityTestConfigPanel.removeAll();
-    securityTestConfigPanel.add(selected.getComponent());
+    securityCheckConfigPanel.removeAll();
+    securityCheckConfigPanel.add(selected.getComponent());
   }
-  securityTestConfigPanel.revalidate();
-  return new JScrollPane(securityTestConfigPanel);
+  securityCheckConfigPanel.revalidate();
+  return securityCheckConfigPanel;
 }

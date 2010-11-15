@@ -1,6 +1,11 @@
 {
-  JPanel panel=new JPanel();
-  panel.add(new JLabel("Minimum Characters:"));
-  panel.add(new JTextField(((ParameterExposureCheckConfig)config).getMinimumLength()));
+  if (panel == null) {
+    panel=new JPanel(new BorderLayout());
+    form=new SimpleForm();
+    form.addSpace(5);
+    form.setDefaultTextFieldColumns(50);
+    minimumCharactersTextField=form.appendTextField("Minimum Characters:","Script to use");
+    minimumCharactersTextField.setText("" + ((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
+  }
   return panel;
 }

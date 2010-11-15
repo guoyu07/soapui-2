@@ -1,5 +1,11 @@
 {
-  JPanel panel=new JPanel();
-  panel.add(new JLabel("testing....:"));
+  if (panel == null) {
+    panel=new JPanel(new BorderLayout());
+    form=new SimpleForm();
+    form.addSpace(5);
+    form.setDefaultTextFieldColumns(50);
+    scriptTextArea=form.appendTextArea("Script","Script to use");
+    scriptTextArea.setText("");
+  }
   return panel;
 }

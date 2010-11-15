@@ -3,10 +3,12 @@
   monitorApplicable=true;
   if (config == null) {
     config=SecurityCheckConfig.Factory.newInstance();
-    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.changeType(ParameterExposureCheckConfig.type);
+    ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    config.setConfig(pescc);
   }
  else {
-    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.changeType(ParameterExposureCheckConfig.type);
+    ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    config.setConfig(pescc);
   }
-  minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config).getMinimumLength());
+  minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
 }

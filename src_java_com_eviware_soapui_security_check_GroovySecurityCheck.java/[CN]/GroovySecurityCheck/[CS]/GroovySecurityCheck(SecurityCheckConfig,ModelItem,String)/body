@@ -2,10 +2,11 @@
   super(config,parent,icon);
   if (config == null) {
     config=SecurityCheckConfig.Factory.newInstance();
-    groovySecurityCheckConfig=(GroovySecurityCheckConfig)config.changeType(GroovySecurityCheckConfig.type);
-    groovySecurityCheckConfig.addNewScript();
+    GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+    config.setConfig(groovyscc);
   }
  else {
-    groovySecurityCheckConfig=(GroovySecurityCheckConfig)config.changeType(GroovySecurityCheckConfig.type);
+    GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+    config.setConfig(groovyscc);
   }
 }

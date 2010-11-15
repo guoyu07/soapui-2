@@ -2,6 +2,8 @@
   SecurityCheckConfig securityCheckConfig=SecurityCheckConfig.Factory.newInstance();
   securityCheckConfig.setType(GroovySecurityCheck.TYPE);
   securityCheckConfig.setName(name);
-  securityCheckConfig.changeType(GroovySecurityCheckConfig.type);
+  GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+  groovyscc.addNewScript().setStringValue("log.info(\"***********\")");
+  securityCheckConfig.setConfig(groovyscc);
   return securityCheckConfig;
 }
