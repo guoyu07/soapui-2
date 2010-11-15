@@ -1,6 +1,11 @@
 {
   super(config,parent,icon);
   monitorApplicable=true;
-  parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.getConfig().changeType(ParameterExposureCheckConfig.type);
+  if (config.getConfig() == null) {
+    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.addNewConfig().changeType(ParameterExposureCheckConfig.type);
+  }
+ else {
+    parameterExposureCheckConfig=(ParameterExposureCheckConfig)config.getConfig().changeType(ParameterExposureCheckConfig.type);
+  }
   minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
 }
