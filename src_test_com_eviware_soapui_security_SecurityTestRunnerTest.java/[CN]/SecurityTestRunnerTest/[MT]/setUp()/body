@@ -2,6 +2,7 @@
   WsdlProject project=new WsdlProject("src" + File.separatorChar + "test-resources"+ File.separatorChar+ "sample-soapui-project.xml");
   TestSuite testSuite=project.getTestSuiteByName("Test Suite");
   groovySecurityCheckSetUp();
+  parameterExposureCheckSetup();
   testCase=(WsdlTestCase)testSuite.getTestCaseByName("Test Conversions");
   WsdlInterface iface=(WsdlInterface)project.getInterfaceAt(0);
   mockService=(WsdlMockService)project.addNewMockService("MockService 1");
