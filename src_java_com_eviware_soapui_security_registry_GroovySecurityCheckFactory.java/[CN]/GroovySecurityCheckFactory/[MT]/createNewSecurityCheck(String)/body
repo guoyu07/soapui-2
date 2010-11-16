@@ -3,7 +3,7 @@
   securityCheckConfig.setType(GroovySecurityCheck.TYPE);
   securityCheckConfig.setName(name);
   GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
-  groovyscc.addNewScript().setStringValue("log.info(\"***********\")");
+  groovyscc.addNewScript();
   securityCheckConfig.setConfig(groovyscc);
   return securityCheckConfig;
 }
