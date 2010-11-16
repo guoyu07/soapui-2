@@ -9,7 +9,7 @@
     }
     for (    String paramName : getParamsToCheck()) {
       TestProperty param=params.get(paramName);
-      if (param != null && param.getValue().length() >= getMinimumLength()) {
+      if (param != null && param.getValue() != null && param.getValue().length() >= getMinimumLength()) {
         TestAssertionConfig assertionConfig=TestAssertionConfig.Factory.newInstance();
         assertionConfig.setType(SimpleContainsAssertion.ID);
         SimpleContainsAssertion containsAssertion=(SimpleContainsAssertion)TestAssertionRegistry.getInstance().buildAssertion(assertionConfig,testStepwithProperties);

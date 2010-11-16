@@ -4,10 +4,12 @@
   if (config == null) {
     config=SecurityCheckConfig.Factory.newInstance();
     ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    pescc.setMinimumLength(DEFAULT_MINIMUM_CHARACTER_LENGTH);
     config.setConfig(pescc);
   }
- else {
+  if (config.getConfig() == null) {
     ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    pescc.setMinimumLength(DEFAULT_MINIMUM_CHARACTER_LENGTH);
     config.setConfig(pescc);
   }
   minimumCharactersTextField=new JTextField(((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
