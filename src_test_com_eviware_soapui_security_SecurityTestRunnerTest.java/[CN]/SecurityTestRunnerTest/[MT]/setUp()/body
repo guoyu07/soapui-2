@@ -6,8 +6,10 @@
   asdf.setType(GroovySecurityCheck.TYPE);
   GroovySecurityCheck gsc=new GroovySecurityCheck(asdf,null,null);
   gsc.setScript("println testStep.name");
-  secCheckList.add(gsc);
-  securityChecksMap.put("SEK to USD Test",secCheckList);
+  SecurityCheckConfig exposureConfig=SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).createNewSecurityCheck("Test");
+  ParameterExposureCheck exposureCheck=(ParameterExposureCheck)SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).buildSecurityCheck(exposureConfig);
+  secCheckList.add(exposureCheck);
+  securityChecksMap.put("HTTP Test Request",secCheckList);
   testCase=(WsdlTestCase)testSuite.getTestCaseByName("Test Conversions");
   WsdlInterface iface=(WsdlInterface)project.getInterfaceAt(0);
   mockService=(WsdlMockService)project.addNewMockService("MockService 1");
