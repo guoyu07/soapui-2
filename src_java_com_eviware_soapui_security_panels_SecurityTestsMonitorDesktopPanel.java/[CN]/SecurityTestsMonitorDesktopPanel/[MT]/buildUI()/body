@@ -1,11 +1,13 @@
 {
-  splitPane=UISupport.createHorizontalSplit();
   listModel=new DefaultListModel();
   securityChecksList=new JList(listModel);
   securityChecksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   securityChecksList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
-      securityCheckConfigPanel=(JEditorPane)buildConfigPanel();
+      splitPane.remove(splitPane.getRightComponent());
+      splitPane.setRightComponent(buildConfigPanel());
+      revalidate();
+      setSelectedCheck(getCurrentSecurityCheck());
     }
   }
 );
@@ -14,12 +16,10 @@
   JPanel p=new JPanel(new BorderLayout());
   p.add(listScrollPane,BorderLayout.CENTER);
   p.add(createPropertiesToolbar(),BorderLayout.NORTH);
-  splitPane.setLeftComponent(p);
-  splitPane.setPreferredSize(new Dimension(550,400));
-  securityCheckConfigPanel=(JEditorPane)buildConfigPanel();
-  splitPane.setRightComponent(securityCheckConfigPanel);
+  securityCheckConfigPanel=(JPanel)buildConfigPanel();
+  splitPane=UISupport.createHorizontalSplit(p,buildConfigPanel());
+  splitPane.setPreferredSize(new Dimension(650,500));
   splitPane.setResizeWeight(0.1);
   splitPane.setDividerLocation(120);
-  inspectorPanel=JInspectorPanelFactory.build(splitPane);
-  add(inspectorPanel.getComponent(),BorderLayout.CENTER);
+  add(splitPane,BorderLayout.CENTER);
 }

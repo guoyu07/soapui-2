@@ -1,11 +1,10 @@
 {
-  if (panel == null) {
-    panel=new JPanel(new BorderLayout());
-    form=new SimpleForm();
-    form.addSpace(5);
-    form.setDefaultTextFieldColumns(50);
-    minimumCharactersTextField=form.appendTextField("Minimum Characters:","Script to use");
-    minimumCharactersTextField.setText("" + ((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
-  }
+  panel=new JPanel(new BorderLayout());
+  form=new SimpleForm();
+  form.addSpace(5);
+  minimumCharactersTextField=form.appendTextField("Minimum Characters:","Script to use");
+  minimumCharactersTextField.setMaximumSize(new Dimension(40,10));
+  minimumCharactersTextField.setText("" + ((ParameterExposureCheckConfig)config.getConfig()).getMinimumLength());
+  panel.add(form.getPanel());
   return panel;
 }

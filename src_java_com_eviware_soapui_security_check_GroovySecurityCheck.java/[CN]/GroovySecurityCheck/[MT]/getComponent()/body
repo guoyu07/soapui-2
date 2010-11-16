@@ -1,11 +1,10 @@
 {
-  if (panel == null) {
-    panel=new JPanel(new BorderLayout());
-    form=new SimpleForm();
-    form.addSpace(5);
-    form.setDefaultTextFieldColumns(50);
-    scriptTextArea=form.appendTextArea("Script","Script to use");
-    scriptTextArea.setText("");
-  }
+  panel=new JPanel(new BorderLayout());
+  form=new SimpleForm();
+  form.addSpace(5);
+  scriptTextArea=form.appendTextArea("Script","Script to use");
+  scriptTextArea.setSize(new Dimension(400,600));
+  scriptTextArea.setText("");
+  panel.add(form.getPanel());
   return panel;
 }
