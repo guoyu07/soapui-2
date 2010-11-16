@@ -3,7 +3,14 @@
     HttpTestRequestStepInterface testStepwithProperties=(HttpTestRequestStepInterface)testStep;
     HttpTestRequestInterface<?> request=testStepwithProperties.getTestRequest();
     MessageExchange messageExchange=new HttpResponseMessageExchange(request);
-    Map<String,TestProperty> params=testStepwithProperties.getProperties();
+    Map<String,TestProperty> params;
+    AbstractHttpRequest<?> httpRequest=testStepwithProperties.getHttpRequest();
+    if (httpRequest instanceof HttpRequest) {
+      params=((HttpRequest)httpRequest).getParams();
+    }
+ else {
+      params=((RestRequest)httpRequest).getParams();
+    }
     if (getParamsToCheck().isEmpty()) {
       setParamsToCheck(new ArrayList<String>(params.keySet()));
     }
