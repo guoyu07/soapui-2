@@ -5,7 +5,7 @@
   SecurityCheckConfig asdf=SecurityCheckConfig.Factory.newInstance();
   asdf.setType(GroovySecurityCheck.TYPE);
   GroovySecurityCheck gsc=new GroovySecurityCheck(asdf,null,null);
-  gsc.setScript("log.info testStep");
+  gsc.setScript("println testStep.name");
   secCheckList.add(gsc);
   securityChecksMap.put("SEK to USD Test",secCheckList);
   testCase=(WsdlTestCase)testSuite.getTestCaseByName("Test Conversions");
