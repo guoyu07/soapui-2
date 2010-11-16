@@ -2,11 +2,12 @@
   scriptEngine.setScript(getScript());
   scriptEngine.setVariable("testStep",testStep);
   scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  scriptEngine.setVariable("context",context);
   try {
     scriptEngine.run();
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
   }
  finally {
     scriptEngine.clearVariables();
