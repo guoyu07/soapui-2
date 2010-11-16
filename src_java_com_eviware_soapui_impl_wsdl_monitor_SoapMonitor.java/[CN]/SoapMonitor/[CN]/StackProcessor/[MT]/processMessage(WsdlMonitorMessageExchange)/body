@@ -1,5 +1,10 @@
 {
   messageExchange.prepare(project.getWssContainer().getIncomingWssByName(incomingRequestWss),project.getWssContainer().getIncomingWssByName(incomingResponseWss));
   tableModel.addMessageExchange(messageExchange);
+  if (monitorSecurityTest != null) {
+    for (    SecurityCheck check : monitorSecurityTest.getMonitorSecurityChecksList()) {
+      if (((HttpSecurityAnalyser)check).canRun())       ((HttpSecurityAnalyser)check).analyzeHttpConnection(messageExchange,monitorSecurityTest.getSecurityTestLog());
+    }
+  }
   fireOnMessageExchange(messageExchange);
 }
