@@ -1,11 +1,11 @@
 {
   String old=getScript();
-  if (config.getConfig() == null) {
-    config.addNewConfig();
+  if (getConfig().getConfig() == null) {
+    getConfig().addNewConfig();
   }
   GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
   groovyscc.addNewScript();
   groovyscc.getScript().setStringValue(script);
-  config.setConfig(groovyscc);
+  getConfig().setConfig(groovyscc);
   notifyPropertyChanged(SCRIPT_PROPERTY,old,script);
 }

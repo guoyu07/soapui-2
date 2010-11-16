@@ -1,7 +1,7 @@
 {
   GroovySecurityCheckConfig groovyscc=null;
-  if (config.getConfig() != null) {
-    groovyscc=(GroovySecurityCheckConfig)config.getConfig().changeType(GroovySecurityCheckConfig.type);
+  if (getConfig().getConfig() != null) {
+    groovyscc=(GroovySecurityCheckConfig)getConfig().getConfig();
     if (groovyscc.getScript() != null)     return groovyscc.getScript().getStringValue();
   }
   return "";
