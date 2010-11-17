@@ -1,0 +1,13 @@
+{
+  File file=UISupport.getFileDialogs().saveAs(this,"Save Log");
+  if (file != null) {
+    try {
+      PrintWriter out=new PrintWriter(file);
+      printLog(out);
+      out.close();
+    }
+ catch (    FileNotFoundException e1) {
+      UISupport.showErrorMessage(e1);
+    }
+  }
+}
