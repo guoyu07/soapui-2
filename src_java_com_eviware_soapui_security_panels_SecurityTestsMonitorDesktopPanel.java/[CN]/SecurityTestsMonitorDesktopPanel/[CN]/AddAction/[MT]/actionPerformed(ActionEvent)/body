@@ -2,14 +2,10 @@
   String[] availableChecksNames=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames(true);
   String type=UISupport.prompt("Specify type of security check","Add SecurityCheck",availableChecksNames);
   if (type == null || type.trim().length() == 0)   return;
-  String nameSuggestion=type;
-  if ((monitorSecurityTest.getSecurityCheckByName(type) != null || monitorSecurityTest.getSecurityCheckByName(type + " (disabled)") != null)) {
-    nameSuggestion=type + " " + (monitorSecurityTest.getMonitorSecurityChecksList().size());
-  }
-  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",nameSuggestion);
+  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",findUniqueName(type));
   if (name == null || name.trim().length() == 0)   return;
   while (monitorSecurityTest.getSecurityCheckByName(name) != null || monitorSecurityTest.getSecurityCheckByName(name + " (disabled)") != null) {
-    name=UISupport.prompt("Specify unique name for check","Rename SecurityCheck",name + " " + (monitorSecurityTest.getMonitorSecurityChecksList().size()));
+    name=UISupport.prompt("Specify unique name for check","Add SecurityCheck",name + " " + (monitorSecurityTest.getMonitorSecurityChecksList().size()));
     if (name == null) {
       return;
     }
