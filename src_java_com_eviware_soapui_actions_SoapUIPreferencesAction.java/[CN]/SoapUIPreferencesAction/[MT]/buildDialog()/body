@@ -4,7 +4,7 @@
   tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
   tabs.setTabPlacement(JTabbedPane.LEFT);
   for (  Prefs pref : prefs) {
-    tabs.addTab(pref.getTitle(),pref.getForm().getPanel());
+    tabs.addTab(pref.getTitle(),new JScrollPane(pref.getForm().getPanel()));
   }
   dialog.setContent(UISupport.createTabPanel(tabs,false));
 }
