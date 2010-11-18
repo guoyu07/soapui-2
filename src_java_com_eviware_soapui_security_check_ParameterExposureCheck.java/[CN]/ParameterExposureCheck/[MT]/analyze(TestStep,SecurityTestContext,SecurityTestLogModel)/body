@@ -23,7 +23,7 @@
         containsAssertion.setToken(param.getValue());
         containsAssertion.assertResponse(messageExchange,context);
         if (containsAssertion.getStatus().equals(AssertionStatus.VALID)) {
-          securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + param.getName() + " with the value \""+ param.getValue()+ "\" is exposed in the response"));
+          securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + param.getName() + " with the value \""+ param.getValue()+ "\" is exposed in the response",messageExchange));
         }
       }
     }
