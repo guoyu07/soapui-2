@@ -1,4 +1,6 @@
 {
   super(new BorderLayout());
+  this.settings=SoapUI.getSettings();
+  errorsOnly=settings.getBoolean(OptionsForm.class.getName() + "@errors_only");
   buildUI();
 }
