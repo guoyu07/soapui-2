@@ -1,0 +1,13 @@
+{
+  int index=testLogList.getSelectedIndex();
+  if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
+    SecurityTestLogMessageEntry entry=(SecurityTestLogMessageEntry)testLogList.getSelectedValue();
+    for (int i=0; i < soapMonitor.getLogModel().getRowCount(); i++) {
+      if (soapMonitor.getLogModel().getMessageExchangeAt(i).equals(entry.getMessageExchange())) {
+        soapMonitor.getLogTable().setRowSelectionInterval(i,i);
+        soapMonitor.getLogTable().scrollRowToVisible(i);
+      }
+    }
+  }
+  selectedIndex=index;
+}

@@ -4,7 +4,7 @@
     String paramValue=parameters.get(paramName);
     if (paramValue != null && paramValue.length() >= getMinimumLength()) {
       if (messageExchange.getResponseContent().indexOf(paramValue) > -1 && securityTestLog != null) {
-        securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + paramName + " with the value \""+ paramValue+ "\" is exposed in the response"));
+        securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + paramName + " with the value \""+ paramValue+ "\" is exposed in the response",messageExchange));
       }
     }
   }

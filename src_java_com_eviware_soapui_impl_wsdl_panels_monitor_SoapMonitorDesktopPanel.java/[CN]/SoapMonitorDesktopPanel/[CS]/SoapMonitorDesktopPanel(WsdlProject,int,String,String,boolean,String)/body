@@ -4,9 +4,10 @@
   JPanel p=(JPanel)getComponent();
   JTabbedPane tabs=new JTabbedPane();
   JXToolBar toolbar=UISupport.createToolbar();
-  JComponent securityTestRunLog=buildRunLog();
+  soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy,sslEndpoint);
+  JComponent securityTestRunLog=buildRunLog(soapMonitor);
   MonitorSecurityTest securityTest=new MonitorSecurityTest((JSecurityTestRunLog)securityTestRunLog);
-  soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy,sslEndpoint,securityTest);
+  soapMonitor.setMonitorSecurityTest(securityTest);
   tabs.add(soapMonitor,"Traffic Log");
   securityTab=new SecurityTestsMonitorDesktopPanel(securityTest);
   tabs.add(securityTab,"Security Tests");
