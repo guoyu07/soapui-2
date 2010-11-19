@@ -2,7 +2,7 @@
   super("HTTP Monitor [" + project.getName() + "]",null,new JPanel(new BorderLayout()));
   this.project=project;
   JPanel p=(JPanel)getComponent();
-  JTabbedPane tabs=new JTabbedPane();
+  tabs=new JTabbedPane();
   JXToolBar toolbar=UISupport.createToolbar();
   soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy,sslEndpoint);
   JComponent securityTestRunLog=buildRunLog(soapMonitor);
