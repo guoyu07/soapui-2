@@ -1,7 +1,7 @@
 {
   securityTest.getTestCase().beforeSave();
   hasTornDown=false;
-  context=new SecurityTestContext(this);
+  context=new WsdlTestRunContext(this,new StringToObjectMap());
   try {
     securityTest.runStartupScript(context,this);
   }
