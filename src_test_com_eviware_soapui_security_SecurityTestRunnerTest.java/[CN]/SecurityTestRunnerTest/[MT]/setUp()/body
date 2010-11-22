@@ -20,5 +20,8 @@
     if (testStep instanceof WsdlTestRequestStep) {
       ((WsdlTestRequestStep)testStep).getTestRequest().setEndpoint(endpoint);
     }
+    if (testStep instanceof HttpTestRequestStep) {
+      ((HttpTestRequestStep)testStep).getTestRequest().setEndpoint(endpoint);
+    }
   }
 }

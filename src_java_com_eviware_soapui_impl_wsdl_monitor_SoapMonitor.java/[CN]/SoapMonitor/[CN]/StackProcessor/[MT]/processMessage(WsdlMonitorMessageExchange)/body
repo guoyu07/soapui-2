@@ -2,9 +2,7 @@
   messageExchange.prepare(project.getWssContainer().getIncomingWssByName(incomingRequestWss),project.getWssContainer().getIncomingWssByName(incomingResponseWss));
   tableModel.addMessageExchange(messageExchange);
   if (monitorSecurityTest != null) {
-    for (    SecurityCheck check : monitorSecurityTest.getMonitorSecurityChecksList()) {
-      if (((HttpSecurityAnalyser)check).canRun() && !check.isDisabled())       ((HttpSecurityAnalyser)check).analyzeHttpConnection(messageExchange,monitorSecurityTest.getSecurityTestLog());
-    }
+    monitorSecurityTest.logSecurityMessage(messageExchange);
   }
   fireOnMessageExchange(messageExchange);
 }
