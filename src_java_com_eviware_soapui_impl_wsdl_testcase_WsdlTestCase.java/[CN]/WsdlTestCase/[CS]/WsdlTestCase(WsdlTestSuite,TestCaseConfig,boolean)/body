@@ -24,6 +24,13 @@
       loadTests.add(loadTest);
     }
   }
+  if (!forLoadTest) {
+    List<SecurityTestConfig> securityTestConfigs=config.getSecurityTestList();
+    for (    SecurityTestConfig tsc : securityTestConfigs) {
+      SecurityTest loadTest=buildSecurityTest(tsc);
+      securityTests.add(loadTest);
+    }
+  }
   if (!config.isSetFailOnError())   config.setFailOnError(true);
   if (!config.isSetFailTestCaseOnErrors())   config.setFailTestCaseOnErrors(true);
   if (!config.isSetKeepSession())   config.setKeepSession(false);
