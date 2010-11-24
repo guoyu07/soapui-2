@@ -1,0 +1,11 @@
+{
+  int ix=securityTests.indexOf(securityTest);
+  securityTests.remove(ix);
+  try {
+    (getTestSuite()).fireSecurityTestRemoved(securityTest);
+  }
+  finally {
+    securityTest.release();
+    getConfig().removeSecurityTest(ix);
+  }
+}

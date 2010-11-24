@@ -1,0 +1,6 @@
+{
+  String name=UISupport.prompt("Specify name of cloned SecurityTest","Clone SecurityTest","Copy of " + securityTest.getName());
+  if (name == null)   return;
+  SecurityTest newSecurityTest=securityTest.getTestCase().cloneSecurityTest(securityTest,name);
+  UISupport.selectAndShow(newSecurityTest);
+}
