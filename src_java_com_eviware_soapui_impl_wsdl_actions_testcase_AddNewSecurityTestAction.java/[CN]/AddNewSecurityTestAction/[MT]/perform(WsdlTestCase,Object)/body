@@ -1,0 +1,6 @@
+{
+  String name=UISupport.prompt("Specify name of SecurityTest","New SecurityTest","SecurityTest " + (testCase.getSecurityTestCount() + 1));
+  if (name == null)   return;
+  SecurityTest securityTest=testCase.addNewSecurityTest(name);
+  UISupport.selectAndShow(securityTest);
+}

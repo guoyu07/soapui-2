@@ -1,0 +1,7 @@
+{
+  super(new SecurityTestsModelItem(getTestCase()));
+  for (int c=0; c < getTestCase().getSecurityTestCount(); c++) {
+    securityTestNodes.add(new SecurityTestTreeNode(getTestCase().getSecurityTestAt(c),getModelItem(),getTreeModel()));
+  }
+  getTreeModel().mapModelItems(securityTestNodes);
+}

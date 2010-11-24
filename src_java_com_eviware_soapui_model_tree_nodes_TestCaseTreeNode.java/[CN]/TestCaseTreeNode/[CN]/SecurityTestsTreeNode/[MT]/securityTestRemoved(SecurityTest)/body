@@ -1,0 +1,8 @@
+{
+  SoapUITreeNode treeNode=getTreeModel().getTreeNode(securityTest);
+  if (securityTestNodes.contains(treeNode)) {
+    getTreeModel().notifyNodeRemoved(treeNode);
+    securityTestNodes.remove(treeNode);
+  }
+ else   throw new RuntimeException("Removing unkown loadTest");
+}
