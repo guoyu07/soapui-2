@@ -1,0 +1,18 @@
+{
+  if (acceptsTestStep(testStep)) {
+    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+    testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    HttpTestRequestInterface<?> request=((HttpTestRequestStepInterface)testStep).getTestRequest();
+    for (    String param : getParamsToUse()) {
+      for (      String sqlInjection : sqlInjections) {
+        request.setPropertyValue(param,sqlInjection);
+        testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+        HttpTestRequestInterface<?> lastRequest=((HttpTestRequestStepInterface)testStep).getTestRequest();
+        if (StringUtils.getLevenshteinDistance(request.getResponse().getContentAsString(),lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
+          securityTestLog.addEntry(new SecurityTestLogMessageEntry("Possible SQL Injection Vulnerability Detected",new HttpResponseMessageExchange(lastRequest)));
+        }
+        analyze(testStep,context,securityTestLog);
+      }
+    }
+  }
+}
