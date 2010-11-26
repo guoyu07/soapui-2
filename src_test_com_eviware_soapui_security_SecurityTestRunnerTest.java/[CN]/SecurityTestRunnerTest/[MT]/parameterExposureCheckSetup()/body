@@ -3,5 +3,4 @@
   SecurityCheckConfig exposureConfig=SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).createNewSecurityCheck("Test");
   ParameterExposureCheck exposureCheck=(ParameterExposureCheck)SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).buildSecurityCheck(exposureConfig);
   secCheckList.add(exposureCheck);
-  securityChecksMap.put("HTTP Test Request",secCheckList);
 }

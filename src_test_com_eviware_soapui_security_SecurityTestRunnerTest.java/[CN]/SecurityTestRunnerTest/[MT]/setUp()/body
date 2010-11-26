@@ -3,6 +3,7 @@
   TestSuite testSuite=project.getTestSuiteByName("Test Suite");
   groovySecurityCheckSetUp();
   parameterExposureCheckSetup();
+  SQLInjectionCheckSetup();
   testCase=(WsdlTestCase)testSuite.getTestCaseByName("Test Conversions");
   WsdlInterface iface=(WsdlInterface)project.getInterfaceAt(0);
   mockService=(WsdlMockService)project.addNewMockService("MockService 1");
@@ -21,7 +22,6 @@
       ((WsdlTestRequestStep)testStep).getTestRequest().setEndpoint(endpoint);
     }
     if (testStep instanceof HttpTestRequestStep) {
-      ((HttpTestRequestStep)testStep).getTestRequest().setEndpoint(endpoint);
     }
   }
 }
