@@ -5,12 +5,7 @@
     MessageExchange messageExchange=new HttpResponseMessageExchange(request);
     Map<String,TestProperty> params;
     AbstractHttpRequest<?> httpRequest=testStepwithProperties.getHttpRequest();
-    if (httpRequest instanceof HttpRequest) {
-      params=((HttpRequest)httpRequest).getParams();
-    }
- else {
-      params=((RestRequest)httpRequest).getParams();
-    }
+    params=httpRequest.getParams();
     if (getParamsToCheck().isEmpty()) {
       setParamsToCheck(new ArrayList<String>(params.keySet()));
     }
