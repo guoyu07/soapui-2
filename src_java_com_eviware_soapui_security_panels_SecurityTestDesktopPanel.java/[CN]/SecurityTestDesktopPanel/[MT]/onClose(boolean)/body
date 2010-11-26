@@ -1,0 +1,24 @@
+{
+  if (canCancel) {
+    if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
+      Boolean retval=UISupport.confirmOrCancel("Cancel running SecurityTest?","Cancel Run");
+      if (retval == null)       return false;
+      if (retval.booleanValue()) {
+        runner.cancel(null);
+      }
+    }
+  }
+ else {
+    if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
+      runner.cancel(null);
+    }
+  }
+  progressBarAdapter.release();
+  propertiesTable.release();
+  inspectorPanel.release();
+  setupGroovyEditor.getEditor().release();
+  tearDownGroovyEditor.getEditor().release();
+  securitytestLog.release();
+  lastRunner=null;
+  return release();
+}

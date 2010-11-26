@@ -1,5 +1,7 @@
 {
   super(config,testCase,"/loadTest.gif");
   this.testCase=testCase;
+  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  setPropertiesConfig(getConfig().getProperties());
   securityTestLog=new SecurityTestLogModel();
 }
