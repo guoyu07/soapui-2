@@ -1,4 +1,9 @@
 {
   JPanel p=new JPanel(new BorderLayout());
+  JXToolBar toolbar=UISupport.createToolbar();
+  p.add(toolbar,BorderLayout.NORTH);
+  testStepList=new JSecurityTestTestStepList(getModelItem().getTestCase());
+  stateDependantComponents.add(testStepList);
+  p.add(new JScrollPane(testStepList),BorderLayout.CENTER);
   return p;
 }

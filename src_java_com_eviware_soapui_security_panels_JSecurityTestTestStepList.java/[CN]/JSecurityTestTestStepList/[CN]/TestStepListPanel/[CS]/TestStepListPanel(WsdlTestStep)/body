@@ -1,0 +1,53 @@
+{
+  super(new BorderLayout());
+  setFocusable(true);
+  this.testStep=testStep;
+  autoscrollSupport=new AutoscrollSupport(this);
+  progressBar=new JProgressBar(0,100){
+    protected void processMouseEvent(    MouseEvent e){
+      if (e.getID() == MouseEvent.MOUSE_PRESSED || e.getID() == MouseEvent.MOUSE_RELEASED) {
+        TestStepListPanel.this.processMouseEvent(translateMouseEvent(e));
+      }
+    }
+    protected void processMouseMotionEvent(    MouseEvent e){
+      TestStepListPanel.this.processMouseMotionEvent(translateMouseEvent(e));
+    }
+    /** 
+ * Translates the given mouse event to the enclosing map panel's
+ * coordinate space.
+ */
+    private MouseEvent translateMouseEvent(    MouseEvent e){
+      return new MouseEvent(TestStepListPanel.this,e.getID(),e.getWhen(),e.getModifiers(),e.getX() + getX(),e.getY() + getY(),e.getClickCount(),e.isPopupTrigger(),e.getButton());
+    }
+  }
+;
+  JPanel progressPanel=UISupport.createProgressBarPanel(progressBar,5,false);
+  progressBar.setMinimumSize(new Dimension(0,10));
+  progressBar.setBackground(Color.WHITE);
+  progressBar.setInheritsPopupMenu(true);
+  label=new JLabel(testStep.getLabel());
+  label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+  label.setInheritsPopupMenu(true);
+  label.setEnabled(!testStep.isDisabled());
+  add(progressPanel,BorderLayout.CENTER);
+  add(label,BorderLayout.NORTH);
+  testCasePropertyChangeListener=new TestCasePropertyChangeListener();
+  initPopup(testStep);
+  addMouseListener(new MouseAdapter(){
+    @Override public void mousePressed(    MouseEvent e){
+      requestFocus();
+    }
+    public void mouseClicked(    MouseEvent e){
+      if (e.getClickCount() < 2) {
+        if (selectedTestStep != null)         selectedTestStep.setSelected(false);
+        setSelected(true);
+        selectedTestStep=TestStepListPanel.this;
+        return;
+      }
+      UISupport.selectAndShow(TestStepListPanel.this.testStep);
+    }
+  }
+);
+  addKeyListener(new TestCaseListPanelKeyHandler());
+  setSelected(false);
+}
