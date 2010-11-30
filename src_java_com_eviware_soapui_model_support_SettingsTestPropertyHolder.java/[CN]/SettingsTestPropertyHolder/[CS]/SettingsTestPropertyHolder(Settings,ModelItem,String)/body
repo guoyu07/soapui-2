@@ -2,7 +2,7 @@
   this.modelItem=modelItem;
   config=PropertiesTypeConfig.Factory.newInstance();
   try {
-    String str=settings.getString(GlobalPropertySettings.PROPERTIES,null);
+    String str=settings.getString(settingsName,null);
     if (StringUtils.hasContent(str))     config=PropertiesTypeConfig.Factory.parse(str);
   }
  catch (  Exception e) {

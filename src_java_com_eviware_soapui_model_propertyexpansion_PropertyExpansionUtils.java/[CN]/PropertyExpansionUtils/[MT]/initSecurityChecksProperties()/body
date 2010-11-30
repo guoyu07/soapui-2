@@ -1,0 +1,5 @@
+{
+  globalSecurityPropertyHolder=new SettingsTestPropertyHolder(SoapUI.getSettings(),null,GlobalPropertySettings.SECURITY_CHECKS_PROPERTIES);
+  String propFile=System.getProperty("soapuisecurity.properties");
+  if (StringUtils.hasContent(propFile))   globalSecurityPropertyHolder.addPropertiesFromFile(propFile);
+}

@@ -1,5 +1,5 @@
 {
-  globalTestPropertyHolder=new SettingsTestPropertyHolder(SoapUI.getSettings(),null);
+  globalTestPropertyHolder=new SettingsTestPropertyHolder(SoapUI.getSettings(),null,GlobalPropertySettings.PROPERTIES);
   String propFile=System.getProperty("soapui.properties");
   if (StringUtils.hasContent(propFile))   globalTestPropertyHolder.addPropertiesFromFile(propFile);
 }

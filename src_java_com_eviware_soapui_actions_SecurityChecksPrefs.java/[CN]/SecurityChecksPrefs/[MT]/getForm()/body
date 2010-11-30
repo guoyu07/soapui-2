@@ -1,0 +1,11 @@
+{
+  if (securityChecksForm == null) {
+    securityChecksForm=new SimpleForm();
+    PropertyHolderTable propertyHolderTable=new PropertyHolderTable(PropertyExpansionUtils.getSecurityGlobalProperties());
+    propertyHolderTable.setPreferredSize(new Dimension(200,300));
+    securityChecksForm.append(new JLabel(title));
+    securityChecksForm.addSpace();
+    securityChecksForm.addComponent(propertyHolderTable);
+  }
+  return securityChecksForm;
+}
