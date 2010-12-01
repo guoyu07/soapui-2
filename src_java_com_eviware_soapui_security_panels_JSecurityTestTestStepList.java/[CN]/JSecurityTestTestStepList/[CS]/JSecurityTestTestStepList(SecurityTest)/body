@@ -1,0 +1,20 @@
+{
+  JPanel p=new JPanel(new BorderLayout());
+  this.securityTest=securityTest;
+  p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
+  for (int c=0; c < securityTest.getTestCase().getTestStepCount(); c++) {
+    TestStepListPanel testCaseListPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
+    panels.put(securityTest.getTestCase().getTestStepAt(c),testCaseListPanel);
+    p.add(testCaseListPanel);
+  }
+  p.add(Box.createVerticalGlue());
+  inspectorPanel=JInspectorPanelFactory.build(p);
+  JComponentInspector<JComponent> securityChecksInspector=new JComponentInspector<JComponent>(buildSecurityChecksList(),"SecurityChecks","SecurityChecks for selected TestStep",true);
+  inspectorPanel.addInspector(securityChecksInspector);
+  setBackground(Color.WHITE);
+  add(inspectorPanel.getComponent());
+  ActionList actions=ActionListBuilder.buildActions(securityTest);
+  actions.removeAction(0);
+  actions.removeAction(0);
+  setComponentPopupMenu(ActionSupport.buildPopup(actions));
+}

@@ -1,0 +1,28 @@
+{
+  setEnabled(list.isEnabled());
+  if (value instanceof TestAssertion) {
+    TestAssertion assertion=(TestAssertion)value;
+    setText(assertion.getLabel() + " - " + assertion.getStatus().toString());
+    setIcon(assertion.getIcon());
+    if (assertion.isDisabled() && isEnabled())     setEnabled(false);
+  }
+ else   if (value instanceof AssertionError) {
+    AssertionError assertion=(AssertionError)value;
+    setText(" -> " + assertion.toString());
+    setIcon(null);
+  }
+ else   if (value instanceof String) {
+    setText(value.toString());
+  }
+  if (isSelected) {
+    setBackground(list.getSelectionBackground());
+    setForeground(list.getSelectionForeground());
+  }
+ else {
+    setBackground(list.getBackground());
+    setForeground(list.getForeground());
+  }
+  setFont(list.getFont());
+  setOpaque(true);
+  return this;
+}

@@ -1,0 +1,7 @@
+{
+  securable.addSecurityChecksListener(this);
+  for (int c=0; c < securable.getSecurityCheckCount(); c++) {
+    SecurityCheck securityCheck=securable.getSecurityCheckAt(c);
+    addSecurityCheck(securityCheck);
+  }
+}

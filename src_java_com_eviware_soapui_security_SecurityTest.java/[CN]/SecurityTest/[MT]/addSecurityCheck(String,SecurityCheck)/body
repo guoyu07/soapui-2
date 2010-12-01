@@ -3,7 +3,7 @@
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
   if (!testStepSecurityTestList.isEmpty()) {
     for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
-      if (testStepSecurityTest.getTestStepName().equals(testStepName)) {
+      if (testStepSecurityTest.getTestStepId().equals(testStepId)) {
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
         securityCheckList.add(securityCheck.getConfig());
         hasChecks=true;
@@ -12,7 +12,7 @@
   }
   if (!hasChecks) {
     TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
-    testStepSecurityTest.setTestStepName(testStepName);
+    testStepSecurityTest.setTestStepId(testStepId);
     SecurityCheckConfig newSecurityCheck=testStepSecurityTest.addNewTestStepSecurityCheck();
     newSecurityCheck.setConfig(securityCheck.getConfig().getConfig());
     newSecurityCheck.setType(securityCheck.getType());

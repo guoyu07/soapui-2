@@ -1,0 +1,72 @@
+{
+  super(new BorderLayout());
+  this.securable=securable;
+  securityCheckListModel=new SecurityCheckListModel();
+  securityCheckList=new JList(securityCheckListModel);
+  securityCheckList.setToolTipText("SecurityChecks for this TestStep");
+  securityCheckList.setCellRenderer(new AssertionCellRenderer());
+  securityCheckList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  securityCheckListPopup=new JPopupMenu();
+  addSecurityCheckAction=new AddSecurityCheckAction(securable);
+  securityCheckListPopup.add(addSecurityCheckAction);
+  securityCheckListPopup.addPopupMenuListener(new PopupMenuListener(){
+    public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      while (securityCheckListPopup.getComponentCount() > 1)       securityCheckListPopup.remove(1);
+      int ix=securityCheckList.getSelectedIndex();
+      if (ix == -1) {
+        securityCheckListPopup.addSeparator();
+        securityCheckListPopup.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+        return;
+      }
+      SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+      ActionSupport.addActions(ActionListBuilder.buildActions(securityCheck),securityCheckListPopup);
+    }
+    public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+    }
+    public void popupMenuCanceled(    PopupMenuEvent e){
+    }
+  }
+);
+  securityCheckList.setComponentPopupMenu(securityCheckListPopup);
+  securityCheckList.addMouseListener(new MouseAdapter(){
+    public void mouseClicked(    MouseEvent e){
+      if (e.getClickCount() < 2)       return;
+      int ix=securityCheckList.getSelectedIndex();
+      if (ix == -1)       return;
+      Object obj=securityCheckList.getModel().getElementAt(ix);
+      if (obj instanceof TestAssertion) {
+        TestAssertion assertion=(TestAssertion)obj;
+        if (assertion.isConfigurable())         assertion.configure();
+        return;
+      }
+      if (obj instanceof AssertionError) {
+        AssertionError error=(AssertionError)obj;
+        if (error.getLineNumber() >= 0) {
+          selectError(error);
+        }
+ else         Toolkit.getDefaultToolkit().beep();
+      }
+ else       Toolkit.getDefaultToolkit().beep();
+    }
+  }
+);
+  securityCheckList.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent e){
+      int ix=securityCheckList.getSelectedIndex();
+      if (ix == -1)       return;
+      SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+      if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+        if (securityCheck.isConfigurable())         securityCheck.configure();
+      }
+ else {
+        ActionList actions=ActionListBuilder.buildActions(securityCheck);
+        if (actions != null) {
+          actions.dispatchKeyEvent(e);
+        }
+      }
+    }
+  }
+);
+  add(new JScrollPane(securityCheckList),BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+}

@@ -1,7 +1,4 @@
 {
   TestStepListPanel testStepListPanel=new TestStepListPanel((WsdlTestStep)testStep);
-  DragSource dragSource=DragSource.getDefaultDragSource();
-  SoapUIDragAndDropHandler dragAndDropHandler=new SoapUIDragAndDropHandler(new TestCaseListPanelDragAndDropable(testStepListPanel),DropType.BEFORE_AND_AFTER);
-  dragSource.createDefaultDragGestureRecognizer(testStepListPanel,DnDConstants.ACTION_COPY_OR_MOVE,dragAndDropHandler);
   return testStepListPanel;
 }

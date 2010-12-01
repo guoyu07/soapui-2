@@ -1,0 +1,8 @@
+{
+  items.clear();
+  for (int c=0; c < securable.getSecurityCheckCount(); c++) {
+    SecurityCheck securityCheck=securable.getSecurityCheckAt(c);
+    securityCheck.removePropertyChangeListener(this);
+  }
+  securable.removeSecurityChecksListener(this);
+}

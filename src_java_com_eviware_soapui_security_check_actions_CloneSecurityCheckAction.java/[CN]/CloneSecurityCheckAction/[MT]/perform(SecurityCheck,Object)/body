@@ -1,0 +1,9 @@
+{
+  String name=target.getName();
+  while (target.getName().equals(name)) {
+    name=UISupport.prompt("Specify unique name for cloned security check","Clone SecurityCheck",target.getName());
+    if (name == null)     return;
+  }
+  SecurityCheck securityCheck=target.getSecurable().cloneAssertion(target,name);
+  securityCheck.configure();
+}

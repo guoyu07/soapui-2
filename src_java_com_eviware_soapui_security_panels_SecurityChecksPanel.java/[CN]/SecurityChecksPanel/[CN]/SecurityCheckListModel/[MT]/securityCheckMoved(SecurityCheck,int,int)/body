@@ -1,0 +1,14 @@
+{
+synchronized (this) {
+    SecurityCheck securityCheck=(SecurityCheck)items.get(ix);
+    if ((ix == 0 && offset == -1) || (ix == items.size() - 1 && offset == 1)) {
+      return;
+    }
+    securityCheck.removePropertyChangeListener(this);
+    items.remove(ix);
+    fireIntervalRemoved(this,ix,ix);
+    newSecurityCheck.addPropertyChangeListener(this);
+    items.add(ix + offset,newSecurityCheck);
+    fireIntervalAdded(this,ix + offset,ix + offset);
+  }
+}

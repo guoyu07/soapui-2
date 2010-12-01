@@ -2,7 +2,7 @@
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
   if (!testStepSecurityTestList.isEmpty()) {
     for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
-      if (testStepSecurityTest.getTestStepName().equals(testStepName)) {
+      if (testStepSecurityTest.getTestStepId().equals(testStepId)) {
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
         securityCheckList.remove(securityCheck.getConfig());
         if (securityCheckList.isEmpty()) {

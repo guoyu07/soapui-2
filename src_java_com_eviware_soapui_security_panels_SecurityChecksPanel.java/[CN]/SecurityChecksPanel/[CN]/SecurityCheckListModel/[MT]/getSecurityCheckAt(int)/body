@@ -1,0 +1,7 @@
+{
+  Object object=items.get(index);
+  while (!(object instanceof SecurityCheck) && index > 0) {
+    object=items.get(--index);
+  }
+  return (SecurityCheck)((object instanceof SecurityCheck) ? object : null);
+}
