@@ -1,0 +1,8 @@
+{
+  String responseContent=messageExchange.getResponseContent();
+  for (  String exposureContent : exposureList) {
+    if (responseContent.contains(exposureContent)) {
+      logSecurityInfo(messageExchange,securityTestLog,exposureContent);
+    }
+  }
+}
