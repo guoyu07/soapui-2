@@ -6,7 +6,7 @@
   }
   String selection=(String)UISupport.prompt("Select assertion to add","Select Assertion",assertions);
   if (selection == null)   return;
-  SecurityCheck securityCheck=securable.addSecurityCheck(selection);
+  SecurityCheck securityCheck=securable.addSecurityCheck(selection,selection);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");
     return;

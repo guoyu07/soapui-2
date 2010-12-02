@@ -8,13 +8,12 @@
     p.add(testCaseListPanel);
   }
   p.add(Box.createVerticalGlue());
-  inspectorPanel=JInspectorPanelFactory.build(p);
-  JComponentInspector<JComponent> securityChecksInspector=new JComponentInspector<JComponent>(buildSecurityChecksList(),"SecurityChecks","SecurityChecks for selected TestStep",true);
-  inspectorPanel.addInspector(securityChecksInspector);
-  setBackground(Color.WHITE);
-  add(inspectorPanel.getComponent());
-  ActionList actions=ActionListBuilder.buildActions(securityTest);
-  actions.removeAction(0);
-  actions.removeAction(0);
-  setComponentPopupMenu(ActionSupport.buildPopup(actions));
+  createSecurityCheckInspector();
+  secCheckPanel=buildSecurityChecksPanel();
+  secCheckPanel.setPreferredSize(new Dimension(650,300));
+  splitPane=UISupport.createVerticalSplit(new JScrollPane(p),new JScrollPane(secCheckPanel));
+  splitPane.setPreferredSize(new Dimension(650,500));
+  splitPane.setResizeWeight(0.1);
+  splitPane.setDividerLocation(0.5);
+  add(splitPane,BorderLayout.CENTER);
 }

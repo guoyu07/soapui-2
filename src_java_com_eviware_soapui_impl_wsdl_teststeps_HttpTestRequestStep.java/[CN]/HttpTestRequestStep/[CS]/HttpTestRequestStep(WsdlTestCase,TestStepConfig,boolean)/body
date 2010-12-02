@@ -1,5 +1,6 @@
 {
   super(testCase,config,true,forLoadTest);
+  securityChecksList=new ArrayList<SecurityCheck>();
   if (getConfig().getConfig() != null) {
     httpRequestConfig=RestRequestConverter.updateIfNeeded(getConfig().getConfig());
     getConfig().setConfig(httpRequestConfig);

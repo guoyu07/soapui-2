@@ -1,0 +1,20 @@
+{
+  setEnabled(list.isEnabled());
+  if (value instanceof SecurityCheck) {
+    SecurityCheck securityCheck=(SecurityCheck)value;
+    setText(securityCheck.getName());
+    setIcon(securityCheck.getIcon());
+    if (securityCheck.isDisabled() && isEnabled())     setEnabled(false);
+  }
+  if (isSelected) {
+    setBackground(list.getSelectionBackground());
+    setForeground(list.getSelectionForeground());
+  }
+ else {
+    setBackground(list.getBackground());
+    setForeground(list.getForeground());
+  }
+  setFont(list.getFont());
+  setOpaque(true);
+  return this;
+}

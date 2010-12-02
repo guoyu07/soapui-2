@@ -44,7 +44,9 @@
         selectedTestStep=TestStepListPanel.this;
         return;
       }
-      UISupport.selectAndShow(TestStepListPanel.this.testStep);
+      secCheckPanel.removeAll();
+      secCheckPanel.add(buildSecurityChecksPanel());
+      secCheckPanel.revalidate();
     }
   }
 );

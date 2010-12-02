@@ -1,0 +1,8 @@
+{
+  if (selectedTestStep != null && selectedTestStep.getTestStep() instanceof HttpTestRequestStep) {
+    return new SecurityChecksPanel((HttpTestRequestStep)selectedTestStep.getTestStep(),selectedTestStep.getTestStep(),securityTest);
+  }
+ else {
+    return new JPanel();
+  }
+}

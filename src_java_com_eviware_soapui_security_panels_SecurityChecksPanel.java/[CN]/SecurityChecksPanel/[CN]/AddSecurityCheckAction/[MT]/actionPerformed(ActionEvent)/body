@@ -1,0 +1,17 @@
+{
+  String[] securityChecks=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames(securable);
+  if (securityChecks == null || securityChecks.length == 0) {
+    UISupport.showErrorMessage("No security checks available for this message");
+    return;
+  }
+  String selection=(String)UISupport.prompt("Select securityCheck to add","Select SecurityCheck",securityChecks);
+  if (selection == null)   return;
+  SecurityCheck securityCheck=securable.addSecurityCheck(selection,selection);
+  securityCheckListModel.addSecurityCheck(securityCheck);
+  securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
+  securityTest.addSecurityCheck(testStep.getId(),securityCheck);
+  if (securityCheck == null) {
+    UISupport.showErrorMessage("Failed to add security check");
+    return;
+  }
+}
