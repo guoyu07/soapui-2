@@ -1,0 +1,25 @@
+{
+  AbstractSecurityCheckFactory factory=SecurityCheckRegistry.getInstance().getFactory(securityCheckType);
+  SecurityCheckConfig newSecCheckConfig=factory.createNewSecurityCheck(securityCheckName);
+  SecurityCheck newSecCheck=factory.buildSecurityCheck(newSecCheckConfig);
+  boolean hasChecks=false;
+  List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
+  if (!testStepSecurityTestList.isEmpty()) {
+    for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
+      if (testStepSecurityTest.getTestStepId().equals(testStepId)) {
+        List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
+        securityCheckList.add(newSecCheckConfig);
+        hasChecks=true;
+      }
+    }
+  }
+  if (!hasChecks) {
+    TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
+    testStepSecurityTest.setTestStepId(testStepId);
+    SecurityCheckConfig newSecurityCheck=testStepSecurityTest.addNewTestStepSecurityCheck();
+    newSecurityCheck.setConfig(newSecCheckConfig.getConfig());
+    newSecurityCheck.setType(newSecCheck.getType());
+    newSecurityCheck.setName(newSecCheck.getName());
+  }
+  return newSecCheck;
+}

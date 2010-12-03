@@ -2,7 +2,7 @@
   List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
   for (int c=0; c < securityChecksList.size(); c++) {
     SecurityCheck securityCheck=getTestStepSecurityCheckAt(testStepId,c);
-    if (securityCheck.getName().equals(securityCheckName))     return securityCheck;
+    if (securityCheckName.equals(securityCheck.getName()))     return securityCheck;
   }
   return null;
 }

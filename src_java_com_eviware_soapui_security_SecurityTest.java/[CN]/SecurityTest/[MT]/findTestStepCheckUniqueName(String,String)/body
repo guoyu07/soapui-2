@@ -1,0 +1,14 @@
+{
+  String name=type;
+  int numNames=0;
+  List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
+  if (securityChecksList != null && !securityChecksList.isEmpty()) {
+    for (    SecurityCheck existingCheck : securityChecksList) {
+      if (existingCheck.getType().equals(name))       numNames++;
+    }
+  }
+  if (numNames != 0) {
+    name+=" " + numNames;
+  }
+  return name;
+}

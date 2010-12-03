@@ -1,17 +1,23 @@
 {
-  String[] securityChecks=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames(securable);
-  if (securityChecks == null || securityChecks.length == 0) {
+  String[] availableChecksNames=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames();
+  String type=UISupport.prompt("Specify type of security check","Add SecurityCheck",availableChecksNames);
+  if (type == null || type.trim().length() == 0)   return;
+  String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",securityTest.findTestStepCheckUniqueName(testStep.getId(),type));
+  if (name == null || name.trim().length() == 0)   return;
+  while (securityTest.getTestStepSecurityCheckByName(testStep.getId(),name) != null) {
+    name=UISupport.prompt("Specify unique name for check","Add SecurityCheck",name + " " + (securityTest.getTestStepSecurityChecks(testStep.getId()).size()));
+    if (name == null) {
+      return;
+    }
+  }
+  if (availableChecksNames == null || availableChecksNames.length == 0) {
     UISupport.showErrorMessage("No security checks available for this message");
     return;
   }
-  String selection=(String)UISupport.prompt("Select securityCheck to add","Select SecurityCheck",securityChecks);
-  if (selection == null)   return;
-  SecurityCheck securityCheck=securable.addSecurityCheck(selection,selection);
-  securityCheckListModel.addElement(selection);
-  securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
-  securityTest.addSecurityCheck(testStep.getId(),securityCheck);
+  SecurityCheck securityCheck=securityTest.addSecurityCheck(testStep.getId(),type,name);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");
     return;
   }
+  securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
 }

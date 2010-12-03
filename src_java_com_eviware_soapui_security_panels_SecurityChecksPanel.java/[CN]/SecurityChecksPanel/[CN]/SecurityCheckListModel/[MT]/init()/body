@@ -1,7 +1,6 @@
 {
-  securable.addSecurityChecksListener(this);
-  for (int c=0; c < securable.getSecurityCheckCount(); c++) {
-    SecurityCheck securityCheck=securable.getSecurityCheckAt(c);
+  for (int c=0; c < securityTest.getTestStepSecurityChecksCount(testStep.getId()); c++) {
+    SecurityCheck securityCheck=securityTest.getTestStepSecurityCheckAt(testStep.getId(),c);
     addSecurityCheck(securityCheck);
   }
 }
