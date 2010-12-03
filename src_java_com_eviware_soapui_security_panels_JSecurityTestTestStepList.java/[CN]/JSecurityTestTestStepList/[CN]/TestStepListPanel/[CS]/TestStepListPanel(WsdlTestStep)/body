@@ -44,9 +44,11 @@
         selectedTestStep=TestStepListPanel.this;
         return;
       }
-      secCheckPanel.removeAll();
-      secCheckPanel.add(buildSecurityChecksPanel());
+      splitPane.remove(secCheckPanel);
+      secCheckPanel=buildSecurityChecksPanel();
       secCheckPanel.revalidate();
+      splitPane.setBottomComponent(secCheckPanel);
+      splitPane.revalidate();
     }
   }
 );

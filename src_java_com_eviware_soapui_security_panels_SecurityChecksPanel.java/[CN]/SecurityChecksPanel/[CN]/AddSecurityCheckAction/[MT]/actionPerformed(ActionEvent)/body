@@ -7,7 +7,7 @@
   String selection=(String)UISupport.prompt("Select securityCheck to add","Select SecurityCheck",securityChecks);
   if (selection == null)   return;
   SecurityCheck securityCheck=securable.addSecurityCheck(selection,selection);
-  securityCheckListModel.addSecurityCheck(securityCheck);
+  securityCheckListModel.addElement(selection);
   securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
   securityTest.addSecurityCheck(testStep.getId(),securityCheck);
   if (securityCheck == null) {
