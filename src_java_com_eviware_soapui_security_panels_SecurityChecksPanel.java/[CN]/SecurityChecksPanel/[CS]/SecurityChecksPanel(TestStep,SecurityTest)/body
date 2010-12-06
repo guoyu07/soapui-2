@@ -19,6 +19,20 @@
     }
   }
 );
+  securityCheckList.addMouseListener(new MouseAdapter(){
+    public void mouseClicked(    MouseEvent e){
+      if (e.getClickCount() < 2)       return;
+      int ix=securityCheckList.getSelectedIndex();
+      if (ix == -1)       return;
+      Object obj=securityCheckList.getModel().getElementAt(ix);
+      if (obj instanceof SecurityCheck) {
+        SecurityCheck chck=(SecurityCheck)obj;
+        if (chck.isConfigurable())         chck.configure();
+        return;
+      }
+    }
+  }
+);
   JScrollPane listScrollPane=new JScrollPane(securityCheckList);
   UISupport.addTitledBorder(listScrollPane,"Security Checks");
   JPanel p=new JPanel(new BorderLayout());
