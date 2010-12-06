@@ -2,7 +2,6 @@
 synchronized (this) {
     int ix=items.indexOf(securityCheck);
     if (ix == -1)     return;
-    securityCheck.removePropertyChangeListener(this);
     items.remove(ix);
     fireIntervalRemoved(this,ix,ix);
   }

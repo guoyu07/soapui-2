@@ -6,7 +6,7 @@
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
   if (!testStepSecurityTestList.isEmpty()) {
     for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
-      if (testStepSecurityTest.getTestStepId().equals(testStepId)) {
+      if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
         securityCheckList.add(newSecCheckConfig);
         hasChecks=true;
@@ -15,11 +15,12 @@
   }
   if (!hasChecks) {
     TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
-    testStepSecurityTest.setTestStepId(testStepId);
+    testStepSecurityTest.setTestStepId(testStep.getId());
     SecurityCheckConfig newSecurityCheck=testStepSecurityTest.addNewTestStepSecurityCheck();
     newSecurityCheck.setConfig(newSecCheckConfig.getConfig());
     newSecurityCheck.setType(newSecCheck.getType());
     newSecurityCheck.setName(newSecCheck.getName());
   }
+  listModel.securityCheckAdded(testStep,newSecCheck);
   return newSecCheck;
 }

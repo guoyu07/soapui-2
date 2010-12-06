@@ -4,15 +4,14 @@
   this.securityTest=securityTest;
   securityCheckListModel=new SecurityCheckListModel();
   securityCheckList=new JList(securityCheckListModel);
+  securityTest.setListModel(securityCheckListModel);
   securityCheckList.setCellRenderer(new SecurityCheckCellRenderer());
   securityCheckList.setToolTipText("SecurityChecks for this TestStep");
   securityCheckList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   securityCheckList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
-      splitPane.remove(splitPane.getRightComponent());
-      splitPane.setRightComponent(buildConfigPanel());
-      revalidate();
       int ix=securityCheckList.getSelectedIndex();
+      configureSecurityCheckAction.setEnabled(ix >= 0);
       removeSecurityCheckAction.setEnabled(ix >= 0);
       moveSecurityCheckUpAction.setEnabled(ix >= 0);
       moveSecurityCheckDownAction.setEnabled(ix >= 0);
@@ -26,10 +25,5 @@
   p.add(listScrollPane,BorderLayout.CENTER);
   p.add(createPropertiesToolbar(),BorderLayout.NORTH);
   securityCheckConfigPanel=(JPanel)buildConfigPanel();
-  splitPane=UISupport.createHorizontalSplit(p,buildConfigPanel());
-  splitPane.setPreferredSize(new Dimension(650,500));
-  splitPane.setResizeWeight(0.1);
-  splitPane.setDividerLocation(120);
-  add(splitPane,BorderLayout.CENTER);
-  add(new JScrollPane(splitPane),BorderLayout.CENTER);
+  add(p,BorderLayout.CENTER);
 }
