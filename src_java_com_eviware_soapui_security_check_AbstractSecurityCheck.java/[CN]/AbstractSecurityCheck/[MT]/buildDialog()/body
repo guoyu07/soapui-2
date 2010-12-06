@@ -1,0 +1,19 @@
+{
+  dialog=new JDialog(UISupport.getMainFrame(),getTitle(),true);
+  JPanel contentPanel=(JPanel)getComponent();
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.XPATHASSERTIONEDITOR_HELP_URL);
+  builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
+  builder.addGlue();
+  JButton okButton=new JButton(new OkAction());
+  builder.addFixed(okButton);
+  builder.addRelatedGap();
+  builder.addFixed(new JButton(new CancelAction()));
+  builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
+  contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
+  dialog.setContentPane(contentPanel);
+  dialog.setSize(600,500);
+  dialog.setModal(true);
+  dialog.pack();
+  UISupport.initDialogActions(dialog,showOnlineHelpAction,okButton);
+}
