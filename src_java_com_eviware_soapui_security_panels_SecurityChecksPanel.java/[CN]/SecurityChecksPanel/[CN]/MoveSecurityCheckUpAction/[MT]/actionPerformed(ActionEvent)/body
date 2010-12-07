@@ -1,2 +1,13 @@
 {
+  int ix=securityCheckList.getSelectedIndex();
+  SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+  SecurityCheck newSecurityCheck=null;
+  if (ix > 0) {
+    if (ix != -1) {
+      newSecurityCheck=securityTest.moveTestStepSecurityCheck(testStep,securityCheck,ix,-1);
+    }
+    if (newSecurityCheck != null) {
+      securityCheckList.setSelectedValue(newSecurityCheck,true);
+    }
+  }
 }
