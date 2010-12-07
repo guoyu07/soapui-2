@@ -4,8 +4,9 @@
   panel.add(buildRunnerBar(),BorderLayout.CENTER);
   add(panel,BorderLayout.NORTH);
   inspectorPanel=JInspectorPanelFactory.build(buildContent());
-  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildTestLog(),"TestCase Log","TestCase Execution Log",true));
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildTestLog(),"Security Log","Security Execution Log",true));
   inspectorPanel.setDefaultDividerLocation(0.7F);
+  inspectorPanel.setCurrentInspector("Security Log");
   if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
     testStepListInspectorPanel.setCurrentInspector("Description");
   }
