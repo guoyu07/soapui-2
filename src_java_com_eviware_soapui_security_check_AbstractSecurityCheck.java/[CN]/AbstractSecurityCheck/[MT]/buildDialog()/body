@@ -1,6 +1,7 @@
 {
   dialog=new JDialog(UISupport.getMainFrame(),getTitle(),true);
   JPanel contentPanel=(JPanel)getComponent();
+  contentPanel.setPreferredSize(new Dimension(300,100));
   ButtonBarBuilder builder=new ButtonBarBuilder();
   ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.XPATHASSERTIONEDITOR_HELP_URL);
   builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
@@ -12,7 +13,6 @@
   builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
   contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
   dialog.setContentPane(contentPanel);
-  dialog.setSize(600,500);
   dialog.setModal(true);
   dialog.pack();
   UISupport.initDialogActions(dialog,showOnlineHelpAction,okButton);
