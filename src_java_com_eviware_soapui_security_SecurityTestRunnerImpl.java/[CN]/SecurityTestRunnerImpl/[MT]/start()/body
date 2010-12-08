@@ -1,5 +1,6 @@
 {
   securityTest.getTestCase().beforeSave();
+  listeners=securityTest.getTestRunListeners();
   hasTornDown=false;
   context=new WsdlTestRunContext(this,new StringToObjectMap());
   try {
@@ -13,7 +14,7 @@
     WsdlTestCase testCase=securityTest.getTestCase();
     List<TestStep> testStepsList=testCase.getTestStepList();
     HashMap<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
-    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner(testCase,new StringToObjectMap());
+    SecurityTestRunnerImpl testCaseRunner=new SecurityTestRunnerImpl(securityTest);
     for (    TestStep testStep : testStepsList) {
       if (!testStep.isDisabled()) {
         if (secCheckMap.containsKey(testStep.getId())) {
@@ -27,6 +28,8 @@
         }
       }
     }
+    status=Status.FINISHED;
+    notifyAfterRun();
   }
   stop();
 }
