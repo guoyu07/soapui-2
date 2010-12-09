@@ -3,34 +3,34 @@
   setFocusable(true);
   this.testStep=testStep;
   autoscrollSupport=new AutoscrollSupport(this);
-  progressBar=new JProgressBar(0,100){
+  progressBar=new JProgressBar(){
     protected void processMouseEvent(    MouseEvent e){
       if (e.getID() == MouseEvent.MOUSE_PRESSED || e.getID() == MouseEvent.MOUSE_RELEASED) {
-        TestStepListPanel.this.processMouseEvent(translateMouseEvent(e));
+        TestStepListEnrtyPanel.this.processMouseEvent(translateMouseEvent(e));
       }
     }
     protected void processMouseMotionEvent(    MouseEvent e){
-      TestStepListPanel.this.processMouseMotionEvent(translateMouseEvent(e));
+      TestStepListEnrtyPanel.this.processMouseMotionEvent(translateMouseEvent(e));
     }
     /** 
  * Translates the given mouse event to the enclosing map panel's
  * coordinate space.
  */
     private MouseEvent translateMouseEvent(    MouseEvent e){
-      return new MouseEvent(TestStepListPanel.this,e.getID(),e.getWhen(),e.getModifiers(),e.getX() + getX(),e.getY() + getY(),e.getClickCount(),e.isPopupTrigger(),e.getButton());
+      return new MouseEvent(TestStepListEnrtyPanel.this,e.getID(),e.getWhen(),e.getModifiers(),e.getX() + getX(),e.getY() + getY(),e.getClickCount(),e.isPopupTrigger(),e.getButton());
     }
   }
 ;
   JPanel progressPanel=UISupport.createProgressBarPanel(progressBar,5,false);
-  progressBar.setMinimumSize(new Dimension(0,10));
+  progressBar.setMinimumSize(new Dimension(0,100));
   progressBar.setBackground(Color.WHITE);
   progressBar.setInheritsPopupMenu(true);
   label=new JLabel(testStep.getLabel(),testStep.getIcon(),SwingConstants.LEFT);
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
   label.setInheritsPopupMenu(true);
   label.setEnabled(!testStep.isDisabled());
-  add(progressPanel,BorderLayout.LINE_END);
-  add(label,BorderLayout.LINE_START);
+  add(progressPanel,BorderLayout.CENTER);
+  add(label,BorderLayout.NORTH);
   testCasePropertyChangeListener=new TestCasePropertyChangeListener();
   initPopup(testStep);
   addMouseListener(new MouseAdapter(){
@@ -41,7 +41,7 @@
       if (e.getClickCount() < 2) {
         if (selectedTestStep != null)         selectedTestStep.setSelected(false);
         setSelected(true);
-        selectedTestStep=TestStepListPanel.this;
+        selectedTestStep=TestStepListEnrtyPanel.this;
         return;
       }
       splitPane.remove(secCheckPanel);

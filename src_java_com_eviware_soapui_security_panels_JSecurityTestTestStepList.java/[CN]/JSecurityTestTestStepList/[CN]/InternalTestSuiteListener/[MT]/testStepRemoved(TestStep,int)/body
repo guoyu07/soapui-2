@@ -1,8 +1,11 @@
 {
-  TestStepListPanel testCaseListPanel=panels.get(testStep);
+  TestStepListEnrtyPanel testCaseListPanel=panels.get(testStep);
   if (testCaseListPanel != null) {
     remove(testCaseListPanel);
-    panels.remove(testStep);
+    TestStepListEnrtyPanel testStepListEntry=panels.remove(testStep);
+    testStepListPanel.remove(testStepListEntry);
+    splitPane.remove(splitPane.getTopComponent());
+    splitPane.setTopComponent(new JScrollPane(testStepListPanel));
     revalidate();
     repaint();
   }

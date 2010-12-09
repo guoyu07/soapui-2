@@ -1,11 +1,13 @@
 {
-  TestStepListPanel testStepListPanel=panels.get(testStep);
-  if (testStepListPanel != null) {
-    boolean hadFocus=testStepListPanel.hasFocus();
-    remove(testStepListPanel);
-    add(testStepListPanel,index + offset);
+  TestStepListEnrtyPanel testStepListEntry=panels.get(testStep);
+  if (testStepListEntry != null) {
+    boolean hadFocus=testStepListEntry.hasFocus();
+    testStepListPanel.remove(testStepListEntry);
+    testStepListPanel.add(testStepListEntry,index + offset);
+    splitPane.remove(splitPane.getTopComponent());
+    splitPane.setTopComponent(new JScrollPane(testStepListPanel));
     revalidate();
     repaint();
-    if (hadFocus)     testStepListPanel.requestFocus();
+    if (hadFocus)     testStepListEntry.requestFocus();
   }
 }

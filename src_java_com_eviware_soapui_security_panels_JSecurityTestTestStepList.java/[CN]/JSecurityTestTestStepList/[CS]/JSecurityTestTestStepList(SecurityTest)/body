@@ -1,18 +1,19 @@
 {
-  JPanel p=new JPanel(new BorderLayout());
+  testStepListPanel=new JPanel(new BorderLayout());
   this.securityTest=securityTest;
-  p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
+  testStepListPanel.setLayout(new BoxLayout(testStepListPanel,BoxLayout.Y_AXIS));
   for (int c=0; c < securityTest.getTestCase().getTestStepCount(); c++) {
-    TestStepListPanel testCaseListPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
+    TestStepListEnrtyPanel testCaseListPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
     panels.put(securityTest.getTestCase().getTestStepAt(c),testCaseListPanel);
-    p.add(testCaseListPanel);
+    testStepListPanel.add(testCaseListPanel);
   }
-  p.add(Box.createVerticalGlue());
+  testStepListPanel.add(Box.createVerticalGlue());
   createSecurityCheckInspector();
   secCheckPanel=buildSecurityChecksPanel();
-  splitPane=UISupport.createVerticalSplit(new JScrollPane(p),new JScrollPane(secCheckPanel));
+  splitPane=UISupport.createVerticalSplit(new JScrollPane(testStepListPanel),new JScrollPane(secCheckPanel));
   splitPane.setPreferredSize(new Dimension(600,400));
   splitPane.setResizeWeight(0.1);
   splitPane.setDividerLocation(0.5);
   add(splitPane,BorderLayout.CENTER);
+  securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
 }

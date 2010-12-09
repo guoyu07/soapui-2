@@ -4,8 +4,8 @@
   securityChecksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   securityChecksList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
-      splitPane.remove(splitPane.getRightComponent());
-      splitPane.setRightComponent(buildSecurityCheckConfigPanel());
+      splitPane.remove(splitPane.getBottomComponent());
+      splitPane.setBottomComponent(buildSecurityCheckConfigPanel());
       revalidate();
     }
   }
