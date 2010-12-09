@@ -17,14 +17,14 @@
     SecurityTestRunnerImpl testCaseRunner=new SecurityTestRunnerImpl(securityTest);
     for (    TestStep testStep : testStepsList) {
       if (!testStep.isDisabled()) {
+        testCaseRunner.runTestStepByName(testStep.getName());
         if (secCheckMap.containsKey(testStep.getId())) {
           List<SecurityCheck> testStepChecksList=secCheckMap.get(testStep.getId());
           for (          SecurityCheck securityCheck : testStepChecksList) {
-            if (securityCheck.acceptsTestStep(testStep))             securityCheck.run(cloneForSecurityCheck((WsdlTestStep)testStep),context,securityTest.getSecurityTestLog());
+            if (securityCheck.acceptsTestStep(testStep)) {
+              securityCheck.run(cloneForSecurityCheck((WsdlTestStep)testStep),context,securityTest.getSecurityTestLog());
+            }
           }
-        }
- else {
-          testCaseRunner.runTestStepByName(testStep.getName());
         }
       }
     }
