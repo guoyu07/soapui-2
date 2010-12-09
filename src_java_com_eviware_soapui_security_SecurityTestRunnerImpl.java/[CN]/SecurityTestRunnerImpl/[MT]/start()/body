@@ -15,9 +15,15 @@
     List<TestStep> testStepsList=testCase.getTestStepList();
     HashMap<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
     SecurityTestRunnerImpl testCaseRunner=new SecurityTestRunnerImpl(securityTest);
-    for (    TestStep testStep : testStepsList) {
+    notifyBeforeRun();
+    for (int j=0; j < testStepsList.size(); j++) {
+      TestStep testStep=testStepsList.get(j);
       if (!testStep.isDisabled()) {
-        testCaseRunner.runTestStepByName(testStep.getName());
+        for (int i=0; i < listeners.length; i++) {
+          listeners[i].beforeStep(this,getRunContext(),testStep);
+          if (!isRunning())           return;
+        }
+        TestStepResult stepResult=testCaseRunner.runTestStepByName(testStep.getName());
         if (secCheckMap.containsKey(testStep.getId())) {
           List<SecurityCheck> testStepChecksList=secCheckMap.get(testStep.getId());
           for (          SecurityCheck securityCheck : testStepChecksList) {
@@ -26,9 +32,14 @@
             }
           }
         }
+        for (int i=0; i < listeners.length; i++) {
+          listeners[i].afterStep(this,getRunContext(),stepResult);
+        }
       }
     }
-    status=Status.FINISHED;
+    if (status == Status.RUNNING) {
+      status=Status.FINISHED;
+    }
     notifyAfterRun();
   }
   stop();

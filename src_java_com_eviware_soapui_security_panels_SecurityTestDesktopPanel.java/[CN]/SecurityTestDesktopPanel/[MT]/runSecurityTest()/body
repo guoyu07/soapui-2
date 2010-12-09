@@ -9,5 +9,5 @@
   properties.put(TestCaseRunContext.INTERACTIVE,Boolean.TRUE);
   lastRunner=null;
   SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(securityTest);
-  testRunner.start();
+  runner=getModelItem().run(properties,true);
 }
