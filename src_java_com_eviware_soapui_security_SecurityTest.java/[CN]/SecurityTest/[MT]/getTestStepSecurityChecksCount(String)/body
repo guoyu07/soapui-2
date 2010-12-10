@@ -3,6 +3,7 @@
     return 0;
   }
  else {
-    return getSecurityChecksMap().get(testStepId).size();
+    if (getSecurityChecksMap().get(testStepId) != null)     return getSecurityChecksMap().get(testStepId).size();
+ else     return 0;
   }
 }
