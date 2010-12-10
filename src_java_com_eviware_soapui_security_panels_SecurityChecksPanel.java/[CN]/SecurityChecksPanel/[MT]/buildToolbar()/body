@@ -1,8 +1,6 @@
 {
   configureSecurityCheckAction=new ConfigureSecurityCheckAction();
   removeSecurityCheckAction=new RemoveSecurityCheckAction();
-  moveSecurityCheckUpAction=new MoveSecurityCheckUpAction();
-  moveSecurityCheckDownAction=new MoveSecurityCheckDownAction();
   JXToolBar toolbar=UISupport.createToolbar();
   addToolbarButtons(toolbar);
   toolbar.addGlue();
@@ -12,8 +10,6 @@
       int ix=securityCheckList.getSelectedIndex();
       configureSecurityCheckAction.setEnabled(ix >= 0);
       removeSecurityCheckAction.setEnabled(ix >= 0);
-      moveSecurityCheckUpAction.setEnabled(ix >= 0);
-      moveSecurityCheckDownAction.setEnabled(ix >= 0);
       if (ix == -1)       return;
       SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
       configureSecurityCheckAction.setEnabled(securityCheck != null && securityCheck.isConfigurable());
