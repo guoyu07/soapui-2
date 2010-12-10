@@ -1,18 +1,26 @@
 {
-  WsdlTestCase testCase=getTestRunnable();
+  securityTest.getTestCase().beforeSave();
+  listeners=securityTest.getTestRunListeners();
+  hasTornDown=false;
+  runContext=new WsdlTestRunContext(this,new StringToObjectMap());
+  try {
+    securityTest.runStartupScript(runContext,this);
+  }
+ catch (  Exception e1) {
+    SoapUI.logError(e1);
+  }
+  WsdlTestCase testCase=securityTest.getTestCase();
+  HashMap<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
+  notifyBeforeRun();
+  gotoStepIndex=-1;
   if (testCase.getKeepSession()) {
     runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new HttpState());
   }
-  testCaseRunListeners=testCase.getTestRunListeners();
   testCase.runSetupScript(runContext,this);
   if (!super.isRunning())   return;
   if (testCase.getTimeout() > 0) {
     startTimeoutTimer(testCase.getTimeout());
   }
-  super.notifyBeforeRun();
-  if (!super.isRunning())   return;
-  initCount=0;
-  setStartTime();
   for (; initCount < testCase.getTestStepCount() && isRunning(); initCount++) {
     WsdlTestStep testStep=testCase.getTestStepAt(initCount);
     if (testStep.isDisabled())     continue;
@@ -30,13 +38,29 @@
   for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
     TestStep currentStep=runContext.getCurrentStep();
     if (!currentStep.isDisabled()) {
+      for (int i=0; i < listeners.length; i++) {
+        listeners[i].beforeStep(this,getRunContext(),currentStep);
+        if (!isRunning())         return;
+      }
       TestStepResult stepResult=runTestStep(currentStep,true,true);
       if (stepResult == null)       return;
       if (!isRunning())       return;
+      if (secCheckMap.containsKey(currentStep.getId())) {
+        List<SecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
+        for (        SecurityCheck securityCheck : testStepChecksList) {
+          if (securityCheck.acceptsTestStep(currentStep)) {
+            securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,securityTest.getSecurityTestLog());
+          }
+        }
+      }
+      for (int i=0; i < listeners.length; i++) {
+        listeners[i].afterStep(this,getRunContext(),stepResult);
+      }
+      if (gotoStepIndex != -1) {
+        currentStepIndex=gotoStepIndex - 1;
+        gotoStepIndex=-1;
+      }
     }
     runContext.setCurrentStep(currentStepIndex + 1);
-  }
-  if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && testCase.getFailTestCaseOnErrors()) {
-    fail("Failing due to failed test step");
   }
 }
