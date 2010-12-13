@@ -2,7 +2,6 @@
   securityTest.getTestCase().beforeSave();
   listeners=securityTest.getTestRunListeners();
   hasTornDown=false;
-  runContext=new WsdlTestRunContext(this,new StringToObjectMap());
   try {
     securityTest.runStartupScript(runContext,this);
   }
@@ -62,5 +61,8 @@
       }
     }
     runContext.setCurrentStep(currentStepIndex + 1);
+  }
+  if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && testCase.getFailTestCaseOnErrors()) {
+    fail("Failing due to failed test step");
   }
 }
