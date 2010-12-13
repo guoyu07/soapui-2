@@ -1,7 +1,8 @@
 {
-  for (  String testSetName : securityChecksMap.keySet()) {
-    List<SecurityCheck> securityCheckList=securityChecksMap.get(testSetName);
+  for (  String testStepId : securityChecksMap.keySet()) {
+    List<SecurityCheck> securityCheckList=securityChecksMap.get(testStepId);
     for (    SecurityCheck sc : securityCheckList) {
+      securityTest.addSecurityCheck(testStepId,sc);
     }
   }
 }

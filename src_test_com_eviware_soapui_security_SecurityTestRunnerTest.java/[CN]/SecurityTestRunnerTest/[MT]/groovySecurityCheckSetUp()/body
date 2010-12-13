@@ -2,7 +2,10 @@
   List<SecurityCheck> secCheckList=new ArrayList<SecurityCheck>();
   SecurityCheckConfig asdf=SecurityCheckConfig.Factory.newInstance();
   asdf.setType(GroovySecurityCheck.TYPE);
+  asdf.setName(GroovySecurityCheck.TYPE);
   GroovySecurityCheck gsc=new GroovySecurityCheck(asdf,null,null);
-  gsc.setScript("println \"this is print from GroovySecurityCheck on test step '${testStep.name}'\"");
+  gsc.setScript("println('');println \"this is print from GroovySecurityCheck on test step '${testStep.name}'\";println('')");
   secCheckList.add(gsc);
+  TestStep testStep=testCase.getTestStepByName("SEK to USD Test");
+  securityChecksMap.put(testStep.getId(),secCheckList);
 }

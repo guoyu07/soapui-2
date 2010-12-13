@@ -6,5 +6,6 @@
   params.add("q");
   sqlCheck.setParamsToUse(params);
   secCheckList.add(sqlCheck);
-  securityChecksMap.put("HTTP Test Request",secCheckList);
+  TestStep testStep=testCase.getTestStepByName("HTTP Test Request");
+  securityChecksMap.put(testStep.getId(),secCheckList);
 }
