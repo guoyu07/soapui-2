@@ -1,0 +1,5 @@
+{
+  SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(createSecurityTest());
+  testRunner.start(false);
+  assertTrue("Test Step failed so as GroovySecurityCheck",!testRunner.getStatus().equals(TestRunner.Status.FINISHED));
+}
