@@ -1,0 +1,5 @@
+{
+  SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(createSecurityTest());
+  testRunner.start(false);
+  assertTrue("Security Check Failed because there is more than one expected warning in the log!",testRunner.getSecurityTest().getSecurityTestLog().getElementAt(1).getMessage().startsWith("SecurityTest ended"));
+}

@@ -1,5 +1,5 @@
 {
   SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(createSecurityTest());
   testRunner.start(false);
-  assertEquals(true,true);
+  assertTrue("Test Step failed so as SecurityCheck",!testRunner.getStatus().equals(TestRunner.Status.FINISHED));
 }
