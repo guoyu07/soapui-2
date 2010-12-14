@@ -21,6 +21,6 @@
     newSecurityCheck.setType(newSecCheck.getType());
     newSecurityCheck.setName(newSecCheck.getName());
   }
-  listModel.securityCheckAdded(newSecCheck);
+  if (listModel != null)   listModel.securityCheckAdded(newSecCheck);
   return newSecCheck;
 }
