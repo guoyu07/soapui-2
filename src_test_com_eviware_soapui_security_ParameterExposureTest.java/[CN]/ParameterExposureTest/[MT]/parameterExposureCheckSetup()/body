@@ -1,0 +1,8 @@
+{
+  List<SecurityCheck> secCheckList=new ArrayList<SecurityCheck>();
+  SecurityCheckConfig exposureConfig=SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).createNewSecurityCheck("Test");
+  ParameterExposureCheck exposureCheck=(ParameterExposureCheck)SecurityCheckRegistry.getInstance().getFactory(ParameterExposureCheck.TYPE).buildSecurityCheck(exposureConfig);
+  secCheckList.add(exposureCheck);
+  TestStep testStep=testCase.getTestStepByName("HTTP Test Request");
+  securityChecksMap.put(testStep.getId(),secCheckList);
+}

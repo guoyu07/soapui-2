@@ -1,0 +1,11 @@
+{
+  List<SecurityCheck> secCheckList=new ArrayList<SecurityCheck>();
+  SecurityCheckConfig injectionConfig=SecurityCheckRegistry.getInstance().getFactory(SQLInjectionCheck.TYPE).createNewSecurityCheck("Test");
+  SQLInjectionCheck sqlCheck=(SQLInjectionCheck)SecurityCheckRegistry.getInstance().getFactory(SQLInjectionCheck.TYPE).buildSecurityCheck(injectionConfig);
+  List<String> params=new ArrayList<String>();
+  params.add("q");
+  sqlCheck.setParamsToUse(params);
+  secCheckList.add(sqlCheck);
+  TestStep testStep=testCase.getTestStepByName("HTTP Test Request");
+  securityChecksMap.put(testStep.getId(),secCheckList);
+}
