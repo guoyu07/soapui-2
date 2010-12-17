@@ -1,7 +1,7 @@
 {
   if (instance == null) {
     instance=new CajoClient();
-    instance.port=SoapUI.getSettings().getString(LoadUIPrefs.LOADUI_CAJO_PORT,"1199");
+    instance.port=IntegrationUtils.getIntegrationPort("loadUI",LoadUISettings.LOADUI_CAJO_PORT,DEFAULT_LOADUI_CAJO_PORT);
     return instance;
   }
  else   return instance;

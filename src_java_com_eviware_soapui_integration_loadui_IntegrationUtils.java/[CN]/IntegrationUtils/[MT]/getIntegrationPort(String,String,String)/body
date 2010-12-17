@@ -1,0 +1,12 @@
+{
+  String cajoPort=SoapUI.getSettings().getString(whichAppPort,defaultPort);
+  try {
+    Integer.parseInt(cajoPort);
+  }
+ catch (  NumberFormatException nfe) {
+    cajoPort=defaultPort;
+    SoapUI.getSettings().setString(whichAppPort,cajoPort);
+    SoapUI.log(appName + " integration port was reset to default value " + defaultPort+ ", because its value was not correct!");
+  }
+  return cajoPort;
+}
