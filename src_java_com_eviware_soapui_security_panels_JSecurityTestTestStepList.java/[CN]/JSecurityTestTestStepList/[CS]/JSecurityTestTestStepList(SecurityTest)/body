@@ -3,16 +3,14 @@
   this.securityTest=securityTest;
   testStepListPanel.setLayout(new BoxLayout(testStepListPanel,BoxLayout.Y_AXIS));
   for (int c=0; c < securityTest.getTestCase().getTestStepCount(); c++) {
-    TestStepListEnrtyPanel testCaseListPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
-    panels.put(securityTest.getTestCase().getTestStepAt(c),testCaseListPanel);
-    testStepListPanel.add(testCaseListPanel);
+    TestStepListEnrtyPanel testStepListEntryPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
+    panels.put(securityTest.getTestCase().getTestStepAt(c),testStepListEntryPanel);
+    testStepListPanel.add(testStepListEntryPanel);
   }
   testStepListPanel.add(Box.createVerticalGlue());
-  createSecurityCheckInspector();
   secCheckPanel=buildSecurityChecksPanel();
   splitPane=UISupport.createVerticalSplit(new JScrollPane(testStepListPanel),new JScrollPane(secCheckPanel));
   splitPane.setPreferredSize(new Dimension(600,400));
-  splitPane.setResizeWeight(0.1);
   splitPane.setDividerLocation(0.5);
   add(splitPane,BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
