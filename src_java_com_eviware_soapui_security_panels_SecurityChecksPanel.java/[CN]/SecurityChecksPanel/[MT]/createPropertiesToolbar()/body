@@ -4,5 +4,16 @@
   configureSecurityCheckAction=new ConfigureSecurityCheckAction();
   removeSecurityCheckAction=new RemoveSecurityCheckAction();
   addToolbarButtons(checksToolbar);
+  securityCheckList.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int ix=securityCheckList.getSelectedIndex();
+      configureSecurityCheckAction.setEnabled(ix >= 0);
+      removeSecurityCheckAction.setEnabled(ix >= 0);
+      if (ix == -1)       return;
+      SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+      configureSecurityCheckAction.setEnabled(securityCheck != null && securityCheck.isConfigurable());
+    }
+  }
+);
   return checksToolbar;
 }
