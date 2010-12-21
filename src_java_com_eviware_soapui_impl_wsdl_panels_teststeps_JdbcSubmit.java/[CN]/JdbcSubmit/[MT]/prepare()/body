@@ -1,16 +1,15 @@
 {
   JdbcRequestTestStep testStep=request.getTestStep();
   getDatabaseConnection();
-  String sql;
   List<TestProperty> props=testStep.getPropertyList();
   if (testStep.isStoredProcedure()) {
-    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
-    if (!sql.startsWith("{call ") && !sql.endsWith("}"))     sql="{call " + sql + "}";
+    rawSql=PropertyExpander.expandProperties(context,testStep.getQuery());
+    if (!rawSql.startsWith("{call ") && !rawSql.endsWith("}"))     rawSql="{call " + rawSql + "}";
   }
  else {
-    sql=PropertyExpander.expandProperties(context,testStep.getQuery());
+    rawSql=PropertyExpander.expandProperties(context,testStep.getQuery());
   }
-  NamedParameterStatement p=new NamedParameterStatement(connection,sql);
+  NamedParameterStatement p=new NamedParameterStatement(connection,rawSql);
   for (  TestProperty testProperty : props) {
     String value=PropertyExpander.expandProperties(context,testProperty.getValue());
     if (!testProperty.getName().equals(WsdlTestStepWithProperties.RESPONSE_AS_XML)) {
