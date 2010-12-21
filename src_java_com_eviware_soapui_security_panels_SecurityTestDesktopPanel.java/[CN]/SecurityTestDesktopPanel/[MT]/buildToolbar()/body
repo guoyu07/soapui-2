@@ -1,6 +1,8 @@
 {
   JToolBar toolbar=UISupport.createToolbar();
   runButton=UISupport.createToolbarButton(new RunSecurityTestAction());
+  optionsButton=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(SecurityTestOptionsAction.SOAPUI_ACTION_ID,getModelItem(),null,"/options.gif"));
+  optionsButton.setText(null);
   cancelButton=UISupport.createToolbarButton(new CancelRunSecuritytestAction(),false);
   loopButton=new JToggleButton(UISupport.createImageIcon("/loop.gif"));
   loopButton.setPreferredSize(UISupport.getPreferredButtonSize());
@@ -8,6 +10,7 @@
   setCredentialsButton=UISupport.createToolbarButton(new SetCredentialsAction(getModelItem().getTestCase()));
   setEndpointButton=UISupport.createToolbarButton(new SetEndpointAction(getModelItem().getTestCase()));
   stateDependantComponents.add(runButton);
+  stateDependantComponents.add(optionsButton);
   stateDependantComponents.add(cancelButton);
   stateDependantComponents.add(setCredentialsButton);
   stateDependantComponents.add(setEndpointButton);
