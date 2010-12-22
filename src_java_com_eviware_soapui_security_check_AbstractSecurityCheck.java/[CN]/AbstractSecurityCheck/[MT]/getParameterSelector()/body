@@ -6,6 +6,12 @@
   if (getTestStep() instanceof HttpTestRequestStep) {
     request=((HttpTestRequestStep)getTestStep()).getHttpRequest();
   }
+ else   if (getTestStep() instanceof RestTestRequestStep) {
+    request=((RestTestRequestStep)getTestStep()).getHttpRequest();
+  }
+ else   if (getTestStep() instanceof WsdlTestRequestStep) {
+    request=((WsdlTestRequestStep)getTestStep()).getTestRequest();
+  }
   parameterSelector.add(new JLabel("Select the Parameters that this test will apply to"));
   if (request != null) {
     for (    String param : request.getParams().keySet()) {
