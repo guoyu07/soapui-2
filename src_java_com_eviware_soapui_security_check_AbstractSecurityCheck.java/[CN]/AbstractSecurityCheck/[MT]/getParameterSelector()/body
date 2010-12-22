@@ -16,6 +16,7 @@
   if (request != null) {
     for (    String param : request.getParams().keySet()) {
       ParamPanel paramPanel=new ParamPanel(param,getParamsToCheck().contains(param));
+      paramPanel.setMaximumSize(new Dimension(700,30));
       parameterSelector.add(paramPanel,BorderLayout.WEST);
     }
   }
