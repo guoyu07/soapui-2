@@ -1,0 +1,18 @@
+{
+  parameterSelector=new JPanel(new BorderLayout());
+  parameterSelector.setPreferredSize(new Dimension(300,100));
+  parameterSelector.setLayout(new BoxLayout(parameterSelector,BoxLayout.Y_AXIS));
+  AbstractHttpRequest<?> request=null;
+  if (getTestStep() instanceof HttpTestRequestStep) {
+    request=((HttpTestRequestStep)getTestStep()).getHttpRequest();
+  }
+  parameterSelector.add(new JLabel("Select the Parameters that this test will apply to"));
+  if (request != null) {
+    for (    String param : request.getParams().keySet()) {
+      ParamPanel paramPanel=new ParamPanel(param,getParamsToCheck().contains(param));
+      parameterSelector.add(paramPanel,BorderLayout.WEST);
+    }
+  }
+  parameterSelector.add(Box.createVerticalGlue());
+  return parameterSelector;
+}
