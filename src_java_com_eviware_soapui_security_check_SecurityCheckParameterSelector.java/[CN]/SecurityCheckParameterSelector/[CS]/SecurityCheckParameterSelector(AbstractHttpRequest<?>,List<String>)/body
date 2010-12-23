@@ -1,0 +1,15 @@
+{
+  super(new BorderLayout());
+  request.addTestPropertyListener(this);
+  setPreferredSize(new Dimension(300,100));
+  setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+  add(new JLabel("Select the Parameters that this test will apply to"));
+  if (request != null) {
+    for (    String param : request.getParams().keySet()) {
+      ParamPanel paramPanel=new ParamPanel(param,paramsToCheck.contains(param));
+      paramPanel.setMaximumSize(new Dimension(700,30));
+      add(paramPanel,BorderLayout.WEST);
+    }
+  }
+  add(Box.createVerticalGlue());
+}
