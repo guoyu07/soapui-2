@@ -6,7 +6,11 @@
     for (    String exposureContent : exposureList) {
       if (assertContains(context,testStepwithProperties,messageExchange,exposureContent).equals(AssertionStatus.VALID)) {
         logSecurityInfo(messageExchange,securityTestLog,exposureContent);
+        setStatus(Status.FAILED);
       }
+    }
+    if (getStatus() != Status.FAILED) {
+      setStatus(Status.FINISHED);
     }
   }
 }

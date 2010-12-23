@@ -34,6 +34,7 @@
   }
   int currentStepIndex=startStep;
   runContext.setCurrentStep(currentStepIndex);
+  boolean testFailed=false;
   for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
     TestStep currentStep=runContext.getCurrentStep();
     if (!currentStep.isDisabled()) {
@@ -48,7 +49,10 @@
         List<SecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
         for (        SecurityCheck securityCheck : testStepChecksList) {
           if (securityCheck.acceptsTestStep(currentStep)) {
-            securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,securityTest.getSecurityTestLog());
+            Status result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,securityTest.getSecurityTestLog());
+            if (securityTest.getFailSecurityTestOnCheckErrors() && result == Status.FAILED) {
+              fail("Failing due to failed security check");
+            }
           }
         }
       }

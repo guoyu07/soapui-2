@@ -12,6 +12,7 @@
         HttpTestRequestInterface<?> lastRequest=((HttpTestRequestStepInterface)testStep).getTestRequest();
         if (StringUtils.getLevenshteinDistance(originalResponse,lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
           securityTestLog.addEntry(new SecurityTestLogMessageEntry("Possible SQL Injection Vulnerability Detected",new HttpResponseMessageExchange(lastRequest)));
+          setStatus(Status.FAILED);
         }
         analyze(testStep,context,securityTestLog);
       }

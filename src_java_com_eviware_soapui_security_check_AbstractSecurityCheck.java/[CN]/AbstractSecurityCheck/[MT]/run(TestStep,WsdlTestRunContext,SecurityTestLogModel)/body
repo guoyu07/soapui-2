@@ -1,6 +1,8 @@
 {
+  setStatus(Status.INITIALIZED);
   runStartupScript(testStep);
   execute(testStep,context,securityTestLog);
   sensitiveInfoCheck(testStep,context,securityTestLog);
   runTearDownScript(testStep);
+  return getStatus();
 }

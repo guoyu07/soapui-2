@@ -19,8 +19,10 @@
         containsAssertion.assertResponse(messageExchange,context);
         if (containsAssertion.getStatus().equals(AssertionStatus.VALID)) {
           securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + param.getName() + " with the value \""+ param.getValue()+ "\" is exposed in the response",messageExchange));
+          setStatus(Status.FAILED);
         }
       }
     }
+    if (getStatus() != Status.FAILED)     setStatus(Status.FINISHED);
   }
 }
