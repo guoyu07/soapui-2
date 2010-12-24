@@ -1,13 +1,13 @@
 {
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
   if (!testStepSecurityTestList.isEmpty()) {
-    for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
+    for (int i=0; i < testStepSecurityTestList.size(); i++) {
+      TestStepSecurityTestConfig testStepSecurityTest=testStepSecurityTestList.get(i);
       if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
         securityCheckList.remove(securityCheck.getConfig());
         if (securityCheckList.isEmpty()) {
-          testStepSecurityTestList.remove(testStepSecurityTest);
-          return;
+          getConfig().removeTestStepSecurityTest(i);
         }
         listModel.securityCheckRemoved(securityCheck);
       }
