@@ -7,8 +7,8 @@
     request=((RestTestRequestStep)getTestStep()).getHttpRequest();
   }
  else   if (getTestStep() instanceof WsdlTestRequestStep) {
-    request=((WsdlTestRequestStep)getTestStep()).getTestRequest();
+    request=((WsdlTestRequestStep)getTestStep()).getHttpRequest();
   }
-  parameterSelector=new SecurityCheckParameterSelector(request,getParamsToCheck());
+  parameterSelector=new SecurityCheckParameterSelector(request,getParamsToCheck(),getExecutionStrategy());
   return parameterSelector;
 }

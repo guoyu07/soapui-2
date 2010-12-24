@@ -4,9 +4,9 @@
   setPreferredSize(new Dimension(300,300));
   setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
   ButtonGroup executionStrategyGroup=new ButtonGroup();
-  separateButton=new JRadioButton(SEPARATE_REQUEST_STRATEGY,true);
+  separateButton=new JRadioButton(SEPARATE_REQUEST_STRATEGY,strategy.equals(SEPARATE_REQUEST_STRATEGY));
   separateButton.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
-  singleButton=new JRadioButton(SINGLE_REQUEST_STRATEGY);
+  singleButton=new JRadioButton(SINGLE_REQUEST_STRATEGY,strategy.equals(SINGLE_REQUEST_STRATEGY));
   singleButton.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   executionStrategyGroup.add(separateButton);
   executionStrategyGroup.add(singleButton);
