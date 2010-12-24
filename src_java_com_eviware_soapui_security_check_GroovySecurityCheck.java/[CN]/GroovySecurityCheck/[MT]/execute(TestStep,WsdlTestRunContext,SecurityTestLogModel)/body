@@ -4,6 +4,7 @@
   scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
   scriptEngine.setVariable("context",context);
   scriptEngine.setVariable("status",status);
+  scriptEngine.setVariable("executionStrategy",getExecutionStrategy());
   try {
     scriptEngine.run();
   }

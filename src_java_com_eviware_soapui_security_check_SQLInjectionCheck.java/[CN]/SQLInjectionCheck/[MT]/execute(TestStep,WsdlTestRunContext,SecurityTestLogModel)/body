@@ -4,10 +4,25 @@
     testStep.run(testCaseRunner,testCaseRunner.getRunContext());
     HttpTestRequestInterface<?> request=((HttpTestRequestStepInterface)testStep).getTestRequest();
     String originalResponse=((AbstractHttpRequest<?>)request).getResponse().getContentAsXml();
-    for (    String param : getParamsToCheck()) {
+    if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
+      for (      String param : getParamsToCheck()) {
+        Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
+        while (sqlFuzzer.hasNext()) {
+          sqlFuzzer.getNextFuzzedTestStep(testStep,param);
+          testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+          HttpTestRequestInterface<?> lastRequest=((HttpTestRequestStepInterface)testStep).getTestRequest();
+          if (StringUtils.getLevenshteinDistance(originalResponse,((AbstractHttpRequest<?>)lastRequest).getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
+            securityTestLog.addEntry(new SecurityTestLogMessageEntry("Possible SQL Injection Vulnerability Detected",new HttpResponseMessageExchange(lastRequest)));
+            setStatus(Status.FAILED);
+          }
+          analyze(testStep,context,securityTestLog);
+        }
+      }
+    }
+ else {
       Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
       while (sqlFuzzer.hasNext()) {
-        sqlFuzzer.getNextFuzzedTestStep(testStep,param);
+        sqlFuzzer.getNextFuzzedTestStep(testStep,getParamsToCheck());
         testStep.run(testCaseRunner,testCaseRunner.getRunContext());
         HttpTestRequestInterface<?> lastRequest=((HttpTestRequestStepInterface)testStep).getTestRequest();
         if (StringUtils.getLevenshteinDistance(originalResponse,((AbstractHttpRequest<?>)lastRequest).getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {

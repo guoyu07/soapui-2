@@ -3,7 +3,6 @@
   request.addTestPropertyListener(this);
   setPreferredSize(new Dimension(300,300));
   setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-  add(new JLabel("Select the Parameters that this test will apply to"));
   ButtonGroup executionStrategyGroup=new ButtonGroup();
   separateButton=new JRadioButton(SEPARATE_REQUEST_STRATEGY,true);
   separateButton.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
@@ -16,6 +15,7 @@
   executionPanel.add(singleButton);
   executionPanel.setBorder(BorderFactory.createTitledBorder("Execution Strategy"));
   add(executionPanel);
+  add(new JLabel("Select the Parameters that this test will apply to"));
   if (request != null) {
     for (    String param : request.getParams().keySet()) {
       ParamPanel paramPanel=new ParamPanel(param,paramsToCheck.contains(param));
