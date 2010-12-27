@@ -17,10 +17,27 @@
   add(executionPanel);
   add(new JLabel("Select the Parameters that this test will apply to"));
   if (request != null) {
-    for (    String param : request.getParams().keySet()) {
-      ParamPanel paramPanel=new ParamPanel(param,paramsToCheck.contains(param));
-      paramPanel.setMaximumSize(new Dimension(700,30));
-      add(paramPanel,BorderLayout.WEST);
+    if (!soapRequest) {
+      for (      String param : request.getParams().keySet()) {
+        ParamPanel paramPanel=new ParamPanel(param,paramsToCheck.contains(param));
+        paramPanel.setMaximumSize(new Dimension(700,30));
+        add(paramPanel,BorderLayout.WEST);
+      }
+    }
+ else {
+      try {
+        XmlObject requestXml=XmlObject.Factory.parse(request.getRequestContent(),new XmlOptions().setLoadStripWhitespace().setLoadStripComments());
+        Node[] nodes=XmlUtils.selectDomNodes(requestXml,"//text()");
+        for (        Node node : nodes) {
+          String xpath=XmlUtils.createAbsoluteXPath(node.getParentNode());
+          ParamPanel paramPanel=new ParamPanel(node.getParentNode().getNodeName(),paramsToCheck.contains(xpath),xpath);
+          paramPanel.setMaximumSize(new Dimension(700,30));
+          add(paramPanel,BorderLayout.WEST);
+        }
+      }
+ catch (      XmlException e) {
+        SoapUI.logError(e);
+      }
     }
   }
   add(Box.createVerticalGlue());

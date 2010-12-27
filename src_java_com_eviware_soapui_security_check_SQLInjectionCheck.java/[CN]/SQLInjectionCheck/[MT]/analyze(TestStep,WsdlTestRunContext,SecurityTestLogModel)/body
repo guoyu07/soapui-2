@@ -1,7 +1,16 @@
 {
-  HttpTestRequestInterface<?> lastRequest=((HttpTestRequestStepInterface)testStep).getTestRequest();
-  if (lastRequest.getResponseContentAsString().indexOf("SQL Error") > -1) {
-    securityTestLog.addEntry(new SecurityTestLogMessageEntry("SQL Error displayed in response",new HttpResponseMessageExchange(lastRequest)));
+  AbstractHttpRequest<?> lastRequest=null;
+  if (testStep instanceof HttpTestRequestStep) {
+    lastRequest=((HttpTestRequestStep)testStep).getHttpRequest();
+  }
+ else   if (testStep instanceof RestTestRequestStep) {
+    lastRequest=((RestTestRequestStep)testStep).getHttpRequest();
+  }
+ else   if (testStep instanceof WsdlTestRequestStep) {
+    lastRequest=((WsdlTestRequestStep)testStep).getHttpRequest();
+  }
+  if (lastRequest.getResponse().getContentAsString().indexOf("SQL Error") > -1) {
+    securityTestLog.addEntry(new SecurityTestLogMessageEntry("SQL Error displayed in response",null));
     setStatus(Status.FAILED);
   }
  else {

@@ -1,7 +1,15 @@
 {
   if (currentIndex < config.getValueList().size()) {
-    HttpTestRequestInterface<?> request=((HttpTestRequestStepInterface)testStep).getTestRequest();
-    request.setPropertyValue(param,config.getValueArray(currentIndex));
+    if (testStep instanceof WsdlTestRequestStep) {
+      AbstractHttpRequest<?> request=((WsdlTestRequestStep)testStep).getHttpRequest();
+      request.getRequestContent();
+      String newContent=XmlUtils.setXPathContent(request.getRequestContent(),param.substring(param.lastIndexOf("\n") + 1),config.getValueArray(currentIndex));
+      request.setRequestContent(newContent);
+    }
+ else {
+      HttpTestRequestInterface<?> request=((HttpTestRequestStepInterface)testStep).getTestRequest();
+      request.setPropertyValue(param,config.getValueArray(currentIndex));
+    }
     currentIndex++;
   }
 }
