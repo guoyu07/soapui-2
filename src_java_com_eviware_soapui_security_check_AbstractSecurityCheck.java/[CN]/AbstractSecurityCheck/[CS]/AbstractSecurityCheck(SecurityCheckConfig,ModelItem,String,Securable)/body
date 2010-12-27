@@ -3,5 +3,6 @@
   this.config=config;
   this.startupScript=config.getSetupScript() != null ? config.getSetupScript().getStringValue() : "";
   this.tearDownScript=config.getTearDownScript() != null ? config.getTearDownScript().getStringValue() : "";
+  if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY);
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
 }
