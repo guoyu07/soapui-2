@@ -1,0 +1,17 @@
+{
+  XFormDialog dialog=getDialog();
+  if (dialog == null) {
+    ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
+    builder.startScript(SECURITYTESTRUNNER,BAT,SH);
+    return builder;
+  }
+  StringToStringMap values=dialog.getValues();
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript(SECURITYTESTRUNNER,BAT,SH);
+  if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
+  if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
+  addPropertyArguments(builder);
+  builder.addArgs(new String[]{modelItem.getPath()});
+  addToolArgs(values,builder);
+  return builder;
+}

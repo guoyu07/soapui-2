@@ -1,0 +1,41 @@
+{
+  if (modelItem != null && mainForm != null) {
+    List<String> endpoints=new ArrayList<String>();
+    for (    Interface iface : modelItem.getInterfaceList()) {
+      for (      String endpoint : iface.getEndpoints()) {
+        if (!endpoints.contains(endpoint))         endpoints.add(endpoint);
+      }
+    }
+    endpoints.add(0,null);
+    testSuites=modelItem.getTestSuiteList();
+    for (int c=0; c < testSuites.size(); c++) {
+      if (testSuites.get(c).getTestCaseCount() == 0) {
+        testSuites.remove(c);
+        c--;
+      }
+    }
+    mainForm.setOptions(TESTSUITE,ModelSupport.getNames(new String[]{ALL_VALUE},testSuites));
+    List<String> testCases=new ArrayList<String>();
+    for (    TestSuite testSuite : testSuites) {
+      for (      TestCase testCase : testSuite.getTestCaseList()) {
+        if (!testCases.contains(testCase.getName()))         testCases.add(testCase.getName());
+      }
+    }
+    testCases.add(0,ALL_VALUE);
+    mainForm.setOptions(TESTCASE,testCases.toArray());
+  }
+  StringToStringMap values=super.initValues(modelItem,param);
+  if (mainForm != null) {
+    if (param instanceof WsdlTestCase) {
+      mainForm.getFormField(TESTSUITE).setValue(((WsdlTestCase)param).getTestSuite().getName());
+      mainForm.getFormField(TESTCASE).setValue(((WsdlTestCase)param).getName());
+      values.put(TESTSUITE,((WsdlTestCase)param).getTestSuite().getName());
+      values.put(TESTCASE,((WsdlTestCase)param).getName());
+    }
+ else     if (param instanceof WsdlTestSuite) {
+      mainForm.getFormField(TESTSUITE).setValue(((WsdlTestSuite)param).getName());
+      values.put(TESTSUITE,((WsdlTestSuite)param).getName());
+    }
+  }
+  return values;
+}

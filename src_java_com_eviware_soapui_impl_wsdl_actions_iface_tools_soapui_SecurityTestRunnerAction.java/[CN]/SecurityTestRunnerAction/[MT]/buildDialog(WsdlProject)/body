@@ -1,0 +1,64 @@
+{
+  if (modelItem == null)   return null;
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch Security TestRunner");
+  mainForm=builder.createForm("Basic");
+  mainForm.addComboBox(TESTSUITE,new String[]{},"The TestSuite to run").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      List<String> testCases=new ArrayList<String>();
+      String tc=mainForm.getComponentValue(TESTCASE);
+      if (newValue.equals(ALL_VALUE)) {
+        for (        TestSuite testSuite : testSuites) {
+          for (          TestCase testCase : testSuite.getTestCaseList()) {
+            if (!testCases.contains(testCase.getName()))             testCases.add(testCase.getName());
+          }
+        }
+      }
+ else {
+        TestSuite testSuite=getModelItem().getTestSuiteByName(newValue);
+        if (testSuite != null)         testCases.addAll(Arrays.asList(ModelSupport.getNames(testSuite.getTestCaseList())));
+      }
+      testCases.add(0,ALL_VALUE);
+      mainForm.setOptions(TESTCASE,testCases.toArray());
+      if (testCases.contains(tc)) {
+        mainForm.getFormField(TESTCASE).setValue(tc);
+      }
+    }
+  }
+);
+  mainForm.addComboBox(TESTCASE,new String[]{},"TestCase").addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      List<String> securityTests=new ArrayList<String>();
+      String st=mainForm.getComponentValue(SECURITY_TEST_NAME);
+      if (newValue.equals(ALL_VALUE)) {
+        for (        TestSuite testSuite : testSuites) {
+          for (          TestCase testCase : testSuite.getTestCaseList()) {
+            for (            SecurityTest securityTest : testCase.getSecurityTestList()) {
+              if (!securityTests.contains(securityTest.getName()))               securityTests.add(securityTest.getName());
+            }
+          }
+        }
+      }
+ else {
+        TestCase testCase=null;
+        try {
+          testCase=getModelItem().getTestSuiteByName(mainForm.getComponentValue(TESTSUITE)).getTestCaseByName(mainForm.getComponentValue(TESTCASE));
+        }
+ catch (        NullPointerException npe) {
+        }
+        if (testCase != null)         securityTests.addAll(Arrays.asList(ModelSupport.getNames(testCase.getSecurityTestList())));
+      }
+      securityTests.add(0,ALL_VALUE);
+      mainForm.setOptions(SECURITY_TEST_NAME,securityTests.toArray());
+      if (securityTests.contains(st)) {
+        mainForm.getFormField(SECURITY_TEST_NAME).setValue(st);
+      }
+    }
+  }
+);
+  mainForm.addComboBox(SECURITY_TEST_NAME,new String[]{},"The Security Test to run");
+  mainForm.addSeparator();
+  mainForm.addTextField(TESTRUNNERPATH,"Folder containing SecurityTestRunner.bat to use",XForm.FieldType.FOLDER);
+  setToolsSettingsAction(null);
+  buildArgsForm(builder,false,"TestRunner");
+  return builder.buildDialog(buildDefaultActions(HelpUrls.TESTRUNNER_HELP_URL,modelItem),"Specify arguments for launching soapUI Security TestRunner",UISupport.TOOL_ICON);
+}

@@ -1,0 +1,19 @@
+{
+  String message="";
+  if (cmd.hasOption("s")) {
+    String testSuite=getCommandLineOptionSubstSpace(cmd,"s");
+    setTestSuite(testSuite);
+    message+=validateTestSuite();
+  }
+  if (cmd.hasOption("c")) {
+    String testCase=getCommandLineOptionSubstSpace(cmd,"c");
+    setTestCase(testCase);
+    message+=validateTestCase();
+  }
+  if (cmd.hasOption("n"))   setSecurityTestName(cmd.getOptionValue("n"));
+  if (message.length() > 0) {
+    log.error(message);
+    return false;
+  }
+  return true;
+}
