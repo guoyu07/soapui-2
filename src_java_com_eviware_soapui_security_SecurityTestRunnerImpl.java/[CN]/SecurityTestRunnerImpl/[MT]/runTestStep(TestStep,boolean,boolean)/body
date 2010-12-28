@@ -1,0 +1,22 @@
+{
+  for (int i=0; i < listeners.length; i++) {
+    listeners[i].beforeStep(this,getRunContext(),testStep);
+    if (!isRunning())     return null;
+  }
+  TestStepResult stepResult=testStep.run(this,getRunContext());
+  testStepResults.add(stepResult);
+  resultCount++;
+  for (int i=0; i < listeners.length; i++) {
+    listeners[i].afterStep(this,getRunContext(),stepResult);
+  }
+  if (process && stepResult.getStatus() == TestStepStatus.FAILED) {
+    if (getTestRunnable().getFailSecurityTestOnCheckErrors()) {
+      setError(stepResult.getError());
+      fail("Cancelling due to failed test step");
+    }
+ else {
+      getRunContext().setProperty(TestCaseRunner.Status.class.getName(),TestCaseRunner.Status.FAILED);
+    }
+  }
+  return stepResult;
+}

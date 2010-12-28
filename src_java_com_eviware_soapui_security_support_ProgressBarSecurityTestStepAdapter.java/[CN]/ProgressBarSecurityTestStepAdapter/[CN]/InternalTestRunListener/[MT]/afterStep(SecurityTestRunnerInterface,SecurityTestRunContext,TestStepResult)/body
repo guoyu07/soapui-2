@@ -1,0 +1,11 @@
+{
+  if (progressBar.isIndeterminate())   return;
+  if (result.getStatus() == TestStepStatus.FAILED) {
+    progressBar.setForeground(Color.RED);
+  }
+ else   if (!securityTest.getTestCase().getFailTestCaseOnErrors()) {
+    progressBar.setForeground(Color.GREEN.darker());
+  }
+  progressBar.setString(result.getStatus().toString());
+  progressBar.setValue(progressBar.getMaximum());
+}

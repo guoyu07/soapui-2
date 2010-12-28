@@ -1,0 +1,9 @@
+{
+  if (testStepRunListeners.containsKey(testStep)) {
+    Set<SecurityTestStepRunListener> listeners=testStepRunListeners.get(testStep);
+    return listeners.toArray(new SecurityTestStepRunListener[listeners.size()]);
+  }
+ else {
+    return new SecurityTestStepRunListener[0];
+  }
+}

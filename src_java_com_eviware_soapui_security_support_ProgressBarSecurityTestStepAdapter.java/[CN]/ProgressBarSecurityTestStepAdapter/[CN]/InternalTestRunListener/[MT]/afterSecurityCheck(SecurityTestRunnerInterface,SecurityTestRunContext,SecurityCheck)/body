@@ -1,0 +1,10 @@
+{
+  if (progressBar.isIndeterminate())   return;
+  if (!securityCheck.getSecurityTestLogEntries().isEmpty()) {
+    progressBar.setForeground(Color.RED);
+  }
+ else {
+    progressBar.setForeground(Color.GREEN.darker());
+  }
+  progressBar.setValue(runContext.getCurrentCheckIndex() + 1);
+}
