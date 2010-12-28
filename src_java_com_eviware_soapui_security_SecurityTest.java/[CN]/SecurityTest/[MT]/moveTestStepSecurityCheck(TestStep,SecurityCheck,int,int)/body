@@ -6,7 +6,7 @@
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
         AbstractSecurityCheckFactory factory=SecurityCheckRegistry.getInstance().getFactory(securityCheck.getType());
         SecurityCheckConfig newSecCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
-        SecurityCheck newSecCheck=factory.buildSecurityCheck(newSecCheckConfig);
+        SecurityCheck newSecCheck=factory.buildSecurityCheck(newSecCheckConfig,this);
         securityCheckList.remove(securityCheck.getConfig());
         securityCheckList.add(index + offset,newSecCheckConfig);
         SecurityCheckConfig[] cc=new SecurityCheckConfig[securityCheckList.size()];

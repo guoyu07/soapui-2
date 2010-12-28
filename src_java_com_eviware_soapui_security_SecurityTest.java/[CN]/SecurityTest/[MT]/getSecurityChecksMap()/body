@@ -7,7 +7,7 @@
         if (testStepSecurityTestListConfig != null) {
           if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
             for (            SecurityCheckConfig secCheckConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
-              SecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(secCheckConfig);
+              SecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(secCheckConfig,this);
               checkList.add(securityCheck);
             }
           }
