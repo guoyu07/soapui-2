@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(xmlText);
+    XmlObject xmlObject=XmlObject.Factory.parse(xmlText,new XmlOptions());
     String namespaces=declareXPathNamespaces(xmlObject);
     if (namespaces != null && namespaces.trim().length() > 0)     xpath=namespaces + xpath;
     XmlObject[] path=xmlObject.selectPath(xpath);

@@ -1,0 +1,12 @@
+{
+  if (testStep instanceof HttpTestRequestStep) {
+    return ((HttpTestRequestStep)testStep).getHttpRequest();
+  }
+ else   if (testStep instanceof RestTestRequestStep) {
+    return ((RestTestRequestStep)testStep).getHttpRequest();
+  }
+ else   if (testStep instanceof WsdlTestRequestStep) {
+    return ((WsdlTestRequestStep)testStep).getHttpRequest();
+  }
+  return null;
+}

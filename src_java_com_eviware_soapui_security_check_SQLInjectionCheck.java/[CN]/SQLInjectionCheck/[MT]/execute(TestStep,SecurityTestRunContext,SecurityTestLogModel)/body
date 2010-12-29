@@ -1,34 +1,14 @@
 {
   if (acceptsTestStep(testStep)) {
     WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-    testStep.run(testCaseRunner,testCaseRunner.getRunContext());
-    AbstractHttpRequest<?> request=null;
-    if (testStep instanceof HttpTestRequestStep) {
-      request=((HttpTestRequestStep)testStep).getHttpRequest();
-    }
- else     if (testStep instanceof RestTestRequestStep) {
-      request=((RestTestRequestStep)testStep).getHttpRequest();
-    }
- else     if (testStep instanceof WsdlTestRequestStep) {
-      request=((WsdlTestRequestStep)testStep).getHttpRequest();
-    }
-    String originalResponse=request.getResponse().getContentAsXml();
+    String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
     if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
       for (      String param : getParamsToCheck()) {
         Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
         while (sqlFuzzer.hasNext()) {
           sqlFuzzer.getNextFuzzedTestStep(testStep,param);
           testStep.run(testCaseRunner,testCaseRunner.getRunContext());
-          AbstractHttpRequest<?> lastRequest=null;
-          if (testStep instanceof HttpTestRequestStep) {
-            lastRequest=((HttpTestRequestStep)testStep).getHttpRequest();
-          }
- else           if (testStep instanceof RestTestRequestStep) {
-            lastRequest=((RestTestRequestStep)testStep).getHttpRequest();
-          }
- else           if (testStep instanceof WsdlTestRequestStep) {
-            lastRequest=((WsdlTestRequestStep)testStep).getHttpRequest();
-          }
+          AbstractHttpRequest<?> lastRequest=getRequest(testStep);
           if (StringUtils.getLevenshteinDistance(originalResponse,lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
             securityTestLog.addEntry(new SecurityTestLogMessageEntry("Possible SQL Injection Vulnerability Detected",null));
             setStatus(Status.FAILED);
