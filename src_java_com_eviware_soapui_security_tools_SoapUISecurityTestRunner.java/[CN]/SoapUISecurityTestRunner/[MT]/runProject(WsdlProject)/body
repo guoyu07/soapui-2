@@ -3,8 +3,9 @@
   project.addProjectRunListener(projectRunListener);
   try {
     log.info(("Running Project [" + project.getName() + "], runType = "+ project.getRunType()));
-    WsdlProjectRunner runner=project.run(new StringToObjectMap(),false);
-    log.info("Project [" + project.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ runner.getTimeTaken()+ "ms");
+    for (    TestSuite testSuite : project.getTestSuiteList()) {
+      runSuite((WsdlTestSuite)testSuite);
+    }
   }
  catch (  Exception e) {
     e.printStackTrace();
