@@ -20,5 +20,7 @@
     return;
   }
   securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
-  securityCheck.configure();
+  SecurityCheck secCheck=getCurrentSecurityCheck();
+  secCheck.setTestStep(testStep);
+  secCheck.configure();
 }

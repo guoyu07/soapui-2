@@ -25,6 +25,7 @@
       Object obj=securityCheckList.getModel().getElementAt(ix);
       if (obj instanceof SecurityCheck) {
         SecurityCheck chck=(SecurityCheck)obj;
+        chck.setTestStep(getTestStep());
         if (chck.isConfigurable())         chck.configure();
         return;
       }
