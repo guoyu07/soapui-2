@@ -1,0 +1,22 @@
+{
+  if (isAttachXmlBomb()) {
+    AbstractHttpRequest<?> request=getRequest(testStep);
+    if (currentIndex < getBombList().size()) {
+      String bomb=getBombList().get(currentIndex);
+      try {
+        File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
+        BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
+        writer.write(bomb);
+        writer.write("<payload>&payload</payload>");
+        writer.flush();
+        request.attachFile(bombFile,false);
+        bombFile.delete();
+        currentIndex++;
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  return testStep;
+}

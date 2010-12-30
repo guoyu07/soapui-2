@@ -2,16 +2,25 @@
   currentIndex=0;
   WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
   String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
-  for (  String param : getParamsToCheck()) {
+  if (isAttachXmlBomb()) {
     while (currentIndex < getBombList().size()) {
-      generateNextRequest(testStep,param);
-      testStep.run(testCaseRunner,testCaseRunner.getRunContext());
-      AbstractHttpRequest<?> lastRequest=getRequest(testStep);
-      if (StringUtils.getLevenshteinDistance(originalResponse,lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
-        securityTestLog.addEntry(new SecurityTestLogMessageEntry("Possible XML Bomb Vulnerability Detected",null));
-        setStatus(Status.FAILED);
+      attachXmlBomb(testStep);
+      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+    }
+    currentIndex=0;
+  }
+  if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
+    for (    String param : getParamsToCheck()) {
+      while (currentIndex < getBombList().size()) {
+        generateNextRequest(testStep,param);
+        runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
       }
-      analyze(testStep,context,securityTestLog);
+    }
+  }
+ else {
+    while (currentIndex < getBombList().size()) {
+      generateNextRequest(testStep,getParamsToCheck());
+      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
     }
   }
 }
