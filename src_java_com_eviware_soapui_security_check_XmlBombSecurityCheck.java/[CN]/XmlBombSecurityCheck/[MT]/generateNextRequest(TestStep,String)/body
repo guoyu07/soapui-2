@@ -6,7 +6,7 @@
     String newRequestContent=requestContent;
     if (testStep instanceof WsdlTestRequestStep) {
       newRequestContent=XmlUtils.setXPathContent(request.getRequestContent(),param.substring(param.lastIndexOf("\n") + 1),"&&payload&&");
-      newRequestContent=newRequestContent.replaceAll("&amp;&amp;payload&amp;&amp;","&payload");
+      newRequestContent=newRequestContent.replaceAll("&amp;&amp;payload&amp;&amp;","&payload;");
     }
     newRequestContent=bomb + newRequestContent;
     request.setRequestContent(newRequestContent);

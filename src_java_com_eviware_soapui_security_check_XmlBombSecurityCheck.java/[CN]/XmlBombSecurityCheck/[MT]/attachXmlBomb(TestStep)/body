@@ -7,7 +7,7 @@
         File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
         BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
         writer.write(bomb);
-        writer.write("<payload>&payload</payload>");
+        writer.write("<payload>&payload;</payload>");
         writer.flush();
         request.attachFile(bombFile,false);
         bombFile.delete();
