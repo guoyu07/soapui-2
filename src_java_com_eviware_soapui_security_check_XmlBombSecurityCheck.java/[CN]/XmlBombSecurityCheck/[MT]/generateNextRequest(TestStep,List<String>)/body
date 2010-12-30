@@ -14,8 +14,8 @@
     request.setRequestContent(newRequestContent);
     currentIndex++;
   }
- else {
-    return null;
+ else   if (currentIndex == getBombList().size()) {
+    request.setRequestContent(createQuadraticExpansionAttack(request.getRequestContent(),paramsToCheck));
   }
   return testStep;
 }

@@ -17,6 +17,34 @@
         SoapUI.logError(e);
       }
     }
+ else     if (currentIndex == getBombList().size()) {
+      try {
+        File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
+        BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
+        writer.write(createQuadraticExpansionAttack(null,null));
+        writer.flush();
+        request.attachFile(bombFile,false);
+        bombFile.delete();
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+      }
+      currentIndex++;
+    }
+ else     if (currentIndex == getBombList().size() + 1) {
+      try {
+        File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
+        BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
+        writer.write(createAttributeBlowupAttack(null,null));
+        writer.flush();
+        request.attachFile(bombFile,false);
+        bombFile.delete();
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+      }
+      currentIndex++;
+    }
   }
   return testStep;
 }

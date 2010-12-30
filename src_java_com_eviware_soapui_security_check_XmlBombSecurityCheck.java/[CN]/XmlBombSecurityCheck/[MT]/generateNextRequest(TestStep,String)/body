@@ -10,10 +10,12 @@
     }
     newRequestContent=bomb + newRequestContent;
     request.setRequestContent(newRequestContent);
-    currentIndex++;
   }
- else {
-    return null;
+ else   if (currentIndex == getBombList().size()) {
+    List<String> paramList=new ArrayList<String>();
+    paramList.add(param);
+    request.setRequestContent(createQuadraticExpansionAttack(request.getRequestContent(),paramList));
   }
+  currentIndex++;
   return testStep;
 }

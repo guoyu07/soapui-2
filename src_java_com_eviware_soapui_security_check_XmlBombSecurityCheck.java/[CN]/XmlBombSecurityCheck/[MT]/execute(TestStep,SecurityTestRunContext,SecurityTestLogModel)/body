@@ -2,25 +2,31 @@
   currentIndex=0;
   WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
   String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+  String originalRequest=getRequest(testStep).getRequestContent();
   if (isAttachXmlBomb()) {
-    while (currentIndex < getBombList().size()) {
+    while (currentIndex < getBombList().size() + 1) {
       attachXmlBomb(testStep);
       runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+      getRequest(testStep).setRequestContent(originalRequest);
     }
     currentIndex=0;
   }
-  if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
+  if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY) && getParamsToCheck().size() > 0) {
     for (    String param : getParamsToCheck()) {
-      while (currentIndex < getBombList().size()) {
-        generateNextRequest(testStep,param);
-        runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+      if (param != null) {
+        while (currentIndex < getBombList().size() + 1) {
+          generateNextRequest(testStep,param);
+          runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+          getRequest(testStep).setRequestContent(originalRequest);
+        }
       }
     }
   }
- else {
-    while (currentIndex < getBombList().size()) {
+ else   if (getParamsToCheck().size() > 0) {
+    while (currentIndex < getBombList().size() + 1) {
       generateNextRequest(testStep,getParamsToCheck());
       runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+      getRequest(testStep).setRequestContent(originalRequest);
     }
   }
 }
