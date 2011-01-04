@@ -1,0 +1,8 @@
+{
+  SecurityCheckConfig securityCheckConfig=SecurityCheckConfig.Factory.newInstance();
+  securityCheckConfig.setType(MaliciousAttachmentSecurityCheck.TYPE);
+  securityCheckConfig.setName(name);
+  MaliciousAttachmentSecurityCheckConfig sic=MaliciousAttachmentSecurityCheckConfig.Factory.newInstance();
+  securityCheckConfig.setConfig(sic);
+  return securityCheckConfig;
+}

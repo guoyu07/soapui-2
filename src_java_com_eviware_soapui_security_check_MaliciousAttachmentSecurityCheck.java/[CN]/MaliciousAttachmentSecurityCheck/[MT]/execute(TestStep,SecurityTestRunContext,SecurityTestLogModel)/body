@@ -1,0 +1,21 @@
+{
+  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+  File textFile;
+  try {
+    textFile=File.createTempFile("test",".txt");
+    BufferedWriter writer=new BufferedWriter(new FileWriter(textFile));
+    writer.write("This is just a text file, nothing to see here, just a harmless text file");
+    writer.flush();
+    Attachment attach=addAttachement(testStep,textFile,"text/plain");
+    runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible Malicious Attachment Vulnerability Detected");
+    getRequest(testStep).removeAttachment(attach);
+    attach=addAttachement(testStep,textFile,"multipart/mixed");
+    runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible Malicious Attachment Vulnerability Detected");
+    getRequest(testStep).removeAttachment(attach);
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e);
+    return;
+  }
+}

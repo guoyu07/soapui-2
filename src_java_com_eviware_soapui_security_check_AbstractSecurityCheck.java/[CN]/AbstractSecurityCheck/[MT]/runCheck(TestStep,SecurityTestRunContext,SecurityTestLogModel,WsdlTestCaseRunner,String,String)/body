@@ -1,0 +1,11 @@
+{
+  testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+  AbstractHttpRequest<?> lastRequest=getRequest(testStep);
+  if (lastRequest.getResponse().getStatusCode() != 415) {
+    if (StringUtils.getLevenshteinDistance(originalResponse,lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
+      securityTestLog.addEntry(new SecurityTestLogMessageEntry(message,null));
+      setStatus(Status.FAILED);
+    }
+  }
+  analyze(testStep,context,securityTestLog);
+}

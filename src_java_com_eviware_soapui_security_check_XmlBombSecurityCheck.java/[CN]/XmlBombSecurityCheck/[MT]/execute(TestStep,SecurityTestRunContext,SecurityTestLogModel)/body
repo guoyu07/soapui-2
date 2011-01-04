@@ -5,8 +5,9 @@
   String originalRequest=getRequest(testStep).getRequestContent();
   if (isAttachXmlBomb()) {
     while (currentIndex < getBombList().size() + 1) {
-      attachXmlBomb(testStep);
-      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+      Attachment attach=attachXmlBomb(testStep);
+      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible XML Bomb Vulnerability Detected");
+      getRequest(testStep).removeAttachment(attach);
       getRequest(testStep).setRequestContent(originalRequest);
     }
     currentIndex=0;
@@ -16,7 +17,7 @@
       if (param != null) {
         while (currentIndex < getBombList().size() + 1) {
           generateNextRequest(testStep,param);
-          runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+          runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible XML Bomb Vulnerability Detected");
           getRequest(testStep).setRequestContent(originalRequest);
         }
       }
@@ -25,7 +26,7 @@
  else   if (getParamsToCheck().size() > 0) {
     while (currentIndex < getBombList().size() + 1) {
       generateNextRequest(testStep,getParamsToCheck());
-      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse);
+      runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible XML Bomb Vulnerability Detected");
       getRequest(testStep).setRequestContent(originalRequest);
     }
   }
