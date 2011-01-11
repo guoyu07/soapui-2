@@ -13,7 +13,7 @@
   }
   notifyBeforeRun();
   if (!isRunning())   return;
-  initCount=0;
+  initCount=getStartStep();
   setStartTime();
   for (; initCount < testCase.getTestStepCount() && isRunning(); initCount++) {
     WsdlTestStep testStep=testCase.getTestStepAt(initCount);
@@ -45,4 +45,5 @@
   if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && testCase.getFailTestCaseOnErrors()) {
     fail("Failing due to failed test step");
   }
+  preserveContext(getRunContext());
 }

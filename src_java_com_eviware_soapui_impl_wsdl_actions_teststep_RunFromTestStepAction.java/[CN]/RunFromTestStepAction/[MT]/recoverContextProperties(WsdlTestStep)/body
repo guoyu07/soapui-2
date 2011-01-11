@@ -1,0 +1,15 @@
+{
+  StringToObjectMap properties=null;
+  try {
+    if (testStep.getParent() instanceof WsdlTestCase) {
+      properties=((WsdlTestCase)testStep.getParent()).getRunFromHereContext();
+    }
+ else {
+      properties=new StringToObjectMap();
+    }
+  }
+ catch (  Exception e) {
+    properties=new StringToObjectMap();
+  }
+  return properties;
+}

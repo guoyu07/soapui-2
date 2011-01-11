@@ -1,5 +1,5 @@
 {
-  StringToObjectMap properties=new StringToObjectMap();
+  StringToObjectMap properties=recoverContextProperties(testStep);
   properties.put(TestCaseRunContext.INTERACTIVE,Boolean.TRUE);
   WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner(testStep.getTestCase(),properties);
   testCaseRunner.setStartStep(testStep.getTestCase().getIndexOfTestStep(testStep));
