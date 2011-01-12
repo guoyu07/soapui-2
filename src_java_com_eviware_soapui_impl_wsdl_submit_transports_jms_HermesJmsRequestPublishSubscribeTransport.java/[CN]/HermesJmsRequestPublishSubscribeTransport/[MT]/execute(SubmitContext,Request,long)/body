@@ -20,6 +20,7 @@ catch (  Throwable t) {
   }
  finally {
     if (topicDurableSubsriber != null)     topicDurableSubsriber.close();
+    jmsConnectionHolder.closeAll();
     closeSessionAndConnection(jmsConnectionHolder != null ? jmsConnectionHolder.getConnection() : null,topicSession);
   }
   return null;
