@@ -1,5 +1,9 @@
 {
   String name=UISupport.prompt("Specify name of SecurityTest","Rename SecurityTest",securityTest.getName());
-  if (name == null || name.equals(securityTest.getName()))   return;
+  if (StringUtils.isNullOrEmpty(name) || name.equals(securityTest.getName()))   return;
+  while (securityTest.getTestCase().getSecurityTestByName(name.trim()) != null) {
+    name=UISupport.prompt("Specify unique name of SecurityTest","Rename SecurityTest",securityTest.getName());
+    if (StringUtils.isNullOrEmpty(name) || name.equals(securityTest.getName()))     return;
+  }
   securityTest.setName(name);
 }

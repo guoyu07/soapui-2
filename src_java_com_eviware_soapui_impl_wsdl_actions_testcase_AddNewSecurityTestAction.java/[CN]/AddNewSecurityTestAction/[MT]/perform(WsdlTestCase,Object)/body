@@ -1,6 +1,10 @@
 {
   String name=UISupport.prompt("Specify name of SecurityTest","New SecurityTest","SecurityTest " + (testCase.getSecurityTestCount() + 1));
-  if (name == null)   return;
+  if (StringUtils.isNullOrEmpty(name))   return;
+  while (testCase.getSecurityTestByName(name.trim()) != null) {
+    name=UISupport.prompt("Specify unique name of SecurityTest","Rename SecurityTest",name);
+    if (StringUtils.isNullOrEmpty(name))     return;
+  }
   SecurityTest securityTest=testCase.addNewSecurityTest(name);
   UISupport.selectAndShow(securityTest);
 }
