@@ -1,8 +1,0 @@
-{
-  TestAssertionConfig assertionConfig=TestAssertionConfig.Factory.newInstance();
-  assertionConfig.setType(SimpleContainsAssertion.ID);
-  SimpleContainsAssertion containsAssertion=(SimpleContainsAssertion)TestAssertionRegistry.getInstance().buildAssertion(assertionConfig,testStep);
-  containsAssertion.setToken(exposureContent);
-  containsAssertion.assertResponse(messageExchange,context);
-  return containsAssertion.getStatus();
-}
