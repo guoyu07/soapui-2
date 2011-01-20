@@ -1,0 +1,7 @@
+{
+  String minCharsStr=form.getComponentValue(MINIMUM_CHARACTERS_FIELD);
+  int minimumLength=StringUtils.isNullOrEmpty(minCharsStr) ? 0 : Integer.valueOf(minCharsStr);
+  if (minimumLength > 0) {
+    parameterCheck.setMinimumLength(minimumLength);
+  }
+}

@@ -1,27 +1,3 @@
 {
-  panel=new JPanel(new BorderLayout());
-  form=new SimpleForm();
-  form.addSpace(5);
-  JTextField attachmentPrefixField=form.appendTextField(ATTACHMENT_PREFIX_FIELD,"Attachment Prefix Field");
-  attachmentPrefixField.setMaximumSize(new Dimension(80,10));
-  attachmentPrefixField.setColumns(20);
-  attachmentPrefixField.setText(getAttachmentPrefix());
-  attachmentPrefixField.setEnabled(isAttachXmlBomb());
-  attachmentPrefixField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
-      String prefix=form.getComponentValue(ATTACHMENT_PREFIX_FIELD);
-      setAttachmentPrefix(prefix);
-    }
-  }
-);
-  JCheckBox attachXml=form.appendCheckBox(ENABLE_ATTACHMENT_FIELD,null,isAttachXmlBomb());
-  attachXml.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent arg0){
-      setAttachXmlBomb(((JCheckBox)form.getComponent(ENABLE_ATTACHMENT_FIELD)).isSelected());
-      form.getComponent(ATTACHMENT_PREFIX_FIELD).setEnabled(isAttachXmlBomb());
-    }
-  }
-);
-  panel.add(form.getPanel());
-  return panel;
+  return new XmlBombSecurityCheckConfigPanel(this);
 }
