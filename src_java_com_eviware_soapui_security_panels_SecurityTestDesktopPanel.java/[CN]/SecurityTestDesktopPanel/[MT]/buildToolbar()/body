@@ -1,5 +1,5 @@
 {
-  JToolBar toolbar=UISupport.createToolbar();
+  toolbar=UISupport.createToolbar();
   runButton=UISupport.createToolbarButton(new RunSecurityTestAction());
   optionsButton=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(SecurityTestOptionsAction.SOAPUI_ACTION_ID,getModelItem(),null,"/options.gif"));
   optionsButton.setText(null);
@@ -15,6 +15,7 @@
   stateDependantComponents.add(setCredentialsButton);
   stateDependantComponents.add(setEndpointButton);
   addToolbarActions(toolbar);
+  toolbar.addSeparator();
   toolbar.add(Box.createHorizontalGlue());
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.TESTCASEEDITOR_HELP_URL)));
   return toolbar;
