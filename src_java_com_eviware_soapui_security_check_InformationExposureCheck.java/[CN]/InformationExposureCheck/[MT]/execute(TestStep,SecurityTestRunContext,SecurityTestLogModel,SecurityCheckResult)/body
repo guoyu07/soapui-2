@@ -1,0 +1,8 @@
+{
+  if (acceptsTestStep(testStep)) {
+    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+    testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    securityCheckResult=analyze(testStep,context,securityTestLog,securityCheckResult);
+  }
+  return securityCheckResult;
+}

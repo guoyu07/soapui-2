@@ -4,7 +4,7 @@
   if (testLogList.getSelectedIndex() != row) {
     testLogList.setSelectedIndex(row);
   }
-  SecurityTestLogMessageEntry result=logListModel.getElementAt(row);
+  SecurityTestLogMessageEntry result=(SecurityTestLogMessageEntry)logListModel.getElementAt(row);
   if (result == null)   return;
   ActionList actions=result.getActions();
   if (actions == null || actions.getActionCount() == 0)   return;

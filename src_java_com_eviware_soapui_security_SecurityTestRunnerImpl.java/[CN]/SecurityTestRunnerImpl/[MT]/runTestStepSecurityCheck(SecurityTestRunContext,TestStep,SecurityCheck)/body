@@ -3,12 +3,12 @@
     for (int j=0; j < securityTestStepListeners.length; j++) {
       securityTestStepListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
     }
-    Status result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,securityTest.getSecurityTestLog());
-    if (securityTest.getFailSecurityTestOnCheckErrors() && result == Status.FAILED) {
+    SecurityCheckResult result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,securityTest.getSecurityTestLog());
+    if (securityTest.getFailSecurityTestOnCheckErrors() && result.getStatus() == SecurityCheckStatus.FAILED) {
       fail("Failing due to failed security check");
     }
     for (int j=0; j < securityTestStepListeners.length; j++) {
-      securityTestStepListeners[j].afterSecurityCheck(this,runContext,securityCheck);
+      securityTestStepListeners[j].afterSecurityCheck(this,runContext,result);
     }
   }
 }

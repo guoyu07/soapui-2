@@ -1,0 +1,23 @@
+{
+  if (acceptsTestStep(testStep)) {
+    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+    String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+    if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
+      for (      String param : getParamsToCheck()) {
+        Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
+        while (sqlFuzzer.hasNext()) {
+          sqlFuzzer.getNextFuzzedTestStep(testStep,param);
+          runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible SQL injection vulenerability detected");
+        }
+      }
+    }
+ else {
+      Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
+      while (sqlFuzzer.hasNext()) {
+        sqlFuzzer.getNextFuzzedTestStep(testStep,getParamsToCheck());
+        runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible SQL injection vulenerability detected");
+      }
+    }
+  }
+  return null;
+}

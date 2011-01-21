@@ -1,0 +1,18 @@
+{
+  scriptEngine.setScript(getScript());
+  scriptEngine.setVariable("testStep",testStep);
+  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  scriptEngine.setVariable("context",context);
+  scriptEngine.setVariable("status",status);
+  scriptEngine.setVariable("executionStrategy",getExecutionStrategy());
+  try {
+    scriptEngine.run();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    scriptEngine.clearVariables();
+  }
+  return null;
+}

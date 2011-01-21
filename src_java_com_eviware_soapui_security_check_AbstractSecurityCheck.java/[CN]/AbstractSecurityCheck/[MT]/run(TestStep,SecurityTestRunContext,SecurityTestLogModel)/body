@@ -1,8 +1,8 @@
 {
-  setStatus(Status.INITIALIZED);
+  securityCheckResult=new SecurityCheckResult(this);
   runStartupScript(testStep);
-  execute(testStep,context,securityTestLog);
+  securityCheckResult=execute(testStep,context,securityTestLog,securityCheckResult);
   sensitiveInfoCheck(testStep,context,securityTestLog);
   runTearDownScript(testStep);
-  return getStatus();
+  return securityCheckResult;
 }

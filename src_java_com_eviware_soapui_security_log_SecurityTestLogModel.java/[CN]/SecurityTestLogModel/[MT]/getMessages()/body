@@ -1,7 +1,7 @@
 {
   StringBuffer sb=new StringBuffer();
-  for (  SecurityTestLogMessageEntry messageEntry : items) {
-    sb.append(messageEntry.getMessage());
+  for (  Object messageEntry : items) {
+    sb.append(((SecurityTestLogMessageEntry)messageEntry).getMessage());
     sb.append("\n");
   }
   return sb.toString();
