@@ -3,5 +3,6 @@
   buildUI();
   setPreferredSize(new Dimension(400,550));
   this.securityTest=securityTest;
+  securityTest.addSecurityCheckRunListener(secChkRunListener);
   progressBarAdapter=new ProgressBarSecurityTestAdapter(progressBar,securityTest);
 }
