@@ -1,0 +1,11 @@
+{
+  if (size == null) {
+    SoapUI.log.error("size is not specified!");
+    return null;
+  }
+  StringBuilder sb=new StringBuilder(size);
+  for (int i=0; i < size; i++) {
+    sb.append(randomCharacter(availableValues));
+  }
+  return sb.toString();
+}
