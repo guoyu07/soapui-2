@@ -1,7 +1,7 @@
 {
   String name=type;
   int numNames=0;
-  for (  SecurityCheck existingCheck : monitorSecurityTest.getMonitorSecurityChecksList()) {
+  for (  AbstractSecurityCheck existingCheck : monitorSecurityTest.getMonitorSecurityChecksList()) {
     if (existingCheck.getType().equals(name))     numNames++;
   }
   if (numNames != 0) {

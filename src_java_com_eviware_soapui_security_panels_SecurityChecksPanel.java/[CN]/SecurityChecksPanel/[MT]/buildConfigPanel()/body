@@ -2,7 +2,7 @@
   securityCheckConfigPanel=UISupport.addTitledBorder(new JPanel(new BorderLayout()),"Configuration");
   securityCheckConfigPanel.add(new JLabel("currently no security checks"));
   if (securityCheckList != null && securityCheckList.getSelectedValue() != null) {
-    SecurityCheck selected=securityTest.getTestStepSecurityCheckByName(testStep.getId(),((SecurityCheck)securityCheckList.getSelectedValue()).getName());
+    AbstractSecurityCheck selected=securityTest.getTestStepSecurityCheckByName(testStep.getId(),((AbstractSecurityCheck)securityCheckList.getSelectedValue()).getName());
     securityCheckConfigPanel.removeAll();
     securityCheckConfigPanel.add(selected.getComponent());
   }

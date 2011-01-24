@@ -23,8 +23,8 @@
       int ix=securityCheckList.getSelectedIndex();
       if (ix == -1)       return;
       Object obj=securityCheckList.getModel().getElementAt(ix);
-      if (obj instanceof SecurityCheck) {
-        SecurityCheck chck=(SecurityCheck)obj;
+      if (obj instanceof AbstractSecurityCheck) {
+        AbstractSecurityCheck chck=(AbstractSecurityCheck)obj;
         chck.setTestStep(getTestStep());
         if (chck.isConfigurable())         chck.configure();
         return;

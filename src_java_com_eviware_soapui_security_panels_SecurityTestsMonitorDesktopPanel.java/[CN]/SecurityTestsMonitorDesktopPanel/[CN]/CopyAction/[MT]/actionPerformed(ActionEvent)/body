@@ -1,6 +1,6 @@
 {
   int ix=securityChecksList.getSelectedIndex();
-  SecurityCheck sourceCheck=monitorSecurityTest.getSecurityCheckAt(ix);
+  AbstractSecurityCheck sourceCheck=monitorSecurityTest.getSecurityCheckAt(ix);
   String name=UISupport.prompt("Specify name for SecurityCheck","Copy SecurityCheck","Copy of " + sourceCheck.getName());
   if (name == null || name.trim().length() == 0)   return;
   while (monitorSecurityTest.getSecurityCheckByName(name) != null || monitorSecurityTest.getSecurityCheckByName(name + " (disabled)") != null) {
@@ -9,7 +9,7 @@
       return;
     }
   }
-  SecurityCheck securityCheck=monitorSecurityTest.addSecurityCheck(name,sourceCheck);
+  AbstractSecurityCheck securityCheck=monitorSecurityTest.addSecurityCheck(name,sourceCheck);
   securityCheck.setDisabled(sourceCheck.isDisabled());
   listModel.addElement(name);
   securityChecksList.setSelectedIndex(listModel.getSize() - 1);

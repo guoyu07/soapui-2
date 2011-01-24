@@ -1,0 +1,12 @@
+{
+synchronized (this) {
+    AbstractSecurityCheck securityCheck=(AbstractSecurityCheck)items.get(ix);
+    if ((ix == 0 && offset == -1) || (ix == items.size() - 1 && offset == 1)) {
+      return;
+    }
+    items.remove(ix);
+    fireIntervalRemoved(this,ix,ix);
+    items.add(ix + offset,newSecurityCheck);
+    fireIntervalAdded(this,ix + offset,ix + offset);
+  }
+}

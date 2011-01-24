@@ -1,7 +1,7 @@
 {
   int ix=securityCheckList.getSelectedIndex();
   if (ix == -1)   return;
-  SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+  AbstractSecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
   if (securityCheck.isConfigurable()) {
     securityCheck.configure();
   }

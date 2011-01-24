@@ -14,13 +14,13 @@
     UISupport.showErrorMessage("No security checks available for this message");
     return;
   }
-  SecurityCheck securityCheck=securityTest.addSecurityCheck(testStep,type,name);
+  AbstractSecurityCheck securityCheck=securityTest.addSecurityCheck(testStep,type,name);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");
     return;
   }
   securityCheckList.setSelectedIndex(securityCheckListModel.getSize() - 1);
-  SecurityCheck secCheck=getCurrentSecurityCheck();
+  AbstractSecurityCheck secCheck=getCurrentSecurityCheck();
   secCheck.setTestStep(testStep);
   secCheck.configure();
 }

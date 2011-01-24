@@ -1,7 +1,7 @@
 {
   AbstractSecurityCheckFactory factory=SecurityCheckRegistry.getInstance().getFactory(type);
   SecurityCheckConfig scc=factory.createNewSecurityCheck(name);
-  SecurityCheck newSc=factory.buildSecurityCheck(scc,null);
+  AbstractSecurityCheck newSc=factory.buildSecurityCheck(scc,null);
   monitorSecurityChecksList.add(newSc);
   return newSc;
 }

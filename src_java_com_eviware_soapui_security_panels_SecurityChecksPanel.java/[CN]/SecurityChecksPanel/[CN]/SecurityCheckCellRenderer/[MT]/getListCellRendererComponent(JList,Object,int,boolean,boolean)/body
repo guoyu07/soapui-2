@@ -1,7 +1,7 @@
 {
   setEnabled(list.isEnabled());
-  if (value instanceof SecurityCheck) {
-    SecurityCheck securityCheck=(SecurityCheck)value;
+  if (value instanceof AbstractSecurityCheck) {
+    AbstractSecurityCheck securityCheck=(AbstractSecurityCheck)value;
     setText(securityCheck.getName());
     setIcon(securityCheck.getIcon());
     if (securityCheck.isDisabled() && isEnabled())     setEnabled(false);
