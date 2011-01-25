@@ -1,13 +1,13 @@
 {
 switch (restrictionAttribute) {
 case MAX_EXCLISIVE:
-    return createDate(maxExclusive,(int)(Math.random() * OFFSET));
+    return BoundaryUtils.createDate(maxExclusive,(int)(Math.random() * OFFSET));
 case MIN_EXCLISIVE:
-  return createDate(minExclusive,-(int)(Math.random() * OFFSET));
+  return BoundaryUtils.createDate(minExclusive,-(int)(Math.random() * OFFSET));
 case MAX_INCLISIVE:
-return createDate(maxInclusive,(int)(Math.random() * OFFSET + 1));
+return BoundaryUtils.createDate(maxInclusive,(int)(Math.random() * OFFSET + 1));
 case MIN_INCLISIVE:
-return createDate(minInclusive,-(int)(Math.random() * OFFSET - 1));
+return BoundaryUtils.createDate(minInclusive,-(int)(Math.random() * OFFSET - 1));
 default :
 return null;
 }
