@@ -1,0 +1,8 @@
+{
+  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getRequestContent();
+  AbstractHttpRequest<?> request=getRequest(testStep);
+  request.setAttachmentAt(0,new InfiniteAttachment(AttachmentConfig.Factory.newInstance(),request,(long)((LargeAttachmentSecurityCheckConfig)config.getConfig()).getSize()));
+  runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Large attachment vulnerability detected");
+  return securityCheckResult;
+}

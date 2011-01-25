@@ -1,6 +1,8 @@
 {
   AbstractHttpRequest<?> lastRequest=getRequest(testStep);
-  if (lastRequest.getResponse().getContentAsString().indexOf("SQL Error") > -1) {
+  MessageExchange messageExchange=new HttpResponseMessageExchange((HttpTestRequestInterface<?>)lastRequest);
+  securityCheckResult.setMessageExchange(messageExchange);
+  if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),"SQL Error",false)) {
     securityTestLog.addEntry(new SecurityTestLogMessageEntry("SQL Error displayed in response",null));
     securityCheckResult.setStatus(SecurityCheckStatus.FAILED);
   }

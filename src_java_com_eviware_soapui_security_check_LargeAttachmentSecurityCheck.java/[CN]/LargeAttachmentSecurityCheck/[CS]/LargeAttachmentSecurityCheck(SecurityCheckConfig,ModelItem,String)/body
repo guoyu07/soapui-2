@@ -1,0 +1,12 @@
+{
+  super(config,parent,icon);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+    LargeAttachmentSecurityCheckConfig mascc=LargeAttachmentSecurityCheckConfig.Factory.newInstance();
+    config.setConfig(mascc);
+  }
+  if (config.getConfig() == null) {
+    LargeAttachmentSecurityCheckConfig mascc=LargeAttachmentSecurityCheckConfig.Factory.newInstance();
+    config.setConfig(mascc);
+  }
+}
