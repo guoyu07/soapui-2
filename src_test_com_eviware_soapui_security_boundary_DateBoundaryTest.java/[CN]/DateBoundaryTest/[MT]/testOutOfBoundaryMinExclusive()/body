@@ -1,0 +1,8 @@
+{
+  String outOfBoundaryDate=dateBoundary.outOfBoundary(Boundary.MIN_EXCLISIVE);
+  Calendar calendar1=Calendar.getInstance();
+  Calendar calendar2=Calendar.getInstance();
+  calendar1.setTime(dateBoundary.simpleDateFormat.parse(outOfBoundaryDate));
+  calendar2.setTime(dateBoundary.simpleDateFormat.parse(dateBoundary.minExclusive));
+  assertTrue(calendar1.before(calendar2) || calendar1.equals(calendar2));
+}

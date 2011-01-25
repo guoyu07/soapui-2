@@ -1,11 +1,11 @@
 {
 switch (restrictionAttribute) {
 case LENGTH:
-    return createCharacterArray(AVAILABLE_VALUES,length);
+    return createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(length));
 case MIN_LENGTH:
-  return createCharacterArray(AVAILABLE_VALUES,minLength - 1);
+  return createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(minLength) - 1);
 case MAX_LENGTH:
-return createCharacterArray(AVAILABLE_VALUES,maxLength - 1);
+return createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(maxLength) - 1);
 default :
 return null;
 }
