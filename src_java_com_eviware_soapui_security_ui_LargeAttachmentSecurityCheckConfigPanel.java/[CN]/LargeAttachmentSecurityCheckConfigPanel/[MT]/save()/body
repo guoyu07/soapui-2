@@ -1,0 +1,12 @@
+{
+  String gbStr=form.getComponentValue("Gb");
+  long numGb=StringUtils.isNullOrEmpty(gbStr) ? 0 : Long.valueOf(gbStr);
+  String mbStr=form.getComponentValue("Mb");
+  long numMb=StringUtils.isNullOrEmpty(mbStr) ? 0 : Long.valueOf(mbStr);
+  String kbStr=form.getComponentValue("kb");
+  long numKb=StringUtils.isNullOrEmpty(kbStr) ? 0 : Long.valueOf(kbStr);
+  String bStr=form.getComponentValue("b");
+  long numB=StringUtils.isNullOrEmpty(bStr) ? 0 : Long.valueOf(bStr);
+  long totalBytes=numGb * (long)Math.pow(1024,3) + numMb * (long)Math.pow(1024,2) + numKb * 1024 + numB;
+  largeAttCheck.setMaxSize(totalBytes);
+}
