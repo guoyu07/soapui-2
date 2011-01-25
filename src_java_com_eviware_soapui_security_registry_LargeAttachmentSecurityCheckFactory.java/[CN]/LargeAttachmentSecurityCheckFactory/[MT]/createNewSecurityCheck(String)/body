@@ -1,0 +1,8 @@
+{
+  SecurityCheckConfig securityCheckConfig=SecurityCheckConfig.Factory.newInstance();
+  securityCheckConfig.setType(LargeAttachmentSecurityCheck.TYPE);
+  securityCheckConfig.setName(name);
+  LargeAttachmentSecurityCheckConfig sic=LargeAttachmentSecurityCheckConfig.Factory.newInstance();
+  securityCheckConfig.setConfig(sic);
+  return securityCheckConfig;
+}
