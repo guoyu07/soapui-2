@@ -1,0 +1,14 @@
+{
+  securityCheckResult=new SecurityCheckResult(this);
+  currentIndex=0;
+  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+  runStartupScript(testStep);
+  if (hasNext()) {
+    securityCheckReqResult=new SecurityCheckRequestResult(this);
+    executeNew(testStep,context);
+    analyzeNew(testStep,context);
+    securityCheckResult.addSecurityRequestResult(securityCheckReqResult);
+  }
+  runTearDownScript(testStep);
+  return securityCheckResult;
+}
