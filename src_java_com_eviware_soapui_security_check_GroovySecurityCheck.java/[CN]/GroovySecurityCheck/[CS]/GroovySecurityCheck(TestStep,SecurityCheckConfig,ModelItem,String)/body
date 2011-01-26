@@ -1,0 +1,8 @@
+{
+  super(testStep,config,parent,icon);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+    GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+    config.setConfig(groovyscc);
+  }
+}

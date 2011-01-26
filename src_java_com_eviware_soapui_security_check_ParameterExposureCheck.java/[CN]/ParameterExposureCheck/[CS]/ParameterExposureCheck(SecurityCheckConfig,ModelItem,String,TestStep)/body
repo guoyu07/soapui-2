@@ -1,0 +1,14 @@
+{
+  super(testStep,config,parent,icon);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+    ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    pescc.setMinimumLength(DEFAULT_MINIMUM_CHARACTER_LENGTH);
+    config.setConfig(pescc);
+  }
+  if (config.getConfig() == null) {
+    ParameterExposureCheckConfig pescc=ParameterExposureCheckConfig.Factory.newInstance();
+    pescc.setMinimumLength(DEFAULT_MINIMUM_CHARACTER_LENGTH);
+    config.setConfig(pescc);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  super(testStep,config,parent,icon);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+    ReflectedXSSCheckConfig pescc=ReflectedXSSCheckConfig.Factory.newInstance();
+    config.setConfig(pescc);
+  }
+  if (config.getConfig() == null) {
+    ReflectedXSSCheckConfig pescc=ReflectedXSSCheckConfig.Factory.newInstance();
+    config.setConfig(pescc);
+  }
+}
