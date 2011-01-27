@@ -1,8 +1,7 @@
 {
   securityCheckResult=new SecurityCheckResult(this);
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
   runStartupScript(testStep);
-  if (hasNext()) {
+  while (hasNext()) {
     securityCheckReqResult=new SecurityCheckRequestResult(this);
     executeNew(testStep,context);
     analyzeNew(testStep,context);
