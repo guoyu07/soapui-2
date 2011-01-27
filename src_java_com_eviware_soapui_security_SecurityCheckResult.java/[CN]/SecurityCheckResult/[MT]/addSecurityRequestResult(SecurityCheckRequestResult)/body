@@ -5,5 +5,5 @@
  else   if (timeStamp > secReqResult.getTimeStamp())   timeStamp=secReqResult.getTimeStamp();
   if (status == SecurityCheckStatus.OK)   status=secReqResult.getStatus();
   this.testLog.append("SecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
-  for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(secReqResult.getMessages());
+  for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);
 }
