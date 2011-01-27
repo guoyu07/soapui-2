@@ -1,0 +1,21 @@
+{
+  AbstractHttpRequest<?> request=getRequest(testStep);
+  if (currentIndex < getBombList().size()) {
+    String bomb=getBombList().get(currentIndex);
+    String requestContent=request.getRequestContent();
+    String newRequestContent=requestContent;
+    if (testStep instanceof WsdlTestRequestStep) {
+      for (      RestParameterConfig param : paramsToCheck) {
+        newRequestContent=XmlUtils.setXPathContent(newRequestContent,param.getName().substring(param.getName().lastIndexOf("\n") + 1),"&&payload&&");
+      }
+      newRequestContent=newRequestContent.replaceAll("&amp;&amp;payload&amp;&amp;","&payload");
+    }
+    newRequestContent=bomb + newRequestContent;
+    request.setRequestContent(newRequestContent);
+    currentIndex++;
+  }
+ else   if (currentIndex == getBombList().size()) {
+    request.setRequestContent(createQuadraticExpansionAttack(request.getRequestContent(),paramsToCheck));
+  }
+  return testStep;
+}

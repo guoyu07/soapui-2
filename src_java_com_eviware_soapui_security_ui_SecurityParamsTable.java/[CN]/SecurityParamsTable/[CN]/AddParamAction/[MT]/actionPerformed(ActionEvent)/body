@@ -1,0 +1,26 @@
+{
+  if (requestParams.size() < 1) {
+    UISupport.showErrorMessage("The Current Request has no Parameters");
+  }
+  String[] requestParamsArray=requestParams.keySet().toArray(new String[0]);
+  String name=UISupport.prompt("Choose parameter to check","Add Parameter",requestParamsArray);
+  if (StringUtils.hasContent(name)) {
+    params.addParameter(requestParams.get(name));
+    final int row=params.getPropertyNames().length - 1;
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        requestFocusInWindow();
+        scrollRectToVisible(paramsTable.getCellRect(row,1,true));
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            paramsTable.editCellAt(row,1);
+            paramsTable.getEditorComponent().requestFocusInWindow();
+          }
+        }
+);
+      }
+    }
+);
+    clearParamsAction.setEnabled(true);
+  }
+}

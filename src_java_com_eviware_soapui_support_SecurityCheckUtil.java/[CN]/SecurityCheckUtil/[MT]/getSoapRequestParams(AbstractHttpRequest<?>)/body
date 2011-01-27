@@ -1,0 +1,15 @@
+{
+  XmlBeansRestParamsTestPropertyHolder holder=new XmlBeansRestParamsTestPropertyHolder(request,RestParametersConfig.Factory.newInstance());
+  try {
+    XmlObject requestXml=XmlObject.Factory.parse(request.getRequestContent(),new XmlOptions().setLoadStripWhitespace().setLoadStripComments());
+    Node[] nodes=XmlUtils.selectDomNodes(requestXml,"//text()");
+    for (    Node node : nodes) {
+      String xpath=XmlUtils.createAbsoluteXPath(node.getParentNode());
+      holder.addProperty(node.getParentNode().getNodeName());
+    }
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e);
+  }
+  return holder;
+}

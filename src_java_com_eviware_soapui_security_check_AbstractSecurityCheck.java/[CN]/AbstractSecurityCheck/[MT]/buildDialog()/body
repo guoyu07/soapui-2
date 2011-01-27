@@ -11,18 +11,27 @@
   builder.addRelatedGap();
   builder.addFixed(new JButton(new CancelAction()));
   builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
-  JInspectorPanel parameter=JInspectorPanelFactory.build(getParameterSelector(),SwingConstants.BOTTOM);
+  RestParamsPropertyHolder params=new XmlBeansRestParamsTestPropertyHolder(getRequest(getTestStep()),getParameters());
+  RestParamsPropertyHolder requestParams;
+  if (getTestStep() instanceof WsdlTestRequestStep) {
+    requestParams=SecurityCheckUtil.getSoapRequestParams(getRequest(getTestStep()));
+  }
+ else {
+    requestParams=getRequest(getTestStep()).getParams();
+  }
+  paramTable=new SecurityParamsTable(params,requestParams);
+  JInspectorPanel parameter=JInspectorPanelFactory.build(paramTable,SwingConstants.BOTTOM);
   if (contentPanel != null) {
     fullPanel.setPreferredSize(new Dimension(300,500));
     contentPanel.setPreferredSize(new Dimension(300,200));
     contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
-    JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(contentPanel),new JScrollPane(parameter.getComponent()));
+    JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(parameter.getComponent()),new JScrollPane(contentPanel));
     dialog.setContentPane(splitPane);
   }
  else {
-    fullPanel.setPreferredSize(new Dimension(300,350));
+    fullPanel.setPreferredSize(new Dimension(300,500));
     fullPanel.add(builder.getPanel(),BorderLayout.NORTH);
-    fullPanel.add(parameter.getComponent(),BorderLayout.SOUTH);
+    fullPanel.add(paramTable,BorderLayout.SOUTH);
     dialog.setContentPane(fullPanel);
   }
   dialog.setModal(true);

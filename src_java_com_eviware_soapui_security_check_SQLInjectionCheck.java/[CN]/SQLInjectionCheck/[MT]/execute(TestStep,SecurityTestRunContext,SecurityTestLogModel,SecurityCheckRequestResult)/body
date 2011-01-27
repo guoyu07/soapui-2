@@ -3,18 +3,17 @@
     WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
     String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
     if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY)) {
-      for (      String param : getParamsToCheck()) {
+      for (      RestParameterConfig param : getParameters().getParameterList()) {
         Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
         while (sqlFuzzer.hasNext()) {
-          sqlFuzzer.getNextFuzzedTestStep(testStep,param);
+          sqlFuzzer.getNextFuzzedTestStep(testStep,param.getName());
           runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible SQL injection vulenerability detected");
         }
       }
     }
  else {
-      Fuzzer sqlFuzzer=Fuzzer.getSQLFuzzer();
       while (sqlFuzzer.hasNext()) {
-        sqlFuzzer.getNextFuzzedTestStep(testStep,getParamsToCheck());
+        sqlFuzzer.getNextFuzzedTestStep(testStep,getParameters());
         runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible SQL injection vulenerability detected");
       }
     }

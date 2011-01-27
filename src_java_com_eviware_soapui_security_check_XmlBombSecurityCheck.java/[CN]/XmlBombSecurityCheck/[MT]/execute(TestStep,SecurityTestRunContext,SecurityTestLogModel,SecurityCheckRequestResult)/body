@@ -12,20 +12,20 @@
     }
     currentIndex=0;
   }
-  if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY) && getParamsToCheck().size() > 0) {
-    for (    String param : getParamsToCheck()) {
+  if (getExecutionStrategy().equals(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY) && getParameters().getParameterList().size() > 0) {
+    for (    RestParameterConfig param : getParameters().getParameterList()) {
       if (param != null) {
         while (currentIndex < getBombList().size() + 1) {
-          generateNextRequest(testStep,param);
+          generateNextRequest(testStep,param.getName());
           runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible XML Bomb Vulnerability Detected");
           getRequest(testStep).setRequestContent(originalRequest);
         }
       }
     }
   }
- else   if (getParamsToCheck().size() > 0) {
+ else   if (getParameters().getParameterList().size() > 0) {
     while (currentIndex < getBombList().size() + 1) {
-      generateNextRequest(testStep,getParamsToCheck());
+      generateNextRequest(testStep,getParameters().getParameterList());
       runCheck(testStep,context,securityTestLog,testCaseRunner,originalResponse,"Possible XML Bomb Vulnerability Detected");
       getRequest(testStep).setRequestContent(originalRequest);
     }
