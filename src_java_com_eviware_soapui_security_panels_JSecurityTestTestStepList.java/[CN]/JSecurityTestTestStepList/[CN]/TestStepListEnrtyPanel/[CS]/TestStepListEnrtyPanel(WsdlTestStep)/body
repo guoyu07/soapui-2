@@ -33,20 +33,19 @@
   add(label,BorderLayout.LINE_START);
   testCasePropertyChangeListener=new TestCasePropertyChangeListener();
   addMouseListener(new MouseAdapter(){
-    @Override public void mousePressed(    MouseEvent e){
-      requestFocus();
-      selectedTestStep=TestStepListEnrtyPanel.this;
-      splitPane.remove(secCheckPanel);
-      secCheckPanel=buildSecurityChecksPanel();
-      secCheckPanel.revalidate();
-      splitPane.setBottomComponent(secCheckPanel);
-      splitPane.revalidate();
-    }
-    public void mouseClicked(    MouseEvent e){
+    @Override public void mouseClicked(    MouseEvent e){
       if (e.getClickCount() < 2) {
         if (selectedTestStep != null)         selectedTestStep.setSelected(false);
-        setSelected(true);
         selectedTestStep=TestStepListEnrtyPanel.this;
+        requestFocus();
+        splitPane.remove(secCheckPanel);
+        secCheckPanel=buildSecurityChecksPanel();
+        secCheckPanel.revalidate();
+        splitPane.setBottomComponent(secCheckPanel);
+        splitPane.revalidate();
+        if (getTestStep() instanceof Securable) {
+          setSelected(true);
+        }
       }
  else {
         UISupport.selectAndShow(TestStepListEnrtyPanel.this.testStep);
