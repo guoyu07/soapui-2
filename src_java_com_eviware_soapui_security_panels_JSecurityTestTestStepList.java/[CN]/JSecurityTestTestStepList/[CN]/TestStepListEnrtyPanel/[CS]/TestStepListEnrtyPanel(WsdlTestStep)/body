@@ -33,7 +33,7 @@
   add(label,BorderLayout.LINE_START);
   testCasePropertyChangeListener=new TestCasePropertyChangeListener();
   addMouseListener(new MouseAdapter(){
-    @Override public void mouseClicked(    MouseEvent e){
+    public void mouseClicked(    MouseEvent e){
       if (e.getClickCount() < 2) {
         if (selectedTestStep != null)         selectedTestStep.setSelected(false);
         selectedTestStep=TestStepListEnrtyPanel.this;
@@ -43,7 +43,7 @@
         secCheckPanel.revalidate();
         splitPane.setBottomComponent(secCheckPanel);
         splitPane.revalidate();
-        if (getTestStep() instanceof Securable) {
+        if (AbstractSecurityCheck.isSecurable(selectedTestStep.getTestStep())) {
           setSelected(true);
         }
       }
