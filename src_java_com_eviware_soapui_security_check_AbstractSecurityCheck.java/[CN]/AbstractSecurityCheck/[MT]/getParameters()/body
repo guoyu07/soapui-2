@@ -1,3 +1,4 @@
 {
-  return config.getRestParameters();
+  RestParamsPropertyHolder params=new XmlBeansRestParamsTestPropertyHolder(getRequest(getTestStep()),config.getRestParameters());
+  return params;
 }

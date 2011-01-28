@@ -6,9 +6,9 @@
     RestParamsPropertyHolder params;
     AbstractHttpRequest<?> httpRequest=testStepwithProperties.getHttpRequest();
     params=httpRequest.getParams();
-    List<RestParameterConfig> paramsToCheck;
-    paramsToCheck=getParameters().getParameterList();
-    for (    RestParameterConfig parameter : paramsToCheck) {
+    List<TestProperty> paramsToCheck;
+    paramsToCheck=getParameters().getPropertyList();
+    for (    TestProperty parameter : paramsToCheck) {
       if (parameter != null) {
         TestProperty testParameter=params.get(parameter.getName());
         if (testParameter != null && testParameter.getValue() != null && testParameter.getValue().length() >= getMinimumLength()) {

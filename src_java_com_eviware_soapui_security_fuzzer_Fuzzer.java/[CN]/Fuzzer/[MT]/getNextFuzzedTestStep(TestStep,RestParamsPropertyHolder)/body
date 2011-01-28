@@ -3,14 +3,14 @@
     if (testStep instanceof WsdlTestRequestStep) {
       AbstractHttpRequest<?> request=((WsdlTestRequestStep)testStep).getHttpRequest();
       String newContent=request.getRequestContent();
-      for (      RestParameterConfig param : parameters.getParameterList()) {
+      for (      TestProperty param : parameters.getPropertyList()) {
         newContent=XmlUtils.setXPathContent(newContent,param.getDescription().substring(param.getDescription().lastIndexOf("\n") + 1),config.getValueArray(currentIndex));
       }
       request.setRequestContent(newContent);
     }
  else {
       HttpTestRequestInterface<?> request=((HttpTestRequestStepInterface)testStep).getTestRequest();
-      for (      RestParameterConfig param : parameters.getParameterList())       request.setPropertyValue(param.getName(),config.getValueArray(currentIndex));
+      for (      TestProperty param : parameters.getPropertyList())       request.setPropertyValue(param.getName(),config.getValueArray(currentIndex));
     }
     currentIndex++;
   }
