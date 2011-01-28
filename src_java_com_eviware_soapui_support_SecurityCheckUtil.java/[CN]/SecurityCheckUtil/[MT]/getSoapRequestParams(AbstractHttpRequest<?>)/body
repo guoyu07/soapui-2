@@ -5,7 +5,9 @@
     Node[] nodes=XmlUtils.selectDomNodes(requestXml,"//text()");
     for (    Node node : nodes) {
       String xpath=XmlUtils.createAbsoluteXPath(node.getParentNode());
-      holder.addProperty(node.getParentNode().getNodeName());
+      RestParamProperty property=holder.addProperty(node.getParentNode().getNodeName());
+      property.setValue(node.getNodeValue());
+      property.setDescription(xpath);
     }
   }
  catch (  XmlException e) {
