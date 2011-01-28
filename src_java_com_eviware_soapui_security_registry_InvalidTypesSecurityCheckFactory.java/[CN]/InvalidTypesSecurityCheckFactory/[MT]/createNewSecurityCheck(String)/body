@@ -1,0 +1,9 @@
+{
+  SecurityCheckConfig securityCheckConfig=SecurityCheckConfig.Factory.newInstance();
+  securityCheckConfig.setType(InvalidTypesSecurityCheck.TYPE);
+  securityCheckConfig.setName(name);
+  ParameterExposureCheckConfig pecc=ParameterExposureCheckConfig.Factory.newInstance();
+  pecc.setMinimumLength(ParameterExposureCheck.DEFAULT_MINIMUM_CHARACTER_LENGTH);
+  securityCheckConfig.setConfig(pecc);
+  return securityCheckConfig;
+}
