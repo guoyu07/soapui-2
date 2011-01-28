@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < node.getChildCount(); i++) {
+    XmlTreeNode mynode=node.getChild(i);
+    if ("@type".equals(mynode.getNodeName())) {
+      String xpath=XmlUtils.createXPath(mynode.getDomNode());
+      NodeInfo nodeInfo=new NodeInfo(mynode.getNodeName(),mynode.getNodeText(),mynode.getTreePath(),mynode,xpath);
+      System.out.println(nodeInfo.getName());
+      System.out.println(nodeInfo.getText());
+      System.out.println(nodeInfo.getTreePath());
+      System.out.println(nodeInfo.getXPath());
+      nodeInfoList.add(nodeInfo);
+    }
+    getNextChild(mynode);
+  }
+}
