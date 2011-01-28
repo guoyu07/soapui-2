@@ -6,23 +6,23 @@
   progressBar=new JProgressBar(){
     protected void processMouseEvent(    MouseEvent e){
       if (e.getID() == MouseEvent.MOUSE_PRESSED || e.getID() == MouseEvent.MOUSE_RELEASED) {
-        TestStepListEnrtyPanel.this.processMouseEvent(translateMouseEvent(e));
+        TestStepListEntryPanel.this.processMouseEvent(translateMouseEvent(e));
       }
     }
     protected void processMouseMotionEvent(    MouseEvent e){
-      TestStepListEnrtyPanel.this.processMouseMotionEvent(translateMouseEvent(e));
+      TestStepListEntryPanel.this.processMouseMotionEvent(translateMouseEvent(e));
     }
     /** 
  * Translates the given mouse event to the enclosing map panel's
  * coordinate space.
  */
     private MouseEvent translateMouseEvent(    MouseEvent e){
-      return new MouseEvent(TestStepListEnrtyPanel.this,e.getID(),e.getWhen(),e.getModifiers(),e.getX() + getX(),e.getY() + getY(),e.getClickCount(),e.isPopupTrigger(),e.getButton());
+      return new MouseEvent(TestStepListEntryPanel.this,e.getID(),e.getWhen(),e.getModifiers(),e.getX() + getX(),e.getY() + getY(),e.getClickCount(),e.isPopupTrigger(),e.getButton());
     }
   }
 ;
   JPanel progressPanel=UISupport.createProgressBarPanel(progressBar,5,false);
-  progressBar.setMinimumSize(new Dimension(0,100));
+  progressBar.setMinimumSize(new Dimension(0,200));
   progressBar.setBackground(Color.WHITE);
   progressBar.setInheritsPopupMenu(true);
   label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
@@ -36,7 +36,7 @@
     public void mouseClicked(    MouseEvent e){
       if (e.getClickCount() < 2) {
         if (selectedTestStep != null)         selectedTestStep.setSelected(false);
-        selectedTestStep=TestStepListEnrtyPanel.this;
+        selectedTestStep=TestStepListEntryPanel.this;
         requestFocus();
         splitPane.remove(secCheckPanel);
         secCheckPanel=buildSecurityChecksPanel();
@@ -48,7 +48,7 @@
         }
       }
  else {
-        UISupport.selectAndShow(TestStepListEnrtyPanel.this.testStep);
+        UISupport.selectAndShow(TestStepListEntryPanel.this.testStep);
       }
     }
   }

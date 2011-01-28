@@ -4,7 +4,7 @@
   this.securityTest=securityTest;
   setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
   for (int c=0; c < securityTest.getTestCase().getTestStepCount(); c++) {
-    TestStepListEnrtyPanel testStepListEntryPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
+    TestStepListEntryPanel testStepListEntryPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
     panels.put(securityTest.getTestCase().getTestStepAt(c),testStepListEntryPanel);
     testStepListPanel.add(testStepListEntryPanel);
   }
