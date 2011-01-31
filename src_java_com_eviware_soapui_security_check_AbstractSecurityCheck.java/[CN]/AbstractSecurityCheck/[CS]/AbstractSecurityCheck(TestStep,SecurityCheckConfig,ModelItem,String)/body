@@ -5,6 +5,6 @@
   this.startupScript=config.getSetupScript() != null ? config.getSetupScript().getStringValue() : "";
   this.tearDownScript=config.getTearDownScript() != null ? config.getTearDownScript().getStringValue() : "";
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
-  if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SecurityCheckParameterSelector.SEPARATE_REQUEST_STRATEGY);
+  if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SEPARATE_REQUEST_STRATEGY);
   if (config.getRestParameters() == null)   config.setRestParameters(RestParametersConfig.Factory.newInstance());
 }

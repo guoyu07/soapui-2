@@ -19,19 +19,22 @@
     requestParams=getRequest(getTestStep()).getParams();
   }
   paramTable=new SecurityParamsTable(getParameters(),requestParams);
+  paramTable.setPreferredSize(new Dimension(300,200));
   JInspectorPanel parameter=JInspectorPanelFactory.build(paramTable,SwingConstants.BOTTOM);
+  tabs=new JTabbedPane();
+  tabs.addTab("Execution Strategy",new SecurityCheckExecutionStrategyPanel(getExecutionStrategy()));
   if (contentPanel != null) {
-    fullPanel.setPreferredSize(new Dimension(300,500));
+    fullPanel.setPreferredSize(new Dimension(300,400));
     contentPanel.setPreferredSize(new Dimension(300,200));
     contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
-    JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(parameter.getComponent()),new JScrollPane(contentPanel));
+    JSplitPane topPane=UISupport.createVerticalSplit(new JScrollPane(parameter.getComponent()),new JScrollPane(contentPanel));
+    JSplitPane splitPane=UISupport.createVerticalSplit(topPane,tabs);
     dialog.setContentPane(splitPane);
   }
  else {
-    fullPanel.setPreferredSize(new Dimension(300,500));
-    fullPanel.add(builder.getPanel(),BorderLayout.NORTH);
-    fullPanel.add(paramTable,BorderLayout.SOUTH);
-    dialog.setContentPane(fullPanel);
+    paramTable.add(builder.getPanel(),BorderLayout.SOUTH);
+    JSplitPane splitPane=UISupport.createVerticalSplit(paramTable,new JScrollPane(tabs));
+    dialog.setContentPane(splitPane);
   }
   dialog.setModal(true);
   dialog.pack();
