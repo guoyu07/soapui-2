@@ -4,7 +4,8 @@
       AbstractHttpRequest<?> request=((WsdlTestRequestStep)testStep).getHttpRequest();
       String newContent=request.getRequestContent();
       for (      TestProperty param : parameters.getPropertyList()) {
-        newContent=XmlUtils.setXPathContent(newContent,param.getDescription().substring(param.getDescription().lastIndexOf("\n") + 1),config.getValueArray(currentIndex));
+        RestParameter restParam=(RestParameter)param;
+        newContent=XmlUtils.setXPathContent(newContent,restParam.getPath().substring(restParam.getPath().lastIndexOf("\n") + 1),config.getValueArray(currentIndex));
       }
       request.setRequestContent(newContent);
     }

@@ -7,7 +7,7 @@
       String xpath=XmlUtils.createAbsoluteXPath(node.getParentNode());
       RestParamProperty property=holder.addProperty(node.getParentNode().getNodeName());
       property.setValue(node.getNodeValue());
-      property.setDescription(xpath);
+      property.setPath(xpath);
     }
   }
  catch (  XmlException e) {
