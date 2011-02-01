@@ -3,7 +3,6 @@
   AbstractHttpRequest<?> lastRequest=getRequest(testStep);
   if (lastRequest.getResponse().getStatusCode() == 200) {
     if (StringUtils.getLevenshteinDistance(originalResponse,lastRequest.getResponse().getContentAsString()) > MINIMUM_STRING_DISTANCE) {
-      securityTestLog.addEntry(new SecurityTestLogMessageEntry(message,null));
     }
   }
  else {

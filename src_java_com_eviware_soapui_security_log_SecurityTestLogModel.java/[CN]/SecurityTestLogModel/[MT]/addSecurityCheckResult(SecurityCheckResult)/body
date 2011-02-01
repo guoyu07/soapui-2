@@ -3,9 +3,11 @@
   int size=items.size();
   items.add("Check " + checkCount + " ["+ result.getSecurityCheck().getName()+ "] "+ result.getStatus()+ ": took "+ result.getTimeTaken()+ " ms");
   SoftReference<SecurityCheckResult> ref=new SoftReference<SecurityCheckResult>(result);
+  results.add(ref);
   for (  SecurityCheckRequestResult requestResult : result.getSecurityRequestResultList()) {
     for (    String msg : requestResult.getMessages()) {
       items.add(" -> " + msg);
+      results.add(ref);
     }
   }
   fireIntervalAdded(this,size,items.size() - 1);

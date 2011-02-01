@@ -15,7 +15,6 @@
           TestAssertionConfig assertionConfig=TestAssertionConfig.Factory.newInstance();
           assertionConfig.setType(SimpleContainsAssertion.ID);
           if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),testParameter.getValue(),false)) {
-            securityTestLog.addEntry(new SecurityTestLogMessageEntry("The parameter " + testParameter.getName() + " with the value \""+ testParameter.getValue()+ "\" is exposed in the response",messageExchange));
             securityCheckResult.setStatus(SecurityCheckStatus.FAILED);
           }
         }

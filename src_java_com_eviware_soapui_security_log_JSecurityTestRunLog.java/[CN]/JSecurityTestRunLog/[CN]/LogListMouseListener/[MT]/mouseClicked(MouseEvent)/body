@@ -1,10 +1,12 @@
 {
   int index=testLogList.getSelectedIndex();
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
-    SecurityTestLogMessageEntry entry=(SecurityTestLogMessageEntry)testLogList.getSelectedValue();
-    if (entry.getMessageExchange() != null) {
-      ShowMessageExchangeAction showMessageExchangeAction=new ShowMessageExchangeAction(entry.getMessageExchange(),"SecurityCheck");
-      showMessageExchangeAction.actionPerformed(new ActionEvent(this,0,null));
+    SecurityCheckResult result=logListModel.getResultAt(index);
+    if (!result.getSecurityRequestResultList().isEmpty()) {
+      for (      SecurityCheckRequestResult reqResult : result.getSecurityRequestResultList()) {
+        ShowMessageExchangeAction showMessageExchangeAction=new ShowMessageExchangeAction(reqResult.getMessageExchange(),"SecurityCheck");
+        showMessageExchangeAction.actionPerformed(new ActionEvent(this,0,null));
+      }
     }
   }
   selectedIndex=index;
