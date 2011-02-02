@@ -1,0 +1,7 @@
+{
+  StringBuilder result=new StringBuilder();
+  for (  Object shortName : definition.getNamespaces().keySet()) {
+    result.append("declare namespace ").append(shortName.toString()).append("=\'").append(definition.getNamespaces().get(shortName).toString()).append("\';");
+  }
+  return result.toString();
+}

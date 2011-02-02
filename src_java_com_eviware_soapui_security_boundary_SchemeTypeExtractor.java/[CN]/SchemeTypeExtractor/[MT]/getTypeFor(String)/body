@@ -1,0 +1,9 @@
+{
+  Part part=variableSet.get(name);
+  if (part == null)   return null;
+  Definition definition=request.getOperation().getInterface().getDefinitionContext().getDefinition();
+  for (  Object key : definition.getNamespaces().keySet()) {
+    if (part.getTypeName().getNamespaceURI().equals(definition.getNamespaces().get(key).toString()))     return key.toString() + ":" + part.getTypeName().getLocalPart();
+  }
+  return null;
+}

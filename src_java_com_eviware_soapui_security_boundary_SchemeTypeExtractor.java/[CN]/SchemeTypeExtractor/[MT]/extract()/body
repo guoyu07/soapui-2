@@ -1,5 +1,20 @@
 {
-  XmlObjectTreeModel model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getOperation().getInterface().getDefinitionContext().getDefinitionCache().getDefinitionParts().get(0).getContent()));
-  XmlTreeNode[] nodes=model.selectTreeNodes("declare namespace xsd=\'http://www.w3.org/2001/XMLSchema\'; declare namespace wsdl=\'http://schemas.xmlsoap.org/wsdl/\'; //wsdl:definitions[1]/wsdl:types[1]/xsd:schema[1]");
-  SchemaType schemaType=null;
+  XmlObjectTreeModel model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  WsdlContext wsdl=request.getOperation().getInterface().getDefinitionContext();
+  String operationName=request.getOperation().getBindingOperation().getName();
+  variableSet=new TreeMap<String,Part>();
+  Definition definition=wsdl.getDefinition();
+  for (  Object key : definition.getAllBindings().keySet()) {
+    Binding binding=(Binding)definition.getAllBindings().get(key);
+    for (    Object operation : binding.getPortType().getOperations()) {
+      if (((Operation)operation).getName().equals(operationName)) {
+        QName messageName=((Operation)operation).getInput().getMessage().getQName();
+        Message message=definition.getMessage(messageName);
+        for (        Object part : message.getParts().values()) {
+          if (!((Part)part).getName().equals("parameters"))           variableSet.put(((Part)part).getName(),(Part)part);
+        }
+      }
+    }
+  }
+  return null;
 }

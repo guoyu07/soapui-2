@@ -1,0 +1,10 @@
+{
+  ArrayList<XmlTreeNode> result=new ArrayList<XmlTreeNode>();
+  for (int cnt=0; cnt < rootXmlTreeNode.getChildCount(); cnt++) {
+    if (((XmlTreeNode)rootXmlTreeNode.getChild(cnt)).getChildCount() > 0)     result.addAll(getElements(rootXmlTreeNode.getChild(cnt)));
+ else     if (rootXmlTreeNode.getChild(cnt).isLeaf()) {
+      result.add(rootXmlTreeNode.getChild(cnt));
+    }
+  }
+  return result;
+}
