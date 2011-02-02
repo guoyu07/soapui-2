@@ -1,7 +1,8 @@
 {
   List<XPathReference> result=new ArrayList<XPathReference>();
   for (  TestProperty param : getParameters().getPropertyList()) {
-    if (param != null)     result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getName(),param,this,param.getName()));
+    RestParamProperty restParam=(RestParamProperty)param;
+    if (restParam != null)     result.add(new XPathReferenceImpl("SecurityCheck Parameter " + restParam.getName(),restParam,restParam,"path"));
   }
   return result.toArray(new XPathReference[result.size()]);
 }
