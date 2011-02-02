@@ -4,7 +4,7 @@
     XmlObject requestXml=XmlObject.Factory.parse(request.getRequestContent(),new XmlOptions().setLoadStripWhitespace().setLoadStripComments());
     Node[] nodes=XmlUtils.selectDomNodes(requestXml,"//text()");
     for (    Node node : nodes) {
-      String xpath=XmlUtils.createAbsoluteXPath(node.getParentNode());
+      String xpath=XmlUtils.createXPath(node.getParentNode());
       RestParamProperty property=holder.addProperty(node.getParentNode().getNodeName());
       property.setValue(node.getNodeValue());
       property.setPath(xpath);
