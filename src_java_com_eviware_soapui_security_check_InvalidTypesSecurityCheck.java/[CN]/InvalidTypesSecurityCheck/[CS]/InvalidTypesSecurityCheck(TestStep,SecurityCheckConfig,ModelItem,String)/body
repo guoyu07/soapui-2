@@ -1,4 +1,14 @@
 {
   super(testStep,config,parent,icon);
   extractor=new SchemeTypeExtractor(testStep);
+  try {
+    extractor.extract();
+    params=extractor.getParams();
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+catch (  Exception e) {
+    e.printStackTrace();
+  }
 }
