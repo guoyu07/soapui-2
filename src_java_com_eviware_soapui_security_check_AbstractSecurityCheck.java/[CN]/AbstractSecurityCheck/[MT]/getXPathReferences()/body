@@ -1,8 +1,11 @@
 {
   List<XPathReference> result=new ArrayList<XPathReference>();
   for (  TestProperty param : getParameters().getPropertyList()) {
-    RestParamProperty restParam=(RestParamProperty)param;
-    if (restParam != null)     result.add(new XPathReferenceImpl("SecurityCheck Parameter " + restParam.getName(),restParam,restParam,"path"));
+    TestStep t=getTestStep();
+    if (t instanceof WsdlTestRequestStep) {
+      RestParamProperty restParam=(RestParamProperty)param;
+      if (restParam != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + restParam.getName(),((WsdlTestRequestStep)t).getOperation(),true,restParam,"path"));
+    }
   }
   return result.toArray(new XPathReference[result.size()]);
 }

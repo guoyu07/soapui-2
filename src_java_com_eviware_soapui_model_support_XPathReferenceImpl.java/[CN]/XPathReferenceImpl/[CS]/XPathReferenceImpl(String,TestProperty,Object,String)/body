@@ -1,8 +1,24 @@
 {
   this.label=label;
-  this.targetProperty=targetProperty;
   this.target=target;
   this.xpathPropertyName=xpathPropertyName;
+  ModelItem modelItem=property == null ? null : property.getModelItem();
+  if (modelItem instanceof WsdlTestRequestStep) {
+    operation=((WsdlTestRequestStep)modelItem).getTestRequest().getOperation();
+    request=property.getName().equalsIgnoreCase("Request");
+  }
+ else   if (modelItem instanceof WsdlMockResponseTestStep) {
+    operation=((WsdlMockResponseTestStep)modelItem).getOperation();
+    request=property.getName().equalsIgnoreCase("Request");
+  }
+ else   if (modelItem instanceof WsdlMockResponse) {
+    operation=((WsdlMockResponse)modelItem).getMockOperation().getOperation();
+    request=property.getName().equalsIgnoreCase("Request");
+  }
+ else   if (modelItem instanceof WsdlMockOperation) {
+    operation=((WsdlMockOperation)modelItem).getOperation();
+    request=property.getName().equalsIgnoreCase("Request");
+  }
   try {
     this.xpath=(String)PropertyUtils.getProperty(target,xpathPropertyName);
   }
