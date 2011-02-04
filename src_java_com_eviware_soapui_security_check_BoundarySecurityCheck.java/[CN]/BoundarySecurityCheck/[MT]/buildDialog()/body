@@ -1,0 +1,11 @@
+{
+  List<String> selectedOptions=new ArrayList<String>();
+  config.getConfig().changeType(CheckedParametersListConfig.type);
+  for (  CheckedParameterConfig cpc : ((CheckedParametersListConfig)config.getConfig()).getParametersList()) {
+    if (cpc.getChecked())     selectedOptions.add(cpc.getParameterName());
+  }
+  dialog=ADialogBuilder.buildDialog(BoundaryConfigDialog.class);
+  XFormMultiSelectList field=(XFormMultiSelectList)dialog.getFormField(BoundaryConfigDialog.PARAMETERS);
+  field.setOptions(enumerationValuesExtractor.getEnumerationParameters().toArray(new String[enumerationValuesExtractor.getEnumerationParameters().size()]));
+  field.setSelectedOptions(selectedOptions.toArray());
+}

@@ -1,0 +1,20 @@
+{
+  if (dialog == null)   buildDialog();
+  if (dialog.show()) {
+    String[] selectedList=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(BoundaryConfigDialog.PARAMETERS)).getSelectedOptions());
+    enumerationValuesExtractor.setSelectedEnumerationParameters(Arrays.asList(selectedList));
+    CheckedParametersListConfig boundary=CheckedParametersListConfig.Factory.newInstance();
+    CheckedParameterConfig[] checkedParametersArray=new CheckedParameterConfig[enumerationValuesExtractor.getEnumerationParameters().size()];
+    int i=0;
+    for (    String value : enumerationValuesExtractor.getEnumerationParameters()) {
+      CheckedParameterConfig checkedParameter=CheckedParameterConfig.Factory.newInstance();
+      checkedParameter.setParameterName(value);
+      checkedParameter.setChecked(Arrays.asList(selectedList).contains(value));
+      checkedParametersArray[i++]=checkedParameter;
+    }
+    boundary.setParametersArray(checkedParametersArray);
+    config.setConfig(boundary);
+    return true;
+  }
+  return false;
+}

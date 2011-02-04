@@ -1,0 +1,13 @@
+{
+  if (acceptsTestStep(testStep)) {
+    try {
+      updateRequestContent(testStep);
+    }
+ catch (    Exception e) {
+      SoapUI.log.error("Error extracting enumeration values from message",e);
+    }
+    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+    testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    this.hasNext=false;
+  }
+}

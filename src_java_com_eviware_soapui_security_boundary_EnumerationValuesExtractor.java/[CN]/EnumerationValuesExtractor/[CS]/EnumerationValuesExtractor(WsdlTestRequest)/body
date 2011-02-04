@@ -1,0 +1,10 @@
+{
+  this.request=request;
+  try {
+    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  extractEnumerationParameters(model.getRootNode());
+}
