@@ -1,0 +1,15 @@
+{
+  if (result.size() == 0) {
+    hasNext=true;
+    String templateRequest=testStep.getProperty("Request").getValue();
+    for (    CheckedParameterConfig param : invalidTypesConfig.getParametersList()) {
+      if (param.isSetChecked()) {
+        InvalidTypes invalidGenerator=new InvalidTypes(Integer.valueOf(param.getType()));
+        while (invalidGenerator.hasNext()) {
+          invalidGenerator.getNext();
+          result.add(XmlUtils.setXPathContent(templateRequest,param.getXpath(),invalidGenerator.getNext().toString()));
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
 {
-  super.executeNew(testStep,context);
+  updateRequestContent();
+  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)this.testStep.getTestCase(),new StringToObjectMap());
+  testStep.run(testCaseRunner,testCaseRunner.getRunContext());
 }

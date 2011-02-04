@@ -1,0 +1,13 @@
+{
+  try {
+    generateRequests();
+    if (result.size() > 0) {
+      testStep.getProperty("Request").setValue(result.get(0));
+      result.remove(0);
+    }
+    if (result.size() == 0)     hasNext=false;
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+}

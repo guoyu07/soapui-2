@@ -3,15 +3,17 @@
   if (dialog != null) {
     XFormMultiSelectList field=(XFormMultiSelectList)dialog.getFormField(InvalidTypesConfigDialog.PARAMETERS);
     ArrayList<String> selected=new ArrayList<String>();
-    for (    CheckedParameterConfig parm : invalidTypesConfig.getParametersList())     selected.add(parm.getParameterName());
+    for (    CheckedParameterConfig param : invalidTypesConfig.getParametersList())     if (param.isSetChecked())     selected.add(param.getParameterName());
     field.setSelectedOptions(selected.toArray(new String[0]));
     if (dialog.show()) {
-      invalidTypesConfig.getParametersList().clear();
-      for (      NodeInfo param : params.values())       param.setSelected(false);
-      for (      Object key : field.getSelectedOptions()) {
-        CheckedParameterConfig configParam=invalidTypesConfig.addNewParameters();
-        configParam.setParameterName(params.get(key).getSimpleName());
-        params.get(key).setSelected(true);
+      for (      CheckedParameterConfig param : invalidTypesConfig.getParametersList()) {
+{
+          for (          Object key : field.getSelectedOptions())           if (param.getParameterName().equals((String)key)) {
+            param.setChecked(true);
+            break;
+          }
+          param.setChecked(false);
+        }
       }
     }
   }

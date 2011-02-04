@@ -6,19 +6,20 @@
   }
   invalidTypesConfig=(CheckedParametersListConfig)config.getConfig();
   extractor=new SchemeTypeExtractor(testStep);
-  try {
-    extractor.extract();
-    params=extractor.getParams();
-    if (invalidTypesConfig.getParametersList() != null) {
-      ArrayList<CheckedParameterConfig> newParams=new ArrayList<CheckedParameterConfig>();
-      for (      CheckedParameterConfig param : invalidTypesConfig.getParametersList())       if (params.containsKey(param.getParameterName()))       newParams.add(param);
-      invalidTypesConfig.setParametersArray(newParams.toArray(new CheckedParameterConfig[0]));
+  if (invalidTypesConfig.getParametersList() == null || invalidTypesConfig.getParametersList().size() == 0) {
+    try {
+      extractor.extract();
+      TreeMap<String,NodeInfo> params=extractor.getParams();
+      for (      String key : params.keySet()) {
+        CheckedParameterConfig param=invalidTypesConfig.addNewParameters();
+        param.setParameterName(params.get(key).getSimpleName());
+        param.setXpath(params.get(key).getXPath());
+        param.setChecked(false);
+        param.setType(String.valueOf(params.get(key).getType()));
+      }
     }
-  }
- catch (  XmlException e) {
-    e.printStackTrace();
-  }
-catch (  Exception e) {
-    e.printStackTrace();
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
   }
 }
