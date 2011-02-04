@@ -8,9 +8,11 @@
           if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
             for (            SecurityCheckConfig secCheckConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
               TestStep testStep=null;
-              for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId()))               testStep=ts;
-              AbstractSecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
-              checkList.add(securityCheck);
+              for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
+                testStep=ts;
+                AbstractSecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
+                checkList.add(securityCheck);
+              }
             }
           }
         }

@@ -1,0 +1,19 @@
+{
+  scriptEngine.setScript(groovyscc.getExecuteScript().getStringValue());
+  scriptEngine.setVariable("request",this.testStep.getProperty("Request").getValue());
+  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  try {
+    scriptResult=scriptEngine.run();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    if (scriptResult != null) {
+      this.testStep.getProperty("Request").setValue((String)scriptResult);
+      WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+      this.testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    }
+    scriptEngine.clearVariables();
+  }
+}

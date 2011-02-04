@@ -1,0 +1,17 @@
+{
+  executeEditor=new GroovyEditor(new GroovySecurityCheckScriptModel(){
+    @Override public String getScript(){
+      return groovyscc.getExecuteScript().getStringValue();
+    }
+  }
+);
+  analyzeEditor=new GroovyEditor(new GroovySecurityCheckScriptModel(){
+    @Override public String getScript(){
+      return groovyscc.getAnalyzeScript().getStringValue();
+    }
+  }
+);
+  dialog=ADialogBuilder.buildDialog(GroovySecurityConfigDialog.class);
+  dialog.getFormField(GroovySecurityConfigDialog.EXECUTE).setProperty("component",executeEditor);
+  dialog.getFormField(GroovySecurityConfigDialog.ANALYZE).setProperty("component",analyzeEditor);
+}

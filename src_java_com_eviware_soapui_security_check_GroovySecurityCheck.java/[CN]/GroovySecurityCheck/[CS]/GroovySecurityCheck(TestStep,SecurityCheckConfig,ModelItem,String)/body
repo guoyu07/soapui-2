@@ -1,8 +1,26 @@
 {
   super(testStep,config,parent,icon);
-  if (config == null) {
-    config=SecurityCheckConfig.Factory.newInstance();
-    GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+  if (config.getConfig() == null) {
+    groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+    groovyscc.setExecuteScript(ScriptConfig.Factory.newInstance());
+    groovyscc.getExecuteScript().setLanguage("groovy");
+    groovyscc.getExecuteScript().setStringValue("");
+    groovyscc.setAnalyzeScript(ScriptConfig.Factory.newInstance());
+    groovyscc.getAnalyzeScript().setLanguage("groovy");
+    groovyscc.getAnalyzeScript().setStringValue("");
     config.setConfig(groovyscc);
+  }
+ else {
+    groovyscc=(GroovySecurityCheckConfig)config.getConfig();
+    if (groovyscc.getExecuteScript() == null) {
+      groovyscc.setExecuteScript(ScriptConfig.Factory.newInstance());
+      groovyscc.getExecuteScript().setLanguage("groovy");
+      groovyscc.getExecuteScript().setStringValue("");
+    }
+    if (groovyscc.getAnalyzeScript() == null) {
+      groovyscc.setAnalyzeScript(ScriptConfig.Factory.newInstance());
+      groovyscc.getAnalyzeScript().setLanguage("groovy");
+      groovyscc.getAnalyzeScript().setStringValue("");
+    }
   }
 }

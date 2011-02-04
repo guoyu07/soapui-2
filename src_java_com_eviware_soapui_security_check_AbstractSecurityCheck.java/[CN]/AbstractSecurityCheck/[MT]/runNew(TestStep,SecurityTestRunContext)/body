@@ -4,6 +4,7 @@
   while (hasNext()) {
     securityCheckReqResult=new SecurityCheckRequestResult(this);
     executeNew(testStep,context);
+    checkResponseValidity();
     analyzeNew(testStep,context);
     securityCheckResult.addSecurityRequestResult(securityCheckReqResult);
   }

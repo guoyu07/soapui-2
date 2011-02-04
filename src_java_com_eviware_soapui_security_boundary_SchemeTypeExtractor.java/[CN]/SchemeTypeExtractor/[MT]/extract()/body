@@ -1,8 +1,9 @@
 {
   XmlObjectTreeModel model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  TreeMap<String,NodeInfo> nodeList=getElements(model.getRootNode());
   WsdlContext wsdl=request.getOperation().getInterface().getDefinitionContext();
   String operationName=request.getOperation().getBindingOperation().getName();
-  variableSet=new TreeMap<String,Part>();
+  variableSet=new TreeMap<String,NodeInfo>();
   Definition definition=wsdl.getDefinition();
   for (  Object key : definition.getAllBindings().keySet()) {
     Binding binding=(Binding)definition.getAllBindings().get(key);
@@ -11,7 +12,9 @@
         QName messageName=((Operation)operation).getInput().getMessage().getQName();
         Message message=definition.getMessage(messageName);
         for (        Object part : message.getParts().values()) {
-          if (!((Part)part).getName().equals("parameters"))           variableSet.put(((Part)part).getName(),(Part)part);
+          if (!((Part)part).getName().equals("parameters")) {
+            variableSet.put(((Part)part).getName(),nodeList.get(((Part)part).getName()));
+          }
         }
       }
     }

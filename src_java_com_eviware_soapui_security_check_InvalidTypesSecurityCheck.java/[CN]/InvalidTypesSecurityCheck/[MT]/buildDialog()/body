@@ -1,5 +1,8 @@
 {
   dialog=ADialogBuilder.buildDialog(InvalidTypesConfigDialog.class);
   XFormMultiSelectList field=(XFormMultiSelectList)dialog.getFormField(InvalidTypesConfigDialog.PARAMETERS);
-  field.setOptions(extractor.getParamsAsArray());
+  field.setOptions(params.keySet().toArray(new String[0]));
+  ArrayList<String> selected=new ArrayList<String>();
+  for (  CheckedParameterConfig parm : invalidTypesConfig.getParametersList())   selected.add(parm.getParameterName());
+  field.setSelectedOptions(selected.toArray(new String[0]));
 }

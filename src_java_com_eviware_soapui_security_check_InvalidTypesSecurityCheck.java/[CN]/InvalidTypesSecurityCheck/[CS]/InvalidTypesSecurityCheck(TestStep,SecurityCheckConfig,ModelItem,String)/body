@@ -1,9 +1,19 @@
 {
   super(testStep,config,parent,icon);
+  if (config.getConfig() == null) {
+    invalidTypesConfig=CheckedParametersListConfig.Factory.newInstance();
+    config.setConfig(invalidTypesConfig);
+  }
+  invalidTypesConfig=(CheckedParametersListConfig)config.getConfig();
   extractor=new SchemeTypeExtractor(testStep);
   try {
     extractor.extract();
     params=extractor.getParams();
+    if (invalidTypesConfig.getParametersList() != null) {
+      ArrayList<CheckedParameterConfig> newParams=new ArrayList<CheckedParameterConfig>();
+      for (      CheckedParameterConfig param : invalidTypesConfig.getParametersList())       if (params.containsKey(param.getParameterName()))       newParams.add(param);
+      invalidTypesConfig.setParametersArray(newParams.toArray(new CheckedParameterConfig[0]));
+    }
   }
  catch (  XmlException e) {
     e.printStackTrace();

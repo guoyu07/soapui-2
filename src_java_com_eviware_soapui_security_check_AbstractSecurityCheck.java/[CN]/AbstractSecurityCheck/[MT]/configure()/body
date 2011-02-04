@@ -1,5 +1,5 @@
 {
-  buildDialog();
-  UISupport.showDialog(dialog);
-  return configureResult;
+  if (dialog == null)   buildDialog();
+  dialog.setVisible(true);
+  return true;
 }

@@ -1,5 +1,8 @@
 {
   super(config,parent,icon);
+  if (config == null) {
+    config=SecurityCheckConfig.Factory.newInstance();
+  }
   this.testStep=testStep;
   this.config=config;
   this.startupScript=config.getSetupScript() != null ? config.getSetupScript().getStringValue() : "";

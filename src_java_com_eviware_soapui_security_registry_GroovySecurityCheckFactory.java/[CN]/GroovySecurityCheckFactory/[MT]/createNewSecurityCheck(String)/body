@@ -3,7 +3,8 @@
   securityCheckConfig.setType(GroovySecurityCheck.TYPE);
   securityCheckConfig.setName(name);
   GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
-  groovyscc.addNewScript();
+  groovyscc.setExecuteScript(ScriptConfig.Factory.newInstance());
+  groovyscc.setAnalyzeScript(ScriptConfig.Factory.newInstance());
   securityCheckConfig.setConfig(groovyscc);
   return securityCheckConfig;
 }
