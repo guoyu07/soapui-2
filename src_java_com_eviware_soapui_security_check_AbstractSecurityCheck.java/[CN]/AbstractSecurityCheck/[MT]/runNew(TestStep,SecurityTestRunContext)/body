@@ -2,11 +2,11 @@
   securityCheckResult=new SecurityCheckResult(this);
   runStartupScript(testStep);
   while (hasNext()) {
-    securityCheckReqResult=new SecurityCheckRequestResult(this);
-    executeNew(testStep,context);
+    securityCheckRequestResult=new SecurityCheckRequestResult(this);
+    execute(testStep,context);
     checkResponseValidity();
-    analyzeNew(testStep,context);
-    securityCheckResult.addSecurityRequestResult(securityCheckReqResult);
+    analyze(testStep,context);
+    securityCheckResult.addSecurityRequestResult(securityCheckRequestResult);
   }
   runTearDownScript(testStep);
   return securityCheckResult;

@@ -1,0 +1,13 @@
+{
+  if (testStep instanceof WsdlTestRequestStep) {
+    int statusCode=((WsdlTestRequestStep)testStep).getTestRequest().getResponse().getStatusCode();
+    if (statusCode == HttpStatus.SC_OK) {
+      MessageExchange messageExchange=new WsdlResponseMessageExchange(((WsdlTestRequestStep)testStep).getTestRequest());
+      securityCheckRequestResult.setMessageExchange(messageExchange);
+      securityCheckRequestResult.addMessage("Server is accepting invalid enumeration value and returns status code 200 (OK) !");
+      securityCheckRequestResult.setStatus(SecurityCheckStatus.FAILED);
+    }
+  }
+ else   if (false) {
+  }
+}

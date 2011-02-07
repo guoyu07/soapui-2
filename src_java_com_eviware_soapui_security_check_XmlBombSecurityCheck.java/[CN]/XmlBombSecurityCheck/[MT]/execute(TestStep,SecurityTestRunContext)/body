@@ -1,0 +1,30 @@
+{
+  currentIndex=0;
+  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+  String originalRequest=getRequest(testStep).getRequestContent();
+  if (isAttachXmlBomb()) {
+    while (currentIndex < getBombList().size() + 1) {
+      Attachment attach=attachXmlBomb(testStep);
+      getRequest(testStep).removeAttachment(attach);
+      getRequest(testStep).setRequestContent(originalRequest);
+    }
+    currentIndex=0;
+  }
+  if (getExecutionStrategy().equals(AbstractSecurityCheck.SEPARATE_REQUEST_STRATEGY) && getParameters().getPropertyList().size() > 0) {
+    for (    TestProperty param : getParameters().getPropertyList()) {
+      if (param != null) {
+        while (currentIndex < getBombList().size() + 1) {
+          generateNextRequest(testStep,param.getName());
+          getRequest(testStep).setRequestContent(originalRequest);
+        }
+      }
+    }
+  }
+ else   if (getParameters().getPropertyList().size() > 0) {
+    while (currentIndex < getBombList().size() + 1) {
+      generateNextRequest(testStep,getParameters().getPropertyList());
+      getRequest(testStep).setRequestContent(originalRequest);
+    }
+  }
+}

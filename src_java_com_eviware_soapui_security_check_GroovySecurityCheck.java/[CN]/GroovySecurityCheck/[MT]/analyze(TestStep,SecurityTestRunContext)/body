@@ -1,0 +1,23 @@
+{
+  scriptEngine.setScript(groovyscc.getAnalyzeScript().getStringValue());
+  scriptEngine.setVariable("response",this.testStep.getProperty("Response").getValue());
+  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  try {
+    scriptResult=scriptEngine.run();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    if (scriptResult != null) {
+      if (this.testStep instanceof WsdlTestRequestStep) {
+        WsdlResponseMessageExchange m=new WsdlResponseMessageExchange(((WsdlTestRequestStep)testStep).getTestRequest());
+        m.setMessages(new String[]{"CCC"});
+        securityCheckRequestResult.setMessageExchange(m);
+      }
+      if (Boolean.valueOf(scriptResult.toString()))       securityCheckRequestResult.setStatus(SecurityCheckStatus.OK);
+ else       securityCheckRequestResult.setStatus(SecurityCheckStatus.FAILED);
+    }
+    scriptEngine.clearVariables();
+  }
+}
