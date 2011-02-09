@@ -1,11 +1,5 @@
 {
-  NodeInfo node=variableSet.get(name);
+  NodeInfo node=nodes.get(name);
   if (node == null)   return null;
-  Definition definition=request.getOperation().getInterface().getDefinitionContext().getDefinition();
-  for (  Object key : definition.getNamespaces().keySet()) {
-    node.node.getSchemaType();
-    node.node.getSchemaType().getTypeSystem();
-    return node.node.getSchemaType().getShortJavaName();
-  }
-  return null;
+  return node.getType();
 }
