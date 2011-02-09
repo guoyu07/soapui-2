@@ -1,0 +1,11 @@
+{
+  WsdlMessageAssertion assertion=getAssertionAt(ix);
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  try {
+    return assertionsSupport.moveAssertion(ix,offset);
+  }
+  finally {
+    ((WsdlMessageAssertion)assertion).release();
+    notifier.notifyChange();
+  }
+}

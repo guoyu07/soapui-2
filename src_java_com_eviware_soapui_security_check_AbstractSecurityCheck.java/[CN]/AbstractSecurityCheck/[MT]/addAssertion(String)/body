@@ -1,0 +1,11 @@
+{
+  try {
+    WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(label);
+    if (assertion == null)     return null;
+    return assertion;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}
