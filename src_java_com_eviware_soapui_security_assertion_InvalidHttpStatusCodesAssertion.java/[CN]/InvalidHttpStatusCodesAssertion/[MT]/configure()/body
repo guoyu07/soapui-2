@@ -1,0 +1,11 @@
+{
+  if (dialog == null)   buildDialog();
+  StringToStringMap values=new StringToStringMap();
+  values.put(CODES,codes);
+  values=dialog.show(values);
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    codes=values.get(CODES);
+  }
+  setConfiguration(createConfiguration());
+  return true;
+}

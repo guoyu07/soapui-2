@@ -1,0 +1,6 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Valid HTTP status codes Assertion");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addTextField(CODES,"Coma separated acceptable status codes",XForm.FieldType.TEXTAREA).setWidth(40);
+  dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.SIMPLE_CONTAINS_HELP_URL),"Specify codes",UISupport.OPTIONS_ICON);
+}

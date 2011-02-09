@@ -1,0 +1,20 @@
+{
+  List<String> codeList=extractCodes();
+  String[] statusElements=null;
+  try {
+    statusElements=messageExchange.getResponseHeaders().get("#status#","-1").split(" ");
+  }
+ catch (  NullPointerException npe) {
+    SoapUI.logError(npe,"Header #status# is missing!");
+  }
+  if (statusElements.length == 3) {
+    String statusCode=statusElements[1].trim();
+    if (!codeList.contains(statusCode)) {
+      throw new AssertionException(new AssertionError("Response status code:" + statusCode + " is not in acceptable list of status codes"));
+    }
+  }
+ else {
+    throw new AssertionException(new AssertionError("Status code extraction error! "));
+  }
+  return "JMS Timeout OK";
+}
