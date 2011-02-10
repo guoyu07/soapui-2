@@ -4,7 +4,7 @@
     for (int j=0; j < securityTestStepListeners.length; j++) {
       securityTestStepListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
     }
-    SecurityCheckResult result=securityCheck.runNew(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext);
+    SecurityCheckResult result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext);
     if (securityTest.getFailSecurityTestOnCheckErrors() && result.getStatus() == SecurityCheckStatus.FAILED) {
       fail("Failing due to failed security check");
     }
