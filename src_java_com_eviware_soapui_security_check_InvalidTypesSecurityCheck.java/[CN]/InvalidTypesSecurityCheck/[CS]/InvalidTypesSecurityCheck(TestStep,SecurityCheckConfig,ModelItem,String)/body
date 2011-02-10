@@ -1,5 +1,6 @@
 {
   super(testStep,config,parent,icon);
+  config.setConfig(CheckedParametersListConfig.Factory.newInstance());
   if (config.getConfig() == null) {
     invalidTypesConfig=CheckedParametersListConfig.Factory.newInstance();
     config.setConfig(invalidTypesConfig);
@@ -10,13 +11,6 @@
     try {
       extractor.extract();
       TreeMap<String,NodeInfo> params=extractor.getParams();
-      for (      String key : params.keySet()) {
-        CheckedParameterConfig param=invalidTypesConfig.addNewParameters();
-        param.setParameterName(params.get(key).getSimpleName());
-        param.setXpath(params.get(key).getXPath());
-        param.setChecked(false);
-        param.setType(String.valueOf(params.get(key).getType()));
-      }
     }
  catch (    Exception e) {
       e.printStackTrace();

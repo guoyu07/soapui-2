@@ -1,9 +1,0 @@
-{
-  AbstractHttpRequest<?> lastRequest=getRequest(testStep);
-  if (lastRequest.getResponse().getContentAsString().indexOf("SQL Error") > -1) {
-    securityCheckRequestResult.setStatus(SecurityCheckStatus.FAILED);
-  }
- else {
-    securityCheckRequestResult.setStatus(SecurityCheckStatus.OK);
-  }
-}
