@@ -1,5 +1,5 @@
 {
   MessageExchange messageExchange=getModelItem().getMessageExchange();
-  if (messageExchange != null)   return messageExchange.getRequestHeaders().toStringToStringMap();
+  if (messageExchange != null && messageExchange.getRequestHeaders() != null)   return messageExchange.getRequestHeaders().toStringToStringMap();
  else   return new StringToStringMap();
 }
