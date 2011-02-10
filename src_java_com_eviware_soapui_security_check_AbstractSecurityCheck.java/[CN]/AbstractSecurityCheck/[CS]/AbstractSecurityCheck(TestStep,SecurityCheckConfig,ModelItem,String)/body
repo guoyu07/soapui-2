@@ -10,4 +10,5 @@
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SEPARATE_REQUEST_STRATEGY);
   if (config.getRestParameters() == null)   config.setRestParameters(RestParametersConfig.Factory.newInstance());
+  initAssertions();
 }

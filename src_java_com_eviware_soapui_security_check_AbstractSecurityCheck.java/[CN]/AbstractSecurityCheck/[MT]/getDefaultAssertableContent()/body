@@ -1,3 +1,6 @@
 {
+  if (testStep instanceof WsdlTestRequest)   return ((WsdlTestRequest)testStep).getDefaultAssertableContent();
+  if (testStep instanceof HttpTestRequest)   return ((HttpTestRequest)testStep).getDefaultAssertableContent();
+  if (testStep instanceof RestTestRequest)   return ((RestTestRequest)testStep).getDefaultAssertableContent();
   return null;
 }
