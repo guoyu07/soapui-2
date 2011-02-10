@@ -3,5 +3,6 @@
   if (!getConfig().isSetSetupScript())   getConfig().addNewSetupScript();
   getConfig().getSetupScript().setStringValue(script);
   if (scriptEngine != null)   scriptEngine.setScript(script);
+  clearSecurityChecksMapCache();
   notifyPropertyChanged(STARTUP_SCRIPT_PROPERTY,oldScript,script);
 }

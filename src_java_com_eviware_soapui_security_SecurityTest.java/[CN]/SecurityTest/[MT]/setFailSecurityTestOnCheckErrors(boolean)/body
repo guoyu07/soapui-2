@@ -2,6 +2,7 @@
   boolean old=getFailSecurityTestOnCheckErrors();
   if (old != failSecurityTestOnErrors) {
     getConfig().setFailSecurityTestOnCheckErrors(failSecurityTestOnErrors);
+    clearSecurityChecksMapCache();
     notifyPropertyChanged(FAIL_ON_CHECKS_ERRORS_PROPERTY,old,failSecurityTestOnErrors);
   }
 }

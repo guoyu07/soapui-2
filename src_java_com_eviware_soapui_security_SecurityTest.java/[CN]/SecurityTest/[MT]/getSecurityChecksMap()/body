@@ -1,4 +1,7 @@
 {
+  if (securityChecksMapCache != null) {
+    return securityChecksMapCache;
+  }
   HashMap<String,List<AbstractSecurityCheck>> securityChecksMap=new HashMap<String,List<AbstractSecurityCheck>>();
   if (getConfig() != null) {
     if (!getConfig().getTestStepSecurityTestList().isEmpty()) {
@@ -20,5 +23,6 @@
       }
     }
   }
+  this.securityChecksMapCache=securityChecksMap;
   return securityChecksMap;
 }
