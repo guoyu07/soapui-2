@@ -3,6 +3,11 @@
   try {
     WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(label);
     if (assertion == null)     return null;
+    if (getAssertableContent() != null) {
+      assertRequests(assertion);
+      assertResponse(assertion);
+      notifier.notifyChange();
+    }
     return assertion;
   }
  catch (  Exception e) {
