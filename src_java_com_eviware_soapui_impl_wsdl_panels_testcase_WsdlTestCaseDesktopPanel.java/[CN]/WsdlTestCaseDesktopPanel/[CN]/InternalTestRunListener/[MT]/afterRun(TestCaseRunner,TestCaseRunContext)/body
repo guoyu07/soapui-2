@@ -1,5 +1,5 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()))   return;
   WsdlTestCaseRunner wsdlRunner=(WsdlTestCaseRunner)testRunner;
   if (testRunner.getStatus() == TestCaseRunner.Status.CANCELED)   testCaseLog.addText("TestCase canceled [" + testRunner.getReason() + "], time taken = "+ wsdlRunner.getTimeTaken());
  else   if (testRunner.getStatus() == TestCaseRunner.Status.FAILED) {

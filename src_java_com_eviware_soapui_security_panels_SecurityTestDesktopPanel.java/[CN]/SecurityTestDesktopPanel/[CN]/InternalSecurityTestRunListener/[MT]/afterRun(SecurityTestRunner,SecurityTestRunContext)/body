@@ -1,5 +1,5 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningSecurityTests(getModelItem().getTestCase()))   return;
+  if (SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem().getTestCase()))   return;
   SecurityTestRunnerImpl securityRunner=(SecurityTestRunnerImpl)testRunner;
   if (testRunner.getStatus() == SecurityTestRunner.Status.CANCELED)   securityTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
  else   if (testRunner.getStatus() == SecurityTestRunner.Status.FAILED) {

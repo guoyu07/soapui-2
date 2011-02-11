@@ -1,5 +1,5 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestCase()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestCase()) || SoapUI.getTestMonitor().hasRunningSecurityTest(testRunner.getTestCase()))   return;
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
       runLog.addTestStepResult(stepResult);

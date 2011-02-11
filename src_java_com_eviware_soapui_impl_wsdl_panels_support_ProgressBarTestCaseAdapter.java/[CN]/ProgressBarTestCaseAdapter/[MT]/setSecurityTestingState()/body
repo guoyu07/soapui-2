@@ -1,0 +1,10 @@
+{
+  if (SoapUI.getTestMonitor().hasRunningSecurityTest(testCase)) {
+    progressBar.setIndeterminate(true);
+    progressBar.setString("security testing");
+  }
+ else {
+    progressBar.setIndeterminate(false);
+    progressBar.setString("");
+  }
+}

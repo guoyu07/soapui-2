@@ -1,5 +1,5 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()))   return;
   runButton.setEnabled(false);
   cancelButton.setEnabled(true);
   testStepList.setEnabled(false);

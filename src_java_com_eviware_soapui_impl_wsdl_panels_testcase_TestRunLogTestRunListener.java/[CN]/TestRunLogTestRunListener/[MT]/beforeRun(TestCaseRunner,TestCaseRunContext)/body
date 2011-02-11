@@ -1,5 +1,5 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestCase()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestCase()) || SoapUI.getTestMonitor().hasRunningSecurityTest(testRunner.getTestCase()))   return;
   if (clearOnRun)   runLog.clear();
   String testCaseName=testRunner.getTestCase().getName();
   runLog.addBoldText("TestCase [" + testCaseName + "] started at "+ dateFormat.format(new Date()));

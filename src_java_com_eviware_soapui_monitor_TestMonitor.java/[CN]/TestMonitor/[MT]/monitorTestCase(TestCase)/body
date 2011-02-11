@@ -3,4 +3,7 @@
   for (int v=0; v < testCase.getLoadTestCount(); v++) {
     testCase.getLoadTestAt(v).addLoadTestRunListener(loadTestRunListener);
   }
+  for (int v=0; v < testCase.getSecurityTestCount(); v++) {
+    testCase.getSecurityTestAt(v).addSecurityTestRunListener(securityTestRunListener);
+  }
 }
