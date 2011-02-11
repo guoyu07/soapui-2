@@ -7,14 +7,16 @@
  catch (  NullPointerException npe) {
     SoapUI.logError(npe,"Header #status# is missing!");
   }
-  if (statusElements.length == 3) {
+  if (statusElements.length >= 2) {
     String statusCode=statusElements[1].trim();
     if (!codeList.contains(statusCode)) {
-      throw new AssertionException(new AssertionError("Response status code:" + statusCode + " is not in acceptable list of status codes"));
+      String message="Response status code:" + statusCode + " is not in acceptable list of status codes";
+      updateResult(context,message);
+      throw new AssertionException(new AssertionError(message));
     }
   }
  else {
     throw new AssertionException(new AssertionError("Status code extraction error! "));
   }
-  return "JMS Timeout OK";
+  return "OK";
 }

@@ -8,6 +8,7 @@
     }
     WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
     testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    createMessageExchange(testStep);
     this.hasNext=false;
   }
 }

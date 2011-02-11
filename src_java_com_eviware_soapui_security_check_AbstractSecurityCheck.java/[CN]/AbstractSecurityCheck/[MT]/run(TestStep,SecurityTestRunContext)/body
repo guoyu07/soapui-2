@@ -4,6 +4,7 @@
   while (hasNext()) {
     securityCheckRequestResult=new SecurityCheckRequestResult(this);
     execute(testStep,context);
+    assertResponse(context);
     securityCheckResult.addSecurityRequestResult(securityCheckRequestResult);
   }
   runTearDownScript(testStep);

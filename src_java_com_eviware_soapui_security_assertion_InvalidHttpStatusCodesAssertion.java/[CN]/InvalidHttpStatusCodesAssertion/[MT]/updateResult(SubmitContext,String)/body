@@ -1,0 +1,5 @@
+{
+  SecurityCheckRequestResult reqResult=(SecurityCheckRequestResult)context.getProperty(AbstractSecurityCheck.SECURITY_CHECK_REQUEST_RESULT);
+  reqResult.addMessage(message);
+  reqResult.setStatus(SecurityCheckStatus.FAILED);
+}

@@ -1,0 +1,17 @@
+{
+  try {
+    PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+    MessageExchange messageExchange=securityCheckRequestResult.getMessageExchange();
+    context.setProperty(SECURITY_CHECK_REQUEST_RESULT,securityCheckRequestResult);
+    if (this != null) {
+      for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+        assertion.assertResponse(messageExchange,context);
+      }
+    }
+    context.removeProperty(SECURITY_CHECK_REQUEST_RESULT);
+    notifier.notifyChange();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
