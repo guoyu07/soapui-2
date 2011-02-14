@@ -1,4 +1,21 @@
 {
-  System.out.println("asdasdasd");
-  return null;
+  AssertionStatus result=null;
+  try {
+    PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+    if (messageExchange != null) {
+      context.setProperty(SECURITY_CHECK_REQUEST_RESULT,securityCheckRequestResult);
+      for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+        result=assertion.assertResponse(messageExchange,context);
+        if (result == AssertionStatus.FAILED) {
+          for (          AssertionError error : assertion.getErrors())           securityCheckRequestResult.addMessage(error.getMessage());
+          securityCheckRequestResult.setStatus(SecurityCheckStatus.FAILED);
+        }
+      }
+      notifier.notifyChange();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return result;
 }

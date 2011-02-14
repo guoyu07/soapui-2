@@ -11,7 +11,6 @@
     String statusCode=statusElements[1].trim();
     if (!codeList.contains(statusCode)) {
       String message="Response status code:" + statusCode + " is not in acceptable list of status codes";
-      updateResult(context,message);
       throw new AssertionException(new AssertionError(message));
     }
   }
