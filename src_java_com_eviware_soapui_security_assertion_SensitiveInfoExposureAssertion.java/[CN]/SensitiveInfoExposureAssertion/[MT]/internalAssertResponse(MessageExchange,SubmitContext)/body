@@ -1,0 +1,9 @@
+{
+  for (  String exposureContent : checkList) {
+    if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),exposureContent,useRegexp)) {
+      String message="Sensitive information '" + exposureContent + "' is exposed in : "+ messageExchange.getModelItem().getName();
+      throw new AssertionException(new AssertionError(message));
+    }
+  }
+  return "OK";
+}
