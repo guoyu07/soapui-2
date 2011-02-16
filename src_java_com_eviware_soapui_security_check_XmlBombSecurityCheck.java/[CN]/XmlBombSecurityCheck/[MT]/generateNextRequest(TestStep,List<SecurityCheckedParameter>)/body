@@ -5,7 +5,7 @@
     String requestContent=request.getRequestContent();
     String newRequestContent=requestContent;
     if (testStep instanceof WsdlTestRequestStep) {
-      for (      TestProperty param : paramsToCheck) {
+      for (      SecurityCheckedParameter param : list) {
         newRequestContent=XmlUtils.setXPathContent(newRequestContent,param.getName().substring(param.getName().lastIndexOf("\n") + 1),"&&payload&&");
       }
       newRequestContent=newRequestContent.replaceAll("&amp;&amp;payload&amp;&amp;","&payload");
@@ -15,7 +15,7 @@
     currentIndex++;
   }
  else   if (currentIndex == getBombList().size()) {
-    request.setRequestContent(createQuadraticExpansionAttack(request.getRequestContent(),paramsToCheck));
+    request.setRequestContent(createQuadraticExpansionAttack(request.getRequestContent(),list));
   }
   return testStep;
 }

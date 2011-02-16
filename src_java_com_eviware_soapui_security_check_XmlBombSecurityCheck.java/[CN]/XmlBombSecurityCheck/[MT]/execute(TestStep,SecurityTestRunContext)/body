@@ -12,7 +12,7 @@
     currentIndex=0;
   }
   if (getExecutionStrategy().equals(AbstractSecurityCheck.SEPARATE_REQUEST_STRATEGY) && getParameters().getPropertyList().size() > 0) {
-    for (    TestProperty param : getParameters().getPropertyList()) {
+    for (    SecurityCheckedParameter param : getParameters().getPropertyList()) {
       if (param != null) {
         while (currentIndex < getBombList().size() + 1) {
           generateNextRequest(testStep,param.getName());
