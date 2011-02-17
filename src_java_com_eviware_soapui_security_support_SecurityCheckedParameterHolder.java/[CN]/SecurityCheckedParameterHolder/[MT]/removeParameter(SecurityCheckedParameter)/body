@@ -1,6 +1,7 @@
 {
-  paramsConfig.removeParameters(params.indexOf(parameter));
+  int index=params.indexOf(parameter);
   params.remove(parameter);
   paramsMap.remove(parameter.getLabel().toUpperCase());
+  paramsConfig.removeParameters(index);
   fireParameterRemoved(parameter);
 }
