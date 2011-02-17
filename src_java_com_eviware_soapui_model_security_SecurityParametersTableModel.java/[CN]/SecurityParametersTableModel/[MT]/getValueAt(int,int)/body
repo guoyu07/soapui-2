@@ -1,0 +1,14 @@
+{
+  SecurityCheckedParameter param=holder.getParameterList().get(row);
+switch (column) {
+case 0:
+    return param.getLabel();
+case 1:
+  return param.getName();
+case 2:
+return param.getXPath();
+case 3:
+return param.isChecked();
+}
+return super.getValueAt(row,column);
+}

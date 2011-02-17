@@ -1,12 +1,11 @@
 {
   dialog=ADialogBuilder.buildDialog(InvalidTypesConfigDialog.class);
-  XFormMultiSelectList field=(XFormMultiSelectList)dialog.getFormField(InvalidTypesConfigDialog.PARAMETERS);
+  XFormField field=dialog.getFormField(InvalidTypesConfigDialog.PARAMETERS);
+  field.setProperty("component",new SecurityCheckedParametersTable(new SecurityParametersTableModel(parameterHolder)));
   ArrayList<String> options=new ArrayList<String>();
   ArrayList<String> selected=new ArrayList<String>();
   for (  CheckedParameterConfig param : invalidTypesConfig.getParametersList()) {
     options.add(param.getParameterName());
     if (param.isSetChecked())     selected.add(param.getParameterName());
   }
-  field.setOptions(options.toArray(new String[0]));
-  field.setSelectedOptions(selected.toArray(new String[0]));
 }

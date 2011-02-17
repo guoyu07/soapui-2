@@ -1,0 +1,9 @@
+{
+  setLayout(new BorderLayout());
+  toolbar=UISupport.createToolbar();
+  toolbar.add(UISupport.createToolbarButton(new AddNewParameterAction()));
+  toolbar.add(UISupport.createToolbarButton(new RemoveParameterAction()));
+  toolbar.addGlue();
+  add(toolbar,BorderLayout.NORTH);
+  add(new JScrollPane(new JXTable(model)),BorderLayout.CENTER);
+}
