@@ -1,28 +1,6 @@
 {
-  if (securityChecksMapCache != null) {
-    return securityChecksMapCache;
+  if (!securityChecksMap.isEmpty()) {
+    return securityChecksMap;
   }
-  HashMap<String,List<AbstractSecurityCheck>> securityChecksMap=new HashMap<String,List<AbstractSecurityCheck>>();
-  if (getConfig() != null) {
-    if (!getConfig().getTestStepSecurityTestList().isEmpty()) {
-      for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : getConfig().getTestStepSecurityTestList()) {
-        List<AbstractSecurityCheck> checkList=new ArrayList<AbstractSecurityCheck>();
-        if (testStepSecurityTestListConfig != null) {
-          if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
-            for (            SecurityCheckConfig secCheckConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
-              TestStep testStep=null;
-              for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
-                testStep=ts;
-                AbstractSecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
-                checkList.add(securityCheck);
-              }
-            }
-          }
-        }
-        securityChecksMap.put(testStepSecurityTestListConfig.getTestStepId(),checkList);
-      }
-    }
-  }
-  this.securityChecksMapCache=securityChecksMap;
-  return securityChecksMap;
+  return createSecurityChecksMap();
 }

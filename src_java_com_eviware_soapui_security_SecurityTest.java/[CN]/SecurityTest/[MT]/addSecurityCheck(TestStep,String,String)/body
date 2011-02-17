@@ -23,7 +23,6 @@
     newSecurityCheck.setName(newSecCheck.getName());
   }
   if (listModel != null)   listModel.securityCheckAdded(newSecCheck);
-  newSecCheck.setTestStep(testStep);
-  clearSecurityChecksMapCache();
+  addSecurityCheckByTestStepId(testStep.getId(),newSecCheck);
   return newSecCheck;
 }
