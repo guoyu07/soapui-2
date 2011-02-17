@@ -1,6 +1,6 @@
 {
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getRequestContent();
+  SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(securityTestRunner,testStep).getResponse().getRequestContent();
   AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   request.setAttachmentAt(0,new InfiniteAttachment(AttachmentConfig.Factory.newInstance(),request,(long)((LargeAttachmentSecurityCheckConfig)config.getConfig()).getSize()));
   Logger.getLogger(SoapUI.class).info("Disabling logs during Large Attachment Check");

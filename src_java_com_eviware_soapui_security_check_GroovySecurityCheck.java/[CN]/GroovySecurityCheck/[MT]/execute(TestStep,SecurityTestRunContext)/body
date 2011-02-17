@@ -11,8 +11,8 @@
  finally {
     if (scriptResult != null) {
       this.testStep.getProperty("Request").setValue((String)scriptResult);
-      WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-      this.testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+      SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+      this.testStep.run(securityTestRunner,securityTestRunner.getRunContext());
     }
     scriptEngine.clearVariables();
   }

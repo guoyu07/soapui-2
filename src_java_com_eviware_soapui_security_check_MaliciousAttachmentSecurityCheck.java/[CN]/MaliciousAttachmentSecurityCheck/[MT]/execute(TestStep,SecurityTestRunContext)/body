@@ -1,6 +1,6 @@
 {
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+  SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(securityTestRunner,testStep).getResponse().getContentAsXml();
   File textFile;
   try {
     textFile=File.createTempFile("test",".txt");

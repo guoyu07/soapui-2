@@ -1,7 +1,7 @@
 {
   currentIndex=0;
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-  String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getContentAsXml();
+  SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+  String originalResponse=getOriginalResult(securityTestRunner,testStep).getResponse().getContentAsXml();
   String originalRequest=getRequest(testStep).getRequestContent();
   if (isAttachXmlBomb()) {
     while (currentIndex < getBombList().size() + 1) {

@@ -1,6 +1,6 @@
 {
   if (acceptsTestStep(testStep)) {
-    WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-    testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+    SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+    testStep.run(securityTestRunner,securityTestRunner.getRunContext());
   }
 }

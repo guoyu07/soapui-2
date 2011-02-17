@@ -1,5 +1,5 @@
 {
   updateRequestContent();
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)this.testStep.getTestCase(),new StringToObjectMap());
-  testStep.run(testCaseRunner,testCaseRunner.getRunContext());
+  SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+  testStep.run(securityTestRunner,securityTestRunner.getRunContext());
 }

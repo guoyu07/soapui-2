@@ -1,4 +1,4 @@
 {
-  WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
-  testStep.run(testCaseRunner,context);
+  SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
+  testStep.run(securityTestRunner,context);
 }
