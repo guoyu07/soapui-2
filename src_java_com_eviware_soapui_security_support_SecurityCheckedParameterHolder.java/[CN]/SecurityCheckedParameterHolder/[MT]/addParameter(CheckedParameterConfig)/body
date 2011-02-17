@@ -1,7 +1,7 @@
 {
-  SecurityCheckedParameter result=new SecurityCheckedParameter(param);
+  SecurityCheckedParameter result=new SecurityCheckedParameterImpl(param);
   params.add(result);
-  paramsMap.put(result.getName().toUpperCase(),result);
+  paramsMap.put(result.getLabel().toUpperCase(),result);
   fireParameterAdded(result);
   return result;
 }

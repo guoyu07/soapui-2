@@ -1,22 +1,9 @@
 {
   super(testStep,config,parent,icon);
   enumerationValuesExtractor=new EnumerationValuesExtractor(((WsdlTestRequestStep)testStep).getTestRequest());
-  if (config == null) {
-    config=SecurityCheckConfig.Factory.newInstance();
-    CheckedParametersListConfig boundary=CheckedParametersListConfig.Factory.newInstance();
-    config.setConfig(boundary);
+  List<String> selected=new ArrayList<String>();
+  for (  SecurityCheckedParameter cpc : parameterHolder.getParameterList()) {
+    if (cpc.isChecked())     selected.add(cpc.getName());
   }
- else {
-    List<String> selected=new ArrayList<String>();
-    if (config.getConfig() == null) {
-      config.addNewConfig();
-    }
- else {
-      config.getConfig().changeType(CheckedParametersListConfig.type);
-      for (      CheckedParameterConfig cpc : ((CheckedParametersListConfig)config.getConfig()).getParametersList()) {
-        if (cpc.getChecked())         selected.add(cpc.getParameterName());
-      }
-      enumerationValuesExtractor.setSelectedEnumerationParameters(selected);
-    }
-  }
+  enumerationValuesExtractor.setSelectedEnumerationParameters(selected);
 }

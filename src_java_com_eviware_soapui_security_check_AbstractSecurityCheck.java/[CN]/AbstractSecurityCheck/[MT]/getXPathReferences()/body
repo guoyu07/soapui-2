@@ -1,9 +1,9 @@
 {
   List<XPathReference> result=new ArrayList<XPathReference>();
-  for (  SecurityCheckedParameter param : getParameters().getPropertyList()) {
+  for (  SecurityCheckedParameter param : getParameters().getParameterList()) {
     TestStep t=getTestStep();
     if (t instanceof WsdlTestRequestStep) {
-      if (param != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getName(),((WsdlTestRequestStep)t).getOperation(),true,param,"path"));
+      if (param != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getName(),((WsdlTestRequestStep)t).getOperation(),true,param,"xPath"));
     }
   }
   return result.toArray(new XPathReference[result.size()]);

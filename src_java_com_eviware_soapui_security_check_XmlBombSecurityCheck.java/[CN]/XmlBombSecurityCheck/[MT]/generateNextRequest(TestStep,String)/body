@@ -1,5 +1,5 @@
 {
-  AbstractHttpRequest<?> request=getRequest(testStep);
+  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   if (currentIndex < getBombList().size()) {
     String bomb=getBombList().get(currentIndex);
     String requestContent=request.getRequestContent();

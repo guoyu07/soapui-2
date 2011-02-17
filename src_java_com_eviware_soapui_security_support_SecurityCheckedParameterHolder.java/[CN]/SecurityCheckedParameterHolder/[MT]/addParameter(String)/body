@@ -1,0 +1,10 @@
+{
+  if (paramsMap.get(label) != null)   return paramsMap.get(label);
+  CheckedParameterConfig newParameterConfig=paramsConfig.addNewParameters();
+  SecurityCheckedParameterImpl newParameter=new SecurityCheckedParameterImpl(newParameterConfig);
+  newParameter.setLabel(label);
+  params.add(newParameter);
+  paramsMap.put(newParameter.getLabel().toUpperCase(),newParameter);
+  fireParameterAdded(newParameter);
+  return newParameter;
+}

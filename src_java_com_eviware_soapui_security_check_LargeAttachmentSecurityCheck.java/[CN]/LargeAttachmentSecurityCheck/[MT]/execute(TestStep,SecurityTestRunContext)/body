@@ -1,7 +1,7 @@
 {
   WsdlTestCaseRunner testCaseRunner=new WsdlTestCaseRunner((WsdlTestCase)testStep.getTestCase(),new StringToObjectMap());
   String originalResponse=getOriginalResult(testCaseRunner,testStep).getResponse().getRequestContent();
-  AbstractHttpRequest<?> request=getRequest(testStep);
+  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   request.setAttachmentAt(0,new InfiniteAttachment(AttachmentConfig.Factory.newInstance(),request,(long)((LargeAttachmentSecurityCheckConfig)config.getConfig()).getSize()));
   Logger.getLogger(SoapUI.class).info("Disabling logs during Large Attachment Check");
   Logger.getLogger("httpclient.wire").setLevel(Level.OFF);

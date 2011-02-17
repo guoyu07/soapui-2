@@ -1,6 +1,4 @@
 {
-  if (testStep instanceof WsdlTestRequestStep)   return ((WsdlTestRequestStep)testStep).getAssertableContent();
- else   if (testStep instanceof HttpTestRequest)   return ((HttpTestRequest)testStep).getAssertableContent();
- else   if (testStep instanceof RestTestRequest)   return ((RestTestRequest)testStep).getAssertableContent();
+  if (testStep instanceof Assertable)   return ((Assertable)testStep).getAssertableContent();
   return null;
 }

@@ -8,9 +8,9 @@
     writer.write("This is just a text file, nothing to see here, just a harmless text file");
     writer.flush();
     Attachment attach=addAttachement(testStep,textFile,"text/plain");
-    getRequest(testStep).removeAttachment(attach);
+    ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
     attach=addAttachement(testStep,textFile,"multipart/mixed");
-    getRequest(testStep).removeAttachment(attach);
+    ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
   }
  catch (  IOException e) {
     SoapUI.logError(e);

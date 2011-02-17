@@ -6,25 +6,25 @@
   if (isAttachXmlBomb()) {
     while (currentIndex < getBombList().size() + 1) {
       Attachment attach=attachXmlBomb(testStep);
-      getRequest(testStep).removeAttachment(attach);
-      getRequest(testStep).setRequestContent(originalRequest);
+      ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
+      ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
     }
     currentIndex=0;
   }
-  if (getExecutionStrategy().equals(AbstractSecurityCheck.SEPARATE_REQUEST_STRATEGY) && getParameters().getPropertyList().size() > 0) {
-    for (    SecurityCheckedParameter param : getParameters().getPropertyList()) {
+  if (getExecutionStrategy().equals(AbstractSecurityCheck.SEPARATE_REQUEST_STRATEGY) && getParameters().getParameterList().size() > 0) {
+    for (    SecurityCheckedParameter param : getParameters().getParameterList()) {
       if (param != null) {
         while (currentIndex < getBombList().size() + 1) {
           generateNextRequest(testStep,param.getName());
-          getRequest(testStep).setRequestContent(originalRequest);
+          ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
         }
       }
     }
   }
- else   if (getParameters().getPropertyList().size() > 0) {
+ else   if (getParameters().getParameterList().size() > 0) {
     while (currentIndex < getBombList().size() + 1) {
-      generateNextRequest(testStep,getParameters().getPropertyList());
-      getRequest(testStep).setRequestContent(originalRequest);
+      generateNextRequest(testStep,getParameters().getParameterList());
+      ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
     }
   }
 }
