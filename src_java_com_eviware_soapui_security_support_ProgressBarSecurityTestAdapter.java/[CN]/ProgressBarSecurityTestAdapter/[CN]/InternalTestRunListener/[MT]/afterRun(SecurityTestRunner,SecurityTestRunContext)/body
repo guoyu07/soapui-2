@@ -6,6 +6,6 @@
     progressBar.setForeground(Color.GREEN.darker());
   }
   if (progressBar.isIndeterminate())   return;
-  if (testRunner.getStatus() == TestCaseRunner.Status.FINISHED)   progressBar.setValue(testRunner.getSecurityTest().getTestCase().getTestStepCount());
+  if (testRunner.getStatus() == TestCaseRunner.Status.FINISHED)   progressBar.setValue(testRunner.getSecurityTest().getSecurityCheckCount());
   progressBar.setString(testRunner.getStatus().toString());
 }

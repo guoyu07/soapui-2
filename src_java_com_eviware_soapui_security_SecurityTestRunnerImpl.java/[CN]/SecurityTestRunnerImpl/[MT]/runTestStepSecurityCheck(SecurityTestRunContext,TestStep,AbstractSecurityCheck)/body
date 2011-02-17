@@ -1,18 +1,20 @@
 {
+  SecurityCheckResult result=new SecurityCheckResult(securityCheck);
   if (securityCheck.acceptsTestStep(currentStep)) {
-    seccheckListeners=securityTest.getSecurityCheckRunListeners();
+    securityCheckListeners=securityTest.getSecurityCheckRunListeners();
     for (int j=0; j < securityTestStepListeners.length; j++) {
       securityTestStepListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
     }
-    SecurityCheckResult result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext);
-    if (securityTest.getFailSecurityTestOnCheckErrors() && result.getStatus() == SecurityCheckStatus.FAILED) {
+    result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext);
+    if (securityTest.getFailSecurityTestOnCheckErrors() && result.getStatus() == SecurityStatus.FAILED) {
       fail("Failing due to failed security check");
     }
     for (int j=0; j < securityTestStepListeners.length; j++) {
       securityTestStepListeners[j].afterSecurityCheck(this,runContext,result);
     }
-    for (int j=0; j < seccheckListeners.length; j++) {
-      seccheckListeners[j].afterSecurityCheck(this,runContext,result);
+    for (int j=0; j < securityCheckListeners.length; j++) {
+      securityCheckListeners[j].afterSecurityCheck(this,runContext,result);
     }
   }
+  return result;
 }

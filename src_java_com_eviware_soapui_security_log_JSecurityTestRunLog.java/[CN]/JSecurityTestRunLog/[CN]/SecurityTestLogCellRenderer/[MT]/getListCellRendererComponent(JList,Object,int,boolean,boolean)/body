@@ -20,10 +20,10 @@
     hyperlinkLabel.setText(getText());
     hyperlinkLabel.setBackground(getBackground());
     hyperlinkLabel.setEnabled(list.isEnabled());
-    if (result.getStatus() == SecurityCheckStatus.OK) {
+    if (result.getStatus() == SecurityStatus.OK) {
       hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
     }
- else     if (result.getStatus() == SecurityCheckStatus.FAILED) {
+ else     if (result.getStatus() == SecurityStatus.FAILED) {
       hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
     }
  else {

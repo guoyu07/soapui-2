@@ -1,6 +1,6 @@
 {
   securityTest.getTestCase().beforeSave();
-  listeners=securityTest.getTestRunListeners();
+  securityTestListeners=securityTest.getTestRunListeners();
   hasTornDown=false;
   startTime=System.currentTimeMillis();
   try {
@@ -35,13 +35,12 @@
   }
   int currentStepIndex=startStep;
   runContext.setCurrentStep(currentStepIndex);
-  boolean testFailed=false;
   for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
     TestStep currentStep=runContext.getCurrentStep();
     securityTestStepListeners=securityTest.getTestStepRunListeners(currentStep);
     if (!currentStep.isDisabled()) {
-      for (int i=0; i < listeners.length; i++) {
-        listeners[i].beforeStep(this,getRunContext(),currentStep);
+      for (int i=0; i < securityTestListeners.length; i++) {
+        securityTestListeners[i].beforeStep(this,getRunContext(),currentStep);
         if (!isRunning())         return;
       }
       for (int i=0; i < securityTestStepListeners.length; i++) {
@@ -49,6 +48,7 @@
         if (!isRunning())         return;
       }
       TestStepResult stepResult=runTestStep(currentStep,true,true);
+      SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep);
       if (stepResult == null)       return;
       if (!isRunning())       return;
       if (secCheckMap.containsKey(currentStep.getId())) {
@@ -56,15 +56,16 @@
         for (int i=0; i < testStepChecksList.size(); i++) {
           AbstractSecurityCheck securityCheck=testStepChecksList.get(i);
           runContext.setCurrentCheckIndex(i);
-          runTestStepSecurityCheck(runContext,currentStep,securityCheck);
+          SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
+          securityStepResult.addSecurityRequestResult(securityCheckResult);
         }
       }
       for (int i=0; i < securityTestStepListeners.length; i++) {
-        securityTestStepListeners[i].afterStep(this,getRunContext(),stepResult);
+        securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);
         if (!isRunning())         return;
       }
-      for (int i=0; i < listeners.length; i++) {
-        listeners[i].afterStep(this,getRunContext(),stepResult);
+      for (int i=0; i < securityTestListeners.length; i++) {
+        securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
       }
       if (gotoStepIndex != -1) {
         currentStepIndex=gotoStepIndex - 1;
@@ -72,8 +73,5 @@
       }
     }
     runContext.setCurrentStep(currentStepIndex + 1);
-  }
-  if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && testCase.getFailTestCaseOnErrors()) {
-    fail("Failing due to failed test step");
   }
 }

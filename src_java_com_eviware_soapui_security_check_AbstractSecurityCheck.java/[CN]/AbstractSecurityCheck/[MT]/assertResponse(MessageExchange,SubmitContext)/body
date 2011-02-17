@@ -8,7 +8,7 @@
         result=assertion.assertResponse(messageExchange,context);
         if (result == AssertionStatus.FAILED) {
           for (          AssertionError error : assertion.getErrors())           securityCheckRequestResult.addMessage(error.getMessage());
-          securityCheckRequestResult.setStatus(SecurityCheckStatus.FAILED);
+          securityCheckRequestResult.setStatus(SecurityStatus.FAILED);
         }
       }
       notifier.notifyChange();

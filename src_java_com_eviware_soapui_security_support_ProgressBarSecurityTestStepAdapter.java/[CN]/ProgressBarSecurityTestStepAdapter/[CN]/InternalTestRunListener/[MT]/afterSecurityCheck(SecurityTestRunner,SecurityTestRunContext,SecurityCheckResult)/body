@@ -1,9 +1,9 @@
 {
   if (progressBar.isIndeterminate())   return;
-  if (securityCheckResult.getStatus() == SecurityCheckStatus.FAILED) {
+  if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
     progressBar.setForeground(Color.RED);
   }
- else   if (securityCheckResult.getStatus() == SecurityCheckStatus.OK) {
+ else   if (securityCheckResult.getStatus() == SecurityStatus.OK) {
     progressBar.setForeground(Color.GREEN.darker());
   }
   progressBar.setValue(runContext.getCurrentCheckIndex() + 1);

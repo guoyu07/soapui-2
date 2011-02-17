@@ -1,8 +1,8 @@
 {
-  if (listeners == null || listeners.length == 0)   return;
-  for (int i=0; i < listeners.length; i++) {
+  if (securityTestListeners == null || securityTestListeners.length == 0)   return;
+  for (int i=0; i < securityTestListeners.length; i++) {
     try {
-      listeners[i].beforeRun(this,getRunContext());
+      securityTestListeners[i].beforeRun(this,getRunContext());
     }
  catch (    Throwable t) {
       SoapUI.logError(t);
