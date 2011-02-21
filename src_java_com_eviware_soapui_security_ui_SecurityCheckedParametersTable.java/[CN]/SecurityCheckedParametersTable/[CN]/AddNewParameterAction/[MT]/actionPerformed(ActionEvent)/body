@@ -1,19 +1,5 @@
 {
-  DefaultActionList actionList=new DefaultActionList();
-  AddAction addAction=new AddAction();
-  actionList.addAction(addAction,true);
-  AddAndCopy addAndCopy=new AddAndCopy();
-  actionList.addAction(addAndCopy);
-  Close closeAction=new Close();
-  actionList.addAction(closeAction);
-  XFormDialog dialog=ADialogBuilder.buildDialog(AddParameterDialog.class,actionList,false);
-  closeAction.setDialog(dialog);
-  addAction.setDialog(dialog);
-  addAndCopy.setDialog(dialog);
-  JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
-  ArrayList<String> options=new ArrayList<String>(properties.keySet());
-  options.set(0,"Choose Test Property");
-  nameField.setOptions(options.toArray(new String[0]));
+  XFormDialog dialog=createDialog();
   dialog.show();
   model.fireTableDataChanged();
 }
