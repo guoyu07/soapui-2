@@ -1,0 +1,8 @@
+{
+  for (int cnt=0; cnt < actions.getActionCount(); cnt++) {
+    if (actions.getActionAt(cnt) instanceof HelpActionMarker) {
+      ((SwingXFormDialogBuilder.HelpAction)actions.getActionAt(cnt)).setUrl(helpUrl);
+      break;
+    }
+  }
+}

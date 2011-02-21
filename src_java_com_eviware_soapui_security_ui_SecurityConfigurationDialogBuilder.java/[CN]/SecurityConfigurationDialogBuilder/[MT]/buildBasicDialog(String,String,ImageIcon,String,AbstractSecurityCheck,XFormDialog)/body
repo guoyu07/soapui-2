@@ -1,0 +1,14 @@
+{
+  XFormField field=dialog.getFormField(DefaultDialog.PARAMETERS);
+  field.setProperty("component",new SecurityCheckedParametersTable(new SecurityParametersTableModel(securityCheck.getParameterHolder()),securityCheck.getTestStep().getProperties()));
+  Container content=((JFormDialog)dialog).getDialog().getContentPane();
+  if (description != null || icon != null) {
+    content.remove(0);
+    content.add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
+  }
+  if (helpUrl != null) {
+    ((JFormDialog)dialog).setHelpUrl(helpUrl);
+  }
+  XFormField tabs=dialog.getFormField(DefaultDialog.TABS);
+  tabs.setProperty("component",((JTabbedFormDialog)ADialogBuilder.buildTabbedDialog(TabsForm.class,null)).getTabs());
+}

@@ -1,11 +1,3 @@
 {
-  dialog=ADialogBuilder.buildDialog(InvalidTypesConfigDialog.class);
-  XFormField field=dialog.getFormField(InvalidTypesConfigDialog.PARAMETERS);
-  field.setProperty("component",new SecurityCheckedParametersTable(new SecurityParametersTableModel(parameterHolder),testStep.getProperties()));
-  ArrayList<String> options=new ArrayList<String>();
-  ArrayList<String> selected=new ArrayList<String>();
-  for (  CheckedParameterConfig param : invalidTypesConfig.getParametersList()) {
-    options.add(param.getParameterName());
-    if (param.isSetChecked())     selected.add(param.getParameterName());
-  }
+  dialog=SecurityConfigurationDialogBuilder.buildSecurityCheckConfigurationDialog("Ivalid Type Security Check","Configures invalid type security check",null,"http://www.soapui.org",this);
 }
