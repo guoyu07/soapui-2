@@ -29,7 +29,9 @@
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
   label.setInheritsPopupMenu(true);
   label.setEnabled(!testStep.isDisabled());
-  add(progressPanel,BorderLayout.LINE_END);
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    add(progressPanel,BorderLayout.LINE_END);
+  }
   add(label,BorderLayout.LINE_START);
   testCasePropertyChangeListener=new TestCasePropertyChangeListener();
   addMouseListener(new MouseAdapter(){

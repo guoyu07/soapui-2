@@ -1,0 +1,41 @@
+{
+  WsdlTestCase testCase=getTestCase();
+  gotoStepIndex=-1;
+  testStepResults.clear();
+  if (testCase.getKeepSession()) {
+    runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new HttpState());
+  }
+  fillInTestRunnableListeners();
+  runSetupScripts(runContext);
+  if (!isRunning())   return;
+  if (testCase.getTimeout() > 0) {
+    startTimeoutTimer(testCase.getTimeout());
+  }
+  notifyBeforeRun();
+  if (!isRunning())   return;
+  initCount=getStartStep();
+  setStartTime();
+  for (; initCount < testCase.getTestStepCount() && isRunning(); initCount++) {
+    WsdlTestStep testStep=testCase.getTestStepAt(initCount);
+    if (testStep.isDisabled())     continue;
+    try {
+      testStep.prepare(this,runContext);
+    }
+ catch (    Exception e) {
+      setStatus(Status.FAILED);
+      SoapUI.logError(e);
+      throw new Exception("Failed to prepare testStep [" + testStep.getName() + "]; "+ e.toString());
+    }
+  }
+  int currentStepIndex=startStep;
+  runContext.setCurrentStep(currentStepIndex);
+  for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
+    if (runCurrentTestStep(runContext,currentStepIndex) == -2) {
+      return;
+    }
+  }
+  if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && testCase.getFailTestCaseOnErrors()) {
+    fail("Failing due to failed test step");
+  }
+  preserveContext(getRunContext());
+}

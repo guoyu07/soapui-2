@@ -1,0 +1,11 @@
+{
+  if (testRunner.getStatus() == Status.FAILED) {
+    progressBar.setForeground(Color.RED);
+  }
+ else   if (testRunner.getStatus() == Status.FINISHED) {
+    progressBar.setForeground(Color.GREEN.darker());
+  }
+  if (progressBar.isIndeterminate())   return;
+  if (testRunner.getStatus() == TestCaseRunner.Status.FINISHED)   progressBar.setValue(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getSecurityCheckCount());
+  progressBar.setString(testRunner.getStatus().toString());
+}

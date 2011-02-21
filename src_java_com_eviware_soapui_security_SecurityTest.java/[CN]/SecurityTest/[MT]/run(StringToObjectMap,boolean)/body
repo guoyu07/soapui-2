@@ -1,6 +1,5 @@
 {
   if (runner != null && runner.getStatus() == Status.RUNNING)   return null;
-  if (runner != null)   runner.release();
   runner=new SecurityTestRunnerImpl(this,context);
   runner.start(async);
   return runner;

@@ -1,0 +1,14 @@
+{
+  TestStep currentStep=runContext.getCurrentStep();
+  if (!currentStep.isDisabled()) {
+    TestStepResult stepResult=runTestStep(currentStep,true,true);
+    if (stepResult == null)     return -2;
+    if (!isRunning())     return -2;
+    if (gotoStepIndex != -1) {
+      currentStepIndex=gotoStepIndex - 1;
+      gotoStepIndex=-1;
+    }
+  }
+  runContext.setCurrentStep(currentStepIndex + 1);
+  return currentStepIndex;
+}

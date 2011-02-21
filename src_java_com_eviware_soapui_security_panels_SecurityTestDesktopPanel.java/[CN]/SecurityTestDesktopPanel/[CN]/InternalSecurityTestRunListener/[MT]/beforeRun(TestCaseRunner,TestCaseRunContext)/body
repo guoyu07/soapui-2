@@ -1,0 +1,9 @@
+{
+  securityTestLog.clear();
+  runButton.setEnabled(false);
+  cancelButton.setEnabled(true);
+  testStepList.setEnabled(false);
+  securityTestLog.addText("SecurityTest started at " + dateFormat.format(new Date()));
+  SecurityTestDesktopPanel.this.beforeRun();
+  if (runner == null)   runner=(SecurityTestRunnerImpl)testRunner;
+}
