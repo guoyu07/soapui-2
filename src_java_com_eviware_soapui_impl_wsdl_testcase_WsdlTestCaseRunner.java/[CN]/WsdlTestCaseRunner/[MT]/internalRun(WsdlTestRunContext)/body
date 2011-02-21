@@ -5,7 +5,7 @@
   if (testCase.getKeepSession()) {
     runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new HttpState());
   }
-  listeners=testCase.getTestRunListeners();
+  testRunListeners=testCase.getTestRunListeners();
   testCase.runSetupScript(runContext,this);
   if (!isRunning())   return;
   if (testCase.getTimeout() > 0) {
