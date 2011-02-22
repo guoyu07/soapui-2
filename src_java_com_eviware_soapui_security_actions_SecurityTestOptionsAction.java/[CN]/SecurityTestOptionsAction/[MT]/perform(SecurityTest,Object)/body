@@ -2,7 +2,12 @@
   if (dialog == null) {
     XFormDialogBuilder builder=XFormFactory.createDialogBuilder("SecurityTest Options");
     form=builder.createForm("Basic");
-    form.addCheckBox(FAIL_ON_ERROR,"Fail on error");
+    form.addCheckBox(FAIL_ON_ERROR,"Fail on error").addFormFieldListener(new XFormFieldListener(){
+      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
+        form.getFormField(FAIL_SECURITYTEST_ON_ERROR).setEnabled(!Boolean.parseBoolean(newValue));
+      }
+    }
+);
     form.addCheckBox(FAIL_SECURITYTEST_ON_ERROR,"Fail SecurityTest if it has failed TestSteps");
     dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.TESTCASEOPTIONS_HELP_URL),"Specify general options for this SecurityTest",UISupport.OPTIONS_ICON);
   }
