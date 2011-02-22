@@ -1,11 +1,3 @@
 {
-  if (testRunListeners == null || testRunListeners.length == 0)   return;
-  for (int i=0; i < testRunListeners.length; i++) {
-    try {
-      testRunListeners[i].beforeRun(this,getRunContext());
-    }
- catch (    Throwable t) {
-      SoapUI.logError(t);
-    }
-  }
+  super.notifyBeforeRun();
 }
