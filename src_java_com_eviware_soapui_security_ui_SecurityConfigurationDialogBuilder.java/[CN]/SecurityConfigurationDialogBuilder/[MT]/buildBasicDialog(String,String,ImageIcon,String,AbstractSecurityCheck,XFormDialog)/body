@@ -10,5 +10,9 @@
     ((JFormDialog)dialog).setHelpUrl(helpUrl);
   }
   XFormField tabs=dialog.getFormField(DefaultDialog.TABS);
-  tabs.setProperty("component",((JTabbedFormDialog)ADialogBuilder.buildTabbedDialog(TabsForm.class,null)).getTabs());
+  JTabbedFormDialog tabDialog=((JTabbedFormDialog)ADialogBuilder.buildTabbedDialog(TabsForm.class,null));
+  tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("component",new SecurityAssertionPanel(securityCheck));
+  tabDialog.getFormField(SetupScript.SCRIPT).setProperty("component",buildSetupScriptPanel(securityCheck));
+  tabDialog.getFormField(TearDownScript.SCRIPT).setProperty("component",buildTearDownScriptPanel(securityCheck));
+  tabs.setProperty("component",tabDialog.getTabs());
 }
