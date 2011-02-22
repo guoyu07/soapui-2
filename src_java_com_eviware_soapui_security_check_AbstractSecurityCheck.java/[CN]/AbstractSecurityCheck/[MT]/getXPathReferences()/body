@@ -1,6 +1,6 @@
 {
   List<XPathReference> result=new ArrayList<XPathReference>();
-  for (  SecurityCheckedParameter param : getParameters().getParameterList()) {
+  for (  SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
     TestStep t=getTestStep();
     if (t instanceof WsdlTestRequestStep) {
       if (param != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getName(),((WsdlTestRequestStep)t).getOperation(),true,param,"xPath"));
