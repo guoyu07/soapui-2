@@ -4,16 +4,16 @@
   if (!currentStep.isDisabled()) {
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].beforeStep(this,getRunContext(),currentStep);
-      if (!isRunning())       return -1;
+      if (!isRunning())       return -2;
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
       securityTestStepListeners[i].beforeStep(this,getRunContext());
-      if (!isRunning())       return -1;
+      if (!isRunning())       return -2;
     }
     TestStepResult stepResult=runTestStep(currentStep,true,true);
     SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep);
-    if (stepResult == null)     return -1;
-    if (!isRunning())     return -1;
+    if (stepResult == null)     return -2;
+    if (!isRunning())     return -2;
     Map<String,List<AbstractSecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
       List<AbstractSecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
@@ -26,7 +26,7 @@
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
       securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);
-      if (!isRunning())       return -1;
+      if (!isRunning())       return -2;
     }
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
