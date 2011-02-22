@@ -1,5 +1,7 @@
 {
   super.addNotify();
   testStep.addPropertyChangeListener(testCasePropertyChangeListener);
-  progressBarAdapter=new ProgressBarSecurityTestStepAdapter(progressBar,securityTest,testStep);
+  if (progressBar != null) {
+    progressBarAdapter=new ProgressBarSecurityTestStepAdapter(progressBar,securityTest,testStep);
+  }
 }

@@ -7,7 +7,7 @@
       if (!isRunning())       return -2;
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
-      securityTestStepListeners[i].beforeStep(this,getRunContext());
+      securityTestStepListeners[i].beforeStep(this,getRunContext(),currentStep);
       if (!isRunning())       return -2;
     }
     TestStepResult stepResult=runTestStep(currentStep,true,true);
@@ -20,6 +20,7 @@
       for (int i=0; i < testStepChecksList.size(); i++) {
         AbstractSecurityCheck securityCheck=testStepChecksList.get(i);
         runContext.setCurrentCheckIndex(i);
+        runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
         securityStepResult.addSecurityRequestResult(securityCheckResult);
       }
