@@ -20,7 +20,9 @@
   }
   ActionList defaultActions=formAnnotation.helpUrl() == null ? null : builder.buildHelpActions(formAnnotation.helpUrl());
   if (actions == null)   actions=defaultActions;
- else   actions.addActions(defaultActions);
+ else {
+    actions.insertAction(defaultActions.getActionAt(0),0);
+  }
   XFormDialog dialog=builder.buildDialog(actions,messages.get(formAnnotation.description()),UISupport.createImageIcon(formAnnotation.icon()));
   return dialog;
 }

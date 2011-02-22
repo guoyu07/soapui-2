@@ -10,9 +10,26 @@
   closeAction.setDialog(dialog);
   addAction.setDialog(dialog);
   addAndCopy.setDialog(dialog);
+  final XFormField labelField=dialog.getFormField(AddParameterDialog.LABEL);
+  labelField.setEnabled(false);
+  final XFormField pathField=dialog.getFormField(AddParameterDialog.PATH);
+  pathField.setEnabled(false);
   JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
+  nameField.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (!newValue.equals(CHOOSE_TEST_PROPERTY)) {
+        labelField.setEnabled(true);
+        pathField.setEnabled(true);
+      }
+ else {
+        labelField.setEnabled(false);
+        pathField.setEnabled(false);
+      }
+    }
+  }
+);
   ArrayList<String> options=new ArrayList<String>(properties.keySet());
-  options.set(0,"Choose Test Property");
+  options.set(0,CHOOSE_TEST_PROPERTY);
   nameField.setOptions(options.toArray(new String[0]));
   return dialog;
 }
