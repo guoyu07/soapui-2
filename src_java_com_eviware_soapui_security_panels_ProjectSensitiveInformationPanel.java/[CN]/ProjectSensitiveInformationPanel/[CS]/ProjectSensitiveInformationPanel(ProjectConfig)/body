@@ -1,0 +1,9 @@
+{
+  config=projectConfig.getSensitiveInformation();
+  if (config == null) {
+    config=SensitiveInformationConfig.Factory.newInstance();
+    projectConfig.addNewSensitiveInformation();
+    projectConfig.setSensitiveInformation(config);
+  }
+  init();
+}

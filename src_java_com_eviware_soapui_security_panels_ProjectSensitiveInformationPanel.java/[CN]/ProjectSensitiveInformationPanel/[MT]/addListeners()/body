@@ -1,0 +1,14 @@
+{
+  dialog.getFormField(SensitiveInformationConfigDialog.USE_REGEXP).addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (sourceField instanceof JCheckBoxFormField)       save();
+    }
+  }
+);
+  ((JStringListFormField)dialog.getFormField(SensitiveInformationConfigDialog.INFOLIST)).getComponent().addPropertyChangeListener(new PropertyChangeListener(){
+    @Override public void propertyChange(    PropertyChangeEvent evt){
+      save();
+    }
+  }
+);
+}
