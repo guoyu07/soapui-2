@@ -1,0 +1,5 @@
+{
+  if (runContext.getProperty(TestCaseRunner.Status.class.getName()) == TestCaseRunner.Status.FAILED && getTestCase().getFailTestCaseOnErrors()) {
+    fail("Failing due to failed test step");
+  }
+}

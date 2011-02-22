@@ -23,6 +23,14 @@
         runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
         securityStepResult.addSecurityRequestResult(securityCheckResult);
+        if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
+          if (getTestRunnable().getFailOnError()) {
+            fail("Cancelling due to failed security check");
+          }
+ else {
+            getRunContext().setProperty(SecurityTestRunner.Status.class.getName(),SecurityTestRunner.Status.FAILED);
+          }
+        }
       }
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
@@ -32,9 +40,9 @@
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
     }
-    if (gotoStepIndex != -1) {
-      currentStepIndex=gotoStepIndex - 1;
-      gotoStepIndex=-1;
+    if (getGotoStepIndex() != -1) {
+      currentStepIndex=getGotoStepIndex() - 1;
+      gotoStep(-1);
     }
   }
   runContext.setCurrentStep(currentStepIndex + 1);
