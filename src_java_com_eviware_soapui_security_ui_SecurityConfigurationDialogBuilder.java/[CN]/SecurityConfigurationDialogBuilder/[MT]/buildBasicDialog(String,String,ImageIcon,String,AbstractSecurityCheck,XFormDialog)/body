@@ -1,6 +1,6 @@
 {
   XFormField field=dialog.getFormField(DefaultDialog.PARAMETERS);
-  field.setProperty("component",new SecurityCheckedParametersTable(new SecurityParametersTableModel(securityCheck.getParameterHolder()),securityCheck.getTestStep().getProperties()));
+  addParameterTable(securityCheck,field);
   Container content=((JFormDialog)dialog).getDialog().getContentPane();
   if (description != null || icon != null) {
     content.remove(0);

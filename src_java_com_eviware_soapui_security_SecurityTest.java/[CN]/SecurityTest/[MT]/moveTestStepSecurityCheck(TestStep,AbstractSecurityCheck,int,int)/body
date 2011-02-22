@@ -4,7 +4,7 @@
     for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
       if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
         List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
-        AbstractSecurityCheckFactory factory=SecurityCheckRegistry.getInstance().getFactory(securityCheck.getType());
+        AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(securityCheck.getType());
         SecurityCheckConfig newSecCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
         AbstractSecurityCheck newSecCheck=factory.buildSecurityCheck(testStep,newSecCheckConfig,this);
         securityCheckList.remove(securityCheck.getConfig());

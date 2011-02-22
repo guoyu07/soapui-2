@@ -9,7 +9,7 @@
               TestStep testStep=null;
               for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
                 testStep=ts;
-                AbstractSecurityCheck securityCheck=SecurityCheckRegistry.getInstance().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
+                AbstractSecurityCheck securityCheck=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
                 checkList.add(securityCheck);
               }
             }

@@ -1,6 +1,6 @@
 {
   XFormDialog dialog=ADialogBuilder.buildDialog(DefaultDialog.class);
   XFormField field=dialog.getFormField(DefaultDialog.PARAMETERS);
-  field.setProperty("component",new SecurityCheckedParametersTable(new SecurityParametersTableModel(securityCheck.getParameterHolder()),securityCheck.getTestStep().getProperties()));
+  addParameterTable(securityCheck,field);
   return dialog;
 }
