@@ -10,7 +10,7 @@
     securityTestListeners[i].afterStep(this,getRunContext(),new SecurityTestStepResult(testStep));
   }
   if (process && stepResult.getStatus() == TestStepStatus.FAILED) {
-    if (getTestRunnable().getFailSecurityTestOnCheckErrors()) {
+    if (getTestRunnable().getFailOnError()) {
       setError(stepResult.getError());
       fail("Cancelling due to failed test step");
     }
