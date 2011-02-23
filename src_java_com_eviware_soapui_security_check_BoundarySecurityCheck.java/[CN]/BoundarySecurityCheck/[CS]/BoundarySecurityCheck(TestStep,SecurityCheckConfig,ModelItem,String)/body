@@ -1,9 +1,7 @@
 {
   super(testStep,config,parent,icon);
   enumerationValuesExtractor=new EnumerationValuesExtractor(((WsdlTestRequestStep)testStep).getTestRequest());
-  List<String> selected=new ArrayList<String>();
-  for (  SecurityCheckedParameter cpc : parameterHolder.getParameterList()) {
-    if (cpc.isChecked())     selected.add(cpc.getName());
-  }
+  List<String> selected=getSelectedList();
   enumerationValuesExtractor.setSelectedEnumerationParameters(selected);
+  propertiesCounter=selected.size();
 }

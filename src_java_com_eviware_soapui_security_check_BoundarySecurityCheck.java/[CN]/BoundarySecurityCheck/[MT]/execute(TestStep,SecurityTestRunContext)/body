@@ -9,6 +9,6 @@
     SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
     testStep.run(securityTestRunner,securityTestRunner.getRunContext());
     createMessageExchange(testStep);
-    this.hasNext=false;
+    propertiesCounter--;
   }
 }

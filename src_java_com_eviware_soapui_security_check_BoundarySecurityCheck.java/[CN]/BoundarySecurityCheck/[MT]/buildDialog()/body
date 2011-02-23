@@ -1,8 +1,5 @@
 {
-  List<String> selectedOptions=new ArrayList<String>();
-  for (  SecurityCheckedParameter cpc : parameterHolder.getParameterList()) {
-    if (cpc.isChecked())     selectedOptions.add(cpc.getName());
-  }
+  List<String> selectedOptions=getSelectedList();
   dialog=ADialogBuilder.buildDialog(BoundaryConfigDialog.class);
   XFormMultiSelectList field=(XFormMultiSelectList)dialog.getFormField(BoundaryConfigDialog.PARAMETERS);
   field.setOptions(enumerationValuesExtractor.getEnumerationParameters().toArray(new String[enumerationValuesExtractor.getEnumerationParameters().size()]));
