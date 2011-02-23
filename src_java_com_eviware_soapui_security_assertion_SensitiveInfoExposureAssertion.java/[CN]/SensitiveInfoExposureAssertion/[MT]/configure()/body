@@ -2,11 +2,10 @@
   if (dialog == null)   buildDialog();
   if (dialog.show()) {
     JStringListFormField jsringListFormField=(JStringListFormField)dialog.getFormField(SensitiveInformationConfigDialog.INFOLIST);
-    String[] stringList=jsringListFormField.getOptions();
-    specificExposureList=StringUtils.toStringList(stringList);
+    String[] stringList=jsringListFormField != null ? jsringListFormField.getOptions() : new String[0];
+    assertionSpecificExposureList=StringUtils.toStringList(stringList);
+    includeProjectSpecific=Boolean.valueOf(dialog.getFormField(SensitiveInformationConfigDialog.INCLUDE_PROJECT_SPECIFIC).getValue());
     includeGlolbal=Boolean.valueOf(dialog.getFormField(SensitiveInformationConfigDialog.INCLUDE_GLOBAL).getValue());
-    useRegexp=Boolean.valueOf(dialog.getFormField(SensitiveInformationConfigDialog.USE_REGEXP).getValue());
-    checkList=createCheckList();
     setConfiguration(createConfiguration());
     return true;
   }

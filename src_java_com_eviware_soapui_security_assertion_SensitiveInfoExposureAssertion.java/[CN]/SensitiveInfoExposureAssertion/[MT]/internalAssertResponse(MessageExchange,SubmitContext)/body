@@ -1,9 +1,20 @@
 {
+  List<String> checkList=createCheckList();
+  boolean throwException=false;
+  List<AssertionError> assertionErrorList=new ArrayList<AssertionError>();
   for (  String exposureContent : checkList) {
+    boolean useRegexp=exposureContent.trim().startsWith(PREFIX);
+    if (useRegexp) {
+      exposureContent=exposureContent.substring(exposureContent.indexOf(PREFIX) + 1);
+    }
     if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),exposureContent,useRegexp)) {
       String message="Sensitive information '" + exposureContent + "' is exposed in : "+ messageExchange.getModelItem().getName();
-      throw new AssertionException(new AssertionError(message));
+      assertionErrorList.add(new AssertionError(message));
+      throwException=true;
     }
+  }
+  if (throwException) {
+    throw new AssertionException(assertionErrorList.toArray(new AssertionError[assertionErrorList.size()]));
   }
   return "OK";
 }

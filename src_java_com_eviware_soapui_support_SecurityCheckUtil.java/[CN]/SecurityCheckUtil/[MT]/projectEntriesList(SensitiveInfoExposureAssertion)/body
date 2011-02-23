@@ -1,0 +1,6 @@
+{
+  Project project=ModelSupport.getModelItemProject(sensitiveInfoExposureAssertion);
+  AbstractWsdlModelItem<ModelItemConfig> modelItem=(AbstractWsdlModelItem<ModelItemConfig>)project.getModelItem();
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(((ProjectConfig)modelItem.getConfig()).getSensitiveInformation());
+  return StringUtils.toStringList(reader.readStrings(ProjectSensitiveInformationPanel.PROJECT_SPECIFIC_EXPOSURE_LIST));
+}

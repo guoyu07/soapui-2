@@ -1,8 +1,6 @@
 {
   XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
-  useRegexp=reader.readBoolean(USE_REGEXP,false);
   includeGlolbal=reader.readBoolean(INCLUDE_GLOBAL,true);
-  specificExposureList=StringUtils.toStringList(reader.readStrings(SPECIFIC_EXPOSURE_LIST));
-  gloablExposureList=SecurityCheckUtil.entriesList();
-  checkList=createCheckList();
+  includeProjectSpecific=reader.readBoolean(INCLUDE_PROJECT_SPECIFIC,true);
+  assertionSpecificExposureList=StringUtils.toStringList(reader.readStrings(ASSERTION_SPECIFIC_EXPOSURE_LIST));
 }

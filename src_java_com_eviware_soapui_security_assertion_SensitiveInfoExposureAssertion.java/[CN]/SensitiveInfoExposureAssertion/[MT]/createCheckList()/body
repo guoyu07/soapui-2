@@ -1,7 +1,10 @@
 {
-  List<String> checkList=new ArrayList<String>(specificExposureList);
+  List<String> checkList=new ArrayList<String>(assertionSpecificExposureList);
+  if (includeProjectSpecific) {
+    checkList.addAll(SecurityCheckUtil.projectEntriesList(this));
+  }
   if (includeGlolbal) {
-    checkList.addAll(gloablExposureList);
+    checkList.addAll(SecurityCheckUtil.globalEntriesList());
   }
   return checkList;
 }
