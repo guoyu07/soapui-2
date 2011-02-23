@@ -3,7 +3,8 @@
   if (ix == -1)   return;
   AbstractSecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
   if (securityCheck.isConfigurable()) {
-    securityCheck.configure();
+    XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog(securityCheck);
+    dialog.show();
   }
  else   Toolkit.getDefaultToolkit().beep();
 }

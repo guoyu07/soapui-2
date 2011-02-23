@@ -1,6 +1,3 @@
 {
-  XFormDialog dialog=ADialogBuilder.buildDialog(DefaultDialog.class);
-  XFormField field=dialog.getFormField(DefaultDialog.PARAMETERS);
-  addParameterTable(securityCheck,field);
-  return dialog;
+  return buildSecurityCheckConfigurationDialog(securityCheck.getConfigName(),securityCheck.getConfigDescription(),securityCheck.getIcon(),securityCheck.getHelpURL(),securityCheck.getComponent(),securityCheck);
 }

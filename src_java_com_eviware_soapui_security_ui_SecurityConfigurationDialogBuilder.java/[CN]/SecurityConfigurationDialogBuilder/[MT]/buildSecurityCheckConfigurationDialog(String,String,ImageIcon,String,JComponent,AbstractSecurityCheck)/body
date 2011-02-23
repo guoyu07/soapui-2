@@ -1,7 +1,8 @@
 {
   XFormDialog dialog=null;
-  if (component != null)   dialog=ADialogBuilder.buildDialog(DefaultDialog.class);
- else   dialog=ADialogBuilder.buildDialog(GroovyDialog.class);
+  if (component == null)   dialog=ADialogBuilder.buildDialog(DefaultDialog.class);
+ else   dialog=ADialogBuilder.buildDialog(OptionalDialog.class);
+  if (component != null)   dialog.getFormField(OptionalDialog.OPTIONAL).setProperty("component",component);
   buildBasicDialog(name,description,icon,helpUrl,securityCheck,dialog);
   return dialog;
 }

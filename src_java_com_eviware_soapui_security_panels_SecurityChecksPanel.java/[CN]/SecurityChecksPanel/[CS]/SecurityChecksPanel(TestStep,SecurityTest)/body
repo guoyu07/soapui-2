@@ -26,7 +26,10 @@
       if (obj instanceof AbstractSecurityCheck) {
         AbstractSecurityCheck chck=(AbstractSecurityCheck)obj;
         chck.setTestStep(getTestStep());
-        if (chck.isConfigurable())         chck.configure();
+        if (chck.isConfigurable()) {
+          XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog(chck);
+          dialog.show();
+        }
         return;
       }
     }
