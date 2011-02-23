@@ -1,19 +1,19 @@
 {
-  scriptEngine.setScript(groovyscc.getExecuteScript().getStringValue());
-  scriptEngine.setVariable("request",this.testStep.getProperty("Request").getValue());
-  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  getScriptEngine().setScript(groovyscc.getExecuteScript().getStringValue());
+  getScriptEngine().setVariable("request",getTestStep().getProperty("Request").getValue());
+  getScriptEngine().setVariable("log",SoapUI.ensureGroovyLog());
   try {
-    scriptResult=scriptEngine.run();
+    scriptResult=getScriptEngine().run();
   }
  catch (  Exception e) {
     SoapUI.logError(e);
   }
  finally {
     if (scriptResult != null) {
-      this.testStep.getProperty("Request").setValue((String)scriptResult);
+      getTestStep().getProperty("Request").setValue((String)scriptResult);
       SecurityTestRunnerImpl securityTestRunner=new SecurityTestRunnerImpl((SecurityTest)getParent(),new StringToObjectMap());
-      this.testStep.run(securityTestRunner,securityTestRunner.getRunContext());
+      getTestStep().run(securityTestRunner,securityTestRunner.getRunContext());
     }
-    scriptEngine.clearVariables();
+    getScriptEngine().clearVariables();
   }
 }

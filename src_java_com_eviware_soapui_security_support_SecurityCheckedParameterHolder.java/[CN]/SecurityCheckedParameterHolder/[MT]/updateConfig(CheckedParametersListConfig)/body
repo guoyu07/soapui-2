@@ -1,0 +1,9 @@
+{
+  paramsConfig=config;
+  List<CheckedParameterConfig> paramsList=config.getParametersList();
+  for (int c=0; c < paramsList.size(); c++) {
+    if (params.get(c) instanceof SecurityCheckedParameterImpl) {
+      ((SecurityCheckedParameterImpl)params.get(c)).setConfig(paramsList.get(c));
+    }
+  }
+}

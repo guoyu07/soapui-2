@@ -7,9 +7,9 @@
   this.config=config;
   this.startupScript=config.getSetupScript() != null ? config.getSetupScript().getStringValue() : "";
   this.tearDownScript=config.getTearDownScript() != null ? config.getTearDownScript().getStringValue() : "";
-  scriptEngine=SoapUIScriptEngineRegistry.create(this);
+  setScriptEngine(SoapUIScriptEngineRegistry.create(this));
   if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SEPARATE_REQUEST_STRATEGY);
   if (config.getChekedPameters() == null)   config.addNewChekedPameters();
-  this.parameterHolder=new SecurityCheckedParameterHolder(this,config.getChekedPameters());
+  setParameterHolder(new SecurityCheckedParameterHolder(this,config.getChekedPameters()));
   initAssertions();
 }

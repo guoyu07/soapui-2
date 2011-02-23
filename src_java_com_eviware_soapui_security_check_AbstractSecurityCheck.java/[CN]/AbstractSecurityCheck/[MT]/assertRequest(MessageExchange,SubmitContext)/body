@@ -3,12 +3,12 @@
   try {
     PropertyChangeNotifier notifier=new PropertyChangeNotifier();
     if (messageExchange != null) {
-      context.setProperty(SECURITY_CHECK_REQUEST_RESULT,securityCheckRequestResult);
+      context.setProperty(SECURITY_CHECK_REQUEST_RESULT,getSecurityCheckRequestResult());
       for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
         result=assertion.assertRequest(messageExchange,context);
         if (result == AssertionStatus.FAILED) {
-          for (          AssertionError error : assertion.getErrors())           securityCheckRequestResult.addMessage(error.getMessage());
-          securityCheckRequestResult.setStatus(SecurityStatus.FAILED);
+          for (          AssertionError error : assertion.getErrors())           getSecurityCheckRequestResult().addMessage(error.getMessage());
+          getSecurityCheckRequestResult().setStatus(SecurityStatus.FAILED);
         }
       }
       notifier.notifyChange();

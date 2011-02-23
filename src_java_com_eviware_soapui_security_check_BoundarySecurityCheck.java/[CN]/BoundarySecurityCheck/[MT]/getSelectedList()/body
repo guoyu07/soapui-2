@@ -1,6 +1,6 @@
 {
   List<String> selected=new ArrayList<String>();
-  for (  SecurityCheckedParameter cpc : parameterHolder.getParameterList()) {
+  for (  SecurityCheckedParameter cpc : getParameterHolder().getParameterList()) {
     if (cpc.isChecked())     selected.add(cpc.getName());
   }
   return selected;

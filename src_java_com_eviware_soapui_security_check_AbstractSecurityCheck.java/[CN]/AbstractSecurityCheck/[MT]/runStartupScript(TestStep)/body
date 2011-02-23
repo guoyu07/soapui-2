@@ -1,14 +1,14 @@
 {
-  scriptEngine.setScript(startupScript);
-  scriptEngine.setVariable("testStep",testStep);
-  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  getScriptEngine().setScript(startupScript);
+  getScriptEngine().setVariable("testStep",testStep);
+  getScriptEngine().setVariable("log",SoapUI.ensureGroovyLog());
   try {
-    scriptEngine.run();
+    getScriptEngine().run();
   }
  catch (  Exception e) {
     e.printStackTrace();
   }
  finally {
-    scriptEngine.clearVariables();
+    getScriptEngine().clearVariables();
   }
 }
