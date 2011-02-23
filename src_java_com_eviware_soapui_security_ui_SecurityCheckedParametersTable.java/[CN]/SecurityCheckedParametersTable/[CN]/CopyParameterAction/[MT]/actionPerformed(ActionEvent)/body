@@ -2,9 +2,7 @@
   if (table.getSelectedRow() > -1) {
     XFormDialog dialog=createAddParameterDialog();
     int row=table.getSelectedRow();
-    dialog.setValue(AddParameterDialog.LABEL,(String)model.getValueAt(row,0));
-    dialog.setValue(AddParameterDialog.NAME,(String)model.getValueAt(row,1));
-    dialog.setValue(AddParameterDialog.PATH,(String)model.getValueAt(row,2));
+    initDialogForCopy(dialog,row);
     dialog.show();
     model.fireTableDataChanged();
   }

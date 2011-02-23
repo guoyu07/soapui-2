@@ -1,9 +1,14 @@
 {
-  if (model.addParameter(dialog.getValue(AddParameterDialog.LABEL),dialog.getValue(AddParameterDialog.NAME),dialog.getValue(AddParameterDialog.PATH))) {
-    JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
-    nameField.setSelectedOptions(new Object[]{nameField.getOptions()[0]});
-    dialog.setValue(AddParameterDialog.LABEL,"");
-    dialog.setValue(AddParameterDialog.PATH,"");
+  if (dialog.getValue(AddParameterDialog.LABEL) == null || dialog.getValue(AddParameterDialog.LABEL).trim().length() == 0) {
+    UISupport.showErrorMessage("Label is required!");
   }
- else   UISupport.showErrorMessage("Label have to be unique!");
+ else {
+    if (addParameter(dialog)) {
+      JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
+      nameField.setSelectedOptions(new Object[]{nameField.getOptions()[0]});
+      dialog.setValue(AddParameterDialog.LABEL,"");
+      resetPathField(dialog);
+    }
+ else     UISupport.showErrorMessage("Label have to be unique!");
+  }
 }
