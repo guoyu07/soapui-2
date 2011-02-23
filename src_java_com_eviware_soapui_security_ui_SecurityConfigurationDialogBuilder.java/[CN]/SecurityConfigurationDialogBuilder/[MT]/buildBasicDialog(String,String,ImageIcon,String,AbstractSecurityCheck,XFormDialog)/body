@@ -12,7 +12,10 @@
   XFormField tabs=dialog.getFormField(DefaultDialog.TABS);
   JTabbedFormDialog tabDialog=((JTabbedFormDialog)ADialogBuilder.buildTabbedDialog(TabsForm.class,null));
   tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("component",new SecurityAssertionPanel(securityCheck));
+  tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("dimension",new Dimension(345,165));
   tabDialog.getFormField(SetupScript.SCRIPT).setProperty("component",buildSetupScriptPanel(securityCheck));
+  tabDialog.getFormField(SetupScript.SCRIPT).setProperty("dimension",new Dimension(385,165));
   tabDialog.getFormField(TearDownScript.SCRIPT).setProperty("component",buildTearDownScriptPanel(securityCheck));
+  tabDialog.getFormField(TearDownScript.SCRIPT).setProperty("dimension",new Dimension(360,165));
   tabs.setProperty("component",tabDialog.getTabs());
 }
