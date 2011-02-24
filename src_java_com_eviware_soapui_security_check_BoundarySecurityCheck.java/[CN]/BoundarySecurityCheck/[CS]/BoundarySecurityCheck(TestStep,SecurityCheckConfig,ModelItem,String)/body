@@ -1,7 +1,5 @@
 {
   super(testStep,config,parent,icon);
-  enumerationValuesExtractor=new EnumerationValuesExtractor(((WsdlTestRequestStep)testStep).getTestRequest());
   List<String> selected=getSelectedList();
-  enumerationValuesExtractor.setSelectedEnumerationParameters(selected);
   propertiesCounter=selected.size();
 }
