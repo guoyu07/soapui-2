@@ -5,9 +5,6 @@
   }
   this.testStep=testStep;
   this.config=config;
-  this.startupScript=config.getSetupScript() != null ? config.getSetupScript().getStringValue() : "";
-  this.tearDownScript=config.getTearDownScript() != null ? config.getTearDownScript().getStringValue() : "";
-  setScriptEngine(SoapUIScriptEngineRegistry.create(this));
   if (config.getExecutionStrategy() == null)   config.setExecutionStrategy(SEPARATE_REQUEST_STRATEGY);
   if (config.getChekedPameters() == null)   config.addNewChekedPameters();
   setParameterHolder(new SecurityCheckedParameterHolder(this,config.getChekedPameters()));

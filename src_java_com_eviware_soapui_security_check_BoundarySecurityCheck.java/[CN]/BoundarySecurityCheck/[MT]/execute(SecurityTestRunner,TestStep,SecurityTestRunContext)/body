@@ -1,0 +1,13 @@
+{
+  if (acceptsTestStep(testStep)) {
+    try {
+      updateRequestContent(testStep);
+    }
+ catch (    Exception e) {
+      SoapUI.log.error("Error extracting enumeration values from message",e);
+    }
+    testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(testStep);
+    propertiesCounter--;
+  }
+}

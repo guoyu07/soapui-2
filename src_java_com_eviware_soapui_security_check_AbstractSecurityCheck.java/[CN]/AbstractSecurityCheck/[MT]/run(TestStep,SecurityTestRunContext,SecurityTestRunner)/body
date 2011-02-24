@@ -1,0 +1,25 @@
+{
+  securityCheckResult=new SecurityCheckResult(this);
+  try {
+    runSetupScript(securityTestRunner,context);
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Exception during Test Execution",e);
+    securityCheckResult.status=SecurityStatus.FAILED;
+  }
+  while (hasNext()) {
+    setSecurityCheckRequestResult(new SecurityCheckRequestResult(this));
+    execute(securityTestRunner,testStep,context);
+    assertRequest(getSecurityCheckRequestResult().getMessageExchange(),context);
+    assertResponse(getSecurityCheckRequestResult().getMessageExchange(),context);
+    securityCheckResult.addSecurityRequestResult(getSecurityCheckRequestResult());
+  }
+  try {
+    runTearDownScript(securityTestRunner,context);
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Exception during Test Execution",e);
+    securityCheckResult.status=SecurityStatus.FAILED;
+  }
+  return securityCheckResult;
+}
