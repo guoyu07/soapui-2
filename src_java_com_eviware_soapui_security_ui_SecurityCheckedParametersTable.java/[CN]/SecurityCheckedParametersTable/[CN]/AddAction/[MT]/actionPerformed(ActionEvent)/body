@@ -3,11 +3,11 @@
     UISupport.showErrorMessage("Label is required!");
   }
  else {
-    if (addParameter(dialog)) {
+    if (model.addParameter(dialog.getValue(AddParameterDialog.LABEL),dialog.getValue(AddParameterDialog.NAME),pathPane.getText())) {
       JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
       nameField.setSelectedOptions(new Object[]{nameField.getOptions()[0]});
       dialog.setValue(AddParameterDialog.LABEL,"");
-      resetPathField(dialog);
+      pathPane.setText("");
     }
  else     UISupport.showErrorMessage("Label have to be unique!");
   }
