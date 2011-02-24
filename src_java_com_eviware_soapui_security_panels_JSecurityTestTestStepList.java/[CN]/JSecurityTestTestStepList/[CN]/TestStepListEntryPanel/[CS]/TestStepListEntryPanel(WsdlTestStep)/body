@@ -3,10 +3,13 @@
   setFocusable(true);
   this.testStep=testStep;
   autoscrollSupport=new AutoscrollSupport(this);
-  label=new JLabel(testStep.getLabel(),testStep.getIcon(),SwingConstants.LEFT);
+  label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
+  label.setIcon(testStep.getIcon());
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
   label.setInheritsPopupMenu(true);
   label.setEnabled(!testStep.isDisabled());
+  testStep.addPropertyChangeListener(TestStep.ICON_PROPERTY,this);
+  add(label,BorderLayout.LINE_START);
   if (AbstractSecurityCheck.isSecurable(testStep)) {
     progressBar=new JProgressBar(){
       protected void processMouseEvent(      MouseEvent e){
@@ -32,7 +35,6 @@
     progressBar.setInheritsPopupMenu(true);
     add(progressPanel,BorderLayout.LINE_END);
   }
-  add(label,BorderLayout.LINE_START);
   testCasePropertyChangeListener=new TestCasePropertyChangeListener();
   addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
