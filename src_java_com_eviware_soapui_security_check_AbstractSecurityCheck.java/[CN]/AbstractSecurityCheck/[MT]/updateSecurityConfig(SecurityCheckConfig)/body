@@ -1,10 +1,7 @@
 {
   this.config=config;
-  List<TestAssertionConfig> assertionList=config.getAssertionList();
-  for (int c=0; c < assertionList.size(); c++) {
-    assertionsSupport.getAssertionAt(c).updateConfig(assertionList.get(c));
-  }
-  if (getParameterHolder() != null) {
+  assertionsSupport.refresh();
+  if (getParameterHolder() != null && getConfig().getChekedPameters() != null) {
     getParameterHolder().updateConfig(config.getChekedPameters());
   }
 }
