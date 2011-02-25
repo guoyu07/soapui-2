@@ -1,7 +1,7 @@
 {
   ((JStringListFormField)dialog.getFormField(SensitiveInformationConfigDialog.INFOLIST)).getComponent().addPropertyChangeListener(new PropertyChangeListener(){
     @Override public void propertyChange(    PropertyChangeEvent evt){
-      save();
+      if ("options".equals(evt.getPropertyName()))       save();
     }
   }
 );
