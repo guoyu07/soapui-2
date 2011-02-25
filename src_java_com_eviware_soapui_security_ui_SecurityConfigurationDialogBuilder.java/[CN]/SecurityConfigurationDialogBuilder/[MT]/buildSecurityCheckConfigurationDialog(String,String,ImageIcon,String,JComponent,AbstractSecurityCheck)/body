@@ -4,5 +4,6 @@
  else   dialog=ADialogBuilder.buildDialog(OptionalDialog.class);
   if (component != null)   dialog.getFormField(OptionalDialog.OPTIONAL).setProperty("component",component);
   buildBasicDialog(name,description,icon,helpUrl,securityCheck,dialog);
+  ((JFormDialog)dialog).getDialog().setResizable(false);
   return dialog;
 }

@@ -10,7 +10,7 @@
     }
     currentIndex=0;
   }
-  if (getExecutionStrategy().equals(AbstractSecurityCheck.SEPARATE_REQUEST_STRATEGY) && getParameterHolder().getParameterList().size() > 0) {
+  if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE && getParameterHolder().getParameterList().size() > 0) {
     for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
       if (param != null) {
         while (currentIndex < getBombList().size() + 1) {

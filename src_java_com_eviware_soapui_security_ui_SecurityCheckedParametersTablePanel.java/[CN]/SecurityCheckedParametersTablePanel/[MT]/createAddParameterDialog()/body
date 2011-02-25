@@ -1,0 +1,37 @@
+{
+  actionList=new DefaultActionList();
+  AddAction addAction=new AddAction();
+  actionList.addAction(addAction,true);
+  AddAndCopy addAndCopy=new AddAndCopy();
+  actionList.addAction(addAndCopy);
+  Close closeAction=new Close();
+  actionList.addAction(closeAction);
+  dialog=ADialogBuilder.buildDialog(AddParameterDialog.class,actionList,false);
+  dialog.getFormField(AddParameterDialog.PATH).setProperty("component",buildPathSelector());
+  closeAction.setDialog(dialog);
+  addAction.setDialog(dialog);
+  addAndCopy.setDialog(dialog);
+  final XFormField labelField=dialog.getFormField(AddParameterDialog.LABEL);
+  labelField.setEnabled(false);
+  JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
+  enablePathField(false);
+  nameField.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (!newValue.equals(CHOOSE_TEST_PROPERTY)) {
+        labelField.setEnabled(true);
+        enablePathField(true);
+      }
+ else {
+        labelField.setEnabled(false);
+        enablePathField(false);
+      }
+    }
+  }
+);
+  ArrayList<String> options=new ArrayList<String>(properties.keySet());
+  options.set(0,CHOOSE_TEST_PROPERTY);
+  nameField.setOptions(options.toArray(new String[0]));
+  dialog.setWidth(450);
+  ((JFormDialog)dialog).getDialog().setResizable(false);
+  return dialog;
+}

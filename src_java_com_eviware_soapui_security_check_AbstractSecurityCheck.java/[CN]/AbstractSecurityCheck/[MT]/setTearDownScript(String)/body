@@ -1,4 +1,5 @@
 {
   if (config.getTearDownScript() == null)   config.addNewTearDownScript();
   config.getTearDownScript().setStringValue(text);
+  if (tearDownScriptEngine != null)   tearDownScriptEngine.setScript(text);
 }
