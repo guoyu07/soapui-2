@@ -4,6 +4,7 @@
     remove(testCaseListPanel);
     TestStepListEntryPanel testStepListEntry=panels.remove(testStep);
     testStepListPanel.remove(testStepListEntry);
+    testStepListEntry.release();
     splitPane.remove(splitPane.getTopComponent());
     splitPane.setTopComponent(new JScrollPane(testStepListPanel));
     revalidate();

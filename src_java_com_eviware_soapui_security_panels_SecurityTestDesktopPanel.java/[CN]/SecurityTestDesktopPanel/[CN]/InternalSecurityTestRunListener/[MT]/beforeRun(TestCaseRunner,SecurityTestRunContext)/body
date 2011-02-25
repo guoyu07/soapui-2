@@ -5,5 +5,8 @@
   testStepList.setEnabled(false);
   securityTestLog.addText("SecurityTest started at " + dateFormat.format(new Date()));
   SecurityTestDesktopPanel.this.beforeRun();
+  testStepList.reset();
+  progressBar.setValue(0);
+  progressBar.setString("");
   if (runner == null)   runner=(SecurityTestRunnerImpl)testRunner;
 }

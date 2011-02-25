@@ -1,5 +1,7 @@
 {
-  for (  TestStepListEntryPanel testCasePanel : panels.values()) {
-    testCasePanel.reset();
+  for (  TestStepListEntryPanel testStepPanel : panels.values()) {
+    if (AbstractSecurityCheck.isSecurable(testStepPanel.getTestStep())) {
+      testStepPanel.reset();
+    }
   }
 }
