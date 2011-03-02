@@ -8,7 +8,7 @@
   if (config.getExecutionStrategy() == null) {
     config.addNewExecutionStrategy();
     config.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
-    config.getExecutionStrategy().setDelay(10);
+    config.getExecutionStrategy().setDelay(100);
   }
   setExecutionStrategy(new ExecutionStrategyHolder(config.getExecutionStrategy()));
   if (config.getChekedPameters() == null)   config.addNewChekedPameters();
