@@ -3,7 +3,7 @@
     public void actionPerformed(    ActionEvent e){
       MockSecurityTestRunner securityTestRunner=new MockSecurityTestRunner((SecurityTest)((AbstractSecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).getParent());
       try {
-        ((AbstractSecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).runSetupScript(securityTestRunner,(SecurityTestRunContext)securityTestRunner.getRunContext());
+        ((SecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).runSetupScript(securityTestRunner,(SecurityTestRunContext)securityTestRunner.getRunContext());
       }
  catch (      Exception e1) {
         e1.printStackTrace();

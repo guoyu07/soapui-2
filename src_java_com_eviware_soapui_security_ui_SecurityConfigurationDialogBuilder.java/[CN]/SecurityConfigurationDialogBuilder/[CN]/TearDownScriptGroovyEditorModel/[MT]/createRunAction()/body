@@ -3,7 +3,7 @@
     public void actionPerformed(    ActionEvent e){
       try {
         MockSecurityTestRunner securityTestRunner=new MockSecurityTestRunner((SecurityTest)((AbstractSecurityCheck)TearDownScriptGroovyEditorModel.this.getModelItem()).getParent());
-        ((AbstractSecurityCheck)TearDownScriptGroovyEditorModel.this.getModelItem()).runTearDownScript(securityTestRunner,(SecurityTestRunContext)securityTestRunner.getRunContext());
+        ((SecurityCheck)TearDownScriptGroovyEditorModel.this.getModelItem()).runTearDownScript(securityTestRunner,(SecurityTestRunContext)securityTestRunner.getRunContext());
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);

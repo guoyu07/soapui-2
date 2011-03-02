@@ -10,7 +10,7 @@
       configureSecurityCheckAction.setEnabled(ix >= 0);
       removeSecurityCheckAction.setEnabled(ix >= 0);
       if (ix == -1)       return;
-      AbstractSecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+      SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
       configureSecurityCheckAction.setEnabled(securityCheck != null && securityCheck.isConfigurable());
     }
   }

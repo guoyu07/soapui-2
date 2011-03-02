@@ -14,7 +14,7 @@
     UISupport.showErrorMessage("No security checks available for this message");
     return;
   }
-  AbstractSecurityCheck securityCheck=securityTest.addSecurityCheck(testStep,type,name);
+  SecurityCheck securityCheck=securityTest.addSecurityCheck(testStep,type,name);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");
     return;

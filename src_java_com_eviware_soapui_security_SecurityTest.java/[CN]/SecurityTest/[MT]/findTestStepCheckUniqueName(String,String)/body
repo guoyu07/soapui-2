@@ -3,7 +3,7 @@
   int numNames=0;
   List<AbstractSecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
   if (securityChecksList != null && !securityChecksList.isEmpty()) {
-    for (    AbstractSecurityCheck existingCheck : securityChecksList) {
+    for (    SecurityCheck existingCheck : securityChecksList) {
       if (existingCheck.getType().equals(name))       numNames++;
     }
   }
