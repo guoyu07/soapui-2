@@ -1,3 +1,11 @@
 {
-  return null;
+  if (actionList == null) {
+    actionList=new DefaultActionList(getSecurityCheck().getName());
+  }
+  if (!getSecurityRequestResultList().isEmpty()) {
+    for (    SecurityCheckRequestResult reqResult : getSecurityRequestResultList()) {
+      actionList.addActions(reqResult.getActions());
+    }
+  }
+  return actionList;
 }

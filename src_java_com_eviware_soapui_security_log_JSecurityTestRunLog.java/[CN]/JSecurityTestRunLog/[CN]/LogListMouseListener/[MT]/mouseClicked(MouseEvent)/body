@@ -3,15 +3,6 @@
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
     SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
     if (result != null && result.getActions() != null)     result.getActions().performDefaultAction(new ActionEvent(this,0,null));
-    if (result != null && !result.getSecurityCheckResultList().isEmpty()) {
-      for (      SecurityCheckResult securityCheckResult : result.getSecurityCheckResultList()) {
-        if (result != null && !securityCheckResult.getSecurityRequestResultList().isEmpty()) {
-          for (          SecurityCheckRequestResult reqResult : securityCheckResult.getSecurityRequestResultList()) {
-            showSecurityCheckRequestMessageExchangeAction(reqResult);
-          }
-        }
-      }
-    }
   }
   selectedIndex=index;
 }
