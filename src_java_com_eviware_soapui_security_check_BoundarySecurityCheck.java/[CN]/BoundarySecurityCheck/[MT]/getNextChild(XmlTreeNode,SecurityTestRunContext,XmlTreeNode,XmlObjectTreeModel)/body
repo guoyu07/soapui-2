@@ -1,0 +1,16 @@
+{
+  String baseType=null;
+  for (int i=0; i < node.getChildCount(); i++) {
+    XmlTreeNode mynode=node.getChild(i);
+    if ("xsd:restriction".equals(mynode.getParent().getNodeName())) {
+      if (mynode.getNodeName().equals("@base")) {
+        baseType=mynode.getNodeText();
+        System.out.println(mynode.getNodeName() + "=" + mynode.getNodeText());
+      }
+ else {
+        createMutation(baseType,mynode,context,nodeToUpdate,model);
+      }
+    }
+    getNextChild(mynode,context,nodeToUpdate,model);
+  }
+}

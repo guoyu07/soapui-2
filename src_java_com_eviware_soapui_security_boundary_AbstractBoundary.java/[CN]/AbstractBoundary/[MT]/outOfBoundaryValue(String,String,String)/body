@@ -1,0 +1,13 @@
+{
+  Boundary boundary=AbstractBoundary.factory(baseType);
+  if (AbstractBoundary.XSD_MIN_LENGTH.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MIN_LENGTH,nodeValue);
+  }
+ else   if (AbstractBoundary.XSD_MAX_LENGTH.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MAX_LENGTH,nodeValue);
+  }
+ else   if (AbstractBoundary.XSD_LENGTH.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.LENGTH,nodeValue);
+  }
+  return null;
+}

@@ -1,13 +1,8 @@
 {
   if (acceptsTestStep(testStep)) {
-    try {
-      updateRequestContent(testStep);
-    }
- catch (    Exception e) {
-      SoapUI.log.error("Error extracting enumeration values from message",e);
-    }
+    String mutatedRequest=popMutation(context);
+    updateTestStepRequest(testStep,mutatedRequest);
     testStep.run((TestCaseRunner)securityTestRunner,context);
     createMessageExchange(testStep);
-    propertiesCounter--;
   }
 }

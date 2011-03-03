@@ -1,0 +1,21 @@
+{
+  if (!context.hasProperty(REQUEST_MUTATIONS_STACK)) {
+    Stack<String> requestMutationsList=new Stack<String>();
+    context.put(REQUEST_MUTATIONS_STACK,requestMutationsList);
+    try {
+      extractMutations(testStep,context);
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+    return true;
+  }
+  Stack<String> stack=(Stack<String>)context.get(REQUEST_MUTATIONS_STACK);
+  if (stack.empty()) {
+    context.remove(REQUEST_MUTATIONS_STACK);
+    return false;
+  }
+ else {
+    return true;
+  }
+}

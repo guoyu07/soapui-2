@@ -7,7 +7,7 @@
     SoapUI.log.error("Exception during Test Execution",e);
     securityCheckResult.setStatus(SecurityStatus.FAILED);
   }
-  while (hasNext()) {
+  while (hasNext(testStep,context)) {
     setSecurityCheckRequestResult(new SecurityCheckRequestResult(this));
     execute(securityTestRunner,testStep,context);
     assertRequest(getSecurityCheckRequestResult().getMessageExchange(),context);

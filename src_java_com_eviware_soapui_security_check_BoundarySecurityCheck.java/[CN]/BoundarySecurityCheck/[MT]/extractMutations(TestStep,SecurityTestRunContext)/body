@@ -1,0 +1,34 @@
+{
+  XmlObjectTreeModel model=null;
+  WsdlRequest request=((WsdlTestRequestStep)testStep).getTestRequest();
+  try {
+    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  List<SecurityCheckedParameter> scpList=getParameterHolder().getParameterList();
+  for (  SecurityCheckedParameter scp : scpList) {
+    if (scp.isChecked()) {
+      XmlTreeNode[] treeNodes=model.selectTreeNodes(scp.getXPath());
+      if (treeNodes.length > 0) {
+        XmlTreeNode mynode=treeNodes[0];
+        if (mynode.getSchemaType().isSimpleType()) {
+          if (mynode.getSchemaType() != null && mynode.getSchemaType().getEnumerationValues() != null && mynode.getSchemaType().getEnumerationValues().length > 0) {
+            EnumerationValues nodeInfo=new EnumerationValues(mynode.getSchemaType().getBaseType().getShortJavaName());
+            for (            XmlAnySimpleType s : mynode.getSchemaType().getEnumerationValues()) {
+              nodeInfo.addValue(s.getStringValue());
+            }
+            updateEnumNodeValue(mynode,nodeInfo);
+            addMutation(context,model.getXmlObject().toString());
+          }
+ else {
+            SchemaTypeImpl simpleType=(SchemaTypeImpl)mynode.getSchemaType();
+            XmlObjectTreeModel model2=new XmlObjectTreeModel(simpleType.getTypeSystem(),simpleType.getParseObject());
+            extractRestrictions(model2,context,mynode,model);
+          }
+        }
+      }
+    }
+  }
+}

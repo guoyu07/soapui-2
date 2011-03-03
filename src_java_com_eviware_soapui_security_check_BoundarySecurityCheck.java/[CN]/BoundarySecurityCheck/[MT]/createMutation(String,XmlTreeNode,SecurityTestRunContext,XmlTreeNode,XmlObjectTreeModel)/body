@@ -1,0 +1,8 @@
+{
+  String value=null;
+  String nodeName=mynode.getNodeName();
+  String nodeValue=mynode.getChild(0).getNodeText();
+  value=AbstractBoundary.outOfBoundaryValue(baseType,nodeName,nodeValue);
+  nodeToUpdate.setValue(1,value);
+  addMutation(context,model.getXmlObject().toString());
+}

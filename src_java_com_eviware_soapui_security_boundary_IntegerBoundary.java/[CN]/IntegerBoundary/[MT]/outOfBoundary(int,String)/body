@@ -1,0 +1,14 @@
+{
+switch (restrictionAttribute) {
+case LENGTH:
+    return BoundaryUtils.createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(value));
+case MIN_LENGTH:
+  return BoundaryUtils.createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(value) - 1);
+case MAX_LENGTH:
+return BoundaryUtils.createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(value) + 1);
+case TOTAL_DIGITS:
+return BoundaryUtils.createCharacterArray(AVAILABLE_VALUES,Integer.valueOf(value) + 1);
+default :
+return null;
+}
+}
