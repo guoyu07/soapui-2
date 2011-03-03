@@ -9,8 +9,8 @@
       securityTestStepListeners[i].beforeStep(this,getRunContext(),currentStep);
     }
     TestStepResult stepResult=runTestStep(currentStep,true,true);
-    SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep);
     if (stepResult == null)     return -2;
+    SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep,stepResult);
     Map<String,List<AbstractSecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
       List<AbstractSecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
@@ -19,7 +19,7 @@
         runContext.setCurrentCheckIndex(i);
         runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
-        securityStepResult.addSecurityRequestResult(securityCheckResult);
+        securityStepResult.addSecurityCheckResult(securityCheckResult);
         if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
           if (getTestRunnable().getFailOnError()) {
             fail("Cancelling due to failed security check");
@@ -29,6 +29,7 @@
           }
         }
       }
+      securityTest.putSecurityTestStepResult(currentStep,securityStepResult);
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
       securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);

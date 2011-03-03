@@ -1,5 +1,5 @@
 {
-  if (progressBar.isIndeterminate())   return;
+  progressBar.setIndeterminate(true);
   if (securityCheck != null) {
     progressBar.setString(securityCheck.getName());
     progressBar.setValue(((SecurityTestRunContext)runContext).getCurrentCheckIndex());

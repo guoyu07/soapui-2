@@ -5,7 +5,7 @@
   }
  catch (  Exception e) {
     SoapUI.log.error("Exception during Test Execution",e);
-    securityCheckResult.status=SecurityStatus.FAILED;
+    securityCheckResult.setStatus(SecurityStatus.FAILED);
   }
   while (hasNext()) {
     setSecurityCheckRequestResult(new SecurityCheckRequestResult(this));
@@ -25,7 +25,7 @@
   }
  catch (  Exception e) {
     SoapUI.log.error("Exception during Test Execution",e);
-    securityCheckResult.status=SecurityStatus.FAILED;
+    securityCheckResult.setStatus(SecurityStatus.FAILED);
   }
   return securityCheckResult;
 }

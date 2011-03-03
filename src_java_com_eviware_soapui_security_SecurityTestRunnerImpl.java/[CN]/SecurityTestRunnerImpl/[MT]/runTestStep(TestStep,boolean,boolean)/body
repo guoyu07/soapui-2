@@ -1,13 +1,6 @@
 {
-  for (int i=0; i < securityTestListeners.length; i++) {
-    securityTestListeners[i].beforeStep(this,getRunContext(),testStep);
-    if (!isRunning())     return null;
-  }
   TestStepResult stepResult=testStep.run(this,getRunContext());
   getResults().add(stepResult);
   setResultCount(getResultCount() + 1);
-  for (int i=0; i < securityTestListeners.length; i++) {
-    securityTestListeners[i].afterStep(this,getRunContext(),new SecurityTestStepResult(testStep));
-  }
   return stepResult;
 }
