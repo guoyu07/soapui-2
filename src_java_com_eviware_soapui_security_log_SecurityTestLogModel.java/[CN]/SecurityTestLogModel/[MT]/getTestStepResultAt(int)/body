@@ -1,0 +1,5 @@
+{
+  if (index >= testStepResults.size())   return null;
+  SoftReference<SecurityTestStepResult> result=testStepResults.get(index);
+  return result == null ? null : result.get();
+}

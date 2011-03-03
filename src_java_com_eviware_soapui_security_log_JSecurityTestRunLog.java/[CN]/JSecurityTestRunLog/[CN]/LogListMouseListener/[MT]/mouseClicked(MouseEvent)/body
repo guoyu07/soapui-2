@@ -1,11 +1,15 @@
 {
   int index=testLogList.getSelectedIndex();
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
-    SecurityCheckResult result=logListModel.getResultAt(index);
-    if (result != null && !result.getSecurityRequestResultList().isEmpty()) {
-      for (      SecurityCheckRequestResult reqResult : result.getSecurityRequestResultList()) {
-        ShowMessageExchangeAction showMessageExchangeAction=new ShowMessageExchangeAction(reqResult.getMessageExchange(),"SecurityCheck");
-        showMessageExchangeAction.actionPerformed(new ActionEvent(this,0,null));
+    SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
+    if (result != null && !result.getSecurityCheckResultList().isEmpty()) {
+      for (      SecurityCheckResult securityCheckResult : result.getSecurityCheckResultList()) {
+        if (result != null && !securityCheckResult.getSecurityRequestResultList().isEmpty()) {
+          for (          SecurityCheckRequestResult reqResult : securityCheckResult.getSecurityRequestResultList()) {
+            ShowMessageExchangeAction showMessageExchangeAction=new ShowMessageExchangeAction(reqResult.getMessageExchange(),"SecurityCheck");
+            showMessageExchangeAction.actionPerformed(new ActionEvent(this,0,null));
+          }
+        }
       }
     }
   }

@@ -15,19 +15,37 @@
     String msg=logItem.getMsg();
     setText(msg == null ? "" : msg);
   }
-  SecurityCheckResult result=logListModel.getResultAt(index);
+  SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
   if (result != null && !getText().startsWith(" ->")) {
     hyperlinkLabel.setText(getText());
     hyperlinkLabel.setBackground(getBackground());
     hyperlinkLabel.setEnabled(list.isEnabled());
-    if (result.getStatus() == SecurityStatus.OK) {
-      hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+    if (getText().startsWith("Step")) {
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
+      if (result.getOriginalTestStepResult().getStatus() == TestStepStatus.OK) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+      }
+ else       if (result.getOriginalTestStepResult().getStatus() == TestStepStatus.FAILED) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+      }
+ else {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+      }
     }
- else     if (result.getStatus() == SecurityStatus.FAILED) {
-      hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+ else     if (getText().startsWith("Check")) {
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
+      if (result.getStatus() == SecurityStatus.OK) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+      }
+ else       if (result.getStatus() == SecurityStatus.FAILED) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+      }
+ else {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+      }
     }
  else {
-      hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
     }
     return hyperlinkLabel;
   }

@@ -1,5 +1,5 @@
 {
-  if (logListModel == null)   logListModel=new SecurityTestLogModel();
+  logListModel=new SecurityTestLogModel();
   logListModel.setMaxSize((int)settings.getLong(OptionsForm.class.getName() + "@max_rows",1000));
   testLogList=new JList(logListModel);
   testLogList.setCellRenderer(new SecurityTestLogCellRenderer());
