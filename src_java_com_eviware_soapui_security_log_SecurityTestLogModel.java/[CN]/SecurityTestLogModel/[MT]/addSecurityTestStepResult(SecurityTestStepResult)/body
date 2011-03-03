@@ -11,7 +11,7 @@
   if (AbstractSecurityCheck.isSecurable(result.getOriginalTestStepResult().getTestStep()) && !result.getSecurityCheckResultList().isEmpty()) {
     for (int i=0; i < result.getSecurityCheckResultList().size(); i++) {
       SecurityCheckResult securityCheckResult=result.getSecurityCheckResultList().get(i);
-      items.add("Check " + i + " ["+ securityCheckResult.getSecurityCheck().getName()+ "] "+ securityCheckResult.getStatus()+ ": took "+ result.getTimeTaken()+ " ms");
+      items.add("Check " + (i + 1) + " ["+ securityCheckResult.getSecurityCheck().getName()+ "] "+ securityCheckResult.getStatus()+ ": took "+ result.getTimeTaken()+ " ms");
       testStepResults.add(stepResultRef);
       for (      SecurityCheckRequestResult requestResult : securityCheckResult.getSecurityRequestResultList()) {
         for (        String msg : requestResult.getMessages()) {
