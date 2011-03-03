@@ -2,6 +2,6 @@
   if (securityRequestResultList != null)   securityRequestResultList.add(secReqResult);
   timeTaken+=secReqResult.getTimeTaken();
   if (status == SecurityStatus.OK)   status=secReqResult.getStatus();
-  this.testLog.append("SecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
+  this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);
 }

@@ -2,6 +2,5 @@
   if (securityCheckResultList != null)   securityCheckResultList.add(securityCheckResult);
   timeTaken+=securityCheckResult.getTimeTaken();
   if (status == SecurityStatus.OK)   status=securityCheckResult.getStatus();
-  this.testLog.append("SecurityCheck ").append(securityCheckResultList.indexOf(securityCheckResult)).append(securityCheckResult.getStatus().toString()).append(": took ").append(securityCheckResult.getTimeTaken()).append(" ms");
   this.testLog.append(securityCheckResult.getSecurityTestLog());
 }
