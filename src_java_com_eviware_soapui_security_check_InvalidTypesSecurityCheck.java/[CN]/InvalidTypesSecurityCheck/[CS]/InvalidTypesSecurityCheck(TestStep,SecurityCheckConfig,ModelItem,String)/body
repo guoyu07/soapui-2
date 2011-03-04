@@ -1,5 +1,5 @@
 {
   super(testStep,config,parent,icon);
-  config.setConfig(CheckedParametersListConfig.Factory.newInstance());
-  extractor=new SchemeTypeExtractor(testStep);
+  if (config.getConfig() == null || !(config.getConfig() instanceof InvalidSecurityCheckConfig))   initInvalidTypesConfig();
+ else   invalidTypeConfig=(InvalidSecurityCheckConfig)config.getConfig();
 }

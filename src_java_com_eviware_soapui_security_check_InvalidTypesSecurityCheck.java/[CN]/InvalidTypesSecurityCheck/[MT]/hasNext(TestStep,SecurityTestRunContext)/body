@@ -1,3 +1,16 @@
 {
+  boolean oldHasNext=hasNext;
+  if (parameterMutations == null)   hasNext=true;
+ else {
+    boolean haveMore=false;
+    for (    SecurityCheckedParameter param : parameterMutations.keySet()) {
+      if (parameterMutations.get(param).size() > 0) {
+        haveMore=true;
+        break;
+      }
+    }
+    hasNext=hasNext ? haveMore : true;
+  }
+  if (oldHasNext && !hasNext)   generated=false;
   return hasNext;
 }

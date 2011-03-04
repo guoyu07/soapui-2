@@ -1,0 +1,6 @@
+{
+  List toRemove=new ArrayList();
+  for (  int index : selectedRows)   toRemove.add(data.getTypesListList().get(index));
+  data.getTypesListList().removeAll(toRemove);
+  fireTableDataChanged();
+}

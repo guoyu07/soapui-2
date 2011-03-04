@@ -1,0 +1,53 @@
+{
+  if (!generated)   try {
+    mutateParameters();
+  }
+ catch (  XmlException e1) {
+    e1.printStackTrace();
+  }
+  if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
+    for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
+      if (parameterMutations.containsKey(param))       if (parameterMutations.get(param).size() > 0) {
+        try {
+          TestProperty property=getTestStep().getProperties().get(param.getName());
+          String value=property.getValue();
+          XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+          XmlTreeNode[] nodes=model.selectTreeNodes(param.getXPath());
+          for (          XmlTreeNode node : nodes)           node.setValue(1,parameterMutations.get(param).get(0));
+          parameterMutations.get(param).remove(0);
+          testStep.getProperties().get(param.getName()).setValue(model.getXmlObject().toString());
+        }
+ catch (        Exception e) {
+          e.printStackTrace();
+        }
+        break;
+      }
+    }
+  }
+ else {
+    for (    TestProperty property : testStep.getPropertyList()) {
+      String value=property.getValue();
+      XmlObjectTreeModel model;
+      if (value == null)       continue;
+      try {
+        model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+        for (        SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
+          if (param.getName().equals(property.getName())) {
+            XmlTreeNode[] nodes=model.selectTreeNodes(param.getXPath());
+            if (parameterMutations.containsKey(param))             if (parameterMutations.get(param).size() > 0) {
+              for (              XmlTreeNode node : nodes)               node.setValue(1,parameterMutations.get(param).get(0));
+              parameterMutations.get(param).remove(0);
+            }
+          }
+        }
+        property.setValue(model.getXmlObject().toString());
+      }
+ catch (      XmlException e) {
+        continue;
+      }
+catch (      Exception e) {
+        continue;
+      }
+    }
+  }
+}

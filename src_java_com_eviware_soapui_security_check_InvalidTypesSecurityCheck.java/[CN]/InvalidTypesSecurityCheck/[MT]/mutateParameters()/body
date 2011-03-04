@@ -1,0 +1,27 @@
+{
+  if (!generated) {
+    generated=true;
+    hasNext=true;
+    for (    SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
+      TestProperty property=getTestStep().getProperties().get(parameter.getName());
+      if (property.getValue() == null && property.getDefaultValue() == null)       continue;
+      String value=property.getValue() == null ? property.getDefaultValue() : property.getValue();
+      try {
+        XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+        XmlTreeNode[] nodes=model.selectTreeNodes(parameter.getXPath());
+        List<SchemaTypeForSecurityCheckConfig> invalidTypes=invalidTypeConfig.getTypesListList();
+        for (        SchemaTypeForSecurityCheckConfig type : invalidTypes) {
+          if (nodes.length > 0) {
+            if (nodes[0].getSchemaType().getBuiltinTypeCode() != type.getType()) {
+              if (!parameterMutations.containsKey(parameter))               parameterMutations.put(parameter,new ArrayList<String>());
+              parameterMutations.get(parameter).add(type.getValue());
+            }
+          }
+        }
+      }
+ catch (      Exception e1) {
+        UISupport.showErrorMessage("Failed to select XPath for source property value [" + value + "]");
+      }
+    }
+  }
+}
