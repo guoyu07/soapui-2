@@ -1,26 +1,34 @@
 {
   AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(securityCheckType);
   SecurityCheckConfig newSecCheckConfig=factory.createNewSecurityCheck(securityCheckName);
-  AbstractSecurityCheck newSecCheck=factory.buildSecurityCheck(testStep,newSecCheckConfig,this);
-  newSecCheck.setTestStep(testStep);
+  AbstractSecurityCheck newSecCheck=null;
+  TestStepSecurityTestConfig testStepSecurityTest=null;
   boolean hasChecks=false;
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
   if (!testStepSecurityTestList.isEmpty()) {
-    for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
-      if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
-        List<SecurityCheckConfig> securityCheckList=testStepSecurityTest.getTestStepSecurityCheckList();
-        securityCheckList.add(newSecCheck.getConfig());
+    for (int i=0; i < testStepSecurityTestList.size(); i++) {
+      TestStepSecurityTestConfig testStepSecurityTestConfig=testStepSecurityTestList.get(i);
+      if (testStepSecurityTestConfig.getTestStepId().equals(testStep.getId())) {
+        SecurityCheckConfig newSecurityCheck=testStepSecurityTestConfig.addNewTestStepSecurityCheck();
+        newSecurityCheck.setConfig(newSecCheckConfig.getConfig());
+        newSecurityCheck.setType(newSecCheckConfig.getType());
+        newSecurityCheck.setName(newSecCheckConfig.getName());
+        newSecCheck=factory.buildSecurityCheck(testStep,newSecurityCheck,this);
         hasChecks=true;
+        break;
       }
     }
   }
   if (!hasChecks) {
-    TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
+    testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
     testStepSecurityTest.setTestStepId(testStep.getId());
     SecurityCheckConfig newSecurityCheck=testStepSecurityTest.addNewTestStepSecurityCheck();
     newSecurityCheck.setConfig(newSecCheckConfig.getConfig());
-    newSecurityCheck.setType(newSecCheck.getType());
-    newSecurityCheck.setName(newSecCheck.getName());
+    newSecurityCheck.setType(newSecCheckConfig.getType());
+    newSecurityCheck.setName(newSecCheckConfig.getName());
+    newSecCheck=factory.buildSecurityCheck(testStep,newSecurityCheck,this);
+  }
+ else {
   }
   if (listModel != null)   listModel.securityCheckAdded(newSecCheck);
   addSecurityCheckByTestStepId(testStep.getId(),newSecCheck);
