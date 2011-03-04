@@ -1,0 +1,7 @@
+{
+  SecurityCheckConfig newSecurityCheck=testStepSecurityTestConfig.addNewTestStepSecurityCheck();
+  newSecurityCheck.setConfig(newSecCheckConfig.getConfig());
+  newSecurityCheck.setType(newSecCheckConfig.getType());
+  newSecurityCheck.setName(newSecCheckConfig.getName());
+  return factory.buildSecurityCheck(testStep,newSecurityCheck,this);
+}
