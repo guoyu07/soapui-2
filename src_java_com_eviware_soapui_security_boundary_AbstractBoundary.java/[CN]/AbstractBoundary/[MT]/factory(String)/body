@@ -2,5 +2,14 @@
   if ("xsd:string".equals(type)) {
     return new StringBoundary();
   }
+  if ("xsd:integer".equals(type)) {
+    return new IntegerBoundary();
+  }
+  if ("xsd:decimal".equals(type)) {
+    return new DecimalBoundary();
+  }
+  if ("xsd:dateTime".equals(type)) {
+    return new DateBoundary();
+  }
   return null;
 }

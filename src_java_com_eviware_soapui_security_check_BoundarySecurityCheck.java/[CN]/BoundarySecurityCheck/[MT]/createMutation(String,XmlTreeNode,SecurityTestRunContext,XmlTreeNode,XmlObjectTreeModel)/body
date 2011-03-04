@@ -3,6 +3,11 @@
   String nodeName=mynode.getNodeName();
   String nodeValue=mynode.getChild(0).getNodeText();
   value=AbstractBoundary.outOfBoundaryValue(baseType,nodeName,nodeValue);
-  nodeToUpdate.setValue(1,value);
-  addMutation(context,model.getXmlObject().toString());
+  if (value != null) {
+    nodeToUpdate.setValue(1,value);
+    if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE))     addMutation(context,model.getXmlObject().toString());
+  }
+ else {
+    SoapUI.log.warn("Restriction:" + nodeName + " is not supported for baseType:"+ baseType);
+  }
 }

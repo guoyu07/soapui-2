@@ -5,7 +5,6 @@
     if ("xsd:restriction".equals(mynode.getParent().getNodeName())) {
       if (mynode.getNodeName().equals("@base")) {
         baseType=mynode.getNodeText();
-        System.out.println(mynode.getNodeName() + "=" + mynode.getNodeText());
       }
  else {
         createMutation(baseType,mynode,context,nodeToUpdate,model);

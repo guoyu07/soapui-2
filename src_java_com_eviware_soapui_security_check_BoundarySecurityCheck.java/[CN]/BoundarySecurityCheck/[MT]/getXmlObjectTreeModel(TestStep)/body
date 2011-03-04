@@ -1,0 +1,11 @@
+{
+  XmlObjectTreeModel model=null;
+  WsdlRequest request=((WsdlTestRequestStep)testStep).getTestRequest();
+  try {
+    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return model;
+}

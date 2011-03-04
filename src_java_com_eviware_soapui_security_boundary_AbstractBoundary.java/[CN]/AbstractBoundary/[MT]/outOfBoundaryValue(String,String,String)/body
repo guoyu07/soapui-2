@@ -1,13 +1,31 @@
 {
   Boundary boundary=AbstractBoundary.factory(baseType);
-  if (AbstractBoundary.XSD_MIN_LENGTH.equals(nodeName)) {
+  if (XSD_MIN_LENGTH.equals(nodeName)) {
     return boundary.outOfBoundary(Boundary.MIN_LENGTH,nodeValue);
   }
- else   if (AbstractBoundary.XSD_MAX_LENGTH.equals(nodeName)) {
+ else   if (XSD_MAX_LENGTH.equals(nodeName)) {
     return boundary.outOfBoundary(Boundary.MAX_LENGTH,nodeValue);
   }
- else   if (AbstractBoundary.XSD_LENGTH.equals(nodeName)) {
+ else   if (XSD_LENGTH.equals(nodeName)) {
     return boundary.outOfBoundary(Boundary.LENGTH,nodeValue);
+  }
+ else   if (XSD_MAX_EXCLUSIVE.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MAX_EXCLISIVE,nodeValue);
+  }
+ else   if (XSD_MAX_INCLUSIVE.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MAX_INCLISIVE,nodeValue);
+  }
+ else   if (XSD_MIN_EXCLUSIVE.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MIN_EXCLISIVE,nodeValue);
+  }
+ else   if (XSD_MIN_INCLUSIVE.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.MIN_INCLISIVE,nodeValue);
+  }
+ else   if (XSD_TOTAL_DIGITS.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.TOTAL_DIGITS,nodeValue);
+  }
+ else   if (XSD_FRACTION_DIGITS.equals(nodeName)) {
+    return boundary.outOfBoundary(Boundary.FRACTION_DIGITS,nodeValue);
   }
   return null;
 }

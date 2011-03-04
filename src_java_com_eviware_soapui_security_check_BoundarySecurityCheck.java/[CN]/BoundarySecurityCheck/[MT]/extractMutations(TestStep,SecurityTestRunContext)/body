@@ -1,16 +1,17 @@
 {
-  XmlObjectTreeModel model=null;
-  WsdlRequest request=((WsdlTestRequestStep)testStep).getTestRequest();
-  try {
-    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
-  }
+  strategy=getExecutionStrategy().getStrategy();
+  XmlObjectTreeModel model=getXmlObjectTreeModel(testStep);
   List<SecurityCheckedParameter> scpList=getParameterHolder().getParameterList();
   for (  SecurityCheckedParameter scp : scpList) {
     if (scp.isChecked()) {
-      XmlTreeNode[] treeNodes=model.selectTreeNodes(scp.getXPath());
+      XmlTreeNode[] treeNodes=null;
+      if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
+        model=getXmlObjectTreeModel(testStep);
+        treeNodes=model.selectTreeNodes(scp.getXPath());
+      }
+ else {
+        treeNodes=model.selectTreeNodes(scp.getXPath());
+      }
       if (treeNodes.length > 0) {
         XmlTreeNode mynode=treeNodes[0];
         if (mynode.getSchemaType().isSimpleType()) {
@@ -20,7 +21,7 @@
               nodeInfo.addValue(s.getStringValue());
             }
             updateEnumNodeValue(mynode,nodeInfo);
-            addMutation(context,model.getXmlObject().toString());
+            if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE))             addMutation(context,model.getXmlObject().toString());
           }
  else {
             SchemaTypeImpl simpleType=(SchemaTypeImpl)mynode.getSchemaType();
@@ -31,4 +32,5 @@
       }
     }
   }
+  if (strategy.equals(StrategyTypeConfig.ALL_AT_ONCE))   addMutation(context,model.getXmlObject().toString());
 }
