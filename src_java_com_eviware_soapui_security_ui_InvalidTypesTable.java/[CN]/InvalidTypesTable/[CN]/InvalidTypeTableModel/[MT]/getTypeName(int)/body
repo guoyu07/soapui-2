@@ -1,0 +1,64 @@
+{
+  String result="UNKNOWN";
+switch (type) {
+case SchemaType.BTC_STRING:
+    return "STRING";
+case SchemaType.BTC_NORMALIZED_STRING:
+  return "NORMALIZED_STRING";
+case SchemaType.BTC_TOKEN:
+return "TOKEN";
+case SchemaType.BTC_BASE_64_BINARY:
+return "BASE_64_BINARY";
+case SchemaType.BTC_HEX_BINARY:
+return "HEX_BINARY";
+case SchemaType.BTC_INTEGER:
+return "INTEGER";
+case SchemaType.BTC_POSITIVE_INTEGER:
+return "POSITIVE_INTEGER";
+case SchemaType.BTC_NEGATIVE_INTEGER:
+return "NEGATIVE_INTEGER";
+case SchemaType.BTC_NON_NEGATIVE_INTEGER:
+return "NON_NEGATIVE_INTEGER";
+case SchemaType.BTC_NON_POSITIVE_INTEGER:
+return "NON_POSITIVE_INTEGER";
+case SchemaType.BTC_LONG:
+return "LONG";
+case SchemaType.BTC_UNSIGNED_LONG:
+return "UNSIGNED_LONG";
+case SchemaType.BTC_INT:
+return "-2147483647";
+case SchemaType.BTC_UNSIGNED_INT:
+return "UNSIGNED_INT";
+case SchemaType.BTC_SHORT:
+return "SHORT";
+case SchemaType.BTC_UNSIGNED_SHORT:
+return "UNSIGNED_SHORT";
+case SchemaType.BTC_BYTE:
+return "BYTE";
+case SchemaType.BTC_UNSIGNED_BYTE:
+return "UNSIGNED_BYTE";
+case SchemaType.BTC_DECIMAL:
+return "DECIMAL";
+case SchemaType.BTC_FLOAT:
+return "FLOAT";
+case SchemaType.BTC_DOUBLE:
+return "12.45E+12";
+case SchemaType.BTC_BOOLEAN:
+return "BOOLEAN";
+case SchemaType.BTC_DURATION:
+return "DURATION";
+case SchemaType.BTC_DATE_TIME:
+return "DATE_TIME";
+case SchemaType.BTC_DATE:
+return "DATE";
+case SchemaType.BTC_TIME:
+return "TIME";
+case SchemaType.BTC_G_YEAR:
+return "G_YEAR";
+case SchemaType.BTC_G_YEAR_MONTH:
+return "G_YEAR_MONTH";
+default :
+break;
+}
+return result;
+}

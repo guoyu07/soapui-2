@@ -1,11 +1,5 @@
 {
   SchemaTypeForSecurityCheckConfig paramType=data.getTypesListList().get(rowIndex);
-  if (columnIndex == 0)   try {
-    paramType.setType(Integer.parseInt((String)aValue));
-  }
- catch (  NumberFormatException e) {
-    UISupport.showErrorMessage("Type have be integer!");
-  }
- else   paramType.setValue((String)aValue);
+  paramType.setValue((String)aValue);
   fireTableDataChanged();
 }
