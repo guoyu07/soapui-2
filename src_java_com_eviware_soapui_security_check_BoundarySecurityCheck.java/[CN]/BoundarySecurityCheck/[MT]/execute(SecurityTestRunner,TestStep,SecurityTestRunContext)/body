@@ -1,8 +1,10 @@
 {
   if (acceptsTestStep(testStep)) {
     String mutatedRequest=popMutation(context);
-    updateTestStepRequest(testStep,mutatedRequest);
-    testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(testStep);
+    if (mutatedRequest != null) {
+      updateTestStepRequest(testStep,mutatedRequest);
+      testStep.run((TestCaseRunner)securityTestRunner,context);
+      createMessageExchange(testStep);
+    }
   }
 }
