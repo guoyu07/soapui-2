@@ -1,8 +1,14 @@
 {
   int index=testLogList.getSelectedIndex();
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
-    SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
-    if (result != null && result.getActions() != null)     result.getActions().performDefaultAction(new ActionEvent(this,0,null));
+    SecurityCheckResult checkResult=logListModel.getCheckResultAt(index);
+    if (checkResult != null) {
+      if (checkResult != null && checkResult.getActions() != null)       checkResult.getActions().performDefaultAction(new ActionEvent(this,0,null));
+    }
+ else {
+      SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
+      if (result != null && result.getActions() != null)       result.getActions().performDefaultAction(new ActionEvent(this,0,null));
+    }
   }
   selectedIndex=index;
 }

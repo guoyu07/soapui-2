@@ -4,10 +4,5 @@
   }
   actionList.addActions(getOriginalTestStepResult().getActions());
   actionList.setDefaultAction(getOriginalTestStepResult().getActions().getDefaultAction());
-  if (!getSecurityCheckResultList().isEmpty()) {
-    for (    SecurityCheckResult checkResult : getSecurityCheckResultList()) {
-      actionList.addActions(checkResult.getActions());
-    }
-  }
   return actionList;
 }

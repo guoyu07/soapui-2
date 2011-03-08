@@ -1,0 +1,17 @@
+{
+  checkCount++;
+  int size=items.size();
+  SoftReference<SecurityCheckResult> checkResultRef=new SoftReference<SecurityCheckResult>(securityCheckResult);
+  items.add("Check " + checkCount + " ["+ securityCheckResult.getSecurityCheck().getName()+ "] "+ securityCheckResult.getStatus()+ ": took "+ securityCheckResult.getTimeTaken()+ " ms");
+  testStepResults.add(null);
+  checkResults.add(checkResultRef);
+  for (  SecurityCheckRequestResult requestResult : securityCheckResult.getSecurityRequestResultList()) {
+    for (    String msg : requestResult.getMessages()) {
+      items.add(" -> " + msg);
+      checkResults.add(checkResultRef);
+      testStepResults.add(null);
+    }
+  }
+  fireIntervalAdded(this,size,items.size() - 1);
+  enforceMaxSize();
+}
