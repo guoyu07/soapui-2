@@ -7,14 +7,16 @@
     testStepListEntry.release();
     splitPane.remove(splitPane.getTopComponent());
     splitPane.setTopComponent(new JScrollPane(testStepListPanel));
-    if (secCheckPanel instanceof SecurityChecksPanel) {
-      ((SecurityChecksPanel)secCheckPanel).release();
-      splitPane.remove(secCheckPanel);
-      selectedTestStep=null;
-      secCheckPanel=buildSecurityChecksPanel();
-      secCheckPanel.revalidate();
-      splitPane.setBottomComponent(secCheckPanel);
-      splitPane.revalidate();
+    if (secCheckPanel != null) {
+      if (secCheckPanel instanceof SecurityChecksPanel) {
+        ((SecurityChecksPanel)secCheckPanel).release();
+        splitPane.remove(secCheckPanel);
+        selectedTestStep=null;
+        secCheckPanel=buildSecurityChecksPanel();
+        secCheckPanel.revalidate();
+        splitPane.setBottomComponent(secCheckPanel);
+        splitPane.revalidate();
+      }
     }
     revalidate();
     repaint();
