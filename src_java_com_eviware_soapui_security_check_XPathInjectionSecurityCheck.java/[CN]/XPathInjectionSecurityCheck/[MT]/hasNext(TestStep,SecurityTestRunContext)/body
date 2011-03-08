@@ -1,0 +1,16 @@
+{
+  boolean hasNext=false;
+  if (parameterMutations == null || parameterMutations.size() == 0)   hasNext=true;
+ else {
+    for (    SecurityCheckedParameter param : parameterMutations.keySet()) {
+      if (parameterMutations.get(param).size() > 0) {
+        hasNext=true;
+        break;
+      }
+    }
+  }
+  if (!hasNext) {
+    parameterMutations.clear();
+  }
+  return hasNext;
+}

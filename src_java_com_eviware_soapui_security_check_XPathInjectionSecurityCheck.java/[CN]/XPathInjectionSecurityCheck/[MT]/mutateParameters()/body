@@ -1,0 +1,26 @@
+{
+  for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
+    TestProperty property=getTestStep().getProperties().get(parameter.getName());
+    if (property.getValue() == null && property.getDefaultValue() == null)     continue;
+    String value=property.getValue();
+    if (value == null) {
+      for (      String xpathInjectionString : xpathList.getXpathListList()) {
+        if (!parameterMutations.containsKey(parameter))         parameterMutations.put(parameter,new ArrayList<String>());
+        parameterMutations.get(parameter).add(xpathInjectionString);
+      }
+    }
+    try {
+      XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+      XmlTreeNode[] nodes=model.selectTreeNodes(parameter.getXPath());
+      for (      String xpathInjectionString : xpathList.getXpathListList()) {
+        if (nodes.length > 0) {
+          if (!parameterMutations.containsKey(parameter))           parameterMutations.put(parameter,new ArrayList<String>());
+          parameterMutations.get(parameter).add(xpathInjectionString);
+        }
+      }
+    }
+ catch (    Exception e1) {
+      SoapUI.logError(e1,"[XPathInjection]Failed to select XPath for source property value [" + value + "]");
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  JFormDialog dialog=(JFormDialog)ADialogBuilder.buildDialog(AdvancedSettings.class);
+  JStringListFormField stringField=(JStringListFormField)dialog.getFormField(AdvancedSettings.INJECTION_STRINGS);
+  stringField.setOptions(xpathList.getXpathListList().toArray());
+  stringField.setProperty("dimension",new Dimension(470,150));
+  stringField.getComponent().addPropertyChangeListener("options",new PropertyChangeListener(){
+    @Override public void propertyChange(    PropertyChangeEvent evt){
+      String[] newOptions=(String[])evt.getNewValue();
+      String[] oldOptions=(String[])evt.getOldValue();
+      if (newOptions.length > oldOptions.length) {
+        String[] newValue=(String[])evt.getNewValue();
+        String itemToAdd=newValue[newValue.length - 1];
+        xpathList.addXpathList(itemToAdd);
+      }
+      if (newOptions.length < oldOptions.length) {
+        for (int cnt=0; cnt < oldOptions.length; cnt++) {
+          if (cnt < newOptions.length) {
+            if (newOptions[cnt] != oldOptions[cnt]) {
+              xpathList.removeXpathList(cnt);
+              break;
+            }
+          }
+ else {
+            xpathList.removeXpathList(oldOptions.length - 1);
+          }
+        }
+      }
+    }
+  }
+);
+  return dialog.getPanel();
+}
