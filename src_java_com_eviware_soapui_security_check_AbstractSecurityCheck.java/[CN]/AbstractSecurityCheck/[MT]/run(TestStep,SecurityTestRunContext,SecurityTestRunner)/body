@@ -9,7 +9,7 @@
   }
   while (hasNext(testStep,context)) {
     setSecurityCheckRequestResult(new SecurityCheckRequestResult(this));
-    execute(securityTestRunner,testStep,context);
+    execute(securityTestRunner,((SecurityTestRunnerImpl)securityTestRunner).cloneForSecurityCheck((WsdlTestStep)this.testStep),context);
     assertRequest(getSecurityCheckRequestResult().getMessageExchange(),context);
     assertResponse(getSecurityCheckRequestResult().getMessageExchange(),context);
     securityCheckResult.addSecurityRequestResult(getSecurityCheckRequestResult());

@@ -3,7 +3,12 @@
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
     SecurityCheckResult checkResult=logListModel.getCheckResultAt(index);
     if (checkResult != null) {
-      if (checkResult != null && checkResult.getActions() != null)       checkResult.getActions().performDefaultAction(new ActionEvent(this,0,null));
+      if (checkResult != null && !checkResult.getSecurityRequestResultList().isEmpty()) {
+        for (        SecurityCheckRequestResult reqResult : checkResult.getSecurityRequestResultList()) {
+          ShowMessageExchangeAction showMessageExchangeAction=new ShowMessageExchangeAction(reqResult.getMessageExchange(),"SecurityCheck");
+          showMessageExchangeAction.actionPerformed(new ActionEvent(this,0,null));
+        }
+      }
     }
  else {
       SecurityTestStepResult result=logListModel.getTestStepResultAt(index);
