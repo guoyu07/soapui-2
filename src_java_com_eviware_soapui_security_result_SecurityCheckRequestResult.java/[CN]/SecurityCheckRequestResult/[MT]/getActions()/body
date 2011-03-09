@@ -2,6 +2,9 @@
   if (actionList == null) {
     actionList=new DefaultActionList(getSecurityCheck().getName());
   }
-  actionList.addAction(new ShowMessageExchangeAction(this.getMessageExchange(),"SecurityCheckRequest"),true);
+  if (!addedAction) {
+    actionList.addAction(new ShowMessageExchangeAction(this.getMessageExchange(),"SecurityCheckRequest"),true);
+    addedAction=true;
+  }
   return actionList;
 }
