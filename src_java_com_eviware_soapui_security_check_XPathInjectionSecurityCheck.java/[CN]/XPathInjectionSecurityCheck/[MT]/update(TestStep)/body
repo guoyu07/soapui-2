@@ -1,5 +1,5 @@
 {
-  if (parameterMutations.size() == 0)   mutateParameters();
+  if (parameterMutations.size() == 0)   mutateParameters(testStep);
   if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
     for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
       if (parameterMutations.containsKey(param))       if (parameterMutations.get(param).size() > 0) {

@@ -1,0 +1,31 @@
+{
+  for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
+    TestProperty property=getTestStep().getProperties().get(parameter.getName());
+    if (parameter.getXPath() == null || parameter.getXPath().trim().length() == 0) {
+      for (      SchemaTypeForSecurityCheckConfig invalidType : invalidTypeConfig.getTypesListList()) {
+        if (!parameterMutations.containsKey(parameter))         parameterMutations.put(parameter,new ArrayList<String>());
+        parameterMutations.get(parameter).add(invalidType.getValue());
+      }
+    }
+ else {
+      if (property.getValue() == null && property.getDefaultValue() == null)       continue;
+      String value=property.getValue();
+      try {
+        XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+        XmlTreeNode[] nodes=model.selectTreeNodes(parameter.getXPath());
+        List<SchemaTypeForSecurityCheckConfig> invalidTypes=invalidTypeConfig.getTypesListList();
+        for (        SchemaTypeForSecurityCheckConfig type : invalidTypes) {
+          if (nodes.length > 0) {
+            if (nodes[0].getSchemaType().getBuiltinTypeCode() != type.getType()) {
+              if (!parameterMutations.containsKey(parameter))               parameterMutations.put(parameter,new ArrayList<String>());
+              parameterMutations.get(parameter).add(type.getValue());
+            }
+          }
+        }
+      }
+ catch (      Exception e1) {
+        SoapUI.logError(e1,"[InvalidtypeSecurityCheck]Failed to select XPath for source property value [" + value + "]");
+      }
+    }
+  }
+}

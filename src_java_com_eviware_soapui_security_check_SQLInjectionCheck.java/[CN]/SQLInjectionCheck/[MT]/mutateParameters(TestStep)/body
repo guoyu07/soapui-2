@@ -1,0 +1,30 @@
+{
+  for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
+    TestProperty property=testStep.getProperties().get(parameter.getName());
+    if (parameter.getXPath() == null || parameter.getXPath().trim().length() == 0) {
+      for (      String sqlInjectionString : sqlInjectionConfig.getSqlInjectionStringsList()) {
+        if (!parameterMutations.containsKey(parameter))         parameterMutations.put(parameter,new ArrayList<String>());
+        parameterMutations.get(parameter).add(sqlInjectionString);
+      }
+    }
+ else {
+      if (property.getValue() == null && property.getDefaultValue() == null)       continue;
+      String value=property.getValue();
+      try {
+        XmlObjectTreeModel model=null;
+        if (testStep instanceof WsdlTestRequestStep)         model=new XmlObjectTreeModel(((WsdlTestRequestStep)testStep).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+        if (testStep instanceof RestTestRequestStep || testStep instanceof HttpTestRequestStep)         model=new XmlObjectTreeModel(XmlObject.Factory.parse(value));
+        XmlTreeNode[] nodes=model.selectTreeNodes(parameter.getXPath());
+        for (        String sqlInjectionString : sqlInjectionConfig.getSqlInjectionStringsList()) {
+          if (nodes.length > 0) {
+            if (!parameterMutations.containsKey(parameter))             parameterMutations.put(parameter,new ArrayList<String>());
+            parameterMutations.get(parameter).add(sqlInjectionString);
+          }
+        }
+      }
+ catch (      Exception e1) {
+        SoapUI.logError(e1,"[SQLInjectionSecurityCheck]Failed to select XPath for source property value [" + value + "]");
+      }
+    }
+  }
+}
