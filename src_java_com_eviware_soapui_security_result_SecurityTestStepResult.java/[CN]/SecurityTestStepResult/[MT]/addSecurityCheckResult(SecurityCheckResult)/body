@@ -1,6 +1,12 @@
 {
   if (securityCheckResultList != null)   securityCheckResultList.add(securityCheckResult);
   timeTaken+=securityCheckResult.getTimeTaken();
-  if (status == SecurityStatus.OK)   status=securityCheckResult.getStatus();
+  if (!hasAddedRequests && securityCheckResult.getStatus() == SecurityStatus.OK) {
+    status=SecurityStatus.OK;
+  }
+ else   if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
+    status=SecurityStatus.FAILED;
+  }
   this.testLog.append(securityCheckResult.getSecurityTestLog());
+  hasAddedRequests=true;
 }

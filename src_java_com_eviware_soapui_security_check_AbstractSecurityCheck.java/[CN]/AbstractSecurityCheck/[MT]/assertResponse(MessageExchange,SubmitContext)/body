@@ -6,10 +6,7 @@
       context.setProperty(SECURITY_CHECK_REQUEST_RESULT,getSecurityCheckRequestResult());
       for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
         result=assertion.assertResponse(messageExchange,context);
-        if (result == AssertionStatus.FAILED) {
-          for (          AssertionError error : assertion.getErrors())           getSecurityCheckRequestResult().addMessage(error.getMessage());
-          getSecurityCheckRequestResult().setStatus(SecurityStatus.FAILED);
-        }
+        setStatus(result,assertion);
       }
       notifier.notifyChange();
     }

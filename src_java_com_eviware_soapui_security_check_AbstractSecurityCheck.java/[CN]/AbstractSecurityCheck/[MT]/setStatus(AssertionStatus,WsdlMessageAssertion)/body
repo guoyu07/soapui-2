@@ -1,0 +1,12 @@
+{
+  if (result == AssertionStatus.FAILED) {
+    for (    AssertionError error : assertion.getErrors())     getSecurityCheckRequestResult().addMessage(error.getMessage());
+    getSecurityCheckRequestResult().setStatus(SecurityStatus.FAILED);
+  }
+ else   if (result == AssertionStatus.VALID) {
+    getSecurityCheckRequestResult().setStatus(SecurityStatus.OK);
+  }
+ else   if (result == AssertionStatus.UNKNOWN) {
+    getSecurityCheckRequestResult().setStatus(SecurityStatus.UNKNOWN);
+  }
+}

@@ -3,7 +3,7 @@
   if (result.getStatus() == SecurityStatus.FAILED) {
     progressBar.setForeground(Color.RED);
   }
- else   if (!securityTest.getTestCase().getFailTestCaseOnErrors()) {
+ else   if (testRunner.getStatus() == Status.FINISHED) {
     progressBar.setForeground(Color.GREEN.darker());
   }
   progressBar.setString(result.getStatus().toString());
