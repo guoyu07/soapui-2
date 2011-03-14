@@ -16,13 +16,24 @@
     setText(msg == null ? "" : msg);
   }
   SecurityResult result=logListModel.getTestStepResultAt(index);
-  if (result != null && !getText().startsWith(" ->")) {
-    if (result.getResultType().equals(SecurityCheckResult.TYPE)) {
+  if (result != null) {
+    if (result != null && result.getResultType().equals(SecurityCheckRequestResult.TYPE)) {
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());
-      if (getText().startsWith("Check")) {
-        hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
+      hyperlinkLabel.setUnderlineColor(Color.WHITE);
+      hyperlinkLabel.setIcon(null);
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
+    }
+ else     if (result.getResultType().equals(SecurityCheckResult.TYPE)) {
+      hyperlinkLabel.setText(getText());
+      hyperlinkLabel.setBackground(getBackground());
+      hyperlinkLabel.setEnabled(list.isEnabled());
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
+      hyperlinkLabel.setUnderlineColor(Color.WHITE);
+      hyperlinkLabel.setIcon(null);
+      if (getText().startsWith("SecurityCheck") && !getText().startsWith(" ->")) {
+        hyperlinkLabel.setUnderlineColor(Color.GRAY);
         if (result.getStatus() == SecurityStatus.OK) {
           hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
         }
@@ -39,8 +50,11 @@
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());
-      if (getText().startsWith("Step")) {
+      hyperlinkLabel.setUnderlineColor(Color.WHITE);
+      hyperlinkLabel.setIcon(null);
+      if (getText().startsWith("Step") && !getText().startsWith(" ->")) {
         hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
+        hyperlinkLabel.setUnderlineColor(Color.GRAY);
         if (securitytestStepresult.getOriginalTestStepResult().getStatus() == TestStepStatus.OK) {
           hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
         }

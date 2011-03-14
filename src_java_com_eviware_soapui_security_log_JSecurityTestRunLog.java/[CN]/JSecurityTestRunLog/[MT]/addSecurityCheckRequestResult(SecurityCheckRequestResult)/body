@@ -1,0 +1,11 @@
+{
+  if (errorsOnly && checkRequestResult.getStatus() != SecurityCheckRequestResult.SecurityStatus.FAILED)   return;
+  logListModel.addSecurityCheckRequestResult(checkRequestResult);
+  if (follow) {
+    try {
+      testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);
+    }
+ catch (    RuntimeException e) {
+    }
+  }
+}

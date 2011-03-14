@@ -5,11 +5,7 @@
   items.add("Check " + checkCount + " ["+ securityCheckResult.getSecurityCheck().getName()+ "] "+ securityCheckResult.getStatus()+ ": took "+ securityCheckResult.getTimeTaken()+ " ms");
   results.add(checkResultRef);
   for (  SecurityCheckRequestResult requestResult : securityCheckResult.getSecurityRequestResultList()) {
-    for (    String msg : requestResult.getMessages()) {
-      SoftReference<SecurityResult> checkReqResultRef=new SoftReference<SecurityResult>(requestResult);
-      items.add(" -> " + msg);
-      results.add(checkReqResultRef);
-    }
+    addSecurityCheckRequestResult(requestResult);
   }
   fireIntervalAdded(this,size,items.size() - 1);
   enforceMaxSize();

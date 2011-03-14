@@ -1,0 +1,8 @@
+{
+  int size=items.size();
+  SoftReference<SecurityResult> checkResultRef=new SoftReference<SecurityResult>(securityCheckResult);
+  items.add("SecurityCheck [" + securityCheckResult.getSecurityCheck().getName() + "] finished with status [ "+ securityCheckResult.getStatus()+ "], time taken = "+ securityCheckResult.getTimeTaken());
+  results.add(checkResultRef);
+  fireIntervalAdded(this,size,items.size() - 1);
+  enforceMaxSize();
+}

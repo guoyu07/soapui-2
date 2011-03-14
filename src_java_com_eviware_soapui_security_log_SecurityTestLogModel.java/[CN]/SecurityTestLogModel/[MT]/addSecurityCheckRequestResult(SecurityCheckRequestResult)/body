@@ -1,0 +1,10 @@
+{
+  int size=items.size();
+  for (  String msg : securityCheckRequestResult.getMessages()) {
+    SoftReference<SecurityResult> checkReqResultRef=new SoftReference<SecurityResult>(securityCheckRequestResult);
+    items.add(" -> " + msg);
+    results.add(checkReqResultRef);
+  }
+  fireIntervalAdded(this,size,items.size() - 1);
+  enforceMaxSize();
+}
