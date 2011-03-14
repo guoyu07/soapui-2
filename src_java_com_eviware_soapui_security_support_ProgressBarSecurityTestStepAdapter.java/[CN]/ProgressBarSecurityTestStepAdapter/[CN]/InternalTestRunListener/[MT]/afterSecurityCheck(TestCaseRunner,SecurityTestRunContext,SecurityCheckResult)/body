@@ -6,5 +6,8 @@
  else   if (securityCheckResult.getStatus() == SecurityStatus.OK) {
     progressBar.setForeground(Color.GREEN.darker());
   }
+ else   if (securityCheckResult.getStatus() == SecurityStatus.UNKNOWN) {
+    progressBar.setForeground(Color.WHITE);
+  }
   progressBar.setValue(((SecurityTestRunContext)runContext).getCurrentCheckIndex() + 1);
 }

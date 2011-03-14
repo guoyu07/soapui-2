@@ -2,6 +2,7 @@
   progressBar.setIndeterminate(true);
   if (securityCheck != null) {
     progressBar.setString(securityCheck.getName());
+    progressBar.setForeground(Color.GRAY);
     progressBar.setValue(((SecurityTestRunContext)runContext).getCurrentCheckIndex());
   }
 }

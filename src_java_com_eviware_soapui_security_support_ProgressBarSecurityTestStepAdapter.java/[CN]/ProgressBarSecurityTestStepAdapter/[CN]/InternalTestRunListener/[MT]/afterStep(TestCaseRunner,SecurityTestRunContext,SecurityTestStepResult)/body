@@ -6,6 +6,9 @@
  else   if (testRunner.getStatus() == Status.FINISHED) {
     progressBar.setForeground(Color.GREEN.darker());
   }
+ else   if (testRunner.getStatus() != Status.RUNNING) {
+    progressBar.setForeground(Color.WHITE);
+  }
   progressBar.setString(result.getStatus().toString());
   progressBar.setValue(progressBar.getMaximum());
 }
