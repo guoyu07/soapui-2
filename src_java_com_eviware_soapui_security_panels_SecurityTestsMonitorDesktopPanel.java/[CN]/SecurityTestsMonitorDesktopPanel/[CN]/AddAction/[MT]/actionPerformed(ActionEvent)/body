@@ -1,5 +1,5 @@
 {
-  String[] availableChecksNames=SecurityCheckRegistry.getInstance().getAvailableSecurityChecksNames(true);
+  String[] availableChecksNames=SoapUI.getSoapUICore().getSecurityCheckRegistry().getAvailableSecurityChecksNames(true);
   String type=UISupport.prompt("Specify type of security check","Add SecurityCheck",availableChecksNames);
   if (type == null || type.trim().length() == 0)   return;
   String name=UISupport.prompt("Specify name for security check","Add SecurityCheck",findUniqueName(type));
