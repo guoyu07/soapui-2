@@ -1,10 +1,10 @@
 {
   List<ModelItem> items=new ArrayList<ModelItem>();
-  String targetTestSuiteName=dialog.getValue(CloneParameterDialog.TESTSUITE);
-  String targetTestCaseName=dialog.getValue(CloneParameterDialog.TESTCASE);
-  String targetSecurityTestName=dialog.getValue(CloneParameterDialog.SECURITYTESTS);
-  String targetSecurityTestStepName=dialog.getValue(CloneParameterDialog.TESTSTEP);
-  String[] securityChecks=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(CloneParameterDialog.TARGET_SECURITYCHECKS)).getSelectedOptions());
+  String targetTestSuiteName=dialog.getValue(CloneParameterDialog.TARGET_TESTSUITE);
+  String targetTestCaseName=dialog.getValue(CloneParameterDialog.TARGET_TESTCASE);
+  String targetSecurityTestName=dialog.getValue(CloneParameterDialog.TARGET_SECURITYTEST);
+  String targetSecurityTestStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
+  String[] securityChecks=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(CloneParameterDialog.TARGET_SECURITYCHECK)).getSelectedOptions());
   if (securityChecks.length == 0) {
     UISupport.showErrorMessage("No SecurityChecks selected..");
     return items;
