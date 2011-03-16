@@ -1,5 +1,5 @@
 {
-  testCase=testStep.getTestCase();
+  testCase=securityCheck.getTestStep().getTestCase();
   project=testCase.getTestSuite().getProject();
   final XFormDialog dialog=ADialogBuilder.buildDialog(CloneParameterDialog.class);
   dialog.getFormField(CloneParameterDialog.TESTSUITE).addFormFieldListener(new XFormFieldListener(){
@@ -87,8 +87,7 @@
   }
 );
   dialog.addAction(new ApplyAction());
-  WsdlTestCase testCase=(WsdlTestCase)testStep.getTestCase();
-  WorkspaceImpl workspace=testCase.getTestSuite().getProject().getWorkspace();
+  WsdlTestCase testCase=(WsdlTestCase)securityCheck.getTestStep().getTestCase();
   dialog.setOptions(CloneParameterDialog.TESTSUITE,ModelSupport.getNames(testCase.getTestSuite().getProject().getTestSuiteList()));
   dialog.setValue(CloneParameterDialog.TESTSUITE,testCase.getTestSuite().getName());
   List<TestCase> testCaseList=testCase.getTestSuite().getTestCaseList();
