@@ -1,0 +1,106 @@
+{
+  testCase=testStep.getTestCase();
+  project=testCase.getTestSuite().getProject();
+  final XFormDialog dialog=ADialogBuilder.buildDialog(CloneParameterDialog.class);
+  dialog.getFormField(CloneParameterDialog.TESTSUITE).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      TestSuite testSuite=project.getTestSuiteByName(newValue);
+      String[] testCaseNames=ModelSupport.getNames(testSuite.getTestCaseList());
+      dialog.setOptions(CloneParameterDialog.TESTCASE,testCaseNames);
+      if (testCaseNames.length > 0) {
+        dialog.setValue(CloneParameterDialog.TESTCASE,testCaseNames[0]);
+        TestCase testCase=testSuite.getTestCaseByName(testCaseNames[0]);
+        String[] testStepNames=ModelSupport.getNames(testCase.getTestStepList());
+        dialog.setOptions(CloneParameterDialog.TESTSTEP,testStepNames);
+        String[] securityTestNames=ModelSupport.getNames(testCase.getSecurityTestList());
+        dialog.setOptions(CloneParameterDialog.SECURITYTESTS,securityTestNames);
+        if (testStepNames.length > 0) {
+          dialog.setValue(CloneParameterDialog.TESTSTEP,testStepNames[0]);
+        }
+ else {
+          dialog.setOptions(CloneParameterDialog.TESTSTEP,new String[0]);
+        }
+        if (securityTestNames.length > 0) {
+          dialog.setValue(CloneParameterDialog.SECURITYTESTS,securityTestNames[0]);
+        }
+ else {
+          dialog.setOptions(CloneParameterDialog.SECURITYTESTS,new String[0]);
+        }
+      }
+ else {
+        dialog.setOptions(CloneParameterDialog.SECURITYTESTS,new String[0]);
+        dialog.setOptions(CloneParameterDialog.TESTSTEP,new String[0]);
+      }
+    }
+  }
+);
+  dialog.getFormField(CloneParameterDialog.TESTCASE).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      String testSuiteName=dialog.getValue(CloneParameterDialog.TESTSUITE);
+      TestSuite testSuite=project.getTestSuiteByName(testSuiteName);
+      TestCase testCase=testSuite.getTestCaseByName(newValue);
+      String[] testStepNames=ModelSupport.getNames(testCase.getTestStepList());
+      dialog.setOptions(CloneParameterDialog.TESTSTEP,testStepNames);
+      String[] securityTestNames=ModelSupport.getNames(testCase.getSecurityTestList());
+      dialog.setOptions(CloneParameterDialog.SECURITYTESTS,securityTestNames);
+      if (testStepNames.length > 0) {
+        dialog.setValue(CloneParameterDialog.TESTSTEP,testStepNames[0]);
+      }
+ else {
+        dialog.setOptions(CloneParameterDialog.TESTSTEP,new String[0]);
+      }
+      if (securityTestNames.length > 0) {
+        dialog.setValue(CloneParameterDialog.SECURITYTESTS,securityTestNames[0]);
+      }
+ else {
+        dialog.setOptions(CloneParameterDialog.SECURITYTESTS,new String[0]);
+      }
+    }
+  }
+);
+  dialog.getFormField(CloneParameterDialog.TESTSTEP).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      String testSuiteName=dialog.getValue(CloneParameterDialog.TESTSUITE);
+      TestSuite testSuite=project.getTestSuiteByName(testSuiteName);
+      String testCaseName=dialog.getValue(CloneParameterDialog.TESTCASE);
+      TestCase testCase=testSuite.getTestCaseByName(testCaseName);
+      String securityTestName=dialog.getValue(CloneParameterDialog.SECURITYTESTS);
+      SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
+      TestStep testStep=testCase.getTestStepByName(newValue);
+      String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
+      dialog.setOptions(CloneParameterDialog.SECURITYCHECKS,securityCheckNames);
+    }
+  }
+);
+  dialog.getFormField(CloneParameterDialog.SECURITYTESTS).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      String testSuiteName=dialog.getValue(CloneParameterDialog.TESTSUITE);
+      TestSuite testSuite=project.getTestSuiteByName(testSuiteName);
+      String testCaseName=dialog.getValue(CloneParameterDialog.TESTCASE);
+      TestCase testCase=testSuite.getTestCaseByName(testCaseName);
+      SecurityTest securityTest=testCase.getSecurityTestByName(newValue);
+      String testStepName=dialog.getValue(CloneParameterDialog.TESTSTEP);
+      TestStep testStep=testCase.getTestStepByName(testStepName);
+      String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
+      dialog.setOptions(CloneParameterDialog.SECURITYCHECKS,securityCheckNames);
+    }
+  }
+);
+  dialog.addAction(new ApplyAction());
+  WsdlTestCase testCase=(WsdlTestCase)testStep.getTestCase();
+  WorkspaceImpl workspace=testCase.getTestSuite().getProject().getWorkspace();
+  dialog.setOptions(CloneParameterDialog.TESTSUITE,ModelSupport.getNames(testCase.getTestSuite().getProject().getTestSuiteList()));
+  dialog.setValue(CloneParameterDialog.TESTSUITE,testCase.getTestSuite().getName());
+  List<TestCase> testCaseList=testCase.getTestSuite().getTestCaseList();
+  dialog.setOptions(CloneParameterDialog.TESTCASE,ModelSupport.getNames(testCaseList));
+  dialog.setValue(CloneParameterDialog.TESTCASE,testCase.getName());
+  if (dialog.show()) {
+    List<ModelItem> items=performClone();
+    if (items.size() > 0) {
+      UISupport.showDesktopPanel(new ModelItemListDesktopPanel("Updated TestRequests","The following TestRequests where updated with new assertions",items.toArray(new ModelItem[items.size()])));
+    }
+ else {
+      UISupport.showInfoMessage("Updated " + items.size() + " steps");
+    }
+  }
+}
