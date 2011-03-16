@@ -1,3 +1,42 @@
 {
-  return new ArrayList<ModelItem>();
+  List<ModelItem> items=new ArrayList<ModelItem>();
+  String targetTestSuiteName=dialog.getValue(CloneParameterDialog.TESTSUITE);
+  String targetTestCaseName=dialog.getValue(CloneParameterDialog.TESTCASE);
+  String targetSecurityTestName=dialog.getValue(CloneParameterDialog.SECURITYTESTS);
+  String targetSecurityTestStepName=dialog.getValue(CloneParameterDialog.TESTSTEP);
+  String[] securityChecks=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(CloneParameterDialog.TARGET_SECURITYCHECKS)).getSelectedOptions());
+  if (securityChecks.length == 0) {
+    UISupport.showErrorMessage("No SecurityChecks selected..");
+    return items;
+  }
+  int[] indexes=((XFormOptionsField)dialog.getFormField(CloneParameterDialog.PARAMETERS)).getSelectedIndexes();
+  if (indexes.length == 0) {
+    UISupport.showErrorMessage("No Parameters selected..");
+    return items;
+  }
+  Project project=testCase.getTestSuite().getProject();
+  TestSuite targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
+  TestCase targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
+  SecurityTest targetSecurityTest=targetTestCase.getSecurityTestByName(targetSecurityTestName);
+  TestStep targetTestStep=targetTestCase.getTestStepByName(targetSecurityTestStepName);
+  boolean overwrite=dialog.getBooleanValue(CloneParameterDialog.OVERWRITE);
+  for (  String checkName : securityChecks) {
+    AbstractSecurityCheckWithProperties targetSecurityCheck=(AbstractSecurityCheckWithProperties)targetSecurityTest.getTestStepSecurityCheckByName(targetTestStep.getId(),checkName);
+    for (    int i : indexes) {
+      SecurityCheckedParameter checkParameter=securityCheck.getParameterAt(i);
+      String newParameterName=checkParameter.getName();
+      if (securityCheck.getParameterByName(checkParameter.getName()) != null) {
+        if (securityCheck.equals(targetSecurityCheck)) {
+          newParameterName="Copy of " + checkParameter.getName();
+        }
+ else {
+          newParameterName=newParameterName + "1";
+        }
+      }
+      if (targetSecurityCheck.importParameter(checkParameter,overwrite,newParameterName) && !items.contains(targetSecurityCheck)) {
+        items.add(targetSecurityCheck);
+      }
+    }
+  }
+  return items;
 }
