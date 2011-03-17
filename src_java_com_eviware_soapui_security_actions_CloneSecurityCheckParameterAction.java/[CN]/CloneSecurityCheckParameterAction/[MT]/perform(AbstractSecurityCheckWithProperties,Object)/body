@@ -12,7 +12,7 @@
         if (testCaseNames.length > 0) {
           dialog.setValue(CloneParameterDialog.TARGET_TESTCASE,testCaseNames[0]);
           TestCase testCase=testSuite.getTestCaseByName(testCaseNames[0]);
-          String[] testStepNames=ModelSupport.getNames(testCase.getTestStepList());
+          String[] testStepNames=getSecurableTestStepsNames(testCase);
           dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,testStepNames);
           String[] securityTestNames=ModelSupport.getNames(testCase.getSecurityTestList());
           dialog.setOptions(CloneParameterDialog.TARGET_SECURITYTEST,securityTestNames);
@@ -41,7 +41,7 @@
         String testSuiteName=dialog.getValue(CloneParameterDialog.TARGET_TESTSUITE);
         TestSuite testSuite=project.getTestSuiteByName(testSuiteName);
         TestCase testCase=testSuite.getTestCaseByName(newValue);
-        String[] testStepNames=ModelSupport.getNames(testCase.getTestStepList());
+        String[] testStepNames=getSecurableTestStepsNames(testCase);
         dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,testStepNames);
         String[] securityTestNames=ModelSupport.getNames(testCase.getSecurityTestList());
         dialog.setOptions(CloneParameterDialog.TARGET_SECURITYTEST,securityTestNames);
@@ -96,7 +96,7 @@
   List<TestCase> testCaseList=testCase.getTestSuite().getTestCaseList();
   dialog.setOptions(CloneParameterDialog.TARGET_TESTCASE,ModelSupport.getNames(testCaseList));
   dialog.setValue(CloneParameterDialog.TARGET_TESTCASE,testCase.getName());
-  dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,ModelSupport.getNames(testCase.getTestStepList()));
+  dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,getSecurableTestStepsNames(testCase));
   dialog.setOptions(CloneParameterDialog.TARGET_SECURITYTEST,ModelSupport.getNames(testCase.getSecurityTestList()));
   String securityTestName=dialog.getValue(CloneParameterDialog.TARGET_SECURITYTEST);
   SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
