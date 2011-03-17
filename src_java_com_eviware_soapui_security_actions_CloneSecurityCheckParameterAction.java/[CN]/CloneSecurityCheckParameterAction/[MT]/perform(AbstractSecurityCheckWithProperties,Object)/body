@@ -107,11 +107,6 @@
   dialog.setOptions(CloneParameterDialog.PARAMETERS,securityCheck.getParameterHolder().getParameterLabels());
   if (dialog.show()) {
     List<ModelItem> items=performClone();
-    if (dialog.getBooleanValue(CloneParameterDialog.OPENLIST) && items.size() > 0) {
-      UISupport.showDesktopPanel(new ModelItemListDesktopPanel("Updated SecurityChecks","The following SecurityChecks where updated with new parameters",items.toArray(new ModelItem[items.size()])));
-    }
- else {
-      UISupport.showInfoMessage("Updated " + items.size() + " checks");
-    }
+    UISupport.showInfoMessage("Updated " + items.size() + " checks");
   }
 }
