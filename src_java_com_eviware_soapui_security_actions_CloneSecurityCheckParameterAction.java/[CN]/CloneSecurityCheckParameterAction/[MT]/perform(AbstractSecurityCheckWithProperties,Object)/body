@@ -69,7 +69,7 @@
         String securityTestName=dialog.getValue(CloneParameterDialog.TARGET_SECURITYTEST);
         SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
         TestStep testStep=testCase.getTestStepByName(newValue);
-        String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
+        String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityCheckByType(testStep.getId(),AbstractSecurityCheckWithProperties.class));
         dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
       }
     }
@@ -83,7 +83,7 @@
         SecurityTest securityTest=testCase.getSecurityTestByName(newValue);
         String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
         TestStep testStep=testCase.getTestStepByName(testStepName);
-        String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
+        String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityCheckByType(testStep.getId(),AbstractSecurityCheckWithProperties.class));
         dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
       }
     }
@@ -102,12 +102,12 @@
   SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
   String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
   TestStep testStep=testCase.getTestStepByName(testStepName);
-  String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
+  String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityCheckByType(testStep.getId(),AbstractSecurityCheckWithProperties.class));
   dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
   dialog.setOptions(CloneParameterDialog.PARAMETERS,securityCheck.getParameterHolder().getParameterLabels());
   if (dialog.show()) {
     List<ModelItem> items=performClone();
-    if (items.size() > 0) {
+    if (dialog.getBooleanValue(CloneParameterDialog.OPENLIST) && items.size() > 0) {
       UISupport.showDesktopPanel(new ModelItemListDesktopPanel("Updated SecurityChecks","The following SecurityChecks where updated with new parameters",items.toArray(new ModelItem[items.size()])));
     }
  else {
