@@ -1,6 +1,10 @@
 {
   if (dialog != null) {
     ((SwingXFormDialog)dialog).setReturnValue(XFormDialog.CANCEL_OPTION);
+    JComboBoxFormField nameField=(JComboBoxFormField)dialog.getFormField(AddParameterDialog.NAME);
+    nameField.setSelectedOptions(new Object[]{nameField.getOptions()[0]});
+    dialog.setValue(AddParameterDialog.LABEL,"");
+    pathPane.setText("");
     dialog.setVisible(false);
   }
 }

@@ -1,3 +1,8 @@
 {
-  if (!model.addParameter(dialog.getValue(AddParameterDialog.LABEL),dialog.getValue(AddParameterDialog.NAME),pathPane.getText()))   UISupport.showErrorMessage("Label have to be unique!");
+  if (dialog.getValue(AddParameterDialog.LABEL) == null || dialog.getValue(AddParameterDialog.LABEL).trim().length() == 0) {
+    UISupport.showErrorMessage("Label is required!");
+  }
+ else {
+    if (!model.addParameter(dialog.getValue(AddParameterDialog.LABEL),dialog.getValue(AddParameterDialog.NAME),pathPane.getText()))     UISupport.showErrorMessage("Label have to be unique!");
+  }
 }
