@@ -104,7 +104,7 @@
   TestStep testStep=testCase.getTestStepByName(testStepName);
   String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityChecks(testStep.getId()));
   dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
-  dialog.setOptions(CloneParameterDialog.PARAMETERS,ModelSupport.getNames(securityCheck.getParameterHolder().getParameterList()));
+  dialog.setOptions(CloneParameterDialog.PARAMETERS,securityCheck.getParameterHolder().getParameterLabels());
   if (dialog.show()) {
     List<ModelItem> items=performClone();
     if (items.size() > 0) {
