@@ -14,7 +14,9 @@
     public void mousePressed(    MouseEvent e){
       int index=list.locationToIndex(e.getPoint());
       if (index != -1) {
+        int[] oldValue=getSelectedIndexes();
         selected.set(index,!selected.get(index));
+        pcs.firePropertyChange("select",oldValue,getSelectedIndexes());
         list.repaint();
       }
     }

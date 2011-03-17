@@ -6,7 +6,8 @@
     setForeground(list.getSelectionForeground());
   }
  else {
-    setBackground(list.getBackground());
+    if (isDefault(index))     setBackground(defaultColor);
+ else     setBackground(list.getBackground());
     setForeground(list.getForeground());
   }
   return this;
