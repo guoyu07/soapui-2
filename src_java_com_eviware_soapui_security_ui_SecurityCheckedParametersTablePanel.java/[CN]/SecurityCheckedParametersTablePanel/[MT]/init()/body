@@ -4,7 +4,7 @@
   toolbar.add(UISupport.createToolbarButton(new AddNewParameterAction()));
   toolbar.add(UISupport.createToolbarButton(new RemoveParameterAction()));
   toolbar.add(UISupport.createToolbarButton(new CopyParameterAction()));
-  toolbar.add(UISupport.createToolbarButton(new CloneParameterAction()));
+  toolbar.add(UISupport.createToolbarButton(new CloneParametersAction(securityCheck)));
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
   table=new JXTable(model);

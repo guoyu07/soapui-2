@@ -8,11 +8,49 @@
   securityCheckList.setCellRenderer(new SecurityCheckCellRenderer());
   securityCheckList.setToolTipText("SecurityChecks for this TestStep");
   securityCheckList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  securityCheckListPopup=new JPopupMenu();
+  addSecurityCheckAction=new AddSecurityCheckAction();
+  securityCheckListPopup.add(addSecurityCheckAction);
+  securityCheckListPopup.addPopupMenuListener(new PopupMenuListener(){
+    public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      while (securityCheckListPopup.getComponentCount() > 1)       securityCheckListPopup.remove(1);
+      int ix=securityCheckList.getSelectedIndex();
+      if (ix >= 0) {
+        securityCheckListPopup.add(configureSecurityCheckAction);
+        SecurityCheck check=securityCheckListModel.getSecurityCheckAt(ix);
+        if (check instanceof AbstractSecurityCheckWithProperties) {
+          cloneParametersAction.setSecurityCheck((AbstractSecurityCheckWithProperties)check);
+          securityCheckListPopup.add(cloneParametersAction);
+        }
+        securityCheckListPopup.addSeparator();
+        securityCheckListPopup.add(removeSecurityCheckAction);
+        securityCheckListPopup.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+      }
+ else {
+        securityCheckListPopup.addSeparator();
+        securityCheckListPopup.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+      }
+    }
+    public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+    }
+    public void popupMenuCanceled(    PopupMenuEvent e){
+    }
+  }
+);
+  securityCheckList.setComponentPopupMenu(securityCheckListPopup);
   securityCheckList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
       int ix=securityCheckList.getSelectedIndex();
-      configureSecurityCheckAction.setEnabled(ix >= 0);
       removeSecurityCheckAction.setEnabled(ix >= 0);
+      SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
+      configureSecurityCheckAction.setEnabled(securityCheck != null && securityCheck.isConfigurable());
+      if (securityCheck instanceof AbstractSecurityCheckWithProperties) {
+        cloneParametersAction.setSecurityCheck((AbstractSecurityCheckWithProperties)securityCheck);
+        cloneParametersAction.setEnabled(true);
+      }
+ else {
+        cloneParametersAction.setEnabled(false);
+      }
       if (ix == -1)       return;
     }
   }

@@ -1,0 +1,10 @@
+{
+  if (dialog != null) {
+    ((SwingXFormDialog)dialog).setReturnValue(XFormDialog.OK_OPTION);
+    List<ModelItem> items=performClone(false);
+    if (items.size() > 0) {
+      UISupport.showInfoMessage("Updated " + items.size() + " checks");
+    }
+    dialog.setVisible(false);
+  }
+}
