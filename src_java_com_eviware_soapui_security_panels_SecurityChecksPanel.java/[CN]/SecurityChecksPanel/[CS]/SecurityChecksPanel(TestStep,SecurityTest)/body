@@ -42,16 +42,15 @@
     @Override public void valueChanged(    ListSelectionEvent arg0){
       int ix=securityCheckList.getSelectedIndex();
       removeSecurityCheckAction.setEnabled(ix >= 0);
+      configureSecurityCheckAction.setEnabled(ix >= 0);
+      cloneParametersAction.setEnabled(ix >= 0);
+      if (ix == -1)       return;
       SecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
       configureSecurityCheckAction.setEnabled(securityCheck != null && securityCheck.isConfigurable());
       if (securityCheck instanceof AbstractSecurityCheckWithProperties) {
         cloneParametersAction.setSecurityCheck((AbstractSecurityCheckWithProperties)securityCheck);
         cloneParametersAction.setEnabled(true);
       }
- else {
-        cloneParametersAction.setEnabled(false);
-      }
-      if (ix == -1)       return;
     }
   }
 );
