@@ -2,22 +2,12 @@
   super("HTTP Monitor [" + project.getName() + "]",null,new JPanel(new BorderLayout()));
   this.project=project;
   JPanel p=(JPanel)getComponent();
-  tabs=new JTabbedPane();
+  JTabbedPane tabs=new JTabbedPane();
   JXToolBar toolbar=UISupport.createToolbar();
   soapMonitor=new SoapMonitor(project,sourcePort,incomingRequestWss,incomingResponseWss,toolbar,setAsProxy,sslEndpoint);
-  JComponent securityTestRunLog=buildRunLog(soapMonitor);
-  MonitorSecurityTest securityTest=new MonitorSecurityTest((JSecurityTestRunLog)securityTestRunLog);
-  soapMonitor.setMonitorSecurityTest(securityTest);
   tabs.add(soapMonitor,"Traffic Log");
-  securityTab=new SecurityTestsMonitorDesktopPanel(securityTest);
-  tabs.add(securityTab,"Security Tests");
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.SOAPMONITOR_HELP_URL)));
-  JPanel innerPanel=new JPanel(new BorderLayout());
-  innerPanel.add(toolbar,BorderLayout.NORTH);
-  innerPanel.add(UISupport.createTabPanel(tabs,true),BorderLayout.CENTER);
-  inspectorPanel=JInspectorPanelFactory.build(innerPanel);
-  JComponentInspector<JComponent> logInspector=new JComponentInspector<JComponent>(securityTestRunLog,"SecurityChecks Log","Log of applied SecurityChecks",true);
-  inspectorPanel.addInspector(logInspector);
-  p.add(inspectorPanel.getComponent());
+  p.add(toolbar,BorderLayout.NORTH);
+  p.add(UISupport.createTabPanel(tabs,true),BorderLayout.CENTER);
   p.setPreferredSize(new Dimension(700,600));
 }

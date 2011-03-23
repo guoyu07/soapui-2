@@ -1,8 +1,5 @@
 {
   messageExchange.prepare(project.getWssContainer().getIncomingWssByName(incomingRequestWss),project.getWssContainer().getIncomingWssByName(incomingResponseWss));
   tableModel.addMessageExchange(messageExchange);
-  if (monitorSecurityTest != null) {
-    monitorSecurityTest.logSecurityMessage(messageExchange);
-  }
   fireOnMessageExchange(messageExchange);
 }
