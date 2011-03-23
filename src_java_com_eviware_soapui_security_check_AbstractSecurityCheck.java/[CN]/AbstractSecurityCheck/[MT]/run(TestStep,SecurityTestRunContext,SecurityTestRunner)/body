@@ -9,9 +9,13 @@
     securityCheckResult.setStatus(SecurityStatus.FAILED);
   }
   while (hasNext(testStep,context)) {
+    if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
+      break;
+    }
     securityCheckRequestResult=new SecurityCheckRequestResult(this);
     securityCheckRequestResult.startTimer();
-    execute(securityTestRunner,((SecurityTestRunnerImpl)securityTestRunner).cloneForSecurityCheck((WsdlTestStep)this.testStep),context);
+    originalTestStepClone=((SecurityTestRunnerImpl)securityTestRunner).cloneForSecurityCheck((WsdlTestStep)this.testStep);
+    execute(securityTestRunner,originalTestStepClone,context);
     securityCheckRequestResult.stopTimer();
     assertResponse(getSecurityCheckRequestResult().getMessageExchange(),context);
     securityCheckResult.addSecurityRequestResult(getSecurityCheckRequestResult());

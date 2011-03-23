@@ -1,3 +1,6 @@
 {
   super(testRunner,properties);
+  if (testRunner instanceof SecurityTestRunnerImpl) {
+    securityTest=((SecurityTestRunnerImpl)testRunner).getSecurityTest();
+  }
 }

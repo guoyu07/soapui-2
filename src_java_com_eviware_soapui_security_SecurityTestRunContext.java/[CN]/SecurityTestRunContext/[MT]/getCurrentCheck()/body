@@ -1,0 +1,11 @@
+{
+  int testStepCheckCount=0;
+  if (securityTest != null) {
+    testStepCheckCount=securityTest.getSecurityCheckCount();
+  }
+  if (currentCheckIndex < 0 || currentCheckIndex >= testStepCheckCount)   return null;
+  if (securityTest != null) {
+    return securityTest.getTestStepSecurityCheckAt(getCurrentStep().getId(),getCurrentCheckIndex());
+  }
+  return null;
+}
