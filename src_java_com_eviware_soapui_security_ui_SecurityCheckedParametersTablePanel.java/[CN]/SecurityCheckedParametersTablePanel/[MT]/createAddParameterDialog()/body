@@ -29,8 +29,9 @@
     }
   }
 );
-  ArrayList<String> options=new ArrayList<String>(properties.keySet());
-  options.set(0,CHOOSE_TEST_PROPERTY);
+  ArrayList<String> options=new ArrayList<String>();
+  options.add(CHOOSE_TEST_PROPERTY);
+  options.addAll(properties.keySet());
   nameField.setOptions(options.toArray(new String[0]));
   ((JFormDialog)dialog).getDialog().setResizable(false);
   return dialog;
