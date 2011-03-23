@@ -1,0 +1,27 @@
+{
+  dialog=new JDialog();
+  dialog.setModal(true);
+  dialog.setLayout(new BorderLayout());
+  dialog.setUndecorated(true);
+  textArea=new JTextArea(4,5);
+  textArea.setWrapStyleWord(true);
+  textArea.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent evt){
+switch (evt.getKeyCode()) {
+case KeyEvent.VK_ENTER:
+        textField.setText(textArea.getText());
+      dialog.setVisible(false);
+    break;
+case KeyEvent.VK_ESCAPE:
+  dialog.setVisible(false);
+break;
+}
+}
+}
+);
+dialog.add(new JScrollPane(textArea),BorderLayout.CENTER);
+dialog.setPreferredSize(new Dimension(200,100));
+dialog.setMinimumSize(new Dimension(200,100));
+textField=new JTextField();
+textField.addMouseListener(this);
+}
