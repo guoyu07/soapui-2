@@ -2,6 +2,6 @@
   String oldScript=getTearDownScript();
   if (!getConfig().isSetTearDownScript())   getConfig().addNewTearDownScript();
   getConfig().getTearDownScript().setStringValue(script);
-  if (scriptEngine != null)   scriptEngine.setScript(script);
+  if (tearDownScriptEngine != null)   tearDownScriptEngine.setScript(script);
   notifyPropertyChanged(TEARDOWN_SCRIPT_PROPERTY,oldScript,script);
 }
