@@ -1,5 +1,5 @@
 {
-  AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(securityCheckType);
+  AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactoryByName(securityCheckType);
   SecurityCheckConfig newSecCheckConfig=factory.createNewSecurityCheck(securityCheckName);
   AbstractSecurityCheck newSecCheck=null;
   boolean hasChecks=false;

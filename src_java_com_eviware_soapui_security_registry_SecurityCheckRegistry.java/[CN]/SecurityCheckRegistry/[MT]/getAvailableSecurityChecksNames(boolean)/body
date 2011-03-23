@@ -3,5 +3,7 @@
   for (  AbstractSecurityCheckFactory securityCheck : availableSecurityChecks.values()) {
     if (monitorOnly && securityCheck.isHttpMonitor())     result.add(securityCheck.getSecurityCheckName());
   }
-  return result.toArray(new String[result.size()]);
+  String[] sortedResult=result.toArray(new String[result.size()]);
+  Arrays.sort(sortedResult);
+  return sortedResult;
 }
