@@ -14,6 +14,10 @@
     UISupport.showErrorMessage("No security checks available for this message");
     return;
   }
+  if (!securityTest.canAddSecurityCheck(testStep,type)) {
+    UISupport.showErrorMessage("Security check type already exists");
+    return;
+  }
   SecurityCheck securityCheck=securityTest.addSecurityCheck(testStep,type,name);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");

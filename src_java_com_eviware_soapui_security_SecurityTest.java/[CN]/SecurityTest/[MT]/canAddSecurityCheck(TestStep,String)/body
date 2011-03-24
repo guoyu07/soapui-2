@@ -1,0 +1,11 @@
+{
+  boolean hasChecksOfType=false;
+  String securityCheckType=SoapUI.getSoapUICore().getSecurityCheckRegistry().getSecurityCheckTypeForName(securityCheckName);
+  for (  SecurityCheck check : getTestStepSecurityChecks(testStep.getId())) {
+    if (securityCheckType.equals(check.getType())) {
+      hasChecksOfType=true;
+      break;
+    }
+  }
+  return !hasChecksOfType;
+}
