@@ -1,0 +1,24 @@
+{
+  resizeBtn=UISupport.createToolbarButton(UISupport.createImageIcon("/icon_resize.gif"));
+  resizeBtn.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+  resizeBtn.setContentAreaFilled(false);
+  resizeBtn.setBorder(null);
+  resizeBtn.addMouseMotionListener(new MouseMotionListener(){
+    @Override public void mouseMoved(    MouseEvent e){
+    }
+    @Override public void mouseDragged(    MouseEvent e){
+      frame.setSize(frame.getWidth() - mouseX + e.getX(),frame.getHeight() - mouseY + e.getY());
+    }
+  }
+);
+  resizeBtn.addMouseListener(new MouseAdapter(){
+    public void mousePressed(    MouseEvent e){
+      mouseX=e.getX();
+      mouseY=e.getY();
+    }
+  }
+);
+  toolbar.addGlue();
+  toolbar.add(resizeBtn);
+  return toolbar;
+}

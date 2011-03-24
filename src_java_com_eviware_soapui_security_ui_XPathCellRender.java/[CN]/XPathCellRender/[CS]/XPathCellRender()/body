@@ -1,0 +1,34 @@
+{
+  panel=new JPanel();
+  panel.setLayout(new BorderLayout());
+  textArea=new JTextArea(4,5);
+  textArea.setWrapStyleWord(true);
+  textArea.addKeyListener(new KeyAdapter(){
+    public void keyPressed(    KeyEvent evt){
+switch (evt.getKeyCode()) {
+case KeyEvent.VK_ENTER:
+        textField.setText(textArea.getText());
+      frame.setVisible(false);
+    break;
+case KeyEvent.VK_ESCAPE:
+  frame.setVisible(false);
+break;
+}
+}
+}
+);
+panel.add(new JScrollPane(textArea),BorderLayout.CENTER);
+panel.setPreferredSize(new Dimension(200,100));
+panel.setMinimumSize(new Dimension(200,100));
+JXToolBar toolbar=initToolbar(UISupport.createToolbar());
+panel.add(toolbar,BorderLayout.SOUTH);
+this.frame=new JFrame();
+this.frame.addWindowFocusListener(this);
+this.frame.setContentPane(panel);
+this.frame.setAlwaysOnTop(true);
+this.frame.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+this.frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+this.frame.setUndecorated(true);
+textField=new JTextField();
+textField.addMouseListener(this);
+}
