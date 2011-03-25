@@ -7,10 +7,10 @@
       XmlTreeNode[] treeNodes=null;
       if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
         model=getXmlObjectTreeModel(testStep);
-        treeNodes=model.selectTreeNodes(scp.getXPath());
+        treeNodes=model.selectTreeNodes(context.expand(scp.getXPath()));
       }
  else {
-        treeNodes=model.selectTreeNodes(scp.getXPath());
+        treeNodes=model.selectTreeNodes(context.expand(scp.getXPath()));
       }
       if (treeNodes.length > 0) {
         XmlTreeNode mynode=treeNodes[0];

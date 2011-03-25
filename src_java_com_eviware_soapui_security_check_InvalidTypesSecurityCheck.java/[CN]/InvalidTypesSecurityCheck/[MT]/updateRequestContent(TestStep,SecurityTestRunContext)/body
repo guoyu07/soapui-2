@@ -1,6 +1,6 @@
 {
   if (parameterMutations.size() == 0)   try {
-    mutateParameters(testStep);
+    mutateParameters(testStep,context);
   }
  catch (  XmlException e1) {
     e1.printStackTrace();
@@ -18,7 +18,7 @@
  else {
             if (value == null || value.trim().equals(""))             continue;
             XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
-            XmlTreeNode[] nodes=model.selectTreeNodes(param.getXPath());
+            XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXPath()));
             for (            XmlTreeNode node : nodes)             node.setValue(1,parameterMutations.get(param).get(0));
             parameterMutations.get(param).remove(0);
             testStep.getProperties().get(param.getName()).setValue(model.getXmlObject().toString());
@@ -45,7 +45,7 @@
  else {
             if (value == null || value.trim().equals(""))             continue;
             if (param.getName().equals(property.getName())) {
-              XmlTreeNode[] nodes=model.selectTreeNodes(param.getXPath());
+              XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXPath()));
               if (parameterMutations.containsKey(param))               if (parameterMutations.get(param).size() > 0) {
                 for (                XmlTreeNode node : nodes)                 node.setValue(1,parameterMutations.get(param).get(0));
                 parameterMutations.get(param).remove(0);

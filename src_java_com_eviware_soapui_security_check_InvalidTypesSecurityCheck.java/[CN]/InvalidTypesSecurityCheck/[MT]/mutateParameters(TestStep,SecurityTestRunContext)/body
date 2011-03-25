@@ -14,7 +14,7 @@
         String value=property.getValue();
         try {
           XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
-          XmlTreeNode[] nodes=model.selectTreeNodes(parameter.getXPath());
+          XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXPath()));
           List<SchemaTypeForSecurityCheckConfig> invalidTypes=invalidTypeConfig.getTypesListList();
           for (          SchemaTypeForSecurityCheckConfig type : invalidTypes) {
             if (nodes.length > 0) {
