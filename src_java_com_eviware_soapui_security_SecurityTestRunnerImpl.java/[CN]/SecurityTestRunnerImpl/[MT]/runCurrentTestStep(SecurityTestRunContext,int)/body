@@ -23,6 +23,9 @@
         runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
         securityStepResult.addSecurityCheckResult(securityCheckResult);
+        if (securityCheckResult.isCanceled()) {
+          return -2;
+        }
         if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
           if (getTestRunnable().getFailOnError()) {
             fail("Cancelling due to failed security check");

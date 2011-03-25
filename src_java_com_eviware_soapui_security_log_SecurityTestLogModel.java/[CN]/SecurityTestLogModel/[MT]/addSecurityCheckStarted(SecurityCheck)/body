@@ -2,7 +2,7 @@
   int size=items.size();
   SecurityCheckResult securityCheckResult=new SecurityCheckResult(securityCheck);
   SoftReference<SecurityResult> checkResultRef=new SoftReference<SecurityResult>(securityCheckResult);
-  items.add("SecurityCheck [" + securityCheck.getName() + "] started at "+ securityCheckResult.getTimeStamp());
+  items.add("SecurityCheck [" + securityCheck.getName() + "] started at "+ dateFormat.format(securityCheckResult.getTimeStamp()));
   results.add(checkResultRef);
   fireIntervalAdded(this,size,items.size() - 1);
   enforceMaxSize();

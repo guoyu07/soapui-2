@@ -1,10 +1,14 @@
 {
   if (securityRequestResultList != null)   securityRequestResultList.add(secReqResult);
   timeTaken+=secReqResult.getTimeTaken();
-  if (!hasAddedRequests && secReqResult.getStatus() == SecurityStatus.OK) {
-    status=SecurityStatus.OK;
+  if (!hasAddedRequests) {
+    status=SecurityStatus.UNKNOWN;
+    if (secReqResult.getStatus() == SecurityStatus.OK) {
+      status=SecurityStatus.OK;
+    }
   }
  else   if (secReqResult.getStatus() == SecurityStatus.FAILED) {
+    hasRequestsWithWarnings=true;
     status=SecurityStatus.FAILED;
   }
   this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");

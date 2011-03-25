@@ -10,7 +10,8 @@
   }
   while (hasNext(testStep,context)) {
     if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
-      break;
+      securityCheckResult.setStatus(SecurityStatus.CANCELED);
+      return securityCheckResult;
     }
     securityCheckRequestResult=new SecurityCheckRequestResult(this);
     securityCheckRequestResult.startTimer();
