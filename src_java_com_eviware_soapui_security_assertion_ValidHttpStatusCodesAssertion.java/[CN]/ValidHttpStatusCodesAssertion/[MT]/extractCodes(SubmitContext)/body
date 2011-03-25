@@ -1,6 +1,7 @@
 {
+  String expandedCodes=context.expand(codes);
   List<String> codeList=new ArrayList<String>();
-  for (  String str : codes.split(",")) {
+  for (  String str : expandedCodes.split(",")) {
     codeList.add(str.trim());
   }
   return codeList;

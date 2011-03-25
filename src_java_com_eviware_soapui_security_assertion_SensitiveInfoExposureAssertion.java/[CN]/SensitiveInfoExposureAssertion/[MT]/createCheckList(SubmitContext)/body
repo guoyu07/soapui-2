@@ -6,5 +6,6 @@
   if (includeGlolbal) {
     checkList.addAll(SecurityCheckUtil.globalEntriesList());
   }
-  return checkList;
+  List<String> expandedList=propertyExpansionSupport(checkList,context);
+  return expandedList;
 }
