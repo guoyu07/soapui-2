@@ -1,4 +1,5 @@
 {
+  StringToStringMap params=new StringToStringMap();
   if (parameterMutations.size() == 0)   mutateParameters(testStep,context);
   if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
     for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
@@ -7,6 +8,7 @@
         String value=property.getValue();
         if (param.getXPath() == null || param.getXPath().trim().length() == 0) {
           testStep.getProperties().get(param.getName()).setValue(parameterMutations.get(param).get(0));
+          params.put(param.getLabel(),parameterMutations.get(param).get(0));
           parameterMutations.get(param).remove(0);
         }
  else {
@@ -15,6 +17,7 @@
             XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
             XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXPath()));
             for (            XmlTreeNode node : nodes)             node.setValue(1,parameterMutations.get(param).get(0));
+            params.put(param.getLabel(),parameterMutations.get(param).get(0));
             parameterMutations.get(param).remove(0);
             testStep.getProperties().get(param.getName()).setValue(model.getXmlObject().toString());
           }
@@ -32,6 +35,7 @@
         for (        SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
           if (param.getXPath() == null || param.getXPath().trim().length() == 0) {
             testStep.getProperties().get(param.getName()).setValue(parameterMutations.get(param).get(0));
+            params.put(param.getLabel(),parameterMutations.get(param).get(0));
             parameterMutations.get(param).remove(0);
           }
  else {
@@ -40,6 +44,7 @@
               XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXPath()));
               if (parameterMutations.containsKey(param))               if (parameterMutations.get(param).size() > 0) {
                 for (                XmlTreeNode node : nodes)                 node.setValue(1,parameterMutations.get(param).get(0));
+                params.put(param.getLabel(),parameterMutations.get(param).get(0));
                 parameterMutations.get(param).remove(0);
               }
             }
@@ -49,4 +54,5 @@
       }
     }
   }
+  return params;
 }

@@ -1,8 +1,8 @@
 {
   try {
-    updateRequestContent(testStep,context);
-    testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(testStep);
+    StringToStringMap updatedParams=updateRequestContent(testStep,context);
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(updatedParams,message);
   }
  catch (  XmlException e) {
     SoapUI.logError(e,"[InvalidtypeSecurityCheck]XPath seems to be invalid!");
@@ -11,6 +11,6 @@ catch (  Exception e) {
     SoapUI.logError(e,"[InvalidtypeSecurityCheck]Property value is not valid xml!");
   }
  finally {
-    reportBadXPath(testStep);
+    reportSecurityCheckException("Propety value is not XML or XPath is wrong!");
   }
 }
