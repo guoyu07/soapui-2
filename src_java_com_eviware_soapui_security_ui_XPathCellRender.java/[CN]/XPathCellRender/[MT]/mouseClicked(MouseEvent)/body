@@ -1,6 +1,6 @@
 {
   if (!frame.isVisible()) {
-    textArea.setText(textField.getText());
+    textArea.setText(textField.getText().replaceAll(";",";\n"));
     Point position=textField.getLocationOnScreen();
     frame.setBounds(position.x,position.y,frame.getWidth(),frame.getHeight());
     frame.pack();

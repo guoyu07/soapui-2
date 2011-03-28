@@ -3,6 +3,7 @@
   resizeBtn.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
   resizeBtn.setContentAreaFilled(false);
   resizeBtn.setBorder(null);
+  resizeBtn.setToolTipText("Drag to resize...");
   resizeBtn.addMouseMotionListener(new MouseMotionListener(){
     @Override public void mouseMoved(    MouseEvent e){
     }
@@ -18,6 +19,8 @@
     }
   }
 );
+  toolbar.add(UISupport.createToolbarButton(new SaveXPathAction()),true);
+  toolbar.add(UISupport.createToolbarButton(new CancelXPathAction()),true);
   toolbar.addGlue();
   toolbar.add(resizeBtn);
   toolbar.setFloatable(false);
