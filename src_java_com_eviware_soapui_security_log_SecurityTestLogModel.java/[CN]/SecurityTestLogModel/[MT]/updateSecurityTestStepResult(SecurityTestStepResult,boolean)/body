@@ -1,0 +1,8 @@
+{
+  if (errorsOnly && result.getStatus() != SecurityStatus.FAILED) {
+    for (int i=startStepIndex; i < items.size() - 1; i++) {
+      items.remove(i);
+      fireIntervalRemoved(this,startStepIndex,items.size() - 1);
+    }
+  }
+}

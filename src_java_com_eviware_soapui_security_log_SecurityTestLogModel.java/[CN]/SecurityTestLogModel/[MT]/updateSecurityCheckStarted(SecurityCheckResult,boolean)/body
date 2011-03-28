@@ -1,0 +1,12 @@
+{
+  if (errorsOnly && securityCheckResult.getStatus() != SecurityStatus.FAILED) {
+    for (int i=startCheckIndex - 1; i < items.size() - 1; i++) {
+      items.remove(i);
+      fireIntervalRemoved(this,startCheckIndex,items.size() - 1);
+    }
+  }
+ else {
+    items.set(startCheckIndex,"SecurityCheck [" + securityCheckResult.getSecurityCheck().getName() + "] finished with status [ "+ securityCheckResult.getStatus()+ "], time taken = "+ securityCheckResult.getTimeTaken());
+    fireContentsChanged(this,startCheckIndex,startCheckIndex);
+  }
+}

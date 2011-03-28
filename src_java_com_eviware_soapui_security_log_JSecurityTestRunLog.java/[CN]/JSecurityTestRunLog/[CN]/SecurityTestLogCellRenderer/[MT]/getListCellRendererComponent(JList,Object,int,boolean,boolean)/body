@@ -32,17 +32,15 @@
       hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
       hyperlinkLabel.setUnderlineColor(Color.WHITE);
       hyperlinkLabel.setIcon(null);
-      if (result.getStatus() != SecurityStatus.INITIALIZED) {
-        hyperlinkLabel.setUnderlineColor(Color.GRAY);
-        if (result.getStatus() == SecurityStatus.OK) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
-        }
- else         if (result.getStatus() == SecurityStatus.FAILED) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
-        }
+      hyperlinkLabel.setUnderlineColor(Color.GRAY);
+      if (result.getStatus() == SecurityStatus.OK) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+      }
+ else       if (result.getStatus() == SecurityStatus.FAILED) {
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+      }
  else {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
-        }
+        hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
       }
     }
  else     if (result.getResultType().equals(SecurityTestStepResult.TYPE)) {
