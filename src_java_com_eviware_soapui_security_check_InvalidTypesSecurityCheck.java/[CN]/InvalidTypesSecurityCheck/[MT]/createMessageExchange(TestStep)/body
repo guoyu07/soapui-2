@@ -1,4 +1,13 @@
 {
-  MessageExchange messageExchange=new WsdlResponseMessageExchange(((WsdlTestRequestStep)testStep).getTestRequest());
+  MessageExchange messageExchange=null;
+  if (testStep instanceof WsdlTestRequestStep) {
+    messageExchange=new WsdlResponseMessageExchange((WsdlRequest)((SamplerTestStep)testStep).getTestRequest());
+  }
+ else   if (testStep instanceof RestTestRequestStep) {
+    messageExchange=new RestResponseMessageExchange((RestRequestInterface)((SamplerTestStep)testStep).getTestRequest());
+  }
+ else   if (testStep instanceof HttpTestRequestStep) {
+    messageExchange=new HttpResponseMessageExchange((HttpRequestInterface<?>)((SamplerTestStep)testStep).getTestRequest());
+  }
   getSecurityCheckRequestResult().setMessageExchange(messageExchange);
 }

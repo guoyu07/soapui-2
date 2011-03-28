@@ -12,7 +12,7 @@
  else {
         if (property.getValue() == null && property.getDefaultValue() == null)         continue;
         String value=property.getValue();
-        try {
+        if (XmlUtils.seemsToBeXml(value)) {
           XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
           XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXPath()));
           List<SchemaTypeForSecurityCheckConfig> invalidTypes=invalidTypeConfig.getTypesListList();
@@ -24,9 +24,6 @@
               }
             }
           }
-        }
- catch (        Exception e1) {
-          SoapUI.logError(e1,"[InvalidtypeSecurityCheck]Failed to select XPath for source property value [" + value + "]");
         }
       }
     }

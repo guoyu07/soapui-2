@@ -1,5 +1,16 @@
 {
-  update(testStep,context);
-  testStep.run((TestCaseRunner)runner,context);
-  createMessageExchange(testStep);
+  try {
+    update(testStep,context);
+    testStep.run((TestCaseRunner)runner,context);
+    createMessageExchange(testStep);
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e,"[XPathInjectionSecurityCheck]XPath seems to be invalid!");
+  }
+catch (  Exception e) {
+    SoapUI.logError(e,"[XPathInjectionSecurityCheck]Property value is not valid xml!");
+  }
+ finally {
+    reportBadXPath(testStep);
+  }
 }

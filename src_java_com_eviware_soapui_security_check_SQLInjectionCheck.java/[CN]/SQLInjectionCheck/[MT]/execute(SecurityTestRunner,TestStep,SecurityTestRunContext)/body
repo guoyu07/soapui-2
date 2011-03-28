@@ -1,5 +1,16 @@
 {
-  update(testStep,context);
-  testStep.run((TestCaseRunner)securityTestRunner,context);
-  createMessageExchange(testStep);
+  try {
+    update(testStep,context);
+    testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(testStep);
+  }
+ catch (  XmlException e) {
+    SoapUI.logError(e,"[SqlInjectionSecurityCheck]XPath seems to be invalid!");
+  }
+catch (  Exception e) {
+    SoapUI.logError(e,"[SqlInjectionSecurityCheck]Property value is not valid xml!");
+  }
+ finally {
+    reportBadXPath(testStep);
+  }
 }
