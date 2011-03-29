@@ -1,10 +1,11 @@
 {
-  logListModel.addSecurityCheckStarted(securityCheck);
+  logListModel.addSecurityCheckResult(securityCheck);
   if (follow) {
     try {
       testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);
     }
  catch (    RuntimeException e) {
+      log.error(e.getMessage());
     }
   }
 }

@@ -17,7 +17,7 @@
   }
   SecurityResult result=logListModel.getTestStepResultAt(index);
   if (result != null) {
-    if (result != null && result.getResultType().equals(SecurityCheckRequestResult.TYPE)) {
+    if (result.getResultType().equals(SecurityCheckRequestResult.TYPE)) {
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());

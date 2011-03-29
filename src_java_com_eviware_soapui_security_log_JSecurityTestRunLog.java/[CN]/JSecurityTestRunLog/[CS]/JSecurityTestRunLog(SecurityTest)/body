@@ -2,5 +2,6 @@
   super(new BorderLayout());
   this.settings=securityTest.getSettings();
   logListModel=securityTest.getSecurityTestLog();
+  errorsOnly=settings.getBoolean(OptionsForm.class.getName() + "@errors_only");
   buildUI();
 }

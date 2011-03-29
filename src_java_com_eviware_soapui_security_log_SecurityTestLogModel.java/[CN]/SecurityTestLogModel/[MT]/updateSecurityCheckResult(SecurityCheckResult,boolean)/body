@@ -1,0 +1,18 @@
+{
+  if (errorsOnly && securityCheckResult.getStatus() != SecurityStatus.FAILED) {
+    checkCount--;
+    int size=items.size() - 1;
+    while (size >= startCheckIndex) {
+      items.remove(size);
+      results.remove(size);
+      size--;
+    }
+    fireIntervalRemoved(this,startCheckIndex,size);
+  }
+ else {
+    items.set(startCheckIndex,"SecurityCheck " + checkCount + " ["+ securityCheckResult.getSecurityCheck().getName()+ "] "+ securityCheckResult.getStatus()+ ", time taken = "+ securityCheckResult.getTimeTaken());
+    SoftReference<SecurityResult> checkResultRef=new SoftReference<SecurityResult>(securityCheckResult);
+    results.set(startCheckIndex,checkResultRef);
+    fireContentsChanged(this,startCheckIndex,startCheckIndex);
+  }
+}

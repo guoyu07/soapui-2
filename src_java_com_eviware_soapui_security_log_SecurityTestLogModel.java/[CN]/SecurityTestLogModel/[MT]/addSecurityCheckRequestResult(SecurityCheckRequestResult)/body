@@ -1,7 +1,21 @@
 {
   int size=items.size();
+  requestCount++;
+  StringToStringMap changedParams=StringToStringMap.fromXml(securityCheckRequestResult.getMessageExchange().getProperties().get(AbstractSecurityCheck.SECURITY_CHANGED_PARAMETERS));
+  StringBuilder changedParamsInfo=new StringBuilder();
+  changedParamsInfo.append("[");
+  Iterator<String> keys=changedParams.keySet().iterator();
+  while (keys.hasNext()) {
+    String param=(String)keys.next();
+    String value=changedParams.get(param);
+    changedParamsInfo.append(param + "=" + value+ ",");
+  }
+  changedParamsInfo.replace(changedParamsInfo.length() - 1,changedParamsInfo.length(),"]");
+  SoftReference<SecurityResult> checkReqResultRef=new SoftReference<SecurityResult>(securityCheckRequestResult);
+  items.add("[" + securityCheckRequestResult.getSecurityCheck().getName() + "] Request "+ requestCount+ " - "+ securityCheckRequestResult.getStatus()+ " - "+ changedParamsInfo.toString());
+  results.add(checkReqResultRef);
+  changedParamsInfo.toString();
   for (  String msg : securityCheckRequestResult.getMessages()) {
-    SoftReference<SecurityResult> checkReqResultRef=new SoftReference<SecurityResult>(securityCheckRequestResult);
     items.add(" -> " + msg);
     results.add(checkReqResultRef);
   }
