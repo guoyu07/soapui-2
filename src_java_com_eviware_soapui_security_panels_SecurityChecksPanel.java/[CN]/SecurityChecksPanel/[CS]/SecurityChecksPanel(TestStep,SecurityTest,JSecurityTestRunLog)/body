@@ -52,61 +52,26 @@
         cloneParametersAction.setSecurityCheck((AbstractSecurityCheckWithProperties)securityCheck);
         cloneParametersAction.setEnabled(true);
       }
+      if (securityCheck != null) {
+        locateSecurityCheckInLog(securityCheck);
+      }
     }
   }
 );
   securityCheckList.addMouseListener(new MouseAdapter(){
-    boolean isDoubleClick;
-    final Integer timerinterval=(Integer)Toolkit.getDefaultToolkit().getDesktopProperty("awt.multiClickInterval");
-    Timer timer;
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() == 2) {
-        doubleClick();
-        System.out.println("double");
-        isDoubleClick=true;
-      }
- else {
-        timer=new Timer(timerinterval.intValue(),new ActionListener(){
-          public void actionPerformed(          ActionEvent evt){
-            if (isDoubleClick) {
-              isDoubleClick=false;
-            }
- else {
-              singleClick();
-              System.out.println("single");
-            }
-          }
-        }
-);
-        timer.setRepeats(false);
-        timer.start();
-      }
-    }
-    private AbstractSecurityCheck getSecurityCheckFromList(){
+      if (e.getClickCount() < 2)       return;
       int ix=securityCheckList.getSelectedIndex();
-      if (ix != -1) {
-        Object obj=securityCheckList.getModel().getElementAt(ix);
-        if (obj instanceof SecurityCheck) {
-          AbstractSecurityCheck check=(AbstractSecurityCheck)obj;
-          return check;
-        }
-      }
-      return null;
-    }
-    private void singleClick(){
-      AbstractSecurityCheck check=getSecurityCheckFromList();
-      if (check != null) {
-        locateSecurityCheckInLog(check);
-      }
-    }
-    private void doubleClick(){
-      AbstractSecurityCheck check=getSecurityCheckFromList();
-      if (check != null) {
-        check.setTestStep(getTestStep());
-        if (check.isConfigurable()) {
-          XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog(check);
+      if (ix == -1)       return;
+      Object obj=securityCheckList.getModel().getElementAt(ix);
+      if (obj instanceof SecurityCheck) {
+        AbstractSecurityCheck chck=(AbstractSecurityCheck)obj;
+        chck.setTestStep(getTestStep());
+        if (chck.isConfigurable()) {
+          XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog(chck);
           dialog.show();
         }
+        return;
       }
     }
   }
