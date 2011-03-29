@@ -1,7 +1,7 @@
 {
   int size=items.size();
   requestCount++;
-  StringToStringMap changedParams=StringToStringMap.fromXml(securityCheckRequestResult.getMessageExchange().getProperties().get(AbstractSecurityCheck.SECURITY_CHANGED_PARAMETERS));
+  StringToStringMap changedParams=StringToStringMap.fromXml(securityCheckRequestResult.getMessageExchange().getProperties().get(AbstractSecurityCheckWithProperties.SECURITY_CHANGED_PARAMETERS));
   StringBuilder changedParamsInfo=new StringBuilder();
   changedParamsInfo.append("[");
   Iterator<String> keys=changedParams.keySet().iterator();
