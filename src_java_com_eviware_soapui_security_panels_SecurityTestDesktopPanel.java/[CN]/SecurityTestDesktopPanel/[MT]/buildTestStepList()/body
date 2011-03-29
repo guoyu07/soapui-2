@@ -2,7 +2,7 @@
   JPanel p=new JPanel(new BorderLayout());
   JXToolBar toolbar=UISupport.createToolbar();
   p.add(toolbar,BorderLayout.NORTH);
-  testStepList=new JSecurityTestTestStepList(getModelItem());
+  testStepList=new JSecurityTestTestStepList(getModelItem(),securityTestLog);
   stateDependantComponents.add(testStepList);
   p.add(testStepList,BorderLayout.CENTER);
   return p;
