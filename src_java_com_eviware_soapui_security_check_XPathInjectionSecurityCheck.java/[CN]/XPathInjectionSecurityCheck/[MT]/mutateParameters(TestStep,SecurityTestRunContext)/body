@@ -11,7 +11,7 @@
       }
  else {
         if (property.getValue() == null && property.getDefaultValue() == null)         continue;
-        String value=property.getValue();
+        String value=context.expand(property.getValue());
         XmlObjectTreeModel model=null;
         if (testStep instanceof WsdlTestRequestStep)         model=new XmlObjectTreeModel(((WsdlTestRequestStep)testStep).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
         if (testStep instanceof RestTestRequestStep || testStep instanceof HttpTestRequestStep)         model=new XmlObjectTreeModel(XmlObject.Factory.parse(value));
