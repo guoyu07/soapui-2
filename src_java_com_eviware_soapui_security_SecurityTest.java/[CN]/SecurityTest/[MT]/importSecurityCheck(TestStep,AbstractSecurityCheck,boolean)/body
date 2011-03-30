@@ -1,0 +1,37 @@
+{
+  XmlObject newConfig=securityCheckToClone.getConfig().copy();
+  boolean cloneTried=false;
+  List<TestStepSecurityTestConfig> securityTestStepsList=getConfig().getTestStepSecurityTestList();
+  for (  TestStepSecurityTestConfig testStepSecurityTestConfig : securityTestStepsList) {
+    if (targetTestStep.getId().equals(testStepSecurityTestConfig.getTestStepId())) {
+      List<SecurityCheckConfig> testChecksConfigList=testStepSecurityTestConfig.getTestStepSecurityCheckList();
+      for (      SecurityCheckConfig securityCheckConfig : testChecksConfigList) {
+        if (securityCheckConfig.getType().equals(securityCheckToClone.getType())) {
+          cloneTried=true;
+          if (overwrite) {
+            securityCheckConfig.set(newConfig);
+            break;
+          }
+ else {
+            return false;
+          }
+        }
+      }
+      if (!cloneTried) {
+        SecurityCheckConfig newCheckConfig=SecurityCheckConfig.Factory.newInstance();
+        newCheckConfig.set(newConfig);
+        testChecksConfigList.add(newCheckConfig);
+        cloneTried=true;
+      }
+    }
+  }
+  if (!cloneTried) {
+    TestStepSecurityTestConfig testStepSecurityTestConfig=getConfig().addNewTestStepSecurityTest();
+    testStepSecurityTestConfig.setTestStepId(targetTestStep.getId());
+    SecurityCheckConfig newCheckConfig=SecurityCheckConfig.Factory.newInstance();
+    newCheckConfig.set(newConfig);
+    testStepSecurityTestConfig.setTestStepSecurityCheckArray(new SecurityCheckConfig[]{newCheckConfig});
+  }
+  securityChecksMap.clear();
+  return true;
+}
