@@ -1,17 +1,21 @@
 {
   strategy=getExecutionStrategy().getStrategy();
-  XmlObjectTreeModel model=getXmlObjectTreeModel(testStep);
+  XmlObjectTreeModel model=null;
   List<SecurityCheckedParameter> scpList=getParameterHolder().getParameterList();
+  StringToStringMap stsmap=new StringToStringMap();
   for (  SecurityCheckedParameter scp : scpList) {
-    if (scp.isChecked()) {
+    if (scp.isChecked() && scp.getXPath().trim().length() > 0) {
       XmlTreeNode[] treeNodes=null;
       if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
-        model=getXmlObjectTreeModel(testStep);
-        treeNodes=model.selectTreeNodes(context.expand(scp.getXPath()));
+        stsmap=new StringToStringMap();
+        model=getXmlObjectTreeModel(testStep,scp);
       }
  else {
-        treeNodes=model.selectTreeNodes(context.expand(scp.getXPath()));
+        if (model == null) {
+          model=getXmlObjectTreeModel(testStep,scp);
+        }
       }
+      treeNodes=model.selectTreeNodes(context.expand(scp.getXPath()));
       if (treeNodes.length > 0) {
         XmlTreeNode mynode=treeNodes[0];
         if (mynode.getSchemaType().isSimpleType()) {
@@ -21,16 +25,31 @@
               nodeInfo.addValue(s.getStringValue());
             }
             updateEnumNodeValue(mynode,nodeInfo);
-            if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE))             addMutation(context,model.getXmlObject().toString());
+            stsmap.put(scp.getLabel(),mynode.getNodeText());
+            if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
+              PropertyMutation pm=new PropertyMutation();
+              pm.setPropertyName(scp.getName());
+              pm.setPropertyValue(model.getXmlObject().toString());
+              stsmap=new StringToStringMap();
+              stsmap.put(scp.getLabel(),mynode.getNodeText());
+              pm.setMutatedParameters(stsmap);
+              addMutation(context,pm);
+            }
           }
  else {
             SchemaTypeImpl simpleType=(SchemaTypeImpl)mynode.getSchemaType();
             XmlObjectTreeModel model2=new XmlObjectTreeModel(simpleType.getTypeSystem(),simpleType.getParseObject());
-            extractRestrictions(model2,context,mynode,model);
+            extractRestrictions(model2,context,mynode,model,scp,stsmap);
           }
         }
       }
     }
   }
-  if (strategy.equals(StrategyTypeConfig.ALL_AT_ONCE))   addMutation(context,model.getXmlObject().toString());
+  if (model != null && strategy.equals(StrategyTypeConfig.ALL_AT_ONCE)) {
+    PropertyMutation pm=new PropertyMutation();
+    pm.setPropertyName("Request");
+    pm.setPropertyValue(model.getXmlObject().toString());
+    pm.setMutatedParameters(stsmap);
+    addMutation(context,pm);
+  }
 }

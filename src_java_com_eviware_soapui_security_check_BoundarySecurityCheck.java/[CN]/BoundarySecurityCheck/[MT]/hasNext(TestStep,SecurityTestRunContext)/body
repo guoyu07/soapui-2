@@ -1,6 +1,6 @@
 {
   if (!context.hasProperty(REQUEST_MUTATIONS_STACK)) {
-    Stack<String> requestMutationsList=new Stack<String>();
+    Stack<PropertyMutation> requestMutationsList=new Stack<PropertyMutation>();
     context.put(REQUEST_MUTATIONS_STACK,requestMutationsList);
     try {
       extractMutations(testStep,context);
@@ -10,7 +10,7 @@
     }
     return true;
   }
-  Stack<String> stack=(Stack<String>)context.get(REQUEST_MUTATIONS_STACK);
+  Stack<PropertyMutation> stack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
   if (stack.empty()) {
     context.remove(REQUEST_MUTATIONS_STACK);
     return false;

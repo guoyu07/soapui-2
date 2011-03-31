@@ -1,0 +1,12 @@
+{
+  try {
+    TestProperty tp=testStep.getProperty(scp.getName());
+    if (tp.getSchemaType() != null) {
+      return new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(tp.getValue()));
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

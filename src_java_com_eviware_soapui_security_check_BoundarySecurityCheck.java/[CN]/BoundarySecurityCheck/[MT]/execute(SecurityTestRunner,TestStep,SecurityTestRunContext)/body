@@ -1,8 +1,8 @@
 {
-  String mutatedRequest=popMutation(context);
-  if (mutatedRequest != null) {
-    updateTestStepRequest(testStep,mutatedRequest);
-    testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(testStep);
+  PropertyMutation mutation=popMutation(context);
+  if (mutation != null) {
+    updateRequestProperty(testStep,mutation);
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(mutation.getMutatedParameters(),message);
   }
 }

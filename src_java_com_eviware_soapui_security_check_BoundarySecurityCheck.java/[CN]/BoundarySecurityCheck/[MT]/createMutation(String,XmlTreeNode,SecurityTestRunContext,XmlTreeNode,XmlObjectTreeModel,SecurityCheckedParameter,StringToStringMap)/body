@@ -1,0 +1,24 @@
+{
+  String value=null;
+  String nodeName=mynode.getNodeName();
+  String nodeValue=mynode.getChild(0).getNodeText();
+  value=AbstractBoundary.outOfBoundaryValue(baseType,nodeName,nodeValue);
+  if (value != null) {
+    nodeToUpdate.setValue(1,value);
+    PropertyMutation pm=new PropertyMutation();
+    pm.setPropertyName(scp.getName());
+    pm.setPropertyValue(model.getXmlObject().toString());
+    if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
+      stsmap=new StringToStringMap();
+      stsmap.put(scp.getLabel() + " (" + nodeName+ "='"+ nodeValue+ "') ",value);
+      pm.setMutatedParameters(stsmap);
+      addMutation(context,pm);
+    }
+ else {
+      stsmap.put(scp.getLabel() + " (" + nodeName+ "='"+ nodeValue+ "') ",value);
+    }
+  }
+ else {
+    SoapUI.log.warn("No out of boundary value is created for restriction " + nodeName + " of baseType:"+ baseType);
+  }
+}
