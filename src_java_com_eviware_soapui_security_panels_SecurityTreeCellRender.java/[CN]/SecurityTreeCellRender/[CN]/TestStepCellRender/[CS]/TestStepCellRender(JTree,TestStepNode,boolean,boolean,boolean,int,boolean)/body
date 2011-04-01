@@ -1,0 +1,46 @@
+{
+  super(new BorderLayout());
+  this.node=node;
+  this.testStep=(WsdlTestStep)node.getTestStep();
+  securityTest=((SecurityTreeRootNode)node.getParent()).getSecurityTest();
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    if (securityTest.getSecurityChecksMap().get(testStep.getId()) != null) {
+      String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " check)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " checks)";
+      label=new JLabel(testStep.getLabel() + " (" + labelText,SwingConstants.LEFT);
+    }
+ else {
+      label=new JLabel(testStep.getLabel() + " (0 checks)",SwingConstants.LEFT);
+    }
+  }
+ else   label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
+  label.setIcon(testStep.getIcon());
+  label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+  label.setEnabled(!testStep.isDisabled());
+  testStep.addPropertyChangeListener(TestStep.ICON_PROPERTY,TestStepCellRender.this);
+  innerLeftPanel=new JPanel(new BorderLayout());
+  if (exp)   expandCollapseBtn=new JButton(expanded);
+ else   expandCollapseBtn=new JButton(collapsed);
+  expandCollapseBtn.setEnabled(false);
+  expandCollapseBtn.setBorder(null);
+  expandCollapseBtn.setEnabled(false);
+  expandCollapseBtn.setBorder(null);
+  innerLeftPanel.add(expandCollapseBtn,BorderLayout.WEST);
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    progressBar=new JProgressBar();
+    progressPanel=UISupport.createProgressBarPanel(progressBar,5,false);
+    progressBar.setMinimumSize(new Dimension(0,200));
+    progressBar.setBackground(Color.WHITE);
+    progressBar.setInheritsPopupMenu(true);
+    add(progressPanel,BorderLayout.LINE_END);
+    expandCollapseBtn.setVisible(true);
+    innerLeftPanel.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+  }
+ else {
+    expandCollapseBtn.setVisible(false);
+    innerLeftPanel.setBorder(BorderFactory.createEmptyBorder(0,21,0,0));
+  }
+  innerLeftPanel.add(label,BorderLayout.CENTER);
+  add(innerLeftPanel,BorderLayout.LINE_START);
+  setSelected(sel);
+  setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.black));
+}

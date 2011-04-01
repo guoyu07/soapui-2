@@ -2,4 +2,5 @@
   if (progressBar.isIndeterminate())   return;
   progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getTestStepSecurityChecksCount(testStep.getId()));
   progressBar.setString("");
+  ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
 }

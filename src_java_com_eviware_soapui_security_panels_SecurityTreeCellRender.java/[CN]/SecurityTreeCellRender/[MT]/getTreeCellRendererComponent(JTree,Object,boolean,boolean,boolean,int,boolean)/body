@@ -1,0 +1,16 @@
+{
+  Component result=null;
+  this.tree=arg0;
+  if (componentTree.containsKey(node)) {
+    result=componentTree.get(node);
+    ((CustomTreeNode)result).setExpandedIcon(exp);
+    ((CustomTreeNode)result).updateLabel();
+    ((CustomTreeNode)result).setSelected(sel);
+  }
+ else {
+    if (node instanceof TestStepNode)     result=getTreeCellRendererTestNode(arg0,(TestStepNode)node,sel,exp,leaf,arg5,arg6);
+    if (node instanceof SecurityCheckNode)     result=getTreeCellRendererSecurityCheckNode(arg0,(SecurityCheckNode)node,sel,exp,leaf,arg5,arg6);
+    componentTree.put((DefaultMutableTreeNode)node,result);
+  }
+  return result;
+}

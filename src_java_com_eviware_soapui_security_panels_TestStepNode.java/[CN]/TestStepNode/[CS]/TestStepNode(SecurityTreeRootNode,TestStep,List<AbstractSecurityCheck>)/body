@@ -1,0 +1,9 @@
+{
+  this.testStep=step;
+  if (step instanceof SamplerTestStep)   setAllowsChildren(true);
+ else {
+    setAllowsChildren(false);
+    children=null;
+  }
+  if (list != null)   for (  SecurityCheck sc : list)   add(new SecurityCheckNode(sc));
+}

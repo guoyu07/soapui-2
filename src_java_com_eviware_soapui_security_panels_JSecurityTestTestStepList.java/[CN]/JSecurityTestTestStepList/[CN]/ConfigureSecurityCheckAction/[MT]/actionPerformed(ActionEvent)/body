@@ -1,0 +1,8 @@
+{
+  SecurityCheckNode node=(SecurityCheckNode)securityTestTree.getLastSelectedPathComponent();
+  SecurityCheck securityCheck=node.getSecurityCheck();
+  if (securityCheck.isConfigurable()) {
+    XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
+    dialog.show();
+  }
+}

@@ -1,20 +1,36 @@
 {
-  testStepListPanel=new JPanel();
-  testStepListPanel.setLayout(new BoxLayout(testStepListPanel,BoxLayout.Y_AXIS));
   this.securityTest=securityTest;
-  setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-  for (int c=0; c < securityTest.getTestCase().getTestStepCount(); c++) {
-    TestStepListEntryPanel testStepListEntryPanel=createTestStepListPanel(securityTest.getTestCase().getTestStepAt(c));
-    panels.put(securityTest.getTestCase().getTestStepAt(c),testStepListEntryPanel);
-    testStepListPanel.add(testStepListEntryPanel);
-  }
-  testStepListPanel.add(Box.createVerticalGlue());
-  secCheckPanel=buildSecurityChecksPanel();
-  splitPane=UISupport.createVerticalSplit(new JScrollPane(testStepListPanel),new JScrollPane(secCheckPanel));
-  splitPane.setPreferredSize(new Dimension(600,400));
-  splitPane.setDividerLocation(0.5);
-  splitPane.setResizeWeight(0.6);
-  add(splitPane,BorderLayout.CENTER);
+  setLayout(new BorderLayout());
+  JXToolBar toolbar=initToolbar();
+  securityCheckPopUp=new JPopupMenu();
+  securityCheckPopUp.add(addSecurityCheckAction);
+  securityCheckPopUp.add(configureSecurityCheckAction);
+  securityCheckPopUp.addSeparator();
+  securityCheckPopUp.add(removeSecurityCheckAction);
+  securityCheckPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  securityCheckWithPropertiesPopUp=new JPopupMenu();
+  securityCheckWithPropertiesPopUp.add(addSecurityCheckAction);
+  securityCheckWithPropertiesPopUp.add(configureSecurityCheckAction);
+  securityCheckWithPropertiesPopUp.add(cloneParametersAction);
+  securityCheckWithPropertiesPopUp.addSeparator();
+  securityCheckWithPropertiesPopUp.add(removeSecurityCheckAction);
+  securityCheckWithPropertiesPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  testStepPopUp=new JPopupMenu();
+  testStepPopUp.add(addSecurityCheckAction);
+  testStepPopUp.addSeparator();
+  testStepPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  securityTestTree=new JXTree(new SecurityCheckTree(securityTest));
+  securityTestTree.putClientProperty("JTree.lineStyle","None");
+  securityTestTree.setUI(new CustomTreeUI());
+  securityTestTree.setRootVisible(false);
+  securityTestTree.setLargeModel(true);
+  securityTestTree.setCellRenderer(new SecurityTreeCellRender());
+  securityTestTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+  securityTestTree.addTreeSelectionListener(this);
+  securityTestTree.addMouseListener(this);
+  securityTestTree.setRowHeight(30);
+  add(toolbar,BorderLayout.NORTH);
+  add(new JScrollPane(securityTestTree),BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
   this.securityTestLog=securityTestLog;
 }

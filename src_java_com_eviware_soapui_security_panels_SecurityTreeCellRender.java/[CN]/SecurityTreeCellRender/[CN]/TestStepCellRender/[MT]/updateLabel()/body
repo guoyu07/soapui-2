@@ -1,0 +1,11 @@
+{
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    if (securityTest.getSecurityChecksMap().get(testStep.getId()) != null) {
+      String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " check)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " checks)";
+      label.setText(testStep.getLabel() + " (" + labelText);
+    }
+ else {
+      label.setText(testStep.getLabel() + " (0 checks)");
+    }
+  }
+}

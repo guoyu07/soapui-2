@@ -1,0 +1,16 @@
+{
+  DefaultMutableTreeNode node=(DefaultMutableTreeNode)securityTestTree.getLastSelectedPathComponent();
+  if (node == null)   return;
+  if (e.getClickCount() <= 1)   return;
+  if (node instanceof SecurityCheckNode) {
+    SecurityCheck securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
+    if (securityCheck.isConfigurable()) {
+      XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
+      dialog.show();
+    }
+  }
+ else {
+    if (securityTestTree.isExpanded(TreePathUtils.getPath(node))) {
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  for (  TestStep step : securityTest.getTestCase().getTestStepList()) {
+    add(new TestStepNode(this,step,securityTest.getSecurityChecksMap().get(step.getId())));
+  }
+}

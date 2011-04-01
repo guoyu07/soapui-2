@@ -1,0 +1,21 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  addSecurityCheckAction=new AddSecurityCheckAction();
+  configureSecurityCheckAction=new ConfigureSecurityCheckAction();
+  removeSecurityCheckAction=new RemoveSecurityCheckAction();
+  cloneParametersAction=new CloneParametersAction();
+  toolbar.addFixed(UISupport.createToolbarButton(addSecurityCheckAction));
+  toolbar.addFixed(UISupport.createToolbarButton(configureSecurityCheckAction));
+  toolbar.addFixed(UISupport.createToolbarButton(removeSecurityCheckAction));
+  toolbar.addFixed(UISupport.createToolbarButton(cloneParametersAction));
+  JButton expandActionBtn=UISupport.createToolbarButton(new ExpandTreeAction());
+  expandActionBtn.setText("Expanded");
+  expandActionBtn.setPreferredSize(new Dimension(80,21));
+  JButton collapsActionBtn=UISupport.createToolbarButton(new CollapsTreeAction());
+  collapsActionBtn.setText("Collapsed");
+  collapsActionBtn.setPreferredSize(new Dimension(80,21));
+  toolbar.addGlue();
+  toolbar.add(expandActionBtn);
+  toolbar.add(collapsActionBtn);
+  return toolbar;
+}
