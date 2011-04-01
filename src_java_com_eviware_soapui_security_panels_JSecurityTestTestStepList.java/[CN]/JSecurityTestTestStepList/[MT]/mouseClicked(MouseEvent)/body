@@ -1,7 +1,17 @@
 {
   DefaultMutableTreeNode node=(DefaultMutableTreeNode)securityTestTree.getLastSelectedPathComponent();
   if (node == null)   return;
-  if (e.getClickCount() <= 1)   return;
+  if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)   return;
+  if (e.getClickCount() == 1) {
+    if (securityTestTree.isExpanded(TreePathUtils.getPath(node))) {
+      securityTestTree.collapseRow(securityTestTree.getRowForLocation(e.getX(),e.getY()));
+    }
+ else {
+      securityTestTree.expandRow(securityTestTree.getRowForLocation(e.getX(),e.getY()));
+    }
+    e.consume();
+    return;
+  }
   if (node instanceof SecurityCheckNode) {
     SecurityCheck securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
     if (securityCheck.isConfigurable()) {
@@ -11,6 +21,8 @@
   }
  else {
     if (securityTestTree.isExpanded(TreePathUtils.getPath(node))) {
+      UISupport.selectAndShow(((TestStepNode)node).getTestStep());
+      e.consume();
     }
   }
 }

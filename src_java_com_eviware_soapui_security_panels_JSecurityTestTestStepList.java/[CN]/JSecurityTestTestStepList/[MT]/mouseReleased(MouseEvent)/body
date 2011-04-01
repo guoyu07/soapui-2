@@ -1,4 +1,6 @@
 {
+  TreePath path=securityTestTree.getPathForLocation(e.getX(),e.getY());
+  securityTestTree.setSelectionPath(path);
   Object node=securityTestTree.getLastSelectedPathComponent();
   if (node == null)   return;
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {

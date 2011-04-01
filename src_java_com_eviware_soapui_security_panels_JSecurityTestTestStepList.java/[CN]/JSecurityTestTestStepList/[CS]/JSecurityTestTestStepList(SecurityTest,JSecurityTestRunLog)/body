@@ -29,6 +29,7 @@
   securityTestTree.addTreeSelectionListener(this);
   securityTestTree.addMouseListener(this);
   securityTestTree.setRowHeight(30);
+  securityTestTree.setToggleClickCount(0);
   add(toolbar,BorderLayout.NORTH);
   add(new JScrollPane(securityTestTree),BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
