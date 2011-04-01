@@ -3,7 +3,7 @@
   for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
     if (parameter.isChecked()) {
       TestProperty property=testStep.getProperties().get(parameter.getName());
-      if (parameter.getXPath() == null || parameter.getXPath().trim().length() == 0) {
+      if (parameter.getXpath() == null || parameter.getXpath().trim().length() == 0) {
         for (        String xpathInjectionString : xpathList.getXpathListList()) {
           if (!parameterMutations.containsKey(parameter))           parameterMutations.put(parameter,new ArrayList<String>());
           parameterMutations.get(parameter).add(xpathInjectionString);
@@ -15,7 +15,7 @@
         XmlObjectTreeModel model=null;
         if (testStep instanceof WsdlTestRequestStep)         model=new XmlObjectTreeModel(((WsdlTestRequestStep)testStep).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
         if (testStep instanceof RestTestRequestStep || testStep instanceof HttpTestRequestStep)         model=new XmlObjectTreeModel(XmlObject.Factory.parse(value));
-        XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXPath()));
+        XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXpath()));
         for (        String xpathInjectionString : xpathList.getXpathListList()) {
           if (nodes.length > 0) {
             if (!parameterMutations.containsKey(parameter))             parameterMutations.put(parameter,new ArrayList<String>());
