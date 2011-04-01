@@ -27,8 +27,8 @@
   if (!forLoadTest) {
     List<SecurityTestConfig> securityTestConfigs=config.getSecurityTestList();
     for (    SecurityTestConfig tsc : securityTestConfigs) {
-      SecurityTest loadTest=buildSecurityTest(tsc);
-      securityTests.add(loadTest);
+      SecurityTest securityTest=buildSecurityTest(tsc);
+      securityTests.add(securityTest);
     }
   }
   if (!config.isSetFailOnError())   config.setFailOnError(true);

@@ -1,0 +1,19 @@
+{
+  StringToStringMap testStepIdMap=new StringToStringMap();
+  if (getConfig() != null) {
+    if (!getConfig().getTestStepSecurityTestList().isEmpty()) {
+      List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
+      for (int i=0; i < testStepSecurityTestList.size(); i++) {
+        TestStepSecurityTestConfig testStepSecurityTest=testStepSecurityTestList.get(i);
+        TestStep testStep=testCase.getTestStepAt(i);
+        if (testStep != null && testStepSecurityTest != null) {
+          String key=testStepSecurityTest.getTestStepId();
+          testStepSecurityTest.setTestStepId(testStep.getId());
+          String value=testStepSecurityTest.getTestStepId();
+          testStepIdMap.put(key,value);
+        }
+      }
+      createSecurityChecksMap();
+    }
+  }
+}

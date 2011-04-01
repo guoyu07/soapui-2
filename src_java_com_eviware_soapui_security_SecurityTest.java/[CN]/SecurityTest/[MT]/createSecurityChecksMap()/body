@@ -15,7 +15,9 @@
             }
           }
         }
-        securityChecksMap.put(testStepSecurityTestListConfig.getTestStepId(),checkList);
+        if (!checkList.isEmpty()) {
+          securityChecksMap.put(testStepSecurityTestListConfig.getTestStepId(),checkList);
+        }
       }
     }
   }

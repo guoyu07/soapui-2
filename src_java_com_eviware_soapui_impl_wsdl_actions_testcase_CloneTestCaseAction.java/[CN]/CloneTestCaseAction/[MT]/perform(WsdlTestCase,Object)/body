@@ -36,6 +36,9 @@
   boolean hasLoadTests=testCase.getLoadTestCount() > 0;
   dialog.setBooleanValue(Form.CLONE_LOADTESTS,hasLoadTests);
   dialog.getFormField(Form.CLONE_LOADTESTS).setEnabled(hasLoadTests);
+  boolean hasSecurityTests=testCase.getSecurityTestCount() > 0;
+  dialog.setBooleanValue(Form.CLONE_SECURITYTESTS,hasSecurityTests);
+  dialog.getFormField(Form.CLONE_SECURITYTESTS).setEnabled(hasSecurityTests);
   if (dialog.show()) {
     String targetProjectName=dialog.getValue(Form.PROJECT);
     String targetTestSuiteName=dialog.getValue(Form.TESTSUITE);
@@ -92,7 +95,7 @@
       targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
     }
     boolean move=dialog.getBooleanValue(Form.MOVE);
-    WsdlTestCase newTestCase=targetTestSuite.importTestCase(testCase,name,-1,dialog.getBooleanValue(Form.CLONE_LOADTESTS),!move);
+    WsdlTestCase newTestCase=targetTestSuite.importTestCase(testCase,name,-1,dialog.getBooleanValue(Form.CLONE_LOADTESTS),dialog.getBooleanValue(Form.CLONE_SECURITYTESTS),!move);
     UISupport.select(newTestCase);
     if (move) {
       testCase.getTestSuite().removeTestCase(testCase);
