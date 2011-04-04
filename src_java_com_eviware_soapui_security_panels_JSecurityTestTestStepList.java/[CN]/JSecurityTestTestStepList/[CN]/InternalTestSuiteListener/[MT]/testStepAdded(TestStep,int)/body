@@ -1,9 +1,3 @@
 {
-  TestStepListEntryPanel testStepListEntry=createTestStepListPanel(testStep);
-  panels.put(testStep,testStepListEntry);
-  testStepListPanel.add(testStepListEntry,index);
-  splitPane.remove(splitPane.getTopComponent());
-  splitPane.setTopComponent(new JScrollPane(testStepListPanel));
-  revalidate();
-  repaint();
+  ((SecurityCheckTree)securityTestTree.getModel()).insertNodeInto(testStep);
 }
