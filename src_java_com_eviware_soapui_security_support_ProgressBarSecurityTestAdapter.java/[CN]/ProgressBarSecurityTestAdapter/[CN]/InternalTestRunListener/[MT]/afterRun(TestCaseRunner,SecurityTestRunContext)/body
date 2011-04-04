@@ -1,9 +1,9 @@
 {
   if (testRunner.getStatus() == Status.FAILED) {
-    progressBar.setForeground(Color.RED);
+    progressBar.setForeground(FAILED_COLOR);
   }
  else   if (testRunner.getStatus() == Status.FINISHED) {
-    progressBar.setForeground(Color.GREEN.darker());
+    progressBar.setForeground(OK_COLOR);
   }
   if (progressBar.isIndeterminate())   return;
   progressBar.setString(testRunner.getStatus().toString());

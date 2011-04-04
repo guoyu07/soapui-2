@@ -1,0 +1,10 @@
+{
+  if (progressBar.isIndeterminate())   return;
+  progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getTestStepSecurityChecksCount(testStep.getId()));
+  progressBar.setForeground(UNKNOWN_COLOR);
+  progressBar.setString("UNKNOWN");
+  counterLabel.setText(" 0 ");
+  counterLabel.setBackground(OK_COLOR);
+  totalAlertsCounter=0;
+  ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
+}

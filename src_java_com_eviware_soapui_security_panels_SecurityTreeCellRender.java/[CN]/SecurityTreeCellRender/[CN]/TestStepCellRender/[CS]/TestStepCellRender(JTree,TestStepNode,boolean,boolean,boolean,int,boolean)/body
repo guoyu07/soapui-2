@@ -38,6 +38,7 @@
     progressBar.setInheritsPopupMenu(true);
     cntLabel=new JLabel(" 0 ");
     cntLabel.setForeground(Color.white);
+    cntLabel.setOpaque(true);
     cntLabel.setBackground(selected);
     cntLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     progressPanel.add(cntLabel);
@@ -53,4 +54,5 @@
   add(innerLeftPanel,BorderLayout.LINE_START);
   setSelected(sel);
   setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.black));
+  progressBarAdapter=new ProgressBarSecurityTestStepAdapter(tree,node,progressBar,securityTest,testStep,cntLabel);
 }

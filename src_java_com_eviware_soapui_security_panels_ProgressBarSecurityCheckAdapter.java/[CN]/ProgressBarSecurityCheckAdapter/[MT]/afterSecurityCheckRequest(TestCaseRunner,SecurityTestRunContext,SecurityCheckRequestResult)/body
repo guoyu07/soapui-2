@@ -1,0 +1,22 @@
+{
+  if (securityCheckReqResult.getSecurityCheck().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckReqResult.getSecurityCheck().getName())) {
+    progressBar.setIndeterminate(false);
+    if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
+      progressBar.setForeground(FAILED_COLOR);
+      progressBar.setString("FAILED");
+      cntLabel.setBackground(FAILED_COLOR);
+      alertsCounter++;
+    }
+ else     if (securityCheckReqResult.getStatus() == SecurityStatus.OK) {
+      progressBar.setForeground(OK_COLOR);
+      progressBar.setString("OK");
+    }
+ else     if (securityCheckReqResult.getStatus() == SecurityStatus.UNKNOWN) {
+      progressBar.setForeground(UNKNOWN_COLOR);
+      progressBar.setString("UNKNOWN");
+    }
+    cntLabel.setText(" " + alertsCounter + " ");
+    progressBar.setValue(progressBar.getValue() + 1);
+    ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
+  }
+}

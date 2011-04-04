@@ -1,13 +1,13 @@
 {
   if (progressBar.isIndeterminate())   return;
   if (securityCheckResult.getStatus() == SecurityStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
-    progressBar.setForeground(Color.RED);
+    progressBar.setForeground(FAILED_COLOR);
   }
  else   if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
-    progressBar.setForeground(Color.RED);
+    progressBar.setForeground(FAILED_COLOR);
   }
  else   if (securityCheckResult.getStatus() == SecurityStatus.OK) {
-    progressBar.setForeground(Color.GREEN.darker());
+    progressBar.setForeground(OK_COLOR);
   }
   progressBar.setValue(runContext.getCurrentCheckOnSecurityTestIndex() + 1);
 }

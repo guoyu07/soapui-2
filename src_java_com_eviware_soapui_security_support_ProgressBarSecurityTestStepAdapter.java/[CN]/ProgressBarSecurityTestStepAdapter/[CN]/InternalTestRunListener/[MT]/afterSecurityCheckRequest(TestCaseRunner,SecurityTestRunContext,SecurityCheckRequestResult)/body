@@ -1,0 +1,8 @@
+{
+  if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
+    counterLabel.setBackground(FAILED_COLOR);
+    totalAlertsCounter++;
+  }
+  counterLabel.setText(" " + totalAlertsCounter + " ");
+  ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
+}

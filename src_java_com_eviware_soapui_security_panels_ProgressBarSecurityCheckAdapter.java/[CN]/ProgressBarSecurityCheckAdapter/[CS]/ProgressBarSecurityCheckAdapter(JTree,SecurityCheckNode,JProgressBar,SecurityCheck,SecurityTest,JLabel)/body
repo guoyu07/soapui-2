@@ -1,0 +1,17 @@
+{
+  this.tree=tree;
+  this.node=node;
+  this.progressBar=progressBar;
+  this.progressBar.setMaximum(100);
+  this.securityCheck=securityCheck;
+  this.securityTest=securityTest;
+  if (securityCheck.getAssertionsSupport().getAssertionCount() == 0) {
+    progressBar.setForeground(new Color(204,153,255));
+    progressBar.setString("No Assertions");
+    progressBar.setValue(100);
+  }
+ else {
+    this.securityTest.addSecurityTestRunListener(this);
+  }
+  this.cntLabel=cntLabel;
+}
