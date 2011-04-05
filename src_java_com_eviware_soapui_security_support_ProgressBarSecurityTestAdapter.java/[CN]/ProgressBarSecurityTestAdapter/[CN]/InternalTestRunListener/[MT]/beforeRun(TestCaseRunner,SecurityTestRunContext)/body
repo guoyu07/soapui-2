@@ -2,4 +2,7 @@
   if (progressBar.isIndeterminate())   return;
   progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getSecurityCheckCount());
   progressBar.setForeground(OK_COLOR);
+  counterLabel.setBackground(OK_COLOR);
+  alertsCounter=0;
+  counterLabel.setText(" " + alertsCounter + " ");
 }

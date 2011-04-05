@@ -10,8 +10,7 @@
     progressBar.setString("No Assertions");
     progressBar.setValue(100);
   }
- else {
-    this.securityTest.addSecurityTestRunListener(this);
-  }
+  this.securityTest.addSecurityTestRunListener(this);
   this.cntLabel=cntLabel;
+  ((AbstractSecurityCheck)securityCheck).addAssertionsListener(this);
 }

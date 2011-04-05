@@ -1,5 +1,6 @@
 {
   if (securityCheckReqResult.getSecurityCheck().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckReqResult.getSecurityCheck().getName())) {
+    if (securityCheck.getAssertionsSupport().getAssertionCount() == 0)     return;
     progressBar.setIndeterminate(false);
     if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
       progressBar.setForeground(FAILED_COLOR);
