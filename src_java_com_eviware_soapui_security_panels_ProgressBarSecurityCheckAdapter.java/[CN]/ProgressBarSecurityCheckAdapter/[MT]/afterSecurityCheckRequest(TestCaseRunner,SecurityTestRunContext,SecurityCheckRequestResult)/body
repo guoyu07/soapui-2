@@ -4,17 +4,17 @@
     progressBar.setIndeterminate(false);
     if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
       progressBar.setForeground(FAILED_COLOR);
-      progressBar.setString("FAILED");
+      progressBar.setString(FAILED_MESSAGE);
       cntLabel.setBackground(FAILED_COLOR);
       alertsCounter++;
     }
  else     if (securityCheckReqResult.getStatus() == SecurityStatus.OK) {
       progressBar.setForeground(OK_COLOR);
-      progressBar.setString("OK");
+      progressBar.setString(OK_MESSAGE);
     }
  else     if (securityCheckReqResult.getStatus() == SecurityStatus.UNKNOWN) {
       progressBar.setForeground(UNKNOWN_COLOR);
-      progressBar.setString("UNKNOWN");
+      progressBar.setString(UNKNOWN_MESSAGE);
     }
     cntLabel.setText(" " + alertsCounter + " ");
     progressBar.setValue(progressBar.getValue() + 1);
