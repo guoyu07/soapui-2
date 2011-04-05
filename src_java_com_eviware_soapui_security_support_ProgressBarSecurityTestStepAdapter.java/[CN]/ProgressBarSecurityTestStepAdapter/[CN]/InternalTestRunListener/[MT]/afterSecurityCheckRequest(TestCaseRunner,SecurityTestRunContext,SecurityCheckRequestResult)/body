@@ -1,8 +1,10 @@
 {
-  if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
-    counterLabel.setBackground(FAILED_COLOR);
-    totalAlertsCounter++;
+  if (securityCheckReqResult.getSecurityCheck().getTestStep().getId().equals(testStep.getId())) {
+    if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
+      counterLabel.setBackground(FAILED_COLOR);
+      totalAlertsCounter++;
+    }
+    counterLabel.setText(" " + totalAlertsCounter + " ");
+    ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
   }
-  counterLabel.setText(" " + totalAlertsCounter + " ");
-  ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
 }

@@ -5,6 +5,6 @@
   this.testStep=testStep;
   this.securityTest=securityTest;
   this.counterLabel=cntLabel;
-  internalTestRunListener=new InternalTestRunListener();
+  internalTestRunListener=new InternalTestRunListener(testStep);
   if (progressBar != null && cntLabel != null)   this.securityTest.addSecurityTestRunListener(internalTestRunListener);
 }
