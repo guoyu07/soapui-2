@@ -1,5 +1,6 @@
 {
   if (securityCheck.getAssertionsSupport().getAssertionCount() == 0)   return;
+  if (securityCheck instanceof AbstractSecurityCheckWithProperties && ((AbstractSecurityCheckWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0)   return;
   progressBar.setIndeterminate(false);
   progressBar.setForeground(UNKNOWN_COLOR);
   progressBar.setValue(0);

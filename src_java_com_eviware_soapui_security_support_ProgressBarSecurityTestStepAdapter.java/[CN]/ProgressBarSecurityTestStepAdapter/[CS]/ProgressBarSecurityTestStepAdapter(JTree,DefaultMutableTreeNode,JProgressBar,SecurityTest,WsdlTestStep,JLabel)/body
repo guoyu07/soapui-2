@@ -6,5 +6,10 @@
   this.securityTest=securityTest;
   this.counterLabel=cntLabel;
   internalTestRunListener=new InternalTestRunListener();
-  if (progressBar != null && cntLabel != null)   this.securityTest.addSecurityTestRunListener(internalTestRunListener);
+  if (progressBar != null && cntLabel != null) {
+    this.counterLabel.setPreferredSize(new Dimension(50,18));
+    this.counterLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+    this.counterLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    this.securityTest.addSecurityTestRunListener(internalTestRunListener);
+  }
 }

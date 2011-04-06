@@ -20,5 +20,8 @@
   }
   this.securityTest.addSecurityTestRunListener(this);
   this.cntLabel=cntLabel;
+  this.cntLabel.setPreferredSize(new Dimension(50,18));
+  this.cntLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+  this.cntLabel.setHorizontalAlignment(SwingConstants.CENTER);
   ((AbstractSecurityCheck)securityCheck).addAssertionsListener(this);
 }
