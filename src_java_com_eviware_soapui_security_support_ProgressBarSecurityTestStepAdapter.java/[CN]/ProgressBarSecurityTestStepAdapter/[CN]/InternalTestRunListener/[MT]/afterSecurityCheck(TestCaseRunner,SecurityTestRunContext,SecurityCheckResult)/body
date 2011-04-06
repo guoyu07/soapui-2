@@ -7,8 +7,10 @@
         progressBar.setString("FAILED");
       }
  else {
-        progressBar.setForeground(OK_COLOR);
-        progressBar.setString("OK");
+        if (!progressBar.getString().equals("FAILED")) {
+          progressBar.setForeground(OK_COLOR);
+          progressBar.setString("OK");
+        }
       }
     }
  else     if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
@@ -16,11 +18,15 @@
       progressBar.setString("FAILED");
     }
  else     if (securityCheckResult.getStatus() == SecurityStatus.OK) {
-      progressBar.setForeground(OK_COLOR);
-      progressBar.setString("OK");
+      if (!progressBar.getString().equals("FAILED")) {
+        progressBar.setForeground(OK_COLOR);
+        progressBar.setString("OK");
+      }
     }
  else     if (securityCheckResult.getStatus() == SecurityStatus.UNKNOWN) {
-      progressBar.setForeground(UNKNOWN_COLOR);
+      if (progressBar.getString().equals("")) {
+        progressBar.setForeground(UNKNOWN_COLOR);
+      }
     }
     progressBar.setValue(((SecurityTestRunContext)runContext).getCurrentCheckIndex() + 1);
     ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
