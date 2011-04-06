@@ -19,7 +19,8 @@
   initTestStepPopUpActions();
   testStepPopUp.addSeparator();
   testStepPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
-  securityTestTree=new JXTree(new SecurityCheckTree(securityTest));
+  treeModel=new SecurityCheckTree(securityTest);
+  securityTestTree=new JXTree(treeModel);
   securityTestTree.putClientProperty("JTree.lineStyle","None");
   securityTestTree.setUI(new CustomTreeUI());
   securityTestTree.setRootVisible(false);
@@ -36,6 +37,7 @@
   JScrollPane scollPane=new JScrollPane(securityTestTree);
   add(scollPane,BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
+  securityTest.addSecurityTestListener(this);
   for (int row=0; row < securityTestTree.getRowCount(); row++) {
     securityTestTree.expandRow(row);
   }
