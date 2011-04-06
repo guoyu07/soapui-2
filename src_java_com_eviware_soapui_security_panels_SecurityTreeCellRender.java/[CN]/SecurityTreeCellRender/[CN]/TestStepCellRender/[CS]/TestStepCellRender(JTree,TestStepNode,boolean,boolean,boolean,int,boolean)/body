@@ -22,6 +22,8 @@
  else   expandCollapseBtn=new JButton(collapsed);
   expandCollapseBtn.setBorder(null);
   expandCollapseBtn.setEnabled(false);
+  if (securityTest.getSecurityChecksMap().get(testStep.getId()) == null || securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
+ else   expandCollapseBtn.setVisible(true);
   innerLeftPanel.add(expandCollapseBtn,BorderLayout.WEST);
   if (AbstractSecurityCheck.isSecurable(testStep)) {
     progressBar=new JProgressBar();

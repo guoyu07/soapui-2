@@ -13,7 +13,7 @@
         }
  else {
           if (value == null || value.trim().equals(""))           continue;
-          XmlObjectTreeModel model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+          XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(value));
           XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXpath()));
           for (          XmlTreeNode node : nodes)           node.setValue(1,parameterMutations.get(param).get(0));
           params.put(param.getLabel(),parameterMutations.get(param).get(0));
@@ -28,7 +28,7 @@
     for (    TestProperty property : testStep.getPropertyList()) {
       String value=context.expand(property.getValue());
       XmlObjectTreeModel model=null;
-      model=new XmlObjectTreeModel(((WsdlTestRequestStep)getTestStep()).getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(value));
+      model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(value));
       for (      SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
         if (param.getXpath() == null || param.getXpath().trim().length() == 0) {
           testStep.getProperties().get(param.getName()).setValue(parameterMutations.get(param).get(0));

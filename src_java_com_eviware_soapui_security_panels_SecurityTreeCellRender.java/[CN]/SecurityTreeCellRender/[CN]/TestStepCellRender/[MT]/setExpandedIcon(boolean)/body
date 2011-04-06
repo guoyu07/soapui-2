@@ -1,4 +1,12 @@
 {
+  if (securityTest.getSecurityChecksMap().get(testStep.getId()) == null || securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 0) {
+    expandCollapseBtn.setVisible(false);
+    innerLeftPanel.setBorder(BorderFactory.createEmptyBorder(0,21,0,0));
+  }
+ else {
+    expandCollapseBtn.setVisible(true);
+    innerLeftPanel.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+  }
   if (exp)   expandCollapseBtn.setIcon(expanded);
  else   expandCollapseBtn.setIcon(collapsed);
 }

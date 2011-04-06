@@ -24,7 +24,8 @@
   securityTestTree.setUI(new CustomTreeUI());
   securityTestTree.setRootVisible(false);
   securityTestTree.setLargeModel(true);
-  securityTestTree.setCellRenderer(new SecurityTreeCellRender());
+  cellRender=new SecurityTreeCellRender();
+  securityTestTree.setCellRenderer(cellRender);
   securityTestTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
   securityTestTree.addTreeSelectionListener(this);
   securityTestTree.addMouseListener(this);

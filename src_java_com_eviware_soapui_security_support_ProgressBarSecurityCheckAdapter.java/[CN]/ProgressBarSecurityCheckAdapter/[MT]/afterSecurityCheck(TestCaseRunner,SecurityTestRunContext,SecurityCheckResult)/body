@@ -3,5 +3,9 @@
     if (securityCheck.getAssertionsSupport().getAssertionCount() == 0)     return;
     progressBar.setValue(100);
     ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
+    if (alertsCounter == 0) {
+      cntLabel.setBackground(OK_COLOR);
+      cntLabel.setOpaque(true);
+    }
   }
 }
