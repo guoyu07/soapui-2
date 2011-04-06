@@ -1,0 +1,7 @@
+{
+  Component component=componentTree.get(node);
+  if (component instanceof ReleasableNode) {
+    ((ReleasableNode)component).release();
+  }
+  componentTree.remove(node);
+}

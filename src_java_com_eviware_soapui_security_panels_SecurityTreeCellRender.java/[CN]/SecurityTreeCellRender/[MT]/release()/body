@@ -1,5 +1,6 @@
 {
-  for (  DefaultMutableTreeNode key : componentTree.keySet())   if (key instanceof TestStepNode)   ((TestStepCellRender)componentTree.get(key)).release();
- else   ((SecurityCheckCellRender)componentTree.get(key)).release();
+  for (  DefaultMutableTreeNode key : componentTree.keySet())   if (key instanceof ReleasableNode) {
+    ((ReleasableNode)componentTree.get(key)).release();
+  }
   componentTree.clear();
 }

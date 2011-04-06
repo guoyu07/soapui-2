@@ -1,3 +1,5 @@
 {
-  ((SecurityCheckTree)securityTestTree.getModel()).removeTestStep(testStep);
+  TestStepNode node=((SecurityCheckTree)securityTestTree.getModel()).getTestStepNode(testStep);
+  cellRender.remove(node);
+  ((SecurityCheckTree)securityTestTree.getModel()).removeNodeFromParent(node);
 }
