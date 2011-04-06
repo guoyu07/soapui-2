@@ -3,7 +3,7 @@
   if (node == null)   return;
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)   return;
   if (e.getClickCount() == 1) {
-    if (securityTestTree.isExpanded(TreePathUtils.getPath(node))) {
+    if (securityTestTree.isExpanded(TreePathUtils.getPath(node)) && node instanceof TestStepNode && cellRender.isOn((TestStepNode)node,e.getX(),e.getY())) {
       securityTestTree.collapseRow(securityTestTree.getRowForLocation(e.getX(),e.getY()));
     }
  else {
