@@ -11,6 +11,7 @@
     if (StringUtils.hasContent(signatureAlgorithm))     wssSign.setSignatureAlgorithm(signatureAlgorithm);
     if (StringUtils.hasContent(signatureCanonicalization))     wssSign.setSigCanonicalization(signatureCanonicalization);
     wssSign.setUseSingleCertificate(useSingleCert);
+    wssSign.setDigestAlgo(digestAlgorithm);
     Vector<WSEncryptionPart> wsParts=createWSParts(parts);
     if (!wsParts.isEmpty()) {
       wssSign.setParts(wsParts);
