@@ -1,12 +1,12 @@
 {
   if (holder.getPropertyList().isEmpty())   return;
-  SecurityCheckedParameterImpl param=(SecurityCheckedParameterImpl)holder.getPropertyList().get(row);
+  SensitiveTokenProperty param=(SensitiveTokenProperty)holder.getPropertyList().get(row);
 switch (column) {
 case 0:
-    param.setLabel((String)aValue);
+    param.setName((String)aValue);
   break;
 case 1:
-param.setName((String)aValue);
+param.setValue((String)aValue);
 break;
 }
 }

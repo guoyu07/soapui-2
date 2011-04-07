@@ -2,5 +2,5 @@
   dialog=ADialogBuilder.buildDialog(SensitiveInformationConfigDialog.class);
   dialog.setBooleanValue(SensitiveInformationConfigDialog.INCLUDE_GLOBAL,includeGlolbal);
   dialog.setBooleanValue(SensitiveInformationConfigDialog.INCLUDE_PROJECT_SPECIFIC,includeProjectSpecific);
-  dialog.setOptions(SensitiveInformationConfigDialog.TOKENS,assertionSpecificExposureList.toArray());
+  dialog.getFormField(SensitiveInformationConfigDialog.TOKENS).setProperty("component",getForm());
 }
