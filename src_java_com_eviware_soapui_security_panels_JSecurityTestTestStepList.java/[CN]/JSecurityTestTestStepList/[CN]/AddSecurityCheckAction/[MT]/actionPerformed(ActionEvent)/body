@@ -26,10 +26,6 @@
     UISupport.showErrorMessage("Failed to add security check");
     return;
   }
-  SecurityCheckNode newnode=new SecurityCheckNode(securityCheck);
-  node.add(newnode);
-  ((SecurityCheckTree)securityTestTree.getModel()).nodeStructureChanged(node);
-  securityTestTree.setSelectionInterval(securityTestTree.getModel().getIndexOfChild(node,newnode) + 1,securityTestTree.getModel().getIndexOfChild(node,newnode) + 1);
   XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
   dialog.show();
 }
