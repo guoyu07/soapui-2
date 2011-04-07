@@ -28,4 +28,10 @@
   }
   XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
   dialog.show();
+  if (dialog.getReturnValue() == XFormDialog.CANCEL_OPTION) {
+    SecurityCheckNode securityCheckNode=(SecurityCheckNode)node.getLastChild();
+    securityTest.removeSecurityCheck(testStep,(AbstractSecurityCheck)securityCheck);
+    cellRender.remove(securityCheckNode);
+    ((SecurityCheckTree)securityTestTree.getModel()).removeNodeFromParent(securityCheckNode);
+  }
 }
