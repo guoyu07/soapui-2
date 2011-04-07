@@ -1,0 +1,6 @@
+{
+  if (properties.get(name) != null)   properties.get(name).setValue(value);
+ else {
+    properties.put(name,new SensitiveTokenProperty(name,value));
+  }
+}

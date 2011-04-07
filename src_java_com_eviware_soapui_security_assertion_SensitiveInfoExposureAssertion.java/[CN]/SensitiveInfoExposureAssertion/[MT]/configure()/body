@@ -1,7 +1,7 @@
 {
   if (dialog == null)   buildDialog();
   if (dialog.show()) {
-    JStringListFormField jsringListFormField=(JStringListFormField)dialog.getFormField(SensitiveInformationConfigDialog.INFOLIST);
+    JStringListFormField jsringListFormField=(JStringListFormField)dialog.getFormField(SensitiveInformationConfigDialog.TOKENS);
     String[] stringList=jsringListFormField != null ? jsringListFormField.getOptions() : new String[0];
     assertionSpecificExposureList=StringUtils.toStringList(stringList);
     includeProjectSpecific=Boolean.valueOf(dialog.getFormField(SensitiveInformationConfigDialog.INCLUDE_PROJECT_SPECIFIC).getValue());
