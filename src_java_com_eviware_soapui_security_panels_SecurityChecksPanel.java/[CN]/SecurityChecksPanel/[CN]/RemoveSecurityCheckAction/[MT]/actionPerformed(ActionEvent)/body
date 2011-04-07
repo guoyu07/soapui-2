@@ -1,8 +1,0 @@
-{
-  int ix=securityCheckList.getSelectedIndex();
-  if (ix == -1)   return;
-  AbstractSecurityCheck securityCheck=securityCheckListModel.getSecurityCheckAt(ix);
-  if (UISupport.confirm("Remove security check [" + securityCheck.getName() + "]","Remove SecurityCheck")) {
-    securityTest.removeSecurityCheck(testStep,securityCheck);
-  }
-}
