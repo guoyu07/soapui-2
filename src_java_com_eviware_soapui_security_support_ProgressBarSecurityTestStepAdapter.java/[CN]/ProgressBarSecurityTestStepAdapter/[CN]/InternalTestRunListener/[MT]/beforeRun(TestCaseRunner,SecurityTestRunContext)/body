@@ -1,8 +1,8 @@
 {
-  progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getTestStepSecurityChecksCount(testStep.getId()));
   progressBar.setString("");
-  progressBar.setForeground(Color.white);
-  counterLabel.setText(" 0 ");
+  progressBar.setValue(0);
+  progressBar.setForeground(UNKNOWN_COLOR);
+  counterLabel.setText("");
   counterLabel.setOpaque(false);
   totalAlertsCounter=0;
   ((DefaultTreeModel)tree.getModel()).nodeChanged(node);

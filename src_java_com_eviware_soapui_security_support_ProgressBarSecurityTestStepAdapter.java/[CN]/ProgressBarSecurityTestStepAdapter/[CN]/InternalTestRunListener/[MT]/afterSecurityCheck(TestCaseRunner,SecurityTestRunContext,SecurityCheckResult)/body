@@ -1,31 +1,16 @@
 {
   if (securityCheckResult.getSecurityCheck().getTestStep().getId().equals(testStep.getId())) {
-    progressBar.setIndeterminate(false);
-    if (!progressBar.getString().equals("FAILED"))     if (securityCheckResult.getStatus() == SecurityStatus.CANCELED) {
-      if (securityCheckResult.isHasRequestsWithWarnings()) {
+    if (securityCheckResult.getStatus() == SecurityStatus.CANCELED) {
+      progressBar.setString(STATE_CANCEL);
+    }
+ else     if (!progressBar.getForeground().equals(MISSING_ASSERTION_COLOR)) {
+      if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
         progressBar.setForeground(FAILED_COLOR);
-        progressBar.setString("FAILED");
       }
- else {
-        if (!progressBar.getString().equals("FAILED")) {
+ else       if (securityCheckResult.getStatus() == SecurityStatus.OK) {
+        if (!progressBar.getForeground().equals(FAILED_COLOR)) {
           progressBar.setForeground(OK_COLOR);
-          progressBar.setString("OK");
         }
-      }
-    }
- else     if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
-      progressBar.setForeground(FAILED_COLOR);
-      progressBar.setString("FAILED");
-    }
- else     if (securityCheckResult.getStatus() == SecurityStatus.OK) {
-      if (!progressBar.getString().equals("FAILED")) {
-        progressBar.setForeground(OK_COLOR);
-        progressBar.setString("OK");
-      }
-    }
- else     if (securityCheckResult.getStatus() == SecurityStatus.UNKNOWN) {
-      if (progressBar.getString().equals("")) {
-        progressBar.setForeground(UNKNOWN_COLOR);
       }
     }
     progressBar.setValue(((SecurityTestRunContext)runContext).getCurrentCheckIndex() + 1);
