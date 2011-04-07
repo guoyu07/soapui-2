@@ -1,11 +1,11 @@
 {
   if (securityCheckResult.getSecurityCheck().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckResult.getSecurityCheck().getName())) {
-    if (securityCheck.getAssertionsSupport().getAssertionCount() == 0)     return;
-    progressBar.setValue(100);
-    ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
-    if (alertsCounter == 0) {
-      cntLabel.setBackground(OK_COLOR);
-      cntLabel.setOpaque(true);
+    if (securityCheckResult.getStatus() != SecurityStatus.CANCELED) {
+      progressBar.setValue(100);
     }
+ else {
+      progressBar.setString(STATE_CANCEL);
+    }
+    ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
   }
 }

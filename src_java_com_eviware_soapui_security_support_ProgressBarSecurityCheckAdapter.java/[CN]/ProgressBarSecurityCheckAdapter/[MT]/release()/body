@@ -1,9 +1,6 @@
 {
   securityTest.removeSecurityTestRunListener(this);
   ((AbstractSecurityCheck)securityCheck).removeAssertionsListener(this);
-  if (this.securityCheck instanceof AbstractSecurityCheckWithProperties) {
-    ((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder().removeParameterListener(this);
-  }
   securityTest=null;
   securityCheck=null;
 }
