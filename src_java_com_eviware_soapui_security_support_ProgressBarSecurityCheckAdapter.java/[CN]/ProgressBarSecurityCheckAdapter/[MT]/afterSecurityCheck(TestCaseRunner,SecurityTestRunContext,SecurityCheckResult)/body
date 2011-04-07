@@ -1,6 +1,16 @@
 {
   if (securityCheckResult.getSecurityCheck().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckResult.getSecurityCheck().getName())) {
     if (securityCheckResult.getStatus() != SecurityStatus.CANCELED) {
+      if (securityCheck.getAssertionsSupport().getAssertionCount() == 0) {
+        progressBar.setForeground(MISSING_ASSERTION_COLOR);
+        progressBar.setString(STATE_MISSING_ASSERTIONS);
+      }
+ else       if (this.securityCheck instanceof AbstractSecurityCheckWithProperties) {
+        if (((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder() != null && ((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder().getParameterList() != null && ((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder().getParameterList().size() == 0) {
+          progressBar.setForeground(MISSING_ASSERTION_COLOR);
+          progressBar.setString(STATE_MISSING_PARAMETERS);
+        }
+      }
       progressBar.setValue(100);
     }
  else {
