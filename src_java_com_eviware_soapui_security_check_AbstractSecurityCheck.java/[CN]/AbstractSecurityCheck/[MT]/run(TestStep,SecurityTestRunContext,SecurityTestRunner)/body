@@ -12,6 +12,7 @@
   while (hasNext(testStep,context)) {
     if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
       securityCheckResult.setStatus(SecurityStatus.CANCELED);
+      clear();
       return securityCheckResult;
     }
     securityCheckRequestResult=new SecurityCheckRequestResult(this);
