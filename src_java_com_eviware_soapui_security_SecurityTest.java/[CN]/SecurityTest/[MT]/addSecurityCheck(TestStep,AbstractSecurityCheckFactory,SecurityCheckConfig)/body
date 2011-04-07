@@ -1,6 +1,4 @@
 {
-  AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactoryByName(securityCheckType);
-  SecurityCheckConfig newSecCheckConfig=factory.createNewSecurityCheck(securityCheckName);
   AbstractSecurityCheck newSecCheck=null;
   boolean hasChecks=false;
   List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
@@ -8,7 +6,7 @@
     for (int i=0; i < testStepSecurityTestList.size(); i++) {
       TestStepSecurityTestConfig testStepSecurityTest=testStepSecurityTestList.get(i);
       if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
-        newSecCheck=addSecurityCheck(factory,newSecCheckConfig,testStepSecurityTest,testStep);
+        newSecCheck=buildSecurityCheck(factory,newCheckConfig,testStepSecurityTest,testStep);
         hasChecks=true;
         break;
       }
@@ -17,8 +15,8 @@
   if (!hasChecks) {
     TestStepSecurityTestConfig testStepSecurityTest=getConfig().addNewTestStepSecurityTest();
     testStepSecurityTest.setTestStepId(testStep.getId());
-    newSecCheck=addSecurityCheck(factory,newSecCheckConfig,testStepSecurityTest,testStep);
+    newSecCheck=buildSecurityCheck(factory,newCheckConfig,testStepSecurityTest,testStep);
   }
-  addSecurityCheckByTestStepId(testStep.getId(),newSecCheck);
+  addSecurityCheckToMapByTestStepId(testStep.getId(),newSecCheck);
   return newSecCheck;
 }

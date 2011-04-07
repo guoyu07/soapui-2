@@ -5,6 +5,5 @@
   if (UISupport.confirm("Remove security check [" + securityCheck.getName() + "]","Remove SecurityCheck")) {
     securityTest.removeSecurityCheck(testStep,(AbstractSecurityCheck)securityCheck);
     cellRender.remove(node);
-    ((SecurityCheckTree)securityTestTree.getModel()).removeNodeFromParent(node);
   }
 }

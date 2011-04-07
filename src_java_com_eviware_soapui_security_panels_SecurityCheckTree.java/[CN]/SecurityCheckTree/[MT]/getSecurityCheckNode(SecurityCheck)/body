@@ -1,0 +1,8 @@
+{
+  TestStepNode testStepNode=getTestStepNode(securityCheck.getTestStep());
+  for (int cnt=0; cnt < testStepNode.getChildCount(); cnt++) {
+    SecurityCheckNode node=(SecurityCheckNode)testStepNode.getChildAt(cnt);
+    if (node.getSecurityCheck().getType().equals(securityCheck.getType()))     return node;
+  }
+  return null;
+}
