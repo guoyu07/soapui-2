@@ -1,5 +1,7 @@
 {
-  if (progressBar.isIndeterminate())   return;
+  if (securityCheckResult.getStatus() == SecurityStatus.CANCELED) {
+    progressBar.setString(STATE_CANCEL);
+  }
   if (securityCheckResult.getStatus() == SecurityStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
     progressBar.setForeground(FAILED_COLOR);
   }

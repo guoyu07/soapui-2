@@ -5,4 +5,7 @@
     alertsCounter++;
     counterLabel.setText(" " + alertsCounter + " ");
   }
+ else   if (securityCheckReqResult.getStatus() == SecurityStatus.CANCELED) {
+    progressBar.setString(STATE_CANCEL);
+  }
 }
