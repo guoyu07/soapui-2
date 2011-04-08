@@ -9,6 +9,10 @@
     config.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
     config.getExecutionStrategy().setDelay(100);
   }
+ else   if (config.getExecutionStrategy().getStrategy() == null) {
+    config.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
+    config.getExecutionStrategy().setDelay(100);
+  }
   setExecutionStrategy(new ExecutionStrategyHolder(config.getExecutionStrategy()));
   if (config.getChekedPameters() == null)   config.addNewChekedPameters();
   initAssertions();
