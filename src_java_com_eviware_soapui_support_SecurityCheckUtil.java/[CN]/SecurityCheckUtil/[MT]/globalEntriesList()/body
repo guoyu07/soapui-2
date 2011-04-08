@@ -4,11 +4,11 @@
   PropertiesTypeConfig config;
   try {
     config=PropertiesTypeConfig.Factory.parse(temp);
-    List<String> contentList=new ArrayList<String>();
+    Map<String,String> map=new HashMap<String,String>();
     for (    PropertyConfig pc : config.getPropertyList()) {
-      contentList.add(pc.getName());
+      map.put(pc.getName(),pc.getValue());
     }
-    return contentList;
+    return map;
   }
  catch (  XmlException e) {
     SoapUI.logError(e);

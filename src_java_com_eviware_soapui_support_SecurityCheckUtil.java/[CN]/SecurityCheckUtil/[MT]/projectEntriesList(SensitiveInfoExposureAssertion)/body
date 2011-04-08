@@ -4,9 +4,19 @@
   XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(((ProjectConfig)modelItem.getConfig()).getSensitiveInformation());
   String[] strngArray=reader.readStrings(ProjectSensitiveInformationPanel.PROJECT_SPECIFIC_EXPOSURE_LIST);
   if (strngArray != null) {
-    return StringUtils.toStringList(strngArray);
+    Map<String,String> map=new HashMap<String,String>();
+    for (    String str : strngArray) {
+      String[] tokens=str.split("###");
+      if (tokens.length == 2) {
+        map.put(tokens[0],tokens[1]);
+      }
+ else {
+        map.put(tokens[0],"");
+      }
+    }
+    return map;
   }
  else {
-    return new StringList();
+    return new HashMap<String,String>();
   }
 }

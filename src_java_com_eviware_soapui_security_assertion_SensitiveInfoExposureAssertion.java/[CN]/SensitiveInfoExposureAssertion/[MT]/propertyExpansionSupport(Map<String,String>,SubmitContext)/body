@@ -1,0 +1,7 @@
+{
+  Map<String,String> expanded=new HashMap<String,String>();
+  for (  String key : checkMap.keySet()) {
+    expanded.put(context.expand(key),context.expand(checkMap.get(key)));
+  }
+  return expanded;
+}
