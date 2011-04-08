@@ -21,11 +21,45 @@
     @Override public String getDefaultValue(){
       return createDefaultRequestContent();
     }
+    public SchemaType getSchemaType(){
+      try {
+        Document dom=XmlUtils.parseXml(getTestRequest().getRequestContent());
+        for (        RestRepresentation representation : getTestRequest().getRepresentations(Type.REQUEST,getTestRequest().getMediaType())) {
+          if (representation.getElement().equals(XmlUtils.getQName(dom.getDocumentElement()))) {
+            return representation.getSchemaType();
+          }
+        }
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+      return super.getSchemaType();
+    }
+    @Override public QName getType(){
+      return getSchemaType().getName();
+    }
   }
 );
   addProperty(new TestStepBeanProperty(WsdlTestStepWithProperties.RESPONSE_AS_XML,true,testRequest,"responseContentAsXml",this){
     @Override public String getDefaultValue(){
       return createDefaultResponseXmlContent();
+    }
+    public SchemaType getSchemaType(){
+      try {
+        Document dom=XmlUtils.parseXml(getTestRequest().getResponseContentAsXml());
+        for (        RestRepresentation representation : getTestRequest().getRepresentations(Type.RESPONSE,getTestRequest().getResponse().getContentType())) {
+          if (representation.getElement().equals(XmlUtils.getQName(dom.getDocumentElement()))) {
+            return representation.getSchemaType();
+          }
+        }
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+      return super.getSchemaType();
+    }
+    @Override public QName getType(){
+      return getSchemaType().getName();
     }
   }
 );

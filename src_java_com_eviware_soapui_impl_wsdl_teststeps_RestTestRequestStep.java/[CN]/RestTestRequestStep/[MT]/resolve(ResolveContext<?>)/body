@@ -31,7 +31,7 @@
  else {
     getRestMethod().resolve(context);
     if (context.hasThisModelItem(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName())) {
-      PathToResolve path=context.getPath(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName());
+      @SuppressWarnings("rawtypes") PathToResolve path=context.getPath(this,"Missing REST Method in Project",getRequestStepConfig().getService() + "/" + getRequestStepConfig().getMethodName());
       path.setSolved(true);
     }
   }
