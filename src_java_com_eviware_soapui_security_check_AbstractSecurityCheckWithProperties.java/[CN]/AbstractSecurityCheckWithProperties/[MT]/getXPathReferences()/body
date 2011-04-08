@@ -3,7 +3,7 @@
   for (  SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
     TestStep t=getTestStep();
     if (t instanceof WsdlTestRequestStep) {
-      if (param != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getName(),((WsdlTestRequestStep)t).getOperation(),true,param,"xpath"));
+      if (param != null)       result.add(new XPathReferenceImpl("SecurityCheck Parameter " + param.getLabel() + " in \""+ getTestStep().getName()+ "\"",((WsdlTestRequestStep)t).getOperation(),true,param,"xpath"));
     }
   }
   return result.toArray(new XPathReference[result.size()]);
