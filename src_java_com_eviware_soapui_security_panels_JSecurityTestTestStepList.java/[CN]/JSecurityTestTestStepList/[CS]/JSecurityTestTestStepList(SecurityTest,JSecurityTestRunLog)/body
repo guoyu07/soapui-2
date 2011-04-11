@@ -34,8 +34,9 @@
   securityTestTree.setToggleClickCount(0);
   securityTestTree.setBackground(new Color(240,240,240));
   add(toolbar,BorderLayout.NORTH);
-  JScrollPane scollPane=new JScrollPane(securityTestTree);
-  add(scollPane,BorderLayout.CENTER);
+  JScrollPane scrollPane=new JScrollPane(securityTestTree);
+  scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+  add(scrollPane,BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
   securityTest.addSecurityTestListener(this);
   testRunListener=new InternalSecurityTestRunListener();
