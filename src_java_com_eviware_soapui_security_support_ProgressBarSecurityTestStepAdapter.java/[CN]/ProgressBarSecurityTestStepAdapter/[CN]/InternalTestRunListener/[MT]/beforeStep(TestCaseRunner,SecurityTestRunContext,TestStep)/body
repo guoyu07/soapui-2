@@ -2,6 +2,7 @@
   if (ts.getId().equals(testStep.getId())) {
     progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getTestStepSecurityChecksCount(testStep.getId()));
     progressBar.setString(STATE_RUN);
+    progressBar.setForeground(OK_COLOR);
     progressBar.setValue(0);
     counterLabel.setText("");
     counterLabel.setOpaque(false);

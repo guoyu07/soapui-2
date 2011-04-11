@@ -6,7 +6,9 @@
   label.setIcon(UISupport.createImageIcon("/securityTest.png"));
   label.setBorder(BorderFactory.createEmptyBorder(5,45,5,5));
   label.setEnabled(!securityCheck.isDisabled());
-  add(label,BorderLayout.LINE_START);
+  leftInnerPanel=new JPanel(new BorderLayout());
+  leftInnerPanel.add(label,BorderLayout.CENTER);
+  leftInnerPanel.setBackground(getBackground());
   progressBar=new JProgressBar();
   progressPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,10,0));
   progressBar.setValue(0);
@@ -17,7 +19,6 @@
   progressPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,0));
   progressPanel.add(progressBar);
   progressBar.setMinimumSize(new Dimension(0,200));
-  progressBar.setBackground(Color.WHITE);
   progressBar.setInheritsPopupMenu(true);
   cntLabel=new JLabel("");
   cntLabel.setForeground(Color.white);
@@ -25,6 +26,7 @@
   cntLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
   progressPanel.add(cntLabel);
   add(progressPanel,BorderLayout.LINE_END);
+  add(leftInnerPanel,BorderLayout.LINE_START);
   setSelected(sel);
   setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.black));
   progressBarAdapter=new ProgressBarSecurityCheckAdapter(tree,this.node,progressBar,securityCheck,(SecurityTest)((AbstractSecurityCheck)securityCheck).getParent(),cntLabel);
