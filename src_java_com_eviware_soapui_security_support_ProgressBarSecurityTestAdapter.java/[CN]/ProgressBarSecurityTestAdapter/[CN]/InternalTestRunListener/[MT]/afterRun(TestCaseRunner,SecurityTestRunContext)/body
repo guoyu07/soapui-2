@@ -3,8 +3,9 @@
     progressBar.setForeground(FAILED_COLOR);
   }
  else   if (testRunner.getStatus() == Status.FINISHED) {
-    if (progressBar.getForeground().equals(FAILED_COLOR))     progressBar.setForeground(OK_COLOR);
+    if (!progressBar.getForeground().equals(FAILED_COLOR))     progressBar.setForeground(OK_COLOR);
   }
   if (progressBar.isIndeterminate())   return;
   if (!progressBar.getString().equals(STATE_CANCEL))   progressBar.setString(STATE_DONE);
+  progressBar.setValue(progressBar.getMaximum());
 }

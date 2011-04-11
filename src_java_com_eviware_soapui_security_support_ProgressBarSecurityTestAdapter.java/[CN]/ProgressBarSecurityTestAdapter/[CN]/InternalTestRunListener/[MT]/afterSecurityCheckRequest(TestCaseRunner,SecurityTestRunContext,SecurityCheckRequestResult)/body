@@ -4,6 +4,7 @@
     counterLabel.setBackground(FAILED_COLOR);
     alertsCounter++;
     counterLabel.setText(" " + alertsCounter + " ");
+    progressBar.setForeground(FAILED_COLOR);
   }
  else   if (securityCheckReqResult.getStatus() == SecurityStatus.CANCELED) {
     progressBar.setString(STATE_CANCEL);

@@ -38,6 +38,8 @@
   add(scollPane,BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
   securityTest.addSecurityTestListener(this);
+  testRunListener=new InternalSecurityTestRunListener();
+  securityTest.addSecurityTestRunListener(testRunListener);
   for (int row=0; row < securityTestTree.getRowCount(); row++) {
     securityTestTree.expandRow(row);
   }
