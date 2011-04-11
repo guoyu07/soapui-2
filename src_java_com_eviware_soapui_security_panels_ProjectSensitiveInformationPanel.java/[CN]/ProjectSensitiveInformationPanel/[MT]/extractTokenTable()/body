@@ -1,0 +1,13 @@
+{
+  SensitiveInformationPropertyHolder siph=new SensitiveInformationPropertyHolder();
+  for (  String str : projectSpecificExposureList) {
+    String[] tokens=str.split("###");
+    if (tokens.length == 2) {
+      siph.setPropertyValue(tokens[0],tokens[1]);
+    }
+ else {
+      siph.setPropertyValue(tokens[0],"");
+    }
+  }
+  sensitivInformationTableModel=new SensitiveInformationTableModel(siph);
+}

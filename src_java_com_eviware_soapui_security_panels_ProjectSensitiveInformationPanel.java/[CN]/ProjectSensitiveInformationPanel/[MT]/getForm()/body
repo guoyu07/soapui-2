@@ -1,0 +1,13 @@
+{
+  if (sensitiveInfoTableForm == null) {
+    sensitiveInfoTableForm=new JPanel(new BorderLayout());
+    JXToolBar toolbar=UISupport.createToolbar();
+    toolbar.add(UISupport.createToolbarButton(new AddTokenAction()));
+    toolbar.add(UISupport.createToolbarButton(new RemoveTokenAction()));
+    tokenTable=new JXTable(sensitivInformationTableModel);
+    tokenTable.setPreferredSize(new Dimension(200,100));
+    sensitiveInfoTableForm.add(toolbar,BorderLayout.NORTH);
+    sensitiveInfoTableForm.add(new JScrollPane(tokenTable),BorderLayout.CENTER);
+  }
+  return sensitiveInfoTableForm;
+}

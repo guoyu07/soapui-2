@@ -1,5 +1,4 @@
 {
   dialog=ADialogBuilder.buildDialog(SensitiveInformationConfigDialog.class);
-  dialog.setOptions(SensitiveInformationConfigDialog.INFOLIST,projectSpecificExposureList.toArray());
-  addListeners();
+  dialog.getFormField(SensitiveInformationConfigDialog.TOKENS).setProperty("component",getForm());
 }
