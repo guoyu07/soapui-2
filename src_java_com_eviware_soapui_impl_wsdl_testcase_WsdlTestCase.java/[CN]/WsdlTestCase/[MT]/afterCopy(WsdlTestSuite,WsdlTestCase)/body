@@ -1,6 +1,13 @@
 {
   for (  WsdlTestStep testStep : testSteps)   testStep.afterCopy(oldTestSuite,oldTestCase);
-  for (  SecurityTest securityTest : securityTests) {
-    securityTest.afterCopy();
+  for (  SecurityTest secTest : oldTestCase.getSecurityTestList()) {
+    SecurityTest newSecurityTest=addNewSecurityTest(secTest.getName());
+    for (int i=0; i < oldTestCase.getTestStepList().size(); i++) {
+      TestStep oldStep=oldTestCase.getTestStepAt(i);
+      TestStep newStep=getTestStepAt(i);
+      for (      AbstractSecurityCheck secCheck : secTest.getTestStepSecurityChecks(oldStep.getId())) {
+        newSecurityTest.importSecurityCheck(newStep,secCheck,true);
+      }
+    }
   }
 }

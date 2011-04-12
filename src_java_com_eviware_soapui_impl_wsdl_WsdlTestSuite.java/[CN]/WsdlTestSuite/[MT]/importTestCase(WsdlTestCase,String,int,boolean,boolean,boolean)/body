@@ -4,7 +4,7 @@
   TestCaseConfig testCaseConfig=index == -1 ? (TestCaseConfig)getConfig().addNewTestCase().set(testCase.getConfig().copy()) : (TestCaseConfig)getConfig().insertNewTestCase(index).set(testCase.getConfig().copy());
   testCaseConfig.setName(name);
   if (!includeLoadTests)   testCaseConfig.setLoadTestArray(new LoadTestConfig[0]);
-  if (!includeSecurityTests)   testCaseConfig.setSecurityTestArray(new SecurityTestConfig[0]);
+  if (createCopy)   testCaseConfig.setSecurityTestArray(new SecurityTestConfig[0]);
   WsdlTestCase oldTestCase=testCase;
   testCase=buildTestCase(testCaseConfig,false);
   if (createCopy) {
