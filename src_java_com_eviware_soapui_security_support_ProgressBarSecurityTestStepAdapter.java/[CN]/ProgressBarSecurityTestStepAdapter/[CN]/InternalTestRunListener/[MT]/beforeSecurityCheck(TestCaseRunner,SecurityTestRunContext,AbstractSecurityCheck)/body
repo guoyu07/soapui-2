@@ -1,5 +1,6 @@
 {
   if (securityCheck.getTestStep().getId().equals(testStep.getId())) {
+    progressBar.setBackground(Color.white);
     if (securityCheck.getSecurityCheckResult() != null && securityCheck.getSecurityCheckResult().getStatus() != SecurityStatus.CANCELED) {
       if (progressBar.getString().equals("")) {
         progressBar.setString(STATE_RUN);
