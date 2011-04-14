@@ -1,4 +1,5 @@
 {
+  if (securityTest.isRunning())   return;
   securityTestLog.locateSecurityCheck(((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck());
   addSecurityCheckAction.setEnabled(false);
   configureSecurityCheckAction.setEnabled(true);

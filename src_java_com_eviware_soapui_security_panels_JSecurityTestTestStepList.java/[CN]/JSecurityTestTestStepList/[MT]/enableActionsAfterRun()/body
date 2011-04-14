@@ -1,0 +1,10 @@
+{
+  DefaultMutableTreeNode node=(DefaultMutableTreeNode)securityTestTree.getLastSelectedPathComponent();
+  if (node == null)   return;
+  if (node instanceof TestStepNode) {
+    enableTestStepActions(node);
+  }
+ else   if (node instanceof SecurityCheckNode) {
+    enableSecurityCheckActions();
+  }
+}
