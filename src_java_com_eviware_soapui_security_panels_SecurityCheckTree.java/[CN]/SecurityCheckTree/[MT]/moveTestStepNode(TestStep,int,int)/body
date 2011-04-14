@@ -1,0 +1,7 @@
+{
+  TestStepNode node=getTestStepNode(testStep);
+  int index2=getIndexOfChild(root,node);
+  removeNodeFromParent(node);
+  insertNodeInto(node,(MutableTreeNode)root,index2 + offset);
+  return new TreePath(node.getPath());
+}
