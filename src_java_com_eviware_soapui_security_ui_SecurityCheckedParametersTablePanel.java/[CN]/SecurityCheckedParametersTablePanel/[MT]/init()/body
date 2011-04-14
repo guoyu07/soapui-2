@@ -8,6 +8,7 @@
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
   table=new JXTable(model);
+  table.getSelectionModel().addListSelectionListener(this);
   table.setDefaultEditor(String.class,getDefaultCellEditor());
   add(new JScrollPane(table),BorderLayout.CENTER);
   pathPane=new JUndoableTextArea();
