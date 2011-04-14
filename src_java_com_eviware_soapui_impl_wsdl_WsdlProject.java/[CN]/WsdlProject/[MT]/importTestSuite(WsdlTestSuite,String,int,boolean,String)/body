@@ -2,6 +2,11 @@
   testSuite.beforeSave();
   TestSuiteConfig testSuiteConfig=index == -1 ? (TestSuiteConfig)getConfig().addNewTestSuite().set(testSuite.getConfig().copy()) : (TestSuiteConfig)getConfig().insertNewTestSuite(index).set(testSuite.getConfig().copy());
   testSuiteConfig.setName(name);
+  if (createCopy) {
+    for (    TestCaseConfig testCaseConfig : testSuiteConfig.getTestCaseList()) {
+      testCaseConfig.setSecurityTestArray(new SecurityTestConfig[0]);
+    }
+  }
   WsdlTestSuite oldTestSuite=testSuite;
   testSuite=buildTestSuite(testSuiteConfig);
   if (description != null)   testSuite.setDescription(description);
