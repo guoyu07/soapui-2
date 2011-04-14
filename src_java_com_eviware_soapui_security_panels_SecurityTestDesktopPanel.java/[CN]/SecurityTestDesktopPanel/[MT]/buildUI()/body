@@ -3,9 +3,12 @@
   panel.add(buildToolbar(),BorderLayout.PAGE_START);
   panel.add(buildRunnerBar(),BorderLayout.CENTER);
   add(panel,BorderLayout.NORTH);
-  JComponent testLog=buildTestLog();
+  JComponent securityLog=buildSecurityLog();
   inspectorPanel=JInspectorPanelFactory.build(buildContent());
-  inspectorPanel.addInspector(new JComponentInspector<JComponent>(testLog,"Security Log","Security Execution Log",true));
+  securityLogInspector=new JComponentInspector<JComponent>(securityLog,"Security Log","Security Execution Log",true);
+  inspectorPanel.addInspector(securityLogInspector);
+  JComponent functionalLog=buildFunctionalLog();
+  inspectorPanel.addInspector(new JComponentInspector<JComponent>(functionalLog,"TestCase Log","Functional Execution Log",true));
   inspectorPanel.setDefaultDividerLocation(0.7F);
   inspectorPanel.setCurrentInspector("Security Log");
   if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
