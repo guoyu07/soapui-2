@@ -2,6 +2,7 @@
   for (int i=0; i < testCases.size(); i++) {
     WsdlTestCase testCase=getTestCaseAt(i);
     WsdlTestCase oldTestCase=oldTestSuite.getTestCaseAt(i);
-    testCase.afterCopy(oldTestSuite,oldTestCase);
+    testCase.afterCopy(oldTestSuite,null);
+    testCase.importSecurityTests(oldTestSuite,oldTestCase);
   }
 }

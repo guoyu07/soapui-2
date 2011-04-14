@@ -15,6 +15,9 @@
   testCase.afterLoad();
   if (createCopy) {
     testCase.afterCopy(null,oldTestCase);
+    if (includeSecurityTests) {
+      testCase.importSecurityTests(null,oldTestCase);
+    }
   }
   fireTestCaseAdded(testCase);
   resolveImportedTestCase(testCase);
