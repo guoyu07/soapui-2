@@ -1,4 +1,5 @@
 {
-  super(testStep,config,parent,icon);
+  super.copyConfig(config);
+  getConfig().setCheckedPameters(config.getCheckedPameters());
   setParameterHolder(new SecurityCheckedParameterHolder(this,config.getCheckedPameters()));
 }

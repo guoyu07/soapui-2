@@ -16,8 +16,12 @@
     if (securityTest.isRunning())     return;
     SecurityCheck securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
     if (securityCheck.isConfigurable()) {
+      SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
       XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
       dialog.show();
+      if (dialog.getReturnValue() == XFormDialog.CANCEL_OPTION) {
+        securityCheck.copyConfig(backupCheckConfig);
+      }
     }
   }
  else {
