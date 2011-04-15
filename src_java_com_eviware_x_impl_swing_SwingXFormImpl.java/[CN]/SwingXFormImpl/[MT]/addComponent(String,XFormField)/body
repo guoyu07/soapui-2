@@ -5,8 +5,15 @@
   int row=layout.getRowCount();
   AbstractSwingXFormField<?> swingFormComponent=(AbstractSwingXFormField<?>)formComponent;
   if (label != null && !label.startsWith("###")) {
-    JLabel jlabel=new JLabel(label.endsWith(":") ? label : label + ":");
-    jlabel.setBorder(BorderFactory.createEmptyBorder(2,0,0,0));
+    JLabel jlabel=null;
+    if (label.endsWith("___")) {
+      jlabel=new JLabel(label.substring(0,label.length() - 3));
+      jlabel.setBorder(BorderFactory.createEmptyBorder(2,0,0,30));
+    }
+ else {
+      jlabel=new JLabel(label.endsWith(":") ? label : label + ":");
+      jlabel.setBorder(BorderFactory.createEmptyBorder(2,0,0,0));
+    }
     panel.add(jlabel,cc.xy(2,row));
     jlabel.setLabelFor(swingFormComponent.getComponent());
     int ix=label.indexOf('&');
