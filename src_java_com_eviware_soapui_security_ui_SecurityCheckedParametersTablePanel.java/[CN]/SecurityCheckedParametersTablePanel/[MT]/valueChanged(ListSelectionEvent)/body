@@ -1,2 +1,6 @@
 {
+  DefaultListSelectionModel dlsm=((DefaultListSelectionModel)lse.getSource());
+  if (securityCheck instanceof BoundarySecurityCheck) {
+    ((BoundarySecurityCheck)securityCheck).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
+  }
 }

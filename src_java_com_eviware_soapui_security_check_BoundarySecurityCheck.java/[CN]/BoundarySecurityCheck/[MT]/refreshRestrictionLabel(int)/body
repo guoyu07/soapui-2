@@ -1,0 +1,40 @@
+{
+  if (row == -1) {
+    restrictionLabel.setJlabel("<html><pre>    </pre></html>");
+    return;
+  }
+  SecurityCheckedParameter parameter=getParameterAt(row);
+  String name=parameter.getName();
+  String xpath=parameter.getXpath();
+  TestProperty tp=getTestStep().getProperty(name);
+  XmlObjectTreeModel xmlObjectTreeModel=null;
+  if (tp.getSchemaType() != null && XmlUtils.seemsToBeXml(tp.getValue())) {
+    try {
+      xmlObjectTreeModel=new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(tp.getValue()));
+    }
+ catch (    XmlException e) {
+      SoapUI.logError(e);
+    }
+    XmlTreeNode[] treeNodes=xmlObjectTreeModel.selectTreeNodes(xpath);
+    if (treeNodes.length == 0) {
+      restrictionLabel.setJlabel("<html><pre>    </pre></html>");
+      return;
+    }
+    List<String> list=null;
+    if (treeNodes[0].getSchemaType() != null && treeNodes[0].getSchemaType().getEnumerationValues() != null) {
+      list=BoundaryRestrictionUtill.extractEnums(treeNodes[0]);
+    }
+ else {
+      SchemaTypeImpl simpleType=(SchemaTypeImpl)treeNodes[0].getSchemaType();
+      XmlObjectTreeModel model2=new XmlObjectTreeModel(simpleType.getTypeSystem(),simpleType.getParseObject());
+      list=BoundaryRestrictionUtill.getNextChild(model2.getRootNode(),new ArrayList<String>());
+      if (list.isEmpty()) {
+        list.add("No restrictions in schema are specified for this parameter!");
+      }
+    }
+    restrictionLabel.setJlabel(list.toString());
+  }
+ else {
+    restrictionLabel.setJlabel("<html><pre>    </pre></html>");
+  }
+}

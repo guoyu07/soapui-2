@@ -1,0 +1,10 @@
+{
+  List<String> restrictionsList=new ArrayList<String>();
+  for (  XmlAnySimpleType s : node.getSchemaType().getEnumerationValues()) {
+    if (restrictionsList.isEmpty()) {
+      restrictionsList.add("type=enumeration ");
+    }
+    restrictionsList.add(s.getStringValue());
+  }
+  return restrictionsList;
+}
