@@ -1,9 +1,9 @@
 {
   return new AbstractAction(){
     public void actionPerformed(    ActionEvent e){
+      MockSecurityTestRunner securityTestRunner=new MockSecurityTestRunner(SecurityTestDesktopPanel.this.getModelItem());
       try {
-        MockTestRunner mockTestRunner=new MockTestRunner(SecurityTestDesktopPanel.this.getModelItem().getTestCase(),SoapUI.ensureGroovyLog());
-        SecurityTestDesktopPanel.this.getModelItem().getTestCase().runSetupScript(new MockTestRunContext(mockTestRunner,null),mockTestRunner);
+        SecurityTestDesktopPanel.this.getModelItem().runStartupScript((SecurityTestRunContext)securityTestRunner.getRunContext(),securityTestRunner);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);
