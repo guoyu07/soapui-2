@@ -6,6 +6,7 @@
   WsdlProject project=null;
   WsdlMockService mockService=null;
   WsdlMockResponse mockResponse=null;
+  SecurityTest securityTest=null;
   if (modelItem instanceof WsdlTestStep) {
     testStep=(WsdlTestStep)modelItem;
     testCase=testStep.getTestCase();
@@ -38,6 +39,12 @@
  else   if (modelItem instanceof Operation) {
     project=(WsdlProject)((Operation)modelItem).getInterface().getProject();
   }
+ else   if (modelItem instanceof SecurityTest) {
+    securityTest=(SecurityTest)modelItem;
+    testCase=securityTest.getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
   TestPropertyHolder globalProperties=PropertyExpansionUtils.getGlobalProperties();
   if (globalProperties.getProperties().size() > 0)   targetMenu.add(createPropertyMenu("Global",globalProperties));
   if (project != null)   targetMenu.add(createPropertyMenu("Project: [" + project.getName() + "]",project));
@@ -52,5 +59,8 @@
       if (targetMenu.getComponentCount() == 3)       targetMenu.add(new JSeparator());
       targetMenu.add(createPropertyMenu("Step " + (c + 1) + ": ["+ testStep.getName()+ "]",testStep));
     }
+  }
+  if (securityTest != null) {
+    targetMenu.add(createPropertyMenu("SecurityTest: [" + securityTest.getName() + "]",securityTest));
   }
 }
