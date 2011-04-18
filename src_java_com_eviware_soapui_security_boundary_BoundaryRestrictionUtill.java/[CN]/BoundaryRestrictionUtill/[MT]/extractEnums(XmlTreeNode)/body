@@ -2,7 +2,7 @@
   List<String> restrictionsList=new ArrayList<String>();
   for (  XmlAnySimpleType s : node.getSchemaType().getEnumerationValues()) {
     if (restrictionsList.isEmpty()) {
-      restrictionsList.add("type=enumeration ");
+      restrictionsList.add("For type enumeration values are: ");
     }
     restrictionsList.add(s.getStringValue());
   }

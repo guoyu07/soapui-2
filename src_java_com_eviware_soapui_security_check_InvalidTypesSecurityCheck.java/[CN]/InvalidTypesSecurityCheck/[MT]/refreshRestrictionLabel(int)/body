@@ -1,0 +1,31 @@
+{
+  if (row == -1) {
+    typeLabel.setJlabel("<html><pre>    </pre></html>");
+    return;
+  }
+  SecurityCheckedParameter parameter=getParameterAt(row);
+  String name=parameter.getName();
+  String xpath=parameter.getXpath();
+  TestProperty tp=getTestStep().getProperty(name);
+  XmlObjectTreeModel xmlObjectTreeModel=null;
+  if (tp.getSchemaType() != null && XmlUtils.seemsToBeXml(tp.getValue())) {
+    try {
+      xmlObjectTreeModel=new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(tp.getValue()));
+    }
+ catch (    XmlException e) {
+      SoapUI.logError(e);
+    }
+    XmlTreeNode[] treeNodes=xmlObjectTreeModel.selectTreeNodes(xpath);
+    if (treeNodes.length == 0) {
+      typeLabel.setJlabel("<html><pre>    </pre></html>");
+      return;
+    }
+    SchemaTypeImpl simpleType=(SchemaTypeImpl)treeNodes[0].getSchemaType();
+    XmlObjectTreeModel model2=new XmlObjectTreeModel(simpleType.getTypeSystem(),simpleType.getParseObject());
+    List<String> list=BoundaryRestrictionUtill.getType(model2.getRootNode(),new ArrayList<String>());
+    typeLabel.setJlabel(list.toString());
+  }
+ else {
+    typeLabel.setJlabel("<html><pre>    </pre></html>");
+  }
+}

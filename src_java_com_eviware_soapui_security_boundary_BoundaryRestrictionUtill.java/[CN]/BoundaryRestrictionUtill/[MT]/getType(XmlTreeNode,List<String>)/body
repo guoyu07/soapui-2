@@ -1,0 +1,15 @@
+{
+  String baseType=null;
+  for (int i=0; i < node.getChildCount(); i++) {
+    XmlTreeNode mynode=node.getChild(i);
+    if (mynode.getNodeName().equals("@base")) {
+      baseType=mynode.getNodeText();
+      if (baseType.contains(":")) {
+        baseType=baseType.substring(baseType.indexOf(":") + 1);
+      }
+      restrictionsList.add("type = " + baseType);
+    }
+    getType(mynode,restrictionsList);
+  }
+  return restrictionsList;
+}

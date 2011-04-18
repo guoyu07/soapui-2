@@ -3,4 +3,7 @@
   if (securityCheck instanceof BoundarySecurityCheck) {
     ((BoundarySecurityCheck)securityCheck).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
   }
+  if (securityCheck instanceof InvalidTypesSecurityCheck) {
+    ((InvalidTypesSecurityCheck)securityCheck).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
+  }
 }
