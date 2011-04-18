@@ -7,7 +7,7 @@
     securityTestListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
   }
   result=securityCheck.run(cloneForSecurityCheck((WsdlTestStep)currentStep),runContext,this);
-  if (securityTest.getFailOnError() && result.getStatus() == SecurityStatus.FAILED) {
+  if (securityTest.getFailOnError() && result.getStatus() == ResultStatus.FAILED) {
     fail("Cancelling due to failed security check");
   }
   for (int j=0; j < securityTestStepListeners.length; j++) {

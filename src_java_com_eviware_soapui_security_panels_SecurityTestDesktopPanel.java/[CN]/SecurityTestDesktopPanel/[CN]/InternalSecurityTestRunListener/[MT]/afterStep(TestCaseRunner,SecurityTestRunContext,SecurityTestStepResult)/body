@@ -1,3 +1,9 @@
 {
   securityTestLog.updateSecurityTestStepResult(result);
+  if (result.getStatus() == ResultStatus.FAILED) {
+    securityStatus=ResultStatus.FAILED;
+  }
+ else   if (result.getStatus() == ResultStatus.OK) {
+    if (securityStatus != ResultStatus.FAILED)     securityStatus=ResultStatus.OK;
+  }
 }

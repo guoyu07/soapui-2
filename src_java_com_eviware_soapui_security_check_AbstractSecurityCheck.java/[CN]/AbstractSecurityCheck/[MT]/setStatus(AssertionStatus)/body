@@ -1,11 +1,11 @@
 {
   if (result == AssertionStatus.FAILED) {
-    getSecurityCheckRequestResult().setStatus(SecurityStatus.FAILED);
+    getSecurityCheckRequestResult().setStatus(ResultStatus.FAILED);
   }
  else   if (result == AssertionStatus.VALID) {
-    getSecurityCheckRequestResult().setStatus(SecurityStatus.OK);
+    getSecurityCheckRequestResult().setStatus(ResultStatus.OK);
   }
  else   if (result == AssertionStatus.UNKNOWN) {
-    getSecurityCheckRequestResult().setStatus(SecurityStatus.UNKNOWN);
+    getSecurityCheckRequestResult().setStatus(ResultStatus.UNKNOWN);
   }
 }

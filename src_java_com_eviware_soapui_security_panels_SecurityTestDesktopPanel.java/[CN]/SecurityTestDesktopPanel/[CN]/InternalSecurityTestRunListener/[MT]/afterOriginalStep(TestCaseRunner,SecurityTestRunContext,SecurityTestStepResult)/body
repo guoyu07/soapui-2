@@ -1,3 +1,9 @@
 {
-  securityTestLog.addSecurityTestStepResult(result);
+  functionalTestLog.addSecurityTestStepResult(result);
+  if (result.getOriginalTestStepResult().getStatus() == TestStepStatus.FAILED) {
+    functionalStatus=ResultStatus.FAILED;
+  }
+ else   if (result.getOriginalTestStepResult().getStatus() == TestStepStatus.OK && functionalStatus != ResultStatus.FAILED) {
+    functionalStatus=ResultStatus.OK;
+  }
 }

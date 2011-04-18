@@ -1,4 +1,5 @@
 {
+  boolean jumpExit=false;
   TestStep currentStep=runContext.getCurrentStep();
   securityTestStepListeners=securityTest.getTestStepRunListeners(currentStep);
   if (!currentStep.isDisabled()) {
@@ -9,7 +10,7 @@
       securityTestStepListeners[i].beforeStep(this,getRunContext(),currentStep);
     }
     TestStepResult stepResult=runTestStep(currentStep,true,true);
-    if (stepResult == null)     return -2;
+    if (stepResult == null)     jumpExit=true;
     SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep,stepResult);
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].afterOriginalStep(this,getRunContext(),securityStepResult);
@@ -24,9 +25,10 @@
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
         securityStepResult.addSecurityCheckResult(securityCheckResult);
         if (securityCheckResult.isCanceled()) {
-          return -2;
+          jumpExit=true;
+          break;
         }
-        if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
+ else         if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
           if (getTestRunnable().getFailOnError()) {
             fail("Cancelling due to failed security check");
           }
@@ -43,7 +45,10 @@
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
     }
-    if (getGotoStepIndex() != -1) {
+    if (jumpExit) {
+      return -2;
+    }
+ else     if (getGotoStepIndex() != -1) {
       currentStepIndex=getGotoStepIndex() - 1;
       gotoStep(-1);
     }

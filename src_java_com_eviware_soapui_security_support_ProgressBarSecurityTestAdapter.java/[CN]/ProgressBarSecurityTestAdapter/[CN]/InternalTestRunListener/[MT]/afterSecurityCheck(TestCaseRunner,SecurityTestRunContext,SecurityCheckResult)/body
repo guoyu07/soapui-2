@@ -1,14 +1,14 @@
 {
-  if (securityCheckResult.getStatus() == SecurityStatus.CANCELED) {
+  if (securityCheckResult.getStatus() == ResultStatus.CANCELED) {
     progressBar.setString(STATE_CANCEL);
   }
-  if (securityCheckResult.getStatus() == SecurityStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
+  if (securityCheckResult.getStatus() == ResultStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
     progressBar.setForeground(FAILED_COLOR);
   }
- else   if (securityCheckResult.getStatus() == SecurityStatus.FAILED) {
+ else   if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
     progressBar.setForeground(FAILED_COLOR);
   }
- else   if (securityCheckResult.getStatus() == SecurityStatus.OK) {
+ else   if (securityCheckResult.getStatus() == ResultStatus.OK) {
     if (!progressBar.getForeground().equals(FAILED_COLOR))     progressBar.setForeground(OK_COLOR);
   }
   progressBar.setValue(runContext.getCurrentCheckOnSecurityTestIndex() + 1);

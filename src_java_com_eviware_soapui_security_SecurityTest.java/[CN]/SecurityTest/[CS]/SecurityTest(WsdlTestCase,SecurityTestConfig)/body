@@ -5,6 +5,7 @@
   setPropertiesConfig(getConfig().getProperties());
   securityTestLog=new SecurityTestLogModel();
   securityTestStepResultMap=new HashMap<TestStep,SecurityTestStepResult>();
+  functionalTestLog=new FunctionalTestLogModel();
   for (  SecurityTestRunListener listener : SoapUI.getListenerRegistry().getListeners(SecurityTestRunListener.class)) {
     addSecurityTestRunListener(listener);
   }

@@ -1,0 +1,13 @@
+{
+  int row=testLogList.locationToIndex(e.getPoint());
+  if (row == -1)   return;
+  if (testLogList.getSelectedIndex() != row) {
+    testLogList.setSelectedIndex(row);
+  }
+  SecurityResult result=logListModel.getTestStepResultAt(row);
+  if (result == null)   return;
+  ActionList actions=result.getActions();
+  if (actions == null || actions.getActionCount() == 0)   return;
+  JPopupMenu popup=ActionSupport.buildPopup(actions);
+  UISupport.showPopup(popup,testLogList,e.getPoint());
+}

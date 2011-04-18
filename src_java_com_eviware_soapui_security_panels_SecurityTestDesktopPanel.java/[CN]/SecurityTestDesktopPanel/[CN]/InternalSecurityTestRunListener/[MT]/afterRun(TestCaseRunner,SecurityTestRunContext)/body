@@ -1,6 +1,9 @@
 {
   SecurityTestRunnerImpl securityRunner=(SecurityTestRunnerImpl)testRunner;
-  if (testRunner.getStatus() == SecurityTestRunner.Status.CANCELED)   securityTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
+  if (testRunner.getStatus() == SecurityTestRunner.Status.CANCELED) {
+    securityTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
+    functionalTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
+  }
  else   if (testRunner.getStatus() == SecurityTestRunner.Status.FAILED) {
     String msg=securityRunner.getReason();
     if (securityRunner.getError() != null) {
@@ -8,8 +11,12 @@
       msg+=securityRunner.getError();
     }
     securityTestLog.addText("SecurityTest failed [" + msg + "], time taken = "+ securityRunner.getTimeTaken());
+    functionalTestLog.addText("SecurityTest failed [" + msg + "], time taken = "+ securityRunner.getTimeTaken());
   }
- else   securityTestLog.addText("SecurityTest finished with status [" + testRunner.getStatus() + "], time taken = "+ securityRunner.getTimeTaken());
+ else {
+    securityTestLog.addText("SecurityTest finished with status [" + testRunner.getStatus() + "], time taken = "+ securityRunner.getTimeTaken());
+    functionalTestLog.addText("SecurityTest finished with status [" + testRunner.getStatus() + "], time taken = "+ securityRunner.getTimeTaken());
+  }
   lastRunner=runner;
   runner=null;
   JToggleButton loopButton=(JToggleButton)runContext.getProperty("loopButton");
@@ -24,4 +31,12 @@
  else {
     SecurityTestDesktopPanel.this.afterRun();
   }
+  if (testRunner.getStatus() == Status.FAILED) {
+    securityStatus=ResultStatus.FAILED;
+  }
+ else   if (testRunner.getStatus() == Status.FINISHED || testRunner.getStatus() == Status.CANCELED) {
+    if (securityStatus != ResultStatus.FAILED)     securityStatus=ResultStatus.OK;
+  }
+  updateStatusIcon(securityStatus,securityLogInspector);
+  updateStatusIcon(functionalStatus,functionalLogInspector);
 }

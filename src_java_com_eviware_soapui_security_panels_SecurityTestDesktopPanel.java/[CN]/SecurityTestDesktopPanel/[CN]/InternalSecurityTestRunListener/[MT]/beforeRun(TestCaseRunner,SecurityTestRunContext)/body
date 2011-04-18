@@ -1,11 +1,15 @@
 {
   securityTestLog.clear();
+  functionalTestLog.clear();
   runButton.setEnabled(false);
   cancelButton.setEnabled(true);
   testStepList.setEnabled(false);
-  securityTestLog.addText("SecurityTest started at " + dateFormat.format(new Date()));
+  String start=dateFormat.format(new Date());
+  securityTestLog.addText("SecurityTest started at " + start);
+  functionalTestLog.addText("SecurityTest started at " + start);
   SecurityTestDesktopPanel.this.beforeRun();
   progressBar.setValue(0);
   progressBar.setString("");
   if (runner == null)   runner=(SecurityTestRunnerImpl)testRunner;
+  securityStatus=ResultStatus.UNKNOWN;
 }

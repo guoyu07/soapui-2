@@ -1,0 +1,21 @@
+{
+switch (status) {
+case FAILED:
+{
+      logInspector.setIcon(UISupport.createImageIcon("/failed_securitytest.gif"));
+      inspectorPanel.activate(logInspector);
+      break;
+    }
+case UNKNOWN:
+{
+    logInspector.setIcon(UISupport.createImageIcon("/unknown_securitytest.gif"));
+    break;
+  }
+case OK:
+{
+  logInspector.setIcon(UISupport.createImageIcon("/valid_securitytest.gif"));
+  inspectorPanel.deactivate();
+  break;
+}
+}
+}

@@ -2,14 +2,14 @@
   if (securityRequestResultList != null)   securityRequestResultList.add(secReqResult);
   timeTaken+=secReqResult.getTimeTaken();
   if (!hasAddedRequests) {
-    status=SecurityStatus.UNKNOWN;
-    if (secReqResult.getStatus() == SecurityStatus.OK) {
-      status=SecurityStatus.OK;
+    status=ResultStatus.UNKNOWN;
+    if (secReqResult.getStatus() == ResultStatus.OK) {
+      status=ResultStatus.OK;
     }
   }
- else   if (secReqResult.getStatus() == SecurityStatus.FAILED) {
+ else   if (secReqResult.getStatus() == ResultStatus.FAILED) {
     hasRequestsWithWarnings=true;
-    status=SecurityStatus.FAILED;
+    status=ResultStatus.FAILED;
   }
   this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);

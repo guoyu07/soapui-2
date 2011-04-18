@@ -5,6 +5,12 @@
     return;
   }
   testSteps.remove(ix);
+  for (  SecurityTest securityTest : getSecurityTestList()) {
+    List<AbstractSecurityCheck> testStepChecks=securityTest.getTestStepSecurityChecks(testStep.getId());
+    for (    AbstractSecurityCheck chk : testStepChecks) {
+      securityTest.removeSecurityCheck(testStep,chk);
+    }
+  }
   try {
     (getTestSuite()).fireTestStepRemoved(testStep,ix);
   }

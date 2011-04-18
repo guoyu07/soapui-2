@@ -8,11 +8,13 @@
   securityLogInspector=new JComponentInspector<JComponent>(securityLog,"Security Log","Security Execution Log",true);
   inspectorPanel.addInspector(securityLogInspector);
   JComponent functionalLog=buildFunctionalLog();
-  inspectorPanel.addInspector(new JComponentInspector<JComponent>(functionalLog,"TestCase Log","Functional Execution Log",true));
+  functionalLogInspector=new JComponentInspector<JComponent>(functionalLog,"TestCase Log","Functional Execution Log",true);
+  inspectorPanel.addInspector(functionalLogInspector);
   inspectorPanel.setDefaultDividerLocation(0.7F);
   inspectorPanel.setCurrentInspector("Security Log");
   if (StringUtils.hasContent(getModelItem().getDescription()) && getModelItem().getSettings().getBoolean(UISettings.SHOW_DESCRIPTIONS)) {
     testStepListInspectorPanel.setCurrentInspector("Description");
   }
+  initializeStatusIcons();
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
 }

@@ -1,5 +1,5 @@
 {
-  if (errorsOnly && checkRequestResult.getStatus() != SecurityCheckRequestResult.SecurityStatus.FAILED)   return;
+  if (errorsOnly && checkRequestResult.getStatus() != SecurityCheckRequestResult.ResultStatus.FAILED)   return;
   logListModel.addSecurityCheckRequestResult(checkRequestResult);
   if (follow) {
     try {

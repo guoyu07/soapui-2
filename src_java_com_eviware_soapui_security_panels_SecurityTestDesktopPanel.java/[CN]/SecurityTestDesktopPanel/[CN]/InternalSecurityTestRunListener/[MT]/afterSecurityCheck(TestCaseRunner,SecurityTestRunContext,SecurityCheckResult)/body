@@ -1,3 +1,12 @@
 {
   securityTestLog.updateSecurityCheckResult(securityCheckResult);
+  if (securityCheckResult.getStatus() == ResultStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
+    securityStatus=ResultStatus.FAILED;
+  }
+ else   if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
+    securityStatus=ResultStatus.FAILED;
+  }
+ else   if (securityCheckResult.getStatus() == ResultStatus.OK) {
+    if (securityStatus != ResultStatus.FAILED)     securityStatus=ResultStatus.OK;
+  }
 }

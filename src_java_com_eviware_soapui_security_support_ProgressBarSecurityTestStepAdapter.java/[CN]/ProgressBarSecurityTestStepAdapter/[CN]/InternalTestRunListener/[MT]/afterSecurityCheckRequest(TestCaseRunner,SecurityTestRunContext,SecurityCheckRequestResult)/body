@@ -1,6 +1,6 @@
 {
   if (securityCheckReqResult.getSecurityCheck().getTestStep().getId().equals(testStep.getId())) {
-    if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
+    if (securityCheckReqResult.getStatus() == ResultStatus.FAILED) {
       counterLabel.setOpaque(true);
       counterLabel.setBackground(FAILED_COLOR);
       totalAlertsCounter++;

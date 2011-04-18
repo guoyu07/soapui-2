@@ -12,12 +12,12 @@
         progressBar.setValue(100);
       }
  else {
-        if (securityCheckReqResult.getStatus() == SecurityStatus.FAILED) {
+        if (securityCheckReqResult.getStatus() == ResultStatus.FAILED) {
           progressBar.setForeground(FAILED_COLOR);
           progressBar.setString(STATE_FAIL);
           alertsCounter++;
         }
- else         if (securityCheckReqResult.getStatus() == SecurityStatus.OK) {
+ else         if (securityCheckReqResult.getStatus() == ResultStatus.OK) {
           if (!progressBar.getForeground().equals(FAILED_COLOR)) {
             progressBar.setForeground(OK_COLOR);
             progressBar.setString(STATE_RUN);
