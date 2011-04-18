@@ -3,7 +3,7 @@
     public void actionPerformed(    ActionEvent e){
       try {
         MockTestRunner mockTestRunner=new MockTestRunner(SecurityTestDesktopPanel.this.getModelItem().getTestCase(),SoapUI.ensureGroovyLog());
-        SecurityTestDesktopPanel.this.getModelItem().getTestCase().runSetupScript(new MockTestRunContext(mockTestRunner,null),mockTestRunner,securityTest.getStartupScript());
+        SecurityTestDesktopPanel.this.getModelItem().getTestCase().runSetupScript(new MockTestRunContext(mockTestRunner,null),mockTestRunner);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);
