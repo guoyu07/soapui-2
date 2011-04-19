@@ -1,0 +1,12 @@
+{
+  ArrayList<String> result=new ArrayList<String>();
+  if (malformedXmlConfig.getInsertNewElement()) {
+    XmlOptions options=new XmlOptions();
+    options.setSaveOuter();
+    options.setSavePrettyPrint();
+    String xml=node.getXmlObject().xmlText(options);
+    new StringBuffer(xml).insert(malformedXmlConfig.getNewElementValue().length(),malformedXmlConfig.getNewElementValue());
+    result.add(xml);
+  }
+  return result;
+}

@@ -1,0 +1,20 @@
+{
+  boolean hasNext=false;
+  if ((parameterMutations == null || parameterMutations.size() == 0) && !mutation) {
+    if (getParameterHolder().getParameterList().size() > 0)     hasNext=true;
+ else     hasNext=false;
+  }
+ else {
+    for (    SecurityCheckedParameter param : parameterMutations.keySet()) {
+      if (parameterMutations.get(param).size() > 0) {
+        hasNext=true;
+        break;
+      }
+    }
+  }
+  if (!hasNext) {
+    parameterMutations.clear();
+    mutation=false;
+  }
+  return hasNext;
+}

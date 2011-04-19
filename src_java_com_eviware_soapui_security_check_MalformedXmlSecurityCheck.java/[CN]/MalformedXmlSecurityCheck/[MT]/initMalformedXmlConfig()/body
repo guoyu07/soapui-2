@@ -1,0 +1,16 @@
+{
+  getConfig().setConfig(MalformedXmlConfig.Factory.newInstance());
+  malformedXmlConfig=(MalformedXmlConfig)getConfig().getConfig();
+  malformedXmlConfig.addNewAttributeMutation();
+  malformedXmlConfig.setInsertNewElement(true);
+  malformedXmlConfig.setNewElementValue("<xml>xml <joke> </xml> </joke>");
+  malformedXmlConfig.setChangeTagName(true);
+  malformedXmlConfig.setLeaveTagOpen(true);
+  malformedAttributeConfig=malformedXmlConfig.getAttributeMutation();
+  malformedAttributeConfig.setMutateAttributes(true);
+  malformedAttributeConfig.setInsertInvalidChars(true);
+  malformedAttributeConfig.setLeaveAttributeOpen(true);
+  malformedAttributeConfig.setAddNewAttribute(true);
+  malformedAttributeConfig.setNewAttributeName("newAttribute");
+  malformedAttributeConfig.setNewAttributeValue("XXX");
+}
