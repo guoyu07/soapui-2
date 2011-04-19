@@ -9,7 +9,9 @@
     }
     @Override public SchemaType getSchemaType(){
       try {
-        return getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem().findElement(getOperation().getRequestBodyElementQName()).getType();
+        WsdlInterface iface=getOperation().getInterface();
+        if (WsdlUtils.isRpc(iface.getBinding()))         return WsdlUtils.generateRpcBodyType(getOperation());
+ else         return iface.getDefinitionContext().getSchemaTypeSystem().findElement(getOperation().getRequestBodyElementQName()).getType();
       }
  catch (      Exception e) {
         SoapUI.logError(e);
