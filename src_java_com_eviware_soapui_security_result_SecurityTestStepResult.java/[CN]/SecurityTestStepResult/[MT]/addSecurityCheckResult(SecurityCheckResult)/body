@@ -1,11 +1,14 @@
 {
   if (securityCheckResultList != null)   securityCheckResultList.add(securityCheckResult);
   timeTaken+=securityCheckResult.getTimeTaken();
-  if (!hasAddedRequests && securityCheckResult.getStatus() == ResultStatus.OK) {
-    status=ResultStatus.OK;
+  if (!hasAddedRequests) {
+    status=securityCheckResult.getStatus();
   }
- else   if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
-    status=ResultStatus.FAILED;
+ else   if ((securityCheckResult.getStatus() == ResultStatus.OK || securityCheckResult.getStatus() == ResultStatus.CANCELED_OK) && status != ResultStatus.FAILED) {
+    status=securityCheckResult.getStatus();
+  }
+ else {
+    status=securityCheckResult.getStatus();
   }
   this.testLog.append(securityCheckResult.getSecurityTestLog());
   hasAddedRequests=true;

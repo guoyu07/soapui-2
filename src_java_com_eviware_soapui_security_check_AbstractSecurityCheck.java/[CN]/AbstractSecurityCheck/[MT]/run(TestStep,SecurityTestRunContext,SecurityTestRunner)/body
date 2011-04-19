@@ -11,7 +11,12 @@
   PropertyChangeNotifier notifier=new PropertyChangeNotifier();
   while (hasNext(testStep,context)) {
     if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
-      securityCheckResult.setStatus(ResultStatus.CANCELED);
+      if (securityCheckResult.isHasRequestsWithWarnings()) {
+        securityCheckResult.setStatus(ResultStatus.CANCELED_FAILED);
+      }
+ else {
+        securityCheckResult.setStatus(ResultStatus.CANCELED_OK);
+      }
       clear();
       return securityCheckResult;
     }

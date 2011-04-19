@@ -1,5 +1,5 @@
 {
-  logListModel.updateSecurityTestStepResult(testStepResult,errorsOnly);
+  boolean added=logListModel.addSecurityTestStepResult(testStep);
   if (follow) {
     try {
       testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);
@@ -8,4 +8,5 @@
       log.error(e.getMessage());
     }
   }
+  return added;
 }

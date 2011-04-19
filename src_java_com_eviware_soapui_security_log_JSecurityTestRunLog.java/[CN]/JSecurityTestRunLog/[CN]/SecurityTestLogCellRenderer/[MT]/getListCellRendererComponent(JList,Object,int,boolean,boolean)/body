@@ -33,15 +33,7 @@
       hyperlinkLabel.setUnderlineColor(Color.WHITE);
       hyperlinkLabel.setIcon(null);
       hyperlinkLabel.setUnderlineColor(Color.GRAY);
-      if (result.getStatus() == ResultStatus.OK) {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
-      }
- else       if (result.getStatus() == ResultStatus.FAILED) {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
-      }
- else {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
-      }
+      setStatusIcon(result);
     }
  else     if (result.getResultType().equals(SecurityTestStepResult.TYPE)) {
       SecurityTestStepResult securitytestStepresult=(SecurityTestStepResult)result;
@@ -53,15 +45,7 @@
       if (getText().startsWith("Step") && !getText().startsWith(" ->")) {
         hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
         hyperlinkLabel.setUnderlineColor(Color.GRAY);
-        if (securitytestStepresult.getOriginalTestStepResult().getStatus() == TestStepStatus.OK) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
-        }
- else         if (securitytestStepresult.getOriginalTestStepResult().getStatus() == TestStepStatus.FAILED) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
-        }
- else {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
-        }
+        setStatusIcon(securitytestStepresult);
       }
  else {
         hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));

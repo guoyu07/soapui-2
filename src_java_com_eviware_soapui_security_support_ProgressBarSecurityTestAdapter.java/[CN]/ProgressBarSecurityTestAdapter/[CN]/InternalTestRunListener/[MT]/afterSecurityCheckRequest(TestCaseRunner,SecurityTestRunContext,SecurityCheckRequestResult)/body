@@ -6,7 +6,7 @@
     counterLabel.setText(" " + alertsCounter + " ");
     progressBar.setForeground(FAILED_COLOR);
   }
- else   if (securityCheckReqResult.getStatus() == ResultStatus.CANCELED) {
+ else   if (securityCheckReqResult.getStatus() == ResultStatus.CANCELED_OK || securityCheckReqResult.getStatus() == ResultStatus.CANCELED_FAILED) {
     progressBar.setString(STATE_CANCEL);
   }
 }

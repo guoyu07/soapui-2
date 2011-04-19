@@ -3,7 +3,6 @@ switch (status) {
 case FAILED:
 {
       logInspector.setIcon(UISupport.createImageIcon("/failed_securitytest.gif"));
-      inspectorPanel.activate(logInspector);
       break;
     }
 case UNKNOWN:
@@ -14,7 +13,6 @@ case UNKNOWN:
 case OK:
 {
   logInspector.setIcon(UISupport.createImageIcon("/valid_securitytest.gif"));
-  inspectorPanel.deactivate();
   break;
 }
 }

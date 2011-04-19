@@ -6,10 +6,17 @@
     if (secReqResult.getStatus() == ResultStatus.OK) {
       status=ResultStatus.OK;
     }
+ else     if (secReqResult.getStatus() == ResultStatus.FAILED) {
+      hasRequestsWithWarnings=true;
+      status=ResultStatus.FAILED;
+    }
   }
  else   if (secReqResult.getStatus() == ResultStatus.FAILED) {
     hasRequestsWithWarnings=true;
     status=ResultStatus.FAILED;
+  }
+ else   if (secReqResult.getStatus() == ResultStatus.OK && status != ResultStatus.FAILED) {
+    status=ResultStatus.OK;
   }
   this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);

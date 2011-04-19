@@ -1,0 +1,11 @@
+{
+  if (securityrresult.getStatus() == ResultStatus.OK || securityrresult.getStatus() == ResultStatus.CANCELED_OK) {
+    hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+  }
+ else   if (securityrresult.getStatus() == ResultStatus.FAILED || securityrresult.getStatus() == ResultStatus.CANCELED_FAILED) {
+    hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+  }
+ else {
+    hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
+  }
+}

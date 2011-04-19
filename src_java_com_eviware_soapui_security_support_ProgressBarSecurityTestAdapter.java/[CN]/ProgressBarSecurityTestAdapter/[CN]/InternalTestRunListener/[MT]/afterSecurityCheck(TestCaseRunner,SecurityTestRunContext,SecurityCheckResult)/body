@@ -1,8 +1,9 @@
 {
-  if (securityCheckResult.getStatus() == ResultStatus.CANCELED) {
+  if (securityCheckResult.getStatus() == ResultStatus.CANCELED_OK) {
     progressBar.setString(STATE_CANCEL);
   }
-  if (securityCheckResult.getStatus() == ResultStatus.CANCELED && securityCheckResult.isHasRequestsWithWarnings()) {
+  if (securityCheckResult.getStatus() == ResultStatus.CANCELED_FAILED) {
+    progressBar.setString(STATE_CANCEL);
     progressBar.setForeground(FAILED_COLOR);
   }
  else   if (securityCheckResult.getStatus() == ResultStatus.FAILED) {

@@ -29,18 +29,7 @@
   }
   lastRunner=runner;
   runner=null;
-  JToggleButton loopButton=(JToggleButton)runContext.getProperty("loopButton");
-  if (loopButton != null && loopButton.isSelected() && testRunner.getStatus() == SecurityTestRunner.Status.FINISHED) {
-    SwingUtilities.invokeLater(new Runnable(){
-      public void run(){
-        runSecurityTest();
-      }
-    }
-);
-  }
- else {
-    SecurityTestDesktopPanel.this.afterRun();
-  }
+  SecurityTestDesktopPanel.this.afterRun();
   if (testRunner.getStatus() == Status.FAILED) {
     securityStatus=ResultStatus.FAILED;
   }

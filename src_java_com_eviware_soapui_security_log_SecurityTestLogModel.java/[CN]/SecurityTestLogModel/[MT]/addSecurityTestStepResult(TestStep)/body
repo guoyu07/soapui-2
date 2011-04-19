@@ -1,0 +1,16 @@
+{
+  stepCount++;
+  checkCount=0;
+  int size=items.size();
+  startStepIndex=size;
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    SecurityTestStepResult result=new SecurityTestStepResult(testStep,null);
+    SoftReference<SecurityResult> stepResultRef=new SoftReference<SecurityResult>(result);
+    items.add("Step " + stepCount + " ["+ result.getTestStep().getName()+ "] ");
+    results.add(stepResultRef);
+    fireIntervalAdded(this,size,items.size() - 1);
+    enforceMaxSize();
+    return true;
+  }
+ else   return false;
+}

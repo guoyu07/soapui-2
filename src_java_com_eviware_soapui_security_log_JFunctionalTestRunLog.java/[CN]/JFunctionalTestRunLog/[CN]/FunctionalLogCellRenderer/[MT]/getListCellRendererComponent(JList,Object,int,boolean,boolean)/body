@@ -17,33 +17,7 @@
   }
   SecurityResult result=logListModel.getTestStepResultAt(index);
   if (result != null) {
-    if (result.getResultType().equals(SecurityCheckRequestResult.TYPE)) {
-      hyperlinkLabel.setText(getText());
-      hyperlinkLabel.setBackground(getBackground());
-      hyperlinkLabel.setEnabled(list.isEnabled());
-      hyperlinkLabel.setUnderlineColor(Color.WHITE);
-      hyperlinkLabel.setIcon(null);
-      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,24,3,3));
-    }
- else     if (result.getResultType().equals(SecurityCheckResult.TYPE)) {
-      hyperlinkLabel.setText(getText());
-      hyperlinkLabel.setBackground(getBackground());
-      hyperlinkLabel.setEnabled(list.isEnabled());
-      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,16,3,3));
-      hyperlinkLabel.setUnderlineColor(Color.WHITE);
-      hyperlinkLabel.setIcon(null);
-      hyperlinkLabel.setUnderlineColor(Color.GRAY);
-      if (result.getStatus() == ResultStatus.OK) {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
-      }
- else       if (result.getStatus() == ResultStatus.FAILED) {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
-      }
- else {
-        hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
-      }
-    }
- else     if (result.getResultType().equals(SecurityTestStepResult.TYPE)) {
+    if (result.getResultType().equals(SecurityTestStepResult.TYPE)) {
       SecurityTestStepResult securitytestStepresult=(SecurityTestStepResult)result;
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
