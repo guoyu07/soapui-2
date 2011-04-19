@@ -21,6 +21,10 @@
     MockResponse testStep=((MockResponse)contextModelItem);
     return propertyModelItem == contextModelItem || (propertyModelItem instanceof MockService && testStep.getMockOperation().getMockService() == propertyModelItem) || (propertyModelItem instanceof MockOperation && testStep.getMockOperation() == propertyModelItem) || (propertyModelItem instanceof MockResponse && testStep.getMockOperation() == ((MockResponse)propertyModelItem).getMockOperation());
   }
+  if (contextModelItem instanceof SecurityTest) {
+    SecurityTest securityTest=((SecurityTest)contextModelItem);
+    return propertyModelItem == contextModelItem || (propertyModelItem instanceof TestSuite && securityTest.getTestCase().getTestSuite() == propertyModelItem) || (propertyModelItem instanceof TestCase && securityTest.getTestCase() == propertyModelItem) || (propertyModelItem instanceof SecurityTest && securityTest.getTestCase() == ((SecurityTest)propertyModelItem).getTestCase());
+  }
   System.out.println("property " + property.getName() + " can not be transferred to "+ contextModelItem.getName());
   return false;
 }

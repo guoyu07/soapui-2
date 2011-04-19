@@ -6,6 +6,7 @@
   WsdlMockService mockService=null;
   WsdlMockResponse mockResponse=null;
   TestPropertyHolder holder=null;
+  SecurityTest securityTest=null;
   if (modelItem instanceof WsdlTestStep) {
     testStep=(WsdlTestStep)modelItem;
     testCase=testStep.getTestCase();
@@ -43,6 +44,12 @@
     mockService=mockResponse.getMockOperation().getMockService();
     project=mockService.getProject();
   }
+ else   if (modelItem instanceof SecurityTest) {
+    securityTest=(SecurityTest)modelItem;
+    testCase=securityTest.getTestCase();
+    testSuite=testCase.getTestSuite();
+    project=testSuite.getProject();
+  }
   if (pe.startsWith(PropertyExpansion.PROJECT_REFERENCE)) {
     holder=project;
     pe=pe.substring(PropertyExpansion.PROJECT_REFERENCE.length());
@@ -54,6 +61,10 @@
  else   if (pe.startsWith(PropertyExpansion.TESTCASE_REFERENCE)) {
     holder=testCase;
     pe=pe.substring(PropertyExpansion.TESTCASE_REFERENCE.length());
+  }
+ else   if (pe.startsWith(PropertyExpansion.SECURITYTEST_REFERENCE)) {
+    holder=testCase;
+    pe=pe.substring(PropertyExpansion.SECURITYTEST_REFERENCE.length());
   }
  else   if (pe.startsWith(PropertyExpansion.MOCKSERVICE_REFERENCE)) {
     holder=mockService;
