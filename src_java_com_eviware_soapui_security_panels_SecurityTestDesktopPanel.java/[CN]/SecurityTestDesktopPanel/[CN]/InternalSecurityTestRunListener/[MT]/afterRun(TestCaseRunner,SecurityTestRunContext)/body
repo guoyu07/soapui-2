@@ -2,7 +2,7 @@
   SecurityTestRunnerImpl securityRunner=(SecurityTestRunnerImpl)testRunner;
   if (testRunner.getStatus() == SecurityTestRunner.Status.CANCELED) {
     securityTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
-    functionalTestLog.addText("SecurityTest canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
+    functionalTestLog.addText("Test canceled [" + testRunner.getReason() + "], time taken = "+ securityRunner.getTimeTaken());
   }
  else   if (testRunner.getStatus() == SecurityTestRunner.Status.FAILED) {
     String msg=securityRunner.getReason();
@@ -11,11 +11,21 @@
       msg+=securityRunner.getError();
     }
     securityTestLog.addText("SecurityTest failed [" + msg + "], time taken = "+ securityRunner.getTimeTaken());
-    functionalTestLog.addText("SecurityTest failed [" + msg + "], time taken = "+ securityRunner.getTimeTaken());
+    if (functionalStatus == ResultStatus.OK) {
+      functionalTestLog.addText("FunctionalTest finished with status [" + functionalStatus + "], time taken = "+ securityRunner.getTimeTaken());
+    }
+ else     if (functionalStatus == ResultStatus.FAILED) {
+      functionalTestLog.addText("FunctionalTest failed [Failing due to failed test step], time taken = " + securityRunner.getTimeTaken());
+    }
   }
  else {
     securityTestLog.addText("SecurityTest finished with status [" + testRunner.getStatus() + "], time taken = "+ securityRunner.getTimeTaken());
-    functionalTestLog.addText("SecurityTest finished with status [" + testRunner.getStatus() + "], time taken = "+ securityRunner.getTimeTaken());
+    if (functionalStatus == ResultStatus.OK) {
+      functionalTestLog.addText("FunctionalTest finished with status [" + functionalStatus + "], time taken = "+ securityRunner.getTimeTaken());
+    }
+ else     if (functionalStatus == ResultStatus.FAILED) {
+      functionalTestLog.addText("FunctionalTest failed [Failing due to failed test step], time taken = " + securityRunner.getTimeTaken());
+    }
   }
   lastRunner=runner;
   runner=null;

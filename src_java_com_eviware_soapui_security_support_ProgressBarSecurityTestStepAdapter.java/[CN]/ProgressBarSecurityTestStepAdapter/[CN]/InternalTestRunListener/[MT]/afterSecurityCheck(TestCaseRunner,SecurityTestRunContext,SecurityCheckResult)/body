@@ -2,7 +2,7 @@
   if (securityCheckResult.getSecurityCheck().getTestStep().getId().equals(testStep.getId())) {
     if (securityCheckResult.getStatus() == ResultStatus.CANCELED) {
       progressBar.setString(STATE_CANCEL);
-      progressBar.setBackground(new Color(240,240,240));
+      progressBar.setBackground(UNKNOWN_COLOR);
     }
  else     if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
       progressBar.setForeground(FAILED_COLOR);
