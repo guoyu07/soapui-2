@@ -1,0 +1,7 @@
+{
+  XmlOptions options=new XmlOptions();
+  options.setSaveOuter();
+  options.setSavePrettyPrint();
+  String xml=nodes.getXmlObject().xmlText(options);
+  return XmlUtils.removeUnneccessaryNamespaces(xml);
+}

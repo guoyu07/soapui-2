@@ -1,0 +1,64 @@
+{
+  ArrayList<String> result=new ArrayList<String>();
+  String nodeXml=getXmlForNode(node);
+  if (malformedXmlConfig.getInsertNewElement()) {
+    StringBuffer buffer=new StringBuffer(nodeXml);
+    if (nodeXml.endsWith("</" + node.getDomNode().getNodeName() + ">")) {
+      buffer.insert(nodeXml.indexOf(">") + 1,malformedXmlConfig.getNewElementValue());
+    }
+ else {
+      buffer.delete(nodeXml.lastIndexOf("/"),nodeXml.length());
+      buffer.append(">" + malformedXmlConfig.getNewElementValue() + "</"+ node.getDomNode().getNodeName()+ ">");
+    }
+    result.add(buffer.toString());
+  }
+  if (malformedXmlConfig.getChangeTagName()) {
+    String original=node.getNodeName();
+    if (original.toUpperCase().equals(original)) {
+      result.add(nodeXml.replaceAll(original,original.toLowerCase()));
+    }
+ else     if (original.toLowerCase().equals(original)) {
+      result.add(nodeXml.replaceAll(original,original.toUpperCase()));
+    }
+ else {
+      StringBuffer buffer=new StringBuffer();
+      for (      char ch : original.toCharArray()) {
+        if (Character.isUpperCase(ch))         buffer.append(Character.toLowerCase(ch));
+ else         buffer.append(Character.toUpperCase(ch));
+      }
+      result.add(nodeXml.replaceAll(original,buffer.toString()));
+    }
+  }
+  if (malformedXmlConfig.getLeaveTagOpen()) {
+    StringBuffer buffer=new StringBuffer(nodeXml);
+    if (nodeXml.endsWith("</" + node.getDomNode().getNodeName() + ">")) {
+      buffer.delete(buffer.indexOf("</" + node.getDomNode().getNodeName() + ">"),buffer.length());
+    }
+ else {
+      buffer.delete(nodeXml.lastIndexOf("/"),nodeXml.length());
+    }
+    result.add(buffer.toString());
+  }
+  if (malformedAttributeConfig.getMutateAttributes()) {
+    if (malformedAttributeConfig.getAddNewAttribute()) {
+      StringBuffer buffer=new StringBuffer(nodeXml);
+      buffer.insert(node.getNodeName().length() + 1," " + malformedAttributeConfig.getNewAttributeName() + "="+ "\""+ malformedAttributeConfig.getNewAttributeValue()+ "\" ");
+      result.add(buffer.toString());
+    }
+    if (malformedAttributeConfig.getInsertInvalidChars()) {
+      if (node.getDomNode().hasAttributes()) {
+        StringBuffer buffer=new StringBuffer(nodeXml);
+        buffer.insert(buffer.indexOf("=") + 3,'"');
+        result.add(buffer.toString());
+      }
+    }
+    if (malformedAttributeConfig.getLeaveAttributeOpen()) {
+      if (node.getDomNode().hasAttributes()) {
+        StringBuffer buffer=new StringBuffer(nodeXml);
+        buffer.delete(buffer.indexOf("=") + 1,buffer.indexOf("=") + 2);
+        result.add(buffer.toString());
+      }
+    }
+  }
+  return result;
+}

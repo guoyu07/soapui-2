@@ -12,7 +12,7 @@
           XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXpath()));
           if (nodes.length > 0) {
             if (!parameterMutations.containsKey(parameter))             parameterMutations.put(parameter,new ArrayList<String>());
-            parameterMutations.get(parameter).addAll(mutateNode(nodes[0]));
+            parameterMutations.get(parameter).addAll(mutateNode(nodes[0],value));
           }
         }
       }
