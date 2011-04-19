@@ -1,5 +1,10 @@
 {
-  progressBar.getModel().setMaximum(((SecurityTestRunnerImpl)testRunner).getSecurityTest().getSecurityCheckCount());
+  int maximum=((SecurityTestRunnerImpl)testRunner).getSecurityTest().getSecurityCheckCount();
+  for (  String key : securityTest.getSecurityChecksMap().keySet()) {
+    List<AbstractSecurityCheck> securityCheckList=securityTest.getSecurityChecksMap().get(key);
+    if (securityCheckList.size() > 0)     if (securityCheckList.get(0).getTestStep().isDisabled())     maximum-=securityCheckList.size();
+  }
+  progressBar.getModel().setMaximum(maximum);
   progressBar.setForeground(OK_COLOR);
   progressBar.setBackground(Color.white);
   progressBar.setValue(0);
