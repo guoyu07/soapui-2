@@ -1,0 +1,4 @@
+{
+  Stack<PropertyMutation> requestMutationsStack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
+  return requestMutationsStack.empty() ? null : requestMutationsStack.pop();
+}

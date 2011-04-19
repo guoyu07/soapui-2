@@ -1,0 +1,6 @@
+{
+  Stack<PropertyMutation> requestMutationsStack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
+  PropertyMutation[] array=requestMutationsStack.toArray(new PropertyMutation[requestMutationsStack.size()]);
+  requestMutationsStack.clear();
+  return Arrays.asList(array);
+}
