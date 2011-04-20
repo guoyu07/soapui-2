@@ -22,7 +22,7 @@ catch (  Throwable t) {
     SoapUI.logError(t);
   }
  finally {
-    jmsConnectionHolderQueue.closeAll();
+    if (jmsConnectionHolderQueue != null)     jmsConnectionHolderQueue.closeAll();
     jmsConnectionHolderQueue.closeAll();
     closeSessionAndConnection(jmsConnectionHolderQueue != null ? jmsConnectionHolderQueue.getConnection() : null,queueSession);
     closeSessionAndConnection(jmsConnectionHolderTopic != null ? jmsConnectionHolderTopic.getConnection() : null,topicSession);

@@ -33,7 +33,7 @@
         responseContent=charset == null ? new String(data) : new String(data,contentOffset,(int)(data.length - contentOffset),charset);
       }
       if (responseContent == null) {
-        responseContent=data.toString();
+        responseContent=new String(data);
       }
       return responseContent;
     }

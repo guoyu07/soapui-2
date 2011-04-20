@@ -1,5 +1,5 @@
 {
-synchronized (checkedGroovyLogMonitor) {
+synchronized (threadPool) {
     if (!checkedGroovyLogMonitor || launchedTestRunner) {
       groovyLogger=Logger.getLogger("groovy.log");
       Log4JMonitor logMonitor=getLogMonitor();
