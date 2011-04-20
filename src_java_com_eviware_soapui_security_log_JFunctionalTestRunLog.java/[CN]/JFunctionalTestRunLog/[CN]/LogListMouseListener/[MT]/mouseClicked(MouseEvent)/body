@@ -1,7 +1,7 @@
 {
   int index=testLogList.getSelectedIndex();
   if (index != -1 && (index == selectedIndex || e.getClickCount() > 1)) {
-    SecurityResult result=logListModel.getTestStepResultAt(index);
+    TestStepResult result=logListModel.getTestStepResultAt(index);
     if (result != null && result.getActions() != null)     result.getActions().performDefaultAction(new ActionEvent(this,0,null));
   }
   selectedIndex=index;

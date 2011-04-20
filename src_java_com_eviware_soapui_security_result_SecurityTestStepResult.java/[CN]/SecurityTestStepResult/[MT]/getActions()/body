@@ -1,7 +1,12 @@
 {
   if (actionList == null) {
-    actionList=new DefaultActionList(getOriginalTestStepResult().getTestStep().getName());
+    actionList=new DefaultActionList(getTestStep().getName());
+    actionList.setDefaultAction(new AbstractAction(){
+      public void actionPerformed(      ActionEvent e){
+        UISupport.showInfoMessage("Step [" + getTestStep().getName() + "] ran with security status ["+ getStatus()+ "]","TestStep Result");
+      }
+    }
+);
   }
-  actionList.setDefaultAction(getOriginalTestStepResult().getActions().getDefaultAction());
   return actionList;
 }

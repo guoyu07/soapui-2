@@ -15,31 +15,19 @@
     String msg=logItem.getMsg();
     setText(msg == null ? "" : msg);
   }
-  SecurityResult result=logListModel.getTestStepResultAt(index);
-  if (result != null) {
-    if (result.getResultType().equals(SecurityTestStepResult.TYPE)) {
-      SecurityTestStepResult securitytestStepresult=(SecurityTestStepResult)result;
-      hyperlinkLabel.setText(getText());
-      hyperlinkLabel.setBackground(getBackground());
-      hyperlinkLabel.setEnabled(list.isEnabled());
-      hyperlinkLabel.setUnderlineColor(Color.WHITE);
-      hyperlinkLabel.setIcon(null);
-      if (getText().startsWith("Step") && !getText().startsWith(" ->")) {
-        hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
-        hyperlinkLabel.setUnderlineColor(Color.GRAY);
-        if (securitytestStepresult.getOriginalTestStepResult().getStatus() == TestStepStatus.OK) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
-        }
- else         if (securitytestStepresult.getOriginalTestStepResult().getStatus() == TestStepStatus.FAILED) {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
-        }
+  TestStepResult result=logListModel.getTestStepResultAt(index);
+  if (result != null && !getText().startsWith(" ->")) {
+    hyperlinkLabel.setText(getText());
+    hyperlinkLabel.setBackground(getBackground());
+    hyperlinkLabel.setEnabled(list.isEnabled());
+    if (result.getStatus() == TestStepStatus.OK) {
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/valid_assertion.gif"));
+    }
+ else     if (result.getStatus() == TestStepStatus.FAILED) {
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/failed_assertion.gif"));
+    }
  else {
-          hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
-        }
-      }
- else {
-        hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
-      }
+      hyperlinkLabel.setIcon(UISupport.createImageIcon("/unknown_assertion.gif"));
     }
     return hyperlinkLabel;
   }

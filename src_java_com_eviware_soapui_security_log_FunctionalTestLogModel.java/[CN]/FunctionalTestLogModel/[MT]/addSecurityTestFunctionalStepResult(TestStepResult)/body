@@ -1,0 +1,13 @@
+{
+  stepCount++;
+  int size=items.size();
+  SoftReference<TestStepResult> stepResultRef=new SoftReference<TestStepResult>(result);
+  items.add("Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getStatus()+ ": took "+ result.getTimeTaken()+ " ms");
+  results.add(stepResultRef);
+  for (  String msg : result.getMessages()) {
+    items.add(" -> " + msg);
+    results.add(stepResultRef);
+  }
+  fireIntervalAdded(this,size,items.size() - 1);
+  enforceMaxSize();
+}
