@@ -1,0 +1,17 @@
+{
+  ParameterExposureCheckConfig parameterExposureCheckConfig=(ParameterExposureCheckConfig)context.getProperty(ParameterExposureCheck.PARAMETER_EXPOSURE_CHECK_CONFIG);
+  boolean throwException=false;
+  List<AssertionError> assertionErrorList=new ArrayList<AssertionError>();
+  for (  String value : parameterExposureCheckConfig.getParameterExposureStringsList()) {
+    value=context.expand(value);
+    if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),value,false)) {
+      String message="Content that is sent in request '" + value + "' is exposed in response. Possibility for XSS script attack in: "+ messageExchange.getModelItem().getName();
+      assertionErrorList.add(new AssertionError(message));
+      throwException=true;
+    }
+  }
+  if (throwException) {
+    throw new AssertionException(assertionErrorList.toArray(new AssertionError[assertionErrorList.size()]));
+  }
+  return "OK";
+}
