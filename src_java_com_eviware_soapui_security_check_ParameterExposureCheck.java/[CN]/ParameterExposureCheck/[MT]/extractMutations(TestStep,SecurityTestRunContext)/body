@@ -1,6 +1,7 @@
 {
   strategy=getExecutionStrategy().getStrategy();
   for (  String value : parameterExposureCheckConfig.getParameterExposureStringsList()) {
+    value=context.expand(value);
     PropertyMutation allAtOncePropertyMutation=new PropertyMutation();
     TestStep testStepCopy=null;
     XmlObjectTreeModel model=null;
@@ -28,14 +29,14 @@
           if (mynode.isLeaf()) {
             mynode.setValue(1,value);
             if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
-              PropertyMutation pm=new PropertyMutation();
-              pm.setPropertyName(scp.getName());
-              pm.setPropertyValue(model.getXmlObject().toString());
+              PropertyMutation oneByOnePropertyMutation=new PropertyMutation();
+              oneByOnePropertyMutation.setPropertyName(scp.getName());
+              oneByOnePropertyMutation.setPropertyValue(model.getXmlObject().toString());
               stsmap.put(scp.getLabel(),mynode.getNodeText());
-              pm.setMutatedParameters(stsmap);
-              pm.updateRequestProperty(testStepCopy);
-              pm.setTestStep(testStepCopy);
-              pm.addMutation(context);
+              oneByOnePropertyMutation.setMutatedParameters(stsmap);
+              oneByOnePropertyMutation.updateRequestProperty(testStepCopy);
+              oneByOnePropertyMutation.setTestStep(testStepCopy);
+              oneByOnePropertyMutation.addMutation(context);
             }
  else {
               allAtOncePropertyMutation.setPropertyName(scp.getName());
@@ -50,14 +51,14 @@
       }
  else {
         if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
-          PropertyMutation pm=new PropertyMutation();
-          pm.setPropertyName(scp.getName());
-          pm.setPropertyValue(value);
+          PropertyMutation oneByOnePropertyMutation=new PropertyMutation();
+          oneByOnePropertyMutation.setPropertyName(scp.getName());
+          oneByOnePropertyMutation.setPropertyValue(value);
           stsmap.put(scp.getLabel(),value);
-          pm.setMutatedParameters(stsmap);
-          pm.updateRequestProperty(testStepCopy);
-          pm.setTestStep(testStepCopy);
-          pm.addMutation(context);
+          oneByOnePropertyMutation.setMutatedParameters(stsmap);
+          oneByOnePropertyMutation.updateRequestProperty(testStepCopy);
+          oneByOnePropertyMutation.setTestStep(testStepCopy);
+          oneByOnePropertyMutation.addMutation(context);
         }
  else {
           allAtOncePropertyMutation.setPropertyName(scp.getName());

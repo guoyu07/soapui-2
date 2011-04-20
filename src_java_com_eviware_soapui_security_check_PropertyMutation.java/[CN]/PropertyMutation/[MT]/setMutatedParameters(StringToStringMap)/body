@@ -1,3 +1,6 @@
 {
-  this.mutatedParameters=mutatedParameters;
+  if (this.mutatedParameters == null) {
+    this.mutatedParameters=new StringToStringMap();
+  }
+  this.mutatedParameters.putAll(mutatedParameters);
 }
