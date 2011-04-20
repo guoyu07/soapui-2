@@ -1,6 +1,6 @@
 {
   if (securityCheckResult.getSecurityCheck().getTestStep().getId().equals(testStep.getId())) {
-    if (securityCheckResult.getStatus() == ResultStatus.CANCELED_OK || securityCheckResult.getStatus() == ResultStatus.CANCELED_FAILED) {
+    if (securityCheckResult.getStatus() == ResultStatus.CANCELED) {
       progressBar.setString(STATE_CANCEL);
       progressBar.setBackground(UNKNOWN_COLOR);
     }
