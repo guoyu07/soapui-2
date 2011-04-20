@@ -18,7 +18,7 @@
       treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
       if (treeNodes.length > 0) {
         XmlTreeNode mynode=treeNodes[0];
-        if (mynode.getSchemaType().isSimpleType()) {
+        if (mynode.isLeaf()) {
           if (mynode.getSchemaType() != null && mynode.getSchemaType().getEnumerationValues() != null && mynode.getSchemaType().getEnumerationValues().length > 0) {
             EnumerationValues nodeInfo=new EnumerationValues(mynode.getSchemaType().getBaseType().getShortJavaName());
             for (            XmlAnySimpleType s : mynode.getSchemaType().getEnumerationValues()) {
