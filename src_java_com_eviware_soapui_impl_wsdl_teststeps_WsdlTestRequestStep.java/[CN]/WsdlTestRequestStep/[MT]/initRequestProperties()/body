@@ -29,4 +29,11 @@
     }
   }
 );
+  addProperty(new DefaultTestStepProperty("RawRequest",true,this){
+    @Override public String getValue(){
+      WsdlResponse response=testRequest.getResponse();
+      return response == null ? null : response.getRequestContent();
+    }
+  }
+);
 }

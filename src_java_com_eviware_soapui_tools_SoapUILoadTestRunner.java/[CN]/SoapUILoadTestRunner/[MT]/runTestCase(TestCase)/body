@@ -1,4 +1,7 @@
 {
+  if (loadTest != null && testCase.getLoadTestByName(loadTest) == null) {
+    return;
+  }
   for (int c=0; c < testCase.getLoadTestCount(); c++) {
     String name=testCase.getLoadTestAt(c).getName();
     if (loadTest == null || loadTest.equalsIgnoreCase(name)) {

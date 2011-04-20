@@ -1,0 +1,6 @@
+{
+  resolveOldEndpointPattern(request);
+  String endpoint=PropertyExpander.expandProperties(context,request.getEndpoint());
+  String[] parameters=endpoint.replaceFirst(JMS_ENDPIONT_PREFIX,"").split(JMS_ENDPOINT_SEPARATOR);
+  return parameters;
+}

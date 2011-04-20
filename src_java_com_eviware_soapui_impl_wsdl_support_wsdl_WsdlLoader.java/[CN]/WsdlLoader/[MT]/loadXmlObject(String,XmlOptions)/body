@@ -5,10 +5,19 @@
     }
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
-    return XmlObject.Factory.parse(load(url),options);
+    String content=Tools.readAll(load(url),0).toString().trim();
+    return XmlObject.Factory.parse(content,options);
   }
  catch (  Exception e) {
+    if (e instanceof XmlException) {
+      XmlError error=((XmlException)e).getError();
+      if (error != null) {
+        InvalidDefinitionException ex=new InvalidDefinitionException((XmlException)e);
+        ex.setMessage("Error loading [" + url + "]");
+        throw ex;
+      }
+    }
     log.error("Failed to load url [" + url + "]");
-    throw e;
+    throw new InvalidDefinitionException("Error loading [" + url + "]: "+ e);
   }
 }

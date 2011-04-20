@@ -5,7 +5,10 @@
     Interface[] ifaces=WsdlInterfaceFactory.importWsdl(project,file,createRequests);
     if (ifaces.length > 0)     UISupport.select(ifaces[0]);
   }
- catch (  Exception ex) {
+ catch (  InvalidDefinitionException ex) {
+    UISupport.showExtendedInfo("Error loading WSDL","There was something wrong with the WSDL you are trying to import",ex.getDetailedMessage(),null);
+  }
+catch (  Exception ex) {
     UISupport.showErrorMessage(ex.getMessage() + ":" + ex.getCause());
   }
 }

@@ -1,0 +1,19 @@
+{
+  File[] factoryFiles=new File(folder).listFiles();
+  if (factoryFiles != null) {
+    for (    File factoryFile : factoryFiles) {
+      if (factoryFile.isDirectory()) {
+        addExternalListeners(factoryFile.getAbsolutePath(),classLoader);
+        continue;
+      }
+      if (!factoryFile.getName().toLowerCase().endsWith("-factories.xml"))       continue;
+      try {
+        log.info("Adding factories from [" + factoryFile.getAbsolutePath() + "]");
+        getFactoryRegistry().addConfig(new FileInputStream(factoryFile),classLoader);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

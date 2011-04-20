@@ -19,6 +19,7 @@
           newHttpStep.getTestRequest().setMediaType(recordedRequest.getContentType());
           if (newHttpStep.getTestRequest().getMediaType().equals(CONTENT_TYPE_FORM_URLENCODED)) {
             newHttpStep.getTestRequest().setPostQueryString(true);
+            newHttpStep.getTestRequest().setMediaType(CONTENT_TYPE_FORM_URLENCODED);
             RestUtils.extractParamsFromQueryString(newHttpStep.getTestRequest().getParams(),recordedRequest.getContent());
           }
  else {

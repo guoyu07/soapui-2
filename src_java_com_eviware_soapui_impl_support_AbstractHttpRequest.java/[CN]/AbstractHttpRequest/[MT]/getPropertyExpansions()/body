@@ -5,5 +5,9 @@
   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,this,"username"));
   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,this,"password"));
   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,this,"domain"));
+  StringToStringsMap requestHeaders=getRequestHeaders();
+  for (  String key : requestHeaders.keySet()) {
+    for (    String value : requestHeaders.get(key))     result.extractAndAddAll(new RequestHeaderHolder(key,value,this),"value");
+  }
   return result.toArray();
 }

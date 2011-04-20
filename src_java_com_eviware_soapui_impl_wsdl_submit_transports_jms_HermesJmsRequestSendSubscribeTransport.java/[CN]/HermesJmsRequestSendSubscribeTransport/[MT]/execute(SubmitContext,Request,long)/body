@@ -12,8 +12,9 @@
     topicSession=jmsConnectionHolderTopic.getSession();
     queueSession=jmsConnectionHolderQueue.getSession();
     Queue queueSend=jmsConnectionHolderQueue.getQueue(jmsConnectionHolderQueue.getJmsEndpoint().getSend());
+    Topic topicSubscribe=jmsConnectionHolderTopic.getTopic(jmsConnectionHolderTopic.getJmsEndpoint().getReceive());
     topicDurableSubsriber=createDurableSubscription(submitContext,topicSession,jmsConnectionHolderTopic);
-    Message textMessageSend=messageSend(submitContext,request,queueSession,jmsConnectionHolderQueue.getHermes(),queueSend);
+    Message textMessageSend=messageSend(submitContext,request,queueSession,jmsConnectionHolderQueue.getHermes(),queueSend,topicSubscribe);
     return makeResponse(submitContext,request,timeStarted,textMessageSend,topicDurableSubsriber);
   }
  catch (  JMSException jmse) {

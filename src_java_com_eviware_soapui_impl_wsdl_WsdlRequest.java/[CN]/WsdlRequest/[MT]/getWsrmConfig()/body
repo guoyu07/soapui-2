@@ -4,6 +4,7 @@
       getConfig().addNewWsrmConfig();
     }
     wsrmConfig=new WsrmConfig(getConfig().getWsrmConfig(),this);
+    wsrmConfig.addPropertyChangeListener("version",this);
   }
   return wsrmConfig;
 }

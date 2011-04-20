@@ -12,9 +12,11 @@
       continue;
     }
     int index=testCase.getIndexOfTestStep(testStepResult.getTestStep());
-    sampleCounts[index]++;
-    samples[index]+=testStepResult.getTimeTaken();
-    sizes[index]+=testStepResult.getSize();
+    if (index >= 0) {
+      sampleCounts[index]++;
+      samples[index]+=testStepResult.getTimeTaken();
+      sizes[index]+=testStepResult.getSize();
+    }
   }
   pushSamples(samples,sizes,sampleCounts,testRunner.getStartTime(),testRunner.getTimeTaken(),true);
 }

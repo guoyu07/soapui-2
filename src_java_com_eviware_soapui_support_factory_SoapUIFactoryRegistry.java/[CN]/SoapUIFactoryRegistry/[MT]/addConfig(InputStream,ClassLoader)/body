@@ -1,0 +1,37 @@
+{
+  try {
+    SoapuiFactoriesDocumentConfig configDocument=SoapuiFactoriesDocumentConfig.Factory.parse(config);
+    SoapUIFactoriesConfig soapuiListeners=configDocument.getSoapuiFactories();
+    for (    SoapUIFactoryConfig factoryConfig : soapuiListeners.getFactoryList()) {
+      try {
+        String factoryTypeName=factoryConfig.getFactoryType();
+        String factoryClassName=factoryConfig.getFactoryClass();
+        Class<?> factoryType=Class.forName(factoryTypeName,true,classLoader);
+        Class<?> factoryClass=Class.forName(factoryClassName,true,classLoader);
+        if (!factoryType.isAssignableFrom(factoryClass)) {
+          throw new RuntimeException("Factory class: " + factoryClassName + " must be of type: "+ factoryTypeName);
+        }
+        Object obj=factoryClass.newInstance();
+        if (obj instanceof InitializableFactory) {
+          ((InitializableFactory)obj).init(factoryConfig);
+        }
+        getLog().info("Adding factory [" + factoryClass + "]");
+        addFactory(factoryType,obj);
+      }
+ catch (      Exception e) {
+        System.err.println("Error initializing Listener: " + e);
+      }
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+ finally {
+    try {
+      config.close();
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

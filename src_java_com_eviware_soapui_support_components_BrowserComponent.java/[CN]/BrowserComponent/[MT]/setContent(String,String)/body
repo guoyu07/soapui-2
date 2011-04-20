@@ -1,7 +1,13 @@
 {
+  if (SoapUI.isJXBrowserDisabled())   return;
   if (browser == null) {
     initBrowser();
   }
-  browser.setContent(contentAsString,contextUri);
-  pcs.firePropertyChange("content",null,null);
+  try {
+    browser.setContent(contentAsString,contextUri);
+    pcs.firePropertyChange("content",null,null);
+  }
+ catch (  Throwable e) {
+    e.printStackTrace();
+  }
 }

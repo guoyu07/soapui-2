@@ -1,8 +1,11 @@
 {
   for (  Param param : resource.getParamList()) {
-    String nm=param.getName();
-    RestParamProperty prop=newResource.hasProperty(nm) ? newResource.getProperty(nm) : newResource.addProperty(nm);
-    initParam(param,prop);
+    param=resolveParameter(param);
+    if (param != null) {
+      String nm=param.getName();
+      RestParamProperty prop=newResource.hasProperty(nm) ? newResource.getProperty(nm) : newResource.addProperty(nm);
+      initParam(param,prop);
+    }
   }
   for (  Method method : resource.getMethodList()) {
     method=resolveMethod(method);
@@ -17,9 +20,12 @@
           method=resolveMethod(method);
           RestMethod restMethod=initMethod(newResource,method);
           for (          Param param : type.getParamList()) {
-            String nm=param.getName();
-            RestParamProperty prop=restMethod.hasProperty(nm) ? restMethod.getProperty(nm) : restMethod.addProperty(nm);
-            initParam(param,prop);
+            param=resolveParameter(param);
+            if (param != null) {
+              String nm=param.getName();
+              RestParamProperty prop=restMethod.hasProperty(nm) ? restMethod.getProperty(nm) : restMethod.addProperty(nm);
+              initParam(param,prop);
+            }
           }
         }
       }

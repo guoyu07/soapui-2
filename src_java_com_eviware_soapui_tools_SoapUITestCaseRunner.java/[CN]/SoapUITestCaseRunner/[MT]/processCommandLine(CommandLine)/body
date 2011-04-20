@@ -4,12 +4,10 @@
   if (cmd.hasOption("s")) {
     String testSuite=getCommandLineOptionSubstSpace(cmd,"s");
     setTestSuite(testSuite);
-    message+=validateTestSuite();
   }
   if (cmd.hasOption("c")) {
     String testCase=getCommandLineOptionSubstSpace(cmd,"c");
     setTestCase(testCase);
-    message+=validateTestCase();
   }
   if (cmd.hasOption("u"))   setUsername(cmd.getOptionValue("u"));
   if (cmd.hasOption("p"))   setPassword(cmd.getOptionValue("p"));

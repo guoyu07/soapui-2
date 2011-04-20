@@ -1,0 +1,37 @@
+{
+  if (SoapUI.isJXBrowserDisabled())   return;
+  initialize();
+  ProxyConfiguration proxyConf=Services.getProxyConfiguration();
+  if (proxyConf == null)   return;
+  proxyConf.setType(ProxyConfiguration.MANUAL);
+  if (!proxyAuthenticationInitialized) {
+    proxyConf.setPoxyAuthenticationHandler(ProxyServerType.HTTP,new PoxyAuthenticationHandler(){
+      public ProxyServerAuthInfo authenticationRequired(){
+        Settings settings=SoapUI.getSettings();
+        PropertyExpansionContext context=null;
+        String proxyUsername=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
+        String proxyPassword=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
+        return new ProxyServerAuthInfo(proxyUsername,proxyPassword);
+      }
+    }
+);
+    proxyAuthenticationInitialized=true;
+  }
+  if (proxyEnabled) {
+    Settings settings=SoapUI.getSettings();
+    PropertyExpansionContext context=null;
+    String proxyHost=System.getProperty("http.proxyHost");
+    String proxyPort=System.getProperty("http.proxyPort");
+    if (proxyHost == null)     proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
+    if (proxyPort == null)     proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
+    proxyConf.setHttpHost(proxyHost);
+    proxyConf.setHttpPort(Integer.parseInt(proxyPort));
+    String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
+    for (    String url : excludes) {
+      proxyConf.setSkipProxyFor(url);
+    }
+  }
+ else {
+    proxyConf.setHttpHost("");
+  }
+}

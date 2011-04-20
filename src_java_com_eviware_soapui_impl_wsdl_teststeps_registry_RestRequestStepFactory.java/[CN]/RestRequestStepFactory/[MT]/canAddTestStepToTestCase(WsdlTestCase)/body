@@ -1,0 +1,9 @@
+{
+  for (  Interface iface : testCase.getTestSuite().getProject().getInterfaceList()) {
+    if (iface instanceof RestService) {
+      for (      RestResource resource : ((RestService)iface).getAllResources())       if (resource.getRestMethodCount() > 0)       return true;
+    }
+  }
+  UISupport.showErrorMessage("Missing REST Methods in Project");
+  return false;
+}

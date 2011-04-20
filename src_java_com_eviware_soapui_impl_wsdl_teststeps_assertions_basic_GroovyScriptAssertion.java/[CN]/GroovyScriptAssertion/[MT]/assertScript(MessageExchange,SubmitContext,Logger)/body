@@ -3,6 +3,7 @@
     scriptEngine.setVariable("context",context);
     scriptEngine.setVariable("messageExchange",messageExchange);
     scriptEngine.setVariable("log",log);
+    scriptEngine.setVariable("assertion",this);
     Object result=scriptEngine.run();
     return result == null ? null : result.toString();
   }

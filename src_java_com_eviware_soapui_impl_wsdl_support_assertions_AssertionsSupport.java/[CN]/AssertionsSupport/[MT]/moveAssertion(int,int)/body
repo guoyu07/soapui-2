@@ -14,10 +14,10 @@
   assertion.removePropertyChangeListener(this);
   assertions.remove(ix);
   assertion.release();
-  modelItemConfig.removeAssertion(ix);
+  assertableConfig.removeAssertion(ix);
   newAssertion.addPropertyChangeListener(this);
   assertions.add(ix + offset,newAssertion);
-  modelItemConfig.insertAssertion(newConf,ix + offset);
+  assertableConfig.insertAssertion(newConf,ix + offset);
   fireAssertionMoved(newAssertion,ix,offset);
   return newAssertion;
 }

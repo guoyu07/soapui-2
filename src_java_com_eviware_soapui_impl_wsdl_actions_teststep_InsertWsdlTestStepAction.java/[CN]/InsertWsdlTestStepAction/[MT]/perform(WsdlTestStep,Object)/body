@@ -1,6 +1,7 @@
 {
   WsdlTestStepFactory factory=(WsdlTestStepFactory)param;
   WsdlTestCase testCase=testStep.getTestCase();
+  if (!factory.canAddTestStepToTestCase(testCase))   return;
   String name=UISupport.prompt("Specify name for new step","Insert Step",factory.getTestStepName());
   if (name != null) {
     TestStepConfig newTestStepConfig=factory.createNewTestStep(testCase,name);

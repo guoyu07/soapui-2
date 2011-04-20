@@ -13,6 +13,7 @@
         if (StringUtils.hasContent(docroot)) {
           try {
             String pathInfo=request.getPathInfo();
+            if (pathInfo == null)             pathInfo="";
             if (mockService.getPath().length() > 1 && pathInfo.startsWith(mockService.getPath()))             pathInfo=pathInfo.substring(mockService.getPath().length());
             String filename=docroot + pathInfo.replace('/',File.separatorChar);
             File file=new File(filename);

@@ -1,3 +1,8 @@
 {
-  return (Queue)getHermes().getDestination(name,Domain.QUEUE);
+  if (name == null || name.isEmpty()) {
+    return getSession().createTemporaryQueue();
+  }
+ else {
+    return (Queue)getHermes().getDestination(name,Domain.QUEUE);
+  }
 }

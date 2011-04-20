@@ -2,5 +2,6 @@
   if (mockServiceEndpoint != null)   return mockServiceEndpoint + getPath();
   String host=getHost();
   if (StringUtils.isNullOrEmpty(host))   host="127.0.0.1";
-  return getProtocol() + host + ":"+ getPort()+ getPath();
+  int port=(int)(getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL) ? getSettings().getLong(SSLSettings.MOCK_PORT,443) : getPort());
+  return getProtocol() + host + ":"+ port+ getPath();
 }

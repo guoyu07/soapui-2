@@ -1,0 +1,7 @@
+{
+  if (evt.getSource() == wsrmConfig && evt.getPropertyName().equals("version")) {
+    if (evt.getNewValue().equals(WsrmVersionTypeConfig.X_1_0.toString())) {
+      getWsaConfig().setVersion(WsaVersionTypeConfig.X_200408.toString());
+    }
+  }
+}

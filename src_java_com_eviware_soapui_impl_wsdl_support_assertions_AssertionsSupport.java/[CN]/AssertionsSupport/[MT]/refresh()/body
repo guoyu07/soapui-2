@@ -1,6 +1,6 @@
 {
   int mod=0;
-  List<TestAssertionConfig> assertionList=modelItemConfig.getAssertionList();
+  List<TestAssertionConfig> assertionList=assertableConfig.getAssertionList();
   for (int i=0; i < assertionList.size(); i++) {
     TestAssertionConfig config=assertionList.get(i);
     if (TestAssertionRegistry.getInstance().canBuildAssertion(config)) {

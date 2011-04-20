@@ -1,0 +1,45 @@
+{
+  StringBuffer result=new StringBuffer();
+  if (message != null) {
+    result.append(message);
+    result.append("<hr>");
+  }
+  if (exception != null) {
+    result.append(exception.getMessage());
+  }
+ else   if (wsdlException != null) {
+    result.append(wsdlException.getMessage());
+  }
+ else   if (xmlException != null) {
+    XmlError error=xmlException.getError();
+    result.append(error.getMessage()).append(" on line ").append(error.getLine()).append(", column ").append(error.getColumn());
+  }
+ else   if (schemaException != null) {
+    ArrayList<?> errorList=schemaException.getErrorList();
+    if (errorList != null) {
+      StringToStringMap doubles=new StringToStringMap();
+      boolean appended=false;
+      for (int c=0; c < errorList.size(); c++) {
+        Object error=errorList.get(c);
+        if (error instanceof XmlError) {
+          XmlError xmlError=(XmlError)error;
+          String sourceName=xmlError.getSourceName();
+          String message=xmlError.getMessage();
+          if (!doubles.containsKey(message) || !doubles.get(message).equalsIgnoreCase(sourceName)) {
+            if (appended)             result.append("<hr>");
+            result.append("<b>Source:</b> ").append(sourceName).append("<br>");
+            result.append("<b>Error:</b> ").append(message).append("<br>");
+            appended=true;
+            doubles.put(message,sourceName);
+          }
+        }
+ else {
+          if (appended)           result.append("<hr>");
+          result.append("<b>Error:</b> ").append(error.toString()).append("<br>");
+          appended=true;
+        }
+      }
+    }
+  }
+  return result.toString();
+}

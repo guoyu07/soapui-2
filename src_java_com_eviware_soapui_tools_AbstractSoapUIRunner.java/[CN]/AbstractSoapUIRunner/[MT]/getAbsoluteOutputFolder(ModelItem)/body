@@ -1,5 +1,5 @@
 {
-  String folder=outputFolder;
+  String folder=PropertyExpander.expandProperties(modelItem,outputFolder);
   if (StringUtils.isNullOrEmpty(folder)) {
     folder=PathUtils.getExpandedResourceRoot(modelItem);
   }

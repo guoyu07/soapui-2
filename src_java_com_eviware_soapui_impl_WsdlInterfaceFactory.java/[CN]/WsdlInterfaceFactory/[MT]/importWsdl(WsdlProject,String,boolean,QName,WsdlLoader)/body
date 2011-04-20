@@ -5,7 +5,10 @@
   try {
     result=WsdlImporter.importWsdl(project,url,bindingName,wsdlLoader);
   }
- catch (  Exception e) {
+ catch (  InvalidDefinitionException e) {
+    throw e;
+  }
+catch (  Exception e) {
     log.error("Error importing wsdl: " + e);
     SoapUI.logError(e);
     throw new SoapUIException("Error importing wsdl",e);

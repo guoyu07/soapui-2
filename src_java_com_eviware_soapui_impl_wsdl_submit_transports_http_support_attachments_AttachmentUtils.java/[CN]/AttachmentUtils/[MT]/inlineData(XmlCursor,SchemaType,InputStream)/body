@@ -7,6 +7,9 @@
  else   if (SchemaUtils.isInstanceOf(schemaType,XmlBase64Binary.type)) {
     content=new String(Base64.encodeBase64(data));
   }
+ else {
+    content=new String(data);
+  }
   XmlCursor c=cursor.newCursor();
   c.setTextValue(content);
   c.dispose();

@@ -1,5 +1,5 @@
 {
-  this.data=data == null ? new StringToStringsMap() : data;
+  data=newData == null ? new StringToStringsMap() : new StringToStringsMap(newData);
   keyList.clear();
   for (  String key : data.keySet()) {
     for (    String value : data.get(key))     keyList.add(new NameValuePair(key,value));

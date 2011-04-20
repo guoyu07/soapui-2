@@ -1,5 +1,5 @@
 {
-  String responseContent=null;
+  String messageContent=null;
   String encoding=request.getCharacterEncoding();
   if (encoding != null)   encoding=StringUtils.unquote(encoding);
   ServletInputStream is=request.getInputStream();
@@ -14,6 +14,17 @@
       SoapUI.logError(e);
     }
   }
+  String compressionAlg=HttpClientSupport.getCompressionType(request.getContentType(),requestHeaders.get("Content-Encoding",(String)null));
+  if (compressionAlg != null) {
+    try {
+      data=CompressionSupport.decompress(compressionAlg,data);
+    }
+ catch (    Exception e) {
+      IOException ioe=new IOException("Decompression of response failed");
+      ioe.initCause(e);
+      throw ioe;
+    }
+  }
   int contentOffset=0;
   String contentType=request.getContentType();
   if (contentType != null && data.length > 0) {
@@ -24,11 +35,11 @@
       }
     }
     encoding=StringUtils.unquote(encoding);
-    responseContent=encoding == null ? new String(data) : new String(data,contentOffset,(int)(data.length - contentOffset),encoding);
+    messageContent=encoding == null ? new String(data) : new String(data,contentOffset,(int)(data.length - contentOffset),encoding);
   }
   if (encoding == null)   encoding="UTF-8";
-  if (responseContent == null) {
-    responseContent=new String(data,encoding);
+  if (messageContent == null) {
+    messageContent=new String(data,encoding);
   }
-  return responseContent;
+  return messageContent;
 }

@@ -1,5 +1,5 @@
 {
-  if (browser != null)   return false;
+  if (browser != null || SoapUI.isJXBrowserDisabled())   return false;
   browser=(MozillaBrowser)BrowserFactory.createBrowser(BrowserType.Mozilla);
   browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
   if (newWindowManager == null) {
@@ -8,6 +8,12 @@
     browser.getServices().setNewWindowManager(newWindowManager);
     browser.getServices().setPromptService(new DefaultPromptService());
   }
+  browser.setHttpSecurityHandler(new HttpSecurityHandler(){
+    @Override public HttpSecurityAction onSecurityProblem(    Set<SecurityProblem> arg0){
+      return HttpSecurityAction.CONTINUE;
+    }
+  }
+);
   internalNavigationListener=new InternalBrowserNavigationListener();
   browser.addNavigationListener(internalNavigationListener);
   browser.addStatusListener(this);

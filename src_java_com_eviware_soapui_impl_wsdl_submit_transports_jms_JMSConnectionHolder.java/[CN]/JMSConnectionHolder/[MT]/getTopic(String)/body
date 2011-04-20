@@ -1,3 +1,8 @@
 {
-  return (Topic)getHermes().getDestination(name,Domain.TOPIC);
+  if (name == null || name.isEmpty()) {
+    return getSession().createTemporaryTopic();
+  }
+ else {
+    return (Topic)getHermes().getDestination(name,Domain.TOPIC);
+  }
 }

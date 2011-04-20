@@ -1,4 +1,7 @@
 {
+  if (testCase != null && suite.getTestCaseByName(testCase) == null) {
+    return;
+  }
   long start=System.currentTimeMillis();
   for (int c=0; c < suite.getTestCaseCount(); c++) {
     String name=suite.getTestCaseAt(c).getName();

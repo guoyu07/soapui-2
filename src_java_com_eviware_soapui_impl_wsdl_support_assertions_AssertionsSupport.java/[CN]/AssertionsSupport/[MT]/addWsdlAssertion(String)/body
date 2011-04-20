@@ -1,6 +1,6 @@
 {
   try {
-    TestAssertionConfig assertionConfig=modelItemConfig.addNewAssertion();
+    TestAssertionConfig assertionConfig=assertableConfig.addNewAssertion();
     assertionConfig.setType(TestAssertionRegistry.getInstance().getAssertionTypeForName(assertionLabel));
     String name=assertionLabel;
     while (getAssertionByName(name.trim()) != null) {

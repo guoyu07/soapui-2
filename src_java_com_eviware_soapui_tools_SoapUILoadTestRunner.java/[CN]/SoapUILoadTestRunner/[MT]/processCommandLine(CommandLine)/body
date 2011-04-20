@@ -4,12 +4,10 @@
   if (cmd.hasOption("s")) {
     String testSuite=getCommandLineOptionSubstSpace(cmd,"s");
     setTestSuite(testSuite);
-    message+=validateTestSuite();
   }
   if (cmd.hasOption("c")) {
     String testCase=cmd.getOptionValue("c");
     setTestCase(testCase);
-    message+=validateTestCase();
   }
   if (cmd.hasOption("l"))   setLoadTest(cmd.getOptionValue("l"));
   if (cmd.hasOption("u"))   setUsername(cmd.getOptionValue("u"));

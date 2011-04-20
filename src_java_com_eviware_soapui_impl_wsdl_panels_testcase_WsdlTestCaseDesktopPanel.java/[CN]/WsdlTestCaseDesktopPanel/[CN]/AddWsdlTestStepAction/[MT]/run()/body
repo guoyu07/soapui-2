@@ -1,4 +1,5 @@
 {
+  if (!factory.canAddTestStepToTestCase(testCase))   return;
   int ix=testStepList.getTestStepList().getSelectedIndex();
   String name=UISupport.prompt("Specify name for new step",ix == -1 ? "Add Step" : "Insert Step",factory.getTestStepName());
   if (name != null) {

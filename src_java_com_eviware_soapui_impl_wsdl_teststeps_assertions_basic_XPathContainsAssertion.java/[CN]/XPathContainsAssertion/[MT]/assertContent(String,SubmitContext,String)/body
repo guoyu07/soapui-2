@@ -2,7 +2,9 @@
   try {
     if (path == null)     return "Missing path for XPath assertion";
     if (expectedContent == null)     return "Missing content for XPath assertion";
-    XmlObject xml=XmlObject.Factory.parse(response);
+    XmlOptions options=new XmlOptions();
+    if (ignoreComments)     options.setLoadStripComments();
+    XmlObject xml=XmlObject.Factory.parse(response,options);
     String expandedPath=PropertyExpander.expandProperties(context,path);
     XmlObject[] items=xml.selectPath(expandedPath);
     AssertedXPathsContainer assertedXPathsContainer=(AssertedXPathsContainer)context.getProperty(AssertedXPathsContainer.ASSERTEDXPATHSCONTAINER_PROPERTY);
@@ -10,13 +12,12 @@
     String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
     if (!expandedPath.endsWith("text()")) {
       try {
-        contentObj=XmlObject.Factory.parse(expandedContent);
+        contentObj=XmlObject.Factory.parse(expandedContent,options);
       }
  catch (      Exception e) {
       }
     }
     if (items.length == 0)     throw new Exception("Missing content for xpath [" + path + "] in "+ type);
-    XmlOptions options=new XmlOptions();
     options.setSavePrettyPrint();
     options.setSaveOuter();
     for (int c=0; c < items.length; c++) {

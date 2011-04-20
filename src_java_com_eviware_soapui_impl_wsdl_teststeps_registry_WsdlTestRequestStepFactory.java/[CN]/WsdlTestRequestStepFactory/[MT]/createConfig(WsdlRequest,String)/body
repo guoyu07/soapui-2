@@ -10,7 +10,11 @@
   testRequestConfig.setOutgoingWss(request.getOutgoingWss());
   testRequestConfig.setIncomingWss(request.getIncomingWss());
   testRequestConfig.setTimeout(request.getTimeout());
+  testRequestConfig.setSslKeystore(request.getSslKeystore());
+  testRequestConfig.setUseWsAddressing(request.isWsaEnabled());
+  testRequestConfig.setUseWsReliableMessaging(request.isWsrmEnabled());
   if (request.getConfig().isSetWsaConfig())   testRequestConfig.setWsaConfig((WsaConfigConfig)request.getConfig().getWsaConfig().copy());
+  if (request.getConfig().isSetWsrmConfig())   testRequestConfig.setWsrmConfig((WsrmConfigConfig)request.getConfig().getWsrmConfig().copy());
   if ((CredentialsConfig)request.getConfig().getCredentials() != null) {
     testRequestConfig.setCredentials((CredentialsConfig)request.getConfig().getCredentials().copy());
   }

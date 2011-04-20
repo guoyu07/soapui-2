@@ -7,6 +7,14 @@
       return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
     }
   }
+ else   if (allowWildcards && diff.getId() == DifferenceEngine.NODE_TYPE.getId()) {
+    if (diff.getControlNodeDetail().getNode().getNodeValue().equals("*")) {
+      Node node=diff.getTestNodeDetail().getNode();
+      String xp=XmlUtils.createAbsoluteXPath(node.getNodeType() == Node.ATTRIBUTE_NODE ? node : node.getParentNode());
+      nodesToRemove.add(xp);
+      return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
+    }
+  }
  else   if (ignoreNamespaceDifferences && diff.getId() == DifferenceEngine.NAMESPACE_PREFIX_ID) {
     return Diff.RETURN_IGNORE_DIFFERENCE_NODES_IDENTICAL;
   }

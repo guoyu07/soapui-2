@@ -1,7 +1,7 @@
 {
-  if (httpResponse != null) {
+  if (httpResponse != null && httpResponse.getContentAsString() != null) {
     try {
-      browser.navigate(httpResponse.getURL().toURI().toString(),httpResponse.getRequestContent(),null);
+      browser.setContent(new String(httpResponse.getContentAsString().getBytes("utf-8")),httpResponse.getURL().toURI().toString());
       hasResponseForRecording=true;
     }
  catch (    Throwable e) {

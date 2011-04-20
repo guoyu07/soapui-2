@@ -6,7 +6,12 @@
     wsdlReader.setFeature("javax.wsdl.importDocuments",true);
   }
   log.debug("Loading WSDL: " + loader.getBaseURI());
-  definition=wsdlReader.readWSDL(loader);
+  try {
+    definition=wsdlReader.readWSDL(loader);
+  }
+ catch (  WSDLException e) {
+    throw new InvalidDefinitionException(e);
+  }
   if (!loader.isAborted()) {
     super.loadSchemaTypes(loader);
   }

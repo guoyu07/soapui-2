@@ -1,0 +1,9 @@
+{
+  if (UISupport.isHeadless())   return true;
+  if (isCommandLine())   return true;
+  String disable=System.getProperty("soapui.jxbrowser.disable","nope");
+  if (disable.equals("true"))   return true;
+  if (getSoapUICore() != null && getSettings().getBoolean(UISettings.DISABLE_BROWSER))   return true;
+  if (!disable.equals("false") && (!PlatformContext.isMacOS() && "64".equals(System.getProperty("sun.arch.data.model"))))   return true;
+  return false;
+}

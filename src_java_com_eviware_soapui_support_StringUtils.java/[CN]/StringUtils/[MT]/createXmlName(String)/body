@@ -4,7 +4,7 @@
   boolean numbersOnly=true;
   for (int c=0; c < str.length(); c++) {
     char ch=str.charAt(c);
-    if (Character.isLetter(ch)) {
+    if (Character.isLetter(ch) || ch == '_' || ch == '-' || ch == '.') {
       if (skipped)       result.append(Character.toUpperCase(ch));
  else       result.append(ch);
       numbersOnly=false;

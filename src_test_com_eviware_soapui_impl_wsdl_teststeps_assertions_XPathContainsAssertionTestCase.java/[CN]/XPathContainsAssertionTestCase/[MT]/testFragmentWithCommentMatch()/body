@@ -1,0 +1,13 @@
+{
+  assertion.setPath("declare namespace urn='urn:schema:v1:companyservice:applications:bis.bonnier.se';" + "declare namespace urn1='urn:v1:companysearch:common:bis.bonnier.se';" + "//urn:searchResponse/urn1:searchResult/company[4]");
+  assertion.setAllowWildcards(true);
+  assertion.setExpectedContent(readResource("/testFragmentWithCommentAndWildcard.xml"));
+  try {
+    assertion.assertContent(testResponse,new WsdlSubmitContext(null),"");
+    assertFalse("Assertion should have failed",true);
+  }
+ catch (  AssertionException e) {
+  }
+  assertion.setIgnoreComments(true);
+  assertNotNull(assertion.assertContent(testResponse,new WsdlSubmitContext(null),""));
+}

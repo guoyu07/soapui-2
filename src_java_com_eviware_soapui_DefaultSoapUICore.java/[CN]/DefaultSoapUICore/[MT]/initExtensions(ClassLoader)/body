@@ -1,4 +1,6 @@
 {
   String extDir=System.getProperty("soapui.ext.listeners");
   addExternalListeners(extDir != null ? extDir : root == null ? "listeners" : root + File.separatorChar + "listeners",extensionClassLoader);
+  String factoriesDir=System.getProperty("soapui.ext.factories");
+  addExternalFactories(factoriesDir != null ? factoriesDir : root == null ? "factories" : root + File.separatorChar + "factories",extensionClassLoader);
 }

@@ -7,6 +7,7 @@
   Loader loader=new Loader(wsdlLoader);
   progressDialog.run(loader);
   if (loader.hasError()) {
+    if (loader.getError() instanceof InvalidDefinitionException)     throw (InvalidDefinitionException)loader.getError();
     if (loader.getError() instanceof SchemaException) {
       schemaException=(SchemaException)loader.getError();
       ArrayList<?> errorList=schemaException.getErrorList();
@@ -16,6 +17,7 @@
           log.error(errorList.get(c).toString());
         }
       }
+      throw new InvalidDefinitionException(schemaException);
     }
  else     throw new Exception(loader.getError());
   }

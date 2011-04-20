@@ -1,20 +1,26 @@
 {
+  String pathInfo=request.getPathInfo();
+  if (pathInfo == null)   pathInfo="";
   for (  MockRunner mockRunner : getMockRunners()) {
-    if (request.getPathInfo().equals(mockRunner.getMockService().getPath())) {
+    if (pathInfo.equals(mockRunner.getMockService().getPath())) {
       MockResult result=mockRunner.dispatchRequest(request,response);
-      while (maxResults > 0 && results.size() > maxResults) {
-        results.remove(0);
-      }
-      if (result != null) {
-        results.add(result);
+      if (maxResults > 0) {
+synchronized (results) {
+          while (maxResults > 0 && results.size() > maxResults) {
+            results.remove(0);
+          }
+          if (result != null) {
+            results.add(result);
+          }
+        }
       }
       return;
     }
   }
   if (enableWebUI) {
-    String pathInfo=request.getPathInfo();
-    File file=new File(servletContext.getRealPath(pathInfo));
-    if (file.exists() && file.isFile()) {
+    String realPath=servletContext.getRealPath(pathInfo);
+    File file=realPath == null ? null : new File(realPath);
+    if (file != null && file.exists() && file.isFile()) {
       FileInputStream in=new FileInputStream(file);
       response.setStatus(HttpServletResponse.SC_OK);
       long length=file.length();
@@ -26,10 +32,10 @@
  else     if (pathInfo.equals("/master")) {
       printMaster(request,response);
     }
- else     if (request.getPathInfo().equals("/detail")) {
+ else     if (pathInfo.equals("/detail")) {
       printDetail(request,response);
     }
- else     if (request.getPathInfo().equals("/log")) {
+ else     if (pathInfo.equals("/log")) {
       printLog(request,response);
     }
  else {

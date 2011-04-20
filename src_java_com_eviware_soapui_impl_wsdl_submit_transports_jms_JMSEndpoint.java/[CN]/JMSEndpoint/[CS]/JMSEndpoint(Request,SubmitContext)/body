@@ -1,7 +1,7 @@
 {
   this.request=request;
   this.submitContext=submitContext;
-  parameters=extractEndpointParameters(request);
+  parameters=extractEndpointParameters(request,submitContext);
   sessionName=getEndpointParameter(0);
   send=getEndpointParameter(1);
   receive=getEndpointParameter(2);

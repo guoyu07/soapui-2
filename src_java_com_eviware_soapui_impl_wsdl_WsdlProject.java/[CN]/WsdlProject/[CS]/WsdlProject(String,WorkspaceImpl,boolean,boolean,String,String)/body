@@ -14,7 +14,7 @@
       File file=new File(path.trim());
       if (file.exists()) {
         try {
-          loadProject(new URL("file:" + file.getAbsolutePath()));
+          loadProject(file.toURI().toURL());
           lastModified=file.lastModified();
         }
  catch (        MalformedURLException e) {

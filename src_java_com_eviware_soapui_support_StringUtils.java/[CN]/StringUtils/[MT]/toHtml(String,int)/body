@@ -1,0 +1,26 @@
+{
+  if (StringUtils.isNullOrEmpty(string))   return "<html><body></body></html>";
+  BufferedReader st=new BufferedReader(new StringReader(string));
+  StringBuffer buf=new StringBuffer("<html><body>");
+  String str=null;
+  try {
+    str=st.readLine();
+    while (str != null && (maxSize == 0 || (buf.length() + str.length()) < maxSize)) {
+      if (str.equalsIgnoreCase("<br/>")) {
+        str="<br>";
+      }
+      buf.append(str);
+      if (!str.equalsIgnoreCase("<br>")) {
+        buf.append("<br>");
+      }
+      str=st.readLine();
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  if (str != null)   buf.append("...");
+  buf.append("</body></html>");
+  string=buf.toString();
+  return string;
+}

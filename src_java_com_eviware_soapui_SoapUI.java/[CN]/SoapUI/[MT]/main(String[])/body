@@ -2,7 +2,7 @@
   WebstartUtilCore.init();
   mainArgs=args;
   SoapUIRunner soapuiRunner=new SoapUIRunner();
-  if (!BrowserComponent.isJXBrowserDisabled() && PlatformContext.isMacOS()) {
+  if (!SoapUI.isJXBrowserDisabled() && PlatformContext.isMacOS()) {
     SwingUtilities.invokeLater(soapuiRunner);
   }
  else {

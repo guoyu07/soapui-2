@@ -6,6 +6,7 @@
   setExpectedContent(contentArea.getText());
   setAllowWildcards(allowWildcardsCheckBox.isSelected());
   setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
+  setIgnoreComments(ignoreCommentsCheckBox.isSelected());
   try {
     String msg=assertContent(getAssertable().getAssertableContent(),new WsdlTestRunContext((TestStep)getAssertable().getModelItem()),"Response");
     UISupport.showInfoMessage(msg,"Success");

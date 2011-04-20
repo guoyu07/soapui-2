@@ -3,17 +3,23 @@
   toolbar.addRelatedGap();
   toolbar.addFixed(new JButton(new TestPathAction()));
   allowWildcardsCheckBox=new JCheckBox("Allow Wildcards");
-  Dimension dim=new Dimension(100,20);
+  Dimension dim=new Dimension(120,20);
   allowWildcardsCheckBox.setSize(dim);
   allowWildcardsCheckBox.setPreferredSize(dim);
   allowWildcardsCheckBox.setOpaque(false);
   toolbar.addRelatedGap();
   toolbar.addFixed(allowWildcardsCheckBox);
-  Dimension largerDim=new Dimension(200,20);
+  Dimension largerDim=new Dimension(170,20);
   ignoreNamespaceDifferencesCheckBox=new JCheckBox("Ignore namespace prefixes");
   ignoreNamespaceDifferencesCheckBox.setSize(largerDim);
   ignoreNamespaceDifferencesCheckBox.setPreferredSize(largerDim);
   ignoreNamespaceDifferencesCheckBox.setOpaque(false);
   toolbar.addRelatedGap();
   toolbar.addFixed(ignoreNamespaceDifferencesCheckBox);
+  ignoreCommentsCheckBox=new JCheckBox("Ignore XML Comments");
+  ignoreCommentsCheckBox.setSize(largerDim);
+  ignoreCommentsCheckBox.setPreferredSize(largerDim);
+  ignoreCommentsCheckBox.setOpaque(false);
+  toolbar.addRelatedGap();
+  toolbar.addFixed(ignoreCommentsCheckBox);
 }

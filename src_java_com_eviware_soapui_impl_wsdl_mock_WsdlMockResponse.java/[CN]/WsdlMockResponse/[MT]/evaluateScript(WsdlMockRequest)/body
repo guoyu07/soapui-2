@@ -4,6 +4,7 @@
   WsdlMockService mockService=getMockOperation().getMockService();
   WsdlMockRunner mockRunner=mockService.getMockRunner();
   MockRunContext context=mockRunner == null ? new WsdlMockRunContext(mockService,null) : mockRunner.getMockContext();
+  context.setMockResponse(this);
   SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
   try {
     scriptEngine.setVariable("context",context);

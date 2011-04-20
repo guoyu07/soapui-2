@@ -3,7 +3,7 @@
   int c=0;
   for (; c < representations.length; c++) {
     if (representations[c].getMediaType() != null && representations[c].getMediaType().equals(response.getContentType())) {
-      List status=representations[c].getStatus();
+      @SuppressWarnings("rawtypes") List status=representations[c].getStatus();
       if (status == null || !status.contains(response.getStatusCode())) {
         status=status == null ? new ArrayList<Integer>() : new ArrayList<Integer>(status);
         status.add(response.getStatusCode());

@@ -1,0 +1,10 @@
+{
+  WsdlProject project=new WsdlProject();
+  RestService service=(RestService)project.addNewInterface("REST Service",RestServiceFactory.REST_TYPE);
+  WadlImporter importer=new WadlImporter(service);
+  importer.initFromWadl(WadlImporter.class.getResource("/wadl/YahooSearch.wadl").toString());
+  assertEquals(service.getName(),"REST Service");
+  assertEquals(1,service.getResourceList().size());
+  assertEquals(0,service.getResourceList().get(0).getChildResourceCount());
+  assertEquals(1,service.getResourceList().get(0).getRestMethodCount());
+}

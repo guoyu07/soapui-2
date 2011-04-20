@@ -11,7 +11,7 @@
  catch (    NumberFormatException e) {
       delay=Integer.parseInt(DEFAULT_DELAY);
     }
-    final long stopTime=System.nanoTime() + (long)delay * 1000000;
+    final long stopTime=System.currentTimeMillis() + delay;
     int lastUpdate=0;
     while (!canceled && timeWaited < delay) {
       if (timeWaited - lastUpdate > 1000 && context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null) {
@@ -29,7 +29,7 @@
         lastUpdate=timeWaited;
       }
       Thread.sleep(Math.min(DELAY_CHUNK,delay - timeWaited));
-      timeWaited=delay - (int)((stopTime - System.nanoTime()) / 1000000);
+      timeWaited=delay - (int)((stopTime - System.currentTimeMillis()));
     }
   }
  catch (  InterruptedException e) {

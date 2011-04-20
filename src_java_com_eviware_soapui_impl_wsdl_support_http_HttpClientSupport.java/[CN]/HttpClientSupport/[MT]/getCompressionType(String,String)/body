@@ -1,0 +1,6 @@
+{
+  String compressionAlg=contentType == null ? null : CompressionSupport.getAvailableAlgorithm(contentType);
+  if (compressionAlg != null)   return compressionAlg;
+  if (contentEncoding == null)   return null;
+ else   return CompressionSupport.getAvailableAlgorithm(contentEncoding);
+}

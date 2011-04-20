@@ -33,7 +33,10 @@
         break;
       }
     }
- catch (    Exception ex) {
+ catch (    InvalidDefinitionException ex) {
+      ex.show();
+    }
+catch (    Exception ex) {
       UISupport.showErrorMessage(ex);
     }
   }

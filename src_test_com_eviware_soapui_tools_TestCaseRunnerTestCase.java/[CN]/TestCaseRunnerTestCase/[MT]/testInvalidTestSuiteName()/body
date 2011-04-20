@@ -1,0 +1,14 @@
+{
+  SoapUITestCaseRunner runner=new SoapUITestCaseRunner();
+  runner.setProjectFile(new File("src/test-resources/sample-soapui-project.xml").toURI().toString());
+  runner.setTestSuite("tjoho");
+  boolean failed=false;
+  try {
+    runner.run();
+    failed=true;
+  }
+ catch (  Exception e) {
+    assertEquals(e.getMessage(),"TestSuite with name [tjoho] is missing in Project [Sample Project]");
+  }
+  assertFalse(failed);
+}

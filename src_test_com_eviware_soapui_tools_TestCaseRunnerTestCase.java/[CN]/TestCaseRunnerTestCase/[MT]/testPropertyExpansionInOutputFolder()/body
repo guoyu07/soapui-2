@@ -1,0 +1,8 @@
+{
+  SoapUITestCaseRunner runner=new SoapUITestCaseRunner();
+  runner.setOutputFolder("/dev/${#Project#Env}");
+  assertEquals("/dev/",runner.getAbsoluteOutputFolder(null));
+  WsdlProject project=new WsdlProject("src/test-resources/sample-soapui-project.xml");
+  project.setPropertyValue("Env","test");
+  assertEquals("/dev/test",runner.getAbsoluteOutputFolder(project));
+}

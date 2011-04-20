@@ -17,7 +17,7 @@
       hostConfiguration.setLocalAddress(InetAddress.getByName(localAddress));
     }
  catch (    Exception e) {
-      SoapUI.logError(e);
+      SoapUI.logError(e,"Failed to set localAddress to [" + localAddress + "]");
     }
   }
   submitContext.removeProperty(RESPONSE);

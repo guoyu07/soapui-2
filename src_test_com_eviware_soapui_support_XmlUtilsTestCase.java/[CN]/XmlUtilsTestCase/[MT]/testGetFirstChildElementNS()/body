@@ -1,0 +1,9 @@
+{
+  String xml="<SofEnvelope><partnerid>test</partnerid><sessionID>asdadasdasd</sessionID></SofEnvelope>";
+  XmlObject xmlObject=XmlObject.Factory.parse(xml);
+  Element documentElement=((Document)xmlObject.getDomNode()).getDocumentElement();
+  assertNotNull(XmlUtils.getFirstChildElementNS(documentElement,new QName("","partnerid")));
+  assertNotNull(XmlUtils.getFirstChildElementNS(documentElement,new QName(null,"partnerid")));
+  assertNotNull(XmlUtils.getFirstChildElementNS(documentElement,"","partnerid"));
+  assertNotNull(XmlUtils.getFirstChildElementNS(documentElement,null,"partnerid"));
+}

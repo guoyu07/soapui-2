@@ -13,8 +13,11 @@
   restMethod.setMethod(RestRequestInterface.RequestMethod.valueOf(method.getName()));
   if (method.getRequest() != null) {
     for (    Param param : method.getRequest().getParamList()) {
-      RestParamProperty p=restMethod.addProperty(param.getName());
-      initParam(param,p);
+      param=resolveParameter(param);
+      if (param != null) {
+        RestParamProperty p=restMethod.addProperty(param.getName());
+        initParam(param,p);
+      }
     }
     for (    Representation representation : method.getRequest().getRepresentationList()) {
       representation=resolveRepresentation(representation);

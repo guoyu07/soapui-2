@@ -18,6 +18,9 @@
     table.getColumnModel().getColumn(7).setCellEditor(new IncomingWssCellEditor(((WsdlInterface)iface).getProject().getWssContainer()));
     table.getColumnModel().getColumn(8).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
   }
+ else {
+    table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
+  }
   table.getTableHeader().setReorderingAllowed(false);
   setBackground(Color.WHITE);
   setOpaque(true);

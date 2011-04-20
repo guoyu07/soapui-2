@@ -4,11 +4,9 @@
   nsIObserverService observerService=(nsIObserverService)serviceManager.getServiceByContractID("@mozilla.org/observer-service;1",nsIObserverService.NS_IOBSERVERSERVICE_IID);
   final nsIBinaryInputStream in=XPCOMManager.getInstance().newComponent("@mozilla.org/binaryinputstream;1",nsIBinaryInputStream.class);
   nsIObserver httpObserver=new nsIObserver(){
-    protected long _lRequestCounter=0;
     public void observe(    nsISupports subject,    String sTopic,    String sData){
       try {
         if (EVENT_HTTP_ON_MODIFY_REQUEST.equals(sTopic)) {
-          _lRequestCounter++;
           nsIHttpChannel httpChannel=(nsIHttpChannel)subject.queryInterface(nsIHttpChannel.NS_IHTTPCHANNEL_IID);
           if (httpChannel.getNotificationCallbacks() == null)           return;
           nsIInterfaceRequestor interfaceRequestor=(nsIInterfaceRequestor)httpChannel.getNotificationCallbacks().queryInterface(nsIInterfaceRequestor.NS_IINTERFACEREQUESTOR_IID);

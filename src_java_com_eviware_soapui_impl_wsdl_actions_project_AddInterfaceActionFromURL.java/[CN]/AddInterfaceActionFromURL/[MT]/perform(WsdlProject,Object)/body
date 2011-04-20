@@ -7,7 +7,10 @@
     Interface[] ifaces=WsdlInterfaceFactory.importWsdl(project,url,createRequests);
     if (ifaces != null && ifaces.length > 0)     UISupport.select(ifaces[0]);
   }
- catch (  Exception ex) {
+ catch (  InvalidDefinitionException ex) {
+    ex.show();
+  }
+catch (  Exception ex) {
     UISupport.showErrorMessage(ex.getMessage() + ":" + ex.getCause());
   }
 }

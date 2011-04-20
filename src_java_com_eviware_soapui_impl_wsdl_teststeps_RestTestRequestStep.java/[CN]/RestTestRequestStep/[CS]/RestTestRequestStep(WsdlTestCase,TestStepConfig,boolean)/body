@@ -69,6 +69,13 @@
     }
   }
 );
+  addProperty(new DefaultTestStepProperty("RawRequest",true,this){
+    @Override public String getValue(){
+      HttpResponse response=testRequest.getResponse();
+      return response == null ? null : response.getRequestContent();
+    }
+  }
+);
   initRestTestRequest();
   if (!forLoadTest && restResource != null) {
     getResource().getService().getProject().addProjectListener(projectListener);

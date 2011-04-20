@@ -1,5 +1,5 @@
 {
-  if (recordHttpTrafic == this.recordHttpTrafic)   return;
+  if (SoapUI.isJXBrowserDisabled() || recordHttpTrafic == this.recordHttpTrafic)   return;
   if (recordHttpTrafic) {
     recordButton.setIcon(UISupport.createImageIcon("/record_http_true.gif"));
     recordButton.setToolTipText("Stop recording");

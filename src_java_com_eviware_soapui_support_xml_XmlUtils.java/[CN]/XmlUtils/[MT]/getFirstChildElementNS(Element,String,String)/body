@@ -1,6 +1,6 @@
 {
   if (tns == null && localName == null)   return getFirstChildElement(elm);
-  if (tns == null)   return getFirstChildElement(elm,localName);
+  if (tns == null || tns.length() == 0)   return getFirstChildElement(elm,localName);
   NodeList nl=elm.getChildNodes();
   for (int c=0; c < nl.getLength(); c++) {
     Node node=nl.item(c);

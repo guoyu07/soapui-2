@@ -7,6 +7,7 @@
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
   initProjectProperties(project);
   int suiteCount=0;
+  if (testSuite != null && project.getTestSuiteByName(testSuite) == null)   throw new Exception("Missing TestSuite named [" + testSuite + "]");
   for (int c=0; c < project.getTestSuiteCount(); c++) {
     if (testSuite == null || project.getTestSuiteAt(c).getName().equalsIgnoreCase(testSuite)) {
       runSuite(project.getTestSuiteAt(c));

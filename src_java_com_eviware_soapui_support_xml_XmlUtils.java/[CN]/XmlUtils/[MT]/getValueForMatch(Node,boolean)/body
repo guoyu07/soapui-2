@@ -6,7 +6,7 @@
  else {
     if (domNode.getNodeType() == Node.ELEMENT_NODE) {
       Element elm=(Element)domNode;
-      if (elm.getChildNodes().getLength() == 1 && elm.getAttributes().getLength() == 0) {
+      if (elm.getChildNodes().getLength() == 1 && !hasContentAttributes(elm)) {
         stringValue=getElementText(elm);
       }
  else {

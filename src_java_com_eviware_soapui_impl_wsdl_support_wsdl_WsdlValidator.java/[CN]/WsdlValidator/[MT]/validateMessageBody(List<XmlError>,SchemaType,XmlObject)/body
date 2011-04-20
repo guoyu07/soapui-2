@@ -13,11 +13,17 @@
   xmlOptions.setLoadAdditionalNamespaces(map);
   XmlObject obj=type.getTypeSystem().parse(xmlText,type,xmlOptions);
   obj=obj.changeType(type);
-  List<?> list=new ArrayList<Object>();
+  ArrayList<Object> list=new ArrayList<Object>();
   xmlOptions=new XmlOptions();
   xmlOptions.setErrorListener(list);
   xmlOptions.setValidateTreatLaxAsSkip();
-  obj.validate(xmlOptions);
+  try {
+    obj.validate(xmlOptions);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    list.add("Internal Error - see error log for details - [" + e + "]");
+  }
   for (int c=0; c < list.size(); c++) {
     XmlError error=(XmlError)list.get(c);
     if (error instanceof XmlValidationError) {

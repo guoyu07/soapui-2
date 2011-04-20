@@ -70,13 +70,20 @@
                 isXopAttachment=true;
               }
  else {
-                inlineData(cursor,schemaType,new FileInputStream(filename));
+                if (new File(filename).exists()) {
+                  inlineData(cursor,schemaType,new FileInputStream(filename));
+                }
+ else {
+                  Attachment att=getAttachmentForFilename(container,filename);
+                  if (att != null)                   inlineData(cursor,schemaType,att.getInputStream());
+                }
               }
             }
  else {
               Attachment[] attachmentsForPart=container.getAttachmentsForPart(textContent);
               if (textContent.startsWith("cid:")) {
                 textContent=textContent.substring(4);
+                attachmentsForPart=container.getAttachmentsForPart(textContent);
                 Attachment[] attachments=attachmentsForPart;
                 if (attachments.length == 1) {
                   attachment=attachments[0];

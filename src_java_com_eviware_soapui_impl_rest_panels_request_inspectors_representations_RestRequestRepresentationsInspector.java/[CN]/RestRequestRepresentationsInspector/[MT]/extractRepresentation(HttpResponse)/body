@@ -13,7 +13,7 @@
   if (c == representations.length) {
     RestRepresentation representation=getMethod().addNewRepresentation(RestRepresentation.Type.REQUEST);
     representation.setMediaType(responseContentType);
-    String xmlContent=response.getContentAsXml();
+    String xmlContent=response.getRequestContent();
     if (!xmlContent.equals("<xml/>")) {
       try {
         XmlCursor cursor=XmlObject.Factory.parse(xmlContent).newCursor();

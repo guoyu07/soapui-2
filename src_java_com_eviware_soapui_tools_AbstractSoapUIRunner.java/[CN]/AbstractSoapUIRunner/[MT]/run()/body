@@ -1,6 +1,8 @@
 {
-  SoapUI.setSoapUICore(createSoapUICore(),true);
-  SoapUI.initGCTimer();
+  if (SoapUI.getSoapUICore() == null) {
+    SoapUI.setSoapUICore(createSoapUICore(),true);
+    SoapUI.initGCTimer();
+  }
   SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     return runRunner();

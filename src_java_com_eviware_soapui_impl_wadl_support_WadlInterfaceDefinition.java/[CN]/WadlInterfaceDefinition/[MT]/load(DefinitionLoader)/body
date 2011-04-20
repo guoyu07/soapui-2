@@ -1,6 +1,11 @@
 {
-  XmlObject obj=loader.loadXmlObject(loader.getBaseURI(),null);
-  applicationDocument=(ApplicationDocument)obj.changeType(ApplicationDocument.type);
+  try {
+    XmlObject obj=loader.loadXmlObject(loader.getBaseURI(),null);
+    applicationDocument=(ApplicationDocument)obj.changeType(ApplicationDocument.type);
+  }
+ catch (  Exception e) {
+    throw new InvalidDefinitionException(e);
+  }
   if (!loader.isAborted()) {
     super.loadSchemaTypes(loader);
   }

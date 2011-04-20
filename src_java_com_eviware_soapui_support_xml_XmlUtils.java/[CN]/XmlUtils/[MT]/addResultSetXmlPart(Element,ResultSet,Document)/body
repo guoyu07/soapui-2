@@ -15,7 +15,7 @@
       }
       columnName+=(rsmd.getColumnName(ii)).toUpperCase();
       String value=rs.getString(ii);
-      Element node=xmlDocumentResult.createElement(columnName);
+      Element node=xmlDocumentResult.createElement(StringUtils.createXmlName(columnName));
       if (!StringUtils.isNullOrEmpty(value)) {
         Text textNode=xmlDocumentResult.createTextNode(value.toString());
         node.appendChild(textNode);

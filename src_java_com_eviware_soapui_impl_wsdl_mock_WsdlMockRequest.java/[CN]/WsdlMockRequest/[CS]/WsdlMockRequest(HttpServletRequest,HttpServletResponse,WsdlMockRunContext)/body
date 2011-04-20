@@ -15,6 +15,7 @@
   }
   protocol=request.getProtocol();
   path=request.getPathInfo();
+  if (path == null)   path="";
   if (request.getMethod().equals("POST")) {
     initPostRequest(request,context);
   }

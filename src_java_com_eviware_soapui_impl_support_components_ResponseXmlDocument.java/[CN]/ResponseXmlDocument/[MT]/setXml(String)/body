@@ -3,7 +3,9 @@
   if (response != null) {
     try {
       settingResponse=true;
+      String oldXml=response.getContentAsString();
       response.setResponseContent(xml);
+      fireXmlChanged(oldXml,xml);
     }
   finally {
       settingResponse=false;

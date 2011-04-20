@@ -11,7 +11,7 @@
     queueSession=jmsConnectionHolderQueue.getSession();
     Topic topicPublish=jmsConnectionHolderTopic.getTopic(jmsConnectionHolderTopic.getJmsEndpoint().getSend());
     Queue queueReceive=jmsConnectionHolderQueue.getQueue(jmsConnectionHolderQueue.getJmsEndpoint().getReceive());
-    Message messagePublish=messagePublish(submitContext,request,topicSession,jmsConnectionHolderTopic.getHermes(),topicPublish);
+    Message messagePublish=messagePublish(submitContext,request,topicSession,jmsConnectionHolderTopic.getHermes(),topicPublish,queueReceive);
     MessageConsumer messageConsumer=queueSession.createConsumer(queueReceive,submitContext.expand(messageSelector));
     return makeResponse(submitContext,request,timeStarted,messagePublish,messageConsumer);
   }
@@ -25,7 +25,7 @@ catch (  Throwable t) {
     jmsConnectionHolderQueue.closeAll();
     jmsConnectionHolderQueue.closeAll();
     closeSessionAndConnection(jmsConnectionHolderQueue != null ? jmsConnectionHolderQueue.getConnection() : null,queueSession);
-    closeSessionAndConnection(jmsConnectionHolderQueue != null ? jmsConnectionHolderTopic.getConnection() : null,topicSession);
+    closeSessionAndConnection(jmsConnectionHolderTopic != null ? jmsConnectionHolderTopic.getConnection() : null,topicSession);
   }
   return null;
 }

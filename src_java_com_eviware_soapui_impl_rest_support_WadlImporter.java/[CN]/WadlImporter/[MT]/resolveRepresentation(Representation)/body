@@ -2,10 +2,14 @@
   String href=representation.getHref();
   if (!StringUtils.hasContent(href))   return representation;
   try {
-    ApplicationDocument applicationDocument=loadReferencedWadl(href);
-    if (applicationDocument != null) {
+    Application app=application;
+    if (!href.startsWith("#")) {
+      ApplicationDocument applicationDocument=loadReferencedWadl(href);
+      app=applicationDocument.getApplication();
+    }
+    if (app != null) {
       int ix=href.lastIndexOf('#');
-      if (ix > 0)       href=href.substring(ix + 1);
+      if (ix >= 0)       href=href.substring(ix + 1);
       for (      Representation m : application.getRepresentationList()) {
         if (m.getId().equals(href))         return m;
       }

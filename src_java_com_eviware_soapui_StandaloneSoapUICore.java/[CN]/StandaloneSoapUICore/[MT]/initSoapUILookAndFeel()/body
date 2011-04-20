@@ -1,6 +1,6 @@
 {
   try {
-    if (PlatformContext.isMacOS()) {
+    if (!SoapUI.isJXBrowserDisabled() && PlatformContext.isMacOS()) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     }
  else     if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {

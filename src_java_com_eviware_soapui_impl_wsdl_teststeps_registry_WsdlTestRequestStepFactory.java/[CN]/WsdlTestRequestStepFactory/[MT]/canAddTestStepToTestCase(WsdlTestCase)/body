@@ -1,0 +1,7 @@
+{
+  for (  Interface iface : testCase.getTestSuite().getProject().getInterfaceList()) {
+    if (iface instanceof WsdlInterface && iface.getOperationCount() > 0)     return true;
+  }
+  UISupport.showErrorMessage("Missing SOAP Operations in Project");
+  return false;
+}

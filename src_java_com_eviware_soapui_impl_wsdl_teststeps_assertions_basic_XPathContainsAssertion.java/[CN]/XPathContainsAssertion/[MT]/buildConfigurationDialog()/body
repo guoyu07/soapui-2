@@ -1,11 +1,10 @@
 {
   configurationDialog=new JDialog(UISupport.getMainFrame());
-  configurationDialog.setTitle("XPath Match configuration");
+  configurationDialog.setTitle("XPath Match Configuration");
   configurationDialog.addWindowListener(new WindowAdapter(){
     @Override public void windowOpened(    WindowEvent event){
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
-          pathArea.requestFocusInWindow();
         }
       }
 );
@@ -45,7 +44,7 @@
   builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
   contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
   configurationDialog.setContentPane(contentPanel);
-  configurationDialog.setSize(600,500);
+  configurationDialog.setSize(800,500);
   configurationDialog.setModal(true);
   UISupport.initDialogActions(configurationDialog,showOnlineHelpAction,okButton);
 }

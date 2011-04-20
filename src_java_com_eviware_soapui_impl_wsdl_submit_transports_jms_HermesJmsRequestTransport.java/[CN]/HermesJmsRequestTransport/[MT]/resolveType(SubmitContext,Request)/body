@@ -1,7 +1,8 @@
 {
-  int ix=request.getEndpoint().indexOf("://");
-  if (ix == -1)   throw new MissingTransportException("Missing protocol in endpoint [" + request.getEndpoint() + "]");
-  String[] params=JMSEndpoint.extractEndpointParameters(request);
+  String endpoint=PropertyExpander.expandProperties(submitContext,request.getEndpoint());
+  int ix=endpoint.indexOf("://");
+  if (ix == -1)   throw new MissingTransportException("Missing protocol in endpoint [" + endpoint + "]");
+  String[] params=JMSEndpoint.extractEndpointParameters(request,submitContext);
   if (params.length == 2) {
     String destinationName=PropertyExpander.expandProperties(submitContext,params[1]);
     if (destinationName.startsWith(JMSEndpoint.QUEUE_ENDPOINT_PREFIX)) {

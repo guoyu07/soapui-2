@@ -26,7 +26,11 @@
       }
     }
   }
-  soapVersion=SoapUtils.deduceSoapVersion(contentType,getRequestXmlObject());
+  try {
+    soapVersion=SoapUtils.deduceSoapVersion(contentType,getRequestXmlObject());
+  }
+ catch (  Exception e) {
+  }
   if (soapVersion == null)   soapVersion=SoapVersion.Soap11;
   soapAction=SoapUtils.getSoapAction(soapVersion,requestHeaders);
 }

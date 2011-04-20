@@ -1,4 +1,5 @@
 {
   List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
+  for (  RestParamProperty prop : properties)   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(getModelItem(),prop,"value"));
   return result.toArray(new PropertyExpansion[result.size()]);
 }
