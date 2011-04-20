@@ -1,7 +1,7 @@
 {
   return new AbstractAction(){
     public void actionPerformed(    ActionEvent e){
-      MockSecurityTestRunner securityTestRunner=new MockSecurityTestRunner((SecurityTest)((AbstractSecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).getParent());
+      MockSecurityTestRunner securityTestRunner=new MockSecurityTestRunner((SecurityTest)((SecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).getParent());
       try {
         ((SecurityCheck)SetupScriptGroovyEditorModel.this.getModelItem()).runSetupScript(securityTestRunner,(SecurityTestRunContext)securityTestRunner.getRunContext());
       }

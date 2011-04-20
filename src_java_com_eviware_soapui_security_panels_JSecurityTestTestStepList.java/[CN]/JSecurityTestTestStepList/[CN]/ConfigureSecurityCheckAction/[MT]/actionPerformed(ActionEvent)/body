@@ -3,7 +3,7 @@
   SecurityCheck securityCheck=node.getSecurityCheck();
   if (securityCheck.isConfigurable()) {
     SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
-    XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
+    XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);
     dialog.show();
     if (dialog.getReturnValue() == XFormDialog.CANCEL_OPTION) {
       securityCheck.copyConfig(backupCheckConfig);

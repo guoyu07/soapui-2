@@ -1,7 +1,7 @@
 {
-  List<AbstractSecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
+  List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
   for (int c=0; c < securityChecksList.size(); c++) {
-    AbstractSecurityCheck securityCheck=getTestStepSecurityCheckAt(testStepId,c);
+    SecurityCheck securityCheck=getTestStepSecurityCheckAt(testStepId,c);
     if (securityCheckName.equals(securityCheck.getName()))     return securityCheck;
   }
   return null;

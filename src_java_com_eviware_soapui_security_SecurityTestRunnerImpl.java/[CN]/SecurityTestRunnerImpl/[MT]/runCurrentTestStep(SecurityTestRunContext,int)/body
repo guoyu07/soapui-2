@@ -15,11 +15,11 @@
     for (int i=0; i < securityTestListeners.length; i++) {
       securityTestListeners[i].afterOriginalStep(this,getRunContext(),securityStepResult);
     }
-    Map<String,List<AbstractSecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
+    Map<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
-      List<AbstractSecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
+      List<SecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
       for (int i=0; i < testStepChecksList.size(); i++) {
-        AbstractSecurityCheck securityCheck=testStepChecksList.get(i);
+        SecurityCheck securityCheck=testStepChecksList.get(i);
         runContext.setCurrentCheckIndex(i);
         runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
         SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);

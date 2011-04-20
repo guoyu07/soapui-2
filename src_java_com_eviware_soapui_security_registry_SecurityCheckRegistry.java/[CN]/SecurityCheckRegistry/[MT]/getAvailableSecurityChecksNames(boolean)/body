@@ -1,6 +1,6 @@
 {
   List<String> result=new ArrayList<String>();
-  for (  AbstractSecurityCheckFactory securityCheck : availableSecurityChecks.values()) {
+  for (  SecurityCheckFactory securityCheck : availableSecurityChecks.values()) {
     if (monitorOnly && securityCheck.isHttpMonitor())     result.add(securityCheck.getSecurityCheckName());
   }
   String[] sortedResult=result.toArray(new String[result.size()]);

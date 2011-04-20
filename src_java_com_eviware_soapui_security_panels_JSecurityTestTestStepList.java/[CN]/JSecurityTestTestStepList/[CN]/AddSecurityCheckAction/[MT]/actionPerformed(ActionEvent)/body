@@ -26,11 +26,11 @@
     UISupport.showErrorMessage("Failed to add security check");
     return;
   }
-  XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((AbstractSecurityCheck)securityCheck);
+  XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);
   dialog.show();
   if (dialog.getReturnValue() == XFormDialog.CANCEL_OPTION) {
     SecurityCheckNode securityCheckNode=(SecurityCheckNode)node.getLastChild();
-    securityTest.removeSecurityCheck(testStep,(AbstractSecurityCheck)securityCheck);
+    securityTest.removeSecurityCheck(testStep,(SecurityCheck)securityCheck);
     cellRender.remove(securityCheckNode);
   }
 }

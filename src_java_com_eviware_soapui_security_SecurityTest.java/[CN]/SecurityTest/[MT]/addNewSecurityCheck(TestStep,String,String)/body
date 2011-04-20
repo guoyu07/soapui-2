@@ -1,5 +1,5 @@
 {
-  AbstractSecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactoryByName(securityCheckType);
+  SecurityCheckFactory factory=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactoryByName(securityCheckType);
   SecurityCheckConfig newCheckConfig=factory.createNewSecurityCheck(securityCheckName);
   return addSecurityCheck(testStep,factory,newCheckConfig);
 }

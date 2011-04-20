@@ -1,7 +1,7 @@
 {
   String name=type;
   int numNames=0;
-  List<AbstractSecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
+  List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
   if (securityChecksList != null && !securityChecksList.isEmpty()) {
     for (    SecurityCheck existingCheck : securityChecksList) {
       if (existingCheck.getType().equals(name))       numNames++;

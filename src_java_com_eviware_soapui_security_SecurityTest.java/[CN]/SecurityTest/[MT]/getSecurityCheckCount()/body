@@ -1,8 +1,8 @@
 {
-  Iterator<List<AbstractSecurityCheck>> checkedSteps=getSecurityChecksMap().values().iterator();
+  Iterator<List<SecurityCheck>> checkedSteps=getSecurityChecksMap().values().iterator();
   int count=0;
   while (checkedSteps.hasNext()) {
-    List<AbstractSecurityCheck> checkList=checkedSteps.next();
+    List<SecurityCheck> checkList=checkedSteps.next();
     count+=checkList.size();
   }
   return count;

@@ -3,7 +3,7 @@
   if (securityTestConfig != null) {
     if (!securityTestConfig.getTestStepSecurityTestList().isEmpty()) {
       for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : securityTestConfig.getTestStepSecurityTestList()) {
-        List<AbstractSecurityCheck> checkList=getSecurityChecksMap().get(testStepSecurityTestListConfig.getTestStepId());
+        List<SecurityCheck> checkList=getSecurityChecksMap().get(testStepSecurityTestListConfig.getTestStepId());
         for (int i=0; i < checkList.size(); i++) {
           checkList.get(i).updateSecurityConfig(testStepSecurityTestListConfig.getTestStepSecurityCheckList().get(i));
         }

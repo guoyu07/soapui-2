@@ -3,7 +3,7 @@
   SecurityCheck securityCheck=node.getSecurityCheck();
   TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
   if (UISupport.confirm("Remove security check [" + securityCheck.getName() + "]","Remove SecurityCheck")) {
-    securityTest.removeSecurityCheck(testStep,(AbstractSecurityCheck)securityCheck);
+    securityTest.removeSecurityCheck(testStep,(SecurityCheck)securityCheck);
     cellRender.remove(node);
   }
 }

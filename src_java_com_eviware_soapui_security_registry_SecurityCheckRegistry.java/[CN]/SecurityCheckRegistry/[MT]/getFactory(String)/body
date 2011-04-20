@@ -1,6 +1,6 @@
 {
   for (  String cc : availableSecurityChecks.keySet()) {
-    AbstractSecurityCheckFactory scf=availableSecurityChecks.get(cc);
+    SecurityCheckFactory scf=availableSecurityChecks.get(cc);
     if (scf.getSecurityCheckType().equals(type))     return scf;
   }
   return null;
