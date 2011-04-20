@@ -4,7 +4,7 @@
   if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
     for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
       if (parameterMutations.containsKey(param))       if (parameterMutations.get(param).size() > 0) {
-        TestProperty property=getTestStep().getProperties().get(param.getName());
+        TestProperty property=testStep.getProperties().get(param.getName());
         String value=context.expand(property.getValue());
         if (param.getXpath() == null || param.getXpath().trim().length() == 0) {
         }

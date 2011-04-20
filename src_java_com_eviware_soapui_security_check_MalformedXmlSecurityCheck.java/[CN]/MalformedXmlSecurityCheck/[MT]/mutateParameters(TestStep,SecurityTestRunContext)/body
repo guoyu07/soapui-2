@@ -2,7 +2,7 @@
   mutation=true;
   for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
     if (parameter.isChecked()) {
-      TestProperty property=testStep.getProperties().get(parameter.getName());
+      TestProperty property=getTestStep().getProperties().get(parameter.getName());
       if (parameter.getXpath() == null || parameter.getXpath().trim().length() == 0) {
       }
  else {
@@ -10,7 +10,7 @@
           String value=context.expand(property.getValue());
           XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(value));
           XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXpath()));
-          if (nodes.length > 0) {
+          if (nodes.length > 0 && !(nodes[0] instanceof AttributeXmlTreeNode)) {
             if (!parameterMutations.containsKey(parameter))             parameterMutations.put(parameter,new ArrayList<String>());
             parameterMutations.get(parameter).addAll(mutateNode(nodes[0],value));
           }
