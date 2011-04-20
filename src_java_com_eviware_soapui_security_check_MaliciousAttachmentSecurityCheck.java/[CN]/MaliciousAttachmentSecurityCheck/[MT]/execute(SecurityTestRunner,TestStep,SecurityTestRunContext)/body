@@ -1,17 +1,10 @@
 {
-  String originalResponse=getOriginalResult((SecurityTestRunnerImpl)securityTestRunner,testStep).getResponse().getContentAsXml();
-  File textFile;
   try {
-    textFile=File.createTempFile("test",".txt");
-    BufferedWriter writer=new BufferedWriter(new FileWriter(textFile));
-    writer.write("This is just a text file, nothing to see here, just a harmless text file");
-    writer.flush();
-    Attachment attach=addAttachment(testStep,textFile,"text/plain");
-    ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
-    attach=addAttachment(testStep,textFile,"multipart/mixed");
-    ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
+    StringToStringMap paramsUpdated=update(testStep,context);
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)runner,context);
   }
- catch (  IOException e) {
-    SoapUI.logError(e);
+ catch (  Exception e) {
+    SoapUI.logError(e,"[MaliciousAttachmentSecurityCheck]Property value is not valid xml!");
+    reportSecurityCheckException("Propety value is not XML or XPath is wrong!");
   }
 }
