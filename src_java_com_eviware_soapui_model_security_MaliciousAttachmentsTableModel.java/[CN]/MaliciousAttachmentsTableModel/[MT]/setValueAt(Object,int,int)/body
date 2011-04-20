@@ -1,0 +1,12 @@
+{
+  if (holder.getPropertyList().isEmpty())   return;
+  SensitiveTokenProperty param=(SensitiveTokenProperty)holder.getPropertyList().get(row);
+switch (column) {
+case 0:
+    param.setName((String)aValue);
+  break;
+case 1:
+param.setValue((String)aValue);
+break;
+}
+}

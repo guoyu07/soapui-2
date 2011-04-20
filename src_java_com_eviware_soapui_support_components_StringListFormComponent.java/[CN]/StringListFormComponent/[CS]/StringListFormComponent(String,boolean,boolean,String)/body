@@ -10,17 +10,19 @@
   add(scrollPane,BorderLayout.CENTER);
   buttonBox=new Box(BoxLayout.Y_AXIS);
   buttonBox.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
-  if (!editOnly) {
+  if (!editOnly || !readOnly) {
     addButton=new JButton("Add..");
     addButton.addActionListener(this);
     buttonBox.add(addButton);
     buttonBox.add(Box.createVerticalStrut(5));
   }
-  editButton=new JButton("Edit..");
-  editButton.addActionListener(this);
-  buttons.add(editButton);
-  buttonBox.add(editButton);
-  if (!editOnly) {
+  if (!readOnly) {
+    editButton=new JButton("Edit..");
+    editButton.addActionListener(this);
+    buttons.add(editButton);
+    buttonBox.add(editButton);
+  }
+  if (!editOnly || !readOnly) {
     buttonBox.add(Box.createVerticalStrut(5));
     removeButton=new JButton("Remove..");
     removeButton.addActionListener(this);
