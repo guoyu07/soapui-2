@@ -39,6 +39,19 @@
     }
     result.add(buffer.toString());
   }
+  if (malformedXmlConfig.getInsertInvalidCharacter()) {
+    for (    char ch : new char[]{'<','>','&'}) {
+      StringBuffer buffer=new StringBuffer(nodeXml);
+      if (nodeXml.endsWith("</" + node.getDomNode().getNodeName() + ">")) {
+        buffer.insert(buffer.indexOf("</" + node.getDomNode().getNodeName() + ">"),ch);
+      }
+ else {
+        buffer.delete(nodeXml.lastIndexOf("/"),nodeXml.length());
+        buffer.append('>').append(ch).append("</").append(node.getDomNode().getNodeName()).append(">");
+      }
+      result.add(buffer.toString());
+    }
+  }
   if (malformedAttributeConfig.getMutateAttributes()) {
     if (malformedAttributeConfig.getAddNewAttribute()) {
       StringBuffer buffer=new StringBuffer(nodeXml);
@@ -47,9 +60,11 @@
     }
     if (malformedAttributeConfig.getInsertInvalidChars()) {
       if (node.getDomNode().hasAttributes()) {
-        StringBuffer buffer=new StringBuffer(nodeXml);
-        buffer.insert(buffer.indexOf("=") + 3,'"');
-        result.add(buffer.toString());
+        for (        char ch : new char[]{'"','\'','<','>','&'}) {
+          StringBuffer buffer=new StringBuffer(nodeXml);
+          buffer.insert(buffer.indexOf("=") + 3,ch);
+          result.add(buffer.toString());
+        }
       }
     }
     if (malformedAttributeConfig.getLeaveAttributeOpen()) {

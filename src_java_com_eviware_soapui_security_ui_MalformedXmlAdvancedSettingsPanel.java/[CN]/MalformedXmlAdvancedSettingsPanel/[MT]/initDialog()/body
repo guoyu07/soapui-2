@@ -3,6 +3,7 @@
   dialog.setValue(AdvancedSettings.NEW_ELEMENT_VALUE,configuration.getNewElementValue());
   dialog.setBooleanValue(AdvancedSettings.CHANGE_TAG_NAME,configuration.getChangeTagName());
   dialog.setBooleanValue(AdvancedSettings.LEAVE_TAG_OPEN,configuration.getLeaveTagOpen());
+  dialog.setBooleanValue(AdvancedSettings.INSERT_INVALID_CHARACTER,configuration.getInsertInvalidCharacter());
   dialog.setBooleanValue(AdvancedSettings.MUTATE_ATTRIBUTES,attributeConfig.getMutateAttributes());
   dialog.setBooleanValue(AdvancedSettings.INSERT_INVALID_CHARS,attributeConfig.getInsertInvalidChars());
   dialog.setBooleanValue(AdvancedSettings.LEAVE_ATTRIBUTE_OPEN,attributeConfig.getLeaveAttributeOpen());
@@ -66,6 +67,12 @@
   dialog.getFormField(AdvancedSettings.NEW_ATTIBUTE_VALUE).addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       attributeConfig.setNewAttributeValue(newValue);
+    }
+  }
+);
+  dialog.getFormField(AdvancedSettings.INSERT_INVALID_CHARACTER).addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      configuration.setInsertInvalidCharacter(Boolean.parseBoolean(newValue));
     }
   }
 );

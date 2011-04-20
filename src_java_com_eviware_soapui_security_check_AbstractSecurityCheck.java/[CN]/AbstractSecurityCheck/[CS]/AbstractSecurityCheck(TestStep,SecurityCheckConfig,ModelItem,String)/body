@@ -2,6 +2,7 @@
   super(config,parent,icon);
   if (config == null) {
     config=SecurityCheckConfig.Factory.newInstance();
+    setConfig(config);
   }
   this.testStep=testStep;
   if (config.getExecutionStrategy() == null) {
