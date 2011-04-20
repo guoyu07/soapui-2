@@ -1,22 +1,7 @@
 {
-  if (strategy.equals(StrategyTypeConfig.ALL_AT_ONCE)) {
-    StringToStringMap stsmap=new StringToStringMap();
-    List<PropertyMutation> mutationList=PropertyMutation.popAllMutation(context);
-    if (mutationList != null && !mutationList.isEmpty()) {
-      for (      PropertyMutation pm : mutationList) {
-        pm.updateRequestProperty(testStep);
-        stsmap.putAll(pm.getMutatedParameters());
-      }
-      MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
-      createMessageExchange(stsmap,message);
-    }
-  }
- else {
-    PropertyMutation mutation=PropertyMutation.popMutation(context);
-    if (mutation != null) {
-      mutation.updateRequestProperty(testStep);
-      MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
-      createMessageExchange(mutation.getMutatedParameters(),message);
-    }
+  PropertyMutation mutation=PropertyMutation.popMutation(context);
+  if (mutation != null) {
+    MessageExchange message=(MessageExchange)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(mutation.getMutatedParameters(),message);
   }
 }

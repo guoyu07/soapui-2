@@ -1,41 +1,76 @@
 {
   strategy=getExecutionStrategy().getStrategy();
-  XmlObjectTreeModel model=null;
-  List<SecurityCheckedParameter> scpList=getParameterHolder().getParameterList();
-  StringToStringMap stsmap=new StringToStringMap();
-  for (  SecurityCheckedParameter scp : scpList) {
-    if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
-      stsmap=new StringToStringMap();
-      model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
-    }
- else {
-      if (model == null) {
+  for (  String value : parameterExposureCheckConfig.getParameterExposureStringsList()) {
+    PropertyMutation allAtOncePropertyMutation=new PropertyMutation();
+    TestStep testStepCopy=null;
+    XmlObjectTreeModel model=null;
+    List<SecurityCheckedParameter> scpList=getParameterHolder().getParameterList();
+    StringToStringMap stsmap=new StringToStringMap();
+    for (    SecurityCheckedParameter scp : scpList) {
+      if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
+        stsmap=new StringToStringMap();
         model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+        testStepCopy=SecurityTestRunnerImpl.cloneTestStepForSecurityCheck((WsdlTestStep)testStep);
       }
-    }
-    if (scp.isChecked() && scp.getXpath().trim().length() > 0) {
-      XmlTreeNode[] treeNodes=null;
-      treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
-      if (treeNodes.length > 0) {
-        XmlTreeNode mynode=treeNodes[0];
-        if (mynode.getSchemaType().isSimpleType()) {
-          mynode.setValue(1,"value!!!!!!!!!!!!!!!!!");
+ else {
+        if (model == null) {
+          model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+        }
+        if (testStepCopy == null) {
+          testStepCopy=SecurityTestRunnerImpl.cloneTestStepForSecurityCheck((WsdlTestStep)testStep);
+        }
+      }
+      if (scp.isChecked() && scp.getXpath().trim().length() > 0) {
+        XmlTreeNode[] treeNodes=null;
+        treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
+        if (treeNodes.length > 0) {
+          XmlTreeNode mynode=treeNodes[0];
+          if (mynode.isLeaf()) {
+            mynode.setValue(1,value);
+            if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
+              PropertyMutation pm=new PropertyMutation();
+              pm.setPropertyName(scp.getName());
+              pm.setPropertyValue(model.getXmlObject().toString());
+              stsmap.put(scp.getLabel(),mynode.getNodeText());
+              pm.setMutatedParameters(stsmap);
+              pm.updateRequestProperty(testStepCopy);
+              pm.setTestStep(testStepCopy);
+              pm.addMutation(context);
+            }
+ else {
+              allAtOncePropertyMutation.setPropertyName(scp.getName());
+              allAtOncePropertyMutation.setPropertyValue(model.getXmlObject().toString());
+              stsmap.put(scp.getLabel(),mynode.getNodeText());
+              allAtOncePropertyMutation.setMutatedParameters(stsmap);
+              allAtOncePropertyMutation.updateRequestProperty(testStepCopy);
+              allAtOncePropertyMutation.setTestStep(testStepCopy);
+            }
+          }
+        }
+      }
+ else {
+        if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
           PropertyMutation pm=new PropertyMutation();
           pm.setPropertyName(scp.getName());
-          pm.setPropertyValue(model.getXmlObject().toString());
-          stsmap.put(scp.getLabel(),mynode.getNodeText());
+          pm.setPropertyValue(value);
+          stsmap.put(scp.getLabel(),value);
           pm.setMutatedParameters(stsmap);
+          pm.updateRequestProperty(testStepCopy);
+          pm.setTestStep(testStepCopy);
           pm.addMutation(context);
+        }
+ else {
+          allAtOncePropertyMutation.setPropertyName(scp.getName());
+          allAtOncePropertyMutation.setPropertyValue(value);
+          stsmap.put(scp.getLabel(),value);
+          allAtOncePropertyMutation.setMutatedParameters(stsmap);
+          allAtOncePropertyMutation.updateRequestProperty(testStepCopy);
+          allAtOncePropertyMutation.setTestStep(testStepCopy);
         }
       }
     }
- else {
-      PropertyMutation pm=new PropertyMutation();
-      pm.setPropertyName(scp.getName());
-      pm.setPropertyValue("non xml value");
-      stsmap.put(scp.getLabel(),"non xml value");
-      pm.setMutatedParameters(stsmap);
-      pm.addMutation(context);
+    if (strategy.equals(StrategyTypeConfig.ALL_AT_ONCE)) {
+      allAtOncePropertyMutation.addMutation(context);
     }
   }
 }
