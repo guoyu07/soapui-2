@@ -1,4 +1,6 @@
 {
   super.initAssertions();
-  assertionsSupport.addWsdlAssertion(ParameterExposureAssertion.LABEL);
+  if (assertionsSupport.getAssertionByName(ParameterExposureAssertion.LABEL) == null) {
+    assertionsSupport.addWsdlAssertion(ParameterExposureAssertion.LABEL);
+  }
 }
