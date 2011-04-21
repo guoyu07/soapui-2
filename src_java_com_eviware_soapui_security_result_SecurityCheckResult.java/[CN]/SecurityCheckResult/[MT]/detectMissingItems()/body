@@ -1,16 +1,14 @@
 {
-  String itemStatus=getStatus().toString();
   SecurityCheck securityCheck=getSecurityCheck();
   if (securityCheck instanceof AbstractSecurityCheckWithProperties && ((AbstractSecurityCheckWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0) {
-    itemStatus=ResultStatus.MISSING_PARAMETERS.toString();
+    logIconStatus=ResultStatus.MISSING_PARAMETERS;
     executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
   }
   if (securityCheck.getAssertionCount() == 0) {
-    itemStatus=ResultStatus.MISSING_ASSERTIONS.toString();
+    logIconStatus=ResultStatus.MISSING_ASSERTIONS;
     executionProgressStatus=ResultStatus.MISSING_ASSERTIONS;
   }
   if (getStatus().equals(ResultStatus.CANCELED)) {
-    itemStatus=ResultStatus.CANCELED.toString();
+    executionProgressStatus=ResultStatus.CANCELED;
   }
-  return itemStatus;
 }

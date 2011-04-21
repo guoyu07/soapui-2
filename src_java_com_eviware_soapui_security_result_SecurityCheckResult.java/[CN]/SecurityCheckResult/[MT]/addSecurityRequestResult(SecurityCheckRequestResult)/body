@@ -18,6 +18,7 @@
  else   if (secReqResult.getStatus() == ResultStatus.OK && status != ResultStatus.FAILED) {
     status=ResultStatus.OK;
   }
+  logIconStatus=status;
   executionProgressStatus=status;
   this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);

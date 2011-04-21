@@ -1,24 +1,36 @@
 {
   if (securityCheckResultList != null)   securityCheckResultList.add(securityCheckResult);
   timeTaken+=securityCheckResult.getTimeTaken();
-  securityCheckResult.getStatusToDisplayInLog();
-  if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_PARAMETERS)) {
-    executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
-  }
- else   if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_ASSERTIONS)) {
-    executionProgressStatus=ResultStatus.MISSING_ASSERTIONS;
-  }
- else   if (status != ResultStatus.UNKNOWN || executionProgressStatus != ResultStatus.MISSING_ASSERTIONS || executionProgressStatus != ResultStatus.MISSING_PARAMETERS) {
-    executionProgressStatus=status;
-  }
   if (!hasAddedRequests) {
     status=securityCheckResult.getStatus();
   }
  else   if (status != ResultStatus.FAILED) {
     status=securityCheckResult.getStatus();
   }
-  if (securityCheckResult.getStatus() != ResultStatus.CANCELED) {
-    executionProgressStatus=status;
+  securityCheckResult.detectMissingItems();
+  if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.CANCELED)) {
+    executionProgressStatus=securityCheckResult.getExecutionProgressStatus();
+  }
+ else   if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_PARAMETERS) && executionProgressStatus != ResultStatus.CANCELED) {
+    executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
+  }
+ else   if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_ASSERTIONS) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS) {
+    executionProgressStatus=ResultStatus.MISSING_ASSERTIONS;
+  }
+ else   if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.FAILED) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS && executionProgressStatus != ResultStatus.MISSING_ASSERTIONS) {
+    executionProgressStatus=ResultStatus.FAILED;
+  }
+ else   if (securityCheckResult.getExecutionProgressStatus().equals(ResultStatus.OK) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS && executionProgressStatus != ResultStatus.MISSING_ASSERTIONS && executionProgressStatus != ResultStatus.FAILED) {
+    executionProgressStatus=ResultStatus.OK;
+  }
+  if (securityCheckResult.getLogIconStatus().equals(ResultStatus.FAILED)) {
+    logIconStatus=securityCheckResult.getLogIconStatus();
+  }
+ else   if ((securityCheckResult.getLogIconStatus().equals(ResultStatus.MISSING_ASSERTIONS) || securityCheckResult.getLogIconStatus().equals(ResultStatus.MISSING_PARAMETERS)) && logIconStatus != ResultStatus.FAILED) {
+    logIconStatus=securityCheckResult.getLogIconStatus();
+  }
+ else   if (securityCheckResult.getLogIconStatus().equals(ResultStatus.OK) && logIconStatus != ResultStatus.FAILED && logIconStatus != ResultStatus.MISSING_ASSERTIONS && logIconStatus != ResultStatus.MISSING_PARAMETERS) {
+    logIconStatus=ResultStatus.OK;
   }
   this.testLog.append(securityCheckResult.getSecurityTestLog());
   hasAddedRequests=true;

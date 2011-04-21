@@ -10,7 +10,7 @@
     fireIntervalRemoved(this,startStepIndex,size);
   }
  else   if (startStepLogEntryAdded) {
-    items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getStatus()+ ": took "+ result.getTimeTaken()+ " ms");
+    items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getExecutionProgressStatus()+ ": took "+ result.getTimeTaken()+ " ms");
     SoftReference<SecurityResult> stepResultRef=new SoftReference<SecurityResult>(result);
     results.set(startStepIndex,stepResultRef);
     fireContentsChanged(this,startStepIndex,startStepIndex);
