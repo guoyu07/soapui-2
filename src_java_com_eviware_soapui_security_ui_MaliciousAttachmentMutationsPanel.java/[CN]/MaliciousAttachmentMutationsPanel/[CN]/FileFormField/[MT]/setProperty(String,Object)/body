@@ -1,0 +1,9 @@
+{
+  super.setProperty(name,value);
+  if (name.equals(ProjectSettings.PROJECT_ROOT) && type == FieldType.PROJECT_FOLDER) {
+    projectRoot=(String)value;
+  }
+ else   if (name.equals(CURRENT_DIRECTORY)) {
+    currentDirectory=(String)value;
+  }
+}

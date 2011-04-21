@@ -1,17 +1,9 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  JXTable generateTable=new JXTable(new GenerateMutationTableModel());
-  JScrollPane generateTableScrollpane=new JScrollPane(generateTable);
-  generateTable.setPreferredScrollableViewportSize(new Dimension(50,50));
-  generateTable.setFillsViewportHeight(true);
-  JXTable replaceTable=new JXTable(new ReplaceMutationTableModel());
-  JScrollPane replaceTableScrollPane=new JScrollPane(replaceTable);
-  replaceTable.setPreferredScrollableViewportSize(new Dimension(50,50));
-  replaceTable.setFillsViewportHeight(true);
-  panel.add(generateTableScrollpane,BorderLayout.NORTH);
-  panel.add(new JSeparator(SwingConstants.HORIZONTAL));
-  panel.add(replaceTableScrollPane,BorderLayout.SOUTH);
-  panel.add(new JSeparator(SwingConstants.HORIZONTAL));
-  panel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  JScrollPane gP=buildTable(new GenerateMutationTableModel());
+  JScrollPane rP=buildTable(new ReplaceMutationTableModel());
+  panel.add(gP,BorderLayout.NORTH);
+  panel.add(rP,BorderLayout.SOUTH);
+  panel.setBorder(BorderFactory.createEmptyBorder());
   return panel;
 }
