@@ -8,9 +8,7 @@
  catch (    Exception e) {
       SoapUI.logError(e);
     }
-    Stack<PropertyMutation> stack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
-    if (stack.empty())     return false;
- else     return true;
+    return checkIfEmptyStack(context);
   }
   Stack<PropertyMutation> stack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
   if (stack.empty()) {
