@@ -1,0 +1,17 @@
+{
+  File file=null;
+  file=files.get(rowIndex);
+  if (file != null) {
+switch (columnIndex) {
+case 0:
+      return "file";
+case 1:
+    return file.length();
+case 2:
+  return new MimetypesFileTypeMap().getContentType(file);
+case 3:
+return false;
+}
+}
+return null;
+}

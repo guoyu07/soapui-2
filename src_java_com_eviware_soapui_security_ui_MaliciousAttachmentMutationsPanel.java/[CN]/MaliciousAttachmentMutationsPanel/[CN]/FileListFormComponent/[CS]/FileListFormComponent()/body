@@ -1,0 +1,16 @@
+{
+  super(new BorderLayout());
+  listModel=new DefaultListModel();
+  list=new JList(listModel);
+  list.setToolTipText("Choose file");
+  JScrollPane scrollPane=new JScrollPane(list);
+  scrollPane.setPreferredSize(new Dimension(30,50));
+  add(scrollPane,BorderLayout.CENTER);
+  list.addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      String key=null;
+      MaliciousAttachmentMutationsPanel.this.update(key);
+    }
+  }
+);
+}
