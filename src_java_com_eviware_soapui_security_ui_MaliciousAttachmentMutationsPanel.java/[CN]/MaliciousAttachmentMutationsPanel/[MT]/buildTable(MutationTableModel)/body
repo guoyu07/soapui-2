@@ -8,8 +8,7 @@
   toolbar.add(UISupport.createToolbarButton(new RemoveFileAction()));
   panel.add(toolbar,BorderLayout.PAGE_START);
   panel.add(tableScrollPane,BorderLayout.CENTER);
-  panel.setBorder(BorderFactory.createEmptyBorder());
   JScrollPane scrollPane=new JScrollPane(panel);
-  scrollPane.setBorder(BorderFactory.createEmptyBorder());
+  scrollPane.setBorder(BorderFactory.createEmptyBorder(0,1,0,0));
   return scrollPane;
 }
