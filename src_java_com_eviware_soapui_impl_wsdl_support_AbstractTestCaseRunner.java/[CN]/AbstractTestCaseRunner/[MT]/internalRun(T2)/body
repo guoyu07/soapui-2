@@ -30,7 +30,7 @@
   int currentStepIndex=startStep;
   runContext.setCurrentStep(currentStepIndex);
   for (; isRunning() && currentStepIndex < testCase.getTestStepCount(); currentStepIndex++) {
-    if (runCurrentTestStep(runContext,currentStepIndex) == -2) {
+    if ((currentStepIndex=runCurrentTestStep(runContext,currentStepIndex)) == -2) {
       return;
     }
   }
