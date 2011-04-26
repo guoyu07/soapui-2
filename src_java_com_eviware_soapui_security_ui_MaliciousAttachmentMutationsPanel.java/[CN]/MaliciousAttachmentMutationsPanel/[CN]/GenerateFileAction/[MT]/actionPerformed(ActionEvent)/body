@@ -1,0 +1,11 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(GenerateFile.class);
+  }
+  dialog.show();
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    Integer size=dialog.getIntValue(GenerateFile.SIZE,0);
+    String contentType=dialog.getFormField(GenerateFile.CONTENT_TYPE).getValue();
+    generateTableModel.addResult(new FileElement(new File("fake_file"),true));
+  }
+}

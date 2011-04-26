@@ -1,9 +1,0 @@
-{
-  ArrayList<String> toRemove=new ArrayList<String>();
-  for (  int index : selectedRows) {
-    String name=(String)getValueAt(index,0);
-    toRemove.add(name);
-  }
-  for (  String name : toRemove)   holder.removeProperty(name);
-  fireTableDataChanged();
-}

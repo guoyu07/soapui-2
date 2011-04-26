@@ -1,0 +1,20 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  JXTable table=new JXTable(tableModel);
+  setupTable(table);
+  JScrollPane tableScrollPane=new JScrollPane(table);
+  tableScrollPane.setBorder(BorderFactory.createEmptyBorder());
+  JXToolBar toolbar=UISupport.createToolbar();
+  if (add) {
+    toolbar.add(UISupport.createToolbarButton(new AddFileAction()));
+  }
+ else {
+    toolbar.add(UISupport.createToolbarButton(new GenerateFileAction()));
+  }
+  toolbar.add(UISupport.createToolbarButton(new RemoveFileAction()));
+  toolbar.add(UISupport.createToolbarButton(new HelpAction("www.soapui.org")));
+  panel.add(toolbar,BorderLayout.PAGE_START);
+  panel.add(tableScrollPane,BorderLayout.CENTER);
+  panel.setBorder(BorderFactory.createLineBorder(new Color(0),1));
+  return panel;
+}

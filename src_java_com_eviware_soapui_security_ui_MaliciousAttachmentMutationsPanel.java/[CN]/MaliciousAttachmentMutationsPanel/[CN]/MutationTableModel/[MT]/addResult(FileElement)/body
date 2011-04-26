@@ -1,0 +1,8 @@
+{
+  int rowCount;
+synchronized (this) {
+    rowCount=getRowCount();
+    files.add(element);
+  }
+  fireTableRowsInserted(rowCount,rowCount++);
+}

@@ -1,2 +1,9 @@
 {
+  if (fileChooser == null) {
+    fileChooser=new JFileChooser();
+  }
+  fileChooser.setCurrentDirectory(new File(projectRoot));
+  int returnVal=fileChooser.showOpenDialog(UISupport.getMainFrame());
+  if (returnVal == JFileChooser.APPROVE_OPTION) {
+  }
 }
