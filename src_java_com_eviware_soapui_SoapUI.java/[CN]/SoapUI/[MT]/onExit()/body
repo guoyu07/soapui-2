@@ -5,7 +5,7 @@
     if (!UISupport.confirm(question,"Question"))     return false;
     try {
       PropertyExpansionUtils.saveGlobalProperties();
-      PropertyExpansionUtils.saveSecurityGlobalProperties();
+      SecurityCheckUtil.saveGlobalSecuritySettings();
       soapUICore.saveSettings();
       workspace.onClose();
     }

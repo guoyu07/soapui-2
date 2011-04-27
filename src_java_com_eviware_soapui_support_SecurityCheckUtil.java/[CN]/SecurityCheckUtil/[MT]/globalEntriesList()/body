@@ -1,37 +1,6 @@
 {
-  Settings settings=SoapUI.getSettings();
-  String temp=settings.getString(GlobalPropertySettings.SECURITY_CHECKS_PROPERTIES,null);
-  PropertiesTypeConfig config;
-  Map<String,String> map=new HashMap<String,String>();
-  try {
-    SearchPatternsDocumentConfig doc=SearchPatternsDocumentConfig.Factory.parse(new File(SoapUI.class.getResource("/com/eviware/soapui/resources/security/SensitiveInfo.xml").toURI()));
-    for (    RegexConfig regex : doc.getSearchPatterns().getRegexList()) {
-      String name=regex.getName();
-      String message=regex.getMessage();
-      String description=regex.getDescription();
-      int i=0;
-      for (      String pattern : regex.getPatternList()) {
-        map.put("~(?s).*" + pattern + ".*",description);
-      }
-    }
-  }
- catch (  XmlException e) {
-    SoapUI.logError(e);
-  }
-catch (  URISyntaxException e) {
-    SoapUI.logError(e);
-  }
-catch (  IOException e) {
-    SoapUI.logError(e);
-  }
-  try {
-    config=PropertiesTypeConfig.Factory.parse(temp);
-    for (    PropertyConfig pc : config.getPropertyList()) {
-      map.put(pc.getName(),pc.getValue());
-    }
-  }
- catch (  XmlException e) {
-    SoapUI.logError(e);
-  }
-  return map;
+  Map<String,TestProperty> map=globalSensitiveInformationExposureTokens.getProperties();
+  StringToStringMap result=new StringToStringMap();
+  for (  String key : map.keySet())   result.put(key,map.get(key).getValue());
+  return result;
 }
