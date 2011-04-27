@@ -5,6 +5,7 @@
   }
   TestStep testStep=node.getTestStep();
   String[] availableChecksNames=SoapUI.getSoapUICore().getSecurityCheckRegistry().getAvailableSecurityChecksNames(testStep);
+  availableChecksNames=securityTest.getAvailableSecurityCheckNames(testStep,availableChecksNames);
   if (availableChecksNames == null || availableChecksNames.length == 0) {
     UISupport.showErrorMessage("No security checks available for this test step");
     return;
@@ -13,10 +14,6 @@
   if (name == null || name.trim().length() == 0)   return;
   String type=SoapUI.getSoapUICore().getSecurityCheckRegistry().getSecurityCheckTypeForName(name);
   if (type == null || type.trim().length() == 0)   return;
-  if (!securityTest.canAddSecurityCheck(testStep,name)) {
-    UISupport.showErrorMessage("Security check already exists");
-    return;
-  }
   SecurityCheck securityCheck=securityTest.addNewSecurityCheck(testStep,name);
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security check");
