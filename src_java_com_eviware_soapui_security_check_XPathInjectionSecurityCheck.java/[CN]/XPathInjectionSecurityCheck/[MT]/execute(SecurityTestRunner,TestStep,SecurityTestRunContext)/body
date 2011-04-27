@@ -5,11 +5,11 @@
     createMessageExchange(paramsUpdated,message);
   }
  catch (  XmlException e) {
-    SoapUI.logError(e,"[XPathInjectionSecurityCheck]XPath seems to be invalid!");
-    reportSecurityCheckException("Propety value is not XML or XPath is wrong!");
+    SoapUI.logError(e,"[XPathInjectionSecurityScan]XPath seems to be invalid!");
+    reportSecurityCheckException("Property value is not XML or XPath is wrong!");
   }
 catch (  Exception e) {
-    SoapUI.logError(e,"[XPathInjectionSecurityCheck]Property value is not valid xml!");
-    reportSecurityCheckException("Propety value is not XML or XPath is wrong!");
+    SoapUI.logError(e,"[XPathInjectionSecurityScan]Property value is not valid xml!");
+    reportSecurityCheckException("Property value is not XML or XPath is wrong!");
   }
 }

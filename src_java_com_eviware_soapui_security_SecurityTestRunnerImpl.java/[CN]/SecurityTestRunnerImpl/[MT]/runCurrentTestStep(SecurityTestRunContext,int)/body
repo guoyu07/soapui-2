@@ -30,7 +30,7 @@
         }
  else         if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
           if (getTestRunnable().getFailOnError()) {
-            fail("Cancelling due to failed security check");
+            fail("Cancelling due to failed security scan");
           }
  else {
             getRunContext().setProperty(SecurityTestRunner.Status.class.getName(),SecurityTestRunner.Status.FAILED);

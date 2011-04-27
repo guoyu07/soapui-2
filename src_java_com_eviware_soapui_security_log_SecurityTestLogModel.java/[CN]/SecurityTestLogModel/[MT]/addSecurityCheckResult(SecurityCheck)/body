@@ -5,7 +5,7 @@
   requestCount=0;
   SecurityCheckResult securityCheckResult=securityCheck.getSecurityCheckResult();
   SoftReference<SecurityResult> checkResultRef=new SoftReference<SecurityResult>(securityCheckResult);
-  items.add("SecurityCheck " + checkCount + " ["+ securityCheck.getName()+ "] ");
+  items.add("SecurityScan " + checkCount + " ["+ securityCheck.getName()+ "] ");
   results.add(checkResultRef);
   fireIntervalAdded(this,size,items.size() - 1);
   enforceMaxSize();

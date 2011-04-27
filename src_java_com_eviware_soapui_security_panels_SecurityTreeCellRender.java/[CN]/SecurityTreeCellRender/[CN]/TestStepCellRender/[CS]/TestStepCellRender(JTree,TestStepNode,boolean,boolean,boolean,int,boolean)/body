@@ -5,7 +5,7 @@
   securityTest=((SecurityTreeRootNode)node.getParent()).getSecurityTest();
   if (AbstractSecurityCheck.isSecurable(testStep)) {
     if (securityTest.getSecurityChecksMap().get(testStep.getId()) != null) {
-      String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " check)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " checks)";
+      String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scan)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scans)";
       label=new JLabel(testStep.getLabel() + " (" + labelText,SwingConstants.LEFT);
     }
  else {

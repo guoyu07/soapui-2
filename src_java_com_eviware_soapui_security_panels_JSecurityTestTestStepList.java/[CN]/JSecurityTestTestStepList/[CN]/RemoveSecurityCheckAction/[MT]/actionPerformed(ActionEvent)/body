@@ -2,7 +2,7 @@
   SecurityCheckNode node=(SecurityCheckNode)securityTestTree.getLastSelectedPathComponent();
   SecurityCheck securityCheck=node.getSecurityCheck();
   TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
-  if (UISupport.confirm("Remove security check [" + securityCheck.getName() + "]","Remove SecurityCheck")) {
+  if (UISupport.confirm("Remove security scan [" + securityCheck.getName() + "]","Remove SecurityScan")) {
     securityTest.removeSecurityCheck(testStep,(SecurityCheck)securityCheck);
     cellRender.remove(node);
   }

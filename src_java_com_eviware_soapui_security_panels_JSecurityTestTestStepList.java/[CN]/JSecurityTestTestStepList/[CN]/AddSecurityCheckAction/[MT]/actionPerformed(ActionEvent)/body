@@ -7,16 +7,16 @@
   String[] availableChecksNames=SoapUI.getSoapUICore().getSecurityCheckRegistry().getAvailableSecurityChecksNames(testStep);
   availableChecksNames=securityTest.getAvailableSecurityCheckNames(testStep,availableChecksNames);
   if (availableChecksNames == null || availableChecksNames.length == 0) {
-    UISupport.showErrorMessage("No security checks available for this test step");
+    UISupport.showErrorMessage("No security scans available for this test step");
     return;
   }
-  String name=UISupport.prompt("Specify type of security check","Add SecurityCheck",availableChecksNames);
+  String name=UISupport.prompt("Specify type of security scan","Add SecurityScan",availableChecksNames);
   if (name == null || name.trim().length() == 0)   return;
   String type=SoapUI.getSoapUICore().getSecurityCheckRegistry().getSecurityCheckTypeForName(name);
   if (type == null || type.trim().length() == 0)   return;
   SecurityCheck securityCheck=securityTest.addNewSecurityCheck(testStep,name);
   if (securityCheck == null) {
-    UISupport.showErrorMessage("Failed to add security check");
+    UISupport.showErrorMessage("Failed to add security scan");
     return;
   }
   XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);

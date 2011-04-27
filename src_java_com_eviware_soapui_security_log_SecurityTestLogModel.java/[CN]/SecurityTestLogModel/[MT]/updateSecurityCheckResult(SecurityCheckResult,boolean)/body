@@ -12,7 +12,7 @@
  else {
     SecurityCheck securityCheck=securityCheckResult.getSecurityCheck();
     securityCheckResult.detectMissingItems();
-    items.set(startCheckIndex,"SecurityCheck " + checkCount + " ["+ securityCheck.getName()+ "] "+ securityCheckResult.getExecutionProgressStatus()+ ", time taken = "+ securityCheckResult.getTimeTaken());
+    items.set(startCheckIndex,"SecurityScan " + checkCount + " ["+ securityCheck.getName()+ "] "+ securityCheckResult.getExecutionProgressStatus()+ ", time taken = "+ securityCheckResult.getTimeTaken());
     SoftReference<SecurityResult> checkResultRef=new SoftReference<SecurityResult>(securityCheckResult);
     results.set(startCheckIndex,checkResultRef);
     fireContentsChanged(this,startCheckIndex,startCheckIndex);
