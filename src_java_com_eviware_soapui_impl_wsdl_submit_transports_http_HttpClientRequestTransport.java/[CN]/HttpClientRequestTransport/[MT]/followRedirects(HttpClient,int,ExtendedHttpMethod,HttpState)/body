@@ -1,0 +1,18 @@
+{
+  ExtendedGetMethod getMethod=new ExtendedGetMethod();
+  URI uri=new URI(httpMethod.getResponseHeader("Location").getValue(),true);
+  getMethod.setURI(uri);
+  HostConfiguration host=new HostConfiguration();
+  host.setHost(uri);
+  httpClient.executeMethod(host,getMethod,httpState);
+  if (isRedirectResponse(getMethod)) {
+    if (redirectCount == 10)     throw new Exception("Maximum number of Redirects reached [10]");
+    try {
+      return followRedirects(httpClient,redirectCount + 1,getMethod,httpState);
+    }
+  finally {
+      getMethod.releaseConnection();
+    }
+  }
+ else   return getMethod;
+}
