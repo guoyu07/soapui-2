@@ -1,20 +1,23 @@
 {
   Map<String,String> checkMap=createCheckMap(context);
-  boolean throwException=false;
   List<AssertionError> assertionErrorList=new ArrayList<AssertionError>();
+  String response=messageExchange.getResponseContent();
+  Set<String> messages=new HashSet<String>();
   for (  String token : checkMap.keySet()) {
     boolean useRegexp=token.trim().startsWith(PREFIX);
     String description=!checkMap.get(token).equals("") ? checkMap.get(token) : token;
     if (useRegexp) {
       token=token.substring(token.indexOf(PREFIX) + 1);
     }
-    if (SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),token,useRegexp)) {
-      String message="Sensitive information '" + description + "' is exposed in : "+ messageExchange.getModelItem().getName();
-      assertionErrorList.add(new AssertionError(message));
-      throwException=true;
+    if (SecurityCheckUtil.contains(context,response,token,useRegexp)) {
+      String message=description;
+      if (!messages.contains(message)) {
+        assertionErrorList.add(new AssertionError(message));
+        messages.add(message);
+      }
     }
   }
-  if (throwException) {
+  if (!messages.isEmpty()) {
     throw new AssertionException(assertionErrorList.toArray(new AssertionError[assertionErrorList.size()]));
   }
   return "OK";

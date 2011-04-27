@@ -7,7 +7,7 @@
     for (    RegexConfig regex : doc.getSearchPatterns().getRegexList()) {
       String description=regex.getDescription();
       for (      String pattern : regex.getPatternList()) {
-        globalSensitiveInformationExposureTokens.setPropertyValue("~(?s).*" + pattern + ".*",description);
+        globalSensitiveInformationExposureTokens.setPropertyValue("~(?s).*" + pattern + ".*","[" + regex.getName() + "] "+ description);
       }
     }
   }
