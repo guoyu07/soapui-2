@@ -2,7 +2,9 @@
   Project project=ModelSupport.getModelItemProject(this);
   RestService restService=(RestService)project.getInterfaceByName(getRequestStepConfig().getService());
   if (restService != null) {
-    return restService.getResourceByFullPath(getRequestStepConfig().getResourcePath());
+    for (    RestResource resource : restService.getResourcesByFullPath(getRequestStepConfig().getResourcePath())) {
+      if (getWsdlModelItemByName(resource.getRestMethodList(),getRequestStepConfig().getMethodName()) != null)       return resource;
+    }
   }
   return null;
 }

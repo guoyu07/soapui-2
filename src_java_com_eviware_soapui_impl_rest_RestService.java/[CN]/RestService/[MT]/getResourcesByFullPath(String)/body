@@ -1,0 +1,9 @@
+{
+  List<RestResource> result=new ArrayList<RestResource>();
+  for (  RestResource resource : getAllResources()) {
+    if (resource.getFullPath().equals(resourcePath)) {
+      result.add(resource);
+    }
+  }
+  return result.toArray(new RestResource[result.size()]);
+}
