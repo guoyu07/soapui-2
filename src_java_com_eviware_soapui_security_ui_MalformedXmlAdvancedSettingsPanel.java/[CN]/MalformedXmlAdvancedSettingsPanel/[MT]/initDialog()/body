@@ -9,7 +9,7 @@
   dialog.setBooleanValue(AdvancedSettings.LEAVE_ATTRIBUTE_OPEN,attributeConfig.getLeaveAttributeOpen());
   dialog.setBooleanValue(AdvancedSettings.ADD_NEW_ATTRIBUTE,attributeConfig.getAddNewAttribute());
   dialog.setValue(AdvancedSettings.NEW_ATTRIBUTE_NAME,attributeConfig.getNewAttributeName());
-  dialog.setValue(AdvancedSettings.NEW_ATTIBUTE_VALUE,attributeConfig.getNewAttributeValue());
+  dialog.setValue(AdvancedSettings.NEW_ATTRIBUTE_VALUE,attributeConfig.getNewAttributeValue());
   dialog.getFormField(AdvancedSettings.INSERT_NEW_ELEMENT).addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       configuration.setInsertNewElement(Boolean.parseBoolean(newValue));
@@ -64,7 +64,7 @@
     }
   }
 );
-  dialog.getFormField(AdvancedSettings.NEW_ATTIBUTE_VALUE).addFormFieldListener(new XFormFieldListener(){
+  dialog.getFormField(AdvancedSettings.NEW_ATTRIBUTE_VALUE).addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       attributeConfig.setNewAttributeValue(newValue);
     }
