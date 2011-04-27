@@ -3,7 +3,7 @@
   String propFile=System.getProperty("soapuisecurity.properties");
   if (StringUtils.hasContent(propFile))   globalSensitiveInformationExposureTokens.addPropertiesFromFile(propFile);
   try {
-    SearchPatternsDocumentConfig doc=SearchPatternsDocumentConfig.Factory.parse(new File(SoapUI.class.getResource("/com/eviware/soapui/resources/security/SensitiveInfo.xml").toURI()));
+    SearchPatternsDocumentConfig doc=SearchPatternsDocumentConfig.Factory.parse(SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/security/SensitiveInfo.xml"));
     for (    RegexConfig regex : doc.getSearchPatterns().getRegexList()) {
       String description=regex.getDescription();
       for (      String pattern : regex.getPatternList()) {
