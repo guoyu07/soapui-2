@@ -2,9 +2,6 @@
   JPanel panel=new JPanel(new BorderLayout());
   JSplitPane mainSplit=UISupport.createHorizontalSplit(buildFilesList(),buildTables());
   mainSplit.setResizeWeight(1);
-  if (filesList != null) {
-    filesList.initialize();
-  }
   panel.add(mainSplit,BorderLayout.CENTER);
   return panel;
 }

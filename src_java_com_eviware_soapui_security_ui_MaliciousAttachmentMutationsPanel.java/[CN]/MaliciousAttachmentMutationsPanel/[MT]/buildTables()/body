@@ -1,7 +1,5 @@
 {
-  if (tablesDialog == null) {
-    tablesDialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
-  }
+  JFormDialog tablesDialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
   generateTableModel=new GenerateMutationTableModel();
   tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("dimension",new Dimension(410,120));
   tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildTable(generateTableModel,false));
