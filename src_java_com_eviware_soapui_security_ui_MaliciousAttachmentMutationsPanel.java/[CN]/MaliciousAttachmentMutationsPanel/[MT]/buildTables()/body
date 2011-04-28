@@ -1,10 +1,12 @@
 {
-  JFormDialog dialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
+  if (tablesDialog == null) {
+    tablesDialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
+  }
   generateTableModel=new GenerateMutationTableModel();
-  dialog.getFormField(MutationTables.GENERATE_FILE).setProperty("dimension",new Dimension(410,120));
-  dialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildTable(generateTableModel,false));
+  tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("dimension",new Dimension(410,120));
+  tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildTable(generateTableModel,false));
   replaceTableModel=new ReplaceMutationTableModel();
-  dialog.getFormField(MutationTables.REPLACE_FILE).setProperty("dimension",new Dimension(410,120));
-  dialog.getFormField(MutationTables.REPLACE_FILE).setProperty("component",buildTable(replaceTableModel,true));
-  return dialog.getPanel();
+  tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("dimension",new Dimension(410,120));
+  tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("component",buildTable(replaceTableModel,true));
+  return tablesDialog.getPanel();
 }
