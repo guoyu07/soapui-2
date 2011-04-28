@@ -4,11 +4,4 @@
   table.getTableHeader().setReorderingAllowed(false);
   table.setDefaultEditor(String.class,getDefaultCellEditor());
   table.setSortable(false);
-  InternalCellRenderer internalCellRenderer=new InternalCellRenderer();
-  for (int c=0; c < table.getColumnCount(); c++) {
-    table.getColumn(c).setCellRenderer(internalCellRenderer);
-    if (c == table.getColumnCount() - 1) {
-      table.getColumn(c).setPreferredWidth(30);
-    }
-  }
 }

@@ -1,11 +1,20 @@
 {
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(GenerateFile.class);
+    ((JTextFieldFormField)dialog.getFormField(GenerateFile.CONTENT_TYPE)).setWidth(30);
   }
   dialog.show();
   if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
-    Integer size=dialog.getIntValue(GenerateFile.SIZE,0);
+    int newSizeInt=0;
+    String newSizeString=dialog.getValue(GenerateFile.SIZE);
     String contentType=dialog.getFormField(GenerateFile.CONTENT_TYPE).getValue();
-    generateTableModel.addResult(new FileElement(new File("fake_file"),true));
+    try {
+      newSizeInt=Integer.parseInt(newSizeString);
+    }
+ catch (    NumberFormatException nfe) {
+      UISupport.showErrorMessage("Size must be integer number");
+      return;
+    }
+    generateTableModel.addResult(new File("file"),contentType,true);
   }
 }

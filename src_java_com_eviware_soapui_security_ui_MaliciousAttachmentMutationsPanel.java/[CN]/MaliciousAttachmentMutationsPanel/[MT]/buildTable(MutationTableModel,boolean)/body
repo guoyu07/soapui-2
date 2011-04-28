@@ -11,7 +11,7 @@
  else {
     toolbar.add(UISupport.createToolbarButton(new GenerateFileAction()));
   }
-  toolbar.add(UISupport.createToolbarButton(new RemoveFileAction()));
+  toolbar.add(UISupport.createToolbarButton(new RemoveFileAction(tableModel,table)));
   toolbar.add(UISupport.createToolbarButton(new HelpAction("www.soapui.org")));
   panel.add(toolbar,BorderLayout.PAGE_START);
   panel.add(tableScrollPane,BorderLayout.CENTER);

@@ -1,0 +1,14 @@
+{
+  if (holder.getList().isEmpty()) {
+    return;
+  }
+  FileElement element=holder.getList().get(row);
+switch (column) {
+case 2:
+    element.setContentType((String)aValue);
+  break;
+case 3:
+element.setEnabled((Boolean)aValue);
+break;
+}
+}

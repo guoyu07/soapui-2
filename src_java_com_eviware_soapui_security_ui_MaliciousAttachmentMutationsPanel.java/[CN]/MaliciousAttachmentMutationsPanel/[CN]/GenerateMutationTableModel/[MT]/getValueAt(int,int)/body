@@ -1,13 +1,13 @@
 {
-  FileElement element=files.get(rowIndex);
+  FileElement element=holder.getList().get(rowIndex);
   if (element != null) {
 switch (columnIndex) {
 case 0:
-      return element.file.length();
+      return element.getLength();
 case 1:
-    return new MimetypesFileTypeMap().getContentType(element.file);
+    return element.getContentType();
 case 2:
-  return element.enabled;
+  return element.isEnabled();
 }
 }
 return null;
