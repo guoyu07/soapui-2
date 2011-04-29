@@ -1,0 +1,10 @@
+{
+  Attachment[] oldData=getData();
+  listModel.clear();
+  if (attachments != null) {
+    for (    Attachment att : attachments) {
+      listModel.addElement(att);
+    }
+  }
+  firePropertyChange("attachments",oldData,getData());
+}
