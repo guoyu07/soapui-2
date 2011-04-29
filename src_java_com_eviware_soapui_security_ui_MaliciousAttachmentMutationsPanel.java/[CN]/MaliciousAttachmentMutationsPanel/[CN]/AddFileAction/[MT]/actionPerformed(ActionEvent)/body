@@ -5,6 +5,6 @@
   fileChooser.setCurrentDirectory(new File(projectRoot));
   int returnVal=fileChooser.showOpenDialog(UISupport.getMainFrame());
   if (returnVal == JFileChooser.APPROVE_OPTION) {
-    replaceTableModel.addResult(fileChooser.getSelectedFile(),new MimetypesFileTypeMap().getContentType(fileChooser.getSelectedFile()),true);
+    holder.addResultToReplaceTable(fileChooser.getSelectedFile(),new MimetypesFileTypeMap().getContentType(fileChooser.getSelectedFile()),true);
   }
 }
