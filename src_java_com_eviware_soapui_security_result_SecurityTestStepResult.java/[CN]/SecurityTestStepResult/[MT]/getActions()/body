@@ -3,7 +3,7 @@
     actionList=new DefaultActionList(getTestStep().getName());
     actionList.setDefaultAction(new AbstractAction(){
       public void actionPerformed(      ActionEvent e){
-        UISupport.showInfoMessage("Step [" + getTestStep().getName() + "] ran with security status ["+ getStatus()+ "]","TestStep Result");
+        UISupport.showInfoMessage("Step [" + getTestStep().getName() + "] ran with security status ["+ getExecutionProgressStatus()+ "]","TestStep Result");
       }
     }
 );
