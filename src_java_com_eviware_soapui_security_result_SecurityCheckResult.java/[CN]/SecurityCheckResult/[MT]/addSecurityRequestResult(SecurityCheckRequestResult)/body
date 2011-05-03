@@ -1,6 +1,7 @@
 {
   if (securityRequestResultList != null)   securityRequestResultList.add(secReqResult);
   timeTaken+=secReqResult.getTimeTaken();
+  requestCount++;
   if (!hasAddedRequests) {
     status=ResultStatus.UNKNOWN;
     if (secReqResult.getStatus() == ResultStatus.OK) {
@@ -20,7 +21,7 @@
   }
   logIconStatus=status;
   executionProgressStatus=status;
-  this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(": took ").append(secReqResult.getTimeTaken()).append(" ms");
+  this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(secReqResult.getChangedParamsInfo(requestCount));
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);
   hasAddedRequests=true;
 }

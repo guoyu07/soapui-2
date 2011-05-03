@@ -1,0 +1,23 @@
+{
+  StringToStringMap changedParams=null;
+  if (getMessageExchange() != null) {
+    changedParams=StringToStringMap.fromXml(getMessageExchange().getProperties().get(AbstractSecurityCheckWithProperties.SECURITY_CHANGED_PARAMETERS));
+  }
+ else {
+    changedParams=new StringToStringMap();
+  }
+  StringBuilder changedParamsInfo=new StringBuilder();
+  changedParamsInfo.append("[");
+  Iterator<String> keys=changedParams.keySet().iterator();
+  while (keys.hasNext()) {
+    String param=(String)keys.next();
+    String value=changedParams.get(param);
+    changedParamsInfo.append(param + "=" + value+ ",");
+  }
+  changedParamsInfo.replace(changedParamsInfo.length() - 1,changedParamsInfo.length(),"]");
+  StringBuilder checkRequestResultStr=new StringBuilder("[" + getSecurityCheck().getName() + "] Request "+ requestCount+ " - "+ getStatus());
+  if (changedParamsInfo.length() > 1) {
+    checkRequestResultStr.append(" - " + changedParamsInfo.toString());
+  }
+  return checkRequestResultStr.toString();
+}
