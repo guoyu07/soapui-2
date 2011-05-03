@@ -2,9 +2,17 @@
   if (fileChooser == null) {
     fileChooser=new JFileChooser();
   }
-  fileChooser.setCurrentDirectory(new File(projectRoot));
+  String root=PathUtils.getExpandedResourceRoot(container.getModelItem());
+  if (StringUtils.hasContent(root)) {
+    fileChooser.setCurrentDirectory(new File(root));
+  }
   int returnVal=fileChooser.showOpenDialog(UISupport.getMainFrame());
   if (returnVal == JFileChooser.APPROVE_OPTION) {
-    holder.addResultToReplaceTable(fileChooser.getSelectedFile(),new MimetypesFileTypeMap().getContentType(fileChooser.getSelectedFile()),true);
+    File file=fileChooser.getSelectedFile();
+    Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Add Attachment");
+    if (retval == null) {
+      return;
+    }
+    holder.addResultToReplaceTable(file,new MimetypesFileTypeMap().getContentType(file),true,retval);
   }
 }

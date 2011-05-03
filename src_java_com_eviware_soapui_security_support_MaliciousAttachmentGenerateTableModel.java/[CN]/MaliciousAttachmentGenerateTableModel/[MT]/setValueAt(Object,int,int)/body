@@ -1,0 +1,17 @@
+{
+  if (holder.getList().isEmpty()) {
+    return;
+  }
+  AttachmentElement element=holder.getList().get(row);
+switch (column) {
+case 0:
+    element.setAttachment((File)aValue);
+  break;
+case 1:
+element.setContentType((String)aValue);
+break;
+case 2:
+element.setEnabled((Boolean)aValue);
+break;
+}
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    holder.addElement(file,contentType,enabled,cached);
+    addFile(file,cached);
+    fireTableDataChanged();
+  }
+ catch (  IOException e) {
+    UISupport.showErrorMessage(e);
+  }
+}

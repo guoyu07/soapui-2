@@ -9,12 +9,18 @@
     String newSizeString=dialog.getValue(GenerateFile.SIZE);
     String contentType=dialog.getFormField(GenerateFile.CONTENT_TYPE).getValue();
     try {
-      newSizeInt=Integer.parseInt(newSizeString);
+      newSizeInt=Integer.parseInt(newSizeString) * 1024 * 1024;
     }
  catch (    NumberFormatException nfe) {
       UISupport.showErrorMessage("Size must be integer number");
       return;
     }
-    holder.addResultToGenerateTable(new File("file"),contentType,true);
+    try {
+      new RandomFile(newSizeInt,"xxx").next();
+      holder.addResultToGenerateTable(new File("xxx"),contentType,true,true);
+    }
+ catch (    Exception e1) {
+      UISupport.showErrorMessage(e1);
+    }
   }
 }

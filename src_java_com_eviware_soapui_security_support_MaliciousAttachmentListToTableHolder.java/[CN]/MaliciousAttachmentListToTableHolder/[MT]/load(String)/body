@@ -1,0 +1,22 @@
+{
+  List<AttachmentElement> generateList=generateMap.get(item);
+  List<AttachmentElement> replaceList=replaceMap.get(item);
+  Boolean remove=removeMap.get(item);
+  tablesDialog.setValue(MutationTables.SELECTED_FILE,item);
+  generateTableModel.clear();
+  replaceTableModel.clear();
+  tablesDialog.setBooleanValue(MutationTables.REMOVE_FILE,new Boolean(false));
+  if (remove != null) {
+    tablesDialog.setBooleanValue(MutationTables.REMOVE_FILE,remove);
+  }
+  if (generateList != null) {
+    for (    AttachmentElement element : generateList) {
+      generateTableModel.addResult(element.getAttachment(),element.getContentType(),element.isEnabled(),element.isCached());
+    }
+  }
+  if (replaceList != null) {
+    for (    AttachmentElement element : replaceList) {
+      replaceTableModel.addResult(element.getAttachment(),element.getContentType(),element.isEnabled(),element.isCached());
+    }
+  }
+}

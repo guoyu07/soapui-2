@@ -1,0 +1,14 @@
+{
+  AttachmentElement element=holder.getList().get(rowIndex);
+  if (element != null) {
+switch (columnIndex) {
+case 0:
+      return element.getSize();
+case 1:
+    return element.getContentType();
+case 2:
+  return element.isEnabled();
+}
+}
+return null;
+}
