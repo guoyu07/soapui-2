@@ -28,4 +28,12 @@
     }
   }
 );
+  XFormField applyToFailedTests=dialog.getFormField(Strategy.APPLY_TO_FAILED_STEPS);
+  applyToFailedTests.setValue(String.valueOf(securityCheck.isApplyForFailedStep()));
+  applyToFailedTests.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      securityCheck.setApplyForFailedTestStep(Boolean.parseBoolean(newValue));
+    }
+  }
+);
 }

@@ -1,0 +1,13 @@
+{
+  Iterator<List<SecurityCheck>> checkedSteps=getSecurityChecksMap().values().iterator();
+  int count=0;
+  while (checkedSteps.hasNext()) {
+    List<SecurityCheck> checkList=checkedSteps.next();
+    for (    SecurityCheck securityCheck : checkList) {
+      if (securityCheck.getTestStep().getId().equals(tsr.getTestStep().getId()) && (tsr.getStatus() != TestStepStatus.FAILED || securityCheck.isApplyForFailedStep())) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
