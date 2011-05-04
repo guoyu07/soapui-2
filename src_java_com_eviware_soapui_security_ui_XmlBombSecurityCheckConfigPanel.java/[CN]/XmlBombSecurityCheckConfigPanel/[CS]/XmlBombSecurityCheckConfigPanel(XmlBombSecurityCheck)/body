@@ -1,19 +1,120 @@
 {
   super(new BorderLayout());
-  this.xmlCheck=xmlCheck;
+  this.xmlChk=xmlCheck;
+  this.xmlBombList=xmlCheck.getXmlBombList();
+  this.internalDTDList=xmlCheck.getInternalDTDList();
+  this.externalDTDList=xmlCheck.getExternalDTDList();
   form=new SimpleForm();
+  form.setBorder(BorderFactory.createEmptyBorder(3,0,0,3));
   form.addSpace(5);
+  form.addComponent(new JLabel("Xml Bomb Attacments"));
+  JCheckBox attachXml=form.appendCheckBox(ENABLE_ATTACHMENT_FIELD,null,xmlCheck.isAttachXmlBomb());
+  attachXml.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent arg0){
+      form.getComponent(ATTACHMENT_PREFIX_FIELD).setEnabled(((JCheckBox)form.getComponent(ENABLE_ATTACHMENT_FIELD)).isSelected());
+      xmlChk.setAttachXmlBomb(((JCheckBox)form.getComponent(ENABLE_ATTACHMENT_FIELD)).isSelected());
+    }
+  }
+);
   JTextField attachmentPrefixField=form.appendTextField(ATTACHMENT_PREFIX_FIELD,"Attachment Prefix Field");
   attachmentPrefixField.setMaximumSize(new Dimension(80,10));
   attachmentPrefixField.setColumns(20);
   attachmentPrefixField.setText(xmlCheck.getAttachmentPrefix());
   attachmentPrefixField.setEnabled(xmlCheck.isAttachXmlBomb());
-  JCheckBox attachXml=form.appendCheckBox(ENABLE_ATTACHMENT_FIELD,null,xmlCheck.isAttachXmlBomb());
-  attachXml.addItemListener(new ItemListener(){
-    public void itemStateChanged(    ItemEvent arg0){
-      form.getComponent(ATTACHMENT_PREFIX_FIELD).setEnabled(((JCheckBox)form.getComponent(ENABLE_ATTACHMENT_FIELD)).isSelected());
+  attachmentPrefixField.addKeyListener(new KeyListener(){
+    @Override public void keyTyped(    KeyEvent arg0){
+    }
+    @Override public void keyReleased(    KeyEvent arg0){
+      xmlChk.setAttachmentPrefix(((JTextField)form.getComponent(ATTACHMENT_PREFIX_FIELD)).getText());
+    }
+    @Override public void keyPressed(    KeyEvent arg0){
     }
   }
 );
+  JXToolBar toolbar=UISupport.createSmallToolbar();
+  toolbar.add(previous=new PreviousAttachement());
+  previous.setEnabled(false);
+  toolbar.add(next=new NextAttachement());
+  toolbar.add(new AddXmlAttachement());
+  toolbar.add(new RemoveAttachement());
+  toolbar.add(new SaveAttachement());
+  toolbar.add(current=new JLabel("  current:0"));
+  toolbar.add(max=new JLabel("  max:" + xmlBombList.size()));
+  form.append(toolbar);
+  attachementArea=new JTextArea(10,15);
+  xmlBombPosition=0;
+  if (xmlBombList.size() > 0) {
+    attachementArea.setText(xmlBombList.get(xmlBombPosition));
+    if (xmlBombList.size() == 1)     next.setEnabled(false);
+  }
+ else   next.setEnabled(false);
+  form.append(new JScrollPane(attachementArea));
+  form.addSpace(10);
+  form.append(new JLabel("Internal DTD"));
+  JCheckBox useInternalDTD=form.appendCheckBox(USE_INTERNAL_DTD_SCAN,null,xmlCheck.useInternalDTD());
+  useInternalDTD.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent arg0){
+      xmlChk.setUseInternalDTD(((JCheckBox)form.getComponent(USE_INTERNAL_DTD_SCAN)).isSelected());
+    }
+  }
+);
+  JXToolBar toolbarInternal=UISupport.createSmallToolbar();
+  internalCombo=createComboBox(internalDTDList);
+  toolbarInternal.add(internalCombo);
+  toolbarInternal.add(new AddInternalDTD());
+  toolbarInternal.add(new RemoveInternalDTD());
+  toolbarInternal.add(new SaveInternalDTD());
+  form.append(toolbarInternal);
+  internalDTDArea=new JTextArea(10,15);
+  internalCombo.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      if (!internalDTDList.isEmpty() && internalCombo.getSelectedIndex() != -1) {
+        internalDTDArea.setText(internalDTDList.get(internalCombo.getSelectedIndex()).getValue());
+        internalPosition=internalCombo.getSelectedIndex();
+      }
+      if (!internalDTDList.isEmpty() & internalCombo.getSelectedItem() != null & externalCombo.getSelectedIndex() == -1) {
+        internalDTDList.get(internalPosition).setReference((String)internalCombo.getSelectedItem());
+        internalCombo.setModel(createComboBox(internalDTDList).getModel());
+        internalCombo.setSelectedIndex(internalPosition);
+      }
+    }
+  }
+);
+  internalDTDArea.setText(internalDTDList.get(internalCombo.getSelectedIndex()).getValue());
+  form.append(new JScrollPane(internalDTDArea));
+  form.addSpace(10);
+  form.append(new JLabel("External DTD"));
+  JCheckBox useExternalDTD=form.appendCheckBox(USE_EXTERNAL_DTD_SCAN,null,xmlCheck.useExternalDTD());
+  useExternalDTD.addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent arg0){
+      xmlChk.setUseExternalDTD(((JCheckBox)form.getComponent(USE_EXTERNAL_DTD_SCAN)).isSelected());
+    }
+  }
+);
+  JXToolBar toolbarExternal=UISupport.createSmallToolbar();
+  externalCombo=createComboBox(externalDTDList);
+  toolbarExternal.add(externalCombo);
+  toolbarExternal.add(new AddExternalDTD());
+  toolbarExternal.add(new RemoveExternalDTD());
+  toolbarExternal.add(new SaveExternalDTD());
+  form.append(toolbarExternal);
+  externalDTDArea=new JTextArea(10,15);
+  externalCombo.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      if (!externalDTDList.isEmpty() && externalCombo.getSelectedIndex() != -1) {
+        externalDTDArea.setText(externalDTDList.get(externalCombo.getSelectedIndex()).getValue());
+        externalPosition=externalCombo.getSelectedIndex();
+      }
+      if (!externalDTDList.isEmpty() & externalCombo.getSelectedItem() != null & externalCombo.getSelectedIndex() == -1) {
+        externalDTDList.get(externalPosition).setReference((String)externalCombo.getSelectedItem());
+        externalCombo.setModel(createComboBox(externalDTDList).getModel());
+        externalCombo.setSelectedIndex(externalPosition);
+      }
+    }
+  }
+);
+  externalDTDArea.setText(externalDTDList.get(externalCombo.getSelectedIndex()).getValue());
+  form.append(new JScrollPane(externalDTDArea));
+  form.addSpace(5);
   add(form.getPanel());
 }

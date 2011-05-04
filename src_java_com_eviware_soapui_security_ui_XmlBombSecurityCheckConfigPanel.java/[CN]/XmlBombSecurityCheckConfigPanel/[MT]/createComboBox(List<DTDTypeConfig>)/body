@@ -1,0 +1,7 @@
+{
+  JComboBox combo=new JComboBox();
+  combo.setMaximumSize((new Dimension(200,combo.getMaximumSize().height)));
+  for (  DTDTypeConfig config : list)   combo.addItem(config.getReference());
+  combo.setEditable(true);
+  return combo;
+}

@@ -1,29 +1,15 @@
 {
-  currentIndex=0;
-  String originalResponse=getOriginalResult((SecurityTestRunnerImpl)securityTestRunner,testStep).getResponse().getContentAsXml();
-  String originalRequest=getRequest(testStep).getRequestContent();
-  if (isAttachXmlBomb()) {
-    while (currentIndex < getBombList().size() + 1) {
-      Attachment attach=attachXmlBomb(testStep);
-      ((AbstractHttpRequest<?>)getRequest(testStep)).removeAttachment(attach);
-      ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
-    }
-    currentIndex=0;
+  try {
+    StringToStringMap updatedParams=update(testStep,context);
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(updatedParams,message);
   }
-  if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE && getParameterHolder().getParameterList().size() > 0) {
-    for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
-      if (param != null) {
-        while (currentIndex < getBombList().size() + 1) {
-          generateNextRequest(testStep,param.getName());
-          ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
-        }
-      }
-    }
+ catch (  XmlException e) {
+    SoapUI.logError(e,"[XmlBombSecurityScan]XPath seems to be invalid!");
+    reportSecurityCheckException("Property value is not XML or XPath is wrong!");
   }
- else   if (getParameterHolder().getParameterList().size() > 0) {
-    while (currentIndex < getBombList().size() + 1) {
-      generateNextRequest(testStep,getParameterHolder().getParameterList());
-      ((AbstractHttpRequest<?>)getRequest(testStep)).setRequestContent(originalRequest);
-    }
+catch (  Exception e) {
+    SoapUI.logError(e,"[XmlBombSecurityScan]Property value is not valid xml!");
+    reportSecurityCheckException("Property value is not XML or XPath is wrong!");
   }
 }

@@ -1,0 +1,9 @@
+{
+  getConfig().setConfig(XmlBombSecurityCheckConfig.Factory.newInstance());
+  xmlBombConfig=(XmlBombSecurityCheckConfig)getConfig().getConfig();
+  xmlBombConfig.setAttachXmlBomb(false);
+  xmlBombConfig.setXmlAttachmentPrefix(DEFAULT_PREFIX);
+  xmlBombConfig.setUseExternalDTD(true);
+  xmlBombConfig.setUseInternalDTD(true);
+  initDefaultVectors();
+}

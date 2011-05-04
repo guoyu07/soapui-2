@@ -2,8 +2,8 @@
   Attachment attach=null;
   if (isAttachXmlBomb()) {
     AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
-    if (currentIndex < getBombList().size()) {
-      String bomb=getBombList().get(currentIndex);
+    if (currentIndex < getXmlBombList().size()) {
+      String bomb=getXmlBombList().get(currentIndex);
       try {
         File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
         BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
@@ -18,11 +18,10 @@
         SoapUI.logError(e);
       }
     }
- else     if (currentIndex == getBombList().size()) {
+ else     if (currentIndex == getXmlBombList().size()) {
       try {
         File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
         BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
-        writer.write(createQuadraticExpansionAttack(null,null));
         writer.flush();
         attach=request.attachFile(bombFile,false);
         bombFile.delete();

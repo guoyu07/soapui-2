@@ -1,0 +1,9 @@
+{
+  DTDTypeConfig dtd=DTDTypeConfig.Factory.newInstance();
+  dtd.setReference("newExternalDTD" + externalDTDList.size());
+  dtd.setValue("<!DOCTYPE lolz [\n<!ENTITY newExternalDTD SYSTEM \"http://www.soapui.org\">\n]>");
+  externalDTDList.add(dtd);
+  externalCombo.addItem(dtd.getReference());
+  externalCombo.setSelectedItem(dtd.getReference());
+  externalDTDArea.setText(dtd.getValue());
+}

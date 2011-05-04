@@ -1,0 +1,23 @@
+{
+  if (!xmlBombList.isEmpty()) {
+    xmlBombList.remove(xmlBombPosition);
+    if (xmlBombPosition >= xmlBombList.size() && !xmlBombList.isEmpty())     xmlBombPosition=xmlBombList.size() - 1;
+ else {
+      if (xmlBombList.isEmpty()) {
+        xmlBombPosition=0;
+        next.setEnabled(false);
+        previous.setEnabled(false);
+      }
+    }
+    if (xmlBombList.size() == 1) {
+      xmlBombPosition=0;
+      next.setEnabled(false);
+      previous.setEnabled(false);
+    }
+    if (xmlBombList.size() - 1 == xmlBombPosition)     next.setEnabled(false);
+    if (xmlBombList.isEmpty())     attachementArea.setText("");
+ else     attachementArea.setText(xmlBombList.get(xmlBombPosition));
+    current.setText("  current:" + xmlBombPosition);
+    max.setText("  max:" + xmlBombList.size());
+  }
+}

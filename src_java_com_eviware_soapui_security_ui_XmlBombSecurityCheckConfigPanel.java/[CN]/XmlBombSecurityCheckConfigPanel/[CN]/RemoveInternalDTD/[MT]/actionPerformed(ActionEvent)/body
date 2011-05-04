@@ -1,0 +1,16 @@
+{
+  int deleteIndex=internalCombo.getSelectedIndex();
+  if (deleteIndex > -1) {
+    internalDTDList.remove(deleteIndex);
+    internalCombo.setModel(createComboBox(internalDTDList).getModel());
+  }
+  if (internalDTDList.isEmpty()) {
+    internalDTDArea.setText("");
+    internalCombo.setModel(new JComboBox().getModel());
+    internalPosition=-1;
+  }
+ else {
+    internalCombo.setSelectedIndex(0);
+    internalPosition=0;
+  }
+}

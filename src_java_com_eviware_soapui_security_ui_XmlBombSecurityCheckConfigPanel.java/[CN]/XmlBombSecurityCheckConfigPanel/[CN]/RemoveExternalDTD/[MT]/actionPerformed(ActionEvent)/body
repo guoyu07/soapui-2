@@ -1,0 +1,16 @@
+{
+  int deleteIndex=externalCombo.getSelectedIndex();
+  if (deleteIndex > -1) {
+    externalDTDList.remove(deleteIndex);
+    externalCombo.setModel(createComboBox(externalDTDList).getModel());
+  }
+  if (externalDTDList.isEmpty()) {
+    externalDTDArea.setText("");
+    externalCombo.setModel(new JComboBox().getModel());
+    externalPosition=-1;
+  }
+ else {
+    externalCombo.setSelectedIndex(0);
+    externalPosition=0;
+  }
+}
