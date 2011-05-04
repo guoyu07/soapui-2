@@ -3,7 +3,7 @@
   super.setEnabled(enabled);
   addAssertionButton.setEnabled(enabled);
   assertionsPanel.setEnabled(enabled);
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(getRequest().getTestCase()) || !SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem().getTestCase())) {
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(getRequest().getTestCase()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem().getTestCase())) {
     getRequest().removeSubmitListener(this);
   }
  else {
