@@ -21,7 +21,7 @@
   }
   logIconStatus=status;
   executionProgressStatus=status;
-  this.testLog.append("\nSecurityRequest ").append(securityRequestResultList.indexOf(secReqResult)).append(secReqResult.getStatus().toString()).append(secReqResult.getChangedParamsInfo(requestCount));
+  this.testLog.append("\n").append(secReqResult.getChangedParamsInfo(requestCount));
   for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);
   hasAddedRequests=true;
 }

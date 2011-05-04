@@ -19,5 +19,6 @@
   if (changedParamsInfo.length() > 1) {
     checkRequestResultStr.append(" - " + changedParamsInfo.toString());
   }
+  checkRequestResultStr.append(": took ").append(getTimeTaken()).append(" ms");
   return checkRequestResultStr.toString();
 }
