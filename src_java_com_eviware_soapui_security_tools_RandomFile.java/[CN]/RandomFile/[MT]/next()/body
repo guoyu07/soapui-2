@@ -1,10 +1,11 @@
 {
-  FileOutputStream out=new FileOutputStream(file);
+  BufferedWriter out=new BufferedWriter(new FileWriter(file));
   long used=0;
   while (used <= length) {
     used++;
     out.write(random.nextInt());
   }
+  out.flush();
   out.close();
   return file;
 }

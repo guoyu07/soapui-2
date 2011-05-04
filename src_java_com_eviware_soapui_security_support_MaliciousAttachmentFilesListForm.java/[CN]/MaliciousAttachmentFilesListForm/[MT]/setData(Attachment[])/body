@@ -17,6 +17,7 @@
             newEl.setEnabled(el.getEnabled());
             newElAttachment.setSize(el.getAttachment().getSize());
             newElAttachment.setContentType(el.getAttachment().getContentType());
+            holder.addResultToGenerateTable(new File(el.getAttachment().getTempFilename()),el.getAttachment().getContentType(),el.getEnabled(),true);
           }
           for (          MaliciousAttachmentConfig el : element.getReplaceAttachmentList()) {
             MaliciousAttachmentConfig newEl=newElement.addNewReplaceAttachment();
@@ -24,6 +25,7 @@
             newEl.setEnabled(el.getEnabled());
             newElAttachment.setSize(el.getAttachment().getSize());
             newElAttachment.setContentType(el.getAttachment().getContentType());
+            holder.addResultToReplaceTable(new File(el.getAttachment().getTempFilename()),el.getAttachment().getContentType(),el.getEnabled(),true);
           }
           break;
         }
