@@ -1,14 +1,9 @@
 {
   this.config=config;
   this.testStep=testStep;
-  if (testStep instanceof WsdlTestRequestStep) {
-    WsdlTestRequestStep wsdlTestRequestStep=(WsdlTestRequestStep)testStep;
-    if (wsdlTestRequestStep.getTestRequest() instanceof MutableAttachmentContainer) {
-      container=(MutableAttachmentContainer)wsdlTestRequestStep.getTestRequest();
-    }
-  }
   dialog=(JFormDialog)ADialogBuilder.buildDialog(MutationSettings.class);
   dialog.getFormField(MutationSettings.MUTATIONS_PANEL).setProperty("component",createMutationsPanel());
   dialog.getFormField(MutationSettings.MUTATIONS_PANEL).setProperty("dimension",new Dimension(720,320));
+  initConfig();
   holder.refresh();
 }

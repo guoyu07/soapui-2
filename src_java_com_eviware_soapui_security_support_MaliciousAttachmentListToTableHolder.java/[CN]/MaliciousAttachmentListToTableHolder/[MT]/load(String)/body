@@ -11,12 +11,12 @@
   }
   if (generateList != null) {
     for (    AttachmentElement element : generateList) {
-      generateTableModel.addResult(element.getAttachment(),element.getContentType(),element.isEnabled(),element.isCached());
+      generateTableModel.addResult(element.getFile(),element.getContentType(),element.getEnabled(),element.getCached());
     }
   }
   if (replaceList != null) {
     for (    AttachmentElement element : replaceList) {
-      replaceTableModel.addResult(element.getAttachment(),element.getContentType(),element.isEnabled(),element.isCached());
+      replaceTableModel.addResult(element.getFile(),element.getContentType(),element.getEnabled(),element.getCached());
     }
   }
 }

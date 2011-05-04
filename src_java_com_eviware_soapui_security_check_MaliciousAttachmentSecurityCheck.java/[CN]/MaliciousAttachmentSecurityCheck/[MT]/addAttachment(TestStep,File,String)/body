@@ -2,5 +2,6 @@
   AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   Attachment attach=request.attachFile(file,false);
   attach.setContentType(contentType);
+  file.delete();
   return attach;
 }

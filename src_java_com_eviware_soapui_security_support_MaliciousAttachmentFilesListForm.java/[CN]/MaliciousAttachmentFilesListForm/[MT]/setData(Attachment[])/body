@@ -1,9 +1,33 @@
 {
   Attachment[] oldData=getData();
+  MaliciousAttachmentSecurityCheckConfig copy=(MaliciousAttachmentSecurityCheckConfig)config.copy();
   listModel.clear();
+  config.getElementList().clear();
   if (attachments != null) {
     for (    Attachment att : attachments) {
       listModel.addElement(att);
+      MaliciousAttachmentElementConfig newElement=config.addNewElement();
+      newElement.setKey(att.getName());
+      for (      MaliciousAttachmentElementConfig element : copy.getElementList()) {
+        if (element.getKey().equals(att.getName())) {
+          newElement.setRemove(element.getRemove());
+          for (          MaliciousAttachmentConfig el : element.getGenerateAttachmentList()) {
+            MaliciousAttachmentConfig newEl=newElement.addNewGenerateAttachment();
+            AttachmentConfig newElAttachment=newEl.addNewAttachment();
+            newEl.setEnabled(el.getEnabled());
+            newElAttachment.setSize(el.getAttachment().getSize());
+            newElAttachment.setContentType(el.getAttachment().getContentType());
+          }
+          for (          MaliciousAttachmentConfig el : element.getReplaceAttachmentList()) {
+            MaliciousAttachmentConfig newEl=newElement.addNewReplaceAttachment();
+            AttachmentConfig newElAttachment=newEl.addNewAttachment();
+            newEl.setEnabled(el.getEnabled());
+            newElAttachment.setSize(el.getAttachment().getSize());
+            newElAttachment.setContentType(el.getAttachment().getContentType());
+          }
+          break;
+        }
+      }
     }
   }
   firePropertyChange("attachments",oldData,getData());

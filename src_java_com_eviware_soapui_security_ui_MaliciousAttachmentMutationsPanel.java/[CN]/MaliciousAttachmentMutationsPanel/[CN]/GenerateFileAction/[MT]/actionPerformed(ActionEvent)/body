@@ -16,8 +16,17 @@
       return;
     }
     try {
-      new RandomFile(newSizeInt,"xxx").next();
-      holder.addResultToGenerateTable(new File("xxx"),contentType,true,true);
+      File rFile=new RandomFile(newSizeInt,"attachment",contentType).next();
+      holder.addResultToGenerateTable(rFile,new MimetypesFileTypeMap().getContentType(rFile),true,true);
+      for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
+        if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+          MaliciousAttachmentConfig maliciousAtt=element.addNewReplaceAttachment();
+          AttachmentConfig att=maliciousAtt.addNewAttachment();
+          maliciousAtt.setEnabled(true);
+          att.setSize(rFile.length());
+          att.setContentType(new MimetypesFileTypeMap().getContentType(rFile));
+        }
+      }
     }
  catch (    Exception e1) {
       UISupport.showErrorMessage(e1);

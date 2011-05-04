@@ -1,7 +1,7 @@
 {
   try {
-    StringToStringMap paramsUpdated=update(testStep,context);
-    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)runner,context);
+    updateRequestContent(testStep,context);
+    getTestStep().run((TestCaseRunner)securityTestRunner,(TestCaseRunContext)securityTestRunner.getRunContext());
   }
  catch (  Exception e) {
     SoapUI.logError(e,"[MaliciousAttachmentSecurityScan]Property value is not valid xml!");

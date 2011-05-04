@@ -7,11 +7,12 @@
   JXToolBar toolbar=UISupport.createToolbar();
   if (add) {
     toolbar.add(UISupport.createToolbarButton(new AddFileAction()));
+    toolbar.add(UISupport.createToolbarButton(new RemoveReplacementFileAction(tableModel,table)));
   }
  else {
     toolbar.add(UISupport.createToolbarButton(new GenerateFileAction()));
+    toolbar.add(UISupport.createToolbarButton(new RemoveGeneratedFileAction(tableModel,table)));
   }
-  toolbar.add(UISupport.createToolbarButton(new RemoveFileAction(tableModel,table)));
   toolbar.add(UISupport.createToolbarButton(new HelpAction("www.soapui.org")));
   panel.add(toolbar,BorderLayout.PAGE_START);
   panel.add(tableScrollPane,BorderLayout.CENTER);

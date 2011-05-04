@@ -3,13 +3,13 @@
   if (element != null) {
 switch (columnIndex) {
 case 0:
-      return element.isCached() ? element.getName() : element.getPath();
+      return (element.getCached()) ? element.getFile().getName() : element.getFile().getAbsolutePath();
 case 1:
     return element.getSize();
 case 2:
   return element.getContentType();
 case 3:
-return element.isEnabled();
+return element.getEnabled();
 }
 }
 return null;

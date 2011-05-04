@@ -1,9 +1,9 @@
 {
   JFormDialog tablesDialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
-  MaliciousAttachmentTableModel generateTableModel=new MaliciousAttachmentGenerateTableModel(container);
+  MaliciousAttachmentTableModel generateTableModel=new MaliciousAttachmentGenerateTableModel(config);
   tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("dimension",new Dimension(410,120));
   tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildTable(generateTableModel,false));
-  MaliciousAttachmentTableModel replaceTableModel=new MaliciousAttachmentReplaceTableModel(container);
+  MaliciousAttachmentTableModel replaceTableModel=new MaliciousAttachmentReplaceTableModel(config);
   tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("dimension",new Dimension(410,120));
   tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("component",buildTable(replaceTableModel,true));
   holder.setGenerateTableModel(generateTableModel);

@@ -2,7 +2,7 @@
   if (fileChooser == null) {
     fileChooser=new JFileChooser();
   }
-  String root=PathUtils.getExpandedResourceRoot(container.getModelItem());
+  String root=ProjectSettings.PROJECT_ROOT;
   if (StringUtils.hasContent(root)) {
     fileChooser.setCurrentDirectory(new File(root));
   }
@@ -14,5 +14,15 @@
       return;
     }
     holder.addResultToReplaceTable(file,new MimetypesFileTypeMap().getContentType(file),true,retval);
+    for (    MaliciousAttachmentElementConfig element : config.getElementList()) {
+      if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+        MaliciousAttachmentConfig maliciousAtt=element.addNewGenerateAttachment();
+        AttachmentConfig attachment=maliciousAtt.addNewAttachment();
+        maliciousAtt.setEnabled(true);
+        attachment.setTempFilename(file.getName());
+        attachment.setSize(file.length());
+        attachment.setContentType(new MimetypesFileTypeMap().getContentType(file));
+      }
+    }
   }
 }
