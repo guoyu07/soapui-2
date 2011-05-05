@@ -1,9 +1,9 @@
 {
-  AttachmentElement element=holder.getList().get(rowIndex);
+  MaliciousAttachmentConfig element=holder.getList().get(rowIndex);
   if (element != null) {
 switch (columnIndex) {
 case 0:
-      return (element.getCached()) ? element.getFile().getName() : element.getFile().getAbsolutePath();
+      return (element.getCached()) ? new File(element.getFilename()).getName() : new File(element.getFilename()).getAbsolutePath();
 case 1:
     return element.getSize();
 case 2:

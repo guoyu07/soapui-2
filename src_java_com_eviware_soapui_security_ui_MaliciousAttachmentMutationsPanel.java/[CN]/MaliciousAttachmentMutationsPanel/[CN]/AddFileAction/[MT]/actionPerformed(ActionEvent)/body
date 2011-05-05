@@ -13,15 +13,20 @@
     if (retval == null) {
       return;
     }
-    holder.addResultToReplaceTable(file,new MimetypesFileTypeMap().getContentType(file),true,retval);
+    String filename=file.getAbsolutePath();
+    Long size=file.length();
+    String contentType=new MimetypesFileTypeMap().getContentType(file);
+    Boolean enabled=new Boolean(true);
+    Boolean cached=retval;
     for (    MaliciousAttachmentElementConfig element : config.getElementList()) {
       if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
-        MaliciousAttachmentConfig maliciousAtt=element.addNewGenerateAttachment();
-        AttachmentConfig attachment=maliciousAtt.addNewAttachment();
-        maliciousAtt.setEnabled(true);
-        attachment.setTempFilename(file.getName());
-        attachment.setSize(file.length());
-        attachment.setContentType(new MimetypesFileTypeMap().getContentType(file));
+        MaliciousAttachmentConfig att=element.addNewReplaceAttachment();
+        att.setFilename(filename);
+        att.setSize(size);
+        att.setContentType(contentType);
+        att.setEnabled(enabled);
+        att.setCached(cached);
+        holder.addResultToReplaceTable(att);
       }
     }
   }

@@ -1,13 +1,25 @@
 {
   JFormDialog tablesDialog=(JFormDialog)ADialogBuilder.buildDialog(MutationTables.class);
-  MaliciousAttachmentTableModel generateTableModel=new MaliciousAttachmentGenerateTableModel(config);
+  MaliciousAttachmentTableModel generateTableModel=new MaliciousAttachmentGenerateTableModel();
   tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("dimension",new Dimension(410,120));
-  tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildTable(generateTableModel,false));
-  MaliciousAttachmentTableModel replaceTableModel=new MaliciousAttachmentReplaceTableModel(config);
+  tablesDialog.getFormField(MutationTables.GENERATE_FILE).setProperty("component",buildGenerateTable(generateTableModel));
+  MaliciousAttachmentTableModel replaceTableModel=new MaliciousAttachmentReplaceTableModel();
   tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("dimension",new Dimension(410,120));
-  tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("component",buildTable(replaceTableModel,true));
+  tablesDialog.getFormField(MutationTables.REPLACE_FILE).setProperty("component",buildReplacementTable(replaceTableModel));
   holder.setGenerateTableModel(generateTableModel);
   holder.setReplaceTableModel(replaceTableModel);
   holder.setTablesDialog(tablesDialog);
+  JCheckBoxFormField remove=(JCheckBoxFormField)tablesDialog.getFormField(MutationTables.REMOVE_FILE);
+  remove.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
+        if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+          element.setRemove(Boolean.parseBoolean(newValue));
+          break;
+        }
+      }
+    }
+  }
+);
   return tablesDialog.getPanel();
 }

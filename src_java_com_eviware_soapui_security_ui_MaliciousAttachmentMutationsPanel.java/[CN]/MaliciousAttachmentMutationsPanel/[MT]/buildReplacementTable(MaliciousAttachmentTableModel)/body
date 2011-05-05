@@ -1,0 +1,29 @@
+{
+  final JPanel panel=new JPanel(new BorderLayout());
+  final JXTable table=new JXTable(tableModel);
+  setupTable(table);
+  JScrollPane tableScrollPane=new JScrollPane(table);
+  tableScrollPane.setBorder(BorderFactory.createEmptyBorder());
+  JXToolBar toolbar=UISupport.createToolbar();
+  addReplacementButton=UISupport.createToolbarButton(new AddFileAction());
+  toolbar.add(addReplacementButton);
+  removeReplacementButton=UISupport.createToolbarButton(new RemoveReplacementFileAction(tableModel,table));
+  toolbar.add(removeReplacementButton);
+  removeReplacementButton.setEnabled(false);
+  toolbar.add(UISupport.createToolbarButton(new HelpAction("www.soapui.org")));
+  panel.add(toolbar,BorderLayout.PAGE_START);
+  panel.add(tableScrollPane,BorderLayout.CENTER);
+  table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      if (addReplacementButton != null) {
+        addReplacementButton.setEnabled(holder.getFilesList().getList().getModel().getSize() > 0);
+      }
+      if (removeReplacementButton != null) {
+        removeReplacementButton.setEnabled(table.getSelectedRowCount() > 0);
+      }
+    }
+  }
+);
+  panel.setBorder(BorderFactory.createLineBorder(new Color(0),1));
+  return panel;
+}
