@@ -39,8 +39,8 @@
           }
         }
       }
-      if (securityStepResult.getExecutionProgressStatus() == ResultStatus.INITIALIZED) {
-        securityStepResult.setExecutionProgressStatus(ResultStatus.UNKNOWN);
+      if (securityStepResult.getStatus() == ResultStatus.INITIALIZED) {
+        securityStepResult.setStatus(ResultStatus.UNKNOWN);
       }
       securityTest.putSecurityTestStepResult(currentStep,securityStepResult);
     }
