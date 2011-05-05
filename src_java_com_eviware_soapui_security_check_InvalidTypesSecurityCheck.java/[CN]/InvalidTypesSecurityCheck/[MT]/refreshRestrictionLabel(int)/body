@@ -4,6 +4,9 @@
     return;
   }
   SecurityCheckedParameter parameter=getParameterAt(row);
+  if (parameter == null) {
+    return;
+  }
   String name=parameter.getName();
   String xpath=parameter.getXpath();
   TestProperty tp=getTestStep().getProperty(name);
