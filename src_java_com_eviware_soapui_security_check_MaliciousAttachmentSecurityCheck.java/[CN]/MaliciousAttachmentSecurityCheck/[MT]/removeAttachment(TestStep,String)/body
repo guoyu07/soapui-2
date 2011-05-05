@@ -1,0 +1,12 @@
+{
+  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
+  List<Attachment> toRemove=new ArrayList<Attachment>();
+  for (  Attachment attachment : request.getAttachments()) {
+    if (attachment.getName().equals(name)) {
+      toRemove.add(attachment);
+    }
+  }
+  for (  Attachment remove : toRemove) {
+    request.removeAttachment(remove);
+  }
+}

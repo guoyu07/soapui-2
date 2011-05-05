@@ -1,2 +1,12 @@
 {
+  for (  MaliciousAttachmentElementConfig element : config.getElementList()) {
+    if (element.getRemove()) {
+      removeAttachment(testStep,element.getKey());
+    }
+ else {
+      removeAttachment(testStep,element.getKey());
+      addAttachments(testStep,element.getGenerateAttachmentList());
+      addAttachments(testStep,element.getReplaceAttachmentList());
+    }
+  }
 }
