@@ -1,0 +1,23 @@
+{
+  Attachment attach=null;
+  if (isAttachXmlBomb()) {
+    WsdlRequest request=(WsdlRequest)getRequest(testStep);
+    if (currentIndex < getXmlBombList().size()) {
+      String bomb=getXmlBombList().get(currentIndex);
+      try {
+        File bombFile=File.createTempFile(getAttachmentPrefix(),".xml");
+        BufferedWriter writer=new BufferedWriter(new FileWriter(bombFile));
+        writer.write(bomb);
+        writer.flush();
+        request.setInlineFilesEnabled(false);
+        attach=request.attachFile(bombFile,false);
+        attach.setContentType("text/xml;");
+        currentIndex++;
+      }
+ catch (      IOException e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  return attach;
+}

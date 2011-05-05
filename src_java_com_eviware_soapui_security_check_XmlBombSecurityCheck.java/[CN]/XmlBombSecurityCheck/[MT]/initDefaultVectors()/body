@@ -30,38 +30,6 @@
     SoapUI.logError(e);
   }
   try {
-    InputStream in=SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/security/xmlbomb/BillionLaughsAttack.dtd.txt");
-    BufferedReader br=new BufferedReader(new InputStreamReader(in));
-    String strLine;
-    StringBuffer value=new StringBuffer();
-    while ((strLine=br.readLine()) != null) {
-      value.append(strLine).append('\n');
-    }
-    in.close();
-    DTDTypeConfig bombDTD=xmlBombConfig.addNewInternalDTD();
-    bombDTD.setValue(value.toString());
-    bombDTD.setReference("lol10");
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
-  }
-  try {
-    InputStream in=SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/security/xmlbomb/QuadraticBlowup.dtd.txt");
-    BufferedReader br=new BufferedReader(new InputStreamReader(in));
-    String strLine;
-    StringBuffer value=new StringBuffer();
-    while ((strLine=br.readLine()) != null) {
-      value.append(strLine).append('\n');
-    }
-    in.close();
-    DTDTypeConfig bombDTD=xmlBombConfig.addNewInternalDTD();
-    bombDTD.setValue(value.toString());
-    bombDTD.setReference("boom");
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
-  }
-  try {
     InputStream in=SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/security/xmlbomb/ExternalEntity.dtd.txt");
     BufferedReader br=new BufferedReader(new InputStreamReader(in));
     String strLine;
@@ -70,9 +38,8 @@
       value.append(strLine).append('\n');
     }
     in.close();
-    DTDTypeConfig bombDTD=xmlBombConfig.addNewExternalDTD();
-    bombDTD.setValue(value.toString());
-    bombDTD.setReference("loadui");
+    XmlString bomb=xmlBombConfig.addNewXmlBombs();
+    bomb.setStringValue(value.toString());
   }
  catch (  Exception e) {
     SoapUI.logError(e);

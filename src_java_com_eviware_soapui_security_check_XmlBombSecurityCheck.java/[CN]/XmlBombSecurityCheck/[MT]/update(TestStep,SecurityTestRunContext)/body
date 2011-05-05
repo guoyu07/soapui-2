@@ -1,42 +1,12 @@
 {
   StringToStringMap params=new StringToStringMap();
   if (parameterMutations.size() == 0)   mutateParameters(testStep,context);
-  if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
-    for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
-      if (parameterMutations.containsKey(param))       if (parameterMutations.get(param).size() > 0) {
-        TestProperty property=getTestStep().getProperties().get(param.getName());
-        String value=context.expand(property.getValue());
-        if (param.getXpath() == null || param.getXpath().trim().length() == 0) {
-          DTDTypeConfig dtd=parameterMutations.get(param).get(0);
-          testStep.getProperties().get(param.getName()).setValue(dtd.getValue());
-          params.put(param.getLabel(),dtd.getValue());
-          parameterMutations.get(param).remove(0);
-        }
- else {
-          if (value == null || value.trim().equals(""))           continue;
-          if (XmlUtils.seemsToBeXml(value)) {
-            XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(value));
-            XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXpath()));
-            DTDTypeConfig dtd=parameterMutations.get(param).get(0);
-            for (            XmlTreeNode node : nodes)             node.setValue(1,"&" + dtd.getReference() + ";");
-            params.put(param.getLabel(),"&" + dtd.getReference() + ";");
-            parameterMutations.get(param).remove(0);
-            String xml=model.getXmlObject().toString().trim();
-            xml=xml.replaceFirst("&amp;" + dtd.getReference(),"&" + dtd.getReference());
-            if (xml.startsWith("<?")) {
-              if (xml.indexOf("?>") > -1) {
-                StringBuffer buffer=new StringBuffer(xml);
-                buffer.insert(xml.indexOf("?>") + 2,dtd.getReference());
-                testStep.getProperties().get(param.getName()).setValue(buffer.toString());
-              }
-            }
- else {
-              testStep.getProperties().get(param.getName()).setValue(dtd.getValue() + "\n" + xml);
-            }
-          }
-        }
-        break;
-      }
+  for (  SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
+{
+      testStep.getProperties().get(param.getName()).setValue(parameterMutations.get(param).get(0));
+      params.put(param.getLabel(),parameterMutations.get(param).get(0));
+      parameterMutations.get(param).remove(0);
+      break;
     }
   }
   return params;

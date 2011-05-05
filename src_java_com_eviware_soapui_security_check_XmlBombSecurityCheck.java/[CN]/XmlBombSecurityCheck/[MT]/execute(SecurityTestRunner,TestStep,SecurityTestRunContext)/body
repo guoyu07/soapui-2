@@ -1,7 +1,9 @@
 {
   try {
     StringToStringMap updatedParams=update(testStep,context);
-    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    addAttachement(testStep);
+    WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)testStep.run((TestCaseRunner)securityTestRunner,context);
+    message.setRequestContent("",false);
     createMessageExchange(updatedParams,message);
   }
  catch (  XmlException e) {

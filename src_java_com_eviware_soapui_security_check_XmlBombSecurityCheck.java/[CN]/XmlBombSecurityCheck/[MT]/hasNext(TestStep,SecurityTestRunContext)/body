@@ -12,9 +12,13 @@
       }
     }
   }
+  if (isAttachXmlBomb()) {
+    hasNext=currentIndex < getXmlBombList().size();
+  }
   if (!hasNext) {
     parameterMutations.clear();
     mutation=false;
+    currentIndex=0;
   }
   return hasNext;
 }

@@ -1,9 +1,0 @@
-{
-  DTDTypeConfig dtd=DTDTypeConfig.Factory.newInstance();
-  dtd.setReference("newInternalDTD" + internalDTDList.size());
-  dtd.setValue("<!DOCTYPE lolz [\n<!ENTITY lol \"lol\">\n<!ENTITY newInternalDTD \"&lol;\">\n]>");
-  internalDTDList.add(dtd);
-  internalCombo.addItem(dtd.getReference());
-  internalDTDArea.setText(dtd.getValue());
-  internalCombo.setSelectedItem(dtd.getReference());
-}
