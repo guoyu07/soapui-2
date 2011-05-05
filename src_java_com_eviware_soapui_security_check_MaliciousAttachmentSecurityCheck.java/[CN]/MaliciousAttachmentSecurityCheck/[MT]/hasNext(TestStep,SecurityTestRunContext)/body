@@ -1,9 +1,7 @@
 {
-  if (run) {
-    run=false;
+  boolean hasNext=currentIndex++ < getAttachmentsCount();
+  if (!hasNext) {
+    currentIndex=0;
   }
- else {
-    run=true;
-  }
-  return run;
+  return hasNext;
 }

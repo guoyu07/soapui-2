@@ -1,6 +1,7 @@
 {
-  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
-  Attachment attach=request.attachFile(file,true);
+  WsdlRequest request=(WsdlRequest)getRequest(testStep);
+  request.setInlineFilesEnabled(false);
+  Attachment attach=request.attachFile(file,false);
   attach.setContentType(contentType);
   file.deleteOnExit();
   return attach;

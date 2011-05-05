@@ -1,0 +1,8 @@
+{
+  Integer count=0;
+  for (  MaliciousAttachmentElementConfig element : config.getElementList()) {
+    count+=element.getGenerateAttachmentList().size();
+    count+=element.getReplaceAttachmentList().size();
+  }
+  return count;
+}
