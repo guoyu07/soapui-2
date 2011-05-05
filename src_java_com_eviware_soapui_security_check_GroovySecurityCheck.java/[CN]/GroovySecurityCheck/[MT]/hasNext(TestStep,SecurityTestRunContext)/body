@@ -1,5 +1,13 @@
 {
-  boolean result=next;
-  next=!next;
-  return result;
+  if (!context.hasProperty(PARAMETERS_INITIALIZED)) {
+    parameters=new StringToStringMap();
+    initParameters(parameters);
+    context.put(PARAMETERS_INITIALIZED,"true");
+    hasNext=true;
+  }
+  if (!hasNext) {
+    context.remove(PARAMETERS_INITIALIZED);
+    scriptEngine.clearVariables();
+  }
+  return hasNext;
 }

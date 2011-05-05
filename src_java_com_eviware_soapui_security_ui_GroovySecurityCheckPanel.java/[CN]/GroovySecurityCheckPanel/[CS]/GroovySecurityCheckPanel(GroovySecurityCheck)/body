@@ -1,9 +1,5 @@
 {
   super(new BorderLayout());
-  groovyCheck=secCheck;
-  form=new SimpleForm();
-  form.addSpace(5);
-  JTextField scriptTextArea=form.appendTextField(SCRIPT_FIELD,"Script to use");
-  scriptTextArea.setSize(new Dimension(400,600));
-  add(form.getPanel());
+  groovyCheck=securityCheck;
+  add(buildSetupScriptPanel(securityCheck));
 }

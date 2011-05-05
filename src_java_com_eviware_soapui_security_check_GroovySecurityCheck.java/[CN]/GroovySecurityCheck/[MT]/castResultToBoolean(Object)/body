@@ -1,0 +1,14 @@
+{
+  try {
+    hasNext=(Boolean)scriptResult2;
+    if (hasNext == null) {
+      hasNext=false;
+      SoapUI.ensureGroovyLog().error("You must return Boolean value from groovy script!");
+    }
+  }
+ catch (  Exception e) {
+    hasNext=false;
+    SoapUI.ensureGroovyLog().error("You must return Boolean value from groovy script!");
+  }
+  return hasNext;
+}

@@ -1,2 +1,41 @@
 {
+  scriptEngine.setScript(groovyscc.getExecuteScript().getStringValue());
+  scriptEngine.setVariable("context",context);
+  scriptEngine.setVariable("testStep",testStep);
+  scriptEngine.setVariable("securityScan",this);
+  scriptEngine.setVariable("parameters",parameters);
+  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  try {
+    scriptResult=scriptEngine.run();
+    hasNext=castResultToBoolean(scriptResult);
+    XmlObjectTreeModel model=null;
+    for (    SecurityCheckedParameter scp : getParameterHolder().getParameterList()) {
+      if (parameters.containsKey(scp.getLabel()) && parameters.get(scp.getLabel()) != null) {
+        if (scp.isChecked() && scp.getXpath().trim().length() > 0) {
+          model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+          XmlTreeNode[] treeNodes=null;
+          treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
+          if (treeNodes.length > 0) {
+            XmlTreeNode mynode=treeNodes[0];
+            mynode.setValue(1,parameters.get(scp.getLabel()));
+          }
+          updateRequestProperty(testStep,scp.getName(),model.getXmlObject().toString());
+        }
+ else {
+          updateRequestProperty(testStep,scp.getName(),parameters.get(scp.getLabel()));
+        }
+      }
+ else       if (parameters.containsKey(scp.getLabel()) && parameters.get(scp.getLabel()) == null) {
+        parameters.remove(scp.getLabel());
+      }
+    }
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    createMessageExchange(clearNullValues(parameters),message);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    hasNext=false;
+  }
+ finally {
+  }
 }

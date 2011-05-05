@@ -5,9 +5,6 @@
     groovyscc.setExecuteScript(ScriptConfig.Factory.newInstance());
     groovyscc.getExecuteScript().setLanguage("groovy");
     groovyscc.getExecuteScript().setStringValue("");
-    groovyscc.setAnalyzeScript(ScriptConfig.Factory.newInstance());
-    groovyscc.getAnalyzeScript().setLanguage("groovy");
-    groovyscc.getAnalyzeScript().setStringValue("");
     config.setConfig(groovyscc);
   }
  else {
@@ -17,10 +14,6 @@
       groovyscc.getExecuteScript().setLanguage("groovy");
       groovyscc.getExecuteScript().setStringValue("");
     }
-    if (groovyscc.getAnalyzeScript() == null) {
-      groovyscc.setAnalyzeScript(ScriptConfig.Factory.newInstance());
-      groovyscc.getAnalyzeScript().setLanguage("groovy");
-      groovyscc.getAnalyzeScript().setStringValue("");
-    }
   }
+  scriptEngine=SoapUIScriptEngineRegistry.create(this);
 }
