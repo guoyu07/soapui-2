@@ -1,11 +1,31 @@
 {
-  BufferedWriter out=new BufferedWriter(new FileWriter(file));
-  long used=0;
-  while (used <= length) {
-    used++;
-    out.write(random.nextInt());
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      BufferedWriter out=null;
+      try {
+        out=new BufferedWriter(new FileWriter(file));
+        long used=0;
+        while (used <= length) {
+          used++;
+          out.write(random.nextInt());
+        }
+        out.flush();
+        out.close();
+      }
+ catch (      IOException e) {
+        UISupport.showErrorMessage(e);
+      }
+ finally {
+        if (out != null) {
+          try {
+            out.close();
+          }
+ catch (          IOException e) {
+          }
+        }
+      }
+    }
   }
-  out.flush();
-  out.close();
+);
   return file;
 }
