@@ -19,7 +19,7 @@
     Boolean enabled=new Boolean(true);
     Boolean cached=retval;
     for (    MaliciousAttachmentElementConfig element : config.getElementList()) {
-      if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+      if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
         MaliciousAttachmentConfig att=element.addNewReplaceAttachment();
         att.setFilename(filename);
         att.setSize(size);

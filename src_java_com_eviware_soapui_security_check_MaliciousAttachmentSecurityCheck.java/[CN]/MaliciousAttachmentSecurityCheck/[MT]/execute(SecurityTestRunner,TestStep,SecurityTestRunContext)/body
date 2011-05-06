@@ -2,6 +2,7 @@
   try {
     updateRequestContent(testStep,context);
     WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)testStep.run((TestCaseRunner)securityTestRunner,context);
+    message.setRequestContent("",false);
   }
  catch (  Exception e) {
     SoapUI.logError(e,"[MaliciousAttachmentSecurityScan]Property value is not valid xml!");

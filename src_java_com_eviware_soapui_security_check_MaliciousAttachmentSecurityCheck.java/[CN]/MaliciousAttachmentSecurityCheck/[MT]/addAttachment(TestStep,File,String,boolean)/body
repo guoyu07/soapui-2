@@ -3,6 +3,8 @@
   request.setInlineFilesEnabled(false);
   Attachment attach=request.attachFile(file,false);
   attach.setContentType(contentType);
-  file.deleteOnExit();
+  if (generated) {
+    file.deleteOnExit();
+  }
   return attach;
 }

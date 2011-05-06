@@ -4,7 +4,7 @@
     tableModel.removeResult(row);
     for (int i=0; i < config.getElementList().size(); i++) {
       MaliciousAttachmentElementConfig element=config.getElementList().get(i);
-      if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+      if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
         element.getGenerateAttachmentList().remove(row);
       }
     }

@@ -9,7 +9,7 @@
     String newSizeString=dialog.getValue(GenerateFile.SIZE);
     String contentType=dialog.getFormField(GenerateFile.CONTENT_TYPE).getValue();
     try {
-      newSize=Long.parseLong(newSizeString) * 1024 * 1024;
+      newSize=Long.parseLong(newSizeString);
     }
  catch (    NumberFormatException nfe) {
       UISupport.showErrorMessage("Size must be numeric value");
@@ -21,7 +21,7 @@
       Boolean enabled=new Boolean(true);
       Boolean cached=new Boolean(true);
       for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
-        if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
+        if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
           MaliciousAttachmentConfig att=element.addNewGenerateAttachment();
           att.setFilename(filename);
           att.setSize(newSize);

@@ -3,4 +3,10 @@
   if (this.config != null) {
     this.config=(MaliciousAttachmentSecurityCheckConfig)getConfig().getConfig();
   }
+  if (advancedSettingsPanel != null) {
+    advancedSettingsPanel.setConfig((MaliciousAttachmentSecurityCheckConfig)getConfig().getConfig());
+  }
+  if (mutationsPanel != null) {
+    mutationsPanel.updateConfig((MaliciousAttachmentSecurityCheckConfig)getConfig().getConfig());
+  }
 }
