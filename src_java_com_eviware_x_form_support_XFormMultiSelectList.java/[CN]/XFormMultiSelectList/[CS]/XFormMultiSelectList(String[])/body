@@ -13,7 +13,7 @@
   list.addMouseListener(new MouseAdapter(){
     public void mousePressed(    MouseEvent e){
       int index=list.locationToIndex(e.getPoint());
-      if (index != -1) {
+      if (index != -1 && list.isEnabled()) {
         int[] oldValue=getSelectedIndexes();
         selected.set(index,!selected.get(index));
         pcs.firePropertyChange("select",oldValue,getSelectedIndexes());

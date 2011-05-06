@@ -1,7 +1,7 @@
 {
   JXToolBar toolbar=UISupport.createSmallToolbar();
-  toolbar.addFixed(new JButton(new SelectAllAction()));
+  toolbar.addFixed(new JButton(selectAllAction=new SelectAllAction()));
   toolbar.addRelatedGap();
-  toolbar.addFixed(new JButton(new UnselectAllAction()));
+  toolbar.addFixed(new JButton(unselectAllAction=new UnselectAllAction()));
   return toolbar;
 }
