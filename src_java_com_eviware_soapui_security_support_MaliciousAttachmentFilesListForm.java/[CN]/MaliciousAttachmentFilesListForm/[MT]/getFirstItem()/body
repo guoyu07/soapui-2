@@ -1,8 +1,7 @@
 {
   if (list.getModel().getSize() != 0) {
     list.setSelectedIndex(0);
-    Attachment attachment=(Attachment)list.getSelectedValue();
-    return (attachment != null) ? attachment.getName() : "";
+    return (AttachmentElement)list.getSelectedValue();
   }
-  return "";
+  return null;
 }

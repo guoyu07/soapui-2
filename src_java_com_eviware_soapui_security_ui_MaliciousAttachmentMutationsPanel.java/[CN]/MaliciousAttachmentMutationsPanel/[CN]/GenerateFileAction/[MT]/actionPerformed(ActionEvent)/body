@@ -21,20 +21,25 @@
       Boolean enabled=new Boolean(true);
       Boolean cached=new Boolean(true);
       boolean added=false;
-      for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
-        if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
-          MaliciousAttachmentConfig att=element.addNewGenerateAttachment();
-          att.setFilename(filename);
-          att.setSize(newSize);
-          att.setContentType(contentType);
-          att.setEnabled(enabled);
-          att.setCached(cached);
-          holder.addResultToGenerateTable(att);
-          added=true;
+      int idx=holder.getFilesList().getList().getSelectedIndex();
+      if (idx != -1) {
+        ListModel listModel=holder.getFilesList().getList().getModel();
+        String key=((AttachmentElement)listModel.getElementAt(idx)).getId();
+        for (        MaliciousAttachmentElementConfig element : config.getElementList()) {
+          if (key.equals(element.getKey())) {
+            MaliciousAttachmentConfig att=element.addNewGenerateAttachment();
+            att.setFilename(filename);
+            att.setSize(newSize);
+            att.setContentType(contentType);
+            att.setEnabled(enabled);
+            att.setCached(cached);
+            holder.addResultToGenerateTable(att);
+            added=true;
+          }
         }
-      }
-      if (!added) {
-        UISupport.showErrorMessage("No attachments found in test step");
+        if (!added) {
+          UISupport.showErrorMessage("No attachments found in test step");
+        }
       }
     }
  catch (    Exception e1) {

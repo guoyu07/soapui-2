@@ -19,16 +19,21 @@
     Boolean enabled=new Boolean(true);
     Boolean cached=retval;
     boolean added=false;
-    for (    MaliciousAttachmentElementConfig element : config.getElementList()) {
-      if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
-        MaliciousAttachmentConfig att=element.addNewReplaceAttachment();
-        att.setFilename(filename);
-        att.setSize(size);
-        att.setContentType(contentType);
-        att.setEnabled(enabled);
-        att.setCached(cached);
-        holder.addResultToReplaceTable(att);
-        added=true;
+    int idx=holder.getFilesList().getList().getSelectedIndex();
+    if (idx != -1) {
+      ListModel listModel=holder.getFilesList().getList().getModel();
+      String key=((AttachmentElement)listModel.getElementAt(idx)).getId();
+      for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
+        if (key.equals(element.getKey())) {
+          MaliciousAttachmentConfig att=element.addNewReplaceAttachment();
+          att.setFilename(filename);
+          att.setSize(size);
+          att.setContentType(contentType);
+          att.setEnabled(enabled);
+          att.setCached(cached);
+          holder.addResultToReplaceTable(att);
+          added=true;
+        }
       }
     }
     if (!added) {

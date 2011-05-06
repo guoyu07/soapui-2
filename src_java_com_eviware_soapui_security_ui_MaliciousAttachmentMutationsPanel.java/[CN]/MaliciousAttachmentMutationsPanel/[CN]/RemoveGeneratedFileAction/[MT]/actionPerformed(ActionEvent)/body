@@ -2,10 +2,15 @@
   int row=table.getSelectedRow();
   if (row >= 0) {
     tableModel.removeResult(row);
-    for (int i=0; i < config.getElementList().size(); i++) {
-      MaliciousAttachmentElementConfig element=config.getElementList().get(i);
-      if (holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE).equals(element.getKey())) {
-        element.getGenerateAttachmentList().remove(row);
+    int idx=holder.getFilesList().getList().getSelectedIndex();
+    if (idx != -1) {
+      ListModel listModel=holder.getFilesList().getList().getModel();
+      String key=((AttachmentElement)listModel.getElementAt(idx)).getId();
+      for (int i=0; i < config.getElementList().size(); i++) {
+        MaliciousAttachmentElementConfig element=config.getElementList().get(i);
+        if (key.equals(element.getKey())) {
+          element.getGenerateAttachmentList().remove(row);
+        }
       }
     }
   }

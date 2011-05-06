@@ -12,10 +12,15 @@
   JCheckBoxFormField remove=(JCheckBoxFormField)tablesDialog.getFormField(MutationTables.REMOVE_FILE);
   remove.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
-      for (      MaliciousAttachmentElementConfig element : config.getElementList()) {
-        if (element.getKey().equals(holder.getTablesDialog().getValue(MutationTables.SELECTED_FILE))) {
-          element.setRemove(Boolean.parseBoolean(newValue));
-          break;
+      int idx=holder.getFilesList().getList().getSelectedIndex();
+      if (idx != -1) {
+        ListModel listModel=holder.getFilesList().getList().getModel();
+        String key=((AttachmentElement)listModel.getElementAt(idx)).getId();
+        for (        MaliciousAttachmentElementConfig element : config.getElementList()) {
+          if (key.equals(element.getKey())) {
+            element.setRemove(Boolean.parseBoolean(newValue));
+            break;
+          }
         }
       }
     }

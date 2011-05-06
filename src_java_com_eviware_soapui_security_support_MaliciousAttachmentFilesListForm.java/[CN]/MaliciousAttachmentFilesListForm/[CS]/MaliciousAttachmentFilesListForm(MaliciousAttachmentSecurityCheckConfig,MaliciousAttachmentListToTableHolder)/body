@@ -10,7 +10,7 @@
   add(scrollPane,BorderLayout.CENTER);
   list.addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
-      currentSelection=(list.getSelectedIndex() == -1) ? null : (Attachment)listModel.get(list.getSelectedIndex());
+      currentSelection=(list.getSelectedIndex() == -1) ? null : (AttachmentElement)listModel.get(list.getSelectedIndex());
       MaliciousAttachmentFilesListForm.this.holder.refresh(oldSelection,currentSelection);
       oldSelection=currentSelection;
     }

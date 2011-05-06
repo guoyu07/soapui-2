@@ -1,18 +1,27 @@
 {
-  Attachment[] oldData=getData();
+  AttachmentElement[] oldData=getData();
   MaliciousAttachmentSecurityCheckConfig copy=(MaliciousAttachmentSecurityCheckConfig)config.copy();
   listModel.clear();
   config.getElementList().clear();
   if (attachments != null) {
     for (    Attachment att : attachments) {
-      listModel.addElement(att);
+      int count=0;
+      for (int i=0; i < listModel.getSize(); i++) {
+        AttachmentElement element=(AttachmentElement)listModel.getElementAt(i);
+        if (element.getAttachment().getName().equals(att.getName())) {
+          count++;
+        }
+      }
+      AttachmentElement attEl=new AttachmentElement(att,count);
+      listModel.addElement(attEl);
       holder.getGenerateTableModel().clear();
       holder.getReplaceTableModel().clear();
       holder.getTablesDialog().setBooleanValue(MutationTables.REMOVE_FILE,new Boolean(false));
       MaliciousAttachmentElementConfig newElement=config.addNewElement();
+      newElement.setKey(attEl.getId());
       for (      MaliciousAttachmentElementConfig element : copy.getElementList()) {
-        if (element.getKey().equals(att.getName())) {
-          newElement.setKey(att.getName());
+        if (attEl.getId().equals(element.getKey())) {
+          newElement.setKey(attEl.getId());
           newElement.setRemove(element.getRemove());
           holder.getTablesDialog().setBooleanValue(MutationTables.REMOVE_FILE,element.getRemove());
           for (          MaliciousAttachmentConfig el : element.getGenerateAttachmentList()) {
@@ -33,7 +42,7 @@
             newEl.setCached(el.getCached());
             holder.addResultToReplaceTable(newEl);
           }
-          holder.refresh(att,null);
+          holder.refresh(attEl,null);
           break;
         }
       }
