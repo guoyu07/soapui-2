@@ -3,6 +3,7 @@
   config.setName(file.getName());
   config.setContentType(ContentTypeHandler.getContentTypeFromFilename(file.getName()));
   config.setContentId(file.getName());
+  config.setId(UUID.randomUUID().toString());
   if (cache) {
     cacheFileLocally(file);
   }
