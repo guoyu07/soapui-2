@@ -1,3 +1,5 @@
 {
+  int[] oldValue=getSelectedIndexes();
   setSelectedOptions(new String[0]);
+  pcs.firePropertyChange("select",oldValue,getSelectedIndexes());
 }
