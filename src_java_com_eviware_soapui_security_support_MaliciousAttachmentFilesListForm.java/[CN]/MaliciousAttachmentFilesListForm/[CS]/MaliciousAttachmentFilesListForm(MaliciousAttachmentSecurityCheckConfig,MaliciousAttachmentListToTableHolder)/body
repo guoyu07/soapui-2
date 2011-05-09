@@ -2,6 +2,9 @@
   super(new BorderLayout());
   this.config=config;
   this.holder=holder;
+  JPanel p=UISupport.createEmptyPanel(3,3,3,3);
+  p.add(new JLabel("<html><b>Existing Attachments</b></html>"),BorderLayout.WEST);
+  add(p,BorderLayout.NORTH);
   listModel=new DefaultListModel();
   list=new JList(listModel);
   list.setToolTipText("Choose file");
@@ -16,4 +19,5 @@
     }
   }
 );
+  setBorder(null);
 }
