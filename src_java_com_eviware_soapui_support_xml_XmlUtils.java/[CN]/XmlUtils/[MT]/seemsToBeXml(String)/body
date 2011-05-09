@@ -1,16 +1,8 @@
 {
   try {
     if (StringUtils.isNullOrEmpty(str))     return false;
-    XmlOptions options=new XmlOptions();
-    options.put("http://xml.org/sax/features/external-general-entities",false);
-    options.put("http://xml.org/sax/features/external-parameter-entities",false);
-    options.setEntityResolver(new EntityResolver(){
-      @Override public InputSource resolveEntity(      String arg0,      String arg1) throws SAXException, IOException {
-        return null;
-      }
-    }
-);
-    return null != XmlObject.Factory.parse(str,options);
+    XmlObject.Factory.parse(str);
+    return true;
   }
  catch (  Throwable e) {
     return false;
