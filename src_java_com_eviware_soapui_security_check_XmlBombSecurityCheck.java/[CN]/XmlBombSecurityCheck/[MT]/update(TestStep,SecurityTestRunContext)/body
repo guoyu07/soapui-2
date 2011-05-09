@@ -2,10 +2,11 @@
   StringToStringMap params=new StringToStringMap();
   if (parameterMutations.size() == 0)   mutateParameters(testStep,context);
   for (  SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
-{
-      testStep.getProperties().get(param.getName()).setValue(parameterMutations.get(param).get(0));
-      params.put(param.getLabel(),parameterMutations.get(param).get(0));
-      parameterMutations.get(param).remove(0);
+    ArrayList<String> mutations=parameterMutations.get(param);
+    if (mutations != null && !mutations.isEmpty()) {
+      testStep.getProperties().get(param.getName()).setValue(mutations.get(0));
+      params.put(param.getLabel(),mutations.get(0));
+      mutations.remove(0);
       break;
     }
   }
