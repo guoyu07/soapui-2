@@ -2,6 +2,6 @@
   PropertyMutation mutation=PropertyMutation.popMutation(context);
   if (mutation != null) {
     MessageExchange message=(MessageExchange)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(mutation.getMutatedParameters(),message);
+    createMessageExchange(mutation.getMutatedParameters(),message,context);
   }
 }

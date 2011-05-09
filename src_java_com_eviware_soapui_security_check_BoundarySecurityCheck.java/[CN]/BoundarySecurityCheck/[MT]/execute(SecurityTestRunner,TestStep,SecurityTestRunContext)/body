@@ -3,6 +3,6 @@
   if (mutation != null) {
     updateRequestProperty(testStep,mutation);
     MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(mutation.getMutatedParameters(),message);
+    createMessageExchange(mutation.getMutatedParameters(),message,context);
   }
 }

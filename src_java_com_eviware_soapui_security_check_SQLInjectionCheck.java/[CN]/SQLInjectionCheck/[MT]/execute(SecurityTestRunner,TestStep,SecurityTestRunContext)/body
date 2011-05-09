@@ -2,7 +2,7 @@
   try {
     StringToStringMap updatedParams=update(testStep,context);
     MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(updatedParams,message);
+    createMessageExchange(updatedParams,message,context);
   }
  catch (  XmlException e) {
     SoapUI.logError(e,"[SqlInjectionSecurityScan]XPath seems to be invalid!");

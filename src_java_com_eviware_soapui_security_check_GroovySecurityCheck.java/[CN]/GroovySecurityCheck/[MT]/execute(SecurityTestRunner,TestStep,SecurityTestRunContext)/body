@@ -30,7 +30,7 @@
       }
     }
     MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
-    createMessageExchange(clearNullValues(parameters),message);
+    createMessageExchange(clearNullValues(parameters),message,context);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

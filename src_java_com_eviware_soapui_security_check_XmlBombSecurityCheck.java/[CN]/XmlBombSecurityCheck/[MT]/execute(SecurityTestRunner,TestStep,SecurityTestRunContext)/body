@@ -4,7 +4,7 @@
     addAttachement(testStep);
     WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)testStep.run((TestCaseRunner)securityTestRunner,context);
     message.setRequestContent("",false);
-    createMessageExchange(updatedParams,message);
+    createMessageExchange(updatedParams,message,context);
   }
  catch (  XmlException e) {
     SoapUI.logError(e,"[XmlBombSecurityScan]XPath seems to be invalid!");

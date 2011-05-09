@@ -1,4 +1,8 @@
 {
+  for (  String param : updatedParams.keySet()) {
+    String value=context.expand(updatedParams.get(param));
+    updatedParams.put(param,value);
+  }
   message.getProperties().put(SECURITY_CHANGED_PARAMETERS,updatedParams.toXml());
   getSecurityCheckRequestResult().setMessageExchange(message);
 }
