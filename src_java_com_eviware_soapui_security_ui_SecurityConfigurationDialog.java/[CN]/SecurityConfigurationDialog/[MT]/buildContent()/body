@@ -1,0 +1,25 @@
+{
+  JPanel mainPanel=UISupport.createEmptyPanel(5,5,5,5);
+  if (securityCheck instanceof AbstractSecurityCheckWithProperties) {
+    JPanel topPanel=UISupport.createEmptyPanel(0,0,10,10);
+    topPanel.add(buildParametersTable(),BorderLayout.CENTER);
+    JPanel p=UISupport.createEmptyPanel(5,5,0,10);
+    JLabel jLabel=new JLabel("Parameters:");
+    jLabel.setPreferredSize(new Dimension(60,20));
+    p.add(jLabel,BorderLayout.NORTH);
+    topPanel.add(p,BorderLayout.WEST);
+    JComponent component=securityCheck.getComponent();
+    if (component != null)     topPanel.add(component,BorderLayout.SOUTH);
+    mainPanel.add(topPanel,BorderLayout.NORTH);
+  }
+ else {
+    JComponent component=securityCheck.getComponent();
+    if (component != null) {
+      JPanel topPanel=UISupport.createEmptyPanel(0,0,10,10);
+      topPanel.add(component,BorderLayout.SOUTH);
+      mainPanel.add(topPanel,BorderLayout.NORTH);
+    }
+  }
+  mainPanel.add(buildTabs(),BorderLayout.CENTER);
+  return mainPanel;
+}

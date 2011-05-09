@@ -1,0 +1,44 @@
+{
+  XFormDialog dialog=ADialogBuilder.buildDialog(SecurityConfigurationDialogBuilder.Strategy.class,null);
+  XFormRadioGroup strategy=(XFormRadioGroup)dialog.getFormField(Strategy.STRATEGY);
+  final String[] strategyOptions=new String[]{"One by One","All At Once"};
+  strategy.setOptions(strategyOptions);
+  if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.NO_STRATEGY)   strategy.setEnabled(false);
+ else {
+    if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE)     strategy.setValue(strategyOptions[0]);
+ else     strategy.setValue(strategyOptions[1]);
+  }
+  if (securityCheck.getExecutionStrategy().getImmutable()) {
+    strategy.setDisabled();
+  }
+  strategy.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (newValue.equals(strategyOptions[0]))       securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
+ else       securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ALL_AT_ONCE);
+    }
+  }
+);
+  XFormField delay=dialog.getFormField(Strategy.DELAY);
+  delay.setValue(String.valueOf(securityCheck.getExecutionStrategy().getDelay()));
+  delay.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      try {
+        Integer.valueOf(newValue);
+        securityCheck.getExecutionStrategy().setDelay(Integer.valueOf(newValue));
+      }
+ catch (      Exception e) {
+        UISupport.showErrorMessage("Delay value must be integer number");
+      }
+    }
+  }
+);
+  XFormField applyToFailedTests=dialog.getFormField(Strategy.APPLY_TO_FAILED_STEPS);
+  applyToFailedTests.setValue(String.valueOf(securityCheck.isApplyForFailedStep()));
+  applyToFailedTests.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      securityCheck.setApplyForFailedTestStep(Boolean.parseBoolean(newValue));
+    }
+  }
+);
+  return ((JFormDialog)dialog).getPanel();
+}

@@ -19,9 +19,8 @@
     UISupport.showErrorMessage("Failed to add security scan");
     return;
   }
-  XFormDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);
-  dialog.show();
-  if (dialog.getReturnValue() == XFormDialog.CANCEL_OPTION) {
+  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);
+  if (!dialog.configure()) {
     SecurityCheckNode securityCheckNode=(SecurityCheckNode)node.getLastChild();
     securityTest.removeSecurityCheck(testStep,(SecurityCheck)securityCheck);
     cellRender.remove(securityCheckNode);
