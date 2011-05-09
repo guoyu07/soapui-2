@@ -1,6 +1,8 @@
 {
   XFormField field=dialog.getFormField(PARAMETERS_NAME);
-  if (field != null)   addParameterTable(securityCheck,field);
+  if (field != null) {
+    addParameterTable(securityCheck,field);
+  }
   Container content=((JFormDialog)dialog).getDialog().getContentPane();
   if (description != null || icon != null) {
     content.remove(0);
@@ -11,12 +13,15 @@
   }
   XFormField tabs=dialog.getFormField(DefaultDialog.TABS);
   JTabbedFormDialog tabDialog=((JTabbedFormDialog)ADialogBuilder.buildTabbedDialog(TabsForm.class,null));
-  tabDialog.setResizable(true);
   tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("component",new SecurityAssertionPanel((Assertable)securityCheck));
-  tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("dimension",new Dimension(345,260));
+  tabDialog.getFormField(Assertions.ASSERTIONS).setProperty("dimension",new Dimension(345,170));
   tabDialog.getFormField(AdvancedSettings.SETTINGS).setProperty("component",new JScrollPane(securityCheck.getAdvancedSettingsPanel()));
-  tabDialog.getFormField(AdvancedSettings.SETTINGS).setProperty("dimension",new Dimension(410,260));
+  tabDialog.getFormField(AdvancedSettings.SETTINGS).setProperty("dimension",new Dimension(410,170));
   addStrategyPanel(tabDialog,securityCheck);
   tabs.setProperty("component",tabDialog.getTabs());
-  tabs.setProperty("dimension",new Dimension(420,300));
+  tabs.setProperty("dimension",new Dimension(420,170));
+  XFormField parametersFormField=dialog.getFormField(PARAMETERS_NAME);
+  if (parametersFormField != null) {
+    parametersFormField.setProperty("preferredSize",new Dimension(400,150));
+  }
 }
