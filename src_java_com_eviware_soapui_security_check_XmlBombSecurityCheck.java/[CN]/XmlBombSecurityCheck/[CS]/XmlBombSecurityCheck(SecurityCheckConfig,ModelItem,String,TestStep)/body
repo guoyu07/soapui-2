@@ -2,4 +2,5 @@
   super(testStep,config,parent,icon);
   if (config.getConfig() == null || !(config.getConfig() instanceof XmlBombSecurityCheckConfig))   initXmlBombConfig();
  else   xmlBombConfig=(XmlBombSecurityCheckConfig)config.getConfig();
+  getExecutionStrategy().setImmutable(true);
 }

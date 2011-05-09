@@ -7,6 +7,9 @@
     if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE)     strategy.setValue(strategyOptions[0]);
  else     strategy.setValue(strategyOptions[1]);
   }
+  if (securityCheck.getExecutionStrategy().getImmutable()) {
+    strategy.setDisabled();
+  }
   strategy.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       if (newValue.equals(strategyOptions[0]))       securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
