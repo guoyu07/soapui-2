@@ -2,6 +2,9 @@
   dialog.setValue(AdvancedSettings.REQUEST_TIMEOUT,String.valueOf(config.getRequestTimeout()));
   dialog.getFormField(AdvancedSettings.REQUEST_TIMEOUT).addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      if (newValue == null || newValue.trim().length() == 0) {
+        return;
+      }
       try {
         int val=Integer.valueOf(newValue);
         config.setRequestTimeout(val);
