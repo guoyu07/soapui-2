@@ -1,0 +1,28 @@
+{
+  return new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      Object result=null;
+      List<String> urls=new ArrayList<String>();
+      scriptEngine.setScript(script);
+      scriptEngine.setVariable("urls",urls);
+      scriptEngine.setVariable("messageExchange",messageExchange);
+      scriptEngine.setVariable("context",context);
+      scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+      try {
+        result=scriptEngine.run();
+        String generatedUrls="";
+        for (        String url : urls) {
+          generatedUrls+="\n" + url;
+        }
+        UISupport.showInfoMessage("Generated urls :" + generatedUrls + " \n\nScript result"+ ((result == null) ? "" : ": " + result + ""));
+      }
+ catch (      Exception ex) {
+        SoapUI.logError(ex);
+      }
+ finally {
+        scriptEngine.clearVariables();
+      }
+    }
+  }
+;
+}

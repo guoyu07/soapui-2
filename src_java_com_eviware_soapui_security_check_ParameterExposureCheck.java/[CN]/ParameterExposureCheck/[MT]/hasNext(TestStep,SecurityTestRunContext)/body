@@ -15,6 +15,7 @@
   if (stack.empty()) {
     context.remove(PropertyMutation.REQUEST_MUTATIONS_STACK);
     context.remove(PARAMETER_EXPOSURE_CHECK_CONFIG);
+    removeFromContext(context);
     return false;
   }
  else {

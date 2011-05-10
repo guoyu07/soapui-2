@@ -1,0 +1,11 @@
+{
+  HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
+  httpRequest.setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(url));
+  httpRequest.setMethod("GET");
+  TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
+  testStepConfig.setType(HttpRequestStepFactory.HTTPREQUEST_TYPE);
+  testStepConfig.setConfig(httpRequest);
+  testStepConfig.setName("Separate Request");
+  WsdlTestStepFactory factory=WsdlTestStepRegistry.getInstance().getFactory((HttpRequestStepFactory.HTTPREQUEST_TYPE));
+  return (HttpTestRequestStep)factory.buildTestStep((WsdlTestCase)testStep2.getTestCase(),testStepConfig,false);
+}

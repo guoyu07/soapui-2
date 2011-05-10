@@ -1,4 +1,5 @@
 {
+  sendToContext(context,testStep,securityTestRunner);
   PropertyMutation mutation=PropertyMutation.popMutation(context);
   if (mutation != null) {
     MessageExchange message=(MessageExchange)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);

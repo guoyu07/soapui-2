@@ -1,0 +1,8 @@
+{
+  if (dialog == null)   buildDialog();
+  dialog.show();
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    setConfiguration(createConfiguration());
+  }
+  return true;
+}

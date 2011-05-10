@@ -1,0 +1,20 @@
+{
+  List<String> urls=new ArrayList<String>();
+  scriptEngine.setScript(script);
+  scriptEngine.setVariable("urls",urls);
+  scriptEngine.setVariable("messageExchange",messageExchange);
+  this.messageExchange=messageExchange;
+  scriptEngine.setVariable("context",context);
+  this.context=context;
+  scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
+  try {
+    scriptEngine.run();
+  }
+ catch (  Exception ex) {
+    SoapUI.logError(ex);
+  }
+ finally {
+    scriptEngine.clearVariables();
+  }
+  return urls;
+}
