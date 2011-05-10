@@ -1,5 +1,6 @@
 {
   if (securityCheckResult != null)   for (  SecurityCheckRequestResult result : securityCheckResult.getSecurityRequestResultList()) {
+    if (result.getMessageExchange() == null)     return;
     assertion.assertRequest(result.getMessageExchange(),new WsdlSubmitContext(testStep));
   }
 }
