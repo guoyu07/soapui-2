@@ -10,6 +10,9 @@
       scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
       try {
         result=scriptEngine.run();
+        if (result instanceof List) {
+          urls=(List<String>)result;
+        }
         String generatedUrls="";
         for (        String url : urls) {
           generatedUrls+="\n" + url;

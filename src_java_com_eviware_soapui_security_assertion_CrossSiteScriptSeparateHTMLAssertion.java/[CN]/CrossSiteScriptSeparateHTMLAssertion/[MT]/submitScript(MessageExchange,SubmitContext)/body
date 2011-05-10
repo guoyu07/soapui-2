@@ -8,7 +8,10 @@
   this.context=context;
   scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
   try {
-    scriptEngine.run();
+    Object result=scriptEngine.run();
+    if (result instanceof List) {
+      urls=(List<String>)result;
+    }
   }
  catch (  Exception ex) {
     SoapUI.logError(ex);
