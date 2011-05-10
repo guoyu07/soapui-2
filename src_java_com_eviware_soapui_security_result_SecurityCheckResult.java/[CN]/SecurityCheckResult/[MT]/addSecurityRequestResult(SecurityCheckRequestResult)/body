@@ -22,6 +22,11 @@
   logIconStatus=status;
   executionProgressStatus=status;
   this.testLog.append("\n").append(secReqResult.getChangedParamsInfo(requestCount));
-  for (  String s : secReqResult.getMessages())   testLog.append("\n -> ").append(s);
+  for (  String s : secReqResult.getMessages()) {
+    if (s.length() > MAX_REQ_LOG_ENTRY_LENGTH) {
+      s=s.substring(0,MAX_REQ_LOG_ENTRY_LENGTH);
+    }
+    testLog.append("\n -> ").append(s);
+  }
   hasAddedRequests=true;
 }
