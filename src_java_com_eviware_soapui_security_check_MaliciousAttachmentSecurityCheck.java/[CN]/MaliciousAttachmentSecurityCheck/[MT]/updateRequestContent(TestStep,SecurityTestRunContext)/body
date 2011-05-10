@@ -1,5 +1,7 @@
 {
-  setRequestTimeout(testStep,config.getRequestTimeout());
+  if (config.getRequestTimeout() > 0) {
+    setRequestTimeout(testStep,config.getRequestTimeout());
+  }
   for (  MaliciousAttachmentElementConfig element : config.getElementList()) {
     if (element.getRemove()) {
       removeAttachment(testStep,element.getKey());
