@@ -33,8 +33,10 @@
   securityTestTree.setRowHeight(30);
   securityTestTree.setToggleClickCount(0);
   securityTestTree.setBackground(new Color(240,240,240));
+  securityTestTree.setScrollsOnExpand(true);
   add(toolbar,BorderLayout.NORTH);
-  JScrollPane scrollPane=new JScrollPane(securityTestTree);
+  scrollPane=new JScrollPane(securityTestTree);
+  scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
   add(scrollPane,BorderLayout.CENTER);
   securityTest.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
   securityTest.addSecurityTestListener(this);

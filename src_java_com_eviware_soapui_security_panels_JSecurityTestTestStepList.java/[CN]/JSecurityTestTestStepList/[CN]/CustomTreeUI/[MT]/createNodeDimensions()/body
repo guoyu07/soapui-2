@@ -3,7 +3,10 @@
     @Override public Rectangle getNodeDimensions(    Object value,    int row,    int depth,    boolean expanded,    Rectangle size){
       Rectangle dimensions=super.getNodeDimensions(value,row,depth,expanded,size);
       Insets insets=tree.getInsets();
-      dimensions.width=tree.getWidth() - getRowX(row,depth) - insets.right;
+      if (scrollPane == null)       dimensions.width=tree.getWidth() - getRowX(row,depth) - insets.right;
+ else {
+        dimensions.width=scrollPane.getViewport().getWidth() - getRowX(row,depth) - insets.right;
+      }
       return dimensions;
     }
   }
