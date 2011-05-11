@@ -1,7 +1,8 @@
 {
-  boolean hasNext=currentIndex++ < 1;
+  boolean hasNext=elementIndex < config.getElementList().size();
   if (!hasNext) {
-    currentIndex=0;
+    elementIndex=-1;
+    valueIndex=-1;
   }
   return hasNext;
 }

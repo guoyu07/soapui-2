@@ -2,8 +2,15 @@
   WsdlRequest request=(WsdlRequest)getRequest(testStep);
   List<Attachment> toRemove=new ArrayList<Attachment>();
   for (  Attachment attachment : request.getAttachments()) {
-    if (attachment.getId().equals(id)) {
-      toRemove.add(attachment);
+    if (equals) {
+      if (attachment.getId().equals(key)) {
+        toRemove.add(attachment);
+      }
+    }
+ else {
+      if (!attachment.getId().equals(key)) {
+        toRemove.add(attachment);
+      }
     }
   }
   for (  Attachment remove : toRemove) {
