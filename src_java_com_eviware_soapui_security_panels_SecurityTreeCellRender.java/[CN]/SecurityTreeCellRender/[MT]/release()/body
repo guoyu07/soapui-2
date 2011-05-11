@@ -1,5 +1,5 @@
 {
-  for (  DefaultMutableTreeNode key : componentTree.keySet())   if (key instanceof ReleasableNode) {
+  for (  DefaultMutableTreeNode key : componentTree.keySet())   if (componentTree.get(key) instanceof ReleasableNode) {
     ((ReleasableNode)componentTree.get(key)).release();
   }
   componentTree.clear();
