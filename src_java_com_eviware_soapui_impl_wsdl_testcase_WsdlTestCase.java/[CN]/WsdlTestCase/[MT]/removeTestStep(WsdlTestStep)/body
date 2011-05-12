@@ -7,7 +7,8 @@
   testSteps.remove(ix);
   for (  SecurityTest securityTest : getSecurityTestList()) {
     List<SecurityCheck> testStepChecks=securityTest.getTestStepSecurityChecks(testStep.getId());
-    for (    SecurityCheck chk : testStepChecks) {
+    for (Iterator<SecurityCheck> iterator=testStepChecks.iterator(); iterator.hasNext() && !testStepChecks.isEmpty(); ) {
+      SecurityCheck chk=iterator.next();
       securityTest.removeSecurityCheck(testStep,chk);
     }
   }
