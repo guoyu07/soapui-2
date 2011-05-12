@@ -4,9 +4,13 @@
   SoftReference<SecurityResult> checkReqResultRef=new SoftReference<SecurityResult>(securityCheckRequestResult);
   items.add(securityCheckRequestResult.getChangedParamsInfo(requestCount));
   results.add(checkReqResultRef);
+  currentCheckEntriesCount++;
+  currentStepEntriesCount++;
   for (  String msg : securityCheckRequestResult.getMessages()) {
     items.add(" -> " + msg);
     results.add(checkReqResultRef);
+    currentCheckEntriesCount++;
+    currentStepEntriesCount++;
   }
   fireIntervalAdded(this,size,items.size() - 1);
   enforceMaxSize();

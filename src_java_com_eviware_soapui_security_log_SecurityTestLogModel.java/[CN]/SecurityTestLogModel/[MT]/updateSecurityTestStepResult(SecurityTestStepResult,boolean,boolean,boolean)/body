@@ -1,4 +1,8 @@
 {
+  int startStepIndex=0;
+  if (items.size() > currentStepEntriesCount) {
+    startStepIndex=items.size() - currentStepEntriesCount - 1;
+  }
   if ((errorsOnly && result.getStatus() != ResultStatus.FAILED) || (startStepLogEntryAdded && !hasChecksToProcess)) {
     int size=items.size() - 1;
     while (size >= startStepIndex) {
@@ -9,9 +13,17 @@
     fireIntervalRemoved(this,startStepIndex,size);
   }
  else   if (startStepLogEntryAdded) {
-    items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getExecutionProgressStatus()+ ": took "+ result.getTimeTaken()+ " ms");
-    SoftReference<SecurityResult> stepResultRef=new SoftReference<SecurityResult>(result);
-    results.set(startStepIndex,stepResultRef);
-    fireContentsChanged(this,startStepIndex,startStepIndex);
+    try {
+      if (startStepIndex > 0 && startStepIndex < maxSize) {
+        items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getExecutionProgressStatus()+ ": took "+ result.getTimeTaken()+ " ms");
+        SoftReference<SecurityResult> stepResultRef=new SoftReference<SecurityResult>(result);
+        results.set(startStepIndex,stepResultRef);
+        fireContentsChanged(this,startStepIndex,startStepIndex);
+      }
+    }
+ catch (    IndexOutOfBoundsException e) {
+      System.out.println("*******" + startStepIndex);
+    }
   }
+  currentStepEntriesCount=0;
 }
