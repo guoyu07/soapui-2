@@ -1,0 +1,12 @@
+{
+  for (  String value : parameterExposureCheckConfig.getParameterExposureStringsList()) {
+    value=context.expand(value);
+    String match=SecurityCheckUtil.contains(context,new String(messageExchange.getRawResponseData()),value,false);
+    if (match != null) {
+      String message="Content that is sent in request '" + value + "' is exposed in response. Possibility for XSS script attack in: "+ messageExchange.getModelItem().getName();
+      assertionErrorList.add(new AssertionError(message));
+      throwException=true;
+    }
+  }
+  return throwException;
+}

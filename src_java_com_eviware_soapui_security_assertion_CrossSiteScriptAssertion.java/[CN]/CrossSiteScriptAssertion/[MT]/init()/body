@@ -1,0 +1,7 @@
+{
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  script=reader.readString(GROOVY_SCRIPT,"");
+  checkResponse=reader.readBoolean(CHECK_RESPONSE,true);
+  checkSeparateHTML=reader.readBoolean(CHECK_SEPARATE_HTML,false);
+  groovyEditorModel.setScript(script);
+}

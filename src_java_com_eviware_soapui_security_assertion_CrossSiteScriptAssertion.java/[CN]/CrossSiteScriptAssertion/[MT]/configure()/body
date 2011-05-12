@@ -1,0 +1,10 @@
+{
+  if (dialog == null)   buildDialog();
+  dialog.show();
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    checkResponse=Boolean.valueOf(dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.CHECK_RESPONSE).getValue());
+    checkSeparateHTML=Boolean.valueOf(dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.CHECK_SEPARATE_HTML).getValue());
+    setConfiguration(createConfiguration());
+  }
+  return true;
+}

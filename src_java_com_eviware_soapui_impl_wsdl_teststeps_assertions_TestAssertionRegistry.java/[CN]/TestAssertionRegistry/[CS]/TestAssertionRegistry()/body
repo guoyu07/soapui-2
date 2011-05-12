@@ -21,8 +21,7 @@
   addAssertion(new ValidHttpStatusCodesAssertion.Factory());
   addAssertion(new InvalidHttpStatusCodesAssertion.Factory());
   addAssertion(new SensitiveInfoExposureAssertion.Factory());
-  addAssertion(new ParameterExposureAssertion.Factory());
-  addAssertion(new CrossSiteScriptSeparateHTMLAssertion.Factory());
+  addAssertion(new CrossSiteScriptAssertion.Factory());
   for (  TestAssertionFactory factory : SoapUI.getFactoryRegistry().getFactories(TestAssertionFactory.class)) {
     addAssertion(factory);
   }
