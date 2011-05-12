@@ -1,7 +1,7 @@
 {
   WsdlRequest request=(WsdlRequest)getRequest(testStep);
   request.setInlineFilesEnabled(false);
-  Attachment attach=request.attachFile(file,false);
+  Attachment attach=request.attachFile(file,cache);
   attach.setContentType(contentType);
   if (generated) {
     file.deleteOnExit();
