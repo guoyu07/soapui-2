@@ -1,10 +1,7 @@
 {
   super(new BorderLayout());
   this.assertable=assertable;
-  assertionListModel=new AssertionListModel();
-  assertionList=new JList(assertionListModel);
-  assertionList.setToolTipText("Assertions for this request");
-  assertionList.setCellRenderer(new AssertionCellRenderer());
+  initListAndModel();
   assertionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   assertionListPopup=new JPopupMenu();
   addAssertionAction=new AddAssertionAction(assertable);

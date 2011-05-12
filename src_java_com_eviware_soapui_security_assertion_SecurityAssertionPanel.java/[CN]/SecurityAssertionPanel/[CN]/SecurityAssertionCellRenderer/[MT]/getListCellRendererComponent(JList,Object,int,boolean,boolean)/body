@@ -1,0 +1,7 @@
+{
+  setEnabled(list.isEnabled());
+  TestAssertion assertion=(TestAssertion)value;
+  setText(assertion.getLabel());
+  if (assertion.isDisabled() && isEnabled())   setEnabled(false);
+  return this;
+}
