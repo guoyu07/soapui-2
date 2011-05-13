@@ -2,7 +2,9 @@
   securityCheckResult=new SecurityCheckResult(this);
   SecurityTestRunListener[] securityTestListeners=((SecurityTest)getParent()).getSecurityTestRunListeners();
   PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  boolean noMutations=true;
   while (hasNext(testStep,context)) {
+    noMutations=false;
     if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
       securityCheckResult.setStatus(ResultStatus.CANCELED);
       clear();
@@ -25,6 +27,9 @@
  catch (    InterruptedException e) {
       SoapUI.logError(e,"Security Scan Request Delay Interrupted!");
     }
+  }
+  if (noMutations) {
+    securityCheckResult.setStatus(ResultStatus.NOTHING_TO_SEND);
   }
   return securityCheckResult;
 }
