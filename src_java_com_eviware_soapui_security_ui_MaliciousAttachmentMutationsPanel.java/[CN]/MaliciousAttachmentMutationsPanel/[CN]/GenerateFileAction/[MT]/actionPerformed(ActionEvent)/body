@@ -16,7 +16,7 @@
       return;
     }
     try {
-      File file=new RandomFile(newSize,"attachment",contentType).next();
+      File file=File.createTempFile(StringUtils.createFileName("attachment",'-'),"." + ContentTypeHandler.getExtensionForContentType(contentType));
       String filename=file.getAbsolutePath();
       Boolean enabled=new Boolean(true);
       Boolean cached=new Boolean(true);

@@ -1,4 +1,7 @@
 {
   this.length=length;
-  file=File.createTempFile(StringUtils.createFileName(name,'-'),"." + ContentTypeHandler.getExtensionForContentType(contentType));
+  file=new File(name);
+  if (!file.exists()) {
+    file.createNewFile();
+  }
 }

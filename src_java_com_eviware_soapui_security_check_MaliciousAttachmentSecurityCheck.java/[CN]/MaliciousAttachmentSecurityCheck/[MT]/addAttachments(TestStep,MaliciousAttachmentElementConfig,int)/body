@@ -17,13 +17,8 @@
   if (value.getEnabled()) {
     try {
       if (!file.exists()) {
-        if (generated) {
-          file=new RandomFile(value.getSize(),"attachment",value.getContentType()).next();
-        }
- else {
-          UISupport.showErrorMessage("Missing file: " + file.getName());
-          return;
-        }
+        UISupport.showErrorMessage("Missing file: " + file.getName());
+        return;
       }
       addAttachment(testStep,file,value.getContentType(),generated,value.getCached());
     }

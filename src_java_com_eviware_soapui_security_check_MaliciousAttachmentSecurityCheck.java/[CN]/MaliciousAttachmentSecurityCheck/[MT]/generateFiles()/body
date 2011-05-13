@@ -1,0 +1,17 @@
+{
+  if (config != null) {
+    for (    MaliciousAttachmentElementConfig element : config.getElementList()) {
+      for (      MaliciousAttachmentConfig value : element.getGenerateAttachmentList()) {
+        File file=new File(value.getFilename());
+        try {
+          if (!file.exists() || file.length() == 0) {
+            file=new RandomFile(value.getSize(),value.getFilename(),value.getContentType()).next();
+          }
+        }
+ catch (        IOException e) {
+          SoapUI.logError(e);
+        }
+      }
+    }
+  }
+}

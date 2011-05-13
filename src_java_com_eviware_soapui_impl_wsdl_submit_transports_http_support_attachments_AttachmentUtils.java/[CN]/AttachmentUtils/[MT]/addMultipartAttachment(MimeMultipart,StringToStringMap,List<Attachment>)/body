@@ -1,15 +1,22 @@
 {
   MimeMultipart multipart=new MimeMultipart("mixed");
+  long totalSize=0;
   for (int c=0; c < attachments.size(); c++) {
     Attachment att=attachments.get(c);
     String contentType=att.getContentType();
+    totalSize+=att.getSize();
     MimeBodyPart part=contentType.startsWith("text/") ? new MimeBodyPart() : new PreencodedMimeBodyPart("binary");
     part.setDataHandler(new DataHandler(new AttachmentDataSource(att)));
     initPartContentId(contentIds,part,att,false);
     multipart.addBodyPart(part);
   }
   MimeBodyPart part=new PreencodedMimeBodyPart("binary");
-  part.setDataHandler(new DataHandler(new MultipartAttachmentDataSource(multipart)));
+  if (totalSize > MAX_SIZE_IN_MEMORY_ATTACHMENT) {
+    part.setDataHandler(new DataHandler(new MultipartAttachmentFileDataSource(multipart)));
+  }
+ else {
+    part.setDataHandler(new DataHandler(new MultipartAttachmentDataSource(multipart)));
+  }
   Attachment attachment=attachments.get(0);
   initPartContentId(contentIds,part,attachment,true);
   mp.addBodyPart(part);

@@ -1,0 +1,15 @@
+{
+  try {
+    File file=File.createTempFile("largeAttachment",".tmp");
+    file.deleteOnExit();
+    BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(file));
+    multipart.writeTo(out);
+    out.flush();
+    out.close();
+    return new BufferedInputStream(new FileInputStream(file));
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}
