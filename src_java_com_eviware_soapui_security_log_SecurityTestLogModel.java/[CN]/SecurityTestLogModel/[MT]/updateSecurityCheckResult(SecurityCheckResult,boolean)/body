@@ -11,7 +11,12 @@
       results.remove(size);
       size--;
     }
-    fireIntervalRemoved(this,startCheckIndex,size);
+    if (startCheckIndex > 0) {
+      fireIntervalRemoved(this,startCheckIndex,size);
+    }
+ else {
+      fireIntervalRemoved(this,startCheckIndex,size);
+    }
   }
  else {
     SecurityCheck securityCheck=securityCheckResult.getSecurityCheck();
