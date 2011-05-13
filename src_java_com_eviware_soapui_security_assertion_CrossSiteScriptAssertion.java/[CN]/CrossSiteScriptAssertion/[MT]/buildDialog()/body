@@ -3,6 +3,14 @@
   dialog.setSize(600,600);
   dialog.setBooleanValue(CrossSiteScripSeparateHTMLConfigDialog.CHECK_RESPONSE,checkResponse);
   dialog.setBooleanValue(CrossSiteScripSeparateHTMLConfigDialog.CHECK_SEPARATE_HTML,checkSeparateHTML);
-  dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.GROOVY).setProperty("component",new JScrollPane(buildGroovyPanel()));
+  final GroovyEditorComponent groovyEditorComponent=buildGroovyPanel();
+  dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.GROOVY).setProperty("component",new JScrollPane(groovyEditorComponent));
   dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.GROOVY).setProperty("dimension",new Dimension(450,400));
+  dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.CHECK_SEPARATE_HTML).addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      groovyEditorComponent.setEnabled(new Boolean(newValue));
+    }
+  }
+);
+  groovyEditorComponent.setEnabled(checkSeparateHTML);
 }
