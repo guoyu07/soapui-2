@@ -4,13 +4,13 @@
       Boolean retval=UISupport.confirmOrCancel("Cancel running SecurityTest?","Cancel Run");
       if (retval == null)       return false;
       if (retval.booleanValue()) {
-        runner.cancel(null);
+        if (runner != null)         runner.cancel(null);
       }
     }
   }
  else {
     if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
-      runner.cancel(null);
+      if (runner != null)       runner.cancel(null);
     }
   }
   getModelItem().removeSecurityTestRunListener(securityTestRunListener);

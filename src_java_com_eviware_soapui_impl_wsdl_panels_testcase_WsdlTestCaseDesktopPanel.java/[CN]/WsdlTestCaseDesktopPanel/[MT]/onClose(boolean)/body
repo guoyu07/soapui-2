@@ -4,13 +4,13 @@
       Boolean retval=UISupport.confirmOrCancel("Cancel running TestCase?","Cancel Run");
       if (retval == null)       return false;
       if (retval.booleanValue()) {
-        runner.cancel(null);
+        if (runner != null)         runner.cancel(null);
       }
     }
   }
  else {
     if (runner != null && runner.getStatus() == TestCaseRunner.Status.RUNNING) {
-      runner.cancel(null);
+      if (runner != null)       runner.cancel(null);
     }
   }
   SoapUI.getTestMonitor().removeTestMonitorListener(testMonitorListener);
