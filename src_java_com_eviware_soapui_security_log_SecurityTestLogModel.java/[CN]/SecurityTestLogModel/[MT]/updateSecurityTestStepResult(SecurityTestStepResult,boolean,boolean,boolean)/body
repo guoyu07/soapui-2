@@ -1,16 +1,17 @@
 {
   int startStepIndex=0;
   if (items.size() > currentStepEntriesCount) {
-    startStepIndex=items.size() - currentStepEntriesCount - 1;
+    if (currentStepEntriesCount > 0)     startStepIndex=items.size() - currentStepEntriesCount - 1;
+ else     startStepIndex=items.size();
   }
-  if ((errorsOnly && result.getStatus() != ResultStatus.FAILED) || (startStepLogEntryAdded && !hasChecksToProcess)) {
+  if ((errorsOnly && !result.isHasChecksWithWarnings()) || (startStepLogEntryAdded && !hasChecksToProcess)) {
     int size=items.size() - 1;
     while (size >= startStepIndex) {
       items.remove(size);
       results.remove(size);
       size--;
     }
-    if (startStepIndex > 0) {
+    if (startStepIndex > 0 && size > 0) {
       fireIntervalRemoved(this,startStepIndex,size);
     }
  else {

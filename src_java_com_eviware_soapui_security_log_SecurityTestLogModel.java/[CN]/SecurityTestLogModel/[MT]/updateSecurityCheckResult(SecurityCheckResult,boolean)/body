@@ -1,9 +1,10 @@
 {
   int startCheckIndex=0;
   if (items.size() > currentCheckEntriesCount) {
-    startCheckIndex=items.size() - currentCheckEntriesCount - 1;
+    if (currentCheckEntriesCount > 0)     startCheckIndex=items.size() - currentCheckEntriesCount - 1;
+ else     startCheckIndex=items.size();
   }
-  if (errorsOnly && securityCheckResult.getStatus() != ResultStatus.FAILED) {
+  if (errorsOnly && !securityCheckResult.isHasRequestsWithWarnings()) {
     checkCount--;
     int size=items.size() - 1;
     while (size >= startCheckIndex) {

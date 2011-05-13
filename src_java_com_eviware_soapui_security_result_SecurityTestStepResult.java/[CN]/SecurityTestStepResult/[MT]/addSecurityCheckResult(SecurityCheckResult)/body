@@ -34,4 +34,7 @@
   }
   this.testLog.append(securityCheckResult.getSecurityTestLog());
   hasAddedRequests=true;
+  if (securityCheckResult.isHasRequestsWithWarnings()) {
+    hasChecksWithWarnings=true;
+  }
 }
