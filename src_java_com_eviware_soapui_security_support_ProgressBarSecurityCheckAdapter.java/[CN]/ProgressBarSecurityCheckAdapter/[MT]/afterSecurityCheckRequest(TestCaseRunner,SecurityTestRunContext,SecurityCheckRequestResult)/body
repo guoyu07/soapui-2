@@ -28,6 +28,7 @@
           cntLabel.setBackground(FAILED_COLOR);
           cntLabel.setText(prePostFix + alertsCounter + prePostFix);
         }
+        if (progressBar.getValue() >= progressBar.getMaximum() * .9)         progressBar.setMaximum(progressBar.getMaximum() + 5);
         progressBar.setValue(progressBar.getValue() + 1);
       }
     }
