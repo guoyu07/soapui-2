@@ -3,7 +3,7 @@
   if (securityTestListeners == null || securityTestListeners.length == 0)   return;
   for (int i=0; i < securityTestListeners.length; i++) {
     try {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterRun(this,getRunContext());
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterRun(this,getRunContext());
     }
  catch (    Throwable t) {
       SoapUI.logError(t);

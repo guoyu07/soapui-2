@@ -7,13 +7,13 @@
     if (stepResult == null)     jumpExit=true;
     SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep,stepResult);
     for (int i=0; i < securityTestListeners.length; i++) {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterOriginalStep(this,getRunContext(),securityStepResult);
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterOriginalStep(this,getRunContext(),securityStepResult);
     }
     for (int i=0; i < securityTestListeners.length; i++) {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].beforeStep(this,getRunContext(),stepResult);
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].beforeStep(this,getRunContext(),stepResult);
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].beforeStep(this,getRunContext(),stepResult);
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].beforeStep(this,getRunContext(),stepResult);
     }
     Map<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
@@ -45,10 +45,10 @@
       securityTest.putSecurityTestStepResult(currentStep,securityStepResult);
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);
     }
     for (int i=0; i < securityTestListeners.length; i++) {
-      if (Arrays.asList(getTestCase().getTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
+      if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterStep(this,getRunContext(),securityStepResult);
     }
     if (jumpExit) {
       return -2;
