@@ -31,7 +31,7 @@
             if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
               PropertyMutation oneByOnePropertyMutation=new PropertyMutation();
               oneByOnePropertyMutation.setPropertyName(scp.getName());
-              oneByOnePropertyMutation.setPropertyValue(model.getXmlObject().toString());
+              oneByOnePropertyMutation.setPropertyValue(unescapEscaped(model.getXmlObject().toString()));
               stsmap.put(scp.getLabel(),mynode.getNodeText());
               oneByOnePropertyMutation.setMutatedParameters(stsmap);
               oneByOnePropertyMutation.updateRequestProperty(testStepCopy);
@@ -40,7 +40,7 @@
             }
  else {
               allAtOncePropertyMutation.setPropertyName(scp.getName());
-              allAtOncePropertyMutation.setPropertyValue(model.getXmlObject().toString());
+              allAtOncePropertyMutation.setPropertyValue(unescapEscaped(model.getXmlObject().toString()));
               stsmap.put(scp.getLabel(),mynode.getNodeText());
               allAtOncePropertyMutation.setMutatedParameters(stsmap);
               allAtOncePropertyMutation.updateRequestProperty(testStepCopy);

@@ -2,7 +2,8 @@
   sendToContext(context,testStep,securityTestRunner);
   PropertyMutation mutation=PropertyMutation.popMutation(context);
   if (mutation != null) {
-    MessageExchange message=(MessageExchange)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+    WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+    message.setRequestContent("",false);
     createMessageExchange(mutation.getMutatedParameters(),message,context);
   }
 }
