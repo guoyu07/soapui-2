@@ -10,7 +10,7 @@
   builder.startScript(SECURITYTESTRUNNER,BAT,SH);
   if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
   if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
-  addPropertyArguments(builder);
+  if (!values.get(SECURITY_TEST_NAME).equals(ALL_VALUE))   builder.addString(SECURITY_TEST_NAME,"-n","");
   builder.addArgs(new String[]{modelItem.getPath()});
   addToolArgs(values,builder);
   return builder;

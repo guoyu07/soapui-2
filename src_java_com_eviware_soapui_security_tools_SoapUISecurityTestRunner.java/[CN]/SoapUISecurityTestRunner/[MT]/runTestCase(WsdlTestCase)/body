@@ -1,8 +1,7 @@
 {
   try {
-    log.info("Running TestCase [" + testCase.getName() + "]");
     for (    SecurityTest securityTest : testCase.getSecurityTestList()) {
-      runSecurityTest(securityTest);
+      if (StringUtils.isNullOrEmpty(securityTestName) || securityTest.getName().equals(securityTestName))       runSecurityTest(securityTest);
     }
   }
  catch (  Exception e) {

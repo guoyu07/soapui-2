@@ -23,6 +23,7 @@
     }
     testCases.add(0,ALL_VALUE);
     mainForm.setOptions(TESTCASE,testCases.toArray());
+    mainForm.getComponent(SAVEPROJECT).setEnabled(!modelItem.isRemote());
   }
   StringToStringMap values=super.initValues(modelItem,param);
   if (mainForm != null) {

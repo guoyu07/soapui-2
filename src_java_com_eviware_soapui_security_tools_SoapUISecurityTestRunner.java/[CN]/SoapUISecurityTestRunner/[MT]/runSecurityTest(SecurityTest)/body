@@ -1,4 +1,15 @@
 {
-  SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(securityTest,new StringToObjectMap());
-  testRunner.start(false);
+  securityTest.addSecurityTestRunListener(new SecurityTestRunListenerAdapter(){
+    @Override public void afterSecurityCheckRequest(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityCheckRequestResult securityCheckReqResult){
+      securityScanRequestCount++;
+      if (securityCheckReqResult.getStatus() == ResultStatus.FAILED)       securityScanAlertCount++;
+    }
+    @Override public void afterSecurityCheck(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityCheckResult securityCheckResult){
+      securityScanCount++;
+    }
+  }
+);
+  log.info("Running SecurityTest [" + securityTest.getName() + "] in TestCase ["+ securityTest.getTestCase().getName()+ "] in TestSuite ["+ securityTest.getTestCase().getTestSuite().getName()+ "]");
+  SecurityTestRunner runner=securityTest.run(null,false);
+  log.info("SecurityTest [" + securityTest.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ (runner.getTimeTaken())+ "ms");
 }
