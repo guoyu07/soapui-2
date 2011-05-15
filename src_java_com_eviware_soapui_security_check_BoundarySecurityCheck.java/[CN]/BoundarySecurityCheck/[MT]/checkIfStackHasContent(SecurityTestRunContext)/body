@@ -1,5 +1,8 @@
 {
   Stack<PropertyMutation> stack=(Stack<PropertyMutation>)context.get(REQUEST_MUTATIONS_STACK);
-  if (stack.empty())   return false;
+  if (stack.empty()) {
+    context.remove(REQUEST_MUTATIONS_STACK);
+    return false;
+  }
  else   return true;
 }
