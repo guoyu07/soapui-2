@@ -1,5 +1,12 @@
 {
+  if (strategyDialog != null) {
+    strategyDialog.release();
+    strategyDialog=null;
+  }
+  securityAssertionPanel.release();
+  securityAssertionPanel=null;
   securityCheck=null;
   tabs.removeAll();
+  tabs=null;
   dispose();
 }

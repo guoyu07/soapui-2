@@ -1,6 +1,7 @@
 {
   tabs=new JTabbedPane();
-  tabs.addTab("Assertions",new SecurityAssertionPanel(securityCheck));
+  securityAssertionPanel=new SecurityAssertionPanel(securityCheck);
+  tabs.addTab("Assertions",securityAssertionPanel);
   tabs.addTab("Strategy",buildStrategyTab());
   JComponent advancedSettingsPanel=securityCheck.getAdvancedSettingsPanel();
   if (advancedSettingsPanel != null)   tabs.addTab("Advanced",new JScrollPane(advancedSettingsPanel));

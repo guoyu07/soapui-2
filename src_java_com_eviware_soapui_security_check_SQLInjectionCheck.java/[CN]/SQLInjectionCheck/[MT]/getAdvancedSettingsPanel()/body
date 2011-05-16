@@ -1,5 +1,5 @@
 {
-  JFormDialog dialog=(JFormDialog)ADialogBuilder.buildDialog(AdvancedSettings.class);
+  dialog=(JFormDialog)ADialogBuilder.buildDialog(AdvancedSettings.class);
   JStringListFormField stringField=(JStringListFormField)dialog.getFormField(AdvancedSettings.INJECTION_STRINGS);
   stringField.setOptions(sqlInjectionConfig.getSqlInjectionStringsList().toArray());
   stringField.setProperty("dimension",new Dimension(470,150));
