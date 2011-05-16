@@ -3,6 +3,7 @@
     if (securityChecksMap.get(testStepId).contains(securityCheck)) {
       securityChecksMap.get(testStepId).remove(securityCheck);
       fireSecurityCheckRemoved(securityCheck);
+      securityCheck.release();
     }
   }
 }
