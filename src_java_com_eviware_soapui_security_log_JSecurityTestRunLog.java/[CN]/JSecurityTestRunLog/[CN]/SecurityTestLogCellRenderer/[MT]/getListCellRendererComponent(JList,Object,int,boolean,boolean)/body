@@ -40,16 +40,9 @@
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());
-      hyperlinkLabel.setUnderlineColor(Color.WHITE);
-      hyperlinkLabel.setIcon(null);
-      if (getText().startsWith("Step") && !getText().startsWith(" ->")) {
-        hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
-        hyperlinkLabel.setUnderlineColor(Color.GRAY);
-        setStatusIcon(securitytestStepresult);
-      }
- else {
-        hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
-      }
+      hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,4,3,3));
+      hyperlinkLabel.setUnderlineColor(Color.GRAY);
+      setStatusIcon(securitytestStepresult);
     }
     return hyperlinkLabel;
   }
