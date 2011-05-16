@@ -1,9 +1,9 @@
 {
   DefaultActionList actions=new DefaultActionList("Actions");
   actions.addAction(new HelpAction(url));
-  OKAction okAction=new OKAction();
+  OKAction okAction=new OKAction(dialog);
   actions.addAction(okAction);
-  actions.addAction(new CancelAction());
+  actions.addAction(new CancelAction(dialog));
   actions.setDefaultAction(okAction);
   return actions;
 }
