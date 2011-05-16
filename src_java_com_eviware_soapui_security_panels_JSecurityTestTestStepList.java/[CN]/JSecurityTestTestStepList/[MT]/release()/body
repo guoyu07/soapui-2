@@ -3,4 +3,7 @@
   securityTest.getTestCase().getTestSuite().removeTestSuiteListener(testSuiteListener);
   securityTest.removeSecurityTestListener(this);
   securityTest.removeSecurityTestRunListener(testRunListener);
+  if (treeModel != null) {
+    treeModel.release();
+  }
 }
