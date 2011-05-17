@@ -1,5 +1,6 @@
 {
   label.setIcon(testStep.getIcon());
+  label.setEnabled(!testStep.isDisabled() && AbstractSecurityCheck.isSecurable(testStep));
+  updateLabel();
   ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
-  label.setEnabled(!testStep.isDisabled());
 }

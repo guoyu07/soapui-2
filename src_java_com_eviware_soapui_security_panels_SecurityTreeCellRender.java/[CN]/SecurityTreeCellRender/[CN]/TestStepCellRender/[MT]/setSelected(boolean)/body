@@ -1,16 +1,25 @@
 {
-  if (sel) {
-    this.setBackground(selected);
-    this.label.setBackground(selected);
-    this.innerLeftPanel.setBackground(selected);
-    expandCollapseBtn.setBackground(selected);
-    if (progressPanel != null)     progressPanel.setBackground(selected);
+  if (AbstractSecurityCheck.isSecurable(testStep)) {
+    if (sel) {
+      this.setBackground(selected);
+      this.label.setBackground(selected);
+      this.innerLeftPanel.setBackground(selected);
+      expandCollapseBtn.setBackground(selected);
+      progressPanel.setBackground(selected);
+    }
+ else {
+      this.setBackground(unselected);
+      this.label.setBackground(unselected);
+      this.innerLeftPanel.setBackground(unselected);
+      expandCollapseBtn.setBackground(unselected);
+      progressPanel.setBackground(unselected);
+    }
   }
  else {
-    this.setBackground(unselected);
-    this.label.setBackground(unselected);
-    this.innerLeftPanel.setBackground(unselected);
-    expandCollapseBtn.setBackground(unselected);
-    if (progressPanel != null)     progressPanel.setBackground(unselected);
+    this.setBackground(noSecurable);
+    this.setBackground(noSecurable);
+    this.label.setBackground(noSecurable);
+    this.innerLeftPanel.setBackground(noSecurable);
+    expandCollapseBtn.setBackground(noSecurable);
   }
 }
