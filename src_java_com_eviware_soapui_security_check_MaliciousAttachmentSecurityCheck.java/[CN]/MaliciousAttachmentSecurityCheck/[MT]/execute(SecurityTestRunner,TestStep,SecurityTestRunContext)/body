@@ -2,7 +2,8 @@
   try {
     generateFiles();
     updateRequestContent(testStep,context);
-    testStep.run((TestCaseRunner)securityTestRunner,context);
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)securityTestRunner,context);
+    getSecurityCheckRequestResult().setMessageExchange(message);
   }
  catch (  Exception e) {
     SoapUI.logError(e,"[MaliciousAttachmentSecurityScan]Property value is not valid xml!");
