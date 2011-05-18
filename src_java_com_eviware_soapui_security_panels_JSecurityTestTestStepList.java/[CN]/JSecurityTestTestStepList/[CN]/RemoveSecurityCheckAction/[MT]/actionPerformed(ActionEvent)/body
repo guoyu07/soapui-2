@@ -1,6 +1,6 @@
 {
-  SecurityCheckNode node=(SecurityCheckNode)securityTestTree.getLastSelectedPathComponent();
-  SecurityScan securityCheck=node.getSecurityCheck();
+  SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
+  SecurityScan securityCheck=node.getSecurityScan();
   TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
   if (UISupport.confirm("Remove security scan [" + securityCheck.getName() + "]","Remove SecurityScan")) {
     securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);

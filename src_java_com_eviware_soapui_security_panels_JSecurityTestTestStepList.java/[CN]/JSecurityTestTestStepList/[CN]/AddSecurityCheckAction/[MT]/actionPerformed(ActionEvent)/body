@@ -22,7 +22,7 @@
   }
   SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
   if (!dialog.configure()) {
-    SecurityCheckNode securityCheckNode=(SecurityCheckNode)node.getLastChild();
+    SecurityScanNode securityCheckNode=(SecurityScanNode)node.getLastChild();
     securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);
     cellRender.remove(securityCheckNode);
   }

@@ -19,7 +19,7 @@
   initTestStepPopUpActions();
   testStepPopUp.addSeparator();
   testStepPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
-  treeModel=new SecurityCheckTree(securityTest,new SecurityTreeRootNode(securityTest));
+  treeModel=new SecurityScanTree(securityTest,new SecurityTreeRootNode(securityTest));
   securityTestTree=new JXTree(treeModel);
   securityTestTree.putClientProperty("JTree.lineStyle","None");
   securityTestTree.setUI(new CustomTreeUI());

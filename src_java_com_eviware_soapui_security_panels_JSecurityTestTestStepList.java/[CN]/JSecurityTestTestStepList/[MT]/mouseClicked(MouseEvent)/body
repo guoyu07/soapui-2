@@ -12,9 +12,9 @@
     e.consume();
     return;
   }
-  if (node instanceof SecurityCheckNode) {
+  if (node instanceof SecurityScanNode) {
     if (securityTest.isRunning())     return;
-    SecurityScan securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
+    SecurityScan securityCheck=((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan();
     if (securityCheck.isConfigurable()) {
       SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
       SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);

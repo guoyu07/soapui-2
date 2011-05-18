@@ -1,6 +1,6 @@
 {
-  SecurityCheckNode node=(SecurityCheckNode)securityTestTree.getLastSelectedPathComponent();
-  SecurityScan securityCheck=node.getSecurityCheck();
+  SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
+  SecurityScan securityCheck=node.getSecurityScan();
   if (securityCheck.isConfigurable()) {
     SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
     SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);

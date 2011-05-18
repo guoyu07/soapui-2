@@ -5,8 +5,8 @@
   Object node=securityTestTree.getLastSelectedPathComponent();
   if (node == null)   return;
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
-    if (node instanceof SecurityCheckNode) {
-      SecurityScan scan=((SecurityCheckNode)node).getSecurityCheck();
+    if (node instanceof SecurityScanNode) {
+      SecurityScan scan=((SecurityScanNode)node).getSecurityScan();
       enableDisableSecurityScan.setText(scan.isDisabled());
       if (scan instanceof AbstractSecurityScanWithProperties)       securityCheckWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
  else       securityCheckPopUp.show(securityTestTree,e.getX(),e.getY());

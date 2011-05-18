@@ -1,7 +1,7 @@
 {
   TestStepNode node=getTestStepNode(securityCheck.getTestStep());
   if (node != null) {
-    SecurityCheckNode newNode=new SecurityCheckNode(securityCheck);
+    SecurityScanNode newNode=new SecurityScanNode(securityCheck);
     insertNodeInto(newNode,node,node.getChildCount());
     nodeStructureChanged(node);
     for (int row=0; row < tree.getRowCount(); row++) {
