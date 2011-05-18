@@ -1,0 +1,17 @@
+{
+  XFormField numberOfRequest=dialog.getFormField(AdvancedSettings.NUMBER_OF_REQUEST);
+  numberOfRequest.setValue(String.valueOf(fuzzerScanConfig.getNumberOfRequest()));
+  numberOfRequest.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      try {
+        if ("".equals(newValue))         return;
+        Integer.valueOf(newValue);
+        fuzzerScanConfig.setNumberOfRequest(Integer.valueOf(newValue));
+      }
+ catch (      Exception e) {
+        UISupport.showErrorMessage("Value must be integer number");
+      }
+    }
+  }
+);
+}

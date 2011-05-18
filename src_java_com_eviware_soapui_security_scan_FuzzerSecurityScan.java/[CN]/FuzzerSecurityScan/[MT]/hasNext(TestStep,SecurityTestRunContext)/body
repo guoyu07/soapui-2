@@ -1,3 +1,15 @@
 {
-  return false;
+  if (numberOfRequests == null) {
+    numberOfRequests=fuzzerScanConfig.getNumberOfRequest();
+    minimal=fuzzerScanConfig.getMinimal();
+    maximal=fuzzerScanConfig.getMaximal();
+  }
+  if (numberOfRequests > 0) {
+    numberOfRequests--;
+    return true;
+  }
+ else {
+    numberOfRequests=null;
+    return false;
+  }
 }

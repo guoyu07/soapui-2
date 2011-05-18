@@ -1,0 +1,17 @@
+{
+  XFormField minimal=dialog.getFormField(AdvancedSettings.MINIMAL);
+  minimal.setValue(String.valueOf(fuzzerScanConfig.getMinimal()));
+  minimal.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      try {
+        if ("".equals(newValue))         return;
+        Integer.valueOf(newValue);
+        fuzzerScanConfig.setMinimal(Integer.valueOf(newValue));
+      }
+ catch (      Exception e) {
+        UISupport.showErrorMessage("Value must be integer number");
+      }
+    }
+  }
+);
+}

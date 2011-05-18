@@ -1,0 +1,17 @@
+{
+  XFormField maximal=dialog.getFormField(AdvancedSettings.MAXIMAL);
+  maximal.setValue(String.valueOf(fuzzerScanConfig.getMaximal()));
+  maximal.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      try {
+        if ("".equals(newValue))         return;
+        Integer.valueOf(newValue);
+        fuzzerScanConfig.setMaximal(Integer.valueOf(newValue));
+      }
+ catch (      Exception e) {
+        UISupport.showErrorMessage("Value must be integer number");
+      }
+    }
+  }
+);
+}

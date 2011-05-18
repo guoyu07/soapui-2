@@ -1,2 +1,27 @@
 {
+  StringToStringMap parameters=new StringToStringMap();
+  XmlObjectTreeModel model=null;
+  for (  SecurityCheckedParameter scp : getParameterHolder().getParameterList()) {
+    if (scp.isChecked()) {
+      if (scp.getXpath().trim().length() > 0) {
+        model=SecurityScanUtil.getXmlObjectTreeModel(testStep,scp);
+        XmlTreeNode[] treeNodes=null;
+        treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
+        if (treeNodes.length > 0) {
+          XmlTreeNode mynode=treeNodes[0];
+          String fuzzed=fuzzedValue();
+          mynode.setValue(1,fuzzed);
+          parameters.put(scp.getLabel(),fuzzed);
+        }
+        updateRequestProperty(testStep,scp.getName(),model.getXmlObject().toString());
+      }
+ else {
+        String fuzzed=fuzzedValue();
+        parameters.put(scp.getLabel(),fuzzed);
+        updateRequestProperty(testStep,scp.getName(),fuzzed);
+      }
+    }
+    MessageExchange message=(MessageExchange)testStep.run((TestCaseRunner)runner,context);
+    createMessageExchange(parameters,message,context);
+  }
 }
