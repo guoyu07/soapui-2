@@ -10,12 +10,12 @@
     for (    SecurityCheckedParameter scp : scpList) {
       if (strategy.equals(StrategyTypeConfig.ONE_BY_ONE)) {
         stsmap=new StringToStringMap();
-        model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+        model=SecurityScanUtil.getXmlObjectTreeModel(testStep,scp);
         testStepCopy=SecurityTestRunnerImpl.cloneTestStepForSecurityCheck((WsdlTestStep)testStep);
       }
  else {
         if (model == null) {
-          model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+          model=SecurityScanUtil.getXmlObjectTreeModel(testStep,scp);
         }
         if (testStepCopy == null) {
           testStepCopy=SecurityTestRunnerImpl.cloneTestStepForSecurityCheck((WsdlTestStep)testStep);

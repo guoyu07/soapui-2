@@ -10,7 +10,7 @@
       if (useRegexp) {
         token=token.substring(token.indexOf(PREFIX) + 1);
       }
-      String match=SecurityCheckUtil.contains(context,response,token,useRegexp);
+      String match=SecurityScanUtil.contains(context,response,token,useRegexp);
       if (match != null) {
         String message=description + " - Token [" + token+ "] found ["+ match+ "]";
         if (!messages.contains(message)) {

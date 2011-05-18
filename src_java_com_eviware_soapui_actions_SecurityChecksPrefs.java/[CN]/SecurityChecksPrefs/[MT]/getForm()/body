@@ -1,7 +1,7 @@
 {
   if (securityChecksForm == null) {
     securityChecksForm=new SimpleForm();
-    PropertyHolderTable propertyHolderTable=new PropertyHolderTable(SecurityCheckUtil.getGlobalSensitiveInformationExposureTokens()){
+    PropertyHolderTable propertyHolderTable=new PropertyHolderTable(SecurityScanUtil.getGlobalSensitiveInformationExposureTokens()){
       protected JTable buildPropertiesTable(){
         propertiesModel=new DefaultPropertyTableHolderModel(holder){
           public String getColumnName(          int columnIndex){

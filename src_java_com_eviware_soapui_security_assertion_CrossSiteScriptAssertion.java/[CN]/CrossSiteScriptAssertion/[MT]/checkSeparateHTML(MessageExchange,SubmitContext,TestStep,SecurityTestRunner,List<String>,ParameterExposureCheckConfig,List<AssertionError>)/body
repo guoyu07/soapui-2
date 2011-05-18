@@ -5,7 +5,7 @@
     MessageExchange messageExchange2=(MessageExchange)httpRequest.run((TestCaseRunner)securityTestRunner,(SecurityTestRunContext)context);
     for (    String value : parameterExposureCheckConfig.getParameterExposureStringsList()) {
       value=context.expand(value);
-      String match=SecurityCheckUtil.contains(context,new String(messageExchange2.getRawResponseData()),value,false);
+      String match=SecurityScanUtil.contains(context,new String(messageExchange2.getRawResponseData()),value,false);
       if (match != null) {
         String shortValue=value.length() > 25 ? value.substring(0,22) + "... " : value;
         String message="XSS content sent in request '" + shortValue + "' is exposed in response on link "+ url+ " . Possibility for XSS script attack in: "+ messageExchange.getModelItem().getName();

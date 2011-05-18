@@ -12,8 +12,8 @@
   table.setDefaultEditor(String.class,getDefaultCellEditor());
   add(new JScrollPane(table),BorderLayout.CENTER);
   pathPane=new JUndoableTextArea();
-  if (securityCheck instanceof BoundarySecurityCheck) {
-    ((BoundarySecurityCheck)securityCheck).refreshRestrictionLabel(-1);
+  if (securityCheck instanceof BoundarySecurityScan) {
+    ((BoundarySecurityScan)securityCheck).refreshRestrictionLabel(-1);
   }
   if (securityCheck instanceof InvalidTypesSecurityCheck) {
     ((InvalidTypesSecurityCheck)securityCheck).refreshRestrictionLabel(-1);

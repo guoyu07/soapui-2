@@ -12,7 +12,7 @@
     for (    SecurityCheckedParameter scp : getParameterHolder().getParameterList()) {
       if (parameters.containsKey(scp.getLabel()) && parameters.get(scp.getLabel()) != null) {
         if (scp.isChecked() && scp.getXpath().trim().length() > 0) {
-          model=SecurityCheckUtil.getXmlObjectTreeModel(testStep,scp);
+          model=SecurityScanUtil.getXmlObjectTreeModel(testStep,scp);
           XmlTreeNode[] treeNodes=null;
           treeNodes=model.selectTreeNodes(context.expand(scp.getXpath()));
           if (treeNodes.length > 0) {

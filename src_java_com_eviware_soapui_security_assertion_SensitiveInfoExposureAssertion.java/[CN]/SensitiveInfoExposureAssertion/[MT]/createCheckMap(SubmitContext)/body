@@ -2,10 +2,10 @@
   Map<String,String> checkMap=new HashMap<String,String>();
   checkMap.putAll(createMapFromTable());
   if (includeProjectSpecific) {
-    checkMap.putAll(SecurityCheckUtil.projectEntriesList(this));
+    checkMap.putAll(SecurityScanUtil.projectEntriesList(this));
   }
   if (includeGlobal) {
-    checkMap.putAll(SecurityCheckUtil.globalEntriesList());
+    checkMap.putAll(SecurityScanUtil.globalEntriesList());
   }
   Map<String,String> expandedMap=propertyExpansionSupport(checkMap,context);
   return expandedMap;
