@@ -1,9 +1,9 @@
 {
-  TestStep testStep=(TestStep)context.getProperty(ParameterExposureScan.TEST_STEP);
+  TestStep testStep=(TestStep)context.getProperty(CrossSiteScriptingScan.TEST_STEP);
   testStep=SecurityTestRunnerImpl.cloneTestStepForSecurityScan((WsdlTestStep)testStep);
-  SecurityTestRunner securityTestRunner=(SecurityTestRunner)context.getProperty(ParameterExposureScan.TEST_CASE_RUNNER);
+  SecurityTestRunner securityTestRunner=(SecurityTestRunner)context.getProperty(CrossSiteScriptingScan.TEST_CASE_RUNNER);
   List<String> urls=submitScript(messageExchange,context);
-  ParameterExposureCheckConfig parameterExposureCheckConfig=(ParameterExposureCheckConfig)context.getProperty(ParameterExposureScan.PARAMETER_EXPOSURE_SCAN_CONFIG);
+  ParameterExposureCheckConfig parameterExposureCheckConfig=(ParameterExposureCheckConfig)context.getProperty(CrossSiteScriptingScan.PARAMETER_EXPOSURE_SCAN_CONFIG);
   List<AssertionError> assertionErrorList=new ArrayList<AssertionError>();
   boolean throwExceptionCheckResponse=false;
   if (checkResponse) {
