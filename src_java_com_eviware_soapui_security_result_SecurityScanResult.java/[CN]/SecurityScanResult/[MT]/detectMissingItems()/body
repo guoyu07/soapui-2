@@ -1,0 +1,17 @@
+{
+  SecurityScan securityCheck=getSecurityCheck();
+  if (getStatus().equals(ResultStatus.NOTHING_TO_SEND)) {
+    executionProgressStatus=ResultStatus.NOTHING_TO_SEND;
+  }
+  if (securityCheck instanceof AbstractSecurityCheckWithProperties && ((AbstractSecurityCheckWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0) {
+    logIconStatus=ResultStatus.MISSING_PARAMETERS;
+    executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
+  }
+  if (securityCheck.getAssertionCount() == 0) {
+    logIconStatus=ResultStatus.MISSING_ASSERTIONS;
+    executionProgressStatus=ResultStatus.MISSING_ASSERTIONS;
+  }
+  if (getStatus().equals(ResultStatus.CANCELED)) {
+    executionProgressStatus=ResultStatus.CANCELED;
+  }
+}

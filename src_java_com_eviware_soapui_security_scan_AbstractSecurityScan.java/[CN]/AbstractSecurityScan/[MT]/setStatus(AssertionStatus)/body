@@ -1,0 +1,11 @@
+{
+  if (result == AssertionStatus.FAILED) {
+    getSecurityScanRequestResult().setStatus(ResultStatus.FAILED);
+  }
+ else   if (result == AssertionStatus.VALID) {
+    getSecurityScanRequestResult().setStatus(ResultStatus.OK);
+  }
+ else   if (result == AssertionStatus.UNKNOWN) {
+    getSecurityScanRequestResult().setStatus(ResultStatus.UNKNOWN);
+  }
+}

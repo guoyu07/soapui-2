@@ -1,9 +1,9 @@
 {
   String name=type;
   int numNames=0;
-  List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
+  List<SecurityScan> securityChecksList=getTestStepSecurityChecks(testStepId);
   if (securityChecksList != null && !securityChecksList.isEmpty()) {
-    for (    SecurityCheck existingCheck : securityChecksList) {
+    for (    SecurityScan existingCheck : securityChecksList) {
       if (existingCheck.getType().equals(name))       numNames++;
     }
   }

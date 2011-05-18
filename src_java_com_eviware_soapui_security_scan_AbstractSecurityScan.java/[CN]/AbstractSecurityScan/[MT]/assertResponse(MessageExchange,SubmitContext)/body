@@ -1,0 +1,22 @@
+{
+  AssertionStatus finalResult=null;
+  try {
+    PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+    if (messageExchange != null) {
+      context.setProperty(SECURITY_SCAN_REQUEST_RESULT,getSecurityScanRequestResult());
+      for (      WsdlMessageAssertion assertion : assertionsSupport.getAssertionList()) {
+        AssertionStatus currentResult=assertion.assertResponse(messageExchange,context);
+        updateMessages(currentResult,assertion);
+        if (finalResult == null || finalResult != AssertionStatus.FAILED) {
+          finalResult=currentResult;
+        }
+      }
+      setStatus(finalResult);
+      notifier.notifyChange();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return finalResult;
+}

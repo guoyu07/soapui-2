@@ -1,7 +1,7 @@
 {
   super(new BorderLayout());
   this.node=node;
-  this.securityCheck=(SecurityCheck)node.getSecurityCheck();
+  this.securityCheck=(SecurityScan)node.getSecurityCheck();
   label=new JLabel(securityCheck.getName(),SwingConstants.LEFT);
   label.setIcon(UISupport.createImageIcon("/securityTest.png"));
   label.setBorder(BorderFactory.createEmptyBorder(5,45,5,5));
@@ -29,5 +29,5 @@
   add(leftInnerPanel,BorderLayout.LINE_START);
   setSelected(sel);
   setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.black));
-  progressBarAdapter=new ProgressBarSecurityCheckAdapter(tree,this.node,progressBar,securityCheck,(SecurityTest)((SecurityCheck)securityCheck).getParent(),cntLabel);
+  progressBarAdapter=new ProgressBarSecurityCheckAdapter(tree,this.node,progressBar,securityCheck,(SecurityTest)((SecurityScan)securityCheck).getParent(),cntLabel);
 }

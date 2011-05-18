@@ -2,7 +2,7 @@
   List<TestStep> testStepList=testCase.getTestStepList();
   List<String> namesList=new ArrayList<String>();
   for (  TestStep testStep : testStepList) {
-    if (AbstractSecurityCheck.isSecurable(testStep)) {
+    if (AbstractSecurityScan.isSecurable(testStep)) {
       namesList.add(testStep.getName());
     }
   }

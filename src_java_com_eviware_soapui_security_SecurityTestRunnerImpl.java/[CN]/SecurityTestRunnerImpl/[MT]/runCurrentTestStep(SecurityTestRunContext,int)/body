@@ -15,15 +15,15 @@
     for (int i=0; i < securityTestStepListeners.length; i++) {
       if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].beforeStep(this,getRunContext(),stepResult);
     }
-    Map<String,List<SecurityCheck>> secCheckMap=securityTest.getSecurityChecksMap();
+    Map<String,List<SecurityScan>> secCheckMap=securityTest.getSecurityChecksMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
-      List<SecurityCheck> testStepChecksList=secCheckMap.get(currentStep.getId());
+      List<SecurityScan> testStepChecksList=secCheckMap.get(currentStep.getId());
       for (int i=0; i < testStepChecksList.size(); i++) {
-        SecurityCheck securityCheck=testStepChecksList.get(i);
+        SecurityScan securityCheck=testStepChecksList.get(i);
         if (stepResult.getStatus() != TestStepStatus.FAILED || securityCheck.isApplyForFailedStep()) {
           runContext.setCurrentCheckIndex(i);
           runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
-          SecurityCheckResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
+          SecurityScanResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
           securityStepResult.addSecurityCheckResult(securityCheckResult);
           if (securityCheckResult.isCanceled()) {
             jumpExit=true;

@@ -1,0 +1,35 @@
+{
+  securityScanResult=new SecurityScanResult(this);
+  SecurityTestRunListener[] securityTestListeners=((SecurityTest)getParent()).getSecurityTestRunListeners();
+  PropertyChangeNotifier notifier=new PropertyChangeNotifier();
+  boolean noMutations=true;
+  while (hasNext(testStep,context)) {
+    noMutations=false;
+    if (((SecurityTestRunnerImpl)securityTestRunner).isCanceled()) {
+      securityScanResult.setStatus(ResultStatus.CANCELED);
+      clear();
+      return securityScanResult;
+    }
+    securityScanRequestResult=new SecurityScanRequestResult(this);
+    securityScanRequestResult.startTimer();
+    originalTestStepClone=((SecurityTestRunnerImpl)securityTestRunner).cloneForSecurityScan((WsdlTestStep)this.testStep);
+    execute(securityTestRunner,originalTestStepClone,context);
+    notifier.notifyChange();
+    securityScanRequestResult.stopTimer();
+    assertResponse(getSecurityScanRequestResult().getMessageExchange(),context);
+    securityScanResult.addSecurityRequestResult(getSecurityScanRequestResult());
+    for (int i=0; i < securityTestListeners.length; i++) {
+      if (Arrays.asList(((SecurityTest)getParent()).getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterSecurityScanRequest((SecurityTestRunnerImpl)securityTestRunner,context,securityScanRequestResult);
+    }
+    try {
+      Thread.sleep(getExecutionStrategy().getDelay());
+    }
+ catch (    InterruptedException e) {
+      SoapUI.logError(e,"Security Scan Request Delay Interrupted!");
+    }
+  }
+  if (noMutations) {
+    securityScanResult.setStatus(ResultStatus.NOTHING_TO_SEND);
+  }
+  return securityScanResult;
+}

@@ -3,7 +3,7 @@
   this.node=node;
   this.testStep=(WsdlTestStep)node.getTestStep();
   securityTest=((SecurityTreeRootNode)node.getParent()).getSecurityTest();
-  if (AbstractSecurityCheck.isSecurable(testStep)) {
+  if (AbstractSecurityScan.isSecurable(testStep)) {
     if (securityTest.getSecurityChecksMap().get(testStep.getId()) != null) {
       String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scan)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scans)";
       label=new JLabel(testStep.getLabel() + " (" + labelText,SwingConstants.LEFT);
@@ -15,7 +15,7 @@
  else   label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
   label.setIcon(testStep.getIcon());
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-  label.setEnabled(!testStep.isDisabled() && AbstractSecurityCheck.isSecurable(testStep));
+  label.setEnabled(!testStep.isDisabled() && AbstractSecurityScan.isSecurable(testStep));
   testStep.addPropertyChangeListener(TestStep.ICON_PROPERTY,TestStepCellRender.this);
   testStep.addPropertyChangeListener(TestStep.DISABLED_PROPERTY,TestStepCellRender.this);
   innerLeftPanel=new JPanel(new BorderLayout());
@@ -26,7 +26,7 @@
   if (securityTest.getSecurityChecksMap().get(testStep.getId()) == null || securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
  else   expandCollapseBtn.setVisible(true);
   innerLeftPanel.add(expandCollapseBtn,BorderLayout.WEST);
-  if (AbstractSecurityCheck.isSecurable(testStep)) {
+  if (AbstractSecurityScan.isSecurable(testStep)) {
     progressBar=new JProgressBar();
     progressPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,10,0));
     progressBar.setValue(0);

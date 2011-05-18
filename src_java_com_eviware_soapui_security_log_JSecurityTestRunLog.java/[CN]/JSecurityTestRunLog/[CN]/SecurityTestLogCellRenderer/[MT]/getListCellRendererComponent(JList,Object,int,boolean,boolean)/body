@@ -17,7 +17,7 @@
   }
   SecurityResult result=logListModel.getTestStepResultAt(index);
   if (result != null) {
-    if (result.getResultType().equals(SecurityCheckRequestResult.TYPE)) {
+    if (result.getResultType().equals(SecurityScanRequestResult.TYPE)) {
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());
@@ -25,7 +25,7 @@
       hyperlinkLabel.setIcon(null);
       hyperlinkLabel.setBorder(BorderFactory.createEmptyBorder(0,24,3,3));
     }
- else     if (result.getResultType().equals(SecurityCheckResult.TYPE)) {
+ else     if (result.getResultType().equals(SecurityScanResult.TYPE)) {
       hyperlinkLabel.setText(getText());
       hyperlinkLabel.setBackground(getBackground());
       hyperlinkLabel.setEnabled(list.isEnabled());

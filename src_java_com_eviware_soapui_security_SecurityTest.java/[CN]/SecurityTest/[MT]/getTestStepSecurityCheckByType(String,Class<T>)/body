@@ -1,5 +1,5 @@
 {
   List<T> result=new ArrayList<T>();
-  for (  SecurityCheck check : getTestStepSecurityChecks(testStepId))   if (securityCheckType.isAssignableFrom(check.getClass()))   result.add((T)check);
+  for (  SecurityScan check : getTestStepSecurityChecks(testStepId))   if (securityCheckType.isAssignableFrom(check.getClass()))   result.add((T)check);
   return result;
 }

@@ -1,0 +1,14 @@
+{
+  for (int i=0; i < results.size(); i++) {
+    SoftReference<SecurityResult> result=results.get(i);
+    if (result != null) {
+      SecurityResult referent=result.get();
+      if (referent instanceof SecurityScanResult) {
+        if (((SecurityScanResult)referent).getSecurityCheck() == check) {
+          return i;
+        }
+      }
+    }
+  }
+  return -1;
+}

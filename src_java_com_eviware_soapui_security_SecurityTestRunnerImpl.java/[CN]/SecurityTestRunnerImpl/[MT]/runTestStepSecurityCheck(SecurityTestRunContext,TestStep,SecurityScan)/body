@@ -1,0 +1,20 @@
+{
+  SecurityScanResult result=null;
+  for (int j=0; j < securityTestStepListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[j]))     securityTestStepListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
+  }
+  for (int j=0; j < securityTestListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[j]))     securityTestListeners[j].beforeSecurityCheck(this,runContext,securityCheck);
+  }
+  result=securityCheck.run(cloneForSecurityScan((WsdlTestStep)currentStep),runContext,this);
+  if (securityTest.getFailOnError() && result.getStatus() == ResultStatus.FAILED) {
+    fail("Cancelling due to failed security scan");
+  }
+  for (int j=0; j < securityTestStepListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[j]))     securityTestStepListeners[j].afterSecurityCheck(this,runContext,result);
+  }
+  for (int j=0; j < securityTestListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[j]))     securityTestListeners[j].afterSecurityCheck(this,runContext,result);
+  }
+  return result;
+}

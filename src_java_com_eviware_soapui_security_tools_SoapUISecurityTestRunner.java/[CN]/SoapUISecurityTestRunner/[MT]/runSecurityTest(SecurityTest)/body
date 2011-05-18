@@ -1,10 +1,10 @@
 {
   securityTest.addSecurityTestRunListener(new SecurityTestRunListenerAdapter(){
-    @Override public void afterSecurityCheckRequest(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityCheckRequestResult securityCheckReqResult){
+    @Override public void afterSecurityScanRequest(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanRequestResult securityCheckReqResult){
       securityScanRequestCount++;
       if (securityCheckReqResult.getStatus() == ResultStatus.FAILED)       securityScanAlertCount++;
     }
-    @Override public void afterSecurityCheck(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityCheckResult securityCheckResult){
+    @Override public void afterSecurityCheck(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanResult securityCheckResult){
       securityScanCount++;
     }
   }

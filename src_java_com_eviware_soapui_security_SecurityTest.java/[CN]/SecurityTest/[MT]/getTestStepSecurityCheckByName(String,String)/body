@@ -1,7 +1,7 @@
 {
-  List<SecurityCheck> securityChecksList=getTestStepSecurityChecks(testStepId);
+  List<SecurityScan> securityChecksList=getTestStepSecurityChecks(testStepId);
   for (int c=0; c < securityChecksList.size(); c++) {
-    SecurityCheck securityCheck=getTestStepSecurityCheckAt(testStepId,c);
+    SecurityScan securityCheck=getTestStepSecurityCheckAt(testStepId,c);
     if (securityCheckName.equals(securityCheck.getName()))     return securityCheck;
   }
   return null;

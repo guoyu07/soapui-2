@@ -4,7 +4,7 @@
     for (int i=0; i < oldTestCase.getTestStepList().size(); i++) {
       TestStep oldStep=oldTestCase.getTestStepAt(i);
       TestStep newStep=getTestStepAt(i);
-      for (      SecurityCheck secCheck : secTest.getTestStepSecurityChecks(oldStep.getId())) {
+      for (      SecurityScan secCheck : secTest.getTestStepSecurityChecks(oldStep.getId())) {
         newSecurityTest.importSecurityCheck(newStep,secCheck,true);
       }
     }

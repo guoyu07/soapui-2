@@ -2,14 +2,14 @@
   if (getConfig() != null) {
     if (!getConfig().getTestStepSecurityTestList().isEmpty()) {
       for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : getConfig().getTestStepSecurityTestList()) {
-        List<SecurityCheck> checkList=new ArrayList<SecurityCheck>();
+        List<SecurityScan> checkList=new ArrayList<SecurityScan>();
         if (testStepSecurityTestListConfig != null) {
           if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
             for (            SecurityCheckConfig secCheckConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
               TestStep testStep=null;
               for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
                 testStep=ts;
-                SecurityCheck securityCheck=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
+                SecurityScan securityCheck=SoapUI.getSoapUICore().getSecurityCheckRegistry().getFactory(secCheckConfig.getType()).buildSecurityCheck(testStep,secCheckConfig,this);
                 checkList.add(securityCheck);
               }
             }

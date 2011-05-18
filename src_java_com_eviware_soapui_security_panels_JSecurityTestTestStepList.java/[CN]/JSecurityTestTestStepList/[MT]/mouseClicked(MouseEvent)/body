@@ -14,10 +14,10 @@
   }
   if (node instanceof SecurityCheckNode) {
     if (securityTest.isRunning())     return;
-    SecurityCheck securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
+    SecurityScan securityCheck=((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck();
     if (securityCheck.isConfigurable()) {
       SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
-      SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityCheck)securityCheck);
+      SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
       if (!dialog.configure()) {
         securityCheck.copyConfig(backupCheckConfig);
       }
