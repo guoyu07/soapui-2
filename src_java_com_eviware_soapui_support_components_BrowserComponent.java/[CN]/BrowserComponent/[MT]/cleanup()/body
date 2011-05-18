@@ -6,6 +6,8 @@
     browser.stop();
     browser.dispose();
     browser.removeNavigationListener(internalNavigationListener);
+    browser.removeNavigationListener(internalNavigationAdapter);
+    browser.setHttpSecurityHandler(null);
     browser.removeStatusListener(this);
     panel.removeAll();
     browser=null;
