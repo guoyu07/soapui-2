@@ -1,5 +1,5 @@
 {
-  if (securityCheckReqResult.getSecurityCheck().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckReqResult.getSecurityCheck().getName())) {
+  if (securityCheckReqResult.getSecurityScan().getTestStep().getId().equals(this.securityCheck.getTestStep().getId()) && this.securityCheck.getName().equals(securityCheckReqResult.getSecurityScan().getName())) {
     if (securityCheck.getAssertionCount() == 0) {
       progressBar.setForeground(MISSING_ASSERTION_COLOR);
       progressBar.setString(STATE_MISSING_ASSERTIONS);

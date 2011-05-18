@@ -18,7 +18,7 @@
     changedParamsInfo.append(param + "=" + value+ ",");
   }
   changedParamsInfo.replace(changedParamsInfo.length() - 1,changedParamsInfo.length(),"]");
-  StringBuilder checkRequestResultStr=new StringBuilder("[" + getSecurityCheck().getName() + "] Request "+ requestCount+ " - "+ getStatus());
+  StringBuilder checkRequestResultStr=new StringBuilder("[" + getSecurityScan().getName() + "] Request "+ requestCount+ " - "+ getStatus());
   if (changedParamsInfo.length() > 1) {
     checkRequestResultStr.append(" - " + changedParamsInfo.toString());
   }
