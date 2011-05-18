@@ -1,3 +1,5 @@
 {
-  this.executionStrategy=executionStrategyHolder;
+  ExecutionStrategyHolder oldValue=getExecutionStrategy();
+  this.executionStrategy=executionStrategy;
+  pcs.firePropertyChange("executionStrategy",oldValue,executionStrategy);
 }

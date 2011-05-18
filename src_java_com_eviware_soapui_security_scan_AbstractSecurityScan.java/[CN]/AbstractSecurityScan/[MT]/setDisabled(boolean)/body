@@ -1,3 +1,5 @@
 {
-  this.disabled=disabled;
+  boolean oldValue=isDisabled();
+  getConfig().setDisabled(disabled);
+  pcs.firePropertyChange("disabled",oldValue,disabled);
 }

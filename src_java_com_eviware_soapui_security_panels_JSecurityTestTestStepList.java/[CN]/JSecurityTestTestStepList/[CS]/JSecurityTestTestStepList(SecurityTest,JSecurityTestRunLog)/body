@@ -3,13 +3,13 @@
   setLayout(new BorderLayout());
   JXToolBar toolbar=initToolbar();
   securityCheckPopUp=new JPopupMenu();
-  securityCheckPopUp.add(addSecurityCheckAction);
+  securityCheckPopUp.add(enableDisableSecurityScan=new EnableDisableSecurityScan());
   securityCheckPopUp.add(configureSecurityCheckAction);
   securityCheckPopUp.addSeparator();
   securityCheckPopUp.add(removeSecurityCheckAction);
   securityCheckPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
   securityCheckWithPropertiesPopUp=new JPopupMenu();
-  securityCheckWithPropertiesPopUp.add(addSecurityCheckAction);
+  securityCheckWithPropertiesPopUp.add(enableDisableSecurityScan);
   securityCheckWithPropertiesPopUp.add(configureSecurityCheckAction);
   securityCheckWithPropertiesPopUp.add(cloneParametersAction);
   securityCheckWithPropertiesPopUp.addSeparator();
