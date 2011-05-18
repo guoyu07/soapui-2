@@ -1,0 +1,40 @@
+{
+  if (securityScanResultList != null)   securityScanResultList.add(securityScanResult);
+  timeTaken+=securityScanResult.getTimeTaken();
+  if (!hasAddedRequests) {
+    status=securityScanResult.getStatus();
+  }
+ else   if (status != ResultStatus.FAILED) {
+    status=securityScanResult.getStatus();
+  }
+  securityScanResult.detectMissingItems();
+  if (securityScanResult.getExecutionProgressStatus().equals(ResultStatus.CANCELED)) {
+    executionProgressStatus=securityScanResult.getExecutionProgressStatus();
+  }
+ else   if (securityScanResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_PARAMETERS) && executionProgressStatus != ResultStatus.CANCELED) {
+    executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
+  }
+ else   if (securityScanResult.getExecutionProgressStatus().equals(ResultStatus.MISSING_ASSERTIONS) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS) {
+    executionProgressStatus=ResultStatus.MISSING_ASSERTIONS;
+  }
+ else   if (securityScanResult.getExecutionProgressStatus().equals(ResultStatus.FAILED) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS && executionProgressStatus != ResultStatus.MISSING_ASSERTIONS) {
+    executionProgressStatus=ResultStatus.FAILED;
+  }
+ else   if (securityScanResult.getExecutionProgressStatus().equals(ResultStatus.OK) && executionProgressStatus != ResultStatus.CANCELED && executionProgressStatus != ResultStatus.MISSING_PARAMETERS && executionProgressStatus != ResultStatus.MISSING_ASSERTIONS && executionProgressStatus != ResultStatus.FAILED) {
+    executionProgressStatus=ResultStatus.OK;
+  }
+  if (securityScanResult.getLogIconStatus().equals(ResultStatus.FAILED)) {
+    logIconStatus=securityScanResult.getLogIconStatus();
+  }
+ else   if ((securityScanResult.getLogIconStatus().equals(ResultStatus.MISSING_ASSERTIONS) || securityScanResult.getLogIconStatus().equals(ResultStatus.MISSING_PARAMETERS)) && logIconStatus != ResultStatus.FAILED) {
+    logIconStatus=securityScanResult.getLogIconStatus();
+  }
+ else   if (securityScanResult.getLogIconStatus().equals(ResultStatus.OK) && logIconStatus != ResultStatus.FAILED && logIconStatus != ResultStatus.MISSING_ASSERTIONS && logIconStatus != ResultStatus.MISSING_PARAMETERS) {
+    logIconStatus=ResultStatus.OK;
+  }
+  this.testLog.append(securityScanResult.getSecurityTestLog());
+  hasAddedRequests=true;
+  if (securityScanResult.isHasRequestsWithWarnings()) {
+    hasScansWithWarnings=true;
+  }
+}

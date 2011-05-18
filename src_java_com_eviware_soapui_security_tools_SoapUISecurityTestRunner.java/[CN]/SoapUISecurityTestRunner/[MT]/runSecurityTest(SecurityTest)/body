@@ -4,7 +4,7 @@
       securityScanRequestCount++;
       if (securityCheckReqResult.getStatus() == ResultStatus.FAILED)       securityScanAlertCount++;
     }
-    @Override public void afterSecurityCheck(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanResult securityCheckResult){
+    @Override public void afterSecurityScan(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanResult securityCheckResult){
       securityScanCount++;
     }
   }

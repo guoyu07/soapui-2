@@ -2,6 +2,6 @@
   if (progressBar.isIndeterminate())   return;
   if (securityCheck != null) {
     progressBar.setString(STATE_RUN + ":" + securityCheck.getTestStep().getName()+ " - "+ securityCheck.getName());
-    progressBar.setValue(runContext.getCurrentCheckOnSecurityTestIndex());
+    progressBar.setValue(runContext.getCurrentScanOnSecurityTestIndex());
   }
 }

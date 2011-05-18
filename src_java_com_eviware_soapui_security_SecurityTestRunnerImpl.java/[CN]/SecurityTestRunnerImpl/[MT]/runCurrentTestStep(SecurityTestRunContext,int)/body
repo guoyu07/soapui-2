@@ -15,21 +15,21 @@
     for (int i=0; i < securityTestStepListeners.length; i++) {
       if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].beforeStep(this,getRunContext(),stepResult);
     }
-    Map<String,List<SecurityScan>> secCheckMap=securityTest.getSecurityScansMap();
-    if (secCheckMap.containsKey(currentStep.getId())) {
-      List<SecurityScan> testStepChecksList=secCheckMap.get(currentStep.getId());
-      for (int i=0; i < testStepChecksList.size(); i++) {
-        SecurityScan securityCheck=testStepChecksList.get(i);
-        if (stepResult.getStatus() != TestStepStatus.FAILED || securityCheck.isApplyForFailedStep()) {
-          runContext.setCurrentCheckIndex(i);
-          runContext.setCurrentCheckOnSecurityTestIndex(currentCheckOnSecurityTestIndex++);
-          SecurityScanResult securityCheckResult=runTestStepSecurityCheck(runContext,currentStep,securityCheck);
-          securityStepResult.addSecurityCheckResult(securityCheckResult);
-          if (securityCheckResult.isCanceled()) {
+    Map<String,List<SecurityScan>> secScanMap=securityTest.getSecurityScansMap();
+    if (secScanMap.containsKey(currentStep.getId())) {
+      List<SecurityScan> testStepScansList=secScanMap.get(currentStep.getId());
+      for (int i=0; i < testStepScansList.size(); i++) {
+        SecurityScan securityScan=testStepScansList.get(i);
+        if (stepResult.getStatus() != TestStepStatus.FAILED || securityScan.isApplyForFailedStep()) {
+          runContext.setCurrentScanIndex(i);
+          runContext.setCurrentScanOnSecurityTestIndex(currentScanOnSecurityTestIndex++);
+          SecurityScanResult securityScanResult=runTestStepSecurityScan(runContext,currentStep,securityScan);
+          securityStepResult.addSecurityScanResult(securityScanResult);
+          if (securityScanResult.isCanceled()) {
             jumpExit=true;
             break;
           }
- else           if (securityCheckResult.getStatus() == ResultStatus.FAILED) {
+ else           if (securityScanResult.getStatus() == ResultStatus.FAILED) {
             if (getTestRunnable().getFailOnError()) {
               fail("Cancelling due to failed security scan");
             }
