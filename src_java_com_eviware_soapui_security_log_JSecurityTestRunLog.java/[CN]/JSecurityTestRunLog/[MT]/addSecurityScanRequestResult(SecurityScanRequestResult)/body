@@ -1,6 +1,6 @@
 {
   if (errorsOnly && checkRequestResult.getStatus() != SecurityScanRequestResult.ResultStatus.FAILED)   return;
-  logListModel.addSecurityCheckRequestResult(checkRequestResult);
+  logListModel.addSecurityScanRequestResult(checkRequestResult);
   if (follow) {
     try {
       testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);

@@ -1,11 +1,11 @@
 {
   if (securityTest.isRunning())   return;
-  securityTestLog.locateSecurityCheck(((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck());
+  securityTestLog.locateSecurityScan(((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck());
   addSecurityCheckAction.setEnabled(false);
   configureSecurityCheckAction.setEnabled(true);
   removeSecurityCheckAction.setEnabled(true);
   if (((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck() instanceof AbstractSecurityScanWithProperties) {
     cloneParametersAction.setEnabled(true);
-    cloneParametersAction.setSecurityCheck((AbstractSecurityScanWithProperties)((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck());
+    cloneParametersAction.setSecurityScan((AbstractSecurityScanWithProperties)((SecurityCheckNode)securityTestTree.getLastSelectedPathComponent()).getSecurityCheck());
   }
 }

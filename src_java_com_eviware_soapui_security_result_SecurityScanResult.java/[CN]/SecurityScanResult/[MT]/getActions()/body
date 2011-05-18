@@ -1,9 +1,9 @@
 {
   if (actionList == null) {
-    actionList=new DefaultActionList(getSecurityCheck().getName());
+    actionList=new DefaultActionList(getSecurityScan().getName());
     actionList.setDefaultAction(new AbstractAction(){
       public void actionPerformed(      ActionEvent e){
-        UISupport.showInfoMessage("Scan [" + getSecurityCheck().getName() + "] ran with status ["+ getExecutionProgressStatus()+ "]","SecurityScan Result");
+        UISupport.showInfoMessage("Scan [" + getSecurityScan().getName() + "] ran with status ["+ getExecutionProgressStatus()+ "]","SecurityScan Result");
       }
     }
 );

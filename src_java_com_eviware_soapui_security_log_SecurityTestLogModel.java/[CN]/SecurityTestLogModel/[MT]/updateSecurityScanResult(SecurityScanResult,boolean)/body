@@ -20,7 +20,7 @@
     }
   }
  else {
-    SecurityScan securityCheck=securityCheckResult.getSecurityCheck();
+    SecurityScan securityCheck=securityCheckResult.getSecurityScan();
     securityCheckResult.detectMissingItems();
     StringBuilder outStr=new StringBuilder("SecurityScan ");
     outStr.append(checkCount).append(" [").append(securityCheck.getName()).append("] ").append(securityCheckResult.getExecutionProgressStatus()).append(", took = ").append(securityCheckResult.getTimeTaken());

@@ -10,7 +10,7 @@
   okAction.setDialog(dialog);
   cancelAction.setDialog(dialog);
   applyAction.setDialog(dialog);
-  final TestCase testCase=securityCheck.getTestStep().getTestCase();
+  final TestCase testCase=securityScan.getTestStep().getTestCase();
   final Project project=testCase.getTestSuite().getProject();
   dialog.getFormField(CloneParameterDialog.TARGET_TESTSUITE).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
@@ -39,13 +39,13 @@
           SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
           String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
           TestStep testStep=testCase.getTestStepByName(testStepName);
-          String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
-          dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
+          String[] securityScanNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
+          dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,securityScanNames);
         }
  else {
           dialog.setOptions(CloneParameterDialog.TARGET_SECURITYTEST,new String[0]);
           dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,new String[0]);
-          dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,new String[0]);
+          dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,new String[0]);
         }
       }
  else {
@@ -79,13 +79,13 @@
         SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
         String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
         TestStep testStep=testCase.getTestStepByName(testStepName);
-        String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
-        dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
+        String[] securityScanNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
+        dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,securityScanNames);
       }
  else {
         dialog.setOptions(CloneParameterDialog.TARGET_SECURITYTEST,new String[0]);
         dialog.setOptions(CloneParameterDialog.TARGET_TESTSTEP,new String[0]);
-        dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,new String[0]);
+        dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,new String[0]);
       }
     }
   }
@@ -99,8 +99,8 @@
       String securityTestName=dialog.getValue(CloneParameterDialog.TARGET_SECURITYTEST);
       SecurityTest securityTest=testCase.getSecurityTestByName(securityTestName);
       TestStep testStep=testCase.getTestStepByName(newValue);
-      String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
-      dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
+      String[] securityScanNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
+      dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,securityScanNames);
     }
   }
 );
@@ -113,12 +113,12 @@
       SecurityTest securityTest=testCase.getSecurityTestByName(newValue);
       String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
       TestStep testStep=testCase.getTestStepByName(testStepName);
-      String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
-      dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
+      String[] securityScanNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
+      dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,securityScanNames);
     }
   }
 );
-  WsdlTestCase wsdlTestCase=(WsdlTestCase)securityCheck.getTestStep().getTestCase();
+  WsdlTestCase wsdlTestCase=(WsdlTestCase)securityScan.getTestStep().getTestCase();
   dialog.setOptions(CloneParameterDialog.TARGET_TESTSUITE,ModelSupport.getNames(wsdlTestCase.getTestSuite().getProject().getTestSuiteList()));
   dialog.setValue(CloneParameterDialog.TARGET_TESTSUITE,wsdlTestCase.getTestSuite().getName());
   List<TestCase> wsdlTestCaseList=wsdlTestCase.getTestSuite().getTestCaseList();
@@ -130,9 +130,9 @@
   SecurityTest securityTest=wsdlTestCase.getSecurityTestByName(securityTestName);
   String testStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
   TestStep testStep=wsdlTestCase.getTestStepByName(testStepName);
-  String[] securityCheckNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
-  dialog.setOptions(CloneParameterDialog.TARGET_SECURITYCHECK,securityCheckNames);
-  dialog.setOptions(CloneParameterDialog.PARAMETERS,securityCheck.getParameterHolder().getParameterLabels());
+  String[] securityScanNames=ModelSupport.getNames(securityTest.getTestStepSecurityScanByType(testStep.getId(),AbstractSecurityScanWithProperties.class));
+  dialog.setOptions(CloneParameterDialog.TARGET_SECURITYSCAN,securityScanNames);
+  dialog.setOptions(CloneParameterDialog.PARAMETERS,securityScan.getParameterHolder().getParameterLabels());
   ((JFormDialog)dialog).getDialog().setResizable(false);
   return dialog;
 }

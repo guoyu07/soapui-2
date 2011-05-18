@@ -4,8 +4,8 @@
   String targetTestCaseName=dialog.getValue(CloneParameterDialog.TARGET_TESTCASE);
   String targetSecurityTestName=dialog.getValue(CloneParameterDialog.TARGET_SECURITYTEST);
   String targetSecurityTestStepName=dialog.getValue(CloneParameterDialog.TARGET_TESTSTEP);
-  String[] targetSecurityChecks=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(CloneParameterDialog.TARGET_SECURITYCHECK)).getSelectedOptions());
-  if (targetSecurityChecks.length == 0) {
+  String[] targetSecurityScans=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(CloneParameterDialog.TARGET_SECURITYSCAN)).getSelectedOptions());
+  if (targetSecurityScans.length == 0) {
     if (showErrorMessage) {
       UISupport.showErrorMessage("No SecurityScans selected..");
     }
@@ -18,24 +18,24 @@
     }
     return items;
   }
-  Project project=securityCheck.getTestStep().getTestCase().getTestSuite().getProject();
+  Project project=securityScan.getTestStep().getTestCase().getTestSuite().getProject();
   TestSuite targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
   TestCase targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
   SecurityTest targetSecurityTest=targetTestCase.getSecurityTestByName(targetSecurityTestName);
   TestStep targetTestStep=targetTestCase.getTestStepByName(targetSecurityTestStepName);
   boolean overwrite=dialog.getBooleanValue(CloneParameterDialog.OVERWRITE);
-  for (  String checkName : targetSecurityChecks) {
-    AbstractSecurityScanWithProperties targetSecurityCheck=(AbstractSecurityScanWithProperties)targetSecurityTest.getTestStepSecurityScanByName(targetTestStep.getId(),checkName);
+  for (  String scanName : targetSecurityScans) {
+    AbstractSecurityScanWithProperties targetSecurityScan=(AbstractSecurityScanWithProperties)targetSecurityTest.getTestStepSecurityScanByName(targetTestStep.getId(),scanName);
     for (    int i : indexes) {
-      SecurityCheckedParameter checkParameter=securityCheck.getParameterAt(i);
-      String newParameterLabel=checkParameter.getLabel();
-      if (securityCheck.getParameterByLabel(checkParameter.getLabel()) != null) {
-        if (securityCheck.equals(targetSecurityCheck)) {
-          newParameterLabel="Copy of " + checkParameter.getLabel();
+      SecurityCheckedParameter scanParameter=securityScan.getParameterAt(i);
+      String newParameterLabel=scanParameter.getLabel();
+      if (securityScan.getParameterByLabel(scanParameter.getLabel()) != null) {
+        if (securityScan.equals(targetSecurityScan)) {
+          newParameterLabel="Copy of " + scanParameter.getLabel();
         }
       }
-      if (targetSecurityCheck.importParameter(checkParameter,overwrite,newParameterLabel) && !items.contains(targetSecurityCheck)) {
-        items.add(targetSecurityCheck);
+      if (targetSecurityScan.importParameter(scanParameter,overwrite,newParameterLabel) && !items.contains(targetSecurityScan)) {
+        items.add(targetSecurityScan);
       }
     }
   }
