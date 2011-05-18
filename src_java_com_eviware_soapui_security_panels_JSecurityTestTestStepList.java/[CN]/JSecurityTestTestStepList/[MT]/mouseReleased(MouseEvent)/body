@@ -6,7 +6,7 @@
   if (node == null)   return;
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
     if (node instanceof SecurityCheckNode) {
-      if (((SecurityCheckNode)node).getSecurityCheck() instanceof AbstractSecurityCheckWithProperties)       securityCheckWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
+      if (((SecurityCheckNode)node).getSecurityCheck() instanceof AbstractSecurityScanWithProperties)       securityCheckWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
  else       securityCheckPopUp.show(securityTestTree,e.getX(),e.getY());
     }
  else     if (((TestStepNode)node).getTestStep() instanceof Securable)     testStepPopUp.show(securityTestTree,e.getX(),e.getY());

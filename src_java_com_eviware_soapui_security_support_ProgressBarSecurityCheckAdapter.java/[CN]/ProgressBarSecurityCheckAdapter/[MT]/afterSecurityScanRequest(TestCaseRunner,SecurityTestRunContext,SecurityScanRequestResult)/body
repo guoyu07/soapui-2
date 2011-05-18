@@ -5,8 +5,8 @@
       progressBar.setString(STATE_MISSING_ASSERTIONS);
       progressBar.setValue(progressBar.getMaximum());
     }
- else     if (this.securityCheck instanceof AbstractSecurityCheckWithProperties) {
-      if (((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder() != null && ((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder().getParameterList() != null && ((AbstractSecurityCheckWithProperties)this.securityCheck).getParameterHolder().getParameterList().size() == 0) {
+ else     if (this.securityCheck instanceof AbstractSecurityScanWithProperties) {
+      if (((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList().size() == 0) {
         progressBar.setForeground(MISSING_ASSERTION_COLOR);
         progressBar.setString(STATE_MISSING_PARAMETERS);
         progressBar.setValue(progressBar.getMaximum());

@@ -1,7 +1,7 @@
 {
   StringToStringMap changedParams=null;
   if (getMessageExchange() != null && getMessageExchange().getProperties() != null) {
-    changedParams=StringToStringMap.fromXml(getMessageExchange().getProperties().get(AbstractSecurityCheckWithProperties.SECURITY_CHANGED_PARAMETERS));
+    changedParams=StringToStringMap.fromXml(getMessageExchange().getProperties().get(AbstractSecurityScanWithProperties.SECURITY_CHANGED_PARAMETERS));
   }
  else {
     changedParams=new StringToStringMap();

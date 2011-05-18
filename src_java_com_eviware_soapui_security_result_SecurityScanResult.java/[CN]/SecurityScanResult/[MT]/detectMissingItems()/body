@@ -3,7 +3,7 @@
   if (getStatus().equals(ResultStatus.NOTHING_TO_SEND)) {
     executionProgressStatus=ResultStatus.NOTHING_TO_SEND;
   }
-  if (securityCheck instanceof AbstractSecurityCheckWithProperties && ((AbstractSecurityCheckWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0) {
+  if (securityCheck instanceof AbstractSecurityScanWithProperties && ((AbstractSecurityScanWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0) {
     logIconStatus=ResultStatus.MISSING_PARAMETERS;
     executionProgressStatus=ResultStatus.MISSING_PARAMETERS;
   }

@@ -1,11 +1,11 @@
 {
   XFormDialog dialog=null;
   if (component == null) {
-    if (securityCheck instanceof AbstractSecurityCheckWithProperties)     dialog=ADialogBuilder.buildDialog(DialogWithParameters.class);
+    if (securityCheck instanceof AbstractSecurityScanWithProperties)     dialog=ADialogBuilder.buildDialog(DialogWithParameters.class);
  else     dialog=ADialogBuilder.buildDialog(DefaultDialog.class);
   }
  else {
-    if (securityCheck instanceof AbstractSecurityCheckWithProperties)     dialog=ADialogBuilder.buildDialog(OptionalDialogWithParameters.class);
+    if (securityCheck instanceof AbstractSecurityScanWithProperties)     dialog=ADialogBuilder.buildDialog(OptionalDialogWithParameters.class);
  else     dialog=ADialogBuilder.buildDialog(OptionalDialog.class);
     dialog.getFormField(OptionalDialog.OPTIONAL).setProperty("component",component);
     dialog.getFormField(OptionalDialog.OPTIONAL).setProperty("dimension",component.getPreferredSize());
