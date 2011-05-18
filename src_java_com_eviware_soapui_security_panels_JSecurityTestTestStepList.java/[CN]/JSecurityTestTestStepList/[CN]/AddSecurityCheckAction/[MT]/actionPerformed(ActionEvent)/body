@@ -20,7 +20,7 @@
     UISupport.showErrorMessage("Failed to add security scan");
     return;
   }
-  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
+  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityScanConfigurationDialog((SecurityScan)securityCheck);
   if (!dialog.configure()) {
     SecurityScanNode securityCheckNode=(SecurityScanNode)node.getLastChild();
     securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);
