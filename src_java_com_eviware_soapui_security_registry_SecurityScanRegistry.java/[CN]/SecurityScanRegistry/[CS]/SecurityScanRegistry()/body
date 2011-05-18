@@ -1,0 +1,15 @@
+{
+  addFactory(new GroovySecurityScanFactory());
+  addFactory(new CrossSiteScriptingScanFactory());
+  addFactory(new XmlBombSecurityScanFactory());
+  addFactory(new MaliciousAttachmentSecurityScanFactory());
+  addFactory(new XPathInjectionSecurityScanFactory());
+  addFactory(new InvalidTypesSecurityScanFactory());
+  addFactory(new BoundarySecurityScanFactory());
+  addFactory(new SQLInjectionScanFactory());
+  addFactory(new MalformedXmlSecurityScanFactory());
+  addFactory(new FuzzerSecurityScanFactory());
+  for (  SecurityScanFactory factory : SoapUI.getFactoryRegistry().getFactories(SecurityScanFactory.class)) {
+    addFactory(factory);
+  }
+}
