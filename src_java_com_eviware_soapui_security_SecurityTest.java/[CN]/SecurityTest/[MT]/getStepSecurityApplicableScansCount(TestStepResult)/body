@@ -1,0 +1,13 @@
+{
+  Iterator<List<SecurityScan>> scannedSteps=getSecurityScansMap().values().iterator();
+  int count=0;
+  while (scannedSteps.hasNext()) {
+    List<SecurityScan> scanList=scannedSteps.next();
+    for (    SecurityScan securityScan : scanList) {
+      if (securityScan.getTestStep().getId().equals(tsr.getTestStep().getId()) && (tsr.getStatus() != TestStepStatus.FAILED || securityScan.isApplyForFailedStep())) {
+        count++;
+      }
+    }
+  }
+  return count;
+}

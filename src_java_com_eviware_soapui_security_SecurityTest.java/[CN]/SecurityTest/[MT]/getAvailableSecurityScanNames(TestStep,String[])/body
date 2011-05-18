@@ -1,0 +1,10 @@
+{
+  List<String> availableNames=new ArrayList<String>();
+  for (int i=0; i < securityScanNames.length; i++) {
+    String name=securityScanNames[i];
+    if (canAddSecurityScan(testStep,name)) {
+      availableNames.add(name);
+    }
+  }
+  return availableNames.toArray(new String[availableNames.size()]);
+}

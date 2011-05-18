@@ -1,0 +1,9 @@
+{
+  if (securityScansMap.containsKey(testStepId)) {
+    if (securityScansMap.get(testStepId).contains(securityScan)) {
+      securityScansMap.get(testStepId).remove(securityScan);
+      fireSecurityScanRemoved(securityScan);
+      securityScan.release();
+    }
+  }
+}

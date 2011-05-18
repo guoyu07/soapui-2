@@ -3,9 +3,9 @@
   if (securityTestConfig != null) {
     if (!securityTestConfig.getTestStepSecurityTestList().isEmpty()) {
       for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : securityTestConfig.getTestStepSecurityTestList()) {
-        List<SecurityScan> checkList=getSecurityChecksMap().get(testStepSecurityTestListConfig.getTestStepId());
-        for (int i=0; i < checkList.size(); i++) {
-          checkList.get(i).updateSecurityConfig(testStepSecurityTestListConfig.getTestStepSecurityCheckList().get(i));
+        List<SecurityScan> scanList=getSecurityScansMap().get(testStepSecurityTestListConfig.getTestStepId());
+        for (int i=0; i < scanList.size(); i++) {
+          scanList.get(i).updateSecurityConfig(testStepSecurityTestListConfig.getTestStepSecurityCheckList().get(i));
         }
       }
     }

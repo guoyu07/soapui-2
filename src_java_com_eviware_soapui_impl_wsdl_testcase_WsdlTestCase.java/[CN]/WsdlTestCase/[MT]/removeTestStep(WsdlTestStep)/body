@@ -6,10 +6,10 @@
   }
   testSteps.remove(ix);
   for (  SecurityTest securityTest : getSecurityTestList()) {
-    List<SecurityScan> testStepChecks=securityTest.getTestStepSecurityChecks(testStep.getId());
+    List<SecurityScan> testStepChecks=securityTest.getTestStepSecurityScans(testStep.getId());
     for (Iterator<SecurityScan> iterator=testStepChecks.iterator(); iterator.hasNext(); ) {
       SecurityScan chk=iterator.next();
-      securityTest.removeSecurityCheckWhenRemoveTestStep(testStep,chk);
+      securityTest.removeSecurityScanWhenRemoveTestStep(testStep,chk);
       iterator.remove();
     }
   }

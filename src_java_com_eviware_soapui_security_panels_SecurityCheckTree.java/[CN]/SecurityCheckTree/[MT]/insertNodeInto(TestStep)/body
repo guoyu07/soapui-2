@@ -1,5 +1,5 @@
 {
-  TestStepNode testStepNode=new TestStepNode((SecurityTreeRootNode)root,testStep,securityTest.getSecurityChecksMap().get(testStep.getId()));
+  TestStepNode testStepNode=new TestStepNode((SecurityTreeRootNode)root,testStep,securityTest.getSecurityScansMap().get(testStep.getId()));
   insertNodeInto(testStepNode,(MutableTreeNode)root,root.getChildCount());
   nodeStructureChanged(root);
 }

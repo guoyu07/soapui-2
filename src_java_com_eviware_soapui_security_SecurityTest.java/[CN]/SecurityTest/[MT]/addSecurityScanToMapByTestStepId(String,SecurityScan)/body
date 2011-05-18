@@ -1,0 +1,13 @@
+{
+  if (securityScansMap.containsKey(testStepId)) {
+    if (!securityScansMap.get(testStepId).contains(newSecScan)) {
+      securityScansMap.get(testStepId).add(newSecScan);
+    }
+  }
+ else {
+    List<SecurityScan> list=new ArrayList<SecurityScan>();
+    list.add(newSecScan);
+    securityScansMap.put(testStepId,list);
+  }
+  fireSecurityScanAdded(newSecScan);
+}

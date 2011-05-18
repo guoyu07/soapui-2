@@ -1,0 +1,9 @@
+{
+  Iterator<List<SecurityScan>> scannedSteps=getSecurityScansMap().values().iterator();
+  int count=0;
+  while (scannedSteps.hasNext()) {
+    List<SecurityScan> scanList=scannedSteps.next();
+    count+=scanList.size();
+  }
+  return count;
+}

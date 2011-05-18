@@ -1,5 +1,5 @@
 {
-  if (runContext.getProperty(SecurityTestRunner.Status.class.getName()) == SecurityTestRunner.Status.FAILED && getTestRunnable().getFailSecurityTestOnCheckErrors()) {
+  if (runContext.getProperty(SecurityTestRunner.Status.class.getName()) == SecurityTestRunner.Status.FAILED && getTestRunnable().getFailSecurityTestOnScanErrors()) {
     fail("Failing due to failed security scan");
   }
 }

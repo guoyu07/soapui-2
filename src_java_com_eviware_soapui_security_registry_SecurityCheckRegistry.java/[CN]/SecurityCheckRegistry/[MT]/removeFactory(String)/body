@@ -1,6 +1,6 @@
 {
   for (  String scfName : availableSecurityChecks.keySet()) {
-    SecurityCheckFactory csf=availableSecurityChecks.get(scfName);
+    SecurityScanFactory csf=availableSecurityChecks.get(scfName);
     if (csf.getSecurityCheckType().equals(type)) {
       availableSecurityChecks.remove(scfName);
       securityCheckNames.remove(scfName);

@@ -1,0 +1,27 @@
+{
+  List<TestStepSecurityTestConfig> testStepSecurityTestList=getConfig().getTestStepSecurityTestList();
+  if (!testStepSecurityTestList.isEmpty()) {
+    for (    TestStepSecurityTestConfig testStepSecurityTest : testStepSecurityTestList) {
+      if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
+        List<SecurityCheckConfig> securityScanList=testStepSecurityTest.getTestStepSecurityCheckList();
+        SecurityScanFactory factory=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(securityScan.getType());
+        SecurityCheckConfig newSecScanConfig=(SecurityCheckConfig)securityScan.getConfig().copy();
+        SecurityScan newSecScan=factory.buildSecurityScan(testStep,newSecScanConfig,this);
+        securityScanList.remove(securityScan.getConfig());
+        securityScanList.add(index + offset,newSecScanConfig);
+        SecurityCheckConfig[] cc=new SecurityCheckConfig[securityScanList.size()];
+        for (int i=0; i < securityScanList.size(); i++) {
+          cc[i]=securityScanList.get(i);
+        }
+        testStepSecurityTest.setTestStepSecurityCheckArray(cc);
+        TestStepSecurityTestConfig[] vv=new TestStepSecurityTestConfig[testStepSecurityTestList.size()];
+        for (int i=0; i < testStepSecurityTestList.size(); i++) {
+          vv[i]=testStepSecurityTestList.get(i);
+        }
+        getConfig().setTestStepSecurityTestArray(vv);
+        return newSecScan;
+      }
+    }
+  }
+  return null;
+}

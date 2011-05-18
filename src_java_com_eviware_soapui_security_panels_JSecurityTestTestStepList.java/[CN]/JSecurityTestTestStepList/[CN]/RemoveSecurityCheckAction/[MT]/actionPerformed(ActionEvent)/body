@@ -3,6 +3,6 @@
   SecurityScan securityCheck=node.getSecurityCheck();
   TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
   if (UISupport.confirm("Remove security scan [" + securityCheck.getName() + "]","Remove SecurityScan")) {
-    securityTest.removeSecurityCheck(testStep,(SecurityScan)securityCheck);
+    securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);
   }
 }

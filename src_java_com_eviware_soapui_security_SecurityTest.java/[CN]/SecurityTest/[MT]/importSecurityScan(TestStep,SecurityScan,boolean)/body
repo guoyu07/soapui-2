@@ -1,0 +1,30 @@
+{
+  XmlObject newConfig=securityScanToClone.getConfig().copy();
+  SecurityCheckConfig newScanConfig=SecurityCheckConfig.Factory.newInstance();
+  newScanConfig.set(newConfig);
+  SecurityScanFactory factory=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(newScanConfig.getType());
+  boolean targetStepHasScans=getTestStepSecurityScansCount(targetTestStep.getId()) > 0;
+  if (targetStepHasScans) {
+    boolean targetHasScanOfSameType=false;
+    for (    SecurityScan oldScan : getTestStepSecurityScans(targetTestStep.getId())) {
+      if (oldScan.getType().equals(securityScanToClone.getType())) {
+        targetHasScanOfSameType=true;
+        if (overwrite) {
+          removeSecurityScan(targetTestStep,oldScan);
+          addSecurityScan(targetTestStep,factory,newScanConfig);
+        }
+ else {
+          return false;
+        }
+        break;
+      }
+    }
+    if (!targetHasScanOfSameType) {
+      addSecurityScan(targetTestStep,factory,newScanConfig);
+    }
+  }
+ else {
+    addSecurityScan(targetTestStep,factory,newScanConfig);
+  }
+  return true;
+}

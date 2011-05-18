@@ -4,26 +4,26 @@
     return;
   }
   TestStep testStep=node.getTestStep();
-  String[] availableChecksNames=SoapUI.getSoapUICore().getSecurityCheckRegistry().getAvailableSecurityChecksNames(testStep);
-  availableChecksNames=securityTest.getAvailableSecurityCheckNames(testStep,availableChecksNames);
+  String[] availableChecksNames=SoapUI.getSoapUICore().getSecurityScanRegistry().getAvailableSecurityChecksNames(testStep);
+  availableChecksNames=securityTest.getAvailableSecurityScanNames(testStep,availableChecksNames);
   if (availableChecksNames == null || availableChecksNames.length == 0) {
     UISupport.showErrorMessage("No security scans available for this test step");
     return;
   }
   String name=UISupport.prompt("Specify type of security scan","Add SecurityScan",availableChecksNames);
   if (name == null || name.trim().length() == 0)   return;
-  String type=SoapUI.getSoapUICore().getSecurityCheckRegistry().getSecurityCheckTypeForName(name);
+  String type=SoapUI.getSoapUICore().getSecurityScanRegistry().getSecurityScanTypeForName(name);
   if (type == null || type.trim().length() == 0)   return;
-  SecurityScan securityCheck=securityTest.addNewSecurityCheck(testStep,name);
+  SecurityScan securityCheck=securityTest.addNewSecurityScan(testStep,name);
   securityTestTree.setSelectionPath(new TreePath(node.getPath()));
   if (securityCheck == null) {
     UISupport.showErrorMessage("Failed to add security scan");
     return;
   }
-  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
+  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
   if (!dialog.configure()) {
     SecurityCheckNode securityCheckNode=(SecurityCheckNode)node.getLastChild();
-    securityTest.removeSecurityCheck(testStep,(SecurityScan)securityCheck);
+    securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);
     cellRender.remove(securityCheckNode);
   }
   dialog.release();

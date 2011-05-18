@@ -1,0 +1,5 @@
+{
+  List<T> result=new ArrayList<T>();
+  for (  SecurityScan scan : getTestStepSecurityScans(testStepId))   if (securityScanType.isAssignableFrom(scan.getClass()))   result.add((T)scan);
+  return result;
+}

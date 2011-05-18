@@ -4,8 +4,8 @@
   this.testStep=(WsdlTestStep)node.getTestStep();
   securityTest=((SecurityTreeRootNode)node.getParent()).getSecurityTest();
   if (AbstractSecurityScan.isSecurable(testStep)) {
-    if (securityTest.getSecurityChecksMap().get(testStep.getId()) != null) {
-      String labelText=securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scan)" : securityTest.getSecurityChecksMap().get(testStep.getId()).size() + " scans)";
+    if (securityTest.getSecurityScansMap().get(testStep.getId()) != null) {
+      String labelText=securityTest.getSecurityScansMap().get(testStep.getId()).size() == 1 ? securityTest.getSecurityScansMap().get(testStep.getId()).size() + " scan)" : securityTest.getSecurityScansMap().get(testStep.getId()).size() + " scans)";
       label=new JLabel(testStep.getLabel() + " (" + labelText,SwingConstants.LEFT);
     }
  else {
@@ -23,7 +23,7 @@
  else   expandCollapseBtn=new JButton(collapsed);
   expandCollapseBtn.setBorder(null);
   expandCollapseBtn.setEnabled(false);
-  if (securityTest.getSecurityChecksMap().get(testStep.getId()) == null || securityTest.getSecurityChecksMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
+  if (securityTest.getSecurityScansMap().get(testStep.getId()) == null || securityTest.getSecurityScansMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
  else   expandCollapseBtn.setVisible(true);
   innerLeftPanel.add(expandCollapseBtn,BorderLayout.WEST);
   if (AbstractSecurityScan.isSecurable(testStep)) {

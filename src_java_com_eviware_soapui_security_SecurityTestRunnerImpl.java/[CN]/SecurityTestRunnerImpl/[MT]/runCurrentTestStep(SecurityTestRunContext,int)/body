@@ -15,7 +15,7 @@
     for (int i=0; i < securityTestStepListeners.length; i++) {
       if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].beforeStep(this,getRunContext(),stepResult);
     }
-    Map<String,List<SecurityScan>> secCheckMap=securityTest.getSecurityChecksMap();
+    Map<String,List<SecurityScan>> secCheckMap=securityTest.getSecurityScansMap();
     if (secCheckMap.containsKey(currentStep.getId())) {
       List<SecurityScan> testStepChecksList=secCheckMap.get(currentStep.getId());
       for (int i=0; i < testStepChecksList.size(); i++) {

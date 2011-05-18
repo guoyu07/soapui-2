@@ -25,7 +25,7 @@
   TestStep targetTestStep=targetTestCase.getTestStepByName(targetSecurityTestStepName);
   boolean overwrite=dialog.getBooleanValue(CloneParameterDialog.OVERWRITE);
   for (  String checkName : targetSecurityChecks) {
-    AbstractSecurityScanWithProperties targetSecurityCheck=(AbstractSecurityScanWithProperties)targetSecurityTest.getTestStepSecurityCheckByName(targetTestStep.getId(),checkName);
+    AbstractSecurityScanWithProperties targetSecurityCheck=(AbstractSecurityScanWithProperties)targetSecurityTest.getTestStepSecurityScanByName(targetTestStep.getId(),checkName);
     for (    int i : indexes) {
       SecurityCheckedParameter checkParameter=securityCheck.getParameterAt(i);
       String newParameterLabel=checkParameter.getLabel();

@@ -1,5 +1,5 @@
 {
-  boolean hasChecksToProcess=securityTest.getTestStepSecurityChecksCount(result.getTestStep().getId()) > 0;
+  boolean hasChecksToProcess=securityTest.getTestStepSecurityScansCount(result.getTestStep().getId()) > 0;
   securityTestLog.updateSecurityTestStepResult(result,hasChecksToProcess,startStepLogEntryAdded);
   if (result.getStatus() == ResultStatus.FAILED) {
     securityStatus=ResultStatus.FAILED;

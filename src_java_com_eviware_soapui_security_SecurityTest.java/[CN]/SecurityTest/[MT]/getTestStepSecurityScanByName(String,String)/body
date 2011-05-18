@@ -1,0 +1,8 @@
+{
+  List<SecurityScan> securityScansList=getTestStepSecurityScans(testStepId);
+  for (int c=0; c < securityScansList.size(); c++) {
+    SecurityScan securityScan=getTestStepSecurityScanAt(testStepId,c);
+    if (securityScanName.equals(securityScan.getName()))     return securityScan;
+  }
+  return null;
+}

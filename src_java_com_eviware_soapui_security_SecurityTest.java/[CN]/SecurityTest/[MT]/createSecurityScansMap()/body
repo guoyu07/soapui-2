@@ -1,0 +1,25 @@
+{
+  if (getConfig() != null) {
+    if (!getConfig().getTestStepSecurityTestList().isEmpty()) {
+      for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : getConfig().getTestStepSecurityTestList()) {
+        List<SecurityScan> scanList=new ArrayList<SecurityScan>();
+        if (testStepSecurityTestListConfig != null) {
+          if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
+            for (            SecurityCheckConfig secScanConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
+              TestStep testStep=null;
+              for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
+                testStep=ts;
+                SecurityScan securityScan=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(secScanConfig.getType()).buildSecurityScan(testStep,secScanConfig,this);
+                scanList.add(securityScan);
+              }
+            }
+          }
+        }
+        if (!scanList.isEmpty()) {
+          securityScansMap.put(testStepSecurityTestListConfig.getTestStepId(),scanList);
+        }
+      }
+    }
+  }
+  return securityScansMap;
+}

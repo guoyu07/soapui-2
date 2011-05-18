@@ -3,7 +3,7 @@
   SecurityScan securityCheck=node.getSecurityCheck();
   if (securityCheck.isConfigurable()) {
     SecurityCheckConfig backupCheckConfig=(SecurityCheckConfig)securityCheck.getConfig().copy();
-    SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityCheckRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
+    SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityCheckConfigurationDialog((SecurityScan)securityCheck);
     if (!dialog.configure()) {
       securityCheck.copyConfig(backupCheckConfig);
     }

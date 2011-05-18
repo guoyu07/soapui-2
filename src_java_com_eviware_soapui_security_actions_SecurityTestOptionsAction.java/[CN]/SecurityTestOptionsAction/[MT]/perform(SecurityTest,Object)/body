@@ -13,12 +13,12 @@
   }
   StringToStringMap values=new StringToStringMap();
   values.put(FAIL_ON_ERROR,String.valueOf(securityTest.getFailOnError()));
-  values.put(FAIL_SECURITYTEST_ON_ERROR,String.valueOf(securityTest.getFailSecurityTestOnCheckErrors()));
+  values.put(FAIL_SECURITYTEST_ON_ERROR,String.valueOf(securityTest.getFailSecurityTestOnScanErrors()));
   values=dialog.show(values);
   if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
     try {
       securityTest.setFailOnError(Boolean.parseBoolean(values.get(FAIL_ON_ERROR)));
-      securityTest.setFailSecurityTestOnCheckErrors(Boolean.parseBoolean(values.get(FAIL_SECURITYTEST_ON_ERROR)));
+      securityTest.setFailSecurityTestOnScanErrors(Boolean.parseBoolean(values.get(FAIL_SECURITYTEST_ON_ERROR)));
     }
  catch (    Exception e1) {
       UISupport.showErrorMessage(e1.getMessage());

@@ -1,0 +1,11 @@
+{
+  boolean hasScansOfType=false;
+  String securityScanType=SoapUI.getSoapUICore().getSecurityScanRegistry().getSecurityScanTypeForName(securityScanName);
+  for (  SecurityScan scan : getTestStepSecurityScans(testStep.getId())) {
+    if (securityScanType.equals(scan.getType())) {
+      hasScansOfType=true;
+      break;
+    }
+  }
+  return !hasScansOfType;
+}

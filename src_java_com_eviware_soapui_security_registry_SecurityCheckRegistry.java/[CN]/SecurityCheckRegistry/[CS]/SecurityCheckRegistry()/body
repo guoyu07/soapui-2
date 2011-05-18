@@ -8,7 +8,7 @@
   addFactory(new BoundarySecurityCheckFactory());
   addFactory(new SQLInjectionCheckFactory());
   addFactory(new MalformedXmlSecurityCheckFactory());
-  for (  SecurityCheckFactory factory : SoapUI.getFactoryRegistry().getFactories(SecurityCheckFactory.class)) {
+  for (  SecurityScanFactory factory : SoapUI.getFactoryRegistry().getFactories(SecurityScanFactory.class)) {
     addFactory(factory);
   }
 }
