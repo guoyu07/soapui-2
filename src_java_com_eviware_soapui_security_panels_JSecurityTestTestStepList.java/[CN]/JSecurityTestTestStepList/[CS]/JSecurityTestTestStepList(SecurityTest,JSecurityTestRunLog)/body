@@ -15,6 +15,22 @@
   securityCheckWithPropertiesPopUp.addSeparator();
   securityCheckWithPropertiesPopUp.add(removeSecurityCheckAction);
   securityCheckWithPropertiesPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  multySecurityScanPopUp=new JPopupMenu();
+  multySecurityScanPopUp.add(new EnableSecurityScans());
+  multySecurityScanPopUp.add(new DisableSecurityScans());
+  multySecurityScanPopUp.addSeparator();
+  multySecurityScanPopUp.add(removeSecurityCheckAction);
+  multySecurityScanPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  multySecurityScanPopUp.addPopupMenuListener(new PopupMenuListener(){
+    @Override public void popupMenuWillBecomeVisible(    PopupMenuEvent arg0){
+      multypopupvisible=true;
+    }
+    @Override public void popupMenuWillBecomeInvisible(    PopupMenuEvent arg0){
+    }
+    @Override public void popupMenuCanceled(    PopupMenuEvent arg0){
+    }
+  }
+);
   testStepPopUp=new JPopupMenu();
   initTestStepPopUpActions();
   testStepPopUp.addSeparator();
@@ -27,7 +43,7 @@
   securityTestTree.setLargeModel(true);
   cellRender=new SecurityTreeCellRender();
   securityTestTree.setCellRenderer(cellRender);
-  securityTestTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+  securityTestTree.getSelectionModel().setSelectionMode(TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
   securityTestTree.addTreeSelectionListener(this);
   securityTestTree.addMouseListener(this);
   securityTestTree.setRowHeight(30);

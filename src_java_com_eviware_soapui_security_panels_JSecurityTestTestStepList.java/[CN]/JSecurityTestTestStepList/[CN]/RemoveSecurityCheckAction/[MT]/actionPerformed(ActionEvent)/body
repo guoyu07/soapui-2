@@ -1,8 +1,20 @@
 {
-  SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
-  SecurityScan securityCheck=node.getSecurityScan();
-  TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
-  if (UISupport.confirm("Remove security scan [" + securityCheck.getName() + "]","Remove SecurityScan")) {
-    securityTest.removeSecurityScan(testStep,(SecurityScan)securityCheck);
+  if (securityTestTree.getSelectionCount() == 1) {
+    SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
+    SecurityScan securityScan=node.getSecurityScan();
+    TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
+    if (UISupport.confirm("Remove security scan [" + securityScan.getName() + "]","Remove SecurityScan")) {
+      securityTest.removeSecurityScan(testStep,(SecurityScan)securityScan);
+    }
+  }
+ else {
+    SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
+    TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
+    if (UISupport.confirm("Remove all selected security scans","Remove SecurityScan")) {
+      for (      TreePath path : securityTestTree.getSelectionPaths())       if (path.getLastPathComponent() instanceof SecurityScanNode) {
+        SecurityScan securityScan=((SecurityScanNode)path.getLastPathComponent()).getSecurityScan();
+        securityTest.removeSecurityScan(testStep,(SecurityScan)securityScan);
+      }
+    }
   }
 }
