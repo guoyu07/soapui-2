@@ -4,8 +4,6 @@
     if (getTestMonitor().hasRunningTests())     question+="\n(Projects with running tests will not be saved)";
     if (!UISupport.confirm(question,"Question"))     return false;
     try {
-      PropertyExpansionUtils.saveGlobalProperties();
-      SecurityScanUtil.saveGlobalSecuritySettings();
       soapUICore.saveSettings();
       workspace.onClose();
     }
