@@ -1,0 +1,9 @@
+{
+  super(testStep,newConfig,parent,icon);
+  if (newConfig.getConfig() == null || !(newConfig.getConfig() instanceof MaliciousAttachmentSecurityScanConfig)) {
+    initConfig();
+  }
+ else {
+    config=((MaliciousAttachmentSecurityScanConfig)newConfig.getConfig());
+  }
+}

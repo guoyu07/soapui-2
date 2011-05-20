@@ -1,5 +1,5 @@
 {
   SecurityScanFactory factory=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactoryByName(securityScanName);
-  SecurityCheckConfig newScanConfig=factory.createNewSecurityScan(securityScanName);
+  SecurityScanConfig newScanConfig=factory.createNewSecurityScan(securityScanName);
   return addSecurityScan(testStep,factory,newScanConfig);
 }

@@ -1,8 +1,8 @@
 {
-  SecurityCheckConfig securityCheckConfig=SecurityCheckConfig.Factory.newInstance();
+  SecurityScanConfig securityCheckConfig=SecurityScanConfig.Factory.newInstance();
   securityCheckConfig.setType(GroovySecurityScan.TYPE);
   securityCheckConfig.setName(name);
-  GroovySecurityCheckConfig groovyscc=GroovySecurityCheckConfig.Factory.newInstance();
+  GroovySecurityScanConfig groovyscc=GroovySecurityScanConfig.Factory.newInstance();
   groovyscc.setExecuteScript(ScriptConfig.Factory.newInstance());
   securityCheckConfig.setConfig(groovyscc);
   return securityCheckConfig;

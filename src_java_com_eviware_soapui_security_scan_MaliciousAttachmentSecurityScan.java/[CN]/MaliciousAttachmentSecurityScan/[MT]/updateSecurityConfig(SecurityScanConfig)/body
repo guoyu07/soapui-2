@@ -1,0 +1,12 @@
+{
+  super.updateSecurityConfig(config);
+  if (this.config != null) {
+    this.config=(MaliciousAttachmentSecurityScanConfig)getConfig().getConfig();
+  }
+  if (advancedSettingsPanel != null) {
+    advancedSettingsPanel.setConfig((MaliciousAttachmentSecurityScanConfig)getConfig().getConfig());
+  }
+  if (mutationsPanel != null) {
+    mutationsPanel.updateConfig((MaliciousAttachmentSecurityScanConfig)getConfig().getConfig());
+  }
+}

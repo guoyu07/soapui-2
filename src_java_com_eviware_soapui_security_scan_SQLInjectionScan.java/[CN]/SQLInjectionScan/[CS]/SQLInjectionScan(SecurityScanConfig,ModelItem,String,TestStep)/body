@@ -1,0 +1,5 @@
+{
+  super(testStep,config,parent,icon);
+  if (config.getConfig() == null || !(config.getConfig() instanceof SQLInjectionScanConfig))   initSqlInjectionConfig();
+ else   sqlInjectionConfig=(SQLInjectionScanConfig)getConfig().getConfig();
+}

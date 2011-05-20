@@ -4,8 +4,8 @@
       for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : getConfig().getTestStepSecurityTestList()) {
         List<SecurityScan> scanList=new ArrayList<SecurityScan>();
         if (testStepSecurityTestListConfig != null) {
-          if (!testStepSecurityTestListConfig.getTestStepSecurityCheckList().isEmpty()) {
-            for (            SecurityCheckConfig secScanConfig : testStepSecurityTestListConfig.getTestStepSecurityCheckList()) {
+          if (!testStepSecurityTestListConfig.getTestStepSecurityScanList().isEmpty()) {
+            for (            SecurityScanConfig secScanConfig : testStepSecurityTestListConfig.getTestStepSecurityScanList()) {
               TestStep testStep=null;
               for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
                 testStep=ts;

@@ -4,7 +4,7 @@
     if (parameter.isChecked()) {
       TestProperty property=getTestStep().getProperties().get(parameter.getName());
       if (parameter.getXpath() == null || parameter.getXpath().trim().length() == 0) {
-        for (        SchemaTypeForSecurityCheckConfig invalidType : invalidTypeConfig.getTypesListList()) {
+        for (        SchemaTypeForSecurityScanConfig invalidType : invalidTypeConfig.getTypesListList()) {
           if (!parameterMutations.containsKey(parameter))           parameterMutations.put(parameter,new ArrayList<String>());
           parameterMutations.get(parameter).add(invalidType.getValue());
         }
@@ -15,8 +15,8 @@
         if (XmlUtils.seemsToBeXml(value)) {
           XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(value));
           XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXpath()));
-          List<SchemaTypeForSecurityCheckConfig> invalidTypes=invalidTypeConfig.getTypesListList();
-          for (          SchemaTypeForSecurityCheckConfig type : invalidTypes) {
+          List<SchemaTypeForSecurityScanConfig> invalidTypes=invalidTypeConfig.getTypesListList();
+          for (          SchemaTypeForSecurityScanConfig type : invalidTypes) {
             if (nodes.length > 0) {
               if (nodes[0].getSchemaType().getBuiltinTypeCode() != type.getType()) {
                 if (!parameterMutations.containsKey(parameter))                 parameterMutations.put(parameter,new ArrayList<String>());

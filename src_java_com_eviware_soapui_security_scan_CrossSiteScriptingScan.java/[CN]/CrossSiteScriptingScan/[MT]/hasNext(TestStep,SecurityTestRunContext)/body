@@ -2,7 +2,7 @@
   if (!context.hasProperty(PropertyMutation.REQUEST_MUTATIONS_STACK)) {
     Stack<PropertyMutation> requestMutationsList=new Stack<PropertyMutation>();
     context.put(PropertyMutation.REQUEST_MUTATIONS_STACK,requestMutationsList);
-    context.put(PARAMETER_EXPOSURE_SCAN_CONFIG,parameterExposureScanConfig);
+    context.put(PARAMETER_EXPOSURE_SCAN_CONFIG,cssConfig);
     try {
       extractMutations(testStep,context);
     }

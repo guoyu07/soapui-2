@@ -1,0 +1,22 @@
+{
+  super(config,parent,icon);
+  if (config == null) {
+    config=SecurityScanConfig.Factory.newInstance();
+    setConfig(config);
+  }
+  this.testStep=testStep;
+  if (config.getExecutionStrategy() == null) {
+    config.addNewExecutionStrategy();
+    config.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
+    config.getExecutionStrategy().setDelay(100);
+  }
+ else   if (config.getExecutionStrategy().getStrategy() == null) {
+    config.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
+    config.getExecutionStrategy().setDelay(100);
+  }
+  setExecutionStrategy(new ExecutionStrategyHolder(config.getExecutionStrategy()));
+  if (config.getCheckedParameters() == null)   config.addNewCheckedParameters();
+  initAssertions();
+  setApplyForFailedTestStep(config.getApplyForFailedStep());
+  if (!config.isSetDisabled())   setDisabled(false);
+}

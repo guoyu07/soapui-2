@@ -1,7 +1,7 @@
 {
   dialog=(JFormDialog)ADialogBuilder.buildDialog(AdvancedSettings.class);
   JStringListFormField stringField=(JStringListFormField)dialog.getFormField(AdvancedSettings.PARAMETER_EXPOSURE_STRINGS);
-  stringField.setOptions(parameterExposureScanConfig.getParameterExposureStringsList().toArray());
+  stringField.setOptions(cssConfig.getParameterExposureStringsList().toArray());
   stringField.setProperty("dimension",new Dimension(470,150));
   stringField.getComponent().addPropertyChangeListener("options",new PropertyChangeListener(){
     @Override public void propertyChange(    PropertyChangeEvent evt){
@@ -10,18 +10,18 @@
       if (newOptions.length > oldOptions.length) {
         String[] newValue=(String[])evt.getNewValue();
         String itemToAdd=newValue[newValue.length - 1];
-        parameterExposureScanConfig.addParameterExposureStrings(itemToAdd);
+        cssConfig.addParameterExposureStrings(itemToAdd);
       }
       if (newOptions.length < oldOptions.length) {
         for (int cnt=0; cnt < oldOptions.length; cnt++) {
           if (cnt < newOptions.length) {
             if (newOptions[cnt] != oldOptions[cnt]) {
-              parameterExposureScanConfig.removeParameterExposureStrings(cnt);
+              cssConfig.removeParameterExposureStrings(cnt);
               break;
             }
           }
  else {
-            parameterExposureScanConfig.removeParameterExposureStrings(oldOptions.length - 1);
+            cssConfig.removeParameterExposureStrings(oldOptions.length - 1);
           }
         }
       }

@@ -1,0 +1,6 @@
+{
+  super.copyConfig(config);
+  getConfig().setCheckedParameters(config.getCheckedParameters());
+  if (parameterHolder != null)   parameterHolder.release();
+  parameterHolder=new SecurityCheckedParameterHolder(this,config.getCheckedParameters());
+}

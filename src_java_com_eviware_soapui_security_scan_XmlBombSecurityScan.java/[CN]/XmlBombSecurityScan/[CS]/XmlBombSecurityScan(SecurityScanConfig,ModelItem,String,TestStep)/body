@@ -1,0 +1,6 @@
+{
+  super(testStep,config,parent,icon);
+  if (config.getConfig() == null || !(config.getConfig() instanceof XmlBombSecurityScanConfig))   initXmlBombConfig();
+ else   xmlBombConfig=(XmlBombSecurityScanConfig)config.getConfig();
+  getExecutionStrategy().setImmutable(true);
+}

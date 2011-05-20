@@ -1,6 +1,6 @@
 {
   strategy=getExecutionStrategy().getStrategy();
-  for (  String value : parameterExposureScanConfig.getParameterExposureStringsList()) {
+  for (  String value : cssConfig.getParameterExposureStringsList()) {
     value=context.expand(value);
     PropertyMutation allAtOncePropertyMutation=new PropertyMutation();
     TestStep testStepCopy=null;

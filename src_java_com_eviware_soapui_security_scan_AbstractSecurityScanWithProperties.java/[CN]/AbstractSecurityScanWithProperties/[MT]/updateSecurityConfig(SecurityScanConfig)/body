@@ -1,0 +1,6 @@
+{
+  super.updateSecurityConfig(config);
+  if (getParameterHolder() != null && getConfig().getCheckedParameters() != null) {
+    getParameterHolder().updateConfig(config.getCheckedParameters());
+  }
+}

@@ -3,7 +3,7 @@
   testStep=SecurityTestRunnerImpl.cloneTestStepForSecurityScan((WsdlTestStep)testStep);
   SecurityTestRunner securityTestRunner=(SecurityTestRunner)context.getProperty(CrossSiteScriptingScan.TEST_CASE_RUNNER);
   List<String> urls=submitScript(messageExchange,context);
-  ParameterExposureCheckConfig parameterExposureCheckConfig=(ParameterExposureCheckConfig)context.getProperty(CrossSiteScriptingScan.PARAMETER_EXPOSURE_SCAN_CONFIG);
+  CrossSiteScriptingScanConfig parameterExposureCheckConfig=(CrossSiteScriptingScanConfig)context.getProperty(CrossSiteScriptingScan.PARAMETER_EXPOSURE_SCAN_CONFIG);
   List<AssertionError> assertionErrorList=new ArrayList<AssertionError>();
   boolean throwExceptionCheckResponse=false;
   if (checkResponse) {

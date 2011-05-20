@@ -1,6 +1,6 @@
 {
   XmlObject newConfig=securityScanToClone.getConfig().copy();
-  SecurityCheckConfig newScanConfig=SecurityCheckConfig.Factory.newInstance();
+  SecurityScanConfig newScanConfig=SecurityScanConfig.Factory.newInstance();
   newScanConfig.set(newConfig);
   SecurityScanFactory factory=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(newScanConfig.getType());
   boolean targetStepHasScans=getTestStepSecurityScansCount(targetTestStep.getId()) > 0;

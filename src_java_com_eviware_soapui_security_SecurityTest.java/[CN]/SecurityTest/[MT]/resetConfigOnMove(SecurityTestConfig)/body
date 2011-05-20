@@ -5,7 +5,7 @@
       for (      TestStepSecurityTestConfig testStepSecurityTestListConfig : securityTestConfig.getTestStepSecurityTestList()) {
         List<SecurityScan> scanList=getSecurityScansMap().get(testStepSecurityTestListConfig.getTestStepId());
         for (int i=0; i < scanList.size(); i++) {
-          scanList.get(i).updateSecurityConfig(testStepSecurityTestListConfig.getTestStepSecurityCheckList().get(i));
+          scanList.get(i).updateSecurityConfig(testStepSecurityTestListConfig.getTestStepSecurityScanList().get(i));
         }
       }
     }

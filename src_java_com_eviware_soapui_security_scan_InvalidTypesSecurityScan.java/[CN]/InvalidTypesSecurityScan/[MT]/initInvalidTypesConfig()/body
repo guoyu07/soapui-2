@@ -1,9 +1,9 @@
 {
-  getConfig().setConfig(InvalidSecurityCheckConfig.Factory.newInstance());
-  invalidTypeConfig=(InvalidSecurityCheckConfig)getConfig().getConfig();
+  getConfig().setConfig(InvalidSecurityScanConfig.Factory.newInstance());
+  invalidTypeConfig=(InvalidSecurityScanConfig)getConfig().getConfig();
   invalidTypes=new InvalidTypesForSOAP();
   for (  int key : invalidTypes.getDefaultTypeMap().keySet()) {
-    SchemaTypeForSecurityCheckConfig newType=invalidTypeConfig.addNewTypesList();
+    SchemaTypeForSecurityScanConfig newType=invalidTypeConfig.addNewTypesList();
     newType.setValue(invalidTypes.getDefaultTypeMap().get(key));
     newType.setType(key);
   }

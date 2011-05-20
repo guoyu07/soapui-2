@@ -2,7 +2,7 @@
   testStep=testCase.getTestStepByName(testStepName);
   TestStepSecurityTestConfig testStepSecurityTest=config.addNewTestStepSecurityTest();
   testStepSecurityTest.setTestStepId(testStep.getId());
-  SecurityCheckConfig securityCheckConfig=testStepSecurityTest.addNewTestStepSecurityCheck();
+  SecurityScanConfig securityCheckConfig=testStepSecurityTest.addNewTestStepSecurityScan();
   securityCheckConfig.setType(securityCheckType);
   securityCheckConfig.setName(securityCheckName);
   return securityCheckConfig;

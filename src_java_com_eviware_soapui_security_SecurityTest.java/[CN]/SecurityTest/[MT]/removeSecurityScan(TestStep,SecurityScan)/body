@@ -4,10 +4,10 @@
     for (int i=0; i < testStepSecurityTestList.size(); i++) {
       TestStepSecurityTestConfig testStepSecurityTest=testStepSecurityTestList.get(i);
       if (testStepSecurityTest.getTestStepId().equals(testStep.getId())) {
-        List<SecurityCheckConfig> securityScanList=testStepSecurityTest.getTestStepSecurityCheckList();
-        Iterator<SecurityCheckConfig> secListIterator=securityScanList.iterator();
+        List<SecurityScanConfig> securityScanList=testStepSecurityTest.getTestStepSecurityScanList();
+        Iterator<SecurityScanConfig> secListIterator=securityScanList.iterator();
         while (secListIterator.hasNext()) {
-          SecurityCheckConfig current=secListIterator.next();
+          SecurityScanConfig current=secListIterator.next();
           if (current.getName().equals(securityScan.getName())) {
             secListIterator.remove();
             break;

@@ -1,7 +1,7 @@
 {
   boolean old=getFailSecurityTestOnScanErrors();
   if (old != failSecurityTestOnErrors) {
-    getConfig().setFailSecurityTestOnCheckErrors(failSecurityTestOnErrors);
+    getConfig().setFailSecurityTestOnScanErrors(failSecurityTestOnErrors);
     notifyPropertyChanged(FAIL_ON_SCANS_ERRORS_PROPERTY,old,failSecurityTestOnErrors);
   }
 }
