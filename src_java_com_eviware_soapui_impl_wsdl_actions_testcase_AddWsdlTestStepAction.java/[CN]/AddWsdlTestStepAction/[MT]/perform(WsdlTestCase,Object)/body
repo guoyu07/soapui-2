@@ -10,6 +10,6 @@
   TestStepConfig newTestStepConfig=factory.createNewTestStep(testCase,name);
   if (newTestStepConfig != null) {
     WsdlTestStep testStep=testCase.addTestStep(newTestStepConfig);
-    UISupport.selectAndShow(testStep);
+    if (testStep != null)     UISupport.selectAndShow(testStep);
   }
 }
