@@ -18,5 +18,6 @@
     DropTarget dropTarget=new DropTarget(propertiesTable,new PropertyHolderTablePropertyExpansionDropTarget());
     dropTarget.setDefaultActions(DnDConstants.ACTION_COPY_OR_MOVE);
   }
+  propertiesTable.getColumnModel().getColumn(1).setCellRenderer(new PropertiesTableCellRenderer());
   return propertiesTable;
 }
