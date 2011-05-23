@@ -1,5 +1,6 @@
 {
   if (warDir.isDirectory()) {
+    log.info("Creating WAR directory in [" + warDir.getAbsolutePath() + "]");
     webInf=new File(warDir,"WEB-INF");
     if (!(webInf.mkdir() || webInf.exists())) {
       UISupport.showErrorMessage("Could not create directory " + webInf.getAbsolutePath());

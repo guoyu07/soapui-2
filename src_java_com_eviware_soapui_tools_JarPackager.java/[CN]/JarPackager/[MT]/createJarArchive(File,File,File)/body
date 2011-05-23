@@ -1,6 +1,7 @@
 {
   try {
     byte buffer[]=new byte[BUFFER_SIZE];
+    log.info("Creating archive [" + archiveFile.getAbsolutePath() + "]");
     FileOutputStream stream=new FileOutputStream(archiveFile);
     JarOutputStream out=new JarOutputStream(stream,new Manifest());
     for (int i=0; i < tobeJared.length; i++) {
