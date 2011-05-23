@@ -16,11 +16,11 @@
   advForm.addTextField(BASEURL,"base url to use when calculating the url fragment",XForm.FieldType.URL);
   XForm httpForm=builder.createForm("HTTP settings");
   httpForm.addTextField(USERNAME,"username to access the WSDL-URI",XForm.FieldType.TEXT);
-  httpForm.addTextField(PASSWORD,"password to access the WSDL-URI",XForm.FieldType.TEXT);
+  httpForm.addTextField(PASSWORD,"password to access the WSDL-URI",XForm.FieldType.PASSWORD);
   httpForm.addTextField(DOMAIN,"domain to access the WSDL-URI",XForm.FieldType.TEXT);
   httpForm.addTextField(PROXY,"username to access the WSDL-URI",XForm.FieldType.TEXT);
   httpForm.addTextField(PROXYUSERNAME,"proxy username to access the WSDL-URI",XForm.FieldType.TEXT);
-  httpForm.addTextField(PROXYPASSWORD,"proxy password to access the WSDL-URI",XForm.FieldType.TEXT);
+  httpForm.addTextField(PROXYPASSWORD,"proxy password to access the WSDL-URI",XForm.FieldType.PASSWORD);
   httpForm.addTextField(PROXYDOMAIN,"proxy domain to access the WSDL-URI",XForm.FieldType.TEXT);
   buildArgsForm(builder,false,"wsdl.exe");
   return builder.buildDialog(buildDefaultActions(HelpUrls.DOTNET_HELP_URL,modelItem),"Specify arguments for .NET 2 wsdl.exe",UISupport.TOOL_ICON);
