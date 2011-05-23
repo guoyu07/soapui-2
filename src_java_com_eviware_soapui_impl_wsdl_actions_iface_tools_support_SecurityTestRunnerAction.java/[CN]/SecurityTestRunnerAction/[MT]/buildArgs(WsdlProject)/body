@@ -1,0 +1,47 @@
+{
+  XFormDialog dialog=getDialog();
+  if (dialog == null) {
+    ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
+    builder.startScript(SECURITYTESTRUNNER,BAT,SH);
+    return builder;
+  }
+  StringToStringMap values=dialog.getValues();
+  ArgumentBuilder builder=new ArgumentBuilder(values);
+  builder.startScript("testrunner",".bat",".sh");
+  builder.addString(ENDPOINT,"-e","");
+  builder.addString(HOSTPORT,"-h","");
+  if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
+  if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
+  if (!values.get(SECURITY_TEST_NAME).equals(ALL_VALUE))   builder.addString(SECURITY_TEST_NAME,"-n","");
+  builder.addString(USERNAME,"-u","");
+  builder.addStringShadow(PASSWORD,"-p","");
+  builder.addString(DOMAIN,"-d","");
+  builder.addString(WSSTYPE,"-w","");
+  builder.addBoolean(PRINTREPORT,"-r");
+  builder.addBoolean(EXPORTALL,"-a");
+  builder.addBoolean(EXPORTJUNITRESULTS,"-j");
+  builder.addString(ROOTFOLDER,"-f","");
+  if (proVersion) {
+    builder.addBoolean(OPEN_REPORT,"-o");
+    builder.addBoolean(COVERAGE,"-g");
+    builder.addString(GENERATEREPORTSEACHTESTCASE,"-R","");
+    builder.addString(REPORTFORMAT,"-F","");
+  }
+  builder.addStringShadow(PROJECTPASSWORD,"-x","");
+  builder.addStringShadow(SOAPUISETTINGSPASSWORD,"-v","");
+  builder.addBoolean(IGNOREERRORS,"-I");
+  builder.addBoolean(SAVEAFTER,"-S");
+  addPropertyArguments(builder);
+  if (dialog.getBooleanValue(ADDSETTINGS)) {
+    try {
+      builder.addBoolean(ADDSETTINGS,"-t" + SoapUI.saveSettings());
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  builder.addBoolean(ENABLEUI,"-i");
+  builder.addArgs(new String[]{modelItem.getPath()});
+  addToolArgs(values,builder);
+  return builder;
+}

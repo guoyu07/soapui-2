@@ -1,0 +1,7 @@
+{
+  if (modelItem == null)   return null;
+  proVersion=isProVersion(modelItem);
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch SecurityTestRunner");
+  createTestCaseRunnerTabs(modelItem,builder);
+  return builder.buildDialog(buildDefaultActions(HelpUrls.TESTRUNNER_HELP_URL,modelItem),"Specify arguments for launching soapUI Security TestRunner",UISupport.TOOL_ICON);
+}
