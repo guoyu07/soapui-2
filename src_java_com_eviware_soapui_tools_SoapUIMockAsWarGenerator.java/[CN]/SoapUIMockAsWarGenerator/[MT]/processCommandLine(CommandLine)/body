@@ -1,0 +1,13 @@
+{
+  setEnableUI(cmd.hasOption('w'));
+  setIncludeActions(cmd.hasOption('a'));
+  setIncludeLibraries(cmd.hasOption('x'));
+  setIncludeListeners(cmd.hasOption('l'));
+  if (cmd.hasOption("s"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
+  if (cmd.hasOption("p"))   setProjectPassword(cmd.getOptionValue("p"));
+  if (cmd.hasOption("v"))   setSoapUISettingsPassword(cmd.getOptionValue("v"));
+  if (cmd.hasOption("d"))   setOutputFolder(cmd.getOptionValue("d"));
+  if (cmd.hasOption("f"))   setWarFile(cmd.getOptionValue("f"));
+  if (cmd.hasOption("e"))   setLocalEndpoint(cmd.getOptionValue("e"));
+  return true;
+}
