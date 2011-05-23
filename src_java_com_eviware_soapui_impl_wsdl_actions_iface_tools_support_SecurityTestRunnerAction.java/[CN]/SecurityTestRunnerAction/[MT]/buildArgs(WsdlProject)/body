@@ -7,7 +7,7 @@
   }
   StringToStringMap values=dialog.getValues();
   ArgumentBuilder builder=new ArgumentBuilder(values);
-  builder.startScript("testrunner",".bat",".sh");
+  builder.startScript(SECURITYTESTRUNNER,BAT,SH);
   builder.addString(ENDPOINT,"-e","");
   builder.addString(HOSTPORT,"-h","");
   if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
