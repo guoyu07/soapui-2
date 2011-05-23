@@ -1,8 +1,11 @@
 {
   if (UISupport.confirm("Project needs to be saved before it gets exported! Save it?","Save Project")) {
     try {
-      project.save();
-      return true;
+      if (project.save())       return true;
+ else {
+        UISupport.showInfoMessage("Export Operation Aborted!");
+        return false;
+      }
     }
  catch (    IOException e) {
       SoapUI.logError(e);
