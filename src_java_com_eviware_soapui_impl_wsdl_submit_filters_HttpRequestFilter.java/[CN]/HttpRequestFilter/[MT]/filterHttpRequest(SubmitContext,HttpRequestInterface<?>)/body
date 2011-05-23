@@ -128,7 +128,7 @@ SoapUI.logError(e);
 }
 }
  else if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
-httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
+if (StringUtils.hasContent(request.getMediaType())) httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 if (request.isPostQueryString()) {
 ((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
 }
