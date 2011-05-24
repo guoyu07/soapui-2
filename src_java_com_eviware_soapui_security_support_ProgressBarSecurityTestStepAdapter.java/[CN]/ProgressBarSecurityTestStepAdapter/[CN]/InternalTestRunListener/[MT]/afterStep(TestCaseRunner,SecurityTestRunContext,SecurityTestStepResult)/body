@@ -2,7 +2,7 @@
   if (runContext.getCurrentStep().getId().equals(testStep.getId())) {
     if (!(progressBar.getString().equals(STATE_CANCEL) || progressBar.getString().equals(STATE_MISSING_ASSERTIONS) || progressBar.getString().equals(STATE_MISSING_PARAMETERS))) {
       SecurityTestStepResult results=securityTest.getSecurityTestStepResultMap().get(testStep);
-      if (results.getStatus() == ResultStatus.NOTHING_TO_SEND) {
+      if (results.getStatus() == ResultStatus.SKIPPED) {
         progressBar.setString("SKIPPED");
         progressBar.setForeground(UNKNOWN_COLOR);
       }

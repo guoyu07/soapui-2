@@ -1,7 +1,7 @@
 {
   SecurityScan securityCheck=getSecurityScan();
-  if (getStatus().equals(ResultStatus.NOTHING_TO_SEND)) {
-    executionProgressStatus=ResultStatus.NOTHING_TO_SEND;
+  if (getStatus().equals(ResultStatus.SKIPPED)) {
+    executionProgressStatus=ResultStatus.SKIPPED;
   }
   if (securityCheck instanceof AbstractSecurityScanWithProperties && ((AbstractSecurityScanWithProperties)securityCheck).getParameterHolder().getParameterList().size() == 0) {
     logIconStatus=ResultStatus.MISSING_PARAMETERS;
