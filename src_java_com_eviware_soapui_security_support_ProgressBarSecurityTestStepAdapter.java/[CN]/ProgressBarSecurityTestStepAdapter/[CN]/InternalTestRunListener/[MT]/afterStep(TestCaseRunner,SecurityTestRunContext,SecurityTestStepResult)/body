@@ -1,6 +1,13 @@
 {
   if (runContext.getCurrentStep().getId().equals(testStep.getId())) {
-    if (!(progressBar.getString().equals(STATE_CANCEL) || progressBar.getString().equals(STATE_MISSING_ASSERTIONS) || progressBar.getString().equals(STATE_MISSING_PARAMETERS)))     progressBar.setString(STATE_DONE);
+    if (!(progressBar.getString().equals(STATE_CANCEL) || progressBar.getString().equals(STATE_MISSING_ASSERTIONS) || progressBar.getString().equals(STATE_MISSING_PARAMETERS))) {
+      SecurityTestStepResult results=securityTest.getSecurityTestStepResultMap().get(testStep);
+      if (results.getStatus() == ResultStatus.NOTHING_TO_SEND) {
+        progressBar.setString("SKIPPED");
+        progressBar.setForeground(UNKNOWN_COLOR);
+      }
+ else       progressBar.setString(STATE_DONE);
+    }
   }
   progressBar.setBackground(UNKNOWN_COLOR);
 }

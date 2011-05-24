@@ -5,10 +5,22 @@
         progressBar.setForeground(MISSING_ASSERTION_COLOR);
         progressBar.setString(STATE_MISSING_ASSERTIONS);
       }
- else       if (this.securityCheck instanceof AbstractSecurityScanWithProperties) {
-        if (((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList().size() == 0) {
-          progressBar.setForeground(MISSING_ASSERTION_COLOR);
-          progressBar.setString(STATE_MISSING_PARAMETERS);
+ else {
+        if (this.securityCheck instanceof AbstractSecurityScanWithProperties) {
+          if (((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList() != null && ((AbstractSecurityScanWithProperties)this.securityCheck).getParameterHolder().getParameterList().size() == 0) {
+            progressBar.setForeground(MISSING_ASSERTION_COLOR);
+            progressBar.setString(STATE_MISSING_PARAMETERS);
+          }
+ else           if (securityCheckResult.getStatus() == ResultStatus.NOTHING_TO_SEND) {
+            progressBar.setForeground(defaultBackground);
+            progressBar.setString("SKIPPED");
+          }
+        }
+ else {
+          if (securityCheckResult.getStatus() == ResultStatus.NOTHING_TO_SEND) {
+            progressBar.setForeground(defaultBackground);
+            progressBar.setString("SKIPPED");
+          }
         }
       }
       progressBar.setValue(progressBar.getMaximum());
