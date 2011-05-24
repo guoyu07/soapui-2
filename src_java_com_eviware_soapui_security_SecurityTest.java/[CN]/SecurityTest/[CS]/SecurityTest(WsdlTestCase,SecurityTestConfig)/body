@@ -3,7 +3,7 @@
   this.testCase=testCase;
   if (!getConfig().isSetProperties())   getConfig().addNewProperties();
   setPropertiesConfig(getConfig().getProperties());
-  securityTestStepResultMap=new HashMap<TestStep,SecurityTestStepResult>();
+  securityTestStepResultMap=new LinkedHashMap<TestStep,SecurityTestStepResult>();
   for (  SecurityTestRunListener listener : SoapUI.getListenerRegistry().getListeners(SecurityTestRunListener.class)) {
     addSecurityTestRunListener(listener);
   }
