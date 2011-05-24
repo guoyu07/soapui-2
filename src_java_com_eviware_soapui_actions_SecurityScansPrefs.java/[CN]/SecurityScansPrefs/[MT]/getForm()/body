@@ -1,6 +1,6 @@
 {
-  if (securityChecksForm == null) {
-    securityChecksForm=new SimpleForm();
+  if (securityScansForm == null) {
+    securityScansForm=new SimpleForm();
     PropertyHolderTable propertyHolderTable=new PropertyHolderTable(SecurityScanUtil.getGlobalSensitiveInformationExposureTokens()){
       protected JTable buildPropertiesTable(){
         propertiesModel=new DefaultPropertyTableHolderModel(holder){
@@ -38,9 +38,9 @@ case 1:
 }
 ;
 propertyHolderTable.setPreferredSize(new Dimension(200,300));
-securityChecksForm.append(new JLabel(title));
-securityChecksForm.addSpace();
-securityChecksForm.addComponent(propertyHolderTable);
+securityScansForm.append(new JLabel(title));
+securityScansForm.addSpace();
+securityScansForm.addComponent(propertyHolderTable);
 }
-return securityChecksForm;
+return securityScansForm;
 }

@@ -1,0 +1,30 @@
+{
+  TestStepNode node=(TestStepNode)securityTestTree.getLastSelectedPathComponent();
+  if (!node.getAllowsChildren()) {
+    return;
+  }
+  TestStep testStep=node.getTestStep();
+  String[] availableScanNames=SoapUI.getSoapUICore().getSecurityScanRegistry().getAvailableSecurityScansNames(testStep);
+  availableScanNames=securityTest.getAvailableSecurityScanNames(testStep,availableScanNames);
+  if (availableScanNames == null || availableScanNames.length == 0) {
+    UISupport.showErrorMessage("No security scans available for this test step");
+    return;
+  }
+  String name=UISupport.prompt("Specify type of security scan","Add SecurityScan",availableScanNames);
+  if (name == null || name.trim().length() == 0)   return;
+  String type=SoapUI.getSoapUICore().getSecurityScanRegistry().getSecurityScanTypeForName(name);
+  if (type == null || type.trim().length() == 0)   return;
+  SecurityScan securityScan=securityTest.addNewSecurityScan(testStep,name);
+  securityTestTree.setSelectionPath(new TreePath(node.getPath()));
+  if (securityScan == null) {
+    UISupport.showErrorMessage("Failed to add security scan");
+    return;
+  }
+  SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityScanConfigurationDialog((SecurityScan)securityScan);
+  if (!dialog.configure()) {
+    SecurityScanNode securityScanNode=(SecurityScanNode)node.getLastChild();
+    securityTest.removeSecurityScan(testStep,(SecurityScan)securityScan);
+    cellRender.remove(securityScanNode);
+  }
+  dialog.release();
+}

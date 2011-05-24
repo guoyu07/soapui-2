@@ -1,9 +1,9 @@
 {
   DefaultListSelectionModel dlsm=((DefaultListSelectionModel)lse.getSource());
-  if (securityCheck instanceof BoundarySecurityScan) {
-    ((BoundarySecurityScan)securityCheck).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
+  if (securityScan instanceof BoundarySecurityScan) {
+    ((BoundarySecurityScan)securityScan).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
   }
-  if (securityCheck instanceof InvalidTypesSecurityScan) {
-    ((InvalidTypesSecurityScan)securityCheck).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
+  if (securityScan instanceof InvalidTypesSecurityScan) {
+    ((InvalidTypesSecurityScan)securityScan).refreshRestrictionLabel(dlsm.getAnchorSelectionIndex());
   }
 }

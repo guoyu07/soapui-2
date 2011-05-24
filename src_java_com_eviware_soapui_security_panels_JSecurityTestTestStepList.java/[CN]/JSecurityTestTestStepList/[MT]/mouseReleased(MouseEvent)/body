@@ -12,8 +12,8 @@
       if (securityTestTree.getSelectionRows().length == 1) {
         SecurityScan scan=((SecurityScanNode)node).getSecurityScan();
         enableDisableSecurityScan.setText(scan.isDisabled());
-        if (scan instanceof AbstractSecurityScanWithProperties)         securityCheckWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
- else         securityCheckPopUp.show(securityTestTree,e.getX(),e.getY());
+        if (scan instanceof AbstractSecurityScanWithProperties)         securityScanWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
+ else         securityScanPopUp.show(securityTestTree,e.getX(),e.getY());
       }
  else       if (securityTestTree.getSelectionRows().length > 1) {
         multySecurityScanPopUp.show(securityTestTree,e.getX(),e.getY());

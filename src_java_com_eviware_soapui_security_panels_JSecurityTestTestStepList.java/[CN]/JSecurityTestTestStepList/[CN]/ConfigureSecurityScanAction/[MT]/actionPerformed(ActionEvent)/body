@@ -1,0 +1,12 @@
+{
+  SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
+  SecurityScan securityScan=node.getSecurityScan();
+  if (securityScan.isConfigurable()) {
+    SecurityScanConfig backupScanConfig=(SecurityScanConfig)securityScan.getConfig().copy();
+    SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityScanConfigurationDialog((SecurityScan)securityScan);
+    if (!dialog.configure()) {
+      securityScan.copyConfig(backupScanConfig);
+    }
+    dialog.release();
+  }
+}

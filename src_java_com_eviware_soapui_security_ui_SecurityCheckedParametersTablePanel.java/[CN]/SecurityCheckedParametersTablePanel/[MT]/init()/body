@@ -4,7 +4,7 @@
   toolbar.add(UISupport.createToolbarButton(new AddNewParameterAction()));
   toolbar.add(UISupport.createToolbarButton(new RemoveParameterAction()));
   toolbar.add(UISupport.createToolbarButton(new CopyParameterAction()));
-  toolbar.add(UISupport.createToolbarButton(new CloneParametersAction(securityCheck)));
+  toolbar.add(UISupport.createToolbarButton(new CloneParametersAction(securityScan)));
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
   table=new JXTable(model);
@@ -13,10 +13,10 @@
   table.setDefaultEditor(String.class,getDefaultCellEditor());
   add(new JScrollPane(table),BorderLayout.CENTER);
   pathPane=new JUndoableTextArea();
-  if (securityCheck instanceof BoundarySecurityScan) {
-    ((BoundarySecurityScan)securityCheck).refreshRestrictionLabel(-1);
+  if (securityScan instanceof BoundarySecurityScan) {
+    ((BoundarySecurityScan)securityScan).refreshRestrictionLabel(-1);
   }
-  if (securityCheck instanceof InvalidTypesSecurityScan) {
-    ((InvalidTypesSecurityScan)securityCheck).refreshRestrictionLabel(-1);
+  if (securityScan instanceof InvalidTypesSecurityScan) {
+    ((InvalidTypesSecurityScan)securityScan).refreshRestrictionLabel(-1);
   }
 }

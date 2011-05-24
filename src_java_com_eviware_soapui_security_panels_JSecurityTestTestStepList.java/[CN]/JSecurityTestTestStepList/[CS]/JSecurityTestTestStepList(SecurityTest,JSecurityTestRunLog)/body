@@ -2,24 +2,24 @@
   this.securityTest=securityTest;
   setLayout(new BorderLayout());
   JXToolBar toolbar=initToolbar();
-  securityCheckPopUp=new JPopupMenu();
-  securityCheckPopUp.add(enableDisableSecurityScan=new EnableDisableSecurityScan());
-  securityCheckPopUp.add(configureSecurityCheckAction);
-  securityCheckPopUp.addSeparator();
-  securityCheckPopUp.add(removeSecurityCheckAction);
-  securityCheckPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
-  securityCheckWithPropertiesPopUp=new JPopupMenu();
-  securityCheckWithPropertiesPopUp.add(enableDisableSecurityScan);
-  securityCheckWithPropertiesPopUp.add(configureSecurityCheckAction);
-  securityCheckWithPropertiesPopUp.add(cloneParametersAction);
-  securityCheckWithPropertiesPopUp.addSeparator();
-  securityCheckWithPropertiesPopUp.add(removeSecurityCheckAction);
-  securityCheckWithPropertiesPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  securityScanPopUp=new JPopupMenu();
+  securityScanPopUp.add(enableDisableSecurityScan=new EnableDisableSecurityScan());
+  securityScanPopUp.add(configureSecurityScanAction);
+  securityScanPopUp.addSeparator();
+  securityScanPopUp.add(removeSecurityScanAction);
+  securityScanPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  securityScanWithPropertiesPopUp=new JPopupMenu();
+  securityScanWithPropertiesPopUp.add(enableDisableSecurityScan);
+  securityScanWithPropertiesPopUp.add(configureSecurityScanAction);
+  securityScanWithPropertiesPopUp.add(cloneParametersAction);
+  securityScanWithPropertiesPopUp.addSeparator();
+  securityScanWithPropertiesPopUp.add(removeSecurityScanAction);
+  securityScanWithPropertiesPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
   multySecurityScanPopUp=new JPopupMenu();
   multySecurityScanPopUp.add(new EnableSecurityScans());
   multySecurityScanPopUp.add(new DisableSecurityScans());
   multySecurityScanPopUp.addSeparator();
-  multySecurityScanPopUp.add(removeSecurityCheckAction);
+  multySecurityScanPopUp.add(removeSecurityScanAction);
   multySecurityScanPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
   multySecurityScanPopUp.addPopupMenuListener(new PopupMenuListener(){
     @Override public void popupMenuWillBecomeVisible(    PopupMenuEvent arg0){

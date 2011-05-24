@@ -1,9 +1,9 @@
 {
   if (securityTest.isRunning())   return;
   securityTestLog.locateSecurityScan(((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan());
-  addSecurityCheckAction.setEnabled(false);
-  configureSecurityCheckAction.setEnabled(true);
-  removeSecurityCheckAction.setEnabled(true);
+  addSecurityScanAction.setEnabled(false);
+  configureSecurityScanAction.setEnabled(true);
+  removeSecurityScanAction.setEnabled(true);
   if (((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan() instanceof AbstractSecurityScanWithProperties) {
     cloneParametersAction.setEnabled(true);
     cloneParametersAction.setSecurityScan((AbstractSecurityScanWithProperties)((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan());
