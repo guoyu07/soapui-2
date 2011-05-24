@@ -23,7 +23,8 @@
     SecurityScan securityCheck=securityCheckResult.getSecurityScan();
     securityCheckResult.detectMissingItems();
     StringBuilder outStr=new StringBuilder("SecurityScan ");
-    outStr.append(checkCount).append(" [").append(securityCheck.getName()).append("] ").append(securityCheckResult.getExecutionProgressStatus()).append(", took = ").append(securityCheckResult.getTimeTaken());
+    String statusToDisplay=getStatusToDisplay(securityCheckResult.getExecutionProgressStatus());
+    outStr.append(checkCount).append(" [").append(securityCheck.getName()).append("] ").append(statusToDisplay).append(", took = ").append(securityCheckResult.getTimeTaken());
     try {
       if (startCheckIndex > 0 && startCheckIndex < maxSize) {
         items.set(startCheckIndex,outStr.toString());

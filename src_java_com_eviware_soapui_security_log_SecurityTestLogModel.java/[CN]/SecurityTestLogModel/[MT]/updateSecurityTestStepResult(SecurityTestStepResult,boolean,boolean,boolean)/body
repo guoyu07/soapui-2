@@ -21,7 +21,8 @@
  else   if (startStepLogEntryAdded) {
     try {
       if (startStepIndex > 0 && startStepIndex < maxSize) {
-        items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ result.getExecutionProgressStatus()+ ": took "+ result.getTimeTaken()+ " ms");
+        String statusToDisplay=getStatusToDisplay(result.getExecutionProgressStatus());
+        items.set(startStepIndex,"Step " + stepCount + " ["+ result.getTestStep().getName()+ "] "+ statusToDisplay+ ": took "+ result.getTimeTaken()+ " ms");
         SoftReference<SecurityResult> stepResultRef=new SoftReference<SecurityResult>(result);
         results.set(startStepIndex,stepResultRef);
         fireContentsChanged(this,startStepIndex,startStepIndex);
