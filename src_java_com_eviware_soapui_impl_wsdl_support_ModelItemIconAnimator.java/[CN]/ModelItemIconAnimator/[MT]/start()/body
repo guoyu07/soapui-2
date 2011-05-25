@@ -1,5 +1,18 @@
 {
-  if (!enabled || future != null)   return;
-  stopped=false;
-  future=SoapUI.getThreadPool().submit(this);
+  System.out.println("Enable " + enabled);
+  System.out.println("Future " + future);
+  if (!enabled)   return;
+  if (isStopped()) {
+    if (future != null && !future.isDone()) {
+      future.cancel(true);
+      while (future != null)       try {
+        Thread.sleep(500);
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    stopped=false;
+    future=SoapUI.getThreadPool().submit(this);
+  }
 }
