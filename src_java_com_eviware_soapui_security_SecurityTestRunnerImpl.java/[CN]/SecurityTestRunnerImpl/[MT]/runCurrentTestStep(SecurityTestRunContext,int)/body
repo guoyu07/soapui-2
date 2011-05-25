@@ -2,7 +2,7 @@
   boolean jumpExit=false;
   TestStep currentStep=runContext.getCurrentStep();
   securityTestStepListeners=securityTest.getTestStepRunListeners(currentStep);
-  if (!currentStep.isDisabled()) {
+  if (!currentStep.isDisabled() && !securityTest.skipTest(currentStep)) {
     TestStepResult stepResult=runTestStep(currentStep,true,true);
     if (stepResult == null)     jumpExit=true;
     SecurityTestStepResult securityStepResult=new SecurityTestStepResult(currentStep,stepResult);
@@ -20,7 +20,7 @@
       List<SecurityScan> testStepScansList=secScanMap.get(currentStep.getId());
       for (int i=0; i < testStepScansList.size(); i++) {
         SecurityScan securityScan=testStepScansList.get(i);
-        if (securityScan.isDisabled())         continue;
+        if (securityScan.isDisabled() || securityScan.isSkipFurtherRunning())         continue;
         if (stepResult.getStatus() != TestStepStatus.FAILED || securityScan.isApplyForFailedStep()) {
           runContext.setCurrentScanIndex(i);
           runContext.setCurrentScanOnSecurityTestIndex(currentScanOnSecurityTestIndex++);

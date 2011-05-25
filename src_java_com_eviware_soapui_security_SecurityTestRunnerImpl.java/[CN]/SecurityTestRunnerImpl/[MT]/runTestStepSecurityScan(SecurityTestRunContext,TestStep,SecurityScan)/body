@@ -7,6 +7,9 @@
     if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[j]))     securityTestListeners[j].beforeSecurityScan(this,runContext,securityScan);
   }
   result=securityScan.run(cloneForSecurityScan((WsdlTestStep)currentStep),runContext,this);
+  if (securityScan.isRunOnlyOnce()) {
+    securityScan.setSkipFurtherRunning(true);
+  }
   if (securityTest.getFailOnError() && result.getStatus() == ResultStatus.FAILED) {
     fail("Cancelling due to failed security scan");
   }

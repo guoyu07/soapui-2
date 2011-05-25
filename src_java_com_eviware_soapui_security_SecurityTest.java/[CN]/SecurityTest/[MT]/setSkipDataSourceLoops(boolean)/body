@@ -1,0 +1,7 @@
+{
+  boolean old=getSkipDataSourceLoops();
+  if (old != skipDataSourceLoops) {
+    getConfig().setSkipDataSourceLoops(skipDataSourceLoops);
+    notifyPropertyChanged(SKIP_DATASOURCE_LOOP_PROPERTY,old,skipDataSourceLoops);
+  }
+}

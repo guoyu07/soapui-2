@@ -1,0 +1,7 @@
+{
+  for (  String testStepId : getSecurityScansMap().keySet()) {
+    for (    SecurityScan scan : getTestStepSecurityScans(testStepId)) {
+      scan.setSkipFurtherRunning(false);
+    }
+  }
+}
