@@ -1,8 +1,5 @@
 {
   if (securityScanResultList != null)   securityScanResultList.add(securityScanResult);
-  if (securityScanResultsMap != null) {
-    securityScanResultsMap.put(securityScanResult.getSecurityScan(),securityScanResult);
-  }
   timeTaken+=securityScanResult.getTimeTaken();
   if (!hasAddedRequests) {
     status=securityScanResult.getStatus();
