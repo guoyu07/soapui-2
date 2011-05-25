@@ -22,12 +22,14 @@
   out.print("<tr><td></td><td>Timestamp</td><td>Time Taken</td><td>MockOperation</td><td>MockResponse</td><td>MockService</td></tr>");
   int cnt=1;
   for (  MockResult result : results) {
-    out.print("<tr><td>" + (cnt++) + "</td>");
-    out.print("<td><a target=\"detail\" href=\"detail?" + result.hashCode() + "\">"+ new java.util.Date(result.getTimestamp())+ "</a></td>");
-    out.print("<td>" + result.getTimeTaken() + "</td>");
-    out.print("<td>" + result.getMockOperation().getName() + "</td>");
-    out.print("<td>" + result.getMockResponse().getName() + "</td>");
-    out.print("<td>" + result.getMockOperation().getMockService().getName() + "</td></tr>");
+    if (result != null) {
+      out.print("<tr><td>" + (cnt++) + "</td>");
+      out.print("<td><a target=\"detail\" href=\"detail?" + result.hashCode() + "\">"+ new java.util.Date(result.getTimestamp())+ "</a></td>");
+      out.print("<td>" + result.getTimeTaken() + "</td>");
+      out.print("<td>" + result.getMockOperation().getName() + "</td>");
+      if (result.getMockResponse() != null)       out.print("<td>" + result.getMockResponse().getName() + "</td>");
+      out.print("<td>" + result.getMockOperation().getMockService().getName() + "</td></tr>");
+    }
   }
   out.print("</table>");
   out.print("</body></html>");
