@@ -6,7 +6,7 @@
     if (assertable instanceof WsdlTestStep)     failedTests.remove(((WsdlTestStep)assertable).getTestCase());
     buf.append(assertion.getName() + " in [" + assertable.getModelItem().getName()+ "] failed;\n");
     buf.append(Arrays.toString(assertion.getErrors()) + "\n");
-    WsdlTestStepResult result=assertionResults.get(assertion);
+    SecurityTestStepResult result=assertionResults.get(assertion);
     StringWriter stringWriter=new StringWriter();
     PrintWriter writer=new PrintWriter(stringWriter);
     result.writeTo(writer);

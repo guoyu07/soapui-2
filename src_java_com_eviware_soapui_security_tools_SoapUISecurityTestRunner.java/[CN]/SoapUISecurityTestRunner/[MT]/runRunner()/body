@@ -18,7 +18,11 @@
     }
   }
   if (testCasesToRun.size() > 0) {
-    for (    TestCase testCase : testCasesToRun)     runTestCase((WsdlTestCase)testCase);
+    for (    TestCase testCase : testCasesToRun) {
+      testCase.addTestRunListener(this);
+      runTestCase((WsdlTestCase)testCase);
+      testCase.removeTestRunListener(this);
+    }
   }
  else   if (testSuite != null) {
     WsdlTestSuite ts=project.getTestSuiteByName(testSuite);
