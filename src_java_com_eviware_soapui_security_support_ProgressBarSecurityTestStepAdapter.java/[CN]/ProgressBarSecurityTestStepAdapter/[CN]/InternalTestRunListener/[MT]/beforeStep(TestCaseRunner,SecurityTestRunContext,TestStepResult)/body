@@ -2,8 +2,10 @@
   if (tsr.getTestStep().getId().equals(testStep.getId())) {
     int count=securityTest.getStepSecurityApplicableScansCount(tsr);
     progressBar.getModel().setMaximum(count);
-    progressBar.setString(STATE_RUN);
-    progressBar.setForeground(OK_COLOR);
+    if (securityTest.getSecurityScansMap().get(testStep.getId()) != null && securityTest.getSecurityScansMap().get(testStep.getId()).size() > 0) {
+      progressBar.setString(STATE_RUN);
+      progressBar.setForeground(OK_COLOR);
+    }
     progressBar.setBackground(Color.white);
     progressBar.setValue(0);
     counterLabel.setText("");

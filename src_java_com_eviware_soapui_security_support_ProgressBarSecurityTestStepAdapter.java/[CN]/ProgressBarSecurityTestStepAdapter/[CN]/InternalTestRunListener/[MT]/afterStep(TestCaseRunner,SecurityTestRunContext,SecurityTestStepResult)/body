@@ -1,6 +1,6 @@
 {
   if (runContext.getCurrentStep().getId().equals(testStep.getId())) {
-    if (!(progressBar.getString().equals(STATE_CANCEL) || progressBar.getString().equals(STATE_MISSING_ASSERTIONS) || progressBar.getString().equals(STATE_MISSING_PARAMETERS))) {
+    if (!(progressBar.getString().equals(STATE_CANCEL) || progressBar.getString().equals(STATE_MISSING_ASSERTIONS) || progressBar.getString().equals(STATE_MISSING_PARAMETERS)) && securityTest.getSecurityTestStepResultMap().get(testStep) != null) {
       SecurityTestStepResult results=securityTest.getSecurityTestStepResultMap().get(testStep);
       boolean skipped=true;
       for (      SecurityScanResult res : results.getSecurityScanResultList()) {
