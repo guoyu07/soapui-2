@@ -1,17 +1,8 @@
 {
   TestStep currentStep=runContext.getCurrentStep();
-  if (currentStep instanceof Assertable) {
-    Assertable requestStep=(Assertable)currentStep;
-    for (int c=0; c < requestStep.getAssertionCount(); c++) {
-      TestAssertion assertion=requestStep.getAssertionAt(c);
-      log.info("Assertion [" + assertion.getName() + "] has status "+ assertion.getStatus());
-      if (assertion.getStatus() == AssertionStatus.FAILED) {
-        for (        AssertionError error : assertion.getErrors())         log.error("ASSERTION FAILED -> " + error.getMessage());
-        assertions.add(assertion);
-        assertionResults.put(assertion,(SecurityTestStepResult)result);
-      }
-      testAssertionCount++;
-    }
+  String securityTestName="";
+  if (!result.getSecurityScanResultList().isEmpty()) {
+    securityTestName=result.getSecurityScanResultList().get(0).getSecurityScanName();
   }
   String countPropertyName=currentStep.getName() + " run count";
   Long count=(Long)runContext.getProperty(countPropertyName);
@@ -23,12 +14,12 @@
     try {
       String exportSeparator=System.getProperty(SOAPUI_EXPORT_SEPARATOR,"-");
       TestCase tc=currentStep.getTestCase();
-      String nameBase=StringUtils.createFileName(tc.getTestSuite().getName(),'_') + exportSeparator + StringUtils.createFileName(tc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(currentStep.getName(),'_')+ "-"+ count.longValue()+ "-"+ result.getStatus();
+      String nameBase=StringUtils.createFileName(securityTestName,'_') + exportSeparator + StringUtils.createFileName(tc.getTestSuite().getName(),'_')+ exportSeparator+ StringUtils.createFileName(tc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(currentStep.getName(),'_')+ "-"+ count.longValue()+ "-"+ result.getStatus();
       WsdlTestCaseRunner callingTestCaseRunner=(WsdlTestCaseRunner)runContext.getProperty("#CallingTestCaseRunner#");
       if (callingTestCaseRunner != null) {
         WsdlTestCase ctc=callingTestCaseRunner.getTestCase();
         WsdlRunTestCaseTestStep runTestCaseTestStep=(WsdlRunTestCaseTestStep)runContext.getProperty("#CallingRunTestCaseStep#");
-        nameBase=StringUtils.createFileName(ctc.getTestSuite().getName(),'_') + exportSeparator + StringUtils.createFileName(ctc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(runTestCaseTestStep.getName(),'_')+ exportSeparator+ StringUtils.createFileName(tc.getTestSuite().getName(),'_')+ exportSeparator+ StringUtils.createFileName(tc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(currentStep.getName(),'_')+ "-"+ count.longValue()+ "-"+ result.getStatus();
+        nameBase=StringUtils.createFileName(securityTestName,'_') + exportSeparator + StringUtils.createFileName(ctc.getTestSuite().getName(),'_')+ exportSeparator+ StringUtils.createFileName(ctc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(runTestCaseTestStep.getName(),'_')+ exportSeparator+ StringUtils.createFileName(tc.getTestSuite().getName(),'_')+ exportSeparator+ StringUtils.createFileName(tc.getName(),'_')+ exportSeparator+ StringUtils.createFileName(currentStep.getName(),'_')+ "-"+ count.longValue()+ "-"+ result.getStatus();
       }
       String absoluteOutputFolder=getAbsoluteOutputFolder(ModelSupport.getModelItemProject(tc));
       String fileName=absoluteOutputFolder + File.separator + nameBase+ ".txt";
