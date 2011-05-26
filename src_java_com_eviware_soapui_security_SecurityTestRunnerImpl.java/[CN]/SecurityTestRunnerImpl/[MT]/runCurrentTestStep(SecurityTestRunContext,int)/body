@@ -44,6 +44,7 @@
         securityStepResult.setStatus(ResultStatus.UNKNOWN);
       }
       securityTest.putSecurityTestStepResult(currentStep,securityStepResult);
+      timeTaken+=securityStepResult.getTimeTaken();
     }
     for (int i=0; i < securityTestStepListeners.length; i++) {
       if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[i]))       securityTestStepListeners[i].afterStep(this,getRunContext(),securityStepResult);
