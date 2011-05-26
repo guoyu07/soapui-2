@@ -3,5 +3,5 @@
   boolean shouldRun=false;
   for (  List<SecurityScan> scanList : securityTest.getSecurityScansMap().values())   for (  SecurityScan scan : scanList)   if (!scan.isDisabled())   shouldRun=true;
   if (shouldRun)   runSecurityTest();
- else   UISupport.showInfoMessage("No Security Scans avaialable to run.","Security Test Warning");
+ else   UISupport.showInfoMessage("No Security Scans available to run.","Security Test Warning");
 }

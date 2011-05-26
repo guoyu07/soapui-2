@@ -1,0 +1,16 @@
+{
+  if (AttachmentContainer.ATTACHMENTS_PROPERTY.equals(evt.getPropertyName())) {
+    if (evt.getOldValue() == null && evt.getNewValue() != null) {
+      if (evt.getNewValue() instanceof Attachment) {
+        Attachment attachment=(Attachment)evt.getNewValue();
+        addedAttachment(attachment);
+      }
+    }
+ else     if (evt.getOldValue() != null && evt.getNewValue() == null) {
+      if (evt.getOldValue() instanceof Attachment) {
+        Attachment attachment=(Attachment)evt.getOldValue();
+        removedAttachment(attachment);
+      }
+    }
+  }
+}
