@@ -1,0 +1,12 @@
+{
+  String className=System.getProperty("soapui.junit.reportCollector",null);
+  if (StringUtils.hasContent(className)) {
+    try {
+      return (JUnitSecurityReportCollector)Class.forName(className).getConstructor(Integer.class).newInstance(maxErrors);
+    }
+ catch (    Exception e) {
+      System.err.println("Failed to create JUnitReportCollector class [" + className + "]; "+ e.toString());
+    }
+  }
+  return new JUnitSecurityReportCollector(maxErrors);
+}

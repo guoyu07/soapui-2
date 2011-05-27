@@ -1,0 +1,19 @@
+{
+  TestCase testCase=testRunner.getTestCase();
+  JUnitReport report=reports.get(testCase.getTestSuite().getName());
+  if (Status.INITIALIZED != testRunner.getStatus() && Status.RUNNING != testRunner.getStatus()) {
+    if (Status.CANCELED == testRunner.getStatus()) {
+      report.addTestCaseWithFailure(testCase.getName(),testRunner.getTimeTaken(),testRunner.getReason(),"");
+    }
+    if (Status.FAILED == testRunner.getStatus()) {
+      String msg="";
+      if (failures.containsKey(testCase)) {
+        msg=failures.get(testCase).toString();
+      }
+      report.addTestCaseWithFailure(testCase.getName(),testRunner.getTimeTaken(),testRunner.getReason(),msg);
+    }
+    if (Status.FINISHED == testRunner.getStatus()) {
+      report.addTestCase(testCase.getName(),testRunner.getTimeTaken());
+    }
+  }
+}

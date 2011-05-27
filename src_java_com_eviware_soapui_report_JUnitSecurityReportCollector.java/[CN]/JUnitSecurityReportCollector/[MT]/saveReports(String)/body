@@ -1,0 +1,14 @@
+{
+  File file=new File(path);
+  if (!file.exists() || !file.isDirectory())   file.mkdirs();
+  List<String> result=new ArrayList<String>();
+  Iterator<String> keyset=reports.keySet().iterator();
+  while (keyset.hasNext()) {
+    String name=keyset.next();
+    JUnitReport report=reports.get(name);
+    String fileName=path + File.separatorChar + "TEST-"+ StringUtils.createFileName(name,'_')+ ".xml";
+    saveReport(report,fileName);
+    result.add(fileName);
+  }
+  return result;
+}
