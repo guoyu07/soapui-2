@@ -4,7 +4,7 @@
     String content=submit.getResponse().getContentAsString();
     XmlOptions options=new XmlOptions();
     try {
-      XmlObject xml=XmlObject.Factory.parse(content);
+      XmlObject xml=XmlUtils.createXmlObject(content);
       String namespaceDeclaration="declare namespace wsrm='" + request.getWsrmConfig().getVersionNameSpace() + "';";
       XmlObject result[]=xml.selectPath(namespaceDeclaration + "//wsrm:AcknowledgementRange",options);
       if (result.length > 0) {

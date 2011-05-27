@@ -5,7 +5,7 @@
     if (getSetNullOnMissingSource())     targetProperty.setValue(null);
     return null;
   }
-  XmlObject sourceXml=sourceValue == null ? null : XmlObject.Factory.parse(sourceValue);
+  XmlObject sourceXml=sourceValue == null ? null : XmlUtils.createXmlObject(sourceValue);
   XmlCursor sourceCursor=sourceValue == null ? null : sourceXml.newCursor();
   try {
     String value=null;

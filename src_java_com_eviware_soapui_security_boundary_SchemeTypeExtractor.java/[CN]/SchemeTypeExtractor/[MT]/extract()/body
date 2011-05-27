@@ -1,5 +1,5 @@
 {
-  XmlObjectTreeModel model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+  XmlObjectTreeModel model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlUtils.createXmlObject(request.getRequestContent()));
   nodes=getElements(model.getRootNode());
   for (  NodeInfo node : nodes.values())   printNode(node);
   return nodes;

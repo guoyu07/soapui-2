@@ -1,8 +1,8 @@
 {
   String content=messageExchange.getResponseContent();
   SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
-  XmlObject requestXmlObject=XmlObject.Factory.parse(messageExchange.getRequestContent());
-  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  XmlObject requestXmlObject=XmlUtils.createXmlObject(messageExchange.getRequestContent());
+  XmlObject xmlObject=XmlUtils.createXmlObject(content);
   header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
   wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
   if (wsaAssertionConfiguration.isAssertAction()) {

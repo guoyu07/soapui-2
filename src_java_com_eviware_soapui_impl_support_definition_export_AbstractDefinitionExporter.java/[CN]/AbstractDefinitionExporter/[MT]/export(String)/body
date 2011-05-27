@@ -9,7 +9,7 @@
     setFilenameForPart(part,urlToFileMap,null);
   }
   for (  InterfaceDefinitionPart part : partList) {
-    XmlObject obj=XmlObject.Factory.parse(part.getContent());
+    XmlObject obj=XmlUtils.createXmlObject(part.getContent());
     replaceImportsAndIncludes(obj,urlToFileMap,part.getUrl());
     postProcessing(obj,part);
     obj.save(new File(outFolder,urlToFileMap.get(part.getUrl())));

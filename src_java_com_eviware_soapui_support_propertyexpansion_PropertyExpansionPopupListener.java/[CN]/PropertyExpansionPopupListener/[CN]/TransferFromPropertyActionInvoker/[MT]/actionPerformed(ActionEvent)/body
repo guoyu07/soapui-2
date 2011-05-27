@@ -23,7 +23,7 @@
       }
     }
     if (XmlUtils.seemsToBeXml(val)) {
-      XmlObject.Factory.parse(val);
+      XmlUtils.createXmlObject(val);
       sourceXPath=UISupport.selectXPath("Select XPath","Select source xpath for property transfer",val,null);
     }
   }

@@ -19,7 +19,7 @@
   startSequenceRequest.getWsaConfig().setReplyTo(ackTo);
   startSequenceRequest.getWsaConfig().setGenerateMessageId(true);
   try {
-    XmlObject object=XmlObject.Factory.parse(openSequenceMessageContent);
+    XmlObject object=XmlUtils.createXmlObject(openSequenceMessageContent);
     XmlCursor cursor=object.newCursor();
     cursor.toFirstContentToken();
     cursor.toFirstChild();
@@ -58,7 +58,7 @@
     }
     Response response=wsdlSubmit.getResponse();
     String responseContent=response.getContentAsString();
-    XmlObject xml=XmlObject.Factory.parse(responseContent);
+    XmlObject xml=XmlUtils.createXmlObject(responseContent);
     XmlCursor cursor=xml.newCursor();
     cursor.toFirstContentToken();
     cursor.toFirstChild();

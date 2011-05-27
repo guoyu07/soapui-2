@@ -6,7 +6,7 @@
   if (!wsdlContext.hasSchemaTypes()) {
     throw new Exception("Missing schema types for message");
   }
-  XmlObject msgXml=XmlObject.Factory.parse(messageContent);
+  XmlObject msgXml=XmlUtils.createXmlObject(messageContent);
   Part[] parts=isResponse ? WsdlUtils.getOutputParts(bindingOperation) : WsdlUtils.getInputParts(bindingOperation);
   if (parts == null || parts.length == 0)   throw new Exception("Missing parts for operation [" + operationName + "]");
   List<XmlObject> result=new ArrayList<XmlObject>();

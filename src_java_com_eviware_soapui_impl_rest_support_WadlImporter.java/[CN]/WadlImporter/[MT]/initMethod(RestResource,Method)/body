@@ -41,7 +41,7 @@
             cursor.dispose();
             XmlOptions options=new XmlOptions();
             options.setLoadAdditionalNamespaces(map);
-            XmlObject obj=XmlObject.Factory.parse(content.replaceFirst("<(([a-z]+:)?)fault ","<$1representation "),options);
+            XmlObject obj=XmlUtils.createXmlObject(content.replaceFirst("<(([a-z]+:)?)fault ","<$1representation "),options);
             RepresentationDocument representation=(RepresentationDocument)obj.changeType(RepresentationDocument.type);
             addRepresentation(response,restMethod,representation.getRepresentation());
           }

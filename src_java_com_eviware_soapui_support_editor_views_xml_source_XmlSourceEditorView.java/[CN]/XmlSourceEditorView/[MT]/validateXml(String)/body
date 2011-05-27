@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject.Factory.parse(xml,new XmlOptions().setLoadLineNumbers());
+    XmlUtils.createXmlObject(xml,new XmlOptions().setLoadLineNumbers());
   }
  catch (  XmlException e) {
     List<ValidationError> result=new ArrayList<ValidationError>();

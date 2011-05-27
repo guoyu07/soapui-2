@@ -6,7 +6,7 @@
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
     String content=Tools.readAll(load(url),0).toString().trim();
-    return XmlObject.Factory.parse(content,options);
+    return XmlUtils.createXmlObject(content,options);
   }
  catch (  Exception e) {
     if (e instanceof XmlException) {

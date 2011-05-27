@@ -19,7 +19,7 @@
     String xmlContent=response.getContentAsXml();
     if (!xmlContent.equals("<xml/>")) {
       try {
-        XmlCursor cursor=XmlObject.Factory.parse(xmlContent).newCursor();
+        XmlCursor cursor=XmlUtils.createXmlObject(xmlContent).newCursor();
         cursor.toFirstChild();
         representation.setElement(cursor.getName());
       }

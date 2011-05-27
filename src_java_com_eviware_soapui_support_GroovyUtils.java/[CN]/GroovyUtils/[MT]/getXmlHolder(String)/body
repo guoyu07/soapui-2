@@ -1,6 +1,6 @@
 {
   try {
-    return new XmlHolder(XmlObject.Factory.parse(xmlPropertyOrString));
+    return new XmlHolder(XmlUtils.createXmlObject(xmlPropertyOrString));
   }
  catch (  Exception e) {
     return new XmlHolder(context,xmlPropertyOrString);

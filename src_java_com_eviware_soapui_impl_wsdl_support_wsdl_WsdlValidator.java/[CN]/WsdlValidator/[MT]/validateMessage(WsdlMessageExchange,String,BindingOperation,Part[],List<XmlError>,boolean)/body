@@ -8,7 +8,7 @@
         XmlOptions xmlOptions=new XmlOptions();
         xmlOptions.setLoadLineNumbers();
         xmlOptions.setLoadLineNumbers(XmlOptions.LOAD_LINE_NUMBERS_END_ELEMENT);
-        XmlObject xml=XmlObject.Factory.parse(message,xmlOptions);
+        XmlObject xml=XmlUtils.createXmlObject(message,xmlOptions);
         XmlObject[] paths=xml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "';"+ "$this/env:Envelope/env:Body/env:Fault");
         if (paths.length > 0) {
           validateSoapFault(bindingOperation,paths[0],errors);

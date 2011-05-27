@@ -30,7 +30,7 @@
   if (decryptedData != null) {
     if (decryptedData.length() > 0) {
       try {
-        projectDocument.getSoapuiProject().set(XmlObject.Factory.parse(decryptedData));
+        projectDocument.getSoapuiProject().set(XmlUtils.createXmlObject(decryptedData));
         wrongPasswordSupplied=false;
       }
  catch (      XmlException e) {

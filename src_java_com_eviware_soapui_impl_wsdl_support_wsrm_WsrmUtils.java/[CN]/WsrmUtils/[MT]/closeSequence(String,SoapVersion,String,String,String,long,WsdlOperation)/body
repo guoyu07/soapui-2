@@ -17,7 +17,7 @@
     closeSequenceRequest.getWsaConfig().setTo(endpoint);
     closeSequenceRequest.getWsaConfig().setGenerateMessageId(true);
     try {
-      XmlObject object=XmlObject.Factory.parse(openSequenceMessageContent);
+      XmlObject object=XmlUtils.createXmlObject(openSequenceMessageContent);
       XmlCursor cursor=object.newCursor();
       cursor.toFirstContentToken();
       cursor.toFirstChild();
@@ -46,7 +46,7 @@
       }
       Response response=wsdlSubmit.getResponse();
       String responseContent=response.getContentAsString();
-      XmlObject xml=XmlObject.Factory.parse(responseContent);
+      XmlObject xml=XmlUtils.createXmlObject(responseContent);
       XmlOptions options=new XmlOptions();
       String namespaceDeclaration="declare namespace wsrm='" + wsrmNamespace + "';";
       XmlObject result[]=xml.selectPath(namespaceDeclaration + "//wsrm:AcknowledgementRange",options);
@@ -81,7 +81,7 @@ catch (    XmlException e) {
   terminateSequenceRequest.getWsaConfig().setTo(endpoint);
   terminateSequenceRequest.getWsaConfig().setGenerateMessageId(true);
   try {
-    XmlObject object=XmlObject.Factory.parse(terminateSequenceRequestContent);
+    XmlObject object=XmlUtils.createXmlObject(terminateSequenceRequestContent);
     XmlCursor cursor=object.newCursor();
     cursor.toFirstContentToken();
     cursor.toFirstChild();

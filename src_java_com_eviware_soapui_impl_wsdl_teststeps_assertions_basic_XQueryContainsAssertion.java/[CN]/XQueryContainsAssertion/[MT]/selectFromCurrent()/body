@@ -8,7 +8,7 @@
       UISupport.showErrorMessage("Missing content to select from");
       return;
     }
-    XmlObject xml=XmlObject.Factory.parse(assertableContent);
+    XmlObject xml=XmlUtils.createXmlObject(assertableContent);
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
     if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
     WsdlTestRunContext context=new WsdlTestRunContext((TestStep)getAssertable().getModelItem());

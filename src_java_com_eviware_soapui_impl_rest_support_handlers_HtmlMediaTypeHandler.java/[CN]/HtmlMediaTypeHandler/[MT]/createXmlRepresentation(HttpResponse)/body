@@ -2,7 +2,7 @@
   String content=response == null ? null : response.getContentAsString();
   if (!StringUtils.hasContent(content))   return "<xml/>";
   try {
-    XmlObject.Factory.parse(new ByteArrayInputStream(content.getBytes()));
+    XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()));
     return content;
   }
  catch (  Exception e) {

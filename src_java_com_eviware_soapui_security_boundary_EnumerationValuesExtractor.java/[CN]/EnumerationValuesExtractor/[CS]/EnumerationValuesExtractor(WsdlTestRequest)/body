@@ -1,7 +1,7 @@
 {
   this.request=request;
   try {
-    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlObject.Factory.parse(request.getRequestContent()));
+    model=new XmlObjectTreeModel(request.getOperation().getInterface().getDefinitionContext().getSchemaTypeSystem(),XmlUtils.createXmlObject(request.getRequestContent()));
   }
  catch (  Exception e) {
     SoapUI.logError(e);

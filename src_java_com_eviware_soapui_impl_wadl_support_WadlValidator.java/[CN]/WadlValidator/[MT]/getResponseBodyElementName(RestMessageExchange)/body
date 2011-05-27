@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(messageExchange.getResponseContentAsXml());
+    XmlObject xmlObject=XmlUtils.createXmlObject(messageExchange.getResponseContentAsXml());
     Element docElement=((Document)xmlObject.getDomNode()).getDocumentElement();
     return new QName(docElement.getNamespaceURI(),docElement.getLocalName());
   }

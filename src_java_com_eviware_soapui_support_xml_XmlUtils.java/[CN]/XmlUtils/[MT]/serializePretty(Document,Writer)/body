@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(dom.getDocumentElement());
+    XmlObject xmlObject=XmlObject.Factory.parse(dom.getDocumentElement(),createDefaultXmlOptions());
     serializePretty(xmlObject,writer);
   }
  catch (  Exception e) {

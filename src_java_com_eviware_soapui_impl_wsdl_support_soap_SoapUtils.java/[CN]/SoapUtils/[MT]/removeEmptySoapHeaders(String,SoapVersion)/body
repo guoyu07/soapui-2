@@ -1,5 +1,5 @@
 {
-  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  XmlObject xmlObject=XmlUtils.createXmlObject(content);
   XmlObject[] selectPath=xmlObject.selectPath("declare namespace soap='" + soapVersion.getEnvelopeNamespace() + "';/soap:Envelope/soap:Header");
   if (selectPath.length > 0) {
     Node domNode=selectPath[0].getDomNode();

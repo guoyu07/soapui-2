@@ -1,6 +1,6 @@
 {
   try {
-    return deduceSoapVersion(requestContentType,XmlObject.Factory.parse(requestContent));
+    return deduceSoapVersion(requestContentType,XmlUtils.createXmlObject(requestContent));
   }
  catch (  XmlException e) {
     return deduceSoapVersion(requestContentType,(XmlObject)null);

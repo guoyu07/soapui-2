@@ -13,7 +13,7 @@
   XmlObjectTreeModel xmlObjectTreeModel=null;
   if (tp.getSchemaType() != null && XmlUtils.seemsToBeXml(tp.getValue())) {
     try {
-      xmlObjectTreeModel=new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(tp.getValue()));
+      xmlObjectTreeModel=new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(tp.getValue()));
     }
  catch (    XmlException e) {
       SoapUI.logError(e);

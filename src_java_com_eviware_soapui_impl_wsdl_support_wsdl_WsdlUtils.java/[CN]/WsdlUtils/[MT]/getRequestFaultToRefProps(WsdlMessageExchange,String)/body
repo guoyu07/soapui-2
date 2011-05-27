@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(messageExchange.getRequestContent());
+    XmlObject xmlObject=XmlUtils.createXmlObject(messageExchange.getRequestContent());
     SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
     Element header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
     Element faultToNode=XmlUtils.getFirstChildElementNS(header,wsaVersionNameSpace,"FaultTo");

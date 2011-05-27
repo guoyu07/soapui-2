@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(messageExchange.getResponseContent());
+    XmlObject xmlObject=XmlUtils.createXmlObject(messageExchange.getResponseContent());
     SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
     Element body=(Element)SoapUtils.getBodyElement(xmlObject,soapVersion).getDomNode();
     Element soapenvFault=XmlUtils.getFirstChildElementNS(body,"http://schemas.xmlsoap.org/soap/envelope/","Fault");

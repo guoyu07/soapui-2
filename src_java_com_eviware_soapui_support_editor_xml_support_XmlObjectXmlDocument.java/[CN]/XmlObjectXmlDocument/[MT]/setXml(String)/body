@@ -1,7 +1,7 @@
 {
   try {
     String old=getXml();
-    xmlObject=XmlObject.Factory.parse(xml);
+    xmlObject=XmlUtils.createXmlObject(xml);
     fireXmlChanged(old,getXml());
   }
  catch (  Exception e) {

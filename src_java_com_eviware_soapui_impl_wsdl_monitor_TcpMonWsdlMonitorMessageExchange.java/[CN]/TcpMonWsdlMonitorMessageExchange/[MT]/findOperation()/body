@@ -6,5 +6,5 @@
   for (  WsdlInterface iface : ModelSupport.getChildren(project,WsdlInterface.class)) {
     for (    Operation operation : iface.getOperationList())     operations.add((WsdlOperation)operation);
   }
-  return SoapUtils.findOperationForRequest(soapVersion,soapAction,XmlObject.Factory.parse(getRequestContent()),operations,true,false,getRequestAttachments());
+  return SoapUtils.findOperationForRequest(soapVersion,soapAction,XmlUtils.createXmlObject(getRequestContent()),operations,true,false,getRequestAttachments());
 }

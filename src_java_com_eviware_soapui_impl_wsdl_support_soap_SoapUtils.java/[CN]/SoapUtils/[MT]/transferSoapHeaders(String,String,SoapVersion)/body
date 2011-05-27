@@ -1,13 +1,13 @@
 {
   try {
-    XmlObject source=XmlObject.Factory.parse(requestContent);
+    XmlObject source=XmlUtils.createXmlObject(requestContent);
     String headerXPath="declare namespace ns='" + soapVersion.getEnvelopeNamespace() + "'; //ns:Header";
     XmlObject[] header=source.selectPath(headerXPath);
     if (header.length == 1) {
       Element headerElm=(Element)header[0].getDomNode();
       NodeList childNodes=headerElm.getChildNodes();
       if (childNodes.getLength() > 0) {
-        XmlObject dest=XmlObject.Factory.parse(newRequest);
+        XmlObject dest=XmlUtils.createXmlObject(newRequest);
         header=dest.selectPath(headerXPath);
         Element destElm=null;
         if (header.length == 0) {

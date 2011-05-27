@@ -10,10 +10,10 @@
   for (  DefintionPartConfig part : partList) {
     XmlObject obj=null;
     if (config.getType() == DefinitionCacheTypeConfig.TEXT) {
-      obj=XmlObject.Factory.parse(XmlUtils.getNodeValue(part.getContent().getDomNode()));
+      obj=XmlUtils.createXmlObject(XmlUtils.getNodeValue(part.getContent().getDomNode()));
     }
  else {
-      obj=XmlObject.Factory.parse(part.getContent().toString());
+      obj=XmlUtils.createXmlObject(part.getContent().toString());
     }
     replaceImportsAndIncludes(obj,urlToFileMap,part.getUrl());
     obj.save(new File(outFolder,urlToFileMap.get(part.getUrl())));

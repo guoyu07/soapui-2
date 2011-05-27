@@ -16,7 +16,7 @@
   makeConnectionRequest.getWsaConfig().setTo(WsaUtils.getNamespace(makeConnectionRequest.getWsaConfig().getVersion()) + "/anonymous");
   makeConnectionRequest.getWsaConfig().setGenerateMessageId(true);
   try {
-    XmlObject object=XmlObject.Factory.parse(makeConnectionMessageContent);
+    XmlObject object=XmlUtils.createXmlObject(makeConnectionMessageContent);
     XmlCursor cursor=object.newCursor();
     cursor.toFirstContentToken();
     cursor.toFirstChild();
@@ -42,7 +42,7 @@
     }
     Response response=wsdlSubmit.getResponse();
     String responseContent=response.getContentAsString();
-    XmlObject xml=XmlObject.Factory.parse(responseContent);
+    XmlObject xml=XmlUtils.createXmlObject(responseContent);
     XmlCursor cursor=xml.newCursor();
     cursor.toFirstContentToken();
     cursor.toFirstChild();

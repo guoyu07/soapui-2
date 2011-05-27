@@ -1,6 +1,6 @@
 {
   if (WsdlUtils.isOutputSoapEncoded(bindingOperation))   throw new Exception("SOAP-Encoded messages not supported");
-  XmlObject xml=XmlObject.Factory.parse(message);
+  XmlObject xml=XmlUtils.createXmlObject(message);
   XmlObject[] msgPaths=xml.selectPath("declare namespace env='" + soapVersion.getEnvelopeNamespace() + "';"+ "$this/env:Envelope/env:Body/env:Fault");
   if (msgPaths.length == 0)   return null;
   XmlObject msgXml=msgPaths[0];

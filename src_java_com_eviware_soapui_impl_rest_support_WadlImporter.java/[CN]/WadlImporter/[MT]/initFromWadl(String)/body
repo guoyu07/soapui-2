@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(new URL(wadlUrl));
+    XmlObject xmlObject=XmlUtils.createXmlObject(new URL(wadlUrl));
     Element element=((Document)xmlObject.getDomNode()).getDocumentElement();
     if (element.getLocalName().equals("application") && element.getNamespaceURI().startsWith("http://research.sun.com/wadl")) {
       isWADL11=false;

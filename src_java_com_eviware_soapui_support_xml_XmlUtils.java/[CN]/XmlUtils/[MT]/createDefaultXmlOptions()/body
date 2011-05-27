@@ -1,0 +1,16 @@
+{
+  XmlOptions xmlOptions;
+  try {
+    SAXParser saxParser=SAXParserFactory.newInstance().newSAXParser();
+    SecurityManager securityManager=new SecurityManager();
+    securityManager.setEntityExpansionLimit(16);
+    saxParser.setProperty("http://apache.org/xml/properties/security-manager",securityManager);
+    XMLReader xmlReader=saxParser.getXMLReader();
+    xmlOptions=new XmlOptions().setLoadUseXMLReader(xmlReader);
+  }
+ catch (  Exception e) {
+    xmlOptions=new XmlOptions();
+    log.error("Error creating XmlOptions; " + e.getMessage(),e);
+  }
+  return xmlOptions;
+}

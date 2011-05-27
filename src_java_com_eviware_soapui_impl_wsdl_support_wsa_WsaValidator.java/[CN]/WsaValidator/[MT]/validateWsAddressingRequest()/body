@@ -1,7 +1,7 @@
 {
   String content=messageExchange.getRequestContent();
   SoapVersion soapVersion=messageExchange.getOperation().getInterface().getSoapVersion();
-  XmlObject xmlObject=XmlObject.Factory.parse(content);
+  XmlObject xmlObject=XmlUtils.createXmlObject(content);
   header=(Element)SoapUtils.getHeaderElement(xmlObject,soapVersion,true).getDomNode();
   wsaVersionNameSpace=getWsaVersion(xmlObject,soapVersion);
   WsdlOperation operation=messageExchange.getOperation();

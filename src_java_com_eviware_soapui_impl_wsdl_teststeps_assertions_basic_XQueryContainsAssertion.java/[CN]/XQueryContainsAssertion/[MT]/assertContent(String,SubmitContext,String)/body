@@ -2,13 +2,13 @@
   try {
     if (path == null)     return "Missing path for XQuery Assertion";
     if (expectedContent == null)     return "Missing content for XQuery Assertion";
-    XmlObject xml=XmlObject.Factory.parse(response);
+    XmlObject xml=XmlUtils.createXmlObject(response);
     String expandedPath=PropertyExpander.expandProperties(context,path);
     XmlObject[] items=xml.execQuery(expandedPath);
     XmlObject contentObj=null;
     String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
     try {
-      contentObj=XmlObject.Factory.parse(expandedContent);
+      contentObj=XmlUtils.createXmlObject(expandedContent);
     }
  catch (    Exception e) {
     }

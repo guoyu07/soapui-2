@@ -23,7 +23,7 @@
     subst.put(Constants.WADL11_NS,Constants.WADL10_NS);
     options.setLoadSubstituteNamespaces(subst);
     try {
-      return XmlObject.Factory.parse(applicationDocument.xmlText(),options);
+      return XmlUtils.createXmlObject(applicationDocument.xmlText(),options);
     }
  catch (    XmlException e) {
       e.printStackTrace();

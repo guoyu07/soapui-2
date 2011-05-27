@@ -1,6 +1,6 @@
 {
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(inputArea.getText());
+    XmlObject xmlObject=XmlUtils.createXmlObject(inputArea.getText());
     XmlObject[] objects;
     if (queryTabs.getSelectedIndex() == 0) {
       objects=xmlObject.execQuery(xqueryArea.getText());

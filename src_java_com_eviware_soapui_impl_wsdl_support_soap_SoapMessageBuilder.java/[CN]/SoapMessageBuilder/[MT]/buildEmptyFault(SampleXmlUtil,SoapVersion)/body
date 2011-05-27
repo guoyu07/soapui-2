@@ -1,7 +1,7 @@
 {
   String emptyResponse=buildEmptyMessage(soapVersion);
   try {
-    XmlObject xmlObject=XmlObject.Factory.parse(emptyResponse);
+    XmlObject xmlObject=XmlUtils.createXmlObject(emptyResponse);
     XmlCursor cursor=xmlObject.newCursor();
     if (cursor.toChild(soapVersion.getEnvelopeQName()) && cursor.toChild(soapVersion.getBodyQName())) {
       SchemaType faultType=soapVersion.getFaultType();

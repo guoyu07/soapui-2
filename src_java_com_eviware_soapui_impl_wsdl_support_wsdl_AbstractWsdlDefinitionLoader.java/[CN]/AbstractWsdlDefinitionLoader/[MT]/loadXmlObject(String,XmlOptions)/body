@@ -5,7 +5,7 @@
     }
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
-    return XmlObject.Factory.parse(load(url),options);
+    return XmlUtils.createXmlObject(load(url),options);
   }
  catch (  Exception e) {
     log.error("Failed to load url [" + url + "]");

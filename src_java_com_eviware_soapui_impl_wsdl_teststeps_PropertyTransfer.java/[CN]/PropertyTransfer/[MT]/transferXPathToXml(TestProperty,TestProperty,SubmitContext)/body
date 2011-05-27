@@ -2,7 +2,7 @@
   XmlCursor sourceXml;
   try {
     String sourcePropertyValue=sourceProperty.getValue();
-    XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlObject.Factory.parse(sourcePropertyValue);
+    XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlUtils.createXmlObject(sourcePropertyValue);
     sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
   }
  catch (  XmlException e) {
@@ -12,7 +12,7 @@
   XmlCursor targetXml;
   try {
     String targetPropertyValue=targetProperty.getValue();
-    targetXmlObject=XmlObject.Factory.parse(targetPropertyValue);
+    targetXmlObject=XmlUtils.createXmlObject(targetPropertyValue);
     targetXml=targetXmlObject.newCursor();
   }
  catch (  XmlException e) {

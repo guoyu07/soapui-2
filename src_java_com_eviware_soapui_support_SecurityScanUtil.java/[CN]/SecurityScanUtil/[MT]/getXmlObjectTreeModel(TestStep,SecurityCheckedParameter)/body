@@ -2,7 +2,7 @@
   try {
     TestProperty tp=testStep.getProperty(scp.getName());
     if (tp.getSchemaType() != null && XmlUtils.seemsToBeXml(tp.getValue())) {
-      return new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlObject.Factory.parse(tp.getValue()));
+      return new XmlObjectTreeModel(tp.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(tp.getValue()));
     }
   }
  catch (  Exception e) {

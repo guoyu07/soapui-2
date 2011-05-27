@@ -4,7 +4,7 @@
   FileWriter writer=null;
   try {
     try {
-      XmlObject xml=XmlObject.Factory.parse(textArea.getText());
+      XmlObject xml=XmlUtils.createXmlObject(textArea.getText());
       xml.save(file);
     }
  catch (    XmlException e1) {

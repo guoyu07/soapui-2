@@ -1,6 +1,6 @@
 {
   if (messageObj == null) {
-    messageObj=XmlObject.Factory.parse(getMessageContent());
+    messageObj=XmlUtils.createXmlObject(getMessageContent(),XmlUtils.createDefaultXmlOptions());
   }
   return messageObj;
 }

@@ -14,7 +14,7 @@
       Node node=((DocumentFragment)domNode).getFirstChild();
       if (node.getNodeType() == Node.TEXT_NODE) {
         domNode=XmlUtils.parseXml(node.getNodeValue());
-        xmlObject=XmlObject.Factory.parse(domNode);
+        xmlObject=XmlUtils.createXmlObject(domNode);
       }
     }
     Element contentElement=((Document)domNode).getDocumentElement();

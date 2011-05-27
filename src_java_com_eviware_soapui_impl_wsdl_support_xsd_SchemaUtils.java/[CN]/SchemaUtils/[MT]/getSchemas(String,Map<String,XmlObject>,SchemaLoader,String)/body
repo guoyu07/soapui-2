@@ -39,7 +39,7 @@
       for (int i=0; i < schemas.length; i++) {
         XmlCursor xmlCursor=schemas[i].newCursor();
         String xmlText=xmlCursor.getObject().xmlText(options);
-        schemas[i]=XmlObject.Factory.parse(xmlText,options);
+        schemas[i]=XmlUtils.createXmlObject(xmlText,options);
         schemas[i].documentProperties().setSourceName(wsdlUrl);
         result.put(wsdlUrl + "@" + (i + 1),schemas[i]);
       }

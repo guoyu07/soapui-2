@@ -13,7 +13,7 @@
   tabs.addTab("Report",scrollPane);
   tabs.addTab("Config",new JScrollPane(configContent));
   if (logFile != null) {
-    String logFileContent=XmlObject.Factory.parse(logFile).toString();
+    String logFileContent=XmlUtils.createXmlObject(logFile).toString();
     JTextArea logContent=new JTextArea();
     logContent.setEditable(false);
     logContent.setText(logFileContent);

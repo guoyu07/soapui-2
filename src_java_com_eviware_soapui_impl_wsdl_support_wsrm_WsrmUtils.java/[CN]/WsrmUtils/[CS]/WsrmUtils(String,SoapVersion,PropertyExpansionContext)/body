@@ -2,7 +2,7 @@
   this.soapVersion=soapVersion;
   this.content=content;
   try {
-    xmlContentObject=XmlObject.Factory.parse(content);
+    xmlContentObject=XmlUtils.createXmlObject(content);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
