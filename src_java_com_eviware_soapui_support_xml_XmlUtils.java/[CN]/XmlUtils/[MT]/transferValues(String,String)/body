@@ -2,8 +2,8 @@
   if (StringUtils.isNullOrEmpty(source) || StringUtils.isNullOrEmpty(dest))   return dest;
   XmlCursor cursor=null;
   try {
-    XmlObject sourceXml=XmlObject.Factory.parse(source,createDefaultXmlOptions());
-    XmlObject destXml=XmlObject.Factory.parse(dest,createDefaultXmlOptions());
+    XmlObject sourceXml=XmlObject.Factory.parse(source);
+    XmlObject destXml=XmlObject.Factory.parse(dest);
     cursor=sourceXml.newCursor();
     cursor.toNextToken();
     while (!cursor.isEnddoc()) {
