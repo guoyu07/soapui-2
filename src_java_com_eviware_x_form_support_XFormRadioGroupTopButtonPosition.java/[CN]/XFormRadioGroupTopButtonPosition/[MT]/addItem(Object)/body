@@ -1,0 +1,15 @@
+{
+  JRadioButton button=new JRadioButton(String.valueOf(value));
+  button.setVerticalTextPosition(SwingConstants.TOP);
+  button.setActionCommand(String.valueOf(value));
+  button.addActionListener(new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      fireValueChanged(e.getActionCommand(),null);
+    }
+  }
+);
+  getComponent().add(button);
+  buttonGroup.add(button);
+  models.put(String.valueOf(value),button.getModel());
+  items.add(String.valueOf(value));
+}
