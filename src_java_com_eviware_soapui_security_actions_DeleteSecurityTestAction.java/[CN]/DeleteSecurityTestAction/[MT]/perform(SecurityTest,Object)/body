@@ -1,4 +1,8 @@
 {
+  if (SoapUI.getTestMonitor().hasRunningSecurityTest((securityTest.getTestCase()))) {
+    UISupport.showErrorMessage("Cannot remove test while tests are running");
+    return;
+  }
   if (UISupport.confirm("Remove SecurityTest [" + securityTest.getName() + "] from test-case","Remove SecurityTest")) {
     ((WsdlTestCase)securityTest.getTestCase()).removeSecurityTest(securityTest);
   }
