@@ -5,13 +5,13 @@
   if (StringUtils.hasContent(protocols)) {
     socket.setEnabledProtocols(protocols.split(","));
   }
- else {
+ else   if (socket.getSupportedProtocols() != null) {
     socket.setEnabledProtocols(socket.getSupportedProtocols());
   }
   if (StringUtils.hasContent(ciphers)) {
     socket.setEnabledCipherSuites(ciphers.split(","));
   }
- else {
+ else   if (socket.getSupportedCipherSuites() != null) {
     socket.setEnabledCipherSuites(socket.getSupportedCipherSuites());
   }
   return socket;
