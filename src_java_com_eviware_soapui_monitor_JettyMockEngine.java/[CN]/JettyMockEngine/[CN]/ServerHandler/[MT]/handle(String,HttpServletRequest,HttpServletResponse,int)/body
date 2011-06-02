@@ -10,7 +10,7 @@
   }
   if (map != null) {
     List<MockRunner> wsdlMockRunners=map.get(request.getPathInfo());
-    if (wsdlMockRunners == null && request.getMethod().equals("GET")) {
+    if (wsdlMockRunners == null) {
       for (      String root : map.keySet()) {
         if (request.getPathInfo().startsWith(root)) {
           wsdlMockRunners=map.get(root);
