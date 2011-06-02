@@ -1,5 +1,8 @@
 {
   try {
+    if (saveProject) {
+      CajoClient.getInstance().invoke("saveOpenedProject",null);
+    }
     CajoClient.getInstance().invoke("closeOpenedProject",null);
   }
  catch (  Exception e) {

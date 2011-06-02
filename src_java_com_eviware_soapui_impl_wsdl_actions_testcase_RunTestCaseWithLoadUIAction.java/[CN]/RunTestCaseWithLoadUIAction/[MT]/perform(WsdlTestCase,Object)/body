@@ -57,10 +57,7 @@
       analisysType=dialog.getValue(Form.STATISTICS);
       if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
         String openedProjectName=IntegrationUtils.getOpenedProjectName();
-        if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))         if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
-          IntegrationUtils.closeOpenedLoadUIProject();
-        }
- else {
+        if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName) && IntegrationUtils.checkOpenedLoadUIProjectForClose()) {
           return;
         }
         HashMap<String,String> createdRunnerSettings=null;

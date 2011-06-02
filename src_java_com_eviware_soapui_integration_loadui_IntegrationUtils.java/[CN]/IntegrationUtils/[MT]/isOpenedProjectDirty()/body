@@ -1,0 +1,10 @@
+{
+  Boolean result=null;
+  try {
+    result=(Boolean)CajoClient.getInstance().invoke("isOpenedProjectDirty",null);
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+  }
+  return result;
+}

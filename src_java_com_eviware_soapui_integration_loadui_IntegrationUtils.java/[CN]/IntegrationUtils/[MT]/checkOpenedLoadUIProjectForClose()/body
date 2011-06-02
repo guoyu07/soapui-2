@@ -1,0 +1,22 @@
+{
+  String openedProjectName=getOpenedProjectName();
+  if (StringUtils.isNullOrEmpty(openedProjectName)) {
+    return false;
+  }
+  Boolean close=null;
+  Boolean saveProject=null;
+  Boolean isDirty=isOpenedProjectDirty();
+  if (isDirty != null && isDirty) {
+    saveProject=UISupport.confirmOrCancel("Save currently open [" + openedProjectName + "] loadUI project before closing?","Save loadUI project");
+    close=saveProject != null;
+  }
+ else {
+    close=UISupport.confirm("Currently open [" + openedProjectName + "] loadUI project will be closed. Continue?","Close loadUI project");
+  }
+  boolean quit=true;
+  if (close != null && close) {
+    closeOpenedLoadUIProject(saveProject != null && saveProject);
+    quit=false;
+  }
+  return quit;
+}

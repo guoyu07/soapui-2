@@ -24,13 +24,8 @@
         int levelToAdd=dialog.getValueIndex(Form.LEVEL);
         String loadUIProject=dialog.getValue(Form.LOADUIPROJECT);
         String openedProjectName=IntegrationUtils.getOpenedProjectName();
-        if (!StringUtils.isNullOrEmpty(openedProjectName) && !loadUIProject.equals(openedProjectName)) {
-          if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
-            IntegrationUtils.closeOpenedLoadUIProject();
-          }
- else {
-            return;
-          }
+        if (!StringUtils.isNullOrEmpty(openedProjectName) && !loadUIProject.equals(openedProjectName) && IntegrationUtils.checkOpenedLoadUIProjectForClose()) {
+          return;
         }
         String[] soapuiTestCases=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(Form.TESTCASES)).getSelectedOptions());
         if (soapuiTestCases.length == 0) {

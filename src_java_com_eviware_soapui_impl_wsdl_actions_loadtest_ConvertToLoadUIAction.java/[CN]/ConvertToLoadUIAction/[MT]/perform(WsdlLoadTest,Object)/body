@@ -45,10 +45,7 @@
       String targetTestCaseName=!dialog.getValue(Form.TESTCASE).equals(IntegrationUtils.CREATE_ON_PROJECT_LEVEL) ? dialog.getValue(Form.TESTCASE) : null;
       String targetRunnerName=dialog.getValue(Form.SOAPUIRUNNER);
       String openedProjectName=IntegrationUtils.getOpenedProjectName();
-      if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName))       if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
-        IntegrationUtils.closeOpenedLoadUIProject();
-      }
- else {
+      if (!StringUtils.isNullOrEmpty(openedProjectName) && !targetProjectString.equals(openedProjectName) && IntegrationUtils.checkOpenedLoadUIProjectForClose()) {
         return;
       }
       exportToLoadUI(loadTest,targetProjectString,targetTestCaseName,targetRunnerName);

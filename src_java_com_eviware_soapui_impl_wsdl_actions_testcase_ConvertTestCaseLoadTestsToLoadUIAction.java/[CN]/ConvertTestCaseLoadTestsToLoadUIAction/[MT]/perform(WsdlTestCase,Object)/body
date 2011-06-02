@@ -19,13 +19,8 @@
       if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
         String loadUIProject=dialog.getValue(TestCaseForm.LOADUIPROJECT);
         String openedProjectName=IntegrationUtils.getOpenedProjectName();
-        if (!StringUtils.isNullOrEmpty(openedProjectName) && !loadUIProject.equals(openedProjectName)) {
-          if (UISupport.confirm("Close currently open [" + IntegrationUtils.getOpenedProjectName() + "] loadUI project","Close loadUI project")) {
-            IntegrationUtils.closeOpenedLoadUIProject();
-          }
- else {
-            return;
-          }
+        if (!StringUtils.isNullOrEmpty(openedProjectName) && !loadUIProject.equals(openedProjectName) && IntegrationUtils.checkOpenedLoadUIProjectForClose()) {
+          return;
         }
         String[] soapuiLoadTests=StringUtils.toStringArray(((XFormMultiSelectList)dialog.getFormField(TestCaseForm.LOADTESTS)).getSelectedOptions());
         if (soapuiLoadTests.length == 0) {
