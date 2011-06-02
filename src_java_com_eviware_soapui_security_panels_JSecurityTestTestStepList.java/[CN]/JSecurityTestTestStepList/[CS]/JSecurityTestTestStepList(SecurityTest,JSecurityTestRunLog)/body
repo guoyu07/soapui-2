@@ -7,20 +7,19 @@
   securityScanPopUp.add(configureSecurityScanAction);
   securityScanPopUp.addSeparator();
   securityScanPopUp.add(removeSecurityScanAction);
-  securityScanPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL);
+  securityScanPopUp.add(showOnlineHelpAction);
   securityScanWithPropertiesPopUp=new JPopupMenu();
   securityScanWithPropertiesPopUp.add(enableDisableSecurityScan);
   securityScanWithPropertiesPopUp.add(configureSecurityScanAction);
   securityScanWithPropertiesPopUp.add(cloneParametersAction);
   securityScanWithPropertiesPopUp.addSeparator();
   securityScanWithPropertiesPopUp.add(removeSecurityScanAction);
-  securityScanWithPropertiesPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  securityScanWithPropertiesPopUp.add(showOnlineHelpAction);
   multySecurityScanPopUp=new JPopupMenu();
-  multySecurityScanPopUp.add(new EnableSecurityScans());
-  multySecurityScanPopUp.add(new DisableSecurityScans());
-  multySecurityScanPopUp.addSeparator();
-  multySecurityScanPopUp.add(removeSecurityScanAction);
-  multySecurityScanPopUp.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+  enableSecurityScansAction=new EnableSecurityScans();
+  disableSecurityScansAction=new DisableSecurityScans();
+  populateMultySecurityScanPopup(true,true);
   multySecurityScanPopUp.addPopupMenuListener(new PopupMenuListener(){
     @Override public void popupMenuWillBecomeVisible(    PopupMenuEvent arg0){
       multypopupvisible=true;
