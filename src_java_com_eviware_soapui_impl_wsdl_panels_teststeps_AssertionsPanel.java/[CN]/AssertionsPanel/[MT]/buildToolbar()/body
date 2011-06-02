@@ -6,7 +6,7 @@
   JXToolBar toolbar=UISupport.createToolbar();
   addToolbarButtons(toolbar);
   toolbar.addGlue();
-  toolbar.add(new ShowOnlineHelpAction(HelpUrls.REQUEST_ASSERTIONS_HELP_URL));
+  toolbar.add(new ShowOnlineHelpAction(getHelpUrl()));
   assertionList.addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       int ix=assertionList.getSelectedIndex();

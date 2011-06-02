@@ -12,7 +12,7 @@
       int ix=assertionList.getSelectedIndex();
       if (ix == -1) {
         assertionListPopup.addSeparator();
-        assertionListPopup.add(new ShowOnlineHelpAction(HelpUrls.RESPONSE_ASSERTIONS_HELP_URL));
+        assertionListPopup.add(new ShowOnlineHelpAction(getHelpUrl()));
         return;
       }
       TestAssertion assertion=assertionListModel.getAssertionAt(ix);
