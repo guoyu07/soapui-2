@@ -19,9 +19,8 @@
   testStep.addPropertyChangeListener(TestStep.ICON_PROPERTY,TestStepCellRender.this);
   testStep.addPropertyChangeListener(TestStep.DISABLED_PROPERTY,TestStepCellRender.this);
   innerLeftPanel=new JPanel(new BorderLayout());
-  if (exp)   expandCollapseBtn=new JButton(expanded);
- else   expandCollapseBtn=new JButton(collapsed);
-  expandCollapseBtn.setBorder(null);
+  if (exp)   expandCollapseBtn=new JLabel(expanded);
+ else   expandCollapseBtn=new JLabel(collapsed);
   expandCollapseBtn.setEnabled(false);
   if (securityTest.getSecurityScansMap().get(testStep.getId()) == null || securityTest.getSecurityScansMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
  else   expandCollapseBtn.setVisible(true);
