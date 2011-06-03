@@ -6,6 +6,9 @@
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
   table=new JXTable(model);
+  TableRowSorter<InvalidTypeTableModel> sorter=new TableRowSorter<InvalidTypeTableModel>(model);
+  table.setRowSorter(sorter);
+  table.toggleSortOrder(0);
   add(new JScrollPane(table),BorderLayout.CENTER);
   setPreferredSize(new Dimension(100,200));
 }
