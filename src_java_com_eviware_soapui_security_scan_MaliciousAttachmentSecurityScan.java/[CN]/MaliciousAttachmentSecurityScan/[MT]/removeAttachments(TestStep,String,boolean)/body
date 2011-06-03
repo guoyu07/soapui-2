@@ -1,6 +1,6 @@
 {
   List<Attachment> toRemove=new ArrayList<Attachment>();
-  WsdlRequest request=(WsdlRequest)getRequest(testStep);
+  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   for (  Attachment attachment : request.getAttachments()) {
     if (equals) {
       if (attachment.getId().equals(key)) {

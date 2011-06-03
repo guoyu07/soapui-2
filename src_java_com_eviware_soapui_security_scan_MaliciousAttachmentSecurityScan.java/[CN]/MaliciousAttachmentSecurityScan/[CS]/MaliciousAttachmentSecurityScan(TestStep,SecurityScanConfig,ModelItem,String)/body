@@ -6,6 +6,6 @@
  else {
     config=((MaliciousAttachmentSecurityScanConfig)newConfig.getConfig());
   }
-  request=((WsdlRequest)getRequest(testStep));
+  request=((AbstractHttpRequest<?>)getRequest(testStep));
   request.addAttachmentsChangeListener(this);
 }

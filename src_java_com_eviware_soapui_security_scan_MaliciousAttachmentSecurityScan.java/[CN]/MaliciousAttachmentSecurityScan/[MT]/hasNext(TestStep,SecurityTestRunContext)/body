@@ -1,5 +1,5 @@
 {
-  WsdlRequest request=(WsdlRequest)getRequest(testStep);
+  AbstractHttpRequest<?> request=(AbstractHttpRequest<?>)getRequest(testStep);
   boolean hasNext=request.getAttachmentCount() == 0 ? false : elementIndex < config.getElementList().size();
   if (!hasNext) {
     elementIndex=-1;
