@@ -13,14 +13,17 @@
  else {
     logger.info("Actions not set!");
   }
-  if (StringUtils.hasContent(getInitParameter("soapuiSettings"))) {
-    logger.info("Init settings");
-    SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext(),getInitParameter("soapuiSettings")),true);
-  }
+  if (SoapUI.getSoapUICore() == null) {
+    if (StringUtils.hasContent(getInitParameter("soapuiSettings"))) {
+      logger.info("Init settings");
+      SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext(),getInitParameter("soapuiSettings")),true);
+    }
  else {
-    logger.info("Settings not set!");
-    SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext()),true);
+      logger.info("Settings not set!");
+      SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext()),true);
+    }
   }
+ else   logger.info("SoapUI core already exists, reusing existing one");
   if (StringUtils.hasContent(getInitParameter("enableWebUI"))) {
     if ("true".equals(getInitParameter("enableWebUI"))) {
       logger.info("WebUI ENABLED");
