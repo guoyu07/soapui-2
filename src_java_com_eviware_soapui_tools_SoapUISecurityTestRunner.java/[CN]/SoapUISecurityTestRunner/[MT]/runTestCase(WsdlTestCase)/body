@@ -1,0 +1,10 @@
+{
+  try {
+    for (    SecurityTest securityTest : testCase.getSecurityTestList()) {
+      if (StringUtils.isNullOrEmpty(securityTestName) || securityTest.getName().equals(securityTestName))       runSecurityTest(securityTest);
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

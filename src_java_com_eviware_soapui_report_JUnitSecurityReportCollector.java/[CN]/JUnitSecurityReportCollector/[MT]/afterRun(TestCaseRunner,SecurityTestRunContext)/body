@@ -1,32 +1,34 @@
 {
   TestCase testCase=testRunner.getTestCase();
-  TestSuite testSuite=testCase.getTestSuite();
-{
-    JUnitReport report=new JUnitReport();
-    report.setTestSuiteName(testSuite.getProject().getName() + "." + testSuite.getName());
-    Testcase secTestCase=report.addTestCase(testCase.getName(),0);
-    SecurityTest juSecurityTest=report.addSecurityTest(secTestCase,((SecurityTestRunner)testRunner).getSecurityTest().getName());
-    for (    TestStep ts : ((SecurityTestRunner)testRunner).getSecurityTest().getSecurityTestStepResultMap().keySet()) {
-      SecurityTestStepResult secuTestStepResult=((SecurityTestRunner)testRunner).getSecurityTest().getSecurityTestStepResultMap().get(ts);
+  SecurityTest securityTest=((SecurityTestRunner)testRunner).getSecurityTest();
+  JUnitReport report=new JUnitReport();
+  String reportName=securityTest.getName();
+  report.setTestSuiteName(reportName);
+  report.setPackage(testCase.getTestSuite().getProject().getName());
+  int errorCount=0;
+  for (  TestStep ts : testCase.getTestStepList()) {
+    SecurityTestStepResult secuTestStepResult=securityTest.getSecurityTestStepResultMap().get(ts);
+    if (secuTestStepResult != null) {
       for (      SecurityScanResult scanResult : secuTestStepResult.getSecurityScanResultList()) {
-        com.eviware.soapui.junit.SecurityScan juSecurityScan=report.addSecurityScan(juSecurityTest,scanResult.getSecurityScanName());
-        int i=0;
-        for (        SecurityScanRequestResult scanRequestResult : scanResult.getSecurityRequestResultList()) {
-          Mutation mutation=juSecurityScan.addNewMutation();
-          mutation.addMessage(scanRequestResult.getChangedParamsInfo(i));
-          for (          String message : scanRequestResult.getMessages()) {
-            mutation.addMessage(message);
+        List<SecurityScanRequestResult> resultList=scanResult.getSecurityRequestResultList();
+        Testcase secTestCase=report.addTestCase(ts.getName() + " - " + scanResult.getSecurityScanName(),scanResult.getTimeTaken());
+        secTestCase.setPackage(testCase.getTestSuite().getProject().getName());
+        for (int i=0; i < resultList.size(); i++) {
+          SecurityScanRequestResult scanRequestResult=resultList.get(i);
+          if (scanRequestResult.getStatus() == ResultStatus.FAILED) {
+            StringBuffer result=new StringBuffer();
+            result.append("<pre>").append(XmlUtils.entitize(scanRequestResult.getChangedParamsInfo(i + 1))).append("</pre>");
+            for (            String message : scanRequestResult.getMessages()) {
+              result.append("<pre>").append(XmlUtils.entitize(message)).append("</pre>");
+            }
+            secTestCase.addNewError().setStringValue(result.toString());
+            errorCount++;
           }
-          for (          String name : scanRequestResult.getMessageExchange().getProperties().keySet()) {
-            if (scanRequestResult.getMessageExchange().getProperties().get(name) != null)             ;
-            mutation.addMessage(name + " = " + scanRequestResult.getMessageExchange().getProperties().get(name));
-          }
-          mutation.setRequest(new String(scanRequestResult.getMessageExchange().getRawRequestData()));
-          mutation.setResponse(new String(scanRequestResult.getMessageExchange().getRawRequestData()));
-          i++;
         }
       }
     }
-    reports.put(testSuite.getName(),report);
+    report.setNoofErrorsInTestSuite(errorCount);
+    report.setTotalTime(testRunner.getTimeTaken());
+    reports.put(reportName,report);
   }
 }
