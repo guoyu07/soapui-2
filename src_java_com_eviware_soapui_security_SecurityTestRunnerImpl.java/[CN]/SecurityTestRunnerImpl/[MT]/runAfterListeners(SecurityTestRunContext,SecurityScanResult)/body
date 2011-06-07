@@ -1,0 +1,8 @@
+{
+  for (int j=0; j < securityTestStepListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestStepListeners[j]))     securityTestStepListeners[j].afterSecurityScan(this,runContext,securityScanResult);
+  }
+  for (int j=0; j < securityTestListeners.length; j++) {
+    if (Arrays.asList(getSecurityTest().getSecurityTestRunListeners()).contains(securityTestListeners[j]))     securityTestListeners[j].afterSecurityScan(this,runContext,securityScanResult);
+  }
+}

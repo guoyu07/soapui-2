@@ -39,6 +39,12 @@
             }
           }
         }
+ else {
+          SecurityScanResult securityScanResult=new SecurityScanResult(securityScan);
+          securityScanResult.setStatus(ResultStatus.SKIPPED);
+          securityStepResult.addSecurityScanResult(securityScanResult);
+          runAfterListeners(runContext,securityScanResult);
+        }
       }
       if (securityStepResult.getStatus() == ResultStatus.INITIALIZED) {
         securityStepResult.setStatus(ResultStatus.UNKNOWN);
