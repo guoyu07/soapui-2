@@ -9,7 +9,7 @@
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpander.expandProperties(context,param.getValue());
     responseProperties.put(param.getName(),value);
-    List<String> valueParts=RestUtils.splitMultipleParameters(value,request.getMultiValueDelimiter());
+    List<String> valueParts=sendEmptyParameters(request) ? RestUtils.splitMultipleParametersEmptyIncluded(value,request.getMultiValueDelimiter()) : RestUtils.splitMultipleParameters(value,request.getMultiValueDelimiter());
     if (value != null && param.getStyle() != ParameterStyle.HEADER && param.getStyle() != ParameterStyle.TEMPLATE && !param.isDisableUrlEncoding()) {
       try {
         String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
@@ -30,7 +30,9 @@
       value=value.replaceAll("\\+","%20");
       for (int i=0; i < valueParts.size(); i++)       valueParts.set(i,valueParts.get(i).replaceAll("\\+","%20"));
     }
-    if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
+    if (!sendEmptyParameters(request)) {
+      if (!StringUtils.hasContent(value) && !param.getRequired())       continue;
+    }
 switch (param.getStyle()) {
 case HEADER:
       for (      String valuePart : valueParts)       httpMethod.addRequestHeader(param.getName(),valuePart);
