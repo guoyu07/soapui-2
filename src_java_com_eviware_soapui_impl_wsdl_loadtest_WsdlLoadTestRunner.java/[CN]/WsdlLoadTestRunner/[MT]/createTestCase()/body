@@ -5,6 +5,7 @@
     try {
       blueprintConfig=TestCaseConfig.Factory.parse(testCase.getConfig().xmlText());
       blueprintConfig.setLoadTestArray(new LoadTestConfig[0]);
+      blueprintConfig.setSecurityTestArray(new SecurityTestConfig[0]);
     }
  catch (    XmlException e) {
       e.printStackTrace();
