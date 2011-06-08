@@ -1,0 +1,14 @@
+{
+  Browser browser=BrowserFactory.createBrowser(BrowserType.Mozilla);
+  JFrame frame=new JFrame();
+  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  frame.add(browser.getComponent(),BorderLayout.CENTER);
+  frame.setSize(400,300);
+  frame.setLocationRelativeTo(null);
+  frame.setVisible(true);
+  String content="";
+  String url="http://192.168.250.4:8484/App4Test/";
+  browser.setContent(content,url);
+  browser.waitReady();
+  System.out.println("browser.getContent() = " + browser.getContent());
+}
