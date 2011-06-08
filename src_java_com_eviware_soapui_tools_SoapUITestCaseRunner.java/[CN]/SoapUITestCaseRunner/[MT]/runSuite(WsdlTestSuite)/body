@@ -1,7 +1,7 @@
 {
   try {
     log.info(("Running TestSuite [" + suite.getName() + "], runType = "+ suite.getRunType()));
-    WsdlTestSuiteRunner runner=suite.run(new StringToObjectMap(),suite.getRunType().equals(TestSuiteRunTypesConfig.PARALLELL));
+    WsdlTestSuiteRunner runner=suite.run(new StringToObjectMap(),suite.getRunType() == TestSuiteRunType.PARALLEL);
     log.info("TestSuite [" + suite.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ (runner.getTimeTaken())+ "ms");
   }
  catch (  Exception e) {

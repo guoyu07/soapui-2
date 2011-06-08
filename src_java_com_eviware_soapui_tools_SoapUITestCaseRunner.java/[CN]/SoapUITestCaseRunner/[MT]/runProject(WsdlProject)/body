@@ -3,7 +3,7 @@
   project.addProjectRunListener(projectRunListener);
   try {
     log.info(("Running Project [" + project.getName() + "], runType = "+ project.getRunType()));
-    WsdlProjectRunner runner=project.run(new StringToObjectMap(),project.getRunType().equals(TestSuiteRunTypesConfig.PARALLELL));
+    WsdlProjectRunner runner=project.run(new StringToObjectMap(),project.getRunType() == TestSuiteRunType.PARALLEL);
     log.info("Project [" + project.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ runner.getTimeTaken()+ "ms");
   }
  catch (  Exception e) {
