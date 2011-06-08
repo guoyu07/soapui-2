@@ -37,7 +37,7 @@
   String valueForCreation=target.getValueForCreation();
   target.insertPropertyExpansion(pe,null);
   if (!StringUtils.hasContent(sourceXPath) && StringUtils.hasContent(valueForCreation) && !property.isReadOnly()) {
-    valueForCreation=UISupport.prompt("Init property value to","Get Data",valueForCreation);
+    valueForCreation=UISupport.prompt("Initialize property value to","Get Data",valueForCreation);
     if (valueForCreation != null) {
       property.setValue(valueForCreation);
     }
