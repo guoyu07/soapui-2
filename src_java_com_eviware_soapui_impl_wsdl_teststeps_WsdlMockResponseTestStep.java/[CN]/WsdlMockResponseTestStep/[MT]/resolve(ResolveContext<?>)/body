@@ -30,7 +30,7 @@
  else {
     mockOperation.resolve(context);
     if (context.hasThisModelItem(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation())) {
-      PathToResolve path=context.getPath(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation());
+      @SuppressWarnings("rawtypes") PathToResolve path=context.getPath(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation());
       path.setSolved(true);
     }
   }

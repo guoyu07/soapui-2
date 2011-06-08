@@ -6,13 +6,7 @@
     if (operation != null)     interfaces.add(operation.getInterface());
   }
   for (  WsdlInterface iface : interfaces)   iface.getWsdlContext().loadIfNecessary();
-  mockContext=new WsdlMockRunContext(mockService,context);
-  mockService.runStartScript(mockContext,this);
-  SoapUI.getMockEngine().startMockService(this);
-  running=true;
-  MockRunListener[] mockRunListeners=mockService.getMockRunListeners();
-  for (  MockRunListener listener : mockRunListeners) {
-    listener.onMockRunnerStart(this);
-  }
   initWsdlCache();
+  mockContext=new WsdlMockRunContext(mockService,context);
+  start();
 }
