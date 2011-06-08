@@ -23,7 +23,12 @@
         if (securityScan.isDisabled() || securityScan.isSkipFurtherRunning())         continue;
         if (stepResult.getStatus() == TestStepStatus.FAILED && !securityScan.isApplyForFailedStep()) {
           SecurityScanResult securityScanResult=new SecurityScanResult(securityScan);
-          securityScanResult.setStatus(ResultStatus.SKIPPED);
+          if (securityScan.getAssertionCount() > 0)           securityScanResult.setStatus(ResultStatus.OK);
+ else           if (securityScan instanceof AbstractSecurityScanWithProperties) {
+            if (((AbstractSecurityScanWithProperties)securityScan).getParameterHolder().getParameterList().size() > 0)             securityScanResult.setStatus(ResultStatus.OK);
+ else             securityScanResult.setStatus(ResultStatus.SKIPPED);
+          }
+ else           securityScanResult.setStatus(ResultStatus.SKIPPED);
           securityStepResult.addSecurityScanResult(securityScanResult);
           runAfterListeners(runContext,securityScanResult);
         }
