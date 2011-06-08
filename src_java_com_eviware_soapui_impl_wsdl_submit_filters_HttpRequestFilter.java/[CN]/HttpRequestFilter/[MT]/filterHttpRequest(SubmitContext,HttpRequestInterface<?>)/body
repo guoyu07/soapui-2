@@ -86,7 +86,14 @@ e.printStackTrace();
 }
 }
  else if (StringUtils.hasContent(path)) {
+try {
+URI uri=new URI(path,false);
+httpMethod.setPath(uri.toString());
+}
+ catch (Exception e) {
+e.printStackTrace();
 httpMethod.setPath(path);
+}
 }
 if (query.length() > 0 && !request.isPostQueryString()) {
 httpMethod.setQueryString(query.toString());
