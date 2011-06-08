@@ -8,6 +8,15 @@
       progressBar.setForeground(FAILED_COLOR);
     }
  else     if (securityCheckResult.getStatus() == ResultStatus.OK) {
+      SecurityScan securityScan=securityCheckResult.getSecurityScan();
+      if (securityScan.getAssertionCount() == 0) {
+        if (!progressBar.getForeground().equals(FAILED_COLOR))         progressBar.setForeground(MISSING_ASSERTION_COLOR);
+        progressBar.setString(STATE_MISSING_ASSERTIONS);
+      }
+      if (securityScan instanceof AbstractSecurityScanWithProperties && ((AbstractSecurityScanWithProperties)securityScan).getParameterHolder().getParameterList().size() == 0) {
+        if (!progressBar.getForeground().equals(FAILED_COLOR))         progressBar.setForeground(MISSING_ASSERTION_COLOR);
+        if (!progressBar.getString().equals(STATE_MISSING_ASSERTIONS))         progressBar.setString(STATE_MISSING_PARAMETERS);
+      }
       if (!progressBar.getForeground().equals(FAILED_COLOR) && !progressBar.getForeground().equals(MISSING_ASSERTION_COLOR)) {
         progressBar.setForeground(OK_COLOR);
       }

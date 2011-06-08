@@ -14,8 +14,12 @@
         progressBar.setString("SKIPPED");
         progressBar.setForeground(UNKNOWN_COLOR);
       }
- else       progressBar.setString(STATE_DONE);
+ else {
+        progressBar.setString(STATE_DONE);
+      }
     }
   }
-  progressBar.setBackground(UNKNOWN_COLOR);
+ else   progressBar.setBackground(UNKNOWN_COLOR);
+  progressBar.setValue(progressBar.getMaximum() == 0 ? 1 : progressBar.getMaximum());
+  ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
 }
