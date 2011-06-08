@@ -21,7 +21,13 @@
       for (int i=0; i < testStepScansList.size(); i++) {
         SecurityScan securityScan=testStepScansList.get(i);
         if (securityScan.isDisabled() || securityScan.isSkipFurtherRunning())         continue;
-        if (stepResult.getStatus() != TestStepStatus.FAILED || securityScan.isApplyForFailedStep()) {
+        if (stepResult.getStatus() == TestStepStatus.FAILED && !securityScan.isApplyForFailedStep()) {
+          SecurityScanResult securityScanResult=new SecurityScanResult(securityScan);
+          securityScanResult.setStatus(ResultStatus.SKIPPED);
+          securityStepResult.addSecurityScanResult(securityScanResult);
+          runAfterListeners(runContext,securityScanResult);
+        }
+ else {
           runContext.setCurrentScanIndex(i);
           runContext.setCurrentScanOnSecurityTestIndex(currentScanOnSecurityTestIndex++);
           SecurityScanResult securityScanResult=runTestStepSecurityScan(runContext,currentStep,securityScan);
@@ -38,12 +44,6 @@
               getRunContext().setProperty(SecurityTestRunner.Status.class.getName(),SecurityTestRunner.Status.FAILED);
             }
           }
-        }
- else {
-          SecurityScanResult securityScanResult=new SecurityScanResult(securityScan);
-          securityScanResult.setStatus(ResultStatus.SKIPPED);
-          securityStepResult.addSecurityScanResult(securityScanResult);
-          runAfterListeners(runContext,securityScanResult);
         }
       }
       if (securityStepResult.getStatus() == ResultStatus.INITIALIZED) {
