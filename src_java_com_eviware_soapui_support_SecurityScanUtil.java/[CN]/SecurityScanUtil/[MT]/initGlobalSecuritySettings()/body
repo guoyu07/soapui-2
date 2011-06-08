@@ -1,6 +1,6 @@
 {
   globalSensitiveInformationExposureTokens=new SettingsTestPropertyHolder(SoapUI.getSettings(),null,GlobalPropertySettings.SECURITY_CHECKS_PROPERTIES);
-  String propFile=System.getProperty("soapuisecurity.properties");
+  String propFile=System.getProperty("soapui.security.exposure.tokens");
   if (StringUtils.hasContent(propFile))   globalSensitiveInformationExposureTokens.addPropertiesFromFile(propFile);
   try {
     SearchPatternsDocumentConfig doc=SearchPatternsDocumentConfig.Factory.parse(SoapUI.class.getResourceAsStream("/com/eviware/soapui/resources/security/SensitiveInfo.xml"));
