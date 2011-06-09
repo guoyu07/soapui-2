@@ -1,0 +1,10 @@
+{
+  if (browser != null) {
+    browser.stop();
+    browser.dispose();
+    browser.setHttpSecurityHandler(null);
+    browser.removeStatusListener(this);
+    panel.removeAll();
+    browser=null;
+  }
+}

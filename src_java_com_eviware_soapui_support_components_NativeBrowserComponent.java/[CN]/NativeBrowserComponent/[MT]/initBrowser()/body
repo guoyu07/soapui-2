@@ -1,0 +1,12 @@
+{
+  if (browser != null || SoapUI.isJXBrowserDisabled())   return false;
+  browser=BrowserFactory.createBrowser();
+  browser.getServices().setPromptService(new DefaultPromptService());
+  internalHttpSecurityHandler=new InternalHttpSecurityHandler();
+  browser.setHttpSecurityHandler(internalHttpSecurityHandler);
+  internalNavigationAdapter=new InternalNavigationAdapter();
+  browser.addNavigationListener(internalNavigationAdapter);
+  browser.addStatusListener(this);
+  panel.add(browser.getComponent(),BorderLayout.CENTER);
+  return true;
+}

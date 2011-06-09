@@ -1,7 +1,7 @@
 {
   super(title,description,new JPanel(new BorderLayout()));
   JPanel panel=(JPanel)getComponent();
-  browser=new BrowserComponent(true,false);
+  browser=new NativeBrowserComponent(true,false);
   panel.add(browser.getComponent(),BorderLayout.CENTER);
   if (StringUtils.hasContent(url))   navigate(url,null,true);
 }
