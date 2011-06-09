@@ -1,0 +1,14 @@
+{
+  boolean result=false;
+  if ((tmpDir=createTemporaryDirectory()) != null) {
+    if (createProjectCopy()) {
+      if (copyDependencies()) {
+        projectCopy.setResourceRoot("${projectDir}");
+        projectCopy.save();
+        if (packageAll(exportPath))         result=true;
+      }
+    }
+    deleteDir(tmpDir);
+  }
+  return result;
+}

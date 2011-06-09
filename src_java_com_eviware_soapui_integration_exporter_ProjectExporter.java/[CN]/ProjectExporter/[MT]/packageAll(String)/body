@@ -1,0 +1,28 @@
+{
+  if (!exportPath.endsWith(".zip"))   exportPath=exportPath + ".zip";
+  BufferedInputStream origin=null;
+  ZipOutputStream out;
+  boolean result=true;
+  try {
+    FileOutputStream dest=new FileOutputStream(exportPath);
+    out=new ZipOutputStream(new BufferedOutputStream(dest));
+    byte data[]=new byte[BUFFER];
+    String files[]=tmpDir.list();
+    for (int i=0; i < files.length; i++) {
+      FileInputStream fi=new FileInputStream(new File(tmpDir,files[i]));
+      origin=new BufferedInputStream(fi,BUFFER);
+      ZipEntry entry=new ZipEntry(files[i]);
+      out.putNextEntry(entry);
+      int count;
+      while ((count=origin.read(data,0,BUFFER)) != -1) {
+        out.write(data,0,count);
+      }
+      origin.close();
+    }
+    out.close();
+  }
+ catch (  IOException e) {
+    result=false;
+  }
+  return result;
+}

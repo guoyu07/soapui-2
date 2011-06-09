@@ -1,0 +1,30 @@
+{
+  boolean result=true;
+  projectCopy.setResourceRoot("${projectDir}");
+  List<ExternalDependency> dependencies=projectCopy.getExternalDependencies();
+  for (  ExternalDependency depedency : dependencies) {
+switch (depedency.getType()) {
+case FILE:
+      File originalDependency=new File(depedency.getPath());
+    if (originalDependency.exists()) {
+      File targetDependency=new File(tmpDir,originalDependency.getName());
+      FileUtils.copyFile(originalDependency,targetDependency);
+      depedency.updatePath(targetDependency.getPath());
+    }
+ else {
+      SoapUI.log.warn("Do not exists on local file system [" + originalDependency.getPath() + "]");
+    }
+  break;
+case FOLDER:
+originalDependency=new File(depedency.getPath());
+File targetDependency=new File(tmpDir,originalDependency.getName());
+targetDependency.mkdir();
+FileUtils.copyDirectory(originalDependency,targetDependency,false);
+depedency.updatePath(targetDependency.getPath());
+break;
+default :
+break;
+}
+}
+return result;
+}

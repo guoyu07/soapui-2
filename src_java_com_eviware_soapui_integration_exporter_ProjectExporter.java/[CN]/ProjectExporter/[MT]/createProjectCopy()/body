@@ -1,0 +1,5 @@
+{
+  project.saveIn(new File(tmpDir,project.getName() + "-soapui-project.xml"));
+  projectCopy=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(new File(tmpDir,project.getName() + "-soapui-project.xml").getAbsolutePath());
+  return projectCopy != null;
+}

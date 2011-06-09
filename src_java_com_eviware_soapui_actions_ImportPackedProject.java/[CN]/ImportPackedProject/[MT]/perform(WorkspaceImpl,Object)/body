@@ -1,0 +1,18 @@
+{
+  try {
+    File target=UISupport.getFileDialogs().open(this,"Select file to unpack project","zip","zip",System.getProperty("user.home"));
+    if (target == null)     return;
+    String fileName=target.getAbsolutePath();
+    if (fileName == null)     return;
+    File dest=UISupport.getFileDialogs().saveAsDirectory(this,"Select where to unpack it",new File(System.getProperty("user.home")));
+    if (dest.getAbsoluteFile() == null)     return;
+    ProjectExporter.unpackageAll(fileName,dest.getAbsolutePath());
+    for (    String fName : dest.list())     if (fName.endsWith("-soapui-project.xml")) {
+      new ImportWsdlProjectAction().perform(workspace,new File(dest,fName).getAbsoluteFile());
+      break;
+    }
+  }
+ catch (  Exception e1) {
+    UISupport.showErrorMessage("Failed to export project; " + e1);
+  }
+}
