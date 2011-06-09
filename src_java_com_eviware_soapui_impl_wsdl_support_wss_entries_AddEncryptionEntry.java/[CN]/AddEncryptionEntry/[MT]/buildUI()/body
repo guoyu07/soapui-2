@@ -13,7 +13,7 @@
   keyAliasComboBoxModel=new KeyAliasComboBoxModel(getWssContainer().getCryptoByName(crypto));
   form.appendComboBox("username","Alias",keyAliasComboBoxModel,"The alias for the key to use for encryption");
   form.appendPasswordField("password","Password","The password for the key to use for encryption (if it is private)");
-  form.appendComboBox("keyIdentifierType","Key Identifier Type",new Integer[]{0,1,2,3,4,5,6,8},"Sets which key identifier to use").setRenderer(new KeyIdentifierTypeRenderer());
+  form.appendComboBox("keyIdentifierType","Key Identifier Type",new Integer[]{0,1,3,4,5,6,8},"Sets which key identifier to use").setRenderer(new KeyIdentifierTypeRenderer());
   (embeddedKeyNameTextField=form.appendTextField("embeddedKeyName","Embedded Key Name","The embedded key name")).setEnabled(keyIdentifierType == WSConstants.EMBEDDED_KEYNAME);
   (embeddedKeyNamePassword=form.appendPasswordField("embeddedKeyPassword","Embedded Key Password","The embedded key password")).setEnabled(keyIdentifierType == WSConstants.EMBEDDED_KEYNAME);
   form.appendComboBox("symmetricEncAlgorithm","Symmetric Encoding Algorithm",new String[]{DEFAULT_OPTION,WSConstants.AES_128,WSConstants.AES_192,WSConstants.AES_256,WSConstants.TRIPLE_DES},"Set the name of the symmetric encryption algorithm to use");
