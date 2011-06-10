@@ -23,8 +23,10 @@
   while (!aborted && !finished) {
     Thread.sleep(200);
   }
-  while (!aborted && getMethod.getResponseBody() == null) {
+  int counter=0;
+  while (!aborted && getMethod.getResponseBody() == null && counter < 10) {
     Thread.sleep(200);
+    counter++;
   }
   try {
     if (aborted) {
