@@ -1,12 +1,7 @@
 {
   if (SoapUI.isJXBrowserDisabled()) {
     JEditorPane jxbrowserDisabledPanel=new JEditorPane();
-    jxbrowserDisabledPanel.setText("Browser Component disabled");
-    panel.add(jxbrowserDisabledPanel);
-  }
- else   if (!BrowserType.Mozilla.isSupported()) {
-    JEditorPane jxbrowserDisabledPanel=new JEditorPane();
-    jxbrowserDisabledPanel.setText("Browser Component not supported on this platform");
+    jxbrowserDisabledPanel.setText("Browser Component disabled or not available on this platform");
     panel.add(jxbrowserDisabledPanel);
   }
  else {

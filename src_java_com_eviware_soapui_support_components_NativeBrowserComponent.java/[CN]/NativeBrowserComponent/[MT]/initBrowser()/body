@@ -1,5 +1,5 @@
 {
-  if (browser != null || SoapUI.isJXBrowserDisabled())   return false;
+  if (browser != null || SoapUI.isJXBrowserDisabled(true))   return false;
   browser=BrowserFactory.createBrowser();
   browser.getServices().setPromptService(new DefaultPromptService());
   internalHttpSecurityHandler=new InternalHttpSecurityHandler();
