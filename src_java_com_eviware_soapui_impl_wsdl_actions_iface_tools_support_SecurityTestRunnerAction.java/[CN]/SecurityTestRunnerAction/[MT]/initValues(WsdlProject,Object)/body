@@ -24,6 +24,16 @@
     }
     testCases.add(0,ALL_VALUE);
     mainForm.setOptions(TESTCASE,testCases.toArray());
+    List<String> securityTests=new ArrayList<String>();
+    for (    TestSuite testSuite : testSuites) {
+      for (      TestCase testCase : testSuite.getTestCaseList()) {
+        for (        SecurityTest securityTest : testCase.getSecurityTestList()) {
+          if (!securityTests.contains(securityTest.getName()))           securityTests.add(securityTest.getName());
+        }
+      }
+    }
+    securityTests.add(0,ALL_VALUE);
+    mainForm.setOptions(SECURITYTEST,securityTests.toArray());
   }
  else   if (mainForm != null) {
     mainForm.setOptions(ENDPOINT,new String[]{null});
