@@ -1,6 +1,7 @@
 {
   try {
     for (    SecurityTest securityTest : testCase.getSecurityTestList()) {
+      securityTest.addSecurityTestRunListener(this);
       if (StringUtils.isNullOrEmpty(securityTestName) || securityTest.getName().equals(securityTestName))       runSecurityTest(securityTest);
     }
   }

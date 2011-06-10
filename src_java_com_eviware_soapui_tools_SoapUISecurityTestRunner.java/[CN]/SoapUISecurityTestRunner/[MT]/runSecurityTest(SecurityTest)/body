@@ -3,7 +3,9 @@
     private int requestIndex=0;
     @Override public void afterSecurityScanRequest(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanRequestResult securityCheckReqResult){
       securityScanRequestCount++;
-      if (securityCheckReqResult.getStatus() == ResultStatus.FAILED)       securityScanAlertCount++;
+      if (securityCheckReqResult.getStatus() == ResultStatus.FAILED) {
+        securityScanAlertCount++;
+      }
       log.info(securityCheckReqResult.getSecurityScan().getName() + " - " + securityCheckReqResult.getChangedParamsInfo(++requestIndex));
     }
     @Override public void afterSecurityScan(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScanResult securityCheckResult){
@@ -11,6 +13,9 @@
     }
     @Override public void beforeSecurityScan(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityScan securityCheck){
       requestIndex=0;
+    }
+    @Override public void afterStep(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityTestStepResult result){
+      if (result.getStatus() == ResultStatus.FAILED)       failedResults.add(result);
     }
   }
 );
