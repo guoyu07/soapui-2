@@ -1,16 +1,16 @@
 {
-  ProxyConfiguration proxyConf=Services.getProxyConfiguration();
+  ProxyConfig proxyConf=BrowserServices.getInstance().getProxyConfig();
   if (proxyConf == null)   return;
   try {
-    proxyConf.setType(ProxyConfiguration.MANUAL);
+    proxyConf.setAutoDetectForNetwork(false);
     if (!proxyAuthenticationInitialized) {
-      proxyConf.setPoxyAuthenticationHandler(ProxyServerType.HTTP,new PoxyAuthenticationHandler(){
-        public ProxyServerAuthInfo authenticationRequired(){
+      proxyConf.setAuthenticationHandler(ServerType.HTTP,new AuthenticationHandler(){
+        @Override public ProxyServerLogin authenticationRequired(        ServerType arg0){
           Settings settings=SoapUI.getSettings();
           PropertyExpansionContext context=null;
           String proxyUsername=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
           String proxyPassword=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
-          return new ProxyServerAuthInfo(proxyUsername,proxyPassword);
+          return new ProxyServerLogin(proxyUsername,proxyPassword);
         }
       }
 );
@@ -23,15 +23,11 @@
       String proxyPort=System.getProperty("http.proxyPort");
       if (proxyHost == null)       proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
       if (proxyPort == null)       proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
-      proxyConf.setHttpHost(proxyHost);
-      proxyConf.setHttpPort(Integer.parseInt(proxyPort));
-      String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
-      for (      String url : excludes) {
-        proxyConf.setSkipProxyFor(url);
-      }
+      proxyConf.setProxy(ServerType.HTTP,new ProxyServer(proxyHost,Integer.parseInt(proxyPort)));
+      proxyConf.setExceptions(PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")));
     }
  else {
-      proxyConf.setHttpHost("");
+      proxyConf.setDirectConnection();
     }
   }
  catch (  Throwable e) {
