@@ -1,7 +1,7 @@
 {
   List<XPathReference> result=new ArrayList<XPathReference>();
   if (StringUtils.hasContent(getPath())) {
-    TestModelItem testStep=(TestModelItem)getAssertable().getModelItem();
+    TestModelItem testStep=getAssertable().getTestStep();
     TestProperty property=testStep instanceof WsdlTestRequestStep ? testStep.getProperty("Response") : testStep.getProperty("Request");
     result.add(new XPathReferenceImpl("XPath for " + getName() + " XPathContainsAssertion in "+ testStep.getName(),property,this,"path"));
   }

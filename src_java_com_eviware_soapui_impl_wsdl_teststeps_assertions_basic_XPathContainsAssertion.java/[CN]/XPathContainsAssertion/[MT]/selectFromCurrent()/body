@@ -9,9 +9,7 @@
     XmlObject xml=XmlUtils.createXmlObject(assertableContent);
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
     if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
-    WsdlTestRunContext context=null;
-    if (getAssertable().getModelItem() instanceof TestStep)     context=new WsdlTestRunContext((TestStep)getAssertable().getModelItem());
- else     if (getAssertable().getModelItem() instanceof SecurityScan)     context=new WsdlTestRunContext(((SecurityScan)getAssertable().getModelItem()).getTestStep());
+    WsdlTestRunContext context=new WsdlTestRunContext(getAssertable().getTestStep());
     String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
     if (contentArea != null && contentArea.isVisible())     contentArea.setText("");
     cursor=xml.newCursor();

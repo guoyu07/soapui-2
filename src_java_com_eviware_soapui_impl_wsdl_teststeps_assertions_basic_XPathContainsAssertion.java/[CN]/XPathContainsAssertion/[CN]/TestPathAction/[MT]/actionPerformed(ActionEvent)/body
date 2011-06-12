@@ -8,7 +8,7 @@
   setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
   setIgnoreComments(ignoreCommentsCheckBox.isSelected());
   try {
-    String msg=assertContent(getAssertable().getAssertableContent(),new WsdlTestRunContext((TestStep)getAssertable().getModelItem()),"Response");
+    String msg=assertContent(getAssertable().getAssertableContent(),new WsdlTestRunContext(getAssertable().getTestStep()),"Response");
     UISupport.showInfoMessage(msg,"Success");
   }
  catch (  AssertionException e) {
