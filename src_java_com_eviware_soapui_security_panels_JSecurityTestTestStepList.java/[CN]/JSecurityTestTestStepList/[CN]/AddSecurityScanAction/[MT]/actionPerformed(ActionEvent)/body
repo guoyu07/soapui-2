@@ -15,12 +15,12 @@
   String type=SoapUI.getSoapUICore().getSecurityScanRegistry().getSecurityScanTypeForName(name);
   if (type == null || type.trim().length() == 0)   return;
   SecurityScan securityScan=securityTest.addNewSecurityScan(testStep,name);
-  securityScan.setRunOnlyOnce(true);
-  securityTestTree.setSelectionPath(new TreePath(node.getPath()));
   if (securityScan == null) {
     UISupport.showErrorMessage("Failed to add security scan");
     return;
   }
+  securityScan.setRunOnlyOnce(true);
+  securityTestTree.setSelectionPath(new TreePath(node.getPath()));
   SecurityConfigurationDialog dialog=SoapUI.getSoapUICore().getSecurityScanRegistry().getUIBuilder().buildSecurityScanConfigurationDialog((SecurityScan)securityScan);
   if (!dialog.configure()) {
     SecurityScanNode securityScanNode=(SecurityScanNode)node.getLastChild();

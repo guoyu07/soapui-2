@@ -1,4 +1,8 @@
 {
+  if (securityTest.isRunning()) {
+    UISupport.showErrorMessage("Can not delete SecurityScan while the SecurityTest is running");
+    return;
+  }
   if (securityTestTree.getSelectionCount() == 1) {
     SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
     SecurityScan securityScan=node.getSecurityScan();
