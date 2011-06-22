@@ -1,0 +1,13 @@
+{
+  if (excludeCustomScript) {
+    List<String> newList=new ArrayList<String>();
+    for (    String name : SoapUI.getSoapUICore().getSecurityScanRegistry().getAvailableSecurityScansNames()) {
+      if (name.equals(GroovySecurityScan.NAME))       continue;
+      newList.add(name);
+    }
+    return newList;
+  }
+ else {
+    return Arrays.asList(SoapUI.getSoapUICore().getSecurityScanRegistry().getAvailableSecurityScansNames());
+  }
+}
