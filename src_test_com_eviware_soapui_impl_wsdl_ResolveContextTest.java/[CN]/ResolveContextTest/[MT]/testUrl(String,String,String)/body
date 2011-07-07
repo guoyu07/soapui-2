@@ -1,5 +1,9 @@
 {
-  assertEquals(relativePath,PathUtils.relativize(absolutePath,rootPath));
+  Boolean rValue=relativePath.equals(PathUtils.relativize(absolutePath,rootPath));
+  if (!rValue) {
+    return rValue;
+  }
   if (!rootPath.endsWith("/"))   rootPath+="/";
-  assertEquals(absolutePath,Tools.joinRelativeUrl(rootPath,relativePath));
+  rValue=absolutePath.equals(Tools.joinRelativeUrl(rootPath,relativePath));
+  return rValue;
 }

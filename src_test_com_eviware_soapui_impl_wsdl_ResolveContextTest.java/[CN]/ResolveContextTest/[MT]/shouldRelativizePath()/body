@@ -1,0 +1,11 @@
+{
+  assertTrue(testFilePath("test.txt","c:\\dir\\test.txt","c:\\dir"));
+  assertTrue(testFilePath("dir2\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir"));
+  assertTrue(testFilePath("..\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir\\dir2\\dir3"));
+  assertTrue(testFilePath("dir\\test.txt","c:\\dir\\test.txt","c:\\"));
+  assertTrue(testFilePath("..\\test.txt","c:\\dir\\test.txt","c:\\dir\\anotherDir"));
+  assertTrue(testFilePath("..\\dir2\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir\\anotherDir"));
+  testUrl("test.txt","http://www.test.com/dir/test.txt","http://www.test.com/dir");
+  testUrl("dir2/test.txt","http://www.test.com/dir/dir2/test.txt","http://www.test.com/dir");
+  testUrl("../test.txt?test","http://www.test.com/dir/dir2/test.txt?test","http://www.test.com/dir/dir2/dir3");
+}

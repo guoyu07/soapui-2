@@ -6,4 +6,6 @@
   request.setRequestContent(operation.createRequest(true));
   WsdlSubmit submit=(WsdlSubmit)request.submit(new WsdlSubmitContext(request),false);
   Response response=submit.getResponse();
+  String content=response.getContentAsString();
+  assertNotNull(content);
 }

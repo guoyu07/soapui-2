@@ -1,5 +1,5 @@
 {
   SecurityTestRunnerImpl testRunner=new SecurityTestRunnerImpl(createSecurityTest(),new StringToObjectMap());
   testRunner.start(false);
-  assertTrue(true);
+  assertTrue("Test Step failed so as SecurityScan",!testRunner.getStatus().equals(SecurityTestRunner.Status.FINISHED.toString()));
 }

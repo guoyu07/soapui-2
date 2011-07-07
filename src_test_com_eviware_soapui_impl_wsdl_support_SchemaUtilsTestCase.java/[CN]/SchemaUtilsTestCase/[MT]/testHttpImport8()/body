@@ -1,6 +1,6 @@
 {
   SchemaTypeLoader schemaTypes=validate("http://localhost:8082/test8/TestService.wsdl",4);
   assertNotNull(schemaTypes.findType(new QName("http://schemas.eviware.com/TestService/v2/","TestType")));
-  schemaTypes=validate(new File("src\\test-resources\\test8\\TestService.wsdl").toURL().toString(),4);
+  schemaTypes=validate(new File("src\\test-resources\\test8\\TestService.wsdl").toURI().toURL().toString(),4);
   assertNotNull(schemaTypes.findType(new QName("http://schemas.eviware.com/TestService/v2/","TestType")));
 }
