@@ -8,4 +8,8 @@
  else {
     soapuiRunner.run();
   }
+  SoapUIVersionUpdate.getLatestVersionAvailable();
+  if (SoapUIVersionUpdate.isNewMajorReleaseAvailable()) {
+    SoapUIVersionUpdate.promptForNewVersionDownload();
+  }
 }

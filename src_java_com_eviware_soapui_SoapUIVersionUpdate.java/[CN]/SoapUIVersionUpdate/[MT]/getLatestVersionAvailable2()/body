@@ -1,0 +1,13 @@
+{
+  InputStream in;
+  try {
+    File file=new File("E:\\eviware\\soapui-version.xml");
+    in=new FileInputStream(file);
+    Document doc=XmlUtils.parse(in);
+    doc.getDocumentElement().normalize();
+    NodeList nodeLst=doc.getElementsByTagName("version");
+  }
+ catch (  FileNotFoundException e) {
+    e.printStackTrace();
+  }
+}

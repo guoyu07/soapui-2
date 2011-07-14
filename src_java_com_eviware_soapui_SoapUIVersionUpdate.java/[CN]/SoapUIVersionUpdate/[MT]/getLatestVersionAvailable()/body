@@ -1,0 +1,29 @@
+{
+  try {
+    File file=new File("E:\\eviware\\soapui-version.xml");
+    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+    DocumentBuilder db=dbf.newDocumentBuilder();
+    Document doc=db.parse(file);
+    doc.getDocumentElement().normalize();
+    NodeList nodeLst=doc.getElementsByTagName("version");
+    Node fstNode=nodeLst.item(0);
+    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+      Element fstElmnt=(Element)fstNode;
+      NodeList vrsnTypeElmntLst=fstElmnt.getElementsByTagName("version-type");
+      Element vrsnTypeElmnt=(Element)vrsnTypeElmntLst.item(0);
+      NodeList vrsnType=vrsnTypeElmnt.getChildNodes();
+      versionType=((Node)vrsnType.item(0)).getNodeValue().toString();
+      NodeList vrsnNmbrElmntLst=fstElmnt.getElementsByTagName("version-number");
+      Element vrsnNmbrElmnt=(Element)vrsnNmbrElmntLst.item(0);
+      NodeList vrsnNmbr=vrsnNmbrElmnt.getChildNodes();
+      latestVersion=((Node)vrsnNmbr.item(0)).getNodeValue().toString();
+      NodeList rlsNtsElmntLst=fstElmnt.getElementsByTagName("release-notes");
+      Element rlsNtsElmnt=(Element)rlsNtsElmntLst.item(0);
+      NodeList rlsNts=rlsNtsElmnt.getChildNodes();
+      releaseNotes=((Node)rlsNts.item(0)).getNodeValue().toString();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
