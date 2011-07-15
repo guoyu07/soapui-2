@@ -1,0 +1,24 @@
+{
+  JPanel versionUpdatePanel=new JPanel(new BorderLayout());
+  JDialog dialog=new JDialog();
+  versionUpdatePanel.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
+  versionUpdatePanel.add(UISupport.buildDescription("New Version of soapUI is Available","soapUI update available",null),BorderLayout.NORTH);
+  JTextArea text=new JTextArea(getReleaseNotes());
+  text.setEditable(false);
+  text.setBorder(BorderFactory.createLineBorder(Color.black));
+  versionUpdatePanel.add(text,BorderLayout.CENTER);
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.add(new IgnoreUpdateAction());
+  toolbar.addGlue();
+  toolbar.addSeparator();
+  toolbar.add(new RemindLaterAction());
+  toolbar.add(new OpenDownloadUrlAction("Download latest version","http://www.eviware.com/nightly-builds",dialog));
+  versionUpdatePanel.add(toolbar,BorderLayout.SOUTH);
+  dialog.setTitle("New Version Update");
+  dialog.setIconImage(null);
+  dialog.setModal(true);
+  dialog.getContentPane().add(versionUpdatePanel);
+  dialog.setSize(new Dimension(500,400));
+  UISupport.centerDialog(dialog,SoapUI.getFrame());
+  dialog.setVisible(true);
+}
