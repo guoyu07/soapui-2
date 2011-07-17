@@ -65,5 +65,9 @@
       }
     }
   }
+  SoapUIVersionUpdate.getLatestVersionAvailable();
+  if (SoapUIVersionUpdate.isNewMajorReleaseAvailable()) {
+    SoapUIVersionUpdate.showNewVersionDownloadDialog();
+  }
   return soapUI;
 }
