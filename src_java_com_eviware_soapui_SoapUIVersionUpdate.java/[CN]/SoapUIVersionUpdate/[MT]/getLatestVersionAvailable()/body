@@ -21,6 +21,14 @@
       Element rlsNtsElmnt=(Element)rlsNtsElmntLst.item(0);
       NodeList rlsNts=rlsNtsElmnt.getChildNodes();
       releaseNotes=((Node)rlsNts.item(0)).getNodeValue().toString();
+      NodeList coreDownloadNtsElmntLst=fstElmnt.getElementsByTagName("core-download-link");
+      Element coreDownloadNtsElmnt=(Element)coreDownloadNtsElmntLst.item(0);
+      NodeList coreDownloadNts=coreDownloadNtsElmnt.getChildNodes();
+      coreDownloadLink=((Node)coreDownloadNts.item(0)).getNodeValue().toString();
+      NodeList proDownloadNtsElmntElmntLst=fstElmnt.getElementsByTagName("pro-download-link");
+      Element proDownloadNtsElmnt=(Element)proDownloadNtsElmntElmntLst.item(0);
+      NodeList proDownloadNts=proDownloadNtsElmnt.getChildNodes();
+      proDownloadLink=((Node)proDownloadNts.item(0)).getNodeValue().toString();
     }
   }
  catch (  Exception e) {

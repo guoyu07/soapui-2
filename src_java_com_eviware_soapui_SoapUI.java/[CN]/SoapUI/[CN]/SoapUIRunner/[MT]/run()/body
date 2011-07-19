@@ -10,6 +10,7 @@
       brandedTitleExt="";
     }
     startSoapUI(mainArgs,"soapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,SOAPUI_SPLASH,new StandaloneSoapUICore(true));
+    new SoapUIVersionUpdate().checkForNewVersion(false);
     CajoServer.getInstance().start();
   }
  catch (  Exception e) {
