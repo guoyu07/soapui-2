@@ -1,6 +1,6 @@
 {
   SoapUIVersionUpdate versionUpdate=new SoapUIVersionUpdate();
-  versionUpdate.getLatestVersionAvailable(doc);
+  versionUpdate.getLatestVersionAvailable(SoapUI.class.getResource("/soapui-latest-version.xml"));
   assertNotNull(versionUpdate.getLatestVersion());
   assertNotNull(versionUpdate.getReleaseNotes());
   assertNotNull(versionUpdate.getCoreDownloadLink());

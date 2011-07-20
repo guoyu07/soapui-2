@@ -1,9 +1,12 @@
 {
   try {
-    getLatestVersionAvailable(getVersionDocument());
+    getLatestVersionAvailable(new URL(LATEST_VERSION_XML_LOCATION));
   }
  catch (  Exception e) {
-    UISupport.showInfoMessage("Currently no new version available","No New Version");
+    if (helpAction) {
+      UISupport.showInfoMessage("Currently no new version available","No New Version");
+    }
+    return;
   }
   if (isNewMajorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMajorVersionDownloadDialog();
  else   if (isNewMinorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMinorVersionDownloadDialog();
