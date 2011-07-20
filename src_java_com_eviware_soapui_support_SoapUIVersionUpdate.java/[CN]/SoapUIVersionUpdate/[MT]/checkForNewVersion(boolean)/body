@@ -1,5 +1,10 @@
 {
-  getLatestVersionAvailable();
+  try {
+    getLatestVersionAvailable(getVersionDocument());
+  }
+ catch (  Exception e) {
+    UISupport.showInfoMessage("Currently no new version available","No New Version");
+  }
   if (isNewMajorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMajorVersionDownloadDialog();
  else   if (isNewMinorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMinorVersionDownloadDialog();
  else   if (helpAction)   UISupport.showInfoMessage("Currently no new version available","No New Version");
