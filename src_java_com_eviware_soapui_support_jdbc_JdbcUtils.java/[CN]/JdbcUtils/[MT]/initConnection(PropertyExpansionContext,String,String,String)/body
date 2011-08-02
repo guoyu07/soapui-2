@@ -7,6 +7,7 @@
   String pass=StringUtils.hasContent(password) ? PropertyExpander.expandProperties(context,password).trim() : "";
   String masskedPass=connStr.replace(PASS_TEMPLATE,"#####");
   if (connStr.contains(PASS_TEMPLATE)) {
+    pass=Matcher.quoteReplacement(pass);
     connStr=connStr.replaceFirst(PASS_TEMPLATE,pass);
   }
   try {
