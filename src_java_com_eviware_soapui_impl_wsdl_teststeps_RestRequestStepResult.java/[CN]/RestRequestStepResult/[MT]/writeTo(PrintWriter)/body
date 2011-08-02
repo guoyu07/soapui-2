@@ -13,7 +13,7 @@
       if (headers.get(key) != null)       writer.println(key + ": " + headers.get(key));
     }
   }
-  if (StringUtils.hasContent(requestContent))   writer.println("\r\n" + requestContent);
+  if (StringUtils.hasContent(new String(response.getRawRequestData())))   writer.println("\r\n" + new String(response.getRawRequestData()));
  else   writer.println("\r\n- missing request / garbage collected -");
   writer.println("\r\n---------------- Response --------------------------");
   if (response != null) {
