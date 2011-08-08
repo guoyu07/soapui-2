@@ -1,0 +1,10 @@
+{
+  if (original == null) {
+    throw new IllegalArgumentException("Original string may not be null");
+  }
+  if (allowed == null) {
+    throw new IllegalArgumentException("Allowed bitset may not be null");
+  }
+  byte[] rawdata=URLCodec.encodeUrl(allowed,EncodingUtil.getBytes(original,charset));
+  return EncodingUtil.getAsciiString(rawdata).toCharArray();
+}

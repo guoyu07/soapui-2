@@ -1,0 +1,12 @@
+{
+  if (component == null) {
+    return false;
+  }
+  char[] target=component.toCharArray();
+  for (int i=0; i < target.length; i++) {
+    if (disallowed.get(target[i])) {
+      return false;
+    }
+  }
+  return true;
+}

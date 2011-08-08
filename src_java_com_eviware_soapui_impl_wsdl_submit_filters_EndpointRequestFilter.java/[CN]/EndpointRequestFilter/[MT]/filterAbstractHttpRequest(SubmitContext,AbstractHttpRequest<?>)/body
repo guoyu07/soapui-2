@@ -1,12 +1,12 @@
 {
-  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   String strURL=request.getEndpoint();
   strURL=PropertyExpander.expandProperties(context,strURL);
   try {
     if (StringUtils.hasContent(strURL)) {
       URI uri=new URI(strURL,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
       context.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
-      httpMethod.setURI(uri);
+      httpMethod.setURI(new java.net.URI(uri.toString()));
     }
   }
  catch (  Exception e) {

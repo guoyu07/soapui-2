@@ -1,0 +1,16 @@
+{
+  if (scheme == null) {
+    throw new URIException(URIException.PARSING,"scheme required");
+  }
+  char[] s=scheme.toLowerCase().toCharArray();
+  if (validate(s,URI.scheme)) {
+    _scheme=s;
+  }
+ else {
+    throw new URIException(URIException.PARSING,"incorrect scheme");
+  }
+  _opaque=encode(schemeSpecificPart,allowed_opaque_part,getProtocolCharset());
+  _is_opaque_part=true;
+  _fragment=fragment == null ? null : fragment.toCharArray();
+  setURI();
+}

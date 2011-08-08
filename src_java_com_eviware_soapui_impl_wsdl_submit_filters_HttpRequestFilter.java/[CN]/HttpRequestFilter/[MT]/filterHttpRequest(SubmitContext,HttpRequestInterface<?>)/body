@@ -1,9 +1,9 @@
 {
-  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   String path=PropertyExpander.expandProperties(context,request.getPath());
   StringBuffer query=new StringBuffer();
   StringToStringMap responseProperties=(StringToStringMap)context.getProperty(BaseHttpRequestTransport.RESPONSE_PROPERTIES);
-  MimeMultipart formMp="multipart/form-data".equals(request.getMediaType()) && httpMethod instanceof EntityEnclosingMethod ? new MimeMultipart() : null;
+  MimeMultipart formMp="multipart/form-data".equals(request.getMediaType()) && httpMethod instanceof HttpEntityEnclosingRequestBase ? new MimeMultipart() : null;
   RestParamsPropertyHolder params=request.getParams();
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
@@ -35,7 +35,7 @@
     }
 switch (param.getStyle()) {
 case HEADER:
-      for (      String valuePart : valueParts)       httpMethod.addRequestHeader(param.getName(),valuePart);
+      for (      String valuePart : valueParts)       httpMethod.addHeader(param.getName(),valuePart);
     break;
 case QUERY:
   if (formMp == null || !request.isPostQueryString()) {
@@ -51,7 +51,7 @@ case QUERY:
       addFormMultipart(request,formMp,param.getName(),responseProperties.get(param.getName()));
     }
  catch (    MessagingException e) {
-      e.printStackTrace();
+      SoapUI.logError(e);
     }
   }
 break;
@@ -79,35 +79,42 @@ if (PathUtils.isHttpPath(path)) {
 try {
 URI uri=new URI(path,false);
 context.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
-httpMethod.setURI(uri);
+httpMethod.setURI(new java.net.URI(uri.toString()));
 }
  catch (Exception e) {
-e.printStackTrace();
+SoapUI.logError(e);
 }
 }
  else if (StringUtils.hasContent(path)) {
 try {
 URI uri=new URI(path,false);
-httpMethod.setPath(uri.toString());
+httpMethod.setURI(new java.net.URI(uri.toString()));
 }
  catch (Exception e) {
-e.printStackTrace();
-httpMethod.setPath(path);
+SoapUI.logError(e);
 }
 }
 if (query.length() > 0 && !request.isPostQueryString()) {
-httpMethod.setQueryString(query.toString());
+try {
+URI uri=(URI)context.getProperty(BaseHttpRequestTransport.REQUEST_URI);
+java.net.URI tempUri=URIUtils.createURI(uri.getScheme(),uri.getHost(),uri.getPort(),path,query.toString(),null);
+context.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(tempUri.toString(),false));
+httpMethod.setURI(tempUri);
+}
+ catch (Exception e) {
+SoapUI.logError(e);
+}
 }
 if (request instanceof RestRequest) {
 String acceptEncoding=((RestRequest)request).getAccept();
 if (StringUtils.hasContent(acceptEncoding)) {
-httpMethod.setRequestHeader("Accept",acceptEncoding);
+httpMethod.setHeader("Accept",acceptEncoding);
 }
 }
 String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(request.getEncoding()));
 if (formMp != null) {
 try {
-if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
+if (request.hasRequestBody() && httpMethod instanceof HttpEntityEnclosingRequest) {
 String requestContent=PropertyExpander.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
 if (StringUtils.hasContent(requestContent)) {
 initRootPart(request,requestContent,formMp);
@@ -128,18 +135,23 @@ MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
 message.setContent(formMp);
 message.saveChanges();
 RestRequestMimeMessageRequestEntity mimeMessageRequestEntity=new RestRequestMimeMessageRequestEntity(message,request);
-((EntityEnclosingMethod)httpMethod).setRequestEntity(mimeMessageRequestEntity);
-httpMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
-httpMethod.setRequestHeader("MIME-Version","1.0");
+((HttpEntityEnclosingRequest)httpMethod).setEntity(mimeMessageRequestEntity);
+httpMethod.setHeader("Content-Type",mimeMessageRequestEntity.getContentType().getValue());
+httpMethod.setHeader("MIME-Version","1.0");
 }
  catch (Throwable e) {
 SoapUI.logError(e);
 }
 }
- else if (request.hasRequestBody() && httpMethod instanceof EntityEnclosingMethod) {
-if (StringUtils.hasContent(request.getMediaType())) httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
+ else if (request.hasRequestBody() && httpMethod instanceof HttpEntityEnclosingRequest) {
+if (StringUtils.hasContent(request.getMediaType())) httpMethod.setHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 if (request.isPostQueryString()) {
-((EntityEnclosingMethod)httpMethod).setRequestEntity(new StringRequestEntity(query.toString()));
+try {
+((HttpEntityEnclosingRequest)httpMethod).setEntity(new StringEntity(query.toString()));
+}
+ catch (UnsupportedEncodingException e) {
+SoapUI.logError(e);
+}
 }
  else {
 String requestContent=PropertyExpander.expandProperties(context,request.getRequestContent(),request.isEntitizeProperties());
@@ -152,10 +164,10 @@ attachments.add(attachment);
 if (StringUtils.hasContent(requestContent) && attachments.isEmpty()) {
 try {
 byte[] content=encoding == null ? requestContent.getBytes() : requestContent.getBytes(encoding);
-((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(content));
+((HttpEntityEnclosingRequest)httpMethod).setEntity(new ByteArrayEntity(content));
 }
  catch (UnsupportedEncodingException e) {
-((EntityEnclosingMethod)httpMethod).setRequestEntity(new ByteArrayRequestEntity(requestContent.getBytes()));
+((HttpEntityEnclosingRequest)httpMethod).setEntity(new ByteArrayEntity(requestContent.getBytes()));
 }
 }
  else if (attachments.size() > 0) {
@@ -166,23 +178,23 @@ mp=new MimeMultipart();
 initRootPart(request,requestContent,mp);
 }
  else if (attachments.size() == 1) {
-((EntityEnclosingMethod)httpMethod).setRequestEntity(new InputStreamRequestEntity(attachments.get(0).getInputStream()));
-httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
+((HttpEntityEnclosingRequest)httpMethod).setEntity(new InputStreamEntity(attachments.get(0).getInputStream(),-1));
+httpMethod.setHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 }
-if (((EntityEnclosingMethod)httpMethod).getRequestEntity() == null) {
+if (((HttpEntityEnclosingRequest)httpMethod).getEntity() == null) {
 if (mp == null) mp=new MimeMultipart();
 AttachmentUtils.addMimeParts(request,attachments,mp,new StringToStringMap());
 MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
 message.setContent(mp);
 message.saveChanges();
 RestRequestMimeMessageRequestEntity mimeMessageRequestEntity=new RestRequestMimeMessageRequestEntity(message,request);
-((EntityEnclosingMethod)httpMethod).setRequestEntity(mimeMessageRequestEntity);
-httpMethod.setRequestHeader("Content-Type",getContentTypeHeader(mimeMessageRequestEntity.getContentType(),encoding));
-httpMethod.setRequestHeader("MIME-Version","1.0");
+((HttpEntityEnclosingRequest)httpMethod).setEntity(mimeMessageRequestEntity);
+httpMethod.setHeader("Content-Type",getContentTypeHeader(mimeMessageRequestEntity.getContentType().getValue(),encoding));
+httpMethod.setHeader("MIME-Version","1.0");
 }
 }
  catch (Exception e) {
-e.printStackTrace();
+SoapUI.logError(e);
 }
 }
 }

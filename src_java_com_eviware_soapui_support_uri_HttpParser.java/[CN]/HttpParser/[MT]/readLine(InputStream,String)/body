@@ -1,0 +1,20 @@
+{
+  LOG.trace("enter HttpParser.readLine(InputStream, String)");
+  byte[] rawdata=readRawLine(inputStream);
+  if (rawdata == null) {
+    return null;
+  }
+  int len=rawdata.length;
+  int offset=0;
+  if (len > 0) {
+    if (rawdata[len - 1] == '\n') {
+      offset++;
+      if (len > 1) {
+        if (rawdata[len - 2] == '\r') {
+          offset++;
+        }
+      }
+    }
+  }
+  return EncodingUtil.getString(rawdata,0,len - offset,charset);
+}

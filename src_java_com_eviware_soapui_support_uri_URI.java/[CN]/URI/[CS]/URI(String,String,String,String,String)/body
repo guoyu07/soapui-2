@@ -1,0 +1,26 @@
+{
+  StringBuffer buff=new StringBuffer();
+  if (scheme != null) {
+    buff.append(scheme);
+    buff.append(':');
+  }
+  if (authority != null) {
+    buff.append("//");
+    buff.append(authority);
+  }
+  if (path != null) {
+    if ((scheme != null || authority != null) && !path.startsWith("/")) {
+      throw new URIException(URIException.PARSING,"abs_path requested");
+    }
+    buff.append(path);
+  }
+  if (query != null) {
+    buff.append('?');
+    buff.append(query);
+  }
+  if (fragment != null) {
+    buff.append('#');
+    buff.append(fragment);
+  }
+  parseUriReference(buff.toString(),false);
+}

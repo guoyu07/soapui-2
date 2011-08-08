@@ -1,0 +1,12 @@
+{
+  if (escapedFragment == null || escapedFragment.length == 0) {
+    _fragment=escapedFragment;
+    hash=0;
+    return;
+  }
+  if (!validate(escapedFragment,fragment)) {
+    throw new URIException(URIException.ESCAPING,"escaped fragment not valid");
+  }
+  _fragment=escapedFragment;
+  hash=0;
+}

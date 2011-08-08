@@ -1,0 +1,5 @@
+{
+  if (response.getStatusLine().getStatusCode() == HttpStatus.SC_UNAUTHORIZED) {
+    response.addHeader(AUTH.WWW_AUTH,"Basic realm=\"test realm\"");
+  }
+}

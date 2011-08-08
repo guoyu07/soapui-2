@@ -1,0 +1,14 @@
+{
+  if (_path == null && _query == null) {
+    return null;
+  }
+  StringBuffer buff=new StringBuffer();
+  if (_path != null) {
+    buff.append(_path);
+  }
+  if (_query != null) {
+    buff.append('?');
+    buff.append(_query);
+  }
+  return buff.toString().toCharArray();
+}

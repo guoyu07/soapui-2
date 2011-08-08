@@ -1,13 +1,15 @@
 {
-  String compressionAlg=HttpClientSupport.getResponseCompressionType(httpMethod);
-  if (compressionAlg != null) {
-    try {
-      return CompressionSupport.decompress(compressionAlg,responseBody);
-    }
- catch (    Exception e) {
-      IOException ioe=new IOException("Decompression of response failed");
-      ioe.initCause(e);
-      throw ioe;
+  if (hasHttpResponse()) {
+    String compressionAlg=HttpClientSupport.getResponseCompressionType(httpResponse);
+    if (compressionAlg != null) {
+      try {
+        return CompressionSupport.decompress(compressionAlg,responseBody);
+      }
+ catch (      Exception e) {
+        IOException ioe=new IOException("Decompression of response failed");
+        ioe.initCause(e);
+        throw ioe;
+      }
     }
   }
   return responseBody;

@@ -1,10 +1,11 @@
 {
+  this.httpMethod=httpMethod;
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
   method=httpMethod.getMethod();
-  version=httpMethod.getParams().getVersion().toString();
+  version=httpMethod.getProtocolVersion().toString();
   try {
-    this.url=new URL(httpMethod.getURI().toString());
+    this.url=httpMethod.getURI().toURL();
   }
  catch (  Exception e1) {
     SoapUI.logError(e1);
@@ -24,10 +25,9 @@
       this.timestamp=System.currentTimeMillis();
       this.contentType=httpMethod.getResponseContentType();
       if (httpMethod.hasResponse()) {
-        this.statusCode=httpMethod.getStatusCode();
         this.sslInfo=httpMethod.getSSLInfo();
       }
-      this.url=new URL(httpMethod.getURI().toString());
+      this.url=httpMethod.getURI().toURL();
     }
  catch (    Throwable e) {
       e.printStackTrace();
@@ -42,7 +42,7 @@
   }
   initHeaders(httpMethod);
   if (this.httpRequest.get() instanceof HttpRequest) {
-    downloadIncludedResources=((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources();
+    downloadIncludedResources=(HttpRequest)this.httpRequest.get() != null ? ((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources() : false;
     if (downloadIncludedResources) {
       long before=(new Date()).getTime();
       addIncludedContentsAsAttachments();

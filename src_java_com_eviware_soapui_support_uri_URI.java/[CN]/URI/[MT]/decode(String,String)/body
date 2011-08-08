@@ -1,0 +1,13 @@
+{
+  if (component == null) {
+    throw new IllegalArgumentException("Component array of chars may not be null");
+  }
+  byte[] rawdata=null;
+  try {
+    rawdata=URLCodec.decodeUrl(EncodingUtil.getAsciiBytes(component));
+  }
+ catch (  DecoderException e) {
+    throw new URIException(e.getMessage());
+  }
+  return EncodingUtil.getString(rawdata,charset);
+}

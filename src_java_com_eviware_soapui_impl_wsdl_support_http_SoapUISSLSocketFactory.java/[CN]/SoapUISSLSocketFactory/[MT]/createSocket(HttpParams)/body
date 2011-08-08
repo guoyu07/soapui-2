@@ -1,0 +1,40 @@
+{
+  String sslConfig=(String)params.getParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG);
+  if (StringUtils.isNullOrEmpty(sslConfig)) {
+    return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
+  }
+  SSLSocketFactory factory=factoryMap.get(sslConfig);
+  if (factory != null) {
+    return enableSocket((SSLSocket)factory.createSocket(params));
+  }
+  try {
+    int ix=sslConfig.lastIndexOf(' ');
+    String keyStore=sslConfig.substring(0,ix);
+    String pwd=sslConfig.substring(ix + 1);
+    KeyStore trustStore=KeyStore.getInstance(KeyStore.getDefaultType());
+    if (keyStore.trim().length() > 0) {
+      File f=new File(keyStore);
+      if (f.exists()) {
+        log.info("Initializing KeyStore");
+        FileInputStream instream=new FileInputStream(f);
+        try {
+          trustStore.load(instream,pwd.toCharArray());
+        }
+  finally {
+          try {
+            instream.close();
+          }
+ catch (          Exception ignore) {
+          }
+        }
+      }
+    }
+    factory=new SSLSocketFactory(trustStore);
+    factoryMap.put(sslConfig,factory);
+    return enableSocket((SSLSocket)factory.createSocket(params));
+  }
+ catch (  Exception gse) {
+    SoapUI.logError(gse);
+    return enableSocket((SSLSocket)super.createSocket(params));
+  }
+}

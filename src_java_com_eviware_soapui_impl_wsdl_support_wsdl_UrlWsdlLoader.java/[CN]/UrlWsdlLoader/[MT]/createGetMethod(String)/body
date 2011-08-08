@@ -1,12 +1,9 @@
 {
-  getMethod=new GetMethod(url);
-  getMethod.setFollowRedirects(true);
-  getMethod.setDoAuthentication(true);
-  getMethod.getParams().setParameter(CredentialsProvider.PROVIDER,new WsdlCredentialsProvider());
+  getMethod=new HttpGet(url);
+  HttpClientSupport.getHttpClient().getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,true);
+  getMethod.getParams().setParameter(ClientContext.CREDS_PROVIDER,new WsdlCredentialsProvider());
   if (SoapUI.getSettings().getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
-    HttpClientSupport.getHttpClient().getParams().setAuthenticationPreemptive(true);
-  }
- else {
-    HttpClientSupport.getHttpClient().getParams().setAuthenticationPreemptive(false);
+    UsernamePasswordCredentials creds=new UsernamePasswordCredentials(getUsername(),getPassword());
+    getMethod.addHeader(BasicScheme.authenticate(creds,"utf-8",false));
   }
 }

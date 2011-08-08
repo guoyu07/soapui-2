@@ -1,0 +1,37 @@
+{
+  if (escapedPath == null || escapedPath.length == 0) {
+    _path=_opaque=escapedPath;
+    setURI();
+    return;
+  }
+  escapedPath=removeFragmentIdentifier(escapedPath);
+  if (_is_net_path || _is_abs_path) {
+    if (escapedPath[0] != '/') {
+      throw new URIException(URIException.PARSING,"not absolute path");
+    }
+    if (!validate(escapedPath,abs_path)) {
+      throw new URIException(URIException.ESCAPING,"escaped absolute path not valid");
+    }
+    _path=escapedPath;
+  }
+ else   if (_is_rel_path) {
+    int at=indexFirstOf(escapedPath,'/');
+    if (at == 0) {
+      throw new URIException(URIException.PARSING,"incorrect path");
+    }
+    if (at > 0 && !validate(escapedPath,0,at - 1,rel_segment) && !validate(escapedPath,at,-1,abs_path) || at < 0 && !validate(escapedPath,0,-1,rel_segment)) {
+      throw new URIException(URIException.ESCAPING,"escaped relative path not valid");
+    }
+    _path=escapedPath;
+  }
+ else   if (_is_opaque_part) {
+    if (!uric_no_slash.get(escapedPath[0]) && !validate(escapedPath,1,-1,uric)) {
+      throw new URIException(URIException.ESCAPING,"escaped opaque part not valid");
+    }
+    _opaque=escapedPath;
+  }
+ else {
+    throw new URIException(URIException.PARSING,"incorrect path");
+  }
+  setURI();
+}

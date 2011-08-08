@@ -3,7 +3,7 @@
   gotoStepIndex=-1;
   testStepResults.clear();
   if (testCase.getKeepSession()) {
-    runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new HttpState());
+    runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new BasicHttpContext());
   }
   fillInTestRunnableListeners();
   runSetupScripts(runContext);

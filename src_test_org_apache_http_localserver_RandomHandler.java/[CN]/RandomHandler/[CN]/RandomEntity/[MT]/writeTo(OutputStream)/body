@@ -1,0 +1,22 @@
+{
+  final int blocksize=2048;
+  int remaining=(int)length;
+  byte[] data=new byte[Math.min(remaining,blocksize)];
+  while (remaining > 0) {
+    final int end=Math.min(remaining,data.length);
+    double value=0.0;
+    for (int i=0; i < end; i++) {
+      if (i % 5 == 0) {
+        value=Math.random();
+      }
+      value=value * RANGE.length;
+      int d=(int)value;
+      value=value - d;
+      data[i]=RANGE[d];
+    }
+    out.write(data,0,end);
+    out.flush();
+    remaining=remaining - end;
+  }
+  out.close();
+}

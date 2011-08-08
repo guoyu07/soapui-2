@@ -1,0 +1,9 @@
+{
+  LOG.trace("enter HttpConnectionManager.releaseConnection(HttpConnection)");
+  if (conn instanceof HttpConnectionAdapter) {
+    conn=((HttpConnectionAdapter)conn).getWrappedConnection();
+  }
+ else {
+  }
+  connectionPool.freeConnection(conn);
+}

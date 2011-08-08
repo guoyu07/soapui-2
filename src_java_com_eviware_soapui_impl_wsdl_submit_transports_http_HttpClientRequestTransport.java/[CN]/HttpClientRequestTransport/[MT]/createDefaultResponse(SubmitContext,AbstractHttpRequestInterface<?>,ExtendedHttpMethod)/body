@@ -1,8 +1,8 @@
 {
   String requestContent=(String)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
-  Header responseContentTypeHeader=httpMethod.getResponseHeader("Content-Type");
+  String responseContentTypeHeader=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getEntity().getContentType().toString() : null;
   Response response=null;
-  if (responseContentTypeHeader != null && responseContentTypeHeader.getValue().toUpperCase().startsWith("MULTIPART")) {
+  if (responseContentTypeHeader != null && responseContentTypeHeader.toUpperCase().startsWith("MULTIPART")) {
     response=new MimeMessageResponse(httpRequest,httpMethod,requestContent,submitContext);
   }
  else {

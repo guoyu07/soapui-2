@@ -1,0 +1,11 @@
+{
+  Type2Message t2m;
+  try {
+    t2m=new Type2Message(Base64.decode(challenge));
+  }
+ catch (  IOException ex) {
+    throw new NTLMEngineException("Invalid Type2 message",ex);
+  }
+  Type3Message t3m=new Type3Message(t2m,password,domain,username,workstation);
+  return Base64.encode(t3m.toByteArray());
+}

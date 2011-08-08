@@ -1,0 +1,17 @@
+{
+  ExtendedGetMethod getMethod=new ExtendedGetMethod();
+  for (  Header header : httpMethod.getAllHeaders())   getMethod.addHeader(header);
+  java.net.URI uri=new java.net.URI(httpResponse.getFirstHeader("Location").getValue());
+  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
+  getMethod.setURI(uri);
+  org.apache.http.HttpResponse response=HttpClientSupport.execute(hostConfiguration,getMethod,httpContext);
+  if (isRedirectResponse(response.getStatusLine().getStatusCode())) {
+    if (redirectCount == 10)     throw new Exception("Maximum number of Redirects reached [10]");
+    try {
+      return followRedirects(httpClient,redirectCount + 1,getMethod,response,httpContext);
+    }
+  finally {
+    }
+  }
+ else   return getMethod;
+}

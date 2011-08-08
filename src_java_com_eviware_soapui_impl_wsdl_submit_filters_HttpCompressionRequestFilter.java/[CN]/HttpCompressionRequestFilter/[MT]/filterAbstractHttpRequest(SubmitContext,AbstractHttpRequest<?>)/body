@@ -4,13 +4,13 @@
   if (!"None".equals(compressionAlg)) {
     try {
       ExtendedHttpMethod method=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-      if (method instanceof EntityEnclosingMethod) {
-        RequestEntity requestEntity=method.getRequestEntity();
+      if (method instanceof HttpEntityEnclosingRequest) {
+        HttpEntity requestEntity=((HttpEntityEnclosingRequest)method).getEntity();
         if (requestEntity != null) {
           ByteArrayOutputStream tempOut=new ByteArrayOutputStream();
-          requestEntity.writeRequest(tempOut);
+          requestEntity.writeTo(tempOut);
           byte[] compressedData=CompressionSupport.compress(compressionAlg,tempOut.toByteArray());
-          ((EntityEnclosingMethod)method).setRequestEntity(new ByteArrayRequestEntity(compressedData));
+          ((HttpEntityEnclosingRequest)method).setEntity(new ByteArrayEntity(compressedData));
         }
       }
     }

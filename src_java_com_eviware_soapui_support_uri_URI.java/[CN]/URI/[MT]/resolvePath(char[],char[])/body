@@ -1,0 +1,19 @@
+{
+  String base=(basePath == null) ? "" : new String(basePath);
+  if (relPath == null || relPath.length == 0) {
+    return normalize(basePath);
+  }
+ else   if (relPath[0] == '/') {
+    return normalize(relPath);
+  }
+ else {
+    int at=base.lastIndexOf('/');
+    if (at != -1) {
+      basePath=base.substring(0,at + 1).toCharArray();
+    }
+    StringBuffer buff=new StringBuffer(base.length() + relPath.length);
+    buff.append((at != -1) ? base.substring(0,at + 1) : "/");
+    buff.append(relPath);
+    return normalize(buff.toString().toCharArray());
+  }
+}

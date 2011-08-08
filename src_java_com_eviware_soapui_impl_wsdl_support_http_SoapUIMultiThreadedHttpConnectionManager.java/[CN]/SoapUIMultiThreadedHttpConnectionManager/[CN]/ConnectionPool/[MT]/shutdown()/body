@@ -1,9 +1,14 @@
 {
   Iterator<?> iter=freeConnections.iterator();
   while (iter.hasNext()) {
-    HttpConnection conn=(HttpConnection)iter.next();
+    DefaultClientConnection conn=(DefaultClientConnection)iter.next();
     iter.remove();
-    conn.close();
+    try {
+      conn.close();
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
   }
   shutdownCheckedOutConnections(this);
   iter=waitingThreads.iterator();
@@ -14,5 +19,4 @@
     waiter.thread.interrupt();
   }
   mapHosts.clear();
-  idleConnectionHandler.removeAll();
 }

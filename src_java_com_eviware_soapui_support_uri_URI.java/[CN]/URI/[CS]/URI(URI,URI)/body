@@ -1,0 +1,82 @@
+{
+  if (base._scheme == null) {
+    throw new URIException(URIException.PARSING,"base URI required");
+  }
+  if (base._scheme != null) {
+    this._scheme=base._scheme;
+    this._authority=base._authority;
+    this._is_net_path=base._is_net_path;
+  }
+  if (base._is_opaque_part || relative._is_opaque_part) {
+    this._scheme=base._scheme;
+    this._is_opaque_part=base._is_opaque_part || relative._is_opaque_part;
+    this._opaque=relative._opaque;
+    this._fragment=relative._fragment;
+    this.setURI();
+    return;
+  }
+  boolean schemesEqual=Arrays.equals(base._scheme,relative._scheme);
+  if (relative._scheme != null && (!schemesEqual || relative._authority != null)) {
+    this._scheme=relative._scheme;
+    this._is_net_path=relative._is_net_path;
+    this._authority=relative._authority;
+    if (relative._is_server) {
+      this._is_server=relative._is_server;
+      this._userinfo=relative._userinfo;
+      this._host=relative._host;
+      this._port=relative._port;
+    }
+ else     if (relative._is_reg_name) {
+      this._is_reg_name=relative._is_reg_name;
+    }
+    this._is_abs_path=relative._is_abs_path;
+    this._is_rel_path=relative._is_rel_path;
+    this._path=relative._path;
+  }
+ else   if (base._authority != null && relative._scheme == null) {
+    this._is_net_path=base._is_net_path;
+    this._authority=base._authority;
+    if (base._is_server) {
+      this._is_server=base._is_server;
+      this._userinfo=base._userinfo;
+      this._host=base._host;
+      this._port=base._port;
+    }
+ else     if (base._is_reg_name) {
+      this._is_reg_name=base._is_reg_name;
+    }
+  }
+  if (relative._authority != null) {
+    this._is_net_path=relative._is_net_path;
+    this._authority=relative._authority;
+    if (relative._is_server) {
+      this._is_server=relative._is_server;
+      this._userinfo=relative._userinfo;
+      this._host=relative._host;
+      this._port=relative._port;
+    }
+ else     if (relative._is_reg_name) {
+      this._is_reg_name=relative._is_reg_name;
+    }
+    this._is_abs_path=relative._is_abs_path;
+    this._is_rel_path=relative._is_rel_path;
+    this._path=relative._path;
+  }
+  if (relative._authority == null && (relative._scheme == null || schemesEqual)) {
+    if ((relative._path == null || relative._path.length == 0) && relative._query == null) {
+      this._path=base._path;
+      this._query=base._query;
+    }
+ else {
+      this._path=resolvePath(base._path,relative._path);
+    }
+  }
+  if (relative._query != null) {
+    this._query=relative._query;
+  }
+  if (relative._fragment != null) {
+    this._fragment=relative._fragment;
+  }
+  this.setURI();
+  parseUriReference(new String(_uri),true);
+}

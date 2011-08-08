@@ -1,10 +1,10 @@
 {
   ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   Settings settings=request.getSettings();
-  if (httpMethod.getParams().getVersion().equals(HttpVersion.HTTP_1_1) && httpMethod instanceof EntityEnclosingMethod) {
-    EntityEnclosingMethod entityEnclosingMethod=((EntityEnclosingMethod)httpMethod);
+  if (httpMethod.getProtocolVersion().equals(HttpVersion.HTTP_1_1) && httpMethod instanceof HttpEntityEnclosingRequest) {
+    HttpEntityEnclosingRequest entityEnclosingMethod=((HttpEntityEnclosingRequest)httpMethod);
     long limit=settings.getLong(HttpSettings.CHUNKING_THRESHOLD,-1);
-    RequestEntity requestEntity=entityEnclosingMethod.getRequestEntity();
-    entityEnclosingMethod.setContentChunked(limit >= 0 && requestEntity != null ? requestEntity.getContentLength() > limit : false);
+    HttpEntity requestEntity=entityEnclosingMethod.getEntity();
+    ((AbstractHttpEntity)requestEntity).setChunked(limit >= 0 && requestEntity != null ? requestEntity.getContentLength() > limit : false);
   }
 }

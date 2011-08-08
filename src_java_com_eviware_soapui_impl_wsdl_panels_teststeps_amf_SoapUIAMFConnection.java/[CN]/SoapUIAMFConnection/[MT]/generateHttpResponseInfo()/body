@@ -1,7 +1,10 @@
 {
   HttpResponseInfo httpResponseInfo=null;
   try {
-    int responseCode=postMethod.getStatusCode();
+    int responseCode=0;
+    if (postMethod.hasHttpResponse()) {
+      responseCode=postMethod.getHttpResponse().getStatusLine().getStatusCode();
+    }
     String responseMessage=postMethod.getResponseBodyAsString();
     httpResponseInfo=new HttpResponseInfo(responseCode,responseMessage);
   }

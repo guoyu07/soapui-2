@@ -1,0 +1,27 @@
+{
+  StringBuffer buf=new StringBuffer();
+  if (_scheme != null) {
+    buf.append(_scheme);
+    buf.append(':');
+  }
+  if (_is_net_path) {
+    buf.append("//");
+    if (_authority != null) {
+      buf.append(_authority);
+    }
+  }
+  if (_opaque != null && _is_opaque_part) {
+    buf.append(_opaque);
+  }
+ else   if (_path != null) {
+    if (_path.length != 0) {
+      buf.append(_path);
+    }
+  }
+  if (_query != null) {
+    buf.append('?');
+    buf.append(_query);
+  }
+  _uri=buf.toString().toCharArray();
+  hash=0;
+}

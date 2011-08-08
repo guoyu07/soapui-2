@@ -1,0 +1,6 @@
+{
+  method.afterWriteRequest();
+  HttpResponse httpResponse=httpClient.execute((HttpUriRequest)method,httpContext);
+  method.setHttpResponse(httpResponse);
+  return httpResponse;
+}

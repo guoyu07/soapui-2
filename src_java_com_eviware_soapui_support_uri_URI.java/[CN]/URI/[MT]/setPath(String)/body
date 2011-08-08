@@ -1,0 +1,36 @@
+{
+  if (path == null || path.length() == 0) {
+    _path=_opaque=(path == null) ? null : path.toCharArray();
+    setURI();
+    return;
+  }
+  String charset=getProtocolCharset();
+  if (_is_net_path || _is_abs_path) {
+    _path=encode(path,allowed_abs_path,charset);
+  }
+ else   if (_is_rel_path) {
+    StringBuffer buff=new StringBuffer(path.length());
+    int at=path.indexOf('/');
+    if (at == 0) {
+      throw new URIException(URIException.PARSING,"incorrect relative path");
+    }
+    if (at > 0) {
+      buff.append(encode(path.substring(0,at),allowed_rel_path,charset));
+      buff.append(encode(path.substring(at),allowed_abs_path,charset));
+    }
+ else {
+      buff.append(encode(path,allowed_rel_path,charset));
+    }
+    _path=buff.toString().toCharArray();
+  }
+ else   if (_is_opaque_part) {
+    StringBuffer buf=new StringBuffer();
+    buf.insert(0,encode(path.substring(0,1),uric_no_slash,charset));
+    buf.insert(1,encode(path.substring(1),uric,charset));
+    _opaque=buf.toString().toCharArray();
+  }
+ else {
+    throw new URIException(URIException.PARSING,"incorrect path");
+  }
+  setURI();
+}

@@ -1,0 +1,77 @@
+{
+  _is_reg_name=_is_server=_is_hostname=_is_IPv4address=_is_IPv6reference=false;
+  String charset=getProtocolCharset();
+  boolean hasPort=true;
+  int from=0;
+  int next=original.indexOf('@');
+  if (next != -1) {
+    _userinfo=(escaped) ? original.substring(0,next).toCharArray() : encode(original.substring(0,next),allowed_userinfo,charset);
+    from=next + 1;
+  }
+  next=original.indexOf('[',from);
+  if (next >= from) {
+    next=original.indexOf(']',from);
+    if (next == -1) {
+      throw new URIException(URIException.PARSING,"IPv6reference");
+    }
+ else {
+      next++;
+    }
+    _host=(escaped) ? original.substring(from,next).toCharArray() : encode(original.substring(from,next),allowed_IPv6reference,charset);
+    _is_IPv6reference=true;
+  }
+ else {
+    next=original.indexOf(':',from);
+    if (next == -1) {
+      next=original.length();
+      hasPort=false;
+    }
+    _host=original.substring(from,next).toCharArray();
+    if (validate(_host,IPv4address)) {
+      _is_IPv4address=true;
+    }
+ else     if (validate(_host,hostname)) {
+      _is_hostname=true;
+    }
+ else {
+      _is_reg_name=true;
+    }
+  }
+  if (_is_reg_name) {
+    _is_server=_is_hostname=_is_IPv4address=_is_IPv6reference=false;
+    if (escaped) {
+      _authority=original.toCharArray();
+      if (!validate(_authority,reg_name)) {
+        throw new URIException("Invalid authority");
+      }
+    }
+ else {
+      _authority=encode(original,allowed_reg_name,charset);
+    }
+  }
+ else {
+    if (original.length() - 1 > next && hasPort && original.charAt(next) == ':') {
+      from=next + 1;
+      try {
+        _port=Integer.parseInt(original.substring(from));
+      }
+ catch (      NumberFormatException error) {
+        throw new URIException(URIException.PARSING,"invalid port number");
+      }
+    }
+    StringBuffer buf=new StringBuffer();
+    if (_userinfo != null) {
+      buf.append(_userinfo);
+      buf.append('@');
+    }
+    if (_host != null) {
+      buf.append(_host);
+      if (_port != -1) {
+        buf.append(':');
+        buf.append(_port);
+      }
+    }
+    _authority=buf.toString().toCharArray();
+    _is_server=true;
+  }
+}

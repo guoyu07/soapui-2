@@ -1,0 +1,15 @@
+{
+  LOG.trace("enter HttpParser.readRawLine()");
+  ByteArrayOutputStream buf=new ByteArrayOutputStream();
+  int ch;
+  while ((ch=inputStream.read()) >= 0) {
+    buf.write(ch);
+    if (ch == '\n') {
+      break;
+    }
+  }
+  if (buf.size() == 0) {
+    return null;
+  }
+  return buf.toByteArray();
+}

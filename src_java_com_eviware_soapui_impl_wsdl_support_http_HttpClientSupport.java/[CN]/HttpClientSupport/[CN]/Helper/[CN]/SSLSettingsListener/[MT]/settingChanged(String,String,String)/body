@@ -3,7 +3,7 @@
   if (name.equals(SSLSettings.KEYSTORE) || name.equals(SSLSettings.KEYSTORE_PASSWORD)) {
     try {
       log.info("Updating keyStore..");
-      initKeyMaterial(easySSL);
+      initTrustStore();
     }
  catch (    Throwable e) {
       SoapUI.logError(e);
@@ -11,10 +11,10 @@
   }
  else   if (name.equals(HttpSettings.MAX_CONNECTIONS_PER_HOST)) {
     log.info("Updating max connections per host to " + newValue);
-    connectionManager.getParams().setDefaultMaxConnectionsPerHost(Integer.parseInt(newValue));
+    connectionManager.setMaxConnectionsPerHost(Integer.parseInt(newValue));
   }
  else   if (name.equals(HttpSettings.MAX_TOTAL_CONNECTIONS)) {
     log.info("Updating max total connections host to " + newValue);
-    connectionManager.getParams().setMaxTotalConnections(Integer.parseInt(newValue));
+    connectionManager.setMaxTotalConnections(Integer.parseInt(newValue));
   }
 }

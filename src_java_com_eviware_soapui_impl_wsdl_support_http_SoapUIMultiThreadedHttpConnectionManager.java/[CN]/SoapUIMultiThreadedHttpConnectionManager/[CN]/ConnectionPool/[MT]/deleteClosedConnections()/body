@@ -1,7 +1,7 @@
 {
   Iterator iter=freeConnections.iterator();
   while (iter.hasNext()) {
-    HttpConnection conn=(HttpConnection)iter.next();
+    DefaultClientConnection conn=(DefaultClientConnection)iter.next();
     if (!conn.isOpen()) {
       iter.remove();
       deleteConnection(conn);

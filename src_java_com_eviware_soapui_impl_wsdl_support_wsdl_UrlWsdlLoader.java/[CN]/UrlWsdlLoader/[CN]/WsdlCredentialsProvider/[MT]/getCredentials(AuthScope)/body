@@ -1,0 +1,54 @@
+{
+  if (authScope == null) {
+    throw new IllegalArgumentException("Authentication scope may not be null");
+  }
+  String key=authScope.getHost() + "-" + authScope.getPort()+ "-"+ authScope.getRealm()+ "-"+ authScope.getScheme();
+  if (cache.containsKey(key)) {
+    return cache.get(key);
+  }
+  String pw=getPassword();
+  if (pw == null)   pw="";
+  if (AuthPolicy.NTLM.equals(authScope.getScheme()) || AuthPolicy.SPNEGO.equals(authScope.getScheme())) {
+    String workstation="";
+    try {
+      workstation=InetAddress.getLocalHost().getHostName();
+    }
+ catch (    UnknownHostException e) {
+    }
+    if (hasCredentials()) {
+      log.info("Returning url credentials");
+      return new NTCredentials(getUsername(),pw,workstation,null);
+    }
+    log.info(authScope.getHost() + ":" + authScope.getPort()+ " requires Windows authentication");
+    if (ntDialog == null) {
+      buildNtDialog();
+    }
+    StringToStringMap values=new StringToStringMap();
+    values.put("Info","Authentication required for [" + authScope.getHost() + ":"+ authScope.getPort()+ "]");
+    ntDialog.setValues(values);
+    if (ntDialog.show()) {
+      values=ntDialog.getValues();
+      NTCredentials credentials=new NTCredentials(values.get("Username"),values.get("Password"),workstation,values.get("Domain"));
+      cache.put(key,credentials);
+      return credentials;
+    }
+  }
+ else   if (AuthPolicy.BASIC.equals(authScope.getScheme()) || AuthPolicy.DIGEST.equals(authScope.getScheme()) || AuthPolicy.SPNEGO.equals(authScope.getScheme())) {
+    if (hasCredentials()) {
+      log.info("Returning url credentials");
+      UsernamePasswordCredentials credentials=new UsernamePasswordCredentials(getUsername(),pw);
+      cache.put(key,credentials);
+      return credentials;
+    }
+    log.info(authScope.getHost() + ":" + authScope.getPort()+ " requires authentication with the realm '"+ authScope.getRealm()+ "'");
+    ShowDialog showDialog=new ShowDialog();
+    showDialog.values.put("Info","Authentication required for [" + authScope.getHost() + ":"+ authScope.getPort()+ "]");
+    UISupport.getUIUtils().runInUIThreadIfSWT(showDialog);
+    if (showDialog.result) {
+      UsernamePasswordCredentials credentials=new UsernamePasswordCredentials(showDialog.values.get("Username"),showDialog.values.get("Password"));
+      cache.put(key,credentials);
+      return credentials;
+    }
+  }
+  return null;
+}

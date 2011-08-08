@@ -2,9 +2,9 @@
   try {
     ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
     ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
-    if (!httpMethod.isFailed()) {
+    if (!httpMethod.isFailed() && httpMethod.hasHttpResponse()) {
       try {
-        rawResponse.write(String.valueOf(httpMethod.getStatusLine()).getBytes());
+        rawResponse.write(String.valueOf(httpMethod.getHttpResponse().getStatusLine()).getBytes());
         rawResponse.write("\r\n".getBytes());
       }
  catch (      Throwable e) {
@@ -12,31 +12,31 @@
     }
     rawRequest.write((method + " " + String.valueOf(url)+ " "+ version+ "\r\n").getBytes());
     requestHeaders=new StringToStringsMap();
-    Header[] headers=httpMethod.getRequestHeaders();
+    Header[] headers=httpMethod.getAllHeaders();
     for (    Header header : headers) {
       requestHeaders.put(header.getName(),header.getValue());
-      rawRequest.write(header.toExternalForm().getBytes());
+      rawRequest.write(toExternalForm(header).getBytes());
     }
     responseHeaders=new StringToStringsMap();
-    if (!httpMethod.isFailed()) {
-      headers=httpMethod.getResponseHeaders();
+    if (!httpMethod.isFailed() && httpMethod.hasHttpResponse()) {
+      headers=httpMethod.getHttpResponse().getAllHeaders();
       for (      Header header : headers) {
         responseHeaders.put(header.getName(),header.getValue());
-        rawResponse.write(header.toExternalForm().getBytes());
+        rawResponse.write(toExternalForm(header).getBytes());
       }
-      responseHeaders.put("#status#",String.valueOf(httpMethod.getStatusLine()));
+      responseHeaders.put("#status#",String.valueOf(httpMethod.getHttpResponse().getStatusLine()));
     }
     if (httpMethod.getRequestEntity() != null) {
       rawRequest.write("\r\n".getBytes());
       if (httpMethod.getRequestEntity().isRepeatable()) {
         requestContentPos=rawRequest.size();
         MaxSizeByteArrayOutputStream tempOut=new MaxSizeByteArrayOutputStream(SoapUI.getSettings().getLong(UISettings.RAW_REQUEST_MESSAGE_SIZE,0));
-        httpMethod.getRequestEntity().writeRequest(tempOut);
+        httpMethod.getRequestEntity().writeTo(tempOut);
         tempOut.writeTo(rawRequest);
       }
  else       rawRequest.write("<request data not available>".getBytes());
     }
-    if (!httpMethod.isFailed()) {
+    if (!httpMethod.isFailed() && httpMethod.hasHttpResponse()) {
       rawResponse.write("\r\n".getBytes());
       rawResponse.write(httpMethod.getResponseBody());
     }

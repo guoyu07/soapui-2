@@ -19,7 +19,7 @@
   if (!isXOP && (mp == null || mp.getCount() == 0) && hasContentAttachmentsOnly(wsdlRequest)) {
     String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(wsdlRequest.getEncoding()));
     byte[] content=StringUtils.isNullOrEmpty(encoding) ? requestContent.getBytes() : requestContent.getBytes(encoding);
-    postMethod.setRequestEntity(new ByteArrayRequestEntity(content));
+    postMethod.setEntity(new ByteArrayEntity(content));
   }
  else {
     if (mp == null)     mp=new MimeMultipart();
@@ -29,9 +29,9 @@
     message.setContent(mp);
     message.saveChanges();
     WsdlRequestMimeMessageRequestEntity mimeMessageRequestEntity=new WsdlRequestMimeMessageRequestEntity(message,isXOP,wsdlRequest);
-    postMethod.setRequestEntity(mimeMessageRequestEntity);
-    postMethod.setRequestHeader("Content-Type",mimeMessageRequestEntity.getContentType());
-    postMethod.setRequestHeader("MIME-Version","1.0");
+    postMethod.setEntity(mimeMessageRequestEntity);
+    postMethod.setHeader(mimeMessageRequestEntity.getContentType());
+    postMethod.setHeader("MIME-Version","1.0");
   }
   return requestContent;
 }

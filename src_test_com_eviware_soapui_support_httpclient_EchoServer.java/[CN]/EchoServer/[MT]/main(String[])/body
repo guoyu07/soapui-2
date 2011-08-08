@@ -1,0 +1,18 @@
+{
+  try {
+    SSLServerSocketFactory sslserversocketfactory=(SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+    SSLServerSocket sslserversocket=(SSLServerSocket)sslserversocketfactory.createServerSocket(9999);
+    SSLSocket sslsocket=(SSLSocket)sslserversocket.accept();
+    InputStream inputstream=sslsocket.getInputStream();
+    InputStreamReader inputstreamreader=new InputStreamReader(inputstream);
+    BufferedReader bufferedreader=new BufferedReader(inputstreamreader);
+    String string=null;
+    while ((string=bufferedreader.readLine()) != null) {
+      System.out.println(string);
+      System.out.flush();
+    }
+  }
+ catch (  Exception exception) {
+    exception.printStackTrace();
+  }
+}

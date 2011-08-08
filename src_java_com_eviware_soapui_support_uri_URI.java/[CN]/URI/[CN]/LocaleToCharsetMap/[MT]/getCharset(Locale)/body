@@ -1,0 +1,8 @@
+{
+  String charset=(String)LOCALE_TO_CHARSET_MAP.get(locale.toString());
+  if (charset != null) {
+    return charset;
+  }
+  charset=(String)LOCALE_TO_CHARSET_MAP.get(locale.getLanguage());
+  return charset;
+}

@@ -20,7 +20,7 @@
       while (vals.hasMoreElements()) {
         String val=(String)vals.nextElement();
         if (val.startsWith("127.0.0.1")) {
-          postMethod.addRequestHeader(hdr,sslEndPoint);
+          postMethod.addHeader(hdr,sslEndPoint);
         }
       }
       continue;
@@ -29,25 +29,37 @@
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
       if (val != null) {
-        postMethod.addRequestHeader(hdr,val);
+        postMethod.addHeader(hdr,val);
       }
     }
   }
-  if (postMethod instanceof ExtendedPostMethod)   ((ExtendedPostMethod)postMethod).setRequestEntity(new InputStreamRequestEntity(capture,request.getContentType()));
-  HostConfiguration hostConfiguration=new HostConfiguration();
-  httpRequest.getProtocol();
-  hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
-  hostConfiguration.setHost(new URI(this.prot + sslEndPoint,true));
-  hostConfiguration=ProxyUtils.initProxySettings(settings,httpState,hostConfiguration,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
-  if (sslEndPoint.indexOf("/") < 0)   postMethod.setPath("/");
- else   postMethod.setPath(sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length()));
+  if (postMethod instanceof ExtendedPostMethod) {
+    ((ExtendedPostMethod)postMethod).setEntity(new InputStreamEntity(capture,-1));
+  }
+  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration(this.prot + sslEndPoint);
+  postMethod.getParams().setParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
+  ProxyUtils.initProxySettings(settings,httpState,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
+  String path=null;
+  if (sslEndPoint.indexOf("/") < 0)   path="/";
+ else   path=sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length());
+  HttpHost httpHost=hostConfiguration.getHttpHost();
+  if (httpHost != null) {
+    java.net.URI uri;
+    try {
+      uri=URIUtils.createURI(httpHost.getSchemeName(),httpHost.getHostName(),httpHost.getPort(),path,httpRequest.getQueryString(),null);
+      postMethod.setURI(uri);
+    }
+ catch (    URISyntaxException e) {
+      SoapUI.logError(e);
+    }
+  }
   monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
-    if (httpState == null)     httpState=new HttpState();
-    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod,httpState);
+    if (httpState == null)     httpState=new BasicHttpContext();
+    HttpClientSupport.execute(hostConfiguration,postMethod,httpState);
   }
  else {
-    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,postMethod);
+    HttpClientSupport.execute(hostConfiguration,postMethod);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());
@@ -57,12 +69,11 @@
   capturedData.setRawResponseData(getResponseToBytes(response.toString(),postMethod,capturedData.getRawResponseBody()));
   monitor.fireAfterProxy(request,response,postMethod,capturedData);
   StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
-  HttpServletResponse httpResponse=(HttpServletResponse)response;
+  HttpServletResponse httpServletResponse=(HttpServletResponse)response;
   for (  String name : responseHeaders.keySet()) {
-    for (    String header : responseHeaders.get(name))     httpResponse.addHeader(name,header);
+    for (    String header : responseHeaders.get(name))     httpServletResponse.addHeader(name,header);
   }
-  IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
-  postMethod.releaseConnection();
+  IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
 synchronized (this) {
     monitor.addMessageExchange(capturedData);
   }

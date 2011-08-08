@@ -1,0 +1,107 @@
+{
+  if (original == null) {
+    throw new URIException("URI-Reference required");
+  }
+  String tmp=original.trim();
+  int length=tmp.length();
+  if (length > 0) {
+    char[] firstDelimiter={tmp.charAt(0)};
+    if (validate(firstDelimiter,delims)) {
+      if (length >= 2) {
+        char[] lastDelimiter={tmp.charAt(length - 1)};
+        if (validate(lastDelimiter,delims)) {
+          tmp=tmp.substring(1,length - 1);
+          length=length - 2;
+        }
+      }
+    }
+  }
+  int from=0;
+  boolean isStartedFromPath=false;
+  int atColon=tmp.indexOf(':');
+  int atSlash=tmp.indexOf('/');
+  if ((atColon <= 0 && !tmp.startsWith("//")) || (atSlash >= 0 && atSlash < atColon)) {
+    isStartedFromPath=true;
+  }
+  int at=indexFirstOf(tmp,isStartedFromPath ? "/?#" : ":/?#",from);
+  if (at == -1) {
+    at=0;
+  }
+  if (at > 0 && at < length && tmp.charAt(at) == ':') {
+    char[] target=tmp.substring(0,at).toLowerCase().toCharArray();
+    if (validate(target,scheme)) {
+      _scheme=target;
+    }
+ else {
+      throw new URIException("incorrect scheme");
+    }
+    from=++at;
+  }
+  _is_net_path=_is_abs_path=_is_rel_path=_is_hier_part=false;
+  if (0 <= at && at < length && tmp.charAt(at) == '/') {
+    _is_hier_part=true;
+    if (at + 2 < length && tmp.charAt(at + 1) == '/' && !isStartedFromPath) {
+      int next=indexFirstOf(tmp,"/?#",at + 2);
+      if (next == -1) {
+        next=(tmp.substring(at + 2).length() == 0) ? at + 2 : tmp.length();
+      }
+      parseAuthority(tmp.substring(at + 2,next),escaped);
+      from=at=next;
+      _is_net_path=true;
+    }
+    if (from == at) {
+      _is_abs_path=true;
+    }
+  }
+  if (from < length) {
+    int next=indexFirstOf(tmp,"?#",from);
+    if (next == -1) {
+      next=tmp.length();
+    }
+    if (!_is_abs_path) {
+      if (!escaped && prevalidate(tmp.substring(from,next),disallowed_rel_path) || escaped && validate(tmp.substring(from,next).toCharArray(),rel_path)) {
+        _is_rel_path=true;
+      }
+ else       if (!escaped && prevalidate(tmp.substring(from,next),disallowed_opaque_part) || escaped && validate(tmp.substring(from,next).toCharArray(),opaque_part)) {
+        _is_opaque_part=true;
+      }
+ else {
+        _path=null;
+      }
+    }
+    String s=tmp.substring(from,next);
+    if (escaped) {
+      setRawPath(s.toCharArray());
+    }
+ else {
+      setPath(s);
+    }
+    at=next;
+  }
+  String charset=getProtocolCharset();
+  if (0 <= at && at + 1 < length && tmp.charAt(at) == '?') {
+    int next=tmp.indexOf('#',at + 1);
+    if (next == -1) {
+      next=tmp.length();
+    }
+    if (escaped) {
+      _query=tmp.substring(at + 1,next).toCharArray();
+      if (!validate(_query,uric)) {
+        throw new URIException("Invalid query");
+      }
+    }
+ else {
+      _query=encode(tmp.substring(at + 1,next),allowed_query,charset);
+    }
+    at=next;
+  }
+  if (0 <= at && at + 1 <= length && tmp.charAt(at) == '#') {
+    if (at + 1 == length) {
+      _fragment="".toCharArray();
+    }
+ else {
+      _fragment=(escaped) ? tmp.substring(at + 1).toCharArray() : encode(tmp.substring(at + 1),allowed_fragment,charset);
+    }
+  }
+  setURI();
+}

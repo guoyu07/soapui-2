@@ -1,0 +1,37 @@
+{
+  String method=request.getRequestLine().getMethod().toUpperCase(Locale.ENGLISH);
+  if (!"GET".equals(method) && !"HEAD".equals(method)) {
+    throw new MethodNotSupportedException(method + " not supported by " + getClass().getName());
+  }
+  String uri=request.getRequestLine().getUri();
+  int slash=uri.lastIndexOf('/');
+  int length=-1;
+  if (slash < uri.length() - 1) {
+    try {
+      length=Integer.parseInt(uri.substring(slash + 1));
+      if (length < 0) {
+        response.setStatusCode(HttpStatus.SC_BAD_REQUEST);
+        response.setReasonPhrase("LENGTH " + length);
+      }
+    }
+ catch (    NumberFormatException nfx) {
+      response.setStatusCode(HttpStatus.SC_BAD_REQUEST);
+      response.setReasonPhrase(nfx.toString());
+    }
+  }
+ else {
+    length=1 + (int)(Math.random() * 79.0);
+  }
+  if (length >= 0) {
+    response.setStatusCode(HttpStatus.SC_OK);
+    if (!"HEAD".equals(method)) {
+      RandomEntity entity=new RandomEntity(length);
+      entity.setContentType("text/plain; charset=US-ASCII");
+      response.setEntity(entity);
+    }
+ else {
+      response.setHeader("Content-Type","text/plain; charset=US-ASCII");
+      response.setHeader("Content-Length",String.valueOf(length));
+    }
+  }
+}

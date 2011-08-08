@@ -1,3 +1,3 @@
 {
-  return postMethod.getName() + " response for " + postMethod.getPath().toString();
+  return postMethod.getRequestLine().getMethod() + " response for " + postMethod.getRequestLine().getUri().toString();
 }

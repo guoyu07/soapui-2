@@ -1,0 +1,13 @@
+{
+  if (escapedQuery == null || escapedQuery.length == 0) {
+    _query=escapedQuery;
+    setURI();
+    return;
+  }
+  escapedQuery=removeFragmentIdentifier(escapedQuery);
+  if (!validate(escapedQuery,query)) {
+    throw new URIException(URIException.ESCAPING,"escaped query not valid");
+  }
+  _query=escapedQuery;
+  setURI();
+}

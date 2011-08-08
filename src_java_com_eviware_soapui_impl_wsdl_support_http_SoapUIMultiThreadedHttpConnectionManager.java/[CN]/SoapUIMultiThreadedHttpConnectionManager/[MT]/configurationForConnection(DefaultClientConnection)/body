@@ -1,0 +1,10 @@
+{
+  SoapUIHostConfiguration connectionConfiguration=new SoapUIHostConfiguration(conn.getTargetHost());
+  if (conn.getAttribute(ExecutionContext.HTTP_PROXY_HOST) != null) {
+    HttpClientSupport.getHttpClient().getParams().setParameter(ExecutionContext.HTTP_PROXY_HOST,conn.getAttribute(ExecutionContext.HTTP_PROXY_HOST));
+  }
+  if (conn.getAttribute(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG) != null) {
+    HttpClientSupport.getHttpClient().getParams().setParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG,conn.getAttribute(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG));
+  }
+  return connectionConfiguration;
+}

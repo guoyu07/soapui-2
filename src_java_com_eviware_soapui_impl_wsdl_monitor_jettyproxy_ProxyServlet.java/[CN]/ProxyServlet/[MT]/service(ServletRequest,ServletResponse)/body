@@ -31,53 +31,71 @@
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
       if (val != null) {
-        method.setRequestHeader(lhdr,val);
+        method.setHeader(lhdr,val);
         xForwardedFor|="X-Forwarded-For".equalsIgnoreCase(hdr);
       }
     }
   }
-  method.setRequestHeader("Via","SoapUI Monitor");
-  if (!xForwardedFor)   method.addRequestHeader("X-Forwarded-For",request.getRemoteAddr());
-  if (method instanceof ExtendedPostMethod)   ((ExtendedPostMethod)method).setRequestEntity(new InputStreamRequestEntity(capture,request.getContentType()));
-  HostConfiguration hostConfiguration=new HostConfiguration();
+  method.setHeader("Via","SoapUI Monitor");
+  if (!xForwardedFor)   method.addHeader("X-Forwarded-For",request.getRemoteAddr());
+  if (method instanceof ExtendedPostMethod) {
+    ((ExtendedPostMethod)method).setEntity(new InputStreamEntity(capture,-1));
+  }
   StringBuffer url=new StringBuffer("http://");
   url.append(httpRequest.getServerName());
   if (httpRequest.getServerPort() != 80)   url.append(":" + httpRequest.getServerPort());
+  java.net.URI tempUri=null;
   if (httpRequest.getServletPath() != null) {
     url.append(httpRequest.getServletPath());
-    method.setPath(httpRequest.getServletPath());
+    try {
+      tempUri=new java.net.URI(url.toString());
+      method.setURI(tempUri);
+    }
+ catch (    URISyntaxException e) {
+      SoapUI.logError(e);
+    }
     if (httpRequest.getQueryString() != null) {
       url.append("?" + httpRequest.getQueryString());
-      method.setPath(httpRequest.getServletPath() + "?" + httpRequest.getQueryString());
+      try {
+        tempUri=new java.net.URI(url.toString());
+        method.setURI(tempUri);
+      }
+ catch (      URISyntaxException e) {
+        SoapUI.logError(e);
+      }
     }
   }
-  hostConfiguration.setHost(new URI(url.toString(),true));
+  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
+  if (tempUri != null) {
+    hostConfiguration.setHttpHost(new HttpHost(tempUri.getHost(),tempUri.getPort(),tempUri.getScheme()));
+  }
+  HttpResponse httpResponse=null;
   monitor.fireBeforeProxy(request,response,method,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
-    if (httpState == null)     httpState=new HttpState();
-    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,method,httpState);
+    if (httpState == null)     httpState=new BasicHttpContext();
+    httpResponse=HttpClientSupport.execute(hostConfiguration,method,httpState);
   }
  else {
-    HttpClientSupport.getHttpClient().executeMethod(hostConfiguration,method);
+    httpResponse=HttpClientSupport.execute(hostConfiguration,method);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());
   capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method);
-  capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,capture));
-  capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),capture));
+  capturedData.setRawResponseData(getResponseToBytes(response.toString(),httpResponse,capturedData.getRawResponseBody()));
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
   monitor.fireAfterProxy(request,response,method,capturedData);
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
-    HttpServletResponse httpResponse=(HttpServletResponse)response;
+    HttpServletResponse httpServletResponse=(HttpServletResponse)response;
     for (    String name : responseHeaders.keySet()) {
-      for (      String header : responseHeaders.get(name))       httpResponse.addHeader(name,header);
+      for (      String header : responseHeaders.get(name))       httpServletResponse.addHeader(name,header);
     }
-    IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpResponse.getOutputStream());
+    IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
   }
 synchronized (this) {
-    if (checkContentType(method)) {
+    if (checkContentType(httpResponse)) {
       monitor.addMessageExchange(capturedData);
     }
   }

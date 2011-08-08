@@ -1,0 +1,9 @@
+{
+  String algo=TrustManagerFactory.getDefaultAlgorithm();
+  try {
+    return TrustManagerFactory.getInstance(algo);
+  }
+ catch (  NoSuchAlgorithmException ex) {
+    return TrustManagerFactory.getInstance("SunX509");
+  }
+}

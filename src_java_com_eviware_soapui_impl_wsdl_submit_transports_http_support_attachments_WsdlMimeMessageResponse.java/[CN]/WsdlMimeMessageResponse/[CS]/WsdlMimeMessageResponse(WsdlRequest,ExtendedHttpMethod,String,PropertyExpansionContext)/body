@@ -3,13 +3,15 @@
   WsdlRequest wsdlRequest=(WsdlRequest)httpRequest;
   processIncomingWss(wsdlRequest,context);
   String multipartType=null;
-  Header h=httpMethod.getResponseHeader("Content-Type");
-  HeaderElement[] elements=h.getElements();
-  for (  HeaderElement element : elements) {
-    String name=element.getName().toUpperCase();
-    if (name.startsWith("MULTIPART/")) {
-      NameValuePair parameter=element.getParameterByName("type");
-      if (parameter != null)       multipartType=parameter.getValue();
+  Header h=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getEntity().getContentType() : null;
+  if (h != null) {
+    HeaderElement[] elements=h.getElements();
+    for (    HeaderElement element : elements) {
+      String name=element.getName().toUpperCase();
+      if (name.startsWith("MULTIPART/")) {
+        NameValuePair parameter=element.getParameterByName("type");
+        if (parameter != null)         multipartType=parameter.getValue();
+      }
     }
   }
   if (wsdlRequest.isExpandMtomResponseAttachments() && "application/xop+xml".equals(multipartType)) {

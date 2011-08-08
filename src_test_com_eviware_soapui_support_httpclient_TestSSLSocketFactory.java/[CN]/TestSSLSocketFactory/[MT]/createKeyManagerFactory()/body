@@ -1,0 +1,9 @@
+{
+  String algo=KeyManagerFactory.getDefaultAlgorithm();
+  try {
+    return KeyManagerFactory.getInstance(algo);
+  }
+ catch (  NoSuchAlgorithmException ex) {
+    return KeyManagerFactory.getInstance("SunX509");
+  }
+}

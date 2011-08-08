@@ -1,0 +1,9 @@
+{
+  if (fragment == null || fragment.length() == 0) {
+    _fragment=(fragment == null) ? null : fragment.toCharArray();
+    hash=0;
+    return;
+  }
+  _fragment=encode(fragment,allowed_fragment,getProtocolCharset());
+  hash=0;
+}

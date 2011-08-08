@@ -1,8 +1,8 @@
 {
   String acceptEncoding=request.getAccept();
-  HttpMethod httpMethod=(HttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  HttpRequest httpMethod=(HttpRequest)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   if (StringUtils.hasContent(acceptEncoding)) {
-    httpMethod.setRequestHeader("Accept",acceptEncoding);
+    httpMethod.setHeader("Accept",acceptEncoding);
   }
   filterHttpRequest(context,request);
 }

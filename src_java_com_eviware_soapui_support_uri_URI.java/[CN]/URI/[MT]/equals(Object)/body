@@ -1,0 +1,28 @@
+{
+  if (obj == this) {
+    return true;
+  }
+  if (!(obj instanceof URI)) {
+    return false;
+  }
+  URI another=(URI)obj;
+  if (!equals(_scheme,another._scheme)) {
+    return false;
+  }
+  if (!equals(_opaque,another._opaque)) {
+    return false;
+  }
+  if (!equals(_authority,another._authority)) {
+    return false;
+  }
+  if (!equals(_path,another._path)) {
+    return false;
+  }
+  if (!equals(_query,another._query)) {
+    return false;
+  }
+  if (!equals(_fragment,another._fragment)) {
+    return false;
+  }
+  return true;
+}

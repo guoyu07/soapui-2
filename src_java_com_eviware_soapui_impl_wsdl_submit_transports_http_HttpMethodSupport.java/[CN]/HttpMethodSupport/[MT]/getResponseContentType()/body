@@ -1,7 +1,8 @@
 {
-  Header[] headers=httpMethod.getResponseHeaders("Content-Type");
-  if (headers != null && headers.length > 0 && headers[0].getElements().length > 0) {
-    return headers[0].getElements()[0].getName();
+  if (hasHttpResponse()) {
+    if (httpResponse.getEntity().getContentType() != null) {
+      return httpResponse.getEntity().getContentType().getValue();
+    }
   }
   return null;
 }

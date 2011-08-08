@@ -1,21 +1,23 @@
 {
-  Header header=httpMethod.getResponseHeader("Content-Type");
-  if (header != null) {
-    for (    HeaderElement headerElement : header.getElements()) {
-      NameValuePair parameter=headerElement.getParameterByName("charset");
-      if (parameter != null)       return parameter.getValue();
-    }
-  }
-  Header contentEncodingHeader=httpMethod.getResponseHeader("Content-Encoding");
-  if (contentEncodingHeader != null) {
-    try {
-      String value=contentEncodingHeader.getValue();
-      if (CompressionSupport.getAvailableAlgorithm(value) == null) {
-        new String("").getBytes(value);
-        return value;
+  if (hasHttpResponse()) {
+    Header header=httpResponse.getEntity().getContentType();
+    if (header != null) {
+      for (      HeaderElement headerElement : header.getElements()) {
+        NameValuePair parameter=headerElement.getParameterByName("charset");
+        if (parameter != null)         return parameter.getValue();
       }
     }
- catch (    Exception e) {
+    Header contentEncodingHeader=httpResponse.getEntity().getContentEncoding();
+    if (contentEncodingHeader != null) {
+      try {
+        String value=contentEncodingHeader.getValue();
+        if (CompressionSupport.getAvailableAlgorithm(value) == null) {
+          new String("").getBytes(value);
+          return value;
+        }
+      }
+ catch (      Exception e) {
+      }
     }
   }
   return null;

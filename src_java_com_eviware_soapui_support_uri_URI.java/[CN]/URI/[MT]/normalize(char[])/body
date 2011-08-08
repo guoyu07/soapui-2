@@ -1,0 +1,54 @@
+{
+  if (path == null) {
+    return null;
+  }
+  String normalized=new String(path);
+  if (normalized.startsWith("./")) {
+    normalized=normalized.substring(1);
+  }
+ else   if (normalized.startsWith("../")) {
+    normalized=normalized.substring(2);
+  }
+ else   if (normalized.startsWith("..")) {
+    normalized=normalized.substring(2);
+  }
+  int index=-1;
+  while ((index=normalized.indexOf("/./")) != -1) {
+    normalized=normalized.substring(0,index) + normalized.substring(index + 2);
+  }
+  if (normalized.endsWith("/.")) {
+    normalized=normalized.substring(0,normalized.length() - 1);
+  }
+  int startIndex=0;
+  while ((index=normalized.indexOf("/../",startIndex)) != -1) {
+    int slashIndex=normalized.lastIndexOf('/',index - 1);
+    if (slashIndex >= 0) {
+      normalized=normalized.substring(0,slashIndex) + normalized.substring(index + 3);
+    }
+ else {
+      startIndex=index + 3;
+    }
+  }
+  if (normalized.endsWith("/..")) {
+    int slashIndex=normalized.lastIndexOf('/',normalized.length() - 4);
+    if (slashIndex >= 0) {
+      normalized=normalized.substring(0,slashIndex + 1);
+    }
+  }
+  while ((index=normalized.indexOf("/../")) != -1) {
+    int slashIndex=normalized.lastIndexOf('/',index - 1);
+    if (slashIndex >= 0) {
+      break;
+    }
+ else {
+      normalized=normalized.substring(index + 3);
+    }
+  }
+  if (normalized.endsWith("/..")) {
+    int slashIndex=normalized.lastIndexOf('/',normalized.length() - 4);
+    if (slashIndex < 0) {
+      normalized="/";
+    }
+  }
+  return normalized.toCharArray();
+}

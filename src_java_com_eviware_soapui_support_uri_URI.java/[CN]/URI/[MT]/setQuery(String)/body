@@ -1,0 +1,8 @@
+{
+  if (query == null || query.length() == 0) {
+    _query=(query == null) ? null : query.toCharArray();
+    setURI();
+    return;
+  }
+  setRawQuery(encode(query,allowed_query,getProtocolCharset()));
+}

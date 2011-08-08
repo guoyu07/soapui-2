@@ -1,0 +1,8 @@
+{
+  method.afterWriteRequest();
+  HttpResponse httpResponse=httpClient.execute(hostConfiguration.getHttpHost(),(HttpRequest)method,httpContext);
+  BasicPooledConnAdapter connection=(BasicPooledConnAdapter)httpContext.getAttribute("http.connection");
+  method.afterReadResponse(connection.getSSLSession());
+  method.setHttpResponse(httpResponse);
+  return httpResponse;
+}

@@ -5,28 +5,28 @@
   try {
     ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
     ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
-    if (!postMethod.isFailed()) {
-      rawResponse.write(String.valueOf(postMethod.getStatusLine()).getBytes());
+    if (!postMethod.isFailed() && postMethod.hasHttpResponse()) {
+      rawResponse.write(String.valueOf(postMethod.getHttpResponse().getStatusLine()).getBytes());
       rawResponse.write("\r\n".getBytes());
     }
-    rawRequest.write((postMethod.getMethod() + " " + postMethod.getURI().toString()+ " "+ postMethod.getParams().getVersion().toString()+ "\r\n").getBytes());
-    Header[] headers=postMethod.getRequestHeaders();
+    rawRequest.write((postMethod.getMethod() + " " + postMethod.getURI().toString()+ " "+ postMethod.getProtocolVersion().toString()+ "\r\n").getBytes());
+    Header[] headers=postMethod.getAllHeaders();
     for (    Header header : headers) {
       requestHeaders.add(header.getName(),header.getValue());
-      rawRequest.write(header.toExternalForm().getBytes());
+      rawRequest.write(toExternalForm(header).getBytes());
     }
-    if (!postMethod.isFailed()) {
-      headers=postMethod.getResponseHeaders();
+    if (!postMethod.isFailed() && postMethod.hasHttpResponse()) {
+      headers=postMethod.getHttpResponse().getAllHeaders();
       for (      Header header : headers) {
         responseHeaders.add(header.getName(),header.getValue());
-        rawResponse.write(header.toExternalForm().getBytes());
+        rawResponse.write(toExternalForm(header).getBytes());
       }
-      responseHeaders.add("#status#",String.valueOf(postMethod.getStatusLine()));
+      responseHeaders.add("#status#",String.valueOf(postMethod.getHttpResponse().getStatusLine()));
     }
     if (postMethod.getRequestEntity() != null) {
       rawRequest.write("\r\n".getBytes());
       if (postMethod.getRequestEntity().isRepeatable()) {
-        postMethod.getRequestEntity().writeRequest(rawRequest);
+        postMethod.getEntity().writeTo(rawRequest);
       }
  else       rawRequest.write("<request data not available>".getBytes());
     }

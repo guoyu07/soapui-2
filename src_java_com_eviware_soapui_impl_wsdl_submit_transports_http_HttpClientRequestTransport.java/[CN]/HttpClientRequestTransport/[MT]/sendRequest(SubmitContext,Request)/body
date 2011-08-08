@@ -1,20 +1,21 @@
 {
   AbstractHttpRequestInterface<?> httpRequest=(AbstractHttpRequestInterface<?>)request;
-  HttpClient httpClient=HttpClientSupport.getHttpClient();
+  DefaultHttpClient httpClient=HttpClientSupport.getHttpClient();
   ExtendedHttpMethod httpMethod=createHttpMethod(httpRequest);
-  boolean createdState=false;
-  HttpState httpState=(HttpState)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
-  if (httpState == null) {
-    httpState=new HttpState();
-    submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,httpState);
-    createdState=true;
+  boolean createdContext=false;
+  HttpContext httpContext=(HttpContext)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
+  if (httpContext == null) {
+    httpContext=new BasicHttpContext();
+    submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,httpContext);
+    createdContext=true;
   }
-  HostConfiguration hostConfiguration=new HostConfiguration();
   String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
   if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
+  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
+  org.apache.http.HttpResponse httpResponse=null;
   if (localAddress != null && localAddress.trim().length() > 0) {
     try {
-      hostConfiguration.setLocalAddress(InetAddress.getByName(localAddress));
+      hostConfiguration=new SoapUIHostConfiguration(java.net.InetAddress.getByName(localAddress).getHostName());
     }
  catch (    Exception e) {
       SoapUI.logError(e,"Failed to set localAddress to [" + localAddress + "]");
@@ -35,12 +36,12 @@
     Settings settings=httpRequest.getSettings();
     StringToStringsMap headers=httpRequest.getRequestHeaders();
     for (    String header : headers.keySet()) {
-      httpMethod.removeRequestHeader(header);
+      httpMethod.removeHeaders(header);
     }
     for (    String header : headers.keySet()) {
       for (      String headerValue : headers.get(header)) {
         headerValue=PropertyExpander.expandProperties(submitContext,headerValue);
-        httpMethod.addRequestHeader(header,headerValue);
+        httpMethod.addHeader(header,headerValue);
       }
     }
     WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(httpRequest);
@@ -49,28 +50,26 @@
       crypto=project.getWssContainer().getCryptoByName(PropertyExpander.expandProperties(submitContext,httpRequest.getSslKeystore()));
     }
     if (crypto != null && WssCrypto.STATUS_OK.equals(crypto.getStatus())) {
-      hostConfiguration.getParams().setParameter(SoapUIHostConfiguration.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
+      httpMethod.getParams().setParameter(SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
     }
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
-    URI uri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
-    if (uri != null && uri.isAbsoluteURI()) {
-      hostConfiguration.setHost(uri.getHost(),uri.getPort());
-      String str=uri.toString();
-      int ix=str.indexOf('/',str.indexOf("//") + 2);
-      if (ix != -1) {
-        uri=new URI(str.substring(ix),true);
-        String qs=httpMethod.getQueryString();
-        httpMethod.setURI(uri);
-        if (StringUtils.hasContent(qs))         httpMethod.setQueryString(qs);
-        submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
-      }
+    URI tempUri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
+    java.net.URI uri=null;
+    try {
+      uri=new java.net.URI(tempUri.toString());
+    }
+ catch (    URISyntaxException e) {
+      SoapUI.logError(e);
+    }
+    if (uri != null && uri.isAbsolute()) {
+      hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
+      httpMethod.setURI(uri);
+      submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(uri.toString(),false));
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
-    httpClient.executeMethod(hostConfiguration,httpMethod,httpState);
-    httpMethod.getTimeTaken();
-    if (isRedirectResponse(httpMethod) && httpRequest.isFollowRedirects()) {
-      ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpState);
-      httpMethod.releaseConnection();
+    httpResponse=HttpClientSupport.execute(hostConfiguration,httpMethod,httpContext);
+    if (isRedirectResponse(httpResponse.getStatusLine().getStatusCode()) && httpRequest.isFollowRedirects()) {
+      ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
       httpMethod=returnMethod;
       submitContext.setProperty(HTTP_METHOD,httpMethod);
     }
@@ -94,11 +93,7 @@
     for (    String key : responseProperties.keySet()) {
       response.setProperty(key,responseProperties.get(key));
     }
-    if (httpMethod != null) {
-      httpMethod.releaseConnection();
-    }
- else     log.error("PostMethod is null");
-    if (createdState) {
+    if (createdContext) {
       submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
     }
   }

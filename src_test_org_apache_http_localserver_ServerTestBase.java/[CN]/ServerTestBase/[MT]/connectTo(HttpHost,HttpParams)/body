@@ -1,0 +1,9 @@
+{
+  Scheme schm=supportedSchemes.get(target.getSchemeName());
+  int port=schm.resolvePort(target.getPort());
+  DefaultHttpClientConnection conn=new DefaultHttpClientConnection();
+  InetSocketAddress address=new InetSocketAddress(InetAddress.getByName(target.getHostName()),port);
+  Socket sock=schm.getSchemeSocketFactory().connectSocket(null,address,null,params);
+  conn.bind(sock,params);
+  return conn;
+}

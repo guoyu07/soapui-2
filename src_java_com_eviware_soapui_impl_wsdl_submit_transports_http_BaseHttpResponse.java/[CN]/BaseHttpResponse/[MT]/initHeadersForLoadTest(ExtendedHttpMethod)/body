@@ -1,17 +1,17 @@
 {
   try {
     requestHeaders=new StringToStringsMap();
-    Header[] headers=httpMethod.getRequestHeaders();
+    Header[] headers=httpMethod.getAllHeaders();
     for (    Header header : headers) {
       requestHeaders.put(header.getName(),header.getValue());
     }
-    if (!httpMethod.isFailed()) {
+    if (!httpMethod.isFailed() && httpMethod.hasHttpResponse()) {
       responseHeaders=new StringToStringsMap();
-      headers=httpMethod.getResponseHeaders();
+      headers=httpMethod.getHttpResponse().getAllHeaders();
       for (      Header header : headers) {
         responseHeaders.put(header.getName(),header.getValue());
       }
-      responseHeaders.put("#status#",String.valueOf(httpMethod.getStatusLine()));
+      responseHeaders.put("#status#",String.valueOf(httpMethod.getHttpResponse().getStatusLine()));
     }
   }
  catch (  Throwable e) {

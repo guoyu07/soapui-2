@@ -1,0 +1,33 @@
+{
+  LOG.trace("enter HeaderParser.parseHeaders(InputStream, String)");
+  ArrayList headers=new ArrayList();
+  String name=null;
+  StringBuffer value=null;
+  for (; ; ) {
+    String line=HttpParser.readLine(is,charset);
+    if ((line == null) || (line.trim().length() < 1)) {
+      break;
+    }
+    if ((line.charAt(0) == ' ') || (line.charAt(0) == '\t')) {
+      if (value != null) {
+        value.append(' ');
+        value.append(line.trim());
+      }
+    }
+ else {
+      if (name != null) {
+        headers.add(new BasicHeader(name,value.toString()));
+      }
+      int colon=line.indexOf(":");
+      if (colon < 0) {
+        throw new ProtocolException("Unable to parse header: " + line);
+      }
+      name=line.substring(0,colon).trim();
+      value=new StringBuffer(line.substring(colon + 1).trim());
+    }
+  }
+  if (name != null) {
+    headers.add(new BasicHeader(name,value.toString()));
+  }
+  return (Header[])headers.toArray(new Header[headers.size()]);
+}

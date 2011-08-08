@@ -24,32 +24,27 @@
     Thread.sleep(200);
   }
   int counter=0;
-  while (!aborted && getMethod.getResponseBody() == null && counter < 10) {
+  byte[] content=EntityUtils.toByteArray(new BufferedHttpEntity(httpResponse.getEntity()));
+  while (!aborted && content == null && counter < 10) {
     Thread.sleep(200);
     counter++;
   }
-  try {
-    if (aborted) {
-      throw new Exception("Load of url [" + url + "] was aborted");
-    }
- else {
-      byte[] content=getMethod.getResponseBody();
-      if (content != null) {
-        String compressionAlg=HttpClientSupport.getResponseCompressionType(getMethod);
-        if (compressionAlg != null)         content=CompressionSupport.decompress(compressionAlg,content);
-        urlCache.put(url,content);
-        String newUrl=getMethod.getURI().getURI();
-        if (!url.equals(newUrl))         log.info("BaseURI was redirected to [" + newUrl + "]");
-        setNewBaseURI(newUrl);
-        urlCache.put(newUrl,content);
-        return new ByteArrayInputStream(content);
-      }
- else {
-        throw new Exception("Failed to load url; " + getMethod.getStatusCode() + " - "+ getMethod.getStatusText());
-      }
-    }
+  if (aborted) {
+    throw new Exception("Load of url [" + url + "] was aborted");
   }
-  finally {
-    getMethod.releaseConnection();
+ else {
+    if (content != null) {
+      String compressionAlg=HttpClientSupport.getResponseCompressionType(httpResponse);
+      if (compressionAlg != null)       content=CompressionSupport.decompress(compressionAlg,content);
+      urlCache.put(url,content);
+      String newUrl=getMethod.getURI().toString();
+      if (!url.equals(newUrl))       log.info("BaseURI was redirected to [" + newUrl + "]");
+      setNewBaseURI(newUrl);
+      urlCache.put(newUrl,content);
+      return new ByteArrayInputStream(content);
+    }
+ else {
+      throw new Exception("Failed to load url; " + httpResponse.getStatusLine().getStatusCode() + " - "+ httpResponse.getStatusLine().getReasonPhrase());
+    }
   }
 }

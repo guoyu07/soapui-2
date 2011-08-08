@@ -1,0 +1,20 @@
+{
+  ClassLoader cl=getClass().getClassLoader();
+  URL url=cl.getResource("test.keystore");
+  KeyStore keystore=KeyStore.getInstance("jks");
+  char[] pwd="nopassword".toCharArray();
+  keystore.load(url.openStream(),pwd);
+  TrustManagerFactory tmf=createTrustManagerFactory();
+  tmf.init(keystore);
+  TrustManager[] tm=tmf.getTrustManagers();
+  KeyManagerFactory kmfactory=createKeyManagerFactory();
+  kmfactory.init(keystore,pwd);
+  KeyManager[] km=kmfactory.getKeyManagers();
+  this.serverSSLContext=SSLContext.getInstance("TLS");
+  this.serverSSLContext.init(km,tm,null);
+  this.clientSSLContext=SSLContext.getInstance("TLS");
+  this.clientSSLContext.init(null,tm,null);
+  this.localServer=new LocalTestServer(this.serverSSLContext);
+  this.localServer.registerDefaultHandlers();
+  this.localServer.start();
+}

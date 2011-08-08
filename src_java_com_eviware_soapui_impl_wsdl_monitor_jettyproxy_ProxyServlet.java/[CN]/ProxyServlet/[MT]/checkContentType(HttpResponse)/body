@@ -1,0 +1,16 @@
+{
+  String[] contentTypes=settings.getString(LaunchForm.SET_CONTENT_TYPES,SoapMonitorAction.defaultContentTypes()).split(",");
+  List<String> contentTypelist=new ArrayList<String>();
+  for (  String ct : contentTypes) {
+    contentTypelist.add(ct.trim().replace("*",""));
+  }
+  Header[] headers=httpResponse.getHeaders("Content-Type");
+  for (  Header header : headers) {
+    for (    String contentType : contentTypelist) {
+      if (header.getValue().indexOf(contentType) > 0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

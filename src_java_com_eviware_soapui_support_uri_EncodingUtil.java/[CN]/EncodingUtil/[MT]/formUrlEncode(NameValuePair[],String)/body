@@ -1,0 +1,14 @@
+{
+  try {
+    return doFormUrlEncode(pairs,charset);
+  }
+ catch (  UnsupportedEncodingException e) {
+    LOG.error("Encoding not supported: " + charset);
+    try {
+      return doFormUrlEncode(pairs,DEFAULT_CHARSET);
+    }
+ catch (    UnsupportedEncodingException fatal) {
+      throw new Exception("Encoding not supported: " + DEFAULT_CHARSET);
+    }
+  }
+}

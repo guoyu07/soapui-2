@@ -1,0 +1,10 @@
+{
+  if (_fragment == null) {
+    return _uri;
+  }
+  if (_uri == null) {
+    return _fragment;
+  }
+  String uriReference=new String(_uri) + "#" + new String(_fragment);
+  return uriReference.toCharArray();
+}

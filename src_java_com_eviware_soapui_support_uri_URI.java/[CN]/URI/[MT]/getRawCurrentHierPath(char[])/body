@@ -1,0 +1,18 @@
+{
+  if (_is_opaque_part) {
+    throw new URIException(URIException.PARSING,"no hierarchy level");
+  }
+  if (path == null) {
+    throw new URIException(URIException.PARSING,"empty path");
+  }
+  String buff=new String(path);
+  int first=buff.indexOf('/');
+  int last=buff.lastIndexOf('/');
+  if (last == 0) {
+    return rootPath;
+  }
+ else   if (first != last && last != -1) {
+    return buff.substring(0,last).toCharArray();
+  }
+  return path;
+}

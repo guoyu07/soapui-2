@@ -1,10 +1,10 @@
 {
-  HttpClient httpClient=HttpClientSupport.getHttpClient();
+  DefaultHttpClient httpClient=HttpClientSupport.getHttpClient();
   try {
     Settings soapuiSettings=SoapUI.getSettings();
     HttpClientSupport.applyHttpSettings(getMethod,soapuiSettings);
-    HostConfiguration hostConfiguration=ProxyUtils.initProxySettings(soapuiSettings,state,new HostConfiguration(),getMethod.getURI().toString(),contextModelItem == null ? null : new DefaultPropertyExpansionContext(contextModelItem));
-    httpClient.executeMethod(hostConfiguration,getMethod,state);
+    ProxyUtils.initProxySettings(soapuiSettings,state,getMethod.getURI().toString(),contextModelItem == null ? null : new DefaultPropertyExpansionContext(contextModelItem));
+    httpResponse=httpClient.execute(getMethod,state);
   }
  catch (  Exception e) {
     return e;

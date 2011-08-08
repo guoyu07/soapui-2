@@ -1,0 +1,17 @@
+{
+  if (s == null || s.length == 0) {
+    return -1;
+  }
+  if (offset < 0) {
+    offset=0;
+  }
+ else   if (offset > s.length) {
+    return -1;
+  }
+  for (int i=offset; i < s.length; i++) {
+    if (s[i] == delim) {
+      return i;
+    }
+  }
+  return -1;
+}

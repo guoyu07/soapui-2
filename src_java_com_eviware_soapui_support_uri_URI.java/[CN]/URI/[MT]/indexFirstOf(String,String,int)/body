@@ -1,0 +1,23 @@
+{
+  if (s == null || s.length() == 0) {
+    return -1;
+  }
+  if (delims == null || delims.length() == 0) {
+    return -1;
+  }
+  if (offset < 0) {
+    offset=0;
+  }
+ else   if (offset > s.length()) {
+    return -1;
+  }
+  int min=s.length();
+  char[] delim=delims.toCharArray();
+  for (int i=0; i < delim.length; i++) {
+    int at=s.indexOf(delim[i],offset);
+    if (at >= 0 && at < min) {
+      min=at;
+    }
+  }
+  return (min == s.length()) ? -1 : min;
+}

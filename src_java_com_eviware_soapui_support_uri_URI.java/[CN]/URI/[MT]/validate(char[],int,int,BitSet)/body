@@ -1,0 +1,11 @@
+{
+  if (eoffset == -1) {
+    eoffset=component.length - 1;
+  }
+  for (int i=soffset; i <= eoffset; i++) {
+    if (!generous.get(component[i])) {
+      return false;
+    }
+  }
+  return true;
+}

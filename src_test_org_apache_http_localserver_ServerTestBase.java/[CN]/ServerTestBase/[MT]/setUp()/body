@@ -1,0 +1,28 @@
+{
+  if (defaultParams == null) {
+    defaultParams=new SyncBasicHttpParams();
+    HttpProtocolParams.setVersion(defaultParams,HttpVersion.HTTP_1_1);
+    HttpProtocolParams.setContentCharset(defaultParams,"UTF-8");
+    HttpProtocolParams.setUserAgent(defaultParams,"TestAgent/1.1");
+    HttpProtocolParams.setUseExpectContinue(defaultParams,false);
+  }
+  if (supportedSchemes == null) {
+    supportedSchemes=new SchemeRegistry();
+    SchemeSocketFactory sf=PlainSocketFactory.getSocketFactory();
+    supportedSchemes.register(new Scheme("http",80,sf));
+  }
+  if (httpProcessor == null) {
+    httpProcessor=new BasicHttpProcessor();
+    httpProcessor.addInterceptor(new RequestContent());
+    httpProcessor.addInterceptor(new RequestConnControl());
+  }
+  httpContext=new BasicHttpContext(null);
+  if (httpExecutor == null) {
+    httpExecutor=new HttpRequestExecutor();
+  }
+  if (localServer == null) {
+    localServer=new LocalTestServer(null,null);
+    localServer.registerDefaultHandlers();
+  }
+  localServer.start();
+}
