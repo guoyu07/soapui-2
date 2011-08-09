@@ -19,15 +19,19 @@
       NodeList rlsNtsElmntLst=fstElmnt.getElementsByTagName("release-notes");
       Element rlsNtsElmnt=(Element)rlsNtsElmntLst.item(0);
       NodeList rlsNts=rlsNtsElmnt.getChildNodes();
-      releaseNotes=((Node)rlsNts.item(0)).getNodeValue().toString();
-      NodeList coreDownloadNtsElmntLst=fstElmnt.getElementsByTagName("core-download-link");
+      releaseNotesCore=((Node)rlsNts.item(0)).getNodeValue().toString();
+      NodeList rlsNtsElmntLstPro=fstElmnt.getElementsByTagName("release-notes-pro");
+      Element rlsNtsElmntPro=(Element)rlsNtsElmntLstPro.item(0);
+      NodeList rlsNtsPro=rlsNtsElmntPro.getChildNodes();
+      releaseNotesPro=((Node)rlsNtsPro.item(0)).getNodeValue().toString();
+      NodeList coreDownloadNtsElmntLst=fstElmnt.getElementsByTagName("download-link-core");
       Element coreDownloadNtsElmnt=(Element)coreDownloadNtsElmntLst.item(0);
       NodeList coreDownloadNts=coreDownloadNtsElmnt.getChildNodes();
-      coreDownloadLink=((Node)coreDownloadNts.item(0)).getNodeValue().toString();
-      NodeList proDownloadNtsElmntElmntLst=fstElmnt.getElementsByTagName("pro-download-link");
+      downloadLinkCore=((Node)coreDownloadNts.item(0)).getNodeValue().toString();
+      NodeList proDownloadNtsElmntElmntLst=fstElmnt.getElementsByTagName("download-link-pro");
       Element proDownloadNtsElmnt=(Element)proDownloadNtsElmntElmntLst.item(0);
       NodeList proDownloadNts=proDownloadNtsElmnt.getChildNodes();
-      proDownloadLink=((Node)proDownloadNts.item(0)).getNodeValue().toString();
+      downloadLinkPro=((Node)proDownloadNts.item(0)).getNodeValue().toString();
     }
   }
  catch (  Exception e) {

@@ -2,16 +2,7 @@
   JPanel versionUpdatePanel=new JPanel(new BorderLayout());
   JDialog dialog=new JDialog();
   versionUpdatePanel.add(UISupport.buildDescription("New Version of soapUI is Available","",null),BorderLayout.NORTH);
-  JEditorPane text=new JEditorPane();
-  try {
-    text.setPage(getReleaseNotes());
-    text.setEditable(false);
-    text.setBorder(BorderFactory.createLineBorder(Color.black));
-  }
- catch (  IOException e) {
-    text.setText(NO_RELEASE_NOTES_INFO);
-    SoapUI.logError(e);
-  }
+  JEditorPane text=createReleaseNotesPane();
   JScrollPane scb=new JScrollPane(text);
   versionUpdatePanel.add(scb,BorderLayout.CENTER);
   JXToolBar toolbar=buildToolbar(dialog);

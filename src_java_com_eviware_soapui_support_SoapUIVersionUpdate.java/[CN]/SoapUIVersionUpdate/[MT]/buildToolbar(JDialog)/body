@@ -1,9 +1,9 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.add(new IgnoreUpdateAction(dialog));
+  toolbar.add(new RemindLaterAction(dialog));
   toolbar.addGlue();
   toolbar.addSeparator();
-  toolbar.add(new RemindLaterAction(dialog));
-  toolbar.add(new OpenDownloadUrlAction("Download latest version",getCoreDownloadLink(),dialog));
+  toolbar.add(new OpenDownloadUrlAction("Download latest version",getDownloadLinkCore(),dialog));
   return toolbar;
 }

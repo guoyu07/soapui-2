@@ -1,0 +1,13 @@
+{
+  JEditorPane text=new JEditorPane();
+  try {
+    text.setPage(getReleaseNotesCore());
+    text.setEditable(false);
+    text.setBorder(BorderFactory.createLineBorder(Color.black));
+  }
+ catch (  IOException e) {
+    text.setText(NO_RELEASE_NOTES_INFO);
+    SoapUI.logError(e);
+  }
+  return text;
+}
