@@ -1,0 +1,7 @@
+{
+  if (UISupport.confirm("Delete selected Assertions?","Delete Assertions")) {
+    for (    ModelItem target : targets) {
+      ((Assertable)target).removeAssertion((TestAssertion)target);
+    }
+  }
+}
