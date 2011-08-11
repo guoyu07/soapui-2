@@ -3,6 +3,7 @@
     Clipboard clipboard=getToolkit().getSystemClipboard();
     try {
       String selection=((String)clipboard.getContents(this).getTransferData(DataFlavor.stringFlavor)).replace('\r','\n');
+      selection=selection.replace("\n\n","\n");
       int repeatCount=inputHandler.getRepeatCount();
       StringBuffer buf=new StringBuffer();
       for (int i=0; i < repeatCount; i++)       buf.append(selection);
