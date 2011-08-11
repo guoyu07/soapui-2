@@ -1,0 +1,16 @@
+{
+  List<String> contents=new ArrayList<String>();
+  try {
+    ZipFile zipFile=new ZipFile(archive);
+    for (Enumeration<? extends ZipEntry> em1=zipFile.entries(); em1.hasMoreElements(); ) {
+      contents.add(em1.nextElement().toString());
+    }
+  }
+ catch (  ZipException ze) {
+    SoapUI.logError(ze);
+  }
+catch (  IOException e) {
+    SoapUI.logError(e);
+  }
+  return contents;
+}

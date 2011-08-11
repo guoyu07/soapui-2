@@ -7,7 +7,8 @@
     File dest=UISupport.getFileDialogs().saveAsDirectory(this,"Select where to unpack it",new File(System.getProperty("user.home")));
     if (dest.getAbsoluteFile() == null)     return;
     ProjectExporter.unpackageAll(fileName,dest.getAbsolutePath());
-    for (    String fName : dest.list())     if (fName.endsWith("-soapui-project.xml")) {
+    List<String> contents=ProjectExporter.getZipContents(fileName);
+    for (    String fName : dest.list())     if (contents.contains(fName) && fName.endsWith("-soapui-project.xml")) {
       new ImportWsdlProjectAction().perform(workspace,new File(dest,fName).getAbsoluteFile());
       break;
     }
