@@ -3,7 +3,9 @@
   HttpClientSupport.getHttpClient().getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,true);
   getMethod.getParams().setParameter(ClientContext.CREDS_PROVIDER,new WsdlCredentialsProvider());
   if (SoapUI.getSettings().getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
-    UsernamePasswordCredentials creds=new UsernamePasswordCredentials(getUsername(),getPassword());
-    getMethod.addHeader(BasicScheme.authenticate(creds,"utf-8",false));
+    if (!StringUtils.isNullOrEmpty(getUsername()) && !StringUtils.isNullOrEmpty(getPassword())) {
+      UsernamePasswordCredentials creds=new UsernamePasswordCredentials(getUsername(),getPassword());
+      getMethod.addHeader(BasicScheme.authenticate(creds,"utf-8",false));
+    }
   }
 }

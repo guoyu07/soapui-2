@@ -86,12 +86,19 @@ SoapUI.logError(e);
 }
 }
  else if (StringUtils.hasContent(path)) {
+java.net.URI oldUri=httpMethod.getURI();
 try {
-URI uri=new URI(path,false);
+URI uri=new URI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),path,oldUri.getQuery(),oldUri.getFragment()).toString(),false);
 httpMethod.setURI(new java.net.URI(uri.toString()));
 }
  catch (Exception e) {
 SoapUI.logError(e);
+try {
+httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),path,oldUri.getQuery(),oldUri.getFragment()));
+}
+ catch (URISyntaxException e1) {
+SoapUI.logError(e1);
+}
 }
 }
 if (query.length() > 0 && !request.isPostQueryString()) {

@@ -63,8 +63,6 @@
     }
     if (uri != null && uri.isAbsolute()) {
       hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
-      httpMethod.setURI(uri);
-      submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(uri.toString(),false));
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpResponse=HttpClientSupport.execute(hostConfiguration,httpMethod,httpContext);
