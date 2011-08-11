@@ -15,8 +15,16 @@
         assertionListPopup.add(new ShowOnlineHelpAction(getHelpUrl()));
         return;
       }
-      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
-      ActionSupport.addActions(ActionListBuilder.buildActions(assertion),assertionListPopup);
+      int[] indices=assertionList.getSelectedIndices();
+      if (indices.length == 1) {
+        TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+        ActionSupport.addActions(ActionListBuilder.buildActions(assertion),assertionListPopup);
+      }
+ else {
+        TestAssertion[] testAssertion=new TestAssertion[indices.length];
+        for (int c=0; c < indices.length; c++)         testAssertion[c]=assertionListModel.getAssertionAt(indices[c]);
+        ActionSupport.addActions(ActionListBuilder.buildMultiActions(testAssertion),assertionListPopup);
+      }
     }
     public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
     }
@@ -51,15 +59,23 @@
     public void keyPressed(    KeyEvent e){
       int ix=assertionList.getSelectedIndex();
       if (ix == -1)       return;
-      TestAssertion assertion=assertionListModel.getAssertionAt(ix);
-      if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-        if (assertion.isConfigurable())         assertion.configure();
+      int[] indices=assertionList.getSelectedIndices();
+      if (indices.length == 1) {
+        TestAssertion assertion=assertionListModel.getAssertionAt(ix);
+        if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+          if (assertion.isConfigurable())           assertion.configure();
+        }
+ else {
+          ActionList actions=ActionListBuilder.buildActions(assertion);
+          if (actions != null) {
+            actions.dispatchKeyEvent(e);
+          }
+        }
       }
  else {
-        ActionList actions=ActionListBuilder.buildActions(assertion);
-        if (actions != null) {
-          actions.dispatchKeyEvent(e);
-        }
+        TestAssertion[] testAssertion=new TestAssertion[indices.length];
+        for (int c=0; c < indices.length; c++)         testAssertion[c]=assertionListModel.getAssertionAt(indices[c]);
+        ActionSupport.addActions(ActionListBuilder.buildMultiActions(testAssertion),assertionListPopup);
       }
     }
   }
