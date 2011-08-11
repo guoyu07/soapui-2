@@ -8,10 +8,6 @@
     Node fstNode=nodeLst.item(0);
     if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
       Element fstElmnt=(Element)fstNode;
-      NodeList vrsnTypeElmntLst=fstElmnt.getElementsByTagName("version-type");
-      Element vrsnTypeElmnt=(Element)vrsnTypeElmntLst.item(0);
-      NodeList vrsnType=vrsnTypeElmnt.getChildNodes();
-      versionType=((Node)vrsnType.item(0)).getNodeValue().toString();
       NodeList vrsnNmbrElmntLst=fstElmnt.getElementsByTagName("version-number");
       Element vrsnNmbrElmnt=(Element)vrsnNmbrElmntLst.item(0);
       NodeList vrsnNmbr=vrsnNmbrElmnt.getChildNodes();

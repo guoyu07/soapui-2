@@ -1,9 +1,12 @@
 {
-  JXToolBar toolbar=UISupport.createToolbar();
-  toolbar.add(new IgnoreUpdateAction(dialog));
-  toolbar.add(new RemindLaterAction(dialog));
-  toolbar.addGlue();
-  toolbar.addSeparator();
-  toolbar.add(new OpenDownloadUrlAction("Download latest version",getDownloadLinkCore(),dialog));
-  return toolbar;
+  JPanel toolbarPanel=new JPanel(new BorderLayout());
+  JPanel leftBtns=new JPanel();
+  leftBtns.add(new JButton((new IgnoreUpdateAction(dialog))));
+  leftBtns.add(new JButton(new RemindLaterAction(dialog)));
+  JButton createToolbarButton=new JButton(new OpenDownloadUrlAction("Download latest version",getDownloadLinkCore(),dialog));
+  JPanel rightBtn=new JPanel();
+  rightBtn.add(createToolbarButton);
+  toolbarPanel.add(leftBtns,BorderLayout.WEST);
+  toolbarPanel.add(rightBtn,BorderLayout.EAST);
+  return toolbarPanel;
 }

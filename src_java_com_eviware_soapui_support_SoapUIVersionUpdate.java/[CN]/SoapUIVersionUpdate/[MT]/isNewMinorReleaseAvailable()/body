@@ -1,8 +1,0 @@
-{
-  String soapuiVersion=SoapUI.SOAPUI_VERSION;
-  int snapshot=soapuiVersion.indexOf("SNAPSHOT");
-  if (snapshot > 0) {
-    soapuiVersion=soapuiVersion.substring(0,snapshot - 1);
-  }
-  return !StringUtils.isNullOrEmpty(versionType) && versionType.equals(MINOR_VERSION) && soapuiVersion.compareTo(getLatestVersion()) <= 0;
-}

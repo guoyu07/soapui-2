@@ -8,7 +8,6 @@
     }
     return;
   }
-  if (isNewMajorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMajorVersionDownloadDialog();
- else   if (isNewMinorReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewMinorVersionDownloadDialog();
+  if (isNewReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewVersionDownloadDialog();
  else   if (helpAction)   UISupport.showInfoMessage("Currently no new version available","No New Version");
 }
