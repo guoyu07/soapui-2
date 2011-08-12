@@ -23,11 +23,8 @@
               proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
             }
           }
-          httpContext.setAttribute(ExecutionContext.HTTP_PROXY_HOST,proxy);
-          AuthState authState=new AuthState();
-          authState.setAuthScope(new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT));
-          authState.setCredentials(proxyCreds);
-          httpContext.setAttribute(ClientContext.PROXY_AUTH_STATE,authState);
+          HttpClientSupport.getHttpClient().getCredentialsProvider().setCredentials(new AuthScope(proxy.getHostName(),proxy.getPort()),proxyCreds);
+          HttpClientSupport.getHttpClient().getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
         }
       }
     }
