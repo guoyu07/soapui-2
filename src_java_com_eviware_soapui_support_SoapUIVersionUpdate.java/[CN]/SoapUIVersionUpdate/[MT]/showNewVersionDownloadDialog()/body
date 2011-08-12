@@ -2,15 +2,15 @@
   JPanel versionUpdatePanel=new JPanel(new BorderLayout());
   JDialog dialog=new JDialog();
   versionUpdatePanel.add(UISupport.buildDescription("New Version of soapUI is Available","",null),BorderLayout.NORTH);
-  JEditorPane text=createReleaseNotesPane();
-  JScrollPane scb=new JScrollPane(text);
+  URLDesktopPanel urlPanel=createReleaseNotesPanel();
+  JScrollPane scb=new JScrollPane(urlPanel.getComponent());
   versionUpdatePanel.add(scb,BorderLayout.CENTER);
   JPanel toolbar=buildToolbar(dialog);
   versionUpdatePanel.add(toolbar,BorderLayout.SOUTH);
   dialog.setTitle("New Version Update");
   dialog.setModal(true);
   dialog.getContentPane().add(versionUpdatePanel);
-  dialog.setSize(new Dimension(500,400));
+  dialog.setSize(new Dimension(500,640));
   UISupport.centerDialog(dialog,SoapUI.getFrame());
   dialog.setVisible(true);
 }
