@@ -3,8 +3,8 @@
   boolean enabled=proxyEnabled;
   String proxyHost=System.getProperty("http.proxyHost");
   String proxyPort=System.getProperty("http.proxyPort");
-  if (proxyHost == null && enabled)   proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
-  if (proxyPort == null && proxyHost != null && enabled)   proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
+  if (proxyHost == null)   proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
+  if (proxyPort == null && proxyHost != null)   proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
   if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
     String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
     try {
@@ -23,8 +23,14 @@
               proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
             }
           }
-          HttpClientSupport.getHttpClient().getCredentialsProvider().setCredentials(new AuthScope(proxy.getHostName(),proxy.getPort()),proxyCreds);
-          HttpClientSupport.getHttpClient().getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+          if (enabled) {
+            HttpClientSupport.getHttpClient().getCredentialsProvider().setCredentials(new AuthScope(proxy.getHostName(),proxy.getPort()),proxyCreds);
+            HttpClientSupport.getHttpClient().getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+          }
+ else {
+            HttpClientSupport.getHttpClient().getCredentialsProvider().setCredentials(new AuthScope(proxy.getHostName(),proxy.getPort()),null);
+            HttpClientSupport.getHttpClient().getParams().removeParameter(ConnRoutePNames.DEFAULT_PROXY);
+          }
         }
       }
     }
