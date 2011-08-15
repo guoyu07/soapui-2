@@ -2,8 +2,15 @@
   sendToContext(context,testStep,securityTestRunner);
   PropertyMutation mutation=PropertyMutation.popMutation(context);
   if (mutation != null) {
-    WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
-    message.setRequestContent("",false);
-    createMessageExchange(mutation.getMutatedParameters(),message,context);
+    if (testStep instanceof RestTestRequestStep) {
+      RestRequestStepResult message=(RestRequestStepResult)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+      message.setRequestContent("");
+      createMessageExchange(mutation.getMutatedParameters(),message,context);
+    }
+ else {
+      WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+      message.setRequestContent("",false);
+      createMessageExchange(mutation.getMutatedParameters(),message,context);
+    }
   }
 }
