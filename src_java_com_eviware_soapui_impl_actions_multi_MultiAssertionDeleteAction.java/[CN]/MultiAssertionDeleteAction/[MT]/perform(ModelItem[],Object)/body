@@ -1,7 +1,11 @@
 {
   if (UISupport.confirm("Delete selected Assertions?","Delete Assertions")) {
+    Set<TestAssertion> assertions=new HashSet<TestAssertion>();
     for (    ModelItem target : targets) {
-      ((Assertable)target.getParent()).removeAssertion((TestAssertion)target);
+      assertions.add((TestAssertion)target);
+    }
+    for (    TestAssertion assertion : assertions) {
+      ((Assertable)assertion.getParent()).removeAssertion(assertion);
     }
   }
 }
