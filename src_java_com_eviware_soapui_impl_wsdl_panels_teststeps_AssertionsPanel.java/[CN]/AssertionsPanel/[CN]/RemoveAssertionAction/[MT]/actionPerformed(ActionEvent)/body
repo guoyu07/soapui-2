@@ -2,6 +2,10 @@
   List<TestAssertion> removeAssertionList=new ArrayList<TestAssertion>();
   int indices[]=assertionList.getSelectedIndices();
   if (indices.length == 0)   return;
+  if (SoapUI.getTestMonitor().hasRunningTestCase((TestCase)assertionListModel.getAssertionAt(indices[0]).getParent().getParent())) {
+    UISupport.showInfoMessage("Can not remove assertion(s) while test case is running");
+    return;
+  }
   for (  int i : indices) {
     removeAssertionList.add(assertionListModel.getAssertionAt(i));
   }
