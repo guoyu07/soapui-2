@@ -27,8 +27,9 @@
       String absoluteOutputFolder=getAbsoluteOutputFolder(ModelSupport.getModelItemProject(tc));
       String fileName=absoluteOutputFolder + File.separator + nameBase+ ".txt";
       if (result.getStatus() == SecurityResult.ResultStatus.FAILED)       log.error(currentStep.getName() + " failed, exporting to [" + fileName+ "]");
-      new File(fileName).getParentFile().mkdirs();
-      PrintWriter writer=new PrintWriter(fileName);
+      File file=new File(fileName);
+      file.getParentFile().mkdirs();
+      PrintWriter writer=new PrintWriter(file);
       result.writeTo(writer);
       writer.close();
       if (result instanceof MessageExchange) {
