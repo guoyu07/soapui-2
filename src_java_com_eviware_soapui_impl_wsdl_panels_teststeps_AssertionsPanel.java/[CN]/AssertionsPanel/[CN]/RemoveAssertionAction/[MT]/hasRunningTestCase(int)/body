@@ -1,0 +1,11 @@
+{
+  if (assertionListModel.getAssertionAt(assertionIndex).getParent().getParent() instanceof TestCase)   if (SoapUI.getTestMonitor().hasRunningTestCase((TestCase)assertionListModel.getAssertionAt(assertionIndex).getParent().getParent())) {
+    UISupport.showInfoMessage("Can not remove assertion(s) while test case is running");
+    return true;
+  }
+  if (assertionListModel.getAssertionAt(assertionIndex).getParent().getParent().getParent() instanceof TestCase)   if (SoapUI.getTestMonitor().hasRunningSecurityTest((TestCase)assertionListModel.getAssertionAt(assertionIndex).getParent().getParent().getParent())) {
+    UISupport.showInfoMessage("Can not remove assertion(s) while test case is running");
+    return true;
+  }
+  return false;
+}
