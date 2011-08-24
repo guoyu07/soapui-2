@@ -1,0 +1,14 @@
+{
+  if (testMockResponse == null) {
+    initTestMockResponse(runContext);
+  }
+ else   if (!mockRunner.isRunning()) {
+    try {
+      mockRunner.start();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  mockRunListener.setWaiting(true);
+}

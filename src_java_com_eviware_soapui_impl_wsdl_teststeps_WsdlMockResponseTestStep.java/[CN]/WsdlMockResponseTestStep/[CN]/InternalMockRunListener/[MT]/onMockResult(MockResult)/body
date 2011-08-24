@@ -1,9 +1,11 @@
 {
+  System.out.println("in onMockResult for [" + getName() + "] for result "+ result.hashCode());
   if (this.lastResult == null && waiting && result.getMockResponse() == testMockResponse) {
     waiting=false;
     System.out.println("Got mockrequest to [" + getName() + "]");
     this.lastResult=(WsdlMockResult)result;
     notifyPropertyChanged("lastResult",null,lastResult);
+    mockRunner.stop();
 synchronized (this) {
       notifyAll();
     }
