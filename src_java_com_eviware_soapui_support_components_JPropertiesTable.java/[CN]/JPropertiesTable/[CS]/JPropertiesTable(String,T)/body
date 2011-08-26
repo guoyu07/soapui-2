@@ -9,7 +9,8 @@
   table.getColumnModel().getColumn(1).setCellRenderer(new PropertiesTableCellRenderer());
   add(new JScrollPane(table),BorderLayout.CENTER);
   titledBorder=BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),title);
-  titledBorder.setTitleFont(titledBorder.getTitleFont().deriveFont(Font.PLAIN,11));
+  Font defaultUIFont=getUIDefaultFont();
+  if (defaultUIFont != null)   titledBorder.setTitleFont(getUIDefaultFont().deriveFont(Font.PLAIN,11));
   if (title != null)   setBorder(titledBorder);
   table.setBackground(Color.WHITE);
   setPreferredSize(table.getPreferredSize());

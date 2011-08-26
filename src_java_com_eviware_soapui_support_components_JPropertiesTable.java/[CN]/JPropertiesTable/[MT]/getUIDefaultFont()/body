@@ -1,0 +1,9 @@
+{
+  UIDefaults uidefs=UIManager.getLookAndFeelDefaults();
+  for (  Object key : uidefs.keySet()) {
+    if (uidefs.get(key) instanceof Font) {
+      return uidefs.getFont(key);
+    }
+  }
+  return null;
+}
