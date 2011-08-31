@@ -12,7 +12,7 @@
     setSystemProperties(cmd.getOptionValues("D"));
   }
   if (cmd.hasOption("G")) {
-    runnerGlobalProperties=cmd.getOptionValues("G");
+    setGlobalProperties(cmd.getOptionValues("G"));
   }
   if (cmd.hasOption("f"))   setOutputFolder(cmd.getOptionValue("f"));
   return true;

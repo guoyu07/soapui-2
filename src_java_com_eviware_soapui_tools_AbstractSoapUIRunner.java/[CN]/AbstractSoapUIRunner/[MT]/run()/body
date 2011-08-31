@@ -3,7 +3,9 @@
     SoapUI.setSoapUICore(createSoapUICore(),true);
     SoapUI.initGCTimer();
   }
-  setGlobalProperties(getRunnerGlobalProperties());
+  for (  String name : runnerGlobalProperties.keySet()) {
+    PropertyExpansionUtils.getGlobalProperties().setPropertyValue(name,runnerGlobalProperties.get(name));
+  }
   SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
     return runRunner();
