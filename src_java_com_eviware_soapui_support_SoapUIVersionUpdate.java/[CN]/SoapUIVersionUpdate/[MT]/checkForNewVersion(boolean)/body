@@ -3,9 +3,7 @@
     getLatestVersionAvailable(new URL(LATEST_VERSION_XML_LOCATION));
   }
  catch (  Exception e) {
-    if (helpAction) {
-      UISupport.showInfoMessage("Currently no new version available","No New Version");
-    }
+    UISupport.showErrorMessage("Could not check for new version due network problem!");
     return;
   }
   if (isNewReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewVersionDownloadDialog();
