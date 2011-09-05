@@ -9,7 +9,7 @@
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpander.expandProperties(context,param.getValue());
     responseProperties.put(param.getName(),value);
-    List<String> valueParts=sendEmptyParameters(request) ? RestUtils.splitMultipleParametersEmptyIncluded(value,request.getMultiValueDelimiter()) : RestUtils.splitMultipleParameters(value,request.getMultiValueDelimiter());
+    List<String> valueParts=sendEmptyParameters(request) || (!StringUtils.hasContent(value) && param.getRequired()) ? RestUtils.splitMultipleParametersEmptyIncluded(value,request.getMultiValueDelimiter()) : RestUtils.splitMultipleParameters(value,request.getMultiValueDelimiter());
     if (value != null && param.getStyle() != ParameterStyle.HEADER && param.getStyle() != ParameterStyle.TEMPLATE && !param.isDisableUrlEncoding()) {
       try {
         String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
