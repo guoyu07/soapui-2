@@ -1,0 +1,8 @@
+{
+  super(config,environment,icon);
+  this.environment=environment;
+  this.setEndpoint(buildEndpoint(config.getEndpoint()));
+  for (  ServiceListener listener : SoapUI.getListenerRegistry().getListeners(ServiceListener.class)) {
+    addServiceListener(listener);
+  }
+}

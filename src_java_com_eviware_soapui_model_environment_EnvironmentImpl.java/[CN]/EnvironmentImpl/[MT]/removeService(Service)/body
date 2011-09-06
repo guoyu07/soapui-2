@@ -1,0 +1,11 @@
+{
+  int ix=services.indexOf(service);
+  services.remove(ix);
+  try {
+    fireServiceRemoved(service);
+  }
+  finally {
+    service.release();
+    getConfig().removeService(ix);
+  }
+}
