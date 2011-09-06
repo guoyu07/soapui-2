@@ -2,11 +2,13 @@
   ServiceImpl service=buildService(getConfig().addNewService());
   service.setEnvironment(this);
   service.setName(name);
-  String[] endpoints=project.getInterfaceByName(name).getEndpoints();
-  if (endpoints != null && endpoints.length > 0) {
-    EndpointImpl newEndpoint=new EndpointImpl(service.getConfig().addNewEndpoint(),service);
-    newEndpoint.getConfig().setStringValue(endpoints[0]);
-    service.setEndpoint(newEndpoint);
+  if (project != null) {
+    String[] endpoints=project.getInterfaceByName(name).getEndpoints();
+    if (endpoints != null && endpoints.length > 0) {
+      EndpointImpl newEndpoint=new EndpointImpl(service.getConfig().addNewEndpoint(),service);
+      newEndpoint.getConfig().setStringValue(endpoints[0]);
+      service.setEndpoint(newEndpoint);
+    }
   }
   services.add(service);
   fireServiceAdded(service);
