@@ -1,5 +1,7 @@
 {
   parametersTable=new SecurityCheckedParametersTablePanel(new SecurityParametersTableModel(((AbstractSecurityScanWithProperties)securityCheck).getParameterHolder()),securityCheck.getTestStep().getProperties(),(AbstractSecurityScanWithProperties)securityCheck);
   parametersTable.setPreferredSize(new Dimension(400,150));
+  parametersTable.setMinimumSize(new Dimension(400,150));
+  parametersTable.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
   return parametersTable;
 }

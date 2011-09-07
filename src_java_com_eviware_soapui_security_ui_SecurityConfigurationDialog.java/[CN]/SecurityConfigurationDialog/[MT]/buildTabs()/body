@@ -5,5 +5,7 @@
   tabs.addTab("Strategy",buildStrategyTab());
   JComponent advancedSettingsPanel=securityCheck.getAdvancedSettingsPanel();
   if (advancedSettingsPanel != null)   tabs.addTab("Advanced",new JScrollPane(advancedSettingsPanel));
+  tabs.setMaximumSize(new Dimension(Integer.MAX_VALUE,Integer.MAX_VALUE));
+  tabs.setPreferredSize(new Dimension(400,150));
   return tabs;
 }

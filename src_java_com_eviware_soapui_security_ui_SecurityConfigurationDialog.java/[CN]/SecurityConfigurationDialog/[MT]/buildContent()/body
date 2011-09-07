@@ -1,6 +1,8 @@
 {
-  JPanel mainPanel=UISupport.createEmptyPanel(5,5,5,5);
+  JPanel mainPanel=new JPanel();
   if (securityCheck instanceof AbstractSecurityScanWithProperties) {
+    mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
+    mainPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     JPanel topPanel=UISupport.createEmptyPanel(0,0,10,0);
     topPanel.add(buildParametersTable(),BorderLayout.CENTER);
     JPanel p=UISupport.createEmptyPanel(5,0,5,0);
@@ -10,9 +12,11 @@
     topPanel.add(p,BorderLayout.NORTH);
     JComponent component=securityCheck.getComponent();
     if (component != null)     topPanel.add(component,BorderLayout.SOUTH);
-    mainPanel.add(topPanel,BorderLayout.NORTH);
+    mainPanel.add(topPanel);
   }
  else {
+    mainPanel.setLayout(new BorderLayout());
+    mainPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     JComponent component=securityCheck.getComponent();
     if (component != null) {
       JPanel topPanel=UISupport.createEmptyPanel(0,0,10,10);
