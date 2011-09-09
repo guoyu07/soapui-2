@@ -11,7 +11,7 @@
   if (StringUtils.isNullOrEmpty(wssPasswordType)) {
     initRequestCredentials(context,username,settings,password,domain);
     if (!SoapUI.isJXBrowserDisabled()) {
-      initBrowserCredentials(username,password);
+      BrowserCredentials.initBrowserCredentials(username,password);
     }
   }
 }
