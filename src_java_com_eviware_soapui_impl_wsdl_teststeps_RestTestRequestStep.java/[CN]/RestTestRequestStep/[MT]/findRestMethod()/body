@@ -22,6 +22,7 @@
       while (mn == null) {
         mn=UISupport.prompt("Select method in REST Resource [" + restResource.getName() + "]","Missing REST Method",ModelSupport.getNames(restResource.getRestMethodList()));
       }
+      restRequestStepConfig.setMethodName(mn);
       return restResource.getRestMethodByName(mn);
     }
   }
