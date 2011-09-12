@@ -1,0 +1,9 @@
+{
+  try {
+    return (List<String>)CajoClient.getInstance().invoke(methodName,args);
+  }
+ catch (  Exception e) {
+    SoapUI.log.error("Error while invoking cajo server in loadui ",e);
+    return Collections.emptyList();
+  }
+}
