@@ -30,7 +30,7 @@
       value=value.replaceAll("\\+","%20");
       for (int i=0; i < valueParts.size(); i++)       valueParts.set(i,valueParts.get(i).replaceAll("\\+","%20"));
     }
-    if (!sendEmptyParameters(request)) {
+    if (param.getStyle() == ParameterStyle.QUERY && !sendEmptyParameters(request)) {
       if (!StringUtils.hasContent(value) && !param.getRequired())       continue;
     }
 switch (param.getStyle()) {
