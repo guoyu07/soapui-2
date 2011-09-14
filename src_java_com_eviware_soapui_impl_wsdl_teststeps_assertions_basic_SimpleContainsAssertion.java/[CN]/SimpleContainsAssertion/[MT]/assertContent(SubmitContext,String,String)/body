@@ -1,6 +1,8 @@
 {
   if (token == null)   token="";
   String replToken=PropertyExpander.expandProperties(context,token);
+  replToken=normalize(replToken);
+  content=normalize(content);
   if (replToken.length() > 0) {
     int ix=-1;
     if (useRegEx) {
