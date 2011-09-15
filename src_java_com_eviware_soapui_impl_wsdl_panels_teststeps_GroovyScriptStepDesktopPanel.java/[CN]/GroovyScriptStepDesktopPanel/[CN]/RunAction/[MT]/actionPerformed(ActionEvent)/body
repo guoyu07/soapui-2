@@ -9,7 +9,7 @@
       if (er != null) {
         String message=er.getMessage();
         editor.selectError(message);
-        UISupport.showErrorMessage(er.toString());
+        UISupport.showErrorMessage(StringUtils.join(result.getMessages(),"\n"));
         editor.requestFocus();
       }
  else       if (result.getMessages().length > 0) {

@@ -20,9 +20,11 @@
  else     result.setStatus(TestStepStatus.OK);
   }
  catch (  Throwable e) {
+    String errorLineNumber=GroovyUtils.extractErrorLineNumber(e);
     SoapUI.logError(e);
     result.stopTimer();
-    result.addMessage(e.getMessage());
+    result.addMessage(e.toString());
+    result.addMessage("error at line: " + errorLineNumber);
     result.setError(e);
     result.setStatus(TestStepStatus.FAILED);
   }

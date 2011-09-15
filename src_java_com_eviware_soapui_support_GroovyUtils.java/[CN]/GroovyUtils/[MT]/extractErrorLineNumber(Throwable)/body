@@ -1,0 +1,17 @@
+{
+  try {
+    Writer wresult=new StringWriter();
+    PrintWriter printWriter=new PrintWriter(wresult);
+    t.printStackTrace(printWriter);
+    String stackTrace=wresult.toString();
+    Pattern p=Pattern.compile("at Script\\d+\\.run\\(Script\\d+\\.groovy:(\\d+)\\)");
+    Matcher m=p.matcher(stackTrace);
+    m.find();
+    String b=m.group(1);
+    return b;
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"cannot get error line number!");
+    return null;
+  }
+}
