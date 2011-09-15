@@ -1,0 +1,5 @@
+{
+  RequestTransport transport=transports.get(protocol);
+  if (transport == null)   throw new MissingTransportException("Missing transport for protocol [" + protocol + "]");
+  return transport;
+}
