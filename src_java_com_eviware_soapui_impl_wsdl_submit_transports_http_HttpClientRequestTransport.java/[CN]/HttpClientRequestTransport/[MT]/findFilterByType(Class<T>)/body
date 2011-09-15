@@ -1,0 +1,9 @@
+{
+  for (int i=0; i < filters.size(); i++) {
+    RequestFilter filter=filters.get(i);
+    if (filter.getClass() == filterType) {
+      return filter;
+    }
+  }
+  return null;
+}

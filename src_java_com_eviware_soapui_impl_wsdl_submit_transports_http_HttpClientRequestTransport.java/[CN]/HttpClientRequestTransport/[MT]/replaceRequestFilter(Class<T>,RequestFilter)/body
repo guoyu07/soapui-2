@@ -1,0 +1,13 @@
+{
+  RequestFilter filter=findFilterByType(filterClass);
+  if (filter != null) {
+    for (int i=0; i < filters.size(); i++) {
+      RequestFilter oldFilter=filters.get(i);
+      if (oldFilter == filter) {
+        filters.remove(i);
+        filters.add(i,newFilter);
+        break;
+      }
+    }
+  }
+}
