@@ -1,3 +1,8 @@
 {
-  return getOperation().getInterface().getProject().getEndpointSupport().getEndpoint((AbstractHttpRequest<AbstractRequestConfig>)this);
+  if (getOperation() != null) {
+    return getOperation().getInterface().getProject().getEndpointSupport().getEndpoint((AbstractHttpRequest<AbstractRequestConfig>)this);
+  }
+ else {
+    return getConfig().getEndpoint();
+  }
 }
