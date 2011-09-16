@@ -59,6 +59,9 @@
     if (getSettings() != null) {
       setProjectRoot(path);
     }
+    if (getConfig() != null && this.environment == null) {
+      setActiveEnvironment(DefaultEnvironment.getInstance());
+    }
     addPropertyChangeListener(this);
   }
 }

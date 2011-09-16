@@ -1,3 +1,7 @@
 {
-  this.environment=environment;
+  if (!environment.equals(this.environment)) {
+    this.environment=environment;
+    getConfig().setActiveEnvironment(environment.getName());
+    fireEnvironmentSwitched(environment);
+  }
 }
