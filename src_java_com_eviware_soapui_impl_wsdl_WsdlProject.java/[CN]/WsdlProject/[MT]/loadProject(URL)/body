@@ -33,6 +33,7 @@
     if (!getConfig().isSetWssContainer())     getConfig().addNewWssContainer();
     wssContainer=new DefaultWssContainer(this,getConfig().getWssContainer());
     endpointStrategy.init(this);
+    setActiveEnvironment(DefaultEnvironment.getInstance());
     if (!getConfig().isSetProperties())     getConfig().addNewProperties();
     if (!getConfig().isSetAbortOnError())     getConfig().setAbortOnError(false);
     if (!getConfig().isSetRunType())     getConfig().setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
