@@ -3,6 +3,7 @@
   this.workspace=workspace;
   this.path=path;
   this.projectPassword=projectPassword;
+  endpointSupport=new EndpointSupport();
   for (  ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
     addProjectListener(listener);
   }

@@ -1,6 +1,3 @@
 {
-  String old=getEndpoint();
-  if (old != null && old.equals(endpoint))   return;
-  getConfig().setEndpoint(endpoint);
-  notifyPropertyChanged(ENDPOINT_PROPERTY,old,endpoint);
+  getOperation().getInterface().getProject().getEndpointSupport().setEndpoint((AbstractHttpRequest<AbstractRequestConfig>)this,endpoint);
 }
