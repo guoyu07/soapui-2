@@ -3,7 +3,7 @@
   if (!rValue) {
     return rValue;
   }
-  if (!rootPath.endsWith("\\"))   rootPath+="\\";
+  if (!rootPath.endsWith(File.separator))   rootPath+=File.separator;
   rValue=absolutePath.equals(Tools.joinRelativeUrl(rootPath,relativePath));
   return rValue;
 }

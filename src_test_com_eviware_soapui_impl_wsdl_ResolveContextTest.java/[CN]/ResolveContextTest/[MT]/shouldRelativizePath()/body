@@ -1,10 +1,10 @@
 {
-  assertTrue(testFilePath("test.txt","c:\\dir\\test.txt","c:\\dir"));
-  assertTrue(testFilePath("dir2\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir"));
-  assertTrue(testFilePath("..\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir\\dir2\\dir3"));
-  assertTrue(testFilePath("dir\\test.txt","c:\\dir\\test.txt","c:\\"));
-  assertTrue(testFilePath("..\\test.txt","c:\\dir\\test.txt","c:\\dir\\anotherDir"));
-  assertTrue(testFilePath("..\\dir2\\test.txt","c:\\dir\\dir2\\test.txt","c:\\dir\\anotherDir"));
+  assertTrue(testFilePath("test.txt","c:" + File.separator + "dir"+ File.separator+ "test.txt","c:" + File.separator + "dir"));
+  assertTrue(testFilePath("dir2" + File.separator + "test.txt","c:" + File.separator + "dir"+ File.separator+ "dir2"+ File.separator+ "test.txt","c:" + File.separator + "dir"));
+  assertTrue(testFilePath(".." + File.separator + "test.txt","c:" + File.separator + "dir"+ File.separator+ "dir2"+ File.separator+ "test.txt","c:" + File.separator + "dir"+ File.separator+ "dir2"+ File.separator+ "dir3"));
+  assertTrue(testFilePath("dir" + File.separator + "test.txt","c:" + File.separator + "dir"+ File.separator+ "test.txt","c:" + File.separator + ""));
+  assertTrue(testFilePath(".." + File.separator + "test.txt","c:" + File.separator + "dir"+ File.separator+ "test.txt","c:" + File.separator + "dir"+ File.separator+ "anotherDir"));
+  assertTrue(testFilePath(".." + File.separator + "dir2"+ File.separator+ "test.txt","c:" + File.separator + "dir"+ File.separator+ "dir2"+ File.separator+ "test.txt","c:" + File.separator + "dir"+ File.separator+ "anotherDir"));
   testUrl("test.txt","http://www.test.com/dir/test.txt","http://www.test.com/dir");
   testUrl("dir2/test.txt","http://www.test.com/dir/dir2/test.txt","http://www.test.com/dir");
   testUrl("../test.txt?test","http://www.test.com/dir/dir2/test.txt?test","http://www.test.com/dir/dir2/dir3");
