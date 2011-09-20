@@ -3,8 +3,10 @@
   if (!StringUtils.isNullOrEmpty(username) && !StringUtils.isNullOrEmpty(password)) {
     if (settings.getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
       UsernamePasswordCredentials creds=new UsernamePasswordCredentials(username,password);
-      httpMethod.addHeader(BasicScheme.authenticate(creds,"utf-8",false));
+      Header header=BasicScheme.authenticate(creds,"utf-8",false);
+      httpMethod.removeHeaders("Authorization");
+      httpMethod.addHeader(header);
     }
-    HttpClientSupport.getHttpClient().setCredentialsProvider(new UPDCredentialsProvider(username,password,domain));
+    ((HttpUriRequest)httpMethod).getParams().setParameter(ClientContext.CREDS_PROVIDER,new UPDCredentialsProvider(username,password,domain));
   }
 }
