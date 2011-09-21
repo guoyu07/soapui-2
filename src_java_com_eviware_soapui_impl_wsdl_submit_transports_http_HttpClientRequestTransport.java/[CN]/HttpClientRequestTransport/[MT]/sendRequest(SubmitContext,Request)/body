@@ -53,16 +53,17 @@
       httpMethod.getParams().setParameter(SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
     }
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
-    URI tempUri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
-    java.net.URI uri=null;
-    try {
-      uri=new java.net.URI(tempUri.toString());
-    }
- catch (    URISyntaxException e) {
-      SoapUI.logError(e);
-    }
-    if (uri != null && uri.isAbsolute()) {
+    URI uri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
+    if (uri != null && uri.isAbsoluteURI()) {
       hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
+      String str=uri.toString();
+      int ix=str.indexOf('/',str.indexOf("//") + 2);
+      if (ix != -1) {
+        uri=new URI(str.substring(ix),true);
+        java.net.URI oldUri=httpMethod.getURI();
+        httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),uri.getPath(),oldUri.getQuery(),oldUri.getFragment()));
+        submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
+      }
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpResponse=HttpClientSupport.execute(hostConfiguration,httpMethod,httpContext);
