@@ -1,5 +1,9 @@
 {
-  if (endpointComponent != null)   endpointComponent.setEnabled(enabled);
+  if (endpointComponent != null) {
+    WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(getModelItem());
+    if (project.isEnvironmentMode())     endpointComponent.setEnabled(false);
+ else     endpointComponent.setEnabled(true);
+  }
   requestEditor.setEditable(enabled);
   if (responseEditor != null)   responseEditor.setEditable(enabled);
   submitButton.setEnabled(enabled && request.hasEndpoint());
