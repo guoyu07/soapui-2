@@ -5,12 +5,25 @@
  else {
     ModelItem modelItem=treeNode.getModelItem();
     if (selectedPropertyHolderTable != null) {
+      if (modelItem instanceof WsdlProject) {
+        WsdlProject project=(WsdlProject)modelItem;
+        project.clearEnvironmentListeners();
+      }
       selectedPropertyHolderTable.release();
       selectedPropertyHolderTable=null;
     }
     if (modelItem instanceof TestPropertyHolder) {
       if (!(modelItem instanceof WsdlProject) || ((WsdlProject)modelItem).isOpen()) {
         selectedPropertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
+        if (modelItem instanceof WsdlProject) {
+          WsdlProject project=(WsdlProject)modelItem;
+          project.addEnvironmentListener(new EnvironmentListener(){
+            public void propertyValueChanged(            Property property){
+              selectedPropertyHolderTable.getPropertiesModel().fireTableDataChanged();
+            }
+          }
+);
+        }
       }
     }
     PanelBuilder<ModelItem> panelBuilder=PanelBuilderRegistry.getPanelBuilder(modelItem);
