@@ -5,9 +5,6 @@
  else {
     ModelItem modelItem=treeNode.getModelItem();
     if (selectedPropertyHolderTable != null) {
-      if (modelItem instanceof WsdlProject) {
-        WsdlProject project=(WsdlProject)modelItem;
-      }
       selectedPropertyHolderTable.release();
       selectedPropertyHolderTable=null;
     }
@@ -16,12 +13,14 @@
         selectedPropertyHolderTable=new PropertyHolderTable((TestPropertyHolder)modelItem);
         if (modelItem instanceof WsdlProject) {
           WsdlProject project=(WsdlProject)modelItem;
-          project.addEnvironmentListener(new EnvironmentListener(){
+          EnvironmentListener environmentListener=new EnvironmentListener(){
             public void propertyValueChanged(            Property property){
               selectedPropertyHolderTable.getPropertiesModel().fireTableDataChanged();
             }
           }
-);
+;
+          project.addEnvironmentListener(environmentListener);
+          selectedPropertyHolderTable.setEnvironmentListener(environmentListener);
         }
       }
     }
