@@ -2,7 +2,7 @@
   Map<String,String> properties=System.getenv();
   Map<String,TestProperty> result=new HashMap<String,TestProperty>();
   for (  Object key : properties.keySet()) {
-    result.put(key.toString(),new EnviromentTestProperty(key));
+    result.put(key.toString(),new SystemEnviromentTestProperty(key));
   }
   return result;
 }
