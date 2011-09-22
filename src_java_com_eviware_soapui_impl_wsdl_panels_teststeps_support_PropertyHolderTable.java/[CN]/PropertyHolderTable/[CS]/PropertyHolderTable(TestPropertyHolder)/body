@@ -11,4 +11,10 @@
   }
   add(scrollPane,BorderLayout.CENTER);
   add(buildToolbar(),BorderLayout.NORTH);
+  projectListener=new ProjectListenerAdapter(){
+    public void environmentSwitched(    Environment environment){
+      getPropertiesModel().fireTableDataChanged();
+    }
+  }
+;
 }

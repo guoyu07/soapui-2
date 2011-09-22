@@ -4,5 +4,7 @@
   if (holder instanceof WsdlProject) {
     WsdlProject project=(WsdlProject)holder;
     project.removeEnvironmentListener(environmentListener);
+    project.removeProjectListener(projectListener);
   }
+  projectListener=null;
 }
