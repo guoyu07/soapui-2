@@ -15,6 +15,8 @@
 );
   for (int c=0; c < table.getColumnCount(); c++)   table.getColumnModel().getColumn(c).setHeaderRenderer(new MetricsPanel.InternalHeaderRenderer(getBackground()));
   table.getColumnModel().getColumn(0).setPreferredWidth(250);
+  InternalRowCellrenderer internalRowCellRendered=new InternalRowCellrenderer();
+  table.getColumnModel().getColumn(tableModel.getPasswordColumnIndex()).setCellRenderer(internalRowCellRendered);
   if (iface instanceof WsdlInterface) {
     JComboBox wssTypeCombo=new JComboBox(new String[]{WsdlRequest.PW_TYPE_NONE,WsdlRequest.PW_TYPE_TEXT,WsdlRequest.PW_TYPE_DIGEST});
     wssTypeCombo.setEditable(true);
@@ -25,10 +27,6 @@
   }
  else {
     table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JComboBox(new String[]{EndpointConfig.Mode.OVERRIDE.toString(),EndpointConfig.Mode.COMPLEMENT.toString(),EndpointConfig.Mode.COPY.toString()})));
-  }
-  InternalRowCellrenderer internalRowCellRendered=new InternalRowCellrenderer();
-  for (int c=0; c < table.getColumnCount(); c++) {
-    table.getColumnModel().getColumn(c).setCellRenderer(internalRowCellRendered);
   }
   setBackground(Color.WHITE);
   table.getTableHeader().setReorderingAllowed(false);
