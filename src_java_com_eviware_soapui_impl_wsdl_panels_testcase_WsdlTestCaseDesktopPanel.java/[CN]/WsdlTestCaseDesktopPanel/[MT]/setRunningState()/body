@@ -1,3 +1,10 @@
 {
   stateDependantComponents.setEnabled(!SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) && !SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()));
+  WsdlProject project=getModelItem().getTestSuite().getProject();
+  if (project.isEnvironmentMode()) {
+    getSetEndpointButton().setEnabled(false);
+  }
+ else {
+    getSetEndpointButton().setEnabled(true);
+  }
 }
