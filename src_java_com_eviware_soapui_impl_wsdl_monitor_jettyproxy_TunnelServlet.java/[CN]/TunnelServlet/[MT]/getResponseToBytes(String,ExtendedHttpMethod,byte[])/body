@@ -2,7 +2,7 @@
   String response=footer;
   Header[] headers=postMethod.getAllHeaders();
   for (  Header header : headers) {
-    response+=header.toString();
+    response+=header.toString().trim() + "\n";
   }
   response+="\n";
   response+=XmlUtils.prettyPrintXml(new String(res));

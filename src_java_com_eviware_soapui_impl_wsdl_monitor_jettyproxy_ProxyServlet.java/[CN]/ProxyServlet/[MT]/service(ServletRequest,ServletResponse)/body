@@ -26,7 +26,6 @@
     String lhdr=hdr.toLowerCase();
     if (dontProxyHeaders.contains(lhdr))     continue;
     if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
-    if ("content-length".equals(lhdr))     contentLength=request.getContentLength();
     Enumeration<?> vals=httpRequest.getHeaders(hdr);
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
@@ -39,17 +38,17 @@
   method.setHeader("Via","SoapUI Monitor");
   if (!xForwardedFor)   method.addHeader("X-Forwarded-For",request.getRemoteAddr());
   if (method instanceof ExtendedPostMethod) {
-    ((ExtendedPostMethod)method).setEntity(new InputStreamEntity(capture,-1));
+    InputStreamEntity entity=new InputStreamEntity(capture,-1);
+    entity.setContentType(request.getContentType());
+    ((ExtendedPostMethod)method).setEntity(entity);
   }
   StringBuffer url=new StringBuffer("http://");
   url.append(httpRequest.getServerName());
   if (httpRequest.getServerPort() != 80)   url.append(":" + httpRequest.getServerPort());
-  java.net.URI tempUri=null;
   if (httpRequest.getServletPath() != null) {
     url.append(httpRequest.getServletPath());
     try {
-      tempUri=new java.net.URI(url.toString());
-      method.setURI(tempUri);
+      method.setURI(new java.net.URI(url.toString()));
     }
  catch (    URISyntaxException e) {
       SoapUI.logError(e);
@@ -57,8 +56,7 @@
     if (httpRequest.getQueryString() != null) {
       url.append("?" + httpRequest.getQueryString());
       try {
-        tempUri=new java.net.URI(url.toString());
-        method.setURI(tempUri);
+        method.setURI(new java.net.URI(url.toString()));
       }
  catch (      URISyntaxException e) {
         SoapUI.logError(e);
@@ -66,8 +64,12 @@
     }
   }
   SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
-  if (tempUri != null) {
-    hostConfiguration.setHttpHost(new HttpHost(tempUri.getHost(),tempUri.getPort(),tempUri.getScheme()));
+  try {
+    URI uri=new URI(url.toString(),true);
+    hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
+  }
+ catch (  URIException e) {
+    SoapUI.logError(e);
   }
   HttpResponse httpResponse=null;
   monitor.fireBeforeProxy(request,response,method,hostConfiguration);
