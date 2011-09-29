@@ -1,10 +1,11 @@
 {
-  stateDependantComponents.setEnabled(!SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) && !SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()));
+  boolean hasRunningTests=SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem());
+  stateDependantComponents.setEnabled(!hasRunningTests);
   WsdlProject project=getModelItem().getTestSuite().getProject();
   if (project.isEnvironmentMode()) {
     getSetEndpointButton().setEnabled(false);
   }
  else {
-    getSetEndpointButton().setEnabled(true);
+    getSetEndpointButton().setEnabled(!hasRunningTests);
   }
 }
