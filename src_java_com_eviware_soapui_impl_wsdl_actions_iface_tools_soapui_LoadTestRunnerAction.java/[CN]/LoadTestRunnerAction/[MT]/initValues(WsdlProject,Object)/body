@@ -24,6 +24,7 @@
  else   if (mainForm != null) {
     mainForm.setOptions(ENDPOINT,new String[]{null});
   }
+  initEnvironment(modelItem);
   StringToStringMap values=super.initValues(modelItem,param);
   updateCombos();
   if (mainForm != null && param instanceof WsdlLoadTest) {
