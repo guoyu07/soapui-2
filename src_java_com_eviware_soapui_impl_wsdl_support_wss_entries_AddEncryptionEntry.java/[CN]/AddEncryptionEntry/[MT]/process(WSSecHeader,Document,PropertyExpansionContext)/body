@@ -1,12 +1,14 @@
 {
   StringWriter writer=null;
   try {
-    WSSecEncrypt wsEncrypt=new WSSecEncrypt();
     WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
     if (wssCrypto == null) {
       throw new Exception("Missing crypto [" + crypto + "] for encryption entry");
     }
     Crypto crypto=wssCrypto.getCrypto();
+    WSSecEncrypt wsEncrypt=new WSSecEncrypt();
+    WSSConfig wssConfig=WSSConfig.getNewInstance();
+    wsEncrypt.setWsConfig(wssConfig);
     wsEncrypt.setUserInfo(context.expand(getUsername()));
     if (getKeyIdentifierType() != 0) {
       wsEncrypt.setKeyIdentifierType(getKeyIdentifierType());
@@ -20,9 +22,6 @@
     }
     if (!getEncKeyTransport().equals(DEFAULT_OPTION)) {
       wsEncrypt.setKeyEnc(getEncKeyTransport());
-    }
-    if (!getEncryptionCanonicalization().equals(DEFAULT_OPTION)) {
-      wsEncrypt.setEncCanonicalization(getEncryptionCanonicalization());
     }
     wsEncrypt.setEncryptSymmKey(isEncryptSymmetricKey());
     if (parts.size() > 0) {

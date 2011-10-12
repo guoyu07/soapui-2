@@ -1,5 +1,16 @@
 {
-  keyStore=crypto == null || crypto.getCrypto() == null ? null : crypto.getCrypto().getKeyStore();
+  try {
+    if (crypto == null || crypto.getCrypto() == null) {
+      keyStore=null;
+    }
+ else {
+      Merlin merlinCrypto=(Merlin)crypto.getCrypto();
+      keyStore=merlinCrypto.getKeyStore();
+    }
+  }
+ catch (  WSSecurityException wssecurityException) {
+    wssecurityException.printStackTrace();
+  }
   if (keyStore != null) {
     if (!aliases.isEmpty()) {
       int sz=aliases.size();

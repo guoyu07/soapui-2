@@ -3,8 +3,6 @@
   try {
     WSSecSAMLToken samlToken=new WSSecSAMLToken();
     Document dom=XmlUtils.parseXml(XmlUtils.stripWhitespaces(context.expand(samlAssertion)));
-    SAMLAssertion assertion=new SAMLAssertion(dom.getDocumentElement());
-    samlToken.build(doc,assertion,secHeader);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
