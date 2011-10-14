@@ -1,3 +1,5 @@
 {
+  Object oldValue=new Object();
   super.setProperty(name,value,getTestCase());
+  if (pcs != null)   pcs.firePropertyChange(name,oldValue,value);
 }
