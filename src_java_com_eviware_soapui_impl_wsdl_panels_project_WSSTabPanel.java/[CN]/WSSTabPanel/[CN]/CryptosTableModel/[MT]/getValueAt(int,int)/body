@@ -2,16 +2,18 @@
   KeyMaterialWssCrypto crypto=(KeyMaterialWssCrypto)cryptos.get(rowIndex);
 switch (columnIndex) {
 case 0:
-    return crypto.getSource();
+    return crypto.getType();
 case 1:
-  return crypto.getStatus();
+  return crypto.getSource();
 case 2:
-return crypto.getPassword();
+return crypto.getStatus();
 case 3:
-return crypto.getDefaultAlias();
+return crypto.getPassword();
 case 4:
-return crypto.getAliasPassword();
+return crypto.getDefaultAlias();
 case 5:
+return crypto.getAliasPassword();
+case 6:
 return StringUtils.hasContent(crypto.getCryptoProvider()) ? crypto.getCryptoProvider() : DEFAULT_OPTION;
 }
 return null;

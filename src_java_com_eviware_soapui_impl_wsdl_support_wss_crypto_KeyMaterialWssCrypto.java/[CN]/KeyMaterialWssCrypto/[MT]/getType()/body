@@ -1,0 +1,8 @@
+{
+  String typeConfig=config.getType();
+  if (typeConfig == null) {
+    typeConfig=CryptoType.KEYSTORE.name();
+  }
+  CryptoType type=CryptoType.valueOf(typeConfig);
+  return type;
+}

@@ -2,10 +2,10 @@
   if (keyStore != null)   return keyStore;
   try {
     UISupport.setHourglassCursor();
-    if (StringUtils.hasContent(getDefaultAlias()) && StringUtils.hasContent(getAliasPassword())) {
-      keyStore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),getDefaultAlias().getBytes(),getPassword().toCharArray(),getAliasPassword().toCharArray());
-    }
- else     keyStore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),StringUtils.hasContent(getPassword()) ? getPassword().toCharArray() : null);
+    ClassLoader loader=Loader.getClassLoader(KeyMaterialWssCrypto.class);
+    InputStream input=Merlin.loadInputStream(loader,sourceProperty.expand());
+    keyStore=KeyStore.getInstance(KeyStore.getDefaultType());
+    keyStore.load(input,getPassword().toCharArray());
     return keyStore;
   }
  catch (  Throwable t) {
