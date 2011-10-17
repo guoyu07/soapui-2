@@ -1,8 +1,11 @@
 {
   if (StringUtils.isNullOrEmpty(samlAssertion))   return;
   try {
-    WSSecSAMLToken samlToken=new WSSecSAMLToken();
-    Document dom=XmlUtils.parseXml(XmlUtils.stripWhitespaces(context.expand(samlAssertion)));
+    Document samlAssertionDOM=XmlUtils.parseXml(XmlUtils.stripWhitespaces(context.expand(samlAssertion)));
+    Element samlAssertionRootElement=samlAssertionDOM.getDocumentElement();
+    AssertionWrapper assertion=new AssertionWrapper(samlAssertionRootElement);
+    WSSecSAMLToken wsSign=new WSSecSAMLToken();
+    wsSign.build(doc,assertion,secHeader);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
