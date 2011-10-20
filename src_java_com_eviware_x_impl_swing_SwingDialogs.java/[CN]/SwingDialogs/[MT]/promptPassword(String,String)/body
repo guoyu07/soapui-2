@@ -1,7 +1,7 @@
 {
   JPasswordField passwordField=new JPasswordField();
-  passwordField.addAncestorListener(new FocusAncestorListener(passwordField));
+  passwordField.addAncestorListener(new RequestFocusListener());
   JLabel qLabel=new JLabel(question);
-  JOptionPane.showConfirmDialog(null,new Object[]{qLabel,passwordField},title,JOptionPane.OK_CANCEL_OPTION);
+  JOptionPane.showConfirmDialog(parent,new Object[]{qLabel,passwordField},title,JOptionPane.OK_CANCEL_OPTION);
   return passwordField.getPassword();
 }

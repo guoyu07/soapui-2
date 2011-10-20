@@ -1,0 +1,11 @@
+{
+  final AncestorListener al=this;
+  SwingUtilities.invokeLater(new Runnable(){
+    @Override public void run(){
+      JComponent component=(JComponent)e.getComponent();
+      component.requestFocusInWindow();
+      component.removeAncestorListener(al);
+    }
+  }
+);
+}
