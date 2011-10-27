@@ -71,21 +71,20 @@
  catch (  URIException e) {
     SoapUI.logError(e);
   }
-  HttpResponse httpResponse=null;
   monitor.fireBeforeProxy(request,response,method,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
-    httpResponse=HttpClientSupport.execute(hostConfiguration,method,httpState);
+    HttpClientSupport.execute(hostConfiguration,method,httpState);
   }
  else {
-    httpResponse=HttpClientSupport.execute(hostConfiguration,method);
+    HttpClientSupport.execute(hostConfiguration,method);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());
   capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method);
   capturedData.setRawRequestData(getRequestToBytes(request.toString(),capture));
-  capturedData.setRawResponseData(getResponseToBytes(response.toString(),httpResponse,capturedData.getRawResponseBody()));
+  capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
   monitor.fireAfterProxy(request,response,method,capturedData);
   if (!response.isCommitted()) {
@@ -97,7 +96,7 @@
     IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
   }
 synchronized (this) {
-    if (checkContentType(httpResponse)) {
+    if (checkContentType(method)) {
       monitor.addMessageExchange(capturedData);
     }
   }

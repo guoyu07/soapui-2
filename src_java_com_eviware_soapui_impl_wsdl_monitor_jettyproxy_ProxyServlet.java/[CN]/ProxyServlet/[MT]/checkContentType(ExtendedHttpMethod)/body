@@ -4,7 +4,7 @@
   for (  String ct : contentTypes) {
     contentTypelist.add(ct.trim().replace("*",""));
   }
-  Header[] headers=httpResponse.getHeaders("Content-Type");
+  Header[] headers=method.getHttpResponse().getHeaders("Content-Type");
   for (  Header header : headers) {
     for (    String contentType : contentTypelist) {
       if (header.getValue().indexOf(contentType) > 0) {

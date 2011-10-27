@@ -1,6 +1,6 @@
 {
   String response=status.trim() + "\r\n";
-  Header[] headers=httpResponse.getAllHeaders();
+  Header[] headers=method.getHttpResponse().getAllHeaders();
   for (  Header header : headers) {
     response+=header.toString().trim() + "\r\n";
   }
