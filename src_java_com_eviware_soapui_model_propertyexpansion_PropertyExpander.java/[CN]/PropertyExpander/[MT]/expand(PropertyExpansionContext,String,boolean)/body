@@ -33,6 +33,9 @@
       if (propertyValue != null) {
         if (!content.equals(propertyValue))         propertyValue=expand(context,propertyValue);
         if (entitize)         propertyValue=XmlUtils.entitize(propertyValue);
+        if (debuggingMode) {
+          debuggingExpandedProperties.put(propertyName,propertyValue);
+        }
         buf.append(propertyValue);
       }
  else {
