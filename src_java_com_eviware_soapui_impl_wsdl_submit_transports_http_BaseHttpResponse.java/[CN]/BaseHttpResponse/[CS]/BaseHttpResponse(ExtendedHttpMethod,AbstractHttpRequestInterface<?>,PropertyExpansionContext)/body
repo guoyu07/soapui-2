@@ -2,7 +2,6 @@
   this.httpMethod=httpMethod;
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
-  method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
   try {
     this.url=httpMethod.getURI().toURL();
