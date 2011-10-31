@@ -1,5 +1,5 @@
 {
-  trustStore=KeyStore.getInstance(KeyStore.getDefaultType());
+  keyStore=KeyStore.getInstance(KeyStore.getDefaultType());
   Settings settings=SoapUI.getSettings();
   String keyStoreUrl=settings.getString(SSLSettings.KEYSTORE,null);
   keyStoreUrl=keyStoreUrl != null ? keyStoreUrl.trim() : "";
@@ -11,7 +11,7 @@
       log.info("Initializing KeyStore");
       FileInputStream instream=new FileInputStream(f);
       try {
-        trustStore.load(instream,pwd);
+        keyStore.load(instream,pwd);
       }
   finally {
         try {
@@ -22,5 +22,5 @@
       }
     }
   }
-  return trustStore;
+  return keyStore;
 }
