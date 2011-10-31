@@ -1,5 +1,6 @@
 {
   HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  HttpContext httpContext=(HttpContext)context.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
   if (!StringUtils.isNullOrEmpty(username) && !StringUtils.isNullOrEmpty(password)) {
     if (settings.getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
       UsernamePasswordCredentials creds=new UsernamePasswordCredentials(username,password);
@@ -7,6 +8,6 @@
       httpMethod.removeHeaders("Authorization");
       httpMethod.addHeader(header);
     }
-    ((HttpUriRequest)httpMethod).getParams().setParameter(ClientContext.CREDS_PROVIDER,new UPDCredentialsProvider(username,password,domain));
+    httpContext.setAttribute(ClientContext.CREDS_PROVIDER,new UPDCredentialsProvider(username,password,domain));
   }
 }
