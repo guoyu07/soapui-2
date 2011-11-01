@@ -1,17 +1,17 @@
 {
-  ArrayList<String> result=new ArrayList<String>();
   if (isUnix) {
     StringBuffer buf=new StringBuffer();
     for (int c=2; c < args.size(); c++) {
       if (c > 2)       buf.append(' ');
       buf.append(escapeUnixArg(args.get(c)));
     }
+    ArrayList<String> result=new ArrayList<String>();
     result.add(args.get(0));
     result.add(args.get(1));
     result.add(buf.toString());
+    return result;
   }
  else {
-    result=new ArrayList<String>(args);
+    return new ArrayList<String>(args);
   }
-  return escapeQuotes(result);
 }
