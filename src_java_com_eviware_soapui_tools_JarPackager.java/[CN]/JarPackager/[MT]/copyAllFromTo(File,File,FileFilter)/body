@@ -4,11 +4,21 @@
     File[] fromFiles=filter == null ? fromDir.listFiles() : fromDir.listFiles(filter);
     for (    File file : fromFiles) {
       File toFile=new File(toDir,file.getName());
-      try {
-        copyFile(file,toFile);
+      if (file.isDirectory()) {
+        if (toFile.exists() || toFile.mkdir()) {
+          copyAllFromTo(file,toFile,filter);
+        }
+ else {
+          log.error("Could not create directory " + toFile.getAbsolutePath());
+        }
       }
- catch (      IOException e) {
-        log.error(e.getMessage(),e);
+ else {
+        try {
+          copyFile(file,toFile);
+        }
+ catch (        IOException e) {
+          log.error(e.getMessage(),e);
+        }
       }
     }
   }

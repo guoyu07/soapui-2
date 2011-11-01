@@ -26,7 +26,10 @@
     stream.close();
     log.info("Adding completed OK");
   }
- catch (  Exception ex) {
+ catch (  FileNotFoundException ex) {
+    log.error(ex.getMessage(),ex);
+  }
+catch (  IOException ex) {
     log.error(ex.getMessage(),ex);
   }
 }
