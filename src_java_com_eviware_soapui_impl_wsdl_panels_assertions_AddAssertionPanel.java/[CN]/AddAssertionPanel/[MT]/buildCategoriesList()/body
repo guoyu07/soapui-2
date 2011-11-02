@@ -1,13 +1,13 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  AssertionCategoriesListModel listModel=new AssertionCategoriesListModel(getCategoriesAssertionsMap().keySet());
+  AssertionCategoriesListModel listModel=new AssertionCategoriesListModel(categoriesAssertionsMap.keySet());
   categoriesList=new JXList(listModel);
   categoriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   categoriesList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
       String category=(String)categoriesList.getSelectedValue();
-      if (category != null && getCategoriesAssertionsMap().containsKey(category)) {
-        assertions=getCategoriesAssertionsMap().get(category);
+      if (category != null && categoriesAssertionsMap.containsKey(category)) {
+        assertions=categoriesAssertionsMap.get(category);
         assertionsListTableModel.setListEntriesSet(assertions);
         assertionsListTableModel.fireTableDataChanged();
       }
