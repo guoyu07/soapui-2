@@ -1,0 +1,19 @@
+{
+  int selectedRow=assertionsTable.getSelectedRow();
+  String selection=(String)assertionsListTableModel.getValueAt(selectedRow,0);
+  if (selection == null)   return false;
+  if (!TestAssertionRegistry.getInstance().canAddMultipleAssertions(selection,assertable)) {
+    UISupport.showErrorMessage("This assertion can only be added once");
+    return false;
+  }
+  TestAssertion assertion=assertable.addAssertion(selection);
+  if (assertion == null) {
+    UISupport.showErrorMessage("Failed to add assertion");
+    return false;
+  }
+  if (assertion.isConfigurable()) {
+    assertion.configure();
+    return true;
+  }
+  return true;
+}

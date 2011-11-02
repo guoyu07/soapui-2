@@ -1,0 +1,10 @@
+{
+  assertionListPanel=new JPanel(new BorderLayout());
+  assertionsListTableModel=new AssertionsListTableModel();
+  assertionsTable=new JXTable(assertionsListTableModel);
+  assertionsTable.setTableHeader(null);
+  assertionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  assertionsTable.getSelectionModel().addListSelectionListener(selectionListener);
+  assertionListPanel.add(new JScrollPane(assertionsTable));
+  return assertionListPanel;
+}

@@ -2,7 +2,7 @@
   for (int c=0; c < assertable.getAssertionCount(); c++) {
     TestAssertion assertion=assertable.getAssertionAt(c);
     if (assertion.isAllowMultiple())     continue;
-    if (assertion.getClass().equals(availableAssertions.get(getAssertionTypeForName(name)))) {
+    if (assertion.getClass().equals(availableAssertions.get(getAssertionTypeForName(name)).getAssertionClassType())) {
       return false;
     }
   }

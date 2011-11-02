@@ -1,0 +1,21 @@
+{
+  LinkedHashMap<String,LinkedHashSet<String>> categoriesAssertionsMap=new LinkedHashMap<String,LinkedHashSet<String>>();
+  LinkedHashSet<String> validatingResponseAssertionsSet=new LinkedHashSet<String>();
+  validatingResponseAssertionsSet.add(XPATH_MATCH);
+  validatingResponseAssertionsSet.add(XQUERY_MATCH);
+  validatingResponseAssertionsSet.add(NOT_CONTAINS);
+  validatingResponseAssertionsSet.add(CONTAINS);
+  categoriesAssertionsMap.put(VALIDATE_RESPONSE_CONTENT_CATEGORY,validatingResponseAssertionsSet);
+  LinkedHashSet<String> statusAssertionsSet=new LinkedHashSet<String>();
+  statusAssertionsSet.clear();
+  statusAssertionsSet.add(INVALID_CODES);
+  statusAssertionsSet.add(WS_SECURITY_STATUS);
+  statusAssertionsSet.add(NOT_SOAP_FAULT);
+  statusAssertionsSet.add(VALID_CODES);
+  statusAssertionsSet.add(SOAP_RESPONSE);
+  statusAssertionsSet.add(WS_ADDRESSING_RESPONSE);
+  statusAssertionsSet.add(SCHEMA_COMPLIANCE);
+  statusAssertionsSet.add(SOAP_FAULT);
+  categoriesAssertionsMap.put(STATUS_CATEGORY,statusAssertionsSet);
+  return categoriesAssertionsMap;
+}

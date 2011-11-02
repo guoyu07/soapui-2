@@ -1,0 +1,11 @@
+{
+  DefaultActionList actions=new DefaultActionList("Actions");
+  if (url != null)   actions.addAction(new HelpAction(url));
+  addAssertionAction=new AddAssertionAction();
+  actions.addAction(addAssertionAction);
+  if (okAndCancel) {
+    actions.addAction(new CancelAction());
+    actions.setDefaultAction(addAssertionAction);
+  }
+  return actions;
+}
