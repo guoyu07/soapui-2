@@ -1,0 +1,9 @@
+{
+  super(crypto,alias,subjectName,subjectQualifier);
+  if (certs == null) {
+    CryptoType cryptoType=new CryptoType(CryptoType.TYPE.ALIAS);
+    cryptoType.setAlias(alias);
+    certs=crypto.getX509Certificates(cryptoType);
+  }
+  confirmationMethod=SAML2Constants.CONF_SENDER_VOUCHES;
+}

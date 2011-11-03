@@ -1,14 +1,24 @@
 {
-  JPanel panel=new JPanel(new BorderLayout());
-  editor=JXEditTextArea.createXmlEditor(true);
-  editor.setText(samlAssertion);
-  editor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    @Override public void update(    javax.swing.text.Document document){
-      samlAssertion=editor.getText();
-      saveConfig();
+  wssContainerListener=new InternalWssContainerListener();
+  getWssContainer().addWssContainerListener(wssContainerListener);
+  SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddSignatureEntry>(this));
+  form.addSpace(5);
+  form.appendComboBox("samlVersion","SAML version",new String[]{DEFAULT_SAML_VERSION},"Choose the SAML version");
+  form.appendComboBox("assertionType","Assertion type",new String[]{DEFAULT_ASSERTION_TYPE},"Choose the type of assertion");
+  form.appendComboBox("signingType","Signing type",new String[]{DEFAULT_SIGNING_TYPE},"Choose the type of signing");
+  form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message").addItemListener(new ItemListener(){
+    public void itemStateChanged(    ItemEvent e){
+      keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));
     }
   }
 );
-  panel.add(new JScrollPane(editor),BorderLayout.CENTER);
-  return UISupport.addTitledBorder(panel,"Enter SAML Assertion");
+  keyAliasComboBoxModel=new KeyAliasComboBoxModel(getWssContainer().getCryptoByName(crypto));
+  form.appendComboBox("username","Alias",keyAliasComboBoxModel,"The alias for the key to use for encryption");
+  form.appendPasswordField("password","Password","The certificate password");
+  form.appendTextField("issuer","Issuer","The issuer");
+  form.appendTextField("subjectName","Subject Name","The subject qualifier");
+  form.appendTextField("subjectQualifier","Subject Qualifier","The subject qualifier");
+  form.appendComboBox("digestAlgorithm","Digest algorithm",new String[]{DEFAULT_DIGEST_ALGORITHM},"Set the digest algorithm");
+  form.appendComboBox("signatureAlgorithm","Signature algorithm",new String[]{DEFAULT_SIGNATURE_ALGORITHM},"Set the signature algorithm");
+  return new JScrollPane(form.getPanel());
 }

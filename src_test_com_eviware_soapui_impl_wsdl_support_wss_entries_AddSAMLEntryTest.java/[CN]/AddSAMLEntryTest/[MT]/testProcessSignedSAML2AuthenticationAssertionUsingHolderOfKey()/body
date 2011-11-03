@@ -1,0 +1,21 @@
+{
+  when(outgoingWssMock.getWssContainer()).thenReturn(wssContainerMock);
+  when(wssContainerMock.getCryptoByName(anyString())).thenReturn(wssCryptoMock);
+  when(wssCryptoMock.getCrypto()).thenReturn(crypto);
+  when(outgoingWssMock.getUsername()).thenReturn(ALIAS);
+  when(outgoingWssMock.getPassword()).thenReturn(KEY_PASSWORD);
+  when(contextMock.expand(ALIAS)).thenReturn(ALIAS);
+  when(contextMock.expand(KEY_PASSWORD)).thenReturn(KEY_PASSWORD);
+  when(wssEntryConfigMock.getConfiguration()).thenReturn(xmlObjectMock);
+  addSamlEntry.setIssuer(ISSUER);
+  addSamlEntry.setSubjectQualifier(SUBJECT_QUALIFIER);
+  addSamlEntry.setSubjectName(SUBJECT_NAME);
+  addSamlEntry.process(secHeader,doc,contextMock);
+  getAndAssertNodeByTagName("saml2:Assertion");
+  Node issuerNode=getAndAssertNodeByTagName("saml2:Issuer");
+  assertEquals(issuerNode.getTextContent(),ISSUER);
+  Node subjectNode=getAndAssertNodeByTagName("saml2:NameID");
+  assertEquals(subjectNode.getTextContent(),SUBJECT_NAME);
+  Node nameQualifierNode=subjectNode.getAttributes().getNamedItem("NameQualifier");
+  assertEquals(nameQualifierNode.getTextContent(),SUBJECT_QUALIFIER);
+}

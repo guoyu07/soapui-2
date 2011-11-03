@@ -1,11 +1,23 @@
 {
-  if (StringUtils.isNullOrEmpty(samlAssertion))   return;
   try {
-    Document samlAssertionDOM=XmlUtils.parseXml(XmlUtils.stripWhitespaces(context.expand(samlAssertion)));
-    Element samlAssertionRootElement=samlAssertionDOM.getDocumentElement();
-    AssertionWrapper assertion=new AssertionWrapper(samlAssertionRootElement);
-    WSSecSAMLToken wsSign=new WSSecSAMLToken();
-    wsSign.build(doc,assertion,secHeader);
+    WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
+    if (wssCrypto == null) {
+      throw new Exception("Missing crypto [" + crypto + "] for signature entry");
+    }
+    SAML2CallbackHandler callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
+    callbackHandler.setStatement(SAML2CallbackHandler.Statement.AUTHN);
+    callbackHandler.setConfirmationMethod(SAML2Constants.CONF_HOLDER_KEY);
+    callbackHandler.setIssuer(issuer);
+    SAMLParms samlParms=new SAMLParms();
+    samlParms.setCallbackHandler(callbackHandler);
+    AssertionWrapper assertion=new AssertionWrapper(samlParms);
+    assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
+    WSSecSignatureSAML wsSign=new WSSecSignatureSAML();
+    wsSign.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
+    wsSign.setDigestAlgo(digestAlgorithm);
+    wsSign.setSignatureAlgorithm(signatureAlgorithm);
+    wsSign.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
+    wsSign.build(doc,wssCrypto.getCrypto(),assertion,null,null,null,secHeader);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

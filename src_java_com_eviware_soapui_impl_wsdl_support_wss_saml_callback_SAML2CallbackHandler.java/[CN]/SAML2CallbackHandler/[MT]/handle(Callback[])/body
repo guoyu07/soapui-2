@@ -1,0 +1,27 @@
+{
+  for (int i=0; i < callbacks.length; i++) {
+    if (callbacks[i] instanceof SAMLCallback) {
+      SAMLCallback callback=(SAMLCallback)callbacks[i];
+      callback.setSamlVersion(SAMLVersion.VERSION_20);
+      callback.setIssuer(issuer);
+      SubjectBean subjectBean=new SubjectBean(subjectName,subjectQualifier,confirmationMethod);
+      if (subjectNameIDFormat != null) {
+        subjectBean.setSubjectNameIDFormat(subjectNameIDFormat);
+      }
+      if (SAML2Constants.CONF_HOLDER_KEY.equals(confirmationMethod)) {
+        try {
+          KeyInfoBean keyInfo=createKeyInfo();
+          subjectBean.setKeyInfo(keyInfo);
+        }
+ catch (        Exception ex) {
+          throw new IOException("Problem creating KeyInfo: " + ex.getMessage());
+        }
+      }
+      callback.setSubject(subjectBean);
+      createAndSetStatement(null,callback);
+    }
+ else {
+      throw new UnsupportedCallbackException(callbacks[i],"Unrecognized Callback");
+    }
+  }
+}

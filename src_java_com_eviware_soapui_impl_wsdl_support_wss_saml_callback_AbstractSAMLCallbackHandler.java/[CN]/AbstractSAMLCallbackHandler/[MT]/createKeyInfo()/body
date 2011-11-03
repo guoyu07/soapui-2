@@ -1,0 +1,24 @@
+{
+  KeyInfoBean keyInfo=new KeyInfoBean();
+  if (statement == Statement.AUTHN) {
+    keyInfo.setCertificate(certs[0]);
+    keyInfo.setCertIdentifer(certIdentifier);
+  }
+ else   if (statement == Statement.ATTR) {
+    DocumentBuilderFactory docBuilderFactory=DocumentBuilderFactory.newInstance();
+    docBuilderFactory.setNamespaceAware(true);
+    DocumentBuilder docBuilder=docBuilderFactory.newDocumentBuilder();
+    Document doc=docBuilder.newDocument();
+    WSSecEncryptedKey encrKey=new WSSecEncryptedKey();
+    encrKey.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
+    encrKey.setUseThisCert(certs[0]);
+    encrKey.prepare(doc,null);
+    ephemeralKey=encrKey.getEphemeralKey();
+    Element encryptedKeyElement=encrKey.getEncryptedKeyElement();
+    Element keyInfoElement=doc.createElementNS(WSConstants.SIG_NS,WSConstants.SIG_PREFIX + ":" + WSConstants.KEYINFO_LN);
+    keyInfoElement.setAttributeNS(WSConstants.XMLNS_NS,"xmlns:" + WSConstants.SIG_PREFIX,WSConstants.SIG_NS);
+    keyInfoElement.appendChild(encryptedKeyElement);
+    keyInfo.setElement(keyInfoElement);
+  }
+  return keyInfo;
+}

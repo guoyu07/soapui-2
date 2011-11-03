@@ -1,0 +1,9 @@
+{
+  MockitoAnnotations.initMocks(this);
+  doc=XmlUtils.parseXml(SAMPLE_SOAP_MESSAGE);
+  secHeader=new WSSecHeader();
+  secHeader.insertSecurityHeader(doc);
+  addSamlEntry=new AddSAMLEntry();
+  addSamlEntry.init(wssEntryConfigMock,outgoingWssMock);
+  createCrypto();
+}

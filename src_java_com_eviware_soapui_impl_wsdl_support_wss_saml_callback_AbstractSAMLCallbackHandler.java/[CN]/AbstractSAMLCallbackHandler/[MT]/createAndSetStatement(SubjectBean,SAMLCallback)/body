@@ -1,0 +1,45 @@
+{
+  if (statement == Statement.AUTHN) {
+    AuthenticationStatementBean authBean=new AuthenticationStatementBean();
+    if (subjectBean != null) {
+      authBean.setSubject(subjectBean);
+    }
+    if (subjectLocalityIpAddress != null || subjectLocalityDnsAddress != null) {
+      SubjectLocalityBean subjectLocality=new SubjectLocalityBean();
+      subjectLocality.setIpAddress(subjectLocalityIpAddress);
+      subjectLocality.setDnsAddress(subjectLocalityDnsAddress);
+      authBean.setSubjectLocality(subjectLocality);
+    }
+    authBean.setAuthenticationMethod("Password");
+    callback.setAuthenticationStatementData(Collections.singletonList(authBean));
+  }
+ else   if (statement == Statement.ATTR) {
+    AttributeStatementBean attrBean=new AttributeStatementBean();
+    if (subjectBean != null) {
+      attrBean.setSubject(subjectBean);
+    }
+    AttributeBean attributeBean=new AttributeBean();
+    attributeBean.setSimpleName("role");
+    if (customAttributeValues != null) {
+      attributeBean.setCustomAttributeValues(customAttributeValues);
+    }
+ else {
+      attributeBean.setAttributeValues(Collections.singletonList("user"));
+    }
+    attrBean.setSamlAttributes(Collections.singletonList(attributeBean));
+    callback.setAttributeStatementData(Collections.singletonList(attrBean));
+  }
+ else {
+    AuthDecisionStatementBean authzBean=new AuthDecisionStatementBean();
+    if (subjectBean != null) {
+      authzBean.setSubject(subjectBean);
+    }
+    ActionBean actionBean=new ActionBean();
+    actionBean.setContents("Read");
+    authzBean.setActions(Collections.singletonList(actionBean));
+    authzBean.setResource("endpoint");
+    authzBean.setDecision(AuthDecisionStatementBean.Decision.PERMIT);
+    authzBean.setResource(resource);
+    callback.setAuthDecisionStatementData(Collections.singletonList(authzBean));
+  }
+}
