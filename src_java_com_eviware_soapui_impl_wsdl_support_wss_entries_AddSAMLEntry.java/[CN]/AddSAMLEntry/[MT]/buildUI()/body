@@ -3,7 +3,7 @@
   getWssContainer().addWssContainerListener(wssContainerListener);
   SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddSignatureEntry>(this));
   form.addSpace(5);
-  form.appendComboBox("samlVersion","SAML version",new String[]{DEFAULT_SAML_VERSION},"Choose the SAML version");
+  form.appendComboBox("samlVersion","SAML version",new String[]{DEFAULT_SAML_VERSION,"2.0"},"Choose the SAML version");
   form.appendComboBox("assertionType","Assertion type",new String[]{DEFAULT_ASSERTION_TYPE},"Choose the type of assertion");
   form.appendComboBox("signingType","Signing type",new String[]{DEFAULT_SIGNING_TYPE},"Choose the type of signing");
   form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message").addItemListener(new ItemListener(){
