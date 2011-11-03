@@ -1,6 +1,6 @@
 {
   getMethod=new HttpGet(url);
-  state.setAttribute(ClientPNames.HANDLE_REDIRECTS,true);
+  getMethod.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,true);
   state.setAttribute(ClientContext.CREDS_PROVIDER,new WsdlCredentialsProvider());
   if (SoapUI.getSettings().getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
     if (!StringUtils.isNullOrEmpty(getUsername()) && !StringUtils.isNullOrEmpty(getPassword())) {

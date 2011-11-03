@@ -25,7 +25,7 @@
   long maxSize=httpRequest.getMaxSize();
   if (maxSize == 0)   maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
   if (maxSize > 0)   httpMethod.setMaxSize(maxSize);
-  HttpClientSupport.getHttpClient().getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
+  httpMethod.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
   HttpClientSupport.applyHttpSettings(httpMethod,settings);
   String timeout=context.expand(httpRequest.getTimeout());
   if (StringUtils.hasContent(timeout)) {

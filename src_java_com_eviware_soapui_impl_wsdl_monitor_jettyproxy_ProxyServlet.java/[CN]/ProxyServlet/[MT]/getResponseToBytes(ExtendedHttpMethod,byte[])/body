@@ -1,0 +1,21 @@
+{
+  ByteArrayOutputStream out=new ByteArrayOutputStream();
+  StringBuffer response=new StringBuffer();
+  if (method.hasHttpResponse()) {
+    response.append(method.getHttpResponse().getStatusLine().toString());
+    response.append("\r\n");
+    Header[] headers=method.getHttpResponse().getAllHeaders();
+    for (    Header header : headers) {
+      response.append(header.toString().trim()).append("\r\n");
+    }
+    response.append("\r\n");
+    try {
+      out.write(response.toString().getBytes());
+      out.write(res);
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+  return out.toByteArray();
+}

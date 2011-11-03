@@ -4,11 +4,14 @@
   for (  String ct : contentTypes) {
     contentTypelist.add(ct.trim().replace("*",""));
   }
-  Header[] headers=method.getHttpResponse().getHeaders("Content-Type");
-  for (  Header header : headers) {
-    for (    String contentType : contentTypelist) {
-      if (header.getValue().indexOf(contentType) > 0) {
-        return true;
+  if (method.hasHttpResponse()) {
+    Header[] headers=method.getHttpResponse().getHeaders("Content-Type");
+    if (headers.length == 0)     return true;
+    for (    Header header : headers) {
+      for (      String contentType : contentTypelist) {
+        if (header.getValue().indexOf(contentType) > 0) {
+          return true;
+        }
       }
     }
   }

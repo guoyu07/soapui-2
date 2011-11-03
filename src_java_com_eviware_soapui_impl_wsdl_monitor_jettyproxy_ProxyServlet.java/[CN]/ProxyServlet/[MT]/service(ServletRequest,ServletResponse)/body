@@ -4,15 +4,26 @@
   ExtendedHttpMethod method;
   HttpServletRequest httpRequest=(HttpServletRequest)request;
   if (httpRequest.getMethod().equals("GET"))   method=new ExtendedGetMethod();
- else   method=new ExtendedPostMethod();
+ else   if (httpRequest.getMethod().equals("POST"))   method=new ExtendedPostMethod();
+ else   if (httpRequest.getMethod().equals("PUT"))   method=new ExtendedPutMethod();
+ else   if (httpRequest.getMethod().equals("HEAD"))   method=new ExtendedHeadMethod();
+ else   if (httpRequest.getMethod().equals("OPTIONS"))   method=new ExtendedOptionsMethod();
+ else   if (httpRequest.getMethod().equals("TRACE"))   method=new ExtendedTraceMethod();
+ else   method=new ExtendedGetMethod();
   method.setDecompress(false);
+  ByteArrayOutputStream requestBody=null;
+  if (method instanceof HttpEntityEnclosingRequest) {
+    requestBody=Tools.readAll(request.getInputStream(),0);
+    InputStreamEntity entity=new InputStreamEntity(new ByteArrayInputStream(requestBody.toByteArray()),-1);
+    entity.setContentType(request.getContentType());
+    ((HttpEntityEnclosingRequest)method).setEntity(entity);
+  }
   JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
   capturedData.setRequestHost(httpRequest.getServerName());
   capturedData.setRequestMethod(httpRequest.getMethod());
   capturedData.setRequestHeader(httpRequest);
   capturedData.setHttpRequestParameters(httpRequest);
   capturedData.setTargetURL(httpRequest.getRequestURL().toString());
-  CaptureInputStream capture=new CaptureInputStream(httpRequest.getInputStream());
   String connectionHeader=httpRequest.getHeader("Connection");
   if (connectionHeader != null) {
     connectionHeader=connectionHeader.toLowerCase();
@@ -37,11 +48,6 @@
   }
   method.setHeader("Via","SoapUI Monitor");
   if (!xForwardedFor)   method.addHeader("X-Forwarded-For",request.getRemoteAddr());
-  if (method instanceof ExtendedPostMethod) {
-    InputStreamEntity entity=new InputStreamEntity(capture,-1);
-    entity.setContentType(request.getContentType());
-    ((ExtendedPostMethod)method).setEntity(entity);
-  }
   StringBuffer url=new StringBuffer("http://");
   url.append(httpRequest.getServerName());
   if (httpRequest.getServerPort() != 80)   url.append(":" + httpRequest.getServerPort());
@@ -71,6 +77,7 @@
  catch (  URIException e) {
     SoapUI.logError(e);
   }
+  method.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
   monitor.fireBeforeProxy(request,response,method,hostConfiguration);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
@@ -80,13 +87,16 @@
     HttpClientSupport.execute(hostConfiguration,method);
   }
   capturedData.stopCapture();
-  capturedData.setRequest(capture.getCapturedData());
+  capturedData.setRequest(requestBody == null ? null : requestBody.toByteArray());
   capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method);
-  capturedData.setRawRequestData(getRequestToBytes(request.toString(),capture));
-  capturedData.setRawResponseData(getResponseToBytes(response.toString(),method,capturedData.getRawResponseBody()));
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,requestBody));
+  capturedData.setRawResponseData(getResponseToBytes(method,capturedData.getRawResponseBody()));
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
+  capturedData.setResponseStatusCode(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
+  capturedData.setResponseStatusLine(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().toString() : null);
   monitor.fireAfterProxy(request,response,method,capturedData);
+  ((HttpServletResponse)response).setStatus(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
     HttpServletResponse httpServletResponse=(HttpServletResponse)response;

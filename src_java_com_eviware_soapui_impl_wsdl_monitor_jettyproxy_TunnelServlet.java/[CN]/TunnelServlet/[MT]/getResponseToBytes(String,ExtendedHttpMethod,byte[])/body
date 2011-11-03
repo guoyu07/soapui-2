@@ -1,10 +1,12 @@
 {
   String response=footer;
-  Header[] headers=postMethod.getHttpResponse().getAllHeaders();
-  for (  Header header : headers) {
-    response+=header.toString().trim() + "\n";
+  if (postMethod.hasHttpResponse()) {
+    Header[] headers=postMethod.getHttpResponse().getAllHeaders();
+    for (    Header header : headers) {
+      response+=header.toString().trim() + "\n";
+    }
+    response+="\n";
+    response+=XmlUtils.prettyPrintXml(new String(res));
   }
-  response+="\n";
-  response+=XmlUtils.prettyPrintXml(new String(res));
   return response.getBytes();
 }
