@@ -11,11 +11,10 @@
   }
   String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
   if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
-  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
   org.apache.http.HttpResponse httpResponse=null;
   if (localAddress != null && localAddress.trim().length() > 0) {
     try {
-      hostConfiguration=new SoapUIHostConfiguration(java.net.InetAddress.getByName(localAddress).getHostName());
+      httpMethod.getParams().setParameter(ConnRoutePNames.LOCAL_ADDRESS,InetAddress.getByName(localAddress));
     }
  catch (    Exception e) {
       SoapUI.logError(e,"Failed to set localAddress to [" + localAddress + "]");
@@ -26,7 +25,6 @@
   submitContext.setProperty(POST_METHOD,httpMethod);
   submitContext.setProperty(HTTP_CLIENT,httpClient);
   submitContext.setProperty(REQUEST_CONTENT,httpRequest.getRequestContent());
-  submitContext.setProperty(HOST_CONFIGURATION,hostConfiguration);
   submitContext.setProperty(WSDL_REQUEST,httpRequest);
   submitContext.setProperty(RESPONSE_PROPERTIES,new StringToStringMap());
   for (  RequestFilter filter : filters) {
@@ -55,18 +53,17 @@
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
     URI uri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
     if (uri != null && uri.isAbsoluteURI()) {
-      hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
       String str=uri.toString();
       int ix=str.indexOf('/',str.indexOf("//") + 2);
       if (ix != -1) {
         uri=new URI(str.substring(ix),true);
         java.net.URI oldUri=httpMethod.getURI();
-        httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),uri.getPath(),oldUri.getQuery(),oldUri.getFragment()));
+        httpMethod.setURI(new java.net.URI(oldUri.getScheme(),oldUri.getUserInfo(),oldUri.getHost(),oldUri.getPort(),(uri.getPath()) == null ? "/" : uri.getPath(),oldUri.getQuery(),oldUri.getFragment()));
         submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
       }
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
-    httpResponse=HttpClientSupport.execute(hostConfiguration,httpMethod,httpContext);
+    httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
     if (isRedirectResponse(httpResponse.getStatusLine().getStatusCode()) && httpRequest.isFollowRedirects()) {
       ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
       httpMethod=returnMethod;

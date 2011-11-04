@@ -37,6 +37,10 @@
     String lhdr=hdr.toLowerCase();
     if (dontProxyHeaders.contains(lhdr))     continue;
     if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
+    if ("content-length".equals(lhdr)) {
+      contentLength=request.getContentLength();
+      continue;
+    }
     Enumeration<?> vals=httpRequest.getHeaders(hdr);
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
@@ -69,22 +73,14 @@
       }
     }
   }
-  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
-  try {
-    URI uri=new URI(url.toString(),true);
-    hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
-  }
- catch (  URIException e) {
-    SoapUI.logError(e);
-  }
   method.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
-  monitor.fireBeforeProxy(request,response,method,hostConfiguration);
+  monitor.fireBeforeProxy(request,response,method);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
-    HttpClientSupport.execute(hostConfiguration,method,httpState);
+    HttpClientSupport.execute(method,httpState);
   }
  else {
-    HttpClientSupport.execute(hostConfiguration,method);
+    HttpClientSupport.execute(method);
   }
   capturedData.stopCapture();
   capturedData.setRequest(requestBody == null ? null : requestBody.toByteArray());

@@ -16,6 +16,7 @@
     String hdr=(String)headerNames.nextElement();
     String lhdr=hdr.toLowerCase();
     if ("content-length".equals(lhdr))     continue;
+    if ("transfer-encoding".equals(lhdr))     continue;
     if ("host".equals(lhdr)) {
       Enumeration<?> vals=httpRequest.getHeaders(hdr);
       while (vals.hasMoreElements()) {
@@ -40,10 +41,8 @@
     ((ExtendedPostMethod)postMethod).setEntity(entity);
   }
   java.net.URI uri=null;
-  SoapUIHostConfiguration hostConfiguration=new SoapUIHostConfiguration();
   try {
     uri=new java.net.URI(this.prot + sslEndPoint);
-    hostConfiguration.setHttpHost(new HttpHost(uri.getHost(),uri.getPort(),uri.getScheme()));
   }
  catch (  URISyntaxException e) {
     SoapUI.logError(e);
@@ -61,13 +60,13 @@
       SoapUI.logError(e);
     }
   }
-  monitor.fireBeforeProxy(request,response,postMethod,hostConfiguration);
+  monitor.fireBeforeProxy(request,response,postMethod);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
-    HttpClientSupport.execute(hostConfiguration,postMethod,httpState);
+    HttpClientSupport.execute(postMethod,httpState);
   }
  else {
-    HttpClientSupport.execute(hostConfiguration,postMethod);
+    HttpClientSupport.execute(postMethod);
   }
   capturedData.stopCapture();
   capturedData.setRequest(capture.getCapturedData());

@@ -1,7 +1,7 @@
 {
-  this.httpMethod=httpMethod;
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
+  method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
   try {
     this.url=httpMethod.getURI().toURL();
@@ -23,9 +23,8 @@
     try {
       this.timestamp=System.currentTimeMillis();
       this.contentType=httpMethod.getResponseContentType();
-      if (httpMethod.hasResponse()) {
-        this.sslInfo=httpMethod.getSSLInfo();
-      }
+      this.statusCode=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getStatusLine().getStatusCode() : 0;
+      this.sslInfo=httpMethod.getSSLInfo();
       this.url=httpMethod.getURI().toURL();
     }
  catch (    Throwable e) {
