@@ -1,6 +1,6 @@
 {
   int selectedRow=assertionsTable.getSelectedRow();
-  String selection=(String)assertionsListTableModel.getValueAt(selectedRow,0);
+  String selection=((AssertionListEntry)assertionsListTableModel.getValueAt(selectedRow,0)).getName();
   if (selection == null)   return false;
   if (!TestAssertionRegistry.getInstance().canAddMultipleAssertions(selection,assertable)) {
     UISupport.showErrorMessage("This assertion can only be added once");

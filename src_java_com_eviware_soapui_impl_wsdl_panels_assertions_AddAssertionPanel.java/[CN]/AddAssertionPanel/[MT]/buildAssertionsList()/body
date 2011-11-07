@@ -1,10 +1,13 @@
 {
-  assertionListPanel=new JPanel(new BorderLayout());
+  assertionsForm=new SimpleForm();
   assertionsListTableModel=new AssertionsListTableModel();
   assertionsTable=new JXTable(assertionsListTableModel);
   assertionsTable.setTableHeader(null);
   assertionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   assertionsTable.getSelectionModel().addListSelectionListener(selectionListener);
-  assertionListPanel.add(new JScrollPane(assertionsTable));
-  return assertionListPanel;
+  assertionsTable.setRowHeight(50);
+  InternalCellRenderer assertionEntryRenderer=new InternalCellRenderer();
+  assertionsTable.getColumnModel().getColumn(0).setCellRenderer(assertionEntryRenderer);
+  assertionsForm.addComponent(new JScrollPane(assertionsTable));
+  return assertionsForm.getPanel();
 }

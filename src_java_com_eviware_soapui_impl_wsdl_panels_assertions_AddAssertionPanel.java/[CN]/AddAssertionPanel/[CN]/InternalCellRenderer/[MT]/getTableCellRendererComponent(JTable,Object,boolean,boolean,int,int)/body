@@ -1,0 +1,20 @@
+{
+  Component result=super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
+  boldFont=getFont().deriveFont(Font.BOLD);
+  String str=((AssertionListEntry)value).getName();
+  JLabel label=new JLabel(str);
+  label.setFont(boldFont);
+  JTextArea text=new JTextArea(((AssertionListEntry)value).getDescription());
+  SimpleForm form=new SimpleForm();
+  form.addComponent(label);
+  form.addComponent(text);
+  if (isSelected) {
+    text.setBackground(Color.LIGHT_GRAY);
+    form.getPanel().setBackground(Color.LIGHT_GRAY);
+  }
+ else {
+    text.setBackground(Color.WHITE);
+    form.getPanel().setBackground(Color.WHITE);
+  }
+  return form.getPanel();
+}
