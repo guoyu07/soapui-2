@@ -5,5 +5,16 @@
   secHeader.insertSecurityHeader(doc);
   addSamlEntry=new AddSAMLEntry();
   addSamlEntry.init(wssEntryConfigMock,outgoingWssMock);
+  when(wssEntryConfigMock.getConfiguration()).thenReturn(xmlObjectMock);
+  addSamlEntry.setIssuer(ISSUER);
+  addSamlEntry.setSubjectQualifier(SUBJECT_QUALIFIER);
+  addSamlEntry.setSubjectName(SUBJECT_NAME);
   createCrypto();
+  when(outgoingWssMock.getWssContainer()).thenReturn(wssContainerMock);
+  when(wssContainerMock.getCryptoByName(anyString())).thenReturn(wssCryptoMock);
+  when(wssCryptoMock.getCrypto()).thenReturn(crypto);
+  when(outgoingWssMock.getUsername()).thenReturn(ALIAS);
+  when(outgoingWssMock.getPassword()).thenReturn(KEY_PASSWORD);
+  when(contextMock.expand(ALIAS)).thenReturn(ALIAS);
+  when(contextMock.expand(KEY_PASSWORD)).thenReturn(KEY_PASSWORD);
 }

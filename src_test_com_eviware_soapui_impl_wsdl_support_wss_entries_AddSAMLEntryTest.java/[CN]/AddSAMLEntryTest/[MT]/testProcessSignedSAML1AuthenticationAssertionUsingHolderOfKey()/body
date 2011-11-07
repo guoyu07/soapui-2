@@ -1,0 +1,11 @@
+{
+  addSamlEntry.setSamlVersion(AddSAMLEntry.DEFAULT_SAML_VERSION);
+  addSamlEntry.process(secHeader,doc,contextMock);
+  Node assertionNode=getAndAssertNodeByTagName("saml1:Assertion");
+  Node issuerNode=assertionNode.getAttributes().getNamedItem("Issuer");
+  assertEquals(issuerNode.getNodeValue(),ISSUER);
+  Node subjectNode=getAndAssertNodeByTagName("saml1:NameIdentifier");
+  assertEquals(getFirstChildValue(subjectNode),SUBJECT_NAME);
+  Node nameQualifierNode=subjectNode.getAttributes().getNamedItem("NameQualifier");
+  assertEquals(nameQualifierNode.getNodeValue(),SUBJECT_QUALIFIER);
+}
