@@ -2,12 +2,17 @@
   assertionsForm=new SimpleForm();
   assertionsListTableModel=new AssertionsListTableModel();
   assertionsTable=new JXTable(assertionsListTableModel);
+  String category=(String)categoriesList.getSelectedValue();
+  if (category != null && categoriesAssertionsMap.containsKey(category)) {
+    assertions=categoriesAssertionsMap.get(category);
+    assertionsListTableModel.setListEntriesSet(assertions);
+  }
   assertionsTable.setTableHeader(null);
   assertionsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   assertionsTable.getSelectionModel().addListSelectionListener(selectionListener);
-  assertionsTable.setRowHeight(50);
-  InternalCellRenderer assertionEntryRenderer=new InternalCellRenderer();
+  assertionsTable.setGridColor(Color.BLACK);
+  assertionsTable.setRowHeight(40);
   assertionsTable.getColumnModel().getColumn(0).setCellRenderer(assertionEntryRenderer);
-  assertionsForm.addComponent(new JScrollPane(assertionsTable));
-  return assertionsForm.getPanel();
+  assertionsForm.addComponent(assertionsTable);
+  return new JScrollPane(assertionsForm.getPanel());
 }

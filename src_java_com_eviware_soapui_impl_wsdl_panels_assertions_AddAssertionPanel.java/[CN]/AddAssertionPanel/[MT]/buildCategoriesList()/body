@@ -3,13 +3,13 @@
   AssertionCategoriesListModel listModel=new AssertionCategoriesListModel(categoriesAssertionsMap.keySet());
   categoriesList=new JXList(listModel);
   categoriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  categoriesList.setSelectedIndex(0);
   categoriesList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
       String category=(String)categoriesList.getSelectedValue();
       if (category != null && categoriesAssertionsMap.containsKey(category)) {
         assertions=categoriesAssertionsMap.get(category);
         assertionsListTableModel.setListEntriesSet(assertions);
-        InternalCellRenderer assertionEntryRenderer=new InternalCellRenderer();
         assertionsTable.getColumnModel().getColumn(0).setCellRenderer(assertionEntryRenderer);
         assertionsListTableModel.fireTableDataChanged();
       }
