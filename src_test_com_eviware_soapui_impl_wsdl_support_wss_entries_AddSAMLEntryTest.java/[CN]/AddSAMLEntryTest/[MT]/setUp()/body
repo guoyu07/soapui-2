@@ -1,5 +1,6 @@
 {
   MockitoAnnotations.initMocks(this);
+  initXpath();
   doc=XmlUtils.parseXml(SAMPLE_SOAP_MESSAGE);
   secHeader=new WSSecHeader();
   secHeader.insertSecurityHeader(doc);

@@ -1,0 +1,8 @@
+{
+  factory=XPathFactory.newInstance();
+  namespaceContext=new NamespaceContextImpl();
+  namespaceContext.startPrefixMapping("saml1","urn:oasis:names:tc:SAML:1.0:assertion");
+  namespaceContext.startPrefixMapping("saml2","urn:oasis:names:tc:SAML:2.0:assertion");
+  xpath=factory.newXPath();
+  xpath.setNamespaceContext(namespaceContext);
+}

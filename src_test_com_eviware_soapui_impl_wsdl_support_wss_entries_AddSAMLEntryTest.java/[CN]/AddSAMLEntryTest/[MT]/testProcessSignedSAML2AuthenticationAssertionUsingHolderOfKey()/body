@@ -1,11 +1,8 @@
 {
   addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_2);
   addSamlEntry.process(secHeader,doc,contextMock);
-  getAndAssertNodeByTagName("saml2:Assertion");
-  Node issuerNode=getAndAssertNodeByTagName("saml2:Issuer");
-  assertEquals(getFirstChildValue(issuerNode),ISSUER);
-  Node subjectNode=getAndAssertNodeByTagName("saml2:NameID");
-  assertEquals(getFirstChildValue(subjectNode),SUBJECT_NAME);
-  Node nameQualifierNode=subjectNode.getAttributes().getNamedItem("NameQualifier");
-  assertEquals(nameQualifierNode.getNodeValue(),SUBJECT_QUALIFIER);
+  assertNotNull(xpath.evaluate("//saml2:Assertion",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//saml2:Issuer",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//saml2:NameID",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//saml2:NameID[@NameQualifier]",doc,XPathConstants.NODE));
 }
