@@ -1,0 +1,7 @@
+{
+  addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_2);
+  addSamlEntry.setAssertionType(AddSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
+  addSamlEntry.process(secHeader,doc,contextMock);
+  assertNotNull(xpath.evaluate("//saml2:AttributeStatement",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//saml2:Assertion",doc,XPathConstants.NODE));
+}
