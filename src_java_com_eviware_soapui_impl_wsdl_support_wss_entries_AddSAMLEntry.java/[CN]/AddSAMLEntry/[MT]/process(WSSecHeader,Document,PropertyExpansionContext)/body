@@ -20,18 +20,24 @@
     assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
     WSSecSignatureSAML wsSign=new WSSecSignatureSAML();
     wsSign.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
-    wsSign.setDigestAlgo(digestAlgorithm);
-    if (assertionType.equals(ASSERTION__ASSERTION_TYPE)) {
-      wsSign.setSignatureAlgorithm(signatureAlgorithm);
+    if (signingType.equals(SENDER_VOUCHES_SIGNING_TYPE)) {
       wsSign.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
+      wsSign.build(doc,null,assertion,wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(getPassword()),secHeader);
     }
- else     if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
-      wsSign.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
-      wsSign.setSignatureAlgorithm(WSConstants.HMAC_SHA256);
-      byte[] ephemeralKey=callbackHandler.getEphemeralKey();
-      wsSign.setSecretKey(ephemeralKey);
+ else     if (signingType.equals(HOLDER_OF_KEY_SIGNING_TYPE)) {
+      wsSign.setDigestAlgo(digestAlgorithm);
+      if (assertionType.equals(AUTHENTICATION_ASSERTION_TYPE)) {
+        wsSign.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
+        wsSign.setSignatureAlgorithm(signatureAlgorithm);
+      }
+ else       if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
+        wsSign.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
+        wsSign.setSignatureAlgorithm(WSConstants.HMAC_SHA256);
+        byte[] ephemeralKey=callbackHandler.getEphemeralKey();
+        wsSign.setSecretKey(ephemeralKey);
+      }
+      wsSign.build(doc,wssCrypto.getCrypto(),assertion,null,null,null,secHeader);
     }
-    wsSign.build(doc,wssCrypto.getCrypto(),assertion,null,null,null,secHeader);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

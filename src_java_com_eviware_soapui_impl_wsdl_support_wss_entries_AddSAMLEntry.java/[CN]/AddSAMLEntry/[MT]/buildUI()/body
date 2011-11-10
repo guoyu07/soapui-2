@@ -4,8 +4,8 @@
   SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddSignatureEntry>(this));
   form.addSpace(5);
   form.appendComboBox("samlVersion","SAML version",new String[]{SAML_VERSION_1,SAML_VERSION_2},"Choose the SAML version");
-  form.appendComboBox("assertionType","Assertion type",new String[]{ASSERTION__ASSERTION_TYPE,ATTRIBUTE_ASSERTION_TYPE},"Choose the type of assertion");
-  form.appendComboBox("signingType","Signing type",new String[]{HOLDER_OF_KEY_SIGNING_TYPE},"Choose the type of signing");
+  form.appendComboBox("assertionType","Assertion type",new String[]{AUTHENTICATION_ASSERTION_TYPE,ATTRIBUTE_ASSERTION_TYPE},"Choose the type of assertion");
+  form.appendComboBox("signingType","Signing type",new String[]{HOLDER_OF_KEY_SIGNING_TYPE,SENDER_VOUCHES_SIGNING_TYPE},"Choose the type of signing");
   form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message").addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));

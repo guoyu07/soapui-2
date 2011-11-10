@@ -1,7 +1,8 @@
 {
   addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_1);
   addSamlEntry.setAssertionType(AddSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
+  addSamlEntry.setSigningType(AddSAMLEntry.HOLDER_OF_KEY_SIGNING_TYPE);
   addSamlEntry.process(secHeader,doc,contextMock);
+  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_HOLDER_OF_KEY_NAMESPACE);
   assertNotNull(xpath.evaluate("//saml1:AttributeStatement",doc,XPathConstants.NODE));
-  assertNotNull(xpath.evaluate("//saml1:Assertion",doc,XPathConstants.NODE));
 }
