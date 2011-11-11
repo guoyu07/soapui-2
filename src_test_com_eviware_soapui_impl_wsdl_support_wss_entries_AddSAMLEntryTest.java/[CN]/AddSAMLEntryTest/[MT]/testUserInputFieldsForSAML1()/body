@@ -1,5 +1,6 @@
 {
   addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_1);
+  addSamlEntry.setSigned(true);
   addSamlEntry.process(secHeader,doc,contextMock);
   assertNotNull(xpath.evaluate("//saml1:Assertion",doc,XPathConstants.NODE));
   assertNotNull(xpath.evaluate("//saml1:Assertion/@Issuer",doc,XPathConstants.NODE));

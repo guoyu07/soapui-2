@@ -1,9 +1,10 @@
 {
   addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_2);
-  addSamlEntry.setSigned(true);
-  addSamlEntry.setAssertionType(AddSAMLEntry.AUTHENTICATION_ASSERTION_TYPE);
+  addSamlEntry.setSigned(false);
+  addSamlEntry.setAssertionType(AddSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
   addSamlEntry.setConfirmationType(AddSAMLEntry.SENDER_VOUCHES_CONFIRMATION_TYPE);
   addSamlEntry.process(secHeader,doc,contextMock);
+  System.out.println(XmlUtils.serializePretty(doc));
   assertEquals(xpath.evaluate("//saml2:SubjectConfirmation/@Method",doc,XPathConstants.STRING),SAML_2_SENDER_VOUCHES_NAMESPACE);
-  assertNotNull(xpath.evaluate("//saml2:AuthnStatement",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//saml2:AttributeStatement",doc,XPathConstants.NODE));
 }

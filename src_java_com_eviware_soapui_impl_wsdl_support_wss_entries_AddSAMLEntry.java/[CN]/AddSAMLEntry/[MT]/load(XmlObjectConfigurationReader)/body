@@ -1,11 +1,12 @@
 {
-  samlVersion=StringUtils.defaultIfEmpty(reader.readString("samlVersion",null),SAML_VERSION_1);
-  assertionType=StringUtils.defaultIfEmpty(reader.readString("assertionType",null),AUTHENTICATION_ASSERTION_TYPE);
-  signingType=StringUtils.defaultIfEmpty(reader.readString("signingType",null),HOLDER_OF_KEY_SIGNING_TYPE);
+  samlVersion=reader.readString("samlVersion",SAML_VERSION_1);
+  signed=reader.readBoolean("signed",false);
+  assertionType=reader.readString("assertionType",AUTHENTICATION_ASSERTION_TYPE);
+  confirmationType=reader.readString("confirmationType",SENDER_VOUCHES_CONFIRMATION_TYPE);
   crypto=reader.readString("crypto",null);
   issuer=reader.readString("issuer",null);
-  subjectName=StringUtils.defaultIfEmpty(reader.readString("subjectName",null),DEFAULT_SUBJECT_NAME);
+  subjectName=reader.readString("subjectName",DEFAULT_SUBJECT_NAME);
   subjectQualifier=reader.readString("subjectQualifier",null);
-  digestAlgorithm=StringUtils.defaultIfEmpty(reader.readString("digestAlgorithm",null),SHA256_DIGEST_ALGORITHM);
-  signatureAlgorithm=StringUtils.defaultIfEmpty(reader.readString("signatureAlgorithm",null),RSA_SHA256_SIGNATURE_ALGORITHM);
+  digestAlgorithm=reader.readString("digestAlgorithm",SHA256_DIGEST_ALGORITHM);
+  signatureAlgorithm=reader.readString("signatureAlgorithm",RSA_SHA256_SIGNATURE_ALGORITHM);
 }

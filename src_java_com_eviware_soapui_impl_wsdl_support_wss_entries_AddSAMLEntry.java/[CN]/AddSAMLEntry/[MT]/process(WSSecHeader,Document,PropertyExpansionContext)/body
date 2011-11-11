@@ -1,42 +1,59 @@
 {
   try {
-    WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
-    if (wssCrypto == null) {
-      throw new Exception("Missing crypto [" + crypto + "] for signature entry");
-    }
     SAMLParms samlParms=new SAMLParms();
     SAMLCallbackHandler callbackHandler=null;
-    if (samlVersion.equals(SAML_VERSION_1)) {
-      callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
-    }
- else     if (samlVersion.equals(SAML_VERSION_2)) {
-      callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
-    }
-    callbackHandler.setConfirmationMethod(signingType);
-    callbackHandler.setIssuer(issuer);
-    callbackHandler.setStatement(assertionType);
-    samlParms.setCallbackHandler(callbackHandler);
-    AssertionWrapper assertion=new AssertionWrapper(samlParms);
-    assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
-    WSSecSignatureSAML wsSign=new WSSecSignatureSAML();
-    wsSign.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
-    if (signingType.equals(SENDER_VOUCHES_SIGNING_TYPE)) {
-      wsSign.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
-      wsSign.build(doc,null,assertion,wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(getPassword()),secHeader);
-    }
- else     if (signingType.equals(HOLDER_OF_KEY_SIGNING_TYPE)) {
-      wsSign.setDigestAlgo(digestAlgorithm);
-      if (assertionType.equals(AUTHENTICATION_ASSERTION_TYPE)) {
-        wsSign.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
-        wsSign.setSignatureAlgorithm(signatureAlgorithm);
+    if (!signed) {
+      WSSecSAMLToken wsSecSAMLToken=new WSSecSAMLToken();
+      if (samlVersion.equals(SAML_VERSION_1)) {
+        callbackHandler=new SAML1CallbackHandler(subjectName,subjectQualifier);
       }
- else       if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
-        wsSign.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
-        wsSign.setSignatureAlgorithm(WSConstants.HMAC_SHA256);
-        byte[] ephemeralKey=callbackHandler.getEphemeralKey();
-        wsSign.setSecretKey(ephemeralKey);
+ else       if (samlVersion.equals(SAML_VERSION_2)) {
+        callbackHandler=new SAML2CallbackHandler(subjectName,subjectQualifier);
       }
-      wsSign.build(doc,wssCrypto.getCrypto(),assertion,null,null,null,secHeader);
+      callbackHandler.setConfirmationMethod(confirmationType);
+      callbackHandler.setIssuer(issuer);
+      callbackHandler.setStatement(assertionType);
+      samlParms.setCallbackHandler(callbackHandler);
+      AssertionWrapper assertion=new AssertionWrapper(samlParms);
+      wsSecSAMLToken.build(doc,assertion,secHeader);
+    }
+ else {
+      WSSecSignatureSAML wsSecSignatureSAML=new WSSecSignatureSAML();
+      WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
+      if (wssCrypto == null) {
+        throw new Exception("Missing crypto [" + crypto + "] for signature entry");
+      }
+      if (samlVersion.equals(SAML_VERSION_1)) {
+        callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
+      }
+ else       if (samlVersion.equals(SAML_VERSION_2)) {
+        callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
+      }
+      callbackHandler.setConfirmationMethod(confirmationType);
+      callbackHandler.setIssuer(issuer);
+      callbackHandler.setStatement(assertionType);
+      samlParms.setCallbackHandler(callbackHandler);
+      AssertionWrapper assertion=new AssertionWrapper(samlParms);
+      assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
+      wsSecSignatureSAML.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
+      if (confirmationType.equals(SENDER_VOUCHES_CONFIRMATION_TYPE)) {
+        wsSecSignatureSAML.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
+        wsSecSignatureSAML.build(doc,null,assertion,wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(getPassword()),secHeader);
+      }
+ else       if (confirmationType.equals(HOLDER_OF_KEY_CONFIRMATION_TYPE)) {
+        wsSecSignatureSAML.setDigestAlgo(digestAlgorithm);
+        if (assertionType.equals(AUTHENTICATION_ASSERTION_TYPE)) {
+          wsSecSignatureSAML.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
+          wsSecSignatureSAML.setSignatureAlgorithm(signatureAlgorithm);
+        }
+ else         if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
+          wsSecSignatureSAML.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
+          wsSecSignatureSAML.setSignatureAlgorithm(WSConstants.HMAC_SHA256);
+          byte[] ephemeralKey=callbackHandler.getEphemeralKey();
+          wsSecSignatureSAML.setSecretKey(ephemeralKey);
+        }
+        wsSecSignatureSAML.build(doc,wssCrypto.getCrypto(),assertion,null,null,null,secHeader);
+      }
     }
   }
  catch (  Exception e) {
