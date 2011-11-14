@@ -1,4 +1,4 @@
 {
-  addAssertionButton=createActionButton(new AddAssertionAction(getRequest()),true);
+  addAssertionButton=createActionButton(SwingActionDelegate.createDelegate(AddAssertionAction.SOAPUI_ACTION_ID,getRequest().getTestStep(),null,"/addAssertion.gif"),true);
   return super.buildToolbar();
 }
