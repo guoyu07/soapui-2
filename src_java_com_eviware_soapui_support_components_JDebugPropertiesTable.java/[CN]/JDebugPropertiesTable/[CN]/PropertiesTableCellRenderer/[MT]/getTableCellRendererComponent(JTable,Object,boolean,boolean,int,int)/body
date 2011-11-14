@@ -1,0 +1,7 @@
+{
+  JLabel component=(JLabel)super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
+  component.setToolTipText(value.toString());
+  Font newLabelFont=new Font(component.getFont().getName(),Font.BOLD,component.getFont().getSize());
+  component.setFont(newLabelFont);
+  return component;
+}

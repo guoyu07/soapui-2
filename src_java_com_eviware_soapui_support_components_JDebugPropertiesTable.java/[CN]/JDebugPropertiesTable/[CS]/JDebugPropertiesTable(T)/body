@@ -1,0 +1,9 @@
+{
+  tableModel=new PropertiesTableModel<T>(propertyObject);
+  table=new PTable(tableModel);
+  table.getColumnModel().getColumn(0).setHeaderValue("Property");
+  table.getColumnModel().getColumn(1).setHeaderValue("Value");
+  table.getColumnModel().getColumn(0).setCellRenderer(new PropertiesTableCellRenderer());
+  table.getColumnModel().getColumn(1).setCellRenderer(new PropertiesTableCellRenderer());
+  table.setBackground(Color.WHITE);
+}
