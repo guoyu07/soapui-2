@@ -24,7 +24,10 @@
     Thread.sleep(200);
   }
   int counter=0;
-  byte[] content=EntityUtils.toByteArray(new BufferedHttpEntity(httpResponse.getEntity()));
+  byte[] content=null;
+  if (httpResponse != null) {
+    content=EntityUtils.toByteArray(new BufferedHttpEntity(httpResponse.getEntity()));
+  }
   while (!aborted && content == null && counter < 10) {
     Thread.sleep(200);
     counter++;
