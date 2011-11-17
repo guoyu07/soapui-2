@@ -1,0 +1,9 @@
+{
+  if (this.queue.contains(e)) {
+    return;
+  }
+  this.queue.addLast(e);
+  if (this.queue.size() > MAX_SIZE) {
+    this.queue.removeFirst();
+  }
+}

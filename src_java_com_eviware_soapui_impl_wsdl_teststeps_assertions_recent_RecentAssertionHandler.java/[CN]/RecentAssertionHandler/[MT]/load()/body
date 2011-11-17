@@ -1,0 +1,16 @@
+{
+  StringList list=new StringList();
+  String temp=SoapUI.getSettings().getString(RecentAssertionSettings.RECENT_ASSERTIONS,null);
+  if (temp != null && temp.trim().length() > 0) {
+    try {
+      StringList assertions=StringList.fromXml(temp);
+      for (      String assertion : assertions) {
+        list.add(assertion);
+      }
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  return list;
+}

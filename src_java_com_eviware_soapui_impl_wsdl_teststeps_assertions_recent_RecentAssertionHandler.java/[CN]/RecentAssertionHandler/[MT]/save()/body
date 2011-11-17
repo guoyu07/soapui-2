@@ -1,0 +1,5 @@
+{
+  StringList list=new StringList();
+  list.addAll(this.bq.getByInsertionOrder());
+  SoapUI.getSettings().setString(RecentAssertionSettings.RECENT_ASSERTIONS,list.toXml());
+}
