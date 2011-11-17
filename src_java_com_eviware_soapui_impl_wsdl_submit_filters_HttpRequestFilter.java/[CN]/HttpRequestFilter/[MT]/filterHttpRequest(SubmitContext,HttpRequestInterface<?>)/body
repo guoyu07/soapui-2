@@ -88,7 +88,7 @@ SoapUI.logError(e);
  else if (StringUtils.hasContent(path)) {
 try {
 java.net.URI oldUri=httpMethod.getURI();
-String pathToSet=StringUtils.hasContent(oldUri.getPath()) ? oldUri.getPath() + path : path;
+String pathToSet=StringUtils.hasContent(oldUri.getPath()) && !"/".equals(oldUri.getPath()) ? oldUri.getPath() + path : path;
 java.net.URI newUri=URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),pathToSet,oldUri.getQuery(),oldUri.getFragment());
 httpMethod.setURI(newUri);
 context.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(newUri.toString(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
