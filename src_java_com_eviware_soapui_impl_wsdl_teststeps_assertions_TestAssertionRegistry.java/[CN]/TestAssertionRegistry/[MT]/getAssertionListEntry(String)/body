@@ -1,4 +1,9 @@
 {
   TestAssertionFactory factory=availableAssertions.get(type);
-  return factory.getAssertionListEntry();
+  if (factory != null) {
+    return factory.getAssertionListEntry();
+  }
+ else {
+    return null;
+  }
 }
