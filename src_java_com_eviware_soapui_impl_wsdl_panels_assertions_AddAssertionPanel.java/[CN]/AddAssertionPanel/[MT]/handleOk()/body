@@ -11,7 +11,7 @@
     UISupport.showErrorMessage("Failed to add assertion");
     return false;
   }
-  recentAssertionHandler.add(assertion.getName());
+  recentAssertionHandler.add(TestAssertionRegistry.getInstance().getAssertionTypeForName(selection));
   if (assertion.isConfigurable()) {
     assertion.configure();
     return true;
