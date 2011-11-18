@@ -1,8 +1,11 @@
 {
   LinkedHashSet<AssertionListEntry> recentlyUsedSet=new LinkedHashSet<AssertionListEntry>();
   for (  String name : recentAssertionHandler.get()) {
-    if (recentAssertionHandler.canAssert(name,assertable)) {
-      recentlyUsedSet.add(recentAssertionHandler.getAssertionListEntry(name));
+    String type=recentAssertionHandler.getAssertionTypeByName(name);
+    if (type != null) {
+      if (recentAssertionHandler.canAssert(type,assertable)) {
+        recentlyUsedSet.add(recentAssertionHandler.getAssertionListEntry(type));
+      }
     }
   }
   if (recentlyUsedSet.size() > 0)   categoriesAssertionsMap.put(RECENTLY_USED,recentlyUsedSet);

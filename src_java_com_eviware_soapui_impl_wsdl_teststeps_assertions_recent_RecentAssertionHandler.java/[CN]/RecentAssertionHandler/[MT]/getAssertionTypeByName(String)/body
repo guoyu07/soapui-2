@@ -1,0 +1,8 @@
+{
+  String type=TestAssertionRegistry.getInstance().getAssertionTypeForName(name);
+  if (type == null) {
+    this.bq.remove(name);
+    save();
+  }
+  return type;
+}
