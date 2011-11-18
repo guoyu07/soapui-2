@@ -1,7 +1,7 @@
 {
   LinkedHashMap<String,LinkedHashSet<AssertionListEntry>> categoriesAssertionsMap=new LinkedHashMap<String,LinkedHashSet<AssertionListEntry>>();
   String[] assertions=TestAssertionRegistry.getInstance().getAvailableAssertionNames(assertable);
-  addRecentlyAddedAssertions(categoriesAssertionsMap);
+  addRecentlyAddedAssertions(categoriesAssertionsMap,assertable,recentAssertionHandler);
   LinkedHashSet<AssertionListEntry> validatingResponseAssertionsSet=new LinkedHashSet<AssertionListEntry>();
   for (  String availableAssertion : assertions) {
     if (availableAssertion.equals(XPathContainsAssertion.LABEL)) {
