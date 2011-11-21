@@ -1,5 +1,5 @@
 {
-  this.assertable=((SamplerTestStep)target);
+  this.assertable=((SamplerTestStep)target).getTestRequest();
   String[] assertions=TestAssertionRegistry.getInstance().getAvailableAssertionNames(assertable);
   if (assertions == null || assertions.length == 0) {
     UISupport.showErrorMessage("No assertions available for this message");
