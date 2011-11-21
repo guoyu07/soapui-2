@@ -9,7 +9,7 @@
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
   splitButton=createActionButton(new ChangeSplitPaneOrientationAction(requestSplitPane),true);
-  addAssertionButton=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(AddAssertionAction.SOAPUI_ACTION_ID,amfRequestTestStep.getTestStep(),null,"/addAssertion.gif"));
+  addAssertionButton=UISupport.createToolbarButton(new AddAssertionAction(amfRequestTestStep));
   addAssertionButton.setEnabled(true);
   requestTabs=new JTabbedPane();
   requestTabs.setTabPlacement(JTabbedPane.LEFT);

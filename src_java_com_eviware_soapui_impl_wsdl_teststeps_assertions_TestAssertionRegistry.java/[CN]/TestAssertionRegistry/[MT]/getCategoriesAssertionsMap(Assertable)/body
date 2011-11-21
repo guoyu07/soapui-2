@@ -1,0 +1,16 @@
+{
+  LinkedHashMap<String,LinkedHashSet<AssertionListEntry>> categoryAssertionsMap=new LinkedHashMap<String,LinkedHashSet<AssertionListEntry>>();
+  for (  String category : AssertionCategoryMapping.getAssertionCategories()) {
+    LinkedHashSet<AssertionListEntry> assertionCategorySet=new LinkedHashSet<AssertionListEntry>();
+    categoryAssertionsMap.put(category,assertionCategorySet);
+  }
+  for (  TestAssertionFactory assertion : availableAssertions.values()) {
+    LinkedHashSet<AssertionListEntry> set;
+    if (assertion.canAssert(assertable)) {
+      set=categoryAssertionsMap.get(assertion.getCategory());
+      set.add(assertion.getAssertionListEntry());
+      categoryAssertionsMap.put(assertion.getCategory(),set);
+    }
+  }
+  return categoryAssertionsMap;
+}

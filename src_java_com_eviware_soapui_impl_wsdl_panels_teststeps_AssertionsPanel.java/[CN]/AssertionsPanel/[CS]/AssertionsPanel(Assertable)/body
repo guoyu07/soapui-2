@@ -4,7 +4,7 @@
   initListAndModel();
   assertionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   assertionListPopup=new JPopupMenu();
-  addAssertionAction=SwingActionDelegate.createDelegate(AddAssertionAction.SOAPUI_ACTION_ID,assertable.getTestStep(),null,"/addAssertion.gif");
+  addAssertionAction=new AddAssertionAction(assertable);
   assertionListPopup.add(addAssertionAction);
   assertionListPopup.addPopupMenuListener(new PopupMenuListener(){
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
