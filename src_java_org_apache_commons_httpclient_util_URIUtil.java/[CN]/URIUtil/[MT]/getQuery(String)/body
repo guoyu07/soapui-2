@@ -1,0 +1,19 @@
+{
+  if (uri == null || uri.length() == 0) {
+    return null;
+  }
+  int at=uri.indexOf("//");
+  int from=uri.indexOf("/",at >= 0 ? (uri.lastIndexOf("/",at - 1) >= 0 ? 0 : at + 2) : 0);
+  int to=uri.length();
+  at=uri.indexOf("?",from);
+  if (at >= 0) {
+    from=at + 1;
+  }
+ else {
+    return null;
+  }
+  if (uri.lastIndexOf("#") > from) {
+    to=uri.lastIndexOf("#");
+  }
+  return (from < 0 || from == to) ? null : uri.substring(from,to);
+}

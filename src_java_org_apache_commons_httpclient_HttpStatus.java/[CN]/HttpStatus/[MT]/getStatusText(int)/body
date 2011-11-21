@@ -1,0 +1,11 @@
+{
+  if (statusCode < 0) {
+    throw new IllegalArgumentException("status code may not be negative");
+  }
+  int classIndex=statusCode / 100;
+  int codeIndex=statusCode - classIndex * 100;
+  if (classIndex < 1 || classIndex > (REASON_PHRASES.length - 1) || codeIndex < 0 || codeIndex > (REASON_PHRASES[classIndex].length - 1)) {
+    return null;
+  }
+  return REASON_PHRASES[classIndex][codeIndex];
+}

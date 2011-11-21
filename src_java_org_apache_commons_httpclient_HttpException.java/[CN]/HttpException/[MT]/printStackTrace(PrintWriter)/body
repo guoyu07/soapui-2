@@ -1,0 +1,14 @@
+{
+  try {
+    Class[] paramsClasses=new Class[]{};
+    this.getClass().getMethod("getStackTrace",paramsClasses);
+    super.printStackTrace(s);
+  }
+ catch (  Exception ex) {
+    super.printStackTrace(s);
+    if (cause != null) {
+      s.print("Caused by: ");
+      cause.printStackTrace(s);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  if (uri == null || uri.length() == 0) {
+    return uri;
+  }
+  String path=URIUtil.getPath(uri);
+  int at=path.lastIndexOf("/");
+  int to=path.length();
+  return (at >= 0) ? path.substring(at + 1,to) : path;
+}

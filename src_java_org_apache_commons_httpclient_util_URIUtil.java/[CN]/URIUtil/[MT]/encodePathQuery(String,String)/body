@@ -1,0 +1,7 @@
+{
+  int at=unescaped.indexOf('?');
+  if (at < 0) {
+    return encode(unescaped,URI.allowed_abs_path,charset);
+  }
+  return encode(unescaped.substring(0,at),URI.allowed_abs_path,charset) + '?' + encode(unescaped.substring(at + 1),URI.allowed_query,charset);
+}

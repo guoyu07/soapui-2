@@ -1,0 +1,9 @@
+{
+  try {
+    byte[] rawdata=URLCodec.decodeUrl(EncodingUtil.getAsciiBytes(escaped));
+    return EncodingUtil.getString(rawdata,URI.getDefaultProtocolCharset());
+  }
+ catch (  DecoderException e) {
+    throw new URIException(e.getMessage());
+  }
+}
