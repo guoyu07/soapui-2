@@ -1,5 +1,7 @@
 {
-  LinkedHashMap<String,LinkedHashSet<AssertionListEntry>> categoriesAssertionsMap=TestAssertionRegistry.getInstance().getCategoriesAssertionsMap(assertable);
-  addRecentlyAddedAssertions(categoriesAssertionsMap,assertable,recentAssertionHandler);
+  LinkedHashMap<String,SortedSet<AssertionListEntry>> categoriesAssertionsMap=new LinkedHashMap<String,SortedSet<AssertionListEntry>>();
+  SortedSet<AssertionListEntry> recentlyUsedSet=createRecentlyUsedSet(assertable,recentAssertionHandler);
+  if (recentlyUsedSet.size() > 0)   categoriesAssertionsMap.put(RECENTLY_USED,recentlyUsedSet);
+  TestAssertionRegistry.getInstance().addCategoriesAssertionsMap(assertable,categoriesAssertionsMap);
   return categoriesAssertionsMap;
 }
