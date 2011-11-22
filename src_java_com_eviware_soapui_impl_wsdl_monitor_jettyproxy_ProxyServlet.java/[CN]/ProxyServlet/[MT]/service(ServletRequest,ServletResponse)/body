@@ -9,6 +9,7 @@
  else   if (httpRequest.getMethod().equals("HEAD"))   method=new ExtendedHeadMethod();
  else   if (httpRequest.getMethod().equals("OPTIONS"))   method=new ExtendedOptionsMethod();
  else   if (httpRequest.getMethod().equals("TRACE"))   method=new ExtendedTraceMethod();
+ else   if (httpRequest.getMethod().equals("PATCH"))   method=new ExtendedPatchMethod();
  else   method=new ExtendedGetMethod();
   method.setDecompress(false);
   ByteArrayOutputStream requestBody=null;

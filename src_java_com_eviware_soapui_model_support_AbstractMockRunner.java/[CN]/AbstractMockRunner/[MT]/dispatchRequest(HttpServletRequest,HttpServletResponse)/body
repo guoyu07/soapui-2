@@ -5,5 +5,6 @@
  else   if (method.equals("HEAD"))   return dispatchHeadRequest(request,response);
  else   if (method.equals("PUT"))   return dispatchPutRequest(request,response);
  else   if (method.equals("DELETE"))   return dispatchDeleteRequest(request,response);
+ else   if (method.equals("PATCH"))   return dispatchPatchRequest(request,response);
   throw new DispatchException("Unsupported HTTP Method: " + method);
 }

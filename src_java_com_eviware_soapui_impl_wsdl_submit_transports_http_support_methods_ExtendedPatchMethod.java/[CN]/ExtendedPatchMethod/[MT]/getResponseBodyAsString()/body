@@ -1,0 +1,9 @@
+{
+  byte[] rawdata=getResponseBody();
+  if (rawdata != null) {
+    return EncodingUtil.getString(rawdata,getResponseCharSet());
+  }
+ else {
+    return null;
+  }
+}
