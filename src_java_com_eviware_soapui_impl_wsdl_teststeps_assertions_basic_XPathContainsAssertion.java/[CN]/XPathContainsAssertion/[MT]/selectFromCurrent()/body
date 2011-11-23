@@ -23,7 +23,9 @@
  else {
       String stringValue=XmlUtils.getValueForMatch(cursor);
       if (contentArea != null && contentArea.isVisible())       contentArea.setText(stringValue);
- else       setExpectedContent(stringValue);
+ else {
+        setExpectedContent(stringValue,false);
+      }
     }
   }
  catch (  Throwable e) {
