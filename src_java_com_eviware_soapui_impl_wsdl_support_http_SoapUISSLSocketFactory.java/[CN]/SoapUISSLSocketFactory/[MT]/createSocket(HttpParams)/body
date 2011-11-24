@@ -29,7 +29,7 @@
         }
       }
     }
-    factory=new SSLSocketFactory(trustStore);
+    factory=new SSLSocketFactory(TLS,null,null,trustStore,null,null,ALLOW_ALL_HOSTNAME_VERIFIER);
     factoryMap.put(sslConfig,factory);
     return enableSocket((SSLSocket)factory.createSocket(params));
   }
