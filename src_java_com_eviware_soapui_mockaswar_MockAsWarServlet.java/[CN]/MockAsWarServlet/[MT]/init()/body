@@ -3,8 +3,8 @@
   try {
     String mockServiceEndpoint=initMockServiceParameters();
     logger.info("Loading project");
-    initProject();
-    if (project == null || project.getName() == null)     project=new WsdlProject(getServletContext().getResource("/" + getInitParameter("projectFile")).toString());
+    initProject(getServletContext().getRealPath(getInitParameter("projectFile")));
+    if (project == null || project.getName() == null)     initProject(getServletContext().getResource("/" + getInitParameter("projectFile")).toString());
     if (project == null)     logger.info("Starting MockService(s)");
     for (    MockService mockService : project.getMockServiceList()) {
       logger.info("Starting mockService [" + mockService.getName() + "]");
