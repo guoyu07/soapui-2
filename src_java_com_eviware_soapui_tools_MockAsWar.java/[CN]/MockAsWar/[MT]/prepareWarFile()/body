@@ -21,7 +21,7 @@
 );
     fromDir=new File(System.getProperty("soapui.home"),mainJar[0]);
     JarPackager.copyFileToDir(fromDir,lib);
-    JarPackager.copyFileToDir(projectFile,soapuiDir);
+    copyProjectFile();
     if (settingsFile != null && settingsFile.exists() && settingsFile.isFile())     JarPackager.copyFileToDir(settingsFile,soapuiDir);
     if (includeActions) {
       fromDir=new File(System.getProperty("soapui.ext.actions"));
