@@ -8,7 +8,7 @@
   }
   String pw=getPassword();
   if (pw == null)   pw="";
-  if (AuthPolicy.NTLM.equals(authScope.getScheme()) || AuthPolicy.SPNEGO.equals(authScope.getScheme())) {
+  if (AuthPolicy.NTLM.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.SPNEGO.equalsIgnoreCase(authScope.getScheme())) {
     String workstation="";
     try {
       workstation=InetAddress.getLocalHost().getHostName();
@@ -33,7 +33,7 @@
       return credentials;
     }
   }
- else   if (AuthPolicy.BASIC.equals(authScope.getScheme()) || AuthPolicy.DIGEST.equals(authScope.getScheme()) || AuthPolicy.SPNEGO.equals(authScope.getScheme())) {
+ else   if (AuthPolicy.BASIC.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.DIGEST.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.SPNEGO.equalsIgnoreCase(authScope.getScheme())) {
     if (hasCredentials()) {
       log.info("Returning url credentials");
       UsernamePasswordCredentials credentials=new UsernamePasswordCredentials(getUsername(),pw);

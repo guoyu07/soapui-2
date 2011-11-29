@@ -4,7 +4,7 @@
     throw new IllegalArgumentException("Authentication scope may not be null");
   }
   try {
-    if (AuthPolicy.NTLM.equals(authScope.getScheme())) {
+    if (AuthPolicy.NTLM.equalsIgnoreCase(authScope.getScheme())) {
       logger.info(authScope.getHost() + ":" + authScope.getPort()+ " requires Windows authentication");
       String workstation="";
       try {
@@ -14,7 +14,7 @@
       }
       return new NTCredentials(username,password,workstation,domain);
     }
- else     if (AuthPolicy.BASIC.equals(authScope.getScheme()) || AuthPolicy.DIGEST.equals(authScope.getScheme()) || AuthPolicy.SPNEGO.equals(authScope.getScheme())) {
+ else     if (AuthPolicy.BASIC.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.DIGEST.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.SPNEGO.equalsIgnoreCase(authScope.getScheme())) {
       logger.info(authScope.getHost() + ":" + authScope.getPort()+ " requires authentication with the realm '"+ authScope.getRealm()+ "'");
       return new UsernamePasswordCredentials(username,password);
     }
