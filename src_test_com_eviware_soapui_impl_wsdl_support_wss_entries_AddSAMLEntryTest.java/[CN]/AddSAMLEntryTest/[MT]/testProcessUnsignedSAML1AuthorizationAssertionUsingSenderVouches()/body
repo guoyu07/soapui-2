@@ -4,7 +4,6 @@
   addSamlEntry.setAssertionType(AddSAMLEntry.AUTHORIZATION_ASSERTION_TYPE);
   addSamlEntry.setConfirmationMethod(AddSAMLEntry.SENDER_VOUCHES_CONFIRMATION_METHOD);
   addSamlEntry.process(secHeader,doc,contextMock);
-  System.out.println(XmlUtils.serializePretty(doc));
   assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_SENDER_VOUCHES_NAMESPACE);
   assertNotNull(xpath.evaluate("//saml1:AuthorizationDecisionStatement",doc,XPathConstants.NODE));
 }
