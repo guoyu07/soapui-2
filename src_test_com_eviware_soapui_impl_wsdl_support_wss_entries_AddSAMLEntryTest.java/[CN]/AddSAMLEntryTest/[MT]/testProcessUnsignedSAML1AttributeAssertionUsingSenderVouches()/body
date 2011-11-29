@@ -2,7 +2,7 @@
   addSamlEntry.setSamlVersion(AddSAMLEntry.SAML_VERSION_1);
   addSamlEntry.setSigned(false);
   addSamlEntry.setAssertionType(AddSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
-  addSamlEntry.setConfirmationType(AddSAMLEntry.SENDER_VOUCHES_CONFIRMATION_TYPE);
+  addSamlEntry.setConfirmationMethod(AddSAMLEntry.SENDER_VOUCHES_CONFIRMATION_METHOD);
   addSamlEntry.process(secHeader,doc,contextMock);
   assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_SENDER_VOUCHES_NAMESPACE);
   assertNotNull(xpath.evaluate("//saml1:AttributeStatement",doc,XPathConstants.NODE));

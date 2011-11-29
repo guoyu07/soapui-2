@@ -10,7 +10,7 @@
  else       if (samlVersion.equals(SAML_VERSION_2)) {
         callbackHandler=new SAML2CallbackHandler(subjectName,subjectQualifier);
       }
-      callbackHandler.setConfirmationMethod(confirmationType);
+      callbackHandler.setConfirmationMethod(confirmationMethod);
       callbackHandler.setIssuer(issuer);
       callbackHandler.setStatement(assertionType);
       samlParms.setCallbackHandler(callbackHandler);
@@ -29,18 +29,18 @@
  else       if (samlVersion.equals(SAML_VERSION_2)) {
         callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
       }
-      callbackHandler.setConfirmationMethod(confirmationType);
+      callbackHandler.setConfirmationMethod(confirmationMethod);
       callbackHandler.setIssuer(issuer);
       callbackHandler.setStatement(assertionType);
       samlParms.setCallbackHandler(callbackHandler);
       AssertionWrapper assertion=new AssertionWrapper(samlParms);
       assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
       wsSecSignatureSAML.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
-      if (confirmationType.equals(SENDER_VOUCHES_CONFIRMATION_TYPE)) {
+      if (confirmationMethod.equals(SENDER_VOUCHES_CONFIRMATION_METHOD)) {
         wsSecSignatureSAML.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
         wsSecSignatureSAML.build(doc,null,assertion,wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(getPassword()),secHeader);
       }
- else       if (confirmationType.equals(HOLDER_OF_KEY_CONFIRMATION_TYPE)) {
+ else       if (confirmationMethod.equals(HOLDER_OF_KEY_CONFIRMATION_METHOD)) {
         wsSecSignatureSAML.setDigestAlgo(digestAlgorithm);
         if (assertionType.equals(AUTHENTICATION_ASSERTION_TYPE)) {
           wsSecSignatureSAML.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);

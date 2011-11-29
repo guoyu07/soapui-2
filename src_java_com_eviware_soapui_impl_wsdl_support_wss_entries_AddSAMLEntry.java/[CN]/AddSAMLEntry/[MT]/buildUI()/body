@@ -6,7 +6,7 @@
   form.appendComboBox("samlVersion","SAML version",new String[]{SAML_VERSION_1,SAML_VERSION_2},"Choose the SAML version");
   form.appendCheckBox("signed","Signed","Should the message be signed");
   form.appendComboBox("assertionType","Assertion type",new String[]{AUTHENTICATION_ASSERTION_TYPE,ATTRIBUTE_ASSERTION_TYPE,AUTHORIZATION_ASSERTION_TYPE},"Choose the type of assertion");
-  form.appendComboBox("confirmationType","Confirmation type",new String[]{SENDER_VOUCHES_CONFIRMATION_TYPE,HOLDER_OF_KEY_CONFIRMATION_TYPE},"Choose the type of confirmation");
+  form.appendComboBox("confirmationMethod","Confirmation method",new String[]{SENDER_VOUCHES_CONFIRMATION_METHOD,HOLDER_OF_KEY_CONFIRMATION_METHOD},"Choose the confirmation method");
   form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message").addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));
