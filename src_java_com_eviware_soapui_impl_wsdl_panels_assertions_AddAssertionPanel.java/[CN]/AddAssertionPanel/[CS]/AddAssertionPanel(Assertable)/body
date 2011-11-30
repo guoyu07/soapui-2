@@ -1,5 +1,6 @@
 {
   super("Select Assertion","Select which assertion to add","");
   this.assertable=assertable;
+  selectionListener=new InternalListSelectionListener();
   categoriesAssertionsMap=AssertionCategoryMapping.getCategoriesAssertionsMap(assertable,recentAssertionHandler);
 }

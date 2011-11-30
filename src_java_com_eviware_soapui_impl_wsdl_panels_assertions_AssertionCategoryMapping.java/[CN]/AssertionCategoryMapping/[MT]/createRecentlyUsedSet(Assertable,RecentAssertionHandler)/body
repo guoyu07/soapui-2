@@ -3,7 +3,7 @@
   for (  String name : recentAssertionHandler.get()) {
     String type=recentAssertionHandler.getAssertionTypeByName(name);
     if (type != null) {
-      if (recentAssertionHandler.canAssert(type,assertable)) {
+      if (assertable == null || recentAssertionHandler.canAssert(type,assertable)) {
         recentlyUsedSet.add(recentAssertionHandler.getAssertionListEntry(type));
       }
     }

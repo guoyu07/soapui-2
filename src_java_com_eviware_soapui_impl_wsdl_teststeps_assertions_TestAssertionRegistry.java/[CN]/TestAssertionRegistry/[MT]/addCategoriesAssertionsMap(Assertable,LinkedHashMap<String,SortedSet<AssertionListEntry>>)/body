@@ -5,10 +5,12 @@
   }
   for (  TestAssertionFactory assertion : availableAssertions.values()) {
     SortedSet<AssertionListEntry> set;
-    if (assertion.canAssert(assertable)) {
+    if (assertable == null || assertion.canAssert(assertable)) {
       set=categoryAssertionsMap.get(assertion.getCategory());
-      set.add(assertion.getAssertionListEntry());
-      categoryAssertionsMap.put(assertion.getCategory(),set);
+      if (set != null) {
+        set.add(assertion.getAssertionListEntry());
+        categoryAssertionsMap.put(assertion.getCategory(),set);
+      }
     }
   }
   for (  String category : AssertionCategoryMapping.getAssertionCategories()) {
