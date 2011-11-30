@@ -1,0 +1,20 @@
+{
+  super(new BorderLayout());
+  this.attributeValues=attributeValues;
+  this.entry=entry;
+  attributeValuesTableModel=new AttributeValuesTableModel();
+  attributeValuesTable=new JTable(attributeValuesTableModel);
+  attributeValuesTable.setTableHeader(null);
+  attributeValuesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      removeAttributeValueButton.setEnabled(attributeValuesTable.getSelectedRow() != -1);
+    }
+  }
+);
+  JScrollPane scrollPane=new JScrollPane(attributeValuesTable);
+  scrollPane.setBackground(Color.WHITE);
+  scrollPane.setOpaque(true);
+  add(scrollPane,BorderLayout.CENTER);
+  add(buildToolbar(),BorderLayout.NORTH);
+  setPreferredSize(new Dimension(175,150));
+}

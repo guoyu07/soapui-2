@@ -5,22 +5,12 @@
     if (!signed) {
       WSSecSAMLToken wsSecSAMLToken=new WSSecSAMLToken();
       if (samlVersion.equals(SAML_VERSION_1)) {
-        callbackHandler=new SAML1CallbackHandler(subjectName,subjectQualifier);
+        callbackHandler=new SAML1CallbackHandler(context.expand(subjectName),context.expand(subjectQualifier));
       }
  else       if (samlVersion.equals(SAML_VERSION_2)) {
-        callbackHandler=new SAML2CallbackHandler(subjectName,subjectQualifier);
+        callbackHandler=new SAML2CallbackHandler(context.expand(subjectName),context.expand(subjectQualifier));
       }
-      callbackHandler.setConfirmationMethod(confirmationMethod);
-      callbackHandler.setIssuer(issuer);
-      callbackHandler.setStatement(assertionType);
-      if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
-        callbackHandler.setCustomAttributeName(attributeName);
-        List<String> customAttributeValues=new ArrayList<String>();
-        customAttributeValues.add("attributeValue1");
-        callbackHandler.setCustomAttributeValues(customAttributeValues);
-      }
-      samlParms.setCallbackHandler(callbackHandler);
-      AssertionWrapper assertion=new AssertionWrapper(samlParms);
+      AssertionWrapper assertion=createAssertion(context,samlParms,callbackHandler);
       wsSecSAMLToken.build(doc,assertion,secHeader);
     }
  else {
@@ -30,22 +20,12 @@
         throw new Exception("Missing crypto [" + crypto + "] for signature entry");
       }
       if (samlVersion.equals(SAML_VERSION_1)) {
-        callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
+        callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(subjectName),context.expand(subjectQualifier));
       }
  else       if (samlVersion.equals(SAML_VERSION_2)) {
-        callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),subjectName,subjectQualifier);
+        callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),context.expand(subjectName),context.expand(subjectQualifier));
       }
-      if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
-        callbackHandler.setCustomAttributeName(attributeName);
-        List<String> customAttributeValues=new ArrayList<String>();
-        customAttributeValues.add("attributeValue1");
-        callbackHandler.setCustomAttributeValues(customAttributeValues);
-      }
-      callbackHandler.setConfirmationMethod(confirmationMethod);
-      callbackHandler.setIssuer(issuer);
-      callbackHandler.setStatement(assertionType);
-      samlParms.setCallbackHandler(callbackHandler);
-      AssertionWrapper assertion=new AssertionWrapper(samlParms);
+      AssertionWrapper assertion=createAssertion(context,samlParms,callbackHandler);
       assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
       wsSecSignatureSAML.setUserInfo(context.expand(getUsername()),context.expand(getPassword()));
       if (confirmationMethod.equals(SENDER_VOUCHES_CONFIRMATION_METHOD)) {

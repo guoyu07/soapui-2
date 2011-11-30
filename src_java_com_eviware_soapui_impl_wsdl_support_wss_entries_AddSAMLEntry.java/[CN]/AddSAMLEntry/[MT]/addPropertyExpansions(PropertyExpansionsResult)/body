@@ -1,4 +1,7 @@
 {
   super.addPropertyExpansions(result);
-  result.extractAndAddAll("samlAssertion");
+  result.extractAndAddAll(this,"issuer");
+  result.extractAndAddAll(this,"subjectName");
+  result.extractAndAddAll(this,"subjectQualifier");
+  result.extractAndAddAll(this,"attributeName");
 }

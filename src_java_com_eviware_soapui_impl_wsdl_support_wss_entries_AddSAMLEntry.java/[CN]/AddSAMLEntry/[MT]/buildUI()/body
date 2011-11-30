@@ -4,7 +4,7 @@
   SimpleBindingForm form=new SimpleBindingForm(new PresentationModel<AddSignatureEntry>(this));
   form.addSpace(5);
   form.appendComboBox("samlVersion","SAML version",new String[]{SAML_VERSION_1,SAML_VERSION_2},"Choose the SAML version");
-  form.appendCheckBox("signed","Signed","Should the message be signed");
+  form.appendCheckBox("signed","Signed",null);
   form.appendComboBox("assertionType","Assertion type",new String[]{AUTHENTICATION_ASSERTION_TYPE,ATTRIBUTE_ASSERTION_TYPE,AUTHORIZATION_ASSERTION_TYPE},"Choose the type of assertion");
   form.appendComboBox("confirmationMethod","Confirmation method",new String[]{SENDER_VOUCHES_CONFIRMATION_METHOD,HOLDER_OF_KEY_CONFIRMATION_METHOD},"Choose the confirmation method");
   form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message").addItemListener(new ItemListener(){
@@ -22,5 +22,6 @@
   form.appendComboBox("digestAlgorithm","Digest algorithm",new String[]{SHA256_DIGEST_ALGORITHM},"Set the digest algorithm");
   form.appendComboBox("signatureAlgorithm","Signature algorithm",new String[]{RSA_SHA256_SIGNATURE_ALGORITHM},"Set the signature algorithm");
   form.appendTextField("attributeName","Attribute name","The name of the attribute");
+  form.append("Attribute names",new SAMLAttributeValuesTable(attributeValues,this));
   return new JScrollPane(form.getPanel());
 }

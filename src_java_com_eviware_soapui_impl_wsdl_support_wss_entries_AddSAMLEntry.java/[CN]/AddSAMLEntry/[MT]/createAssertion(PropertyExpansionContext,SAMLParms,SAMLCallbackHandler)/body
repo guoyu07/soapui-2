@@ -1,0 +1,11 @@
+{
+  if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
+    callbackHandler.setCustomAttributeName(attributeName);
+    callbackHandler.setCustomAttributeValues(extractValueColumnValues(attributeValues,context));
+  }
+  callbackHandler.setConfirmationMethod(confirmationMethod);
+  callbackHandler.setIssuer(issuer);
+  callbackHandler.setStatement(assertionType);
+  samlParms.setCallbackHandler(callbackHandler);
+  return new AssertionWrapper(samlParms);
+}

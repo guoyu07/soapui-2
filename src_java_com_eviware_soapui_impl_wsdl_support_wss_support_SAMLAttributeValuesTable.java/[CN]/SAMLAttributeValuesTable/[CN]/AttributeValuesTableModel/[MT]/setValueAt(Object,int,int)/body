@@ -1,0 +1,7 @@
+{
+  StringToStringMap attributeValue=attributeValues.get(rowIndex);
+  if (aValue == null)   aValue="";
+  fireTableCellUpdated(rowIndex,1);
+  attributeValue.put("value",aValue.toString());
+  entry.saveConfig();
+}

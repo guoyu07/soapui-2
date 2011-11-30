@@ -1,0 +1,10 @@
+{
+  List<StringToStringMap> result=new ArrayList<StringToStringMap>();
+  String[] tableValues=reader.readStrings(parameterName);
+  if (tableValues != null && tableValues.length > 0) {
+    for (    String tableValue : tableValues) {
+      result.add(StringToStringMap.fromXml(tableValue));
+    }
+  }
+  return result;
+}
