@@ -40,7 +40,7 @@
         }
  else         if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
           wsSecSignatureSAML.setKeyIdentifierType(WSConstants.X509_KEY_IDENTIFIER);
-          wsSecSignatureSAML.setSignatureAlgorithm(WSConstants.HMAC_SHA256);
+          wsSecSignatureSAML.setSignatureAlgorithm(signatureAlgorithm);
           byte[] ephemeralKey=callbackHandler.getEphemeralKey();
           wsSecSignatureSAML.setSecretKey(ephemeralKey);
         }

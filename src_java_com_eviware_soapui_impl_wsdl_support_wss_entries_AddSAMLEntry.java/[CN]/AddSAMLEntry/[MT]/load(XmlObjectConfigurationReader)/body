@@ -7,8 +7,8 @@
   issuer=reader.readString("issuer",null);
   subjectName=reader.readString("subjectName",DEFAULT_SUBJECT_NAME);
   subjectQualifier=reader.readString("subjectQualifier",null);
-  digestAlgorithm=reader.readString("digestAlgorithm",SHA256_DIGEST_ALGORITHM);
-  signatureAlgorithm=reader.readString("signatureAlgorithm",RSA_SHA256_SIGNATURE_ALGORITHM);
+  digestAlgorithm=reader.readString("digestAlgorithm",null);
+  signatureAlgorithm=reader.readString("signatureAlgorithm",null);
   attributeName=reader.readString("attributeName",null);
   attributeValues=readTableValues(reader,"attributeValues");
 }
