@@ -10,6 +10,8 @@
   addSamlEntry.setIssuer(ISSUER);
   addSamlEntry.setSubjectQualifier(SUBJECT_QUALIFIER);
   addSamlEntry.setSubjectName(SUBJECT_NAME);
+  addSamlEntry.setSignatureAlgorithm(WSConstants.RSA);
+  addSamlEntry.setDigestAlgorithm(MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA1);
   createCrypto();
   when(outgoingWssMock.getWssContainer()).thenReturn(wssContainerMock);
   when(wssContainerMock.getCryptoByName(anyString())).thenReturn(wssCryptoMock);
