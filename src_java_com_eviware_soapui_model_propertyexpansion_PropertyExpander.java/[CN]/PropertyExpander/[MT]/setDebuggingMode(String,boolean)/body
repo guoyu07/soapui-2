@@ -1,0 +1,13 @@
+{
+  debuggingMode=debug;
+  if (debug) {
+    if (debuggingExpandedProperties.get(testCaseId) == null) {
+      debuggingExpandedProperties.put(testCaseId,new StringToStringMap());
+    }
+  }
+ else {
+    if (debuggingExpandedProperties.get(testCaseId) != null) {
+      debuggingExpandedProperties.remove(testCaseId);
+    }
+  }
+}
