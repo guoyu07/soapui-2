@@ -33,8 +33,8 @@
       if (propertyValue != null) {
         if (!content.equals(propertyValue))         propertyValue=expand(context,propertyValue);
         if (entitize)         propertyValue=XmlUtils.entitize(propertyValue);
-        if (debuggingMode && context.getModelItem() instanceof TestCase) {
-          TestCase testCase=(TestCase)context.getModelItem();
+        TestCase testCase=ModelSupport.getModelItemTestCase(context.getModelItem());
+        if (debuggingMode && testCase != null) {
           StringToStringMap props=debuggingExpandedProperties.get(testCase.getId());
           if (props == null) {
             props=new StringToStringMap();

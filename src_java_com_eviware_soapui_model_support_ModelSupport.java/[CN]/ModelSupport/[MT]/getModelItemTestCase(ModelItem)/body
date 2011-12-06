@@ -1,0 +1,7 @@
+{
+  if (modelItem == null)   return null;
+  while (!(modelItem instanceof TestCase) && modelItem != null) {
+    modelItem=modelItem.getParent();
+  }
+  return (TestCase)modelItem;
+}
