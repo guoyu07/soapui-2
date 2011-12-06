@@ -1,6 +1,7 @@
 {
   JXToolBar toolbar=UISupport.createSmallToolbar();
-  toolbar.addFixed(UISupport.createToolbarButton(new AddAttributeValueAction()));
+  createAttributeValueButton=UISupport.createToolbarButton(new AddAttributeValueAction());
+  toolbar.addFixed(createAttributeValueButton);
   removeAttributeValueButton=UISupport.createToolbarButton(new RemoveAttributeValueAction());
   toolbar.addFixed(removeAttributeValueButton);
   return toolbar;
