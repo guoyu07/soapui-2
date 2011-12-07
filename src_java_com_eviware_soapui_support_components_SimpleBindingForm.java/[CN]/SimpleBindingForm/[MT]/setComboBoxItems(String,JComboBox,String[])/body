@@ -1,5 +1,3 @@
 {
-  Bindings.removeComponentPropertyHandler(component);
-  component.setModel(new DefaultComboBoxModel(items));
-  Bindings.addComponentPropertyHandler(component,pm.getModel(propertyName));
+  Bindings.bind(comboBox,new SelectionInList<Object>(values,pm.getModel(propertyName)));
 }
