@@ -1,0 +1,18 @@
+{
+  if (assertionType.equals(AUTHORIZATION_ASSERTION_TYPE)) {
+    signed=false;
+    signedCheckBox.setSelected(false);
+    signedCheckBox.setEnabled(false);
+  }
+ else {
+    signedCheckBox.setEnabled(true);
+  }
+  if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
+    attributeNameTextField.setEnabled(true);
+    samlAttributeValuesTable.setEnabled(true);
+  }
+ else {
+    attributeNameTextField.setEnabled(false);
+    samlAttributeValuesTable.setEnabled(false);
+  }
+}
