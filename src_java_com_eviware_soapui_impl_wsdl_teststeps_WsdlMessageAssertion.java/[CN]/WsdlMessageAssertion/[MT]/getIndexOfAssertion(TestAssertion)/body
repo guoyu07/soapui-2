@@ -1,7 +1,7 @@
 {
   if (getConfig() instanceof GroupAssertionListConfig) {
-    List<TestAssertionConfig> assertionConfigList=((GroupAssertionListConfig)getConfig()).getAssertionsList();
-    return assertionConfigList.indexOf(((WsdlMessageAssertion)assertion).getConfig());
+    List<AssertionEntryConfig> assertionEntryConfigList=((GroupAssertionListConfig)getConfig()).getAssertionsList();
+    return assertionEntryConfigList.indexOf(((WsdlMessageAssertion)assertion).getConfig());
   }
  else   return -1;
 }
