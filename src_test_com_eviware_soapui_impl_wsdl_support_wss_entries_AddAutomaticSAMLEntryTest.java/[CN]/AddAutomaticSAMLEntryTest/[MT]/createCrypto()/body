@@ -1,0 +1,9 @@
+{
+  WSSConfig.init();
+  crypto=new Merlin();
+  KeyStore keyStore=KeyStore.getInstance(KeyStore.getDefaultType());
+  ClassLoader loader=Loader.getClassLoader(AddAutomaticSAMLEntryTest.class);
+  InputStream input=Merlin.loadInputStream(loader,KEYSTORE_PATH);
+  keyStore.load(input,KEYSTORE_PASSWORD.toCharArray());
+  ((Merlin)crypto).setKeyStore(keyStore);
+}

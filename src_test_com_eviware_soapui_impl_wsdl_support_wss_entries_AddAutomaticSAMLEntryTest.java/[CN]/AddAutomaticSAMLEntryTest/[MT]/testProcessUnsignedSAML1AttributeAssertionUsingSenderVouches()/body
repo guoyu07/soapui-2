@@ -1,0 +1,16 @@
+{
+  addAutomaticSamlEntry.setSamlVersion(AddAutomaticSAMLEntry.SAML_VERSION_1);
+  addAutomaticSamlEntry.setSigned(false);
+  addAutomaticSamlEntry.setAssertionType(AddAutomaticSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
+  addAutomaticSamlEntry.setConfirmationMethod(AddAutomaticSAMLEntry.SENDER_VOUCHES_CONFIRMATION_METHOD);
+  addAutomaticSamlEntry.setAttributeName(ATTTRIBUTE_NAME);
+  StringToStringMap attributeValueRow=new StringToStringMap();
+  attributeValueRow.put(AddAutomaticSAMLEntry.ATTRIBUTE_VALUES_VALUE_COLUMN,ATTTRIBUTE_VALUE);
+  addAutomaticSamlEntry.setAttributeValues(Collections.singletonList(attributeValueRow));
+  addAutomaticSamlEntry.process(secHeader,doc,contextMock);
+  System.out.println(XmlUtils.serializePretty(doc));
+  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_SENDER_VOUCHES_NAMESPACE);
+  assertNotNull(xpath.evaluate("//saml1:AttributeStatement",doc,XPathConstants.NODE));
+  assertEquals(xpath.evaluate("//saml1:AttributeStatement/saml1:Attribute/@AttributeName",doc,XPathConstants.STRING),ATTTRIBUTE_NAME);
+  assertEquals(xpath.evaluate("//saml1:AttributeStatement/saml1:Attribute/saml1:AttributeValue",doc,XPathConstants.STRING),ATTTRIBUTE_VALUE);
+}

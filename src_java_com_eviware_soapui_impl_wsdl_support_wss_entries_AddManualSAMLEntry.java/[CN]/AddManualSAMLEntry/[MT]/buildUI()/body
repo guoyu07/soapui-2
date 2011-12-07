@@ -1,0 +1,14 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  editor=JXEditTextArea.createXmlEditor(true);
+  editor.setText(samlAssertion);
+  editor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    javax.swing.text.Document document){
+      samlAssertion=editor.getText();
+      saveConfig();
+    }
+  }
+);
+  panel.add(new JScrollPane(editor),BorderLayout.CENTER);
+  return UISupport.addTitledBorder(panel,"Enter SAML Assertion");
+}
