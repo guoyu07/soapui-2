@@ -1,0 +1,41 @@
+{
+  wssContainerListener=new InternalWssContainerListener();
+  getWssContainer().addWssContainerListener(wssContainerListener);
+  form=new SimpleBindingForm(new PresentationModel<SignatureEntry>(this));
+  form.addSpace(5);
+  form.appendComboBox("samlVersion","SAML version",new String[]{SAML_VERSION_1,SAML_VERSION_2},"Choose the SAML version");
+  signedCheckBox=form.appendCheckBox("signed","Signed",null);
+  signedCheckBox.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      checkSigned();
+    }
+  }
+);
+  form.appendComboBox("assertionType","Assertion type",new String[]{AUTHENTICATION_ASSERTION_TYPE,ATTRIBUTE_ASSERTION_TYPE,AUTHORIZATION_ASSERTION_TYPE},"Choose the type of assertion").addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      checkAssertionType();
+    }
+  }
+);
+  confirmationMethodComboBox=form.appendComboBox("confirmationMethod","Confirmation method",new String[]{SENDER_VOUCHES_CONFIRMATION_METHOD},"Choose the confirmation method");
+  cryptoComboBox=form.appendComboBox("crypto","Keystore",new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto)),"Selects the Keystore containing the key to use for signing the SAML message");
+  cryptoComboBox.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));
+    }
+  }
+);
+  keyAliasComboBoxModel=new KeyAliasComboBoxModel(getWssContainer().getCryptoByName(crypto));
+  keyAliasComboBox=form.appendComboBox("username","Alias",keyAliasComboBoxModel,"The alias for the key to use for encryption");
+  passwordField=form.appendPasswordField("password","Password","The certificate password");
+  form.appendTextField("issuer","Issuer","The issuer");
+  form.appendTextField("subjectName","Subject Name","The subject qualifier");
+  form.appendTextField("subjectQualifier","Subject Qualifier","The subject qualifier");
+  form.appendComboBox("digestAlgorithm","Digest Algorithm",new String[]{MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA1,MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA256,MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA384,MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA512},"Set the digest algorithm to use");
+  form.appendComboBox("signatureAlgorithm","Signature Algorithm",new String[]{WSConstants.RSA,WSConstants.DSA,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA384,XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA512,XMLSignature.ALGO_ID_MAC_HMAC_SHA1,XMLSignature.ALGO_ID_MAC_HMAC_SHA256,XMLSignature.ALGO_ID_MAC_HMAC_SHA384,XMLSignature.ALGO_ID_MAC_HMAC_SHA512},"Set the name of the signature encryption algorithm to use");
+  attributeNameTextField=form.appendTextField("attributeName","Attribute name","The name of the attribute");
+  samlAttributeValuesTable=new SAMLAttributeValuesTable(attributeValues,this);
+  form.append("Attribute values",samlAttributeValuesTable);
+  initComponentsEnabledState();
+  return new JScrollPane(form.getPanel());
+}

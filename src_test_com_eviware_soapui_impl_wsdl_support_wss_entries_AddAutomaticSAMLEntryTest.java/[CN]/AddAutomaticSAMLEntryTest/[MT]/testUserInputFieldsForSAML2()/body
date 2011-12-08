@@ -1,9 +1,0 @@
-{
-  addAutomaticSamlEntry.setSamlVersion(AddAutomaticSAMLEntry.SAML_VERSION_2);
-  addAutomaticSamlEntry.setSigned(true);
-  addAutomaticSamlEntry.process(secHeader,doc,contextMock);
-  assertNotNull(xpath.evaluate("//saml2:Assertion",doc,XPathConstants.NODE));
-  assertNotNull(xpath.evaluate("//saml2:Issuer",doc,XPathConstants.NODE));
-  assertNotNull(xpath.evaluate("//saml2:NameID",doc,XPathConstants.NODE));
-  assertNotNull(xpath.evaluate("//saml2:NameID/@NameQualifier",doc,XPathConstants.NODE));
-}

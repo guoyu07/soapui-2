@@ -1,0 +1,9 @@
+{
+  automaticSamlEntry.setSamlVersion(AutomaticSAMLEntry.SAML_VERSION_1);
+  automaticSamlEntry.setSigned(true);
+  automaticSamlEntry.setAssertionType(AutomaticSAMLEntry.AUTHENTICATION_ASSERTION_TYPE);
+  automaticSamlEntry.setConfirmationMethod(AutomaticSAMLEntry.HOLDER_OF_KEY_CONFIRMATION_METHOD);
+  automaticSamlEntry.process(secHeader,doc,contextMock);
+  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_HOLDER_OF_KEY_NAMESPACE);
+  assertNotNull(xpath.evaluate("//saml1:AuthenticationStatement",doc,XPathConstants.NODE));
+}
