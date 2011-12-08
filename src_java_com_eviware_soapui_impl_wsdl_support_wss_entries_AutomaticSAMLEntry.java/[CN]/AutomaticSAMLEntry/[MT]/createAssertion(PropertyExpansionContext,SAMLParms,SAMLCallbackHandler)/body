@@ -1,11 +1,11 @@
 {
   if (assertionType.equals(ATTRIBUTE_ASSERTION_TYPE)) {
-    callbackHandler.setCustomAttributeName(attributeName);
+    callbackHandler.setCustomAttributeName(context.expand(attributeName));
     callbackHandler.setCustomAttributeValues(extractValueColumnValues(attributeValues,context));
   }
-  callbackHandler.setConfirmationMethod(confirmationMethod);
-  callbackHandler.setIssuer(issuer);
-  callbackHandler.setStatement(assertionType);
+  callbackHandler.setIssuer(context.expand(issuer));
+  callbackHandler.setSubjectName(context.expand(subjectName));
+  callbackHandler.setSubjectQualifier(context.expand(subjectQualifier));
   samlParms.setCallbackHandler(callbackHandler);
   return new AssertionWrapper(samlParms);
 }
