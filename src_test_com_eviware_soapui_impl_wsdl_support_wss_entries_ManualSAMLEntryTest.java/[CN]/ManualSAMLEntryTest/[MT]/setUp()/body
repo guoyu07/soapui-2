@@ -1,0 +1,11 @@
+{
+  MockitoAnnotations.initMocks(this);
+  initXpath();
+  doc=XmlUtils.parseXml(TestUtils.SAMPLE_SOAP_MESSAGE);
+  secHeader=new WSSecHeader();
+  secHeader.insertSecurityHeader(doc);
+  manualSAMLentry=new ManualSAMLEntry();
+  manualSAMLentry.init(wssEntryConfigMock,outgoingWssMock);
+  when(wssEntryConfigMock.getConfiguration()).thenReturn(xmlObjectMock);
+  when(contextMock.expand(TestUtils.SAMPLE_SAML_1_ASSERTION)).thenReturn(TestUtils.SAMPLE_SAML_1_ASSERTION);
+}

@@ -1,0 +1,5 @@
+{
+  manualSAMLentry.setSamlAssertion(TestUtils.SAMPLE_SAML_1_ASSERTION);
+  manualSAMLentry.process(secHeader,doc,contextMock);
+  assertNotNull(xpath.evaluate("//saml1:Assertion",doc,XPathConstants.NODE));
+}
