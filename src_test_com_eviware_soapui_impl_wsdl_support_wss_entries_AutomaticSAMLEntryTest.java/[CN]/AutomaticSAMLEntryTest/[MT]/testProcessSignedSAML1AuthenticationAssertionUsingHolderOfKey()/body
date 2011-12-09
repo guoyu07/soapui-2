@@ -1,9 +1,8 @@
 {
-  automaticSamlEntry.setSamlVersion(AutomaticSAMLEntry.SAML_VERSION_1);
-  automaticSamlEntry.setSigned(true);
-  automaticSamlEntry.setAssertionType(AutomaticSAMLEntry.AUTHENTICATION_ASSERTION_TYPE);
-  automaticSamlEntry.setConfirmationMethod(AutomaticSAMLEntry.HOLDER_OF_KEY_CONFIRMATION_METHOD);
+  setRequiredFields(AutomaticSAMLEntry.SAML_VERSION_1,true,AutomaticSAMLEntry.AUTHENTICATION_ASSERTION_TYPE,AutomaticSAMLEntry.HOLDER_OF_KEY_CONFIRMATION_METHOD);
   automaticSamlEntry.process(secHeader,doc,contextMock);
-  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_HOLDER_OF_KEY_NAMESPACE);
+  System.err.println(XmlUtils.serializePretty(doc));
+  assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
+  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML1Constants.CONF_HOLDER_KEY);
   assertNotNull(xpath.evaluate("//saml1:AuthenticationStatement",doc,XPathConstants.NODE));
 }

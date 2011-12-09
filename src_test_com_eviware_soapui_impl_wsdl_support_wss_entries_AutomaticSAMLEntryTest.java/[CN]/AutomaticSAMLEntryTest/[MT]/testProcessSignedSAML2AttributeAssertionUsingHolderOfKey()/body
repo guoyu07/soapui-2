@@ -1,14 +1,9 @@
 {
-  automaticSamlEntry.setSamlVersion(AutomaticSAMLEntry.SAML_VERSION_2);
-  automaticSamlEntry.setSigned(true);
-  automaticSamlEntry.setAssertionType(AutomaticSAMLEntry.ATTRIBUTE_ASSERTION_TYPE);
-  automaticSamlEntry.setConfirmationMethod(AutomaticSAMLEntry.HOLDER_OF_KEY_CONFIRMATION_METHOD);
-  automaticSamlEntry.setAttributeName(ATTTRIBUTE_NAME);
-  StringToStringMap attributeValueRow=new StringToStringMap();
-  attributeValueRow.put(AutomaticSAMLEntry.ATTRIBUTE_VALUES_VALUE_COLUMN,ATTTRIBUTE_VALUE);
-  automaticSamlEntry.setAttributeValues(Collections.singletonList(attributeValueRow));
+  setRequiredFields(AutomaticSAMLEntry.SAML_VERSION_2,true,AutomaticSAMLEntry.ATTRIBUTE_ASSERTION_TYPE,AutomaticSAMLEntry.HOLDER_OF_KEY_CONFIRMATION_METHOD);
+  createAttribute();
   automaticSamlEntry.process(secHeader,doc,contextMock);
-  assertEquals(xpath.evaluate("//saml2:SubjectConfirmation/@Method",doc,XPathConstants.STRING),SAML_2_HOLDER_OF_KEY_NAMESPACE);
+  assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
+  assertEquals(xpath.evaluate("//saml2:SubjectConfirmation/@Method",doc,XPathConstants.STRING),SAML2Constants.CONF_HOLDER_KEY);
   assertNotNull(xpath.evaluate("//saml2:AttributeStatement",doc,XPathConstants.NODE));
   assertEquals(xpath.evaluate("//saml2:AttributeStatement/saml2:Attribute/@FriendlyName",doc,XPathConstants.STRING),ATTTRIBUTE_NAME);
   assertEquals(xpath.evaluate("//saml2:AttributeStatement/saml2:Attribute/saml2:AttributeValue",doc,XPathConstants.STRING),ATTTRIBUTE_VALUE);

@@ -1,9 +1,6 @@
 {
-  automaticSamlEntry.setSamlVersion(AutomaticSAMLEntry.SAML_VERSION_1);
-  automaticSamlEntry.setSigned(false);
-  automaticSamlEntry.setAssertionType(AutomaticSAMLEntry.AUTHENTICATION_ASSERTION_TYPE);
-  automaticSamlEntry.setConfirmationMethod(AutomaticSAMLEntry.SENDER_VOUCHES_CONFIRMATION_METHOD);
+  setRequiredFields(AutomaticSAMLEntry.SAML_VERSION_1,false,AutomaticSAMLEntry.AUTHENTICATION_ASSERTION_TYPE,AutomaticSAMLEntry.SENDER_VOUCHES_CONFIRMATION_METHOD);
   automaticSamlEntry.process(secHeader,doc,contextMock);
-  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML_1_SENDER_VOUCHES_NAMESPACE);
+  assertEquals(xpath.evaluate("//saml1:ConfirmationMethod",doc,XPathConstants.STRING),SAML1Constants.CONF_SENDER_VOUCHES);
   assertNotNull(xpath.evaluate("//saml1:AuthenticationStatement",doc,XPathConstants.NODE));
 }
