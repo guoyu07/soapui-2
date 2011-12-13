@@ -5,6 +5,7 @@
   hideDescCB=new JCheckBox("Hide descriptions");
   hideDescCB.setOpaque(false);
   hideDescCB.addItemListener(hideDescListener);
+  hideDescCB.setSelected(SoapUI.getSettings().getBoolean(AssertionDescriptionSettings.SHOW_ASSERTION_DESCRIPTION));
   toolbar.add(new JLabel("Assertions"));
   toolbar.addGlue();
   toolbar.add(hideDescCB);

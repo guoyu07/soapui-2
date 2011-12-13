@@ -1,4 +1,5 @@
 {
   assertionsTable.getColumnModel().getColumn(0).setCellRenderer(assertionEntryRenderer);
   assertionsListTableModel.fireTableDataChanged();
+  SoapUI.getSettings().setBoolean(AssertionDescriptionSettings.SHOW_ASSERTION_DESCRIPTION,arg0.getStateChange() == ItemEvent.SELECTED);
 }
