@@ -14,9 +14,9 @@
     logger.info("Actions not set!");
   }
   if (SoapUI.getSoapUICore() == null) {
-    if (StringUtils.hasContent(getInitParameter("soapuiSettings"))) {
+    if (StringUtils.hasContent(getInitParameter("soapUISettings"))) {
       logger.info("Init settings");
-      SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext(),getInitParameter("soapuiSettings")),true);
+      SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext(),getInitParameter("soapUISettings")),true);
     }
  else {
       logger.info("Settings not set!");
