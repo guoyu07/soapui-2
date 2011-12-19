@@ -15,7 +15,7 @@
   ByteArrayOutputStream requestBody=null;
   if (method instanceof HttpEntityEnclosingRequest) {
     requestBody=Tools.readAll(request.getInputStream(),0);
-    InputStreamEntity entity=new InputStreamEntity(new ByteArrayInputStream(requestBody.toByteArray()),-1);
+    ByteArrayEntity entity=new ByteArrayEntity(requestBody.toByteArray());
     entity.setContentType(request.getContentType());
     ((HttpEntityEnclosingRequest)method).setEntity(entity);
   }
@@ -31,17 +31,12 @@
     if (connectionHeader.indexOf("keep-alive") < 0 && connectionHeader.indexOf("close") < 0)     connectionHeader=null;
   }
   boolean xForwardedFor=false;
-  @SuppressWarnings("unused") long contentLength=-1;
-  Enumeration<?> headerNames=httpRequest.getHeaderNames();
+  @SuppressWarnings("unused") Enumeration<?> headerNames=httpRequest.getHeaderNames();
   while (headerNames.hasMoreElements()) {
     String hdr=(String)headerNames.nextElement();
     String lhdr=hdr.toLowerCase();
     if (dontProxyHeaders.contains(lhdr))     continue;
     if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
-    if ("content-length".equals(lhdr)) {
-      contentLength=request.getContentLength();
-      continue;
-    }
     Enumeration<?> vals=httpRequest.getHeaders(hdr);
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
@@ -86,7 +81,7 @@
   capturedData.stopCapture();
   capturedData.setRequest(requestBody == null ? null : requestBody.toByteArray());
   capturedData.setRawResponseBody(method.getResponseBody());
-  capturedData.setResponseHeader(method);
+  capturedData.setResponseHeader(method.getHttpResponse());
   capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,requestBody));
   capturedData.setRawResponseData(getResponseToBytes(method,capturedData.getRawResponseBody()));
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
