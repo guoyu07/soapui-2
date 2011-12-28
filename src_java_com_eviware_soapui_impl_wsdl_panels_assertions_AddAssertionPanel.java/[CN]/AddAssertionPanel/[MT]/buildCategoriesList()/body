@@ -6,11 +6,12 @@
   categoriesList.setSelectedIndex(0);
   categoriesList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
-      String category=(String)categoriesList.getSelectedValue();
-      if (category != null && categoriesAssertionsMap.containsKey(category)) {
-        assertions=categoriesAssertionsMap.get(category);
+      selectedCategory=(String)categoriesList.getSelectedValue();
+      if (selectedCategory != null && categoriesAssertionsMap.containsKey(selectedCategory)) {
+        assertions=categoriesAssertionsMap.get(selectedCategory);
         assertionsListTableModel.setListEntriesSet(assertions);
-        assertionsTable.getColumnModel().getColumn(0).setCellRenderer(assertionEntryRenderer);
+        renderAssertions();
+        populateNonSelectableIndexes();
         assertionsListTableModel.fireTableDataChanged();
       }
     }

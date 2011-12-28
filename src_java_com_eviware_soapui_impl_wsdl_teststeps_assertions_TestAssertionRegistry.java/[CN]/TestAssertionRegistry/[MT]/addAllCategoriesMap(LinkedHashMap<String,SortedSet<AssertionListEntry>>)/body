@@ -1,0 +1,21 @@
+{
+  for (  String category : AssertionCategoryMapping.getAssertionCategories()) {
+    SortedSet<AssertionListEntry> assertionCategorySet=new TreeSet<AssertionListEntry>();
+    categoryAssertionsMap.put(category,assertionCategorySet);
+  }
+  for (  TestAssertionFactory assertion : availableAssertions.values()) {
+    SortedSet<AssertionListEntry> set;
+    set=categoryAssertionsMap.get(assertion.getCategory());
+    if (set != null) {
+      AssertionListEntry assertionListEntry=assertion.getAssertionListEntry();
+      set.add(assertionListEntry);
+      categoryAssertionsMap.put(assertion.getCategory(),set);
+    }
+  }
+  for (  String category : AssertionCategoryMapping.getAssertionCategories()) {
+    if (categoryAssertionsMap.get(category).isEmpty()) {
+      categoryAssertionsMap.remove(category);
+    }
+  }
+  return categoryAssertionsMap;
+}

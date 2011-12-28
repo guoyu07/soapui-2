@@ -8,7 +8,8 @@
     if (assertable == null || assertion.canAssert(assertable)) {
       set=categoryAssertionsMap.get(assertion.getCategory());
       if (set != null) {
-        set.add(assertion.getAssertionListEntry());
+        AssertionListEntry assertionListEntry=assertion.getAssertionListEntry();
+        set.add(assertionListEntry);
         categoryAssertionsMap.put(assertion.getCategory(),set);
       }
     }

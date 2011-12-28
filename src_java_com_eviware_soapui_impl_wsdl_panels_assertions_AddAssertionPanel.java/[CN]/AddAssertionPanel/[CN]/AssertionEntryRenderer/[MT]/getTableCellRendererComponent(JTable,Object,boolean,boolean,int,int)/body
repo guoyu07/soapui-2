@@ -1,0 +1,33 @@
+{
+  boldFont=getFont().deriveFont(Font.BOLD);
+  AssertionListEntry entry=(AssertionListEntry)value;
+  String type=TestAssertionRegistry.getInstance().getAssertionTypeForName(entry.getName());
+  boolean canAssert=assertable != null ? TestAssertionRegistry.getInstance().canAssert(type,assertable) : true;
+  String str=entry.getName();
+  JLabel label=new JLabel(str);
+  label.setFont(boldFont);
+  JLabel desc=new JLabel(((AssertionListEntry)value).getDescription());
+  JLabel disabledInfo=new JLabel("Not applicable with selected Source and Property");
+  boolean disable=!categoriesList.isEnabled() || !canAssert;
+  if (disable) {
+    label.setForeground(Color.LIGHT_GRAY);
+    desc.setForeground(Color.LIGHT_GRAY);
+    disabledInfo.setForeground(Color.LIGHT_GRAY);
+  }
+  SimpleForm form=new SimpleForm();
+  form.addComponent(label);
+  if (!isHideDescriptionSelected()) {
+    form.addComponent(desc);
+    if (disable) {
+      form.addComponent(disabledInfo);
+    }
+    getAssertionsTable().setRowHeight(60);
+  }
+ else {
+    if (disable) {
+      form.addComponent(disabledInfo);
+    }
+    getAssertionsTable().setRowHeight(40);
+  }
+  return form.getPanel();
+}

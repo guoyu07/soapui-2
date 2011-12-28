@@ -1,0 +1,10 @@
+{
+  SortedSet<AssertionListEntry> assertionsList=getCategoriesAssertionsMap().get(getSelectedCategory());
+  List<Integer> intList=new ArrayList<Integer>();
+  assertionsList.toArray();
+  for (int i=0; i < assertionsList.size(); i++) {
+    AssertionListEntry assertionListEntry=(AssertionListEntry)assertionsList.toArray()[i];
+    if (!TestAssertionRegistry.getInstance().canAssert(assertionListEntry.getTypeId(),assertable))     intList.add(i);
+  }
+  getAssertionsTable().setNonSelectableIndexes(intList);
+}
