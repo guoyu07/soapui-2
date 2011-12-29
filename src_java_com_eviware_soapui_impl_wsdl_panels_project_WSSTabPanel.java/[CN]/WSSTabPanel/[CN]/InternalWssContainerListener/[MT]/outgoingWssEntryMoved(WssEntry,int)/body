@@ -1,0 +1,11 @@
+{
+  if (entry.getOutgoingWss() == selectedOutgoing) {
+    int indexBeforeMove=entriesListModel.indexOf(entry);
+    if ((offset == MOVE_UP && indexBeforeMove > 0) || (offset == MOVE_DOWN && indexBeforeMove < entriesListModel.size() - 1)) {
+      WssEntry adjacentEntry=(WssEntry)entriesListModel.get(indexBeforeMove + offset);
+      entriesListModel.set(indexBeforeMove + offset,entry);
+      entriesListModel.set(indexBeforeMove,adjacentEntry);
+      entriesList.setSelectedIndex(indexBeforeMove + offset);
+    }
+  }
+}

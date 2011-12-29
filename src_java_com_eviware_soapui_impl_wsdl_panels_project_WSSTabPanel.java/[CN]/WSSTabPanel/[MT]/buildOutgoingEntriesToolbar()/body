@@ -1,6 +1,12 @@
 {
   JXToolBar toolbar=UISupport.createSmallToolbar();
-  toolbar.addFixed(addOutgoingEntryButton=UISupport.createToolbarButton(new AddOutgoingEntryAction()));
-  toolbar.addFixed(removeOutgoingEntryButton=UISupport.createToolbarButton(new RemoveOutgoingEntryAction(),false));
+  addOutgoingEntryButton=UISupport.createToolbarButton(new AddOutgoingEntryAction(),false);
+  toolbar.addFixed(addOutgoingEntryButton);
+  removeOutgoingEntryButton=UISupport.createToolbarButton(new RemoveOutgoingEntryAction(),false);
+  toolbar.addFixed(removeOutgoingEntryButton);
+  moveOutgoingEntryUpButton=UISupport.createToolbarButton(new MoveOutgoingEntryUpAction(),false);
+  toolbar.addFixed(moveOutgoingEntryUpButton);
+  moveOutgoingEntryDownButton=UISupport.createToolbarButton(new MoveOutgoingEntryDownAction(),false);
+  toolbar.addFixed(moveOutgoingEntryDownButton);
   return toolbar;
 }

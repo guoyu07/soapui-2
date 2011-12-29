@@ -1,7 +1,5 @@
 {
   if (entry.getOutgoingWss() == selectedOutgoing) {
-    int ix=entriesTabs.indexOfComponent(entry.getConfigurationPanel());
-    if (ix != -1)     entriesTabs.remove(ix);
-    entriesTabs.getParent().setVisible(entriesTabs.getTabCount() > 0);
+    entriesListModel.removeElement(entry);
   }
 }

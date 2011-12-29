@@ -1,11 +1,26 @@
 {
-  entriesTabs=new JTabbedPane();
-  entriesTabs.addChangeListener(new ChangeListener(){
-    public void stateChanged(    ChangeEvent e){
-      selectedEntry=entriesTabs.getSelectedIndex() == -1 ? null : selectedOutgoing.getEntries().get(entriesTabs.getSelectedIndex());
+  entriesSplitPane=UISupport.createHorizontalSplit();
+  entriesListContainer=new JScrollPane();
+  entriesListContainer.setMinimumSize(new Dimension(ENTRIES_LIST_COMPONENT_WIDTH,ENTRIES_LIST_COMPONENT_WIDTH));
+  entriesSplitPane.setLeftComponent(entriesListContainer);
+  entriesSplitPane.setDividerLocation(ENTRIES_LIST_COMPONENT_WIDTH);
+  setEntriesSplitPaneToEmpty();
+  entriesList=new JList();
+  entriesListModel=new DefaultListModel();
+  entriesList.setModel(entriesListModel);
+  entriesList.addListSelectionListener(new ListSelectionListener(){
+    @Override public void valueChanged(    ListSelectionEvent e){
+      int selectedIndex=entriesList.getSelectedIndex();
+      selectedEntry=(entriesList.getSelectedIndex() == -1 ? null : (WssEntry)entriesListModel.get(selectedIndex));
       removeOutgoingEntryButton.setEnabled(selectedEntry != null);
+      moveOutgoingEntryUpButton.setEnabled(selectedIndex > 0);
+      moveOutgoingEntryDownButton.setEnabled(selectedIndex > -1 && selectedIndex < (entriesListModel.getSize() - 1));
+      if (selectedEntry != null) {
+        entriesSplitPane.setRightComponent(selectedEntry.getConfigurationPanel());
+      }
+      entriesSplitPane.setDividerLocation(ENTRIES_LIST_COMPONENT_WIDTH);
     }
   }
 );
-  return UISupport.createTabPanel(entriesTabs,true);
+  return entriesSplitPane;
 }

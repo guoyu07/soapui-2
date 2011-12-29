@@ -1,7 +1,4 @@
 {
-  JPanel panel=new JPanel(new BorderLayout());
-  JPanel p=new JPanel(new BorderLayout());
-  p.add(buildIncomingWssToolbar(),BorderLayout.NORTH);
   incomingWssTable=new JTable(new IncomingWssTableModel());
   incomingWssTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
@@ -9,6 +6,9 @@
     }
   }
 );
+  JPanel panel=new JPanel(new BorderLayout());
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(buildIncomingWssToolbar(),BorderLayout.NORTH);
   incomingWssDecryptionCryptoComboBox=new JComboBox(new KeystoresComboBoxModel(wssContainer,null));
   incomingWssTable.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(incomingWssDecryptionCryptoComboBox));
   incomingWssSignatureCryptoComboBox=new JComboBox(new KeystoresComboBoxModel(wssContainer,null));

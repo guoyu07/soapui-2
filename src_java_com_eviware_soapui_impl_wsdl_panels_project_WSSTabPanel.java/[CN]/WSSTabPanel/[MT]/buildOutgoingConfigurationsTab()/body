@@ -1,7 +1,4 @@
 {
-  JPanel panel=new JPanel(new BorderLayout());
-  JPanel p=new JPanel(new BorderLayout());
-  p.add(buildOutgoingWssToolbar(),BorderLayout.NORTH);
   outgoingWssTable=new JTable(new OutgoingWssTableModel());
   outgoingWssTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
@@ -9,21 +6,26 @@
       selectedOutgoing=selectedRow == -1 ? null : wssContainer.getOutgoingWssAt(selectedRow);
       removeOutgoingWssAction.setEnabled(selectedRow != -1);
       addOutgoingEntryButton.setEnabled(selectedRow != -1);
-      entriesTabs.removeAll();
       if (selectedOutgoing != null) {
+        entriesListModel.removeAllElements();
         for (        WssEntry entry : selectedOutgoing.getEntries()) {
-          entriesTabs.addTab(entry.getLabel(),entry.getConfigurationPanel());
+          entriesListModel.addElement(entry);
         }
+        entriesListContainer.getViewport().add(entriesList);
+        entriesSplitPane.setRightComponent(new JPanel());
       }
-      entriesTabs.getParent().setVisible(entriesTabs.getTabCount() > 0);
+      entriesSplitPane.setDividerLocation(ENTRIES_LIST_COMPONENT_WIDTH);
     }
   }
 );
   outgoingWssTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
   outgoingWssTable.getColumnModel().getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  JPanel outgoingConfigurationSplitPane=new JPanel(new BorderLayout());
   JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(outgoingWssTable),buildOutgoingWssDetails());
   split.setDividerLocation(140);
-  p.add(split,BorderLayout.CENTER);
-  panel.add(p,BorderLayout.CENTER);
-  return panel;
+  outgoingConfigurationSplitPane.add(buildOutgoingWssToolbar(),BorderLayout.NORTH);
+  outgoingConfigurationSplitPane.add(split,BorderLayout.CENTER);
+  JPanel outgoingConfigurationsPanel=new JPanel(new BorderLayout());
+  outgoingConfigurationsPanel.add(outgoingConfigurationSplitPane,BorderLayout.CENTER);
+  return outgoingConfigurationsPanel;
 }
