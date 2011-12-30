@@ -1,0 +1,22 @@
+{
+  long recordedValue=System.nanoTime() - startTime;
+switch (code) {
+case TIME_DNS:
+    timeDNS=recordedValue;
+  break;
+case TIME_CONNECT:
+timeConnect=recordedValue;
+break;
+case TIME_TO_FIRST_BYTE:
+timeToFirstByte=recordedValue;
+break;
+case TIME_READ:
+timeRead=recordedValue;
+break;
+case TIME_TOTAL:
+timeTotal=recordedValue;
+break;
+default :
+throw new IllegalArgumentException("Illegal value for recorded time");
+}
+}
