@@ -5,7 +5,12 @@
     }
  else {
       Merlin merlinCrypto=(Merlin)crypto.getCrypto();
-      keyStore=merlinCrypto.getKeyStore();
+      if (crypto.getType() == CryptoType.KEYSTORE) {
+        keyStore=merlinCrypto.getKeyStore();
+      }
+ else       if (crypto.getType() == CryptoType.TRUSTSTORE) {
+        keyStore=merlinCrypto.getTrustStore();
+      }
     }
   }
  catch (  WSSecurityException wssecurityException) {

@@ -1,0 +1,19 @@
+{
+  JPanel panel=new JPanel(new BorderLayout());
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(buildKeystoreToolbar(),BorderLayout.NORTH);
+  keystoreTable=new JTable(new KeystoreTableModel());
+  keystoreTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      removeKeystoreAction.setEnabled(keystoreTable.getSelectedRow() != -1);
+    }
+  }
+);
+  keystoreTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  keystoreTable.getColumnModel().getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  keystoreTable.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  keystoreTable.getColumnModel().getColumn(4).setCellRenderer(new PasswordTableCellRenderer());
+  p.add(new JScrollPane(keystoreTable),BorderLayout.CENTER);
+  panel.add(p,BorderLayout.CENTER);
+  return panel;
+}

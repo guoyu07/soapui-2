@@ -1,0 +1,8 @@
+{
+  truststores=new ArrayList<WssCrypto>();
+  for (  WssCrypto crypto : wssContainer.getCryptoList()) {
+    if (crypto.getType() == CryptoType.TRUSTSTORE) {
+      truststores.add(crypto);
+    }
+  }
+}

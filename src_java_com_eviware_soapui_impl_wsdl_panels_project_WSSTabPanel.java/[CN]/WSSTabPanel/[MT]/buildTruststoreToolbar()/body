@@ -1,0 +1,9 @@
+{
+  JXToolBar toolbar=UISupport.createSmallToolbar();
+  toolbar.addFixed(UISupport.createToolbarButton(new AddTruststoreAction()));
+  removeTruststoreAction=new RemoveTruststoreAction();
+  toolbar.addFixed(UISupport.createToolbarButton(removeTruststoreAction));
+  toolbar.addGlue();
+  toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.CRYPTOSWSS_HELP_URL)));
+  return toolbar;
+}

@@ -1,0 +1,18 @@
+{
+  KeyMaterialWssCrypto truststore=(KeyMaterialWssCrypto)truststores.get(rowIndex);
+  if (aValue == null || aValue.equals(DEFAULT_OPTION))   aValue="";
+switch (columnIndex) {
+case 2:
+    truststore.setPassword(aValue.toString());
+  break;
+case 3:
+truststore.setDefaultAlias(aValue.toString());
+break;
+case 4:
+truststore.setAliasPassword(aValue.toString());
+break;
+case 5:
+truststore.setCryptoProvider(aValue.toString());
+break;
+}
+}

@@ -3,6 +3,6 @@
   if (file != null) {
     String password=new String(UISupport.promptPassword("Specify password for [" + file.getName() + "]","Add Key Material"));
     wssContainer.addCrypto(file.getAbsolutePath(),password,CryptoType.KEYSTORE);
-    cryptosTable.setRowSelectionInterval(cryptosTable.getRowCount() - 1,cryptosTable.getRowCount() - 1);
+    keystoreTable.setRowSelectionInterval(keystoreTable.getRowCount() - 1,keystoreTable.getRowCount() - 1);
   }
 }
