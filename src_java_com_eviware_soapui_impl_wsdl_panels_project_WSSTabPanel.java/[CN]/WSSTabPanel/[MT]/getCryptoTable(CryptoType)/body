@@ -1,9 +1,10 @@
 {
-  if (cryptoType == CryptoType.KEYSTORE) {
+switch (cryptoType) {
+case KEYSTORE:
     return keystoreTable;
-  }
- else   if (cryptoType == CryptoType.TRUSTSTORE) {
-    return truststoreTable;
-  }
-  return null;
+case TRUSTSTORE:
+  return truststoreTable;
+default :
+throw new IllegalArgumentException(ILLEGAL_CRYPTO_TYPE_MESSAGE);
+}
 }
