@@ -1,8 +1,4 @@
 {
-  if (crypto.getType() == CryptoType.KEYSTORE) {
-    ((KeystoreTableModel)keystoreTable.getModel()).cryptoAdded(crypto);
-  }
- else   if (crypto.getType() == CryptoType.TRUSTSTORE) {
-    ((TruststoreTableModel)truststoreTable.getModel()).cryptoAdded(crypto);
-  }
+  JTable cryptoTable=getCryptoTable(crypto.getType());
+  ((CryptoTableModel)cryptoTable.getModel()).cryptoAdded(crypto);
 }

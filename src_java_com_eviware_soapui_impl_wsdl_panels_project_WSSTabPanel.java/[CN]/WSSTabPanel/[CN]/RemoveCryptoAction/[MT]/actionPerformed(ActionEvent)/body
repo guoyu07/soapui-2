@@ -1,0 +1,10 @@
+{
+  JTable cryptoTable=getCryptoTable(cryptoType);
+  int row=cryptoTable.getSelectedRow();
+  if (row == -1)   return;
+  CryptoTableModel tableModel=(CryptoTableModel)cryptoTable.getModel();
+  WssCrypto crypto=tableModel.getCryptoAt(row);
+  if (UISupport.confirm("Removes selected " + cryptoType + "?","Remove " + cryptoType)) {
+    wssContainer.removeCrypto(crypto);
+  }
+}

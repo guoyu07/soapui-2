@@ -1,9 +1,0 @@
-{
-  int row=keystoreTable.getSelectedRow();
-  if (row == -1)   return;
-  KeystoreTableModel tableModel=(KeystoreTableModel)keystoreTable.getModel();
-  WssCrypto keystore=tableModel.getCryptoAt(row);
-  if (UISupport.confirm("Removes selected keystore?","Remove Keystore")) {
-    wssContainer.removeCrypto(keystore);
-  }
-}

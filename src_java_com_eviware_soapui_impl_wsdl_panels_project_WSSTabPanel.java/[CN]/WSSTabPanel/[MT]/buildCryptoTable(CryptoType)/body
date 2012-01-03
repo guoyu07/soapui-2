@@ -1,0 +1,30 @@
+{
+  final JTable cryptoTable=new JTable(new CryptoTableModel(cryptoType));
+  if (cryptoType == CryptoType.KEYSTORE) {
+    keystoreTable=cryptoTable;
+  }
+ else   if (cryptoType == CryptoType.TRUSTSTORE) {
+    truststoreTable=cryptoTable;
+  }
+  JPanel panel=new JPanel(new BorderLayout());
+  JPanel p=new JPanel(new BorderLayout());
+  p.add(buildCryptoToolbar(cryptoType),BorderLayout.NORTH);
+  cryptoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      if (cryptoType == CryptoType.KEYSTORE) {
+        removeKeystoreAction.setEnabled(cryptoTable.getSelectedRow() != -1);
+      }
+ else       if (cryptoType == CryptoType.TRUSTSTORE) {
+        removeTruststoreAction.setEnabled(cryptoTable.getSelectedRow() != -1);
+      }
+    }
+  }
+);
+  cryptoTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  cryptoTable.getColumnModel().getColumn(2).setCellRenderer(new PasswordTableCellRenderer());
+  cryptoTable.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JPasswordField()));
+  cryptoTable.getColumnModel().getColumn(4).setCellRenderer(new PasswordTableCellRenderer());
+  p.add(new JScrollPane(cryptoTable),BorderLayout.CENTER);
+  panel.add(p,BorderLayout.CENTER);
+  return panel;
+}

@@ -2,8 +2,8 @@
   JTabbedPane tabs=new JTabbedPane();
   tabs.addTab("Outgoing WS-Security Configurations",buildOutgoingConfigurationsTab());
   tabs.addTab("Incoming WS-Security Configurations",buildIncomingConfigurationsTab());
-  tabs.addTab("Keystores",buildKeystoresTable());
-  tabs.addTab("Truststores",buildTruststoresTable());
+  tabs.addTab("Keystores",buildCryptoTable(CryptoType.KEYSTORE));
+  tabs.addTab("Truststores",buildCryptoTable(CryptoType.TRUSTSTORE));
   tabs.setMinimumSize(new Dimension(10,10));
   return UISupport.createTabPanel(tabs,true);
 }

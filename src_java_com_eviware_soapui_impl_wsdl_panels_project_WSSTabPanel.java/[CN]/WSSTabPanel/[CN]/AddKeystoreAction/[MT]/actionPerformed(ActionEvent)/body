@@ -1,8 +1,0 @@
-{
-  File file=UISupport.getFileDialogs().open(this,"Select Key Material",null,null,null);
-  if (file != null) {
-    String password=new String(UISupport.promptPassword("Specify password for [" + file.getName() + "]","Add Key Material"));
-    wssContainer.addCrypto(file.getAbsolutePath(),password,CryptoType.KEYSTORE);
-    keystoreTable.setRowSelectionInterval(keystoreTable.getRowCount() - 1,keystoreTable.getRowCount() - 1);
-  }
-}

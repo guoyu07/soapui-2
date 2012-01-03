@@ -1,9 +1,0 @@
-{
-  int row=truststoreTable.getSelectedRow();
-  if (row == -1)   return;
-  TruststoreTableModel tableModel=(TruststoreTableModel)truststoreTable.getModel();
-  WssCrypto truststore=tableModel.getCryptoAt(row);
-  if (UISupport.confirm("Removes selected truststore?","Remove Truststore")) {
-    wssContainer.removeCrypto(truststore);
-  }
-}
