@@ -5,9 +5,6 @@
     log.info(("Running Project [" + project.getName() + "], runType = "+ project.getRunType()));
     WsdlProjectRunner runner=project.run(new StringToObjectMap(),project.getRunType() == TestSuiteRunType.PARALLEL);
     log.info("Project [" + project.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ runner.getTimeTaken()+ "ms");
-    if (printAlertSiteReport) {
-      generateAlertSiteReport();
-    }
   }
  catch (  Exception e) {
     e.printStackTrace();

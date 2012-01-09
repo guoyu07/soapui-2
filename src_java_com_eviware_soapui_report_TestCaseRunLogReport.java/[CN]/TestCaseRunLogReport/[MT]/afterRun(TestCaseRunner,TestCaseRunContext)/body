@@ -1,0 +1,12 @@
+{
+  testCaseRunLog.setTestCase((testRunner.getTestCase().getName()));
+  testCaseRunLog.setTimeTaken(Long.toString(testRunner.getTimeTaken()));
+  testCaseRunLog.setStatus(testRunner.getStatus().toString());
+  final File newFile=new File("test_case_run_log_report.xml");
+  try {
+    testCaseRunLogDocumentConfig.save(newFile);
+  }
+ catch (  IOException e) {
+    log.error("Could not write test_case_run_log_report.xml to disk");
+  }
+}
