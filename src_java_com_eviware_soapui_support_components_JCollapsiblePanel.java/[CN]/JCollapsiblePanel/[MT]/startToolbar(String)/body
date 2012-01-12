@@ -10,7 +10,9 @@
   toolbar.addFixed(toggleButton);
   toolbar.addSpace(3);
   if (title != null) {
-    JLabel titleLabel=new JLabel(title);
+    nonHighlightedTitle=title;
+    titleLabel=new JLabel(title);
+    titleLabel.setPreferredSize(new Dimension(500,0));
     titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD));
     toolbar.addFixed(titleLabel);
     toolbar.addSpace(3);
