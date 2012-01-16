@@ -48,7 +48,7 @@
       crypto=project.getWssContainer().getCryptoByName(PropertyExpander.expandProperties(submitContext,httpRequest.getSslKeystore()));
     }
     if (crypto != null && WssCrypto.STATUS_OK.equals(crypto.getStatus())) {
-      httpMethod.getParams().setParameter(SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
+      httpMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
     }
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
     URI uri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);

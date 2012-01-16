@@ -47,7 +47,7 @@
  catch (  URISyntaxException e) {
     SoapUI.logError(e);
   }
-  postMethod.getParams().setParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
+  postMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   ProxyUtils.initProxySettings(settings,postMethod,httpState,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
   String path=null;
   if (sslEndPoint.indexOf("/") < 0)   path="/";

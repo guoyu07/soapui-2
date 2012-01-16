@@ -1,0 +1,11 @@
+{
+  if (o instanceof SoapUIHttpRoute) {
+    SoapUIHttpRoute obj=(SoapUIHttpRoute)o;
+    HttpRoute that=obj.getHttpRoute();
+    boolean result=httpRoute.equals(that);
+    if (result) {
+      return param.equals(obj.getParam());
+    }
+  }
+  return false;
+}

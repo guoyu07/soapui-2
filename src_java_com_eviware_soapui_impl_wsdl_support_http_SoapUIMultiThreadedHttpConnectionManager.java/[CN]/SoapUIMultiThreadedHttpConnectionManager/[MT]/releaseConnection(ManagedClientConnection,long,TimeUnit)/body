@@ -1,0 +1,36 @@
+{
+  if (!(conn instanceof SoapUIBasicPooledConnAdapter)) {
+    throw new IllegalArgumentException("Connection class mismatch, " + "connection not obtained from this manager.");
+  }
+  SoapUIBasicPooledConnAdapter hca=(SoapUIBasicPooledConnAdapter)conn;
+  if ((hca.getPoolEntry() != null) && (hca.getManager() != this)) {
+    throw new IllegalArgumentException("Connection not obtained from this manager.");
+  }
+synchronized (hca) {
+    BasicPoolEntry entry=(BasicPoolEntry)hca.getPoolEntry();
+    if (entry == null) {
+      return;
+    }
+    try {
+      if (hca.isOpen() && !hca.isMarkedReusable()) {
+        hca.shutdown();
+      }
+    }
+ catch (    IOException iox) {
+      if (log.isDebugEnabled())       log.debug("Exception shutting down released connection.",iox);
+    }
+ finally {
+      boolean reusable=hca.isMarkedReusable();
+      if (log.isDebugEnabled()) {
+        if (reusable) {
+          log.debug("Released connection is reusable.");
+        }
+ else {
+          log.debug("Released connection is not reusable.");
+        }
+      }
+      hca.detach();
+      pool.freeEntry(entry,reusable,validDuration,timeUnit);
+    }
+  }
+}

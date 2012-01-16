@@ -11,10 +11,10 @@
   }
  else   if (name.equals(HttpSettings.MAX_CONNECTIONS_PER_HOST)) {
     log.info("Updating max connections per host to " + newValue);
-    connectionManager.setMaxConnectionsPerHost(Integer.parseInt(newValue));
+    connectionManager.setDefaultMaxPerRoute(Integer.parseInt(newValue));
   }
  else   if (name.equals(HttpSettings.MAX_TOTAL_CONNECTIONS)) {
     log.info("Updating max total connections host to " + newValue);
-    connectionManager.setMaxTotalConnections(Integer.parseInt(newValue));
+    connectionManager.setMaxTotal(Integer.parseInt(newValue));
   }
 }

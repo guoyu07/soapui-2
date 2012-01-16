@@ -1,8 +1,4 @@
 {
   super(registry);
-  this.connectionPool=new ConnectionPool();
-synchronized (ALL_CONNECTION_MANAGERS) {
-    ALL_CONNECTION_MANAGERS.put(this,null);
-  }
   idleConnectionHandler.start();
 }

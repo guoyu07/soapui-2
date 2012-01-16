@@ -1,5 +1,5 @@
 {
-  String sslConfig=(String)params.getParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG);
+  String sslConfig=(String)params.getParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG);
   if (StringUtils.isNullOrEmpty(sslConfig)) {
     return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
   }
