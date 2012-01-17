@@ -1,13 +1,33 @@
 {
-  if (evt.getPropertyName().equals(TestAssertion.CONFIGURATION_PROPERTY) || evt.getPropertyName().equals(TestAssertion.DISABLED_PROPERTY)) {
+  if (event.getSource() == testRequest) {
+    if (event.getNewValue() instanceof SinglePartHttpResponse) {
+      SinglePartHttpResponse response=(SinglePartHttpResponse)event.getNewValue();
+      firePropertyValueChanged("Response",String.valueOf(response),null);
+      String XMLCOntent=response.getContentAsXml();
+      firePropertyValueChanged("ResponseAsXml",String.valueOf(XMLCOntent),null);
+    }
+    if (event.getPropertyName().equals("domain")) {
+      delegatePropertyChange("Domain",event);
+    }
+ else     if (event.getPropertyName().equals("password")) {
+      delegatePropertyChange("Password",event);
+    }
+ else     if (event.getPropertyName().equals("username")) {
+      delegatePropertyChange("Username",event);
+    }
+ else     if (event.getPropertyName().equals("endpoint")) {
+      delegatePropertyChange("Endpoint",event);
+    }
+  }
+  if (event.getPropertyName().equals(TestAssertion.CONFIGURATION_PROPERTY) || event.getPropertyName().equals(TestAssertion.DISABLED_PROPERTY)) {
     if (getTestRequest().getResponse() != null) {
       getTestRequest().assertResponse(new WsdlTestRunContext(this));
     }
   }
  else {
-    if (evt.getSource() == testRequest && evt.getPropertyName().equals(WsdlTestRequest.NAME_PROPERTY)) {
-      if (!super.getName().equals((String)evt.getNewValue()))       super.setName((String)evt.getNewValue());
+    if (event.getSource() == testRequest && event.getPropertyName().equals(WsdlTestRequest.NAME_PROPERTY)) {
+      if (!super.getName().equals((String)event.getNewValue()))       super.setName((String)event.getNewValue());
     }
-    notifyPropertyChanged(evt.getPropertyName(),evt.getOldValue(),evt.getNewValue());
+    notifyPropertyChanged(event.getPropertyName(),event.getOldValue(),event.getNewValue());
   }
 }
