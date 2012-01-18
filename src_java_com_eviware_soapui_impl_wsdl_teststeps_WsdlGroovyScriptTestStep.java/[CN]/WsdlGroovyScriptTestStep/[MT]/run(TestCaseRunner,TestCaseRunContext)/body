@@ -12,7 +12,10 @@
       result.startTimer();
       scriptResult=scriptEngine.run();
       result.stopTimer();
-      if (scriptResult != null)       result.addMessage("Script-result: " + scriptResult.toString());
+      if (scriptResult != null) {
+        result.addMessage("Script-result: " + scriptResult.toString());
+        firePropertyValueChanged("result",null,String.valueOf(result));
+      }
     }
     Status testRunnerStatus=testRunner.getStatus();
     if (testRunnerStatus == Status.FAILED)     result.setStatus(TestStepStatus.FAILED);
