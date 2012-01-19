@@ -4,7 +4,7 @@
       SinglePartHttpResponse response=(SinglePartHttpResponse)event.getNewValue();
       firePropertyValueChanged("Response",String.valueOf(response),null);
       String XMLContent=response.getContentAsXml();
-      firePropertyValueChanged("ResponseAsXml",XMLContent,null);
+      firePropertyValueChanged("ResponseAsXml",null,XMLContent);
     }
     if (event.getPropertyName().equals("domain")) {
       delegatePropertyChange("Domain",event);
