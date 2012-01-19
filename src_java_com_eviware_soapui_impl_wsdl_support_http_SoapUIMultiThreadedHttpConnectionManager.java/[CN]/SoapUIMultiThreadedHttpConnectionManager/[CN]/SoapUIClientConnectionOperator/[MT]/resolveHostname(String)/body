@@ -1,0 +1,6 @@
+{
+  HttpMetrics.getDNSTimer().start();
+  InetAddress[] inetAddress=InetAddress.getAllByName(host);
+  HttpMetrics.getDNSTimer().stop();
+  return inetAddress;
+}

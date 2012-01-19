@@ -1,0 +1,14 @@
+{
+  HttpMetrics.getConnectTimer().start();
+  try {
+    super.openConnection(conn,target,local,context,params);
+  }
+ catch (  HttpHostConnectException e) {
+    HttpMetrics.getConnectTimer().reset();
+    throw e;
+  }
+catch (  ConnectTimeoutException e) {
+    HttpMetrics.getConnectTimer().reset();
+    throw e;
+  }
+}

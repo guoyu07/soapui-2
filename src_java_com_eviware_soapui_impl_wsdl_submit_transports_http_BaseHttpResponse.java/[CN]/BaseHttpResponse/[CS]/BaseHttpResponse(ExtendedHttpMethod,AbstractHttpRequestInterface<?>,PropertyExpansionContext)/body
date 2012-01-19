@@ -19,6 +19,7 @@
         e.printStackTrace();
       }
       timeTaken+=httpMethod.getResponseReadTime();
+      httpMethod.getHttpMetrics().getTotalTimer().stop();
     }
     try {
       this.timestamp=System.currentTimeMillis();
@@ -26,6 +27,8 @@
       this.statusCode=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getStatusLine().getStatusCode() : 0;
       this.sslInfo=httpMethod.getSSLInfo();
       this.url=httpMethod.getURI().toURL();
+      httpMethod.getHttpMetrics().setTimestamp(this.timestamp);
+      httpMethod.getHttpMetrics().setHttpStatus(this.statusCode);
     }
  catch (    Throwable e) {
       e.printStackTrace();
