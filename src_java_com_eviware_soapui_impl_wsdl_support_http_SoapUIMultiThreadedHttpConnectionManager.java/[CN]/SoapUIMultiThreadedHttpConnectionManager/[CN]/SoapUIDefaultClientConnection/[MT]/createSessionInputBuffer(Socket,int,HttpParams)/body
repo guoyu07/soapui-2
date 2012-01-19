@@ -2,7 +2,7 @@
   if (buffersize == -1) {
     buffersize=8192;
   }
-  SessionInputBuffer inbuffer=new SocketInputBuffer(socket,buffersize,params);
+  SessionInputBuffer inbuffer=new SoapUISocketInputBuffer(socket,buffersize,params);
   if (wireLog.isDebugEnabled()) {
     inbuffer=new LoggingSessionInputBuffer(inbuffer,new Wire(wireLog),HttpProtocolParams.getHttpElementCharset(params));
   }
