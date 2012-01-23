@@ -5,7 +5,10 @@ switch (columnIndex) {
 case 0:
     return property.getName();
 case 1:
-  return property.getValue();
+  if (property instanceof EvaluatedOnReadTestProperty) {
+    return ((EvaluatedOnReadTestProperty)property).getCurrentValue();
+  }
+return property.getValue();
 }
 return null;
 }
