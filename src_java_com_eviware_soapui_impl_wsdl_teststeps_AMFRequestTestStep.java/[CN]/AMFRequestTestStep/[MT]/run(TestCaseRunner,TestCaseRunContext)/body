@@ -78,5 +78,6 @@ break;
 }
 }
 if (isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) amfRequest.setResponse(null);
+firePropertyValueChanged("ResponseAsXml",null,testStepResult.getResponseContentAsXml());
 return testStepResult;
 }
