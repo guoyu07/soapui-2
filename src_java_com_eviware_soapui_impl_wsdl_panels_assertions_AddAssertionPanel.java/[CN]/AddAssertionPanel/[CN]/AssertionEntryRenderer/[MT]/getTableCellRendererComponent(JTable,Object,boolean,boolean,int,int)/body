@@ -2,7 +2,8 @@
   boldFont=getFont().deriveFont(Font.BOLD);
   AssertionListEntry entry=(AssertionListEntry)value;
   String type=TestAssertionRegistry.getInstance().getAssertionTypeForName(entry.getName());
-  boolean canAssert=assertable != null ? TestAssertionRegistry.getInstance().canAssert(type,assertable) : true;
+  boolean canAssert=false;
+  canAssert=assertable != null ? TestAssertionRegistry.getInstance().canAssert(type,assertable) : true;
   String str=entry.getName();
   JLabel label=new JLabel(str);
   label.setFont(boldFont);
