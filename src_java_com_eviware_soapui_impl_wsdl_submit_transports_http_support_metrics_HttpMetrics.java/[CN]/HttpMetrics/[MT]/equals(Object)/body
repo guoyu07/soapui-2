@@ -1,0 +1,10 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof HttpMetrics)) {
+    return false;
+  }
+  HttpMetrics that=(HttpMetrics)o;
+  return this.toString().equals(that.toString());
+}

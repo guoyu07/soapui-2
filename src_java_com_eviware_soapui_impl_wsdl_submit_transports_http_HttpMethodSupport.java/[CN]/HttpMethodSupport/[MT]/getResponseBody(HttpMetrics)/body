@@ -3,14 +3,14 @@
   if (hasHttpResponse()) {
     HttpEntity bufferedEntity=new BufferedHttpEntity(httpResponse.getEntity());
     long contentLength=bufferedEntity.getContentLength();
-    metrics.setContentLength(contentLength);
+    httpMetrics.setContentLength(contentLength);
     long now=System.nanoTime();
-    metrics.getReadTimer().start();
+    httpMetrics.getReadTimer().start();
     InputStream instream=bufferedEntity.getContent();
     try {
       if (maxSize == 0 || (contentLength >= 0 && contentLength <= maxSize)) {
         responseReadTime=System.nanoTime() - now;
-        metrics.getReadTimer().stop();
+        httpMetrics.getReadTimer().stop();
         responseBody=EntityUtils.toByteArray(bufferedEntity);
         try {
           if (StringUtils.hasContent(dumpFile)) {
@@ -40,7 +40,7 @@
             FileOutputStream fileOutputStream=new FileOutputStream(dumpFile);
             Tools.writeAll(fileOutputStream,instream);
             responseReadTime=System.nanoTime() - now;
-            metrics.getReadTimer().stop();
+            httpMetrics.getReadTimer().stop();
             fileOutputStream.close();
             instream=new FileInputStream(dumpFile);
           }
@@ -51,7 +51,7 @@
         ByteArrayOutputStream outstream=instream == null ? new ByteArrayOutputStream() : Tools.readAll(instream,maxSize);
         if (responseReadTime == 0) {
           responseReadTime=System.nanoTime() - now;
-          metrics.getReadTimer().stop();
+          httpMetrics.getReadTimer().stop();
         }
         responseBody=outstream.toByteArray();
       }

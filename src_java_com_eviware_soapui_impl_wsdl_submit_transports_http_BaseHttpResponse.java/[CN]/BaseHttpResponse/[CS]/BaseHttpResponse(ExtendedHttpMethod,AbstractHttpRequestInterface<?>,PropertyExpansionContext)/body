@@ -1,7 +1,8 @@
 {
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
-  httpMethod.getHttpMetrics().getTotalTimer().stop();
+  HttpMetrics httpMetrics=(HttpMetrics)httpMethod.getParams().getParameter(ExtendedHttpMethod.HTTP_METRICS);
+  httpMetrics.getTotalTimer().stop();
   method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
   try {
@@ -20,7 +21,7 @@
         e.printStackTrace();
       }
       timeTaken+=httpMethod.getResponseReadTime();
-      httpMethod.getHttpMetrics().getTotalTimer().add(httpMethod.getHttpMetrics().getReadTimer().getDuration());
+      httpMetrics.getTotalTimer().add(httpMetrics.getReadTimer().getDuration());
     }
     try {
       this.timestamp=System.currentTimeMillis();
@@ -28,8 +29,8 @@
       this.statusCode=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getStatusLine().getStatusCode() : 0;
       this.sslInfo=httpMethod.getSSLInfo();
       this.url=httpMethod.getURI().toURL();
-      httpMethod.getHttpMetrics().setTimestamp(this.timestamp);
-      httpMethod.getHttpMetrics().setHttpStatus(this.statusCode);
+      httpMetrics.setTimestamp(this.timestamp);
+      httpMetrics.setHttpStatus(this.statusCode);
     }
  catch (    Throwable e) {
       e.printStackTrace();
@@ -50,7 +51,7 @@
       addIncludedContentsAsAttachments();
       long after=(new Date()).getTime();
       timeTaken+=(after - before);
-      httpMethod.getHttpMetrics().getTotalTimer().add(after - before);
+      httpMetrics.getTotalTimer().add(after - before);
       context.setProperty(HTMLPageSourceDownloader.MISSING_RESOURCES_LIST,downloader.getMissingResourcesList());
     }
   }

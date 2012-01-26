@@ -1,14 +1,24 @@
 {
-  HttpMetrics.getConnectTimer().start();
+  Object metricsObj=params.getParameter(ExtendedHttpMethod.HTTP_METRICS);
+  if (metricsObj instanceof HttpMetrics) {
+    this.httpMetrics=(HttpMetrics)metricsObj;
+  }
+  if (httpMetrics != null) {
+    httpMetrics.getConnectTimer().start();
+  }
   try {
     super.openConnection(conn,target,local,context,params);
   }
  catch (  HttpHostConnectException e) {
-    HttpMetrics.getConnectTimer().reset();
+    if (httpMetrics != null) {
+      httpMetrics.getConnectTimer().reset();
+    }
     throw e;
   }
 catch (  ConnectTimeoutException e) {
-    HttpMetrics.getConnectTimer().reset();
+    if (httpMetrics != null) {
+      httpMetrics.getConnectTimer().reset();
+    }
     throw e;
   }
 }
