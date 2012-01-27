@@ -6,7 +6,8 @@
   categoriesAssertionsMap=AssertionCategoryMapping.getCategoriesAssertionsMap(assertable,recentAssertionHandler);
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(assertable.getModelItem());
   for (  Interface inf : project.getInterfaceList())   try {
-    ((WsdlInterface)inf).getWsdlContext().loadIfNecessary();
+    if (inf instanceof WsdlInterface)     ((WsdlInterface)inf).getWsdlContext().loadIfNecessary();
+ else     ((RestService)inf).getDefinitionContext().loadIfNecessary();
   }
  catch (  Exception e) {
     e.printStackTrace();
