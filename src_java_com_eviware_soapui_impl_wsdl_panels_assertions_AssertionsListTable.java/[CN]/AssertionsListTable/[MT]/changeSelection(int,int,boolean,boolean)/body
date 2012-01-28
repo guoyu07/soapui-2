@@ -1,5 +1,6 @@
 {
-  if (nonSelectableIndexes != null && nonSelectableIndexes.contains(rowIndex)) {
+  if (!selectable)   rowIndex=-1;
+ else   if (nonSelectableIndexes != null && nonSelectableIndexes.contains(rowIndex)) {
     int currentIndex=getSelectedRow();
     if (rowIndex != currentIndex) {
       rowIndex=-1;
