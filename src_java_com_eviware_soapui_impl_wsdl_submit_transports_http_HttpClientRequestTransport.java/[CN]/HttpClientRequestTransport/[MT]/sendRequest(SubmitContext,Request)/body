@@ -93,5 +93,6 @@
       submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,null);
     }
   }
+  System.err.println(httpMethod.getParams().getParameter(ExtendedHttpMethod.HTTP_METRICS));
   return (Response)submitContext.getProperty(BaseHttpRequestTransport.RESPONSE);
 }
