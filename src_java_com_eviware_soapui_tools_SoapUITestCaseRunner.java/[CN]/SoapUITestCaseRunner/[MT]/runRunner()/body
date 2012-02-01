@@ -6,6 +6,9 @@
   if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
   initProject(project);
   ensureOutputFolder(project);
+  if (this.printAlertSiteReport) {
+    testCaseRunLogReport=new TestCaseRunLogReport(getAbsoluteOutputFolder(project));
+  }
   log.info("Running soapUI tests in project [" + project.getName() + "]");
   long startTime=System.nanoTime();
   List<TestCase> testCasesToRun=new ArrayList<TestCase>();
