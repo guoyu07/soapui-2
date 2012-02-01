@@ -23,5 +23,8 @@
   tearDownGroovyEditor.getEditor().release();
   testCaseLog.release();
   lastRunner=null;
+  if (alertSitePanel != null) {
+    alertSitePanel.release();
+  }
   return release();
 }

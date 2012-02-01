@@ -1,2 +1,12 @@
 {
+  if (locations != null) {
+    String name=(String)locations.getSelectedItem();
+    if (SoapUI.isJXBrowserDisabled(true)) {
+      Tools.openURL(name);
+    }
+ else {
+      browser.navigate(name,null);
+    }
+    useSystemBrowser=false;
+  }
 }

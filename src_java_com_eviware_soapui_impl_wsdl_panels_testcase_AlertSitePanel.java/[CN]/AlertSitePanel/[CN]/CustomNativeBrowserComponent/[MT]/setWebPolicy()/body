@@ -1,0 +1,15 @@
+{
+  if (getBrowser() != null) {
+    getBrowser().getServices().setWebPolicyDelegate(new DefaultWebPolicyDelegate(){
+      @Override public boolean allowNavigation(      NavigationEvent event){
+        if (!useSystemBrowser) {
+          useSystemBrowser=true;
+          return true;
+        }
+        Tools.openURL(event.getUrl());
+        return false;
+      }
+    }
+);
+  }
+}

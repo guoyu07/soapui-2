@@ -3,4 +3,12 @@
   setBackground(Color.WHITE);
   setOpaque(true);
   add(buildToolbar(),BorderLayout.NORTH);
+  browser=new CustomNativeBrowserComponent(true,false);
+  add(browser.getComponent(),BorderLayout.CENTER);
+  browser.setWebPolicy();
+  if (runAction != null) {
+    if (locationsCache.length == 0) {
+      runAction.setEnabled(false);
+    }
+  }
 }
