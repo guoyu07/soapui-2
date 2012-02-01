@@ -1,35 +1,33 @@
 {
-  String sslConfig=(String)params.getParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG);
+  String sslConfig=(String)params.getParameter(BaseHttpRequestTransport.SOAPUI_SSL_CONFIG);
   if (StringUtils.isNullOrEmpty(sslConfig)) {
     return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
   }
   SSLSocketFactory factory=factoryMap.get(sslConfig);
   if (factory != null) {
-    return enableSocket((SSLSocket)factory.createSocket(params));
+    if (factory == this)     return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
+ else     return enableSocket((SSLSocket)factory.createSocket(params));
   }
   try {
     int ix=sslConfig.lastIndexOf(' ');
     String keyStore=sslConfig.substring(0,ix);
     String pwd=sslConfig.substring(ix + 1);
-    KeyStore trustStore=KeyStore.getInstance(KeyStore.getDefaultType());
+    KeyStore ks=KeyStore.getInstance(KeyStore.getDefaultType());
     if (keyStore.trim().length() > 0) {
       File f=new File(keyStore);
       if (f.exists()) {
-        log.info("Initializing KeyStore");
-        FileInputStream instream=new FileInputStream(f);
+        log.info("Initializing Keystore from [" + keyStore + "]");
         try {
-          trustStore.load(instream,pwd.toCharArray());
+          KeyMaterial km=new KeyMaterial(f,pwd.toCharArray());
+          ks=km.getKeyStore();
         }
-  finally {
-          try {
-            instream.close();
-          }
- catch (          Exception ignore) {
-          }
+ catch (        Exception e) {
+          SoapUI.logError(e);
+          pwd=null;
         }
       }
     }
-    factory=new SSLSocketFactory(TLS,null,null,trustStore,null,null,ALLOW_ALL_HOSTNAME_VERIFIER);
+    factory=new SoapUISSLSocketFactory(ks,pwd);
     factoryMap.put(sslConfig,factory);
     return enableSocket((SSLSocket)factory.createSocket(params));
   }

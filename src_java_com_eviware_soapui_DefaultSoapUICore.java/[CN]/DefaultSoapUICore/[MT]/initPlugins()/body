@@ -1,0 +1,23 @@
+{
+  File[] pluginFiles=new File("plugins").listFiles();
+  if (pluginFiles != null) {
+    for (    File pluginFile : pluginFiles) {
+      if (!pluginFile.getName().toLowerCase().endsWith("-plugin.jar"))       continue;
+      try {
+        log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
+        getExtensionClassLoader().addFile(pluginFile);
+        JarFile jarFile=new JarFile(pluginFile);
+        JarEntry entry=jarFile.getJarEntry("META-INF/factories.xml");
+        if (entry != null)         getFactoryRegistry().addConfig(jarFile.getInputStream(entry),extClassLoader);
+        entry=jarFile.getJarEntry("META-INF/listeners.xml");
+        if (entry != null)         getListenerRegistry().addConfig(jarFile.getInputStream(entry),extClassLoader);
+        entry=jarFile.getJarEntry("META-INF/actions.xml");
+        if (entry != null)         getActionRegistry().addConfig(jarFile.getInputStream(entry),extClassLoader);
+        UISupport.addResourceClassLoader(new URLClassLoader(new URL[]{pluginFile.toURI().toURL()}));
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

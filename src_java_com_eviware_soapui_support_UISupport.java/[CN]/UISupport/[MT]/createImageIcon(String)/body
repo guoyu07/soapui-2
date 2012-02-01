@@ -5,17 +5,22 @@
   String orgPath=path;
   java.net.URL imgURL=null;
   try {
-    if (path.indexOf('/',1) == -1)     path="/com/eviware/soapui/resources/images" + path;
-    imgURL=SoapUI.class.getResource(path);
-    if (imgURL == null && path.endsWith(".gif")) {
-      imgURL=SoapUI.class.getResource(path.substring(0,path.length() - 4) + ".png");
+    File file=new File(path);
+    if (file.exists())     imgURL=file.toURI().toURL();
+ else {
+      String p=path;
+      if (p.indexOf('/',1) == -1)       p="/com/eviware/soapui/resources/images" + p;
+      imgURL=SoapUI.class.getResource(p);
+      if (imgURL == null && path.endsWith(".gif")) {
+        imgURL=SoapUI.class.getResource(p.substring(0,p.length() - 4) + ".png");
+      }
     }
     if (imgURL == null) {
       imgURL=loadFromSecondaryLoader(path);
     }
   }
  catch (  Throwable t) {
-    System.err.println("Failed to find icon: " + t);
+    SoapUI.logError(t,"Failed to find icon [" + path + "]");
     return null;
   }
   if (imgURL != null) {

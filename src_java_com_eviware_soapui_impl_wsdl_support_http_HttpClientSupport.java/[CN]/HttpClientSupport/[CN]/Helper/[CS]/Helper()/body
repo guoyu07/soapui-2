@@ -3,16 +3,13 @@
   SchemeRegistry registry=new SchemeRegistry();
   registry.register(new Scheme("http",80,PlainSocketFactory.getSocketFactory()));
   try {
-    keyStore=initKeyStore();
-    socketFactory=new SoapUISSLSocketFactory(keyStore);
+    socketFactory=initSocketFactory();
     registry.register(new Scheme("https",443,socketFactory));
   }
  catch (  Throwable e) {
     SoapUI.logError(e);
   }
   connectionManager=new SoapUIMultiThreadedHttpConnectionManager(registry);
-  connectionManager.setDefaultMaxPerRoute((int)settings.getLong(HttpSettings.MAX_CONNECTIONS_PER_HOST,500));
-  connectionManager.setMaxTotal((int)settings.getLong(HttpSettings.MAX_TOTAL_CONNECTIONS,2000));
   httpClient=new DefaultHttpClient(connectionManager);
   httpClient.getAuthSchemes().register(AuthPolicy.NTLM,new NTLMSchemeFactory());
   httpClient.getAuthSchemes().register(AuthPolicy.SPNEGO,new NTLMSchemeFactory());
