@@ -1,4 +1,6 @@
 {
-  string=string.replaceAll("\r\n","\n");
+  if (!StringUtils.isNullOrEmpty(string)) {
+    string=string.replaceAll("\r\n","\n");
+  }
   return string;
 }
