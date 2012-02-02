@@ -5,7 +5,9 @@
       Tools.openURL(name);
     }
  else {
-      browser.navigate(name,null);
+      if (browser != null) {
+        browser.navigate(name,null);
+      }
     }
     useSystemBrowser=false;
   }

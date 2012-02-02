@@ -3,9 +3,16 @@
   setBackground(Color.WHITE);
   setOpaque(true);
   add(buildToolbar(),BorderLayout.NORTH);
-  browser=new CustomNativeBrowserComponent(true,false);
-  add(browser.getComponent(),BorderLayout.CENTER);
-  browser.setWebPolicy();
+  if (!SoapUI.isJXBrowserDisabled(true)) {
+    browser=new CustomNativeBrowserComponent(true,false);
+    add(browser.getComponent(),BorderLayout.CENTER);
+    browser.setWebPolicy();
+  }
+ else {
+    JEditorPane jxbrowserDisabledPanel=new JEditorPane();
+    jxbrowserDisabledPanel.setText("browser component disabled or not available on this platform");
+    add(jxbrowserDisabledPanel,BorderLayout.CENTER);
+  }
   if (runAction != null) {
     if (locationsCache.length == 0) {
       runAction.setEnabled(false);
