@@ -14,17 +14,18 @@
           }
  else           if (securityCheckResult.getStatus() == ResultStatus.SKIPPED) {
             progressBar.setForeground(defaultBackground);
-            progressBar.setString("SKIPPED");
+            progressBar.setString(SKIPPED_VALUE);
           }
         }
  else {
           if (securityCheckResult.getStatus() == ResultStatus.SKIPPED) {
             progressBar.setForeground(defaultBackground);
-            progressBar.setString("SKIPPED");
+            progressBar.setString(SKIPPED_VALUE);
           }
         }
       }
-      progressBar.setValue(progressBar.getMaximum());
+      if (progressBar.getString().equals(SKIPPED_VALUE))       progressBar.setValue(0);
+ else       progressBar.setValue(progressBar.getMaximum());
       if (progressBar.getString().equals(""))       progressBar.setString(STATE_RUN);
     }
  else {
