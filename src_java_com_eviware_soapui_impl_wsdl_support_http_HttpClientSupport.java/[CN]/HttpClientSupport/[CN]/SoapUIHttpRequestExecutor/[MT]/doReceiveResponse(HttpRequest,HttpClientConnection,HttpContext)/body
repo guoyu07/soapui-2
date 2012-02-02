@@ -1,0 +1,29 @@
+{
+  if (request == null) {
+    throw new IllegalArgumentException("HTTP request may not be null");
+  }
+  if (conn == null) {
+    throw new IllegalArgumentException("HTTP connection may not be null");
+  }
+  if (context == null) {
+    throw new IllegalArgumentException("HTTP context may not be null");
+  }
+  HttpResponse response=null;
+  int statuscode=0;
+  while (response == null || statuscode < HttpStatus.SC_OK) {
+    response=conn.receiveResponseHeader();
+    RequestWrapper w=(RequestWrapper)request;
+    SoapUIMetrics metrics=null;
+    if (w.getOriginal() instanceof ExtendedHttpMethod) {
+      metrics=((ExtendedHttpMethod)w.getOriginal()).getMetrics();
+      metrics.getTimeToFirstByteTimer().stop();
+      metrics.getReadTimer().start();
+    }
+    if (canResponseHaveBody(request,response)) {
+      conn.receiveResponseEntity(response);
+      if (metrics != null)       metrics.getReadTimer().stop();
+    }
+    statuscode=response.getStatusLine().getStatusCode();
+  }
+  return response;
+}
