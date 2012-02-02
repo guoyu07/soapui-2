@@ -5,7 +5,7 @@
   testCaseRunLogTestStep.setStatus(result.getStatus().toString());
   testCaseRunLogTestStep.setMessageArray(result.getMessages());
   ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)runContext.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
-  if (httpMethod != null) {
+  if (httpMethod != null && result.getTestStep() instanceof HttpRequestTestStep) {
     testCaseRunLogTestStep.setEndpoint(httpMethod.getURI().toString());
     SoapUIMetrics metrics=(SoapUIMetrics)httpMethod.getMetrics();
     testCaseRunLogTestStep.setTimestamp(metrics.getFormattedTimeStamp());
