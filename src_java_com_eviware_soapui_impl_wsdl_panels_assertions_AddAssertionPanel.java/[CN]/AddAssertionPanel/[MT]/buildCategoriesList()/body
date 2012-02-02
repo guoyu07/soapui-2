@@ -4,16 +4,10 @@
   categoriesList=new JXList(listModel);
   categoriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   categoriesList.setSelectedIndex(0);
+  renderAssertions();
   categoriesList.addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
-      selectedCategory=(String)categoriesList.getSelectedValue();
-      if (selectedCategory != null && categoriesAssertionsMap.containsKey(selectedCategory)) {
-        assertions=categoriesAssertionsMap.get(selectedCategory);
-        assertionsListTableModel.setListEntriesSet(assertions);
-        renderAssertions();
-        populateNonSelectableIndexes();
-        assertionsListTableModel.fireTableDataChanged();
-      }
+      renderAssertionsTable();
     }
   }
 );

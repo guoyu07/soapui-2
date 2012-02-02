@@ -1,0 +1,9 @@
+{
+  TestAssertionFactory factory=availableAssertions.get(type);
+  if (factory != null) {
+    return factory.canAssert(modelItem,property);
+  }
+ else {
+    return false;
+  }
+}

@@ -3,13 +3,19 @@
   AssertionListEntry entry=(AssertionListEntry)value;
   String type=TestAssertionRegistry.getInstance().getAssertionTypeForName(entry.getName());
   boolean canAssert=false;
-  canAssert=assertable != null ? TestAssertionRegistry.getInstance().canAssert(type,assertable) : true;
+  boolean disable=true;
+  JLabel label;
+  JLabel desc;
+  JLabel disabledInfo;
+  if (type != null && assertable != null && assertable.getModelItem() != null) {
+    canAssert=isAssertionApplicable(type,assertable.getModelItem(),getSelectedPropertyName());
+    disable=!categoriesList.isEnabled() || !canAssert;
+  }
   String str=entry.getName();
-  JLabel label=new JLabel(str);
+  label=new JLabel(str);
   label.setFont(boldFont);
-  JLabel desc=new JLabel(((AssertionListEntry)value).getDescription());
-  JLabel disabledInfo=new JLabel("Not applicable with selected Source and Property");
-  boolean disable=!categoriesList.isEnabled() || !canAssert;
+  desc=new JLabel(((AssertionListEntry)value).getDescription());
+  disabledInfo=new JLabel("Not applicable with selected Source and Property");
   if (disable) {
     label.setForeground(Color.LIGHT_GRAY);
     desc.setForeground(Color.LIGHT_GRAY);

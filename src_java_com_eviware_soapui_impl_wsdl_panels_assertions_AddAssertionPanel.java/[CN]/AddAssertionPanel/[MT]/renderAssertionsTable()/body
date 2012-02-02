@@ -1,0 +1,10 @@
+{
+  selectedCategory=(String)categoriesList.getSelectedValue();
+  if (selectedCategory != null && categoriesAssertionsMap.containsKey(selectedCategory)) {
+    assertions=categoriesAssertionsMap.get(selectedCategory);
+    assertionsListTableModel.setListEntriesSet(assertions);
+    renderAssertions();
+    populateNonSelectableIndexes();
+    assertionsListTableModel.fireTableDataChanged();
+  }
+}
