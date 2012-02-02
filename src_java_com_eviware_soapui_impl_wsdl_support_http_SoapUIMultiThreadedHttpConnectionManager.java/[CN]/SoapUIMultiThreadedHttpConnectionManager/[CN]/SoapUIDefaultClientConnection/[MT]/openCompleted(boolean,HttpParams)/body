@@ -1,10 +1,11 @@
 {
   super.openCompleted(secure,params);
   Object metricsObj=params.getParameter(ExtendedHttpMethod.HTTP_METRICS);
-  if (metricsObj instanceof HttpMetrics) {
-    this.httpMetrics=(HttpMetrics)metricsObj;
+  if (metricsObj instanceof SoapUIMetrics) {
+    this.httpMetrics=(SoapUIMetrics)metricsObj;
   }
   if (httpMetrics != null) {
     httpMetrics.getConnectTimer().stop();
+    httpMetrics.getTimeToFirstByteTimer().start();
   }
 }

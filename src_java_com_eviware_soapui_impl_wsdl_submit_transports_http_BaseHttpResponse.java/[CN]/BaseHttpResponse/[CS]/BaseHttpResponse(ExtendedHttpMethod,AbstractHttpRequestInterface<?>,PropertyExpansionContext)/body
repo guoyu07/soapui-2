@@ -1,7 +1,7 @@
 {
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
-  HttpMetrics httpMetrics=(HttpMetrics)httpMethod.getParams().getParameter(ExtendedHttpMethod.HTTP_METRICS);
+  SoapUIMetrics httpMetrics=(SoapUIMetrics)httpMethod.getParams().getParameter(ExtendedHttpMethod.HTTP_METRICS);
   httpMetrics.getTotalTimer().stop();
   method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
@@ -21,7 +21,7 @@
         e.printStackTrace();
       }
       timeTaken+=httpMethod.getResponseReadTime();
-      httpMetrics.getTotalTimer().add(httpMetrics.getReadTimer().getDuration());
+      httpMetrics.getTotalTimer().add(httpMethod.getResponseReadTime());
     }
     try {
       this.timestamp=System.currentTimeMillis();
