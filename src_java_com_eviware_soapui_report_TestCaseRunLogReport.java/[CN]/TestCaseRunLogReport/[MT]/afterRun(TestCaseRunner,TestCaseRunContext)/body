@@ -2,6 +2,7 @@
   testCaseRunLog.setTestCase((testRunner.getTestCase().getName()));
   testCaseRunLog.setTimeTaken(Long.toString(testRunner.getTimeTaken()));
   testCaseRunLog.setStatus(testRunner.getStatus().toString());
+  testCaseRunLog.setTimeStamp(SoapUIMetrics.formatTimestamp(startTime));
   final File newFile=new File(outputFolder,REPORT_FILE_NAME);
   try {
     testCaseRunLogDocumentConfig.save(newFile);
