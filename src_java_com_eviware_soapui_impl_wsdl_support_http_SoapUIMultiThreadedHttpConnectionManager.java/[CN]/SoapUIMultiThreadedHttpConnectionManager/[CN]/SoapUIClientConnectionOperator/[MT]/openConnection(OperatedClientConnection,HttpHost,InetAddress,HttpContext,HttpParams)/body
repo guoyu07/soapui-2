@@ -1,24 +1,63 @@
 {
-  Object metricsObj=params.getParameter(ExtendedHttpMethod.HTTP_METRICS);
-  if (metricsObj instanceof SoapUIMetrics) {
-    this.httpMetrics=(SoapUIMetrics)metricsObj;
+  if (conn == null) {
+    throw new IllegalArgumentException("Connection may not be null");
   }
-  if (httpMetrics != null) {
-    httpMetrics.getConnectTimer().start();
+  if (target == null) {
+    throw new IllegalArgumentException("Target host may not be null");
   }
-  try {
-    super.openConnection(conn,target,local,context,params);
+  if (params == null) {
+    throw new IllegalArgumentException("Parameters may not be null");
   }
- catch (  HttpHostConnectException e) {
-    if (httpMetrics != null) {
-      httpMetrics.getConnectTimer().reset();
+  if (conn.isOpen()) {
+    throw new IllegalStateException("Connection must not be open");
+  }
+  SoapUIMetrics metrics=(SoapUIMetrics)((SoapUIDefaultClientConnection)conn).getAttribute(ExtendedHttpMethod.SOAPUI_METRICS);
+  Scheme schm=schemeRegistry.getScheme(target.getSchemeName());
+  SchemeSocketFactory sf=schm.getSchemeSocketFactory();
+  if (metrics != null) {
+    metrics.getDNSTimer().start();
+    metrics.getConnectTimer().start();
+  }
+  InetAddress[] addresses=resolveHostname(target.getHostName());
+  if (metrics != null) {
+    metrics.getDNSTimer().stop();
+  }
+  int port=schm.resolvePort(target.getPort());
+  for (int i=0; i < addresses.length; i++) {
+    InetAddress address=addresses[i];
+    boolean last=i == addresses.length - 1;
+    Socket sock=sf.createSocket(params);
+    conn.opening(sock,target);
+    InetSocketAddress remoteAddress=new InetSocketAddress(address,port);
+    InetSocketAddress localAddress=null;
+    if (local != null) {
+      localAddress=new InetSocketAddress(local,0);
     }
-    throw e;
-  }
-catch (  ConnectTimeoutException e) {
-    if (httpMetrics != null) {
-      httpMetrics.getConnectTimer().reset();
+    if (log.isDebugEnabled()) {
+      log.debug("Connecting to " + remoteAddress);
     }
-    throw e;
+    try {
+      Socket connsock=sf.connectSocket(sock,remoteAddress,localAddress,params);
+      if (sock != connsock) {
+        sock=connsock;
+        conn.opening(sock,target);
+      }
+      prepareSocket(sock,context,params);
+      conn.openCompleted(sf.isSecure(sock),params);
+      return;
+    }
+ catch (    ConnectException ex) {
+      if (last) {
+        throw new HttpHostConnectException(target,ex);
+      }
+    }
+catch (    ConnectTimeoutException ex) {
+      if (last) {
+        throw ex;
+      }
+    }
+    if (log.isDebugEnabled()) {
+      log.debug("Connect to " + remoteAddress + " timed out. "+ "Connection will be retried using another IP address");
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   AbstractHttpRequestInterface<?> httpRequest=(AbstractHttpRequestInterface<?>)request;
-  DefaultHttpClient httpClient=HttpClientSupport.getHttpClient();
+  HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
   ExtendedHttpMethod httpMethod=createHttpMethod(httpRequest);
   boolean createdContext=false;
   HttpContext httpContext=(HttpContext)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);

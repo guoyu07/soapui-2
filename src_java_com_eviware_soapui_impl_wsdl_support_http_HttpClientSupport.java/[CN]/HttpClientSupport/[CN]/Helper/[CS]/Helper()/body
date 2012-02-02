@@ -10,7 +10,7 @@
     SoapUI.logError(e);
   }
   connectionManager=new SoapUIMultiThreadedHttpConnectionManager(registry);
-  httpClient=new DefaultHttpClient(connectionManager);
+  httpClient=new SoapUIHttpClient(connectionManager);
   httpClient.getAuthSchemes().register(AuthPolicy.NTLM,new NTLMSchemeFactory());
   httpClient.getAuthSchemes().register(AuthPolicy.SPNEGO,new NTLMSchemeFactory());
   settings.addSettingsListener(new SSLSettingsListener());
