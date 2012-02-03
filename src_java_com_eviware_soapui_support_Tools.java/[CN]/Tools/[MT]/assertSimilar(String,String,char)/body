@@ -1,0 +1,19 @@
+{
+  if (!expected.equals(String.valueOf(wildcard))) {
+    List<String> tokens=null;
+    if (wildcard == '*' || wildcard == '.')     tokens=Arrays.asList(expected.split("\\" + wildcard));
+ else     tokens=Arrays.asList(expected.split(String.valueOf(wildcard)));
+    if (tokens.isEmpty())     throw new ComparisonFailure("Not used wildcard in expected " + "[" + wildcard + "]",expected,real);
+    for (int cnt=0; cnt < tokens.size(); cnt++) {
+      if (cnt == 0) {
+        if (real.startsWith(tokens.get(cnt)))         continue;
+ else         throw new ComparisonFailure("Not matched",expected,real);
+      }
+      if (cnt == tokens.size() - 1) {
+        if (real.endsWith(tokens.get(cnt)))         continue;
+ else         throw new ComparisonFailure("Not matched",expected,real);
+      }
+      if (real.indexOf(tokens.get(cnt)) == -1)       throw new ComparisonFailure("Not matched",expected,real);
+    }
+  }
+}

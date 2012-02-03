@@ -39,38 +39,45 @@
           }
  else {
             Node domNode=items[c].getDomNode();
-            if (domNode.getNodeType() == Node.ELEMENT_NODE) {
+switch (domNode.getNodeType()) {
+case Node.ELEMENT_NODE:
               String expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText((Element)domNode));
-              XMLAssert.assertEquals(expandedContent,expandedValue);
-            }
+            XMLAssert.assertEquals(expandedContent,expandedValue);
+          break;
+case Node.ATTRIBUTE_NODE:
+        expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+      if (allowWildcards)       Tools.assertSimilar(expandedContent,expandedValue,'*');
+ else       XMLAssert.assertEquals(expandedContent,expandedValue);
+    break;
+default :
+  expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+XMLAssert.assertEquals(expandedContent,expandedValue);
+break;
+}
+}
+}
  else {
-              String expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
-              XMLAssert.assertEquals(expandedContent,expandedValue);
-            }
-          }
-        }
+compareValues(contentObj.xmlText(options),items[c].xmlText(options),items[c]);
+}
+break;
+}
+ catch (Throwable e) {
+if (c == items.length - 1) throw e;
+}
+}
+}
+ catch (Throwable e) {
+String msg="";
+if (e instanceof ComparisonFailure) {
+ComparisonFailure cf=(ComparisonFailure)e;
+String expected=cf.getExpected();
+String actual=cf.getActual();
+msg="XPathContains comparison failed, expecting [" + expected + "], actual was ["+ actual+ "]";
+}
  else {
-          compareValues(contentObj.xmlText(options),items[c].xmlText(options),items[c]);
-        }
-        break;
-      }
- catch (      Throwable e) {
-        if (c == items.length - 1)         throw e;
-      }
-    }
-  }
- catch (  Throwable e) {
-    String msg="";
-    if (e instanceof ComparisonFailure) {
-      ComparisonFailure cf=(ComparisonFailure)e;
-      String expected=cf.getExpected();
-      String actual=cf.getActual();
-      msg="XPathContains comparison failed, expecting [" + expected + "], actual was ["+ actual+ "]";
-    }
- else {
-      msg="XPathContains assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();
-    }
-    throw new AssertionException(new AssertionError(msg));
-  }
-  return type + " matches content for [" + path+ "]";
+msg="XPathContains assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();
+}
+throw new AssertionException(new AssertionError(msg));
+}
+return type + " matches content for [" + path+ "]";
 }
