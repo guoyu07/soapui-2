@@ -27,6 +27,7 @@
     SoapUIMetrics connectionMetrics=(SoapUIMetrics)conn.getMetrics();
     metrics.getConnectTimer().set(connectionMetrics.getConnectTimer().getStart(),connectionMetrics.getConnectTimer().getStop());
     metrics.getDNSTimer().set(connectionMetrics.getDNSTimer().getStart(),connectionMetrics.getDNSTimer().getStop());
+    connectionMetrics.reset();
   }
   return response;
 }
