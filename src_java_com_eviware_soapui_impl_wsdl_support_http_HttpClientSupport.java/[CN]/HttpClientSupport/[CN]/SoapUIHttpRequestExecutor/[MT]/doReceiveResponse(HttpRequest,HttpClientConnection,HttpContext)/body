@@ -24,6 +24,9 @@
       if (metrics != null)       metrics.getReadTimer().stop();
     }
     statuscode=response.getStatusLine().getStatusCode();
+    SoapUIMetrics connectionMetrics=(SoapUIMetrics)conn.getMetrics();
+    metrics.getConnectTimer().set(connectionMetrics.getConnectTimer().getStart(),connectionMetrics.getConnectTimer().getStop());
+    metrics.getDNSTimer().set(connectionMetrics.getDNSTimer().getStart(),connectionMetrics.getDNSTimer().getStop());
   }
   return response;
 }

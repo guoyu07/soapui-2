@@ -1,4 +1,4 @@
 {
   decompress=!SoapUI.getSettings().getBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION);
-  metrics=new SoapUIMetrics();
+  metrics=new SoapUIMetrics(new HttpTransportMetricsImpl(),new HttpTransportMetricsImpl());
 }

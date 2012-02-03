@@ -4,6 +4,9 @@
     HttpEntity bufferedEntity=new BufferedHttpEntity(httpResponse.getEntity());
     long contentLength=bufferedEntity.getContentLength();
     long now=System.nanoTime();
+    if (metrics != null) {
+      metrics.setContentLength(contentLength);
+    }
     InputStream instream=bufferedEntity.getContent();
     try {
       if (maxSize == 0 || (contentLength >= 0 && contentLength <= maxSize)) {

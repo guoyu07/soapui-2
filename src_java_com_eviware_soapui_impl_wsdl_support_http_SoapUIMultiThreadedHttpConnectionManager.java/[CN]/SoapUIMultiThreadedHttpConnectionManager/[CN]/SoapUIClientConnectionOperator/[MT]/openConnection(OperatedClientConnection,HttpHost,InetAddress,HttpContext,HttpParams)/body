@@ -11,17 +11,11 @@
   if (conn.isOpen()) {
     throw new IllegalStateException("Connection must not be open");
   }
-  SoapUIMetrics metrics=(SoapUIMetrics)((SoapUIDefaultClientConnection)conn).getAttribute(ExtendedHttpMethod.SOAPUI_METRICS);
   Scheme schm=schemeRegistry.getScheme(target.getSchemeName());
   SchemeSocketFactory sf=schm.getSchemeSocketFactory();
-  if (metrics != null) {
-    metrics.getDNSTimer().start();
-    metrics.getConnectTimer().start();
-  }
+  long start=System.nanoTime();
   InetAddress[] addresses=resolveHostname(target.getHostName());
-  if (metrics != null) {
-    metrics.getDNSTimer().stop();
-  }
+  long dnsEnd=System.nanoTime();
   int port=schm.resolvePort(target.getPort());
   for (int i=0; i < addresses.length; i++) {
     InetAddress address=addresses[i];
@@ -44,6 +38,12 @@
       }
       prepareSocket(sock,context,params);
       conn.openCompleted(sf.isSecure(sock),params);
+      long connectEnd=System.nanoTime();
+      SoapUIMetrics metrics=(SoapUIMetrics)conn.getMetrics();
+      if (metrics != null) {
+        metrics.getDNSTimer().set(start,dnsEnd);
+        metrics.getConnectTimer().set(start,connectEnd);
+      }
       return;
     }
  catch (    ConnectException ex) {
