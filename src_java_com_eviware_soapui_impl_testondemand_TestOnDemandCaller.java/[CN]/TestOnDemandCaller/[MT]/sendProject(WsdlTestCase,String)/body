@@ -1,0 +1,12 @@
+{
+  post.setURI(new URI(UPLOAD_URI));
+  String requestContent=createUploadRequestContents(testCase,locationCode);
+  byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
+  post.setEntity(new ByteArrayEntity(compressedRequestContent));
+  byte[] responseBody=DUMMY_UPLOAD_RESPONSE.getBytes();
+  String reponseBodyAsString=new String(responseBody);
+  Document responseDocument=XmlUtils.parseXml(reponseBodyAsString);
+  XPathFactory factory=XPathFactory.newInstance();
+  XPath xpath=factory.newXPath();
+  return (String)xpath.evaluate(REDIRECT_URL_XPATH_EXPRESSION,responseDocument,XPathConstants.STRING);
+}

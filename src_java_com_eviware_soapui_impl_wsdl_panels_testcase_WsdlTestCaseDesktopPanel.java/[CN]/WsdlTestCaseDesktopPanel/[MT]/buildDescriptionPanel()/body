@@ -2,7 +2,7 @@
   JPanel panel=new JPanel(new BorderLayout());
   descriptionArea=new JUndoableTextArea(getModelItem().getDescription());
   descriptionArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    public void update(    Document document){
+    @Override public void update(    Document document){
       getModelItem().setDescription(descriptionArea.getText());
     }
   }

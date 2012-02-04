@@ -1,14 +1,22 @@
 {
   if (locations != null) {
     String name=(String)locations.getSelectedItem();
-    if (SoapUI.isJXBrowserDisabled(true)) {
-      Tools.openURL(name);
-    }
- else {
-      if (browser != null) {
-        browser.navigate(name,null);
+    TestOnDemandCaller caller=new TestOnDemandCaller();
+    String redirectUrl;
+    try {
+      redirectUrl=caller.sendProject(testCase,name);
+      if (SoapUI.isJXBrowserDisabled(true)) {
+        Tools.openURL(redirectUrl);
       }
+ else {
+        if (browser != null) {
+          browser.navigate(redirectUrl,null);
+        }
+      }
+      useSystemBrowser=false;
     }
-    useSystemBrowser=false;
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
   }
 }

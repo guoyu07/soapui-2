@@ -1,0 +1,10 @@
+{
+  byte[] byteArray=new byte[0];
+  if (!Strings.isNullOrEmpty(filePath)) {
+    File file=new File(filePath);
+    FileInputStream inputStream=new FileInputStream(file);
+    byteArray=ByteStreams.toByteArray(inputStream);
+    inputStream.close();
+  }
+  return byteArray;
+}

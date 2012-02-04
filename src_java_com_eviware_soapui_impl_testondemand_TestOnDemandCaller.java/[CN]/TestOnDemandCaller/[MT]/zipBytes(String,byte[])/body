@@ -1,0 +1,11 @@
+{
+  ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+  ZipOutputStream zipedOutputStream=new ZipOutputStream(outputStream);
+  ZipEntry entry=new ZipEntry(filename);
+  entry.setSize(dataToBeZiped.length);
+  zipedOutputStream.putNextEntry(entry);
+  zipedOutputStream.write(dataToBeZiped);
+  zipedOutputStream.closeEntry();
+  zipedOutputStream.close();
+  return outputStream.toByteArray();
+}
