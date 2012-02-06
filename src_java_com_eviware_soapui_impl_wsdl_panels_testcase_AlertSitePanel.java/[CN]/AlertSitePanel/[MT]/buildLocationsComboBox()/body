@@ -1,4 +1,7 @@
 {
-  JComboBox cb=new JComboBox(locationsCache);
+  if (locationsCache == null) {
+    locationsCache=getLocationCache();
+  }
+  JComboBox cb=new JComboBox(locationsCache.toArray());
   return cb;
 }

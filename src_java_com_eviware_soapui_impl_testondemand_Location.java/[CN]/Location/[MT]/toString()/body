@@ -1,0 +1,10 @@
+{
+  String decodedName=name;
+  try {
+    decodedName=URLDecoder.decode(name,Charsets.UTF_8.toString());
+  }
+ catch (  UnsupportedEncodingException e) {
+    SoapUI.logError(e);
+  }
+  return decodedName;
+}

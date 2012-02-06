@@ -1,9 +1,16 @@
 {
+  final ExtendedPostMethod post=new ExtendedPostMethod();
   post.setURI(new URI(UPLOAD_URI));
+  String locationCode=location.getCode();
   String requestContent=createUploadRequestContents(testCase,locationCode);
   byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
   post.setEntity(new ByteArrayEntity(compressedRequestContent));
-  byte[] responseBody=DUMMY_UPLOAD_RESPONSE.getBytes();
+  SoapUI.log("Sending request to  AlertSite:");
+  SoapUI.log(requestContent);
+  HttpClientSupport.execute(post);
+  byte[] responseBody=post.getResponseBody();
+  SoapUI.log("Got response from AlertSite:");
+  SoapUI.log(new String(responseBody));
   String reponseBodyAsString=new String(responseBody);
   Document responseDocument=XmlUtils.parseXml(reponseBodyAsString);
   XPathFactory factory=XPathFactory.newInstance();

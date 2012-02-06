@@ -1,0 +1,10 @@
+{
+  List<Location> locations=new ArrayList<Location>();
+  try {
+    locations=caller.getLocations();
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return locations;
+}

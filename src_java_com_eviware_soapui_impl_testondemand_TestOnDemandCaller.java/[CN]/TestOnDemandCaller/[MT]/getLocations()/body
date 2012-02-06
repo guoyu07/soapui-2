@@ -1,0 +1,25 @@
+{
+  final ExtendedPostMethod post=new ExtendedPostMethod();
+  post.setURI(new URI(LOCATIONS_URI));
+  String requestContent="<Request api_version=\"2\"><Header><UserAgent>" + USER_AGENT + "</UserAgent></Header><Body><Command><Name>ListLocations</Name><Parameters>server_attrib=ITEST</Parameters></Command></Body></Request>";
+  post.setEntity(new StringEntity(requestContent));
+  SoapUI.log("Sending request to  AlertSite:");
+  SoapUI.log(requestContent);
+  HttpClientSupport.execute(post);
+  byte[] responseBody=post.getResponseBody();
+  SoapUI.log("Got response from AlertSite:");
+  SoapUI.log(new String(responseBody));
+  String reponseBodyAsString=new String(responseBody);
+  Document responseDocument=XmlUtils.parseXml(reponseBodyAsString);
+  XPathFactory factory=XPathFactory.newInstance();
+  XPath xpath=factory.newXPath();
+  NodeList locationNodes=(NodeList)xpath.evaluate(LOCATION_XPATH_EXPRESSION,responseDocument,XPathConstants.NODESET);
+  List<Location> locations=new ArrayList<Location>();
+  for (int i=0; i < locationNodes.getLength(); i++) {
+    Node locationNode=locationNodes.item(i);
+    String name=(String)xpath.evaluate(LOCATION_NAME_XPATH_EXPRESSION,locationNode,XPathConstants.STRING);
+    String code=(String)xpath.evaluate(LOCATION_CODE_XPATH_EXPRESSION,locationNode,XPathConstants.STRING);
+    locations.add(new Location(code,name));
+  }
+  return locations;
+}

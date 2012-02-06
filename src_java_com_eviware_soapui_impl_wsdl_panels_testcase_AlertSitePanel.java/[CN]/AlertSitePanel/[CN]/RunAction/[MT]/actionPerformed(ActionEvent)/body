@@ -1,19 +1,20 @@
 {
   if (locations != null) {
-    String name=(String)locations.getSelectedItem();
-    TestOnDemandCaller caller=new TestOnDemandCaller();
+    Location selectedLocation=(Location)locations.getSelectedItem();
     String redirectUrl;
     try {
-      redirectUrl=caller.sendProject(testCase,name);
-      if (SoapUI.isJXBrowserDisabled(true)) {
-        Tools.openURL(redirectUrl);
-      }
- else {
-        if (browser != null) {
-          browser.navigate(redirectUrl,null);
+      redirectUrl=caller.sendProject(testCase,selectedLocation);
+      if (!Strings.isNullOrEmpty(redirectUrl)) {
+        if (SoapUI.isJXBrowserDisabled(true)) {
+          Tools.openURL(redirectUrl);
         }
+ else {
+          if (browser != null) {
+            browser.navigate(redirectUrl,null);
+          }
+        }
+        useSystemBrowser=false;
       }
-      useSystemBrowser=false;
     }
  catch (    Exception e) {
       SoapUI.logError(e);

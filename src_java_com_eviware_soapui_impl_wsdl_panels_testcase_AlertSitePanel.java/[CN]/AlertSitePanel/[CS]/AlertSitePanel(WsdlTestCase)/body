@@ -15,7 +15,7 @@
     add(jxbrowserDisabledPanel,BorderLayout.CENTER);
   }
   if (runAction != null) {
-    if (locationsCache.length == 0) {
+    if (locationsCache != null && locationsCache.isEmpty()) {
       runAction.setEnabled(false);
     }
   }
