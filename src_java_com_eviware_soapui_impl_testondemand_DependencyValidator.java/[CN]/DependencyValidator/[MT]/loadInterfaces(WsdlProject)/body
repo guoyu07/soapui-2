@@ -1,0 +1,13 @@
+{
+  for (  Interface inf : project.getInterfaceList())   try {
+    if (inf instanceof WsdlInterface) {
+      ((WsdlInterface)inf).getWsdlContext().loadIfNecessary();
+    }
+ else {
+      ((RestService)inf).getDefinitionContext().loadIfNecessary();
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

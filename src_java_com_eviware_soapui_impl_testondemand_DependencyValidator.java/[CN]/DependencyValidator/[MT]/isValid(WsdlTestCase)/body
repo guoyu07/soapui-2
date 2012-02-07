@@ -1,0 +1,14 @@
+{
+  if (testCase != null) {
+    WsdlProject project=testCase.getTestSuite().getProject();
+    loadInterfaces(project);
+    saveProject(project);
+    List<ExternalDependency> deps=project.getExternalDependencies();
+    for (    ExternalDependency d : deps) {
+      if (!(d instanceof InterfaceExternalDependency)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

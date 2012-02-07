@@ -1,13 +1,11 @@
 {
-  if (hasDependencies()) {
-    UISupport.showErrorMessage("Your project contains external dependencies that " + "are not supported by the Test-On-Demand functionality at this point.");
-    return;
+  if (validator != null && !validator.isValid(testCase)) {
   }
   if (locations != null) {
     Location selectedLocation=(Location)locations.getSelectedItem();
     String redirectUrl;
     try {
-      redirectUrl=caller.sendProject(testCase,selectedLocation);
+      redirectUrl=caller.sendProject(testCase,selectedLocation,validator.getFilename());
       if (!Strings.isNullOrEmpty(redirectUrl)) {
         if (SoapUI.isJXBrowserDisabled(true)) {
           Tools.openURL(redirectUrl);

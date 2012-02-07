@@ -1,0 +1,17 @@
+{
+  boolean shouldCache=project.isCacheDefinitions();
+  try {
+    File tempFile=File.createTempFile("project-temp-",".xml",null);
+    if (!shouldCache) {
+      project.setCacheDefinitions(true);
+    }
+    project.saveIn(tempFile);
+    this.filename=tempFile;
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+ finally {
+    project.setCacheDefinitions(shouldCache);
+  }
+}
