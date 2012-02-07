@@ -3,8 +3,7 @@
   post.setURI(new URI(UPLOAD_URI));
   String locationCode=location.getCode();
   String requestContent=createUploadRequestContents(testCase,locationCode);
-  byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
-  post.setEntity(new ByteArrayEntity(compressedRequestContent));
+  post.setEntity(new StringEntity(requestContent));
   SoapUI.log("Sending request to  AlertSite:");
   SoapUI.log(requestContent);
   HttpClientSupport.execute(post);
