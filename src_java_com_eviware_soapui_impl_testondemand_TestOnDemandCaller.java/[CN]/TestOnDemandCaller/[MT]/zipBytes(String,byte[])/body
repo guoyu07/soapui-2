@@ -3,9 +3,13 @@
   ZipOutputStream zipedOutputStream=new ZipOutputStream(outputStream);
   ZipEntry entry=new ZipEntry(filename);
   entry.setSize(dataToBeZiped.length);
-  zipedOutputStream.putNextEntry(entry);
-  zipedOutputStream.write(dataToBeZiped);
-  zipedOutputStream.closeEntry();
-  zipedOutputStream.close();
+  try {
+    zipedOutputStream.putNextEntry(entry);
+    zipedOutputStream.write(dataToBeZiped);
+  }
+  finally {
+    zipedOutputStream.closeEntry();
+    zipedOutputStream.close();
+  }
   return outputStream.toByteArray();
 }
