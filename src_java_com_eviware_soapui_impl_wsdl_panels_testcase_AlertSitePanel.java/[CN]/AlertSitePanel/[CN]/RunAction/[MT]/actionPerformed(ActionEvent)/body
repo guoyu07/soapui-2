@@ -1,5 +1,7 @@
 {
   if (validator != null && !validator.isValid(testCase)) {
+    UISupport.showErrorMessage("Your project contains external dependencies that " + "are not supported by the Test-On-Demand functionality at this point.");
+    return;
   }
   if (locations != null) {
     Location selectedLocation=(Location)locations.getSelectedItem();

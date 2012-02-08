@@ -5,7 +5,7 @@
     saveProject(project);
     List<ExternalDependency> deps=project.getExternalDependencies();
     for (    ExternalDependency d : deps) {
-      if (!(d instanceof InterfaceExternalDependency)) {
+      if (!(d instanceof InterfaceExternalDependency || d instanceof MockServiceExternalDependency)) {
         return false;
       }
     }
