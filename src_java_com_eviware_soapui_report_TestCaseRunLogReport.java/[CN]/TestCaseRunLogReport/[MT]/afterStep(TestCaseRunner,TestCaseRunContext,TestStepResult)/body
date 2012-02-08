@@ -17,6 +17,8 @@
     testCaseRunLogTestStep.setDnsTime(String.valueOf(metrics.getDNSTimer().getDuration()));
     testCaseRunLogTestStep.setConnectTime(String.valueOf(metrics.getConnectTimer().getDuration()));
     testCaseRunLogTestStep.setTimeToFirstByte(String.valueOf(metrics.getTimeToFirstByteTimer().getDuration()));
+    testCaseRunLogTestStep.setHttpMethod(metrics.getHttpMethod());
+    testCaseRunLogTestStep.setIpAddress(metrics.getIpAddress());
   }
   Throwable error=result.getError();
   if (error != null) {

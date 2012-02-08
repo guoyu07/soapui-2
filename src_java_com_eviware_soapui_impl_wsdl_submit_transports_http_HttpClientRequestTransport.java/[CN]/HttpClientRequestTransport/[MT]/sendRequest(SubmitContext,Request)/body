@@ -64,6 +64,8 @@
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     httpMethod.getMetrics().getTotalTimer().start();
+    httpMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
+    httpMethod.getMetrics().setIpAddress(InetAddress.getByName(httpMethod.getURI().getHost()).getHostAddress());
     httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
     if (isRedirectResponse(httpResponse.getStatusLine().getStatusCode()) && httpRequest.isFollowRedirects()) {
       ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
