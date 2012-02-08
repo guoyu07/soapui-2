@@ -1,10 +1,13 @@
 {
-  selectedCategory=(String)categoriesList.getSelectedValue();
-  if (selectedCategory != null && categoriesAssertionsMap.containsKey(selectedCategory)) {
-    assertions=categoriesAssertionsMap.get(selectedCategory);
-    assertionsListTableModel.setListEntriesSet(assertions);
-    renderAssertions();
-    populateNonSelectableIndexes();
-    assertionsListTableModel.fireTableDataChanged();
+  int selectedRow=categoriesListTable.getSelectedRow();
+  if (selectedRow > -1) {
+    selectedCategory=(String)categoriesListTable.getModel().getValueAt(selectedRow,0);
+    if (selectedCategory != null && categoriesAssertionsMap.containsKey(selectedCategory)) {
+      assertions=categoriesAssertionsMap.get(selectedCategory);
+      assertionsListTableModel.setListEntriesSet(assertions);
+      renderAssertions();
+      populateNonSelectableAssertionIndexes();
+      assertionsListTableModel.fireTableDataChanged();
+    }
   }
 }

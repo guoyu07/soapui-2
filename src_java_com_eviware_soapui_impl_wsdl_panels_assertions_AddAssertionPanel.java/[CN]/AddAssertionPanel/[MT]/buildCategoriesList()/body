@@ -1,16 +1,22 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  AssertionCategoriesListModel listModel=new AssertionCategoriesListModel(categoriesAssertionsMap.keySet());
-  categoriesList=new JXList(listModel);
-  categoriesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  categoriesList.setSelectedIndex(0);
+  categoriesTableModel=new AssertionCategoriesTableModel();
+  categoriesTableModel.setLisetEntriesSet(categoriesAssertionsMap.keySet());
+  categoriesListTable=new CategoriesListTable(categoriesTableModel);
+  categoriesListTable.setTableHeader(null);
+  categoriesListTable.setEditable(false);
+  categoriesListTable.setGridColor(Color.BLACK);
+  categoriesListTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  categoriesListTable.getSelectionModel().setSelectionInterval(0,0);
   renderAssertions();
-  categoriesList.addListSelectionListener(new ListSelectionListener(){
+  populateSelectableCategoriesIndexes();
+  categoriesListTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     @Override public void valueChanged(    ListSelectionEvent arg0){
       renderAssertionsTable();
     }
   }
 );
-  panel.add(new JScrollPane(categoriesList));
+  categoriesListTable.getColumnModel().getColumn(0).setCellRenderer(categoriesListRenderer);
+  panel.add(new JScrollPane(categoriesListTable));
   return panel;
 }

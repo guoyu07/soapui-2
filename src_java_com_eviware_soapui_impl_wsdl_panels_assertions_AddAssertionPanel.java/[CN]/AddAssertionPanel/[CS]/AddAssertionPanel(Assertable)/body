@@ -2,6 +2,7 @@
   super("Select Assertion","Select which assertion to add","");
   this.assertable=assertable;
   assertionEntryRenderer.setAssertable(assertable);
+  categoriesListRenderer.setAssertable(assertable);
   selectionListener=new InternalListSelectionListener();
   categoriesAssertionsMap=AssertionCategoryMapping.getCategoriesAssertionsMap(assertable,recentAssertionHandler);
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(assertable.getModelItem());

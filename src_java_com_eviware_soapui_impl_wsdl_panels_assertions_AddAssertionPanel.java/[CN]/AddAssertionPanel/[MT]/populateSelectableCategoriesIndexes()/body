@@ -1,0 +1,17 @@
+{
+  getCategoriesListTable().setSelectable(true);
+  List<Integer> categoriesIndexList=new ArrayList<Integer>();
+  Set<String> ctgs=getCategoriesAssertionsMap().keySet();
+  for (int j=0; j < ctgs.size(); j++) {
+    String selCat=(String)ctgs.toArray()[j];
+    SortedSet<AssertionListEntry> assertionsList=getCategoriesAssertionsMap().get(selCat);
+    for (int i=0; i < assertionsList.size(); i++) {
+      AssertionListEntry assertionListEntry=(AssertionListEntry)assertionsList.toArray()[i];
+      if (isAssertionApplicable(assertionListEntry.getTypeId())) {
+        categoriesIndexList.add(j);
+        break;
+      }
+    }
+  }
+  getCategoriesListTable().setSelectableIndexes(categoriesIndexList);
+}

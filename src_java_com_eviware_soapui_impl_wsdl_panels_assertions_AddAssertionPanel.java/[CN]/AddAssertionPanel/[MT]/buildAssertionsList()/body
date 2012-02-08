@@ -2,7 +2,8 @@
   assertionsForm=new SimpleForm();
   assertionsListTableModel=new AssertionsListTableModel();
   assertionsTable=new AssertionsListTable(assertionsListTableModel);
-  String category=(String)categoriesList.getSelectedValue();
+  int selectedRow=categoriesListTable.getSelectedRow();
+  String category=(String)categoriesListTable.getModel().getValueAt(selectedRow,0);
   if (category != null && categoriesAssertionsMap.containsKey(category)) {
     assertions=categoriesAssertionsMap.get(category);
     assertionsListTableModel.setListEntriesSet(assertions);

@@ -1,6 +1,6 @@
 {
-  if (token == null)   token="";
-  if (content == null)   content="";
+  Strings.nullToEmpty(token);
+  Strings.nullToEmpty(content);
   String replToken=PropertyExpander.expandProperties(context,token);
   replToken=normalize(replToken);
   content=normalize(content);

@@ -1,6 +1,7 @@
 {
   JPanel mainPanel=new JPanel(new BorderLayout());
   JSplitPane splitPane=UISupport.createHorizontalSplit(buildCategoriesList(),buildAssertionsList());
+  splitPane.setDividerLocation(220);
   getAssertionsTable().setSelectable(true);
   JXToolBar toolbar=UISupport.createSmallToolbar();
   hideDescCB=new JCheckBox("Hide descriptions");
@@ -10,7 +11,6 @@
   toolbar.add(new JLabel("Assertions"));
   toolbar.addGlue();
   toolbar.add(hideDescCB);
-  splitPane.setDividerLocation(0.4);
   mainPanel.add(toolbar,BorderLayout.NORTH);
   mainPanel.add(splitPane,BorderLayout.CENTER);
   return mainPanel;

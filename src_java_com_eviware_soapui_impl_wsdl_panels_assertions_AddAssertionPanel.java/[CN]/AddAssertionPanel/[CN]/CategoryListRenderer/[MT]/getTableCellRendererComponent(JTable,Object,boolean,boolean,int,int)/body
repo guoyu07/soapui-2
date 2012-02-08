@@ -1,0 +1,26 @@
+{
+  String categoryName=(String)value;
+  boolean disabled=true;
+  Font boldFont=getFont().deriveFont(Font.BOLD);
+  SortedSet<AssertionListEntry> assertions=categoriesAssertionsMap.get(categoryName);
+  for (  AssertionListEntry assertionListEntry : assertions) {
+    if (isAssertionApplicable(assertionListEntry.getTypeId())) {
+      disabled=false;
+      break;
+    }
+  }
+  JLabel label=new JLabel(categoryName);
+  SimpleForm form=new SimpleForm();
+  form.addComponent(label);
+  label.setFont(boldFont);
+  if (disabled) {
+    label.setForeground(Color.GRAY);
+  }
+  if (isSelected) {
+    form.getPanel().setBackground(Color.LIGHT_GRAY);
+  }
+ else {
+    form.getPanel().setBackground(Color.WHITE);
+  }
+  return form.getPanel();
+}

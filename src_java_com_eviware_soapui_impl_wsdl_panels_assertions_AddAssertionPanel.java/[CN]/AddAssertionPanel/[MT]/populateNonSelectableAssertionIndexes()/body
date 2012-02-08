@@ -1,11 +1,10 @@
 {
   getAssertionsTable().setSelectable(true);
   SortedSet<AssertionListEntry> assertionsList=getCategoriesAssertionsMap().get(getSelectedCategory());
-  List<Integer> intList=new ArrayList<Integer>();
-  assertionsList.toArray();
+  List<Integer> assertionsIndexList=new ArrayList<Integer>();
   for (int i=0; i < assertionsList.size(); i++) {
     AssertionListEntry assertionListEntry=(AssertionListEntry)assertionsList.toArray()[i];
-    if (!isAssertionApplicable(assertionListEntry.getTypeId()))     intList.add(i);
+    if (!isAssertionApplicable(assertionListEntry.getTypeId()))     assertionsIndexList.add(i);
   }
-  getAssertionsTable().setNonSelectableIndexes(intList);
+  getAssertionsTable().setNonSelectableIndexes(assertionsIndexList);
 }

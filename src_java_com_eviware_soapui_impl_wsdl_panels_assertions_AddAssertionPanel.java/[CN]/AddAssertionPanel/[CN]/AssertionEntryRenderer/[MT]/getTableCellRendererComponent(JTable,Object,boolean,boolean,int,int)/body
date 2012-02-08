@@ -9,7 +9,7 @@
   JLabel disabledInfo;
   if (type != null && assertable != null && assertable.getModelItem() != null) {
     canAssert=isAssertionApplicable(type,assertable.getModelItem(),getSelectedPropertyName());
-    disable=!categoriesList.isEnabled() || !canAssert;
+    disable=!categoriesListTable.isEnabled() || !canAssert;
   }
   String str=entry.getName();
   label=new JLabel(str);
