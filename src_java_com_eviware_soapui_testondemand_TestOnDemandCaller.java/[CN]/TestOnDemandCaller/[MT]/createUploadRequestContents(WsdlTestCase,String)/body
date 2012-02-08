@@ -2,7 +2,7 @@
   BASE64Encoder encoder=new BASE64Encoder();
   String encodedTestSuiteName=encoder.encode(testCase.getTestSuite().getName().getBytes());
   String encodedTestCaseName=encoder.encode(testCase.getName().getBytes());
-  String projectFilePath=filename.getAbsolutePath();
+  String projectFilePath=testCase.getTestSuite().getProject().getPath();
   byte[] projectFileData=getBytes(projectFilePath);
   byte[] zipedProjectFileData=zipBytes(testCase.getTestSuite().getProject().getName(),projectFileData);
   String encodedZipedProjectFile=encoder.encode(zipedProjectFileData);

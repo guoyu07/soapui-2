@@ -7,7 +7,7 @@
     Location selectedLocation=(Location)locations.getSelectedItem();
     String redirectUrl;
     try {
-      redirectUrl=caller.sendProject(testCase,selectedLocation,validator.getFilename());
+      redirectUrl=caller.sendProject(testCase,selectedLocation);
       if (!Strings.isNullOrEmpty(redirectUrl)) {
         if (SoapUI.isJXBrowserDisabled(true)) {
           Tools.openURL(redirectUrl);

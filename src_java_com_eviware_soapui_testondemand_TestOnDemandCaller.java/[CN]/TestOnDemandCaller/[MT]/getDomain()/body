@@ -1,0 +1,9 @@
+{
+  String customEndpoint=System.getProperty(SoapUISystemProperties.TEST_ON_DEMAND_HOST);
+  if (customEndpoint == null) {
+    return PROD_HOST;
+  }
+ else {
+    return customEndpoint;
+  }
+}
