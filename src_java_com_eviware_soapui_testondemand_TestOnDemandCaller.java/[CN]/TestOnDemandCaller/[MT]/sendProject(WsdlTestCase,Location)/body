@@ -3,6 +3,8 @@
   post.setURI(new URI(UPLOAD_URI));
   String locationCode=location.getCode();
   String requestContent=createUploadRequestContents(testCase,locationCode);
+  byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
+  post.setEntity(new ByteArrayEntity(compressedRequestContent));
   Document responseDocument=makeCall(UPLOAD_URI,requestContent);
   return (String)xpath.evaluate(REDIRECT_URL_XPATH_EXPRESSION,responseDocument,XPathConstants.STRING);
 }
