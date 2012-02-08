@@ -63,6 +63,7 @@
       }
     }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
+    httpMethod.getMetrics().getTotalTimer().start();
     httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
     if (isRedirectResponse(httpResponse.getStatusLine().getStatusCode()) && httpRequest.isFollowRedirects()) {
       ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
@@ -72,12 +73,20 @@
   }
  catch (  Throwable t) {
     httpMethod.setFailed(t);
-    httpMethod.getMetrics().setTimestamp(System.currentTimeMillis());
     if (t instanceof Exception)     throw (Exception)t;
     SoapUI.logError(t);
     throw new Exception(t);
   }
  finally {
+    if (!httpMethod.isFailed()) {
+      if (httpMethod.getMetrics() != null) {
+        httpMethod.getMetrics().getTotalTimer().stop();
+      }
+    }
+ else {
+      httpMethod.getMetrics().reset();
+      httpMethod.getMetrics().setTimestamp(System.currentTimeMillis());
+    }
     for (int c=filters.size() - 1; c >= 0; c--) {
       RequestFilter filter=filters.get(c);
       filter.afterRequest(submitContext,httpRequest);

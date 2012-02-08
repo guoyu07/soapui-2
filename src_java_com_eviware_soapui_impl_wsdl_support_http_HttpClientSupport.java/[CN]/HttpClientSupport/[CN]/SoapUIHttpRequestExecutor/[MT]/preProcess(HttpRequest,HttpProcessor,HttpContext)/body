@@ -1,0 +1,5 @@
+{
+  RequestWrapper w=(RequestWrapper)request;
+  if (w.getOriginal() instanceof ExtendedHttpMethod)   ((ExtendedHttpMethod)w.getOriginal()).getMetrics().getConnectTimer().stop();
+  super.preProcess(request,processor,context);
+}

@@ -2,9 +2,6 @@
   this.httpRequest=new WeakReference<AbstractHttpRequestInterface<?>>(httpRequest);
   this.timeTaken=httpMethod.getTimeTaken();
   SoapUIMetrics metrics=httpMethod.getMetrics();
-  if (metrics != null) {
-    metrics.getTotalTimer().stop();
-  }
   method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
   try {
@@ -23,7 +20,6 @@
         e.printStackTrace();
       }
       timeTaken+=httpMethod.getResponseReadTime();
-      metrics.getTotalTimer().add(httpMethod.getResponseReadTime());
     }
     try {
       this.timestamp=System.currentTimeMillis();
@@ -53,7 +49,6 @@
       addIncludedContentsAsAttachments();
       long after=(new Date()).getTime();
       timeTaken+=(after - before);
-      metrics.getTotalTimer().add(after - before);
       context.setProperty(HTMLPageSourceDownloader.MISSING_RESOURCES_LIST,downloader.getMissingResourcesList());
     }
   }

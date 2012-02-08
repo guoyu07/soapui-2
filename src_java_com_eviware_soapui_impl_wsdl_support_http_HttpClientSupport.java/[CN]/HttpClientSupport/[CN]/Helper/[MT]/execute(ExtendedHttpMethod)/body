@@ -1,5 +1,6 @@
 {
   method.afterWriteRequest();
+  method.getMetrics().getConnectTimer().start();
   HttpResponse httpResponse=httpClient.execute((HttpUriRequest)method);
   method.setHttpResponse(httpResponse);
   return httpResponse;
