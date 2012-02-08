@@ -26,29 +26,37 @@
           }
  else {
             Node domNode=items[c].getDomNode();
-            if (domNode.getNodeType() == Node.ELEMENT_NODE) {
+switch (domNode.getNodeType()) {
+case Node.ELEMENT_NODE:
               String expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText((Element)domNode));
-              XMLAssert.assertEquals(expandedContent,expandedValue);
-            }
+            if (allowWildcards)             Tools.assertSimilar(expandedContent,expandedValue,'*');
+ else             XMLAssert.assertEquals(expandedContent,expandedValue);
+          break;
+case Node.ATTRIBUTE_NODE:
+        expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+      if (allowWildcards)       Tools.assertSimilar(expandedContent,expandedValue,'*');
+ else       XMLAssert.assertEquals(expandedContent,expandedValue);
+    break;
+default :
+  expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+XMLAssert.assertEquals(expandedContent,expandedValue);
+break;
+}
+}
+}
  else {
-              String expandedValue=PropertyExpander.expandProperties(context,items[c].xmlText(options));
-              XMLAssert.assertEquals(expandedContent,expandedValue);
-            }
-          }
-        }
- else {
-          compareValues(contentObj.xmlText(options),items[c].xmlText(options));
-        }
-        break;
-      }
- catch (      Throwable e) {
-        if (c == items.length - 1)         throw e;
-      }
-    }
-  }
- catch (  Throwable e) {
-    String msg="XQuery Match Assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();
-    throw new AssertionException(new AssertionError(msg));
-  }
-  return type + " matches content for [" + path+ "]";
+compareValues(contentObj.xmlText(options),items[c].xmlText(options));
+}
+break;
+}
+ catch (Throwable e) {
+if (c == items.length - 1) throw e;
+}
+}
+}
+ catch (Throwable e) {
+String msg="XQuery Match Assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();
+throw new AssertionException(new AssertionError(msg));
+}
+return type + " matches content for [" + path+ "]";
 }
