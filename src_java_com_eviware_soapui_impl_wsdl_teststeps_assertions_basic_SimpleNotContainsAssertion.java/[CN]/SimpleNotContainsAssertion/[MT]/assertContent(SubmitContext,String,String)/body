@@ -1,7 +1,8 @@
 {
-  Strings.nullToEmpty(token);
-  Strings.nullToEmpty(content);
+  if (token == null)   token="";
+  if (content == null)   content="";
   String replToken=PropertyExpander.expandProperties(context,token);
+  if (replToken == null)   replToken="";
   replToken=normalize(replToken);
   content=normalize(content);
   if (replToken.length() > 0) {
