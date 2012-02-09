@@ -1,0 +1,11 @@
+{
+  try {
+    TestOnDemandCaller caller=new TestOnDemandCaller();
+    result=caller.sendTestCase(testCase,selectedLocation);
+  }
+ catch (  Exception e) {
+    log.error("Could not upload TestCase to the selected location",e);
+    UISupport.showErrorMessage("Could not upload TestCase to the selected location");
+  }
+  return result;
+}

@@ -6,5 +6,9 @@
   byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
   post.setEntity(new ByteArrayEntity(compressedRequestContent));
   Document responseDocument=makeCall(UPLOAD_URI,requestContent);
-  return (String)xpath.evaluate(REDIRECT_URL_XPATH_EXPRESSION,responseDocument,XPathConstants.STRING);
+  String redirectURL=(String)xpath.evaluate(REDIRECT_URL_XPATH_EXPRESSION,responseDocument,XPathConstants.STRING);
+  if (Strings.isNullOrEmpty(redirectURL)) {
+    throw new RuntimeException("The RedirectURL element is missing in the response message");
+  }
+  return redirectURL;
 }
