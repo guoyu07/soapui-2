@@ -4,24 +4,17 @@
     return;
   }
   if (locationsComboBox != null) {
-    Location selectedLocation=(Location)locationsComboBox.getSelectedItem();
-    String redirectUrl;
-    try {
-      redirectUrl=caller.sendProject(testCase,selectedLocation);
-      if (!Strings.isNullOrEmpty(redirectUrl)) {
-        if (SoapUI.isJXBrowserDisabled(true)) {
-          Tools.openURL(redirectUrl);
-        }
- else {
-          if (browser != null) {
-            browser.navigate(redirectUrl,null);
-          }
-        }
-        useSystemBrowser=false;
+    locationsComboBox.getSelectedItem();
+    String redirectUrl="http://10.0.48.172/tmp/soapui_iframe_wrapper.html";
+    if (!Strings.isNullOrEmpty(redirectUrl)) {
+      if (SoapUI.isJXBrowserDisabled(true)) {
+        Tools.openURL(redirectUrl);
       }
-    }
- catch (    Exception e) {
-      SoapUI.logError(e);
+ else {
+        if (browser != null) {
+          browser.navigate(redirectUrl,null);
+        }
+      }
     }
   }
 }
