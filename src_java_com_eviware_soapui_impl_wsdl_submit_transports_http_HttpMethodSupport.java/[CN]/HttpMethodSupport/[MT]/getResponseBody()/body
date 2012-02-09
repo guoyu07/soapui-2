@@ -1,9 +1,9 @@
 {
   if (responseBody != null)   return responseBody;
   if (hasHttpResponse()) {
+    long now=System.nanoTime();
     HttpEntity bufferedEntity=new BufferedHttpEntity(httpResponse.getEntity());
     long contentLength=bufferedEntity.getContentLength();
-    long now=System.nanoTime();
     if (metrics != null) {
       metrics.setContentLength(contentLength);
     }
@@ -58,6 +58,5 @@
       instream.close();
     }
   }
-  responseReadTime/=1000000;
   return responseBody;
 }
