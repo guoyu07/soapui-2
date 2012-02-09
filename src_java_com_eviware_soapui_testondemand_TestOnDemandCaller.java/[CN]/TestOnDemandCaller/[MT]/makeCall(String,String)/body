@@ -2,12 +2,12 @@
   final ExtendedPostMethod post=new ExtendedPostMethod();
   post.setURI(new URI(uri));
   post.setEntity(new StringEntity(requestContent));
-  SoapUI.log("Sending request to  AlertSite:");
-  SoapUI.log(requestContent);
+  log.debug("Sending request to  AlertSite:");
+  log.debug(requestContent);
   HttpClientSupport.execute(post);
   byte[] responseBody=post.getResponseBody();
-  SoapUI.log("Got response from AlertSite:");
-  SoapUI.log(new String(responseBody));
+  log.debug("Got response from AlertSite:");
+  log.debug(new String(responseBody));
   String reponseBodyAsString=new String(responseBody);
   return XmlUtils.parseXml(reponseBodyAsString);
 }

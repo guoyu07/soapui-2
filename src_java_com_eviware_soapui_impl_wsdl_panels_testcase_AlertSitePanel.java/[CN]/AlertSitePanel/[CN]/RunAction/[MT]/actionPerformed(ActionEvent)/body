@@ -3,8 +3,8 @@
     UISupport.showErrorMessage("Your project contains external dependencies that " + "are not supported by the Test-On-Demand functionality at this point.");
     return;
   }
-  if (locations != null) {
-    Location selectedLocation=(Location)locations.getSelectedItem();
+  if (locationsComboBox != null) {
+    Location selectedLocation=(Location)locationsComboBox.getSelectedItem();
     String redirectUrl;
     try {
       redirectUrl=caller.sendProject(testCase,selectedLocation);

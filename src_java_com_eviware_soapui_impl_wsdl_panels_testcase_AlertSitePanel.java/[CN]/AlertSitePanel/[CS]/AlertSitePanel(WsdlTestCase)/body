@@ -13,9 +13,11 @@
     jxbrowserDisabledPanel.setText("browser component disabled or not available on this platform");
     add(jxbrowserDisabledPanel,BorderLayout.CENTER);
   }
-  if (runAction != null) {
-    if (locationsCache != null && locationsCache.isEmpty()) {
-      runAction.setEnabled(false);
+  if (locationsCache.isEmpty()) {
+    runAction.setEnabled(false);
+    locationsComboBox.setEnabled(false);
+    if (!SoapUI.isJXBrowserDisabled(true)) {
+      browser.navigate(SoapUI.PUSH_PAGE_ERROR_URL,null);
     }
   }
 }
