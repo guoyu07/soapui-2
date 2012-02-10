@@ -1,8 +1,7 @@
 {
   if (testCase != null) {
     WsdlProject project=testCase.getTestSuite().getProject();
-    loadInterfaces(project);
-    saveProject(project);
+    validate(project);
     List<ExternalDependency> deps=project.getExternalDependencies();
     for (    ExternalDependency d : deps) {
       if (!(d instanceof InterfaceExternalDependency || d instanceof MockServiceExternalDependency)) {
