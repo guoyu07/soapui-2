@@ -1,0 +1,11 @@
+{
+  try {
+    locationsCache=new TestOnDemandCaller().getLocations();
+  }
+ catch (  Exception e) {
+    log.warn(COULD_NOT_GET_LOCATIONS_MESSAGE);
+  }
+ finally {
+    populateLocationsComboBox();
+  }
+}

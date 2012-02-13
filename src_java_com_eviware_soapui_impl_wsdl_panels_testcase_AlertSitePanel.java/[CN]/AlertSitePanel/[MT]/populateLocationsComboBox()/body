@@ -1,0 +1,17 @@
+{
+  locationsComboBox.removeAllItems();
+  if (locationsCache.isEmpty()) {
+    locationsComboBox.addItem(NO_LOCATIONS_FOUND_MESSAGE);
+    if (!SoapUI.isJXBrowserDisabled(true)) {
+      browser.navigate(SoapUI.PUSH_PAGE_ERROR_URL,null);
+    }
+  }
+ else {
+    for (    Location location : locationsCache) {
+      locationsComboBox.addItem(location);
+    }
+    locationsComboBox.setEnabled(true);
+    runAction.setEnabled(true);
+  }
+  invalidate();
+}

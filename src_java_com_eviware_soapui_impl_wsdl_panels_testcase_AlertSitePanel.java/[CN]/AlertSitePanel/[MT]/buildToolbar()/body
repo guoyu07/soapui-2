@@ -1,9 +1,10 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
   runAction=new RunAction();
+  runAction.setEnabled(false);
   toolbar.addFixed(UISupport.createToolbarButton(runAction));
   toolbar.addRelatedGap();
-  locationsComboBox=buildLocationsComboBox();
+  locationsComboBox=buildInitializingLocationsComboBox();
   toolbar.addFixed(locationsComboBox);
   toolbar.addGlue();
   toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.ALERT_SITE_HELP_URL)));

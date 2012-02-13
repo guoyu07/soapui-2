@@ -6,7 +6,7 @@
   if (locationsComboBox != null) {
     Location selectedLocation=(Location)locationsComboBox.getSelectedItem();
     String redirectUrl="";
-    XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Upload TestCase",3,"Uploading TestCase..",false);
+    XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog(UPLOAD_TEST_CASE_HEADING,3,UPLOADING_TEST_CASE_MESSAGE,false);
     SendTestCaseWorker sendTestCaseWorker=new SendTestCaseWorker(testCase,selectedLocation);
     try {
       progressDialog.run(sendTestCaseWorker);

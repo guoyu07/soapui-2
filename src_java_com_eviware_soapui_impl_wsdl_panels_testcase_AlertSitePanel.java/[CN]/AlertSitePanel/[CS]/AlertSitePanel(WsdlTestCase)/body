@@ -5,6 +5,7 @@
   setOpaque(true);
   setValidator();
   add(buildToolbar(),BorderLayout.NORTH);
+  initializeLocationsCache();
   if (!SoapUI.isJXBrowserDisabled(true)) {
     browser=new CustomNativeBrowserComponent(true,false);
     add(browser.getComponent(),BorderLayout.CENTER);
@@ -13,12 +14,5 @@
     JEditorPane jxbrowserDisabledPanel=new JEditorPane();
     jxbrowserDisabledPanel.setText("Browser component disabled or not available on this platform");
     add(jxbrowserDisabledPanel,BorderLayout.CENTER);
-  }
-  if (locationsCache.isEmpty()) {
-    runAction.setEnabled(false);
-    locationsComboBox.setEnabled(false);
-    if (!SoapUI.isJXBrowserDisabled(true)) {
-      browser.navigate(SoapUI.PUSH_PAGE_ERROR_URL,null);
-    }
   }
 }
