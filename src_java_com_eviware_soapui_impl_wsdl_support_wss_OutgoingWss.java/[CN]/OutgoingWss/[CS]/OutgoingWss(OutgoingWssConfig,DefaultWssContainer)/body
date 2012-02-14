@@ -2,6 +2,7 @@
   this.config=config;
   this.container=container;
   for (  WSSEntryConfig entryConfig : config.getEntryList()) {
+    convertOldManualSAMLEntry(entryConfig);
     WssEntry entry=WssEntryRegistry.get().build(entryConfig,this);
     if (entry != null)     entries.add(entry);
   }

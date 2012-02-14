@@ -3,7 +3,7 @@
   form.addSpace(5);
   wssContainerListener=new InternalWssContainerListener();
   getWssContainer().addWssContainerListener(wssContainerListener);
-  KeystoresComboBoxModel keystoresComboBoxModel=new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto));
+  KeystoresComboBoxModel keystoresComboBoxModel=new KeystoresComboBoxModel(getWssContainer(),getWssContainer().getCryptoByName(crypto),true);
   form.appendComboBox("crypto","Keystore",keystoresComboBoxModel,"Selects the Keystore containing the key to use for signing").addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       keyAliasComboBoxModel.update(getWssContainer().getCryptoByName(crypto));

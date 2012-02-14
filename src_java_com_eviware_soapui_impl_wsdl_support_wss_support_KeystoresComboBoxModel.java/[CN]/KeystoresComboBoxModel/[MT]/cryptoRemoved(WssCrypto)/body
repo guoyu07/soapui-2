@@ -1,5 +1,7 @@
 {
-  int index=cryptos.indexOf(crypto);
-  cryptos.remove(index);
-  fireIntervalRemoved(this,index,index);
+  if (!outgoingConfig || (outgoingConfig && crypto.getType() == CryptoType.KEYSTORE)) {
+    int index=cryptos.indexOf(crypto);
+    cryptos.remove(index);
+    fireIntervalRemoved(this,index,index);
+  }
 }

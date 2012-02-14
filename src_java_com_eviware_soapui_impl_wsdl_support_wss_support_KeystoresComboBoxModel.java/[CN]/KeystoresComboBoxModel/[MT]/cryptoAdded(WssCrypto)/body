@@ -1,4 +1,6 @@
 {
-  cryptos.add(crypto);
-  fireIntervalAdded(this,getSize() - 1,getSize() - 1);
+  if (!outgoingConfig || (outgoingConfig && crypto.getType() == CryptoType.KEYSTORE)) {
+    cryptos.add(crypto);
+    fireIntervalAdded(this,getSize() - 1,getSize() - 1);
+  }
 }

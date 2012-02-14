@@ -1,0 +1,17 @@
+{
+  this.container=container;
+  this.selectedCrypto=selectedCrypto;
+  this.outgoingConfig=outgoingWSSConfig;
+  List<WssCrypto> currentCryptos=container.getCryptoList();
+  if (outgoingWSSConfig) {
+    for (    WssCrypto currentCrypto : currentCryptos) {
+      if (currentCrypto.getType() == CryptoType.KEYSTORE) {
+        cryptos.add(currentCrypto);
+      }
+    }
+  }
+ else {
+    cryptos.addAll(currentCryptos);
+  }
+  container.addWssContainerListener(this);
+}
