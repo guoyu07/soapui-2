@@ -2,11 +2,11 @@
   final ExtendedPostMethod post=new ExtendedPostMethod();
   post.setURI(new URI(uri));
   post.setEntity(new StringEntity(requestContent));
-  log.debug("Sending request to  AlertSite:");
+  log.debug("Sending request to " + uri);
   log.debug(requestContent);
   HttpClientSupport.execute(post);
   byte[] responseBody=post.getResponseBody();
-  log.debug("Got response from AlertSite:");
+  log.debug("Got response from " + uri);
   log.debug(new String(responseBody));
   String reponseBodyAsString=new String(responseBody);
   return XmlUtils.parseXml(reponseBodyAsString);

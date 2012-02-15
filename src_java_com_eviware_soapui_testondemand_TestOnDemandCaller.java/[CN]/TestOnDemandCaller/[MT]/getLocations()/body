@@ -1,6 +1,5 @@
 {
-  String requestContent="<Request api_version=\"2\"><Header><UserAgent>" + USER_AGENT + "</UserAgent></Header><Body><Command><Name>ListLocations</Name><Parameters>server_attrib=ITEST</Parameters></Command></Body></Request>";
-  Document responseDocument=makeCall(LOCATIONS_URI,requestContent);
+  Document responseDocument=makeCall(LOCATIONS_URI,generateLocationsRequestXML());
   NodeList locationNodes=(NodeList)xpath.evaluate(LOCATION_XPATH_EXPRESSION,responseDocument,XPathConstants.NODESET);
   List<Location> locations=new ArrayList<Location>();
   for (int i=0; i < locationNodes.getLength(); i++) {

@@ -1,0 +1,33 @@
+{
+  TestOnDemandUploadRequest uploadRequestConfig=TestOnDemandUploadRequestDocumentConfig.Factory.newInstance().addNewTestOnDemandUploadRequest();
+  com.eviware.soapui.config.TestOnDemandUploadRequestDocumentConfig.TestOnDemandUploadRequest.Request requestConfig=uploadRequestConfig.addNewRequest();
+  requestConfig.setApiVersion(API_VERSION);
+  TestOnDemandHeaderConfig headerConfig=requestConfig.addNewHeader();
+  headerConfig.setUserAgent(USER_AGENT);
+  TestOnDemandUploadBodyConfig bodyConfig=requestConfig.addNewBody();
+  TestOnDemandCommandConfig commandConfig=bodyConfig.addNewCommand();
+  commandConfig.setName(UPLOAD_NAME);
+  commandConfig.setParameters(UPLOAD_PARAMETER_LOCATION_PREFIX + locationCode);
+  TestOnDemandTxnConfig txnConfig=bodyConfig.addNewTxn();
+  TestOnDemandTestSuiteConfig testSuiteConfig=txnConfig.addNewTestSuite();
+  testSuiteConfig.setEnctype(BASE64);
+  testSuiteConfig.setStringValue(encodedTestSuiteName);
+  TestOnDemandTestCaseConfig testCaseConfig=txnConfig.addNewTestCase();
+  testCaseConfig.setEnctype(BASE64);
+  testCaseConfig.setStringValue(encodedTestCaseName);
+  TestOnDemandContentConfig contentConfig=txnConfig.addNewContent();
+  contentConfig.setEnctype(BASE64);
+  contentConfig.setType(APPLICATION_ZIP);
+  contentConfig.setStringValue(encodedZipedProjectFile);
+  TestOnDemandProjectPasswordConfig projectPasswordConfig=txnConfig.addNewPassword();
+  projectPasswordConfig.setEnctype(BASE64);
+  projectPasswordConfig.setStringValue(encodedProjectPassword);
+  TestOnDemandKeystoreConfig keystoreConfig=bodyConfig.addNewKeystore();
+  TestOnDemandFileConfig fileConfig=keystoreConfig.addNewFile();
+  fileConfig.setEnctype(BASE64);
+  fileConfig.setStringValue(encodedKeystoreFile);
+  TestOnDemandKeystorePasswordConfig keystorePasswordConfig=keystoreConfig.addNewPassword();
+  keystorePasswordConfig.setEnctype(BASE64);
+  keystorePasswordConfig.setStringValue(encodedKeystorePassword);
+  return uploadRequestConfig.xmlText(getXmlOptionsWithoutNamespaces());
+}
