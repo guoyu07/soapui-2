@@ -23,7 +23,7 @@
     data=OpenSSL.decrypt("des3",password,encryptedContent);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    SoapUI.logError(e);
     return -1;
   }
   String decryptedData=new String(data,"UTF-8");

@@ -51,6 +51,10 @@
         tempFile.deleteOnExit();
       }
     }
+    if (!tempFile.delete()) {
+      SoapUI.getErrorLog().warn("Failed to delete temporary project file; " + tempFile.getAbsolutePath());
+      tempFile.deleteOnExit();
+    }
     size=projectFile.length();
   }
  catch (  Throwable t) {
