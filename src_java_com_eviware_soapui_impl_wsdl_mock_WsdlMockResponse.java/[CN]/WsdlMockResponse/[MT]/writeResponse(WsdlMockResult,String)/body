@@ -77,7 +77,7 @@
     MimeMessageMockResponseEntity mimeMessageRequestEntity=new MimeMessageMockResponseEntity(message,isXOP,this);
     response.addHeader("Content-Type",mimeMessageRequestEntity.getContentType().getValue());
     response.addHeader("MIME-Version","1.0");
-    mimeMessageRequestEntity.writeRequest(outData);
+    mimeMessageRequestEntity.writeTo(outData);
   }
   if (outData.size() > 0) {
     byte[] data=outData.toByteArray();
