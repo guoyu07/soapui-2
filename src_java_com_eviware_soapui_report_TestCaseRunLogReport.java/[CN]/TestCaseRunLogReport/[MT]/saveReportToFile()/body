@@ -1,0 +1,10 @@
+{
+  final File newFile=new File(outputFolder,REPORT_FILE_NAME);
+  try {
+    testCaseRunLogDocumentConfig.save(newFile);
+  }
+ catch (  IOException e) {
+    log.error("Could not write " + REPORT_FILE_NAME + " to disk");
+    SoapUI.logError(e);
+  }
+}

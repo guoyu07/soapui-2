@@ -1,0 +1,17 @@
+{
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    public void run(){
+      if (!testRunHasFinished) {
+        if (currentTestCaseRunLogTestStep != null) {
+          log.warn("Step [" + currentTestStepResult.getTestStep().getName() + "] was interupted due to a timeout");
+          currentTestCaseRunLogTestStep.setName(currentTestStepResult.getTestStep().getName());
+          currentTestCaseRunLogTestStep.setStatus(TIMEOUT_STATUS);
+          currentTestCaseRunLogTestStep.setMessageArray(new String[]{TIMEOUT_MESSAGE});
+        }
+        log.warn(TEST_CASE_RUN_WAS_TERMINATED_UNEXPECTEDLY_MESSAGE);
+        saveReportToFile();
+      }
+    }
+  }
+);
+}
