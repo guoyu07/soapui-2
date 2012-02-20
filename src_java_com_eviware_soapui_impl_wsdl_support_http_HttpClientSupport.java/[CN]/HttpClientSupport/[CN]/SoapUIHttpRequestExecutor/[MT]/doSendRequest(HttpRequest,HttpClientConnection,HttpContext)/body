@@ -1,6 +1,4 @@
 {
   HttpResponse response=super.doSendRequest(request,conn,context);
-  RequestWrapper w=(RequestWrapper)request;
-  if (w.getOriginal() instanceof ExtendedHttpMethod)   ((ExtendedHttpMethod)w.getOriginal()).getMetrics().getTimeToFirstByteTimer().start();
   return response;
 }

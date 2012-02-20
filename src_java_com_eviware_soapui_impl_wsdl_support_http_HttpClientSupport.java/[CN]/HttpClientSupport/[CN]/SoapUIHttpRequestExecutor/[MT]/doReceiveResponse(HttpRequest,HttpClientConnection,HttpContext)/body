@@ -21,7 +21,6 @@
     }
     if (canResponseHaveBody(request,response)) {
       conn.receiveResponseEntity(response);
-      if (metrics != null)       metrics.getReadTimer().stop();
     }
     statuscode=response.getStatusLine().getStatusCode();
     SoapUIMetrics connectionMetrics=(SoapUIMetrics)conn.getMetrics();
