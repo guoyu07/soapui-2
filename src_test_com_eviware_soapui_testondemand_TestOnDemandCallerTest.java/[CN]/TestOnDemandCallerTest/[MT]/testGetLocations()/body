@@ -1,4 +1,7 @@
 {
+  if (System.getProperty(SoapUISystemProperties.TEST_ON_DEMAND_HOST) == null) {
+    return;
+  }
   List<Location> locations=caller.getLocations();
   Location firstLocation=locations.get(0);
   assertEquals(firstLocation.getName(),FIRST_LOCATION_NAME);
