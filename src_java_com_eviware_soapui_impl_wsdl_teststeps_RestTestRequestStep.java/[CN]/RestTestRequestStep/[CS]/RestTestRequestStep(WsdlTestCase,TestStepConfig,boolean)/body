@@ -22,16 +22,19 @@
       return createDefaultRequestContent();
     }
     public SchemaType getSchemaType(){
-      try {
-        Document dom=XmlUtils.parseXml(getTestRequest().getRequestContent());
-        for (        RestRepresentation representation : getTestRequest().getRepresentations(Type.REQUEST,getTestRequest().getMediaType())) {
-          if (representation.getElement().equals(XmlUtils.getQName(dom.getDocumentElement()))) {
-            return representation.getSchemaType();
+      String requestContent=getTestRequest().getRequestContent();
+      if (XmlUtils.seemsToBeXml(requestContent)) {
+        try {
+          Document dom=XmlUtils.parseXml(requestContent);
+          for (          RestRepresentation representation : getTestRequest().getRepresentations(Type.REQUEST,getTestRequest().getMediaType())) {
+            if (representation.getElement().equals(XmlUtils.getQName(dom.getDocumentElement()))) {
+              return representation.getSchemaType();
+            }
           }
         }
-      }
- catch (      Exception e) {
-        SoapUI.logError(e);
+ catch (        Throwable e) {
+          SoapUI.logError(e);
+        }
       }
       return super.getSchemaType();
     }
