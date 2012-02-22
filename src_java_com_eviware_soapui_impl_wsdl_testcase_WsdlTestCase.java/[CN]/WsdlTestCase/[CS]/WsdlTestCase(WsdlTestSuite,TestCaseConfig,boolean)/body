@@ -2,6 +2,8 @@
   super(config,testSuite,"/testCase.gif");
   this.testSuite=testSuite;
   this.forLoadTest=forLoadTest;
+  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  setPropertiesConfig(getConfig().getProperties());
   List<TestStepConfig> testStepConfigs=config.getTestStepList();
   List<TestStepConfig> removed=new ArrayList<TestStepConfig>();
   for (  TestStepConfig tsc : testStepConfigs) {
@@ -36,8 +38,6 @@
   for (  TestRunListener listener : SoapUI.getListenerRegistry().getListeners(TestRunListener.class)) {
     addTestRunListener(listener);
   }
-  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
-  setPropertiesConfig(getConfig().getProperties());
   WsrmTestRunListener wsrmListener=new WsrmTestRunListener();
   addTestRunListener(wsrmListener);
   addTestRunListener(new AMFTestRunListener());
