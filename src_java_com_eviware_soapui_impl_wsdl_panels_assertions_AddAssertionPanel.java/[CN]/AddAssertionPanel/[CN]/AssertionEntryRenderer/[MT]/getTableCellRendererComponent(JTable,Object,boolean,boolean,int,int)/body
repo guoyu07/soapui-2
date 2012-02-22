@@ -5,7 +5,7 @@
   boolean canAssert=false;
   boolean disable=true;
   JLabel label;
-  JLabel desc;
+  JTextArea descText;
   JLabel disabledInfo;
   if (type != null && assertable != null && assertable.getModelItem() != null) {
     canAssert=isAssertionApplicable(type,assertable.getModelItem(),getSelectedPropertyName());
@@ -14,21 +14,21 @@
   String str=entry.getName();
   label=new JLabel(str);
   label.setFont(boldFont);
-  desc=new JLabel(((AssertionListEntry)value).getDescription());
+  descText=new JTextArea(((AssertionListEntry)value).getDescription());
+  descText.setSize(new Dimension(80,20));
+  descText.setLineWrap(true);
+  descText.setWrapStyleWord(true);
   disabledInfo=new JLabel("Not applicable with selected Source and Property");
   if (disable) {
     label.setForeground(Color.LIGHT_GRAY);
-    desc.setForeground(Color.LIGHT_GRAY);
+    descText.setForeground(Color.LIGHT_GRAY);
     disabledInfo.setForeground(Color.LIGHT_GRAY);
   }
   SimpleForm form=new SimpleForm();
   form.addComponent(label);
   if (!isHideDescriptionSelected()) {
-    form.addComponent(desc);
-    if (disable) {
-      form.addComponent(disabledInfo);
-    }
-    getAssertionsTable().setRowHeight(60);
+    form.addComponent(descText);
+    getAssertionsTable().setRowHeight(70);
   }
  else {
     if (disable) {
