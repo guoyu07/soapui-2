@@ -21,8 +21,8 @@
     if (settings.getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
       timeTaken+=httpMethod.getResponseReadTime();
     }
-    metrics.getReadTimer().add(httpMethod.getResponseReadTimeNanos());
-    metrics.getTotalTimer().add(httpMethod.getResponseReadTimeNanos());
+    metrics.getReadTimer().add(httpMethod.getResponseReadTime());
+    metrics.getTotalTimer().add(httpMethod.getResponseReadTime());
     try {
       this.timestamp=System.currentTimeMillis();
       this.contentType=httpMethod.getResponseContentType();
