@@ -1,5 +1,6 @@
 {
-  dialog=new JDialog(target.getFindAndReplaceParent(),"Find / Replace");
+  Window window=SwingUtilities.windowForComponent(target.getEditComponent());
+  dialog=new JDialog(window,"Find / Replace");
   dialog.setModal(false);
   JPanel panel=new JPanel(new BorderLayout());
   findCombo=new JComboBox();
