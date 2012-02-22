@@ -1,3 +1,4 @@
 {
-  return XmlBeans.getBuiltinTypeSystem().findType(getType());
+  if (virtualProperty != null)   return virtualProperty.getSchemaType();
+  return XmlString.type;
 }
