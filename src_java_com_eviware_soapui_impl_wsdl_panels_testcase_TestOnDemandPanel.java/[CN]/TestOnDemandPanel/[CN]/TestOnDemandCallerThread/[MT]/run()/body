@@ -3,7 +3,8 @@
     locationsCache=new TestOnDemandCaller().getLocations();
   }
  catch (  Exception e) {
-    log.warn(COULD_NOT_GET_LOCATIONS_MESSAGE,e);
+    log.warn(COULD_NOT_GET_LOCATIONS_MESSAGE);
+    SoapUI.logError(e);
   }
  finally {
     populateLocationsComboBox();

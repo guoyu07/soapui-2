@@ -3,5 +3,7 @@
   inspectorPanel.addInspector(new JComponentInspector<JComponent>(buildPropertiesPanel(),"Properties","TestCase level properties",true));
   inspectorPanel.addInspector(new GroovyEditorInspector(buildSetupScriptPanel(),"Setup Script","Script to run before running a TestCase"));
   inspectorPanel.addInspector(new GroovyEditorInspector(buildTearDownScriptPanel(),"TearDown Script","Script to run after a TestCase Run"));
-  tabs.addTab("Test On Demand",buildAlertSitePanel());
+  if (System.getProperty(SoapUISystemProperties.TEST_ON_DEMAND_HOST) != null) {
+    tabs.addTab("Test On Demand",buildTestOnDemandPanel());
+  }
 }

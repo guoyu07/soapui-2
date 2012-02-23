@@ -4,7 +4,7 @@
     result=caller.sendTestCase(testCase,selectedLocation);
   }
  catch (  Exception e) {
-    log.error(COULD_NOT_UPLOAD_MESSAGE,e);
+    SoapUI.logError(e);
     UISupport.showErrorMessage(COULD_NOT_UPLOAD_MESSAGE);
   }
   return result;
