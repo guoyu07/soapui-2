@@ -18,6 +18,7 @@
   descText.setSize(new Dimension(80,20));
   descText.setLineWrap(true);
   descText.setWrapStyleWord(true);
+  descText.setOpaque(true);
   disabledInfo=new JLabel("Not applicable with selected Source and Property");
   if (disable) {
     label.setForeground(Color.LIGHT_GRAY);
@@ -37,9 +38,11 @@
     getAssertionsTable().setRowHeight(40);
   }
   if (isSelected) {
+    descText.setBackground(Color.LIGHT_GRAY);
     form.getPanel().setBackground(Color.LIGHT_GRAY);
   }
  else {
+    descText.setBackground(Color.WHITE);
     form.getPanel().setBackground(Color.WHITE);
   }
   return form.getPanel();
