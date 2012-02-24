@@ -4,7 +4,7 @@
     XmlObject[] nodes=xmlObject.selectPath(xpath);
     if (nodes.length > 0)     return getNodeValue(nodes[0].getDomNode());
   }
- catch (  XmlException e) {
+ catch (  Throwable e) {
     e.printStackTrace();
   }
   return null;
