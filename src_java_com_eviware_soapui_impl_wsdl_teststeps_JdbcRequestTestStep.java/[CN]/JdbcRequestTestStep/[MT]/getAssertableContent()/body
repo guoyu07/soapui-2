@@ -1,3 +1,5 @@
 {
-  return getJdbcRequest().getResponse() == null ? null : getJdbcRequest().getResponse().getContentAsString();
+  TestProperty property=getProperty("ResponseAsXml");
+  String value=property.getValue();
+  return StringUtils.hasContent(value) ? value : property.getDefaultValue();
 }
