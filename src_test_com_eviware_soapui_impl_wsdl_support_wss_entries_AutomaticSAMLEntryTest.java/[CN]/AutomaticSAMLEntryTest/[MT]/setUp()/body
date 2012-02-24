@@ -14,6 +14,7 @@
   automaticSamlEntry.setDigestAlgorithm(MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA1);
   createCrypto();
   when(outgoingWssMock.getWssContainer()).thenReturn(wssContainerMock);
+  when(wssContainerMock.getCryptoByName(anyString(),anyBoolean())).thenReturn(wssCryptoMock);
   when(wssContainerMock.getCryptoByName(anyString())).thenReturn(wssCryptoMock);
   when(wssCryptoMock.getCrypto()).thenReturn(crypto);
   when(outgoingWssMock.getUsername()).thenReturn(ALIAS);
