@@ -4,6 +4,7 @@
     char ch=str.charAt(c);
     if (Character.isWhitespace(ch) && whitespaceChar != 0)     result.append(whitespaceChar);
  else     if (Character.isLetterOrDigit(ch))     result.append(ch);
+ else     if (ch == whitespaceChar)     result.append(ch);
   }
   return result.toString();
 }
