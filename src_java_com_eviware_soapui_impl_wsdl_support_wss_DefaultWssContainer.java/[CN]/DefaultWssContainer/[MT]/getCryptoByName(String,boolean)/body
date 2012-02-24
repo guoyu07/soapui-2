@@ -1,0 +1,15 @@
+{
+  for (  WssCrypto crypto : cryptos) {
+    if (crypto.getLabel().equals(cryptoName)) {
+      if (outgoingWSSConfig) {
+        if (crypto.getType() == CryptoType.KEYSTORE) {
+          return crypto;
+        }
+      }
+ else {
+        return crypto;
+      }
+    }
+  }
+  return null;
+}

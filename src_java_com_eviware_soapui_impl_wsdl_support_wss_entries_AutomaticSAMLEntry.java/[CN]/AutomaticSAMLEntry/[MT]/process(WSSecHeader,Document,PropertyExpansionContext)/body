@@ -15,7 +15,7 @@
     }
  else {
       WSSecSignatureSAML wsSecSignatureSAML=new WSSecSignatureSAML();
-      WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto);
+      WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto,true);
       if (wssCrypto == null) {
         throw new Exception("Missing crypto [" + crypto + "] for signature entry");
       }
