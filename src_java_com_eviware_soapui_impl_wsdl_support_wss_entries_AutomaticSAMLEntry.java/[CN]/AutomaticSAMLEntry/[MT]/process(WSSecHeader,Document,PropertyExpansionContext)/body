@@ -16,14 +16,18 @@
  else {
       WSSecSignatureSAML wsSecSignatureSAML=new WSSecSignatureSAML();
       WssCrypto wssCrypto=getWssContainer().getCryptoByName(crypto,true);
+      String alias=context.expand(getUsername());
       if (wssCrypto == null) {
-        throw new Exception("Missing crypto [" + crypto + "] for signature entry");
+        throw new RuntimeException("Missing keystore [" + crypto + "] for signature entry");
+      }
+ else       if (Strings.isNullOrEmpty(alias)) {
+        throw new RuntimeException(" No alias was provided for the keystore '" + crypto + "'. Please check your SAML (Form) configurations");
       }
       if (samlVersion.equals(SAML_VERSION_1)) {
-        callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),assertionType,confirmationMethod);
+        callbackHandler=new SAML1CallbackHandler(wssCrypto.getCrypto(),alias,assertionType,confirmationMethod);
       }
  else       if (samlVersion.equals(SAML_VERSION_2)) {
-        callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),context.expand(getUsername()),assertionType,confirmationMethod);
+        callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),alias,assertionType,confirmationMethod);
       }
       AssertionWrapper assertion=createAssertion(context,samlParms,callbackHandler);
       assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
