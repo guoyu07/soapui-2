@@ -66,6 +66,7 @@
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
       httpMethod.getMetrics().setIpAddress(InetAddress.getByName(httpMethod.getURI().getHost()).getHostAddress());
+      httpMethod.getMetrics().setPort(httpMethod.getURI().getPort());
       httpMethod.getMetrics().getTotalTimer().start();
     }
     httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
