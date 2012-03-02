@@ -4,7 +4,7 @@
     throw new RuntimeException("formClass is not annotated correctly..");
   }
   MessageSupport messages=MessageSupport.getMessages(formClass);
-  XFormDialogBuilder builder=SwingFormFactory.createDialogBuilder(messages.get(formAnnotation.name()));
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder(messages.get(formAnnotation.name()));
   XForm form=builder.createForm("Basic");
   for (  Field field : formClass.getFields()) {
     AField fieldAnnotation=field.getAnnotation(AField.class);
