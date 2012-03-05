@@ -75,6 +75,9 @@
       httpMethod.getMetrics().getTotalTimer().stop();
     }
     if (isRedirectResponse(httpResponse.getStatusLine().getStatusCode()) && httpRequest.isFollowRedirects()) {
+      if (httpResponse.getEntity() != null) {
+        EntityUtils.consume(httpResponse.getEntity());
+      }
       ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
       httpMethod=returnMethod;
       submitContext.setProperty(HTTP_METHOD,httpMethod);
