@@ -8,7 +8,12 @@
     }
     if (addSoapAction) {
       message.setStringProperty(JMSHeader.SOAPJMS_SOAP_ACTION,request.getOperation().getName());
-      message.setStringProperty(JMSHeader.SOAP_ACTION,request.getOperation().getName());
+      if (request.getOperation() instanceof WsdlOperation) {
+        message.setStringProperty(JMSHeader.SOAP_ACTION,((WsdlOperation)request.getOperation()).getAction());
+      }
+ else {
+        message.setStringProperty(JMSHeader.SOAP_ACTION,request.getOperation().getName());
+      }
     }
   }
  catch (  JMSException e) {
