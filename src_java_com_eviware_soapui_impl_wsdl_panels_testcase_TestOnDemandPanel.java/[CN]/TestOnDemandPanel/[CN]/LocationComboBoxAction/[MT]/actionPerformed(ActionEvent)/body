@@ -1,12 +1,27 @@
 {
-  if (locationsComboBox.getSelectedItem() != null && locationsComboBox.getSelectedItem().equals(GET_MORE_LOCATIONS_MESSAGE)) {
-    openURLSafely(getMoreLocationsURL());
-    runAction.setEnabled(false);
-  }
+  Object selectedItem=locationsComboBox.getSelectedItem();
+  if (selectedItem != null) {
+    if (locationsComboBox.getSelectedItem().equals(GET_MORE_LOCATIONS_MESSAGE)) {
+      openURLSafely(getMoreLocationsURL());
+      runAction.setEnabled(false);
+      serverIPAddressesLabel.setText(null);
+    }
  else {
-    if (locationsComboBox.isEnabled() && !runAction.isEnabled()) {
-      openInInternalBrowser(getFirstPageURL());
-      runAction.setEnabled(true);
+      if (locationsComboBox.isEnabled() && !runAction.isEnabled()) {
+        openInInternalBrowser(getFirstPageURL());
+        runAction.setEnabled(true);
+      }
+      if (selectedItem instanceof Location) {
+        String[] serverIPAddresses=((Location)selectedItem).getServerIPAddresses();
+        if (serverIPAddresses != null && serverIPAddresses.length > 0) {
+          String severIpAddressList=Joiner.on(SERVER_IP_ADDRESSES_DELIMETER).join(serverIPAddresses);
+          serverIPAddressesLabel.setText(SERVER_IP_ADDRESSES_PREFIX + severIpAddressList);
+        }
+ else {
+          serverIPAddressesLabel.setText(SERVER_IP_ADDRESSES_PREFIX + NO_SERVER_IP_ADDRESSES_MESSAGE);
+        }
+        invalidate();
+      }
     }
   }
 }

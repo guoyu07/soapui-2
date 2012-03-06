@@ -4,6 +4,8 @@
   runAction.setEnabled(false);
   locationsComboBox=buildInitializingLocationsComboBox();
   locationsComboBox.addActionListener(new LocationComboBoxAction());
+  serverIPAddressesLabel.setPreferredSize(new Dimension(1000,10));
+  serverIPAddressesLabel.setForeground(Color.GRAY);
   toolbar.addFixed(UISupport.createToolbarButton(runAction));
   toolbar.addRelatedGap();
   toolbar.addFixed(locationsComboBox);

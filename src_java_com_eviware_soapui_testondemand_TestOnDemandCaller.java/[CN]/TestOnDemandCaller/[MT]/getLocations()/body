@@ -6,7 +6,12 @@
     Node locationNode=locationNodes.item(i);
     String name=(String)xpath.evaluate(LOCATION_NAME_XPATH_EXPRESSION,locationNode,XPathConstants.STRING);
     String code=(String)xpath.evaluate(LOCATION_CODE_XPATH_EXPRESSION,locationNode,XPathConstants.STRING);
-    locations.add(new Location(code,name));
+    String unformattedServerIPAddresses=(String)xpath.evaluate(LOCATION_SERVER_IP_ADDRESSES_XPATH_EXPRESSION,locationNode,XPathConstants.STRING);
+    String[] serverIPAddresses=new String[0];
+    if (!unformattedServerIPAddresses.isEmpty()) {
+      serverIPAddresses=unformattedServerIPAddresses.split(SERVER_IP_ADDRESSES_DELIMETER);
+    }
+    locations.add(new Location(code,name,serverIPAddresses));
   }
   return locations;
 }
