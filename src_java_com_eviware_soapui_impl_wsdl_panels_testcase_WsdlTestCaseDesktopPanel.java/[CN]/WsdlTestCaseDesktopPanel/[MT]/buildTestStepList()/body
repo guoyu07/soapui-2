@@ -3,7 +3,9 @@
   JXToolBar toolbar=UISupport.createToolbar();
   WsdlTestStepFactory[] factories=WsdlTestStepRegistry.getInstance().getFactories();
   for (  WsdlTestStepFactory factory : factories) {
-    toolbar.addFixed(UISupport.createToolbarButton(new AddWsdlTestStepAction(factory)));
+    JButton testStepButton=UISupport.createToolbarButton(new AddWsdlTestStepAction(factory));
+    if (factory instanceof ProPlaceholderStepFactory)     testStepButton.setEnabled(false);
+    toolbar.addFixed(testStepButton);
   }
   p.add(toolbar,BorderLayout.NORTH);
   testStepList=new JTestStepList(getModelItem());
