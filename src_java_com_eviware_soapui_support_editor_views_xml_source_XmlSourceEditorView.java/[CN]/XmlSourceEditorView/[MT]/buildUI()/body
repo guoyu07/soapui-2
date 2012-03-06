@@ -1,8 +1,10 @@
 {
-  editArea=JXEditTextArea.createXmlEditor(false);
+  editArea=new RSyntaxTextArea(20,60);
+  editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+  editArea.setCodeFoldingEnabled(true);
+  editArea.setAntiAliasingEnabled(true);
   editArea.setMinimumSize(new Dimension(50,50));
   editArea.setCaretPosition(0);
-  editArea.setDiscardEditsOnSet(false);
   editArea.setEnabled(false);
   editArea.setBorder(BorderFactory.createMatteBorder(0,2,0,0,Color.WHITE));
   errorListModel=new DefaultListModel();
@@ -27,11 +29,6 @@
   splitter.setUI(new SoapUISplitPaneUI());
   splitter.setDividerSize(0);
   splitter.setOneTouchExpandable(true);
-  lineNumbersPanel=new LineNumbersPanel(editArea);
-  lineNumbersPanel.setVisible(SoapUI.getSettings().getBoolean(UISettings.SHOW_XML_LINE_NUMBERS));
-  editorPopup=new JPopupMenu();
-  buildPopup(editorPopup,editArea);
-  editArea.setRightClickPopup(editorPopup);
   editArea.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     public void update(    Document document){
       if (!updating && getDocument() != null) {
@@ -42,20 +39,29 @@
     }
   }
 );
-  editArea.getInputHandler().addKeyBinding("A+V",validateXmlAction);
-  editArea.getInputHandler().addKeyBinding("A+F",formatXmlAction);
-  editArea.getInputHandler().addKeyBinding("C+S",saveXmlTextAreaAction);
-  editArea.getInputHandler().addKeyBinding("ALT+L",new ActionListener(){
-    public void actionPerformed(    ActionEvent e){
-      lineNumbersPanel.setVisible(!lineNumbersPanel.isVisible());
-      toggleLineNumbersMenuItem.setSelected(lineNumbersPanel.isVisible());
-    }
-  }
-);
   JPanel p=new JPanel(new BorderLayout());
-  p.add(editArea,BorderLayout.CENTER);
-  p.add(lineNumbersPanel,BorderLayout.WEST);
-  editorScrollPane=new JScrollPane(p);
+  editorScrollPane=new RTextScrollPane(editArea);
+  buildPopup(editArea.getPopupMenu(),editArea);
+  if (UISupport.isMac()) {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta V"),validateXmlAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta F"),formatXmlAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("meta S"),saveXmlTextAreaAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("meta L"),loadXmlTextAreaAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control L"),enableLineNumbersAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control meta L"),goToLineAction);
+  }
+ else {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("alt V"),validateXmlAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("alt F"),formatXmlAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl S"),saveXmlTextAreaAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl L"),loadXmlTextAreaAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("alt L"),enableLineNumbersAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control alt L"),goToLineAction);
+  }
+  editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),findAndReplaceDialog);
+  editorScrollPane.setLineNumbersEnabled(SoapUI.getSettings().getBoolean(UISettings.SHOW_XML_LINE_NUMBERS));
+  editorScrollPane.setFoldIndicatorEnabled(true);
+  p.add(editorScrollPane,BorderLayout.CENTER);
   splitter.setTopComponent(editorScrollPane);
   splitter.setBottomComponent(errorScrollPane);
   splitter.setDividerLocation(1.0);

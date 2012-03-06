@@ -1,0 +1,11 @@
+{
+  super("Load from..");
+  this.textArea=textArea;
+  this.dialogTitle=dialogTitle;
+  if (UISupport.isMac()) {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("meta L"));
+  }
+ else {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("ctrl L"));
+  }
+}

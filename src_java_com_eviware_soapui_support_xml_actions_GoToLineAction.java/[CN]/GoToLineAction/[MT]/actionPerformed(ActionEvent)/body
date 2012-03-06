@@ -1,0 +1,18 @@
+{
+  String line=UISupport.prompt("Enter line-number to (1.." + (editArea.getLineCount()) + ")","Go To Line",String.valueOf(editArea.getCaretLineNumber() + 1));
+  if (line != null) {
+    try {
+      int ln=Integer.parseInt(line) - 1;
+      if (ln < 0) {
+        ln=0;
+      }
+      if (ln >= editArea.getLineCount()) {
+        ln=editArea.getLineCount() - 1;
+      }
+      editArea.scrollRectToVisible(editArea.modelToView(editArea.getLineStartOffset(ln)));
+      editArea.setCaretPosition(editArea.getLineStartOffset(ln));
+    }
+ catch (    Exception e1) {
+    }
+  }
+}

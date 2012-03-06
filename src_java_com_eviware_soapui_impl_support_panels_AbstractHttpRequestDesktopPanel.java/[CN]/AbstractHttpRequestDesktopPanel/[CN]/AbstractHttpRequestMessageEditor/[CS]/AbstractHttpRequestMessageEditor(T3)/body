@@ -3,10 +3,18 @@
   XmlSourceEditorView<?> editor=getSourceEditor();
   if (editor != null) {
     inputArea=editor.getInputArea();
-    inputArea.getInputHandler().addKeyBinding("A+ENTER",submitButton.getAction());
-    inputArea.getInputHandler().addKeyBinding("A+X",cancelButton.getAction());
-    inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
-    inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
+    if (UISupport.isMac()) {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("meta ENTER"),submitButton.getAction());
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("meta X"),cancelButton.getAction());
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl meta TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+ else {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("alt ENTER"),submitButton.getAction());
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("alt X"),cancelButton.getAction());
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl alt TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
     inputAreaFocusListener=new InputAreaFocusListener(editor);
     inputArea.addFocusListener(inputAreaFocusListener);
   }

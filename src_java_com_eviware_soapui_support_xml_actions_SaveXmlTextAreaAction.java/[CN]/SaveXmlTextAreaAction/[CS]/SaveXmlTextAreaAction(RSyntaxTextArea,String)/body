@@ -1,0 +1,11 @@
+{
+  super("Save as..");
+  this.textArea=editArea;
+  this.dialogTitle=dialogTitle;
+  if (UISupport.isMac()) {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("menu S"));
+  }
+ else {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("ctrl S"));
+  }
+}

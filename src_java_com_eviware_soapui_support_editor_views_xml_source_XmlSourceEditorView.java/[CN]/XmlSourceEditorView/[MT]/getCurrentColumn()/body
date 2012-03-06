@@ -1,4 +1,12 @@
 {
   if (editArea == null)   return -1;
-  return editArea.getCaretColumn();
+  try {
+    int pos=editArea.getCaretPosition();
+    int line=editArea.getLineOfOffset(pos);
+    return pos - editArea.getLineStartOffset(line);
+  }
+ catch (  BadLocationException e) {
+    SoapUI.logError(e,"Unable to get the current column. ");
+    return -1;
+  }
 }

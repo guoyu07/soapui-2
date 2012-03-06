@@ -1,0 +1,10 @@
+{
+  SearchContext context=createSearchAndReplaceContext();
+  if (context == null) {
+    return;
+  }
+  boolean found=SearchEngine.replace(editArea,context);
+  if (!found) {
+    UISupport.showErrorMessage("String [" + context.getSearchFor() + "] not found");
+  }
+}

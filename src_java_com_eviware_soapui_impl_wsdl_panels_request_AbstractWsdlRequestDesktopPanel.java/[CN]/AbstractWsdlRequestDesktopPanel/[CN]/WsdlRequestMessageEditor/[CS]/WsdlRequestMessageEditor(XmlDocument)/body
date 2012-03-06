@@ -1,6 +1,6 @@
 {
   super(document);
   XmlSourceEditorView<?> editor=getSourceEditor();
-  JXEditTextArea inputArea=editor.getInputArea();
-  inputArea.getInputHandler().addKeyBinding("F5",recreateButton.getAction());
+  RSyntaxTextArea inputArea=editor.getInputArea();
+  inputArea.getInputMap().put(KeyStroke.getKeyStroke("F5"),recreateButton.getAction());
 }

@@ -6,7 +6,12 @@
   if (obj instanceof ValidationError) {
     ValidationError error=(ValidationError)obj;
     if (error.getLineNumber() >= 0) {
-      textArea.setCaretPosition(textArea.getLineStartOffset(error.getLineNumber() - 1));
+      try {
+        textArea.setCaretPosition(textArea.getLineStartOffset(error.getLineNumber() - 1));
+      }
+ catch (      BadLocationException e1) {
+        SoapUI.logError(e1,"Unable to set the caret position. This is most likely a bug.");
+      }
       textArea.requestFocus();
     }
  else     Toolkit.getDefaultToolkit().beep();

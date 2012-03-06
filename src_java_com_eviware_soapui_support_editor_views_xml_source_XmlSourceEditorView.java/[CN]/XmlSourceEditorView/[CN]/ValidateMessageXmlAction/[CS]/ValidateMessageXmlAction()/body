@@ -1,4 +1,9 @@
 {
   super("Validate");
-  putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("alt V"));
+  if (UISupport.isMac()) {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("shift meta V"));
+  }
+ else {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("alt V"));
+  }
 }

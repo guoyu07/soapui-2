@@ -1,6 +1,6 @@
 {
   responseHasFocus=false;
-  statusBar.setTarget(sourceEditor.getInputArea());
+  statusBar.setTarget(new JEditorStatusBarTargetProxy(sourceEditor.getInputArea()));
   if (!splitButton.isEnabled()) {
     requestTabs.setSelectedIndex(0);
     return;

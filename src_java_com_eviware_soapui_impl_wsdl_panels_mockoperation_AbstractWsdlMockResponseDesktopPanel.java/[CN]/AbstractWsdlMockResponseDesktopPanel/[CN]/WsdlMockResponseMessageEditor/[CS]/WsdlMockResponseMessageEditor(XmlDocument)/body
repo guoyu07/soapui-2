@@ -2,10 +2,16 @@
   super(document,mockResponse);
   XmlSourceEditorView<?> editor=getSourceEditor();
   if (getModelItem().getMockOperation().isBidirectional()) {
-    JXEditTextArea inputArea=editor.getInputArea();
+    RSyntaxTextArea inputArea=editor.getInputArea();
     inputArea.addFocusListener(new ResultAreaFocusListener());
-    inputArea.getInputHandler().addKeyBinding("AC+TAB",moveFocusAction);
-    inputArea.getInputHandler().addKeyBinding("C+F4",closePanelAction);
+    if (UISupport.isMac()) {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+ else {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control alt TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
     JPopupMenu inputPopup=editor.getEditorPopup();
     inputPopup.insert(new JSeparator(),2);
     inputPopup.insert(wsiValidateAction,3);

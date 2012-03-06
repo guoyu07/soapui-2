@@ -2,7 +2,7 @@
   JXEditTextArea editArea=new JXEditTextArea(new XMLTokenMarker());
   if (addPopup) {
     JPopupMenu inputPopup=new JPopupMenu();
-    inputPopup.add(new FormatXmlAction(editArea));
+    inputPopup.add(new FormatXmlJEditAction(editArea));
     inputPopup.addSeparator();
     inputPopup.add(editArea.getUndoAction());
     inputPopup.add(editArea.getRedoAction());
@@ -14,8 +14,8 @@
     inputPopup.addSeparator();
     inputPopup.add(editArea.getGoToLineAction());
     inputPopup.addSeparator();
-    inputPopup.add(new SaveXmlTextAreaAction(editArea,"Save Editor Content"));
-    inputPopup.add(new LoadXmlTextAreaAction(editArea,"Load Editor Content"));
+    inputPopup.add(new SaveXmlJEditTextAreaAction(editArea,"Save Editor Content"));
+    inputPopup.add(new LoadXmlJEditTextAreaAction(editArea,"Load Editor Content"));
     editArea.setRightClickPopup(inputPopup);
   }
   return editArea;

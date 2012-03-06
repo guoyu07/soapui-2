@@ -1,0 +1,12 @@
+{
+  if (findCombo.getSelectedItem() == null) {
+    return null;
+  }
+  String searchExpression=findCombo.getSelectedItem().toString();
+  SearchContext context=new SearchContext();
+  context.setSearchFor(searchExpression);
+  context.setRegularExpression(false);
+  context.setSearchForward(forwardButton.isSelected());
+  context.setWholeWord(false);
+  return context;
+}

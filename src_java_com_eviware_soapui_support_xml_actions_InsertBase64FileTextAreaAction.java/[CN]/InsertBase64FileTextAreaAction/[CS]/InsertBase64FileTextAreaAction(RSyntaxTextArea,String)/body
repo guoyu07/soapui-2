@@ -1,0 +1,11 @@
+{
+  super("Insert file as Base64");
+  this.textArea=editArea;
+  this.dialogTitle=dialogTitle;
+  if (UISupport.isMac()) {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("meta G"));
+  }
+ else {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke("ctrl G"));
+  }
+}
