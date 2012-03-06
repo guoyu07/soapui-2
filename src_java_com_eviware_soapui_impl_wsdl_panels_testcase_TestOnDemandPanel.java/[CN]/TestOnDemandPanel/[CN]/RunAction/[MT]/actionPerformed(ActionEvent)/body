@@ -5,7 +5,6 @@
   }
   if (locationsComboBox != null) {
     Location selectedLocation=(Location)locationsComboBox.getSelectedItem();
-    String redirectUrl="";
     XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog(UPLOAD_TEST_CASE_HEADING,3,UPLOADING_TEST_CASE_MESSAGE,false);
     SendTestCaseWorker sendTestCaseWorker=new SendTestCaseWorker(testCase,selectedLocation);
     try {
@@ -14,16 +13,9 @@
  catch (    Exception e) {
       SoapUI.logError(e);
     }
-    redirectUrl=sendTestCaseWorker.getResult();
+    String redirectUrl=sendTestCaseWorker.getResult();
     if (!Strings.isNullOrEmpty(redirectUrl)) {
-      if (SoapUI.isJXBrowserDisabled(true)) {
-        Tools.openURL(redirectUrl);
-      }
- else {
-        if (browser != null) {
-          browser.navigate(redirectUrl,null);
-        }
-      }
+      openURLSafely(redirectUrl);
     }
   }
 }

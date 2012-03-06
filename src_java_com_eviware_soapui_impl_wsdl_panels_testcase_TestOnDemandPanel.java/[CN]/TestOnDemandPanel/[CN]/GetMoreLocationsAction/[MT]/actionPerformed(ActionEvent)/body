@@ -1,0 +1,12 @@
+{
+  if (locationsComboBox.getSelectedItem() != null && locationsComboBox.getSelectedItem().equals(GET_MORE_LOCATIONS_MESSAGE)) {
+    openURLSafely(getMoreLocationsURL());
+    runAction.setEnabled(false);
+  }
+ else {
+    if (locationsComboBox.isEnabled() && !runAction.isEnabled()) {
+      openInInternalBrowser(getFirstPageURL());
+      runAction.setEnabled(true);
+    }
+  }
+}

@@ -2,16 +2,16 @@
   locationsComboBox.removeAllItems();
   if (locationsCache.isEmpty()) {
     locationsComboBox.addItem(NO_LOCATIONS_FOUND_MESSAGE);
-    if (!SoapUI.isJXBrowserDisabled(true)) {
-      browser.navigate(SoapUI.PUSH_PAGE_ERROR_URL,null);
-    }
+    openInInternalBrowser(SoapUI.PUSH_PAGE_ERROR_URL);
   }
  else {
     for (    Location location : locationsCache) {
       locationsComboBox.addItem(location);
     }
+    locationsComboBox.addItem(GET_MORE_LOCATIONS_MESSAGE);
     locationsComboBox.setEnabled(true);
     runAction.setEnabled(true);
+    openInInternalBrowser(getFirstPageURL());
   }
   invalidate();
 }
