@@ -1,6 +1,6 @@
 {
   if (responseBody != null)   return responseBody;
-  if (hasHttpResponse()) {
+  if (hasHttpResponse() && httpResponse.getEntity() != null) {
     long now=System.nanoTime();
     HttpEntity bufferedEntity=new BufferedHttpEntity(httpResponse.getEntity());
     long contentLength=bufferedEntity.getContentLength();

@@ -3,7 +3,10 @@
   WsdlRequest wsdlRequest=(WsdlRequest)httpRequest;
   processIncomingWss(wsdlRequest,context);
   String multipartType=null;
-  Header h=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getEntity().getContentType() : null;
+  Header h=null;
+  if (httpMethod.hasHttpResponse() && httpMethod.getHttpResponse().getEntity() != null) {
+    h=httpMethod.getHttpResponse().getEntity().getContentType();
+  }
   if (h != null) {
     HeaderElement[] elements=h.getElements();
     for (    HeaderElement element : elements) {

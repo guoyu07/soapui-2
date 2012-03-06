@@ -1,7 +1,9 @@
 {
   if (hasHttpResponse()) {
-    if (httpResponse.getEntity().getContentType() != null) {
-      return httpResponse.getEntity().getContentType().getValue();
+    if (httpResponse.getEntity() != null) {
+      if (httpResponse.getEntity().getContentType() != null) {
+        return httpResponse.getEntity().getContentType().getValue();
+      }
     }
   }
   return null;
