@@ -3,10 +3,12 @@
   runAction=new RunAction();
   runAction.setEnabled(false);
   locationsComboBox=buildInitializingLocationsComboBox();
-  locationsComboBox.addActionListener(new GetMoreLocationsAction());
+  locationsComboBox.addActionListener(new LocationComboBoxAction());
   toolbar.addFixed(UISupport.createToolbarButton(runAction));
   toolbar.addRelatedGap();
   toolbar.addFixed(locationsComboBox);
+  toolbar.addSpace(10);
+  toolbar.addFixed(serverIPAddressesLabel);
   toolbar.addGlue();
   toolbar.addFixed(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.ALERT_SITE_HELP_URL)));
   return toolbar;
