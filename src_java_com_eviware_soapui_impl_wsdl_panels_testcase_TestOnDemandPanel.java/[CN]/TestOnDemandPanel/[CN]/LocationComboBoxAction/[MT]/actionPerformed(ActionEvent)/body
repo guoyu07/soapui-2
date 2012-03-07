@@ -2,7 +2,7 @@
   Object selectedItem=locationsComboBox.getSelectedItem();
   if (selectedItem != null) {
     if (locationsComboBox.getSelectedItem().equals(GET_MORE_LOCATIONS_MESSAGE)) {
-      openURLSafely(getMoreLocationsURL());
+      openInExternalBrowser(getMoreLocationsURL());
       runAction.setEnabled(false);
       serverIPAddressesLabel.setText(null);
     }
