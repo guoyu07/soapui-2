@@ -3,7 +3,9 @@
   this.document=document;
   setBackground(Color.LIGHT_GRAY);
   inputTabs=new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
-  inputTabs.setUI(new VerticalTabbedPaneUI());
+  if (!UISupport.isMac()) {
+    inputTabs.setUI(new VerticalTabbedPaneUI());
+  }
   inputTabs.setFont(inputTabs.getFont().deriveFont(8));
   inputTabsChangeListener=new InputTabsChangeListener();
   inputTabs.addChangeListener(inputTabsChangeListener);

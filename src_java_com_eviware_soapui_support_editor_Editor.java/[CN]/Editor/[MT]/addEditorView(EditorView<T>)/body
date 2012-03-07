@@ -1,6 +1,11 @@
 {
   views.add(editorView);
-  inputTabs.addTab(null,new VTextIcon(inputTabs,editorView.getTitle(),VTextIcon.ROTATE_LEFT),editorView.getComponent());
+  if (UISupport.isMac()) {
+    inputTabs.addTab(editorView.getTitle(),editorView.getComponent());
+  }
+ else {
+    inputTabs.addTab(null,new VTextIcon(inputTabs,editorView.getTitle(),VTextIcon.ROTATE_LEFT),editorView.getComponent());
+  }
   editorView.addPropertyChangeListener(this);
   editorView.addLocationListener(this);
   editorView.setDocument(document);
