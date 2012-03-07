@@ -39,22 +39,17 @@
   RSyntaxAreaPopupMenu popup=RSyntaxAreaPopupMenu.add(editArea);
   popup.add(new FindAndReplaceDialog(findAndReplaceable));
   popup.addSeparator();
-  popup.add(new GoToLineAction());
-  toggleLineNumbersMenuItem=new JCheckBoxMenuItem("Show Line Numbers",scrollPane.getLineNumbersEnabled());
-  toggleLineNumbersMenuItem.setAccelerator(UISupport.getKeyStroke("alt L"));
-  toggleLineNumbersMenuItem.addActionListener(new ActionListener(){
-    public void actionPerformed(    ActionEvent e){
-      enableLineNumbers(toggleLineNumbersMenuItem.isSelected());
-    }
+  goToLineAction=new GoToLineAction(editArea,"Go To Line");
+  enableLineNumbersAction=new EnableLineNumbersAction(scrollPane,"Show Line Numbers");
+  popup.add(goToLineAction);
+  popup.add(enableLineNumbersAction);
+  if (UISupport.isMac()) {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control meta L"),goToLineAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control L"),enableLineNumbersAction);
   }
-);
-  editArea.getInputMap().put(KeyStroke.getKeyStroke("alt L"),new AbstractAction(){
-    public void actionPerformed(    ActionEvent e){
-      enableLineNumbers(!scrollPane.getLineNumbersEnabled());
-    }
+ else {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control alt L"),goToLineAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control L"),enableLineNumbersAction);
   }
-);
-  popup.add(toggleLineNumbersMenuItem);
   editArea.setPopupMenu(popup);
-  enableLineNumbers(settings.getBoolean(UISettings.SHOW_GROOVY_LINE_NUMBERS));
 }
