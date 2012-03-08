@@ -2,7 +2,7 @@
   if (registeredDrivers.contains(name))   return;
   try {
     Driver d=(Driver)Class.forName(name,true,SoapUI.getSoapUICore().getExtensionClassLoader()).newInstance();
-    DriverManager.registerDriver(new DriverShim(d));
+    DriverManager.registerDriver(new DriverProxy(d));
     registeredDrivers.add(name);
   }
  catch (  Exception e) {
