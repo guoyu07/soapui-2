@@ -65,8 +65,7 @@
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
-      httpMethod.getMetrics().setIpAddress(InetAddress.getByName(httpMethod.getURI().getHost()).getHostAddress());
-      httpMethod.getMetrics().setPort(httpMethod.getURI().getPort());
+      captureMetrics(httpMethod,httpClient);
       httpMethod.getMetrics().getTotalTimer().start();
     }
     httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
@@ -103,6 +102,7 @@
  else {
       httpMethod.getMetrics().reset();
       httpMethod.getMetrics().setTimestamp(System.currentTimeMillis());
+      captureMetrics(httpMethod,httpClient);
     }
     for (int c=filters.size() - 1; c >= 0; c--) {
       RequestFilter filter=filters.get(c);
