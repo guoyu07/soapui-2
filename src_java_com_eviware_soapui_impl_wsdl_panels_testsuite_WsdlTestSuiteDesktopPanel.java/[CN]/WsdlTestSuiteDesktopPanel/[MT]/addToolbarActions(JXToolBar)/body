@@ -1,7 +1,6 @@
 {
   toolbar.add(UISupport.createToolbarButton(runAction));
   toolbar.add(UISupport.createToolbarButton(cancelAction));
-  toolbar.addRelatedGap();
   ButtonGroup buttonGroup=new ButtonGroup();
   sequentialButton=new JToggleButton(UISupport.createImageIcon("/sequential.gif"),true);
   sequentialButton.setToolTipText("The selected TestCases are run in sequence");
@@ -25,11 +24,8 @@
   }
 );
   buttonGroup.add(parallellButton);
-  toolbar.addUnrelatedGap();
   toolbar.add(sequentialButton);
-  toolbar.addRelatedGap();
   toolbar.add(parallellButton);
   generateLoadUITestsButton=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(GenerateLoadUITestsAction.SOAPUI_ACTION_ID,getModelItem(),null,"/runTestSuiteWithLoadUI.png"));
-  toolbar.addUnrelatedGap();
   toolbar.add(generateLoadUITestsButton);
 }
