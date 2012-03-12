@@ -8,13 +8,5 @@
       textField.getCaret().setVisible(true);
     }
   }
-  if (dtde.getDropTargetContext().getComponent() instanceof JXEditTextArea) {
-    JXEditTextArea textField=(JXEditTextArea)dtde.getDropTargetContext().getComponent();
-    int pos=textField.pointToOffset(dtde.getLocation());
-    if (pos != -1) {
-      textField.setCaretPosition(pos);
-      textField.setCaretVisible(true);
-    }
-  }
   dtde.acceptDrag(dtde.getDropAction());
 }

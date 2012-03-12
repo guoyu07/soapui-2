@@ -1,0 +1,10 @@
+{
+  if (dialog == null)   buildDialog();
+  editArea.requestFocusInWindow();
+  replaceCombo.setEnabled(editArea.isEditable());
+  replaceAllButton.setEnabled(editArea.isEditable());
+  replaceButton.setEnabled(editArea.isEditable());
+  UISupport.showDialog(dialog);
+  findCombo.getEditor().selectAll();
+  findCombo.requestFocus();
+}

@@ -1,0 +1,14 @@
+{
+  int pos=pt == null ? -1 : textField.viewToModel(pt);
+  if (pos == -1)   pos=textField.getCaretPosition();
+  try {
+    textField.setText(textField.getText(0,pos) + expansion.toString() + textField.getText(pos,textField.getText().length() - textField.getText(0,pos).length() - 1));
+  }
+ catch (  BadLocationException e) {
+    SoapUI.logError(e,"Unable to insert property expansion");
+  }
+  if (pos >= 0) {
+    textField.setCaretPosition(pos);
+    textField.requestFocusInWindow();
+  }
+}

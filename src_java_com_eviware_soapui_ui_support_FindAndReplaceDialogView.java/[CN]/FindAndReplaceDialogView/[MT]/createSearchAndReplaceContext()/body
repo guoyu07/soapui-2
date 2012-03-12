@@ -1,0 +1,17 @@
+{
+  if (findCombo.getSelectedItem() == null) {
+    return null;
+  }
+  if (replaceCombo.getSelectedItem() == null) {
+    return null;
+  }
+  String searchExpression=findCombo.getSelectedItem().toString();
+  String replacement=replaceCombo.getSelectedItem().toString();
+  SearchContext context=new SearchContext();
+  context.setSearchFor(searchExpression);
+  context.setReplaceWith(replacement);
+  context.setRegularExpression(false);
+  context.setSearchForward(forwardButton.isSelected());
+  context.setWholeWord(false);
+  return context;
+}

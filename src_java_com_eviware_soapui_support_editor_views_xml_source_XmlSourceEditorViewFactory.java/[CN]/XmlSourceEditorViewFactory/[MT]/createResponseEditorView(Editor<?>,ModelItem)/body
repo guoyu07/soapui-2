@@ -9,13 +9,13 @@
     return new RestResponseXmlSourceEditor((XmlEditor)editor,(HttpRequestInterface<?>)modelItem);
   }
  else   if (modelItem instanceof MessageExchangeModelItem) {
-    return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem);
+    return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem,true);
   }
  else   if (modelItem instanceof JdbcRequestTestStep) {
-    return new XmlSourceEditorView<JdbcRequestTestStep>((XmlEditor)editor,(JdbcRequestTestStep)modelItem);
+    return new XmlSourceEditorView<JdbcRequestTestStep>((XmlEditor)editor,(JdbcRequestTestStep)modelItem,true);
   }
  else   if (modelItem instanceof AMFRequestTestStep) {
-    return new XmlSourceEditorView<AMFRequestTestStep>((XmlEditor)editor,(AMFRequestTestStep)modelItem);
+    return new XmlSourceEditorView<AMFRequestTestStep>((XmlEditor)editor,(AMFRequestTestStep)modelItem,true);
   }
   return null;
 }

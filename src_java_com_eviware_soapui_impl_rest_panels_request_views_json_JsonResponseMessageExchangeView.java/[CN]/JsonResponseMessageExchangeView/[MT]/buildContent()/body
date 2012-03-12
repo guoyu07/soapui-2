@@ -1,9 +1,12 @@
 {
   contentPanel=new JPanel(new BorderLayout());
-  contentEditor=JXEditTextArea.createJavaScriptEditor();
+  contentEditor=SyntaxEditorUtil.createDefaultJsonSyntaxTextArea();
   MessageExchange me=messageExchangeModelItem.getMessageExchange();
   if (me != null)   setEditorContent(me);
-  contentPanel.add(new JScrollPane(contentEditor));
+  RTextScrollPane scrollPane=new RTextScrollPane(contentEditor);
+  scrollPane.setLineNumbersEnabled(true);
+  scrollPane.setFoldIndicatorEnabled(true);
+  contentPanel.add(scrollPane);
   contentEditor.setEditable(false);
   return contentPanel;
 }

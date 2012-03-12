@@ -44,21 +44,27 @@
   buildPopup(editArea.getPopupMenu(),editArea);
   if (UISupport.isMac()) {
     editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta V"),validateXmlAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta F"),formatXmlAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("meta S"),saveXmlTextAreaAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("meta L"),loadXmlTextAreaAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("control L"),enableLineNumbersAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("control meta L"),goToLineAction);
+    if (!readOnly) {
+      editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta F"),formatXmlAction);
+      editArea.getInputMap().put(KeyStroke.getKeyStroke("meta L"),loadXmlTextAreaAction);
+    }
   }
  else {
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt V"),validateXmlAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("alt F"),formatXmlAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl S"),saveXmlTextAreaAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl L"),loadXmlTextAreaAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt L"),enableLineNumbersAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("control alt L"),goToLineAction);
+    if (!readOnly) {
+      editArea.getInputMap().put(KeyStroke.getKeyStroke("alt F"),formatXmlAction);
+      editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl L"),loadXmlTextAreaAction);
+    }
   }
-  editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),findAndReplaceDialog);
+  if (!readOnly) {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),findAndReplaceDialog);
+  }
   editorScrollPane.setLineNumbersEnabled(SoapUI.getSettings().getBoolean(UISettings.SHOW_XML_LINE_NUMBERS));
   editorScrollPane.setFoldIndicatorEnabled(true);
   p.add(editorScrollPane,BorderLayout.CENTER);
@@ -67,4 +73,5 @@
   splitter.setDividerLocation(1.0);
   splitter.setBorder(null);
   previewCorner=UISupport.addPreviewCorner(getEditorScrollPane(),true);
+  PropertyExpansionPopupListener.enable(editArea,modelItem);
 }

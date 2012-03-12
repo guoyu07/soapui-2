@@ -4,7 +4,8 @@
       String namespace=(String)schemaList.getSelectedValue();
       if (namespace.equals(NO_NAMESPACE))       namespace="";
       xsd.setText(XmlUtils.prettyPrintXml(InferredSchemaManager.getInferredSchema(service).getXsdForNamespace(namespace)));
-      xsd.scrollTo(0,0);
+      xsd.setCaretPosition(0);
+      xsd.scrollRectToVisible(new Rectangle(0,0,(int)(getSize().getWidth()),(int)(getSize().getHeight())));
     }
   }
 }

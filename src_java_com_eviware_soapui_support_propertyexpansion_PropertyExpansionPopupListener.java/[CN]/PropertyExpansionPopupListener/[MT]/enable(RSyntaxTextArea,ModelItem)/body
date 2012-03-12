@@ -1,0 +1,9 @@
+{
+  RSyntaxTextAreaPropertyExpansionTarget target=new RSyntaxTextAreaPropertyExpansionTarget(textField,modelItem);
+  DropTarget dropTarget=new DropTarget(textField,new PropertyExpansionDropTarget(target));
+  dropTarget.setDefaultActions(DnDConstants.ACTION_COPY_OR_MOVE);
+  JPopupMenu popup=textField.getPopupMenu();
+  if (popup != null) {
+    PropertyExpansionPopupListener.addMenu(popup,"Get Data..",target.getContextModelItem(),target);
+  }
+}

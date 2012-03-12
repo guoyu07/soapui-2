@@ -1,9 +1,11 @@
 {
-  JXEditTextArea resultArea=JXEditTextArea.createXmlEditor(false);
+  RSyntaxTextArea resultArea=SyntaxEditorUtil.createDefaultXmlSyntaxTextArea();
   resultArea.setText(XmlUtils.prettyPrintXml(result.getMockRequest().getRequestContent()));
   resultArea.setEditable(false);
   resultArea.setToolTipText("Request Content");
-  JScrollPane scrollPane=new JScrollPane(resultArea);
+  RTextScrollPane scrollPane=new RTextScrollPane(resultArea);
+  scrollPane.setFoldIndicatorEnabled(true);
+  scrollPane.setLineNumbersEnabled(true);
   JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringsMapTableModel(result.getMockRequest().getRequestHeaders(),"Header","Value",false))),scrollPane);
   split.setDividerLocation(150);
   return split;

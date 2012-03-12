@@ -1,8 +1,9 @@
 {
-  JXEditTextArea xmlEditor=JXEditTextArea.createXmlEditor(true);
+  RSyntaxTextArea xmlEditor=SyntaxEditorUtil.createDefaultXmlSyntaxTextArea();
+  RTextScrollPane scrollPane=new RTextScrollPane(xmlEditor);
+  xmlEditor=SyntaxEditorUtil.addDefaultActions(xmlEditor,scrollPane,false);
   xmlEditor.setText(editorModel.getEditorText());
   xmlEditor.getDocument().addDocumentListener(new EditorModelDocumentListener(editorModel,xmlEditor));
-  JScrollPane scrollPane=new JScrollPane(xmlEditor);
   UISupport.addPreviewCorner(scrollPane,false);
   return scrollPane;
 }

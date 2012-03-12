@@ -36,7 +36,7 @@
   listPanel.setLayout(new BorderLayout());
   listPanel.add(toolbar,BorderLayout.NORTH);
   listPanel.add(new JScrollPane(schemaList),BorderLayout.CENTER);
-  xsd=JXEditTextArea.createXmlEditor(false);
+  xsd=SyntaxEditorUtil.createDefaultXmlSyntaxTextArea();
   xsd.setEditable(false);
   update();
   addTab("Schemas",new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,listPanel,new JScrollPane(xsd)));

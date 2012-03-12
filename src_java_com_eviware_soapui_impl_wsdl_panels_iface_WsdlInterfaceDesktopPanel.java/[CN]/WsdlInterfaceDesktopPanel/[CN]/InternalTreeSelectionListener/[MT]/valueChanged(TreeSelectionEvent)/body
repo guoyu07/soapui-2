@@ -14,13 +14,18 @@
       InspectItem item=(InspectItem)tn.getUserObject();
       partTabs.setSelectedIndex(item.getTabIndex());
       statusBar.setInfo(item.getDescription());
-      JEditTextArea editor=editors.get(item.getTabIndex());
+      RSyntaxTextArea editor=editors.get(item.getTabIndex());
       int lineNumber=item.getLineNumber();
-      if (lineNumber > 0 && editor.getLineStartOffset(lineNumber) >= 0) {
-        editor.setCaretPosition(editor.getLineStartOffset(lineNumber));
-      }
+      try {
+        if (lineNumber > 0 && editor.getLineStartOffset(lineNumber) >= 0) {
+          editor.setCaretPosition(editor.getLineStartOffset(lineNumber));
+        }
  else {
-        editor.setCaretPosition(0);
+          editor.setCaretPosition(0);
+        }
+      }
+ catch (      BadLocationException e1) {
+        SoapUI.logError(e1,"Unable to reset the caret position");
       }
     }
     tree.scrollPathToVisible(newLeadSelectionPath);

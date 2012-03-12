@@ -2,6 +2,7 @@
   httpRequest.setPostQueryString(httpRequest.hasRequestBody() && httpRequest.isPostQueryString());
   postQueryCheckBox.setSelected(httpRequest.isPostQueryString());
   mediaTypeCombo.setEnabled(httpRequest.hasRequestBody() && !httpRequest.isPostQueryString());
-  contentEditor.setEnabledAndEditable(httpRequest.hasRequestBody() && !httpRequest.isPostQueryString());
+  contentEditor.setEnabled(httpRequest.hasRequestBody() && !httpRequest.isPostQueryString());
+  contentEditor.setEditable(httpRequest.hasRequestBody() && !httpRequest.isPostQueryString());
   postQueryCheckBox.setEnabled(httpRequest.hasRequestBody());
 }
