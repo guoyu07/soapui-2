@@ -4,8 +4,8 @@
   setBackground(Color.WHITE);
   setOpaque(true);
   setValidator();
+  setCaller();
   add(buildToolbar(),BorderLayout.NORTH);
-  initializeLocationsCache();
   if (!SoapUI.isJXBrowserDisabled(true)) {
     browser=new CustomNativeBrowserComponent(true,false);
     add(browser.getComponent(),BorderLayout.CENTER);

@@ -1,0 +1,11 @@
+{
+  File tempFile=null;
+  try {
+    tempFile=File.createTempFile("project-temp-",".xml",null);
+    project.saveIn(tempFile);
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e,COULD_NOT_SAVE_TEMPORARY_PROJECT_MESSAGE);
+  }
+  return tempFile;
+}

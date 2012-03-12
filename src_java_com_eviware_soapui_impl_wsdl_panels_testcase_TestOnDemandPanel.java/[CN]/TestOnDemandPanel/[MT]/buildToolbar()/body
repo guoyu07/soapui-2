@@ -1,12 +1,12 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  runAction=new RunAction();
-  runAction.setEnabled(false);
+  sendTestCaseAction=new SendTestCaseAction();
+  sendTestCaseAction.setEnabled(false);
   locationsComboBox=buildInitializingLocationsComboBox();
   locationsComboBox.addActionListener(new LocationComboBoxAction());
   serverIPAddressesLabel.setPreferredSize(new Dimension(1000,10));
   serverIPAddressesLabel.setForeground(Color.GRAY);
-  toolbar.addFixed(UISupport.createToolbarButton(runAction));
+  toolbar.addFixed(UISupport.createToolbarButton(sendTestCaseAction));
   toolbar.addRelatedGap();
   toolbar.addFixed(locationsComboBox);
   toolbar.addSpace(10);

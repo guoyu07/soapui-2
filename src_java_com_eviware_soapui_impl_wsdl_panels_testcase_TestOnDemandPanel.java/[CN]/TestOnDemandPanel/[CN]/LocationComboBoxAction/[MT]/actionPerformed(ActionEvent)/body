@@ -3,13 +3,13 @@
   if (selectedItem != null) {
     if (locationsComboBox.getSelectedItem().equals(GET_MORE_LOCATIONS_MESSAGE)) {
       openInExternalBrowser(getMoreLocationsURL());
-      runAction.setEnabled(false);
+      sendTestCaseAction.setEnabled(false);
       serverIPAddressesLabel.setText(null);
     }
  else {
-      if (locationsComboBox.isEnabled() && !runAction.isEnabled()) {
+      if (locationsComboBox.isEnabled() && !sendTestCaseAction.isEnabled()) {
         openInInternalBrowser(getFirstPageURL());
-        runAction.setEnabled(true);
+        sendTestCaseAction.setEnabled(true);
       }
       if (selectedItem instanceof Location) {
         String[] serverIPAddresses=((Location)selectedItem).getServerIPAddresses();
