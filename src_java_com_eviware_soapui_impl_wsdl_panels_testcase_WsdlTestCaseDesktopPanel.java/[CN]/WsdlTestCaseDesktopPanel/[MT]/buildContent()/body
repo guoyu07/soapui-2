@@ -4,5 +4,6 @@
   tabs.addTab("TestSteps",testStepListInspectorPanel.getComponent());
   addTabs(tabs,testStepListInspectorPanel);
   tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+  tabs.addChangeListener(new TestOnDemandTabChangeListener());
   return UISupport.createTabPanel(tabs,true);
 }
