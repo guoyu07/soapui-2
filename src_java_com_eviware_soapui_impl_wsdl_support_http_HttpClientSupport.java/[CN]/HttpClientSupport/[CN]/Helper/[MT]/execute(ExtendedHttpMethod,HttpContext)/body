@@ -3,7 +3,7 @@
   if (method.getMetrics() != null) {
     method.getMetrics().getConnectTimer().start();
   }
-  HttpResponse httpResponse=httpClient.execute((HttpUriRequest)method,httpContext);
+  HttpResponse httpResponse=httpClient.execute(method,httpContext);
   method.setHttpResponse(httpResponse);
   return httpResponse;
 }
