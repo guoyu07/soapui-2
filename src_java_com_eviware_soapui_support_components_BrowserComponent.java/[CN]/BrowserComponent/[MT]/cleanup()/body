@@ -1,6 +1,6 @@
 {
   if (browser != null) {
-    browserMap.remove(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow());
+    browserMap.remove(browser.getPeer().getNsIWebBrowser().getContentDOMWindow());
     browserRecordingMap.remove(this);
     httpHtmlResponseView=null;
     browser.stop();

@@ -1,7 +1,7 @@
 {
   if (browser != null || SoapUI.isJXBrowserDisabled())   return false;
   browser=(MozillaBrowser)BrowserFactory.createBrowser(BrowserType.Mozilla);
-  browserMap.put(((MozillaWebBrowser)browser.getPeer()).getWebBrowser().getContentDOMWindow(),this);
+  browserMap.put(browser.getPeer().getNsIWebBrowser().getContentDOMWindow(),this);
   if (newWindowManager == null) {
     registerHttpListener();
     newWindowManager=new SoapUINewWindowManager();
