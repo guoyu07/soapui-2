@@ -36,9 +36,9 @@
         String name=getFirstTitle(resource.getDocList(),resource.getPath());
         String path=resource.getPath();
         RestResource newResource=null;
-        if (baseResource != null) {
+        if (baseResource != null && path != null) {
           for (          RestResource res : baseResource.getChildResourceList()) {
-            if (res.getPath().equals(path)) {
+            if (path.equals(res.getPath())) {
               newResource=res;
               break;
             }
@@ -47,9 +47,9 @@
             newResource=baseResource.addNewChildResource(name,path);
           }
         }
- else {
+ else         if (path != null) {
           for (          RestResource res : service.getResourceList()) {
-            if (res.getPath().equals(path)) {
+            if (path.equals(res.getPath())) {
               newResource=res;
               break;
             }
@@ -57,6 +57,9 @@
           if (newResource == null) {
             newResource=service.addNewResource(name,path);
           }
+        }
+ else {
+          newResource=service.addNewResource(name,"");
         }
         initResourceFromWadlResource(newResource,resource);
         addSubResources(newResource,resource);
