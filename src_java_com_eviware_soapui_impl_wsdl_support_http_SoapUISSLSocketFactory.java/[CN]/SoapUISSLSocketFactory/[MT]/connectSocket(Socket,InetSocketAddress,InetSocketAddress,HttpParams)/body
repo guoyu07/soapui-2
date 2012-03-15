@@ -1,0 +1,44 @@
+{
+  if (remoteAddress == null) {
+    throw new IllegalArgumentException("Remote address may not be null");
+  }
+  if (params == null) {
+    throw new IllegalArgumentException("HTTP parameters may not be null");
+  }
+  Socket sock=socket != null ? socket : new Socket();
+  if (localAddress != null) {
+    sock.setReuseAddress(HttpConnectionParams.getSoReuseaddr(params));
+    sock.bind(localAddress);
+  }
+  int connTimeout=HttpConnectionParams.getConnectionTimeout(params);
+  int soTimeout=HttpConnectionParams.getSoTimeout(params);
+  try {
+    sock.setSoTimeout(soTimeout);
+    sock.connect(remoteAddress,connTimeout);
+  }
+ catch (  SocketTimeoutException ex) {
+    throw new ConnectTimeoutException("Connect to " + remoteAddress.getHostName() + "/"+ remoteAddress.getAddress()+ " timed out");
+  }
+  SSLSocket sslsock;
+  if (sock instanceof SSLSocket) {
+    sslsock=(SSLSocket)sock;
+  }
+ else {
+    sslsock=(SSLSocket)getSocketFactory().createSocket(sock,remoteAddress.getHostName(),remoteAddress.getPort(),true);
+    sslsock=enableSocket(sslsock);
+  }
+  if (getHostnameVerifier() != null) {
+    try {
+      getHostnameVerifier().verify(remoteAddress.getHostName(),sslsock);
+    }
+ catch (    IOException iox) {
+      try {
+        sslsock.close();
+      }
+ catch (      Exception x) {
+      }
+      throw iox;
+    }
+  }
+  return sslsock;
+}

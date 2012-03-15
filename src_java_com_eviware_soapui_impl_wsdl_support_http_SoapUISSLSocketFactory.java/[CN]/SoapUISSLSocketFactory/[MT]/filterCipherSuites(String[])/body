@@ -1,0 +1,12 @@
+{
+  List<String> filteredCipherSuites=new ArrayList<String>();
+  if (cipherSuites != null) {
+    for (    String cipherSuite : cipherSuites) {
+      if (cipherSuite.equalsIgnoreCase("TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA") || cipherSuite.equalsIgnoreCase("TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5")) {
+        continue;
+      }
+      filteredCipherSuites.add(cipherSuite);
+    }
+  }
+  return filteredCipherSuites.toArray(new String[filteredCipherSuites.size()]);
+}

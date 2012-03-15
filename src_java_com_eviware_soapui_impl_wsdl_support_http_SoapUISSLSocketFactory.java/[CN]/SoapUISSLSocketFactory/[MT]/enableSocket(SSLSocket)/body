@@ -1,7 +1,8 @@
 {
-  socket.getSession().invalidate();
+  String invalidateSession=System.getProperty("soapui.https.session.invalidate");
   String protocols=System.getProperty("soapui.https.protocols");
   String ciphers=System.getProperty("soapui.https.ciphers");
+  socket.getSession().invalidate();
   if (StringUtils.hasContent(protocols)) {
     socket.setEnabledProtocols(protocols.split(","));
   }
@@ -12,7 +13,7 @@
     socket.setEnabledCipherSuites(ciphers.split(","));
   }
  else   if (socket.getSupportedCipherSuites() != null) {
-    socket.setEnabledCipherSuites(socket.getSupportedCipherSuites());
+    socket.setEnabledCipherSuites(filterCipherSuites(socket.getSupportedCipherSuites()));
   }
   return socket;
 }
