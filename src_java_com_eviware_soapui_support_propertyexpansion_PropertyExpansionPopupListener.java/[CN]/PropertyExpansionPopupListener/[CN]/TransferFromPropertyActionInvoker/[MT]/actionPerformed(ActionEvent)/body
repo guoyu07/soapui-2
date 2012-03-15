@@ -10,6 +10,10 @@
       return;
     }
     ((MutableTestPropertyHolder)sourceStep).addProperty(sourceProperty);
+    String newVal=UISupport.prompt("Specify the value of the new property '" + sourceProperty + "'","Set the value of the property","");
+    if (newVal != null) {
+      sourceStep.setPropertyValue(sourceProperty,newVal);
+    }
   }
   String sourceXPath="";
   String val=sourceStep.getPropertyValue(sourceProperty);
@@ -34,12 +38,14 @@
   }
   TestProperty property=sourceStep.getProperty(sourceProperty);
   PropertyExpansion pe=new PropertyExpansionImpl(property,sourceXPath);
-  String valueForCreation=target.getValueForCreation();
+  String userSelectedValue=target.getValueForCreation();
   target.insertPropertyExpansion(pe,null);
-  if (!StringUtils.hasContent(sourceXPath) && StringUtils.hasContent(valueForCreation) && !property.isReadOnly()) {
-    valueForCreation=UISupport.prompt("Initialize property value to","Get Data",valueForCreation);
-    if (valueForCreation != null) {
-      property.setValue(valueForCreation);
+  if (!StringUtils.hasContent(sourceXPath) && StringUtils.hasContent(userSelectedValue) && !property.isReadOnly()) {
+    if (!userInputIsPropertyExpansion(userSelectedValue)) {
+      userSelectedValue=UISupport.prompt("Do you want to update the value of the property? (" + val + ")","Get Data",userSelectedValue);
+      if (userSelectedValue != null) {
+        property.setValue(userSelectedValue);
+      }
     }
   }
 }
