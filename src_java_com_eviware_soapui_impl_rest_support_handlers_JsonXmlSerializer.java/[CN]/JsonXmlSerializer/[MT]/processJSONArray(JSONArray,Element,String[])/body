@@ -1,0 +1,9 @@
+{
+  int l=array.size();
+  for (int i=0; i < l; i++) {
+    Object value=array.get(i);
+    Element element=processJSONValue(value,root,null,expandableProperties);
+    root.appendChild(element);
+  }
+  return root;
+}

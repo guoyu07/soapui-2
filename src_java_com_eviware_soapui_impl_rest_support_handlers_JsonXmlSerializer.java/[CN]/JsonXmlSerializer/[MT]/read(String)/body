@@ -1,0 +1,32 @@
+{
+  JSON json=null;
+  try {
+    Document doc=new Builder().build(new StringReader(xml));
+    Element root=doc.getRootElement();
+    if (isNullObject(root)) {
+      return JSONNull.getInstance();
+    }
+    String defaultType=getType(root,JSONTypes.STRING);
+    if (isArray(root,true)) {
+      json=processArrayElement(root,defaultType);
+      if (forceTopLevelObject) {
+        String key=removeNamespacePrefix(root.getQualifiedName());
+        json=new JSONObject().element(key,json);
+      }
+    }
+ else {
+      json=processObjectElement(root,defaultType);
+      if (forceTopLevelObject) {
+        String key=removeNamespacePrefix(root.getQualifiedName());
+        json=new JSONObject().element(key,json);
+      }
+    }
+  }
+ catch (  JSONException jsone) {
+    throw jsone;
+  }
+catch (  Exception e) {
+    throw new JSONException(e);
+  }
+  return json;
+}

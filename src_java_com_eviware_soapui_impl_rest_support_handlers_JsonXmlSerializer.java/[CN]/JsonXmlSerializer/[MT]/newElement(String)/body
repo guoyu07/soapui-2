@@ -1,0 +1,7 @@
+{
+  name=com.eviware.soapui.support.StringUtils.createXmlName(name);
+  if (name.indexOf(':') != -1) {
+    namespaceLenient=true;
+  }
+  return namespaceLenient ? new CustomElement(name) : new Element(name);
+}

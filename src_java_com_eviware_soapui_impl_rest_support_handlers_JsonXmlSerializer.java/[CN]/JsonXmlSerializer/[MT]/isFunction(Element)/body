@@ -1,0 +1,14 @@
+{
+  int attrCount=element.getAttributeCount();
+  if (attrCount > 0) {
+    Attribute typeAttr=element.getAttribute(addJsonPrefix("type"));
+    Attribute paramsAttr=element.getAttribute(addJsonPrefix("params"));
+    if (attrCount == 1 && paramsAttr != null) {
+      return true;
+    }
+    if (attrCount == 2 && paramsAttr != null && typeAttr != null && (typeAttr.getValue().compareToIgnoreCase(JSONTypes.STRING) == 0 || typeAttr.getValue().compareToIgnoreCase(JSONTypes.FUNCTION) == 0)) {
+      return true;
+    }
+  }
+  return false;
+}

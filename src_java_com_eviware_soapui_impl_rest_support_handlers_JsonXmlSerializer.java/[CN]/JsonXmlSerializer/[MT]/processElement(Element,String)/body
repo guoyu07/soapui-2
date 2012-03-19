@@ -1,0 +1,14 @@
+{
+  if (isNullObject(element)) {
+    return JSONNull.getInstance();
+  }
+ else   if (isArray(element,false)) {
+    return processArrayElement(element,type);
+  }
+ else   if (isObject(element,false)) {
+    return processObjectElement(element,type);
+  }
+ else {
+    return trimSpaceFromValue(element.getValue());
+  }
+}

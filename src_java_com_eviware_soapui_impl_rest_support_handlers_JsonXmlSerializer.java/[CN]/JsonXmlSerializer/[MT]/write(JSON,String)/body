@@ -1,0 +1,28 @@
+{
+  if (JSONNull.getInstance().equals(json)) {
+    Element root=null;
+    root=newElement(getRootName() == null ? getObjectName() : getRootName());
+    root.addAttribute(new Attribute(addJsonPrefix("null"),"true"));
+    Document doc=new Document(root);
+    return writeDocument(doc,encoding);
+  }
+ else   if (json instanceof JSONArray) {
+    JSONArray jsonArray=(JSONArray)json;
+    Element root=processJSONArray(jsonArray,newElement(getRootName() == null ? getArrayName() : getRootName()),expandableProperties);
+    Document doc=new Document(root);
+    return writeDocument(doc,encoding);
+  }
+ else {
+    JSONObject jsonObject=(JSONObject)json;
+    Element root=null;
+    if (jsonObject.isNullObject()) {
+      root=newElement(getObjectName());
+      root.addAttribute(new Attribute(addJsonPrefix("null"),"true"));
+    }
+ else {
+      root=processJSONObject(jsonObject,newElement(getRootName() == null ? getObjectName() : getRootName()),expandableProperties,true);
+    }
+    Document doc=new Document(root);
+    return writeDocument(doc,encoding);
+  }
+}

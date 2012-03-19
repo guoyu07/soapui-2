@@ -1,0 +1,14 @@
+{
+  Attribute attribute=element.getAttribute(addJsonPrefix("class"));
+  String clazz=null;
+  if (attribute != null) {
+    String clazzText=attribute.getValue().trim();
+    if (JSONTypes.OBJECT.compareToIgnoreCase(clazzText) == 0) {
+      clazz=JSONTypes.OBJECT;
+    }
+ else     if (JSONTypes.ARRAY.compareToIgnoreCase(clazzText) == 0) {
+      clazz=JSONTypes.ARRAY;
+    }
+  }
+  return clazz;
+}

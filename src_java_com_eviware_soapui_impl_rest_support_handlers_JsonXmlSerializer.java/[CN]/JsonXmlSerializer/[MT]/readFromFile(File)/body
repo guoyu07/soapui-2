@@ -1,0 +1,17 @@
+{
+  if (file == null) {
+    throw new JSONException("File is null");
+  }
+  if (!file.canRead()) {
+    throw new JSONException("Can't read input file");
+  }
+  if (file.isDirectory()) {
+    throw new JSONException("File is a directory");
+  }
+  try {
+    return readFromStream(new FileInputStream(file));
+  }
+ catch (  IOException ioe) {
+    throw new JSONException(ioe);
+  }
+}

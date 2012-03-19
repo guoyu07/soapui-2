@@ -1,0 +1,38 @@
+{
+  Attribute attribute=element.getAttribute(addJsonPrefix("type"));
+  String type=null;
+  if (attribute != null) {
+    String typeText=attribute.getValue().trim();
+    if (JSONTypes.BOOLEAN.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.BOOLEAN;
+    }
+ else     if (JSONTypes.NUMBER.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.NUMBER;
+    }
+ else     if (JSONTypes.INTEGER.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.INTEGER;
+    }
+ else     if (JSONTypes.FLOAT.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.FLOAT;
+    }
+ else     if (JSONTypes.OBJECT.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.OBJECT;
+    }
+ else     if (JSONTypes.ARRAY.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.ARRAY;
+    }
+ else     if (JSONTypes.STRING.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.STRING;
+    }
+ else     if (JSONTypes.FUNCTION.compareToIgnoreCase(typeText) == 0) {
+      type=JSONTypes.FUNCTION;
+    }
+  }
+ else {
+    if (defaultType != null) {
+      log.info("Using default type " + defaultType);
+      type=defaultType;
+    }
+  }
+  return type;
+}

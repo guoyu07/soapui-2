@@ -1,0 +1,19 @@
+{
+  if (json instanceof JSONObject) {
+    JSONObject object=(JSONObject)json;
+    if (parent != null) {
+      for (Iterator entries=parent.entrySet().iterator(); entries.hasNext(); ) {
+        Map.Entry entry=(Map.Entry)entries.next();
+        String key=(String)entry.getKey();
+        Object value=entry.getValue();
+        if (key.startsWith("@xmlns") && value.equals(object.opt(key))) {
+          object.remove(key);
+        }
+      }
+    }
+    if (object.size() == 1 && object.has("#text")) {
+      return object.get("#text");
+    }
+  }
+  return json;
+}

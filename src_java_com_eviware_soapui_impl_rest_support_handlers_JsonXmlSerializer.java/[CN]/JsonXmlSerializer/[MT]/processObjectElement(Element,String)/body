@@ -1,0 +1,43 @@
+{
+  if (isNullObject(element)) {
+    return JSONNull.getInstance();
+  }
+  JSONObject jsonObject=new JSONObject();
+  if (!skipNamespaces) {
+    for (int j=0; j < element.getNamespaceDeclarationCount(); j++) {
+      String prefix=element.getNamespacePrefix(j);
+      String uri=element.getNamespaceURI(prefix);
+      if (StringUtils.isBlank(uri)) {
+        continue;
+      }
+      if (!StringUtils.isBlank(prefix)) {
+        prefix=":" + prefix;
+      }
+      setOrAccumulate(jsonObject,"@xmlns" + prefix,trimSpaceFromValue(uri));
+    }
+  }
+  int attrCount=element.getAttributeCount();
+  for (int i=0; i < attrCount; i++) {
+    Attribute attr=element.getAttribute(i);
+    String attrname=attr.getQualifiedName();
+    if (isTypeHintsEnabled() && (addJsonPrefix("class").compareToIgnoreCase(attrname) == 0 || addJsonPrefix("type").compareToIgnoreCase(attrname) == 0)) {
+      continue;
+    }
+    String attrvalue=attr.getValue();
+    setOrAccumulate(jsonObject,"@" + removeNamespacePrefix(attrname),trimSpaceFromValue(attrvalue));
+  }
+  int childCount=element.getChildCount();
+  for (int i=0; i < childCount; i++) {
+    Node child=element.getChild(i);
+    if (child instanceof Text) {
+      Text text=(Text)child;
+      if (StringUtils.isNotBlank(StringUtils.strip(text.getValue()))) {
+        setOrAccumulate(jsonObject,"#text",trimSpaceFromValue(text.getValue()));
+      }
+    }
+ else     if (child instanceof Element) {
+      setValue(jsonObject,(Element)child,defaultType);
+    }
+  }
+  return jsonObject;
+}

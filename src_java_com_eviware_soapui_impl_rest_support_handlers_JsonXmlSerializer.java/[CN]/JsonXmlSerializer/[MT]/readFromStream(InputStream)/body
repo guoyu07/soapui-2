@@ -1,0 +1,14 @@
+{
+  try {
+    StringBuffer xml=new StringBuffer();
+    BufferedReader in=new BufferedReader(new InputStreamReader(stream));
+    String line=null;
+    while ((line=in.readLine()) != null) {
+      xml.append(line);
+    }
+    return read(xml.toString());
+  }
+ catch (  IOException ioe) {
+    throw new JSONException(ioe);
+  }
+}

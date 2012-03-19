@@ -1,0 +1,24 @@
+{
+  String elementName=null;
+  if (element instanceof CustomElement) {
+    elementName=((CustomElement)element).getQName();
+  }
+ else {
+    elementName=element.getQualifiedName();
+  }
+  Map nameSpaces=(Map)namespacesPerElement.get(elementName);
+  if (nameSpaces != null && !nameSpaces.isEmpty()) {
+    setNamespaceLenient(true);
+    for (Iterator entries=nameSpaces.entrySet().iterator(); entries.hasNext(); ) {
+      Map.Entry entry=(Map.Entry)entries.next();
+      String prefix=(String)entry.getKey();
+      String uri=(String)entry.getValue();
+      if (StringUtils.isBlank(prefix)) {
+        element.setNamespaceURI(uri);
+      }
+ else {
+        element.addNamespaceDeclaration(prefix,uri);
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  boolean isObject=false;
+  if (!isArray(element,isTopLevel) && !isFunction(element)) {
+    if (hasNamespaces(element)) {
+      return true;
+    }
+    int attributeCount=element.getAttributeCount();
+    if (attributeCount > 0) {
+      int attrs=element.getAttribute(addJsonPrefix("null")) == null ? 0 : 1;
+      attrs+=element.getAttribute(addJsonPrefix("class")) == null ? 0 : 1;
+      attrs+=element.getAttribute(addJsonPrefix("type")) == null ? 0 : 1;
+switch (attributeCount) {
+case 1:
+        if (attrs == 0) {
+          return true;
+        }
+      break;
+case 2:
+    if (attrs < 2) {
+      return true;
+    }
+  break;
+case 3:
+if (attrs < 3) {
+  return true;
+}
+break;
+default :
+return true;
+}
+}
+int childCount=element.getChildCount();
+if (childCount == 1 && element.getChild(0) instanceof Text) {
+return isTopLevel;
+}
+isObject=true;
+}
+return isObject;
+}

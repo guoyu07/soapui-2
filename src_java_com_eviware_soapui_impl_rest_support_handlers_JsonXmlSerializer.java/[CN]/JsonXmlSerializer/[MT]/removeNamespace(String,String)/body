@@ -1,0 +1,12 @@
+{
+  if (prefix == null) {
+    prefix="";
+  }
+  if (StringUtils.isBlank(elementName)) {
+    rootNamespace.remove(prefix.trim());
+  }
+ else {
+    Map nameSpaces=(Map)namespacesPerElement.get(elementName);
+    nameSpaces.remove(prefix);
+  }
+}

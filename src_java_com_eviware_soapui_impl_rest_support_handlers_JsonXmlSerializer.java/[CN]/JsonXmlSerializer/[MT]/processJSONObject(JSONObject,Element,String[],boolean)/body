@@ -1,0 +1,85 @@
+{
+  if (jsonObject.isNullObject()) {
+    root.addAttribute(new Attribute(addJsonPrefix("null"),"true"));
+    return root;
+  }
+ else   if (jsonObject.isEmpty()) {
+    return root;
+  }
+  if (isRoot) {
+    if (!rootNamespace.isEmpty()) {
+      setNamespaceLenient(true);
+      for (Iterator entries=rootNamespace.entrySet().iterator(); entries.hasNext(); ) {
+        Map.Entry entry=(Map.Entry)entries.next();
+        String prefix=(String)entry.getKey();
+        String uri=(String)entry.getValue();
+        if (StringUtils.isBlank(prefix)) {
+          root.setNamespaceURI(uri);
+        }
+ else {
+          root.addNamespaceDeclaration(prefix,uri);
+        }
+      }
+    }
+  }
+  addNameSpaceToElement(root);
+  Object[] names=jsonObject.names().toArray();
+  Arrays.sort(names);
+  Element element=null;
+  for (int i=0; i < names.length; i++) {
+    String name=(String)names[i];
+    Object value=jsonObject.get(name);
+    if (name.startsWith("@xmlns")) {
+      setNamespaceLenient(true);
+      int colon=name.indexOf(':');
+      if (colon == -1) {
+        if (StringUtils.isBlank(root.getNamespaceURI())) {
+          root.setNamespaceURI(String.valueOf(value));
+        }
+      }
+ else {
+        String prefix=name.substring(colon + 1);
+        if (StringUtils.isBlank(root.getNamespaceURI(prefix))) {
+          root.addNamespaceDeclaration(prefix,String.valueOf(value));
+        }
+      }
+    }
+ else     if (name.startsWith("@")) {
+      root.addAttribute(new Attribute(name.substring(1),String.valueOf(value)));
+    }
+ else     if (name.equals("#text")) {
+      if (value instanceof JSONArray) {
+        root.appendChild(((JSONArray)value).join("",true));
+      }
+ else {
+        root.appendChild(String.valueOf(value));
+      }
+    }
+ else     if (value instanceof JSONArray && (((JSONArray)value).isExpandElements() || ArrayUtils.contains(expandableProperties,name))) {
+      JSONArray array=(JSONArray)value;
+      int l=array.size();
+      for (int j=0; j < l; j++) {
+        Object item=array.get(j);
+        element=newElement(name);
+        if (item instanceof JSONObject) {
+          element=processJSONValue((JSONObject)item,root,element,expandableProperties);
+        }
+ else         if (item instanceof JSONArray) {
+          element=processJSONValue((JSONArray)item,root,element,expandableProperties);
+        }
+ else {
+          element=processJSONValue(item,root,element,expandableProperties);
+        }
+        addNameSpaceToElement(element);
+        root.appendChild(element);
+      }
+    }
+ else {
+      element=newElement(name);
+      element=processJSONValue(value,root,element,expandableProperties);
+      addNameSpaceToElement(element);
+      root.appendChild(element);
+    }
+  }
+  return root;
+}

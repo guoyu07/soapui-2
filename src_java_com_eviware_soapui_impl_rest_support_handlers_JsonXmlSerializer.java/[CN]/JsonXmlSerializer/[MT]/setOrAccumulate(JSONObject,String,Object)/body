@@ -1,0 +1,12 @@
+{
+  if (jsonObject.has(key)) {
+    jsonObject.accumulate(key,value);
+    Object val=jsonObject.get(key);
+    if (val instanceof JSONArray) {
+      ((JSONArray)val).setExpandElements(true);
+    }
+  }
+ else {
+    jsonObject.element(key,value);
+  }
+}

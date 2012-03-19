@@ -1,0 +1,19 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  try {
+    XomSerializer serializer=(encoding == null) ? new XomSerializer(baos) : new XomSerializer(baos,encoding);
+    serializer.write(doc);
+    encoding=serializer.getEncoding();
+  }
+ catch (  IOException ioe) {
+    throw new JSONException(ioe);
+  }
+  String str=null;
+  try {
+    str=baos.toString(encoding);
+  }
+ catch (  UnsupportedEncodingException uee) {
+    throw new JSONException(uee);
+  }
+  return str;
+}

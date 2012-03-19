@@ -1,0 +1,13 @@
+{
+  String value=text.getValue();
+  if (value.startsWith("<![CDATA[") && value.endsWith("]]>")) {
+    value=value.substring(9);
+    value=value.substring(0,value.length() - 3);
+    writeRaw("<![CDATA[");
+    writeRaw(value);
+    writeRaw("]]>");
+  }
+ else {
+    super.write(text);
+  }
+}

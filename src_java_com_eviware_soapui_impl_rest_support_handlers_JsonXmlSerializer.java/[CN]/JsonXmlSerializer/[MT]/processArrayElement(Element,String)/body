@@ -1,0 +1,17 @@
+{
+  JSONArray jsonArray=new JSONArray();
+  int childCount=element.getChildCount();
+  for (int i=0; i < childCount; i++) {
+    Node child=element.getChild(i);
+    if (child instanceof Text) {
+      Text text=(Text)child;
+      if (StringUtils.isNotBlank(StringUtils.strip(text.getValue()))) {
+        jsonArray.element(text.getValue());
+      }
+    }
+ else     if (child instanceof Element) {
+      setValue(jsonArray,(Element)child,defaultType);
+    }
+  }
+  return jsonArray;
+}

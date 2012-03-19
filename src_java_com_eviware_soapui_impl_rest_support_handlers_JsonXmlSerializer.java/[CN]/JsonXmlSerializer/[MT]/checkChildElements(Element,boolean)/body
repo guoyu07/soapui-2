@@ -1,0 +1,39 @@
+{
+  int childCount=element.getChildCount();
+  Elements elements=element.getChildElements();
+  int elementCount=elements.size();
+  if (childCount == 1 && element.getChild(0) instanceof Text) {
+    return isTopLevel;
+  }
+  if (childCount == elementCount) {
+    if (elementCount == 0) {
+      return true;
+    }
+    if (elementCount == 1) {
+      if (skipWhitespace || element.getChild(0) instanceof Text) {
+        return true;
+      }
+ else {
+        return false;
+      }
+    }
+  }
+  if (childCount > elementCount) {
+    for (int i=0; i < childCount; i++) {
+      Node node=element.getChild(i);
+      if (node instanceof Text) {
+        Text text=(Text)node;
+        if (StringUtils.isNotBlank(StringUtils.strip(text.getValue())) && !skipWhitespace) {
+          return false;
+        }
+      }
+    }
+  }
+  String childName=elements.get(0).getQualifiedName();
+  for (int i=1; i < elementCount; i++) {
+    if (childName.compareTo(elements.get(i).getQualifiedName()) != 0) {
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,9 @@
+{
+  if (element instanceof CustomElement && isNamespaceLenient()) {
+    writeTagBeginning((CustomElement)element);
+    writeRaw(">");
+  }
+ else {
+    super.writeStartTag(element);
+  }
+}

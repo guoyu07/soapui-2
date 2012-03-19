@@ -1,0 +1,12 @@
+{
+  int namespaces=0;
+  for (int i=0; i < element.getNamespaceDeclarationCount(); i++) {
+    String prefix=element.getNamespacePrefix(i);
+    String uri=element.getNamespaceURI(prefix);
+    if (StringUtils.isBlank(uri)) {
+      continue;
+    }
+    namespaces++;
+  }
+  return namespaces > 0;
+}

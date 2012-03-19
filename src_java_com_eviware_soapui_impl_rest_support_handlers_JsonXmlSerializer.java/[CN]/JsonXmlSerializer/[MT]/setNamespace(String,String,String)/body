@@ -1,0 +1,21 @@
+{
+  if (StringUtils.isBlank(uri)) {
+    return;
+  }
+  if (prefix == null) {
+    prefix="";
+  }
+  if (StringUtils.isBlank(elementName)) {
+    rootNamespace.clear();
+    rootNamespace.put(prefix.trim(),uri.trim());
+  }
+ else {
+    Map nameSpaces=(Map)namespacesPerElement.get(elementName);
+    if (nameSpaces == null) {
+      nameSpaces=new TreeMap();
+      namespacesPerElement.put(elementName,nameSpaces);
+    }
+    nameSpaces.clear();
+    nameSpaces.put(prefix,uri);
+  }
+}

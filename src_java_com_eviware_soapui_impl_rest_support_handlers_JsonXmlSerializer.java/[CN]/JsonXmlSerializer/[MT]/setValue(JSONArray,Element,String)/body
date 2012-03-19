@@ -1,0 +1,82 @@
+{
+  String clazz=getClass(element);
+  String type=getType(element);
+  type=(type == null) ? defaultType : type;
+  if (hasNamespaces(element) && !skipNamespaces) {
+    jsonArray.element(simplifyValue(null,processElement(element,type)));
+    return;
+  }
+ else   if (element.getAttributeCount() > 0) {
+    if (isFunction(element)) {
+      Attribute paramsAttribute=element.getAttribute(addJsonPrefix("params"));
+      String[] params=null;
+      String text=element.getValue();
+      params=StringUtils.split(paramsAttribute.getValue(),",");
+      jsonArray.element(new JSONFunction(params,text));
+      return;
+    }
+ else {
+      jsonArray.element(simplifyValue(null,processElement(element,type)));
+      return;
+    }
+  }
+  boolean classProcessed=false;
+  if (clazz != null) {
+    if (clazz.compareToIgnoreCase(JSONTypes.ARRAY) == 0) {
+      jsonArray.element(processArrayElement(element,type));
+      classProcessed=true;
+    }
+ else     if (clazz.compareToIgnoreCase(JSONTypes.OBJECT) == 0) {
+      jsonArray.element(simplifyValue(null,processObjectElement(element,type)));
+      classProcessed=true;
+    }
+  }
+  if (!classProcessed) {
+    if (type.compareToIgnoreCase(JSONTypes.BOOLEAN) == 0) {
+      jsonArray.element(Boolean.valueOf(element.getValue()));
+    }
+ else     if (type.compareToIgnoreCase(JSONTypes.NUMBER) == 0) {
+      try {
+        jsonArray.element(Integer.valueOf(element.getValue()));
+      }
+ catch (      NumberFormatException e) {
+        jsonArray.element(Double.valueOf(element.getValue()));
+      }
+    }
+ else     if (type.compareToIgnoreCase(JSONTypes.INTEGER) == 0) {
+      jsonArray.element(Integer.valueOf(element.getValue()));
+    }
+ else     if (type.compareToIgnoreCase(JSONTypes.FLOAT) == 0) {
+      jsonArray.element(Double.valueOf(element.getValue()));
+    }
+ else     if (type.compareToIgnoreCase(JSONTypes.FUNCTION) == 0) {
+      String[] params=null;
+      String text=element.getValue();
+      Attribute paramsAttribute=element.getAttribute(addJsonPrefix("params"));
+      if (paramsAttribute != null) {
+        params=StringUtils.split(paramsAttribute.getValue(),",");
+      }
+      jsonArray.element(new JSONFunction(params,text));
+    }
+ else     if (type.compareToIgnoreCase(JSONTypes.STRING) == 0) {
+      Attribute paramsAttribute=element.getAttribute(addJsonPrefix("params"));
+      if (paramsAttribute != null) {
+        String[] params=null;
+        String text=element.getValue();
+        params=StringUtils.split(paramsAttribute.getValue(),",");
+        jsonArray.element(new JSONFunction(params,text));
+      }
+ else {
+        if (isArray(element,false)) {
+          jsonArray.element(processArrayElement(element,defaultType));
+        }
+ else         if (isObject(element,false)) {
+          jsonArray.element(simplifyValue(null,processObjectElement(element,defaultType)));
+        }
+ else {
+          jsonArray.element(trimSpaceFromValue(element.getValue()));
+        }
+      }
+    }
+  }
+}

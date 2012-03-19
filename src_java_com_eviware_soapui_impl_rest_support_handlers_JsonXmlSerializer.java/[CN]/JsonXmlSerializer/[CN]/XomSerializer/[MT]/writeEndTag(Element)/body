@@ -1,0 +1,10 @@
+{
+  if (element instanceof CustomElement && isNamespaceLenient()) {
+    writeRaw("</");
+    writeRaw(((CustomElement)element).getQName());
+    writeRaw(">");
+  }
+ else {
+    super.writeEndTag(element);
+  }
+}
