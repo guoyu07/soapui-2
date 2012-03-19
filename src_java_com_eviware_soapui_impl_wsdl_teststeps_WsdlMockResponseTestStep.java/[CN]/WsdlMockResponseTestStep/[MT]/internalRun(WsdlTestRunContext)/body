@@ -7,6 +7,9 @@
     result.startTimer();
     if (!mockRunListener.hasResult()) {
       if (testMockResponse == null)       initTestMockResponse(context);
+      if (mockRunner == null) {
+        mockRunner=mockService.start(context);
+      }
       if (!mockRunner.isRunning())       mockRunner.start();
       long timeout=getTimeout();
 synchronized (mockRunListener) {

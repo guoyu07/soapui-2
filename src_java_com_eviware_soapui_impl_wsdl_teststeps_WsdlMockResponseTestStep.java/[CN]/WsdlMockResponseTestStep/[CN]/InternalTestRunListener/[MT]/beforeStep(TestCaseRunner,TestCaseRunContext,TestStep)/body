@@ -3,7 +3,12 @@
     if (startTestStep instanceof WsdlMockResponseTestStep) {
     }
  else {
-      startListening(runContext);
+      try {
+        startListening(runContext);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
     }
   }
 }

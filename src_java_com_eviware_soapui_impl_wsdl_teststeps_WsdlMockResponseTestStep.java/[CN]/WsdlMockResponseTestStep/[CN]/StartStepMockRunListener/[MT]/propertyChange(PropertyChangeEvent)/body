@@ -1,3 +1,8 @@
 {
-  startListening(runContext);
+  try {
+    startListening(runContext);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
 }

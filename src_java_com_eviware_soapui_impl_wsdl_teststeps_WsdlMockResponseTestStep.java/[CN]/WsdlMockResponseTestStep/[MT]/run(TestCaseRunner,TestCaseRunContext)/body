@@ -4,7 +4,7 @@
     return internalRun((WsdlTestRunContext)context);
   }
  else {
-synchronized (STATUS_PROPERTY) {
+{
       if (loadTestRunner.getStatus() == LoadTestRunner.Status.RUNNING) {
         return internalRun((WsdlTestRunContext)context);
       }

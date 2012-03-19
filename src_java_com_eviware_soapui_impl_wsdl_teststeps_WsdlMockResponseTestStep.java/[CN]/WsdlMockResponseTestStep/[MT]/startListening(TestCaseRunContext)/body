@@ -1,8 +1,11 @@
 {
+  if (mockRunner == null) {
+    mockRunner=mockService.start((WsdlTestRunContext)runContext);
+  }
   if (testMockResponse == null) {
     initTestMockResponse(runContext);
   }
- else   if (mockRunner != null && !mockRunner.isRunning()) {
+ else   if (!mockRunner.isRunning()) {
     try {
       mockRunner.start();
     }
