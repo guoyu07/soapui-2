@@ -1,7 +1,18 @@
 {
   String newToken="";
-  newToken=UISupport.prompt("Enter token","New Token",newToken);
+  while (newToken.trim().length() == 0) {
+    newToken=UISupport.prompt("Enter token","New Token",newToken);
+    if (newToken == null) {
+      return;
+    }
+    if (newToken.trim().length() == 0) {
+      UISupport.showErrorMessage("Enter token name!");
+    }
+  }
   String newValue="";
   newValue=UISupport.prompt("Enter description","New Description",newValue);
-  sensitivInformationTableModel.addToken(newToken,newValue);
+  if (newValue == null) {
+    newValue="";
+  }
+  sensitiveInformationTableModel.addToken(newToken,newValue);
 }
