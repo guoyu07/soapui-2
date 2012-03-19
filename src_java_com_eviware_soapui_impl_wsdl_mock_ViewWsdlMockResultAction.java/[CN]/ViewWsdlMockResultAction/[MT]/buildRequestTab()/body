@@ -1,5 +1,6 @@
 {
   RSyntaxTextArea resultArea=SyntaxEditorUtil.createDefaultXmlSyntaxTextArea();
+  resultArea.setFont(UISupport.getEditorFont());
   resultArea.setText(XmlUtils.prettyPrintXml(result.getMockRequest().getRequestContent()));
   resultArea.setEditable(false);
   resultArea.setToolTipText("Request Content");
