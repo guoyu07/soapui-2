@@ -13,5 +13,7 @@
       SoapUI.logError(e);
     }
   }
-  mockRunListener.setWaiting(true);
+  if (mockRunListener != null) {
+    mockRunListener.setWaiting(true);
+  }
 }
