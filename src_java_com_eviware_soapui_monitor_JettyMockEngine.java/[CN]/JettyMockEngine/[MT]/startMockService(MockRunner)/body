@@ -20,7 +20,7 @@ synchronized (server) {
         connector.setConfidentialPort(sslConnector.getPort());
       }
       if (mockService.getBindToHostOnly()) {
-        String host=mockService.getHost();
+        String host=PropertyExpander.expandProperties(mockService,mockService.getHost());
         if (StringUtils.hasContent(host)) {
           connector.setHost(host);
         }
