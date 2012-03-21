@@ -3,7 +3,7 @@
   if (errorPage != null)   setErrorPage(errorPage);
   this.url=url;
   if (browser == null) {
-    initBrowser();
+    if (!initBrowser())     return;
   }
   configureBrowser();
   updateJXBrowserProxy();

@@ -1,7 +1,7 @@
 {
   if (SoapUI.isJXBrowserDisabled())   return;
   if (browser == null) {
-    initBrowser();
+    if (!initBrowser())     return;
   }
   configureBrowser();
   try {

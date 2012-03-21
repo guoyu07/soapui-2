@@ -13,7 +13,7 @@
         statusBar.add(statusLabel,BorderLayout.WEST);
         panel.add(statusBar,BorderLayout.SOUTH);
       }
-      initBrowser();
+      if (!initBrowser())       return panel;
       configureBrowser();
       browser.navigate("about:blank");
     }

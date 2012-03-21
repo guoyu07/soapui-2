@@ -10,6 +10,7 @@
     }
   }
  catch (  XPCOMException e) {
+    SoapUI.logError(e);
     if (possibleError && !showingErrorPage)     showErrorPage();
   }
 }

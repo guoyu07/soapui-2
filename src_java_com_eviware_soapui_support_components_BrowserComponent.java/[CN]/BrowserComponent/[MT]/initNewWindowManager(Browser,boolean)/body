@@ -1,0 +1,8 @@
+{
+  if (newWindowManager == null) {
+    if (forRecording)     registerHttpListener();
+    newWindowManager=new SoapUINewWindowManager();
+    browser.getServices().setNewWindowManager(newWindowManager);
+    browser.getServices().setPromptService(new DefaultPromptService());
+  }
+}
