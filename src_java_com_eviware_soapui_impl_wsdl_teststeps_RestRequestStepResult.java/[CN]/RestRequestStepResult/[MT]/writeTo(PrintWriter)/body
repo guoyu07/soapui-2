@@ -15,7 +15,10 @@
   for (  String key : headers.keySet()) {
     if (headers.get(key) != null)     writer.println(key + ": " + headers.get(key));
   }
-  if (StringUtils.hasContent(new String(response.getRawRequestData())))   writer.println("\r\n" + new String(response.getRawRequestData()));
+  byte[] rawRequestData=response.getRawRequestData();
+  if (rawRequestData != null) {
+    writer.println("\r\n" + new String(rawRequestData));
+  }
   writer.println("\r\n---------------- Response --------------------------");
   headers=response.getResponseHeaders();
   for (  String key : headers.keySet()) {
