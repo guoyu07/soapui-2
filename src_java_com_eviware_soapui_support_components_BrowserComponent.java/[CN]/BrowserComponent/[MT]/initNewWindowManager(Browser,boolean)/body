@@ -4,5 +4,5 @@
     browser.getServices().setNewWindowManager(newWindowManager);
     browser.getServices().setPromptService(new DefaultPromptService());
   }
-  if (forRecording)   registerHttpListener();
+  if (forRecording && recordingHttpListener == null)   registerHttpListener();
 }

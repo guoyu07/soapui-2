@@ -1,7 +1,7 @@
 {
   String request=new String(requestData);
   int ix=request.indexOf("Content-Type");
-  if (ix > 0 && ix < request.length() - 14) {
+  if (ix >= 0 && ix < request.length() - 14) {
     String contentType=request.substring(ix + 14);
     contentType=contentType.substring(0,contentType.indexOf("\n") - 1);
     return contentType.trim();
