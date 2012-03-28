@@ -6,7 +6,8 @@
   editArea.setAntiAliasingEnabled(true);
   editArea.setMinimumSize(new Dimension(50,50));
   editArea.setCaretPosition(0);
-  editArea.setEnabled(false);
+  editArea.setEnabled(!readOnly);
+  editArea.setEditable(!readOnly);
   editArea.setBorder(BorderFactory.createMatteBorder(0,2,0,0,Color.WHITE));
   errorListModel=new DefaultListModel();
   JList list=new JList(errorListModel);
@@ -63,9 +64,7 @@
       editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl L"),loadXmlTextAreaAction);
     }
   }
-  if (!readOnly) {
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),findAndReplaceDialog);
-  }
+  editArea.getInputMap().put(KeyStroke.getKeyStroke("F3"),findAndReplaceDialog);
   editorScrollPane.setLineNumbersEnabled(SoapUI.getSettings().getBoolean(UISettings.SHOW_XML_LINE_NUMBERS));
   editorScrollPane.setFoldIndicatorEnabled(true);
   p.add(editorScrollPane,BorderLayout.CENTER);
@@ -74,5 +73,7 @@
   splitter.setDividerLocation(1.0);
   splitter.setBorder(null);
   previewCorner=UISupport.addPreviewCorner(getEditorScrollPane(),true);
-  PropertyExpansionPopupListener.enable(editArea,modelItem);
+  if (!readOnly) {
+    PropertyExpansionPopupListener.enable(editArea,modelItem);
+  }
 }

@@ -1,12 +1,12 @@
 {
   Window window=SwingUtilities.windowForComponent(editArea);
-  dialog=new JDialog(window,"Find / Replace");
+  dialog=new JDialog(window,title);
   dialog.setModal(false);
   JPanel panel=new JPanel(new BorderLayout());
   findCombo=new JComboBox();
   findCombo.setEditable(true);
   replaceCombo=new JComboBox();
-  replaceCombo.setEditable(true);
+  replaceCombo.setEditable(!readOnly);
   GridLayout gridLayout=new GridLayout(2,2);
   gridLayout.setVgap(5);
   JPanel inputPanel=new JPanel(gridLayout);
