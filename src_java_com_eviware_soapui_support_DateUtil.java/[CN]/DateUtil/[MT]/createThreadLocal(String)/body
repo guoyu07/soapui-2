@@ -1,0 +1,8 @@
+{
+  return new ThreadLocal<SimpleDateFormat>(){
+    protected SimpleDateFormat initialValue(){
+      return new SimpleDateFormat(format);
+    }
+  }
+;
+}

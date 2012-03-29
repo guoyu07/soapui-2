@@ -6,7 +6,7 @@ switch (columnIndex) {
 case 0:
     return rowIndex;
 case 1:
-  return sdf.format(new Date(exchange.getTimestamp()));
+  return DateUtil.formatFull(new Date(exchange.getTimestamp()));
 case 2:
 return exchange.getRequestHost();
 case 3:

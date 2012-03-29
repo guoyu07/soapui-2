@@ -1,13 +1,13 @@
 {
 switch (restrictionAttribute) {
 case MAX_EXCLISIVE:
-    return BoundaryUtils.createTime(value,(int)(Math.random() * OFFSET),simpleDateFormat);
+    return BoundaryUtils.createTime(value,(int)(Math.random() * OFFSET),simpleDateFormat.get());
 case MIN_EXCLISIVE:
-  return BoundaryUtils.createTime(value,-(int)(Math.random() * OFFSET),simpleDateFormat);
+  return BoundaryUtils.createTime(value,-(int)(Math.random() * OFFSET),simpleDateFormat.get());
 case MAX_INCLISIVE:
-return BoundaryUtils.createTime(value,(int)(Math.random() * OFFSET + 1),simpleDateFormat);
+return BoundaryUtils.createTime(value,(int)(Math.random() * OFFSET + 1),simpleDateFormat.get());
 case MIN_INCLISIVE:
-return BoundaryUtils.createTime(value,(-(int)(Math.random() * OFFSET) - 1),simpleDateFormat);
+return BoundaryUtils.createTime(value,(-(int)(Math.random() * OFFSET) - 1),simpleDateFormat.get());
 default :
 return null;
 }

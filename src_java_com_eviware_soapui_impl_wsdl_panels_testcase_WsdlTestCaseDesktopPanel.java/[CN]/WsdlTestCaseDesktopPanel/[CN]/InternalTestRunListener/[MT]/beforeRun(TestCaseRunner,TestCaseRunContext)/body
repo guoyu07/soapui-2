@@ -5,7 +5,7 @@
   testStepList.setEnabled(false);
   testStepList.setSelectedIndex(-1);
   testCaseLog.clear();
-  testCaseLog.addText("Test started at " + dateFormat.format(new Date()));
+  testCaseLog.addText("Test started at " + DateUtil.formatExtraFull(new Date()));
   WsdlTestCaseDesktopPanel.this.beforeRun();
   if (runner == null)   runner=testRunner;
 }

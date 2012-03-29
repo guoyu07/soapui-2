@@ -1,5 +1,5 @@
 {
-  StringBuilder msg=new StringBuilder(dateFormat.format(new Date(getTimestamp())));
+  StringBuilder msg=new StringBuilder(DateUtil.formatExtraFull(new Date(getTimestamp())));
   MockResponse mockResponse=getMockResponse();
   if (mockResponse == null) {
     msg.append(": [dispatch error; missing response]");

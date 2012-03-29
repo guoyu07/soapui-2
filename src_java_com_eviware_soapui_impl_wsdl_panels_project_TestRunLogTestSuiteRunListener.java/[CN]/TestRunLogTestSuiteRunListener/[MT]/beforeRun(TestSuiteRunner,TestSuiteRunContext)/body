@@ -2,6 +2,6 @@
   if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestSuite()))   return;
   if (clearOnRun)   runLog.clear();
   String testSuiteName=testRunner.getTestRunnable().getName();
-  runLog.addBoldText("TestSuite [" + testSuiteName + "] started at "+ dateFormat.format(new Date()));
+  runLog.addBoldText("TestSuite [" + testSuiteName + "] started at "+ DateUtil.formatFull(new Date()));
   runLog.setStepIndex(0);
 }
