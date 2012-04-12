@@ -1,3 +1,9 @@
 {
-  return createDefaultSyntaxTextArea(SyntaxConstants.SYNTAX_STYLE_SQL);
+  RSyntaxTextArea textArea=new RSyntaxTextArea(){
+    protected void configurePopupMenu(    javax.swing.JPopupMenu popupMenu){
+    }
+  }
+;
+  textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
+  return decorateSyntaxArea(textArea);
 }
