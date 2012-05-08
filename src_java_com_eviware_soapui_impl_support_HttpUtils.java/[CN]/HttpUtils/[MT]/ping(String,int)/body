@@ -1,0 +1,15 @@
+{
+  boolean result=false;
+  pingErrorMessage="No Error";
+  try {
+    InetAddress address=InetAddress.getByName(host);
+    result=address.isReachable(timeout);
+  }
+ catch (  Exception e) {
+    result=false;
+    pingErrorMessage=e.getMessage();
+  }
+ finally {
+    return result;
+  }
+}
