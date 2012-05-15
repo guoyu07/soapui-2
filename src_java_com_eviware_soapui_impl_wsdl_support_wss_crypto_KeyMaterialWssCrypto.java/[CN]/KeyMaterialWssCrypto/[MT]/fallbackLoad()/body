@@ -1,0 +1,8 @@
+{
+  KeyStore fallbackKeystore=null;
+  if (StringUtils.hasContent(getDefaultAlias()) && StringUtils.hasContent(getAliasPassword())) {
+    fallbackKeystore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),getDefaultAlias().getBytes(),getPassword().toCharArray(),getAliasPassword().toCharArray());
+  }
+ else   fallbackKeystore=KeyStoreBuilder.build(Util.streamToBytes(new FileInputStream(sourceProperty.expand())),StringUtils.hasContent(getPassword()) ? getPassword().toCharArray() : null);
+  return fallbackKeystore;
+}

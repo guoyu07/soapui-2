@@ -2,15 +2,26 @@
   if (keyStore != null)   return keyStore;
   try {
     UISupport.setHourglassCursor();
+    String crypotFilePath=sourceProperty.expand();
+    String fileExtension=Files.getFileExtension(crypotFilePath);
+    String keystoreType=fileExtensionToKeystoreType(fileExtension);
     ClassLoader loader=Loader.getClassLoader(KeyMaterialWssCrypto.class);
-    InputStream input=Merlin.loadInputStream(loader,sourceProperty.expand());
-    keyStore=KeyStore.getInstance(KeyStore.getDefaultType());
+    InputStream input=Merlin.loadInputStream(loader,crypotFilePath);
+    keyStore=KeyStore.getInstance(keystoreType);
     keyStore.load(input,getPassword().toCharArray());
     return keyStore;
   }
- catch (  Throwable t) {
-    keyStore=null;
-    throw new Exception(t);
+ catch (  Exception exceptionFromNormalLoad) {
+    log.warn("Using fallback method to load keystore/truststore due to: " + exceptionFromNormalLoad.getMessage());
+    try {
+      keyStore=fallbackLoad();
+      return keyStore;
+    }
+ catch (    Exception exceptionFromFallbackLoad) {
+      keyStore=null;
+      SoapUI.logError(exceptionFromFallbackLoad,"Could not load keystore/truststore");
+      throw new Exception(exceptionFromFallbackLoad);
+    }
   }
  finally {
     UISupport.resetCursor();

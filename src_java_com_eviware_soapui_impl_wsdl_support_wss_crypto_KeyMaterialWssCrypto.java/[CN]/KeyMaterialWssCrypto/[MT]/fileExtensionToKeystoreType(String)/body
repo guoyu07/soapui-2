@@ -1,0 +1,11 @@
+{
+  if (fileExtension.equals(PKCS12_FILE_EXTENSION)) {
+    return PKCS12_KEYSTORE_TYPE;
+  }
+ else   if (fileExtension.equals(JCEKS_FILE_EXTENSION)) {
+    return JCEKS_KEYSTORE_TYPE;
+  }
+ else {
+    return KeyStore.getDefaultType();
+  }
+}
