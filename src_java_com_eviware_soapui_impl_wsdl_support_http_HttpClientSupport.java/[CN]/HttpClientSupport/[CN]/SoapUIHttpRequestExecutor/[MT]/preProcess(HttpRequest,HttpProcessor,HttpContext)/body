@@ -1,7 +1,11 @@
 {
-  RequestWrapper w=(RequestWrapper)request;
-  if (w.getOriginal() instanceof ExtendedHttpMethod) {
-    SoapUIMetrics metrics=((ExtendedHttpMethod)w.getOriginal()).getMetrics();
+  HttpRequest original=request;
+  if (original instanceof RequestWrapper) {
+    RequestWrapper w=(RequestWrapper)request;
+    original=w.getOriginal();
+  }
+  if (original instanceof ExtendedHttpMethod) {
+    SoapUIMetrics metrics=((ExtendedHttpMethod)original).getMetrics();
     metrics.getConnectTimer().stop();
     metrics.getTimeToFirstByteTimer().start();
   }

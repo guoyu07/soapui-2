@@ -1,0 +1,11 @@
+{
+  HttpRequest req=mock(ExtendedHttpMethod.class);
+  when(((ExtendedHttpMethod)req).getMetrics()).thenReturn(metrics);
+  when(metrics.getConnectTimer()).thenReturn(stopWatch);
+  when(metrics.getTimeToFirstByteTimer()).thenReturn(startWatch);
+  SoapUIHttpRequestExecutor executor=new SoapUIHttpRequestExecutor();
+  executor.preProcess(req,processor,context);
+  verify(((ExtendedHttpMethod)req),times(1)).getMetrics();
+  verify(startWatch,times(1)).start();
+  verify(stopWatch,times(1)).stop();
+}

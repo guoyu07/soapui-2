@@ -1,0 +1,12 @@
+{
+  when(wrappedRequest.getOriginal()).thenReturn(extendedHttpMethod);
+  when(extendedHttpMethod.getMetrics()).thenReturn(metrics);
+  when(metrics.getConnectTimer()).thenReturn(stopWatch);
+  when(metrics.getTimeToFirstByteTimer()).thenReturn(startWatch);
+  SoapUIHttpRequestExecutor executor=new SoapUIHttpRequestExecutor();
+  executor.preProcess(wrappedRequest,processor,context);
+  verify(wrappedRequest,times(1)).getOriginal();
+  verify(extendedHttpMethod,times(1)).getMetrics();
+  verify(startWatch,times(1)).start();
+  verify(stopWatch,times(1)).stop();
+}
