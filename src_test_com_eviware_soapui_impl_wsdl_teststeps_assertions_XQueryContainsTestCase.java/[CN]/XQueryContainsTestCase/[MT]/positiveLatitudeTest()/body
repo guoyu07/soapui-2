@@ -1,0 +1,6 @@
+{
+  assertion.setPath("/DirectionsResponse/route[1]/leg[1]/step[1]/start_location[1]/lat[1]");
+  assertion.setExpectedContent("<lat>-34.9286900</lat>");
+  String result=assertion.assertContent(response,context,XQueryContainsAssertion.ID);
+  assertEquals("Not matched expected!","XQuery Match matches content for [/DirectionsResponse/route[1]/leg[1]/step[1]/start_location[1]/lat[1]]",result);
+}

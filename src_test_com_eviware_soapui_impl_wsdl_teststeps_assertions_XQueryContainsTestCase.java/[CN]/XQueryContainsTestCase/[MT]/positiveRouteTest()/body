@@ -1,0 +1,6 @@
+{
+  assertion.setPath("count(DirectionsResponse/route) > 10");
+  assertion.setExpectedContent("false");
+  String result=assertion.assertContent(response,context,XQueryContainsAssertion.ID);
+  assertEquals("Not matched expected!","XQuery Match matches content for [count(DirectionsResponse/route) > 10]",result);
+}
