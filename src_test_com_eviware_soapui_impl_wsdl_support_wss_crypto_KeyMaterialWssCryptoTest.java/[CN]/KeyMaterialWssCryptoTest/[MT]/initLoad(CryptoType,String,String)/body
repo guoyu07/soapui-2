@@ -1,0 +1,8 @@
+{
+  String path=TEST_RESOURCES_DIR + filename;
+  when(containerMock.getModelItem()).thenReturn(project);
+  when(configMock.getSource()).thenReturn(path);
+  when(configMock.getPassword()).thenReturn(password);
+  crypto=new KeyMaterialWssCrypto(configMock,containerMock,path,password,type);
+  return path;
+}

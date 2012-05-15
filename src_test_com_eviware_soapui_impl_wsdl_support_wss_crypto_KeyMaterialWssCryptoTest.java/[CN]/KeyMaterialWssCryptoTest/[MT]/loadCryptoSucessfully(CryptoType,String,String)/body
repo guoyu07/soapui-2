@@ -1,0 +1,10 @@
+{
+  String path=initLoad(type,filename,password);
+  try {
+    KeyStore loadedKeystore=crypto.load();
+    assertNotNull("The crypto (" + path + ") is not null",loadedKeystore);
+  }
+ catch (  Exception e) {
+    fail("The crypto (" + path + ") could not be loaded because of: "+ e.getMessage());
+  }
+}
