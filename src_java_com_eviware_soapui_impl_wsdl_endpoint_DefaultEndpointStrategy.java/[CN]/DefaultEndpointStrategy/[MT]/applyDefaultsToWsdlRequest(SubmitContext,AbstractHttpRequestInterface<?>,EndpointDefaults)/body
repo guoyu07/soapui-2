@@ -5,13 +5,14 @@
   String defUsername=PropertyExpander.expandProperties(context,def.getUsername());
   String defPassword=PropertyExpander.expandProperties(context,def.getPassword());
   String defDomain=PropertyExpander.expandProperties(context,def.getDomain());
+  Enum authType=AuthType.Enum.forString(wsdlRequest.getAuthType());
   if (def.getMode() == EndpointConfig.Mode.OVERRIDE) {
-    overrideRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+    overrideRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain,authType);
   }
  else   if (def.getMode() == EndpointConfig.Mode.COPY) {
-    copyToRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+    copyToRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain,authType);
   }
  else   if (def.getMode() == EndpointConfig.Mode.COMPLEMENT) {
-    complementRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain);
+    complementRequest(context,wsdlRequest,def,requestUsername,requestPassword,requestDomain,defUsername,defPassword,defDomain,authType);
   }
 }

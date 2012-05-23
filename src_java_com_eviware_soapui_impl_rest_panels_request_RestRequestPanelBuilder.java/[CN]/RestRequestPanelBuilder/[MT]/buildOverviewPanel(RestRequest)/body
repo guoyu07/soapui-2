@@ -10,6 +10,7 @@
   table.addProperty("Username","username",true);
   table.addPropertyShadow("Password","password",true);
   table.addProperty("Domain","domain",true);
+  table.addProperty("Authentication Type","authType",new String[]{AuthType.GLOBAL_HTTP_SETTINGS.toString(),AuthType.PREEMPTIVE.toString(),AuthType.NTLM_KERBEROS.toString()});
   StringList keystores=new StringList(request.getOperation().getInterface().getProject().getWssContainer().getCryptoNames());
   keystores.add("");
   table.addProperty("SSL Keystore","sslKeystore",keystores.toStringArray());

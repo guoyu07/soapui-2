@@ -2,7 +2,7 @@
   HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   HttpContext httpContext=(HttpContext)context.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
   if (!StringUtils.isNullOrEmpty(username) && !StringUtils.isNullOrEmpty(password)) {
-    if (settings.getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) {
+    if ((authType.equals(AuthType.GLOBAL_HTTP_SETTINGS) && settings.getBoolean(HttpSettings.AUTHENTICATE_PREEMPTIVELY)) || authType.equals(AuthType.PREEMPTIVE)) {
       UsernamePasswordCredentials creds=new UsernamePasswordCredentials(username,password);
       Header header=BasicScheme.authenticate(creds,"utf-8",false);
       httpMethod.removeHeaders("Authorization");

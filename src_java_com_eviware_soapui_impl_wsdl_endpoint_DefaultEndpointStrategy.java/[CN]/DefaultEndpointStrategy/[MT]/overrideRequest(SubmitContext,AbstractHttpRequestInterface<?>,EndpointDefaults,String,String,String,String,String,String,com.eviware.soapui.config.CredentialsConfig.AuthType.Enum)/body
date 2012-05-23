@@ -6,7 +6,7 @@
     String wssTimeToLive=def.getWssTimeToLive();
     if (wssType == null) {
       String domain=StringUtils.hasContent(defDomain) ? defDomain : requestDomain;
-      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain);
+      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain,authType);
     }
     if (StringUtils.hasContent(wssType) || StringUtils.hasContent(wssTimeToLive)) {
       try {

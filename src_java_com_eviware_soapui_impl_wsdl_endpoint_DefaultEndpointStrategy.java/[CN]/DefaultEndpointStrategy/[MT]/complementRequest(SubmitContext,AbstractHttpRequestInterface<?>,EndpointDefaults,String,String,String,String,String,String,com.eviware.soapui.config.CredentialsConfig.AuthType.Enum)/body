@@ -7,7 +7,7 @@
     String wssTimeToLive=StringUtils.isNullOrEmpty(wsdlRequest.getWssTimeToLive()) ? def.getWssTimeToLive() : null;
     if (!StringUtils.hasContent(wssType) && (StringUtils.hasContent(username) || StringUtils.hasContent(password))) {
       String domain=StringUtils.hasContent(requestDomain) ? requestDomain : defDomain;
-      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain);
+      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain,authType);
     }
  else     if (StringUtils.hasContent(wssType) || StringUtils.hasContent(wssTimeToLive)) {
       try {
@@ -22,7 +22,7 @@
  else {
     if ((StringUtils.hasContent(username) || StringUtils.hasContent(password))) {
       String domain=StringUtils.hasContent(requestDomain) ? requestDomain : defDomain;
-      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain);
+      HttpAuthenticationRequestFilter.initRequestCredentials(context,username,project.getSettings(),password,domain,authType);
     }
   }
 }

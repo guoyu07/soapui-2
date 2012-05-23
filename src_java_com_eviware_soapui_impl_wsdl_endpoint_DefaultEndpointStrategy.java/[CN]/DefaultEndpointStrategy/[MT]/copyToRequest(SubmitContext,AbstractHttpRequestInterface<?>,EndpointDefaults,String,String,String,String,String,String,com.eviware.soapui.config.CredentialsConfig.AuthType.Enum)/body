@@ -1,10 +1,10 @@
 {
   String wssType=def.getWssType();
   if (wssType != null) {
-    HttpAuthenticationRequestFilter.initRequestCredentials(context,null,project.getSettings(),null,null);
+    HttpAuthenticationRequestFilter.initRequestCredentials(context,null,project.getSettings(),null,null,null);
   }
  else {
-    HttpAuthenticationRequestFilter.initRequestCredentials(context,defUsername,project.getSettings(),defPassword,defDomain);
+    HttpAuthenticationRequestFilter.initRequestCredentials(context,defUsername,project.getSettings(),defPassword,defDomain,authType);
   }
   String wssTimeToLive=def.getWssTimeToLive();
   if (wssTimeToLive == null)   wssTimeToLive="";

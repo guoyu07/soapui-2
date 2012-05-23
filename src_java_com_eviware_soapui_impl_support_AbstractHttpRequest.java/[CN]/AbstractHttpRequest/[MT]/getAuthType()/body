@@ -1,0 +1,6 @@
+{
+  CredentialsConfig credentialsConfig=getConfig().getCredentials();
+  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  if (credentialsConfig.getAuthType() == null)   credentialsConfig.setAuthType(AuthType.GLOBAL_HTTP_SETTINGS);
+  return credentialsConfig.getAuthType().toString();
+}
