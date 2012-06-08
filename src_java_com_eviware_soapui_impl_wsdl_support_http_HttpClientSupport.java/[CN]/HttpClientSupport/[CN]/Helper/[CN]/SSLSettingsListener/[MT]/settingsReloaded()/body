@@ -1,7 +1,7 @@
 {
   try {
     log.info("Updating keyStore..");
-    initSocketFactory();
+    registry.register(new Scheme("https",443,initSocketFactory()));
   }
  catch (  Throwable e) {
     SoapUI.logError(e);

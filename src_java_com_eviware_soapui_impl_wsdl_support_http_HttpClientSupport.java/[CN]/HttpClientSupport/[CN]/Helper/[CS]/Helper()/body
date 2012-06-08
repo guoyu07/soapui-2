@@ -1,9 +1,9 @@
 {
   Settings settings=SoapUI.getSettings();
-  SchemeRegistry registry=new SchemeRegistry();
+  registry=new SchemeRegistry();
   registry.register(new Scheme("http",80,PlainSocketFactory.getSocketFactory()));
   try {
-    socketFactory=initSocketFactory();
+    SoapUISSLSocketFactory socketFactory=initSocketFactory();
     registry.register(new Scheme("https",443,socketFactory));
   }
  catch (  Throwable e) {
