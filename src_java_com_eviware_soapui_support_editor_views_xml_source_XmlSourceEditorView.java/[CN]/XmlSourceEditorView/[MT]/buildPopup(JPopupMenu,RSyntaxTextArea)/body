@@ -6,7 +6,6 @@
   goToLineAction=new GoToLineAction(editArea,"Go To Line");
   findAndReplaceDialog=new FindAndReplaceDialogView("Find / Replace");
   if (!readOnly) {
-    formatXmlAction=new FormatXmlAction(editArea);
     loadXmlTextAreaAction=new LoadXmlTextAreaAction(editArea,"Load");
     insertBase64FileTextAreaAction=new InsertBase64FileTextAreaAction(editArea,"Insert File as Base64");
   }
@@ -17,10 +16,9 @@
     }
   }
   inputPopup.insert(validateXmlAction,0);
-  if (!readOnly) {
-    inputPopup.insert(formatXmlAction,1);
-    inputPopup.addSeparator();
-  }
+  formatXmlAction=new FormatXmlAction(editArea);
+  inputPopup.insert(formatXmlAction,1);
+  inputPopup.addSeparator();
   inputPopup.add(findAndReplaceDialog);
   inputPopup.addSeparator();
   inputPopup.add(goToLineAction);
