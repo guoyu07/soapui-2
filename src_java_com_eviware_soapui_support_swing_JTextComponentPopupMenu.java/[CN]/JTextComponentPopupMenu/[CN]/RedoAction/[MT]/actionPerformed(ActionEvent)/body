@@ -1,3 +1,4 @@
 {
-  ((Undoable)textComponent).redo();
+  if (textComponent instanceof RSyntaxTextArea)   ((RSyntaxTextArea)textComponent).redoLastAction();
+ else   ((Undoable)textComponent).redo();
 }
