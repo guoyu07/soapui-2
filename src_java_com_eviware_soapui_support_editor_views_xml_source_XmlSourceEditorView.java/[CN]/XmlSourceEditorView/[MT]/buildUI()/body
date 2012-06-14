@@ -43,6 +43,7 @@
 );
   JPanel p=new JPanel(new BorderLayout());
   editorScrollPane=new RTextScrollPane(editArea);
+  JTextComponentPopupMenu.add(editArea);
   buildPopup(editArea.getPopupMenu(),editArea);
   if (UISupport.isMac()) {
     editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta V"),validateXmlAction);

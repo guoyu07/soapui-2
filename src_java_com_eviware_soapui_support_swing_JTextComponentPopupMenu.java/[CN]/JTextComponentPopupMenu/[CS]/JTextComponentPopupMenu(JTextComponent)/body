@@ -1,7 +1,7 @@
 {
   super("Edit");
   this.textComponent=textComponent;
-  if (textComponent instanceof Undoable) {
+  if (textComponent instanceof Undoable || textComponent instanceof RSyntaxTextArea) {
     undoAction=new UndoAction();
     add(undoAction);
     redoAction=new RedoAction();

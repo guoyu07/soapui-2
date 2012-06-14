@@ -1,20 +1,27 @@
 {
-  JPopupMenu componentPopupMenu=textComponent.getComponentPopupMenu();
+  JPopupMenu componentPopupMenu=textComponent instanceof RSyntaxTextArea ? ((RSyntaxTextArea)textComponent).getPopupMenu() : textComponent.getComponentPopupMenu();
   if (componentPopupMenu instanceof JTextComponentPopupMenu)   return (JTextComponentPopupMenu)componentPopupMenu;
   JTextComponentPopupMenu popupMenu=new JTextComponentPopupMenu(textComponent);
   if (componentPopupMenu != null && componentPopupMenu.getComponentCount() > 0) {
-    popupMenu.insert(new JSeparator(),0);
     while (componentPopupMenu.getComponentCount() > 0) {
       Component comp=componentPopupMenu.getComponent(componentPopupMenu.getComponentCount() - 1);
+      if (comp instanceof AbstractButton) {
+        if ("Copy".equals(((AbstractButton)comp).getText()) || "Cut".equals(((AbstractButton)comp).getText()) || "Paste".equals(((AbstractButton)comp).getText())|| "Undo".equals(((AbstractButton)comp).getText())|| "Redo".equals(((AbstractButton)comp).getText())|| "Can\'t Redo".equals(((AbstractButton)comp).getText())) {
+          componentPopupMenu.remove(comp);
+          continue;
+        }
+        popupMenu.insert(comp,0);
+      }
       componentPopupMenu.remove(comp);
-      popupMenu.insert(comp,0);
     }
+    popupMenu.insert(new JSeparator(),0);
   }
   if (componentPopupMenu != null) {
     for (    PopupMenuListener listener : componentPopupMenu.getPopupMenuListeners()) {
       popupMenu.addPopupMenuListener(listener);
     }
   }
-  textComponent.setComponentPopupMenu(popupMenu);
+  if (textComponent instanceof RSyntaxTextArea)   ((RSyntaxTextArea)textComponent).setPopupMenu(popupMenu);
+ else   textComponent.setComponentPopupMenu(popupMenu);
   return popupMenu;
 }

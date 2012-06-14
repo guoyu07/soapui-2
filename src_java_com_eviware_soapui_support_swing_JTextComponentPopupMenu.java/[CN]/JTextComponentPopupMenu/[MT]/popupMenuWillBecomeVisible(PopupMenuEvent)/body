@@ -3,6 +3,10 @@
     undoAction.setEnabled(((Undoable)textComponent).canUndo());
     redoAction.setEnabled(((Undoable)textComponent).canRedo());
   }
+  if (textComponent instanceof RSyntaxTextArea) {
+    undoAction.setEnabled(((RSyntaxTextArea)textComponent).canUndo());
+    redoAction.setEnabled(((RSyntaxTextArea)textComponent).canRedo());
+  }
   cutAction.setEnabled(textComponent.getSelectionEnd() != textComponent.getSelectionStart());
   copyAction.setEnabled(cutAction.isEnabled());
   clearAction.setEnabled(cutAction.isEnabled());
