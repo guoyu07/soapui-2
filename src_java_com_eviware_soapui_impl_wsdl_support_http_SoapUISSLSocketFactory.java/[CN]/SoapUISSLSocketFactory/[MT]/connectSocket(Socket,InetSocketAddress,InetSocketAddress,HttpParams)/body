@@ -27,18 +27,5 @@
     sslsock=(SSLSocket)getSocketFactory().createSocket(sock,remoteAddress.getHostName(),remoteAddress.getPort(),true);
     sslsock=enableSocket(sslsock);
   }
-  if (getHostnameVerifier() != null) {
-    try {
-      getHostnameVerifier().verify(remoteAddress.getHostName(),sslsock);
-    }
- catch (    IOException iox) {
-      try {
-        sslsock.close();
-      }
- catch (      Exception x) {
-      }
-      throw iox;
-    }
-  }
   return sslsock;
 }
