@@ -53,17 +53,6 @@
       httpMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
     }
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
-    URI uri=(URI)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_URI);
-    if (uri != null && uri.isAbsoluteURI()) {
-      String str=uri.toString();
-      int ix=str.indexOf('/',str.indexOf("//") + 2);
-      if (ix != -1) {
-        uri=new URI(str.substring(ix),true);
-        java.net.URI oldUri=httpMethod.getURI();
-        httpMethod.setURI(new java.net.URI(oldUri.getScheme(),oldUri.getUserInfo(),oldUri.getHost(),oldUri.getPort(),(uri.getPath()) == null ? "/" : uri.getPath(),oldUri.getQuery(),oldUri.getFragment()));
-        submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
-      }
-    }
     if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
