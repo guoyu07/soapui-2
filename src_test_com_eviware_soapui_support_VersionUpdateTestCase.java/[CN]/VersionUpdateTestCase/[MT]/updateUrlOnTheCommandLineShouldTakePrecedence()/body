@@ -1,0 +1,6 @@
+{
+  System.setProperty(SoapUIVersionUpdate.VERSION_UPDATE_URL_SYS_PROP_KEY,"nop");
+  assertEquals("Command line property for update url did not take precedence!","nop",SoapUIVersionUpdate.LATEST_VERSION_XML_LOCATION);
+  System.getProperties().remove(SoapUIVersionUpdate.VERSION_UPDATE_URL_SYS_PROP_KEY);
+  assertNull("",System.getProperty(SoapUIVersionUpdate.VERSION_UPDATE_URL_SYS_PROP_KEY));
+}
