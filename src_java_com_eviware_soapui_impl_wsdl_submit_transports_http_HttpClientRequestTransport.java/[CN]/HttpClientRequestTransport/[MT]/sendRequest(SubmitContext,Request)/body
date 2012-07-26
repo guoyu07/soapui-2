@@ -60,6 +60,7 @@
       httpMethod.getMetrics().getTotalTimer().start();
     }
     httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
+    saveRequestHeaders(httpMethod,httpContext);
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().getReadTimer().stop();
       httpMethod.getMetrics().getTotalTimer().stop();
