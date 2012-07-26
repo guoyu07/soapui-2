@@ -1,0 +1,11 @@
+{
+  List<Header> requestHeaders=(List<Header>)httpContext.getAttribute(HeaderRequestInterceptor.SOAPUI_REQUEST_HEADERS);
+  if (requestHeaders != null) {
+    for (    Header header : requestHeaders) {
+      Header[] existingHeaders=httpMethod.getHeaders(header.getName());
+      int c=0;
+      for (; c < existingHeaders.length; c++)       if (existingHeaders[c].getValue().equals(header.getValue()))       break;
+      if (c == existingHeaders.length)       httpMethod.addHeader(header);
+    }
+  }
+}
