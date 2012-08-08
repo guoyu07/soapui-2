@@ -1,3 +1,9 @@
 {
-  return TestAssertionRegistry.getInstance().canAssert(assertionType,assertable);
+  try {
+    return TestAssertionRegistry.getInstance().canAssert(assertionType,assertable);
+  }
+ catch (  Throwable t) {
+    SoapUI.logError(t);
+    return false;
+  }
 }
