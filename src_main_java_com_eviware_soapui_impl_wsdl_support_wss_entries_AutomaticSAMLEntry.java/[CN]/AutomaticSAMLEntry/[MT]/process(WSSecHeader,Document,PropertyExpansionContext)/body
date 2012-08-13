@@ -10,6 +10,9 @@
  else       if (samlVersion.equals(SAML_VERSION_2)) {
         callbackHandler=new SAML2CallbackHandler(assertionType,confirmationMethod);
       }
+ else {
+        throw new IllegalArgumentException(NOT_A_VALID_SAML_VERSION);
+      }
       AssertionWrapper assertion=createAssertion(context,samlParms,callbackHandler);
       wsSecSAMLToken.build(doc,assertion,secHeader);
     }
@@ -28,6 +31,9 @@
       }
  else       if (samlVersion.equals(SAML_VERSION_2)) {
         callbackHandler=new SAML2CallbackHandler(wssCrypto.getCrypto(),alias,assertionType,confirmationMethod);
+      }
+ else {
+        throw new IllegalArgumentException(NOT_A_VALID_SAML_VERSION);
       }
       AssertionWrapper assertion=createAssertion(context,samlParms,callbackHandler);
       assertion.signAssertion(context.expand(getUsername()),context.expand(getPassword()),wssCrypto.getCrypto(),false);
