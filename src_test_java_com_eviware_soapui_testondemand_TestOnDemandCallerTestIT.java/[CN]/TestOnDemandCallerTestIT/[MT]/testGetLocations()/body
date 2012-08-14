@@ -1,6 +1,6 @@
 {
   if (System.getProperty(SoapUISystemProperties.TEST_ON_DEMAND_HOST) == null) {
-    return;
+    fail(NOT_THE_RIGHT_HOST);
   }
   List<Location> locations=caller.getLocations();
   Location firstLocation=locations.get(0);
