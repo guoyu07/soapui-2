@@ -4,7 +4,7 @@
   testStepResults.clear();
   if (testCase.getKeepSession()) {
     if (!(runContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY) instanceof BasicHttpContext)) {
-      runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,new BasicHttpContext());
+      runContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,HttpClientSupport.createEmptyContext());
     }
   }
  else {
