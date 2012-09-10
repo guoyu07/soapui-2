@@ -1,0 +1,6 @@
+{
+  BasicHttpContext httpContext=new BasicHttpContext();
+  CookieStore cookieStore=new BasicCookieStore();
+  httpContext.setAttribute(ClientContext.COOKIE_STORE,cookieStore);
+  return httpContext;
+}

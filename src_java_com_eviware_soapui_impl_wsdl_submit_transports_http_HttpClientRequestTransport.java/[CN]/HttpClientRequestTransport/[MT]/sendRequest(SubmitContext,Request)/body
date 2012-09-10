@@ -5,11 +5,9 @@
   boolean createdContext=false;
   HttpContext httpContext=(HttpContext)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
   if (httpContext == null) {
-    httpContext=new BasicHttpContext();
+    httpContext=HttpClientSupport.createEmptyContext();
     submitContext.setProperty(SubmitContext.HTTP_STATE_PROPERTY,httpContext);
     createdContext=true;
-    CookieStore cookieStore=new BasicCookieStore();
-    httpContext.setAttribute(ClientContext.COOKIE_STORE,cookieStore);
   }
   String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
   if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
