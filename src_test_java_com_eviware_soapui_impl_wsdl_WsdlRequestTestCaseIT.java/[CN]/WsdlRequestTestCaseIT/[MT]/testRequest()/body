@@ -1,5 +1,6 @@
 {
   replaceInFile("test1/TestService.wsdl","8082","" + getPort());
+  replaceInFile("test1/TestService.wsdl","www.eviware.com","localhost:" + getPort());
   WsdlProject project=new WsdlProject();
   WsdlInterface iface=WsdlInterfaceFactory.importWsdl(project,"http://localhost:" + getPort() + "/test1/TestService.wsdl",true)[0];
   WsdlOperation operation=(WsdlOperation)iface.getOperationByName("GetPage");
