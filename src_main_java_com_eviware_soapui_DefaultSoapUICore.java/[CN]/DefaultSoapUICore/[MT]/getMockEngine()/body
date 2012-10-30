@@ -1,4 +1,10 @@
 {
-  if (mockEngine == null)   mockEngine=buildMockEngine();
+  if (mockEngine == null) {
+synchronized (DefaultSoapUICore.class) {
+      if (mockEngine == null) {
+        mockEngine=buildMockEngine();
+      }
+    }
+  }
   return mockEngine;
 }
