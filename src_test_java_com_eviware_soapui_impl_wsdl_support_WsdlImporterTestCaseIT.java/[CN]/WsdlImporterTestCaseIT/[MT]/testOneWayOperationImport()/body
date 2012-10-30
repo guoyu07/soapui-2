@@ -1,6 +1,7 @@
 {
+  replaceInFile("testonewayop/TestService.wsdl","8082","" + getPort());
   WsdlProject project=new WsdlProject();
-  WsdlInterface[] wsdls=WsdlImporter.importWsdl(project,"http://localhost:8082/testonewayop/TestService.wsdl");
+  WsdlInterface[] wsdls=WsdlImporter.importWsdl(project,"http://localhost:" + getPort() + "/testonewayop/TestService.wsdl");
   assertEquals(1,wsdls.length);
   WsdlInterface iface=wsdls[0];
   assertNotNull(iface);
@@ -8,7 +9,7 @@
   WsdlOperation operation=(WsdlOperation)iface.getOperationAt(0);
   assertNotNull(operation);
   assertEquals("GetDefaultPageData",operation.getName());
-  Definition definition=WsdlUtils.readDefinition("http://localhost:8082/testonewayop/TestService.wsdl");
+  Definition definition=WsdlUtils.readDefinition("http://localhost:" + getPort() + "/testonewayop/TestService.wsdl");
   BindingOperation bindingOperation=operation.findBindingOperation(definition);
   assertNotNull(bindingOperation);
   assertEquals(bindingOperation.getName(),operation.getBindingOperationName());

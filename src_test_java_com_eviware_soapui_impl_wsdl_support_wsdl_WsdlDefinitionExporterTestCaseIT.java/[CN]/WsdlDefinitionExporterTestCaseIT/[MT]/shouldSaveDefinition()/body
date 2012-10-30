@@ -1,11 +1,13 @@
 {
-  testLoader("http://localhost:8082/test1/TestService.wsdl");
-  testLoader("http://localhost:8082/test2/TestService.wsdl");
-  testLoader("http://localhost:8082/test3/TestService.wsdl");
-  testLoader("http://localhost:8082/test4/TestService.wsdl");
-  testLoader("http://localhost:8082/test5/TestService.wsdl");
-  testLoader("http://localhost:8082/test6/TestService.wsdl");
-  testLoader("http://localhost:8082/test7/TestService.wsdl");
-  testLoader("http://localhost:8082/test8/TestService.wsdl");
-  testLoader("http://localhost:8082/testonewayop/TestService.wsdl");
+  replaceInFile("test7/TestService.wsdl","8082","" + getPort());
+  replaceInFile("test8/TestService.wsdl","8082","" + getPort());
+  testLoader("http://localhost:" + getPort() + "/test1/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test2/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test3/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test4/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test5/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test6/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test7/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/test8/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/testonewayop/TestService.wsdl");
 }

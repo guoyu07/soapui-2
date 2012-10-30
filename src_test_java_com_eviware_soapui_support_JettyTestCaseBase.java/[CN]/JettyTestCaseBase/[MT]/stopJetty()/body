@@ -1,0 +1,13 @@
+{
+  try {
+    server.stop();
+  }
+  finally {
+    try {
+      FileUtils.deleteDirectory(new File(getResourceBase()));
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
