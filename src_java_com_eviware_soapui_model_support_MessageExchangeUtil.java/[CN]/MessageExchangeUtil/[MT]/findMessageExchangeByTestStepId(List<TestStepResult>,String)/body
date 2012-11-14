@@ -1,5 +1,7 @@
 {
-  for (  TestStepResult tsr : results) {
+  List<TestStepResult> tmpList=Lists.newArrayList(results);
+  Collections.reverse(tmpList);
+  for (  TestStepResult tsr : tmpList) {
     String id=tsr.getTestStep().getId();
     if (id.equals(testStepId) && tsr instanceof MessageExchange)     return (MessageExchange)tsr;
   }
