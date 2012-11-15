@@ -1,9 +1,12 @@
 {
-  if (registeredDrivers.contains(name))   return;
+  if (registeredDrivers.containsKey(name))   return;
   try {
-    Driver d=(Driver)Class.forName(name,true,SoapUI.getSoapUICore().getExtensionClassLoader()).newInstance();
-    DriverManager.registerDriver(new DriverProxy(d));
-    registeredDrivers.add(name);
+synchronized (mutex) {
+      Class driverClass=Class.forName(name,true,SoapUI.getSoapUICore().getExtensionClassLoader());
+      Driver d=(Driver)driverClass.newInstance();
+      DriverManager.registerDriver(new DriverProxy(d));
+    }
+    registeredDrivers.putIfAbsent(name,Boolean.TRUE);
   }
  catch (  Exception e) {
     e.printStackTrace();
