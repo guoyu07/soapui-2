@@ -35,5 +35,9 @@
       }
     }
   }
+  if (original instanceof ExtendedHttpMethod) {
+    ExtendedHttpMethod extendedHttpMethod=(ExtendedHttpMethod)original;
+    extendedHttpMethod.afterReadResponse(((SoapUIMultiThreadedHttpConnectionManager.SoapUIBasicPooledConnAdapter)conn).getSSLSession());
+  }
   return response;
 }
