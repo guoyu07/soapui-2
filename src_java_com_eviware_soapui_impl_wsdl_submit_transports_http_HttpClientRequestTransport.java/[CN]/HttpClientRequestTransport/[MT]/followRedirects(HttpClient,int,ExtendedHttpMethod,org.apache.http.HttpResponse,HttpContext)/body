@@ -1,6 +1,5 @@
 {
   ExtendedGetMethod getMethod=new ExtendedGetMethod();
-  for (  Header header : httpMethod.getAllHeaders())   getMethod.addHeader(header);
   getMethod.getMetrics().getTotalTimer().set(httpMethod.getMetrics().getTotalTimer().getStart(),httpMethod.getMetrics().getTotalTimer().getStop());
   getMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
   captureMetrics(httpMethod,httpClient);
@@ -12,10 +11,11 @@
   if (isRedirectResponse(response.getStatusLine().getStatusCode())) {
     if (redirectCount == 10)     throw new Exception("Maximum number of Redirects reached [10]");
     try {
-      return followRedirects(httpClient,redirectCount + 1,getMethod,response,httpContext);
+      getMethod=followRedirects(httpClient,redirectCount + 1,getMethod,response,httpContext);
     }
   finally {
     }
   }
- else   return getMethod;
+  for (  Header header : httpMethod.getAllHeaders())   getMethod.addHeader(header);
+  return getMethod;
 }
