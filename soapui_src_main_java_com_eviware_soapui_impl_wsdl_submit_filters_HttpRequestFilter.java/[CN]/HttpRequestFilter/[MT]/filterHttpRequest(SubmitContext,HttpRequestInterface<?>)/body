@@ -2,6 +2,7 @@
   HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   String path=PropertyExpander.expandProperties(context,request.getPath());
   StringBuffer query=new StringBuffer();
+  String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(request.getEncoding()));
   StringToStringMap responseProperties=(StringToStringMap)context.getProperty(BaseHttpRequestTransport.RESPONSE_PROPERTIES);
   MimeMultipart formMp="multipart/form-data".equals(request.getMediaType()) && httpMethod instanceof HttpEntityEnclosingRequestBase ? new MimeMultipart() : null;
   RestParamsPropertyHolder params=request.getParams();
@@ -12,7 +13,6 @@
     List<String> valueParts=sendEmptyParameters(request) || (!StringUtils.hasContent(value) && param.getRequired()) ? RestUtils.splitMultipleParametersEmptyIncluded(value,request.getMultiValueDelimiter()) : RestUtils.splitMultipleParameters(value,request.getMultiValueDelimiter());
     if (value != null && param.getStyle() != ParameterStyle.HEADER && param.getStyle() != ParameterStyle.TEMPLATE && !param.isDisableUrlEncoding()) {
       try {
-        String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
         if (StringUtils.hasContent(encoding)) {
           value=URLEncoder.encode(value,encoding);
           for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i),encoding));
@@ -56,7 +56,13 @@ case QUERY:
   }
 break;
 case TEMPLATE:
+try {
 path=path.replaceAll("\\{" + param.getName() + "\\}",value == null ? "" : value);
+path=getPathAccordingToSettings(path,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
+}
+ catch (UnsupportedEncodingException e) {
+SoapUI.logError(e);
+}
 break;
 case MATRIX:
 if (param.getType().equals(XmlBoolean.type.getName())) {
@@ -69,6 +75,12 @@ path+=";" + param.getName();
 if (StringUtils.hasContent(value)) {
 path+="=" + value;
 }
+}
+try {
+path=getPathAccordingToSettings(path,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
+}
+ catch (UnsupportedEncodingException e) {
+SoapUI.logError(e);
 }
 case PLAIN:
 break;
@@ -89,7 +101,7 @@ SoapUI.logError(e);
  else if (StringUtils.hasContent(path)) {
 try {
 java.net.URI oldUri=httpMethod.getURI();
-String pathToSet=StringUtils.hasContent(oldUri.getPath()) && !"/".equals(oldUri.getPath()) ? oldUri.getPath() + path : path;
+String pathToSet=StringUtils.hasContent(oldUri.getRawPath()) && !"/".equals(oldUri.getRawPath()) ? oldUri.getRawPath() + path : path;
 java.net.URI newUri=URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),pathToSet,oldUri.getQuery(),oldUri.getFragment());
 httpMethod.setURI(newUri);
 context.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(newUri.toString(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS)));
@@ -101,7 +113,7 @@ SoapUI.logError(e);
 if (query.length() > 0 && !request.isPostQueryString()) {
 try {
 java.net.URI oldUri=httpMethod.getURI();
-httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),oldUri.getPath(),query.toString(),oldUri.getFragment()));
+httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),oldUri.getRawPath(),query.toString(),oldUri.getFragment()));
 }
  catch (Exception e) {
 SoapUI.logError(e);
@@ -113,7 +125,6 @@ if (StringUtils.hasContent(acceptEncoding)) {
 httpMethod.setHeader("Accept",acceptEncoding);
 }
 }
-String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(request.getEncoding()));
 if (formMp != null) {
 try {
 if (request.hasRequestBody() && httpMethod instanceof HttpEntityEnclosingRequest) {
