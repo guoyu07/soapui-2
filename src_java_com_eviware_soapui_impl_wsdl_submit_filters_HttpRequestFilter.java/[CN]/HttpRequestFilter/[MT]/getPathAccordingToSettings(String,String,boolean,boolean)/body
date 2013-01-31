@@ -1,0 +1,14 @@
+{
+  if (!StringUtils.hasContent(encoding)) {
+    encoding=System.getProperty("file.encoding");
+  }
+  if (isAlreadyEncoded(path,encoding)) {
+    return path;
+  }
+  if (isDisableUrlEncoding || isPreEncoded) {
+    return path;
+  }
+ else {
+    return URLEncoder.encode(path,encoding);
+  }
+}
