@@ -3,9 +3,14 @@
     loaded=definitionCache.containsKey(url);
   }
   if (loaded)   return true;
-  XProgressDialog progressDialog=UISupport.getDialogs().createProgressDialog("Loading Definition",3,"Loading definition..",true);
   Loader loader=new Loader(wsdlLoader);
-  progressDialog.run(loader);
+  if (progressDialog != null) {
+    progressDialog.run(loader);
+  }
+ else {
+    progressDialog=UISupport.getDialogs().createProgressDialog("Loading Definition",3,"Loading definition..",true);
+    progressDialog.run(loader);
+  }
   if (loader.hasError()) {
     if (loader.getError() instanceof InvalidDefinitionException)     throw (InvalidDefinitionException)loader.getError();
     if (loader.getError() instanceof SchemaException) {
