@@ -1,3 +1,9 @@
 {
-  return super.canAssert(assertable) && assertable.getInterface() instanceof AbstractInterface && ((AbstractInterface<?>)assertable.getInterface()).getDefinitionContext().hasSchemaTypes();
+  try {
+    return super.canAssert(assertable) && assertable.getInterface() instanceof AbstractInterface && ((AbstractInterface<?>)assertable.getInterface()).getDefinitionContext().hasSchemaTypes();
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+    return false;
+  }
 }

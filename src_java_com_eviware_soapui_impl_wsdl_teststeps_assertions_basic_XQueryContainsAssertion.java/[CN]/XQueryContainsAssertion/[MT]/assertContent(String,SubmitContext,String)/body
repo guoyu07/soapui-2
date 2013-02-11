@@ -32,13 +32,18 @@ case Node.ELEMENT_NODE:
             if (allowWildcards)             Tools.assertSimilar(expandedContent,expandedValue,'*');
  else             XMLAssert.assertEquals(expandedContent,expandedValue);
           break;
-case Node.ATTRIBUTE_NODE:
-        expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+case Node.DOCUMENT_NODE:
+        expandedValue=PropertyExpander.expandProperties(context,XmlUtils.getElementText(((Document)domNode).getDocumentElement()));
       if (allowWildcards)       Tools.assertSimilar(expandedContent,expandedValue,'*');
  else       XMLAssert.assertEquals(expandedContent,expandedValue);
     break;
-default :
+case Node.ATTRIBUTE_NODE:
   expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
+if (allowWildcards) Tools.assertSimilar(expandedContent,expandedValue,'*');
+ else XMLAssert.assertEquals(expandedContent,expandedValue);
+break;
+default :
+expandedValue=PropertyExpander.expandProperties(context,domNode.getNodeValue());
 XMLAssert.assertEquals(expandedContent,expandedValue);
 break;
 }
