@@ -1,0 +1,26 @@
+{
+  final ExtendedPostMethod post=new ExtendedPostMethod();
+  post.setURI(new URI(UPLOAD_URI));
+  String locationCode=location.getCode();
+  String encodedTestSuiteName=getBase64EncodedString(testCase.getTestSuite().getName().getBytes());
+  String encodedTestCaseName=getBase64EncodedString(testCase.getName().getBytes());
+  File tempProjectFile=saveTemporaryProject(testCase.getTestSuite().getProject());
+  byte[] projectFileData=getBytes(tempProjectFile.getAbsolutePath());
+  byte[] zipedProjectFileData=zipBytes(testCase.getTestSuite().getProject().getName(),projectFileData);
+  String encodedZipedProjectFile=getBase64EncodedString(zipedProjectFileData);
+  String projectPassword=testCase.getTestSuite().getProject().getShadowPassword();
+  String encodedProjectPassword=getBase64EncodedString(Strings.nullToEmpty(projectPassword).getBytes());
+  String keystoreFilePath=SoapUI.getSettings().getString(SSLSettings.KEYSTORE,"");
+  byte[] keystoreFileData=getBytes(keystoreFilePath);
+  String encodedKeystoreFile=getBase64EncodedString(keystoreFileData);
+  String encodedKeystorePassword=getBase64EncodedString(SoapUI.getSettings().getString(SSLSettings.KEYSTORE_PASSWORD,"").getBytes());
+  String requestContent=generateUploadRequestXML(locationCode,encodedTestSuiteName,encodedTestCaseName,encodedZipedProjectFile,encodedProjectPassword,encodedKeystoreFile,encodedKeystorePassword);
+  byte[] compressedRequestContent=CompressionSupport.compress(CompressionSupport.ALG_GZIP,requestContent.getBytes());
+  post.setEntity(new ByteArrayEntity(compressedRequestContent));
+  Document responseDocument=makeCall(UPLOAD_URI,requestContent);
+  String redirectURL=(String)xpath.evaluate(REDIRECT_URL_XPATH_EXPRESSION,responseDocument,XPathConstants.STRING);
+  if (Strings.isNullOrEmpty(redirectURL)) {
+    throw new RuntimeException("The RedirectURL element is missing in the response message");
+  }
+  return redirectURL;
+}

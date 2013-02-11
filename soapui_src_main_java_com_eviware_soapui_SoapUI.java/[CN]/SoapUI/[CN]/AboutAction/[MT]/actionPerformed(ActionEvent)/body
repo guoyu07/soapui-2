@@ -1,0 +1,17 @@
+{
+  URI splashURI=null;
+  try {
+    splashURI=UISupport.findSplash(SoapUI.SOAPUI_SPLASH).toURI();
+  }
+ catch (  URISyntaxException e1) {
+    SoapUI.logError(e1);
+  }
+  Properties buildInfoProperties=new Properties();
+  try {
+    buildInfoProperties.load(SoapUI.class.getResourceAsStream(BUILDINFO_PROPERTIES));
+  }
+ catch (  Exception exception) {
+    SoapUI.logError(exception,"Could not read build info properties");
+  }
+  UISupport.showExtendedInfo("About soapUI",null,"<html><body><p align=center> <font face=\"Verdana,Arial,Helvetica\"><strong><img src=\"" + splashURI + "\"><br>soapUI "+ SOAPUI_VERSION+ "<br>"+ "Copyright (C) "+ COPYRIGHT+ "<br>"+ "<a href=\""+ SOAPUI_WEBSITE+ "\">"+ SOAPUI_WEBSITE+ "</a> | "+ "<a href=\""+ SMARTBEAR_WEBSITE+ "\">"+ SMARTBEAR_WEBSITE+ "</a><br>"+ "Build Date: "+ Objects.firstNonNull(buildInfoProperties.getProperty("build.date"),"UNKNOWN BUILD DATE")+ "</strong></font></p></body></html>",new Dimension(470,375));
+}

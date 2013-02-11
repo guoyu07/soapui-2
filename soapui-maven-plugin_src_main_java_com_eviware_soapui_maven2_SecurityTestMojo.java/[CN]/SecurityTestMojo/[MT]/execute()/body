@@ -1,0 +1,39 @@
+{
+  if (skip || System.getProperty("maven.test.skip","false").equals("true"))   return;
+  if (projectFile == null) {
+    throw new MojoExecutionException("soapui-project-file setting is required");
+  }
+  SoapUISecurityTestRunner runner=new SoapUISecurityTestRunner("soapUI " + SoapUI.SOAPUI_VERSION + " Maven2 Security Test Runner");
+  runner.setProjectFile(projectFile);
+  if (endpoint != null)   runner.setEndpoint(endpoint);
+  if (testSuite != null)   runner.setTestSuite(testSuite);
+  if (testCase != null)   runner.setTestCase(testCase);
+  if (username != null)   runner.setUsername(username);
+  if (password != null)   runner.setPassword(password);
+  if (wssPasswordType != null)   runner.setWssPasswordType(wssPasswordType);
+  if (domain != null)   runner.setDomain(domain);
+  if (host != null)   runner.setHost(host);
+  if (outputFolder != null)   runner.setOutputFolder(outputFolder);
+  runner.setPrintReport(printReport);
+  runner.setExportAll(exportAll);
+  runner.setJUnitReport(junitReport);
+  runner.setEnableUI(interactive);
+  runner.setIgnoreError(testFailIgnore);
+  runner.setSaveAfterRun(saveAfterRun);
+  if (settingsFile != null)   runner.setSettingsFile(settingsFile);
+  if (projectPassword != null)   runner.setProjectPassword(projectPassword);
+  if (settingsPassword != null)   runner.setSoapUISettingsPassword(settingsPassword);
+  if (globalProperties != null)   runner.setGlobalProperties(globalProperties);
+  if (projectProperties != null)   runner.setProjectProperties(projectProperties);
+  if (soapuiProperties != null && soapuiProperties.size() > 0)   for (  Object key : soapuiProperties.keySet()) {
+    System.setProperty((String)key,soapuiProperties.getProperty((String)key));
+  }
+  if (securityTest != null && securityTest.length() > 0)   runner.setSecurityTestName(securityTest);
+  try {
+    runner.run();
+  }
+ catch (  Exception e) {
+    getLog().error(e.toString());
+    throw new MojoFailureException(this,"SoapUI Test(s) failed",e.getMessage());
+  }
+}

@@ -1,0 +1,16 @@
+{
+  port=PORT.getAndIncrement();
+  resourceBase=Files.createTempDir().getAbsolutePath();
+  try {
+    FileUtils.copyDirectory(new File("." + File.separator + "src"+ File.separator+ "test"+ File.separator+ "resources"),new File(resourceBase));
+  }
+ catch (  IOException e) {
+    throw new IllegalStateException(e);
+  }
+  ResourceHandler resource_handler=new ResourceHandler();
+  resource_handler.setResourceBase(resourceBase);
+  this.server=new Server(port);
+  HandlerList handlers=new HandlerList();
+  handlers.setHandlers(new Handler[]{resource_handler,new DefaultHandler()});
+  this.server.setHandler(handlers);
+}

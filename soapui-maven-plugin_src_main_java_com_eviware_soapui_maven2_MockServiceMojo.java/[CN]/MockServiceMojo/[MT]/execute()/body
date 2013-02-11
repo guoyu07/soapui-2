@@ -1,0 +1,29 @@
+{
+  if (skip || System.getProperty("maven.test.skip","false").equals("true"))   return;
+  if (projectFile == null) {
+    throw new MojoExecutionException("soapui-project-file setting is required");
+  }
+  SoapUIMockServiceRunner runner=new SoapUIMockServiceRunner("soapUI " + SoapUI.SOAPUI_VERSION + " Maven2 MockService Runner");
+  runner.setProjectFile(projectFile);
+  if (mockService != null)   runner.setMockService(mockService);
+  if (path != null)   runner.setPath(path);
+  if (port != null)   runner.setPort(port);
+  if (settingsFile != null)   runner.setSettingsFile(settingsFile);
+  runner.setBlock(!noBlock);
+  runner.setSaveAfterRun(saveAfterRun);
+  if (projectPassword != null)   runner.setProjectPassword(projectPassword);
+  if (settingsPassword != null)   runner.setSoapUISettingsPassword(settingsPassword);
+  if (globalProperties != null)   runner.setGlobalProperties(globalProperties);
+  if (projectProperties != null)   runner.setProjectProperties(projectProperties);
+  if (soapuiProperties != null && soapuiProperties.size() > 0)   for (  Object key : soapuiProperties.keySet()) {
+    System.out.println("Setting " + (String)key + " value "+ soapuiProperties.getProperty((String)key));
+    System.setProperty((String)key,soapuiProperties.getProperty((String)key));
+  }
+  try {
+    runner.run();
+  }
+ catch (  Exception e) {
+    getLog().error(e.toString());
+    throw new MojoFailureException(this,"SoapUI MockService(s) failed",e.getMessage());
+  }
+}
