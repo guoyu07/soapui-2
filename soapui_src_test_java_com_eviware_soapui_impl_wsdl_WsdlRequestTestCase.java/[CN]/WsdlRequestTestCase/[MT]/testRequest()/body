@@ -1,0 +1,13 @@
+{
+  replaceInFile("test1/TestService.wsdl","8082","" + getPort());
+  replaceInFile("test1/TestService.wsdl","www.eviware.com","localhost:" + getPort());
+  WsdlProject project=new WsdlProject();
+  WsdlInterface iface=WsdlInterfaceFactory.importWsdl(project,"http://localhost:" + getPort() + "/test1/TestService.wsdl",true)[0];
+  WsdlOperation operation=(WsdlOperation)iface.getOperationByName("GetPage");
+  WsdlRequest request=operation.addNewRequest("My request");
+  request.setRequestContent(operation.createRequest(true));
+  WsdlSubmit submit=(WsdlSubmit)request.submit(new WsdlSubmitContext(request),false);
+  Response response=submit.getResponse();
+  String content=response.getContentAsString();
+  assertNotNull(content);
+}

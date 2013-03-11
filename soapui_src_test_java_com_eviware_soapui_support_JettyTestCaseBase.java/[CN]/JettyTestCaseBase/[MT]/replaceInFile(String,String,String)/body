@@ -1,0 +1,6 @@
+{
+  File wsdlFile=new File(getResourceBase(),fileName);
+  String wsdl=Files.toString(wsdlFile,Charset.forName("UTF-8"));
+  wsdl=wsdl.replace(from,to);
+  Files.write(wsdl,wsdlFile,Charset.forName("UTF-8"));
+}
