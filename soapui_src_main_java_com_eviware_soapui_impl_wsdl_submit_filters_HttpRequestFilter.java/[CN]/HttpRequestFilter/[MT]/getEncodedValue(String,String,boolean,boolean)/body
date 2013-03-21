@@ -1,0 +1,15 @@
+{
+  if (!StringUtils.hasContent(encoding)) {
+    encoding=System.getProperty("file.encoding");
+  }
+  if (isAlreadyEncoded(value,encoding)) {
+    return value;
+  }
+ else   if (isDisableUrlEncoding || isPreEncoded) {
+    return value;
+  }
+ else {
+    String encodedValue=URLEncoder.encode(value,encoding);
+    return encodedValue.replaceAll("\\+","%20");
+  }
+}

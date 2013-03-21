@@ -57,7 +57,7 @@ case QUERY:
 break;
 case TEMPLATE:
 try {
-value=encodeAccordingToSettings(value,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
+value=getEncodedValue(value,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
 path=path.replaceAll("\\{" + param.getName() + "\\}",value == null ? "" : value);
 }
  catch (UnsupportedEncodingException e) {
@@ -66,7 +66,7 @@ SoapUI.logError(e);
 break;
 case MATRIX:
 try {
-value=encodeAccordingToSettings(value,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
+value=getEncodedValue(value,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
 }
  catch (UnsupportedEncodingException e) {
 SoapUI.logError(e);
