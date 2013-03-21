@@ -5,10 +5,11 @@
   if (isAlreadyEncoded(path,encoding)) {
     return path;
   }
-  if (isDisableUrlEncoding || isPreEncoded) {
+ else   if (isDisableUrlEncoding || isPreEncoded) {
     return path;
   }
  else {
-    return URLEncoder.encode(path,encoding);
+    String encodedPath=URLEncoder.encode(path,encoding);
+    return encodedPath.replaceAll("\\+","%20");
   }
 }
