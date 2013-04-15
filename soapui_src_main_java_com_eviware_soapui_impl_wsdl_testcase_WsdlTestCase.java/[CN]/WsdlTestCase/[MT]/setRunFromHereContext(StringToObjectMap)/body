@@ -1,3 +1,5 @@
 {
-  this.runFromHereContext=new StringToObjectMap(runFromHereContext);
+  if (!isForLoadTest()) {
+    this.runFromHereContext=new StringToObjectMap(runFromHereContext);
+  }
 }
