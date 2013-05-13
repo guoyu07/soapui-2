@@ -1,9 +1,9 @@
 {
   try {
-    if (Tools.isMacLion()) {
+    if (Tools.isMac()) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       getSettings().setBoolean(UISettings.NATIVE_LAF,true);
-      log.info("Forcing Native L&F for mac OSX Lion!");
+      log.info("Defaulting to native L&F for Mac OS X");
     }
  else     if (!SoapUI.isJXBrowserDisabled(true) && PlatformContext.isMacOS()) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
