@@ -1,4 +1,4 @@
 {
-  if ((getInterface() != null && getInterface().isGenerated()) || StringUtils.isNullOrEmpty(url))   return new GeneratedWadlDefinitionLoader(getInterface());
+  if ((getInterface() != null && getInterface().isGenerated()) || StringUtils.isNullOrEmpty(url) || getInterface().exportChanges())   return new GeneratedWadlDefinitionLoader(getInterface());
  else   return new UrlWsdlLoader(url,getInterface());
 }
