@@ -1,0 +1,14 @@
+{
+  WsdlInterface[] results=WsdlInterfaceFactory.importWsdl(project,url,dialog.getValue(Form.CREATEREQUEST).equals("true"));
+  for (  WsdlInterface iface : results) {
+    UISupport.select(iface);
+    if (dialog.getBooleanValue(Form.GENERATETESTSUITE)) {
+      GenerateWsdlTestSuiteAction generateTestSuiteAction=new GenerateWsdlTestSuiteAction();
+      generateTestSuiteAction.generateTestSuite(iface,true);
+    }
+    if (dialog.getBooleanValue(Form.GENERATEMOCKSERVICE)) {
+      GenerateMockServiceAction generateMockAction=new GenerateMockServiceAction();
+      generateMockAction.generateMockService(iface,false);
+    }
+  }
+}
