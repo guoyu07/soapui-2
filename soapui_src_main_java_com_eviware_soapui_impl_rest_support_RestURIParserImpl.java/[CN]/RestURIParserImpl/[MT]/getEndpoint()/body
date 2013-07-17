@@ -1,4 +1,15 @@
 {
-  String endpoint=uri.getScheme() + HTTP_SCHEME_SEPARATOR + uri.getAuthority();
+  String scheme=uri.getScheme();
+  String authority=uri.getAuthority();
+  String endpoint;
+  if (authority == null) {
+    endpoint="";
+  }
+ else   if (scheme == null) {
+    endpoint=DEFAULT_SCHEME + SCHEME_SEPARATOR + authority;
+  }
+ else {
+    endpoint=uri.getScheme() + SCHEME_SEPARATOR + uri.getAuthority();
+  }
   return endpoint;
 }

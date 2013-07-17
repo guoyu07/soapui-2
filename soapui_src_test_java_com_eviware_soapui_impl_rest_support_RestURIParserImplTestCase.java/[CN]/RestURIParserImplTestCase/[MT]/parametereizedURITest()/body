@@ -1,9 +1,9 @@
 {
-  String uri="http://service.com/api/1.2/json/search/search?title=Kill%20me";
-  String expectedEndpoint="http://service.com";
-  String expectedPath="/api/1.2/json/search/search";
-  String expectedResourceName="Search";
-  String expectedParams="title=Kill me";
+  String uri="/conversation/date/{date}/time/{time}/?userId=1234";
+  String expectedEndpoint="";
+  String expectedPath="/conversation/date/{date}/time/{time}";
+  String expectedResourceName="Time";
+  String expectedParams="userId=1234";
   restURIParser=new RestURIParserImpl(uri);
   assertEquals(expectedEndpoint,restURIParser.getEndpoint());
   assertEquals(expectedPath,restURIParser.getPath());
