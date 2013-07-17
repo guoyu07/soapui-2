@@ -1,0 +1,6 @@
+{
+  String[] splitResourcePath=uri.getPath().split("/");
+  String resourceName=splitResourcePath[splitResourcePath.length - 1];
+  String capitalizedResourceName=resourceName.substring(0,1).toUpperCase() + resourceName.substring(1);
+  return capitalizedResourceName;
+}
