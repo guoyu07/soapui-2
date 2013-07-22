@@ -4,5 +4,6 @@
   String expectedPath="/conversation/date/{date}/time/{time}";
   String expectedResourceName="Time";
   String expectedQuery="userId=1234";
-  assertURIParsedCorrectly(uri,expectedEndpoint,expectedPath,expectedResourceName,expectedQuery);
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
 }
