@@ -4,9 +4,5 @@
   String expectedPath="/rest";
   String expectedResourceName="Rest";
   String expectedParams="";
-  restURIParser=new RestURIParserImpl(uri);
-  assertEquals(expectedEndpoint,restURIParser.getEndpoint());
-  assertEquals(expectedPath,restURIParser.getPath());
-  assertEquals(expectedResourceName,restURIParser.getResourceName());
-  assertEquals(expectedParams,"");
+  assertURIParsedCorrectly(uri,expectedEndpoint,expectedPath,expectedResourceName,expectedParams);
 }

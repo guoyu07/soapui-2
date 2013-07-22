@@ -4,9 +4,5 @@
   String expectedPath="/abc";
   String expectedResourceName="Abc";
   String expectedParams="book=15;column=12";
-  restURIParser=new RestURIParserImpl(uri);
-  assertEquals(expectedEndpoint,restURIParser.getEndpoint());
-  assertEquals(expectedPath,restURIParser.getPath());
-  assertEquals(expectedResourceName,restURIParser.getResourceName());
-  assertEquals(expectedParams,restURIParser.getParams());
+  assertURIParsedCorrectly(uri,expectedEndpoint,expectedPath,expectedResourceName,expectedParams);
 }
