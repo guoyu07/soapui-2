@@ -4,5 +4,6 @@
   String expectedPath="/1.2/json.search/search";
   String expectedResourceName="Search";
   String expectedQuery="title=Kill me";
-  assertURIParsedCorrectly(uri,expectedEndpoint,expectedPath,expectedResourceName,expectedQuery);
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
 }

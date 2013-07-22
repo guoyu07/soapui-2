@@ -4,5 +4,6 @@
   String expectedPath="/books/ISBN-5012359";
   String expectedResourceName="ISBN-5012359";
   String expectedQuery="";
-  assertURIParsedCorrectly(uri,expectedEndpoint,expectedPath,expectedResourceName,expectedQuery);
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
 }
