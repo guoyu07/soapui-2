@@ -10,12 +10,12 @@
     JLabel endPointLabel=new JLabel("Endpoint");
     endpointPanel.add(endpointCombo,BorderLayout.NORTH);
     endpointPanel.add(endPointLabel,BorderLayout.SOUTH);
-    JComponent resourcePanel=createPanelWithLabelAtBottom("Resource");
-    JComponent queryPanel=createPanelWithLabelAtBottom("Query");
     String path=getRequest().getResource().getPath();
-    ((JTextField)resourcePanel.getComponent(0)).setText(path);
+    resourcePanel=new TextPanelWithBottomLabel("Resource",path);
+    resourcePanel.addPropertyChangeListener(this);
     String query=RestUtils.getQueryParamsString(getRequest().getParams(),getRequest());
-    ((JTextField)queryPanel.getComponent(0)).setText(query);
+    queryPanel=new TextPanelWithBottomLabel("Query",query);
+    queryPanel.addPropertyChangeListener(this);
     baseToolBar.add(submitButton);
     baseToolBar.add(endpointPanel);
     baseToolBar.add(resourcePanel);

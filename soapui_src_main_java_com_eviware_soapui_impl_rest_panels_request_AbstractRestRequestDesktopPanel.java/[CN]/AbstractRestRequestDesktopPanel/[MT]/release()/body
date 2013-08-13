@@ -3,6 +3,8 @@
     getRequest().getResource().removePropertyChangeListener(this);
   }
   getRequest().removeTestPropertyListener(testPropertyListener);
+  resourcePanel.removePropertyChangeListener(this);
+  queryPanel.removePropertyChangeListener(this);
   for (  TestProperty param : getRequest().getParams().getProperties().values()) {
     ((RestParamProperty)param).removePropertyChangeListener(restParamPropertyChangeListener);
   }
