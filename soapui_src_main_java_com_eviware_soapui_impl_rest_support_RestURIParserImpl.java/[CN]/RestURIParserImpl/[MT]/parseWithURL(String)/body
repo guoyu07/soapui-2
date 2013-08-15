@@ -1,0 +1,13 @@
+{
+  URL uri=null;
+  try {
+    uri=new URL(uriString);
+    resourcePath=(uri.getPath() == null ? "" : uri.getPath());
+    query=(uri.getQuery() == null ? "" : uri.getQuery());
+    scheme=(uri.getProtocol() == null ? "" : uri.getProtocol());
+    authority=(uri.getAuthority() == null ? "" : uri.getAuthority());
+  }
+ catch (  MalformedURLException e) {
+    parseManually(uriString);
+  }
+}

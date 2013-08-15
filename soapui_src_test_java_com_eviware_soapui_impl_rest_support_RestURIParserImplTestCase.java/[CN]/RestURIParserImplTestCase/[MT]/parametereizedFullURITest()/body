@@ -1,0 +1,9 @@
+{
+  String uri="http://servo.com/conversation/date/{date}/time/{time}/?userId=1234";
+  String expectedEndpoint="http://servo.com";
+  String expectedPath="/conversation/date/{date}/time/{time}";
+  String expectedResourceName="Time";
+  String expectedQuery="userId=1234";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

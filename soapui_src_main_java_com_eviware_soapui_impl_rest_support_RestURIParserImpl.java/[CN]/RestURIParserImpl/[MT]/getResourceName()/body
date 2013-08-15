@@ -1,8 +1,9 @@
 {
-  String path=getPath();
+  String path=getResourcePath();
   if (path.isEmpty())   return path;
   String[] splitResourcePath=path.split("/");
   String resourceName=splitResourcePath[splitResourcePath.length - 1];
+  resourceName=resourceName.replaceAll("^\\{|\\}$","");
   String capitalizedResourceName=resourceName.substring(0,1).toUpperCase() + resourceName.substring(1);
   return capitalizedResourceName;
 }

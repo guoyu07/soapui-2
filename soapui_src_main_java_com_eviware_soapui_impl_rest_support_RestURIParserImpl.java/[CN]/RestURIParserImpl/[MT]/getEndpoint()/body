@@ -1,11 +1,9 @@
 {
-  String scheme=uri.getScheme();
-  String authority=uri.getAuthority();
   String endpoint;
-  if (authority == null) {
+  if (authority.isEmpty()) {
     endpoint="";
   }
- else   if (scheme == null) {
+ else   if (scheme.isEmpty()) {
     endpoint=DEFAULT_SCHEME + SCHEME_SEPARATOR + authority;
   }
  else {

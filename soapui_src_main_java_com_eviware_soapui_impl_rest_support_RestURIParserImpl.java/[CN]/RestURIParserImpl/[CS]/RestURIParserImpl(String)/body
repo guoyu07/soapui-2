@@ -1,3 +1,9 @@
 {
-  this.uri=new URI(uri);
+  if (uriString == null || uriString.isEmpty())   throw new MalformedURLException("Empty URI");
+  try {
+    parseWithURI(uriString);
+  }
+ catch (  URISyntaxException e) {
+    parseWithURL(uriString);
+  }
 }
