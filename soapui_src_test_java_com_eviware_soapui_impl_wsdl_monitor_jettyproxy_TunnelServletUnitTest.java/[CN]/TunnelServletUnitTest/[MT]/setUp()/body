@@ -1,0 +1,7 @@
+{
+  monitor=Mockito.mock(SoapMonitor.class);
+  WsdlProject project=Mockito.mock(WsdlProject.class);
+  XmlBeansSettingsImpl settings=Mockito.mock(XmlBeansSettingsImpl.class);
+  Mockito.when(project.getSettings()).thenReturn(settings);
+  Mockito.when(monitor.getProject()).thenReturn(project);
+}
