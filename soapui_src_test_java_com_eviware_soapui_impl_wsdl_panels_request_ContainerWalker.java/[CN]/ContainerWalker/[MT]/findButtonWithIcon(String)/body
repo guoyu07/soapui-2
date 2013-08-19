@@ -1,0 +1,12 @@
+{
+  for (  Component component : containedComponents) {
+    if (component instanceof AbstractButton) {
+      AbstractButton button=(AbstractButton)component;
+      System.out.println(button);
+      if (String.valueOf(button.getIcon()).endsWith(iconFile)) {
+        return button;
+      }
+    }
+  }
+  throw new NoSuchElementException("No button found with icon file " + iconFile);
+}
