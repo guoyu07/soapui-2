@@ -1,0 +1,12 @@
+{
+  if (System.getProperty("os.name").contains("Mac")) {
+    desktop.addDesktopListener(new DesktopListenerAdapter(){
+      @Override public void desktopPanelCreated(      DesktopPanel desktopPanel){
+        if (desktopPanel != urlDesktopPanel && urlDesktopPanel != null) {
+          desktop.closeDesktopPanel(urlDesktopPanel);
+        }
+      }
+    }
+);
+  }
+}
