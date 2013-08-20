@@ -15,6 +15,6 @@
   httpClient=new SoapUIHttpClient(connectionManager);
   httpClient.addRequestInterceptor(new HeaderRequestInterceptor(),httpClient.getRequestInterceptorCount());
   httpClient.getAuthSchemes().register(AuthPolicy.NTLM,new NTLMSchemeFactory());
-  httpClient.getAuthSchemes().register(AuthPolicy.SPNEGO,new NTLMSchemeFactory());
+  httpClient.getAuthSchemes().register(AuthPolicy.SPNEGO,new NegotiateSchemeFactory(null,true));
   settings.addSettingsListener(new SSLSettingsListener());
 }
