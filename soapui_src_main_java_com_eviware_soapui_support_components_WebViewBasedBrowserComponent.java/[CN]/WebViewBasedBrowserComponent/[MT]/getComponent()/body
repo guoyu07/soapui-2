@@ -1,0 +1,24 @@
+{
+  if (webView == null) {
+    if (addStatusBar) {
+      JPanel statusBar=new JPanel(new BorderLayout());
+      JLabel statusLabel=new JLabel();
+      UISupport.setFixedSize(statusBar,new Dimension(20,20));
+      statusBar.add(statusLabel,BorderLayout.WEST);
+      panel.add(statusBar,BorderLayout.SOUTH);
+    }
+    final JFXPanel browserPanel=new JFXPanel();
+    panel.add(browserPanel,BorderLayout.CENTER);
+    Platform.runLater(new Runnable(){
+      public void run(){
+        webView=new WebView();
+        Group jfxComponentGroup=new Group();
+        Scene scene=new Scene(jfxComponentGroup);
+        jfxComponentGroup.getChildren().add(webView);
+        browserPanel.setScene(scene);
+      }
+    }
+);
+  }
+  return panel;
+}
