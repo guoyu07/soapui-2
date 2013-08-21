@@ -3,8 +3,15 @@
     JComponent baseToolBar=UISupport.createToolbar();
     baseToolBar.setPreferredSize(new Dimension(600,45));
     JComponent submitButton=super.getSubmitButton();
+    JPanel methodPanel=new JPanel(new BorderLayout());
+    methodPanel.setMinimumSize(new Dimension(150,45));
+    methodComboBox=new JComboBox<RequestMethod>(RequestMethod.values());
+    methodComboBox.setSelectedItem(getRequest().getMethod());
+    JLabel methodLabel=new JLabel("Method");
+    methodPanel.add(methodComboBox,BorderLayout.NORTH);
+    methodPanel.add(methodLabel,BorderLayout.SOUTH);
     JPanel endpointPanel=new JPanel(new BorderLayout());
-    endpointPanel.setMinimumSize(new Dimension(150,45));
+    endpointPanel.setMinimumSize(new Dimension(75,45));
     JComponent endpointCombo=super.buildEndpointComponent();
     super.setEndpointComponent(endpointCombo);
     JLabel endPointLabel=new JLabel("Endpoint");
@@ -17,6 +24,7 @@
     queryPanel=new TextPanelWithBottomLabel("Query",query);
     queryPanel.addPropertyChangeListener(this);
     baseToolBar.add(submitButton);
+    baseToolBar.add(methodPanel);
     baseToolBar.add(endpointPanel);
     baseToolBar.add(resourcePanel);
     baseToolBar.add(queryPanel);
