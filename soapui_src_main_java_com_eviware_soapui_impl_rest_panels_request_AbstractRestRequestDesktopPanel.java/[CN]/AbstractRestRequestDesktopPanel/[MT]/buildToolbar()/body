@@ -5,8 +5,7 @@
     JComponent submitButton=super.getSubmitButton();
     JPanel methodPanel=new JPanel(new BorderLayout());
     methodPanel.setMinimumSize(new Dimension(150,45));
-    methodComboBox=new JComboBox<RequestMethod>(RequestMethod.values());
-    methodComboBox.setSelectedItem(getRequest().getMethod());
+    methodComboBox=new JComboBox<RequestMethod>(new RestRequestMethodModel(getRequest()));
     JLabel methodLabel=new JLabel("Method");
     methodPanel.add(methodComboBox,BorderLayout.NORTH);
     methodPanel.add(methodLabel,BorderLayout.SOUTH);
