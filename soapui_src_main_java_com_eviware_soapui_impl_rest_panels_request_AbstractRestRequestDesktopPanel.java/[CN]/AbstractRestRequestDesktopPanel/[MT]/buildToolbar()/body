@@ -4,8 +4,9 @@
     baseToolBar.setPreferredSize(new Dimension(600,45));
     JComponent submitButton=super.getSubmitButton();
     JPanel methodPanel=new JPanel(new BorderLayout());
-    methodPanel.setMinimumSize(new Dimension(150,45));
+    methodPanel.setMaximumSize(new Dimension(75,45));
     methodComboBox=new JComboBox<RequestMethod>(new RestRequestMethodModel(getRequest()));
+    methodComboBox.setSelectedItem(getRequest().getMethod());
     JLabel methodLabel=new JLabel("Method");
     methodPanel.add(methodComboBox,BorderLayout.NORTH);
     methodPanel.add(methodLabel,BorderLayout.SOUTH);
