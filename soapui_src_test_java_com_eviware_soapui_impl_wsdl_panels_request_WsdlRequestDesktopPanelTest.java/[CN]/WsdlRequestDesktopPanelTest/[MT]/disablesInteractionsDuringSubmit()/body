@@ -1,7 +1,7 @@
 {
   Submit submit=makeSubmitMockWithRequest();
   desktopPanel.beforeSubmit(submit,mock(SubmitContext.class));
-  assertFalse("Should disable Submit button",desktopPanel.getSubmitButton().isEnabled());
-  assertFalse("Should disable Create empty button",containerWalker.findButtonWithIcon("create_empty_request.gif").isEnabled());
-  assertFalse("Should disable Clone button",containerWalker.findButtonWithIcon("clone_request.gif").isEnabled());
+  assertThat(desktopPanel.getSubmitButton(),not(is(enabled())));
+  assertThat(containerWalker.findButtonWithIcon("create_empty_request.gif"),not(is(enabled())));
+  assertThat(containerWalker.findButtonWithIcon("clone_request.gif"),not(is(enabled())));
 }

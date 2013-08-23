@@ -3,6 +3,6 @@
   SubmitContext submitContext=mock(SubmitContext.class);
   desktopPanel.beforeSubmit(submit,submitContext);
   desktopPanel.afterSubmit(submit,submitContext);
-  assertTrue("Create empty button should be enabled",containerWalker.findButtonWithIcon("create_empty_request.gif").isEnabled());
-  assertTrue("Clone button should be enabled",containerWalker.findButtonWithIcon("clone_request.gif").isEnabled());
+  assertThat(containerWalker.findButtonWithIcon("create_empty_request.gif"),is(enabled()));
+  assertThat(containerWalker.findButtonWithIcon("clone_request.gif"),is(enabled()));
 }
