@@ -1,0 +1,9 @@
+{
+  ExtendedHttpMethod httpMethod=(ExtendedHttpMethod)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
+  try {
+    httpMethod.setURI(new URI("/index.html"));
+  }
+ catch (  URISyntaxException e) {
+    throw new Error(e);
+  }
+}

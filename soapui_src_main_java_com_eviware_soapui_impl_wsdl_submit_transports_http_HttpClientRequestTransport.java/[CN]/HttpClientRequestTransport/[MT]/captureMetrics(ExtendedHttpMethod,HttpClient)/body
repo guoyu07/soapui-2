@@ -1,7 +1,7 @@
 {
   try {
     httpMethod.getMetrics().setIpAddress(InetAddress.getByName(httpMethod.getURI().getHost()).getHostAddress());
-    httpMethod.getMetrics().setPort(httpMethod.getURI().getPort(),httpClient.getConnectionManager().getSchemeRegistry().getScheme(httpMethod.getURI().getScheme()).getDefaultPort());
+    httpMethod.getMetrics().setPort(httpMethod.getURI().getPort(),getDefaultHttpPort(httpMethod,httpClient));
   }
  catch (  UnknownHostException uhe) {
   }

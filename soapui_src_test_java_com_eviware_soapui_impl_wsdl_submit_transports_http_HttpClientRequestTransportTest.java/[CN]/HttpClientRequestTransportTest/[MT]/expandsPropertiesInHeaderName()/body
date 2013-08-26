@@ -1,0 +1,15 @@
+{
+  StringToStringsMap headers=new StringToStringsMap();
+  String headerValue="The value";
+  headers.add("Header-for-${=request.name}",headerValue);
+  AbstractHttpRequest request=prepareRequestWithHeaders(headers);
+  String requestName="Fin-fin request";
+  request.setName(requestName);
+  SubmitContext submitContext=new StubbedSubmitContext(request);
+  httpTransport.sendRequest(submitContext,request);
+  String expectedHeaderName="Header-for-" + "";
+  Header[] modifiedHeaders=methodExecuted.getHeaders(expectedHeaderName);
+  assertEquals(1,modifiedHeaders.length);
+  assertEquals(expectedHeaderName,modifiedHeaders[0].getName());
+  assertEquals(headerValue,modifiedHeaders[0].getValue());
+}

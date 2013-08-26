@@ -1,0 +1,7 @@
+{
+  AbstractHttpRequest request=mock(AbstractHttpRequest.class);
+  when(request.getRequestHeaders()).thenReturn(headers);
+  XmlBeansSettingsImpl emptySettings=mock(XmlBeansSettingsImpl.class);
+  when(request.getSettings()).thenReturn(emptySettings);
+  return request;
+}
