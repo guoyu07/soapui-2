@@ -3,6 +3,6 @@
   AbstractHttpRequest request=prepareRequestWithHeaders(emptyHeaders);
   SubmitContext submitContext=new StubbedSubmitContext(request);
   httpTransport.sendRequest(submitContext,request);
-  assertNotNull(methodExecuted);
-  assertNotNull(contextUsed);
+  assertThat(methodExecuted,is(notNullValue()));
+  assertThat(contextUsed,is(notNullValue()));
 }
