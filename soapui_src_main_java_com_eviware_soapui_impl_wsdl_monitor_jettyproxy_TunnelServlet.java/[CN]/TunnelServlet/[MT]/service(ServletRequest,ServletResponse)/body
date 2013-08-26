@@ -1,5 +1,5 @@
 {
-  monitor.fireOnRequest(request,response);
+  listenerCallBack.fireOnRequest(project,request,response);
   if (response.isCommitted())   return;
   ExtendedHttpMethod postMethod;
   InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
@@ -67,7 +67,7 @@
       SoapUI.logError(e);
     }
   }
-  monitor.fireBeforeProxy(request,response,postMethod);
+  listenerCallBack.fireBeforeProxy(project,request,response,postMethod);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
     HttpClientSupport.execute(postMethod,httpState);
@@ -81,7 +81,7 @@
   capturedData.setResponseHeader(postMethod.getHttpResponse());
   capturedData.setRawRequestData(getRequestToBytes(request.toString(),postMethod,capture));
   capturedData.setRawResponseData(getResponseToBytes(response.toString(),postMethod,capturedData.getRawResponseBody()));
-  monitor.fireAfterProxy(request,response,postMethod,capturedData);
+  listenerCallBack.fireAfterProxy(project,request,response,postMethod,capturedData);
   StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
   HttpServletResponse httpServletResponse=(HttpServletResponse)response;
   for (  String name : responseHeaders.keySet()) {
@@ -89,7 +89,7 @@
   }
   IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
 synchronized (this) {
-    monitor.addMessageExchange(capturedData);
+    listenerCallBack.fireAddMessageExchange(capturedData);
   }
   capturedData=null;
 }

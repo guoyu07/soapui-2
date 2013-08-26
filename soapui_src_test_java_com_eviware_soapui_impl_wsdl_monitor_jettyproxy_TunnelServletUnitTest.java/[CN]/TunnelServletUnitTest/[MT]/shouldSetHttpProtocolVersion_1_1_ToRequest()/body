@@ -1,7 +1,5 @@
 {
   ExtendedPostMethod extendedPostMethod=new ExtendedPostMethod();
-  String sslEndPoint="Dummy End point";
-  TunnelServlet tunnelServlet=new TunnelServlet(monitor,sslEndPoint);
   tunnelServlet.setProtocolversion(extendedPostMethod,HttpVersion.HTTP_1_1.toString());
   Assert.assertEquals("The copied version doesn't match with the provided version string",HttpVersion.HTTP_1_1,extendedPostMethod.getProtocolVersion());
 }
