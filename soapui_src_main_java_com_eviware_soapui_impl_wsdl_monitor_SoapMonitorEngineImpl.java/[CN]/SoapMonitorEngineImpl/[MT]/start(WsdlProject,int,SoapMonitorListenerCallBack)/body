@@ -2,7 +2,7 @@
   Settings settings=project.getSettings();
   server.setThreadPool(new SoapUIJettyThreadPool());
   Context context=new Context(server,ROOT,0);
-  if (sslEndpoint != null) {
+  if (!StringUtils.isNullOrEmpty(sslEndpoint)) {
     if (sslEndpoint.startsWith(HTTPS)) {
       sslConnector=new SslSocketConnector();
       sslConnector.setKeystore(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_KEYSTORE,"JKS"));

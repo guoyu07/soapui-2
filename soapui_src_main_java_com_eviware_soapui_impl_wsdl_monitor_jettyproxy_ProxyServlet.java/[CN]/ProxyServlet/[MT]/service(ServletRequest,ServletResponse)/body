@@ -70,6 +70,7 @@
     }
   }
   method.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
+  setProtocolversion(method,request.getProtocol());
   listenerCallBack.fireBeforeProxy(project,request,response,method);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
