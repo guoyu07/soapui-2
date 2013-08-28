@@ -1,0 +1,7 @@
+{
+  HttpResponse mockResponse=mock(HttpResponse.class);
+  StatusLine mockedStatusLine=mock(StatusLine.class);
+  when(mockResponse.getStatusLine()).thenReturn(mockedStatusLine);
+  when(mockedStatusLine.getStatusCode()).thenReturn(200);
+  return mockResponse;
+}

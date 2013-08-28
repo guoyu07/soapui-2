@@ -1,5 +1,5 @@
 {
-  String path=TEST_RESOURCES_DIR + filename;
+  String path=KeyMaterialWssCryptoTest.class.getResource(TEST_RESOURCES_DIR + filename).getPath();
   when(containerMock.getModelItem()).thenReturn(project);
   when(configMock.getSource()).thenReturn(path);
   when(configMock.getPassword()).thenReturn(password);

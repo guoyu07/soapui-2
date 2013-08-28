@@ -54,7 +54,7 @@
   reportForm.addSeparator();
   reportForm.addCheckBox(COVERAGE,"Generate WSDL Coverage report (soapUI Pro only)").setEnabled(proVersion);
   reportForm.addCheckBox(OPEN_REPORT,"Opens generated report(s) in browser (soapUI Pro only)").setEnabled(proVersion);
-  reportForm.addTextField(GENERATEREPORTSEACHTESTCASE,"Report to Generate (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
+  reportForm.addComboBox(GENERATEREPORTSEACHTESTCASE,new String[0],"Template used to generate report (soapUI Pro only)").setEnabled(proVersion);
   reportForm.addTextField(REPORTFORMAT,"Choose report format(s), comma-separated (soapUI Pro only)",XForm.FieldType.TEXT).setEnabled(proVersion);
   propertyForm=builder.createForm("Properties");
   propertyForm.addComponent(GLOBALPROPERTIES,createTextArea());

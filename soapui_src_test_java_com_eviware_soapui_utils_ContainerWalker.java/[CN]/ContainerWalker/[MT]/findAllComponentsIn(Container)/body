@@ -1,0 +1,10 @@
+{
+  java.util.List<Component> components=new ArrayList<Component>();
+  for (  Component component : container.getComponents()) {
+    components.add(component);
+    if (component instanceof Container) {
+      components.addAll(findAllComponentsIn((Container)component));
+    }
+  }
+  return components;
+}
