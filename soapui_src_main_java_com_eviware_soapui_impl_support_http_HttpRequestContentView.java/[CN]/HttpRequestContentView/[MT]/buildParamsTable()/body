@@ -1,5 +1,5 @@
 {
-  RestParamsTableModel restParamsTableModel=new RestParamsTableModel(httpRequest.getParams()){
+  RestParamsTableModel restParamsTableModel=new RestParamsTableModel(httpRequest.getParams(),NewRestResourceActionBase.ParamLocation.REQUEST){
     @Override public String getColumnName(    int column){
       return column == 0 ? "Name" : "Value";
     }

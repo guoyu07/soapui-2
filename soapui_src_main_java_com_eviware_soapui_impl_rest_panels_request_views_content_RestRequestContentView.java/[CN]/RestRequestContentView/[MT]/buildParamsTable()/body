@@ -1,9 +1,3 @@
 {
-  paramsTable=new InstanceRestParamsTable(restRequest.getParams()){
-    protected void insertAdditionalButtons(    JXToolBar toolbar){
-      toolbar.add(UISupport.createToolbarButton(new UpdateRestParamsAction()));
-    }
-  }
-;
-  return paramsTable;
+  return new RestParamsTable(restRequest.getParams(),false,NewRestResourceActionBase.ParamLocation.REQUEST);
 }

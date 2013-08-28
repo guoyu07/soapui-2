@@ -7,18 +7,13 @@
   XmlBeansRestParamsTestPropertyHolder params;
   if (param instanceof XmlBeansRestParamsTestPropertyHolder)   params=(XmlBeansRestParamsTestPropertyHolder)param;
  else   params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
-  InternalRestParamsTableModel model=new InternalRestParamsTableModel(params,ParamLocation.METHOD){
-    public int getColumnCount(){
-      return super.getColumnCount() - 1;
-    }
-  }
-;
-  InternalRestParamsTable paramsTable=new InternalRestParamsTable(params,false,model);
+  RestParamsTableModel model=new RestParamsTableModel(params,NewRestResourceActionBase.ParamLocation.METHOD);
+  RestParamsTable paramsTable=new RestParamsTable(params,false,model);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     RestMethod method=resource.addNewMethod(dialog.getValue(Form.RESOURCENAME));
     method.setMethod(RestRequestInterface.RequestMethod.valueOf(dialog.getValue(Form.METHOD)));
-    paramsTable.extractParams(method.getParams(),ParamLocation.METHOD);
+    paramsTable.extractParams(method.getParams(),NewRestResourceActionBase.ParamLocation.METHOD);
     UISupport.select(method);
     if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
       createRequest(method);
