@@ -1,0 +1,10 @@
+{
+  RestRequestParamsPropertyHolder.InternalRestParamProperty mockedParamProperty=mock(RestRequestParamsPropertyHolder.InternalRestParamProperty.class);
+  RestParamsPropertyHolder overlay=mock(RestParamsPropertyHolder.class);
+  when(overlay.containsKey("paramOverLay")).thenReturn(true).thenReturn(false);
+  when(overlay.removeProperty("paramOverLay")).thenReturn(mockedParamProperty).thenReturn(null);
+  RestParamsPropertyHolder parent=mock(RestParamsPropertyHolder.class);
+  when(parent.containsKey("paramOverLay")).thenReturn(true).thenReturn(false);
+  when(parent.removeProperty("paramParent")).thenReturn(mockedParamProperty).thenReturn(null);
+  propertyHolder=new OverlayRestParamsPropertyHolder(parent,overlay);
+}
