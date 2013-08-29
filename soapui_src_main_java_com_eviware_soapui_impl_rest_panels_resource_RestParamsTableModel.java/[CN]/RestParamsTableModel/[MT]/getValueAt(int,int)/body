@@ -4,9 +4,12 @@ switch (columnIndex) {
 case 0:
     return prop.getName();
 case 1:
-  return prop.getDefaultValue();
+  return prop.getValue();
 case 2:
 return prop.getStyle();
+case 3:
+ParamLocation level=this.paramLocations.get(prop);
+return level == null ? paramLocation : level;
 }
 return null;
 }

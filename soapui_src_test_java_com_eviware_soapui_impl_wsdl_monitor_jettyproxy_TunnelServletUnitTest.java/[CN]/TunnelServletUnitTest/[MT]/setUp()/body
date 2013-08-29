@@ -1,0 +1,8 @@
+{
+  WsdlProject project=Mockito.mock(WsdlProject.class);
+  XmlBeansSettingsImpl settings=Mockito.mock(XmlBeansSettingsImpl.class);
+  Mockito.when(project.getSettings()).thenReturn(settings);
+  String sslEndPoint="Dummy End point";
+  SoapMonitorListenerCallBack listenerCallBack=Mockito.mock(SoapMonitorListenerCallBack.class);
+  tunnelServlet=new TunnelServlet(project,sslEndPoint,listenerCallBack);
+}

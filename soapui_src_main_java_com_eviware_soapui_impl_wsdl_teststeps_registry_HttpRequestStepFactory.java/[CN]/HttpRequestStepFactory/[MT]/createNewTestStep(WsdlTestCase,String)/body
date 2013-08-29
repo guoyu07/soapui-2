@@ -6,7 +6,7 @@
     dialog.setValue(Form.ENDPOINT,"");
   }
   params=new XmlBeansRestParamsTestPropertyHolder(testCase,RestParametersConfig.Factory.newInstance());
-  paramsTable=new RestParamsTable(params,false);
+  paramsTable=new RestParamsTable(params,false,NewRestResourceActionBase.ParamLocation.REQUEST);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   dialog.setValue(Form.STEPNAME,name);
   try {

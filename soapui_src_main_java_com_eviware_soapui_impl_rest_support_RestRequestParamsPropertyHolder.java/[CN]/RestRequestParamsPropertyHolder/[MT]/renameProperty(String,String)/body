@@ -1,5 +1,7 @@
 {
-  values.put(newName,values.get(name));
-  values.remove(name);
+  if (name.equals(newName)) {
+    return false;
+  }
+  renameLocalProperty(name,newName);
   return methodParams.renameProperty(name,newName);
 }

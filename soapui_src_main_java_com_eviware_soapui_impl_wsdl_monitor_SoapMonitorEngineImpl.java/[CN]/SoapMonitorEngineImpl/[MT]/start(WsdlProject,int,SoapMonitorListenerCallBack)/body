@@ -1,0 +1,44 @@
+{
+  Settings settings=project.getSettings();
+  server.setThreadPool(new SoapUIJettyThreadPool());
+  Context context=new Context(server,ROOT,0);
+  if (!StringUtils.isNullOrEmpty(sslEndpoint)) {
+    if (sslEndpoint.startsWith(HTTPS)) {
+      sslConnector=new SslSocketConnector();
+      sslConnector.setKeystore(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_KEYSTORE,"JKS"));
+      sslConnector.setPassword(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_PASSWORD,""));
+      sslConnector.setKeyPassword(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_KEYPASSWORD,""));
+      sslConnector.setTruststore(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_TRUSTSTORE,"JKS"));
+      sslConnector.setTrustPassword(settings.getString(SoapMonitorAction.SecurityTabForm.SSLTUNNEL_TRUSTSTORE_PASSWORD,""));
+      sslConnector.setNeedClientAuth(false);
+      sslConnector.setMaxIdleTime(30000);
+      sslConnector.setPort(localPort);
+      server.addConnector(sslConnector);
+      context.addServlet(new ServletHolder(new TunnelServlet(project,sslEndpoint,listenerCallBack)),ROOT);
+    }
+ else {
+      if (sslEndpoint.startsWith(HTTP)) {
+        connector.setPort(localPort);
+        server.addConnector(connector);
+        context.addServlet(new ServletHolder(new TunnelServlet(project,sslEndpoint,listenerCallBack)),ROOT);
+      }
+ else {
+        UISupport.showErrorMessage("Unsupported/unknown protocol tunnel will not start");
+        return;
+      }
+    }
+    proxyOrTunnel=false;
+  }
+ else {
+    proxyOrTunnel=true;
+    connector.setPort(localPort);
+    server.addConnector(connector);
+    context.addServlet(new ServletHolder(new ProxyServlet(project,listenerCallBack)),ROOT);
+  }
+  try {
+    server.start();
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage("Error starting monitor: " + e.getMessage());
+  }
+}

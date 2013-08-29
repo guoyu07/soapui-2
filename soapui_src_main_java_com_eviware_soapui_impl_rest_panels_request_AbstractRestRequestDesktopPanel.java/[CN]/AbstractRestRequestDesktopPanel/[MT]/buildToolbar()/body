@@ -18,11 +18,14 @@
     endpointPanel.add(endPointLabel,BorderLayout.NORTH);
     endpointPanel.add(endpointCombo,BorderLayout.SOUTH);
     String path=getRequest().getResource().getPath();
-    resourcePanel=new TextPanelWithTopLabel("Resource",path);
-    resourcePanel.addPropertyChangeListener(this);
+    resourcePanel=new TextPanelWithTopLabel("Resource",path,new DocumentListenerAdapter(){
+      @Override public void update(      Document document){
+        synchResourcePanel();
+      }
+    }
+);
     String query=RestUtils.getQueryParamsString(getRequest().getParams(),getRequest());
-    queryPanel=new TextPanelWithTopLabel("Query",query);
-    queryPanel.addPropertyChangeListener(this);
+    queryPanel=new TextPanelWithTopLabel("Query",query,false);
     baseToolBar.add(submitButton);
     baseToolBar.add(methodPanel);
     baseToolBar.add(Box.createHorizontalStrut(4));

@@ -5,7 +5,7 @@
     Header h=httpMethod.getHttpResponse().getEntity().getContentType();
     responseContentTypeHeader=h.toString();
   }
-  Response response=null;
+  Response response;
   if (responseContentTypeHeader != null && responseContentTypeHeader.toUpperCase().startsWith("MULTIPART")) {
     response=new MimeMessageResponse(httpRequest,httpMethod,requestContent,submitContext);
   }
