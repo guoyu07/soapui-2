@@ -1,3 +1,10 @@
 {
+  RestParamProperty property=getRequest().getParams().getProperty(name);
+  ParameterStyle style=property.getStyle();
+  if (style.equals(QUERY)) {
+    resetQueryPanelText();
+  }
+ else   if (style.equals(ParameterStyle.TEMPLATE)) {
+  }
   updateFullPathLabel();
 }

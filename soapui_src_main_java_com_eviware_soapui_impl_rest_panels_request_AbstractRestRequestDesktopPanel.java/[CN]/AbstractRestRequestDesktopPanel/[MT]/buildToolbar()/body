@@ -20,7 +20,7 @@
     String path=getRequest().getResource().getPath();
     resourcePanel=new TextPanelWithTopLabel("Resource",path,new DocumentListenerAdapter(){
       @Override public void update(      Document document){
-        synchResourcePanel();
+        getRequest().getResource().setPath(resourcePanel.getText());
       }
     }
 );

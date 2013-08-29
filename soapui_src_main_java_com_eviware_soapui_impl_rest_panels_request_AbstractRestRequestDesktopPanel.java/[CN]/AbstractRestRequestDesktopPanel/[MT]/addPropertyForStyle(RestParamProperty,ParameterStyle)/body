@@ -1,0 +1,15 @@
+{
+switch (style) {
+case QUERY:
+    resetQueryPanelText();
+  break;
+case TEMPLATE:
+resourcePanel.setText(resourcePanel.getText() + "{" + property.getName()+ "}");
+break;
+case MATRIX:
+resourcePanel.setText(resourcePanel.getText() + ";" + property.getName()+ "="+ property.getValue());
+break;
+default :
+break;
+}
+}
