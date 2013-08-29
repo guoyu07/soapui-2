@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<WsdlTestSuite>(){
+    @Override public boolean matchesSafely(    WsdlTestSuite wsdlTestSuite){
+      return wsdlTestSuite.getTestCases().containsKey(testCaseName);
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("a TestSuite with a test case named " + testCaseName);
+    }
+  }
+;
+}
