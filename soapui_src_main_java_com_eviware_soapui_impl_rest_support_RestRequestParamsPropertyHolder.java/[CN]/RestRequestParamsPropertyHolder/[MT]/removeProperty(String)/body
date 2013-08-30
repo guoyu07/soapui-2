@@ -1,4 +1,6 @@
 {
   values.remove(propertyName);
-  return methodParams.getProperty(propertyName);
+  RestParamProperty property=methodParams.removeProperty(propertyName);
+  firePropertyRemoved(propertyName);
+  return property;
 }
