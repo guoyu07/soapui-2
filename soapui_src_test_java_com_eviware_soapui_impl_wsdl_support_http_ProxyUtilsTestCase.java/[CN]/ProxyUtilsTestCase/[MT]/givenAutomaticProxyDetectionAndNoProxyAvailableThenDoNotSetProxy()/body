@@ -1,0 +1,6 @@
+{
+  ProxyUtils.setManualProxy(false);
+  ProxyUtils.setProxyEnabled(true);
+  ProxyUtils.initProxySettings(manualSettings(),new ExtendedGetMethod(),null,URL,null);
+  assertAutoProxy(Proxy.Type.DIRECT);
+}

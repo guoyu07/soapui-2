@@ -1,0 +1,10 @@
+{
+  ProxySearch proxySearch=ProxySearch.getDefaultProxySearch();
+  ProxySelector proxySelector=proxySearch.getProxySelector();
+  if (proxySelector == null) {
+    return;
+  }
+  ProxySelector.setDefault(proxySelector);
+  HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
+  httpClient.setRoutePlanner(new ProxySelectorRoutePlanner(httpClient.getConnectionManager().getSchemeRegistry(),proxySelector));
+}

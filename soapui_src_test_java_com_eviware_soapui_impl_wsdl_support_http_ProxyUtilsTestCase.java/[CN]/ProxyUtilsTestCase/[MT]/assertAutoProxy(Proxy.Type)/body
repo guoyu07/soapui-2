@@ -1,0 +1,7 @@
+{
+  HttpRoutePlanner routePlanner=HttpClientSupport.getHttpClient().getRoutePlanner();
+  ProxySelectorRoutePlanner proxyRoutePlanner=(ProxySelectorRoutePlanner)routePlanner;
+  ProxySelector proxySelector=proxyRoutePlanner.getProxySelector();
+  List<Proxy> select=proxySelector.select(URI.create(URL));
+  assertEquals(type,select.get(0).type());
+}

@@ -1,36 +1,11 @@
 {
-  boolean enabled=proxyEnabled;
-  CredentialsProvider credsProvider=new BasicCredentialsProvider();
-  String proxyHost=System.getProperty("http.proxyHost");
-  String proxyPort=System.getProperty("http.proxyPort");
-  if (proxyHost == null && enabled)   proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
-  if (proxyPort == null && proxyHost != null && enabled)   proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
-  if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
-    String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
-    try {
-      URL url=new URL(urlString);
-      if (!excludes(excludes,url.getHost(),url.getPort())) {
-        HttpHost proxy=new HttpHost(proxyHost,Integer.parseInt(proxyPort));
-        String proxyUsername=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.USERNAME,null));
-        String proxyPassword=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PASSWORD,null));
-        if (proxyUsername != null && proxyPassword != null && (proxyUsername.trim().length() > 0 && proxyPassword.trim().length() > 0)) {
-          Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword);
-          int ix=proxyUsername.indexOf('\\');
-          if (ix > 0) {
-            String domain=proxyUsername.substring(0,ix);
-            if (proxyUsername.length() > ix + 1) {
-              String user=proxyUsername.substring(ix + 1);
-              proxyCreds=new NTCredentials(user,proxyPassword,proxyHost,domain);
-            }
-          }
-          credsProvider.setCredentials(new AuthScope(proxy.getHostName(),proxy.getPort()),proxyCreds);
-          httpContext.setAttribute(ClientContext.CREDS_PROVIDER,credsProvider);
-        }
-        httpMethod.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
-      }
-    }
- catch (    MalformedURLException e) {
-      SoapUI.logError(e);
-    }
+  if (manualProxy && proxyEnabled) {
+    setManualProxySettings(settings,httpMethod,httpContext,urlString,context,proxyEnabled);
+  }
+ else   if (proxyEnabled) {
+    setAutomaticProxySettings();
+  }
+ else {
+    resetRoutePlanner();
   }
 }
