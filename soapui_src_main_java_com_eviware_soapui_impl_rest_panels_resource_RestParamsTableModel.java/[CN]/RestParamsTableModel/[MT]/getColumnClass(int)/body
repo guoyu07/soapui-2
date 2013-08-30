@@ -1,12 +1,6 @@
 {
-switch (columnIndex) {
-case 0:
-case 1:
-    return String.class;
-case 2:
-  return ParameterStyle.class;
-case 3:
-return ParamLocation.class;
-}
-return null;
+  if (isColumnIndexOutOfBound(columnIndex)) {
+    return null;
+  }
+  return COLUMN_TYPES[columnIndex];
 }
