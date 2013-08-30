@@ -1,3 +1,14 @@
 {
+  RestParamProperty property=getRequest().getParams().getProperty(newName);
+  ParameterStyle style=property.getStyle();
+  if (style.equals(QUERY)) {
+    resetQueryPanelText();
+  }
+ else   if (style.equals(ParameterStyle.TEMPLATE)) {
+    resourcePanel.setText(resourcePanel.getText().replaceAll("\\{" + oldName + "\\}","{" + newName + "}"));
+  }
+ else   if (style.equals(ParameterStyle.MATRIX)) {
+    resourcePanel.setText(resourcePanel.getText().replaceAll(oldName + "=" + property.getValue(),property.getName() + "=" + property.getValue()));
+  }
   updateFullPathLabel();
 }

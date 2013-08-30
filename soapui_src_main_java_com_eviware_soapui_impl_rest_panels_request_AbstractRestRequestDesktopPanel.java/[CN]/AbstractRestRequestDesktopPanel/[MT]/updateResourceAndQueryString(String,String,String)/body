@@ -1,0 +1,10 @@
+{
+  RestParamProperty property=getRequest().getParams().getProperty(propertyName);
+  ParameterStyle style=property.getStyle();
+  if (style.equals(QUERY)) {
+    resetQueryPanelText();
+  }
+ else   if (style.equals(ParameterStyle.MATRIX)) {
+    resourcePanel.setText(resourcePanel.getText().replaceAll(property.getName() + "=" + oldValue,property.getName() + "=" + newValue));
+  }
+}

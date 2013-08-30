@@ -1,0 +1,13 @@
+{
+switch (location) {
+case METHOD:
+    getRequest().getRestMethod().removeProperty(propertytName);
+  break;
+case RESOURCE:
+getRequest().getResource().removeProperty(propertytName);
+break;
+case REQUEST:
+getRequest().removeProperty(propertytName);
+break;
+}
+}
