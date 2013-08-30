@@ -1,19 +1,21 @@
 {
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
-    dialog.setValue(Form.URI,"http://example.com/resource/path/search?parameter=value");
   }
- else {
-    dialog.setValue(Form.URI,"http://example.com/resource/path/search?parameter=value");
+  dialog.setValue(Form.URI,"http://example.com/resource/path/search?parameter=value");
+  XFormField uriField=dialog.getFormField(Form.URI);
+  if (uriField instanceof JTextFieldFormField) {
+    JUndoableTextField textField=((JTextFieldFormField)uriField).getComponent();
+    textField.requestFocus();
+    textField.setFont(textField.getFont().deriveFont(Font.ITALIC));
+    addTextInputListenerTo(textField);
   }
   while (dialog.show()) {
     WsdlProject project=null;
     try {
       String URI=dialog.getValue(Form.URI).trim();
       project=workspace.createProject(PROJECT_NAME,null);
-      if (dialog.getBooleanValue(Form.MOREOPTIONS)) {
-      }
-      RestService restService=createRestProject(project,URI);
+      createRestProject(project,URI);
       break;
     }
  catch (    Exception ex) {

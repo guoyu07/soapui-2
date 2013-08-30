@@ -1,0 +1,10 @@
+{
+  innerField.addKeyListener(new KeyAdapter(){
+    @Override public void keyPressed(    KeyEvent e){
+      innerField.setText("");
+      innerField.setFont(innerField.getFont().deriveFont(Font.PLAIN));
+      innerField.removeKeyListener(this);
+    }
+  }
+);
+}
