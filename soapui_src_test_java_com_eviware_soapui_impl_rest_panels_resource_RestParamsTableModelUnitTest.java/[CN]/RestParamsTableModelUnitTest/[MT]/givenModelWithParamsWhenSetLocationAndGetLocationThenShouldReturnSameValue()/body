@@ -1,0 +1,6 @@
+{
+  RestParamProperty param=mock(RestParamProperty.class);
+  when(params.getPropertyAt(0)).thenReturn(param);
+  restParamsTableModel.setValueAt(METHOD,0,LOCATION_COLUMN_INDEX);
+  Assert.assertThat(restParamsTableModel.getParamLocationAt(0),Is.is(METHOD));
+}

@@ -1,0 +1,7 @@
+{
+  RestParamProperty param=mock(RestParamProperty.class);
+  when(params.getPropertyAt(0)).thenReturn(param);
+  String value="New value";
+  restParamsTableModel.setValueAt(value,0,STYLE_COLUMN_INDEX);
+  verify(param,times(1)).setValue(value);
+}

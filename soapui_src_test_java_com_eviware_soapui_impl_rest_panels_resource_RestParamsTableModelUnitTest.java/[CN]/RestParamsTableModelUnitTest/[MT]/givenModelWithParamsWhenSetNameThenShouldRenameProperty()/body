@@ -1,0 +1,9 @@
+{
+  RestParamProperty param=mock(RestParamProperty.class);
+  String name="Name";
+  when(param.getName()).thenReturn(name);
+  when(params.getPropertyAt(0)).thenReturn(param);
+  String value="New Name";
+  restParamsTableModel.setValueAt(value,0,NAME_COLUMN_INDEX);
+  verify(params,times(1)).renameProperty(name,value);
+}
