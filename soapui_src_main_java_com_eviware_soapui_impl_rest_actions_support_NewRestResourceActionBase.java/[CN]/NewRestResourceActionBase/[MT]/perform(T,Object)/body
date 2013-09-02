@@ -15,7 +15,7 @@
     setNameFromPath(path);
     if (paramsTable != null)     paramsTable.refresh();
   }
-  paramsTable=new RestParamsTable(params,false,ParamLocation.RESOURCE);
+  paramsTable=new RestParamsTable(params,false);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);

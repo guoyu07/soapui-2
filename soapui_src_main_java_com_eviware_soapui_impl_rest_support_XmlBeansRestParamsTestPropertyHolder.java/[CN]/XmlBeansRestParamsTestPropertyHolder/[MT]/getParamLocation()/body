@@ -1,8 +1,5 @@
 {
-  if (getModelItem() instanceof RestRequest) {
-    return ParamLocation.REQUEST;
-  }
- else   if (getModelItem() instanceof RestResource) {
+  if (getModelItem() instanceof RestResource) {
     return ParamLocation.RESOURCE;
   }
  else   if (getModelItem() instanceof RestMethod) {
