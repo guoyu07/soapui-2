@@ -1,0 +1,16 @@
+{
+  initialKeyListener=new KeyAdapter(){
+    @Override public void keyPressed(    KeyEvent e){
+      removeInitialListeners(innerField);
+    }
+  }
+;
+  innerField.addKeyListener(initialKeyListener);
+  initialMouseListener=new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      removeInitialListeners(innerField);
+    }
+  }
+;
+  innerField.addMouseListener(initialMouseListener);
+}
