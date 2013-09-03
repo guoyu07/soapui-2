@@ -8,7 +8,8 @@
     JUndoableTextField textField=((JTextFieldFormField)uriField).getComponent();
     textField.requestFocus();
     textField.setFont(textField.getFont().deriveFont(Font.ITALIC));
-    addTextInputListenerTo(textField);
+    textField.setForeground(new Color(170,170,170));
+    addListenersTo(textField);
   }
   while (dialog.show()) {
     WsdlProject project=null;
