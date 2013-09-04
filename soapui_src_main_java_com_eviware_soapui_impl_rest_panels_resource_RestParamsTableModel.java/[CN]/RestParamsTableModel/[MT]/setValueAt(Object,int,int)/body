@@ -5,16 +5,14 @@ case 0:
     params.renameProperty(prop.getName(),value.toString());
   return;
 case 1:
-if (!paramLocation.equals(ParamLocation.REQUEST)) {
-  prop.setDefaultValue(value.toString());
-}
+prop.setDefaultValue(value.toString());
 prop.setValue(value.toString());
 return;
 case 2:
 prop.setStyle((ParameterStyle)value);
 return;
 case 3:
-this.paramLocations.put(prop,(ParamLocation)value);
+prop.setParamLocation((ParamLocation)value);
 return;
 }
 }

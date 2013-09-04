@@ -1,0 +1,17 @@
+{
+  RestParamsPropertyHolder paramsPropertyHolder=null;
+switch (location) {
+case METHOD:
+    paramsPropertyHolder=getRequest().getRestMethod().getParams();
+  break;
+case RESOURCE:
+paramsPropertyHolder=getRequest().getResource().getParams();
+break;
+}
+if (paramsPropertyHolder != null) {
+paramsPropertyHolder.addParameter(property);
+RestParamProperty addedParameter=paramsPropertyHolder.getProperty(property.getName());
+addedParameter.addPropertyChangeListener(restParamPropertyChangeListener);
+}
+addPropertyChangeListenerToResource(getRequest());
+}

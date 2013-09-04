@@ -1,8 +1,6 @@
 {
   super(modelItem,requestItem);
-  if (requestItem.getResource() != null) {
-    requestItem.getResource().addPropertyChangeListener(this);
-  }
+  addPropertyChangeListenerToResource(requestItem);
   requestItem.addTestPropertyListener(testPropertyListener);
   for (  TestProperty param : requestItem.getParams().getProperties().values()) {
     ((RestParamProperty)param).addPropertyChangeListener(restParamPropertyChangeListener);
