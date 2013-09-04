@@ -1,10 +1,18 @@
 {
   try {
+    logger.log(Level.DEBUG,"Resetting URI field - originalFont = " + originalFont);
     innerField.setText("");
-    innerField.setFont(innerField.getFont().deriveFont(Font.PLAIN));
+    innerField.setFont(originalFont);
     innerField.setForeground(Color.BLACK);
   }
-  finally {
+ catch (  Exception e) {
+    SoapUI.logError(e,"Exception resetting URI field");
+  }
+catch (  Error e) {
+    SoapUI.logError(e,"Error resetting URI field");
+    throw e;
+  }
+ finally {
     if (initialKeyListener != null) {
       innerField.removeKeyListener(initialKeyListener);
     }
