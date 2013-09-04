@@ -1,11 +1,11 @@
 {
-  URL uri=null;
+  URL url=null;
   try {
-    uri=new URL(uriString);
-    resourcePath=(uri.getPath() == null ? "" : uri.getPath());
-    query=(uri.getQuery() == null ? "" : uri.getQuery());
-    scheme=(uri.getProtocol() == null ? "" : uri.getProtocol());
-    authority=(uri.getAuthority() == null ? "" : uri.getAuthority());
+    url=new URL(uriString);
+    resourcePath=(url.getPath() == null ? "" : url.getPath());
+    query=(url.getQuery() == null ? "" : url.getQuery());
+    scheme=(url.getProtocol() == null ? "" : url.getProtocol());
+    authority=(url.getAuthority() == null ? "" : url.getAuthority());
   }
  catch (  MalformedURLException e) {
     parseManually(uriString);
