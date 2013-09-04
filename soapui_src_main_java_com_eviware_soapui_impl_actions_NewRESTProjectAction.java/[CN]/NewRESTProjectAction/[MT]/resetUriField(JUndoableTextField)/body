@@ -1,7 +1,15 @@
 {
-  innerField.setText("");
-  innerField.setFont(innerField.getFont().deriveFont(Font.PLAIN));
-  innerField.setForeground(Color.BLACK);
-  innerField.removeKeyListener(initialKeyListener);
-  innerField.removeMouseListener(initialMouseListener);
+  try {
+    innerField.setText("");
+    innerField.setFont(innerField.getFont().deriveFont(Font.PLAIN));
+    innerField.setForeground(Color.BLACK);
+  }
+  finally {
+    if (initialKeyListener != null) {
+      innerField.removeKeyListener(initialKeyListener);
+    }
+    if (initialMouseListener != null) {
+      innerField.removeMouseListener(initialMouseListener);
+    }
+  }
 }
