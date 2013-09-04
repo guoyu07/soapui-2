@@ -1,5 +1,6 @@
 {
   if (getRequest().getResource() != null) {
+    JPanel panel=new JPanel(new BorderLayout());
     JComponent baseToolBar=UISupport.createToolbar();
     baseToolBar.setPreferredSize(new Dimension(600,45));
     JComponent submitButton=super.getSubmitButton();
@@ -41,7 +42,11 @@
     baseToolBar.add(tabsButton);
     baseToolBar.add(splitButton);
     baseToolBar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(getHelpUrl())));
-    return baseToolBar;
+    panel.add(baseToolBar,BorderLayout.NORTH);
+    JXToolBar toolbar=UISupport.createToolbar();
+    addToolbarComponents(toolbar);
+    panel.add(toolbar,BorderLayout.SOUTH);
+    return panel;
   }
  else {
     return super.buildToolbar();
