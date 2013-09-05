@@ -1,6 +1,6 @@
 {
-  contentEditor.setEnabled(enabled ? httpRequest.hasRequestBody() : false);
-  contentEditor.setEditable(enabled ? httpRequest.hasRequestBody() : false);
+  contentEditor.setEnabled(enabled && httpRequest.hasRequestBody());
+  contentEditor.setEditable(enabled && httpRequest.hasRequestBody());
   mediaTypeCombo.setEnabled(enabled && !httpRequest.isPostQueryString());
   postQueryCheckBox.setEnabled(enabled);
 }
