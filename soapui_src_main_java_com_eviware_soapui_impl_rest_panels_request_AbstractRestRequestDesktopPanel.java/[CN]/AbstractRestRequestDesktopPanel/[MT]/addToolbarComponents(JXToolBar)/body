@@ -1,17 +1,12 @@
 {
   toolbar.addSeparator();
-  if (getRequest().getResource() != null) {
-    if (getRequest() instanceof RestTestRequestInterface) {
-      pathCombo=new JComboBox(new PathComboBoxModel());
-      pathCombo.setRenderer(new RestMethodListCellRenderer());
-      pathCombo.setPreferredSize(new Dimension(200,20));
-      pathCombo.setSelectedItem(getRequest().getRestMethod());
-      toolbar.addLabeledFixed("Resource/Method:",pathCombo);
-      toolbar.addSeparator();
-    }
- else {
-      toolbar.add(new JLabel("Full Path: "));
-    }
+  if (getRequest().getResource() != null && getRequest() instanceof RestTestRequestInterface) {
+    pathCombo=new JComboBox(new PathComboBoxModel());
+    pathCombo.setRenderer(new RestMethodListCellRenderer());
+    pathCombo.setPreferredSize(new Dimension(200,20));
+    pathCombo.setSelectedItem(getRequest().getRestMethod());
+    toolbar.addLabeledFixed("Resource/Method:",pathCombo);
+    toolbar.addSeparator();
     pathLabel=new JLabel();
     updateFullPathLabel();
     toolbar.add(pathLabel);
