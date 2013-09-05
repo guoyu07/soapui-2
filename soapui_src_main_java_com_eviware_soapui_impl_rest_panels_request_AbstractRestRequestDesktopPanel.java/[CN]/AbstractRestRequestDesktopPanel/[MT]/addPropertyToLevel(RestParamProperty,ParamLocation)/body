@@ -9,13 +9,9 @@ paramsPropertyHolder=getRequest().getResource().getParams();
 break;
 }
 if (paramsPropertyHolder != null) {
-try {
 paramsPropertyHolder.addParameter(property);
 RestParamProperty addedParameter=paramsPropertyHolder.getProperty(property.getName());
 addedParameter.addPropertyChangeListener(restParamPropertyChangeListener);
-}
- catch (XmlValueDisconnectedException exception) {
-}
 }
 addPropertyChangeListenerToResource(getRequest());
 }
