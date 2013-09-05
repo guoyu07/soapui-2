@@ -1,13 +1,17 @@
 {
-  if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PROPERTY_STYLE)) {
-    RestParamProperty source=(RestParamProperty)evt.getSource();
-    removeParamForStyle(source,(ParameterStyle)evt.getOldValue());
-    addPropertyForStyle(source,(ParameterStyle)evt.getNewValue());
+  try {
+    if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PROPERTY_STYLE)) {
+      RestParamProperty source=(RestParamProperty)evt.getSource();
+      removeParamForStyle(source,(ParameterStyle)evt.getOldValue());
+      addPropertyForStyle(source,(ParameterStyle)evt.getNewValue());
+    }
+    if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PARAM_LOCATION)) {
+      RestParamProperty source=(RestParamProperty)evt.getSource();
+      addPropertyToLevel(source,(ParamLocation)evt.getNewValue());
+      removePropertyFromLevel(source.getName(),(ParamLocation)evt.getOldValue());
+    }
   }
-  if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PARAM_LOCATION)) {
-    RestParamProperty source=(RestParamProperty)evt.getSource();
-    addPropertyToLevel(source,(ParamLocation)evt.getNewValue());
-    removePropertyFromLevel(source.getName(),(ParamLocation)evt.getOldValue());
+ catch (  XmlValueDisconnectedException exception) {
   }
   updateFullPathLabel();
 }
