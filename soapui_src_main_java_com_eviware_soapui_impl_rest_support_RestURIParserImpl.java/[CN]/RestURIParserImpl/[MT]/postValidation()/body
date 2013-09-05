@@ -1,0 +1,8 @@
+{
+  if (!validateScheme()) {
+    throw new MalformedURLException("URI contains unsupported protocol. Supported protocols are HTTP/HTTPS");
+  }
+ else   if (!validateAuthority()) {
+    throw new MalformedURLException("Invalid endpoint");
+  }
+}

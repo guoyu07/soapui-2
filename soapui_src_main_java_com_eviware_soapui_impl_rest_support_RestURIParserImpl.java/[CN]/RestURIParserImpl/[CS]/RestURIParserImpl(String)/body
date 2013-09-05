@@ -1,4 +1,5 @@
 {
-  if (uriString == null || uriString.isEmpty())   throw new MalformedURLException("Empty URI");
+  preValidation(uriString);
   parseURI(uriString);
+  postValidation();
 }
