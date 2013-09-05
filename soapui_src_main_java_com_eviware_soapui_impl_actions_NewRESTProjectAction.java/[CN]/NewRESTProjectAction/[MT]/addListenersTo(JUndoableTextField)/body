@@ -1,11 +1,11 @@
 {
-  initialDocumentListener=new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
+  initialKeyListener=new KeyAdapter(){
+    @Override public void keyPressed(    KeyEvent e){
       resetUriField(innerField);
     }
   }
 ;
-  innerField.getDocument().addDocumentListener(initialDocumentListener);
+  innerField.addKeyListener(initialKeyListener);
   initialMouseListener=new MouseAdapter(){
     @Override public void mouseClicked(    MouseEvent e){
       resetUriField(innerField);

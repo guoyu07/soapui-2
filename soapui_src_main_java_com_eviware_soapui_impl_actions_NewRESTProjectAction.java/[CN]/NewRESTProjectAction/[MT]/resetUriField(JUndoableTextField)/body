@@ -5,8 +5,8 @@
     innerField.setForeground(Color.BLACK);
   }
   finally {
-    if (initialDocumentListener != null) {
-      innerField.getDocument().removeDocumentListener(initialDocumentListener);
+    if (initialKeyListener != null) {
+      innerField.removeKeyListener(initialKeyListener);
     }
     if (initialMouseListener != null) {
       innerField.removeMouseListener(initialMouseListener);
