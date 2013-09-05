@@ -3,5 +3,7 @@
   if (evt.getPropertyName().equals("method") && !updatingRequest) {
     methodCombo.setSelectedItem(evt.getNewValue());
   }
-  paramsTable.refresh();
+  if (paramsTable != null) {
+    paramsTable.refresh();
+  }
 }

@@ -22,10 +22,12 @@
  catch (        MalformedURLException e) {
         }
         dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(enable);
+        dialog.setBooleanValue(Form.EXTRACTPARAMS,enable);
       }
     }
 );
     dialog.getFormField(Form.EXTRACTPARAMS).setEnabled(false);
+    dialog.setBooleanValue(Form.EXTRACTPARAMS,false);
     dialog.getFormField(Form.EXTRACTPARAMS).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
         dialog.getFormField(Form.CREATERESOURCE).setEnabled(!dialog.getBooleanValue(Form.EXTRACTPARAMS));
