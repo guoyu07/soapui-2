@@ -1,4 +1,6 @@
 {
   updateFullPathLabel();
-  getRequest().getParams().getProperty(name).addPropertyChangeListener(restParamPropertyChangeListener);
+  RestParamProperty property=getRequest().getParams().getProperty(name);
+  updateResourceAndQueryString(name,null,property.getValue());
+  property.addPropertyChangeListener(restParamPropertyChangeListener);
 }

@@ -4,10 +4,15 @@ case QUERY:
     resetQueryPanelText();
   break;
 case TEMPLATE:
-resourcePanel.setText(resourcePanel.getText() + "{" + property.getName()+ "}");
+if (!resourcePanel.getText().contains("{" + property.getName() + "}")) {
+  resourcePanel.setText(resourcePanel.getText() + "{" + property.getName()+ "}");
+}
 break;
 case MATRIX:
-resourcePanel.setText(resourcePanel.getText() + ";" + property.getName()+ "="+ property.getValue());
+String valueToSet=";" + property.getName() + "="+ property.getValue();
+if (!resourcePanel.getText().contains(valueToSet)) {
+resourcePanel.setText(resourcePanel.getText() + valueToSet);
+}
 break;
 default :
 break;
