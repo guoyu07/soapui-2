@@ -8,7 +8,7 @@
     insertButtons(baseToolBar);
     JPanel methodPanel=new JPanel(new BorderLayout());
     methodPanel.setMaximumSize(new Dimension(75,45));
-    methodComboBox=new JComboBox<RequestMethod>(new RestRequestMethodModel(getRequest()));
+    JComboBox<RequestMethod> methodComboBox=new JComboBox<RequestMethod>(new RestRequestMethodModel(getRequest()));
     methodComboBox.setSelectedItem(getRequest().getMethod());
     JLabel methodLabel=new JLabel("Method");
     methodPanel.add(methodLabel,BorderLayout.NORTH);

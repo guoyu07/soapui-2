@@ -1,7 +1,7 @@
 {
   toolbar.addSeparator();
   if (getRequest().getResource() != null && getRequest() instanceof RestTestRequestInterface) {
-    pathCombo=new JComboBox(new PathComboBoxModel());
+    JComboBox pathCombo=new JComboBox(new PathComboBoxModel());
     pathCombo.setRenderer(new RestMethodListCellRenderer());
     pathCombo.setPreferredSize(new Dimension(200,20));
     pathCombo.setSelectedItem(getRequest().getRestMethod());
@@ -10,23 +10,6 @@
     pathLabel=new JLabel();
     updateFullPathLabel();
     toolbar.add(pathLabel);
-  }
- else {
-    pathTextField=new JUndoableTextField();
-    pathTextField.setPreferredSize(new Dimension(300,20));
-    pathTextField.setText(getRequest().getPath());
-    pathTextField.setToolTipText(pathTextField.getText());
-    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-      @Override public void update(      Document document){
-        if (updating)         return;
-        updating=true;
-        getRequest().setPath(pathTextField.getText());
-        updating=false;
-      }
-    }
-);
-    PropertyExpansionPopupListener.enable(pathTextField,getModelItem());
-    toolbar.addLabeledFixed("Request URL:",pathTextField);
   }
   toolbar.addSeparator();
 }
