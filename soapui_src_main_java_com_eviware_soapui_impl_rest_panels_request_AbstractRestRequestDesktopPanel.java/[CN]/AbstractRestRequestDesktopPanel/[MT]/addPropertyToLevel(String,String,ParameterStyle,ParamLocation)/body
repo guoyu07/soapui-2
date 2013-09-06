@@ -9,9 +9,11 @@ paramsPropertyHolder=getRequest().getResource().getParams();
 break;
 }
 if (paramsPropertyHolder != null) {
-paramsPropertyHolder.addParameter(property);
-RestParamProperty addedParameter=paramsPropertyHolder.getProperty(property.getName());
+paramsPropertyHolder.addProperty(name);
+RestParamProperty addedParameter=paramsPropertyHolder.getProperty(name);
 addedParameter.addPropertyChangeListener(restParamPropertyChangeListener);
+addedParameter.setValue(value);
+addedParameter.setStyle(style);
 }
 addPropertyChangeListenerToResource(getRequest());
 }
