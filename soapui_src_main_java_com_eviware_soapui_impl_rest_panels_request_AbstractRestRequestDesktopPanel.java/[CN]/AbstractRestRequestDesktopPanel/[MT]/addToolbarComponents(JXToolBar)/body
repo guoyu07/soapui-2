@@ -1,7 +1,7 @@
 {
   toolbar.addSeparator();
   if (getRequest().getResource() != null && getRequest() instanceof RestTestRequestInterface) {
-    pathCombo=new JComboBox(new PathComboBoxModel());
+    JComboBox pathCombo=new JComboBox(new PathComboBoxModel());
     pathCombo.setRenderer(new RestMethodListCellRenderer());
     pathCombo.setPreferredSize(new Dimension(200,20));
     pathCombo.setSelectedItem(getRequest().getRestMethod());
