@@ -6,6 +6,16 @@
     resetQueryPanelText();
   }
  else   if (style.equals(ParameterStyle.MATRIX)) {
-    resourcePanel.setText(resourcePanel.getText().replaceAll(property.getName() + "=" + oldValue,property.getName() + "=" + newValue));
+    String name=property.getName();
+    String newValueStr=name + "=" + newValue;
+    if (oldValue == null) {
+      addPropertyForStyle(property,ParameterStyle.MATRIX);
+    }
+ else     if (StringUtils.isNullOrEmpty(newValue) || !resourcePanel.getText().contains(newValueStr)) {
+      resourcePanel.setText(resourcePanel.getText().replaceAll(name + "=" + oldValue,newValueStr));
+    }
+  }
+ else   if (property.getStyle().equals(ParameterStyle.TEMPLATE)) {
+    addPropertyForStyle(property,ParameterStyle.TEMPLATE);
   }
 }
