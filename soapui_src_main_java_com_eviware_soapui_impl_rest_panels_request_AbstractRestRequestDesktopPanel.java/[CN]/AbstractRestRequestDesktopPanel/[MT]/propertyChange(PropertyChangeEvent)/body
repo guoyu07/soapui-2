@@ -4,12 +4,6 @@
     if (pathLabel != null) {
       updateFullPathLabel();
     }
-    if (!updating && pathTextField != null) {
-      updating=true;
-      pathTextField.setText((String)evt.getNewValue());
-      pathTextField.setToolTipText(pathTextField.getText());
-      updating=false;
-    }
   }
   super.propertyChange(evt);
 }

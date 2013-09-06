@@ -11,22 +11,5 @@
     updateFullPathLabel();
     toolbar.add(pathLabel);
   }
- else {
-    pathTextField=new JUndoableTextField();
-    pathTextField.setPreferredSize(new Dimension(300,20));
-    pathTextField.setText(getRequest().getPath());
-    pathTextField.setToolTipText(pathTextField.getText());
-    pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-      @Override public void update(      Document document){
-        if (updating)         return;
-        updating=true;
-        getRequest().setPath(pathTextField.getText());
-        updating=false;
-      }
-    }
-);
-    PropertyExpansionPopupListener.enable(pathTextField,getModelItem());
-    toolbar.addLabeledFixed("Request URL:",pathTextField);
-  }
   toolbar.addSeparator();
 }
