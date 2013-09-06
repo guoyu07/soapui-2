@@ -1,8 +1,13 @@
 {
   int localPort=getLocalPort();
-  monitorEngine=new SoapMonitorEngineImpl();
-  ((SoapMonitorEngineImpl)monitorEngine).setSslEndpoint(sslEndpoint);
-  monitorEngine.start(this,localPort);
+  listenerCallBack=new SoapMonitorListenerCallBack(){
+    @Override public void fireAddMessageExchange(    WsdlMonitorMessageExchange messageExchange){
+      addMessageExchange(messageExchange);
+    }
+  }
+;
+  monitorEngine=new SoapMonitorEngineImpl(sslEndpoint);
+  monitorEngine.start(this.getProject(),localPort,listenerCallBack);
   if (monitorEngine.isRunning()) {
     stopButton.setEnabled(true);
     startButton.setEnabled(false);

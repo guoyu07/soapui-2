@@ -1,0 +1,8 @@
+{
+  StringToStringsMap emptyHeaders=new StringToStringsMap();
+  AbstractHttpRequest request=prepareRequestWithHeaders(emptyHeaders);
+  SubmitContext submitContext=new StubbedSubmitContext(request);
+  httpTransport.sendRequest(submitContext,request);
+  assertThat(methodExecuted,is(notNullValue()));
+  assertThat(contextUsed,is(notNullValue()));
+}

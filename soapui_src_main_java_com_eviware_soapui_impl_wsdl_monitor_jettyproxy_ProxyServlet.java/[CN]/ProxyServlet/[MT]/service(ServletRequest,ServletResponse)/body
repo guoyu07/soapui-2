@@ -1,5 +1,5 @@
 {
-  monitor.fireOnRequest(request,response);
+  listenerCallBack.fireOnRequest(project,request,response);
   if (response.isCommitted())   return;
   ExtendedHttpMethod method;
   HttpServletRequest httpRequest=(HttpServletRequest)request;
@@ -70,7 +70,8 @@
     }
   }
   method.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
-  monitor.fireBeforeProxy(request,response,method);
+  setProtocolversion(method,request.getProtocol());
+  listenerCallBack.fireBeforeProxy(project,request,response,method);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
     HttpClientSupport.execute(method,httpState);
@@ -87,7 +88,7 @@
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
   capturedData.setResponseStatusCode(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
   capturedData.setResponseStatusLine(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().toString() : null);
-  monitor.fireAfterProxy(request,response,method,capturedData);
+  listenerCallBack.fireAfterProxy(project,request,response,method,capturedData);
   ((HttpServletResponse)response).setStatus(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
@@ -99,7 +100,7 @@
   }
 synchronized (this) {
     if (checkContentType(method)) {
-      monitor.addMessageExchange(capturedData);
+      listenerCallBack.fireAddMessageExchange(capturedData);
     }
   }
 }

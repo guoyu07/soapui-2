@@ -1,13 +1,13 @@
 {
-  WsdlProject project=new WsdlProject("src" + File.separatorChar + "test"+ File.separatorChar+ "resources"+ File.separatorChar+ "sample-soapui-project.xml");
+  WsdlProject project=new WsdlProject(AbstractSecurityTestCaseWithMockService.class.getResource("/sample-soapui-project.xml").getPath());
   TestSuite testSuite=project.getTestSuiteByName("Test Suite");
   testCase=(WsdlTestCase)testSuite.getTestCaseByName("Test Conversions");
   WsdlInterface iface=(WsdlInterface)project.getInterfaceAt(0);
-  mockService=(WsdlMockService)project.addNewMockService("MockService 1");
+  mockService=project.addNewMockService("MockService 1");
   mockService.setPort(9081);
   mockService.setPath("/testmock");
-  WsdlOperation operation=(WsdlOperation)iface.getOperationAt(0);
-  WsdlMockOperation mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(operation);
+  WsdlOperation operation=iface.getOperationAt(0);
+  WsdlMockOperation mockOperation=mockService.addNewMockOperation(operation);
   WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Test Response",true);
   mockResponse.setResponseContent("Tjohoo!");
   mockService.start();
