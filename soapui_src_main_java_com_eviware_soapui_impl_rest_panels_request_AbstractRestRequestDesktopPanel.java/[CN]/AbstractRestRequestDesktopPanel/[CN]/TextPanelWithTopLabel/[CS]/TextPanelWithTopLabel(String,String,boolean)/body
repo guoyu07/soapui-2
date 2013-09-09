@@ -3,6 +3,9 @@
   textField=new JTextField(text);
   setToolTipText(text);
   textField.setEditable(isEditable);
+  if (UISupport.isMac()) {
+    textField.setBackground(MAC_DISABLED_BGCOLOR);
+  }
   super.setLayout(new BorderLayout());
   super.add(textLabel,BorderLayout.NORTH);
   super.add(textField,BorderLayout.SOUTH);
