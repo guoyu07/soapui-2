@@ -8,8 +8,10 @@
       createMessageExchange(mutation.getMutatedParameters(),message,context);
     }
  else {
-      WsdlTestRequestStepResult message=(WsdlTestRequestStepResult)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
-      message.setRequestContent("",false);
+      MessageExchange message=(MessageExchange)mutation.getTestStep().run((TestCaseRunner)securityTestRunner,context);
+      if (message instanceof WsdlTestRequestStepResult) {
+        ((WsdlTestRequestStepResult)message).setRequestContent("",false);
+      }
       createMessageExchange(mutation.getMutatedParameters(),message,context);
     }
   }
