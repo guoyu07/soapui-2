@@ -1,3 +1,8 @@
 {
+  QName old=getType();
+  if (old.equals(arg0)) {
+    return;
+  }
   propertyConfig.setType(arg0);
+  propertySupport.firePropertyChange("type",old,arg0);
 }
