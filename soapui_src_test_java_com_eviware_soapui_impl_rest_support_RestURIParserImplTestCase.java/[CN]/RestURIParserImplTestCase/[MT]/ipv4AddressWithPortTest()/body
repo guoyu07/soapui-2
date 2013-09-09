@@ -1,0 +1,9 @@
+{
+  String uri="http://10.10.1.230:8090/subscribers/subscriber";
+  String expectedEndpoint="http://10.10.1.230:8090";
+  String expectedPath="/subscribers/subscriber";
+  String expectedResourceName="Subscriber";
+  String expectedQuery="";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}
