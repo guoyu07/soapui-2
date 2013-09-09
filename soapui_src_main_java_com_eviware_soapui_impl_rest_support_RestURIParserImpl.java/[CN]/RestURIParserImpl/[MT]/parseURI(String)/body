@@ -1,5 +1,8 @@
 {
   try {
+    if (isAPossibleEndPointWithoutScheme(uriString)) {
+      uriString=DEFAULT_SCHEME + SCHEME_SEPARATOR + uriString;
+    }
     parseWithURI(uriString);
   }
  catch (  URISyntaxException e) {

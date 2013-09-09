@@ -1,8 +1,4 @@
 {
-  if (isOnlyAuthority(uriString)) {
-    authority=uriString;
-    return;
-  }
   URI uri=new URI(uriString);
   resourcePath=(uri.getPath() == null ? "" : uri.getPath());
   query=(uri.getQuery() == null ? "" : uri.getQuery());
