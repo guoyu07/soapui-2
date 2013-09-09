@@ -2,6 +2,8 @@
   String name=UISupport.prompt("Specify parameter name","Add Parameter","");
   if (StringUtils.hasContent(name)) {
     params.addProperty(name);
+    RestParamProperty addedProperty=params.getProperty(name);
+    addedProperty.setParamLocation(defaultParamLocation);
     final int row=params.getPropertyNames().length - 1;
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){

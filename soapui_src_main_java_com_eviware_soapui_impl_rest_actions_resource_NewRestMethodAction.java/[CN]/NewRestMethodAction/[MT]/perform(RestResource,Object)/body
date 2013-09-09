@@ -8,15 +8,15 @@
   if (param instanceof XmlBeansRestParamsTestPropertyHolder)   params=(XmlBeansRestParamsTestPropertyHolder)param;
  else   params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
   RestParamsTableModel model=new RestParamsTableModel(params);
-  RestParamsTable paramsTable=new RestParamsTable(params,false,model);
+  RestParamsTable paramsTable=new RestParamsTable(params,false,model,ParamLocation.METHOD);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     RestMethod method=resource.addNewMethod(dialog.getValue(Form.RESOURCENAME));
     method.setMethod(RestRequestInterface.RequestMethod.valueOf(dialog.getValue(Form.METHOD)));
-    paramsTable.extractParams(method.getParams(),NewRestResourceActionBase.ParamLocation.METHOD);
+    paramsTable.extractParams(method.getParams(),ParamLocation.METHOD);
     UISupport.select(method);
     if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
-      createRequest(method);
+      createRequest(method,method.getParams());
     }
   }
 }
