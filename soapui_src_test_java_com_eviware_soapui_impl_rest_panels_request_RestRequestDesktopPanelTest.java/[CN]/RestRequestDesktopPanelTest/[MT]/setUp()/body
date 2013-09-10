@@ -1,0 +1,8 @@
+{
+  restRequest=new RestRequest(makeRestMethod(),RestRequestConfig.Factory.newInstance(),false);
+  restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
+  restRequest.getResource().getParams().addProperty(PARAMETER_NAME);
+  RestParamProperty restParamProperty=restRequest.getParams().getProperty(PARAMETER_NAME);
+  restParamProperty.setValue(PARAMETER_VALUE);
+  requestDesktopPanel=new RestRequestDesktopPanel(restRequest);
+}
