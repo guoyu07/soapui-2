@@ -1,0 +1,9 @@
+{
+  String uri="api.soapui.com/services";
+  String expectedEndpoint="http://api.soapui.com";
+  String expectedPath="/services";
+  String expectedResourceName="Services";
+  String expectedQuery="";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

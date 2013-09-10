@@ -1,4 +1,5 @@
 {
   RestRequest request=method.addNewRequest("Request " + (method.getRequestCount() + 1));
+  ((RestParamProperty)params).addPropertyChangeListener(request);
   UISupport.showDesktopPanel(request);
 }

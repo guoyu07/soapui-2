@@ -2,14 +2,23 @@
   String name=UISupport.prompt("Specify parameter name","Add Parameter","");
   if (StringUtils.hasContent(name)) {
     params.addProperty(name);
-    final int row=params.getPropertyNames().length - 1;
+    RestParamProperty addedProperty=params.getProperty(name);
+    addedProperty.setParamLocation(defaultParamLocation);
+    int row=0;
+    for (int i=0; i < params.size(); i++) {
+      if (name.equals(paramsTable.getValueAt(i,0))) {
+        row=i;
+        break;
+      }
+    }
+    final int rowNum=row;
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){
         requestFocusInWindow();
-        scrollRectToVisible(paramsTable.getCellRect(row,1,true));
+        scrollRectToVisible(paramsTable.getCellRect(rowNum,1,true));
         SwingUtilities.invokeLater(new Runnable(){
           public void run(){
-            paramsTable.editCellAt(row,1);
+            paramsTable.editCellAt(rowNum,1);
             paramsTable.getEditorComponent().requestFocusInWindow();
           }
         }
