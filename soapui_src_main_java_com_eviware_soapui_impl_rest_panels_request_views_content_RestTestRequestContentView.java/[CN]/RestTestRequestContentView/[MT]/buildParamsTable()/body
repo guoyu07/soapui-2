@@ -1,0 +1,16 @@
+{
+  RestParamsTableModel restTestParamsTableModel=new RestParamsTableModel(super.getRestRequest().getParams()){
+    public int getColumnCount(){
+      return 4;
+    }
+    @Override public void setValueAt(    Object value,    int rowIndex,    int columnIndex){
+      RestParamProperty prop=params.getPropertyAt(rowIndex);
+      if (columnIndex == 1)       prop.setValue(value.toString());
+    }
+    @Override public boolean isCellEditable(    int rowIndex,    int columnIndex){
+      return columnIndex == 1;
+    }
+  }
+;
+  return new RestParamsTable(super.getRestRequest().getParams(),false,restTestParamsTableModel,NewRestResourceActionBase.ParamLocation.RESOURCE,true);
+}

@@ -1,4 +1,11 @@
 {
+  clearParamsAction=new ClearParamsAction();
+  defaultParamsAction=new UseDefaultParamsAction();
+  movePropertyDownAction=new MovePropertyDownAction();
+  movePropertyUpAction=new MovePropertyUpAction();
+  if (!isOnlyValueEditable) {
+    initEditableButtons();
+  }
   paramsTable=new JTable(paramsTableModel);
   paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(paramsTableModel.getParameterStylesForEdit())));
@@ -6,7 +13,9 @@
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       int selectedRow=paramsTable.getSelectedRow();
-      removeParamAction.setEnabled(selectedRow != -1);
+      if (!isOnlyValueEditable) {
+        removeParamAction.setEnabled(selectedRow != -1);
+      }
       movePropertyDownAction.setEnabled(selectedRow < paramsTable.getRowCount() - 1);
       movePropertyUpAction.setEnabled(selectedRow > 0);
       if (selectedRow != -1) {
