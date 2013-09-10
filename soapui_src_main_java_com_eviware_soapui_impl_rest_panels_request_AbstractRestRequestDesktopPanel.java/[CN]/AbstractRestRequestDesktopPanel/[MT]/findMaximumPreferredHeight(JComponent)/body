@@ -1,7 +1,8 @@
 {
   int maximum=0;
   for (  JComponent component : components) {
-    maximum=Math.max(maximum,component.getPreferredSize().height);
+    int componentPreferredHeight=component == null || component.getPreferredSize() == null ? 0 : component.getPreferredSize().height;
+    maximum=Math.max(maximum,componentPreferredHeight);
   }
   return maximum;
 }

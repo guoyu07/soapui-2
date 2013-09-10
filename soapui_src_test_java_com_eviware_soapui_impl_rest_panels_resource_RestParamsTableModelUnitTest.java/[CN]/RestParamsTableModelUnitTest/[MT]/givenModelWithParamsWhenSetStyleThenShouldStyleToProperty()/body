@@ -1,6 +1,4 @@
 {
-  RestParamProperty param=mock(RestParamProperty.class);
-  when(params.getPropertyAt(0)).thenReturn(param);
   restParamsTableModel.setValueAt(QUERY,0,STYLE_COLUMN_INDEX);
   verify(param,times(1)).setStyle(QUERY);
 }

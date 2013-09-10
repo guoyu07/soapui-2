@@ -1,9 +1,8 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  toolbar.add(UISupport.createToolbarButton(addParamAction));
-  toolbar.add(UISupport.createToolbarButton(removeParamAction,false));
-  if (showDefaultParamsButton) {
-    toolbar.add(UISupport.createToolbarButton(defaultParamsAction,paramsTable.getRowCount() > 0));
+  if (!isOnlyValueEditable) {
+    toolbar.add(UISupport.createToolbarButton(addParamAction));
+    toolbar.add(UISupport.createToolbarButton(removeParamAction,false));
     toolbar.addSeparator();
   }
   toolbar.add(UISupport.createToolbarButton(movePropertyDownAction,false));
