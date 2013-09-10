@@ -9,7 +9,8 @@ if (!resourcePanel.getText().contains("{" + property.getName() + "}")) {
 }
 break;
 case MATRIX:
-String valueToSet=";" + property.getName() + "="+ property.getValue();
+String propValueAtRequestLevel=getRequest().getParams().getProperty(property.getName()).getValue();
+String valueToSet=";" + property.getName() + "="+ propValueAtRequestLevel;
 if (!resourcePanel.getText().contains(valueToSet)) {
 resourcePanel.setText(resourcePanel.getText() + valueToSet);
 }
