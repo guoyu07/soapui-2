@@ -11,8 +11,9 @@
       String propName=source.getName();
       String propValue=source.getValue();
       ParameterStyle propStyle=source.getStyle();
+      String requestLevelValue=getRequest().getParams().getProperty(propName).getValue();
       removePropertyFromLevel(source.getName(),(ParamLocation)evt.getOldValue());
-      addPropertyToLevel(propName,propValue,propStyle,(ParamLocation)evt.getNewValue());
+      addPropertyToLevel(propName,propValue,propStyle,(ParamLocation)evt.getNewValue(),requestLevelValue);
     }
   }
  catch (  XmlValueDisconnectedException exception) {

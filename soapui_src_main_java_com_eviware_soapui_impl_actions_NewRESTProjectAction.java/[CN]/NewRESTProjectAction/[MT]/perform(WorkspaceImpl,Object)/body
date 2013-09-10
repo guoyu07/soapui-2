@@ -2,10 +2,12 @@
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(Form.class);
   }
-  dialog.setValue(Form.URI,"http://example.com/resource/path/search?parameter=value");
+  dialog.setValue(Form.URI,EXAMPLE_URI);
   XFormField uriField=dialog.getFormField(Form.URI);
+  JUndoableTextField textField=null;
   if (uriField instanceof JTextFieldFormField) {
-    JUndoableTextField textField=((JTextFieldFormField)uriField).getComponent();
+    defaultURIReplaced=false;
+    textField=((JTextFieldFormField)uriField).getComponent();
     textField.requestFocus();
     originalFont=textField.getFont();
     textField.setFont(originalFont.deriveFont(Font.ITALIC));
@@ -16,6 +18,9 @@
   while (dialog.show()) {
     WsdlProject project=null;
     try {
+      if (!defaultURIReplaced && textField != null) {
+        resetUriField(textField);
+      }
       String URI=dialog.getValue(Form.URI).trim();
       project=workspace.createProject(PROJECT_NAME,null);
       createRestProject(project,URI);
@@ -27,5 +32,8 @@
         workspace.removeProject(project);
       }
     }
+  }
+  if (!defaultURIReplaced && textField != null) {
+    resetUriField(textField);
   }
 }

@@ -1,3 +1,8 @@
 {
+  int paramIndex=propNamesIndex.indexOf(oldName);
+  if (paramIndex < 0) {
+    return;
+  }
+  propNamesIndex.set(paramIndex,newName);
   fireTableDataChanged();
 }

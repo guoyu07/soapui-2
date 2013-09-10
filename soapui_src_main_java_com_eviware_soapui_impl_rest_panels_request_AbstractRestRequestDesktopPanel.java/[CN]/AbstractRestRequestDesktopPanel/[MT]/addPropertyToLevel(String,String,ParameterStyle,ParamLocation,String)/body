@@ -13,7 +13,9 @@ paramsPropertyHolder.addProperty(name);
 RestParamProperty addedParameter=paramsPropertyHolder.getProperty(name);
 addedParameter.addPropertyChangeListener(restParamPropertyChangeListener);
 addedParameter.setValue(value);
+addedParameter.setDefaultValue(value);
 addedParameter.setStyle(style);
+getRequest().getParams().getProperty(name).setValue(requestLevelValue);
 }
 addPropertyChangeListenerToResource(getRequest());
 }
