@@ -8,7 +8,7 @@
   if (param instanceof XmlBeansRestParamsTestPropertyHolder)   params=(XmlBeansRestParamsTestPropertyHolder)param;
  else   params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
   RestParamsTableModel model=new RestParamsTableModel(params);
-  RestParamsTable paramsTable=new RestParamsTable(params,false,model,ParamLocation.METHOD,true);
+  RestParamsTable paramsTable=new RestParamsTable(params,false,model,ParamLocation.METHOD,true,false);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     RestMethod method=resource.addNewMethod(dialog.getValue(Form.RESOURCENAME));

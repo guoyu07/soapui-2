@@ -1,6 +1,6 @@
 {
   JTabbedPane tabs=new JTabbedPane();
-  paramsTable=new RestParamsTable(getModelItem().getParams(),true,ParamLocation.METHOD,true);
+  paramsTable=new RestParamsTable(getModelItem().getParams(),true,ParamLocation.METHOD,true,false);
   tabs.addTab("Method Parameters",paramsTable);
   restRepresentationsTable=new RestRepresentationsTable(getModelItem(),new RestRepresentation.Type[]{RestRepresentation.Type.REQUEST,RestRepresentation.Type.RESPONSE,RestRepresentation.Type.FAULT},false);
   tabs.addTab("Representations",restRepresentationsTable);
