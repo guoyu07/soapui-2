@@ -4,6 +4,7 @@
     JXToolBar baseToolBar=UISupport.createToolbar();
     JComponent submitButton=super.getSubmitButton();
     baseToolBar.add(submitButton);
+    baseToolBar.add(cancelButton);
     insertButtons(baseToolBar);
     JPanel methodPanel=new JPanel(new BorderLayout());
     JComboBox<RequestMethod> methodComboBox=new JComboBox<RequestMethod>(new RestRequestMethodModel(getRequest()));
