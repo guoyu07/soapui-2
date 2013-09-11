@@ -11,8 +11,8 @@
     if (oldValue == null) {
       addPropertyForStyle(property,ParameterStyle.MATRIX);
     }
- else     if (StringUtils.isNullOrEmpty(newValue) || !resourcePanel.getText().contains(newValueStr)) {
-      resourcePanel.setText(resourcePanel.getText().replaceAll(name + "=" + oldValue,newValueStr));
+ else     if (StringUtils.isNullOrEmpty(newValue) || !getResourcePanelText().contains(newValueStr)) {
+      setResourcePanelText(getResourcePanelText().replaceAll(name + "=" + oldValue,newValueStr));
     }
   }
  else   if (property.getStyle().equals(ParameterStyle.TEMPLATE)) {

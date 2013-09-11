@@ -5,10 +5,10 @@
     resetQueryPanelText();
   }
  else   if (style.equals(ParameterStyle.TEMPLATE)) {
-    resourcePanel.setText(resourcePanel.getText().replaceAll("\\{" + oldName + "\\}","{" + newName + "}"));
+    setResourcePanelText(getResourcePanelText().replaceAll("\\{" + oldName + "\\}","{" + newName + "}"));
   }
  else   if (style.equals(ParameterStyle.MATRIX)) {
-    resourcePanel.setText(resourcePanel.getText().replaceAll(oldName + "=" + property.getValue(),property.getName() + "=" + property.getValue()));
+    setResourcePanelText(getResourcePanelText().replaceAll(oldName + "=" + property.getValue(),property.getName() + "=" + property.getValue()));
   }
   updateFullPathLabel();
 }

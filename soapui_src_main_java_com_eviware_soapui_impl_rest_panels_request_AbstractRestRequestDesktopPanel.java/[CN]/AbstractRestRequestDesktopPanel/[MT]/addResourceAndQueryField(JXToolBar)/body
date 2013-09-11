@@ -3,7 +3,7 @@
     String path=getRequest().getResource().getPath();
     resourcePanel=new TextPanelWithTopLabel("Resource",path,new DocumentListenerAdapter(){
       @Override public void update(      Document document){
-        getRequest().getResource().setPath(resourcePanel.getText().trim());
+        getRequest().getResource().setPath(getResourcePanelText().trim());
       }
     }
 );
