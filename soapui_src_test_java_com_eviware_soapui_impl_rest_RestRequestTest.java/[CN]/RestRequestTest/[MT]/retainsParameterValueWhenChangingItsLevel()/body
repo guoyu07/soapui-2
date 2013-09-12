@@ -1,0 +1,9 @@
+{
+  RestParamProperty parameter=request.getParams().addProperty(PARAMETER_NAME);
+  parameter.setValue(PARAMETER_VALUE);
+  parameter.setParamLocation(NewRestResourceActionBase.ParamLocation.RESOURCE);
+  RestParamProperty returnedParameter=request.getParams().getProperty(PARAMETER_NAME);
+  returnedParameter.setParamLocation(NewRestResourceActionBase.ParamLocation.METHOD);
+  returnedParameter=request.getParams().getProperty(PARAMETER_NAME);
+  assertThat(returnedParameter.getValue(),is(PARAMETER_VALUE));
+}

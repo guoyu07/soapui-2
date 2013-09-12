@@ -3,14 +3,14 @@
     String path=getRequest().getResource().getPath();
     resourcePanel=new TextPanelWithTopLabel("Resource",path,new DocumentListenerAdapter(){
       @Override public void update(      Document document){
-        getRequest().getResource().setPath(resourcePanel.getText().trim());
+        getRequest().getResource().setPath(getResourcePanelText().trim());
       }
     }
 );
-    toolbar.add(resourcePanel);
+    toolbar.addWithOnlyMinimumHeight(resourcePanel);
     toolbar.add(Box.createHorizontalStrut(4));
     String query=RestUtils.getQueryParamsString(getRequest().getParams(),getRequest());
     queryPanel=new TextPanelWithTopLabel("Query",query,false);
-    toolbar.add(queryPanel);
+    toolbar.addWithOnlyMinimumHeight(queryPanel);
   }
 }

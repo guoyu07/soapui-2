@@ -4,11 +4,11 @@ case QUERY:
     resetQueryPanelText();
   break;
 case TEMPLATE:
-resourcePanel.setText(resourcePanel.getText().replaceAll("\\{" + property.getName() + "\\}",""));
+setResourcePanelText(getResourcePanelText().replaceAll("\\{" + property.getName() + "\\}",""));
 break;
 case MATRIX:
 String propValueAtRequestLevel=getRequest().getParams().getProperty(property.getName()).getValue();
-resourcePanel.setText(resourcePanel.getText().replaceAll(";" + property.getName() + "="+ propValueAtRequestLevel,""));
+setResourcePanelText(getResourcePanelText().replaceAll(";" + property.getName() + "="+ propValueAtRequestLevel,""));
 break;
 default :
 break;

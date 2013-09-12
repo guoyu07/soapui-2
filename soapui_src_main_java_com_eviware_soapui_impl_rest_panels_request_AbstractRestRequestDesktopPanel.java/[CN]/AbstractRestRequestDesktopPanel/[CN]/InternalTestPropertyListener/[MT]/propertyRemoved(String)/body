@@ -1,15 +1,15 @@
 {
   resetQueryPanelText();
-  String resourcePanelText=resourcePanel.getText();
+  String resourcePanelText=getResourcePanelText();
   String paramStartString=";" + name + "=";
   if (resourcePanelText.contains(paramStartString)) {
     String substringWithParamValue=resourcePanelText.substring(resourcePanelText.indexOf(paramStartString) + 1);
     int endIndex=substringWithParamValue.indexOf(";") > 0 ? substringWithParamValue.indexOf(";") : substringWithParamValue.length();
     String paramValue=substringWithParamValue.substring(substringWithParamValue.indexOf("=") + 1,endIndex);
-    resourcePanel.setText(resourcePanel.getText().replaceAll(";" + name + "="+ paramValue,""));
+    setResourcePanelText(getResourcePanelText().replaceAll(";" + name + "="+ paramValue,""));
   }
   if (resourcePanelText.contains("{" + name + "}")) {
-    resourcePanel.setText(resourcePanelText.replaceAll("\\{" + name + "\\}",""));
+    setResourcePanelText(resourcePanelText.replaceAll("\\{" + name + "\\}",""));
   }
   updateFullPathLabel();
 }

@@ -1,0 +1,6 @@
+{
+  paramNameIndex=new ArrayList<String>(Collections.nCopies(params.size(),""));
+  for (  TestProperty property : params.getProperties().values()) {
+    paramNameIndex.set(params.getPropertyIndex(property.getName()),property.getName());
+  }
+}
