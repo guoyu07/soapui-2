@@ -1,0 +1,53 @@
+{
+  if (showDefaultParamsButton) {
+    defaultParamsAction=new UseDefaultParamsAction();
+  }
+  movePropertyDownAction=new MovePropertyDownAction();
+  movePropertyUpAction=new MovePropertyUpAction();
+  if (showEditableButtons) {
+    initEditableButtons();
+  }
+  paramsTable=new JTable(paramsTableModel);
+  paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(paramsTableModel.getParameterStylesForEdit())));
+  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox(paramsTableModel.getParameterLevels())));
+  paramsTable.setRowHeight(25);
+  paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+    public void valueChanged(    ListSelectionEvent e){
+      int selectedRow=paramsTable.getSelectedRow();
+      if (showEditableButtons) {
+        removeParamAction.setEnabled(selectedRow != -1);
+      }
+      movePropertyDownAction.setEnabled(selectedRow < paramsTable.getRowCount() - 1);
+      movePropertyUpAction.setEnabled(selectedRow > 0);
+      if (selectedRow != -1) {
+        RestParamProperty selectedParameter=getSelectedParameter();
+        if (paramDetailsModel != null) {
+          paramDetailsModel.setBean(selectedParameter);
+          detailsForm.setEnabled(true);
+        }
+      }
+ else {
+        if (paramDetailsModel != null) {
+          detailsForm.setEnabled(false);
+          paramDetailsModel.setBean(null);
+        }
+      }
+    }
+  }
+);
+  add(buildToolbar(),BorderLayout.NORTH);
+  if (showInspector) {
+    final JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    add(splitPane,BorderLayout.CENTER);
+    SwingUtilities.invokeLater(new Runnable(){
+      public void run(){
+        splitPane.setDividerLocation(0.5);
+      }
+    }
+);
+  }
+ else {
+    add(new JScrollPane(paramsTable),BorderLayout.CENTER);
+  }
+}

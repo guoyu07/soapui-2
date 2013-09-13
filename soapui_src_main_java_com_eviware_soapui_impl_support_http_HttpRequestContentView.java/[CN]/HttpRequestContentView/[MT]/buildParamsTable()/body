@@ -1,26 +1,21 @@
 {
-  paramsTable=new RestParamsTable(httpRequest.getParams(),false){
-    protected RestParamsTableModel createTableModel(    RestParamsPropertyHolder params){
-      return new RestParamsTableModel(params){
-        @Override public String getColumnName(        int column){
-          return column == 0 ? "Name" : "Value";
-        }
-        public int getColumnCount(){
-          return 2;
-        }
-        public Object getValueAt(        int rowIndex,        int columnIndex){
-          RestParamProperty prop=params.getPropertyAt(rowIndex);
-          return columnIndex == 0 ? prop.getName() : prop.getValue();
-        }
-        @Override public void setValueAt(        Object value,        int rowIndex,        int columnIndex){
-          RestParamProperty prop=params.getPropertyAt(rowIndex);
-          if (columnIndex == 0)           prop.setName(value.toString());
- else           prop.setValue(value.toString());
-        }
-      }
-;
+  RestParamsTableModel restParamsTableModel=new RestParamsTableModel(httpRequest.getParams()){
+    @Override public String getColumnName(    int column){
+      return column == 0 ? "Name" : "Value";
+    }
+    public int getColumnCount(){
+      return 2;
+    }
+    public Object getValueAt(    int rowIndex,    int columnIndex){
+      RestParamProperty prop=params.getPropertyAt(rowIndex);
+      return columnIndex == 0 ? prop.getName() : prop.getValue();
+    }
+    @Override public void setValueAt(    Object value,    int rowIndex,    int columnIndex){
+      RestParamProperty prop=params.getPropertyAt(rowIndex);
+      if (columnIndex == 0)       prop.setName(value.toString());
+ else       prop.setValue(value.toString());
     }
   }
 ;
-  return paramsTable;
+  return new RestParamsTable(httpRequest.getParams(),false,restParamsTableModel,ParamLocation.RESOURCE,true,false);
 }

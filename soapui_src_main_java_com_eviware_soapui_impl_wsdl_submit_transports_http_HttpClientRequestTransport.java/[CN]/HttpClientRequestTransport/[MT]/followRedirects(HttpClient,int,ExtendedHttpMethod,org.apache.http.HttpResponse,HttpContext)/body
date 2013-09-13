@@ -7,7 +7,7 @@
   URI uri=new URI(new URI(httpMethod.getURI().toString(),true),location,true);
   java.net.URI newUri=new java.net.URI(uri.getScheme(),uri.getUserinfo(),uri.getHost(),uri.getPort(),uri.getPath(),uri.getQuery(),uri.getFragment());
   getMethod.setURI(newUri);
-  org.apache.http.HttpResponse response=HttpClientSupport.execute(getMethod,httpContext);
+  org.apache.http.HttpResponse response=submitRequest(getMethod,httpContext);
   if (isRedirectResponse(response.getStatusLine().getStatusCode())) {
     if (redirectCount == 10)     throw new Exception("Maximum number of Redirects reached [10]");
     try {

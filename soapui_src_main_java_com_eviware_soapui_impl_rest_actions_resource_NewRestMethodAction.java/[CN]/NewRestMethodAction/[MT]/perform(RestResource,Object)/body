@@ -4,9 +4,11 @@
     dialog.setBooleanValue(Form.CREATEREQUEST,true);
   }
   dialog.setValue(Form.RESOURCENAME,"Method " + (resource.getRestMethodCount() + 1));
+  XmlBeansRestParamsTestPropertyHolder params;
   if (param instanceof XmlBeansRestParamsTestPropertyHolder)   params=(XmlBeansRestParamsTestPropertyHolder)param;
  else   params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
-  paramsTable=new MethodInternalRestParamsTable(params,ParamLocation.METHOD);
+  RestParamsTableModel model=new RestParamsTableModel(params);
+  RestParamsTable paramsTable=new RestParamsTable(params,false,model,ParamLocation.METHOD,true,false);
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     RestMethod method=resource.addNewMethod(dialog.getValue(Form.RESOURCENAME));
@@ -14,7 +16,7 @@
     paramsTable.extractParams(method.getParams(),ParamLocation.METHOD);
     UISupport.select(method);
     if (dialog.getBooleanValue(Form.CREATEREQUEST)) {
-      createRequest(method);
+      createRequest(method,method.getParams());
     }
   }
 }

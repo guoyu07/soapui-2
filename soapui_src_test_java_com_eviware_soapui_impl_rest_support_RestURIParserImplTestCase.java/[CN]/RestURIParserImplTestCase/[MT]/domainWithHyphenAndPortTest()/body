@@ -1,0 +1,9 @@
+{
+  String uri="http://consys-qa-m09.websys.aol.com:8090/subscribers/subscriber";
+  String expectedEndpoint="http://consys-qa-m09.websys.aol.com:8090";
+  String expectedPath="/subscribers/subscriber";
+  String expectedResourceName="Subscriber";
+  String expectedQuery="";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

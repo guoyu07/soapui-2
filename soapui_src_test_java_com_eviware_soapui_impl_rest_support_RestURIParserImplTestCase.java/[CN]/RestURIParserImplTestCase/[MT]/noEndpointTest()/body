@@ -1,0 +1,9 @@
+{
+  String uri="/abc?book=15;column=12";
+  String expectedEndpoint="";
+  String expectedPath="/abc";
+  String expectedResourceName="Abc";
+  String expectedQuery="book=15;column=12";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

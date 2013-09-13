@@ -14,7 +14,7 @@
         TestPropertyHolder targetStep=(TestPropertyHolder)targetStepCombo.getSelectedItem();
         PropertyTransfer valueTransfer=getCurrentTransfer();
         if (valueTransfer != null) {
-          String name="";
+          String name;
           if (targetStep == PropertyExpansionUtils.getGlobalProperties())           name=PropertyExpansion.GLOBAL_REFERENCE;
  else           if (targetStep == transferStep.getTestCase().getTestSuite().getProject())           name=PropertyExpansion.PROJECT_REFERENCE;
  else           if (targetStep == transferStep.getTestCase().getTestSuite())           name=PropertyExpansion.TESTSUITE_REFERENCE;
@@ -45,6 +45,6 @@
   }
 );
   toolbar.add(UISupport.setFixedSize(targetPropertyCombo,130,21));
-  toolbar.addGlue();
+  customizeTargetToolbar(toolbar);
   return toolbar;
 }

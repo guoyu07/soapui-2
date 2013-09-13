@@ -1,12 +1,14 @@
 {
-  RestParamProperty prop=params.getPropertyAt(rowIndex);
+  RestParamProperty prop=params.getProperty(paramNameIndex.get(rowIndex));
 switch (columnIndex) {
 case 0:
     return prop.getName();
 case 1:
-  return prop.getDefaultValue();
+  return prop.getValue();
 case 2:
 return prop.getStyle();
+case 3:
+return prop.getParamLocation();
 }
 return null;
 }

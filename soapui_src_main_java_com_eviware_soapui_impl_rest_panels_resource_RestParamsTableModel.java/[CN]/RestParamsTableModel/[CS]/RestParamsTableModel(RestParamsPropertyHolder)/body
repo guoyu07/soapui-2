@@ -1,4 +1,11 @@
 {
   this.params=params;
   params.addTestPropertyListener(this);
+  if (params.getModelItem() instanceof RestRequest) {
+    ((RestRequest)params.getModelItem()).getResource().getParams().addTestPropertyListener(this);
+    ((RestRequest)params.getModelItem()).getResource().addPropertyChangeListener(this);
+    ((RestRequest)params.getModelItem()).getRestMethod().getParams().addTestPropertyListener(this);
+    ((RestRequest)params.getModelItem()).getRestMethod().addPropertyChangeListener(this);
+  }
+  buildParamNameIndex(params);
 }
