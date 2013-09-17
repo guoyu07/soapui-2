@@ -4,6 +4,5 @@
   parameter.setParamLocation(NewRestResourceActionBase.ParamLocation.RESOURCE);
   RestParamProperty returnedParameter=request.getParams().getProperty(PARAMETER_NAME);
   returnedParameter.setParamLocation(NewRestResourceActionBase.ParamLocation.METHOD);
-  returnedParameter=request.getParams().getProperty(PARAMETER_NAME);
-  assertThat(returnedParameter.getValue(),is(PARAMETER_VALUE));
+  assertThat(request,hasARestParameterNamed(PARAMETER_NAME).withValue(PARAMETER_VALUE));
 }

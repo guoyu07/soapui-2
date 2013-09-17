@@ -1,0 +1,8 @@
+{
+  RequestTransport anyTransport=mock(RequestTransport.class);
+  WsdlSubmit<WsdlRequest> submit=new WsdlSubmit<WsdlRequest>(request,new SubmitListener[0],anyTransport);
+  when(request.submit(isA(SubmitContext.class),eq(true))).thenReturn(submit);
+  AbstractButton runButton=desktopPanel.getSubmitButton();
+  runButton.doClick();
+  verify(request).submit(isA(SubmitContext.class),eq(true));
+}

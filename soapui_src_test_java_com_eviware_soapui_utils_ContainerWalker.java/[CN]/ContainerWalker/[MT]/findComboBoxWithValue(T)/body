@@ -1,0 +1,13 @@
+{
+  for (  Component component : containedComponents) {
+    if (component instanceof JComboBox) {
+      JComboBox<T> comboBox=(JComboBox<T>)component;
+      for (int i=0; i < comboBox.getItemCount(); i++) {
+        if (comboBox.getItemAt(i).equals(value)) {
+          return comboBox;
+        }
+      }
+    }
+  }
+  throw new NoSuchElementException("No combo box found with item " + value);
+}
