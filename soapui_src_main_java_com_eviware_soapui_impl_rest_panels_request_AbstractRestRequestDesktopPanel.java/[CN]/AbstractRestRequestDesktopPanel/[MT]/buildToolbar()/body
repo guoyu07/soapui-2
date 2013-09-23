@@ -12,6 +12,8 @@
     JLabel methodLabel=new JLabel("Method");
     methodPanel.add(methodLabel,BorderLayout.NORTH);
     methodPanel.add(methodComboBox,BorderLayout.SOUTH);
+    methodPanel.setMinimumSize(new Dimension(75,STANDARD_TOOLBAR_HEIGHT));
+    methodPanel.setMaximumSize(new Dimension(75,STANDARD_TOOLBAR_HEIGHT + 10));
     JPanel endpointPanel=new JPanel(new BorderLayout());
     endpointPanel.setMinimumSize(new Dimension(75,STANDARD_TOOLBAR_HEIGHT));
     JComponent endpointCombo=buildEndpointComponent();
