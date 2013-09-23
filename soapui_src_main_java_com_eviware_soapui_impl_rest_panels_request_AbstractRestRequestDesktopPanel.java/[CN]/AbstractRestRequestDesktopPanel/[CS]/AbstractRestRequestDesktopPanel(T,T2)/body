@@ -2,6 +2,7 @@
   super(modelItem,requestItem);
   addPropertyChangeListenerToResource(requestItem);
   requestItem.addTestPropertyListener(testPropertyListener);
+  requestItem.getOperation().getInterface().addPropertyChangeListener(new EndpointChangeListener());
   for (  TestProperty param : requestItem.getParams().getProperties().values()) {
     ((RestParamProperty)param).addPropertyChangeListener(restParamPropertyChangeListener);
   }
