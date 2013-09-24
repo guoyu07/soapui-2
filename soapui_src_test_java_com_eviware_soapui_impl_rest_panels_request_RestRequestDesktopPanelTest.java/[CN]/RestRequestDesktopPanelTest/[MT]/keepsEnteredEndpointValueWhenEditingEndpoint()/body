@@ -1,0 +1,8 @@
+{
+  JComboBox<String> endpointsCombo=findEndpointsComboBox();
+  String otherValue="http://dn.se";
+  setComboTextFieldValue(endpointsCombo,otherValue);
+  endpointsCombo.setSelectedItem(EndpointsComboBoxModel.EDIT_ENDPOINT);
+  waitForSwingThread();
+  assertThat(dialogs.getPrompts(),hasPromptWithValue(otherValue));
+}

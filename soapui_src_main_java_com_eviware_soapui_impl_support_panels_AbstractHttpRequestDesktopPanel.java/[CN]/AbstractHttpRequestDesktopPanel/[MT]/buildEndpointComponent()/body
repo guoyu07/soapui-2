@@ -1,6 +1,8 @@
 {
   final JComboBox endpointCombo=new JComboBox(endpointsModel);
   endpointCombo.setEditable(true);
+  Document textFieldDocument=((JTextComponent)endpointCombo.getEditor().getEditorComponent()).getDocument();
+  endpointsModel.listenToChangesIn(textFieldDocument);
   endpointCombo.addPropertyChangeListener(this);
   endpointCombo.setToolTipText(endpointsModel.getSelectedItem().toString());
   return UISupport.addTooltipListener(endpointCombo,"- no endpoint set for request -");
