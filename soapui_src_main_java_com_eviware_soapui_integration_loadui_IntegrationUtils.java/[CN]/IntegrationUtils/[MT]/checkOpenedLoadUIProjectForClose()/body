@@ -3,7 +3,7 @@
   if (StringUtils.isNullOrEmpty(openedProjectName)) {
     return false;
   }
-  Boolean close=null;
+  Boolean close;
   Boolean saveProject=null;
   Boolean isDirty=isOpenedProjectDirty();
   if (isDirty != null && isDirty) {
@@ -14,7 +14,7 @@
     close=UISupport.confirm("Currently open [" + openedProjectName + "] loadUI project will be closed. Continue?","Close loadUI project");
   }
   boolean quit=true;
-  if (close != null && close) {
+  if (close) {
     closeOpenedLoadUIProject(saveProject != null && saveProject);
     quit=false;
   }

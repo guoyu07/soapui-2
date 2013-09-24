@@ -1,0 +1,23 @@
+{
+  if (skipProjectsWithRunningTests && SoapUI.getTestMonitor().hasRunningTests(project)) {
+    log.warn(messages.get("ProjectHasRunningTests.Warning",project.getName()));
+  }
+ else {
+    if (!StringUtils.hasContent(project.getPath())) {
+      Boolean shouldSave=UISupport.confirmOrCancel(messages.get("ProjectHasNotBeenSaved.Label",project.getName()),messages.get("ProjectHasNotBeenSaved.Title"));
+      if (shouldSave == null) {
+        return SaveStatus.CANCELLED;
+      }
+      if (shouldSave) {
+        return project.save();
+      }
+ else {
+        return SaveStatus.DONT_SAVE;
+      }
+    }
+ else {
+      return project.save();
+    }
+  }
+  return SaveStatus.SUCCESS;
+}

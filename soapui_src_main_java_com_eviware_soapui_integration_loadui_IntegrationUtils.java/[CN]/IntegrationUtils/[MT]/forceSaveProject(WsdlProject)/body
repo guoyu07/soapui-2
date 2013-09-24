@@ -1,7 +1,7 @@
 {
   if (UISupport.confirm("Project needs to be saved before it gets exported! Save it?","Save Project")) {
     try {
-      if (project.save())       return true;
+      if (project.save() == SaveStatus.SUCCESS)       return true;
  else {
         UISupport.showInfoMessage("Export Operation Aborted!");
         return false;

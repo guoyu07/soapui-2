@@ -6,7 +6,7 @@
     String testCaseName=names[0];
     String loadTestName=names[1];
     WsdlTestCase testCase=testSuite.getTestCaseByName(testCaseName);
-    HashMap<String,Object> firstSamplerSettings=new HashMap<String,Object>();
+    HashMap<String,Object> firstSamplerSettings;
     String loadUIProjectAddedTo="";
     if (testCase != null) {
       WsdlLoadTest loadTest=(WsdlLoadTest)testCase.getLoadTestByName(loadTestName);

@@ -42,9 +42,9 @@
           if (dialog.getBooleanValue(Form.RELATIVEPATHS)) {
             String folder=workspace.getProjectRoot();
             if (PathUtils.isFilePath(url) && PathUtils.isAbsolutePath(url)) {
-              folder=new File(url).getParent().toString();
+              folder=new File(url).getParent();
             }
-            if (!project.save(folder)) {
+            if (project.save(folder) != SaveStatus.SUCCESS) {
               UISupport.showErrorMessage("Project was not saved, paths will not be stored relatively until configured.");
             }
  else {

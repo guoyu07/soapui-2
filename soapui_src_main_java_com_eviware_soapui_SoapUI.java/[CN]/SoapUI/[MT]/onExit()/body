@@ -5,7 +5,10 @@
     if (!UISupport.confirm(question,"Question"))     return false;
     try {
       soapUICore.saveSettings();
-      workspace.onClose();
+      SaveStatus saveStatus=workspace.onClose();
+      if (saveStatus == SaveStatus.CANCELLED) {
+        return false;
+      }
     }
  catch (    Exception e1) {
       SoapUI.logError(e1);

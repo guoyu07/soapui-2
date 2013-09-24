@@ -1,6 +1,6 @@
 {
-  ProjectListener[] a=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
-  for (int c=0; c < a.length; c++) {
-    a[c].interfaceRemoved(iface);
+  ProjectListener[] listeners=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
+  for (  ProjectListener listener : listeners) {
+    listener.interfaceRemoved(iface);
   }
 }

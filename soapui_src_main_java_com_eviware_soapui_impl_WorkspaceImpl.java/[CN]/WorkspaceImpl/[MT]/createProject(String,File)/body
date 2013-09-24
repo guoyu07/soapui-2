@@ -2,16 +2,20 @@
   File projectFile=file;
   while (projectFile != null && projectFile.exists()) {
     Boolean result=Boolean.FALSE;
-    while (!result.booleanValue()) {
+    while (!result) {
       result=UISupport.confirmOrCancel(messages.get("OverwriteProject.Label"),messages.get("OverwriteProject.Title"));
       if (result == null)       return null;
-      if (result.booleanValue()) {
+      if (result) {
         projectFile.delete();
       }
  else {
         projectFile=UISupport.getFileDialogs().saveAs(this,messages.get("CreateProject.Title"),".xml","XML Files (*.xml)",projectFile);
-        if (projectFile == null)         return null;
- else         break;
+        if (projectFile != null) {
+          break;
+        }
+ else {
+          return null;
+        }
       }
     }
   }
@@ -20,7 +24,9 @@
   projectList.add(project);
   fireProjectAdded(project);
   try {
-    if (projectFile != null)     project.saveAs(projectFile.getAbsolutePath());
+    if (projectFile != null) {
+      project.saveAs(projectFile.getAbsolutePath());
+    }
   }
  catch (  IOException e) {
     log.error(messages.get("FailedToSaveProject.Error") + e.getMessage(),e);

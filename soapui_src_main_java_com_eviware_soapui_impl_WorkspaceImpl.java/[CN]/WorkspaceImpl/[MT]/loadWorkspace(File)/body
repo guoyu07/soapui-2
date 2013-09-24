@@ -7,8 +7,7 @@
     settings=new XmlBeansSettingsImpl(this,SoapUI.getSettings(),workspaceConfig.getSoapuiWorkspace().getSettings());
     boolean closeOnStartup=getSettings().getBoolean(UISettings.CLOSE_PROJECTS);
     List<WorkspaceProjectConfig> projects=workspaceConfig.getSoapuiWorkspace().getProjectList();
-    for (int i=0; i < projects.size(); i++) {
-      WorkspaceProjectConfig wsc=projects.get(i);
+    for (    WorkspaceProjectConfig wsc : projects) {
       String str=PathUtils.denormalizePath(wsc.getStringValue());
       str=PathUtils.adjustRelativePath(str,getProjectRoot(),this);
       try {

@@ -1,16 +1,22 @@
 {
   try {
     ProjectListener[] a=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
-    for (int c=0; c < a.length; c++) {
-      a[c].beforeSave(this);
+    for (    ProjectListener listener : a) {
+      listener.beforeSave(this);
     }
     runBeforeSaveScript();
   }
  catch (  Exception e) {
     SoapUI.logError(e);
   }
-  for (  AbstractInterface<?> iface : interfaces)   iface.beforeSave();
-  for (  WsdlTestSuite testSuite : testSuites)   testSuite.beforeSave();
-  for (  WsdlMockService mockService : mockServices)   mockService.beforeSave();
+  for (  AbstractInterface<?> iface : interfaces) {
+    iface.beforeSave();
+  }
+  for (  WsdlTestSuite testSuite : testSuites) {
+    testSuite.beforeSave();
+  }
+  for (  WsdlMockService mockService : mockServices) {
+    mockService.beforeSave();
+  }
   endpointStrategy.onSave();
 }

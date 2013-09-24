@@ -1,8 +1,10 @@
 {
   byte[] encryptedContent=soapuiProject.getEncryptedContent();
-  char[] password=null;
-  if (encryptedContent == null || encryptedContent.length == 0)   return 0;
-  String projectPassword=null;
+  char[] password;
+  if (encryptedContent == null || encryptedContent.length == 0) {
+    return 0;
+  }
+  String projectPassword;
   if (workspace != null) {
     projectPassword=workspace.getProjectPassword(soapuiProject.getName());
   }
@@ -15,7 +17,7 @@
  else {
     password=projectPassword.toCharArray();
   }
-  byte[] data=null;
+  byte[] data;
   if (password == null) {
     return -1;
   }
@@ -27,7 +29,7 @@
     return -1;
   }
   String decryptedData=new String(data,"UTF-8");
-  if (decryptedData != null) {
+  if (data != null) {
     if (decryptedData.length() > 0) {
       try {
         projectDocument.getSoapuiProject().set(XmlUtils.createXmlObject(decryptedData));

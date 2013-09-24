@@ -1,7 +1,9 @@
 {
   int oldProjectEncrypt=((WsdlProject)project).getEncrypted();
   int ix=projectList.indexOf(project);
-  if (ix == -1)   throw new RuntimeException("Project [" + project.getName() + "] not available in workspace for close");
+  if (ix == -1) {
+    throw new RuntimeException("Project [" + project.getName() + "] not available in workspace for close");
+  }
   projectList.remove(ix);
   fireProjectRemoved(project);
   fireProjectClosed(project);

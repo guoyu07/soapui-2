@@ -4,7 +4,7 @@
   String disable=System.getProperty("soapui.jxbrowser.disable","nope");
   if (disable.equals("true"))   return true;
   if (getSoapUICore() != null && getSettings().getBoolean(UISettings.DISABLE_BROWSER))   return true;
-  if (!disable.equals("false") && allowNative == true && (BrowserType.Mozilla.isSupported() || BrowserType.IE.isSupported() || BrowserType.Safari.isSupported()))   return false;
+  if (!disable.equals("false") && allowNative && (BrowserType.Mozilla.isSupported() || BrowserType.IE.isSupported() || BrowserType.Safari.isSupported()))   return false;
   if (!disable.equals("false") && (!PlatformContext.isMacOS() && "64".equals(System.getProperty("sun.arch.data.model"))))   return true;
   return false;
 }

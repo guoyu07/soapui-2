@@ -1,0 +1,21 @@
+{
+  String path=project.getPath();
+  if (path != null) {
+    path=PathUtils.createRelativePath(path,getProjectRoot(),this);
+    WorkspaceProjectConfig wpc=WorkspaceProjectConfig.Factory.newInstance();
+    wpc.setStringValue(PathUtils.normalizePath(path));
+    if (project.isRemote()) {
+      wpc.setType(Type.REMOTE);
+    }
+    if (!project.isOpen()) {
+      if (project.getEncrypted() == 0) {
+        wpc.setStatus(Status.CLOSED);
+      }
+ else {
+        wpc.setStatus(Status.CLOSED_AND_ENCRYPTED);
+      }
+    }
+    wpc.setName(project.getName());
+    projects.add(wpc);
+  }
+}

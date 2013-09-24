@@ -5,6 +5,5 @@
     backupFolder=new File(projectFile.getParentFile(),backupFolderName);
   }
   if (!backupFolder.exists())   backupFolder.mkdirs();
-  File backupFile=new File(backupFolder,projectFile.getName() + ".backup");
-  return backupFile;
+  return new File(backupFolder,projectFile.getName() + ".backup");
 }
