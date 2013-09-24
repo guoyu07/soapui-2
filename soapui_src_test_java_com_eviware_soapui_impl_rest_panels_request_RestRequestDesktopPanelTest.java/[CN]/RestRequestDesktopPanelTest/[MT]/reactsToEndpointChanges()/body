@@ -1,5 +1,5 @@
 {
   String anotherEndpoint="http://mafia.ru/search";
-  getRestService().changeEndpoint(ENDPOINT,anotherEndpoint);
+  restService().changeEndpoint(ENDPOINT,anotherEndpoint);
   assertThat(requestDesktopPanel.getEndpointsModel().getSelectedItem(),is((Object)anotherEndpoint));
 }
