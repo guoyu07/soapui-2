@@ -6,7 +6,6 @@
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
         String value=newValue.toLowerCase().trim();
         dialog.getFormField(Form.CREATEREQUEST).setEnabled(value.length() > 0 && !newValue.endsWith(".wadl"));
-        dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(newValue.trim().length() > 0 && !newValue.endsWith(".wadl"));
         dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0);
         initProjectName(newValue);
       }
@@ -17,7 +16,6 @@
     dialog.setValue(Form.INITIALWSDL,"");
     dialog.setValue(Form.PROJECTNAME,"");
     dialog.getFormField(Form.CREATEREQUEST).setEnabled(false);
-    dialog.getFormField(Form.GENERATEMOCKSERVICE).setEnabled(false);
     dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(false);
   }
   if (param instanceof String) {
@@ -51,9 +49,6 @@
           if (url.length() > 0) {
             if (new File(url).exists())             url=new File(url).toURI().toURL().toString();
             importWsdl(project,url);
-          }
-          if (dialog.getBooleanValue(Form.CREATEWEBTEST)) {
-            new CreateWebTestAction().perform(project,param);
           }
           break;
         }

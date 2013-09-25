@@ -2,8 +2,11 @@
   System.setProperty("apple.laf.useScreenMenuBar","true");
   System.setProperty("com.apple.mrj.application.apple.menu.about.name","SoapUI");
   frame=new JFrame(title);
-  SoapUISplash splash=new SoapUISplash(splashImage,frame);
-  frame.setIconImage(UISupport.createImageIcon(FRAME_ICON).getImage());
+  List<Image> iconList=new ArrayList<Image>();
+  for (  String iconPath : FRAME_ICON.split(";")) {
+    iconList.add(UISupport.createImageIcon(iconPath).getImage());
+  }
+  frame.setIconImages(iconList);
   JPopupMenu.setDefaultLightWeightPopupEnabled(false);
   ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
   isStandalone=true;
@@ -39,8 +42,6 @@
   core.prepareUI();
   soapUI.show(workspace);
   core.afterStartup(workspace);
-  Thread.sleep(500);
-  splash.setVisible(false);
   if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !SoapUI.isJXBrowserDisabled(true)) {
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){

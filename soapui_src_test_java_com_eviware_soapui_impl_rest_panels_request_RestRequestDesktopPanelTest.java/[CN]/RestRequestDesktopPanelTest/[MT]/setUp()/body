@@ -2,7 +2,13 @@
   restRequest=new RestRequest(makeRestMethod(),RestRequestConfig.Factory.newInstance(),false);
   restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
   restRequest.getResource().getParams().addProperty(PARAMETER_NAME);
+  restService().addEndpoint(ENDPOINT);
+  restRequest.setEndpoint(ENDPOINT);
   RestParamProperty restParamProperty=restRequest.getParams().getProperty(PARAMETER_NAME);
   restParamProperty.setValue(PARAMETER_VALUE);
   requestDesktopPanel=new RestRequestDesktopPanel(restRequest);
+  originalDialogs=UISupport.getDialogs();
+  dialogs=new StubbedDialogs();
+  UISupport.setDialogs(dialogs);
+  endpointsCombo=findEndpointsComboBox();
 }

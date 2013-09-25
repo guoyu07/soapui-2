@@ -1,0 +1,8 @@
+{
+  dialogs.mockPromptWithReturnValue(null);
+  String otherValue="http://dn.se";
+  setComboTextFieldValue(endpointsCombo,otherValue);
+  endpointsCombo.setSelectedItem(EndpointsComboBoxModel.ADD_NEW_ENDPOINT);
+  waitForSwingThread();
+  assertThat(getComboTextFieldValue(),is(otherValue));
+}
