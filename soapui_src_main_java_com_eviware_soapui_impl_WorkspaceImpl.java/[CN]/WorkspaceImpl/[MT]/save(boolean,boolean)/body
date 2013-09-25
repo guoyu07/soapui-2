@@ -22,13 +22,9 @@
           continue;
         }
       }
-      saveWorkspace(projects,project);
+      saveWorkspaceProjectConfig(projects,project);
     }
-    workspaceConfig.getSoapuiWorkspace().setProjectArray(projects.toArray(new WorkspaceProjectConfig[projects.size()]));
-    workspaceConfig.getSoapuiWorkspace().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
-    File workspaceFile=new File(path);
-    workspaceConfig.save(workspaceFile,new XmlOptions().setSavePrettyPrint());
-    log.info(messages.get("SavedWorkspace.Info",workspaceFile.getAbsolutePath()));
+    saveWorkspaceConfig(projects);
   }
  catch (  IOException e) {
     log.error(messages.get("FailedToSaveWorkspace.Error") + e.getMessage(),e);

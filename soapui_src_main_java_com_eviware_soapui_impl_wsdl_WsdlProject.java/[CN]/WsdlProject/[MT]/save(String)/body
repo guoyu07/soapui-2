@@ -20,7 +20,9 @@
   while (projectFile.exists() && !projectFile.canWrite()) {
     if (UISupport.confirm("Project file [" + path + "] can not be written to, save to new file?","Save Project")) {
       projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",projectFile);
-      if (projectFile == null)       return SaveStatus.CANCELLED;
+      if (projectFile == null) {
+        return SaveStatus.CANCELLED;
+      }
       path=projectFile.getAbsolutePath();
     }
  else {

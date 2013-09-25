@@ -1,0 +1,6 @@
+{
+  originalFileDialogs=UISupport.getFileDialogs();
+  fileDialogs=mock(XFileDialogs.class);
+  when(fileDialogs.saveAs(anyObject(),anyString(),anyString(),anyString(),isA(File.class))).thenReturn(new File(FILE_PATH));
+  UISupport.setFileDialogs(fileDialogs);
+}

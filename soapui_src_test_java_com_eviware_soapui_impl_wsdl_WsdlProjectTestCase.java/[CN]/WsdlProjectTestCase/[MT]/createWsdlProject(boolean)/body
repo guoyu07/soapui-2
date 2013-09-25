@@ -1,0 +1,10 @@
+{
+  WsdlProject wsdlProject=new WsdlProject(null,null,true,isOpen,PROJECT_NAME,null){
+    @Override public SaveStatus saveIn(    File projectFile) throws IOException {
+      return SaveStatus.SUCCESS;
+    }
+  }
+;
+  wsdlProject.getSettings().setBoolean(UISettings.LINEBREAK,false);
+  return wsdlProject;
+}

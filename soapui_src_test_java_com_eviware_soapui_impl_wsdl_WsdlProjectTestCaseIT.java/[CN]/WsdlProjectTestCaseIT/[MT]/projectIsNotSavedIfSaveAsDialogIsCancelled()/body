@@ -1,8 +1,0 @@
-{
-  XFileDialogs fileDialogs=mock(XFileDialogs.class);
-  UISupport.setFileDialogs(fileDialogs);
-  WsdlProject project=new WsdlProject(null,null,true,true,"ProjectName",null);
-  SaveStatus saveResult=project.save();
-  assertNull(project.getPath());
-  assertThat(saveResult,equalTo(SaveStatus.CANCELLED));
-}

@@ -1,0 +1,6 @@
+{
+  WsdlProject project=createWsdlProject(true);
+  SaveStatus saveResult=project.save();
+  assertThat(project.getPath(),equalTo(FILE_PATH));
+  assertThat(saveResult,equalTo(SaveStatus.SUCCESS));
+}

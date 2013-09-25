@@ -1,0 +1,7 @@
+{
+  WsdlProject project=createWsdlProject(true);
+  when(fileDialogs.saveAs(anyObject(),anyString(),anyString(),anyString(),isA(File.class))).thenReturn(null);
+  SaveStatus saveResult=project.save();
+  assertThat(project.getPath(),is(nullValue()));
+  assertThat(saveResult,equalTo(SaveStatus.CANCELLED));
+}
