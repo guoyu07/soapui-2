@@ -1,0 +1,5 @@
+{
+  List<? extends EditorView<? extends XmlDocument>> views=requestDesktopPanel.getRequestEditor().getViews();
+  RestRequestContentView restRequestContentView=(RestRequestContentView)views.get(0);
+  return restRequestContentView.getParamsTable().getParamsTable();
+}
