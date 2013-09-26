@@ -18,7 +18,7 @@
   if (projectFile == null) {
     projectFile=createFile(path);
   }
-  while (!projectFile.canWrite()) {
+  while (projectFile.exists() && !projectFile.canWrite()) {
     Boolean confirm=UISupport.confirmOrCancel("Project file [" + projectFile.getAbsolutePath() + "] can not be written to, save to new file?","Save Project");
     if (confirm == null) {
       return SaveStatus.CANCELLED;
@@ -41,6 +41,9 @@
   if (projectFile.exists() && getSettings().getBoolean(UISettings.CREATE_BACKUP)) {
     createBackup(projectFile);
   }
-  path=projectFile.getAbsolutePath();
-  return saveIn(projectFile);
+  SaveStatus saveStatus=saveIn(projectFile);
+  if (saveStatus == SaveStatus.SUCCESS) {
+    path=projectFile.getAbsolutePath();
+  }
+  return saveStatus;
 }

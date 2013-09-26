@@ -11,11 +11,8 @@
     for (int c=0; c < getProjectCount(); c++) {
       WsdlProject project=(WsdlProject)getProjectAt(c);
       if (!saveWorkspaceOnly) {
-        SaveStatus status=SaveStatus.FAILED;
-        while (status == SaveStatus.FAILED) {
-          status=saveProject(skipProjectsWithRunningTests,project);
-        }
-        if (status == SaveStatus.CANCELLED) {
+        SaveStatus status=saveProject(skipProjectsWithRunningTests,project);
+        if (status == SaveStatus.CANCELLED || status == SaveStatus.FAILED) {
           return status;
         }
         if (status == SaveStatus.DONT_SAVE) {
