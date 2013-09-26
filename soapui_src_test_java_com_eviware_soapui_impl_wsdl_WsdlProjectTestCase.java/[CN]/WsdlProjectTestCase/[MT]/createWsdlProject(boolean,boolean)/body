@@ -9,5 +9,8 @@
   }
 ;
   wsdlProject.getSettings().setBoolean(UISettings.LINEBREAK,false);
+  if (exitingProject) {
+    wsdlProject.path=FILE_PATH;
+  }
   return wsdlProject;
 }

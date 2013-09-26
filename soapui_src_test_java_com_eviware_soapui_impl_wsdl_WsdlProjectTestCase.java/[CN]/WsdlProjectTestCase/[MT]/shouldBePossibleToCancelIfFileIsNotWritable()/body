@@ -2,8 +2,7 @@
   dialogs.mockConfirmWithReturnValue(null);
   file=FileBuilder.file().canWrite(false).exists(true).build();
   saveAsDialogShouldReturn(file);
-  WsdlProject project=createWsdlProject(true);
-  project.path=FILE_PATH;
+  WsdlProject project=createWsdlProject(true,true);
   SaveStatus saveResult=project.save();
   assertThat(dialogs.getConfirmations(),hasConfirmationWithQuestion("Project file [" + FILE_PATH + "] can not be written to, save to new file?"));
   assertThat(saveResult,equalTo(SaveStatus.CANCELLED));

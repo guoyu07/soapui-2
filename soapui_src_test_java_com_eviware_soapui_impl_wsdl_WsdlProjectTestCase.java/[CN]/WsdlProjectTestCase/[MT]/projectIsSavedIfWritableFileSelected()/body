@@ -1,7 +1,7 @@
 {
   file=FileBuilder.file().canWrite(true).build();
   saveAsDialogShouldReturn(file);
-  WsdlProject project=createWsdlProject(true);
+  WsdlProject project=createWsdlProject(true,false);
   SaveStatus saveResult=project.save();
   assertThat(project.getPath(),equalTo(FILE_PATH));
   assertThat(saveResult,equalTo(SaveStatus.SUCCESS));
