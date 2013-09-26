@@ -1,0 +1,6 @@
+{
+  dialogs.mockConfirmWithReturnValue(true,false,null);
+  assertThat(UISupport.confirmOrCancel("",""),equalTo(true));
+  assertThat(UISupport.confirmOrCancel("",""),equalTo(false));
+  assertThat(UISupport.confirmOrCancel("",""),nullValue());
+}

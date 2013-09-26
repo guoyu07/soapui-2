@@ -15,7 +15,7 @@
   }
   projectDocument.getSoapuiProject().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
   try {
-    File tempFile=File.createTempFile("project-temp-",".xml",projectFile.getParentFile());
+    File tempFile=File.createTempFile("project-temp-",XML_EXTENSION,projectFile.getParentFile());
     FileOutputStream tempOut=new FileOutputStream(tempFile);
     projectDocument.save(tempOut,options);
     tempOut.close();

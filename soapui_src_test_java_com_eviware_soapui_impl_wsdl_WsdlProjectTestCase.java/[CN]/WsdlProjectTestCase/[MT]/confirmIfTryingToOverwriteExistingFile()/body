@@ -1,0 +1,9 @@
+{
+  dialogs.mockConfirmWithReturnValue(true);
+  file=FileBuilder.file().canWrite(false,true).exists(true).build();
+  saveAsDialogShouldReturn(file);
+  WsdlProject project=createWsdlProject(true);
+  SaveStatus saveStatus=project.save();
+  assertThat(dialogs.getConfirmations(),hasConfirmationWithQuestion("File [" + FILE_NAME + "] exists, overwrite?"));
+  assertThat(saveStatus,equalTo(SaveStatus.SUCCESS));
+}

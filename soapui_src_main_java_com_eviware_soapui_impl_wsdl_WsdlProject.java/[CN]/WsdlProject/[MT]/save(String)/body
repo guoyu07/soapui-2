@@ -2,31 +2,35 @@
   if (!isOpen() || isDisabled() || isRemote()) {
     return SaveStatus.SUCCESS;
   }
+  File projectFile=null;
   if (!hasBeenSavedBefore()) {
     String tempPath=StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml";
     if (folder != null) {
       tempPath=folder + File.separatorChar + tempPath;
     }
-    File file=null;
-    while (file == null || (file.exists() && !UISupport.confirm("File [" + file.getName() + "] exists, overwrite?","Overwrite File?"))) {
-      file=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",new File(tempPath));
-      if (file == null) {
-        return SaveStatus.CANCELLED;
-      }
-    }
-    path=file.getAbsolutePath();
-  }
-  File projectFile=new File(path);
-  while (projectFile.exists() && !projectFile.canWrite()) {
-    if (UISupport.confirm("Project file [" + path + "] can not be written to, save to new file?","Save Project")) {
-      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",projectFile);
+    while (projectFile == null || (projectFile.exists() && !UISupport.confirm("File [" + projectFile.getName() + "] exists, overwrite?","Overwrite File?"))) {
+      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),XML_EXTENSION,XML_FILE_TYPE,new File(tempPath));
       if (projectFile == null) {
         return SaveStatus.CANCELLED;
       }
-      path=projectFile.getAbsolutePath();
+    }
+  }
+  if (projectFile == null) {
+    projectFile=createFile(path);
+  }
+  while (!projectFile.canWrite()) {
+    Boolean confirm=UISupport.confirmOrCancel("Project file [" + projectFile.getAbsolutePath() + "] can not be written to, save to new file?","Save Project");
+    if (confirm == null) {
+      return SaveStatus.CANCELLED;
+    }
+ else     if (!confirm) {
+      return SaveStatus.DONT_SAVE;
     }
  else {
-      return SaveStatus.CANCELLED;
+      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),XML_EXTENSION,XML_FILE_TYPE,projectFile);
+      if (projectFile == null) {
+        return SaveStatus.CANCELLED;
+      }
     }
   }
   if (projectFileModified(projectFile)) {
@@ -37,5 +41,6 @@
   if (projectFile.exists() && getSettings().getBoolean(UISettings.CREATE_BACKUP)) {
     createBackup(projectFile);
   }
+  path=projectFile.getAbsolutePath();
   return saveIn(projectFile);
 }

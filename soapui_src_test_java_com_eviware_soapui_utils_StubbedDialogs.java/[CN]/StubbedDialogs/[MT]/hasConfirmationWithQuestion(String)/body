@@ -1,0 +1,16 @@
+{
+  return new TypeSafeMatcher<List<Confirmation>>(){
+    @Override public boolean matchesSafely(    List<Confirmation> confirmations){
+      for (      Confirmation confirmation : confirmations) {
+        if (confirmation.question.equals(question)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("a Confirm list with a confirm with the question '" + question + "'");
+    }
+  }
+;
+}

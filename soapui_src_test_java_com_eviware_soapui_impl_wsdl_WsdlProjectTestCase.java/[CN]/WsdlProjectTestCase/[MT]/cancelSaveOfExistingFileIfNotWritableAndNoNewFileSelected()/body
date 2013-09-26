@@ -1,7 +1,9 @@
 {
+  dialogs.mockConfirmWithReturnValue(true);
+  file=FileBuilder.file().canWrite(false).exists(true).build();
   saveAsDialogShouldReturn(null);
   WsdlProject project=createWsdlProject(true);
+  project.path=FILE_PATH;
   SaveStatus saveResult=project.save();
-  assertThat(project.getPath(),is(nullValue()));
   assertThat(saveResult,equalTo(SaveStatus.CANCELLED));
 }
