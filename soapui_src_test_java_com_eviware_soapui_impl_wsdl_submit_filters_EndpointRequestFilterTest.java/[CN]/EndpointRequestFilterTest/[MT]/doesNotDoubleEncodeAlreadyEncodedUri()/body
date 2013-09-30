@@ -1,0 +1,10 @@
+{
+  String encodedUri="http://google.se/search?q=%3F";
+  HttpRequestBase httpMethod=Mockito.mock(HttpRequestBase.class);
+  SubmitContext context=mockContext(httpMethod);
+  AbstractHttpRequest<?> request=mockRequest(encodedUri,mockSettings());
+  endpointRequestFilter.filterAbstractHttpRequest(context,request);
+  ArgumentCaptor<URI> httpMethodUri=ArgumentCaptor.forClass(URI.class);
+  Mockito.verify(httpMethod).setURI(httpMethodUri.capture());
+  Assert.assertThat(httpMethodUri.getValue(),Is.is(new URI(encodedUri)));
+}

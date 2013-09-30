@@ -1,0 +1,6 @@
+{
+  AbstractHttpRequest<?> request=Mockito.mock(HttpRequest.class);
+  Mockito.when(request.getEndpoint()).thenReturn(encodedUri);
+  Mockito.when(request.getSettings()).thenReturn(settings);
+  return request;
+}
