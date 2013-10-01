@@ -1,0 +1,13 @@
+{
+  params=mock(RestParamsPropertyHolder.class);
+  RestRequest restRequest=mock(RestRequest.class);
+  RestResource resource=mock(RestResource.class);
+  RestParamsPropertyHolder resourceParams=mock(XmlBeansRestParamsTestPropertyHolder.class);
+  when(resource.getParams()).thenReturn(resourceParams);
+  when(restRequest.getResource()).thenReturn(resource);
+  RestMethod restMethod=mock(RestMethod.class);
+  RestParamsPropertyHolder methodParams=mock(XmlBeansRestParamsTestPropertyHolder.class);
+  when(restMethod.getParams()).thenReturn(methodParams);
+  when(restRequest.getRestMethod()).thenReturn(restMethod);
+  when(params.getModelItem()).thenReturn(restRequest);
+}

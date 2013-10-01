@@ -1,13 +1,9 @@
 {
-  params=Mockito.mock(RestParamsPropertyHolder.class);
-  param=mock(RestParamProperty.class);
-  when(param.getParamLocation()).thenReturn(NewRestResourceActionBase.ParamLocation.METHOD);
-  when(param.getName()).thenReturn(PARAM_NAME);
-  when(params.getProperty(PARAM_NAME)).thenReturn(param);
-  when(params.getPropertyIndex(PARAM_NAME)).thenReturn(0);
-  when(params.size()).thenReturn(1);
-  Map<String,TestProperty> properties=new HashMap<String,TestProperty>();
-  properties.put(PARAM_NAME,param);
-  when(params.getProperties()).thenReturn(properties);
+  restRequest=ModelItemFactory.makeRestRequest();
+  params=restRequest.getParams();
+  RestParamProperty param=params.addProperty(PARAM_NAME_1);
+  param.setParamLocation(METHOD);
+  RestParamProperty param2=params.addProperty(PARAM_NAME_2);
+  param2.setParamLocation(METHOD);
   restParamsTableModel=new RestParamsTableModel(params);
 }
