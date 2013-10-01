@@ -1,7 +1,7 @@
 {
   try {
-    ProjectListener[] a=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
-    for (    ProjectListener listener : a) {
+    ProjectListener[] listeners=projectListeners.toArray(new ProjectListener[projectListeners.size()]);
+    for (    ProjectListener listener : listeners) {
       listener.beforeSave(this);
     }
     runBeforeSaveScript();
