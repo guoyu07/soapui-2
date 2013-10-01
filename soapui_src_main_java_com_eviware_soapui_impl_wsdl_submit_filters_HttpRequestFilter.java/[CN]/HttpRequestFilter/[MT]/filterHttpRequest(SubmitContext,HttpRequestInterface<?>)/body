@@ -90,7 +90,7 @@ try {
 URI uri=new URI(path,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
 context.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
 java.net.URI oldUri=httpMethod.getURI();
-httpMethod.setURI(new java.net.URI(oldUri.getScheme(),oldUri.getUserInfo(),oldUri.getHost(),oldUri.getPort(),(uri.getPath()) == null ? "/" : uri.getPath(),oldUri.getQuery(),oldUri.getFragment()));
+httpMethod.setURI(HttpUtils.createUri(oldUri.getScheme(),oldUri.getRawUserInfo(),oldUri.getHost(),oldUri.getPort(),oldUri.getRawPath(),uri.getEscapedQuery(),oldUri.getRawFragment()));
 }
  catch (Exception e) {
 SoapUI.logError(e);

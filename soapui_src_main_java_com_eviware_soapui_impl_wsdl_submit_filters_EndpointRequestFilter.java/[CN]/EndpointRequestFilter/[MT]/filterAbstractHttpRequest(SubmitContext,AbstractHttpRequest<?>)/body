@@ -6,7 +6,7 @@
     if (StringUtils.hasContent(strURL)) {
       URI uri=new URI(strURL,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
       context.setProperty(BaseHttpRequestTransport.REQUEST_URI,uri);
-      httpMethod.setURI(URIUtils.createURI(uri.getScheme(),uri.getHost(),uri.getPort(),uri.getEscapedPath(),uri.getEscapedQuery(),uri.getEscapedFragment()));
+      httpMethod.setURI(HttpUtils.createUri(uri));
     }
   }
  catch (  Exception e) {
