@@ -12,7 +12,9 @@ case 2:
 prop.setStyle((ParameterStyle)value);
 return;
 case 3:
+if (params.getModelItem() instanceof RestRequest) {
 this.isLastChangeParameterLevelChange=true;
+}
 prop.setParamLocation((ParamLocation)value);
 return;
 }

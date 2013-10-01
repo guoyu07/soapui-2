@@ -1,0 +1,6 @@
+{
+  JTable parameterTable=getRestParameterTable();
+  parameterTable.setValueAt(METHOD,0,RestParamsTableModel.PARAM_LOCATION_COLUMN_INDEX);
+  String param1StillExists=(String)parameterTable.getValueAt(0,0);
+  assertThat(param1StillExists,Is.is(PARAM_1));
+}
