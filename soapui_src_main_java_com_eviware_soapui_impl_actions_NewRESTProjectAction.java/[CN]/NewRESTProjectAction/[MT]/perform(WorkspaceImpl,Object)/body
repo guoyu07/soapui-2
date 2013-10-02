@@ -1,9 +1,9 @@
 {
   if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog=buildDialog();
   }
-  dialog.setValue(Form.URI,EXAMPLE_URI);
-  XFormField uriField=dialog.getFormField(Form.URI);
+  dialog.setValue(URI_LABEL,EXAMPLE_URI);
+  XFormField uriField=dialog.getFormField(URI_LABEL);
   JUndoableTextField textField=null;
   if (uriField instanceof JTextFieldFormField) {
     defaultURIReplaced=false;
@@ -21,7 +21,7 @@
       if (!defaultURIReplaced && textField != null) {
         resetUriField(textField);
       }
-      String URI=dialog.getValue(Form.URI).trim();
+      String URI=dialog.getValue(URI_LABEL).trim();
       project=workspace.createProject(PROJECT_NAME,null);
       createRestProject(project,URI);
       break;

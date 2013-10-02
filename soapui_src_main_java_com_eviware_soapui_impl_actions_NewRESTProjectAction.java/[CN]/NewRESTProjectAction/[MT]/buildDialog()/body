@@ -1,0 +1,15 @@
+{
+  XFormDialogBuilder newDialogBuilder=XFormFactory.createDialogBuilder(messages.get("Title"));
+  XForm form=newDialogBuilder.createForm("");
+  form.addTextField(URI_LABEL,URI_DESCRIPTION,XForm.FieldType.TEXT);
+  ActionList actions=new DefaultActionList();
+  actions.addActions(newDialogBuilder.buildOkCancelHelpActions(HelpUrls.NEWRESTPROJECT_HELP_URL));
+  actions.addAction(new AbstractAction("Import WADL..."){
+    @Override public void actionPerformed(    ActionEvent e){
+      dialog.setVisible(false);
+      SoapUI.getActionRegistry().getAction(NewGenericProjectAction.SOAPUI_ACTION_ID).perform(SoapUI.getWorkspace(),null);
+    }
+  }
+);
+  return newDialogBuilder.buildDialog(actions,messages.get("Description"),UISupport.TOOL_ICON);
+}
