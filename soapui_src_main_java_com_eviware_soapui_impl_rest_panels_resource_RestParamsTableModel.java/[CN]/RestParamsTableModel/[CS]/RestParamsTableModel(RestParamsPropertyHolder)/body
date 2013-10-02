@@ -1,6 +1,9 @@
 {
   this.params=params;
   params.addTestPropertyListener(this);
-  params.getModelItem().addPropertyChangeListener(this);
+  ModelItem parametersOwner=params.getModelItem();
+  if (parametersOwner != null) {
+    parametersOwner.addPropertyChangeListener(this);
+  }
   buildParamNameIndex(params);
 }
