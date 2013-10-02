@@ -1,3 +1,10 @@
 {
-  frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+  Dimension screenResolution=Toolkit.getDefaultToolkit().getScreenSize();
+  if (isMac()) {
+    frame.setSize(screenResolution);
+  }
+ else {
+    frame.setSize(new Dimension((int)(.7 * screenResolution.width),(int)(.7 * screenResolution.width)));
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+  }
 }
