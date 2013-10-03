@@ -1,0 +1,8 @@
+{
+  restRequest.getParams().addProperty("Param2");
+  getRestParameterTable().setValueAt(NewRestResourceActionBase.ParamLocation.METHOD,0,3);
+  String paramNameAtRow0;
+  restRequest.getParams().removeProperty(PARAMETER_NAME);
+  paramNameAtRow0=(String)getRestParameterTable().getValueAt(0,0);
+  assertThat(paramNameAtRow0,is("Param2"));
+}

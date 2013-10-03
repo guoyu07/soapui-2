@@ -1,5 +1,5 @@
 {
-  restRequest=new RestRequest(makeRestMethod(),RestRequestConfig.Factory.newInstance(),false);
+  restRequest=ModelItemFactory.makeRestRequest();
   restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
   restRequest.getResource().getParams().addProperty(PARAMETER_NAME);
   restService().addEndpoint(ENDPOINT);

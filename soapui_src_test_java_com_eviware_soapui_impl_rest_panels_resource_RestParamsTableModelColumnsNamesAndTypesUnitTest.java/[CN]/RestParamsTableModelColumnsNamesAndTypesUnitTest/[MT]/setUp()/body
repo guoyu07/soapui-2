@@ -1,4 +1,4 @@
 {
-  RestParamsPropertyHolder params=Mockito.mock(RestParamsPropertyHolder.class);
-  restParamsTableModel=new RestParamsTableModel(params);
+  RestRequest restRequest=ModelItemFactory.makeRestRequest();
+  restParamsTableModel=new RestParamsTableModel(restRequest.getParams());
 }

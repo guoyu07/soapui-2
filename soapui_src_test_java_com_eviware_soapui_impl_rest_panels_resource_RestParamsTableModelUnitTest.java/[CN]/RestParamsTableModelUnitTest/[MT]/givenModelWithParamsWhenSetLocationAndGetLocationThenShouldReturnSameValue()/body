@@ -1,4 +1,4 @@
 {
   restParamsTableModel.setValueAt(METHOD,0,LOCATION_COLUMN_INDEX);
-  verify(param,times(1)).setParamLocation(METHOD);
+  assertThat(params.getPropertyAt(0).getParamLocation(),is(METHOD));
 }
