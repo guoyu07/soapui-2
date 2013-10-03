@@ -2,9 +2,9 @@
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
       SoapUI.log("Autosaving Workspace");
-      WorkspaceImpl wrkspc=(WorkspaceImpl)SoapUI.getWorkspace();
-      if (wrkspc != null) {
-        wrkspc.save(false,true);
+      WorkspaceImpl workspaceImplementation=(WorkspaceImpl)SoapUI.getWorkspace();
+      if (workspaceImplementation != null) {
+        workspaceImplementation.save(false,true);
       }
     }
   }

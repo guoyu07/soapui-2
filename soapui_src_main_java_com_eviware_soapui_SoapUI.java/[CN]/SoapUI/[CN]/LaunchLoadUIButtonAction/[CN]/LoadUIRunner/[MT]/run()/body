@@ -2,13 +2,13 @@
   Process p=StartLoadUI.launchLoadUI();
   if (p != null) {
     InputStream is=p.getInputStream();
-    loadUILogger=Logger.getLogger("com.eviware.soapui");
+    Logger soapUILogger=Logger.getLogger("com.eviware.soapui");
     try {
       BufferedInputStream inputStream=new BufferedInputStream(is);
       BufferedReader bris=new BufferedReader(new InputStreamReader(inputStream));
       String line;
       while ((line=bris.readLine()) != null) {
-        loadUILogger.info(line);
+        soapUILogger.info(line);
       }
       inputStream.close();
       bris.close();

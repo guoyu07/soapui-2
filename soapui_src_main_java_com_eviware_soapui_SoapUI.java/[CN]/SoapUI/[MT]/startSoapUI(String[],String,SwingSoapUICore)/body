@@ -16,7 +16,7 @@
   org.apache.commons.cli.Options options=initSoapUIOptions();
   CommandLineParser parser=new PosixParser();
   CommandLine cmd=parser.parse(options,args);
-  if (!processCommandLineArgs(cmd,options)) {
+  if (!processCommandLineArgs(cmd)) {
     System.exit(1);
   }
   if (workspaceName != null) {
@@ -24,15 +24,15 @@
     soapUICore.getSettings().setString(CURRENT_SOAPUI_WORKSPACE,workspaceName);
   }
  else {
-    String wsfile=soapUICore.getSettings().getString(CURRENT_SOAPUI_WORKSPACE,System.getProperty("user.home") + File.separatorChar + DEFAULT_WORKSPACE_FILE);
+    String workspaceFile=soapUICore.getSettings().getString(CURRENT_SOAPUI_WORKSPACE,System.getProperty("user.home") + File.separatorChar + DEFAULT_WORKSPACE_FILE);
     try {
-      workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
+      workspace=WorkspaceFactory.getInstance().openWorkspace(workspaceFile,projectOptions);
     }
  catch (    Exception e) {
       UISupport.setDialogs(new SwingDialogs(null));
       if (UISupport.confirm("Failed to open workspace: [" + e.toString() + "], create new one instead?","Error")) {
-        new File(wsfile).renameTo(new File(wsfile + ".bak"));
-        workspace=WorkspaceFactory.getInstance().openWorkspace(wsfile,projectOptions);
+        new File(workspaceFile).renameTo(new File(workspaceFile + ".bak"));
+        workspace=WorkspaceFactory.getInstance().openWorkspace(workspaceFile,projectOptions);
       }
  else {
         System.exit(1);
@@ -62,7 +62,7 @@
         URL url=new URL(arg);
         SwingUtilities.invokeLater(new RestProjectCreator(url));
       }
- catch (      Exception e) {
+ catch (      Exception ignore) {
       }
     }
   }
