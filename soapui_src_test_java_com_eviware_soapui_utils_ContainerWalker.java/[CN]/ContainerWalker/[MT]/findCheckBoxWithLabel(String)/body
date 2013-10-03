@@ -1,0 +1,11 @@
+{
+  for (  Component component : containedComponents) {
+    if (component instanceof JCheckBox) {
+      JCheckBox checkBox=(JCheckBox)component;
+      if (String.valueOf(checkBox.getText()).equals(labelText)) {
+        return checkBox;
+      }
+    }
+  }
+  throw new NoSuchElementException("No checkbox found with label " + labelText);
+}

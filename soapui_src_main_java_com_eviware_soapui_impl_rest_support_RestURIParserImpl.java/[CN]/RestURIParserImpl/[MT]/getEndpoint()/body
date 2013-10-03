@@ -1,0 +1,13 @@
+{
+  String endpoint;
+  if (authority.isEmpty()) {
+    endpoint="";
+  }
+ else   if (scheme.isEmpty()) {
+    endpoint=DEFAULT_SCHEME + SCHEME_SEPARATOR + authority;
+  }
+ else {
+    endpoint=scheme + SCHEME_SEPARATOR + authority;
+  }
+  return endpoint;
+}

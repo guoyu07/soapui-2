@@ -1,3 +1,8 @@
 {
-  overlay.moveProperty(propertyName,targetIndex);
+  if (overlay.containsKey(propertyName)) {
+    overlay.moveProperty(propertyName,targetIndex);
+  }
+ else   if (parent.containsKey(propertyName)) {
+    parent.moveProperty(propertyName,targetIndex);
+  }
 }

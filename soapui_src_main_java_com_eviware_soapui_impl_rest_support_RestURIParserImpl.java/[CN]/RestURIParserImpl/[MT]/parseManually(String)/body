@@ -1,0 +1,16 @@
+{
+  resourcePath=uriString;
+  query="";
+  scheme="";
+  authority="";
+  int startIndexOfQuery=uriString.indexOf('?');
+  if (startIndexOfQuery >= 0) {
+    query=uriString.substring(startIndexOfQuery + 1);
+    resourcePath=uriString.substring(0,startIndexOfQuery);
+  }
+  int startIndexOfResource=resourcePath.indexOf('/');
+  if (startIndexOfResource >= 0) {
+    resourcePath=resourcePath.substring(startIndexOfResource + 1);
+    authority=resourcePath.substring(0,startIndexOfResource);
+  }
+}

@@ -1,9 +1,12 @@
 {
-  paramsTable=new InstanceRestParamsTable(restRequest.getParams()){
-    protected void insertAdditionalButtons(    JXToolBar toolbar){
-      toolbar.add(UISupport.createToolbarButton(new UpdateRestParamsAction()));
+  RestParamsTableModel model=new RestParamsTableModel(restRequest.getParams()){
+    @Override public String getColumnName(    int columnIndex){
+      if (columnIndex == 1) {
+        return "Value";
+      }
+      return super.getColumnName(columnIndex);
     }
   }
 ;
-  return paramsTable;
+  return new RestParamsTable(restRequest.getParams(),true,model,ParamLocation.RESOURCE,true,true);
 }

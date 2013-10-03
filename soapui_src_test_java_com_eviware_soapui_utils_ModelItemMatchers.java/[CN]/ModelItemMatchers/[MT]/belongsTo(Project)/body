@@ -1,0 +1,17 @@
+{
+  return new TypeSafeMatcher<ModelItem>(){
+    @Override public boolean matchesSafely(    ModelItem modelItem){
+      ModelItem parent;
+      while ((parent=modelItem.getParent()) != null) {
+        if (parent.equals(project)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("an item in the project " + project);
+    }
+  }
+;
+}

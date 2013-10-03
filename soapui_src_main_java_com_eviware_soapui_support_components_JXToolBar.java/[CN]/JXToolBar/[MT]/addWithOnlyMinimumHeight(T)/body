@@ -1,0 +1,8 @@
+{
+  if (!(component instanceof JButton)) {
+    Dimension minimumSize=component.getMinimumSize();
+    component.setMinimumSize(new Dimension(minimumSize.width,STANDARD_COMPONENT_HEIGHT));
+  }
+  super.add(component);
+  return component;
+}

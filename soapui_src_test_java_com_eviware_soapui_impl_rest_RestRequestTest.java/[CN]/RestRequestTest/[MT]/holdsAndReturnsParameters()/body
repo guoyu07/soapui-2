@@ -1,0 +1,5 @@
+{
+  RestParamProperty parameter=request.getParams().addProperty(PARAMETER_NAME);
+  parameter.setValue(PARAMETER_VALUE);
+  assertThat(request,hasARestParameterNamed(PARAMETER_NAME).withValue(PARAMETER_VALUE));
+}

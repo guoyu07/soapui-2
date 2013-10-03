@@ -1,0 +1,7 @@
+{
+  RestRequest request=method.addNewRequest("Request " + (method.getRequestCount() + 1));
+  for (  TestProperty param : params.getProperties().values()) {
+    ((RestParamProperty)param).addPropertyChangeListener(request);
+  }
+  UISupport.showDesktopPanel(request);
+}

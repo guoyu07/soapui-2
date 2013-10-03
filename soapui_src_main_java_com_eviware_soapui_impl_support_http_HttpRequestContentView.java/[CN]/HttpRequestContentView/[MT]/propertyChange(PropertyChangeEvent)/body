@@ -15,4 +15,7 @@
     mediaTypeCombo.setSelectedItem(httpRequest.getMediaType());
   }
   super.propertyChange(evt);
+  if (paramsTable != null) {
+    paramsTable.refresh();
+  }
 }

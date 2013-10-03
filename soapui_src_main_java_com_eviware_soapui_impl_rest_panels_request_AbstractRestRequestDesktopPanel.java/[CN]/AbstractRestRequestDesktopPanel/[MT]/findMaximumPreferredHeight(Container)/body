@@ -1,0 +1,8 @@
+{
+  int maximum=0;
+  for (  Component component : parent.getComponents()) {
+    int componentPreferredHeight=component == null || component.getPreferredSize() == null ? 0 : component.getPreferredSize().height;
+    maximum=Math.max(maximum,componentPreferredHeight);
+  }
+  return maximum;
+}

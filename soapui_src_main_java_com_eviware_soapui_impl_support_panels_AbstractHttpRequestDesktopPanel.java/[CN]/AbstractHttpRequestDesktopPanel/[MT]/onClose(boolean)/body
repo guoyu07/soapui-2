@@ -3,7 +3,7 @@
     if (submit != null && submit.getStatus() == Submit.Status.RUNNING) {
       Boolean retVal=UISupport.confirmOrCancel("Cancel request before closing?","Closing window");
       if (retVal == null)       return false;
-      if (retVal.booleanValue() && submit.getStatus() == Submit.Status.RUNNING) {
+      if (retVal && submit.getStatus() == Submit.Status.RUNNING) {
         submit.cancel();
       }
       hasClosed=true;

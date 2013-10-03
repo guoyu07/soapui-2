@@ -1,0 +1,11 @@
+{
+  request=mock(WsdlRequest.class);
+  when(request.getEndpoint()).thenReturn(ENDPOINT_URL);
+  WsdlProject stubbedProject=mock(WsdlProject.class);
+  when(stubbedProject.isEnvironmentMode()).thenReturn(true);
+  when(request.getParent()).thenReturn(stubbedProject);
+  XmlBeansSettingsImpl settings=mock(XmlBeansSettingsImpl.class);
+  when(request.getSettings()).thenReturn(settings);
+  desktopPanel=new WsdlRequestDesktopPanel(request);
+  containerWalker=new ContainerWalker(desktopPanel);
+}

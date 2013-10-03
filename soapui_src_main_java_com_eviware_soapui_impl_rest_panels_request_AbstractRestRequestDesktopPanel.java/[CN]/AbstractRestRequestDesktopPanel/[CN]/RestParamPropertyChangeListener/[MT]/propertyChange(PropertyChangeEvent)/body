@@ -1,3 +1,22 @@
 {
+  try {
+    if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PROPERTY_STYLE)) {
+      RestParamProperty source=(RestParamProperty)evt.getSource();
+      removeParamForStyle(source,(ParameterStyle)evt.getOldValue());
+      addPropertyForStyle(source,(ParameterStyle)evt.getNewValue());
+      ((AbstractModelItem)source.getModelItem()).notifyPropertyChanged(evt.getPropertyName(),evt.getOldValue(),evt.getNewValue());
+    }
+    if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PARAM_LOCATION)) {
+      RestParamProperty source=(RestParamProperty)evt.getSource();
+      String propName=source.getName();
+      String propValue=source.getValue();
+      ParameterStyle propStyle=source.getStyle();
+      String requestLevelValue=getRequest().getParams().getProperty(propName).getValue();
+      removePropertyFromLevel(source.getName(),(ParamLocation)evt.getOldValue());
+      addPropertyToLevel(propName,propValue,propStyle,(ParamLocation)evt.getNewValue(),requestLevelValue);
+    }
+  }
+ catch (  XmlValueDisconnectedException exception) {
+  }
   updateFullPathLabel();
 }

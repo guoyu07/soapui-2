@@ -1,0 +1,6 @@
+{
+  String uri="http://sp\\sd.com/api/?userId=1234";
+  thrown.expect(MalformedURLException.class);
+  thrown.expectMessage("Invalid");
+  restURIParser=new RestURIParserImpl(uri);
+}

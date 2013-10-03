@@ -1,0 +1,9 @@
+{
+  String uri="http://ws.spotify.com/lookup/1/?uri=spotify:artist:4YrKBkKSVeqDamzBPWVnSJ";
+  String expectedEndpoint="http://ws.spotify.com";
+  String expectedPath="/lookup/1/";
+  String expectedResourceName="1";
+  String expectedQuery="uri=spotify:artist:4YrKBkKSVeqDamzBPWVnSJ";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

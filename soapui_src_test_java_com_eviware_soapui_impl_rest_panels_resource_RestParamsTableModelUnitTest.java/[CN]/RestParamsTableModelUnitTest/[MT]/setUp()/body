@@ -1,0 +1,9 @@
+{
+  restRequest=ModelItemFactory.makeRestRequest();
+  params=restRequest.getParams();
+  RestParamProperty param=params.addProperty(PARAM_NAME_1);
+  param.setParamLocation(METHOD);
+  RestParamProperty param2=params.addProperty(PARAM_NAME_2);
+  param2.setParamLocation(METHOD);
+  restParamsTableModel=new RestParamsTableModel(params);
+}

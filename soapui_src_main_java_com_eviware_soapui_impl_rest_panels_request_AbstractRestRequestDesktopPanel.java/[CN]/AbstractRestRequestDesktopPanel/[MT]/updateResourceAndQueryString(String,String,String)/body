@@ -1,0 +1,21 @@
+{
+  if (resourcePanel == null || queryPanel == null)   return;
+  RestParamProperty property=getRequest().getParams().getProperty(propertyName);
+  ParameterStyle style=property.getStyle();
+  if (style.equals(QUERY)) {
+    resetQueryPanelText();
+  }
+ else   if (style.equals(ParameterStyle.MATRIX)) {
+    String name=property.getName();
+    String newValueStr=name + "=" + newValue;
+    if (oldValue == null) {
+      addPropertyForStyle(property,ParameterStyle.MATRIX);
+    }
+ else     if (StringUtils.isNullOrEmpty(newValue) || !getResourcePanelText().contains(newValueStr)) {
+      setResourcePanelText(getResourcePanelText().replaceAll(name + "=" + oldValue,newValueStr));
+    }
+  }
+ else   if (property.getStyle().equals(ParameterStyle.TEMPLATE)) {
+    addPropertyForStyle(property,ParameterStyle.TEMPLATE);
+  }
+}

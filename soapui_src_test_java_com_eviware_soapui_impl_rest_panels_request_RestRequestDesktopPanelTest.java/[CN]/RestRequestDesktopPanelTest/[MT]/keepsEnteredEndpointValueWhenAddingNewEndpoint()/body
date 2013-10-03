@@ -1,0 +1,7 @@
+{
+  String otherValue="http://dn.se";
+  setComboTextFieldValue(endpointsCombo,otherValue);
+  endpointsCombo.setSelectedItem(EndpointsComboBoxModel.ADD_NEW_ENDPOINT);
+  waitForSwingThread();
+  assertThat(dialogs.getPrompts(),hasPromptWithValue(otherValue));
+}

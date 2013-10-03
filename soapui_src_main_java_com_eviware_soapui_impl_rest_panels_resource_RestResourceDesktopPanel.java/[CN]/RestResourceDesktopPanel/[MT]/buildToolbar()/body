@@ -2,12 +2,12 @@
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.addFixed(createActionButton(SwingActionDelegate.createDelegate(NewRestMethodAction.SOAPUI_ACTION_ID,getModelItem(),null,"/create_empty_method.gif"),true));
   toolbar.addSeparator();
-  pathTextField=new JUndoableTextField(getModelItem().getPath(),20);
+  pathTextField=new JUndoableTextField(getModelItem().getFullPath(),20);
   pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     public void update(    Document document){
       if (!updating) {
         updating=true;
-        getModelItem().setPath(getText(document));
+        getModelItem().setPath(extractLastPathElementFrom(getText(document)));
         updating=false;
       }
     }
@@ -30,7 +30,9 @@
     }
   }
 );
-  toolbar.addLabeledFixed("Resource Path",pathTextField);
+  toolbar.addFixed(new JLabel("Resource Path"));
+  toolbar.addSeparator(new Dimension(3,3));
+  toolbar.addWithOnlyMinimumHeight(pathTextField);
   toolbar.addGlue();
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.RESTRESOURCEEDITOR_HELPURL)));
   return toolbar;

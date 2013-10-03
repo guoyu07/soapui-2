@@ -1,6 +1,6 @@
 {
   AbstractHttpRequestInterface<?> httpRequest=(AbstractHttpRequestInterface<?>)request;
-  HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
+  HttpClientSupport.SoapUIHttpClient httpClient=getSoapUIHttpClient();
   ExtendedHttpMethod httpMethod=createHttpMethod(httpRequest);
   boolean createdContext=false;
   HttpContext httpContext=(HttpContext)submitContext.getProperty(SubmitContext.HTTP_STATE_PROPERTY);
@@ -11,7 +11,7 @@
   }
   String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
   if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
-  org.apache.http.HttpResponse httpResponse=null;
+  org.apache.http.HttpResponse httpResponse;
   if (localAddress != null && localAddress.trim().length() > 0) {
     try {
       httpMethod.getParams().setParameter(ConnRoutePNames.LOCAL_ADDRESS,InetAddress.getByName(localAddress));
@@ -33,13 +33,12 @@
   try {
     Settings settings=httpRequest.getSettings();
     StringToStringsMap headers=httpRequest.getRequestHeaders();
-    for (    String header : headers.keySet()) {
-      httpMethod.removeHeaders(header);
-    }
-    for (    String header : headers.keySet()) {
-      for (      String headerValue : headers.get(header)) {
+    for (    String headerName : headers.keySet()) {
+      String expandedHeaderName=PropertyExpander.expandProperties(submitContext,headerName);
+      httpMethod.removeHeaders(expandedHeaderName);
+      for (      String headerValue : headers.get(headerName)) {
         headerValue=PropertyExpander.expandProperties(submitContext,headerValue);
-        httpMethod.addHeader(header,headerValue);
+        httpMethod.addHeader(expandedHeaderName,headerValue);
       }
     }
     WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(httpRequest);
@@ -57,7 +56,7 @@
       captureMetrics(httpMethod,httpClient);
       httpMethod.getMetrics().getTotalTimer().start();
     }
-    httpResponse=HttpClientSupport.execute(httpMethod,httpContext);
+    httpResponse=submitRequest(httpMethod,httpContext);
     saveRequestHeaders(httpMethod,httpContext);
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().getReadTimer().stop();
@@ -67,8 +66,7 @@
       if (httpResponse.getEntity() != null) {
         EntityUtils.consume(httpResponse.getEntity());
       }
-      ExtendedGetMethod returnMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
-      httpMethod=returnMethod;
+      httpMethod=followRedirects(httpClient,0,httpMethod,httpResponse,httpContext);
       submitContext.setProperty(HTTP_METHOD,httpMethod);
     }
   }

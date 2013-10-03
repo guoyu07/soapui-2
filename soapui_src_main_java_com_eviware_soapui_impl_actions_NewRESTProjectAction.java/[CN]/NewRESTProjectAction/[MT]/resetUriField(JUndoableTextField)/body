@@ -1,0 +1,16 @@
+{
+  try {
+    defaultURIReplaced=true;
+    innerField.setText("");
+    innerField.setFont(originalFont);
+    innerField.setForeground(Color.BLACK);
+  }
+  finally {
+    if (initialKeyListener != null) {
+      innerField.removeKeyListener(initialKeyListener);
+    }
+    if (initialMouseListener != null) {
+      innerField.removeMouseListener(initialMouseListener);
+    }
+  }
+}

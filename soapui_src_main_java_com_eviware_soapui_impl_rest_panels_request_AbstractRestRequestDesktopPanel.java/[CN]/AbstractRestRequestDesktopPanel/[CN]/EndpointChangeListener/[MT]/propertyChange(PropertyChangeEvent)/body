@@ -1,0 +1,8 @@
+{
+  if (evt.getPropertyName().equals(Interface.ENDPOINT_PROPERTY)) {
+    Object currentEndpoint=endpointsModel.getSelectedItem();
+    if (currentEndpoint != null && currentEndpoint.equals(evt.getOldValue())) {
+      endpointsModel.setSelectedItem(evt.getNewValue());
+    }
+  }
+}
