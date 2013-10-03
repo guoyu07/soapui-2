@@ -4,7 +4,7 @@
   }
   File projectFile=null;
   if (!hasBeenSavedBefore()) {
-    String tempPath=StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml";
+    String tempPath=createProjectFileName();
     if (folder != null) {
       tempPath=folder + File.separatorChar + tempPath;
     }
@@ -38,7 +38,7 @@
       return SaveStatus.DONT_SAVE;
     }
   }
-  if (projectFile.exists() && getSettings().getBoolean(UISettings.CREATE_BACKUP)) {
+  if (shouldCreateBackup(projectFile)) {
     createBackup(projectFile);
   }
   SaveStatus saveStatus=saveIn(projectFile);
