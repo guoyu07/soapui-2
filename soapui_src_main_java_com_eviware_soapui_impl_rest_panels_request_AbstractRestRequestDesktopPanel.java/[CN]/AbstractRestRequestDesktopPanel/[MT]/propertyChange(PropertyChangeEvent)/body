@@ -1,9 +1,4 @@
 {
-  updateFullPathLabel();
-  if ((evt.getPropertyName().equals("path") || evt.getPropertyName().equals("restMethod")) && (getRequest().getResource() == null || getRequest().getResource() == evt.getSource())) {
-    if (pathLabel != null) {
-      updateFullPathLabel();
-    }
-  }
   super.propertyChange(evt);
+  updateUiValues();
 }

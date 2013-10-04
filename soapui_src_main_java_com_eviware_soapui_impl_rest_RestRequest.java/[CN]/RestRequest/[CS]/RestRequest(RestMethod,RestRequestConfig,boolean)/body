@@ -6,5 +6,9 @@
   params=new RestRequestParamsPropertyHolder(method.getOverlayParams(),this,paramValues);
   paramUpdater=new ParamUpdater(paramValues);
   params.addTestPropertyListener(paramUpdater);
-  if (method != null)   method.addPropertyChangeListener(this);
+  method.addPropertyChangeListener(this);
+  if (requestConfig.getMediaType() == null) {
+    String defaultMediaType=getRestMethod().getDefaultRequestMediaType();
+    getConfig().setMediaType(defaultMediaType);
+  }
 }

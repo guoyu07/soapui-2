@@ -1,0 +1,7 @@
+{
+  String serviceName="Interface_" + UUID.randomUUID().toString();
+  RestService service=(RestService)project.addNewInterface(serviceName,RestServiceFactory.REST_TYPE);
+  service.setName(serviceName);
+  RestResource restResource=service.addNewResource("root","/");
+  return restResource;
+}

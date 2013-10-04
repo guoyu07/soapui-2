@@ -1,0 +1,6 @@
+{
+  String path=getRequest().getResource().getFullPath();
+  resourcePanel=new TextPanelWithTopLabel("Resource",path);
+  String query=RestUtils.getQueryParamsString(getRequest().getParams(),getRequest());
+  queryPanel=new TextPanelWithTopLabel("Query",query,false);
+}
