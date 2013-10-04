@@ -1,0 +1,5 @@
+{
+  mockWorkspaceProjects(DEFAULT_PROJECT_NAME + " 1",DEFAULT_PROJECT_NAME + " 2");
+  String expectedFirstProjectName=DEFAULT_PROJECT_NAME + " 3";
+  assertThat(newRESTProjectAction.createDefaultProjectName(workspace),Is.is(expectedFirstProjectName));
+}
