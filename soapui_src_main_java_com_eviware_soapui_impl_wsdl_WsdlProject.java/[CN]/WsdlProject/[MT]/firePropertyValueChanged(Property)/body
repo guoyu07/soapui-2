@@ -1,6 +1,6 @@
 {
-  EnvironmentListener[] a=environmentListeners.toArray(new EnvironmentListener[environmentListeners.size()]);
-  for (int c=0; c < a.length; c++) {
-    a[c].propertyValueChanged(property);
+  EnvironmentListener[] listeners=environmentListeners.toArray(new EnvironmentListener[environmentListeners.size()]);
+  for (  EnvironmentListener listener : listeners) {
+    listener.propertyValueChanged(property);
   }
 }

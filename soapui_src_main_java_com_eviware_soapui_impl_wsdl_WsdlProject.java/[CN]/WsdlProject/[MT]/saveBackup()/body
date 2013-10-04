@@ -1,6 +1,6 @@
 {
   File projectFile;
-  if (path == null || isRemote()) {
+  if (hasBeenSavedBefore() || isRemote()) {
     projectFile=new File(StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml");
   }
  else {

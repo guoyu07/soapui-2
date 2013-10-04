@@ -1,3 +1,11 @@
 {
+  confirmations.add(new Confirmation(question,title));
+  if (mockingConfirmValue) {
+    Boolean currentConfirmationReturnValue=getCurrentConfirmationReturnValue();
+    if (currentConfirmationReturnValue == null) {
+      return false;
+    }
+    return currentConfirmationReturnValue;
+  }
   return false;
 }

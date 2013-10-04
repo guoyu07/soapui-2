@@ -1,0 +1,19 @@
+{
+  String passwordForEncryption=getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
+  if (hasEncryptionPassword()) {
+    try {
+      String data=getConfig().xmlText();
+      byte[] encrypted=OpenSSL.encrypt("des3",passwordForEncryption.toCharArray(),data.getBytes());
+      projectDocument.getSoapuiProject().setEncryptedContent(encrypted);
+      projectDocument.getSoapuiProject().setInterfaceArray(null);
+      projectDocument.getSoapuiProject().setTestSuiteArray(null);
+      projectDocument.getSoapuiProject().setMockServiceArray(null);
+      projectDocument.getSoapuiProject().unsetWssContainer();
+      projectDocument.getSoapuiProject().unsetSettings();
+      projectDocument.getSoapuiProject().unsetProperties();
+    }
+ catch (    GeneralSecurityException e) {
+      UISupport.showErrorMessage("Encryption Error");
+    }
+  }
+}

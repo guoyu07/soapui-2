@@ -1,0 +1,16 @@
+{
+  WsdlProject wsdlProject=new WsdlProject(null,null,true,isOpen,PROJECT_NAME,null){
+    @Override public SaveStatus saveIn(    File projectFile) throws IOException {
+      return SaveStatus.SUCCESS;
+    }
+    @Override public File createFile(    String path){
+      return file;
+    }
+  }
+;
+  wsdlProject.getSettings().setBoolean(UISettings.LINEBREAK,false);
+  if (exitingProject) {
+    wsdlProject.path=FILE_PATH;
+  }
+  return wsdlProject;
+}

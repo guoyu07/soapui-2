@@ -1,31 +1,49 @@
 {
-  if (!isOpen() || isDisabled() || isRemote())   return true;
-  if (path == null || isRemote()) {
-    path=StringUtils.createFileName2(getName(),'-') + "-soapui-project.xml";
+  if (!isOpen() || isDisabled() || isRemote()) {
+    return SaveStatus.SUCCESS;
+  }
+  File projectFile=null;
+  if (!hasBeenSavedBefore()) {
+    String tempPath=createProjectFileName();
     if (folder != null) {
-      path=folder + File.separatorChar + path;
+      tempPath=folder + File.separatorChar + tempPath;
     }
-    File file=null;
-    while (file == null || (file.exists() && !UISupport.confirm("File [" + file.getName() + "] exists, overwrite?","Overwrite File?"))) {
-      file=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",new File(path));
-      if (file == null)       return false;
+    while (projectFile == null || (projectFile.exists() && !UISupport.confirm("File [" + projectFile.getName() + "] exists, overwrite?","Overwrite File?"))) {
+      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),XML_EXTENSION,XML_FILE_TYPE,new File(tempPath));
+      if (projectFile == null) {
+        return SaveStatus.CANCELLED;
+      }
     }
-    path=file.getAbsolutePath();
   }
-  File projectFile=new File(path);
+  if (projectFile == null) {
+    projectFile=createFile(path);
+  }
   while (projectFile.exists() && !projectFile.canWrite()) {
-    if (UISupport.confirm("Project file [" + path + "] can not be written to, save to new file?","Save Project")) {
-      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),".xml","XML Files (*.xml)",projectFile);
-      if (projectFile == null)       return false;
-      path=projectFile.getAbsolutePath();
+    Boolean confirm=UISupport.confirmOrCancel("Project file [" + projectFile.getAbsolutePath() + "] can not be written to, save to new file?","Save Project");
+    if (confirm == null) {
+      return SaveStatus.CANCELLED;
     }
- else     return false;
+ else     if (!confirm) {
+      return SaveStatus.DONT_SAVE;
+    }
+ else {
+      projectFile=UISupport.getFileDialogs().saveAs(this,"Save project " + getName(),XML_EXTENSION,XML_FILE_TYPE,projectFile);
+      if (projectFile == null) {
+        return SaveStatus.CANCELLED;
+      }
+    }
   }
-  if (projectFile.exists() && lastModified != 0 && lastModified < projectFile.lastModified()) {
-    if (!UISupport.confirm("Project file for [" + getName() + "] has been modified externally, overwrite?","Save Project"))     return false;
+  if (projectFileModified(projectFile)) {
+    if (!UISupport.confirm("Project file for [" + getName() + "] has been modified externally, overwrite?","Save Project")) {
+      return SaveStatus.DONT_SAVE;
+    }
   }
-  if (projectFile.exists() && getSettings().getBoolean(UISettings.CREATE_BACKUP)) {
+  if (shouldCreateBackup(projectFile)) {
     createBackup(projectFile);
   }
-  return saveIn(projectFile);
+  SaveStatus saveStatus=saveIn(projectFile);
+  if (saveStatus == SaveStatus.SUCCESS) {
+    path=projectFile.getAbsolutePath();
+  }
+  return saveStatus;
 }

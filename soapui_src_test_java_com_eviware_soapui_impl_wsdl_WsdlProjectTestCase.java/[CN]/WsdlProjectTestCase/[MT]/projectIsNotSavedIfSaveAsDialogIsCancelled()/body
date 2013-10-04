@@ -1,0 +1,7 @@
+{
+  saveAsDialogShouldReturn(null);
+  WsdlProject project=createWsdlProject(true,false);
+  SaveStatus saveResult=project.save();
+  assertThat(project.getPath(),is(nullValue()));
+  assertThat(saveResult,equalTo(SaveStatus.CANCELLED));
+}

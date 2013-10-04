@@ -1,10 +1,14 @@
 {
-  if (!isOpen() || isDisabled())   return false;
+  if (!isOpen() || isDisabled())   return SaveStatus.FAILED;
   String oldPath=path;
   path=fileName;
-  boolean result=save();
-  if (!result)   path=oldPath;
- else   remote=false;
+  SaveStatus result=save();
+  if (result == SaveStatus.SUCCESS) {
+    remote=false;
+  }
+ else {
+    path=oldPath;
+  }
   setProjectRoot(path);
   return result;
 }

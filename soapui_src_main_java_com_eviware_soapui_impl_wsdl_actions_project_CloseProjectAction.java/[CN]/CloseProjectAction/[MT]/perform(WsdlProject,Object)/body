@@ -1,13 +1,21 @@
 {
   if (project.isRemote()) {
-    if (UISupport.confirm("Close remote project? (changes will be lost)",getName()))     ;
-    project.getWorkspace().closeProject(project);
+    if (UISupport.confirm("Close remote project? (changes will be lost)",getName())) {
+      project.getWorkspace().closeProject(project);
+    }
   }
  else {
-    Boolean retval=UISupport.confirmOrCancel("Save project [" + project.getName() + "] before closing?","Close Project");
-    if (retval == null)     return;
+    Boolean saveProject=UISupport.confirmOrCancel("Save project [" + project.getName() + "] before closing?","Close Project");
+    if (saveProject == null) {
+      return;
+    }
     try {
-      if (retval)       project.save();
+      if (saveProject) {
+        SaveStatus status=project.save();
+        if (status == SaveStatus.CANCELLED || status == SaveStatus.FAILED) {
+          return;
+        }
+      }
       project.getWorkspace().closeProject(project);
     }
  catch (    IOException e) {

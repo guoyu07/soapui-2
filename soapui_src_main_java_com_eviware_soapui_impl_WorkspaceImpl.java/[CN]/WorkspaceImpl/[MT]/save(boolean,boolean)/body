@@ -2,53 +2,30 @@
   try {
     if (path == null) {
       File file=UISupport.getFileDialogs().saveAs(this,messages.get("SaveWorkspace.Title"),".xml","XML Files (*.xml)",null);
-      if (file == null)       return;
+      if (file == null) {
+        return SaveStatus.CANCELLED;
+      }
       path=file.getAbsolutePath();
     }
     List<WorkspaceProjectConfig> projects=new ArrayList<WorkspaceProjectConfig>();
     for (int c=0; c < getProjectCount(); c++) {
       WsdlProject project=(WsdlProject)getProjectAt(c);
-      if (!workspaceOnly) {
-        if (skipProjectsWithRunningTests && SoapUI.getTestMonitor().hasRunningTests(project)) {
-          log.warn(messages.get("ProjectHasRunningTests.Warning",project.getName()));
+      if (!saveWorkspaceOnly) {
+        SaveStatus status=saveProject(skipProjectsWithRunningTests,project);
+        if (status == SaveStatus.CANCELLED || status == SaveStatus.FAILED) {
+          return status;
         }
- else {
-          String path=project.getPath();
-          if (!StringUtils.hasContent(path)) {
-            if (UISupport.confirm(messages.get("ProjectHasNotBeenSaved.Label",project.getName()),messages.get("ProjectHasNotBeenSaved.Title"))) {
-              project.save();
-            }
-          }
- else {
-            project.save();
-          }
+        if (status == SaveStatus.DONT_SAVE) {
+          continue;
         }
       }
-      String path=project.getPath();
-      if (path != null) {
-        path=PathUtils.createRelativePath(path,getProjectRoot(),this);
-        WorkspaceProjectConfig wpc=WorkspaceProjectConfig.Factory.newInstance();
-        wpc.setStringValue(PathUtils.normalizePath(path));
-        if (project.isRemote())         wpc.setType(Type.REMOTE);
-        if (!project.isOpen()) {
-          if (project.getEncrypted() == 0) {
-            wpc.setStatus(Status.CLOSED);
-          }
- else {
-            wpc.setStatus(Status.CLOSED_AND_ENCRYPTED);
-          }
-        }
-        wpc.setName(project.getName());
-        projects.add(wpc);
-      }
+      saveWorkspaceProjectConfig(projects,project);
     }
-    workspaceConfig.getSoapuiWorkspace().setProjectArray(projects.toArray(new WorkspaceProjectConfig[projects.size()]));
-    workspaceConfig.getSoapuiWorkspace().setSoapuiVersion(SoapUI.SOAPUI_VERSION);
-    File workspaceFile=new File(path);
-    workspaceConfig.save(workspaceFile,new XmlOptions().setSavePrettyPrint());
-    log.info(messages.get("SavedWorkspace.Info",workspaceFile.getAbsolutePath()));
+    saveWorkspaceConfig(projects);
   }
  catch (  IOException e) {
     log.error(messages.get("FailedToSaveWorkspace.Error") + e.getMessage(),e);
+    return SaveStatus.FAILED;
   }
+  return SaveStatus.SUCCESS;
 }

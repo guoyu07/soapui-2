@@ -1,5 +1,9 @@
 {
   List<Project> availableProjects=new ArrayList<Project>();
-  for (  Project project : projectList)   if (project.isOpen())   availableProjects.add(project);
+  for (  Project project : projectList) {
+    if (project.isOpen()) {
+      availableProjects.add(project);
+    }
+  }
   return availableProjects;
 }

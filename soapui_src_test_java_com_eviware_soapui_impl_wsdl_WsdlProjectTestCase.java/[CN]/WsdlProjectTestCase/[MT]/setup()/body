@@ -1,0 +1,8 @@
+{
+  originalFileDialogs=UISupport.getFileDialogs();
+  originalDialogs=UISupport.getDialogs();
+  fileDialogs=mock(XFileDialogs.class);
+  UISupport.setFileDialogs(fileDialogs);
+  dialogs=new StubbedDialogs();
+  UISupport.setDialogs(dialogs);
+}
