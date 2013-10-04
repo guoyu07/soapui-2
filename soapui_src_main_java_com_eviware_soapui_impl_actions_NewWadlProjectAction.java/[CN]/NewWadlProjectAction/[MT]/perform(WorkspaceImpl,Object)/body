@@ -1,0 +1,46 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+  }
+  if (param instanceof String) {
+    dialog.setValue(Form.INITIALWADL,param.toString());
+  }
+ else {
+    dialog.setValue(Form.INITIALWADL,"");
+  }
+  while (dialog.show()) {
+    WsdlProject project=null;
+    try {
+      String projectName=createProjectName(dialog.getFormField(Form.INITIALWADL).getValue());
+      if (projectName.length() == 0) {
+        UISupport.showErrorMessage(messages.get("MissingProjectNameError"));
+      }
+ else {
+        project=workspace.createProject(projectName,null);
+        if (project != null) {
+          UISupport.select(project);
+          String url=dialog.getValue(Form.INITIALWADL).trim();
+          if (url.length() > 0) {
+            if (new File(url).exists()) {
+              url=new File(url).toURI().toURL().toString();
+            }
+            if (url.toUpperCase().endsWith("WADL")) {
+              importWadl(project,url);
+            }
+          }
+          showDeepestEditor(project);
+          break;
+        }
+      }
+    }
+ catch (    InvalidDefinitionException ex) {
+      ex.show();
+    }
+catch (    Exception ex) {
+      UISupport.showErrorMessage(ex);
+      if (project != null) {
+        workspace.removeProject(project);
+      }
+    }
+  }
+}

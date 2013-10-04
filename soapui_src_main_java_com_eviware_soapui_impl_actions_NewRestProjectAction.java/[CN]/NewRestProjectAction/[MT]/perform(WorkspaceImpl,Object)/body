@@ -1,9 +1,9 @@
 {
   if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
+    dialog=buildDialog();
   }
-  dialog.setValue(Form.URI,EXAMPLE_URI);
-  XFormField uriField=dialog.getFormField(Form.URI);
+  dialog.setValue(URI_LABEL,EXAMPLE_URI);
+  XFormField uriField=dialog.getFormField(URI_LABEL);
   JUndoableTextField textField=null;
   if (uriField instanceof JTextFieldFormField) {
     defaultURIReplaced=false;
@@ -12,7 +12,7 @@
     originalFont=textField.getFont();
     textField.setFont(originalFont.deriveFont(Font.ITALIC));
     textField.setForeground(new Color(170,170,170));
-    logger.log(Level.DEBUG,"Adding listeners to URI text field");
+    logger.log(Level.TRACE,"Adding listeners to URI text field");
     addListenersTo(textField);
   }
   while (dialog.show()) {
@@ -21,7 +21,7 @@
       if (!defaultURIReplaced && textField != null) {
         resetUriField(textField);
       }
-      String URI=dialog.getValue(Form.URI).trim();
+      String URI=dialog.getValue(URI_LABEL).trim();
       project=workspace.createProject(PROJECT_NAME,null);
       createRestProject(project,URI);
       break;

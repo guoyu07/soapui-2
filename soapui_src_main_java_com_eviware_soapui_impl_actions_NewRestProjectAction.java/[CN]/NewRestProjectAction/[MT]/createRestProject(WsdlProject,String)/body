@@ -1,4 +1,7 @@
 {
+  if (StringUtils.isNullOrEmpty(URI)) {
+    return;
+  }
   RestURIParser restURIParser=new RestURIParserImpl(URI);
   RestParamsPropertyHolder params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
   String resourcePath=restURIParser.getResourcePath();
@@ -13,5 +16,4 @@
   RestRequest restRequest=addNewRequest(restMethod);
   UISupport.select(restRequest);
   UISupport.showDesktopPanel(restRequest);
-  return restService;
 }
