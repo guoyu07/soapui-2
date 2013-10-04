@@ -1,7 +1,7 @@
 {
   super.init();
   try {
-    logger.info("Initializing soapUI Core");
+    logger.info("Initializing SoapUI Core");
     SoapUI.setSoapUICore(createSoapUICore(getInitParameter("settingsFile"),getInitParameter("settingsPassword")),true);
     logger.info("Loading project");
     project=new WsdlProject(getInitParameter("projectFile"),getInitParameter("projectPassword"));

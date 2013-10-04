@@ -3,7 +3,7 @@
   if (projectFile == null) {
     throw new MojoExecutionException("soapui-project-file setting is required");
   }
-  SoapUIMockServiceRunner runner=new SoapUIMockServiceRunner("soapUI " + SoapUI.SOAPUI_VERSION + " Maven2 MockService Runner");
+  SoapUIMockServiceRunner runner=new SoapUIMockServiceRunner("SoapUI " + SoapUI.SOAPUI_VERSION + " Maven2 MockService Runner");
   runner.setProjectFile(projectFile);
   if (mockService != null)   runner.setMockService(mockService);
   if (path != null)   runner.setPath(path);

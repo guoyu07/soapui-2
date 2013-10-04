@@ -3,7 +3,7 @@
   if (projectFile == null) {
     throw new MojoExecutionException("soapui-project-file setting is required");
   }
-  SoapUITestCaseRunner runner=new SoapUITestCaseRunner("soapUI " + SoapUI.SOAPUI_VERSION + " Maven2 TestCase Runner");
+  SoapUITestCaseRunner runner=new SoapUITestCaseRunner("SoapUI " + SoapUI.SOAPUI_VERSION + " Maven2 TestCase Runner");
   runner.setProjectFile(projectFile);
   if (endpoint != null)   runner.setEndpoint(endpoint);
   if (testSuite != null)   runner.setTestSuite(testSuite);

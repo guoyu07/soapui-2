@@ -1,7 +1,7 @@
 {
   UISupport.setToolHost(this);
   String projectFile=getProjectFile();
-  if (!new File(projectFile).exists())   throw new Exception("soapUI project file [" + projectFile + "] not found");
+  if (!new File(projectFile).exists())   throw new Exception("SoapUI project file [" + projectFile + "] not found");
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory(WsdlProjectFactory.WSDL_TYPE).createNew(projectFile,getProjectPassword());
   log.info("Running tools [" + tool + "] for interface ["+ iface+ "] in project ["+ project.getName()+ "]");
   long startTime=System.nanoTime();

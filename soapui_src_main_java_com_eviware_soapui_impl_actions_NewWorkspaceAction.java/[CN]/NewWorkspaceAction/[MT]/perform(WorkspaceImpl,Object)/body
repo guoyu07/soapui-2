@@ -5,7 +5,7 @@
   }
   String name=UISupport.prompt(messages.get("EnterName.Prompt"),messages.get("EnterName.Title"),"");
   if (name == null)   return;
-  File newPath=UISupport.getFileDialogs().saveAs(this,messages.get("SaveAs.Title"),".xml","soapUI Workspace (*.xml)",new File(name + "-workspace.xml"));
+  File newPath=UISupport.getFileDialogs().saveAs(this,messages.get("SaveAs.Title"),".xml","SoapUI Workspace (*.xml)",new File(name + "-workspace.xml"));
   if (newPath == null)   return;
   if (SoapUI.getDesktop().closeAll()) {
     if (newPath.exists()) {

@@ -4,7 +4,7 @@
   }
   String projectFile=getProjectFile();
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
-  if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  if (project.isDisabled())   throw new Exception("Failed to load SoapUI project file [" + projectFile + "]");
   initProjectProperties(project);
   int suiteCount=0;
   if (testSuite != null && project.getTestSuiteByName(testSuite) == null)   throw new Exception("Missing TestSuite named [" + testSuite + "]");

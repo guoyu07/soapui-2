@@ -1,7 +1,7 @@
 {
-  if (UISupport.getDialogs().confirm("Missing soapUI Settings, import from existing installation?","Import Preferences")) {
+  if (UISupport.getDialogs().confirm("Missing SoapUI Settings, import from existing installation?","Import Preferences")) {
     while (true) {
-      File settingsFile=UISupport.getFileDialogs().open(null,"Import Preferences",".xml","soapUI settings XML",fileName);
+      File settingsFile=UISupport.getFileDialogs().open(null,"Import Preferences",".xml","SoapUI settings XML",fileName);
       if (settingsFile != null) {
         try {
           SoapuiSettingsDocumentConfig.Factory.parse(settingsFile);

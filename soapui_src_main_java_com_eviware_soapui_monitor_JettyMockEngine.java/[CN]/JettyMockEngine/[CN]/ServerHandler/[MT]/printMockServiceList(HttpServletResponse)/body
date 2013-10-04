@@ -3,7 +3,7 @@
   response.setContentType("text/html");
   MockRunner[] mockRunners=getMockRunners();
   PrintWriter out=response.getWriter();
-  out.print("<html><body><p>There are currently " + mockRunners.length + " running soapUI MockServices</p><ul>");
+  out.print("<html><body><p>There are currently " + mockRunners.length + " running SoapUI MockServices</p><ul>");
   for (  MockRunner mockRunner : mockRunners) {
     out.print("<li><a href=\"");
     out.print(mockRunner.getMockService().getPath() + "?WSDL");

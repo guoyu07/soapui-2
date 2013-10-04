@@ -1,7 +1,7 @@
 {
   WsdlProject project=resource.getService().getProject();
   if (!autoConvert.containsKey(project)) {
-    autoConvert.put(project,UISupport.confirm("The model for REST requests has changed slightly,\r\n" + "introducing a new REST Method item in-between each REST Resource and Request.\r\n" + "Any existing REST Request must now be placed under either an existing Method or a new one, "+ "either automatically or manually.\r\n\r\nWould You like soapUI to do this automatically using the default values?","Update REST model for project: " + project.getName()));
+    autoConvert.put(project,UISupport.confirm("The model for REST requests has changed slightly,\r\n" + "introducing a new REST Method item in-between each REST Resource and Request.\r\n" + "Any existing REST Request must now be placed under either an existing Method or a new one, "+ "either automatically or manually.\r\n\r\nWould You like SoapUI to do this automatically using the default values?","Update REST model for project: " + project.getName()));
   }
   RestMethod method=null;
   List<String> options=new ArrayList<String>();

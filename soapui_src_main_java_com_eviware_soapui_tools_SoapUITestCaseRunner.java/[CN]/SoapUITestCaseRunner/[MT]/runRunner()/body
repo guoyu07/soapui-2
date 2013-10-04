@@ -3,13 +3,13 @@
   assertions.clear();
   String projectFile=getProjectFile();
   WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
-  if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  if (project.isDisabled())   throw new Exception("Failed to load SoapUI project file [" + projectFile + "]");
   initProject(project);
   ensureOutputFolder(project);
   if (this.printAlertSiteReport) {
     testCaseRunLogReport=new TestCaseRunLogReport(getAbsoluteOutputFolder(project));
   }
-  log.info("Running soapUI tests in project [" + project.getName() + "]");
+  log.info("Running SoapUI tests in project [" + project.getName() + "]");
   long startTime=System.nanoTime();
   List<TestCase> testCasesToRun=new ArrayList<TestCase>();
   if (testSuite != null && project.getTestSuiteByName(testSuite) == null)   throw new Exception("TestSuite with name [" + testSuite + "] is missing in Project ["+ project.getName()+ "]");

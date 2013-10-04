@@ -2,7 +2,7 @@
   initGroovyLog();
   String projectFile=getProjectFile();
   project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(projectFile,getProjectPassword());
-  if (project.isDisabled())   throw new Exception("Failed to load soapUI project file [" + projectFile + "]");
+  if (project.isDisabled())   throw new Exception("Failed to load SoapUI project file [" + projectFile + "]");
   initProject();
   if (mockService == null)   log.info("Running all MockServices in project [" + project.getName() + "]");
  else   log.info("Running MockService [" + mockService + "] in project ["+ project.getName()+ "]");
