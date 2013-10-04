@@ -1,9 +1,11 @@
 {
-  if (StringUtils.isNullOrEmpty(dialog.getValue(Form.PROJECTNAME)) && StringUtils.hasContent(newValue)) {
+  if (StringUtils.hasContent(newValue)) {
     int ix=newValue.lastIndexOf('.');
     if (ix > 0)     newValue=newValue.substring(0,ix);
     ix=newValue.lastIndexOf('/');
     if (ix == -1)     ix=newValue.lastIndexOf('\\');
-    if (ix != -1)     dialog.setValue(Form.PROJECTNAME,newValue.substring(ix + 1));
+    if (ix != -1)     newValue=newValue.substring(ix + 1);
+    return newValue;
   }
+  return DEFAULT_PROJECT_NAME;
 }

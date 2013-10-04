@@ -3,10 +3,6 @@
   UISupport.select(restService);
   try {
     new WadlImporter(restService).initFromWadl(url);
-    if (dialog.getBooleanValue(Form.GENERATETESTSUITE)) {
-      GenerateRestTestSuiteAction generateTestSuiteAction=new GenerateRestTestSuiteAction();
-      generateTestSuiteAction.generateTestSuite(restService,true);
-    }
   }
  catch (  Exception e) {
     UISupport.showErrorMessage(e);
