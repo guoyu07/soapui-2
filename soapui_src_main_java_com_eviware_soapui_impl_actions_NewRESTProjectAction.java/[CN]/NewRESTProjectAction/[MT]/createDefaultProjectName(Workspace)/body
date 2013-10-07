@@ -1,7 +1,18 @@
 {
-  int index=1;
-  while (workspace.getProjectByName(DEFAULT_PROJECT_NAME + " " + index) != null) {
-    index++;
+  int maxExistingIndex=0;
+  for (  Project project : workspace.getProjectList()) {
+    String projectName=project.getName();
+    if (projectName.contains(DEFAULT_PROJECT_NAME)) {
+      try {
+        int beginIndex=projectName.indexOf(DEFAULT_PROJECT_NAME) + DEFAULT_PROJECT_NAME.length();
+        int indexInProjectName=Integer.parseInt(projectName.substring(beginIndex).trim());
+        if (indexInProjectName > maxExistingIndex) {
+          maxExistingIndex=indexInProjectName;
+        }
+      }
+ catch (      Exception e) {
+      }
+    }
   }
-  return DEFAULT_PROJECT_NAME + " " + index;
+  return DEFAULT_PROJECT_NAME + " " + (++maxExistingIndex);
 }
