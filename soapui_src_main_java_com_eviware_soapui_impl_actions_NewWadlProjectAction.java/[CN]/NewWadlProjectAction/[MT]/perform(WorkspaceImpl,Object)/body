@@ -11,7 +11,7 @@
   while (dialog.show()) {
     WsdlProject project=null;
     try {
-      String projectName=createProjectName(dialog.getFormField(Form.INITIALWADL).getValue());
+      String projectName=createProjectName(dialog.getFormField(Form.INITIALWADL).getValue(),workspace.getProjectList());
       if (projectName.length() == 0) {
         UISupport.showErrorMessage(messages.get("MissingProjectNameError"));
       }

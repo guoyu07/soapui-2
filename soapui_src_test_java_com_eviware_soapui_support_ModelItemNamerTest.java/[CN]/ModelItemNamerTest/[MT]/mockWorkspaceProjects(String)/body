@@ -1,0 +1,9 @@
+{
+  List projectList=new ArrayList<Project>();
+  for (  String projectName : projectNames) {
+    Project project=Mockito.mock(Project.class);
+    when(project.getName()).thenReturn(projectName);
+    projectList.add(project);
+  }
+  when(workspace.getProjectList()).thenReturn(projectList);
+}

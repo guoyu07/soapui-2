@@ -12,12 +12,9 @@
     if (ix != -1) {
       projectName=projectName.substring(ix + 1);
     }
-    if (StringUtils.isNullOrEmpty(projectName)) {
-      return DEFAULT_PROJECT_NAME;
-    }
- else {
+    if (!StringUtils.isNullOrEmpty(projectName)) {
       return projectName;
     }
   }
-  return DEFAULT_PROJECT_NAME;
+  return ModelItemNamer.createName(DEFAULT_PROJECT_NAME,projectList);
 }

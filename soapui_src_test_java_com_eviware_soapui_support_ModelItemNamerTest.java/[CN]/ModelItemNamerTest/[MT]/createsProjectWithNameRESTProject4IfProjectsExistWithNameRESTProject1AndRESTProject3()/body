@@ -1,0 +1,5 @@
+{
+  mockWorkspaceProjects(DEFAULT_PROJECT_NAME + "1",DEFAULT_PROJECT_NAME + "3");
+  String expectedFirstProjectName=DEFAULT_PROJECT_NAME + " 4";
+  assertThat(ModelItemNamer.createName(DEFAULT_PROJECT_NAME,workspace.getProjectList()),Is.is(expectedFirstProjectName));
+}
