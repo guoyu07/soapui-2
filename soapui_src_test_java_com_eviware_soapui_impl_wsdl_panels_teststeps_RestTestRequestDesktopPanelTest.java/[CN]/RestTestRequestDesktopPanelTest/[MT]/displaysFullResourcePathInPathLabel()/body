@@ -1,3 +1,4 @@
 {
-  assertThat(restTestDesktopPanel.pathLabel.getText(),is(restRequest.getResource().getFullPath()));
+  String expectedPath="[" + restRequest.getResource().getFullPath() + "]";
+  assertThat(restTestDesktopPanel.pathLabel.getText(),is(expectedPath));
 }

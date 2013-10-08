@@ -1,5 +1,5 @@
 {
-  if (getRequest().getResource() != null && getRequest() instanceof RestTestRequestInterface) {
+  if (getRequest().getResource() != null) {
     JXToolBar toolbar=UISupport.createToolbar();
     JComboBox pathCombo=new JComboBox(new PathComboBoxModel());
     pathCombo.setRenderer(new RestMethodListCellRenderer());
@@ -7,6 +7,9 @@
     pathCombo.setSelectedItem(getRequest().getRestMethod());
     toolbar.addLabeledFixed("Resource/Method:",pathCombo);
     toolbar.addSeparator();
+    pathLabel=new JLabel();
+    updateFullPathLabel();
+    toolbar.add(pathLabel);
     panel.add(toolbar,BorderLayout.SOUTH);
   }
 }
