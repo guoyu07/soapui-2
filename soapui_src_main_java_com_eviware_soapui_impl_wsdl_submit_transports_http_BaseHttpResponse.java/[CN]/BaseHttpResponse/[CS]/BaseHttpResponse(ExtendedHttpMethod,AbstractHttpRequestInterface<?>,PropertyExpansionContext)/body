@@ -13,7 +13,7 @@
   if (!httpMethod.isFailed()) {
     Settings settings=httpRequest.getSettings();
     try {
-      httpMethod.getResponseBody();
+      rawResponseBody=httpMethod.getResponseBody();
     }
  catch (    IOException e) {
       e.printStackTrace();
