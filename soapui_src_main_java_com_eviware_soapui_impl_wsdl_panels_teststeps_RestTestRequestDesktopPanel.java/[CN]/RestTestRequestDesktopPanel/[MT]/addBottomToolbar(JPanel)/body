@@ -1,11 +1,11 @@
 {
   if (getRequest().getResource() != null) {
     JXToolBar toolbar=UISupport.createToolbar();
-    JComboBox pathCombo=new JComboBox(new PathComboBoxModel());
-    pathCombo.setRenderer(new RestMethodListCellRenderer());
-    pathCombo.setPreferredSize(new Dimension(200,20));
-    pathCombo.setSelectedItem(getRequest().getRestMethod());
-    toolbar.addLabeledFixed("Resource/Method:",pathCombo);
+    methodResourceCombo=new JComboBox(new PathComboBoxModel());
+    methodResourceCombo.setRenderer(new RestMethodListCellRenderer());
+    methodResourceCombo.setPreferredSize(new Dimension(200,20));
+    methodResourceCombo.setSelectedItem(getRequest().getRestMethod());
+    toolbar.addLabeledFixed("Resource/Method:",methodResourceCombo);
     toolbar.addSeparator();
     pathLabel=new JLabel();
     updateFullPathLabel();
