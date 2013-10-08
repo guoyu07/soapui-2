@@ -22,7 +22,7 @@
         resetUriField(textField);
       }
       String URI=dialog.getValue(URI_LABEL).trim();
-      project=workspace.createProject(PROJECT_NAME,null);
+      project=workspace.createProject(createDefaultProjectName(workspace),null);
       createRestProject(project,URI);
       break;
     }
