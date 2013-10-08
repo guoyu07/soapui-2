@@ -1,23 +1,3 @@
 {
-  StatefulModelItemFactory modelItemFactory=new StatefulModelItemFactory();
-  restRequest=modelItemFactory.makeRestRequest();
-  restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
-  restRequest.getResource().getParams().addProperty(PARAMETER_NAME);
-  restService().addEndpoint(ENDPOINT);
-  restRequest.setEndpoint(ENDPOINT);
-  RestParamProperty restParamProperty=restRequest.getParams().getProperty(PARAMETER_NAME);
-  restParamProperty.setValue(PARAMETER_VALUE);
-  TestStepConfig config=TestStepConfig.Factory.newInstance();
-  RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
-  requestStepConfig.setService(restService().getName());
-  RestRequestConfig restRequestConfig=RestRequestConfig.Factory.newInstance();
-  requestStepConfig.setRestRequest(restRequestConfig);
-  config.setConfig(requestStepConfig);
-  requestStepConfig.setResourcePath(restRequest.getResource().getFullPath());
-  RestTestRequestStep testStep=new RestTestRequestStep(modelItemFactory.makeTestCase(),config,false);
-  restTestDesktopPanel=new RestTestRequestDesktopPanel(testStep);
-  originalDialogs=UISupport.getDialogs();
-  dialogs=new StubbedDialogs();
-  UISupport.setDialogs(dialogs);
-  endpointsCombo=findEndpointsComboBox();
+  buildRestTestPanel();
 }

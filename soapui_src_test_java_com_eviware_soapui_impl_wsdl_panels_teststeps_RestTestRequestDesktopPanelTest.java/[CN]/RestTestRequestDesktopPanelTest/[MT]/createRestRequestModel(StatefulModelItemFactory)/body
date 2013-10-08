@@ -1,0 +1,13 @@
+{
+  restRequest=modelItemFactory.makeRestRequest();
+  restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
+  RestResource restResource=restRequest.getResource();
+  restResource.getParams().addProperty(PARAMETER_NAME);
+  restResource.addNewMethod(restRequest.getRestMethod().getName());
+  RestMethodConfig restMethodConfig=restResource.getRestMethodList().get(0).getConfig();
+  restMethodConfig.setMethod("GET");
+  restService().addEndpoint(ENDPOINT);
+  RestParamProperty restParamProperty=restRequest.getParams().getProperty(PARAMETER_NAME);
+  restParamProperty.setValue(PARAMETER_VALUE);
+  return restResource;
+}

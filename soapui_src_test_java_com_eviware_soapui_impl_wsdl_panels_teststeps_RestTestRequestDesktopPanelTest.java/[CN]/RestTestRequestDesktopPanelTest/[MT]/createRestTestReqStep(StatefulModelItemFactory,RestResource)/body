@@ -1,0 +1,12 @@
+{
+  TestStepConfig config=TestStepConfig.Factory.newInstance();
+  RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
+  RestRequestConfig restRequestConfig=RestRequestConfig.Factory.newInstance();
+  requestStepConfig.setMethodName(restRequest.getRestMethod().getName());
+  requestStepConfig.setService(restService().getName());
+  requestStepConfig.setRestRequest(restRequestConfig);
+  requestStepConfig.getRestRequest().setEndpoint(ENDPOINT);
+  config.setConfig(requestStepConfig);
+  requestStepConfig.setResourcePath(restResource.getFullPath());
+  return new RestTestRequestStep(modelItemFactory.makeTestCase(),config,false);
+}

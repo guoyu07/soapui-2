@@ -1,0 +1,8 @@
+{
+  originalDialogs=UISupport.getDialogs();
+  dialogs=new StubbedDialogs();
+  UISupport.setDialogs(dialogs);
+  String serviceName=restResource.getService().getName();
+  String resourceName=restResource.getName();
+  dialogs.mockPromptWithReturnValue(serviceName + " > " + resourceName);
+}

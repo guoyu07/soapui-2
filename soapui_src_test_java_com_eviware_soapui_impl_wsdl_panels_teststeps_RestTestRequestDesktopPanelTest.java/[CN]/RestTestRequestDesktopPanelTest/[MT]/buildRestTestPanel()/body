@@ -1,0 +1,8 @@
+{
+  StatefulModelItemFactory modelItemFactory=new StatefulModelItemFactory();
+  RestResource restResource=createRestRequestModel(modelItemFactory);
+  mockPromptDiaglog(restResource);
+  RestTestRequestStep testStep=createRestTestReqStep(modelItemFactory,restResource);
+  restTestDesktopPanel=new RestTestRequestDesktopPanel(testStep);
+  endpointsCombo=findEndpointsComboBox();
+}
