@@ -2,7 +2,7 @@
   int maxExistingIndex=0;
   for (  Project project : workspace.getProjectList()) {
     String projectName=project.getName();
-    if (projectName.contains(DEFAULT_PROJECT_NAME)) {
+    if (projectName.startsWith(DEFAULT_PROJECT_NAME)) {
       try {
         int beginIndex=projectName.indexOf(DEFAULT_PROJECT_NAME) + DEFAULT_PROJECT_NAME.length();
         int indexInProjectName=Integer.parseInt(projectName.substring(beginIndex).trim());
