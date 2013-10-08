@@ -1,0 +1,18 @@
+{
+  int maxExistingIndex=0;
+  for (  ModelItem modelItem : modelItems) {
+    String name=modelItem.getName();
+    if (name.contains(baseName)) {
+      try {
+        int beginIndex=name.indexOf(baseName) + baseName.length();
+        int indexInProjectName=Integer.parseInt(name.substring(beginIndex).trim());
+        if (indexInProjectName > maxExistingIndex) {
+          maxExistingIndex=indexInProjectName;
+        }
+      }
+ catch (      Exception e) {
+      }
+    }
+  }
+  return baseName + " " + (++maxExistingIndex);
+}
