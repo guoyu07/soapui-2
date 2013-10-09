@@ -8,7 +8,11 @@
     ClassLoader loader=Loader.getClassLoader(KeyMaterialWssCrypto.class);
     InputStream input=Merlin.loadInputStream(loader,crypotFilePath);
     keyStore=KeyStore.getInstance(keystoreType);
-    keyStore.load(input,getPassword().toCharArray());
+    char[] password=null;
+    if (!StringUtils.isNullOrEmpty(getPassword())) {
+      password=getPassword().toCharArray();
+    }
+    keyStore.load(input,password);
     return keyStore;
   }
  catch (  Exception exceptionFromNormalLoad) {
