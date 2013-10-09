@@ -1,5 +1,5 @@
 {
-  if (enabled == true)   enabled=!SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem().getTestCase()) && !SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem().getTestCase());
+  if (enabled)   enabled=!SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem().getTestCase()) && !SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem().getTestCase());
   super.setEnabled(enabled);
   addAssertionButton.setEnabled(enabled);
   assertionsPanel.setEnabled(enabled);

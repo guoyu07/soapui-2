@@ -1,0 +1,5 @@
+{
+  restRequest.getResource().setPath("/newPath");
+  String expectedPath="[" + restRequest.getResource().getFullPath() + "]";
+  assertThat(restTestDesktopPanel.pathLabel.getText(),is(expectedPath));
+}

@@ -1,0 +1,5 @@
+{
+  String anotherEndpoint="http://google.com/search";
+  restService().changeEndpoint(ENDPOINT,anotherEndpoint);
+  assertThat(restTestDesktopPanel.getEndpointsModel().getSelectedItem(),is((Object)anotherEndpoint));
+}
