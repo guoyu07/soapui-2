@@ -1,6 +1,11 @@
 {
   String path=getRequest().getResource().getFullPath();
-  resourcePanel=new TextPanelWithTopLabel("Resource",path);
+  resourcePanel=new TextPanelWithTopLabel("Resource",path,new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      getRequest().getResource().setPath(resourcePanel.getText());
+    }
+  }
+);
   String query=RestUtils.getQueryParamsString(getRequest().getParams(),getRequest());
   queryPanel=new TextPanelWithTopLabel("Query",query,false);
 }
