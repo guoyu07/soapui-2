@@ -35,7 +35,11 @@
     }
   }
 );
-  mainToolbar.addLabeledFixed("Search Forum",searchField);
+  JLabel searchLabel=new JLabel("Search Forum");
+  searchLabel.setPreferredSize(new Dimension((int)(searchLabel.getPreferredSize().getWidth() * 1.1),(int)searchLabel.getPreferredSize().getHeight()));
+  mainToolbar.addFixed(searchLabel);
+  mainToolbar.addSeparator(new Dimension(3,3));
+  mainToolbar.addFixed(searchField);
   mainToolbar.add(new ToolbarForumSearchAction());
   mainToolbar.add(new ShowOnlineHelpAction(HelpUrls.USERGUIDE_HELP_URL));
   for (int i=0; i < mainToolbar.getComponentCount(); i++) {
