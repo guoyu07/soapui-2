@@ -1,0 +1,7 @@
+{
+  parentResource.setPath("/path/with/several/elements");
+  resourceDesktopPanel=new RestResourceDesktopPanel(parentResource);
+  String newPath="/another/complex/path";
+  resourceDesktopPanel.pathTextField.setText(newPath);
+  assertThat(parentResource.getPath(),is(newPath));
+}

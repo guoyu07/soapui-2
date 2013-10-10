@@ -1,0 +1,6 @@
+{
+  childResource.setPath("multiple/element/path");
+  String newChildPath="new/cool/path";
+  resourceDesktopPanel.pathTextField.setText(parentResource.getFullPath() + "/" + newChildPath);
+  assertThat(childResource.getPath(),is(newChildPath));
+}

@@ -7,7 +7,7 @@
     public void update(    Document document){
       if (!updating) {
         updating=true;
-        getModelItem().setPath(extractLastPathElementFrom(getText(document)));
+        getModelItem().setPath(extractCurrentResourcePathFrom(getText(document)));
         updating=false;
       }
     }
