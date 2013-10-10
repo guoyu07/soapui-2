@@ -1,4 +1,4 @@
 {
   resourcePanel.setText(getRequest().getResource().getFullPath());
-  resetQueryPanelText();
+  queryPanel.setText(RestUtils.getQueryParamsString(getRequest()));
 }
