@@ -1,0 +1,21 @@
+{
+  StringBuilder buffer=new StringBuilder();
+  for (int i=0; i < params.getPropertyCount(); i++) {
+    RestParamProperty param=params.getPropertyAt(i);
+    String value=param.getValue();
+    if (param.getStyle() == ParameterStyle.MATRIX) {
+      if (param.getType().equals(XmlBoolean.type.getName())) {
+        if (value.toUpperCase().equals("TRUE") || value.equals("1")) {
+          buffer.append(";").append(param.getName());
+        }
+      }
+ else {
+        buffer.append(";").append(param.getName());
+        if (StringUtils.hasContent(value)) {
+          buffer.append("=").append(URLEncoder.encode(value));
+        }
+      }
+    }
+  }
+  return buffer.toString();
+}

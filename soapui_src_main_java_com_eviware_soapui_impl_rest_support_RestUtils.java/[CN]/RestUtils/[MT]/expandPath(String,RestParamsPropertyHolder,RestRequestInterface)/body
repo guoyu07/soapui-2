@@ -1,60 +1,23 @@
 {
-  StringBuffer query=request.isPostQueryString() || "multipart/form-data".equals(request.getMediaType()) ? null : new StringBuffer();
   DefaultPropertyExpansionContext context=new DefaultPropertyExpansionContext(request);
   for (int c=0; c < params.getPropertyCount(); c++) {
     RestParamProperty param=params.getPropertyAt(c);
     String value=PropertyExpander.expandProperties(context,param.getValue());
-    List<String> valueParts=splitMultipleParameters(value,request.getMultiValueDelimiter());
+    if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
     if (value != null && !param.isDisableUrlEncoding()) {
       try {
         String encoding=System.getProperty("soapui.request.encoding",request.getEncoding());
-        if (StringUtils.hasContent(encoding)) {
-          value=URLEncoder.encode(value,encoding);
-          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i),encoding));
-        }
- else {
-          value=URLEncoder.encode(value);
-          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i)));
-        }
+        encoding=StringUtils.hasContent(encoding) ? encoding : Charset.defaultCharset().toString();
+        value=URLEncoder.encode(value,encoding);
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);
         value=URLEncoder.encode(value);
-        for (int i=0; i < valueParts.size(); i++)         valueParts.set(i,URLEncoder.encode(valueParts.get(i)));
       }
     }
-    if (!StringUtils.hasContent(value) && !param.getRequired())     continue;
-    if (value == null)     value="";
-switch (param.getStyle()) {
-case QUERY:
-      if (query != null && valueParts != null) {
-        for (        String valuePart : valueParts) {
-          if (query.length() > 0)           query.append('&');
-          query.append(URLEncoder.encode(param.getName()));
-          query.append('=');
-          if (StringUtils.hasContent(valuePart))           query.append(valuePart);
-        }
-      }
-    break;
-case TEMPLATE:
-  path=path.replaceAll("\\{" + param.getName() + "\\}",value);
-break;
-case MATRIX:
-if (param.getType().equals(XmlBoolean.type.getName())) {
-if (value.toUpperCase().equals("TRUE") || value.equals("1")) {
-  path+=";" + param.getName();
-}
-}
- else {
-path+=";" + param.getName();
-if (StringUtils.hasContent(value)) {
-  path+="=" + value;
-}
-}
-case PLAIN:
-break;
-}
-}
-if (query != null && query.length() > 0) path+="?" + query.toString();
-return path;
+    if (param.getStyle() == ParameterStyle.TEMPLATE) {
+      path=path.replaceAll("\\{" + param.getName() + "\\}",value);
+    }
+  }
+  return path + makeSuffixParameterString(request);
 }

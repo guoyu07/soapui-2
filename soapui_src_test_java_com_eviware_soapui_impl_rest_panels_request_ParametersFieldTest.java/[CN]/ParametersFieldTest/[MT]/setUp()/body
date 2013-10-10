@@ -1,0 +1,10 @@
+{
+  request=ModelItemFactory.makeRestRequest();
+  RestParamProperty matrixParam=request.getParams().addProperty(MATRIX_PARAM_NAME);
+  matrixParam.setStyle(RestParamsPropertyHolder.ParameterStyle.MATRIX);
+  matrixParam.setValue(MATRIX_PARAM_VALUE);
+  RestParamProperty queryParam=request.getParams().addProperty(QUERY_PARAM_NAME);
+  queryParam.setStyle(RestParamsPropertyHolder.ParameterStyle.QUERY);
+  queryParam.setValue(QUERY_PARAM_VALUE);
+  parametersField=new ParametersField(request);
+}

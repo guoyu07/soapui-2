@@ -1,0 +1,8 @@
+{
+  RestRequest restRequest=makeRestRequest();
+  String templateParameterName="templateName";
+  String templateParameterValue="templateValue";
+  restRequest.getResource().setPath("/the/{" + templateParameterName + "}/path");
+  addParameter(restRequest,RestParamsPropertyHolder.ParameterStyle.TEMPLATE,templateParameterName,templateParameterValue);
+  assertThat(RestUtils.expandPath(restRequest.getResource().getFullPath(),restRequest.getParams(),restRequest),is("/the/" + templateParameterValue + "/path"));
+}

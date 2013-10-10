@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<String>(){
+    @Override public boolean matchesSafely(    String s){
+      return s.startsWith(prefix);
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("a string starting with " + prefix);
+    }
+  }
+;
+}
