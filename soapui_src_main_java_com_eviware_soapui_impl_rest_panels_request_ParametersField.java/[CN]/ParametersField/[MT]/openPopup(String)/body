@@ -1,0 +1,10 @@
+{
+  paramsTable=new RestParamsTable(request.getParams(),false,new RestParamsTableModel(request.getParams(),RestParamsTableModel.Mode.MINIMAL),NewRestResourceActionBase.ParamLocation.METHOD,true,true);
+  paramsTable.focusParameter(selectedParameter);
+  popup=new JPopupMenu();
+  popup.setLayout(new BorderLayout());
+  popup.add(paramsTable,BorderLayout.CENTER);
+  popup.setInvoker(textField);
+  popup.setLocation(SwingUtilities.convertPoint(textField,3,getHeight() + 2,SoapUI.getFrame()));
+  popup.setVisible(true);
+}

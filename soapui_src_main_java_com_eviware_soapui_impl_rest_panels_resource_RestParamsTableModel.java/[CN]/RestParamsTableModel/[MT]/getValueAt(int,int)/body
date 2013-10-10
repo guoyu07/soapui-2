@@ -6,9 +6,9 @@ case 0:
 case 1:
   return prop.getValue();
 case 2:
-return prop.getStyle();
+return mode == Mode.MINIMAL ? null : prop.getStyle();
 case 3:
-return prop.getParamLocation();
+return mode == Mode.MINIMAL ? null : prop.getParamLocation();
 }
 return null;
 }

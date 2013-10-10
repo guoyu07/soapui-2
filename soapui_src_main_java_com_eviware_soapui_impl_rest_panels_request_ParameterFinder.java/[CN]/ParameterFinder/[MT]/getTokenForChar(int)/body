@@ -1,0 +1,10 @@
+{
+  int currentIndex=0;
+  for (  String token : tokens) {
+    if (index >= currentIndex && index < currentIndex + token.length()) {
+      return token;
+    }
+    currentIndex+=token.length();
+  }
+  return "";
+}

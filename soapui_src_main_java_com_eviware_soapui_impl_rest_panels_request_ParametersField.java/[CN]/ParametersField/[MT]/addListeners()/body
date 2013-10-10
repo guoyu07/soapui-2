@@ -1,0 +1,9 @@
+{
+  textField.addCaretListener(new CaretListener(){
+    @Override public void caretUpdate(    CaretEvent e){
+      ParameterFinder finder=new ParameterFinder(textField.getText());
+      openPopup(finder.findParameterAt(e.getDot()));
+    }
+  }
+);
+}

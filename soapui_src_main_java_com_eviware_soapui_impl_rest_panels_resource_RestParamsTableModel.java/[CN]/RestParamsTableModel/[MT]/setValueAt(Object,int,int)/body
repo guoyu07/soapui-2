@@ -9,13 +9,16 @@ prop.setDefaultValue(value.toString());
 prop.setValue(value.toString());
 return;
 case 2:
+if (mode == Mode.FULL) {
 prop.setStyle((ParameterStyle)value);
+}
 return;
 case 3:
+if (mode == Mode.FULL) {
 if (params.getModelItem() instanceof RestRequest) {
 this.isLastChangeParameterLevelChange=true;
 }
 prop.setParamLocation((ParamLocation)value);
-return;
+}
 }
 }

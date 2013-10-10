@@ -1,0 +1,9 @@
+{
+  this.parametersString=parametersString;
+  StringTokenizer parser=new StringTokenizer(parametersString,"?&=;",true);
+  List<String> parsedTokens=new ArrayList<String>();
+  while (parser.hasMoreTokens()) {
+    parsedTokens.add(parser.nextToken());
+  }
+  tokens=parsedTokens;
+}

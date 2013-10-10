@@ -1,0 +1,10 @@
+{
+  String token=getTokenForChar(dot);
+  if (token.equals("&")) {
+    return getTokenForChar(dot + 1);
+  }
+ else   if (token.equals("=")) {
+    return getTokenForChar(dot - 1);
+  }
+  return token;
+}
