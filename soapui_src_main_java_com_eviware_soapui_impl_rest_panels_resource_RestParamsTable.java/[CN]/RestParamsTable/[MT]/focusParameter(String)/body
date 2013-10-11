@@ -1,8 +1,15 @@
 {
+  paramsTable.grabFocus();
   for (int i=0; i < paramsTable.getRowCount(); i++) {
     if (paramsTable.getValueAt(i,0).equals(parameterName)) {
       paramsTable.editCellAt(i,1);
       paramsTable.getEditorComponent().requestFocusInWindow();
+      return;
     }
   }
+  paramsTable.editCellAt(0,1);
+  JTextField editorComponent=(JTextField)paramsTable.getEditorComponent();
+  editorComponent.select(0,editorComponent.getText().length() - 1);
+  editorComponent.grabFocus();
+  System.out.println("Focused: " + paramsTable.getEditorComponent().hasFocus());
 }

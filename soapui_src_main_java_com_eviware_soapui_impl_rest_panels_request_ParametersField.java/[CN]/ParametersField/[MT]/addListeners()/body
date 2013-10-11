@@ -1,8 +1,16 @@
 {
-  textField.addCaretListener(new CaretListener(){
-    @Override public void caretUpdate(    CaretEvent e){
-      ParameterFinder finder=new ParameterFinder(textField.getText());
-      openPopup(finder.findParameterAt(e.getDot()));
+  textField.addMouseListener(new MouseAdapter(){
+    @Override public void mouseReleased(    MouseEvent e){
+      if (popup != null) {
+        return;
+      }
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          ParameterFinder finder=new ParameterFinder(textField.getText());
+          openPopup(finder.findParameterAt(0));
+        }
+      }
+);
     }
   }
 );

@@ -1,0 +1,14 @@
+{
+  super(new BorderLayout());
+  JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+  JButton closeButton=new JButton("Close");
+  closeButton.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      closePopup();
+    }
+  }
+);
+  buttonPanel.add(closeButton);
+  add(restParamsTable,BorderLayout.CENTER);
+  add(buttonPanel,BorderLayout.SOUTH);
+}
