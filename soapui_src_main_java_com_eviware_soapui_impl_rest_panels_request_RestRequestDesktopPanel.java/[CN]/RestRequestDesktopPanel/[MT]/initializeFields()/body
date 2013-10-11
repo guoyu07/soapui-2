@@ -1,5 +1,6 @@
 {
   String path=getRequest().getResource().getFullPath();
-  resourcePanel=new TextPanelWithTopLabel("Resource",path);
+  updating=new MutableBoolean();
+  resourcePanel=new TextPanelWithTopLabel("Resource",path,new RestResourceEditor(getRequest().getResource(),updating));
   queryPanel=new ParametersField(getRequest());
 }

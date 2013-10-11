@@ -1,0 +1,8 @@
+{
+  final List<RestResource> resources=new ArrayList<RestResource>();
+  for (RestResource r=editingRestResource; r != null; r=r.getParentResource()) {
+    resources.add(r);
+  }
+  Collections.reverse(resources);
+  return resources;
+}

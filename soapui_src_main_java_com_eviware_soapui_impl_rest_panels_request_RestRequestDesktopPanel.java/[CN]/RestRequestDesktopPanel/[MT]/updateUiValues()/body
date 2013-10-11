@@ -1,4 +1,9 @@
 {
+  if (updating.booleanValue()) {
+    return;
+  }
+  updating.setValue(true);
   resourcePanel.setText(getRequest().getResource().getFullPath());
   queryPanel.setText(RestUtils.makeSuffixParameterString(getRequest()));
+  updating.setValue(false);
 }

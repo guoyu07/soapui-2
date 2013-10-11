@@ -1,0 +1,15 @@
+{
+  oldDialogs=UISupport.getDialogs();
+  dialogs=new StubbedDialogs();
+  UISupport.setDialogs(dialogs);
+  lonelyResource=ModelItemFactory.makeRestResource();
+  lonelyResource.setPath("/lonely");
+  templateResource=ModelItemFactory.makeRestResource();
+  templateResource.setPath("/hello{param1}{param2}");
+  parentResource=ModelItemFactory.makeRestResource();
+  parentResource.setPath("/parent{param1}");
+  RestParamProperty existingparam=parentResource.addProperty("existingparam");
+  existingparam.setValue("existingvalue");
+  existingparam.setDefaultValue("existingvalue");
+  childResource=parentResource.addNewChildResource("child","the_child{param2}{existingparam}");
+}

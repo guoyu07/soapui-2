@@ -1,0 +1,26 @@
+{
+  super(editingRestResource.getFullPath());
+  this.editingRestResource=editingRestResource;
+  this.updating=updating;
+  if (isResourceLonely(editingRestResource)) {
+    getDocument().addDocumentListener(new LonelyDocumentListener());
+    addFocusListener(new FocusListener(){
+      public void focusLost(      FocusEvent e){
+        scanForTemplateParameters();
+      }
+      public void focusGained(      FocusEvent e){
+      }
+    }
+);
+  }
+ else {
+    addMouseListener(new MouseAdapter(){
+      @Override public void mouseClicked(      MouseEvent e){
+        setEditable(false);
+        showDialog();
+        setEditable(true);
+      }
+    }
+);
+  }
+}

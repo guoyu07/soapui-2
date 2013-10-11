@@ -8,4 +8,7 @@
       methodRemoved((RestMethod)evt.getOldValue());
     }
   }
+ else   if (evt.getPropertyName().equals(RestResource.PATH_PROPERTY)) {
+    getTreeModel().notifyNodeChanged(this);
+  }
 }

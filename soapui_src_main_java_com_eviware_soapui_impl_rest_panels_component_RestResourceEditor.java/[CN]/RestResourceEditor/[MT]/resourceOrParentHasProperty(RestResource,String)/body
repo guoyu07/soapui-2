@@ -1,0 +1,8 @@
+{
+  for (RestResource r=restResource; r != null; r=r.getParentResource()) {
+    if (r.hasProperty(name)) {
+      return true;
+    }
+  }
+  return false;
+}

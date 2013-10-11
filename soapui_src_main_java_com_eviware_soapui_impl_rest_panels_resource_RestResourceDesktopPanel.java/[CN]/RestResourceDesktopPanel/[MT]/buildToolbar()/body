@@ -2,34 +2,7 @@
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.addFixed(createActionButton(SwingActionDelegate.createDelegate(NewRestMethodAction.SOAPUI_ACTION_ID,getModelItem(),null,"/create_empty_method.gif"),true));
   toolbar.addSeparator();
-  pathTextField=new JUndoableTextField(getModelItem().getFullPath(),20);
-  pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
-    public void update(    Document document){
-      if (!updating) {
-        updating=true;
-        getModelItem().setPath(extractCurrentResourcePathFrom(getText(document)));
-        updating=false;
-      }
-    }
-  }
-);
-  pathTextField.addFocusListener(new FocusListener(){
-    public void focusLost(    FocusEvent e){
-      for (      String p : RestUtils.extractTemplateParams(getModelItem().getPath())) {
-        if (!getModelItem().hasProperty(p)) {
-          if (UISupport.confirm("Add template parameter [" + p + "] to resource?","Add Parameter")) {
-            RestParamProperty property=getModelItem().addProperty(p);
-            property.setStyle(ParameterStyle.TEMPLATE);
-            String value=UISupport.prompt("Specify default value for parameter [" + p + "]","Add Parameter","");
-            if (value != null)             property.setDefaultValue(value);
-          }
-        }
-      }
-    }
-    public void focusGained(    FocusEvent e){
-    }
-  }
-);
+  pathTextField=new RestResourceEditor(getModelItem(),updating);
   toolbar.addFixed(new JLabel("Resource Path"));
   toolbar.addSeparator(new Dimension(3,3));
   toolbar.addWithOnlyMinimumHeight(pathTextField);

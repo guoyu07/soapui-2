@@ -1,6 +1,7 @@
 {
   super(restResource,restResource.getParent(),treeModel);
   this.restResource=restResource;
+  restResource.addPropertyChangeListener(RestResource.PATH_PROPERTY,this);
   treeModel.mapModelItem(this);
   for (int c=0; c < restResource.getChildResourceCount(); c++) {
     resourceNodes.add(new RestResourceTreeNode(restResource.getChildResourceAt(c),getTreeModel()));

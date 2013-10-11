@@ -1,0 +1,8 @@
+{
+  if (updating.booleanValue()) {
+    return;
+  }
+  updating.setValue(true);
+  editingRestResource.setPath(getText(document));
+  updating.setValue(false);
+}

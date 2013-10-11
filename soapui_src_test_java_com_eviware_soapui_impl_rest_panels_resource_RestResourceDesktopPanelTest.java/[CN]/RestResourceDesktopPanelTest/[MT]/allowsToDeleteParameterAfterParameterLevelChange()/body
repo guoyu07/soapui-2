@@ -1,7 +1,7 @@
 {
   RestParamsPropertyHolder params=addParamsToChildResource();
   JTable parameterTable=getRestParameterTable();
-  RestRequestDesktopPanel requestDesktopPanel=openRestRequestDesktopPanelToAttachTheEventListenersForParameterlevelChange();
+  openRestRequestDesktopPanelToAttachTheEventListenersForParameterlevelChange();
   parameterTable.setValueAt(METHOD,0,RestParamsTableModel.PARAM_LOCATION_COLUMN_INDEX);
   params.removeProperty(PARAM_2);
   String remainingParam3=(String)parameterTable.getValueAt(0,0);

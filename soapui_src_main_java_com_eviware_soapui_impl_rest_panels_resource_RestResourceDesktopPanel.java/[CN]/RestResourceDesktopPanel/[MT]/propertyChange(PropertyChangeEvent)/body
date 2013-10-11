@@ -1,9 +1,9 @@
 {
   if (evt.getPropertyName().equals("path")) {
-    if (!updating) {
-      updating=true;
-      pathTextField.setText(String.valueOf(evt.getNewValue()));
-      updating=false;
+    if (!updating.booleanValue()) {
+      updating.setValue(true);
+      pathTextField.setText(getModelItem().getFullPath());
+      updating.setValue(false);
     }
   }
   paramsTable.refresh();
