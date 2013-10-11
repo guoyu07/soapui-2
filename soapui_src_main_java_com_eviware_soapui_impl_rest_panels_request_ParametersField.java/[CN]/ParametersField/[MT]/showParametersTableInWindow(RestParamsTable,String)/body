@@ -3,8 +3,7 @@
   PopupWindow popupWindow=new PopupWindow(restParamsTable);
   popupWindow.pack();
   restParamsTable.focusParameter(selectedParameter);
-  Point textFieldLocation=textField.getLocationOnScreen();
-  popupWindow.setLocation(textFieldLocation.x,textFieldLocation.y + textField.getHeight());
+  moveWindowBelowTextField(popupWindow);
   popupWindow.setModal(true);
   popupWindow.setVisible(true);
 }
