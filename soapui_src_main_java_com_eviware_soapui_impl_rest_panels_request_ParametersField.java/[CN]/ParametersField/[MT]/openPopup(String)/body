@@ -8,22 +8,5 @@
     }
   }
 );
-  popupComponent=new PopupComponent(restParamsTable);
-  Point displayPoint=SwingUtilities.convertPoint(textField,3,getHeight() + 2,SoapUI.getFrame());
-  popup=PopupFactory.getSharedInstance().getPopup(null,popupComponent,(int)displayPoint.getX(),(int)displayPoint.getY());
-  popup.show();
-  SwingUtilities.windowForComponent(restParamsTable.getParamsTable()).setFocusableWindowState(true);
-  SwingUtilities.invokeLater(new Runnable(){
-    public void run(){
-      restParamsTable.focusParameter(selectedParameter);
-      System.out.println(textField.hasFocus() + " - " + restParamsTable.hasFocus()+ " - "+ restParamsTable.getParamsTable().hasFocus()+ "-"+ SwingUtilities.windowForComponent(restParamsTable).hasFocus());
-    }
-  }
-);
-  restParamsTable.addFocusListener(new FocusAdapter(){
-    @Override public void focusLost(    FocusEvent e){
-      System.out.println("Focus lost");
-    }
-  }
-);
+  showParametersTableInWindow(restParamsTable,selectedParameter);
 }

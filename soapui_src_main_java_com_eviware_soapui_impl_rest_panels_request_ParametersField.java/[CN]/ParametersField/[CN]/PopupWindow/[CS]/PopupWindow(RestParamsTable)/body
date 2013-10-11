@@ -1,0 +1,15 @@
+{
+  getContentPane().setLayout(new BorderLayout());
+  JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
+  JButton closeButton=new JButton("Close");
+  closeButton.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      setVisible(false);
+      dispose();
+    }
+  }
+);
+  buttonPanel.add(closeButton);
+  getContentPane().add(restParamsTable,BorderLayout.CENTER);
+  getContentPane().add(buttonPanel,BorderLayout.SOUTH);
+}
