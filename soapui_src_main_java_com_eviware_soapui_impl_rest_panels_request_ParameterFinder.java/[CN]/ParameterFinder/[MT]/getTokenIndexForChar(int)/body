@@ -1,10 +1,12 @@
 {
   int currentIndex=0;
+  int tokenIndex=0;
   for (  String token : tokens) {
     if (index >= currentIndex && index < currentIndex + token.length()) {
-      return token;
+      return tokenIndex;
     }
     currentIndex+=token.length();
+    tokenIndex++;
   }
-  return "";
+  return -1;
 }

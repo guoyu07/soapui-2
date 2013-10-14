@@ -1,10 +1,17 @@
 {
-  String token=getTokenForChar(dot);
-  if (token.equals("&")) {
-    return getTokenForChar(dot + 1);
+  int tokenIndex=getTokenIndexForChar(dot == 0 ? 1 : dot);
+  if (tokenIndex == -1) {
+    return "";
+  }
+  String token=tokens.get(tokenIndex);
+  if (isSeparator(token)) {
+    return tokenIndex < tokens.size() - 1 ? tokens.get(tokenIndex + 1) : "";
   }
  else   if (token.equals("=")) {
-    return getTokenForChar(dot - 1);
+    return tokenIndex > 1 ? tokens.get(tokenIndex - 1) : "";
+  }
+  if (tokenIndex > 1 && tokens.get(tokenIndex - 1).equals("=")) {
+    return tokens.get(tokenIndex - 2);
   }
   return token;
 }

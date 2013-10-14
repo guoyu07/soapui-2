@@ -1,0 +1,5 @@
+{
+  String parametersString=";name=Johan;reallyLongOne=value?query1=value1";
+  ParameterFinder finder=new ParameterFinder(parametersString);
+  assertThat(finder.findParameterAt(parametersString.indexOf(";really")),is("reallyLongOne"));
+}
