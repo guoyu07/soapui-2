@@ -11,6 +11,7 @@
       if (textFieldClicked || caretIsInMiddleOfTextField(e)) {
         ParameterFinder finder=new ParameterFinder(textField.getText());
         openPopup(finder.findParameterAt(e.getDot()));
+        textLabel.requestFocus();
         textFieldClicked=false;
       }
     }
