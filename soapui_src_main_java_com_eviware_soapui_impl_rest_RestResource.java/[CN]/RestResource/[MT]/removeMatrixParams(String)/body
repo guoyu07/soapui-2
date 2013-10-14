@@ -1,4 +1,7 @@
 {
+  if (path == null || path.isEmpty()) {
+    return path;
+  }
   String pathWithOutMatrixParam=path.replaceAll("(\\;).+(\\=).+(?!\\/)","");
   return pathWithOutMatrixParam;
 }
