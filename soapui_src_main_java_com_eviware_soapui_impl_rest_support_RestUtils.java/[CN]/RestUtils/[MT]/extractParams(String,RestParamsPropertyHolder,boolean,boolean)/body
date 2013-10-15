@@ -17,9 +17,8 @@
   }
   String[] items=path.split("/");
   int templateParamCount=0;
-  StringBuffer resultPath=new StringBuffer();
-  for (int i=0; i < items.length; i++) {
-    String item=items[i];
+  StringBuilder resultPath=new StringBuilder();
+  for (  String item : items) {
     try {
       if (item.startsWith("{") && item.endsWith("}")) {
         String name=item.substring(1,item.length() - 1);
@@ -68,7 +67,7 @@
         }
       }
     }
- catch (    Throwable e) {
+ catch (    Exception ignore) {
     }
     if (StringUtils.hasContent(item))     resultPath.append('/').append(item);
   }
