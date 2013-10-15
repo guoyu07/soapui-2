@@ -6,14 +6,18 @@
   }
 );
   textField.addCaretListener(new CaretListener(){
-    @Override public void caretUpdate(    CaretEvent e){
-      System.out.println(e);
-      if (textFieldClicked || caretIsInMiddleOfTextField(e)) {
-        ParameterFinder finder=new ParameterFinder(textField.getText());
-        openPopup(finder.findParameterAt(e.getDot()));
-        textLabel.requestFocus();
-        textFieldClicked=false;
+    @Override public void caretUpdate(    final CaretEvent e){
+      if (caretIsInMiddleOfTextField(e) || (textFieldClicked && e.getDot() == textField.getText().length() - 1)) {
+        final ParameterFinder finder=new ParameterFinder(textField.getText());
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            openPopup(finder.findParameterAt(e.getDot()));
+          }
+        }
+);
       }
+      textLabel.requestFocus();
+      textFieldClicked=false;
     }
     private boolean caretIsInMiddleOfTextField(    CaretEvent e){
       int textEndLocation=textField.getText().length();

@@ -5,6 +5,10 @@
   JButton closeButton=new JButton("Close");
   closeButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
+      JTable actualTable=restParamsTable.getParamsTable();
+      if (actualTable.isEditing()) {
+        actualTable.getCellEditor().stopCellEditing();
+      }
       setVisible(false);
       dispose();
     }
