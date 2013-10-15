@@ -1,27 +1,20 @@
 {
   textField.addMouseListener(new MouseAdapter(){
-    @Override public void mouseReleased(    MouseEvent e){
-      textFieldClicked=true;
+    @Override public void mouseClicked(    MouseEvent e){
+      final ParameterFinder finder=new ParameterFinder(textField.getText());
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          openPopup(finder.findParameterAt(lastSelectedPosition));
+        }
+      }
+);
+      textLabel.requestFocus();
     }
   }
 );
   textField.addCaretListener(new CaretListener(){
     @Override public void caretUpdate(    final CaretEvent e){
-      if (caretIsInMiddleOfTextField(e) || (textFieldClicked && e.getDot() == textField.getText().length() - 1)) {
-        final ParameterFinder finder=new ParameterFinder(textField.getText());
-        SwingUtilities.invokeLater(new Runnable(){
-          public void run(){
-            openPopup(finder.findParameterAt(e.getDot()));
-          }
-        }
-);
-      }
-      textLabel.requestFocus();
-      textFieldClicked=false;
-    }
-    private boolean caretIsInMiddleOfTextField(    CaretEvent e){
-      int textEndLocation=textField.getText().length();
-      return e.getDot() > 0 && e.getDot() < textEndLocation;
+      lastSelectedPosition=e.getDot();
     }
   }
 );
