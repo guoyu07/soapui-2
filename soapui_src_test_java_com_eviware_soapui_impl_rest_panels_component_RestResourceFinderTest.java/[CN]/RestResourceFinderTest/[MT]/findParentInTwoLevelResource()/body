@@ -1,0 +1,7 @@
+{
+  RestResource parent=ModelItemFactory.makeRestResource();
+  RestResource child=parent.addNewChildResource("child","/child");
+  parent.setPath("/parent");
+  RestResourceFinder finder=new RestResourceFinder(child);
+  assertThat(finder.findResourceAt(1),is(parent));
+}

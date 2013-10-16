@@ -1,0 +1,8 @@
+{
+  for (  RestResource r : RestUtils.extractAncestorsParentFirst(resource)) {
+    if (caretPosition <= r.getFullPath().length()) {
+      return r;
+    }
+  }
+  return resource;
+}

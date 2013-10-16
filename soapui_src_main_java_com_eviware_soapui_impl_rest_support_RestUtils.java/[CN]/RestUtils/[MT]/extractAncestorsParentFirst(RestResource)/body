@@ -1,6 +1,6 @@
 {
   final List<RestResource> resources=new ArrayList<RestResource>();
-  for (RestResource r=editingRestResource; r != null; r=r.getParentResource()) {
+  for (RestResource r=childResource; r != null; r=r.getParentResource()) {
     resources.add(r);
   }
   Collections.reverse(resources);

@@ -3,8 +3,8 @@
   Box contentBox=Box.createVerticalBox();
   int index=0;
   ImageIcon icon=UISupport.createImageIcon("/connector.png");
-  final JLabel changeWarningLabel=new JLabel(" ");
-  changeWarningLabel.setBorder(BorderFactory.createCompoundBorder(contentBox.getBorder(),BorderFactory.createEmptyBorder(10,0,10,0)));
+  final JLabel changeWarningLabel=new JLabel("hejhopp");
+  changeWarningLabel.setBorder(BorderFactory.createCompoundBorder(contentBox.getBorder(),BorderFactory.createEmptyBorder(10,0,0,0)));
   restSubResourceTextFields=new ArrayList<RestSubResourceTextField>();
   DocumentListener pathChangedListener=new DocumentListenerAdapter(){
     @Override public void update(    Document document){
@@ -25,7 +25,7 @@
     }
   }
 ;
-  for (  RestResource restResource : getRestResources()) {
+  for (  RestResource restResource : RestUtils.extractAncestorsParentFirst(editingRestResource)) {
     Box row=Box.createHorizontalBox();
     row.setAlignmentX(0);
     if (index > 1) {
@@ -34,7 +34,7 @@
     if (index >= 1) {
       row.add(new JLabel(icon));
     }
-    RestSubResourceTextField restSubResourceTextField=new RestSubResourceTextField(restResource);
+    final RestSubResourceTextField restSubResourceTextField=new RestSubResourceTextField(restResource);
     restSubResourceTextField.getTextField().getDocument().addDocumentListener(pathChangedListener);
     restSubResourceTextFields.add(restSubResourceTextField);
     Box textFieldBox=Box.createVerticalBox();
@@ -42,10 +42,19 @@
     textFieldBox.add(restSubResourceTextField.getTextField());
     row.add(textFieldBox);
     contentBox.add(row);
+    if (restResource == focusedResource) {
+      SwingUtilities.invokeLater(new Runnable(){
+        @Override public void run(){
+          restSubResourceTextField.getTextField().requestFocusInWindow();
+          restSubResourceTextField.getTextField().selectAll();
+        }
+      }
+);
+    }
     index++;
   }
   panel.add(contentBox,BorderLayout.NORTH);
   panel.add(changeWarningLabel,BorderLayout.CENTER);
-  panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),BorderFactory.createEmptyBorder(10,10,10,10)));
+  panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK),BorderFactory.createEmptyBorder(10,10,10,10)));
   return panel;
 }

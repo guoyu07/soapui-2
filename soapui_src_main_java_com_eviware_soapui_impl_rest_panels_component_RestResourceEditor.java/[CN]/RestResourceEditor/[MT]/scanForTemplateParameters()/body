@@ -1,5 +1,5 @@
 {
-  for (  RestResource restResource : getRestResources()) {
+  for (  RestResource restResource : RestUtils.extractAncestorsParentFirst(editingRestResource)) {
     for (    String p : RestUtils.extractTemplateParams(restResource.getPath())) {
       if (!resourceOrParentHasProperty(restResource,p)) {
         if (UISupport.confirm("Add template parameter [" + p + "] to resource?","Add Parameter")) {

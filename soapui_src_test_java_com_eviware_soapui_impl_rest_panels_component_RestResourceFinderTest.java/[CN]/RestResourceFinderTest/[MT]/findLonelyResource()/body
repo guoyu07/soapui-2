@@ -1,0 +1,6 @@
+{
+  RestResource resource=ModelItemFactory.makeRestResource();
+  resource.setPath("/resource");
+  RestResourceFinder finder=new RestResourceFinder(resource);
+  assertThat(finder.findResourceAt(1),is(resource));
+}

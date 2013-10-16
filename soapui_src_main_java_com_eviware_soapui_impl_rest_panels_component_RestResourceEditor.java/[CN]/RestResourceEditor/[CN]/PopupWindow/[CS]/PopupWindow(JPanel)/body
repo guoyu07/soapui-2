@@ -1,6 +1,9 @@
 {
   super(SoapUI.getFrame());
-  getContentPane().setLayout(new BorderLayout());
+  setModal(true);
+  setResizable(false);
+  JPanel contentPane=new JPanel(new BorderLayout());
+  setContentPane(contentPane);
   JButton okButton=new JButton(new AbstractAction("OK"){
     @Override public void actionPerformed(    ActionEvent e){
       for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
@@ -12,14 +15,19 @@
     }
   }
 );
-  JButton cancelButton=new JButton(new AbstractAction("Cancel"){
+  AbstractAction cancelAction=new AbstractAction("Cancel"){
     @Override public void actionPerformed(    ActionEvent e){
       dispose();
     }
   }
-);
+;
+  JButton cancelButton=new JButton(cancelAction);
+  cancelButton.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0),"cancel");
+  cancelButton.getActionMap().put("cancel",cancelAction);
   JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(okButton,cancelButton);
   buttonBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
-  getContentPane().add(panel,BorderLayout.CENTER);
-  getContentPane().add(buttonBar,BorderLayout.SOUTH);
+  contentPane.add(panel,BorderLayout.CENTER);
+  contentPane.add(buttonBar,BorderLayout.SOUTH);
+  contentPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+  pack();
 }

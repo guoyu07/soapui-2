@@ -1,8 +1,6 @@
 {
-  final JPanel panel=createResourceEditorPanel();
+  final JPanel panel=createResourceEditorPanel(focusedResource);
   PopupWindow popupWindow=new PopupWindow(panel);
-  popupWindow.pack();
   moveWindowBelowTextField(popupWindow);
-  popupWindow.setModal(true);
   popupWindow.setVisible(true);
 }
