@@ -1,0 +1,24 @@
+{
+  super(SoapUI.getFrame());
+  getContentPane().setLayout(new BorderLayout());
+  JButton okButton=new JButton(new AbstractAction("OK"){
+    @Override public void actionPerformed(    ActionEvent e){
+      for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
+        restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText());
+      }
+      dispose();
+      scanForTemplateParameters();
+    }
+  }
+);
+  JButton cancelButton=new JButton(new AbstractAction("Cancel"){
+    @Override public void actionPerformed(    ActionEvent e){
+      dispose();
+    }
+  }
+);
+  JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(okButton,cancelButton);
+  buttonBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
+  getContentPane().add(panel,BorderLayout.CENTER);
+  getContentPane().add(buttonBar,BorderLayout.SOUTH);
+}
