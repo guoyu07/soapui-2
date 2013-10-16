@@ -1,0 +1,18 @@
+{
+  String name="";
+  propertyHolder.addProperty(name);
+  final int row=propertyHolder.getPropertyNames().length - 1;
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      editTableCell(row,0);
+      parameterTable.getModel().addTableModelListener(new TableModelListener(){
+        @Override public void tableChanged(        TableModelEvent e){
+          editTableCell(row,1);
+          parameterTable.getModel().removeTableModelListener(this);
+        }
+      }
+);
+    }
+  }
+);
+}
