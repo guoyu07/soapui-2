@@ -1,0 +1,8 @@
+{
+  final String parameterName="the_new_param";
+  RestParamProperty newParameter=restRequest.getParams().addProperty(parameterName);
+  newParameter.setStyle(RestParamsPropertyHolder.ParameterStyle.QUERY);
+  final String value="the_new_value";
+  newParameter.setValue(value);
+  assertThat(requestDesktopPanel.queryPanel.getText(),containsString(parameterName + "=" + value));
+}
