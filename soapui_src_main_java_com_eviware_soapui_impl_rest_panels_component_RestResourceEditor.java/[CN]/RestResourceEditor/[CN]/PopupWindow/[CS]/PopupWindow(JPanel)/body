@@ -6,8 +6,9 @@
       for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
         restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText());
       }
-      dispose();
+      setVisible(false);
       scanForTemplateParameters();
+      dispose();
     }
   }
 );
