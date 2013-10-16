@@ -1,0 +1,10 @@
+{
+  String currentPath=resourcePanel.getText();
+  if (!oldTemplateParameterName.isEmpty()) {
+    currentPath=replaceExistingParamName(oldTemplateParameterName,newTemplateParameterName,currentPath);
+  }
+ else   if (!currentPath.contains("{" + newTemplateParameterName + "}")) {
+    currentPath=currentPath + "{" + newTemplateParameterName+ "}";
+  }
+  resourcePanel.setText(currentPath);
+}

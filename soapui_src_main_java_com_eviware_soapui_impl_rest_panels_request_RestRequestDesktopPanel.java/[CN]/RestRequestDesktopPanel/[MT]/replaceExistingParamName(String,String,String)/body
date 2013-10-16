@@ -1,0 +1,7 @@
+{
+  if (!newTemplateParameterName.isEmpty()) {
+    newTemplateParameterName="{" + newTemplateParameterName + "}";
+  }
+  currentPath=currentPath.replaceAll("\\{" + oldTemplateParameterName + "\\}",newTemplateParameterName);
+  return currentPath;
+}

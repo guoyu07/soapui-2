@@ -1,0 +1,8 @@
+{
+  String newParamName="sessionID";
+  String path=restRequest.getResource().getPath();
+  assertThat((String)requestDesktopPanel.resourcePanel.getText(),equalTo(path));
+  restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  restRequest.getParams().getProperty(PARAMETER_NAME).setName(newParamName);
+  assertThat((String)requestDesktopPanel.resourcePanel.getText(),equalTo(path + "{" + newParamName+ "}"));
+}

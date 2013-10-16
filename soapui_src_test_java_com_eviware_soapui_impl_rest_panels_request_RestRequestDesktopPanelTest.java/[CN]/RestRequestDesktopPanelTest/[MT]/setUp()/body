@@ -2,6 +2,7 @@
   restRequest=ModelItemFactory.makeRestRequest();
   restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
   restRequest.getResource().getParams().addProperty(PARAMETER_NAME);
+  restRequest.getResource().setPath(RESOURCE_PATH);
   restService().addEndpoint(ENDPOINT);
   restRequest.setEndpoint(ENDPOINT);
   RestParamProperty restParamProperty=restRequest.getParams().getProperty(PARAMETER_NAME);
