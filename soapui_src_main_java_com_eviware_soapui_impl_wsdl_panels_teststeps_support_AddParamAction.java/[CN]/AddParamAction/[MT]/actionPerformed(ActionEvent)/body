@@ -1,6 +1,6 @@
 {
   String name="";
-  propertyHolder.addProperty(name);
+  ((MutableTestPropertyHolder)propertyHolder).addProperty(name);
   final int row=propertyHolder.getPropertyNames().length - 1;
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){

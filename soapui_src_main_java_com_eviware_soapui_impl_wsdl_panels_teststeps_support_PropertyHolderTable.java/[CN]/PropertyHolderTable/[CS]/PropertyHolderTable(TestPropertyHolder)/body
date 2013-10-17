@@ -2,8 +2,6 @@
   super(new BorderLayout());
   this.holder=holder;
   loadPropertiesAction=new LoadPropertiesAction();
-  testPropertyListener=new InternalTestPropertyListener();
-  holder.addTestPropertyListener(testPropertyListener);
   JScrollPane scrollPane=new JScrollPane(buildPropertiesTable());
   if (getHolder().getModelItem() != null) {
     DropTarget dropTarget=new DropTarget(scrollPane,new PropertyHolderTablePropertyExpansionDropTarget());

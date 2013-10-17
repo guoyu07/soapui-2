@@ -1,10 +1,10 @@
 {
+  paramsTable=new JTable(paramsTableModel);
   if (showDefaultParamsButton) {
     defaultParamsAction=new UseDefaultParamsAction();
   }
-  movePropertyDownAction=new MovePropertyDownAction();
-  movePropertyUpAction=new MovePropertyUpAction();
-  paramsTable=new JTable(paramsTableModel);
+  movePropertyDownAction=new MovePropertyDownAction(paramsTable,params,"Moves selected parameter down one row");
+  movePropertyUpAction=new MovePropertyUpAction(paramsTable,params,"Moves selected parameter up one row");
   if (showEditableButtons) {
     initEditableButtons();
   }
@@ -17,6 +17,9 @@
       int selectedRow=paramsTable.getSelectedRow();
       if (showEditableButtons) {
         removeParamAction.setEnabled(selectedRow != -1);
+      }
+      if (showDefaultParamsButton) {
+        defaultParamsAction.setEnabled(paramsTable.getRowCount() > 0);
       }
       movePropertyDownAction.setEnabled(selectedRow < paramsTable.getRowCount() - 1);
       movePropertyUpAction.setEnabled(selectedRow > 0);

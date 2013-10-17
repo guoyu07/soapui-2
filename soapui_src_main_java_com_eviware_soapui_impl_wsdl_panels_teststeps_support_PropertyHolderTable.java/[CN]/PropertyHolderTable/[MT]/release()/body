@@ -1,6 +1,6 @@
 {
   if (propertiesTable.isEditing())   propertiesTable.getCellEditor().stopCellEditing();
-  holder.removeTestPropertyListener(testPropertyListener);
+  propertiesModel.release();
   if (holder instanceof WsdlProject) {
     WsdlProject project=(WsdlProject)holder;
     project.removeEnvironmentListener(environmentListener);

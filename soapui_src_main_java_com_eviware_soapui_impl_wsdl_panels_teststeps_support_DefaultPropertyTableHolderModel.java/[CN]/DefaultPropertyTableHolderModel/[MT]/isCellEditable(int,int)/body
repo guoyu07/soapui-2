@@ -1,6 +1,6 @@
 {
   if (columnIndex == 0) {
-    return holder instanceof MutableTestPropertyHolder;
+    return params instanceof MutableTestPropertyHolder;
   }
-  return !holder.getProperty(names.get(rowIndex)).isReadOnly();
+  return !getPropertyAtRow(rowIndex).isReadOnly();
 }

@@ -1,15 +1,13 @@
 {
-  TestProperty property=holder.getProperty(names.get(rowIndex));
+  TestProperty property=getPropertyAtRow(rowIndex);
 switch (columnIndex) {
 case 0:
 {
-      if (holder instanceof MutableTestPropertyHolder) {
-        TestProperty prop=holder.getProperty(aValue.toString());
-        if (prop != null && prop != property) {
-          UISupport.showErrorMessage("Property name exists!");
+      if (params instanceof MutableTestPropertyHolder) {
+        if (propertyExists(aValue,property)) {
           return;
         }
-        ((MutableTestPropertyHolder)holder).renameProperty(property.getName(),aValue.toString());
+        ((MutableTestPropertyHolder)params).renameProperty(property.getName(),aValue.toString());
       }
       break;
     }

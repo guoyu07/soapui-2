@@ -1,0 +1,10 @@
+{
+  int row=propertyTable.getSelectedRow();
+  if (row == -1)   return;
+  UISupport.stopCellEditing(propertyTable);
+  String propertyName=propertyTable.getValueAt(row,0).toString();
+  if (UISupport.confirm("Remove parameter [" + propertyName + "]?","Remove Parameter")) {
+    propertyTable.clearSelection();
+    ((MutableTestPropertyHolder)propertyHolder).removeProperty(propertyName);
+  }
+}

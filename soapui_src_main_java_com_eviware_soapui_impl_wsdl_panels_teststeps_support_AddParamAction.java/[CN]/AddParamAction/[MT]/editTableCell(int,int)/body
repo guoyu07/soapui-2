@@ -1,8 +1,8 @@
 {
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
-      parent.requestFocusInWindow();
-      parent.scrollRectToVisible(parameterTable.getCellRect(row,column,true));
+      parameterTable.requestFocusInWindow();
+      parameterTable.scrollRectToVisible(parameterTable.getCellRect(row,column,true));
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
           parameterTable.editCellAt(row,column);

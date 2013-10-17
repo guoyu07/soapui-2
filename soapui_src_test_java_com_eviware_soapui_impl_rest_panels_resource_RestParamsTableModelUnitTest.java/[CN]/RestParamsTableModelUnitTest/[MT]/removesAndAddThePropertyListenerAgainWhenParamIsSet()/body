@@ -1,0 +1,7 @@
+{
+  mockParams();
+  restParamsTableModel=new RestParamsTableModel(params);
+  restParamsTableModel.setParams(params);
+  verify(params,times(1)).removeTestPropertyListener(any(TestPropertyListener.class));
+  verify(params,times(2)).addTestPropertyListener(any(TestPropertyListener.class));
+}

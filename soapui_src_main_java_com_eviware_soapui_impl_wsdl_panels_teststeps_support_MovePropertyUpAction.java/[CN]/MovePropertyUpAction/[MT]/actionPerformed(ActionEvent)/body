@@ -1,0 +1,8 @@
+{
+  int ix=propertyTable.getSelectedRow();
+  if (ix != -1) {
+    String propName=(String)propertyTable.getValueAt(ix,0);
+    ((PropertyHolderTableModel)propertyTable.getModel()).moveProperty(propName,ix,ix - 1);
+    propertyTable.setRowSelectionInterval(ix - 1,ix - 1);
+  }
+}
