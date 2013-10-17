@@ -1,5 +1,6 @@
 {
   super(SoapUI.getFrame());
+  setResizable(false);
   this.restParamsTable=restParamsTable;
   getContentPane().setLayout(new BorderLayout());
   JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -13,4 +14,6 @@
   buttonPanel.add(closeButton);
   getContentPane().add(restParamsTable,BorderLayout.CENTER);
   getContentPane().add(buttonPanel,BorderLayout.SOUTH);
+  closeButton.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE),"closePopup");
+  closeButton.getActionMap().put("closePopup",new CloseAction());
 }
