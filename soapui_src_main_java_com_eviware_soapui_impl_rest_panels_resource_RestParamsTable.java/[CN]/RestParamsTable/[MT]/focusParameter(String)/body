@@ -2,6 +2,7 @@
   paramsTable.grabFocus();
   for (int i=0; i < paramsTable.getRowCount(); i++) {
     if (paramsTable.getValueAt(i,0).equals(parameterName)) {
+      paramsTable.setRowSelectionInterval(i,i);
       paramsTable.editCellAt(i,1);
       JTextField editorComponent=(JTextField)paramsTable.getEditorComponent();
       editorComponent.grabFocus();
