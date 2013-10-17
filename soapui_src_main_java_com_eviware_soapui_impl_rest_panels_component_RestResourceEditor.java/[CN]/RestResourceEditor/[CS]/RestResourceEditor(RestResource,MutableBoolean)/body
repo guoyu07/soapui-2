@@ -16,6 +16,7 @@
  else {
     setEditable(false);
     setBackground(Color.WHITE);
+    setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     addMouseListener(new MouseAdapter(){
       @Override public void mouseClicked(      MouseEvent e){
         final RestResource focusedResource=new RestResourceFinder(editingRestResource).findResourceAt(lastSelectedPosition);
