@@ -9,8 +9,8 @@
   }
   paramsTable=new JTable(paramsTableModel);
   paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(paramsTableModel.getParameterStylesForEdit())));
-  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox(paramsTableModel.getParameterLevels())));
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(paramsTableModel.getParameterStylesForEdit())));
+  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox<ParamLocation>(paramsTableModel.getParameterLevels())));
   paramsTable.setRowHeight(25);
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){

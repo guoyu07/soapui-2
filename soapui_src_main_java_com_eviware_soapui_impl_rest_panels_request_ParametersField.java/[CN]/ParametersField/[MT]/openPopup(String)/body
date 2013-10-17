@@ -1,12 +1,4 @@
 {
-  final RestParamsTable restParamsTable=new RestParamsTable(request.getParams(),false,new RestParamsTableModel(request.getParams(),RestParamsTableModel.Mode.MINIMAL),NewRestResourceActionBase.ParamLocation.RESOURCE,true,true);
-  restParamsTable.addKeyListener(new KeyAdapter(){
-    @Override public void keyPressed(    KeyEvent e){
-      if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-        closePopup();
-      }
-    }
-  }
-);
+  RestParamsTable restParamsTable=new RestParamsTable(request.getParams(),false,new RestParamsTableModel(request.getParams(),RestParamsTableModel.Mode.MINIMAL),NewRestResourceActionBase.ParamLocation.RESOURCE,true,true);
   showParametersTableInWindow(restParamsTable,selectedParameter);
 }

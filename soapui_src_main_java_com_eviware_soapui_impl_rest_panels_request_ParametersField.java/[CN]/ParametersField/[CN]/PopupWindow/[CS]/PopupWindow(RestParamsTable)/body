@@ -1,20 +1,19 @@
 {
   super(SoapUI.getFrame());
+  setResizable(false);
+  this.restParamsTable=restParamsTable;
   getContentPane().setLayout(new BorderLayout());
-  JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
-  JButton closeButton=new JButton("Close");
+  JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
+  closeButton=new JButton("Close");
   closeButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      JTable actualTable=restParamsTable.getParamsTable();
-      if (actualTable.isEditing()) {
-        actualTable.getCellEditor().stopCellEditing();
-      }
-      setVisible(false);
-      dispose();
+      close();
     }
   }
 );
   buttonPanel.add(closeButton);
   getContentPane().add(restParamsTable,BorderLayout.CENTER);
   getContentPane().add(buttonPanel,BorderLayout.SOUTH);
+  closeButton.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE),"closePopup");
+  closeButton.getActionMap().put("closePopup",new CloseAction());
 }

@@ -8,7 +8,7 @@
     types.add(type.getName());
   }
   detailsForm.appendComboBox("type","Type",types.toArray(),"The type of the parameter");
-  optionsFormComponent=new StringListFormComponent("Available values for this Parameter");
+  StringListFormComponent optionsFormComponent=new StringListFormComponent("Available values for this Parameter");
   optionsFormComponent.setPreferredSize(new Dimension(350,100));
   detailsForm.appendComponent("options","Options",optionsFormComponent);
   detailsForm.appendTextField("description","Description","A short description of the parameter");
