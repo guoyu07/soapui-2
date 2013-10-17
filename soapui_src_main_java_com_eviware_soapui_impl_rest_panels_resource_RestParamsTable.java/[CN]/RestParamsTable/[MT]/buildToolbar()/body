@@ -7,8 +7,7 @@
     toolbar.add(UISupport.createToolbarButton(updateParamsAction));
   }
   if (showDefaultParamsButton) {
-    boolean defaultParamsActionEnabled=paramsTable.getRowCount() > 0;
-    toolbar.add(UISupport.createToolbarButton(defaultParamsAction,defaultParamsActionEnabled));
+    toolbar.add(UISupport.createToolbarButton(defaultParamsAction,paramsTable.getRowCount() > 0));
   }
   toolbar.addSeparator();
   if (inFullMode()) {
