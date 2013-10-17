@@ -14,8 +14,11 @@
 );
   }
  else {
+    Color originalBackground=getBackground();
+    Border originalBorder=getBorder();
     setEditable(false);
-    setBackground(Color.WHITE);
+    setBackground(originalBackground);
+    setBorder(originalBorder);
     setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
     addMouseListener(new MouseAdapter(){
       @Override public void mouseClicked(      MouseEvent e){
