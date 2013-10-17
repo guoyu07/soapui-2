@@ -1,8 +1,8 @@
 {
   String path=restRequest.getResource().getPath();
-  assertThat((String)requestDesktopPanel.resourcePanel.getText(),equalTo(path));
+  assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path));
   restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
-  assertThat((String)requestDesktopPanel.resourcePanel.getText(),equalTo(path + "{" + PARAMETER_NAME+ "}"));
+  assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path + "{" + PARAMETER_NAME+ "}"));
   restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.QUERY);
-  assertThat((String)requestDesktopPanel.resourcePanel.getText(),equalTo(path));
+  assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path));
 }
