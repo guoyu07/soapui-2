@@ -34,7 +34,7 @@
     if (index >= 1) {
       row.add(new JLabel(icon));
     }
-    final RestSubResourceTextField restSubResourceTextField=new RestSubResourceTextField(restResource);
+    final RestSubResourceTextField restSubResourceTextField=new RestSubResourceTextField(restResource,okAction);
     restSubResourceTextField.getTextField().getDocument().addDocumentListener(pathChangedListener);
     restSubResourceTextFields.add(restSubResourceTextField);
     Box textFieldBox=Box.createVerticalBox();

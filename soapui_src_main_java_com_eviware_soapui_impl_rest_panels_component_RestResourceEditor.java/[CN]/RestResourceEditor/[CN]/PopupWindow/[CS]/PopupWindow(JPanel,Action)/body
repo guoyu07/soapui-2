@@ -4,17 +4,7 @@
   setResizable(false);
   JPanel contentPane=new JPanel(new BorderLayout());
   setContentPane(contentPane);
-  JButton okButton=new JButton(new AbstractAction("OK"){
-    @Override public void actionPerformed(    ActionEvent e){
-      for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
-        restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText());
-      }
-      setVisible(false);
-      scanForTemplateParameters();
-      dispose();
-    }
-  }
-);
+  JButton okButton=new JButton(okAction);
   AbstractAction cancelAction=new AbstractAction("Cancel"){
     @Override public void actionPerformed(    ActionEvent e){
       dispose();
