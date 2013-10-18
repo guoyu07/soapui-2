@@ -1,0 +1,12 @@
+{
+  RestResource parentResource=ModelItemFactory.makeRestResource();
+  parentResource.setPath("/parent");
+  RestResource childResource=parentResource.addNewChildResource("child","/child");
+  String expectedChildPath=parentResource.getPath() + "{" + PARAMETER_NAME+ "}"+ childResource.getPath();
+  RestRequest childRestRequest=ModelItemFactory.makeRestRequest(childResource);
+  childRestRequest.setMethod(RestRequestInterface.RequestMethod.GET);
+  RestRequestDesktopPanel childRequestDesktopPanel=new RestRequestDesktopPanel(childRestRequest);
+  parentResource.addProperty(PARAMETER_NAME);
+  parentResource.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  assertThat(childRequestDesktopPanel.resourcePanel.getText(),equalTo(expectedChildPath));
+}
