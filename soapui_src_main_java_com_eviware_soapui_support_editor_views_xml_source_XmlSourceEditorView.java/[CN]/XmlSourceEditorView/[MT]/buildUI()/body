@@ -1,5 +1,12 @@
 {
   editArea=new RSyntaxTextArea(20,60);
+  try {
+    Theme theme=Theme.load(XmlSourceEditorView.class.getResourceAsStream(RSYNTAXAREA_THEME));
+    theme.apply(editArea);
+  }
+ catch (  IOException e) {
+    SoapUI.logError(e,"Could not load XML editor color theme file");
+  }
   editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
   editArea.setFont(UISupport.getEditorFont());
   editArea.setCodeFoldingEnabled(true);
