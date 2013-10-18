@@ -1,8 +1,6 @@
 {
-  OkAction okAction=new OkAction();
-  final JPanel panel=createResourceEditorPanel(focusedResource,okAction);
-  PopupWindow popupWindow=new PopupWindow(panel,okAction);
-  okAction.setPopupWindow(popupWindow);
+  final JPanel panel=createResourceEditorPanel(focusedResource);
+  PopupWindow popupWindow=new PopupWindow(panel);
   moveWindowBelowTextField(popupWindow);
   popupWindow.setVisible(true);
 }

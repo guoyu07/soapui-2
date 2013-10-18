@@ -5,7 +5,16 @@
   setMinimumSize(new Dimension(230,0));
   JPanel contentPane=new JPanel(new BorderLayout());
   setContentPane(contentPane);
-  JButton okButton=new JButton(okAction);
+  JButton okButton=new JButton(new AbstractAction("OK"){
+    @Override public void actionPerformed(    ActionEvent e){
+      for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
+        restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText());
+      }
+      scanForTemplateParameters();
+      dispose();
+    }
+  }
+);
   AbstractAction cancelAction=new AbstractAction("Cancel"){
     @Override public void actionPerformed(    ActionEvent e){
       dispose();
@@ -19,5 +28,6 @@
   buttonBar.setLayout(new FlowLayout(FlowLayout.RIGHT));
   contentPane.add(panel,BorderLayout.CENTER);
   contentPane.add(buttonBar,BorderLayout.SOUTH);
+  getRootPane().setDefaultButton(okButton);
   pack();
 }
