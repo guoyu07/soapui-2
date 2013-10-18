@@ -1,27 +1,17 @@
 {
-  if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
-    dialog.getFormField(Form.INITIALWSDL).addFormFieldListener(new XFormFieldListener(){
-      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        String value=newValue.toLowerCase().trim();
-        dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(newValue.trim().length() > 0);
-      }
-    }
-);
-  }
- else {
-    dialog.setValue(Form.INITIALWSDL,"");
-    dialog.getFormField(Form.GENERATETESTSUITE).setEnabled(false);
-  }
+  createOrUpdateDialog();
   while (dialog.show()) {
     try {
       String url=dialog.getValue(Form.INITIALWSDL).trim();
       if (StringUtils.hasContent(url)) {
-        String expUrl=PathUtils.expandPath(url,project);
-        if (new File(expUrl).exists())         expUrl=new File(expUrl).toURI().toURL().toString();
-        RestService result=importWadl(project,expUrl);
-        if (!url.equals(expUrl) && result != null) {
+        String expandedUrl=PathUtils.expandPath(url,project);
+        if (new File(expandedUrl).exists())         expandedUrl=new File(expandedUrl).toURI().toURL().toString();
+        RestService result=importWadl(project,expandedUrl);
+        if (!url.equals(expandedUrl) && result != null) {
           result.setWadlUrl(url);
+          if (dialog.getBooleanValue(Form.GENERATETESTSUITE)) {
+            new GenerateRestTestSuiteAction().perform(result,true);
+          }
         }
         break;
       }
