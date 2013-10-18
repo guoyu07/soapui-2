@@ -1,0 +1,11 @@
+{
+  if (evt.getPropertyName().equals(XmlBeansRestParamsTestPropertyHolder.PROPERTY_STYLE)) {
+    String name=((RestParamProperty)evt.getSource()).getName();
+    if (evt.getOldValue() == RestParamsPropertyHolder.ParameterStyle.TEMPLATE) {
+      setPath(getPath().replaceAll("\\{" + name + "\\}",""));
+    }
+ else     if (evt.getNewValue() == RestParamsPropertyHolder.ParameterStyle.TEMPLATE) {
+      setPath(getPath() + "{" + name+ "}");
+    }
+  }
+}

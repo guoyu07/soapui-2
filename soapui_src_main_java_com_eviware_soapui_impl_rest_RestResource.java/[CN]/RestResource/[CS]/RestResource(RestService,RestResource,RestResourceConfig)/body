@@ -3,6 +3,7 @@
   parentResource=parent;
   if (resourceConfig.getParameters() == null)   resourceConfig.addNewParameters();
   params=new XmlBeansRestParamsTestPropertyHolder(this,resourceConfig.getParameters());
+  params.addTestPropertyListener(new PathChanger());
   for (  RestMethodConfig config : resourceConfig.getMethodList()) {
     methods.add(new RestMethod(this,config));
   }
