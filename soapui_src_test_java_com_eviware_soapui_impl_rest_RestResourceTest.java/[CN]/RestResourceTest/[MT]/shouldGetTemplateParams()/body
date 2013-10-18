@@ -1,8 +1,8 @@
 {
-  assertEquals(restResource.getDefaultParams().length,0);
+  assertThat(restResource.getDefaultParams(),is(anEmptyArray()));
   restResource.setPath("/{id}/test");
-  assertEquals(restResource.getDefaultParams().length,0);
-  assertEquals("/{id}/test",restResource.getFullPath());
+  assertThat(restResource.getDefaultParams(),is(anEmptyArray()));
+  assertThat(restResource.getFullPath(),is("/{id}/test"));
   RestResource subResource=restResource.addNewChildResource("Child","{test}/test");
-  assertEquals("/{id}/test/{test}/test",subResource.getFullPath());
+  assertThat(subResource.getFullPath(),is("/{id}/test/{test}/test"));
 }
