@@ -4,6 +4,9 @@
   if (resourceConfig.getParameters() == null)   resourceConfig.addNewParameters();
   params=new XmlBeansRestParamsTestPropertyHolder(this,resourceConfig.getParameters());
   params.addTestPropertyListener(new PathChanger());
+  for (  String name : params.getPropertyNames()) {
+    params.getProperty(name).addPropertyChangeListener(new StyleChangeListener());
+  }
   for (  RestMethodConfig config : resourceConfig.getMethodList()) {
     methods.add(new RestMethod(this,config));
   }

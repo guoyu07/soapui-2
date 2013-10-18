@@ -1,10 +1,7 @@
 {
-  WsdlProject project=new WsdlProject();
-  RestService restService=(RestService)project.addNewInterface("Test",RestServiceFactory.REST_TYPE);
-  RestResource resource=restService.addNewResource("Resource","/test");
-  resource.setPath("/maps/api/geocode/xml;Param2=matrixValue2;address=16");
-  assertEquals("/maps/api/geocode/xml",resource.getFullPath());
-  RestResource subResource=resource.addNewChildResource("Child","{test}/test/version;ver=2");
+  restResource.setPath("/maps/api/geocode/xml;Param2=matrixValue2;address=16");
+  assertEquals("/maps/api/geocode/xml",restResource.getFullPath());
+  RestResource subResource=restResource.addNewChildResource("Child","{test}/test/version;ver=2");
   assertEquals("{test}/test/version",subResource.getPath());
   assertEquals("/maps/api/geocode/xml/{test}/test/version",subResource.getFullPath());
 }

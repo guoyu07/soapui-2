@@ -1,0 +1,13 @@
+{
+  RestService parentService=restResource.getService();
+  RestResourceConfig config=RestResourceConfig.Factory.newInstance();
+  RestParametersConfig restParametersConfig=config.addNewParameters();
+  RestParameterConfig parameterConfig=restParametersConfig.addNewParameter();
+  String parameterName="theName";
+  parameterConfig.setName(parameterName);
+  parameterConfig.setStyle(RestParameterConfig.Style.Enum.forInt(RestParamsPropertyHolder.ParameterStyle.QUERY.ordinal()));
+  config.setPath("/actual_path");
+  RestResource restResource=new RestResource(parentService,config);
+  restResource.getParams().getProperty(parameterName).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  assertThat(restResource.getPath(),containsString(parameterName));
+}

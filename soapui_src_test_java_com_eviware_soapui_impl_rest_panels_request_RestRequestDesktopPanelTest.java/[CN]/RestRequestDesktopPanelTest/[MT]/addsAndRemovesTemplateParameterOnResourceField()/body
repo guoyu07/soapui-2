@@ -2,7 +2,7 @@
   String path=restRequest.getResource().getPath();
   assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path));
   restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
-  assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path + "{" + PARAMETER_NAME+ "}"));
+  assertThat(requestDesktopPanel.resourcePanel.getText(),containsString("{" + PARAMETER_NAME + "}"));
   restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.QUERY);
-  assertThat(requestDesktopPanel.resourcePanel.getText(),equalTo(path));
+  assertThat(requestDesktopPanel.resourcePanel.getText(),not(containsString("{" + PARAMETER_NAME + "}")));
 }
