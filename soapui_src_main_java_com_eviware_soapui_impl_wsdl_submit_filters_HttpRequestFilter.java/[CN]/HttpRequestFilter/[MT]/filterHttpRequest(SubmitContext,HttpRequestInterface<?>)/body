@@ -65,20 +65,23 @@ SoapUI.logError(e);
 }
 break;
 case MATRIX:
-String valueInPath=";" + param.getName() + "="+ value;
-String valueToBeSet=";" + param.getName();
 try {
 value=getEncodedValue(value,encoding,param.isDisableUrlEncoding(),request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
 }
  catch (UnsupportedEncodingException e) {
 SoapUI.logError(e);
 }
-if (!param.getType().equals(XmlBoolean.type.getName())) {
+if (param.getType().equals(XmlBoolean.type.getName())) {
+if (value.toUpperCase().equals("TRUE") || value.equals("1")) {
+path+=";" + param.getName();
+}
+}
+ else {
+path+=";" + param.getName();
 if (StringUtils.hasContent(value)) {
-valueToBeSet+="=" + value;
+path+="=" + value;
 }
 }
-path=path.replaceAll(valueInPath,valueToBeSet);
 break;
 case PLAIN:
 break;
