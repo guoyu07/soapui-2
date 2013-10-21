@@ -1,0 +1,7 @@
+{
+  RestParamsPropertyHolder params=restRequest.getParams();
+  String url=restRequest.getEndpoint() + restRequest.getPath() + "?q=foo&page=2";
+  RestUtils.extractParams(url,params,true);
+  assertThat(params,hasParameter("q"));
+  assertThat(params,hasParameter("page"));
+}
