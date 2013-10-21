@@ -14,6 +14,9 @@ case 0:
 case 1:
 {
     property.setValue(aValue.toString());
+    if (!(params.getModelItem() instanceof RestRequest) && property instanceof RestParamProperty) {
+      ((RestParamProperty)property).setDefaultValue(aValue.toString());
+    }
     break;
   }
 }
