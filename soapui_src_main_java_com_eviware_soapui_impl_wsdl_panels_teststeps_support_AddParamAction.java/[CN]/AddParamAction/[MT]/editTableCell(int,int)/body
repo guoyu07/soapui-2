@@ -1,4 +1,8 @@
 {
+  TableCellEditor cellEditor=parameterTable.getCellEditor();
+  if (cellEditor != null) {
+    cellEditor.stopCellEditing();
+  }
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
       parameterTable.requestFocusInWindow();

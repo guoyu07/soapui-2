@@ -1,18 +1,22 @@
 {
-  String name="";
-  ((MutableTestPropertyHolder)propertyHolder).addProperty(name);
+  ((MutableTestPropertyHolder)propertyHolder).addProperty(EMPTY_STRING);
   final int row=propertyHolder.getPropertyNames().length - 1;
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
-      TableCellEditor cellEditor=parameterTable.getCellEditor();
-      if (cellEditor != null) {
-        cellEditor.stopCellEditing();
-      }
       editTableCell(row,0);
-      parameterTable.getModel().addTableModelListener(new TableModelListener(){
-        @Override public void tableChanged(        TableModelEvent e){
+      final TableCellEditor cellEditor1=parameterTable.getCellEditor(row,0);
+      cellEditor1.addCellEditorListener(new CellEditorListener(){
+        @Override public void editingStopped(        ChangeEvent e){
+          cellEditor1.removeCellEditorListener(this);
+          if (parameterTable.getRowCount() > row && parameterTable.getValueAt(row,0).toString().equals(EMPTY_STRING)) {
+            ((MutableTestPropertyHolder)propertyHolder).removeProperty(EMPTY_STRING);
+            return;
+          }
           editTableCell(row,1);
-          parameterTable.getModel().removeTableModelListener(this);
+        }
+        @Override public void editingCanceled(        ChangeEvent e){
+          cellEditor1.removeCellEditorListener(this);
+          ((MutableTestPropertyHolder)propertyHolder).removeProperty(EMPTY_STRING);
         }
       }
 );
