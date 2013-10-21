@@ -6,6 +6,9 @@
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
       parameterTable.requestFocusInWindow();
+      if (parameterTable.getRowCount() > row) {
+        parameterTable.setRowSelectionInterval(row,row);
+      }
       parameterTable.scrollRectToVisible(parameterTable.getCellRect(row,column,true));
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
