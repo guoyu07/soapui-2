@@ -1,5 +1,14 @@
 {
-  paramsTable=new JTable(paramsTableModel);
+  paramsTable=new JTable(paramsTableModel){
+    @Override public void removeEditor(){
+      TableCellEditor editor=getCellEditor();
+      super.removeEditor();
+      if (editor != null) {
+        editor.cancelCellEditing();
+      }
+    }
+  }
+;
   if (showDefaultParamsButton) {
     defaultParamsAction=new UseDefaultParamsAction();
   }
