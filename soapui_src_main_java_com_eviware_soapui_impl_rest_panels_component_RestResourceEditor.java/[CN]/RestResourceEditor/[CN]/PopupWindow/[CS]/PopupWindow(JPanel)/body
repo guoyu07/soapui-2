@@ -8,7 +8,7 @@
   JButton okButton=new JButton(new AbstractAction("OK"){
     @Override public void actionPerformed(    ActionEvent e){
       for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
-        restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText());
+        restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText().trim());
       }
       scanForTemplateParameters();
       dispose();
