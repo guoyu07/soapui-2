@@ -3,7 +3,7 @@
   String lastParameterName="otherName";
   addRequestParameter(lastParameterName,"someValue");
   request.getParams().moveProperty(lastParameterName,0);
-  StringToStringMapConfig parameterOrder=request.getConfig().getParameterOrder();
+  StringListConfig parameterOrder=request.getConfig().getParameterOrder();
   assertThat(parameterOrder,is(notNullValue()));
-  assertThat(getEntryValue(parameterOrder,lastParameterName),is("0"));
+  assertThat(parameterOrder.getEntryArray(0),is(lastParameterName));
 }

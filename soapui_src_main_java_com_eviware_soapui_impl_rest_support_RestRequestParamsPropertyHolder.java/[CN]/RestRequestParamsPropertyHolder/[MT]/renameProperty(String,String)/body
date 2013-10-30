@@ -2,6 +2,10 @@
   if (name.equals(newName)) {
     return false;
   }
-  renameLocalProperty(name,newName);
-  return methodParams.renameProperty(name,newName);
+  boolean renamePerformed=methodParams.renameProperty(name,newName);
+  if (renamePerformed) {
+    renameLocalProperty(name,newName);
+    buildPropertyNameList();
+  }
+  return renamePerformed;
 }

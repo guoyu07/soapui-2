@@ -2,9 +2,10 @@
   toolbar=UISupport.createSmallToolbar();
   if (holder instanceof MutableTestPropertyHolder) {
     removePropertyAction=new RemovePropertyAction();
-    addPropertyAction=new AddParamAction(propertiesTable,(MutableTestPropertyHolder)holder,"Adds a property to the property list");
-    movePropertyUpAction=new MovePropertyUpAction(propertiesTable,holder,"Moves selected property up one row");
-    movePropertyDownAction=new MovePropertyDownAction(propertiesTable,holder,"Moves selected property down one row");
+    MutableTestPropertyHolder mutablePropertyHolder=(MutableTestPropertyHolder)holder;
+    addPropertyAction=new AddParamAction(propertiesTable,mutablePropertyHolder,"Adds a property to the property list");
+    movePropertyUpAction=new MovePropertyUpAction(propertiesTable,mutablePropertyHolder,"Moves selected property up one row");
+    movePropertyDownAction=new MovePropertyDownAction(propertiesTable,mutablePropertyHolder,"Moves selected property down one row");
     JButton addPropertyButton=UISupport.createToolbarButton(addPropertyAction);
     toolbar.add(addPropertyButton);
     JButton removePropertyButton=UISupport.createToolbarButton(removePropertyAction);
