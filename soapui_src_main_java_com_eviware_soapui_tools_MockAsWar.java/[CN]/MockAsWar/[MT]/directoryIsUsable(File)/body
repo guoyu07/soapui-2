@@ -1,0 +1,7 @@
+{
+  if (!(dir.mkdir() || dir.exists())) {
+    UISupport.showErrorMessage("Could not create directory " + dir.getAbsolutePath());
+    return false;
+  }
+  return true;
+}
