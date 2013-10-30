@@ -1,0 +1,6 @@
+{
+  HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
+  HttpGet getRequest=new HttpGet(versionUrl.toURI());
+  HttpResponse response=httpClient.execute(getRequest);
+  return EntityUtils.toString(response.getEntity());
+}
