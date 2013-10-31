@@ -2,7 +2,7 @@
   super(new BorderLayout());
   loadTestLog=log;
   logTableModel=new LoadTestLogTableModel();
-  logTable=new JXTable(logTableModel);
+  logTable=JTableFactory.getInstance().makeJXTable(logTableModel);
   logTable.setHorizontalScrollEnabled(true);
   logTable.setColumnControlVisible(true);
   logTable.addMouseListener(new LoadTestLogTableMouseListener());

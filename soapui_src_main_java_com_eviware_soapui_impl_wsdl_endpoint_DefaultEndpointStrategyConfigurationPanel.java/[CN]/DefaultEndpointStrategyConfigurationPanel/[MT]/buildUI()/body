@@ -1,6 +1,6 @@
 {
   tableModel=iface instanceof WsdlInterface ? new WsdlEndpointsTableModel() : new RestEndpointsTableModel();
-  table=new JTable(tableModel);
+  table=JTableFactory.getInstance().makeJTable(tableModel);
   TableColumn passwordColumn=table.getColumnModel().getColumn(tableModel.getPasswordColumnIndex());
   JPasswordField textField=new JPasswordField();
   textField.setBorder(BorderFactory.createEmptyBorder());

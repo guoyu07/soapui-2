@@ -4,7 +4,7 @@
     JXToolBar toolbar=UISupport.createToolbar();
     toolbar.add(UISupport.createToolbarButton(new AddTokenAction()));
     toolbar.add(UISupport.createToolbarButton(new RemoveTokenAction()));
-    tokenTable=new JXTable(sensitiveInformationTableModel);
+    tokenTable=JTableFactory.getInstance().makeJXTable(sensitiveInformationTableModel);
     tokenTable.setPreferredSize(new Dimension(200,100));
     sensitiveInfoTableForm.add(toolbar,BorderLayout.NORTH);
     sensitiveInfoTableForm.add(new JScrollPane(tokenTable),BorderLayout.CENTER);

@@ -3,4 +3,8 @@
   setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   setSurrendersFocusOnKeystroke(true);
   setRowHeight(19);
+  if (UISupport.isMac()) {
+    setShowGrid(false);
+    setIntercellSpacing(new Dimension(0,0));
+  }
 }
