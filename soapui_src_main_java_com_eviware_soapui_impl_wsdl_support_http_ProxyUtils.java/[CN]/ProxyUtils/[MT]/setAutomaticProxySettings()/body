@@ -1,5 +1,9 @@
 {
-  ProxySearch proxySearch=ProxySearch.getDefaultProxySearch();
+  ProxySearch proxySearch=new ProxySearch();
+  proxySearch.addStrategy(ProxySearch.Strategy.JAVA);
+  proxySearch.addStrategy(ProxySearch.Strategy.BROWSER);
+  proxySearch.addStrategy(ProxySearch.Strategy.OS_DEFAULT);
+  proxySearch.addStrategy(ProxySearch.Strategy.ENV_VAR);
   ProxySelector proxySelector=proxySearch.getProxySelector();
   if (proxySelector == null) {
     return;

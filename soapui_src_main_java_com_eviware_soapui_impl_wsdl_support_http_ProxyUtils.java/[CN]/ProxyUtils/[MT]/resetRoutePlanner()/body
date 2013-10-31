@@ -1,4 +1,7 @@
 {
   HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
+  if (httpClient.getRoutePlanner() instanceof DefaultHttpRoutePlanner) {
+    return;
+  }
   httpClient.setRoutePlanner(new DefaultHttpRoutePlanner(httpClient.getConnectionManager().getSchemeRegistry()));
 }

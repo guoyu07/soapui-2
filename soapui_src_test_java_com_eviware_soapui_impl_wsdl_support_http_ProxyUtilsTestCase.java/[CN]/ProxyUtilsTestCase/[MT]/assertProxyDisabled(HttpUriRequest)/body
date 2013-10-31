@@ -1,0 +1,6 @@
+{
+  HttpRoutePlanner routePlanner=HttpClientSupport.getHttpClient().getRoutePlanner();
+  HttpHost proxy=(HttpHost)httpMethod.getParams().getParameter(ConnRoutePNames.DEFAULT_PROXY);
+  assertNull(proxy);
+  assertTrue(routePlanner instanceof DefaultHttpRoutePlanner);
+}

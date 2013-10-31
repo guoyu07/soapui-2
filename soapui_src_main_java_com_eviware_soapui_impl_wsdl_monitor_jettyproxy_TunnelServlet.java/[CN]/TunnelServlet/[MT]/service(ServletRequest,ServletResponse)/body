@@ -57,7 +57,7 @@
   setProtocolversion(postMethod,request.getProtocol());
   ProxyUtils.initProxySettings(settings,postMethod,httpState,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
   String path=null;
-  if (sslEndPoint.indexOf("/") < 0)   path="/";
+  if (!sslEndPoint.contains("/"))   path="/";
  else   path=sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length());
   if (uri != null) {
     try {
