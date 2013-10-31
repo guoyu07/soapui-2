@@ -1,0 +1,10 @@
+{
+  JRadioButton radioButton=new JRadioButton(label,selected);
+  radioButton.getAccessibleContext().setAccessibleDescription(caption);
+  if (group != null) {
+    group.add(radioButton);
+  }
+  components.put(caption,radioButton);
+  append(caption,radioButton);
+  return radioButton;
+}

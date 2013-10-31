@@ -4,16 +4,8 @@
   settings.setString(ProxySettings.USERNAME,values.get(USERNAME));
   settings.setString(ProxySettings.PASSWORD,values.get(PASSWORD));
   settings.setString(ProxySettings.EXCLUDES,values.get(EXCLUDES));
-  settings.setBoolean(ProxySettings.ENABLE_PROXY,values.getBoolean(ENABLE_PROXY));
-  settings.setBoolean(ProxySettings.AUTO_PROXY,values.getBoolean(AUTO_PROXY));
-  JToggleButton applyProxyButton=SoapUI.getApplyProxyButton();
-  if (values.getBoolean(ENABLE_PROXY)) {
-    if (applyProxyButton != null)     applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
-    ProxyUtils.setProxyEnabled(true);
-  }
- else {
-    if (applyProxyButton != null)     applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_DISABLED_ICON));
-    ProxyUtils.setProxyEnabled(false);
-  }
-  ProxyUtils.setAutoProxy(values.getBoolean(AUTO_PROXY));
+  boolean enableProxy=!none.isSelected();
+  settings.setBoolean(ProxySettings.ENABLE_PROXY,enableProxy);
+  settings.setBoolean(ProxySettings.AUTO_PROXY,autoProxy);
+  SoapUI.updateProxyFromSettings();
 }
