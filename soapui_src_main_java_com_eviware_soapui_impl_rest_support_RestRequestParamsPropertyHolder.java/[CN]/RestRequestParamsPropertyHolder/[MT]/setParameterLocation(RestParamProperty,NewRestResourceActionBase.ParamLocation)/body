@@ -1,0 +1,25 @@
+{
+  if (newLocation == parameter.getParamLocation()) {
+    return;
+  }
+  parameterBeingMoved=parameter.getName();
+  try {
+    ParameterStyle parameterStyle=parameter.getStyle();
+    String parameterValue=parameter.getValue();
+    if (newLocation == NewRestResourceActionBase.ParamLocation.METHOD) {
+      restRequest.getResource().removeProperty(parameterBeingMoved);
+      RestParamProperty newParameter=restRequest.getRestMethod().addProperty(parameterBeingMoved);
+      newParameter.setStyle(parameterStyle);
+      newParameter.setValue(parameterValue);
+    }
+ else {
+      restRequest.getRestMethod().removeProperty(parameterBeingMoved);
+      RestParamProperty newParameter=restRequest.getResource().addProperty(parameterBeingMoved);
+      newParameter.setStyle(parameterStyle);
+      newParameter.setValue(parameterValue);
+    }
+  }
+  finally {
+    parameterBeingMoved=null;
+  }
+}
