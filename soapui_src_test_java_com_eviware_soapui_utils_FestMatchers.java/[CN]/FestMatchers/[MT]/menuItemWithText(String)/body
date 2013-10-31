@@ -1,0 +1,8 @@
+{
+  return new GenericTypeMatcher<JMenuItem>(JMenuItem.class){
+    @Override protected boolean isMatching(    JMenuItem menuItem){
+      return doesStringStartWith(menuItem.getText(),expectedText);
+    }
+  }
+;
+}

@@ -1,0 +1,30 @@
+{
+  FrameFixture rootWindow=frameWithTitle("SoapUI").using(robot);
+  JPopupMenuFixture projects=rightClickOnProjectsMenu(rootWindow);
+  JMenuItemFixture createNewRestProjectMenu=projects.menuItem(menuItemWithText("New REST Project"));
+  Thread createRestProjectThread=createThreadToEnterURIAndClickOk();
+  createRestProjectThread.start();
+  createNewRestProjectMenu.click();
+  createRestProjectThread.join();
+  JPanelFixture jPanelFixture=rootWindow.panel(REST_REQUEST_DESKTOP_PANEL);
+  jPanelFixture.button(ADD_PARAM_ACTION_NAME).click();
+  JTableFixture restParamsTable=jPanelFixture.table(REST_PARAMS_TABLE);
+  robot.waitForIdle();
+  JTableCellFixture cellFixture=restParamsTable.cell(row(0).column(0));
+  JTextComponentFixture textBox=new JTextComponentFixture(robot,(JTextField)cellFixture.editor());
+  textBox.enterText("ParamName");
+  textBox.pressKey(KeyEvent.VK_ENTER);
+  robot.waitForIdle();
+  textBox=new JTextComponentFixture(robot,(JTextField)restParamsTable.cell(row(0).column(1)).editor());
+  textBox.enterText("value");
+  textBox.pressKey(KeyEvent.VK_ENTER);
+  Thread.sleep(2000);
+  rootWindow.close();
+  DialogFixture confirmationDialog=dialogWithTitle("Question").using(robot);
+  confirmationDialog.button(buttonWithText("Yes")).click();
+  DialogFixture saveProjectDialog=dialogWithTitle("Save Project").using(robot);
+  while (saveProjectDialog != null) {
+    saveProjectDialog.button(buttonWithText("No")).click();
+    saveProjectDialog=dialogWithTitle("Save Project").using(robot);
+  }
+}

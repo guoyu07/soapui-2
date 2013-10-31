@@ -1,0 +1,8 @@
+{
+  return findFrame(new GenericTypeMatcher<Frame>(Frame.class){
+    @Override protected boolean isMatching(    Frame component){
+      return doesStringStartWith(component.getTitle(),expectedTitle);
+    }
+  }
+);
+}

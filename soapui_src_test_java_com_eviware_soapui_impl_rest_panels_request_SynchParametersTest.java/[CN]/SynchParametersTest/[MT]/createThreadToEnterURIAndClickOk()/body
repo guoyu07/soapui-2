@@ -1,0 +1,13 @@
+{
+  return new Thread(new Runnable(){
+    @Override public void run(){
+      DialogFixture newRestProjectDialog=dialogWithTitle("New REST Project").withTimeout(2000).using(robot);
+      newRestProjectDialog.textBox().focus();
+      newRestProjectDialog.textBox().click();
+      newRestProjectDialog.textBox().setText("http://soapui.org");
+      JButtonFixture buttonOK=newRestProjectDialog.button(buttonWithText("OK"));
+      buttonOK.click();
+    }
+  }
+);
+}
