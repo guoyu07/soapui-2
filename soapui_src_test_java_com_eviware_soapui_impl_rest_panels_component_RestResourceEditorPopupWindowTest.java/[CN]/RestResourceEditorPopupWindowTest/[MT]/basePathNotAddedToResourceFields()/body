@@ -1,0 +1,9 @@
+{
+  final String basePath="/base";
+  parentResource.getInterface().setBasePath(basePath);
+  RestResourceEditorPopupWindow popupWindow=new RestResourceEditorPopupWindow(grandchildResource,grandchildResource);
+  List<RestResourceEditorPopupWindow.RestSubResourceTextField> resourceTextFields=popupWindow.restSubResourceTextFields;
+  assertThat(resourceTextFields.get(0).getTextField().getText(),not(containsString(basePath)));
+  assertThat(resourceTextFields.get(1).getTextField().getText(),not(containsString(basePath)));
+  assertThat(resourceTextFields.get(2).getTextField().getText(),not(containsString(basePath)));
+}

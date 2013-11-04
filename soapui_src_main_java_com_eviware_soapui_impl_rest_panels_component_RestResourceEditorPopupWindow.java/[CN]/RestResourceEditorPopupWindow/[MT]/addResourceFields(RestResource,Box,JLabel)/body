@@ -1,0 +1,20 @@
+{
+  restSubResourceTextFields=new ArrayList<RestSubResourceTextField>();
+  int rowIndex=contentBox.getComponents().length;
+  for (  RestResource restResource : RestUtils.extractAncestorsParentFirst(targetResource)) {
+    Box row=Box.createHorizontalBox();
+    row.setAlignmentX(0);
+    addConnectorIfApplicable(rowIndex,row);
+    final RestSubResourceTextField restSubResourceTextField=new RestSubResourceTextField(restResource);
+    final JTextField innerTextField=restSubResourceTextField.getTextField();
+    innerTextField.getDocument().addDocumentListener(new PathChangeListener(changeWarningLabel,restResource));
+    restSubResourceTextFields.add(restSubResourceTextField);
+    Box textFieldBox=createBoxWith(innerTextField);
+    row.add(textFieldBox);
+    contentBox.add(row);
+    if (restResource == focusedResource) {
+      moveFocusToField(innerTextField);
+    }
+    rowIndex++;
+  }
+}

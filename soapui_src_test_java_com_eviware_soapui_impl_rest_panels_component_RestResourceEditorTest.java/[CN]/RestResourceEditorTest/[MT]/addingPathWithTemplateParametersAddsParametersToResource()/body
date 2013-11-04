@@ -1,6 +1,5 @@
 {
-  RestResourceEditor restResourceEditor=new RestResourceEditor(templateResource,new MutableBoolean());
   dialogs.mockPromptWithReturnValue("value");
-  restResourceEditor.scanForTemplateParameters();
+  RestResourceEditor.scanForTemplateParameters(templateResource);
   assertThat(templateResource.getParams().get("param2").getValue(),is("value"));
 }
