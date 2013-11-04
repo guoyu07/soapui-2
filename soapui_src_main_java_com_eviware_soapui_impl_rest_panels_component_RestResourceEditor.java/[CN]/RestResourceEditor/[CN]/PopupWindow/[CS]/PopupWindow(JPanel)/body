@@ -7,6 +7,9 @@
   setContentPane(contentPane);
   JButton okButton=new JButton(new AbstractAction("OK"){
     @Override public void actionPerformed(    ActionEvent e){
+      if (basePathTextField != null) {
+        editingRestResource.getInterface().setBasePath(basePathTextField.getText().trim());
+      }
       for (      RestSubResourceTextField restSubResourceTextField : restSubResourceTextFields) {
         restSubResourceTextField.getRestResource().setPath(restSubResourceTextField.getTextField().getText().trim());
       }

@@ -1,0 +1,10 @@
+{
+  if (!StringUtils.isNullOrEmpty(editingRestResource.getInterface().getBasePath())) {
+    basePathTextField=new JTextField(editingRestResource.getInterface().getBasePath());
+    basePathTextField.getDocument().addDocumentListener(new PathChangeListener(changeWarningLabel,editingRestResource.getTopLevelResource()));
+    Box row=Box.createHorizontalBox();
+    row.setAlignmentX(0);
+    row.add(createBoxWith(basePathTextField));
+    contentBox.add(row);
+  }
+}
