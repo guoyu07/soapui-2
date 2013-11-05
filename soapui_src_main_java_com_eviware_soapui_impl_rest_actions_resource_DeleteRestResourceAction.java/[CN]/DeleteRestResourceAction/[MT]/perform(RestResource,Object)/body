@@ -1,5 +1,5 @@
 {
-  if (UISupport.confirm("Delete Resource [" + resource.getName() + "] from ["+ resource.getResourceContainer().getName()+ "]","Delete Resource")) {
+  if (UISupport.confirm("Delete Resource [" + resource.getName() + "] from ["+ resource.getResourceContainer().getName()+ "]. This will also delete all the child resources and test steps!","Delete Resource")) {
     resource.getResourceContainer().deleteResource(resource);
   }
 }

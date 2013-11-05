@@ -1,0 +1,11 @@
+{
+  RestResource childResourceA=restResource.addNewChildResource("ChildA","/childPath");
+  RestResource grandChildAA=childResourceA.addNewChildResource("GrandChildAA","/grandChildPathAA");
+  childResourceA.addNewChildResource("GrandChildAB","/grandChildPathAB");
+  grandChildAA.addNewChildResource("GreatGrandChildAAA","/greatGrandChildAAA");
+  restService.deleteResource(restResource);
+  assertThat(restService.getChildren().size(),is(0));
+  assertThat(restResource.getChildResourceList().size(),is(0));
+  assertThat(childResourceA.getChildResourceList().size(),is(0));
+  assertThat(grandChildAA.getChildResourceList().size(),is(0));
+}
