@@ -1,12 +1,5 @@
 {
-  if (!proxyEnabled) {
-    resetRoutePlanner();
-    return;
-  }
-  if (autoProxy) {
-    setAutomaticProxySettings();
-  }
- else {
+  if (proxyEnabled && !autoProxy) {
     setManualProxySettings(settings,httpMethod,httpContext,urlString,context);
   }
 }

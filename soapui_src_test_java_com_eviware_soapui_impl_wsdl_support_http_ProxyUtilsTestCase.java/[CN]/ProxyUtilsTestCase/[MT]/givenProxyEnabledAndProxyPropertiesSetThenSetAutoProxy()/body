@@ -2,7 +2,6 @@
   ProxyUtils.setProxyEnabled(true);
   ProxyUtils.setAutoProxy(true);
   setProxySystemProperties();
-  HttpUriRequest httpMethod=new ExtendedGetMethod();
   ProxyUtils.initProxySettings(manualSettings(),httpMethod,null,URL,null);
-  assertAutoProxy(Proxy.Type.HTTP);
+  assertProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
 }
