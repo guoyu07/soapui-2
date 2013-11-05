@@ -1,0 +1,14 @@
+{
+  parentPanel.button(ADD_PARAM_ACTION_NAME).click();
+  JTableFixture restParamsTable=parentPanel.table(REST_PARAMS_TABLE);
+  robot.waitForIdle();
+  int rowNumToEdit=restParamsTable.target.getRowCount() - 1;
+  JTableCellFixture cellFixture=restParamsTable.cell(row(rowNumToEdit).column(0));
+  JTextComponentFixture textBox=new JTextComponentFixture(robot,(JTextField)cellFixture.editor());
+  textBox.enterText(paramName);
+  textBox.pressKey(KeyEvent.VK_ENTER);
+  robot.waitForIdle();
+  textBox=new JTextComponentFixture(robot,(JTextField)restParamsTable.cell(row(rowNumToEdit).column(1)).editor());
+  textBox.enterText(paramValue);
+  textBox.pressKey(KeyEvent.VK_ENTER);
+}

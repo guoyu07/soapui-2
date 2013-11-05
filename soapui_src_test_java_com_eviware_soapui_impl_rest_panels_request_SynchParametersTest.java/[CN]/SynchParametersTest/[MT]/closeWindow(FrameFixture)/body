@@ -1,0 +1,11 @@
+{
+  Thread.sleep(2000);
+  rootWindow.close();
+  DialogFixture confirmationDialog=dialogWithTitle("Question").using(robot);
+  confirmationDialog.button(buttonWithText("Yes")).click();
+  DialogFixture saveProjectDialog=dialogWithTitle("Save Project").using(robot);
+  while (saveProjectDialog != null) {
+    saveProjectDialog.button(buttonWithText("No")).click();
+    saveProjectDialog=dialogWithTitle("Save Project").using(robot);
+  }
+}
