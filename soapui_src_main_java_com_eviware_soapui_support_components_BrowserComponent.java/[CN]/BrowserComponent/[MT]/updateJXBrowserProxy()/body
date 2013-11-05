@@ -17,14 +17,22 @@
       proxyAuthenticationInitialized=true;
     }
     if (ProxyUtils.isProxyEnabled()) {
-      Settings settings=SoapUI.getSettings();
-      PropertyExpansionContext context=null;
-      String proxyHost=System.getProperty("http.proxyHost");
-      String proxyPort=System.getProperty("http.proxyPort");
-      if (proxyHost == null)       proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
-      if (proxyPort == null)       proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
-      proxyConf.setProxy(ServerType.HTTP,new ProxyServer(proxyHost,Integer.parseInt(proxyPort)));
-      proxyConf.setExceptions(PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")));
+      if (ProxyUtils.isAutoProxy()) {
+        HttpRoutePlanner routePlanner=HttpClientSupport.getHttpClient().getRoutePlanner();
+        HttpRoute httpRoute=routePlanner.determineRoute(new HttpHost("soapui.org"),new HttpGet("http://soapui.org"),null);
+        HttpHost proxyHost=httpRoute.getProxyHost();
+        proxyConf.setProxy(ServerType.HTTP,new ProxyServer(proxyHost.getHostName(),proxyHost.getPort()));
+      }
+ else {
+        Settings settings=SoapUI.getSettings();
+        PropertyExpansionContext context=null;
+        String proxyHost=System.getProperty("http.proxyHost");
+        String proxyPort=System.getProperty("http.proxyPort");
+        if (proxyHost == null)         proxyHost=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.HOST,""));
+        if (proxyPort == null)         proxyPort=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.PORT,""));
+        proxyConf.setProxy(ServerType.HTTP,new ProxyServer(proxyHost,Integer.parseInt(proxyPort)));
+        proxyConf.setExceptions(PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")));
+      }
     }
  else {
       proxyConf.setDirectConnection();
