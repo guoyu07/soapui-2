@@ -1,5 +1,10 @@
 {
-  if (proxyEnabled && !autoProxy) {
-    setManualProxySettings(settings,httpMethod,httpContext,urlString,context);
+  if (proxyEnabled) {
+    if (autoProxy) {
+      setProxyCredentials(settings,httpContext,context,null);
+    }
+ else {
+      setManualProxySettings(settings,httpMethod,httpContext,urlString,context);
+    }
   }
 }
