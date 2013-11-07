@@ -1,7 +1,7 @@
 {
   Dimension screenResolution=Toolkit.getDefaultToolkit().getScreenSize();
-  if (isMac()) {
-    frame.setSize(screenResolution);
+  if (UISupport.isMac()) {
+    frame.setSize(screenResolution.width,(int)(.9 * screenResolution.height));
   }
  else {
     frame.setSize(new Dimension((int)(.7 * screenResolution.width),(int)(.7 * screenResolution.width)));
