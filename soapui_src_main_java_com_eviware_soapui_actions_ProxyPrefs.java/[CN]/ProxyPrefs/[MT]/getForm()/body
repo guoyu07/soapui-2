@@ -9,20 +9,20 @@
     automatic.addActionListener(new ActionListener(){
       @Override public void actionPerformed(      ActionEvent e){
         autoProxy=true;
-        setManualProxyTextFieldsEnabled(false);
+        setManualProxyTextFieldsEnabled(true,false);
       }
     }
 );
     manual.addActionListener(new ActionListener(){
       @Override public void actionPerformed(      ActionEvent e){
         autoProxy=false;
-        setManualProxyTextFieldsEnabled(true);
+        setManualProxyTextFieldsEnabled(true,true);
       }
     }
 );
     none.addActionListener(new ActionListener(){
       @Override public void actionPerformed(      ActionEvent e){
-        setManualProxyTextFieldsEnabled(false);
+        setManualProxyTextFieldsEnabled(false,false);
       }
     }
 );

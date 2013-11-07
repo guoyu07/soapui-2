@@ -2,17 +2,17 @@
   getForm().setValues(getValues(settings));
   if (!settings.getBoolean(ProxySettings.ENABLE_PROXY)) {
     none.setSelected(true);
-    setManualProxyTextFieldsEnabled(false);
+    setManualProxyTextFieldsEnabled(false,false);
   }
  else   if (settings.getBoolean(ProxySettings.AUTO_PROXY)) {
     automatic.setSelected(true);
     autoProxy=true;
-    setManualProxyTextFieldsEnabled(false);
+    setManualProxyTextFieldsEnabled(true,false);
   }
  else {
     manual.setSelected(true);
     autoProxy=false;
-    setManualProxyTextFieldsEnabled(true);
+    setManualProxyTextFieldsEnabled(true,true);
   }
   autoProxy=settings.getBoolean(ProxySettings.AUTO_PROXY);
 }
