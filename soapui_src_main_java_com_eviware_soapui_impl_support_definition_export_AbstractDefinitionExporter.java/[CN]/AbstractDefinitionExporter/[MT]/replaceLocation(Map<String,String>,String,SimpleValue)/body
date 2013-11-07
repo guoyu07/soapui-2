@@ -9,6 +9,12 @@
  else {
       String loc=Tools.joinRelativeUrl(baseUrl,location);
       String newLocation=urlToFileMap.get(loc);
+      if (newLocation == null) {
+        newLocation=urlToFileMap.get(loc.replaceAll("/","\\\\"));
+      }
+      if (newLocation == null) {
+        newLocation=urlToFileMap.get(loc.replaceAll("\\\\","/"));
+      }
       if (newLocation != null)       wsdlImport.setStringValue(newLocation);
  else       throw new Exception("Missing local file for [" + loc + "]");
     }
