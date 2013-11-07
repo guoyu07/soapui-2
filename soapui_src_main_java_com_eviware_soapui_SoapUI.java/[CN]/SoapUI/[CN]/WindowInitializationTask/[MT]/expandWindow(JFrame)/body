@@ -1,4 +1,5 @@
 {
-  Dimension screenResolution=Toolkit.getDefaultToolkit().getScreenSize();
-  frame.setSize(screenResolution.width,(int)(.9 * screenResolution.height));
+  Rectangle availableScreenArea=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+  Dimension screenResolution=availableScreenArea.getSize();
+  frame.setSize(screenResolution.width,screenResolution.height);
 }
