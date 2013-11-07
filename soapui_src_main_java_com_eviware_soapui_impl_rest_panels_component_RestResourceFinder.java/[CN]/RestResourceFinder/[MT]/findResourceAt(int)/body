@@ -1,4 +1,8 @@
 {
+  String basePath=resource.getInterface().getBasePath();
+  if (!StringUtils.isNullOrEmpty(basePath) && caretPosition <= basePath.length()) {
+    return null;
+  }
   for (  RestResource r : RestUtils.extractAncestorsParentFirst(resource)) {
     if (caretPosition <= r.getFullPath().length()) {
       return r;

@@ -1,0 +1,5 @@
+{
+  assertThat(new RestResourceEditorPopupWindow(parentResource,parentResource).restSubResourceTextFields,is(aCollectionWithSize(1)));
+  assertThat(new RestResourceEditorPopupWindow(childResource,childResource).restSubResourceTextFields,is(aCollectionWithSize(2)));
+  assertThat(new RestResourceEditorPopupWindow(grandchildResource,grandchildResource).restSubResourceTextFields,is(aCollectionWithSize(3)));
+}

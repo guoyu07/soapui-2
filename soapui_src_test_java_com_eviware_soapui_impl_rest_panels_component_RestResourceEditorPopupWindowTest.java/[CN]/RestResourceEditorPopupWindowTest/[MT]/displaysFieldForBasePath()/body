@@ -1,0 +1,7 @@
+{
+  final String basePath="/base";
+  parentResource.getInterface().setBasePath(basePath);
+  RestResourceEditorPopupWindow popupWindow=new RestResourceEditorPopupWindow(parentResource,parentResource);
+  assertThat(popupWindow.basePathTextField,is(notNullValue()));
+  assertThat(popupWindow.basePathTextField.getText(),is(basePath));
+}

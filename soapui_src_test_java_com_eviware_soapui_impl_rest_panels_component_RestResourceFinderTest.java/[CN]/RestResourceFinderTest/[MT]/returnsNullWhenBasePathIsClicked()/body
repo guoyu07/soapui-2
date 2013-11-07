@@ -1,0 +1,7 @@
+{
+  RestResource parent=ModelItemFactory.makeRestResource();
+  String basePath="/base";
+  parent.getInterface().setBasePath(basePath);
+  RestResourceFinder finder=new RestResourceFinder(parent);
+  assertThat(finder.findResourceAt(basePath.length()),is(nullValue()));
+}

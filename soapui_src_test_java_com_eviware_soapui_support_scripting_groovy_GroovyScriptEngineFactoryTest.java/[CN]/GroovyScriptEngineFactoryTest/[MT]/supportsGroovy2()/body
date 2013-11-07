@@ -1,0 +1,9 @@
+{
+  DefaultSoapUICore soapUICore=new DefaultSoapUICore();
+  DefaultSoapUICore.log=mock(Logger.class);
+  SoapUI.setSoapUICore(soapUICore,true);
+  GroovyScriptEngineFactory scriptEngineFactory=new GroovyScriptEngineFactory();
+  SoapUIScriptEngine scriptEngine=scriptEngineFactory.createScriptEngine(ModelItemFactory.makeWsdlProject());
+  scriptEngine.setScript("assert 0b10 == 2");
+  scriptEngine.run();
+}

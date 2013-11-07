@@ -1,0 +1,6 @@
+{
+  lonelyResource.getInterface().setBasePath("/base");
+  lonelyResource.setPath("resource");
+  RestResourceEditor restResourceEditor=new RestResourceEditor(lonelyResource,new MutableBoolean());
+  assertThat(restResourceEditor.getText(),is("/base/resource"));
+}
