@@ -1,0 +1,8 @@
+{
+  parentPanel.button(ADD_PARAM_ACTION_NAME).click();
+  JTableFixture restParamsTable=parentPanel.table(REST_PARAMS_TABLE);
+  robot.waitForIdle();
+  int rowNumToEdit=restParamsTable.target.getRowCount() - 1;
+  editTableCell(paramName,restParamsTable,rowNumToEdit,0);
+  editTableCell(paramValue,restParamsTable,rowNumToEdit,1);
+}

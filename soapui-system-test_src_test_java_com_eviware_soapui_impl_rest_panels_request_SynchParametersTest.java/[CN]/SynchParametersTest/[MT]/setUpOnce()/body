@@ -1,0 +1,9 @@
+{
+  noExitSecurityManagerInstaller=NoExitSecurityManagerInstaller.installNoExitSecurityManager(new ExitCallHook(){
+    @Override public void exitCalled(    int status){
+      System.out.print("Exit status : " + status);
+    }
+  }
+);
+  FailOnThreadViolationRepaintManager.install();
+}

@@ -1,0 +1,23 @@
+{
+  FrameFixture rootWindow=FestMatchers.frameWithTitle("SoapUI").using(robot);
+  rootWindow.maximize();
+  createNewRestProject(rootWindow);
+  JPanelFixture resourceEditor=openResourceEditor(rootWindow);
+  JPanelFixture requestEditor=openRequestEditor(rootWindow);
+  addNewParameter(requestEditor,"Address","Stockholm");
+  verifyParamValues(requestEditor,0,"Address","Stockholm");
+  verifyParamValues(resourceEditor,0,"Address","");
+  openResourceEditor(rootWindow);
+  addNewParameter(resourceEditor,"resParam","value1");
+  verifyParamValues(resourceEditor,1,"resParam","value1");
+  verifyParamValues(requestEditor,1,"resParam","value1");
+  JPanelFixture methodEditor=openMethodEditor(rootWindow);
+  addNewParameter(methodEditor,"mParam","mValue");
+  verifyParamValues(methodEditor,0,"mParam","mValue");
+  verifyParamValues(requestEditor,2,"mParam","mValue");
+  changeParameterLevel(methodEditor,0,ParamLocation.RESOURCE);
+  verifyEmptyTable(methodEditor);
+  verifyParamValues(resourceEditor,2,"mParam","mValue");
+  openResourceEditor(rootWindow);
+  closeWindow(rootWindow);
+}

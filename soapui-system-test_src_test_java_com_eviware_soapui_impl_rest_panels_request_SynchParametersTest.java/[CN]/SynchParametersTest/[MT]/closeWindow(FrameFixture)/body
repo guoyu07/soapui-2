@@ -1,0 +1,15 @@
+{
+  Thread.sleep(2000);
+  rootWindow.close();
+  DialogFixture confirmationDialog=FestMatchers.dialogWithTitle("Question").using(robot);
+  confirmationDialog.button(FestMatchers.buttonWithText("Yes")).click();
+  try {
+    DialogFixture saveProjectDialog=FestMatchers.dialogWithTitle("Save Project").using(robot);
+    while (saveProjectDialog != null) {
+      saveProjectDialog.button(FestMatchers.buttonWithText("No")).click();
+      saveProjectDialog=FestMatchers.dialogWithTitle("Save Project").using(robot);
+    }
+  }
+ catch (  Exception e) {
+  }
+}
