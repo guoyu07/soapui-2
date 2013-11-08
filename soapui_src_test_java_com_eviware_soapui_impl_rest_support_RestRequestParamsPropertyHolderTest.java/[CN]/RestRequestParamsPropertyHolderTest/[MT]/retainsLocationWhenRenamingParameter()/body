@@ -1,0 +1,7 @@
+{
+  String originalName="secondParameter";
+  parametersHolder.addProperty(originalName);
+  String newName="secondParameter_with_new_name";
+  parametersHolder.renameProperty(originalName,newName);
+  assertThat(parametersHolder.getProperty(newName).getParamLocation(),is(NewRestResourceActionBase.ParamLocation.RESOURCE));
+}
