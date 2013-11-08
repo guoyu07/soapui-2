@@ -1,0 +1,8 @@
+{
+  noExitSecurityManagerInstaller=NoExitSecurityManagerInstaller.installNoExitSecurityManager(new ExitCallHook(){
+    @Override public void exitCalled(    int status){
+      SoapUI.setSoapUICore(null);
+    }
+  }
+);
+}

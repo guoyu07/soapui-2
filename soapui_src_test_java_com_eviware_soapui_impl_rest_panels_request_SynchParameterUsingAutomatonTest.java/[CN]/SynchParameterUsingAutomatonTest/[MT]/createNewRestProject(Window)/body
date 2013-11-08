@@ -1,0 +1,8 @@
+{
+  Component file=SwingUtil.lookup("File",soapUI);
+  Swinger swinger=Swinger.getUserWith(file);
+  swinger.clickOn(file).pause(200).clickOn("text:New REST Project").pause(200);
+  Window newRestProjectDialog=getWindowWithTitle("New REST Project");
+  assertNotNull(newRestProjectDialog);
+  Swinger.getUserWith(newRestProjectDialog).clickOn("type:com.eviware.soapui.support.components.JUndoableTextField").type("http://soapui.org").pressSimultaneously(VK_ENTER);
+}

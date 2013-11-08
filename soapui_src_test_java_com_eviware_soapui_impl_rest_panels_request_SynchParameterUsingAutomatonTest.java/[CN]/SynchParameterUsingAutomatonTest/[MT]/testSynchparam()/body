@@ -1,0 +1,23 @@
+{
+  assertNotNull(soapUI);
+  createNewRestProject(soapUI);
+  Thread.sleep(1000);
+  RestRequestDesktopPanel reqDesktopPanel=(RestRequestDesktopPanel)SwingUtil.lookup(REST_REQUEST_EDITOR,soapUI);
+  addNewParameter(reqDesktopPanel,"ParamName","value");
+  verifyParamValues(getRestParameterTable(reqDesktopPanel),0,"ParamName","value");
+  openResourceEditor(soapUI);
+  RestResourceDesktopPanel resourceDesktopPanel=(RestResourceDesktopPanel)SwingUtil.lookup(REST_RESOURCE_EDITOR,soapUI);
+  verifyParamValues(resourceDesktopPanel.getParamsTable(),0,"ParamName","");
+  addNewParameter(resourceDesktopPanel,"resParam","value11");
+  verifyParamValues(resourceDesktopPanel.getParamsTable(),1,"resParam","value11");
+  verifyParamValues(getRestParameterTable(reqDesktopPanel),1,"resParam","value11");
+  openMethodEditor(soapUI);
+  RestMethodDesktopPanel methodDesktopPanel=(RestMethodDesktopPanel)SwingUtil.lookup(REST_METHOD_EDITOR,soapUI);
+  addNewParameter(methodDesktopPanel,"mParam","mValue");
+  verifyParamValues(methodDesktopPanel.getParamsTable(),0,"mParam","mValue");
+  verifyParamValues(getRestParameterTable(reqDesktopPanel),2,"mParam","mValue");
+  changeParameterLevelToResource(methodDesktopPanel.getParamsTable());
+  verifyEmptyTable(methodDesktopPanel.getParamsTable());
+  verifyParamValues(resourceDesktopPanel.getParamsTable(),2,"mParam","mValue");
+  openResourceEditor(soapUI);
+}
