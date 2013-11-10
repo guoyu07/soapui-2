@@ -1,5 +1,6 @@
 {
   EndpointsConfig endpoints=getConfig().getEndpoints();
   List<String> endpointArray=endpoints.getEndpointList();
+  Collections.sort(endpointArray);
   return endpointArray.toArray(new String[endpointArray.size()]);
 }
