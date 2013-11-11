@@ -10,4 +10,8 @@
   }
 );
   putClientProperty("terminateEditOnFocusLost",Boolean.TRUE);
+  if (UISupport.isMac()) {
+    setShowGrid(false);
+    setIntercellSpacing(new Dimension(0,0));
+  }
 }

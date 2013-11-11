@@ -2,7 +2,7 @@
   List<AssertedXPath> assertedXPaths=getAssertedXPaths();
   DefaultTableModel tm=new DefaultTableModel(assertedXPaths.size(),2);
   tm.setColumnIdentifiers(new String[]{"Label","XPath"});
-  JXTable table=new JXTable(tm);
+  JXTable table=JTableFactory.getInstance().makeJXTable(tm);
   table.setHorizontalScrollEnabled(true);
   table.getColumn(0).setPreferredWidth(100);
   for (int c=0; c < assertedXPaths.size(); c++) {

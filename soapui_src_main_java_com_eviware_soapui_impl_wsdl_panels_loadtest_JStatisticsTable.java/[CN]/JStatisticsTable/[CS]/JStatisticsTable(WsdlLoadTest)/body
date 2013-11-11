@@ -1,7 +1,7 @@
 {
   super(new BorderLayout());
   this.loadTest=loadTest;
-  statisticsTable=new JXTable(loadTest.getStatisticsModel());
+  statisticsTable=JTableFactory.getInstance().makeJXTable(loadTest.getStatisticsModel());
   statisticsTable.setColumnControlVisible(true);
   statisticsTable.getTableHeader().setReorderingAllowed(false);
   statisticsTable.addMouseListener(new StatisticsTableMouseListener());

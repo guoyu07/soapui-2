@@ -3,7 +3,7 @@
   this.loadTest=wsdlLoadTest;
   loadTest.addLoadTestListener(internalLoadTestListener);
   tableModel=new LoadTestAssertionsTableModel();
-  table=new JXTable(tableModel);
+  table=JTableFactory.getInstance().makeJXTable(tableModel);
   table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   TableColumnModel columnModel=table.getColumnModel();
   columnModel.getColumn(0).setMaxWidth(16);

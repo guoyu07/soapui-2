@@ -5,7 +5,7 @@
   toolbar.add(UISupport.createToolbarButton(new RemoveTypeAction()));
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
-  table=new JXTable(model);
+  table=JTableFactory.getInstance().makeJXTable(model);
   TableRowSorter<InvalidTypeTableModel> sorter=new TableRowSorter<InvalidTypeTableModel>(model);
   table.setRowSorter(sorter);
   table.toggleSortOrder(0);
