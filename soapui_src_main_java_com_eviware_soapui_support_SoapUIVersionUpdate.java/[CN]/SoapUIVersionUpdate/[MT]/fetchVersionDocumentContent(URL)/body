@@ -1,7 +1,8 @@
 {
   HttpClientSupport.SoapUIHttpClient httpClient=HttpClientSupport.getHttpClient();
   HttpGet request=new HttpGet(versionUrl.toURI());
-  ProxyUtils.initProxySettings(SoapUI.getSettings(),request,null,versionUrl.toString(),null);
-  HttpResponse response=httpClient.execute(request);
+  BasicHttpContext httpContext=HttpClientSupport.createEmptyContext();
+  ProxyUtils.initProxySettings(SoapUI.getSettings(),request,httpContext,versionUrl.toString(),null);
+  HttpResponse response=httpClient.execute(request,httpContext);
   return EntityUtils.toString(response.getEntity());
 }
