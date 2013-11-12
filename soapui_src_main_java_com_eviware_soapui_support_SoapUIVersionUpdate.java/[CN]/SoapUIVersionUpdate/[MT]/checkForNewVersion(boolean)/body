@@ -7,6 +7,11 @@
     SoapUI.log(e.getMessage());
     return;
   }
-  if (isNewReleaseAvailable() && (!skipThisVersion() || helpAction))   showNewVersionDownloadDialog();
- else   if (helpAction)   UISupport.showInfoMessage("You are running the latest version of SoapUI!","Version Check");
+  SwingUtilities.invokeLater(new Runnable(){
+    @Override public void run(){
+      if (isNewReleaseAvailable() && (!skipThisVersion() || helpAction))       showNewVersionDownloadDialog();
+ else       if (helpAction)       UISupport.showInfoMessage("You are running the latest version of SoapUI!","Version Check");
+    }
+  }
+);
 }
