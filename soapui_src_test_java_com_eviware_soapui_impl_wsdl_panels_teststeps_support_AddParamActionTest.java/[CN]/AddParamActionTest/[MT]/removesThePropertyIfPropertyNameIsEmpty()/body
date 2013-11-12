@@ -1,0 +1,8 @@
+{
+  setCellEditorForNameAndValueColumns("");
+  invokeAddParamAction();
+  JTableFixture jTableFixture=new JTableFixture(robot,paramTable);
+  verifyEditingCell(0,0);
+  jTableFixture.cell(row(0).column(0)).stopEditing();
+  assertThat(params.getPropertyCount(),is(0));
+}
