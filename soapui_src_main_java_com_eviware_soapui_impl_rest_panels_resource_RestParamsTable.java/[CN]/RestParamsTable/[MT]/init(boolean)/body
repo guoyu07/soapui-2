@@ -44,14 +44,14 @@
       if (selectedRow != -1) {
         RestParamProperty selectedParameter=getSelectedParameter();
         if (paramDetailsModel != null) {
-          paramDetailsModel.setBean(selectedParameter);
+          updateDetailsFormWith(selectedParameter);
           detailsForm.setEnabled(true);
         }
       }
  else {
         if (paramDetailsModel != null) {
           detailsForm.setEnabled(false);
-          paramDetailsModel.setBean(null);
+          updateDetailsFormWith(null);
         }
       }
     }
@@ -59,7 +59,7 @@
 );
   add(buildToolbar(),BorderLayout.NORTH);
   if (showInspector) {
-    final JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
     add(splitPane,BorderLayout.CENTER);
     splitPane.setResizeWeight(0.7);
   }
