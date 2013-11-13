@@ -12,6 +12,7 @@
     String description=parameter.getDescription();
     boolean disableURLEncoding=parameter.isDisableUrlEncoding();
     RestParamProperty newParameter;
+    List<String> copyOfSortedPropertyNames=new ArrayList<String>(sortedPropertyNames);
     if (newLocation == NewRestResourceActionBase.ParamLocation.METHOD) {
       restRequest.getResource().removeProperty(parameterBeingMoved);
       newParameter=restRequest.getRestMethod().addProperty(parameterBeingMoved);
@@ -29,6 +30,7 @@
     newParameter.setDescription(description);
     newParameter.setDisableUrlEncoding(disableURLEncoding);
     restRequest.getProperty(parameterBeingMoved).setValue(parameterValue);
+    sortedPropertyNames=copyOfSortedPropertyNames;
     firePropertyRemoved(parameterBeingMoved);
     firePropertyAdded(parameterBeingMoved);
   }
