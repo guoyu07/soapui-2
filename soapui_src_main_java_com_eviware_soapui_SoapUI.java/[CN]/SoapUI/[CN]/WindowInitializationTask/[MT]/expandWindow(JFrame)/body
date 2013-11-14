@@ -1,5 +1,22 @@
 {
-  Rectangle availableScreenArea=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-  Dimension screenResolution=availableScreenArea.getSize();
-  frame.setSize(screenResolution.width,screenResolution.height);
+  Rectangle savedWindowBounds=new UserPreferences().getSoapUIWindowBounds();
+  if (savedWindowBounds == null) {
+    Rectangle availableScreenArea=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+    Dimension screenResolution=availableScreenArea.getSize();
+    frame.setSize(screenResolution.width,screenResolution.height);
+  }
+ else {
+    frame.setBounds(savedWindowBounds);
+  }
+  frame.addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent event){
+      try {
+        new UserPreferences().setSoapUIWindowBounds(event.getWindow().getBounds());
+      }
+ catch (      BackingStoreException e) {
+        logError(e,"Could not save SoapUI window bounds");
+      }
+    }
+  }
+);
 }
