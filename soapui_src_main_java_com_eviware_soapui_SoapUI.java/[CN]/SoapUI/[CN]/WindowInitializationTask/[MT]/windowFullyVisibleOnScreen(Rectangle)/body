@@ -1,0 +1,9 @@
+{
+  Rectangle bargainBounds=new Rectangle(windowBounds.x,windowBounds.y,windowBounds.width * 4 / 5,windowBounds.height * 4 / 5);
+  for (  GraphicsDevice graphicsDevice : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
+    if (graphicsDevice.getDefaultConfiguration().getBounds().contains(bargainBounds)) {
+      return true;
+    }
+  }
+  return false;
+}

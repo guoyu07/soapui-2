@@ -1,9 +1,8 @@
 {
   Rectangle savedWindowBounds=new UserPreferences().getSoapUIWindowBounds();
-  if (savedWindowBounds == null) {
+  if (savedWindowBounds == null || !windowFullyVisibleOnScreen(savedWindowBounds)) {
     Rectangle availableScreenArea=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-    Dimension screenResolution=availableScreenArea.getSize();
-    frame.setSize(screenResolution.width,screenResolution.height);
+    frame.setBounds(availableScreenArea);
   }
  else {
     frame.setBounds(savedWindowBounds);
