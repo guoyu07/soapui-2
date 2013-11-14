@@ -27,7 +27,7 @@
     }
     RestResource resource=createRestResource(service,path,dialog);
     paramsTable.extractParams(resource.getParams(),ParamLocation.RESOURCE);
-    XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
+    XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance(),ParamLocation.METHOD);
     paramsTable.extractParams(methodParams,ParamLocation.METHOD);
     SoapUI.getActionRegistry().getAction(NewRestMethodAction.SOAPUI_ACTION_ID).perform(resource,methodParams);
   }
