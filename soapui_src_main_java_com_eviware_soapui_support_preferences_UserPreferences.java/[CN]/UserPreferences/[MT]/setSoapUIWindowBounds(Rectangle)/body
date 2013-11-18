@@ -1,0 +1,11 @@
+{
+  if (windowBounds == null) {
+    clearAllProperties(WINDOW_X,WINDOW_Y,WINDOW_HEIGHT,WINDOW_WIDTH);
+    return;
+  }
+  preferences.putInt(WINDOW_X,windowBounds.x);
+  preferences.putInt(WINDOW_Y,windowBounds.y);
+  preferences.putInt(WINDOW_WIDTH,windowBounds.width);
+  preferences.putInt(WINDOW_HEIGHT,windowBounds.height);
+  preferences.flush();
+}

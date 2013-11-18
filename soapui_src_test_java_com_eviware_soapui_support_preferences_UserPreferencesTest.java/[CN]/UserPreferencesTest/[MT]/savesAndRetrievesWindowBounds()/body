@@ -1,0 +1,6 @@
+{
+  Rectangle windowBounds=new Rectangle(150,120,1024,768);
+  preferences.setSoapUIWindowBounds(windowBounds);
+  UserPreferences independentPreferences=new UserPreferences();
+  assertThat(independentPreferences.getSoapUIWindowBounds(),is(windowBounds));
+}
