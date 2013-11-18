@@ -1,6 +1,6 @@
 {
   Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
-  StringBuffer buf=new StringBuffer();
+  StringBuilder buf=new StringBuilder();
   int[] selectedIndices=logList.getSelectedIndices();
   if (selectedIndices.length == 0) {
     for (int c=0; c < logList.getModel().getSize(); c++) {
@@ -9,8 +9,8 @@
     }
   }
  else {
-    for (int c=0; c < selectedIndices.length; c++) {
-      buf.append(logList.getModel().getElementAt(selectedIndices[c]).toString());
+    for (    int selectedIndex : selectedIndices) {
+      buf.append(logList.getModel().getElementAt(selectedIndex).toString());
       buf.append("\r\n");
     }
   }

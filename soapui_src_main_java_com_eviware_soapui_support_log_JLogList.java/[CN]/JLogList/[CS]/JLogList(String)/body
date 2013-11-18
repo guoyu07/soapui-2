@@ -9,7 +9,7 @@
   logList.setFixedCellWidth(-1);
   JPopupMenu listPopup=new JPopupMenu();
   listPopup.add(new ClearAction());
-  enableAction=new EnableAction();
+  EnableAction enableAction=new EnableAction();
   enableMenuItem=new JCheckBoxMenuItem(enableAction);
   enableMenuItem.setSelected(true);
   listPopup.add(enableMenuItem);
@@ -23,9 +23,9 @@
   JScrollPane scrollPane=new JScrollPane(logList);
   UISupport.addPreviewCorner(scrollPane,true);
   add(scrollPane,BorderLayout.CENTER);
-  requestAttributes=new SimpleAttributeSet();
+  SimpleAttributeSet requestAttributes=new SimpleAttributeSet();
   StyleConstants.setForeground(requestAttributes,Color.BLUE);
-  responseAttributes=new SimpleAttributeSet();
+  SimpleAttributeSet responseAttributes=new SimpleAttributeSet();
   StyleConstants.setForeground(responseAttributes,Color.GREEN);
   try {
     maxRows=Long.parseLong(SoapUI.getSettings().getString("JLogList#" + title,"1000"));
