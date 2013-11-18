@@ -15,10 +15,10 @@
   RestResource resource;
   if (possibleParent != null && UISupport.confirm("Create resource as child to [" + possibleParent.getName() + "]","New Child Resource")) {
     path=path.substring(p.length() - possibleParent.getFullPath().length() - 1);
-    resource=possibleParent.addNewChildResource(dialog.getValue(Form.RESOURCENAME),path);
+    resource=possibleParent.addNewChildResource(extractNameFromPath(path),path);
   }
  else {
-    resource=parentResource.addNewChildResource(dialog.getValue(Form.RESOURCENAME),path);
+    resource=parentResource.addNewChildResource(extractNameFromPath(path),path);
   }
   return resource;
 }
