@@ -1,22 +1,22 @@
 {
   RestParamProperty prop=getParameterAt(rowIndex);
 switch (columnIndex) {
-case 0:
+case NAME_COLUMN_INDEX:
     if (propertyExists(value,prop)) {
       return;
     }
   params.renameProperty(prop.getName(),value.toString());
 return;
-case 1:
+case VALUE_COLUMN_INDEX:
 prop.setDefaultValue(value.toString());
 prop.setValue(value.toString());
 return;
-case 2:
+case STYLE_COLUMN_INDEX:
 if (mode != Mode.MINIMAL) {
 prop.setStyle((ParameterStyle)value);
 }
 return;
-case 3:
+case LOCATION_COLUMN_INDEX:
 if (mode == Mode.FULL) {
 if (params.getModelItem() != null && params.getModelItem() instanceof RestRequest) {
 this.isLastChangeParameterLevelChange=true;

@@ -1,0 +1,6 @@
+{
+  paramTable.editCellAt(0,RestParamsTableModel.STYLE_COLUMN_INDEX);
+  DefaultCellEditor cellEditor=(DefaultCellEditor)paramTable.getCellEditor(0,RestParamsTableModel.STYLE_COLUMN_INDEX);
+  JComboBox<RestParamsPropertyHolder.ParameterStyle> comboBox=(JComboBox)cellEditor.getComponent();
+  return getSelectableStyle(comboBox);
+}

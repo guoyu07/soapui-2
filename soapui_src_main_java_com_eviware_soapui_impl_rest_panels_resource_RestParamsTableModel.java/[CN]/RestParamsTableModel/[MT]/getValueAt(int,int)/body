@@ -1,13 +1,13 @@
 {
   RestParamProperty prop=getParameterAt(rowIndex);
 switch (columnIndex) {
-case 0:
+case NAME_COLUMN_INDEX:
     return prop.getName();
-case 1:
+case VALUE_COLUMN_INDEX:
   return prop.getValue();
-case 2:
+case STYLE_COLUMN_INDEX:
 return mode == Mode.MINIMAL ? null : prop.getStyle();
-case 3:
+case LOCATION_COLUMN_INDEX:
 return mode != Mode.FULL ? null : prop.getParamLocation();
 }
 return null;

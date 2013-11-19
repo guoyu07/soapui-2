@@ -14,6 +14,16 @@
         editor.cancelCellEditing();
       }
     }
+    @Override public Component prepareEditor(    TableCellEditor editor,    int row,    int column){
+      Component component=super.prepareEditor(editor,row,column);
+      if (getColumnClass(column) == ParameterStyle.class) {
+        RestParamProperty parameter=paramsTableModel.getParameterAt(row);
+        JComboBox comboBox=(JComboBox)((DefaultCellEditor)editor).getComponent();
+        comboBox.setModel(getStylesForLocation(parameter.getParamLocation()));
+        super.prepareEditor(editor,row,column);
+      }
+      return component;
+    }
   }
 ;
   paramsTable.setName(REST_PARAMS_TABLE);
@@ -27,7 +37,7 @@
     initEditableButtons();
   }
   paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(paramsTableModel.getParameterStylesForEdit())));
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(getStylesForLocation(ParamLocation.RESOURCE))));
   paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox<ParamLocation>(paramsTableModel.getParameterLevels())));
   paramsTable.setRowHeight(25);
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
