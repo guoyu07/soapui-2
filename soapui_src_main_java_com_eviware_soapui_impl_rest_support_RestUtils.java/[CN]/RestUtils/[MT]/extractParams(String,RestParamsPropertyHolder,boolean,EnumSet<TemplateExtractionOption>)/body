@@ -21,14 +21,16 @@
   for (  String item : items) {
     try {
       if (item.startsWith("{") && item.endsWith("}")) {
-        String name=item.substring(1,item.length() - 1);
-        RestParamProperty property=params.getProperty(name);
-        if (!params.hasProperty(name)) {
-          property=params.addProperty(name);
+        if (templateExtractionOptions.contains(TemplateExtractionOption.CURLY_BRACKETS)) {
+          String name=item.substring(1,item.length() - 1);
+          RestParamProperty property=params.getProperty(name);
+          if (!params.hasProperty(name)) {
+            property=params.addProperty(name);
+          }
+          property.setStyle(ParameterStyle.TEMPLATE);
+          property.setValue(name);
+          property.setDefaultValue(name);
         }
-        property.setStyle(ParameterStyle.TEMPLATE);
-        property.setValue(name);
-        property.setDefaultValue(name);
       }
  else {
         String[] matrixParams=item.split(";");
@@ -53,7 +55,7 @@
             }
           }
         }
-        if (createTemplateParams) {
+        if (templateExtractionOptions.contains(TemplateExtractionOption.INTEGER)) {
           Integer.parseInt(item);
           String name="param" + templateParamCount++;
           RestParamProperty property=params.getProperty(name);
