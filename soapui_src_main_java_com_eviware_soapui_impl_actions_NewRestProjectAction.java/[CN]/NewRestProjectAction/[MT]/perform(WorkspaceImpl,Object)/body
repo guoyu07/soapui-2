@@ -1,29 +1,19 @@
 {
-  if (dialog == null) {
-    dialog=buildDialog();
+  dialog=dialogBuilder.buildDialog(messages,new AbstractAction("Import WADL..."){
+    @Override public void actionPerformed(    ActionEvent e){
+      dialog.setVisible(false);
+      SoapUI.getActionRegistry().getAction(NewWadlProjectAction.SOAPUI_ACTION_ID).perform(SoapUI.getWorkspace(),null);
+    }
   }
-  dialog.setValue(URI_LABEL,EXAMPLE_URI);
-  XFormField uriField=dialog.getFormField(URI_LABEL);
-  JUndoableTextField textField=null;
-  if (uriField instanceof JTextFieldFormField) {
-    defaultURIReplaced=false;
-    textField=((JTextFieldFormField)uriField).getComponent();
-    textField.requestFocus();
-    originalFont=textField.getFont();
-    textField.setFont(originalFont.deriveFont(Font.ITALIC));
-    textField.setForeground(new Color(170,170,170));
-    logger.log(Level.TRACE,"Adding listeners to URI text field");
-    addListenersTo(textField);
-  }
+);
   while (dialog.show()) {
     WsdlProject project=null;
     try {
-      if (!defaultURIReplaced && textField != null) {
-        resetUriField(textField);
+      String uri=dialogBuilder.getUri();
+      if (uri != null) {
+        project=workspace.createProject(ModelItemNamer.createName(DEFAULT_PROJECT_NAME,workspace.getProjectList()),null);
+        createRestService(project,uri);
       }
-      String URI=dialog.getValue(URI_LABEL).trim();
-      project=workspace.createProject(ModelItemNamer.createName(DEFAULT_PROJECT_NAME,workspace.getProjectList()),null);
-      createRestProject(project,URI);
       break;
     }
  catch (    Exception ex) {
@@ -31,9 +21,7 @@
       if (project != null) {
         workspace.removeProject(project);
       }
+      dialogBuilder.resetUriField();
     }
-  }
-  if (!defaultURIReplaced && textField != null) {
-    resetUriField(textField);
   }
 }
