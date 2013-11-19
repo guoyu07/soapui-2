@@ -12,7 +12,7 @@
       String uri=dialogBuilder.getUri();
       if (uri != null) {
         project=workspace.createProject(ModelItemNamer.createName(DEFAULT_PROJECT_NAME,workspace.getProjectList()),null);
-        createRestService(project,uri);
+        serviceBuilder.createRestService(project,uri);
       }
       break;
     }
