@@ -2,5 +2,6 @@
   RestParamProperty prop=params.addProperty("prop");
   prop.setParamLocation(NewRestResourceActionBase.ParamLocation.RESOURCE);
   prop.setStyle(RestParamsPropertyHolder.ParameterStyle.QUERY);
-  assertThat(paramTable.isCellEditable(0,RestParamsTableModel.LOCATION_COLUMN_INDEX),is(true));
+  List<NewRestResourceActionBase.ParamLocation> availableLocations=getParameterLocations();
+  assertThat(availableLocations,hasItem(NewRestResourceActionBase.ParamLocation.METHOD));
 }
