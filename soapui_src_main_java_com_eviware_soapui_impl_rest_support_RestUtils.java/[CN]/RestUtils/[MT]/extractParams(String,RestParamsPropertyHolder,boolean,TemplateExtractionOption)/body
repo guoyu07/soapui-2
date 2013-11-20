@@ -16,19 +16,20 @@
     }
   }
   String[] items=path.split("/");
-  int templateParamCount=0;
   StringBuilder resultPath=new StringBuilder();
   for (  String item : items) {
     try {
       if (item.startsWith("{") && item.endsWith("}")) {
-        String name=item.substring(1,item.length() - 1);
-        RestParamProperty property=params.getProperty(name);
-        if (!params.hasProperty(name)) {
-          property=params.addProperty(name);
+        if (templateExtractionOptions == TemplateExtractionOption.EXTRACT_TEMPLATE_PARAMETERS) {
+          String name=item.substring(1,item.length() - 1);
+          RestParamProperty property=params.getProperty(name);
+          if (!params.hasProperty(name)) {
+            property=params.addProperty(name);
+          }
+          property.setStyle(ParameterStyle.TEMPLATE);
+          property.setValue(name);
+          property.setDefaultValue(name);
         }
-        property.setStyle(ParameterStyle.TEMPLATE);
-        property.setValue(name);
-        property.setDefaultValue(name);
       }
  else {
         String[] matrixParams=item.split(";");
@@ -52,18 +53,6 @@
               property.setDefaultValue(URLDecoder.decode(matrixParam.substring(ix + 1),"Utf-8"));
             }
           }
-        }
-        if (createTemplateParams) {
-          Integer.parseInt(item);
-          String name="param" + templateParamCount++;
-          RestParamProperty property=params.getProperty(name);
-          if (!params.hasProperty(name)) {
-            property=params.addProperty(name);
-          }
-          property.setStyle(ParameterStyle.TEMPLATE);
-          property.setValue(item);
-          property.setDefaultValue(item);
-          item="{" + property.getName() + "}";
         }
       }
     }
