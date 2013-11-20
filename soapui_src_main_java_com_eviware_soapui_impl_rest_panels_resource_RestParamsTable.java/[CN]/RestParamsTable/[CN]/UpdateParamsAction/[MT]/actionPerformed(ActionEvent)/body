@@ -2,7 +2,7 @@
   String str=UISupport.prompt("Enter new url below","Extract Params","");
   if (str == null)   return;
   try {
-    RestUtils.extractParams(str,params,false,defaultParamLocation == ParamLocation.RESOURCE ? EnumSet.allOf(RestUtils.TemplateExtractionOption.class) : EnumSet.noneOf(RestUtils.TemplateExtractionOption.class));
+    RestUtils.extractParams(str,params,false,defaultParamLocation == ParamLocation.RESOURCE ? RestUtils.TemplateExtractionOption.EXTRACT_TEMPLATE_PARAMETERS : RestUtils.TemplateExtractionOption.IGNORE_TEMPLATE_PARAMETERS);
   }
  catch (  Exception e1) {
     UISupport.showErrorMessage(e1);
