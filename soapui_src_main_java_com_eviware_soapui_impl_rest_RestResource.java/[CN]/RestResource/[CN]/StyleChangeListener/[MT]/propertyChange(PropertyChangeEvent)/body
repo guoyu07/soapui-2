@@ -4,7 +4,7 @@
     if (evt.getOldValue() == RestParamsPropertyHolder.ParameterStyle.TEMPLATE) {
       setPath(getPath().replaceAll("\\{" + name + "\\}",""));
     }
- else     if (evt.getNewValue() == RestParamsPropertyHolder.ParameterStyle.TEMPLATE && !getPath().contains("{" + name + "}")) {
+ else     if (evt.getNewValue() == RestParamsPropertyHolder.ParameterStyle.TEMPLATE && !getFullPath().contains("{" + name + "}")) {
       setPath(getPath() + "{" + name+ "}");
     }
   }
