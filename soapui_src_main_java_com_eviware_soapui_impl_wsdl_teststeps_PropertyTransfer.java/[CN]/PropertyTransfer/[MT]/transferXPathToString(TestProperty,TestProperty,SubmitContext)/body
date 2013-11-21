@@ -52,6 +52,8 @@
     return value;
   }
   finally {
-    sourceCursor.dispose();
+    if (sourceCursor != null) {
+      sourceCursor.dispose();
+    }
   }
 }
