@@ -1,0 +1,7 @@
+{
+  DocumentBuilderFactory documentBuilderFactory=DocumentBuilderFactory.newInstance();
+  documentBuilderFactory.setValidating(false);
+  documentBuilderFactory.setNamespaceAware(true);
+  DocumentBuilder documentBuilder=documentBuilderFactory.newDocumentBuilder();
+  return documentBuilder.parse(new ByteArrayInputStream(wsaRequest.getRequestContent().getBytes()));
+}

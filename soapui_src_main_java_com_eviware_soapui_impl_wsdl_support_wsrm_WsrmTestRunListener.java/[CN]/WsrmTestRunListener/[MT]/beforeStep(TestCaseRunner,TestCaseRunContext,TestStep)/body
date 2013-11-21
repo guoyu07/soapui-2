@@ -1,20 +1,19 @@
 {
-  TestStep currentStep=testStep;
   WsdlTestCase testCase=(WsdlTestCase)runContext.getTestCase();
-  if (currentStep instanceof WsdlTestRequestStep && testCase.getWsrmEnabled()) {
+  if (testStep instanceof WsdlTestRequestStep && testCase.getWsrmEnabled()) {
     if (wsrmMap == null) {
       wsrmMap=new HashMap<String,WsrmSequence>();
     }
-    WsdlTestRequestStep requestStep=(WsdlTestRequestStep)currentStep;
+    WsdlTestRequestStep requestStep=(WsdlTestRequestStep)testStep;
     String endpoint=requestStep.getHttpRequest().getEndpoint();
     SoapVersion soapVersion=requestStep.getOperation().getInterface().getSoapVersion();
     if (!wsrmMap.containsKey(endpoint)) {
       WsrmUtils utils=new WsrmUtils(soapVersion);
-      WsrmSequence sequence=utils.createSequence(endpoint,soapVersion,testCase.getWsrmVersionNamespace(),testCase.getWsrmAckTo(),testCase.getWsrmExpires(),requestStep.getOperation(),null);
+      WsrmSequence sequence=utils.createSequence(endpoint,soapVersion,testCase.getWsrmVersionNamespace(),testCase.getWsrmAckTo(),testCase.getWsrmExpires(),requestStep.getOperation(),null,null);
       wsrmMap.put(endpoint,sequence);
     }
     WsrmSequence sequence=wsrmMap.get(endpoint);
-    WsdlRequest wsdlRequest=(WsdlRequest)requestStep.getHttpRequest();
+    WsdlRequest wsdlRequest=requestStep.getHttpRequest();
     wsdlRequest.getWsrmConfig().setVersion(testCase.getWsrmVersion());
     wsdlRequest.getWsrmConfig().setSequenceIdentifier(sequence.getIdentifier());
     wsdlRequest.getWsrmConfig().setLastMessageId(sequence.incrementLastMsgNumber());

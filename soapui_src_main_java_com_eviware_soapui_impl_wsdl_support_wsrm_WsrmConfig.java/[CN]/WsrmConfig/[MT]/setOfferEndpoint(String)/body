@@ -1,0 +1,5 @@
+{
+  String oldValue=wsrmConfig.getOfferEndpoint();
+  wsrmConfig.setOfferEndpoint(endpointUri);
+  propertyChangeSupport.firePropertyChange("offerEndpoint",oldValue,endpointUri);
+}

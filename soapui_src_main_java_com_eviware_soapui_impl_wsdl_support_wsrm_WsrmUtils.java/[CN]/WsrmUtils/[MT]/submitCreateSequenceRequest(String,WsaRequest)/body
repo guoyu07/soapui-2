@@ -1,0 +1,8 @@
+{
+  WsdlSubmit wsdlSubmit=startSequenceRequest.submit(new WsdlSubmitContext(null),true);
+  Logger.getLogger("wsrm").info("StartSequence Request Sent: " + uuid);
+  while (wsdlSubmit.getStatus() != Status.FINISHED) {
+    wsdlSubmit.waitUntilFinished();
+  }
+  return wsdlSubmit.getResponse();
+}

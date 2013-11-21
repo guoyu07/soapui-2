@@ -1,6 +1,6 @@
 {
   try {
-    Element header=getHeader(wsrmContainer);
+    Element header=getHeader();
     header.setAttribute("xmlns:" + "wsrm",wsrmContainer.getWsrmConfig().getVersionNameSpace());
     Element sequence=header.getOwnerDocument().createElementNS(wsrmContainer.getWsrmConfig().getVersionNameSpace(),"Sequence");
     Element identifierElement=sequence.getOwnerDocument().createElementNS(wsrmContainer.getWsrmConfig().getVersionNameSpace(),"Identifier");

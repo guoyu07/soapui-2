@@ -1,5 +1,4 @@
 {
-  String identifier=null;
   HttpRequestConfig httpRequestConfig=(HttpRequestConfig)(XmlObject.Factory.newInstance().changeType(HttpRequestConfig.type));
   httpRequestConfig.setEndpoint(endpoint);
   httpRequestConfig.setMediaType(soapVersion.getContentType());
@@ -15,7 +14,6 @@
   String openSequenceMessageContent=SoapMessageBuilder.buildEmptyMessage(soapVersion);
   startSequenceRequest.getWsaConfig().setWsaEnabled(true);
   startSequenceRequest.getWsaConfig().setAction(wsrmNamespace + WSRM_CREATE_SEQUENCE_ACTION);
-  String uuid=UUID.randomUUID().toString();
   startSequenceRequest.getWsaConfig().setReplyTo(ackTo);
   startSequenceRequest.getWsaConfig().setGenerateMessageId(true);
   try {
@@ -27,14 +25,22 @@
     cursor.toNextToken();
     cursor.insertNamespace("wsrm",wsrmNamespace);
     cursor.beginElement(WSRM_CREATE_SEQUENCE,wsrmNamespace);
-    cursor.beginElement("Offer",wsrmNamespace);
-    cursor.beginElement("Identifier",wsrmNamespace);
-    cursor.insertChars("urn:soapui:" + uuid);
-    cursor.toParent();
-    cursor.toParent();
+    String wsaNamespace=wsrmNamespace.equals(WSRM_NS_1_0) ? WsaUtils.WS_A_NAMESPACE_200408 : WsaUtils.WS_A_NAMESPACE_200508;
+    if (!wsrmNamespace.equals(WSRM_NS_1_0) && !StringUtils.isNullOrEmpty(offerEndpoint)) {
+      cursor.beginElement("Offer",wsrmNamespace);
+      cursor.beginElement("Endpoint",wsrmNamespace);
+      cursor.beginElement("Address",wsaNamespace);
+      cursor.insertChars(offerEndpoint);
+      cursor.toParent();
+      cursor.toParent();
+      cursor.beginElement("Identifier",wsrmNamespace);
+      cursor.insertChars("urn:soapui:" + uuid);
+      cursor.toParent();
+      cursor.toParent();
+    }
     cursor.beginElement(WSRM_ACKNOWLEDGMENTS_TO,wsrmNamespace);
-    cursor.insertNamespace("wsa",WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()));
-    cursor.beginElement("Address",WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()));
+    cursor.insertNamespace("wsa",wsaNamespace);
+    cursor.beginElement("Address",wsaNamespace);
     if (ackTo == null || ackTo.length() < 1)     ackTo=WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()) + "/anonymous" + "?id="+ uuid;
     cursor.insertChars(ackTo);
     if (expires != 0) {
@@ -50,32 +56,5 @@
  catch (  XmlException e) {
     e.printStackTrace();
   }
-  try {
-    WsdlSubmit wsdlSubmit=startSequenceRequest.submit(new WsdlSubmitContext(null),true);
-    Logger.getLogger("wsrm").info("StartSequence Request Sent: " + uuid);
-    while (wsdlSubmit.getStatus() != Status.FINISHED) {
-      wsdlSubmit.waitUntilFinished();
-    }
-    Response response=wsdlSubmit.getResponse();
-    String responseContent=response.getContentAsString();
-    XmlObject xml=XmlUtils.createXmlObject(responseContent);
-    XmlCursor cursor=xml.newCursor();
-    cursor.toFirstContentToken();
-    cursor.toFirstChild();
-    cursor.toNextSibling();
-    cursor.toFirstChild();
-    cursor.toFirstChild();
-    String sequenceIdentifier=cursor.getTextValue();
-    Logger.getLogger("wsrm").info("Sequence response Received, sequence ID: " + sequenceIdentifier);
-    WsrmSequence sequence=new WsrmSequence(sequenceIdentifier.trim(),uuid,soapVersion,wsrmNamespace,operation);
-    return sequence;
-  }
- catch (  SubmitException e1) {
-    SoapUI.logError(e1);
-    return null;
-  }
-catch (  XmlException e) {
-    SoapUI.logError(e);
-    return null;
-  }
+  return startSequenceRequest;
 }
