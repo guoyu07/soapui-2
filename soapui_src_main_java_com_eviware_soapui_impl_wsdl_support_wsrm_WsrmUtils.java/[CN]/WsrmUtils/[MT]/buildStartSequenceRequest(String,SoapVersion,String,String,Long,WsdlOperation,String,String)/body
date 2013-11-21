@@ -25,10 +25,11 @@
     cursor.toNextToken();
     cursor.insertNamespace("wsrm",wsrmNamespace);
     cursor.beginElement(WSRM_CREATE_SEQUENCE,wsrmNamespace);
-    if (!StringUtils.isNullOrEmpty(offerEndpoint)) {
+    String wsaNamespace=wsrmNamespace.equals(WSRM_NS_1_0) ? WsaUtils.WS_A_NAMESPACE_200408 : WsaUtils.WS_A_NAMESPACE_200508;
+    if (!wsrmNamespace.equals(WSRM_NS_1_0) && !StringUtils.isNullOrEmpty(offerEndpoint)) {
       cursor.beginElement("Offer",wsrmNamespace);
       cursor.beginElement("Endpoint",wsrmNamespace);
-      cursor.beginElement("Address",WsaUtils.WS_A_NAMESPACE_200508);
+      cursor.beginElement("Address",wsaNamespace);
       cursor.insertChars(offerEndpoint);
       cursor.toParent();
       cursor.toParent();
@@ -38,8 +39,8 @@
       cursor.toParent();
     }
     cursor.beginElement(WSRM_ACKNOWLEDGMENTS_TO,wsrmNamespace);
-    cursor.insertNamespace("wsa",WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()));
-    cursor.beginElement("Address",WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()));
+    cursor.insertNamespace("wsa",wsaNamespace);
+    cursor.beginElement("Address",wsaNamespace);
     if (ackTo == null || ackTo.length() < 1)     ackTo=WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()) + "/anonymous" + "?id="+ uuid;
     cursor.insertChars(ackTo);
     if (expires != 0) {
