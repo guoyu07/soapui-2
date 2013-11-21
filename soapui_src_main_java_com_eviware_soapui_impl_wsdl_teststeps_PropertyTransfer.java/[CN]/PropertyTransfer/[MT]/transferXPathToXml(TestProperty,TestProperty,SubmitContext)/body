@@ -89,8 +89,14 @@
     return result.toArray(new String[result.size()]);
   }
   finally {
-    sourceXml.dispose();
-    targetXml.dispose();
-    if (lastSource != null)     lastSource.dispose();
+    if (sourceXml != null) {
+      sourceXml.dispose();
+    }
+    if (targetXml != null) {
+      targetXml.dispose();
+    }
+    if (lastSource != null) {
+      lastSource.dispose();
+    }
   }
 }
