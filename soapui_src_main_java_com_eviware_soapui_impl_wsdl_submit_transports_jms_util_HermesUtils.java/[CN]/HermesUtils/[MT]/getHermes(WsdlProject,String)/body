@@ -7,7 +7,8 @@
   }
  catch (  NamingException ne) {
     UISupport.showErrorMessage("Hermes configuration is not valid. Please check that 'Hermes Config' project property is set to path of proper hermes-config.xml file");
-    throw new NamingException("Session name '" + sessionName + "' does not exist in Hermes configuration or path to Hermes config ( "+ project.getHermesConfig()+ " )is not valid !!!!");
+    SoapUI.logError(ne,"Error when trying to find JMS session");
+    throw new NamingException("Session name '" + sessionName + "' does not exist in Hermes configuration or path to Hermes config ( "+ project.getHermesConfig()+ " )is not valid!");
   }
 catch (  MalformedURLException mue) {
     SoapUI.logError(mue);
