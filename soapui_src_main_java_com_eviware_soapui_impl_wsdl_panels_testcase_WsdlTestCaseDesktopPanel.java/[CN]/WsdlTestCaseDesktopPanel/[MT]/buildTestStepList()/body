@@ -6,6 +6,10 @@
     JButton testStepButton=UISupport.createToolbarButton(new AddWsdlTestStepAction(factory));
     if (factory instanceof ProPlaceholderStepFactory)     testStepButton.setEnabled(false);
     toolbar.addFixed(testStepButton);
+    String type=factory.getType();
+    if (type.equals(JdbcRequestTestStepFactory.JDBC_TYPE) || type.equals(PropertyTransfersStepFactory.TRANSFER_TYPE) || type.equals("datasourceloop")|| type.equals(RunTestCaseStepFactory.RUNTESTCASE_TYPE)|| type.equals(ManualTestStepFactory.MANUAL_TEST_STEP)) {
+      toolbar.addRelatedGap();
+    }
   }
   p.add(toolbar,BorderLayout.NORTH);
   testStepList=new JTestStepList(getModelItem());
