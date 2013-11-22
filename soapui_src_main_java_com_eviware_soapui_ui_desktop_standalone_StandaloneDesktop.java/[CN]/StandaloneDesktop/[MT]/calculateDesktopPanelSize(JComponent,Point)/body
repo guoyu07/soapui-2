@@ -1,11 +1,11 @@
 {
   Dimension frameSize;
   Dimension preferredSize=panel.getPreferredSize();
-  if (desktopPane.getBounds().contains(new Rectangle(location,preferredSize))) {
+  if (desktop.getBounds().contains(new Rectangle(location,preferredSize))) {
     frameSize=preferredSize;
   }
  else {
-    frameSize=new Dimension((int)((desktopPane.getWidth() - location.x) * .95),(int)((desktopPane.getHeight() - location.y) * .95));
+    frameSize=new Dimension((int)((desktop.getWidth() - location.x) * .95),(int)((desktop.getHeight() - location.y) * .95));
   }
   return frameSize;
 }
