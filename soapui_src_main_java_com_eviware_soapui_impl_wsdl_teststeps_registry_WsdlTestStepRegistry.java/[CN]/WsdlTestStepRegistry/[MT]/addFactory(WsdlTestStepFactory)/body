@@ -1,4 +1,9 @@
 {
-  removeFactory(factory.getType());
-  factories.add(factory);
+  int replaceIndex=removeFactory(factory.getType());
+  if (replaceIndex == -1) {
+    factories.add(factory);
+  }
+ else {
+    factories.add(replaceIndex,factory);
+  }
 }

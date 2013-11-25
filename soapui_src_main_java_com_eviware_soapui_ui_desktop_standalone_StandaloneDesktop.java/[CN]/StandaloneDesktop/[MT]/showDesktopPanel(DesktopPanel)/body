@@ -1,8 +1,12 @@
 {
+  if (desktop.getBounds().width == 0) {
+    deferredDesktopPanels.add(desktopPanel);
+    return desktopPanel;
+  }
   JInternalFrame frame=getFrameForDesktopPanel(desktopPanel);
   if (frame != null) {
     try {
-      desktopPane.getDesktopManager().deiconifyFrame(frame);
+      desktop.getDesktopManager().deiconifyFrame(frame);
       frame.setSelected(true);
       frame.moveToFront();
     }
@@ -12,7 +16,7 @@
   }
  else {
     frame=createContentFrame(desktopPanel);
-    desktopPane.add(frame);
+    desktop.add(frame);
     if (desktopPanel.getModelItem() != null)     modelItemToInternalFrameMap.put(desktopPanel.getModelItem(),frame);
     internalFrameToDesktopPanelMap.put(frame,desktopPanel);
     fireDesktopPanelCreated(desktopPanel);

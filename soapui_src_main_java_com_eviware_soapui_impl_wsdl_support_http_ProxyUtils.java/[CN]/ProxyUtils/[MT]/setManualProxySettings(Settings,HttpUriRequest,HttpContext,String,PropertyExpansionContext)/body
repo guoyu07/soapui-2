@@ -1,0 +1,18 @@
+{
+  String proxyHost=getExpandedProperty(context,settings,ProxySettings.HOST);
+  String proxyPort=getExpandedProperty(context,settings,ProxySettings.PORT);
+  if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
+    String[] excludes=PropertyExpander.expandProperties(context,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
+    try {
+      URL url=new URL(urlString);
+      if (!excludes(excludes,url.getHost(),url.getPort())) {
+        HttpHost proxy=new HttpHost(proxyHost,Integer.parseInt(proxyPort));
+        setProxyCredentials(settings,httpContext,context,proxy);
+        httpMethod.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+      }
+    }
+ catch (    MalformedURLException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

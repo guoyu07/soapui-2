@@ -1,22 +1,22 @@
 {
   addFactory(new WsdlTestRequestStepFactory());
-  addFactory(new GroovyScriptStepFactory());
-  addFactory(new PropertiesStepFactory());
-  addFactory(new PropertyTransfersStepFactory());
-  addFactory(new GotoStepFactory());
-  addFactory(new DelayStepFactory());
-  addFactory(new RunTestCaseStepFactory());
   addFactory(new RestRequestStepFactory());
   addFactory(new HttpRequestStepFactory());
-  addFactory(new WsdlMockResponseStepFactory());
-  addFactory(new JdbcRequestTestStepFactory());
   addFactory(new AMFRequestStepFactory());
-  addFactory(new ManualTestStepFactory());
+  addFactory(new JdbcRequestTestStepFactory());
+  addFactory(new PropertiesStepFactory());
+  addFactory(new PropertyTransfersStepFactory());
   addFactory(new ProPlaceholderStepFactory("datasource","SoapUI Pro DataSource","/datasource.gif"));
-  addFactory(new ProPlaceholderStepFactory("datasourceloop","SoapUI Pro DataSourceLoop","/datasource_loop.gif"));
   addFactory(new ProPlaceholderStepFactory("datasink","SoapUI Pro DataSink","/datasink.gif"));
   addFactory(new ProPlaceholderStepFactory("datagen","SoapUI Pro DataGen","/datagen.gif"));
+  addFactory(new ProPlaceholderStepFactory("datasourceloop","SoapUI Pro DataSourceLoop","/datasource_loop.gif"));
+  addFactory(new GotoStepFactory());
+  addFactory(new RunTestCaseStepFactory());
+  addFactory(new GroovyScriptStepFactory());
   addFactory(new ProPlaceholderStepFactory("assertionteststep","SoapUI Pro Assertion TestStep","/unknown_assertion_step.gif"));
+  addFactory(new DelayStepFactory());
+  addFactory(new WsdlMockResponseStepFactory());
+  addFactory(new ManualTestStepFactory());
   for (  WsdlTestStepFactory factory : SoapUI.getFactoryRegistry().getFactories(WsdlTestStepFactory.class)) {
     addFactory(factory);
   }

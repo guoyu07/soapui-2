@@ -10,7 +10,22 @@
       brandedTitleExt="";
     }
     startSoapUI(mainArgs,"SoapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,new StandaloneSoapUICore(true));
-    if (isAutoUpdateVersion())     new SoapUIVersionUpdate().checkForNewVersion(false);
+    if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !SoapUI.isJXBrowserDisabled(true)) {
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+          showPushPage();
+        }
+      }
+);
+    }
+    if (isAutoUpdateVersion()) {
+      new Thread(new Runnable(){
+        @Override public void run(){
+          new SoapUIVersionUpdate().checkForNewVersion(false);
+        }
+      }
+).start();
+    }
     CajoServer.getInstance().start();
   }
  catch (  Exception e) {

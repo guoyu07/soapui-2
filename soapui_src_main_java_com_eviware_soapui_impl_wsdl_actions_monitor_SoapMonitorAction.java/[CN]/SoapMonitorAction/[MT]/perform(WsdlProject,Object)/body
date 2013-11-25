@@ -4,13 +4,6 @@
     dialog.setSize(650,500);
   }
   Settings settings=project.getSettings();
-  StringList endpoints=new StringList();
-  endpoints.add(null);
-  for (  Interface iface : ModelSupport.getChildren(project,WsdlInterface.class)) {
-    endpoints.addAll(iface.getEndpoints());
-  }
-  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch LoadTestRunner");
-  generalForm=builder.createForm("General");
   dialog.setIntValue(LaunchForm.PORT,(int)settings.getLong(LaunchForm.PORT,8081));
   dialog.setOptions(LaunchForm.REQUEST_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
   dialog.setOptions(LaunchForm.RESPONSE_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
@@ -61,7 +54,7 @@
         openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),null);
       }
  else {
-        openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),dialog.getValue(LaunchForm.SETSSLMON));
+        openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),false,dialog.getValue(LaunchForm.SETSSLMON));
       }
     }
  catch (    Exception e) {

@@ -5,6 +5,7 @@
   actions.addAction(closeCurrentAction);
   actions.addAction(closeOtherAction);
   actions.addAction(closeAllAction);
-  desktopPane.setBackground(UISupport.MAC_BACKGROUND_COLOR);
+  desktop.setBackground(UISupport.MAC_BACKGROUND_COLOR);
   enableWindowActions();
+  desktop.addComponentListener(new DesktopResizeListener());
 }

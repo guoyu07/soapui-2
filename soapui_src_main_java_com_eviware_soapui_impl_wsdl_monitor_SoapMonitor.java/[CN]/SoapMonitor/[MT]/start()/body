@@ -18,12 +18,12 @@
       oldProxyHost=SoapUI.getSettings().getString(ProxySettings.HOST,"");
       oldProxyPort=SoapUI.getSettings().getString(ProxySettings.PORT,"");
       oldProxyEnabled=SoapUI.getSettings().getBoolean(ProxySettings.ENABLE_PROXY);
+      oldProxyAuto=SoapUI.getSettings().getBoolean(ProxySettings.AUTO_PROXY);
       SoapUI.getSettings().setString(ProxySettings.HOST,"127.0.0.1");
       SoapUI.getSettings().setString(ProxySettings.PORT,String.valueOf(localPort));
       SoapUI.getSettings().setBoolean(ProxySettings.ENABLE_PROXY,true);
-      SoapUI.setProxyEnabled(true);
-      JToggleButton applyProxyButton=(JToggleButton)SoapUI.getApplyProxyButton();
-      if (applyProxyButton != null)       applyProxyButton.setIcon(UISupport.createImageIcon(SoapUI.PROXY_ENABLED_ICON));
+      SoapUI.getSettings().setBoolean(ProxySettings.AUTO_PROXY,false);
+      SoapUI.updateProxyFromSettings();
     }
     SoapUI.log.info("Started HTTP Monitor on local port " + localPort);
   }

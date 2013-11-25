@@ -1,3 +1,8 @@
 {
-  return internalFrameToDesktopPanelMap.get(modelItem);
+  for (  DesktopPanel panel : internalFrameToDesktopPanelMap.values()) {
+    if (panel.getModelItem() == modelItem) {
+      return panel;
+    }
+  }
+  return null;
 }
