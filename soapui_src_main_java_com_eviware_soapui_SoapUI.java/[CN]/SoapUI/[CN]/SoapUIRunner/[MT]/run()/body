@@ -18,7 +18,14 @@
       }
 );
     }
-    if (isAutoUpdateVersion())     new SoapUIVersionUpdate().checkForNewVersion(false);
+    if (isAutoUpdateVersion()) {
+      new Thread(new Runnable(){
+        @Override public void run(){
+          new SoapUIVersionUpdate().checkForNewVersion(false);
+        }
+      }
+).start();
+    }
     CajoServer.getInstance().start();
   }
  catch (  Exception e) {

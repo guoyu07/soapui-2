@@ -1,0 +1,7 @@
+{
+  ProxyUtils.setProxyEnabled(true);
+  ProxyUtils.setAutoProxy(true);
+  setProxySystemProperties();
+  ProxyUtils.initProxySettings(manualSettings(),httpMethod,null,URL,null);
+  assertProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
+}

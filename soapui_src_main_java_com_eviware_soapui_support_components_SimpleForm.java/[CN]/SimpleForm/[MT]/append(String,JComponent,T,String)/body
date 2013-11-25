@@ -9,6 +9,7 @@
   if (label != null) {
     panel.add(label,cc.xy(2,row));
     component.addComponentListener(new LabelHider(label,spaceRowIndex));
+    component.addPropertyChangeListener(ENABLED_PROPERTY_NAME,new LabelEnabler(label));
     if (label instanceof JLabel) {
       JLabel jl=((JLabel)label);
       jl.setLabelFor(component);

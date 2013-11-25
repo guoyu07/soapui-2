@@ -1,0 +1,19 @@
+{
+  if (applyProxyButton == null) {
+    return;
+  }
+  if (ProxyUtils.isProxyEnabled()) {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_ENABLED_ICON));
+    if (ProxyUtils.isAutoProxy()) {
+      applyProxyButton.getAction().putValue(Action.SHORT_DESCRIPTION,"Proxy Setting: Automatic");
+    }
+ else {
+      applyProxyButton.getAction().putValue(Action.SHORT_DESCRIPTION,"Proxy Setting: Manual");
+    }
+  }
+ else {
+    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_DISABLED_ICON));
+    applyProxyButton.getAction().putValue(Action.SHORT_DESCRIPTION,"Proxy Setting: None");
+  }
+  applyProxyButton.setSelected(ProxyUtils.isProxyEnabled());
+}

@@ -1,0 +1,23 @@
+{
+  try {
+    DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+    DocumentBuilder db=dbf.newDocumentBuilder();
+    InputStream inputStream=IOUtils.toInputStream(documentContent,"UTF-8");
+    Document doc=db.parse(inputStream);
+    doc.getDocumentElement().normalize();
+    NodeList nodeList=doc.getElementsByTagName("version");
+    Node firstNode=nodeList.item(0);
+    if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
+      Element firstElement=(Element)firstNode;
+      latestVersion=getNodeValue(firstElement,"version-number");
+      releaseNotesCore=getNodeValue(firstElement,"release-notes-core");
+      releaseNotesPro=getNodeValue(firstElement,"release-notes-pro");
+      downloadLinkCore=getNodeValue(firstElement,"download-link-core");
+      downloadLinkPro=getNodeValue(firstElement,"download-link-pro");
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"Network Error for Version Update or Proxy");
+    throw e;
+  }
+}
