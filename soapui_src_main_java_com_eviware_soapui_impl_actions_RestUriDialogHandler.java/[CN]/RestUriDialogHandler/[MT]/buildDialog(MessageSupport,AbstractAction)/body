@@ -2,13 +2,14 @@
   XFormDialogBuilder newDialogBuilder=XFormFactory.createDialogBuilder(messages.get("Title"));
   XForm form=newDialogBuilder.createForm("");
   uriLabelKey=messages.get("Form.URI.Label");
+  exampleUri=messages.get("Form.Example.URI");
   form.addTextField(uriLabelKey,messages.get("Form.URI.Description"),XForm.FieldType.TEXT);
   ActionList actions=newDialogBuilder.buildOkCancelHelpActions(HelpUrls.NEWRESTPROJECT_HELP_URL);
   if (actionToBeAdded != null) {
     actions.addAction(actionToBeAdded);
   }
   dialog=newDialogBuilder.buildDialog(actions,messages.get("Description"),UISupport.TOOL_ICON);
-  dialog.setValue(uriLabelKey,EXAMPLE_URI);
+  dialog.setValue(uriLabelKey,exampleUri);
   XFormField uriField=dialog.getFormField(uriLabelKey);
   if (uriField instanceof JTextFieldFormField) {
     defaultURIReplaced=false;
