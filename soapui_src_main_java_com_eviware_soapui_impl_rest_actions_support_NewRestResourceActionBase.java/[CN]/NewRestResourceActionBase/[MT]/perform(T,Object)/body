@@ -17,6 +17,6 @@
     resource.setPath(strippedPath);
     resource.setName(extractNameFromPath(path));
     XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance(),ParamLocation.METHOD);
-    SoapUI.getActionRegistry().getAction(NewRestMethodAction.SOAPUI_ACTION_ID).perform(resource,methodParams);
+    createMethodAndRequestFor(resource);
   }
 }
