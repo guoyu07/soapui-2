@@ -1,0 +1,9 @@
+{
+  stubbedDialogs.mockConfirmWithReturnValue(true);
+  String childResourcePath="anthony_jr";
+  action.createRestResource(service,ENDPOINT + "/" + PARENT_RESOURCE_PATH+ "/"+ childResourcePath,null);
+  List<RestResource> rootLevelResources=service.getResourceList();
+  assertThat(rootLevelResources,is(aCollectionWithSize(1)));
+  RestResource newChildResource=rootLevelResources.get(0).getAllChildResources()[0];
+  assertThat(newChildResource.getPath(),is(childResourcePath));
+}

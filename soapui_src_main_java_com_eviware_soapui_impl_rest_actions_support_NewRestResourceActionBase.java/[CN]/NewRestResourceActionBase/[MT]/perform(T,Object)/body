@@ -13,10 +13,8 @@
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
     RestResource resource=createRestResource(service,path,dialog);
-    String strippedPath=RestUtils.extractParams(dialog.getValue(Form.RESOURCEPATH),resource.getParams(),false);
-    resource.setPath(strippedPath);
-    resource.setName(extractNameFromPath(path));
-    XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance(),ParamLocation.METHOD);
+    RestUtils.extractParams(dialog.getValue(Form.RESOURCEPATH),resource.getParams(),false);
+    resource.setPath(removeParametersFrom(resource.getPath()));
     createMethodAndRequestFor(resource);
   }
 }

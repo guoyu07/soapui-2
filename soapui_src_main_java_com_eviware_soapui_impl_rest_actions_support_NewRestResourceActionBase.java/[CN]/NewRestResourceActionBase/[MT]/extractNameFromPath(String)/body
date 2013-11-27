@@ -1,12 +1,5 @@
 {
-  String strippedPath;
-  if (path.contains("?") || path.contains(";")) {
-    int parametersIndex=findParametersIndex(path);
-    strippedPath=path.substring(0,parametersIndex);
-  }
- else {
-    strippedPath=path;
-  }
+  String strippedPath=removeParametersFrom(path);
   String[] items=strippedPath.split("/");
   return items.length == 0 ? "" : items[items.length - 1];
 }
