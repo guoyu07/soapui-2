@@ -12,7 +12,7 @@
   }
   if (dialog.show()) {
     String path=dialog.getValue(Form.RESOURCEPATH);
-    RestResource resource=createRestResource(service,path,dialog);
+    RestResource resource=createRestResource(parent,path);
     RestUtils.extractParams(dialog.getValue(Form.RESOURCEPATH),resource.getParams(),false);
     resource.setPath(removeParametersFrom(resource.getPath()));
     createMethodAndRequestFor(resource);

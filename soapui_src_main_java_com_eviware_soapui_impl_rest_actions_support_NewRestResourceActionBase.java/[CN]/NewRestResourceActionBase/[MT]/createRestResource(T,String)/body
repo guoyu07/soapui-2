@@ -1,0 +1,30 @@
+{
+  RestResource possibleParent=null;
+  String pathWithoutEndpoint=removeEndpointFrom(path);
+  for (  RestResource resource : getResourcesFor(item)) {
+    if (pathWithoutEndpoint.startsWith(resource.getFullPath() + "/")) {
+      int c=0;
+      for (; c < resource.getChildResourceCount(); c++) {
+        if (pathWithoutEndpoint.startsWith(resource.getChildResourceAt(c).getFullPath() + "/")) {
+          break;
+        }
+      }
+      if (c != resource.getChildResourceCount()) {
+        continue;
+      }
+      possibleParent=resource;
+      break;
+    }
+  }
+  if (possibleParent != null && UISupport.confirm("Create resource as child to [" + possibleParent.getName() + "]",CONFIRM_DIALOG_TITLE)) {
+    String strippedPath=pathWithoutEndpoint;
+    if (pathWithoutEndpoint.length() > 0 && possibleParent.getFullPath().length() > 0) {
+      strippedPath=pathWithoutEndpoint.substring(possibleParent.getFullPath().length() + 1);
+    }
+    return possibleParent.addNewChildResource(extractNameFromPath(strippedPath),strippedPath);
+  }
+ else {
+    String pathWithoutLeadingSlash=pathWithoutEndpoint.startsWith("/") ? pathWithoutEndpoint.substring(1) : pathWithoutEndpoint;
+    return addResourceTo(item,extractNameFromPath(pathWithoutEndpoint),pathWithoutLeadingSlash);
+  }
+}
