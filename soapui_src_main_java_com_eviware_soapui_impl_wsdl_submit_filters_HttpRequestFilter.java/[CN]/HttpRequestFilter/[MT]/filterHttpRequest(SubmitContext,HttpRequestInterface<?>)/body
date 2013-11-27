@@ -1,7 +1,7 @@
 {
   HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   String path=PropertyExpander.expandProperties(context,request.getPath());
-  StringBuffer query=new StringBuffer();
+  StringBuilder query=new StringBuilder();
   String encoding=System.getProperty("soapui.request.encoding",StringUtils.unquote(request.getEncoding()));
   StringToStringMap responseProperties=(StringToStringMap)context.getProperty(BaseHttpRequestTransport.RESPONSE_PROPERTIES);
   MimeMultipart formMp="multipart/form-data".equals(request.getMediaType()) && httpMethod instanceof HttpEntityEnclosingRequestBase ? new MimeMultipart() : null;
@@ -118,12 +118,6 @@ httpMethod.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.
 }
  catch (Exception e) {
 SoapUI.logError(e);
-}
-}
-if (request instanceof RestRequest) {
-String acceptEncoding=((RestRequest)request).getAccept();
-if (StringUtils.hasContent(acceptEncoding)) {
-httpMethod.setHeader("Accept",acceptEncoding);
 }
 }
 if (formMp != null) {
