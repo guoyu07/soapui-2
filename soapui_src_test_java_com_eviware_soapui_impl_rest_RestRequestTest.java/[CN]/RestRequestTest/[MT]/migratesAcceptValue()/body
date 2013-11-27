@@ -1,0 +1,8 @@
+{
+  RestRequestConfig requestConfig=RestRequestConfig.Factory.newInstance();
+  String contentType="image/jpeg";
+  requestConfig.setAccept(contentType);
+  request=new RestRequest(ModelItemFactory.makeRestMethod(),requestConfig,false);
+  assertThat(request.getRequestHeaders().get(RestRequest.ACCEPT_HEADER_NAME),hasItem(contentType));
+  assertThat(requestConfig.getAccept(),is(nullValue()));
+}
