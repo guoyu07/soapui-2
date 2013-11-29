@@ -1,7 +1,7 @@
 {
   JPanel logPanel=new JPanel(new BorderLayout());
   transferLogTableModel=new TransfersTableModel();
-  logTable=new JXTable(transferLogTableModel);
+  logTable=JTableFactory.getInstance().makeJXTable(transferLogTableModel);
   logTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       int row=logTable.getSelectedRow();

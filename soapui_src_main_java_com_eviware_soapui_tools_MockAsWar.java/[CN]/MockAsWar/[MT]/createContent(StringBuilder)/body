@@ -2,7 +2,17 @@
   content.replace(content.indexOf(PROJECT_FILE_NAME),content.indexOf(PROJECT_FILE_NAME) + PROJECT_FILE_NAME.length(),projectFile.getName());
   content.replace(content.indexOf(SOAPUI_SETTINGS),content.indexOf(SOAPUI_SETTINGS) + SOAPUI_SETTINGS.length(),settingsFile != null && settingsFile.exists() && settingsFile.isFile() ? "WEB-INF/soapui/" + settingsFile.getName() : "");
   content.replace(content.indexOf(MOCKSERVICE_ENDPOINT),content.indexOf(MOCKSERVICE_ENDPOINT) + MOCKSERVICE_ENDPOINT.length(),localEndpoint);
-  if (!includeActions)   content.replace(content.indexOf("WEB-INF/actions"),content.indexOf("WEB-INF/actions") + "WEB-INF/actions".length(),"");
-  if (!includeListeners)   content.replace(content.indexOf("WEB-INF/listeners"),content.indexOf("WEB-INF/listeners") + "WEB-INF/listeners".length(),"");
-  if (!enableWebUI)   content.replace(content.indexOf("<param-value>true</param-value>"),content.indexOf("<param-value>true</param-value>") + "<param-value>true</param-value>".length(),"<param-value>false</param-value>");
+  if (!includeActions) {
+    String actionsString="WEB-INF/actions";
+    content.delete(content.indexOf(actionsString),content.indexOf(actionsString) + actionsString.length());
+  }
+  if (!includeListeners) {
+    String listenersString="WEB-INF/listeners";
+    content.delete(content.indexOf(listenersString),content.indexOf(listenersString) + listenersString.length());
+  }
+  if (!enableWebUI) {
+    String webUIEnabled="<param-value>true</param-value>";
+    String webUIDisabled="<param-value>false</param-value>";
+    content.replace(content.indexOf(webUIEnabled),content.indexOf(webUIEnabled) + webUIEnabled.length(),webUIDisabled);
+  }
 }

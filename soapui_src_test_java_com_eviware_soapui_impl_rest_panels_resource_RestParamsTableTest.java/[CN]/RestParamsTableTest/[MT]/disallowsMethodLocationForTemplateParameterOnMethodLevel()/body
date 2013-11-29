@@ -1,0 +1,7 @@
+{
+  RestParamProperty prop=params.addProperty("prop");
+  prop.setParamLocation(NewRestResourceActionBase.ParamLocation.METHOD);
+  prop.setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  List<NewRestResourceActionBase.ParamLocation> availableLocations=getParameterLocations();
+  assertThat(availableLocations,not(hasItem(NewRestResourceActionBase.ParamLocation.METHOD)));
+}

@@ -7,24 +7,13 @@
   mainToolbar.add(new ImportWsdlProjectActionDelegate());
   mainToolbar.add(new SaveAllActionDelegate());
   mainToolbar.addSpace(2);
-  mainToolbar.add(new ShowOnlineHelpAction("User Guide",HelpUrls.USERGUIDE_HELP_URL,"Opens the SoapUI User-Guide in a browser"));
   mainToolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.FORUMS_HELP_URL,"Opens the SoapUI Forum in a browser","/group_go.png"));
   mainToolbar.addSpace(2);
   mainToolbar.add(new ShowOnlineHelpAction("Trial",HelpUrls.TRIAL_URL,"Apply for SoapUI Pro Trial License","/favicon.png"));
   mainToolbar.addSpace(2);
   mainToolbar.add(new PreferencesActionDelegate());
   applyProxyButton=(JToggleButton)mainToolbar.add(new JToggleButton(new ApplyProxyButtonAction()));
-  ProxyUtils.setProxyEnabled(getSettings().getBoolean(ProxySettings.ENABLE_PROXY));
-  if (ProxyUtils.isProxyEnabled()) {
-    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_ENABLED_ICON));
-    applyProxyButton.setSelected(true);
-    ProxyUtils.setProxyEnabled(true);
-  }
- else {
-    applyProxyButton.setIcon(UISupport.createImageIcon(PROXY_DISABLED_ICON));
-    ProxyUtils.setProxyEnabled(false);
-  }
-  mainToolbar.add(new LaunchLoadUIButtonAction());
+  updateProxyButtonAndTooltip();
   mainToolbar.addGlue();
   searchField=new JTextField(20);
   searchField.addKeyListener(new KeyAdapter(){

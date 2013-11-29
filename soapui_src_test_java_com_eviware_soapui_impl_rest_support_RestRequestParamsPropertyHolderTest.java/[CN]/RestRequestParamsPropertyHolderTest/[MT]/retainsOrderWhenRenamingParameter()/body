@@ -1,0 +1,8 @@
+{
+  String originalName="secondParameter";
+  parametersHolder.addProperty(originalName);
+  parametersHolder.addProperty("lastParameter");
+  String newName="secondParameter_with_new_name";
+  parametersHolder.renameProperty(originalName,newName);
+  assertThat(parametersHolder.getPropertyIndex(newName),is(1));
+}

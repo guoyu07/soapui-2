@@ -1,0 +1,8 @@
+{
+  String newParameterName="newOne";
+  parametersHolder.addProperty(newParameterName);
+  parametersHolder.moveProperty(newParameterName,0);
+  assertThat(parametersHolder.getPropertyAt(0).getName(),is(newParameterName));
+  assertThat(restRequest.getConfig().isSetParameterOrder(),is(true));
+  assertThat(restRequest.getConfig().getParameterOrder().getEntryArray(0),is(newParameterName));
+}

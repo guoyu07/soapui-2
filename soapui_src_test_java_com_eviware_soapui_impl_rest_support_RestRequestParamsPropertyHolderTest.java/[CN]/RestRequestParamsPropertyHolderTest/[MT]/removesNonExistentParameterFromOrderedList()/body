@@ -1,0 +1,7 @@
+{
+  RestRequestConfig requestConfig=buildRestRequestConfigWithParameters("first","second","third");
+  RestMethod method=buildRestMethodWithParameters("third","first");
+  RestRequest restRequest=new RestRequest(method,requestConfig,false);
+  List<String> parameterNameList=Arrays.asList(restRequest.getPropertyNames());
+  assertThat(parameterNameList,is(Arrays.asList("first","third")));
+}

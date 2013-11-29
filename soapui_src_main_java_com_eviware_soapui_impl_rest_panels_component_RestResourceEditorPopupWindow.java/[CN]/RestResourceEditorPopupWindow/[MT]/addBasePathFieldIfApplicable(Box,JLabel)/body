@@ -1,0 +1,14 @@
+{
+  if (!StringUtils.isNullOrEmpty(targetResource.getInterface().getBasePath())) {
+    basePathTextField=new JTextField(targetResource.getInterface().getBasePath());
+    basePathTextField.getDocument().addDocumentListener(new PathChangeListener(changeWarningLabel,targetResource.getTopLevelResource()));
+    basePathTextField.setMaximumSize(new Dimension(340,(int)basePathTextField.getPreferredSize().getHeight()));
+    Box row=Box.createHorizontalBox();
+    row.setAlignmentX(0);
+    row.add(createBoxWith(basePathTextField));
+    contentBox.add(row);
+    if (focusedResource == null) {
+      moveFocusToField(basePathTextField);
+    }
+  }
+}

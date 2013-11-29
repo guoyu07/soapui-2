@@ -1,5 +1,5 @@
 {
-  if (!doesParameterExist(name) || isTemplateProperty(name)) {
+  if (doesParameterExist(name) && isTemplateProperty(name)) {
     setPath(getPath().replaceAll("\\{" + name + "\\}",""));
   }
 }

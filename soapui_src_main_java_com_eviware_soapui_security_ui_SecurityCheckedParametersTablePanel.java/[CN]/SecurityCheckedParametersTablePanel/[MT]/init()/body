@@ -7,7 +7,7 @@
   toolbar.add(UISupport.createToolbarButton(new CloneParametersAction(securityScan)));
   toolbar.addGlue();
   add(toolbar,BorderLayout.NORTH);
-  table=new JXTable(model);
+  table=JTableFactory.getInstance().makeJXTable(model);
   table.getSelectionModel().addListSelectionListener(this);
   defineColumnWidth();
   table.setDefaultEditor(String.class,getDefaultCellEditor());

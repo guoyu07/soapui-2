@@ -2,8 +2,8 @@
   String[] paths=getLocationXPathsToReplace();
   for (  String path : paths) {
     XmlObject[] locations=xmlObject.selectPath(path);
-    for (int i=0; i < locations.length; i++) {
-      SimpleValue wsdlImport=((SimpleValue)locations[i]);
+    for (    XmlObject location : locations) {
+      SimpleValue wsdlImport=((SimpleValue)location);
       replaceLocation(urlToFileMap,baseUrl,wsdlImport);
     }
   }

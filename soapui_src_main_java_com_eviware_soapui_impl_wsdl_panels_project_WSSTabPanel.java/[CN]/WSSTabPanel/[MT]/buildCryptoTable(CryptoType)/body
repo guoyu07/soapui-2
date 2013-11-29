@@ -1,5 +1,5 @@
 {
-  final JTable cryptoTable=new JTable(new CryptoTableModel(cryptoType));
+  final JTable cryptoTable=JTableFactory.getInstance().makeJTable(new CryptoTableModel(cryptoType));
 switch (cryptoType) {
 case KEYSTORE:
     keystoreTable=cryptoTable;

@@ -1,0 +1,15 @@
+{
+  JTable stripedTable=new JTable(tableModel){
+    @Override public Component prepareRenderer(    TableCellRenderer renderer,    int row,    int column){
+      Component defaultRenderer=super.prepareRenderer(renderer,row,column);
+      applyStripesToRenderer(row,defaultRenderer);
+      return defaultRenderer;
+    }
+    @Override public boolean getShowVerticalLines(){
+      return false;
+    }
+  }
+;
+  setGridAttributes(stripedTable);
+  return stripedTable;
+}

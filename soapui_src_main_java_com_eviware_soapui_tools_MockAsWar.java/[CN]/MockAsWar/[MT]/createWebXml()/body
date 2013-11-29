@@ -4,7 +4,7 @@
     BufferedReader in=new BufferedReader(new InputStreamReader(url.openStream()));
     String inputLine;
     StringBuilder content=new StringBuilder();
-    while ((inputLine=in.readLine()) != null)     content.append(inputLine + "\n");
+    while ((inputLine=in.readLine()) != null)     content.append(inputLine).append("\n");
     createContent(content);
     BufferedWriter out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(webInf,"web.xml"))));
     out.write(content.toString());

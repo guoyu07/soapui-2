@@ -1,2 +1,8 @@
 {
+  if (parent.hasProperty(name)) {
+    firePropertyValueChanged(name,null,parent.getPropertyValue(name));
+  }
+ else {
+    firePropertyMoved(name,oldIndex,newIndex);
+  }
 }

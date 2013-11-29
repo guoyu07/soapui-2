@@ -1,6 +1,6 @@
 {
   tableModel=iface instanceof WsdlInterface ? new WsdlEndpointsTableModel() : new RestEndpointsTableModel();
-  table=new JTable(tableModel);
+  table=JTableFactory.getInstance().makeJTable(tableModel);
   TableColumn passwordColumn=table.getColumnModel().getColumn(tableModel.getPasswordColumnIndex());
   JPasswordField textField=new JPasswordField();
   textField.setBorder(BorderFactory.createEmptyBorder());
@@ -38,5 +38,5 @@
   scrollPane.setBackground(Color.WHITE);
   add(scrollPane,BorderLayout.CENTER);
   add(createButtons(),BorderLayout.NORTH);
-  iface.addPropertyChangeListener("endpoints",this);
+  iface.addPropertyChangeListener(Interface.ENDPOINT_PROPERTY,this);
 }

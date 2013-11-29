@@ -1,0 +1,9 @@
+{
+  RestRequestConfig requestConfig=RestRequestConfig.Factory.newInstance();
+  StringListConfig parameterOrder=StringListConfig.Factory.newInstance();
+  for (  String parameterName : parameterNames) {
+    parameterOrder.addEntry(parameterName);
+  }
+  requestConfig.setParameterOrder(parameterOrder);
+  return requestConfig;
+}

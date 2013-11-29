@@ -1,3 +1,9 @@
 {
+  if (isChangingLocationOfParameter(name)) {
+    return;
+  }
+  if (!sortedPropertyNames.contains(name)) {
+    sortedPropertyNames.add(name);
+  }
   firePropertyAdded(name);
 }

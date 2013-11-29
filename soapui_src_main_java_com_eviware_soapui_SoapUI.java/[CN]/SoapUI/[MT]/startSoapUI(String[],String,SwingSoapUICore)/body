@@ -42,15 +42,7 @@
   core.prepareUI();
   soapUI.show(workspace);
   core.afterStartup(workspace);
-  if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !SoapUI.isJXBrowserDisabled(true)) {
-    SwingUtilities.invokeLater(new Runnable(){
-      public void run(){
-        showPushPage();
-      }
-    }
-);
-  }
-  frame.setSize(1000,750);
+  new WindowInitializationTask().run();
   String[] args2=cmd.getArgs();
   if (args2 != null && args2.length > 0) {
     String arg=args2[0];

@@ -12,7 +12,6 @@
   AbstractAction optionsDelegate=SwingActionDelegate.createDelegate(LoadTestOptionsAction.SOAPUI_ACTION_ID,loadTest);
   optionsDelegate.putValue(Action.SMALL_ICON,UISupport.createImageIcon("/options.gif"));
   optionsButton=UISupport.createToolbarButton(optionsDelegate);
-  convertToLoadUIButton=UISupport.createToolbarButton(SwingActionDelegate.createDelegate(ConvertToLoadUIAction.SOAPUI_ACTION_ID,getModelItem(),null,"/convertLoadTestToLoadUI.png"));
   strategyCombo=new JComboBox(LoadStrategyRegistry.getInstance().getStrategies());
   strategyCombo.setToolTipText("Selects which LoadTest Strategy to use");
   UISupport.setPreferredHeight(strategyCombo,18);
@@ -32,7 +31,6 @@
   toolbar.add(resetButton);
   toolbar.add(exportButton);
   toolbar.add(optionsButton);
-  toolbar.add(convertToLoadUIButton);
   toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.LOADTESTEDITOR_HELP_URL)));
   toolbar.add(Box.createHorizontalGlue());
   buildLimitBar(toolbar);

@@ -2,7 +2,7 @@
   super(new JPanel(new BorderLayout()));
   this.iface=iface;
   namespaceTableModel=new NamespaceTableModel();
-  table=new JTable(namespaceTableModel);
+  table=JTableFactory.getInstance().makeJTable(namespaceTableModel);
   scrollPane=new JScrollPane(table);
   scrollPane.setPreferredSize(new Dimension(400,150));
   getComponent().add(scrollPane,BorderLayout.CENTER);

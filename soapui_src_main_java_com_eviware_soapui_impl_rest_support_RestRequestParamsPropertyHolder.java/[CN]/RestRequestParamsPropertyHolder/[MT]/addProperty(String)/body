@@ -1,5 +1,5 @@
 {
   RestParamProperty property=methodParams.addProperty(name);
-  property.setParamLocation(NewRestResourceActionBase.ParamLocation.RESOURCE);
-  return methodParams.getProperty(name);
+  setParameterLocation(property,NewRestResourceActionBase.ParamLocation.RESOURCE);
+  return getWrapper(methodParams.getProperty(name));
 }

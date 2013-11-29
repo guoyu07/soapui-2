@@ -1,6 +1,6 @@
 {
   final JPanel panel=new JPanel(new BorderLayout());
-  final JXTable table=new JXTable(tableModel);
+  final JXTable table=JTableFactory.getInstance().makeJXTable(tableModel);
   setupTable(table);
   JScrollPane tableScrollPane=new JScrollPane(table);
   tableScrollPane.setBorder(BorderFactory.createEmptyBorder());

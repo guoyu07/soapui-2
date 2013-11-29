@@ -1,0 +1,8 @@
+{
+  Map<String,RestResource> expectedResourceList=restService.getResources();
+  RestResource siblingResourceA=restService.addNewResource("SiblingA","/siblingPath");
+  assertThat(restService.getChildren().size(),is(2));
+  restService.deleteResource(siblingResourceA);
+  assertThat(restService.getChildren().size(),is(1));
+  assertThat(restService.getResources(),is(expectedResourceList));
+}

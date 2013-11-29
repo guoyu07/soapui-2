@@ -1,0 +1,12 @@
+{
+  final JPanel panel=new JPanel(new BorderLayout());
+  Box contentBox=Box.createVerticalBox();
+  final JLabel changeWarningLabel=new JLabel(" ");
+  changeWarningLabel.setBorder(BorderFactory.createCompoundBorder(contentBox.getBorder(),BorderFactory.createEmptyBorder(10,0,0,0)));
+  addBasePathFieldIfApplicable(contentBox,changeWarningLabel);
+  addResourceFields(focusedResource,contentBox,changeWarningLabel);
+  panel.add(contentBox,BorderLayout.NORTH);
+  panel.add(changeWarningLabel,BorderLayout.CENTER);
+  panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.BLACK),BorderFactory.createEmptyBorder(10,10,10,10)));
+  return panel;
+}

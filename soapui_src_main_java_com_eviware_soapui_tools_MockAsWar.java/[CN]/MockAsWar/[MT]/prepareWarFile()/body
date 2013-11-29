@@ -1,25 +1,19 @@
 {
   if (createWarFileSystem()) {
-    File fromDir=new File(System.getProperty("soapui.home"),".." + File.separator + "lib");
-    JarPackager.copyAllFromTo(fromDir,lib,new FileFilter(){
-      public boolean accept(      File pathname){
-        return pathname.getName().indexOf("servlet") == -1 && pathname.getName().indexOf("xulrunner") == -1 && pathname.getName().indexOf("Mozilla") == -1 && pathname.getName().indexOf("l2fprod") == -1 && pathname.getName().indexOf("tuxpack") == -1 && pathname.getName().indexOf("winpack") == -1 && pathname.getName().indexOf("ActiveQueryBuilder") == -1 && pathname.getName().indexOf("jxbrowser") == -1 && pathname.getName().toLowerCase().indexOf("protection") == -1;
-      }
-    }
-);
+    File fromDir=new File(System.getProperty(SOAPUI_HOME),".." + File.separator + "lib");
+    JarPackager.copyAllFromTo(fromDir,lib,new CaseInsensitiveFileFilter());
     if (includeExt) {
-      fromDir=new File(System.getProperty("soapui.home"),"ext");
+      fromDir=new File(System.getProperty(SOAPUI_HOME),"ext");
       JarPackager.copyAllFromTo(fromDir,lib,null);
     }
-    File soapUIHome=new File(System.getProperty("soapui.home"));
+    File soapUIHome=new File(System.getProperty(SOAPUI_HOME));
     String[] mainJar=soapUIHome.list(new FilenameFilter(){
       public boolean accept(      File dir,      String name){
-        if (name.toLowerCase().startsWith("soapui") && name.toLowerCase().endsWith(".jar"))         return true;
-        return false;
+        return name.toLowerCase().startsWith("soapui") && name.toLowerCase().endsWith(".jar");
       }
     }
 );
-    fromDir=new File(System.getProperty("soapui.home"),mainJar[0]);
+    fromDir=new File(System.getProperty(SOAPUI_HOME),mainJar[0]);
     JarPackager.copyFileToDir(fromDir,lib);
     copyProjectFile();
     if (settingsFile != null && settingsFile.exists() && settingsFile.isFile())     JarPackager.copyFileToDir(settingsFile,soapuiDir);

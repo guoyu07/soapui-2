@@ -1,4 +1,8 @@
 {
+  if (isChangingLocationOfParameter(name)) {
+    return;
+  }
+  sortedPropertyNames.remove(name);
   values.remove(name);
   firePropertyRemoved(name);
 }

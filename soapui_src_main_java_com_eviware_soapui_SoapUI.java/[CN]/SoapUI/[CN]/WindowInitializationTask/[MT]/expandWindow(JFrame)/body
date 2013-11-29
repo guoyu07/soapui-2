@@ -1,0 +1,28 @@
+{
+  UserPreferences userPreferences=new UserPreferences();
+  Rectangle savedWindowBounds=userPreferences.getSoapUIWindowBounds();
+  if (savedWindowBounds == null || !windowFullyVisibleOnScreen(savedWindowBounds)) {
+    Rectangle availableScreenArea=GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+    frame.setBounds(availableScreenArea);
+  }
+ else {
+    frame.setBounds(savedWindowBounds);
+    if (!UISupport.isMac()) {
+      frame.setExtendedState(userPreferences.getSoapUIExtendedState());
+    }
+  }
+  frame.addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent event){
+      try {
+        JFrame frame=(JFrame)event.getWindow();
+        UserPreferences userPreferences=new UserPreferences();
+        userPreferences.setSoapUIWindowBounds(frame.getBounds());
+        userPreferences.setSoapUIExtendedState(frame.getExtendedState());
+      }
+ catch (      BackingStoreException e) {
+        logError(e,"Could not save SoapUI window bounds");
+      }
+    }
+  }
+);
+}

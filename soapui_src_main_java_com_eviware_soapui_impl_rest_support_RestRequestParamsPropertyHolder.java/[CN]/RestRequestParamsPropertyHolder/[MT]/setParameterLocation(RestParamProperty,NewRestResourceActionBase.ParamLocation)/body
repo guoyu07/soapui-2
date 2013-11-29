@@ -1,0 +1,40 @@
+{
+  if (newLocation == parameter.getParamLocation()) {
+    return;
+  }
+  parameterBeingMoved=parameter.getName();
+  try {
+    ParameterStyle parameterStyle=parameter.getStyle();
+    String parameterValue=parameter.getValue();
+    QName type=parameter.getType();
+    String[] options=parameter.getOptions();
+    boolean required=parameter.getRequired();
+    String description=parameter.getDescription();
+    boolean disableURLEncoding=parameter.isDisableUrlEncoding();
+    RestParamProperty newParameter;
+    List<String> copyOfSortedPropertyNames=new ArrayList<String>(sortedPropertyNames);
+    if (newLocation == NewRestResourceActionBase.ParamLocation.METHOD) {
+      restRequest.getResource().removeProperty(parameterBeingMoved);
+      newParameter=restRequest.getRestMethod().addProperty(parameterBeingMoved);
+    }
+ else {
+      restRequest.getRestMethod().removeProperty(parameterBeingMoved);
+      newParameter=restRequest.getResource().addProperty(parameterBeingMoved);
+    }
+    newParameter.setType(type);
+    newParameter.setStyle(parameterStyle);
+    newParameter.setValue(parameterValue);
+    newParameter.setDefaultValue(parameterValue);
+    newParameter.setOptions(options);
+    newParameter.setRequired(required);
+    newParameter.setDescription(description);
+    newParameter.setDisableUrlEncoding(disableURLEncoding);
+    restRequest.getProperty(parameterBeingMoved).setValue(parameterValue);
+    sortedPropertyNames=copyOfSortedPropertyNames;
+    firePropertyRemoved(parameterBeingMoved);
+    firePropertyAdded(parameterBeingMoved);
+  }
+  finally {
+    parameterBeingMoved=null;
+  }
+}

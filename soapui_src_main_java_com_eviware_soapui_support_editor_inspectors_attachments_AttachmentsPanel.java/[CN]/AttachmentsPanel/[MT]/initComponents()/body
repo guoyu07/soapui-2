@@ -1,7 +1,7 @@
 {
   jScrollPane1=new javax.swing.JScrollPane();
   tableModel=new AttachmentsTableModel(container);
-  fileTable=new JTable(tableModel);
+  fileTable=JTableFactory.getInstance().makeJTable(tableModel);
   if (container instanceof MutableAttachmentContainer) {
     attachmentPartCellEditor=new AttachmentPartCellEditor();
     fileTable.getColumnModel().getColumn(3).setCellEditor(attachmentPartCellEditor);

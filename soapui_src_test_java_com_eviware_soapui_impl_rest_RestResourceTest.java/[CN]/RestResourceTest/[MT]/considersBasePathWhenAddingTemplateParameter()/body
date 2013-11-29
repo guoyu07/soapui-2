@@ -1,0 +1,8 @@
+{
+  String parameterName="version";
+  String parameterInPath="{" + parameterName + "}";
+  parentService.setBasePath("/base/" + parameterInPath);
+  RestParamProperty parameter=restResource.addProperty(parameterName);
+  parameter.setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  assertThat(restResource.getPath(),not(containsString(parameterInPath)));
+}

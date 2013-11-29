@@ -1,0 +1,7 @@
+{
+  RestResourceEditorPopupWindow popupWindow=new RestResourceEditorPopupWindow(grandchildResource,grandchildResource);
+  List<RestResourceEditorPopupWindow.RestSubResourceTextField> resourceTextFields=popupWindow.restSubResourceTextFields;
+  assertThat(resourceTextFields.get(0).getTextField().getText(),is(parentResource.getPath()));
+  assertThat(resourceTextFields.get(1).getTextField().getText(),is(childResource.getPath()));
+  assertThat(resourceTextFields.get(2).getTextField().getText(),is(grandchildResource.getPath()));
+}

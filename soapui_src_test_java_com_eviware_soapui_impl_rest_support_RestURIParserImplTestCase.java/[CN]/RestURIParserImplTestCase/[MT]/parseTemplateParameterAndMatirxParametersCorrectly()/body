@@ -1,0 +1,9 @@
+{
+  String uri="http://soapui.org/{templateParam};matrixParam=matrixValue?queryParam=value";
+  String expectedEndpoint="http://soapui.org";
+  String expectedPath="/{templateParam};matrixParam=matrixValue";
+  String expectedResourceName="TemplateParam";
+  String expectedQuery="queryParam=value";
+  restURIParser=new RestURIParserImpl(uri);
+  assertURIParsedCorrectly(expectedEndpoint,expectedPath,expectedResourceName,expectedQuery,restURIParser);
+}

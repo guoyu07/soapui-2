@@ -1,0 +1,15 @@
+{
+  RestRequestConfig requestConfig=restRequest.getConfig();
+  List<String> propertyNames;
+  List<String> methodParamNames=new ArrayList<String>(Arrays.asList(methodParams.getPropertyNames()));
+  if (requestConfig.isSetParameterOrder()) {
+    propertyNames=new ArrayList<String>(requestConfig.getParameterOrder().getEntryList());
+    propertyNames.retainAll(methodParamNames);
+    methodParamNames.removeAll(propertyNames);
+    propertyNames.addAll(methodParamNames);
+  }
+ else {
+    propertyNames=new ArrayList<String>(methodParamNames);
+  }
+  sortedPropertyNames=propertyNames;
+}

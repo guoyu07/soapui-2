@@ -1,5 +1,12 @@
 {
   paramsTable=new JTable(paramsTableModel){
+    @Override public Component prepareRenderer(    TableCellRenderer renderer,    int row,    int column){
+      Component defaultRenderer=super.prepareRenderer(renderer,row,column);
+      if (UISupport.isMac()) {
+        JTableFactory.applyStripesToRenderer(row,defaultRenderer);
+      }
+      return defaultRenderer;
+    }
     @Override public void removeEditor(){
       TableCellEditor editor=getCellEditor();
       super.removeEditor();
@@ -7,8 +14,25 @@
         editor.cancelCellEditing();
       }
     }
+    @Override public Component prepareEditor(    TableCellEditor editor,    int row,    int column){
+      Component component=super.prepareEditor(editor,row,column);
+      if (getColumnClass(column) == ParameterStyle.class) {
+        RestParamProperty parameter=paramsTableModel.getParameterAt(row);
+        JComboBox comboBox=(JComboBox)((DefaultCellEditor)editor).getComponent();
+        comboBox.setModel(getStylesForLocation(parameter.getParamLocation()));
+        super.prepareEditor(editor,row,column);
+      }
+      if (getColumnClass(column) == ParamLocation.class) {
+        RestParamProperty parameter=paramsTableModel.getParameterAt(row);
+        JComboBox comboBox=(JComboBox)((DefaultCellEditor)editor).getComponent();
+        comboBox.setModel(getLocationForParameter(parameter.getStyle()));
+        super.prepareEditor(editor,row,column);
+      }
+      return component;
+    }
   }
 ;
+  paramsTable.setName(REST_PARAMS_TABLE);
   paramsTable.putClientProperty("terminateEditOnFocusLost",Boolean.TRUE);
   if (showDefaultParamsButton) {
     defaultParamsAction=new UseDefaultParamsAction();
@@ -19,8 +43,8 @@
     initEditableButtons();
   }
   paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(paramsTableModel.getParameterStylesForEdit())));
-  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox<ParamLocation>(paramsTableModel.getParameterLevels())));
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(getStylesForLocation(ParamLocation.RESOURCE))));
+  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox<ParamLocation>(ParamLocation.values())));
   paramsTable.setRowHeight(25);
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
@@ -36,14 +60,14 @@
       if (selectedRow != -1) {
         RestParamProperty selectedParameter=getSelectedParameter();
         if (paramDetailsModel != null) {
-          paramDetailsModel.setBean(selectedParameter);
+          updateDetailsFormWith(selectedParameter);
           detailsForm.setEnabled(true);
         }
       }
  else {
         if (paramDetailsModel != null) {
           detailsForm.setEnabled(false);
-          paramDetailsModel.setBean(null);
+          updateDetailsFormWith(null);
         }
       }
     }
@@ -51,7 +75,7 @@
 );
   add(buildToolbar(),BorderLayout.NORTH);
   if (showInspector) {
-    final JSplitPane splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
     add(splitPane,BorderLayout.CENTER);
     splitPane.setResizeWeight(0.7);
   }

@@ -2,7 +2,7 @@
   dialog=new SimpleDialog(title,description,helpUrl,true){
     @Override protected Component buildContent(){
       JPanel panel=new JPanel(new BorderLayout());
-      table=new JXTable(resolveContextTableModel);
+      table=JTableFactory.getInstance().makeJXTable(resolveContextTableModel);
       table.setHorizontalScrollEnabled(true);
       table.setDefaultRenderer(JComboBox.class,new ResolverRenderer());
       table.setDefaultEditor(JComboBox.class,new ResolverEditor());

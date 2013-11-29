@@ -5,6 +5,6 @@
     properties.put("Timestamp",new Date(messageExchange.getTimestamp()).toString());
     properties.put("Time Taken",String.valueOf(messageExchange.getTimeTaken()));
   }
-  JTable table=new JTable(new StringToStringMapTableModel(properties,"Name","Value",false));
+  JTable table=JTableFactory.getInstance().makeJTable(new StringToStringMapTableModel(properties,"Name","Value",false));
   return new JScrollPane(table);
 }

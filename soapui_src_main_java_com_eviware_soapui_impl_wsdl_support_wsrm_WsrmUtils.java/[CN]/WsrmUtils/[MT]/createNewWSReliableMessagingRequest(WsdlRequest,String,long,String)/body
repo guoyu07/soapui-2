@@ -1,0 +1,27 @@
+{
+  try {
+    Element header=getHeader();
+    header.setAttribute("xmlns:" + "wsrm",wsrmContainer.getWsrmConfig().getVersionNameSpace());
+    Element sequence=header.getOwnerDocument().createElementNS(wsrmContainer.getWsrmConfig().getVersionNameSpace(),"Sequence");
+    Element identifierElement=sequence.getOwnerDocument().createElementNS(wsrmContainer.getWsrmConfig().getVersionNameSpace(),"Identifier");
+    Text txtElm=identifierElement.getOwnerDocument().createTextNode(identifier);
+    identifierElement.appendChild(txtElm);
+    sequence.appendChild(identifierElement);
+    Element messageId=sequence.getOwnerDocument().createElementNS(wsrmContainer.getWsrmConfig().getVersionNameSpace(),"MessageNumber");
+    Text txtElm2=identifierElement.getOwnerDocument().createTextNode(String.valueOf(msgNumber));
+    messageId.appendChild(txtElm2);
+    sequence.appendChild(messageId);
+    header.appendChild(sequence);
+    content=xmlContentObject.xmlText();
+    wsrmContainer.getWsaConfig().setWsaEnabled(true);
+    if (wsrmContainer.getWsaConfig().getAction() == null)     wsrmContainer.getWsaConfig().setAddDefaultAction(true);
+    wsrmContainer.getWsaConfig().setTo(endpoint);
+    wsrmContainer.getWsaConfig().setGenerateMessageId(true);
+    WsaUtils wsaUtils=new WsaUtils(content,wsrmContainer.getOperation().getInterface().getSoapVersion(),null,new DefaultPropertyExpansionContext(wsrmContainer));
+    content=wsaUtils.addWSAddressingRequest(wsrmContainer);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return content;
+}

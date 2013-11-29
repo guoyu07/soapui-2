@@ -1,0 +1,7 @@
+{
+  int affectedRequestCount=affectedRestResource.getRequestCount();
+  for (  RestResource childResource : affectedRestResource.getAllChildResources()) {
+    affectedRequestCount+=childResource.getRequestCount();
+  }
+  return affectedRequestCount;
+}

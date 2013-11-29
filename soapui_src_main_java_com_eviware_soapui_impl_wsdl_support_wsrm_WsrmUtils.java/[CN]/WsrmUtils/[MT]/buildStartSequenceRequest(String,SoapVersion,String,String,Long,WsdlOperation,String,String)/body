@@ -1,0 +1,60 @@
+{
+  HttpRequestConfig httpRequestConfig=(HttpRequestConfig)(XmlObject.Factory.newInstance().changeType(HttpRequestConfig.type));
+  httpRequestConfig.setEndpoint(endpoint);
+  httpRequestConfig.setMediaType(soapVersion.getContentType());
+  WsaConfigConfig wsaConfigConfig=(WsaConfigConfig)(XmlObject.Factory.newInstance().changeType(WsaConfigConfig.type));
+  WsaContainer wsaContainer=new WsaContainerImpl();
+  wsaContainer.setOperation(operation);
+  WsaConfig wsaConfig=new WsaConfig(wsaConfigConfig,wsaContainer);
+  wsaConfig.setTo(endpoint);
+  WsrmConfigConfig wsrmConfigConfig=(WsrmConfigConfig)(XmlObject.Factory.newInstance().changeType(WsrmConfigConfig.type));
+  WsrmConfig wsrmConfig=new WsrmConfig(wsrmConfigConfig,null);
+  WsaRequest startSequenceRequest=new WsaRequest(httpRequestConfig,wsaConfig,wsrmConfig,false);
+  startSequenceRequest.setOperation(operation);
+  String openSequenceMessageContent=SoapMessageBuilder.buildEmptyMessage(soapVersion);
+  startSequenceRequest.getWsaConfig().setWsaEnabled(true);
+  startSequenceRequest.getWsaConfig().setAction(wsrmNamespace + WSRM_CREATE_SEQUENCE_ACTION);
+  startSequenceRequest.getWsaConfig().setReplyTo(ackTo);
+  startSequenceRequest.getWsaConfig().setGenerateMessageId(true);
+  try {
+    XmlObject object=XmlUtils.createXmlObject(openSequenceMessageContent);
+    XmlCursor cursor=object.newCursor();
+    cursor.toFirstContentToken();
+    cursor.toFirstChild();
+    cursor.toNextSibling();
+    cursor.toNextToken();
+    cursor.insertNamespace("wsrm",wsrmNamespace);
+    cursor.beginElement(WSRM_CREATE_SEQUENCE,wsrmNamespace);
+    String wsaNamespace=wsrmNamespace.equals(WSRM_NS_1_0) ? WsaUtils.WS_A_NAMESPACE_200408 : WsaUtils.WS_A_NAMESPACE_200508;
+    if (!wsrmNamespace.equals(WSRM_NS_1_0) && !StringUtils.isNullOrEmpty(offerEndpoint)) {
+      cursor.beginElement("Offer",wsrmNamespace);
+      cursor.beginElement("Endpoint",wsrmNamespace);
+      cursor.beginElement("Address",wsaNamespace);
+      cursor.insertChars(offerEndpoint);
+      cursor.toParent();
+      cursor.toParent();
+      cursor.beginElement("Identifier",wsrmNamespace);
+      cursor.insertChars("urn:soapui:" + uuid);
+      cursor.toParent();
+      cursor.toParent();
+    }
+    cursor.beginElement(WSRM_ACKNOWLEDGMENTS_TO,wsrmNamespace);
+    cursor.insertNamespace("wsa",wsaNamespace);
+    cursor.beginElement("Address",wsaNamespace);
+    if (ackTo == null || ackTo.length() < 1)     ackTo=WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()) + "/anonymous" + "?id="+ uuid;
+    cursor.insertChars(ackTo);
+    if (expires != 0) {
+      cursor.toParent();
+      cursor.beginElement(WSRM_EXPIRES,wsrmNamespace);
+      cursor.insertChars(expires.toString());
+    }
+    cursor.dispose();
+    WsaUtils wsaUtils=new WsaUtils(object.xmlText(),soapVersion,null,new DefaultPropertyExpansionContext(startSequenceRequest));
+    content=wsaUtils.addWSAddressingRequest(startSequenceRequest);
+    startSequenceRequest.setRequestContent(content);
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+  return startSequenceRequest;
+}

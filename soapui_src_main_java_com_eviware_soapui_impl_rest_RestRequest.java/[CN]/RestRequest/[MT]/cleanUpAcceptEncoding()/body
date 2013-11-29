@@ -1,0 +1,8 @@
+{
+  if (StringUtils.hasContent(getAccept())) {
+    StringToStringsMap requestHeaders=getRequestHeaders();
+    requestHeaders.add(ACCEPT_HEADER_NAME,getAccept());
+    setRequestHeaders(requestHeaders);
+    setAccept(null);
+  }
+}
