@@ -1,3 +1,11 @@
 {
-  return params.renameProperty(name,newName);
+  if (hasProperty(name)) {
+    return params.renameProperty(name,newName);
+  }
+ else   if (parentResource != null) {
+    return parentResource.renameProperty(name,newName);
+  }
+ else {
+    return false;
+  }
 }
