@@ -1,17 +1,13 @@
 {
-  if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
-  }
- else {
-    dialog.setValue(Form.RESOURCEPATH,"");
-  }
+  RestUriDialogHandler dialogBuilder=new RestUriDialogHandler();
+  XFormDialog dialog=dialogBuilder.buildDialog(messages,null);
   if (param instanceof URL) {
     XmlBeansRestParamsTestPropertyHolder params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
     String path=RestUtils.extractParams(param.toString(),params,false);
     dialog.setValue(Form.RESOURCEPATH,path);
   }
   if (dialog.show()) {
-    String path=dialog.getValue(Form.RESOURCEPATH);
+    String path=dialogBuilder.getUri();
     RestResource resource=createRestResource(parent,path);
     RestUtils.extractParams(dialog.getValue(Form.RESOURCEPATH),resource.getParams(),false);
     resource.setPath(removeParametersFrom(resource.getPath()));
