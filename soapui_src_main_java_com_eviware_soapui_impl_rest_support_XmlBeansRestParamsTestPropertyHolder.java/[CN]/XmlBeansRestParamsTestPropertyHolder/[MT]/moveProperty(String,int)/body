@@ -12,7 +12,7 @@
   String description=property.getDescription();
   boolean disableUrlEncoding=property.isDisableUrlEncoding();
   config.removeParameter(ix);
-  RestParameterConfig propertyConfig=null;
+  RestParameterConfig propertyConfig;
   if (targetIndex < properties.size()) {
     properties.add(targetIndex,properties.remove(ix));
     propertyConfig=config.insertNewParameter(targetIndex);

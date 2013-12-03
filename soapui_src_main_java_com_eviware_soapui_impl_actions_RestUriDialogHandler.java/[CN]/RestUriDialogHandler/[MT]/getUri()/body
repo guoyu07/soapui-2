@@ -1,0 +1,7 @@
+{
+  if (dialog.getReturnValue() != XFormDialog.OK_OPTION) {
+    return null;
+  }
+  String uri=dialog.getValue(uriLabelKey).trim();
+  return uri.equals(exampleUri) ? "" : uri;
+}

@@ -55,7 +55,9 @@
       }
     }
   finally {
-      instream.close();
+      if (instream != null) {
+        instream.close();
+      }
     }
   }
   return responseBody;

@@ -1,38 +1,16 @@
 {
-  if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
-    dialog.getFormField(Form.RESOURCENAME).addFormFieldValidator(new RequiredValidator());
-    dialog.getFormField(Form.EXTRACTPARAMS).setProperty("action",new ExtractParamsAction());
-  }
- else {
-    dialog.setValue(Form.RESOURCENAME,"");
-    dialog.setValue(Form.RESOURCEPATH,"");
-  }
-  params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
+  RestUriDialogHandler dialogBuilder=new RestUriDialogHandler();
+  XFormDialog dialog=dialogBuilder.buildDialog(messages,null);
   if (param instanceof URL) {
+    XmlBeansRestParamsTestPropertyHolder params=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
     String path=RestUtils.extractParams(param.toString(),params,false);
     dialog.setValue(Form.RESOURCEPATH,path);
-    setNameFromPath(path);
-    if (paramsTable != null)     paramsTable.refresh();
   }
-  paramsTable=new RestParamsTable(params,false,ParamLocation.RESOURCE,true,false);
-  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
-    String path=dialog.getValue(Form.RESOURCEPATH);
-    try {
-      URL url=new URL(path);
-      path=url.getPath();
-    }
- catch (    MalformedURLException e) {
-    }
-    RestResource resource=createRestResource(service,path,dialog);
-    paramsTable.extractParams(resource.getParams(),ParamLocation.RESOURCE);
-    XmlBeansRestParamsTestPropertyHolder methodParams=new XmlBeansRestParamsTestPropertyHolder(null,RestParametersConfig.Factory.newInstance());
-    paramsTable.extractParams(methodParams,ParamLocation.METHOD);
-    SoapUI.getActionRegistry().getAction(NewRestMethodAction.SOAPUI_ACTION_ID).perform(resource,methodParams);
+    String path=dialogBuilder.getUri();
+    RestResource resource=createRestResource(parent,path);
+    RestUtils.extractParams(dialog.getValue(Form.RESOURCEPATH),resource.getParams(),false);
+    resource.setPath(removeParametersFrom(resource.getPath()));
+    createMethodAndRequestFor(resource);
   }
-  paramsTable.release();
-  paramsTable=null;
-  params=null;
-  dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
 }

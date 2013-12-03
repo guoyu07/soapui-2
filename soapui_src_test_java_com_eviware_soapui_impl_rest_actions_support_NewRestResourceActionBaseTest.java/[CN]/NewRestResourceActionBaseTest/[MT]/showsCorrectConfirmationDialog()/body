@@ -1,0 +1,8 @@
+{
+  stubbedDialogs.mockConfirmWithReturnValue(true);
+  String childResourcePath="anthony_jr";
+  action.createRestResource(service,ENDPOINT + "/" + PARENT_RESOURCE_PATH+ "/"+ childResourcePath);
+  assertThat(stubbedDialogs.getConfirmations(),is(aCollectionWithSize(1)));
+  StubbedDialogs.Confirmation confirmation=stubbedDialogs.getConfirmations().get(0);
+  assertThat(confirmation.title,is(NewRestResourceAction.CONFIRM_DIALOG_TITLE));
+}

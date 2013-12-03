@@ -1,0 +1,26 @@
+{
+  String uuid=UUID.randomUUID().toString();
+  WsaRequest startSequenceRequest=buildStartSequenceRequest(endpoint,soapVersion,wsrmNamespace,ackTo,expires,operation,uuid,offerEndpoint);
+  try {
+    Response response=submitCreateSequenceRequest(uuid,startSequenceRequest);
+    String responseContent=response.getContentAsString();
+    XmlObject xml=XmlUtils.createXmlObject(responseContent);
+    XmlCursor cursor=xml.newCursor();
+    cursor.toFirstContentToken();
+    cursor.toFirstChild();
+    cursor.toNextSibling();
+    cursor.toFirstChild();
+    cursor.toFirstChild();
+    String sequenceIdentifier=cursor.getTextValue();
+    Logger.getLogger("wsrm").info("Sequence response Received, sequence ID: " + sequenceIdentifier);
+    return new WsrmSequence(sequenceIdentifier.trim(),uuid,soapVersion,wsrmNamespace,operation);
+  }
+ catch (  SubmitException e1) {
+    SoapUI.logError(e1);
+    return null;
+  }
+catch (  XmlException e) {
+    SoapUI.logError(e);
+    return null;
+  }
+}

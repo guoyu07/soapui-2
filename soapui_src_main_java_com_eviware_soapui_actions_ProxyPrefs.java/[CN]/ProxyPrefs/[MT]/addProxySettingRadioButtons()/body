@@ -1,0 +1,30 @@
+{
+  ButtonGroup group=new ButtonGroup();
+  JPanel radioPanel=new JPanel();
+  radioPanel.setLayout(new BoxLayout(radioPanel,BoxLayout.Y_AXIS));
+  radioPanel.add(Box.createVerticalStrut(4));
+  automatic=createRadioButton("Automatic",group,radioPanel);
+  none=createRadioButton("None",group,radioPanel);
+  manual=createRadioButton("Manual",group,radioPanel);
+  proxyPrefForm.append("Proxy Setting",radioPanel);
+  automatic.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      autoProxy=true;
+      setManualProxyTextFieldsEnabled(true,false);
+    }
+  }
+);
+  manual.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      autoProxy=false;
+      setManualProxyTextFieldsEnabled(true,true);
+    }
+  }
+);
+  none.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      setManualProxyTextFieldsEnabled(false,false);
+    }
+  }
+);
+}

@@ -10,7 +10,7 @@
     toolbar.add(UISupport.createToolbarButton(defaultParamsAction,paramsTable.getRowCount() > 0));
   }
   toolbar.addSeparator();
-  if (inFullMode()) {
+  if (!inMinimalMode()) {
     toolbar.add(UISupport.createToolbarButton(movePropertyDownAction,false));
     toolbar.add(UISupport.createToolbarButton(movePropertyUpAction,false));
   }

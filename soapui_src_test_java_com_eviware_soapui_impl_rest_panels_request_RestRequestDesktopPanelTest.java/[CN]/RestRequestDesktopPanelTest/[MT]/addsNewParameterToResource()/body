@@ -1,0 +1,9 @@
+{
+  JTable restParameterTable=getRestParameterTable();
+  new AddParamAction(restParameterTable,restRequest.getParams(),"").actionPerformed(new ActionEvent(restParameterTable,1,"Add"));
+  String newParamName="newParamName";
+  restParameterTable.setValueAt(newParamName,1,0);
+  restParameterTable.setValueAt("newParamValue",1,1);
+  assertThat(restRequest.getRestMethod().hasProperty(newParamName),is(false));
+  assertThat(restRequest.getResource().hasProperty(newParamName),is(true));
+}

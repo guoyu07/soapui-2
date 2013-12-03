@@ -6,12 +6,11 @@
     currentSoapuiVersion=currentSoapuiVersion.substring(0,snapshotIndex - 1);
   }
   String latestVersion=getLatestVersion();
-  if (StringUtils.isNullOrEmpty(latestVersion))   return false;
+  if (StringUtils.isNullOrEmpty(latestVersion)) {
+    return false;
+  }
   if (isSnapshot && currentSoapuiVersion.equals(latestVersion)) {
     return true;
   }
-  if (currentSoapuiVersion.compareTo(latestVersion) < 0) {
-    return true;
-  }
-  return false;
+  return currentSoapuiVersion.compareTo(latestVersion) < 0;
 }

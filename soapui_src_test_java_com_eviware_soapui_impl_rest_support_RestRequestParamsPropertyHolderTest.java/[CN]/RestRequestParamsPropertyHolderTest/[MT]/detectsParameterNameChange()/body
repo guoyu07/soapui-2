@@ -1,0 +1,7 @@
+{
+  String newParameterName="newOne";
+  methodParams.renameProperty(FIRST_PARAMETER_NAME,newParameterName);
+  String[] propertyNames=parametersHolder.getPropertyNames();
+  assertThat(propertyNames[0],is(newParameterName));
+  assertThat(parametersHolder.getPropertyAt(0).getName(),is(newParameterName));
+}

@@ -1,7 +1,11 @@
 {
   if (UISupport.confirm("Clear all property values?","Clear Properties")) {
     for (    String name : holder.getPropertyNames()) {
-      holder.getProperty(name).setValue(null);
+      TestProperty property=holder.getProperty(name);
+      property.setValue(null);
+      if (property instanceof RestParameter) {
+        ((RestParameter)property).setDefaultValue(null);
+      }
     }
   }
 }

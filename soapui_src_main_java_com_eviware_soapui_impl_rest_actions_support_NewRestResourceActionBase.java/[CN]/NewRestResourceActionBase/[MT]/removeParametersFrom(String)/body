@@ -1,0 +1,11 @@
+{
+  String strippedPath;
+  if (path.contains("?") || path.contains(";")) {
+    int parametersIndex=findParametersIndex(path);
+    strippedPath=path.substring(0,parametersIndex);
+  }
+ else {
+    strippedPath=path;
+  }
+  return strippedPath;
+}

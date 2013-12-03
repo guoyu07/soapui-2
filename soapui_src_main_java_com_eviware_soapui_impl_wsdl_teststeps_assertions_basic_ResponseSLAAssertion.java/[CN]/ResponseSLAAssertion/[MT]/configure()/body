@@ -3,7 +3,7 @@
   if (value == null || value.trim().length() == 0) {
     value="200";
   }
-  value=UISupport.prompt("Specify desired response time","Configure Response SLA Assertion",value);
+  value=UISupport.prompt("Specify maximum response time (ms)","Configure Response SLA Assertion",value);
   try {
     Long.parseLong(value);
     SLA=value;

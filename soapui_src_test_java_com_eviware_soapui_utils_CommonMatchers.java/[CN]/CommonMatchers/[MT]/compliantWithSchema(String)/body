@@ -1,0 +1,32 @@
+{
+  return new TypeSafeMatcher<Node>(){
+    @Override public boolean matchesSafely(    Node node){
+      URL schemaURL=CommonMatchers.class.getResource(schemaPath);
+      if (schemaURL == null) {
+        throw new IllegalArgumentException("No schema found at " + schemaPath);
+      }
+      SchemaFactory sf=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+      Schema schema=null;
+      try {
+        schema=sf.newSchema(schemaURL);
+      }
+ catch (      SAXException e) {
+        throw new IllegalArgumentException("The file at " + schemaURL + " does not contain a valid XML schema",e);
+      }
+      try {
+        schema.newValidator().validate(new DOMSource(node));
+        return true;
+      }
+ catch (      SAXException e) {
+        return false;
+      }
+catch (      Exception e) {
+        throw new RuntimeException("Unexpected exception",e);
+      }
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("an XML node compliant with the XML schema at " + schemaPath);
+    }
+  }
+;
+}

@@ -1,0 +1,6 @@
+{
+  String newParameterName="newOne";
+  RestParamProperty restParamProperty=parametersHolder.addProperty(newParameterName);
+  parametersHolder.setParameterLocation(restParamProperty,NewRestResourceActionBase.ParamLocation.METHOD);
+  assertThat(methodParams.getPropertyAt(1).getName(),is(newParameterName));
+}

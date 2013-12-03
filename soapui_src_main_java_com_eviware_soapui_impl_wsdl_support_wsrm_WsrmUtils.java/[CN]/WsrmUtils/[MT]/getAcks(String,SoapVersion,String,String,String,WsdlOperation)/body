@@ -44,8 +44,6 @@
     String responseContent=response.getContentAsString();
     XmlObject xml=XmlUtils.createXmlObject(responseContent);
     XmlObject result=xml.selectPath("Envelope/Header/SequenceAcknowledgment")[0];
-    if (result != null) {
-    }
   }
  catch (  SubmitException e1) {
     SoapUI.logError(e1);

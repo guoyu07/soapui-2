@@ -1,6 +1,6 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
-  JXTable table=new JXTable(new TransfersTableModel());
+  JXTable table=JTableFactory.getInstance().makeJXTable(new TransfersTableModel());
   table.setHorizontalScrollEnabled(true);
   table.packAll();
   Component descriptionPanel=UISupport.buildDescription("PropertyTransfer Results","See the result of each performed transfer below",null);

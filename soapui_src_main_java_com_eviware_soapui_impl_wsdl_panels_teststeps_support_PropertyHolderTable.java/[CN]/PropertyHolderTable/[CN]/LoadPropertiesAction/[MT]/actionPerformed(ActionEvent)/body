@@ -30,7 +30,12 @@
             }
  else             if (dialog.getBooleanValue(LoadOptionsForm.CREATEMISSING) && holder instanceof MutableTestPropertyHolder) {
               TestProperty prop=((MutableTestPropertyHolder)holder).addProperty(name);
-              if (!prop.isReadOnly())               prop.setValue(value);
+              if (!prop.isReadOnly()) {
+                prop.setValue(value);
+                if (prop instanceof RestParameter) {
+                  ((RestParameter)prop).setDefaultValue(value);
+                }
+              }
               count++;
             }
             names.remove(name);

@@ -3,7 +3,7 @@
   this.parts=parts;
   this.entry=entry;
   partsTableModel=new PartsTableModel();
-  partsTable=new JTable(partsTableModel);
+  partsTable=JTableFactory.getInstance().makeJTable(partsTableModel);
   partsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
       removePartButton.setEnabled(partsTable.getSelectedRow() != -1);

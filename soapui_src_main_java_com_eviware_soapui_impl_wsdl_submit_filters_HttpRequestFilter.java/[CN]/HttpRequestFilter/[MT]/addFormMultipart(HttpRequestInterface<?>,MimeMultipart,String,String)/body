@@ -22,7 +22,5 @@
     part.setDisposition("form-data; name=\"" + name + "\"");
     part.setText(value,System.getProperty("soapui.request.encoding",request.getEncoding()));
   }
-  if (part != null) {
-    formMp.addBodyPart(part);
-  }
+  formMp.addBodyPart(part);
 }

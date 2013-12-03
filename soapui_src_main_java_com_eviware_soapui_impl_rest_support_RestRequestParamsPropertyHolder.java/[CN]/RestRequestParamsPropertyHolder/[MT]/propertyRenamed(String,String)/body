@@ -3,5 +3,8 @@
     values.put(newName,values.get(oldName));
     values.remove(oldName);
   }
-  firePropertyRenamed(oldName,newName);
+  if (sortedPropertyNames.contains(oldName)) {
+    sortedPropertyNames.set(sortedPropertyNames.indexOf(oldName),newName);
+    firePropertyRenamed(oldName,newName);
+  }
 }

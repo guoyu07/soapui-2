@@ -1,0 +1,12 @@
+{
+  RestResource parentResource=makeRestResource();
+  String oldName="the_original_name";
+  parentResource.addProperty(oldName);
+  RestResource childResource=parentResource.addNewChildResource("child","child");
+  RestMethod method=childResource.addNewMethod("Get Method");
+  restRequest=new RestRequest(method,RestRequestConfig.Factory.newInstance(),false);
+  parametersHolder=(RestRequestParamsPropertyHolder)restRequest.getParams();
+  String newParameterName="the_new_name";
+  parametersHolder.renameProperty(oldName,newParameterName);
+  assertThat(parentResource.getPropertyAt(0).getName(),is(newParameterName));
+}

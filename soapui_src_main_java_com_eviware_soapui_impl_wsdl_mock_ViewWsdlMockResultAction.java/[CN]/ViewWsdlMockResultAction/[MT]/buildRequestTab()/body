@@ -7,7 +7,7 @@
   RTextScrollPane scrollPane=new RTextScrollPane(resultArea);
   scrollPane.setFoldIndicatorEnabled(true);
   scrollPane.setLineNumbersEnabled(true);
-  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(new JTable(new StringToStringsMapTableModel(result.getMockRequest().getRequestHeaders(),"Header","Value",false))),scrollPane);
+  JSplitPane split=UISupport.createVerticalSplit(new JScrollPane(JTableFactory.getInstance().makeJTable(new StringToStringsMapTableModel(result.getMockRequest().getRequestHeaders(),"Header","Value",false))),scrollPane);
   split.setDividerLocation(150);
   return split;
 }

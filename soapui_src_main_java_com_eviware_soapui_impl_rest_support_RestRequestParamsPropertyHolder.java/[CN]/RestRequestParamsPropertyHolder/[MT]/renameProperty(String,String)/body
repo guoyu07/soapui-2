@@ -2,6 +2,16 @@
   if (name.equals(newName)) {
     return false;
   }
-  renameLocalProperty(name,newName);
-  return methodParams.renameProperty(name,newName);
+  RestParamProperty parameter=methodParams.getProperty(name);
+  boolean renamePerformed;
+  if (parameter.getParamLocation() == NewRestResourceActionBase.ParamLocation.METHOD) {
+    renamePerformed=methodParams.renameProperty(name,newName);
+  }
+ else {
+    renamePerformed=restRequest.getResource().renameProperty(name,newName);
+  }
+  if (renamePerformed) {
+    buildPropertyNameList();
+  }
+  return renamePerformed;
 }

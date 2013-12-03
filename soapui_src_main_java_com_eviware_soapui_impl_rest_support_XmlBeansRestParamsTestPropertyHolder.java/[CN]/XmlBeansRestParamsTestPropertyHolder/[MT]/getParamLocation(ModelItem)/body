@@ -1,0 +1,9 @@
+{
+  if (modelItem1 == null || modelItem1 instanceof RestResource) {
+    return ParamLocation.RESOURCE;
+  }
+ else   if (modelItem1 instanceof RestMethod) {
+    return ParamLocation.METHOD;
+  }
+  return null;
+}

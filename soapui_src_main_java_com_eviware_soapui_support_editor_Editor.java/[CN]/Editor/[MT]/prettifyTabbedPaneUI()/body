@@ -1,0 +1,10 @@
+{
+  if (!UISupport.isMac()) {
+    if (inputTabs.getUI().getClass().getSimpleName().equals("WindowsTabbedPaneUI")) {
+      inputTabs.setUI(new VerticalWindowsTabbedPaneUI());
+    }
+ else {
+      inputTabs.setUI(new VerticalMetalTabbedPaneUI());
+    }
+  }
+}

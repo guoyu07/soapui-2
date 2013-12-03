@@ -1,0 +1,10 @@
+{
+  String path="/{id}/42";
+  RestParamsPropertyHolder params=ModelItemFactory.makeRestRequest().getParams();
+  String extractedPath=RestUtils.extractParams(path,params,true,EXTRACT_TEMPLATE_PARAMETERS);
+  assertThat(extractedPath,is(path));
+  assertEquals(params.getPropertyCount(),1);
+  RestParamProperty id=params.getProperty("id");
+  assertThat(id.getStyle(),is(TEMPLATE));
+  assertThat(id.getValue(),is("id"));
+}

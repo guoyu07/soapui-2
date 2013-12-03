@@ -1,0 +1,7 @@
+{
+  String newParameterName="newOne";
+  RestParamProperty restParamProperty=parametersHolder.addProperty(newParameterName);
+  String parameterValue="theValue";
+  restParamProperty.setValue(parameterValue);
+  assertThat(parametersHolder.getProperty(newParameterName).getValue(),is(parameterValue));
+}

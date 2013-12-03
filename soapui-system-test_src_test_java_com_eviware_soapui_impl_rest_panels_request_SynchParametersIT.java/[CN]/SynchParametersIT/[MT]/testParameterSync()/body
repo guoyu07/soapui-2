@@ -1,0 +1,24 @@
+{
+  FrameFixture rootWindow=frameWithTitle("SoapUI").using(robot);
+  createNewRestProject(rootWindow);
+  int newPojectIndexInTree=findTheIndexOfcurrentProjectInnavigationTree();
+  JPanelFixture resourceEditor=openResourceEditor(newPojectIndexInTree,rootWindow);
+  JPanelFixture requestEditor=openRequestEditor(newPojectIndexInTree,rootWindow);
+  addNewParameter(requestEditor,"Address","Stockholm");
+  verifyParamValues(requestEditor,0,"Address","Stockholm");
+  verifyParamValues(resourceEditor,0,"Address","");
+  openResourceEditor(newPojectIndexInTree,rootWindow);
+  addNewParameter(resourceEditor,"resParam","value1");
+  verifyParamValues(resourceEditor,1,"resParam","value1");
+  verifyParamValues(requestEditor,1,"resParam","value1");
+  JPanelFixture methodEditor=openMethodEditor(newPojectIndexInTree,rootWindow);
+  addNewParameter(methodEditor,"mParam","mValue");
+  verifyParamValues(methodEditor,0,"mParam","mValue");
+  verifyParamValues(requestEditor,2,"mParam","mValue");
+  openRequestEditor(newPojectIndexInTree,rootWindow);
+  changeParameterLevel(requestEditor,2,ParamLocation.RESOURCE);
+  verifyEmptyTable(methodEditor);
+  verifyParamValues(resourceEditor,2,"mParam","mValue");
+  openResourceEditor(newPojectIndexInTree,rootWindow);
+  closeWindow(rootWindow);
+}

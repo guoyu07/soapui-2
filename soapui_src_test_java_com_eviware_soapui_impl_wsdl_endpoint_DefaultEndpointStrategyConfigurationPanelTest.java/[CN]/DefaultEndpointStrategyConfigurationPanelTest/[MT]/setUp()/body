@@ -1,0 +1,7 @@
+{
+  robot=BasicRobot.robotWithCurrentAwtHierarchy();
+  restService=ModelItemFactory.makeRestService();
+  DefaultEndpointStrategy strategy=new DefaultEndpointStrategy();
+  strategy.init(restService.getProject());
+  configurationPanel=new DefaultEndpointStrategyConfigurationPanel(restService,strategy);
+}

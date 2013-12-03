@@ -1,9 +1,10 @@
 {
+  ProxyUtils.setProxyEnabled(false);
   SoapUIVersionUpdate versionUpdate=new SoapUIVersionUpdate();
-  versionUpdate.getLatestVersionAvailable(SoapUI.class.getResource("/soapui-latest-version.xml"));
-  assertNotNull(versionUpdate.getLatestVersion());
-  assertNotNull(versionUpdate.getReleaseNotesCore());
-  assertNotNull(versionUpdate.getReleaseNotesPro());
-  assertNotNull(versionUpdate.getDownloadLinkCore());
-  assertNotNull(versionUpdate.getDownloadLinkPro());
+  versionUpdate.getLatestVersionAvailable(RELEASE_NOTES);
+  assertThat(versionUpdate.getLatestVersion(),is("4.0.1"));
+  assertThat(versionUpdate.getReleaseNotesCore(),is("http://www.soapui.org/version/release-notes-core-4_0_1.html"));
+  assertThat(versionUpdate.getReleaseNotesPro(),is("http://www.soapui.org/version/release-notes-pro-4_0_1.html"));
+  assertThat(versionUpdate.getDownloadLinkCore(),is("http://sourceforge.net/projects/soapui/files/soapui/4.0"));
+  assertThat(versionUpdate.getDownloadLinkPro(),is("http://www.eviware.com/Download-soapUI/download-soapui-pro.html"));
 }

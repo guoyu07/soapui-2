@@ -1,0 +1,16 @@
+{
+  XFormDialog dialog=dialogBuilder.buildDialog(messages,null);
+  while (dialog.show()) {
+    try {
+      String uri=dialogBuilder.getUri();
+      if (uri != null) {
+        serviceBuilder.createRestService(project,uri);
+      }
+      break;
+    }
+ catch (    Exception ex) {
+      UISupport.showErrorMessage(ex.getMessage());
+      dialogBuilder.resetUriField();
+    }
+  }
+}

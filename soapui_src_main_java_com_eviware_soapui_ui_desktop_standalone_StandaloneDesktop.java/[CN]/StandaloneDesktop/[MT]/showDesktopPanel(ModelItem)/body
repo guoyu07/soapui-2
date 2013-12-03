@@ -3,7 +3,7 @@
   if (modelItemToInternalFrameMap.containsKey(modelItem)) {
     JInternalFrame frame=modelItemToInternalFrameMap.get(modelItem);
     try {
-      desktopPane.getDesktopManager().deiconifyFrame(frame);
+      desktop.getDesktopManager().deiconifyFrame(frame);
       frame.setSelected(true);
       frame.moveToFront();
       currentPanel=internalFrameToDesktopPanelMap.get(frame);
@@ -16,7 +16,7 @@
     DesktopPanel desktopPanel=panelBuilder.buildDesktopPanel(modelItem);
     if (desktopPanel == null)     return null;
     JInternalFrame frame=createContentFrame(desktopPanel);
-    desktopPane.add(frame);
+    desktop.add(frame);
     try {
       frame.setSelected(true);
     }

@@ -4,9 +4,12 @@
     URL url=new URL(path);
     path=url.getPath();
   }
- catch (  MalformedURLException e) {
+ catch (  MalformedURLException ignored) {
   }
   int ix=path.lastIndexOf('/');
+  if (ix == -1) {
+    ix=path.lastIndexOf('\\');
+  }
   String fileName=ix == -1 ? path : path.substring(ix + 1);
   ix=fileName.lastIndexOf('.');
   if (ix != -1)   fileName=fileName.substring(0,ix);

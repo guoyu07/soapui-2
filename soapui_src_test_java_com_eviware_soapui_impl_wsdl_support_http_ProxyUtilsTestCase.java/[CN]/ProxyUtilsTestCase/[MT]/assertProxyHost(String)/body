@@ -1,0 +1,17 @@
+{
+  HttpRoutePlanner routePlanner=HttpClientSupport.getHttpClient().getRoutePlanner();
+  HttpRoute httpRoute=null;
+  try {
+    httpRoute=routePlanner.determineRoute(new HttpHost("soapui.org"),httpMethod,null);
+  }
+ catch (  HttpException e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  if (expectedProxyHost == null) {
+    assertNull(httpRoute.getProxyHost());
+  }
+ else {
+    assertEquals(expectedProxyHost,httpRoute.getProxyHost().getHostName());
+  }
+}

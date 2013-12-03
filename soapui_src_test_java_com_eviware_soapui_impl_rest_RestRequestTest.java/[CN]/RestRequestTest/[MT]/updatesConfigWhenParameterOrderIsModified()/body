@@ -1,0 +1,9 @@
+{
+  addRequestParameter("someName","someValue");
+  String lastParameterName="otherName";
+  addRequestParameter(lastParameterName,"someOtherValue");
+  request.getParams().moveProperty(lastParameterName,0);
+  StringListConfig parameterOrder=request.getConfig().getParameterOrder();
+  assertThat(parameterOrder,is(notNullValue()));
+  assertThat(parameterOrder.getEntryArray(0),is(lastParameterName));
+}

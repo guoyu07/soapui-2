@@ -10,7 +10,7 @@
     SoapVersion soapVersion=operation.getInterface().getSoapVersion();
     String identifier=((WsdlRequest)wsdlRequest).getWsrmConfig().getSequenceIdentifier();
     long msgNumber=((WsdlRequest)wsdlRequest).getWsrmConfig().getLastMessageId();
-    content=new WsrmUtils(content,soapVersion,context).createNewWSReliableMessagingRequest((WsdlRequest)wsdlRequest,httpMethod,identifier,msgNumber,wsdlRequest.getEndpoint());
+    content=new WsrmUtils(content,soapVersion).createNewWSReliableMessagingRequest((WsdlRequest)wsdlRequest,identifier,msgNumber,wsdlRequest.getEndpoint());
     if (content != null)     context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,content);
   }
 }

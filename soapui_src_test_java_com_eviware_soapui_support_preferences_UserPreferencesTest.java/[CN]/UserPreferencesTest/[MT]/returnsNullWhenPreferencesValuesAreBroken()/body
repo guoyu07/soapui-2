@@ -1,0 +1,5 @@
+{
+  preferences.setSoapUIWindowBounds(new Rectangle(0,0,200,300));
+  Preferences.userRoot().node(UserPreferences.ROOT_NODE_NAME).put(UserPreferences.WINDOW_X,"blablabla");
+  assertThat(preferences.getSoapUIWindowBounds(),is(nullValue()));
+}

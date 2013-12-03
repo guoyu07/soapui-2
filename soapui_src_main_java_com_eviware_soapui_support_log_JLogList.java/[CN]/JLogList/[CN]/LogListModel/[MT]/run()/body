@@ -1,4 +1,5 @@
 {
+  String originalName=Thread.currentThread().getName();
   Thread.currentThread().setName("LogList Updater for " + title);
   try {
     while (!released && !linesToAdd.isEmpty()) {
@@ -25,7 +26,7 @@ synchronized (lines) {
                   }
                 }
               }
- catch (              Throwable e) {
+ catch (              Exception e) {
                 SoapUI.logError(e);
               }
             }
@@ -34,12 +35,13 @@ synchronized (lines) {
         }
         Thread.sleep(500);
       }
- catch (      Throwable e) {
+ catch (      Exception e) {
         SoapUI.logError(e);
       }
     }
   }
   finally {
+    Thread.currentThread().setName(originalName);
     future=null;
   }
 }

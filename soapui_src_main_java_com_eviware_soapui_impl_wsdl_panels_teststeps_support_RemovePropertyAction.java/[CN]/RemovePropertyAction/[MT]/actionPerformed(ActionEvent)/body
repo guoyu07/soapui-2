@@ -5,6 +5,6 @@
   String propertyName=propertyTable.getValueAt(row,0).toString();
   if (UISupport.confirm("Remove parameter [" + propertyName + "]?","Remove Parameter")) {
     propertyTable.clearSelection();
-    ((MutableTestPropertyHolder)propertyHolder).removeProperty(propertyName);
+    propertyHolder.removeProperty(propertyName);
   }
 }

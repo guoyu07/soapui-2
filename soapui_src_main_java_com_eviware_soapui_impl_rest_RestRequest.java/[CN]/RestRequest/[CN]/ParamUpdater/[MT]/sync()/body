@@ -1,6 +1,7 @@
 {
   try {
-    getConfig().setParameters(StringToStringMapConfig.Factory.parse(values.toXml()));
+    RestRequestConfig requestConfig=getConfig();
+    requestConfig.setParameters(StringToStringMapConfig.Factory.parse(values.toXml()));
   }
  catch (  XmlException e) {
     e.printStackTrace();

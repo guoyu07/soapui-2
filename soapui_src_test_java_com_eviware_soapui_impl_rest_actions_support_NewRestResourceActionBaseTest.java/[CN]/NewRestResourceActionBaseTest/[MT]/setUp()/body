@@ -1,0 +1,9 @@
+{
+  originalDialogs=UISupport.getDialogs();
+  stubbedDialogs=new StubbedDialogs();
+  UISupport.setDialogs(stubbedDialogs);
+  service=ModelItemFactory.makeRestService();
+  service.addEndpoint(ENDPOINT);
+  parentResource=service.addNewResource("parent",PARENT_RESOURCE_PATH);
+  action=new NewRestResourceAction();
+}

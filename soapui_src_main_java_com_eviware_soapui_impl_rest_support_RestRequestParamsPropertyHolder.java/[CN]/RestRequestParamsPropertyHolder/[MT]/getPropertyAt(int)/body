@@ -1,4 +1,9 @@
 {
-  if (methodParams.getPropertyCount() <= index)   return null;
-  return getWrapper(methodParams.getPropertyAt(index));
+  if (methodParams.getPropertyCount() <= index) {
+    return null;
+  }
+  buildPropertyNameList();
+  String propertyName=sortedPropertyNames.get(index);
+  RestParamProperty propertyToWrap=methodParams.getProperty(propertyName);
+  return getWrapper(propertyToWrap);
 }

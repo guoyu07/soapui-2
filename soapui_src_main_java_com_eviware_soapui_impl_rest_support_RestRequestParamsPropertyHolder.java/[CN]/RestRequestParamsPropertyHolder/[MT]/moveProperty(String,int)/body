@@ -1,3 +1,9 @@
 {
-  methodParams.moveProperty(propertyName,targetIndex);
+  if (sortedPropertyNames.contains(propertyName)) {
+    int oldIndex=sortedPropertyNames.indexOf(propertyName);
+    String valueAtNewindex=sortedPropertyNames.get(targetIndex);
+    sortedPropertyNames.set(targetIndex,propertyName);
+    sortedPropertyNames.set(oldIndex,valueAtNewindex);
+    firePropertyMoved(propertyName,oldIndex,targetIndex);
+  }
 }

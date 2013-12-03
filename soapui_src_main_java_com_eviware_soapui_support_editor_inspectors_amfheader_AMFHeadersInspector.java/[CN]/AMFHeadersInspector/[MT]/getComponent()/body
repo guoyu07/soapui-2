@@ -8,7 +8,7 @@
     }
   }
 );
-  headersTable=new JTable(headersTableModel);
+  headersTable=JTableFactory.getInstance().makeJTable(headersTableModel);
   panel=new JPanel(new BorderLayout());
   panel.add(new JScrollPane(headersTable),BorderLayout.CENTER);
   if (!model.isReadOnly()) {
