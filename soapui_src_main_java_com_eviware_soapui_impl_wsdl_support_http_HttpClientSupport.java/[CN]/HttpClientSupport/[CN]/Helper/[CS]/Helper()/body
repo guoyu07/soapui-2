@@ -14,8 +14,6 @@
   connectionManager.setDefaultMaxPerRoute((int)settings.getLong(HttpSettings.MAX_CONNECTIONS_PER_HOST,500));
   httpClient=new SoapUIHttpClient(connectionManager);
   httpClient.addRequestInterceptor(new HeaderRequestInterceptor(),httpClient.getRequestInterceptorCount());
-  httpClient.getAuthSchemes().register(AuthPolicy.NTLM,new NTLMSchemeFactory());
-  httpClient.getAuthSchemes().register(AuthPolicy.SPNEGO,new NegotiateSchemeFactory(null,true));
   httpClient.setRoutePlanner(new CompositeHttpRoutePlanner(registry));
   settings.addSettingsListener(new SSLSettingsListener());
 }
