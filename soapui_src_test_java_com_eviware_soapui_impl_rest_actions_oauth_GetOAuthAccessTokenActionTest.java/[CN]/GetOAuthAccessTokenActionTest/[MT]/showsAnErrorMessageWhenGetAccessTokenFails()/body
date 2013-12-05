@@ -1,0 +1,14 @@
+{
+  OAuthConfigConfig configuration=OAuthConfigConfig.Factory.newInstance();
+  OAuth2Profile profile=new OAuth2Profile(configuration);
+  final OAuth2ClientFacade clientFacade=mock(OAuth2ClientFacade.class);
+  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(){
+    @Override protected OAuth2ClientFacade getOAuthClientFacade(){
+      return clientFacade;
+    }
+  }
+;
+  Mockito.doThrow(new OAuth2Exception(new RuntimeException())).when(clientFacade).requestAccessToken(profile);
+  action.perform(profile,null);
+  assertThat(stubbedDialogs.getErrorMessages(),is(aCollectionWithSize(1)));
+}

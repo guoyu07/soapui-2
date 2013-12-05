@@ -1,0 +1,21 @@
+{
+  OAuthConfigConfig configuration=OAuthConfigConfig.Factory.newInstance();
+  final OAuth2Profile profile=new OAuth2Profile(configuration);
+  final OAuth2ClientFacade clientFacade=mock(OAuth2ClientFacade.class);
+  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(){
+    @Override protected OAuth2ClientFacade getOAuthClientFacade(){
+      return clientFacade;
+    }
+  }
+;
+  final String accessToken="4/98789adfc8234278243987";
+  doAnswer(new Answer(){
+    @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      profile.setAccessToken(accessToken);
+      return profile;
+    }
+  }
+).when(clientFacade).requestAccessToken(profile);
+  action.perform(profile,null);
+  assertThat(profile.getAccessToken(),is(accessToken));
+}

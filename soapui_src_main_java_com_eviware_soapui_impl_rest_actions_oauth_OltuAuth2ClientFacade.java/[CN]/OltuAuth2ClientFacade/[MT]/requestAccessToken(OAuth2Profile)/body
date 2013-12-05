@@ -1,0 +1,15 @@
+{
+  try {
+    String authorizationURL=createAuthorizationURL(profile);
+    launchConsentScreenAndGetAuthorizationCode(authorizationURL,profile);
+  }
+ catch (  OAuthSystemException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  MalformedURLException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  URISyntaxException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  if (authorizationCode != null) {
+    try {
+      OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(profile.getAccessTokenUri()).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(profile.getClientId()).setClientSecret(profile.getClientSecret()).setRedirectURI(profile.getRedirectURL()).setCode(authorizationCode).buildBodyMessage();
+      OAuthToken token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
+      if (token != null && token.getAccessToken() != null) {
+        profile.setAccessToken(token.getAccessToken());
+      }
+    }
+ catch (    OAuthSystemException e) {
+      SoapUI.logError(e);
+    }
+catch (    OAuthProblemException e) {
+      SoapUI.logError(e);
+    }
+  }
+}
