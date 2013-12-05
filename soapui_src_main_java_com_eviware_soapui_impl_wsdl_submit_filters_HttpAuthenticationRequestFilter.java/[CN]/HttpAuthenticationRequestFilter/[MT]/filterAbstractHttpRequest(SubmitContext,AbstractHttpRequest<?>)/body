@@ -5,6 +5,7 @@
   String password=PropertyExpander.expandProperties(context,wsdlRequest.getPassword());
   String domain=PropertyExpander.expandProperties(context,wsdlRequest.getDomain());
   Enum authtype=AuthType.Enum.forString(wsdlRequest.getAuthType());
+  registerSpnegoAuthSchemeFactory(authtype);
   String wssPasswordType=null;
   if (wsdlRequest instanceof WsdlRequest) {
     wssPasswordType=PropertyExpander.expandProperties(context,((WsdlRequest)wsdlRequest).getWssPasswordType());
