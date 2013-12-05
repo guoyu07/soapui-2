@@ -1,0 +1,6 @@
+{
+  selectAuthMethod(CredentialsConfig.AuthType.NTLM);
+  filter.filterAbstractHttpRequest(null,wsdlRequest);
+  AuthScheme scheme=getSchemeFor(AuthPolicy.SPNEGO);
+  assertThat(scheme,instanceOf(NTLMScheme.class));
+}
