@@ -61,6 +61,9 @@
     testSuite=testCase.getTestSuite();
     project=testSuite.getProject();
   }
+ else   if (modelItem instanceof OAuth2Profile) {
+    project=((WsdlProject)modelItem.getParent());
+  }
   if (project == null)   return null;
   String result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.PROJECT_REFERENCE,project,context,globalOverride);
   if (result != null)   return result;

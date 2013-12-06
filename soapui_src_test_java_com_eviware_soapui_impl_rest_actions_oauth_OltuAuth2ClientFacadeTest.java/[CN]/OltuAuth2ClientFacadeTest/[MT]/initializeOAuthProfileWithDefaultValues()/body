@@ -1,6 +1,6 @@
 {
   OAuthConfigConfig configuration=OAuthConfigConfig.Factory.newInstance();
-  profile=new OAuth2Profile(configuration);
+  profile=new OAuth2Profile(makeWsdlProject(),configuration);
   profile.setAuthorizationUri("http://localhost:8080/authorize");
   profile.setAccessTokenUri("http://localhost:8080/accesstoken");
   profile.setRedirectUri("http://localhost:8080/redirect");

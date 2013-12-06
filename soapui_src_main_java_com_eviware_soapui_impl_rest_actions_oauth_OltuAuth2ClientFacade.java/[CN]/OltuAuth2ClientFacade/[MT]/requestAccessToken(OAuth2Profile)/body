@@ -1,8 +1,9 @@
 {
   try {
-    validateProfileContents(profile);
-    String authorizationURL=createAuthorizationURL(profile);
-    launchConsentScreenAndGetAuthorizationCode(authorizationURL,profile);
+    OAuth2Parameters parameters=buildParametersFrom(profile);
+    validateProfileContents(parameters);
+    String authorizationURL=createAuthorizationURL(parameters);
+    launchConsentScreenAndGetAuthorizationCode(authorizationURL,parameters);
   }
  catch (  OAuthSystemException e) {
     logAndThrowOAuth2Exception(e);
