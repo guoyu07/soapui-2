@@ -1,0 +1,11 @@
+{
+  String authorizationUri=profile.getAuthorizationURL();
+  String uriName="Authorization URI ";
+  validateHttpUrl(authorizationUri,uriName);
+  if (!profile.getRedirectUri().equals(OAUTH_2_OOB_URN)) {
+    validateHttpUrl(profile.getRedirectUri(),"Redirect URI");
+  }
+  validateHttpUrl(profile.getAccessTokenUri(),"Access token URI");
+  validateRequiredStringValue(profile.getClientId(),"Client ID");
+  validateRequiredStringValue(profile.getClientSecret(),"Client secret");
+}
