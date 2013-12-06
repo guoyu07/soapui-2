@@ -33,6 +33,10 @@
     }
     if (!getConfig().isSetWssContainer())     getConfig().addNewWssContainer();
     wssContainer=new DefaultWssContainer(this,getConfig().getWssContainer());
+    if (!getConfig().isSetOAuth2ProfileContainer()) {
+      getConfig().addNewOAuth2ProfileContainer();
+    }
+    oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());
     endpointStrategy.init(this);
     setActiveEnvironment(DefaultEnvironment.getInstance());
     if (!getConfig().isSetAbortOnError())     getConfig().setAbortOnError(false);
