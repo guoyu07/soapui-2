@@ -12,7 +12,7 @@
   doAnswer(new Answer(){
     @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
       profile.setAccessToken(accessToken);
-      return profile;
+      return null;
     }
   }
 ).when(clientFacade).requestAccessToken(profile);

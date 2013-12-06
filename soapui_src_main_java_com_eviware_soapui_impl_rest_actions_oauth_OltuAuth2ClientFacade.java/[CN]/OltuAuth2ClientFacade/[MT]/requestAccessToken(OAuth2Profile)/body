@@ -1,5 +1,6 @@
 {
   try {
+    validateProfileContents(profile);
     String authorizationURL=createAuthorizationURL(profile);
     launchConsentScreenAndGetAuthorizationCode(authorizationURL,profile);
   }
