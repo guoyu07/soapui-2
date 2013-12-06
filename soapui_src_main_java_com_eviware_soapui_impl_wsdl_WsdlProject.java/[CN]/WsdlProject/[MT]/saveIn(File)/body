@@ -7,7 +7,8 @@
   }
   removeProjectRoot(projectDocument);
   if (hasBeenSuccessfullyDecrypted(projectDocument) && hasEncryptionPassword()) {
-    encrypt(projectDocument);
+    ProjectConfig encryptedProjectConfig=encrypt(projectDocument);
+    projectDocument.setSoapuiProject(encryptedProjectConfig);
   }
   XmlOptions options=new XmlOptions();
   if (SoapUI.getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_PROJECT_FILES)) {

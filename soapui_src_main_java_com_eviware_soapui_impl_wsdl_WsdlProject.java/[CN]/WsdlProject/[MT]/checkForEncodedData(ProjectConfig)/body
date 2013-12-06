@@ -22,7 +22,8 @@
     return -1;
   }
   try {
-    data=OpenSSL.decrypt("des3",password,encryptedContent);
+    String encryptionAlgorithm=soapuiProject.getEncryptedContentAlgorithm();
+    data=OpenSSL.decrypt(StringUtils.isNullOrEmpty(encryptionAlgorithm) ? "des3" : encryptionAlgorithm,password,encryptedContent);
   }
  catch (  Exception e) {
     SoapUI.logError(e);

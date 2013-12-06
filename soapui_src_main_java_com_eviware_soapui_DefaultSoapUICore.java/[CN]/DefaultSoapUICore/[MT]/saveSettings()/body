@@ -13,9 +13,11 @@
     if (password != null && password.length() > 0) {
       try {
         byte[] data=settingsDocument.xmlText().getBytes();
-        byte[] encryptedData=OpenSSL.encrypt("des3",password.toCharArray(),data);
+        String encryptionAlgorithm="des3";
+        byte[] encryptedData=OpenSSL.encrypt(encryptionAlgorithm,password.toCharArray(),data);
         settingsDocument.setSoapuiSettings(null);
         settingsDocument.getSoapuiSettings().setEncryptedContent(encryptedData);
+        settingsDocument.getSoapuiSettings().setEncryptedContentAlgorithm(encryptionAlgorithm);
       }
  catch (      UnsupportedEncodingException e) {
         log.error("Encryption error",e);
