@@ -5,6 +5,7 @@
       OAuthToken token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
       if (token != null && token.getAccessToken() != null) {
         profile.setAccessToken(token.getAccessToken());
+        browserFacade.close();
       }
     }
  catch (    OAuthSystemException e) {
