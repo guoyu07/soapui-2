@@ -1,3 +1,7 @@
 {
-  configuration.setAccessTokenURI(accessTokenURI);
+  String oldValue=configuration.getAccessTokenURI();
+  if (!StringUtils.equals(oldValue,accessTokenURI)) {
+    configuration.setAccessTokenURI(accessTokenURI);
+    pcs.firePropertyChange(ACCESS_TOKEN_URI_PROPERTY,oldValue,accessTokenURI);
+  }
 }

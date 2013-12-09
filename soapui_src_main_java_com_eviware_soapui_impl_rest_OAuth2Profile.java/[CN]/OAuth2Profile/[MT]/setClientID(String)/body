@@ -1,3 +1,7 @@
 {
-  configuration.setClientID(clientID);
+  String oldValue=configuration.getClientID();
+  if (!StringUtils.equals(oldValue,clientID)) {
+    configuration.setClientID(clientID);
+    pcs.firePropertyChange(CLIENT_ID_PROPERTY,oldValue,clientID);
+  }
 }
