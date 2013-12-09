@@ -1,0 +1,9 @@
+{
+  String authorizationUri=expandProperty(profile,profile.getAuthorizationURI());
+  String redirectUri=expandProperty(profile,profile.getRedirectURI());
+  String accessTokenUri=expandProperty(profile,profile.getAccessTokenURI());
+  String clientId=expandProperty(profile,profile.getClientID());
+  String clientSecret=expandProperty(profile,profile.getClientSecret());
+  String scope=expandProperty(profile,profile.getScope());
+  return new OAuth2Parameters(profile,authorizationUri,redirectUri,accessTokenUri,clientId,clientSecret,scope);
+}

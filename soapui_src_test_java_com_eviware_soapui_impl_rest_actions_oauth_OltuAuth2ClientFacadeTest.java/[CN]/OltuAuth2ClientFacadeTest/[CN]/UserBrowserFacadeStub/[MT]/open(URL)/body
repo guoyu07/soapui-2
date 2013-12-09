@@ -1,0 +1,16 @@
+{
+  String queryString=url.getQuery();
+  if (!queryString.contains("redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob")) {
+    String[] parameters=queryString.split("&");
+    for (    String parameter : parameters) {
+      String prefix="redirect_uri=";
+      if (parameter.startsWith(prefix)) {
+        String redirectURI=parameter.substring(prefix.length());
+        listener.locationChanged(redirectURI + "?code=" + authorizationCode);
+      }
+    }
+  }
+ else {
+    listener.contentChanged("<TITLE>code=" + authorizationCode + "</TITLE>");
+  }
+}

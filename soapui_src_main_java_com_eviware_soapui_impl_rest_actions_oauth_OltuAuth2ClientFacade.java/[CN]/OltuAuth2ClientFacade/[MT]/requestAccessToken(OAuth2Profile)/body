@@ -1,0 +1,17 @@
+{
+  try {
+    OAuth2Parameters parameters=buildParametersFrom(profile);
+    validateProfileContents(parameters);
+    String authorizationURL=createAuthorizationURL(parameters);
+    launchConsentScreenAndGetAuthorizationCode(authorizationURL,parameters);
+  }
+ catch (  OAuthSystemException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  MalformedURLException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  URISyntaxException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+}

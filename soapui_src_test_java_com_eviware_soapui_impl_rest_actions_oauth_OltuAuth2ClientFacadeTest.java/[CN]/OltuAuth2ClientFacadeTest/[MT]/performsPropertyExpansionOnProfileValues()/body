@@ -1,0 +1,11 @@
+{
+  String authorizationPropertyName="myAuthorizationURI";
+  String redirectURIPropertyName="myRedirectURI";
+  WsdlProject project=(WsdlProject)profile.getContainer().getModelItem();
+  project.addProperty(authorizationPropertyName).setValue(profile.getAuthorizationURI());
+  project.addProperty(redirectURIPropertyName).setValue(profile.getRedirectURI());
+  profile.setAuthorizationURI("${#Project#" + authorizationPropertyName + "}");
+  profile.setRedirectURI("${#Project#" + redirectURIPropertyName + "}");
+  oltuClientFacade.requestAccessToken(profile);
+  assertThat(profile.getAccessToken(),is(accessToken));
+}

@@ -1,0 +1,9 @@
+{
+  WebHistory history=getWebEngine().getHistory();
+  if (history.getCurrentIndex() >= history.getEntries().size() - 1) {
+    Toolkit.getDefaultToolkit().beep();
+  }
+ else {
+    history.go(history.getCurrentIndex() + 1);
+  }
+}

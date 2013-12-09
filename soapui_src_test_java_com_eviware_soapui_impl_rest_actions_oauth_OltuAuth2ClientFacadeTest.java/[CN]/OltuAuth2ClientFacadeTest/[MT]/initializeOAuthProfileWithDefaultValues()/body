@@ -1,0 +1,9 @@
+{
+  OAuth2ProfileConfig configuration=OAuth2ProfileConfig.Factory.newInstance();
+  profile=new OAuth2Profile(ModelItemFactory.makeOAuth2ProfileContainer(),configuration);
+  profile.setAuthorizationURI("http://localhost:8080/authorize");
+  profile.setAccessTokenURI("http://localhost:8080/accesstoken");
+  profile.setRedirectURI("http://localhost:8080/redirect");
+  profile.setClientID("ClientId");
+  profile.setClientSecret("ClientSecret");
+}

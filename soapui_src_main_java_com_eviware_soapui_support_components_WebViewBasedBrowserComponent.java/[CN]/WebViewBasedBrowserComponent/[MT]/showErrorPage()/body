@@ -1,0 +1,11 @@
+{
+  if (errorPage != null && !errorPage.equals(getUrl())) {
+    try {
+      showingErrorPage=true;
+      navigate(errorPage,null);
+    }
+ catch (    Throwable e) {
+      e.printStackTrace();
+    }
+  }
+}
