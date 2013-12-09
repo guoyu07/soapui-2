@@ -1,0 +1,7 @@
+{
+  PropertyExpansionsResult result=new PropertyExpansionsResult(getModelItem(),this);
+  for (  OAuth2Profile oAuth2Profile : oAuth2ProfileList) {
+    result.addAll(oAuth2Profile.getPropertyExpansions());
+  }
+  return result.toArray();
+}

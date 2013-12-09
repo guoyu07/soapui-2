@@ -1,10 +1,7 @@
 {
-  project.getConfig().setOAuthConfig(oAuthConfig);
   project.saveAs(projectFileName);
   WsdlProject retrievedProject=new WsdlProject(projectFileName);
-  assertThat(retrievedProject.getConfig().getOAuthConfig().getClientID(),is(oAuthConfig.getClientID()));
-  assertThat(retrievedProject.getConfig().getOAuthConfig().getAccessTokenURI(),is(oAuthConfig.getAccessTokenURI()));
-  assertThat(retrievedProject.getConfig().getOAuthConfig().getAuthorizeURI(),is(oAuthConfig.getAuthorizeURI()));
-  assertThat(retrievedProject.getConfig().getOAuthConfig().getClientSecret(),is(oAuthConfig.getClientSecret()));
-  assertThat(retrievedProject.getConfig().getOAuthConfig().getAccessToken(),is(oAuthConfig.getAccessToken()));
+  assertThat(retrievedProject.getOAuth2ProfileContainer().getOAuth2ProfileList().size(),is(1));
+  OAuth2Profile savedOAuth2Profile=retrievedProject.getOAuth2ProfileContainer().getOAuth2ProfileList().get(0);
+  assertOAuth2ProfileFields(savedOAuth2Profile);
 }

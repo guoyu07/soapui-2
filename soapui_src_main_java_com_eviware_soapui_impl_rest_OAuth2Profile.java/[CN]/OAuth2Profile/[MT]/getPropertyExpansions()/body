@@ -1,0 +1,11 @@
+{
+  PropertyExpansionsResult result=new PropertyExpansionsResult(oAuth2ProfileContainer.getModelItem(),this);
+  result.extractAndAddAll("clientID");
+  result.extractAndAddAll("clientSecret");
+  result.extractAndAddAll("authorizationURI");
+  result.extractAndAddAll("accessTokenURI");
+  result.extractAndAddAll("redirectURI");
+  result.extractAndAddAll("accessToken");
+  result.extractAndAddAll("scope");
+  return result.toArray();
+}
