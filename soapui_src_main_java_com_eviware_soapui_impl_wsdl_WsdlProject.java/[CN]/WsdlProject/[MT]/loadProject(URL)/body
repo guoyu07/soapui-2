@@ -36,7 +36,7 @@
     if (!getConfig().isSetOAuth2ProfileContainer()) {
       getConfig().addNewOAuth2ProfileContainer();
     }
-    oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());
+    oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().getOAuth2ProfileContainer());
     endpointStrategy.init(this);
     setActiveEnvironment(DefaultEnvironment.getInstance());
     if (!getConfig().isSetAbortOnError())     getConfig().setAbortOnError(false);

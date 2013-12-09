@@ -53,7 +53,7 @@
       if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
       setPropertiesConfig(getConfig().addNewProperties());
       wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
-      oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().getOAuth2ProfileContainer());
+      oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());
     }
     if (getConfig() != null) {
       endpointStrategy.init(this);

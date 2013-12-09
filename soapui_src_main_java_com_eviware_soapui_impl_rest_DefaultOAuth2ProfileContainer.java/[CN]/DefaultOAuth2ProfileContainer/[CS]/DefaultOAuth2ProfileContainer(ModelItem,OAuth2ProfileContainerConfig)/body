@@ -2,6 +2,6 @@
   this.modelItem=modelItem;
   this.configuration=configuration;
   for (  OAuth2ProfileConfig oAuth2ProfileConfig : configuration.getOAuth2ProfileList()) {
-    oAuth2ProfileList.add(new OAuth2Profile(modelItem,oAuth2ProfileConfig));
+    oAuth2ProfileList.add(new OAuth2Profile(this,oAuth2ProfileConfig));
   }
 }
