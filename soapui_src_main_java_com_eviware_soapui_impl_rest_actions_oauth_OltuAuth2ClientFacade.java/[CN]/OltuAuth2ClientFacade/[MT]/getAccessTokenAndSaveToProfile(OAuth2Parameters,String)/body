@@ -1,10 +1,10 @@
 {
   if (authorizationCode != null) {
     try {
-      OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(profile.getAccessTokenUri()).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(profile.getClientId()).setClientSecret(profile.getClientSecret()).setRedirectURI(profile.getRedirectUri()).setCode(authorizationCode).buildBodyMessage();
+      OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.getAccessTokenUri()).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(parameters.getClientId()).setClientSecret(parameters.getClientSecret()).setRedirectURI(parameters.getRedirectUri()).setCode(authorizationCode).buildBodyMessage();
       OAuthToken token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
       if (token != null && token.getAccessToken() != null) {
-        profile.setAccessTokenInProfile(token.getAccessToken());
+        parameters.setAccessTokenInProfile(token.getAccessToken());
         browserFacade.close();
       }
     }
