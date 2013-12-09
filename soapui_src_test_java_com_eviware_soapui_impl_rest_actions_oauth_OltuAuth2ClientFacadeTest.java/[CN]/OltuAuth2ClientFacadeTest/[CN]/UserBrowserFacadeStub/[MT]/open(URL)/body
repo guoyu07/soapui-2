@@ -5,8 +5,8 @@
     for (    String parameter : parameters) {
       String prefix="redirect_uri=";
       if (parameter.startsWith(prefix)) {
-        String redirectUri=parameter.substring(prefix.length());
-        listener.locationChanged(redirectUri + "?code=" + authorizationCode);
+        String redirectURI=parameter.substring(prefix.length());
+        listener.locationChanged(redirectURI + "?code=" + authorizationCode);
       }
     }
   }

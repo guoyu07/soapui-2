@@ -1,9 +1,9 @@
 {
-  OAuthConfigConfig configuration=OAuthConfigConfig.Factory.newInstance();
-  profile=new OAuth2Profile(makeWsdlProject(),configuration);
-  profile.setAuthorizationUri("http://localhost:8080/authorize");
-  profile.setAccessTokenUri("http://localhost:8080/accesstoken");
-  profile.setRedirectUri("http://localhost:8080/redirect");
-  profile.setClientId("ClientId");
+  OAuth2ProfileConfig configuration=OAuth2ProfileConfig.Factory.newInstance();
+  profile=new OAuth2Profile(ModelItemFactory.makeOAuth2ProfileContainer(),configuration);
+  profile.setAuthorizationURI("http://localhost:8080/authorize");
+  profile.setAccessTokenURI("http://localhost:8080/accesstoken");
+  profile.setRedirectURI("http://localhost:8080/redirect");
+  profile.setClientID("ClientId");
   profile.setClientSecret("ClientSecret");
 }

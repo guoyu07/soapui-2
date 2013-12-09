@@ -1,11 +1,11 @@
 {
-  String authorizationPropertyName="myAuthorizationUri";
-  String redirectUriPropertyName="myRedirectUri";
-  WsdlProject project=(WsdlProject)profile.getParent();
-  project.addProperty(authorizationPropertyName).setValue(profile.getAuthorizationURL());
-  project.addProperty(redirectUriPropertyName).setValue(profile.getRedirectUri());
-  profile.setAuthorizationUri("${#Project#" + authorizationPropertyName + "}");
-  profile.setRedirectUri("${#Project#" + redirectUriPropertyName + "}");
+  String authorizationPropertyName="myAuthorizationURI";
+  String redirectURIPropertyName="myRedirectURI";
+  WsdlProject project=(WsdlProject)profile.getContainer().getModelItem();
+  project.addProperty(authorizationPropertyName).setValue(profile.getAuthorizationURI());
+  project.addProperty(redirectURIPropertyName).setValue(profile.getRedirectURI());
+  profile.setAuthorizationURI("${#Project#" + authorizationPropertyName + "}");
+  profile.setRedirectURI("${#Project#" + redirectURIPropertyName + "}");
   oltuClientFacade.requestAccessToken(profile);
   assertThat(profile.getAccessToken(),is(accessToken));
 }

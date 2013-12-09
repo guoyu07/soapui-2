@@ -2,6 +2,6 @@
   originalDialogs=UISupport.getDialogs();
   stubbedDialogs=new StubbedDialogs();
   UISupport.setDialogs(stubbedDialogs);
-  configuration=OAuthConfigConfig.Factory.newInstance();
-  profile=new OAuth2Profile(makeWsdlProject(),configuration);
+  configuration=OAuth2ProfileConfig.Factory.newInstance();
+  profile=new OAuth2Profile(ModelItemFactory.makeOAuth2ProfileContainer(),configuration);
 }
