@@ -1,0 +1,9 @@
+{
+  oAuth2RequestFilter=new OAuth2RequestFilter();
+  restRequest=ModelItemFactory.makeRestRequest();
+  WsdlProject project=restRequest.getOperation().getInterface().getProject();
+  OAuth2ProfileContainer oAuth2ProfileContainer=project.getOAuth2ProfileContainer();
+  OAuth2Profile oAuth2Profile=oAuth2ProfileContainer.addNewOAuth2Profile();
+  oAuth2Profile.setAccessToken(accessToken);
+  mockContext=Mockito.mock(SubmitContext.class);
+}

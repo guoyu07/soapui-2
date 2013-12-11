@@ -1,7 +1,9 @@
 {
-  initializeOAuthProfileWithDefaultValues();
   authorizationCode="some_code";
   accessToken="expected_access_token";
+  initializeOAuthProfileWithDefaultValues();
+  initializeOAuthProfileWithOnlyAccessToken();
+  restRequest=new RestRequest(ModelItemFactory.makeRestMethod(),RestRequestConfig.Factory.newInstance(),false);
   spyingOauthClientStub=new SpyingOauthClientStub();
   oltuClientFacade=new OltuAuth2ClientFacade(){
     @Override protected OAuthClient getOAuthClient(){

@@ -1,0 +1,5 @@
+{
+  String expectedAccessTokenValue="Bearer " + accessToken;
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  assertThat(restRequest.getRequestHeaders().get(OAuth.HeaderType.AUTHORIZATION).get(0),is(expectedAccessTokenValue));
+}
