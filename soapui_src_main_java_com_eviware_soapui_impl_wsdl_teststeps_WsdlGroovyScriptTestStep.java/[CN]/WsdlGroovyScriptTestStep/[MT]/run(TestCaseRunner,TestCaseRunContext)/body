@@ -14,7 +14,7 @@
       result.stopTimer();
       if (scriptResult != null) {
         result.addMessage("Script-result: " + scriptResult.toString());
-        firePropertyValueChanged("result",null,String.valueOf(result));
+        firePropertyValueChanged(Script.RESULT_PROPERTY,null,String.valueOf(result));
       }
     }
     Status testRunnerStatus=testRunner.getStatus();
