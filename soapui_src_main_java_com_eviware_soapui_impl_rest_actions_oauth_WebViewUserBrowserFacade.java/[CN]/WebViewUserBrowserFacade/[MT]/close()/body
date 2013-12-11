@@ -1,3 +1,23 @@
 {
-  popupWindow.dispose();
+  if (UISupport.isMac()) {
+    return;
+  }
+  Platform.runLater(new Runnable(){
+    @Override public void run(){
+      browserComponent.webView.getEngine().load(null);
+      try {
+        SwingUtilities.invokeAndWait(new Runnable(){
+          @Override public void run(){
+            popupWindow.setVisible(false);
+            popupWindow.dispose();
+          }
+        }
+);
+      }
+ catch (      Exception ignore) {
+        ignore.printStackTrace();
+      }
+    }
+  }
+);
 }
