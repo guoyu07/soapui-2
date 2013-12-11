@@ -1,7 +1,7 @@
 {
   propertyHolderTable=new PropertyHolderTable(getModelItem()){
     protected JTable buildPropertiesTable(){
-      propertiesModel=new DefaultPropertyTableHolderModel(holder){
+      propertiesModel=new DefaultPropertyHolderTableModel(holder){
         @Override public String[] getPropertyNames(){
           List<String> propertyNamesList=new ArrayList<String>();
           for (          String name : holder.getPropertyNames()) {

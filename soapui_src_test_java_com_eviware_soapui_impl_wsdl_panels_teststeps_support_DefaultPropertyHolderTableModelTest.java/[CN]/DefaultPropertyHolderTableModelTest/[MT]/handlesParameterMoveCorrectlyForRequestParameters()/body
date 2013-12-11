@@ -1,0 +1,6 @@
+{
+  String lastParameterName="lastOne";
+  requestParams.addProperty(lastParameterName);
+  requestTableHolderModel.moveProperty(lastParameterName,1,0);
+  assertThat(requestTableHolderModel.getPropertyAtRow(0).getName(),is(lastParameterName));
+}
