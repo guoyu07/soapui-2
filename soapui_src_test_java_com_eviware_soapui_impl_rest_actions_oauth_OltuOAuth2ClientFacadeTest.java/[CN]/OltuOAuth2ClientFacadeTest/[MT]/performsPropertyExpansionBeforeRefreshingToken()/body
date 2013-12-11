@@ -1,0 +1,15 @@
+{
+  String clientIdPropertyName="myClientId";
+  String clientSecretPropertyName="myRedirectURI";
+  WsdlProject project=profile.getContainer().getProject();
+  String clientIdValue="some_client_id";
+  String clientSecretValue="some_client_secret";
+  project.addProperty(clientIdPropertyName).setValue(clientIdValue);
+  project.addProperty(clientSecretPropertyName).setValue(clientSecretValue);
+  profile.setClientID("${#Project#" + clientIdPropertyName + "}");
+  profile.setClientSecret("${#Project#" + clientSecretPropertyName + "}");
+  profile.setRefreshToken("some_refresh_token");
+  oltuClientFacade.refreshAccessToken(profile);
+  assertThat(spyingOauthClientStub.oAuthClientRequest.getBody(),containsString(clientIdValue));
+  assertThat(spyingOauthClientStub.oAuthClientRequest.getBody(),containsString(clientSecretValue));
+}

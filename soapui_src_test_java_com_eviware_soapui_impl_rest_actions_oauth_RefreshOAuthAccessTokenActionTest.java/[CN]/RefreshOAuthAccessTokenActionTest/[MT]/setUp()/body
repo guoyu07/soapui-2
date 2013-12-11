@@ -4,4 +4,11 @@
   UISupport.setDialogs(stubbedDialogs);
   OAuth2ProfileConfig configuration=OAuth2ProfileConfig.Factory.newInstance();
   profile=new OAuth2Profile(ModelItemFactory.makeOAuth2ProfileContainer(),configuration);
+  clientFacade=mock(OAuth2ClientFacade.class);
+  action=new RefreshOAuthAccessTokenAction(profile){
+    @Override protected OAuth2ClientFacade getOAuthClientFacade(){
+      return clientFacade;
+    }
+  }
+;
 }

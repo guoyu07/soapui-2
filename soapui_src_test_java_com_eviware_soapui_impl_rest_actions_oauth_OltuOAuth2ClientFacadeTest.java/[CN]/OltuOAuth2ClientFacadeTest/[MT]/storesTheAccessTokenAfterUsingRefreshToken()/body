@@ -1,0 +1,6 @@
+{
+  profile.setAccessToken("expired_token!");
+  profile.setRefreshToken(refreshToken);
+  oltuClientFacade.refreshAccessToken(profile);
+  assertThat(profile.getAccessToken(),is(accessToken));
+}

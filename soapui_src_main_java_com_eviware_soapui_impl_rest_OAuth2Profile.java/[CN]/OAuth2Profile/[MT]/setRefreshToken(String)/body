@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getRefreshToken();
+  if (!StringUtils.equals(oldValue,refreshToken)) {
+    configuration.setRefreshToken(refreshToken);
+    pcs.firePropertyChange(REFRESH_TOKEN_PROPERTY,oldValue,refreshToken);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    getOAuthClientFacade().refreshAccessToken(target);
+  }
+ catch (  InvalidOAuth2ParametersException e) {
+    UISupport.showErrorMessage("Invalid OAuth2 parameters: " + e.getMessage());
+  }
+catch (  Exception e) {
+    SoapUI.logError(e,"Error refreshing OAuth2 access token");
+    UISupport.showErrorMessage("Could not refresh access token. Check the SoapUI log for details");
+  }
+}

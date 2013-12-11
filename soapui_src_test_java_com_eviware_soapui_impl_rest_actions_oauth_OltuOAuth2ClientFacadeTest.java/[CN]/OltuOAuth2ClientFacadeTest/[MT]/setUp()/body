@@ -1,0 +1,14 @@
+{
+  initializeOAuthProfileWithDefaultValues();
+  authorizationCode="some_code";
+  accessToken="expected_access_token";
+  refreshToken="expected_refresh_token";
+  spyingOauthClientStub=new SpyingOauthClientStub();
+  oltuClientFacade=new OltuOAuth2ClientFacade(){
+    @Override protected OAuthClient getOAuthClient(){
+      return spyingOauthClientStub;
+    }
+  }
+;
+  oltuClientFacade.browserFacade=new UserBrowserFacadeStub();
+}
