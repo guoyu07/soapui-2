@@ -1,0 +1,11 @@
+{
+  if (errorPage != null)   setErrorPage(errorPage);
+  this.url=url;
+  Platform.runLater(new Runnable(){
+    public void run(){
+      getWebEngine().load(url);
+    }
+  }
+);
+  if (showingErrorPage)   showingErrorPage=false;
+}

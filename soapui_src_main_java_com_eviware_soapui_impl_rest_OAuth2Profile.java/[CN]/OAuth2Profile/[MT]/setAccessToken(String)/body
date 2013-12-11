@@ -1,3 +1,5 @@
 {
-  configuration.setAccessToken(accessToken);
+  if (doSetAccessToken(accessToken)) {
+    setAccessTokenStatus(AccessTokenStatus.UPDATED_MANUALLY);
+  }
 }
