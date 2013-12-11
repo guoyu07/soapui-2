@@ -1,0 +1,19 @@
+{
+  FrameFixture rootWindow=frameWithTitle("SoapUI").using(robot);
+  JMenuItemFixture getOAuthTokenMenu=rootWindow.menuItem(new GenericTypeMatcher<JMenuItem>(JMenuItem.class){
+    @Override protected boolean isMatching(    JMenuItem component){
+      return component.getText().equals("Get OAuth Token");
+    }
+  }
+);
+  getOAuthTokenMenu.click();
+  Thread.sleep(2000);
+  robot.enterText("soapui.development");
+  robot.pressAndReleaseKeys(VK_TAB);
+  robot.enterText("20jz9Kzis2AAA8gr");
+  robot.pressAndReleaseKeys(VK_ENTER);
+  Thread.sleep(500);
+  robot.pressAndReleaseKeys(VK_TAB);
+  robot.pressAndReleaseKeys(VK_ENTER);
+  Thread.sleep(40000);
+}

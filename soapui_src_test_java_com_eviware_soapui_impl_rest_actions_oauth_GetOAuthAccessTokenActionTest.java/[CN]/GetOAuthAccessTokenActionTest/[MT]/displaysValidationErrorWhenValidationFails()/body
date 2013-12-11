@@ -1,6 +1,6 @@
 {
   final OAuth2ClientFacade clientFacade=mock(OAuth2ClientFacade.class);
-  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(){
+  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(profile){
     @Override protected OAuth2ClientFacade getOAuthClientFacade(){
       return clientFacade;
     }
@@ -8,7 +8,7 @@
 ;
   String theMessage="Access token URI blabla is not a valid HTTP URL";
   Mockito.doThrow(new InvalidOAuth2ParametersException(theMessage)).when(clientFacade).requestAccessToken(profile);
-  action.perform(profile,null);
+  action.actionPerformed(DUMMY_ACTION_EVENT);
   assertThat(stubbedDialogs.getErrorMessages(),is(aCollectionWithSize(1)));
   assertThat(stubbedDialogs.getErrorMessages().get(0),containsString(theMessage));
 }

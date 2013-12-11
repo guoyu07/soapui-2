@@ -1,6 +1,6 @@
 {
   final OAuth2ClientFacade clientFacade=mock(OAuth2ClientFacade.class);
-  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(){
+  GetOAuthAccessTokenAction action=new GetOAuthAccessTokenAction(profile){
     @Override protected OAuth2ClientFacade getOAuthClientFacade(){
       return clientFacade;
     }
@@ -14,6 +14,6 @@
     }
   }
 ).when(clientFacade).requestAccessToken(profile);
-  action.perform(profile,null);
+  action.actionPerformed(DUMMY_ACTION_EVENT);
   assertThat(profile.getAccessToken(),is(accessToken));
 }

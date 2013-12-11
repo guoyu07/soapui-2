@@ -1,0 +1,16 @@
+{
+  AccessTokenStatus oldValue=getAccessTokenStatus();
+  if (status == null && oldValue == null) {
+    return;
+  }
+ else   if (status != null) {
+    if (status.equals(oldValue)) {
+      return;
+    }
+    configuration.setAccessTokenStatus(AccessTokenStatusConfig.Enum.forString(status.toString()));
+  }
+ else {
+    configuration.setAccessTokenStatus(null);
+  }
+  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValue,status);
+}

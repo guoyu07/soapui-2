@@ -1,0 +1,12 @@
+{
+  final List<OAuth2Profile.AccessTokenStatus> statusValues=new ArrayList<OAuth2Profile.AccessTokenStatus>();
+  profile.addPropertyChangeListener(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,new PropertyChangeListener(){
+    @Override public void propertyChange(    PropertyChangeEvent evt){
+      statusValues.add((OAuth2Profile.AccessTokenStatus)evt.getNewValue());
+    }
+  }
+);
+  oltuClientFacade.requestAccessToken(profile);
+  assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.PENDING));
+  assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.RETRIEVED_FROM_SERVER));
+}
