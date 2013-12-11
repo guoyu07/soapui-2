@@ -1,0 +1,10 @@
+{
+  String uri=request.getPath();
+  OAuthBearerClientRequest oAuthBearerClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
+  try {
+    appendAccessTokenToHeader(request,oAuthBearerClientRequest);
+  }
+ catch (  OAuthSystemException e) {
+    SoapUI.logError(e);
+  }
+}
