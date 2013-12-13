@@ -1,6 +1,9 @@
 {
   WsdlProject project=request.getResource().getService().getProject();
-  OAuth2Profile profile=project.getOAuth2ProfileContainer().getOAuth2ProfileList().get(0);
-  OAuth2ClientFacade oAuth2Client=new OltuOAuth2ClientFacade();
-  oAuth2Client.applyAccessToken(profile,request);
+  OAuth2ProfileContainer profileContainer=project.getOAuth2ProfileContainer();
+  if (!profileContainer.getOAuth2ProfileList().isEmpty()) {
+    OAuth2Profile profile=profileContainer.getOAuth2ProfileList().get(0);
+    OAuth2ClientFacade oAuth2Client=new OltuOAuth2ClientFacade();
+    oAuth2Client.applyAccessToken(profile,request);
+  }
 }
