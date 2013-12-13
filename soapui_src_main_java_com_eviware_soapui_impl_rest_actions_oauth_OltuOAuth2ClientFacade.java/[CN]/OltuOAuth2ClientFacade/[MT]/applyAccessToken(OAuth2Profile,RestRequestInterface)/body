@@ -1,4 +1,7 @@
 {
+  if (StringUtils.isNullOrEmpty(profile.getAccessToken())) {
+    return;
+  }
   String uri=request.getPath();
   OAuthBearerClientRequest oAuthBearerClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
   try {
