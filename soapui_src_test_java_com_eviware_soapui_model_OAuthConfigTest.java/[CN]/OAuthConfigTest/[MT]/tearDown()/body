@@ -1,4 +1,6 @@
 {
   File file=new File(projectFileName);
-  file.delete();
+  if (file.exists()) {
+    file.delete();
+  }
 }
