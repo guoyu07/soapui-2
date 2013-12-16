@@ -1,5 +1,8 @@
 {
   if (StringUtils.isNullOrEmpty(profile.getAccessToken())) {
+    StringToStringsMap requestHeaders=request.getRequestHeaders();
+    requestHeaders.remove(OAuth.HeaderType.AUTHORIZATION);
+    request.setRequestHeaders(requestHeaders);
     return;
   }
   String uri=request.getPath();
