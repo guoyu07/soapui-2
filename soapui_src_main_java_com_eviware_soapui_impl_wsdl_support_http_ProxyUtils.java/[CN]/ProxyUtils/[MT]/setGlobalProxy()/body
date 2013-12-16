@@ -1,0 +1,27 @@
+{
+  ProxySelector proxySelector=null;
+  if (proxyEnabled) {
+    if (autoProxy) {
+      proxySelector=createAutoProxySearch().getProxySelector();
+    }
+ else {
+      Settings settings=SoapUI.getSettings();
+      String proxyHost=getExpandedProperty(null,settings,ProxySettings.HOST);
+      String proxyPort=getExpandedProperty(null,settings,ProxySettings.PORT);
+      if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
+        String[] excludes=PropertyExpander.expandProperties((PropertyExpansionContext)null,settings.getString(ProxySettings.EXCLUDES,"")).split(",");
+        proxySelector=new ManualProxySelector(proxyHost,Integer.valueOf(proxyPort),excludes);
+      }
+    }
+    Authenticator.setDefault(new Authenticator(){
+      @Override protected PasswordAuthentication getPasswordAuthentication(){
+        Settings settings=SoapUI.getSettings();
+        String proxyUsername=PropertyExpander.expandProperties((PropertyExpansionContext)null,settings.getString(ProxySettings.USERNAME,null));
+        String proxyPassword=PropertyExpander.expandProperties((PropertyExpansionContext)null,settings.getString(ProxySettings.PASSWORD,null));
+        return new PasswordAuthentication(proxyUsername,proxyPassword.toCharArray());
+      }
+    }
+);
+  }
+  ProxySelector.setDefault(proxySelector);
+}
