@@ -1,4 +1,7 @@
 {
+  if (!runBeforeSteps(testStep)) {
+    return null;
+  }
   TestStepResult stepResult=testStep.run(this,getRunContext());
   getResults().add(stepResult);
   setResultCount(getResultCount() + 1);
