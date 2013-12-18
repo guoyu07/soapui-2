@@ -1,0 +1,9 @@
+{
+  if (rowSpacing > 0 && !components.isEmpty())   addSpace(rowSpacing);
+  layout.appendRow(rowSpec);
+  int row=layout.getRowCount();
+  JButton button=new JButton(text);
+  button.addActionListener(actionListener);
+  panel.add(button,cc.xy(4,row,"left,bottom"));
+  return button;
+}

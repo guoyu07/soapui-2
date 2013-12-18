@@ -1,4 +1,10 @@
 {
   super("Auth","Authentication and Security-related settings",true,AuthInspectorFactory.INSPECTOR_ID);
   this.request=request;
+  OAuth2ProfileContainer profileContainer=request.getOperation().getInterface().getProject().getOAuth2ProfileContainer();
+  profile=profileContainer.getOAuth2ProfileList().get(0);
+  authTypeForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
+  legacyForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
+  oAuth2Form=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
+  buildUI();
 }

@@ -1,0 +1,21 @@
+{
+  initForm(oauth2Form);
+  oauth2Form.addSpace(TOP_SPACING);
+  oauth2Form.appendTextField("clientID","Client Identification","");
+  oauth2Form.appendTextField("clientSecret","Client Secret","");
+  oauth2Form.addSpace(GROUP_SPACING);
+  oauth2Form.appendTextField("authorizationURI","Authorization URI","");
+  oauth2Form.appendTextField("accessTokenURI","Access Token URI","");
+  oauth2Form.appendTextField("redirectURI","Redirect URI","");
+  oauth2Form.addSpace(GROUP_SPACING);
+  oauth2Form.appendTextField("scope","Scope","");
+  oauth2Form.addSpace(NORMAL_SPACING);
+  oauth2Form.addButtonWithoutLabel("Get access token",new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      getAccessToken(e);
+    }
+  }
+);
+  oauth2Form.addSpace(GROUP_SPACING);
+  oauth2Form.appendTextField("accessToken","Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
+}
