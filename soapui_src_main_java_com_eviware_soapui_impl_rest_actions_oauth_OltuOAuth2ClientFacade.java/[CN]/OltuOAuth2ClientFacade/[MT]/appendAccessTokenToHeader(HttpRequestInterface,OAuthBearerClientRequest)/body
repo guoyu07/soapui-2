@@ -1,8 +1,0 @@
-{
-  OAuthClientRequest oAuthClientRequest=oAuthBearerClientRequest.buildHeaderMessage();
-  Map<String,String> oAuthHeaders=oAuthClientRequest.getHeaders();
-  StringToStringsMap requestHeaders=request.getRequestHeaders();
-  requestHeaders.remove(OAuth.HeaderType.AUTHORIZATION);
-  requestHeaders.add(OAuth.HeaderType.AUTHORIZATION,oAuthHeaders.get(OAuth.HeaderType.AUTHORIZATION));
-  request.setRequestHeaders(requestHeaders);
-}

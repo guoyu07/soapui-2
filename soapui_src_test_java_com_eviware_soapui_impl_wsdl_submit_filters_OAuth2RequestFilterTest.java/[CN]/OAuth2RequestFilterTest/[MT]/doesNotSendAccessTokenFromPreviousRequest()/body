@@ -1,0 +1,5 @@
+{
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  restRequest.getOperation().getInterface().getProject().getOAuth2ProfileContainer().getOAuth2ProfileList().get(0).setAccessToken(null);
+  assertThat(httpRequest.getHeaders(OAuth.HeaderType.AUTHORIZATION).length,is(0));
+}

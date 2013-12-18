@@ -5,5 +5,8 @@
   OAuth2ProfileContainer oAuth2ProfileContainer=project.getOAuth2ProfileContainer();
   OAuth2Profile oAuth2Profile=oAuth2ProfileContainer.addNewOAuth2Profile();
   oAuth2Profile.setAccessToken(accessToken);
+  httpRequest=new ExtendedPostMethod();
+  httpRequest.setURI(new URI("endpoint/path"));
   mockContext=Mockito.mock(SubmitContext.class);
+  Mockito.when(mockContext.getProperty(BaseHttpRequestTransport.HTTP_METHOD)).thenReturn(httpRequest);
 }

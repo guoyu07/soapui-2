@@ -1,6 +1,5 @@
 {
   String expectedBodyContent="access_token=" + profileWithOnlyAccessToken.getAccessToken();
   profileWithOnlyAccessToken.setAccessTokenPosition(OAuth2Profile.AccessTokenPosition.BODY);
-  oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,restRequest);
-  assertThat(restRequest.getRequestContent(),is(expectedBodyContent));
+  oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,httpRequest,"");
 }

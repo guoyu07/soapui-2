@@ -5,7 +5,8 @@
   initializeOAuthProfileWithDefaultValues();
   initializeOAuthProfileWithOnlyAccessToken();
   spyingOauthClientStub=new SpyingOauthClientStub();
-  restRequest=new RestRequest(ModelItemFactory.makeRestMethod(),RestRequestConfig.Factory.newInstance(),false);
+  httpRequest=new ExtendedPostMethod();
+  httpRequest.setURI(new URI("endpoint/path"));
   oltuClientFacade=new OltuOAuth2ClientFacade(){
     @Override protected OAuthClient getOAuthClient(){
       return spyingOauthClientStub;

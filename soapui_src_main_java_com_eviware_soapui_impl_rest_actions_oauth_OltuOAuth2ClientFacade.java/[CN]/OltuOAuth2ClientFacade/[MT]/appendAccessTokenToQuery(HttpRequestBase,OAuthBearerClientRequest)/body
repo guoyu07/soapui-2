@@ -1,0 +1,12 @@
+{
+  String uriWithAccessToken=oAuthBearerClientRequest.buildQueryMessage().getLocationUri();
+  String queryString=uriWithAccessToken.split("\\?")[1];
+  URI oldUri=request.getURI();
+  String requestQueryString=oldUri.getQuery() != null ? oldUri.getQuery() + "&" + queryString : queryString;
+  try {
+    request.setURI(URIUtils.createURI(oldUri.getScheme(),oldUri.getHost(),oldUri.getPort(),oldUri.getRawPath(),requestQueryString,oldUri.getFragment()));
+  }
+ catch (  URISyntaxException e) {
+    throw new OAuthSystemException(e);
+  }
+}

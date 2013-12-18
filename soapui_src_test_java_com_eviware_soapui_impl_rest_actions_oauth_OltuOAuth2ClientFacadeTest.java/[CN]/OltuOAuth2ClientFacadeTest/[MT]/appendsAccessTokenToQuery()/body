@@ -1,7 +1,5 @@
 {
   profileWithOnlyAccessToken.setAccessTokenPosition(OAuth2Profile.AccessTokenPosition.QUERY);
-  oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,restRequest);
-  assertThat(restRequest.getParams().size(),is(1));
-  RestParamProperty accessTokenParam=restRequest.getParams().getProperty(OAuth.OAUTH_ACCESS_TOKEN);
-  assertThat(accessTokenParam.getValue(),is(profileWithOnlyAccessToken.getAccessToken()));
+  oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,httpRequest,"");
+  assertThat(httpRequest.getURI().getQuery(),is("access_token=" + profileWithOnlyAccessToken.getAccessToken()));
 }

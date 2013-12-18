@@ -1,11 +1,5 @@
 {
-  if (StringUtils.isNullOrEmpty(profile.getAccessToken())) {
-    StringToStringsMap requestHeaders=request.getRequestHeaders();
-    requestHeaders.remove(OAuth.HeaderType.AUTHORIZATION);
-    request.setRequestHeaders(requestHeaders);
-    return;
-  }
-  String uri=request.getPath();
+  String uri=request.getURI().getPath();
   OAuthBearerClientRequest oAuthBearerClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
   try {
 switch (profile.getAccessTokenPosition()) {
@@ -13,7 +7,7 @@ case QUERY:
       appendAccessTokenToQuery(request,oAuthBearerClientRequest);
     break;
 case BODY:
-  appendAccessTokenToBody(request,oAuthBearerClientRequest);
+  appendAccessTokenToBody(request,oAuthBearerClientRequest,requestContent);
 break;
 case HEADER:
 default :
