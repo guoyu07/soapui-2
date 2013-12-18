@@ -1,0 +1,12 @@
+{
+  Settings settings=SoapUI.getSettings();
+  try {
+    String proxyUsername=PropertyExpander.expandProperties(settings.getString(ProxySettings.USERNAME,null));
+    String proxyPassword=PropertyExpander.expandProperties(settings.getString(ProxySettings.PASSWORD,null));
+    return new PasswordAuthentication(proxyUsername,proxyPassword.toCharArray());
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"Unable to expand proxy settings");
+    return null;
+  }
+}

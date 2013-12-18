@@ -1,6 +1,6 @@
 {
   if (cachedProxySelector == null) {
-    cachedProxySelector=proxySearch.getProxySelector();
+    cachedProxySelector=ProxyUtils.filterHttpHttpsProxy(proxySearch.getProxySelector());
   }
   return cachedProxySelector;
 }
