@@ -1,0 +1,5 @@
+{
+  String uriWithAccessToken=oAuthBearerClientRequest.buildQueryMessage().getLocationUri();
+  String queryString=uriWithAccessToken.split("\\?")[1];
+  RestUtils.extractParamsFromQueryString(request.getParams(),queryString);
+}

@@ -8,9 +8,20 @@
   String uri=request.getPath();
   OAuthBearerClientRequest oAuthBearerClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
   try {
-    appendAccessTokenToHeader(request,oAuthBearerClientRequest);
-  }
- catch (  OAuthSystemException e) {
-    SoapUI.logError(e);
-  }
+switch (profile.getAccessTokenPosition()) {
+case QUERY:
+      appendAccessTokenToQuery(request,oAuthBearerClientRequest);
+    break;
+case BODY:
+  appendAccessTokenToBody(request,oAuthBearerClientRequest);
+break;
+case HEADER:
+default :
+appendAccessTokenToHeader(request,oAuthBearerClientRequest);
+break;
+}
+}
+ catch (OAuthSystemException e) {
+SoapUI.logError(e);
+}
 }

@@ -1,5 +1,4 @@
 {
-  profileWithOnlyAccessToken.setAccessTokenPosition(OAuth2Profile.AccessTokenPosition.HEADER);
   String expectedAccessTokenValue="Bearer " + profileWithOnlyAccessToken.getAccessToken();
   oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,restRequest);
   assertThat(restRequest.getRequestHeaders().get(OAuth.HeaderType.AUTHORIZATION).get(0),is(expectedAccessTokenValue));
