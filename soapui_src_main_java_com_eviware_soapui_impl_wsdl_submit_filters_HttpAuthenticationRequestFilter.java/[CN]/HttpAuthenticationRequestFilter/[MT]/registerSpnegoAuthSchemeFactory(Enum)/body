@@ -1,0 +1,8 @@
+{
+  if (authtype == AuthType.NTLM) {
+    HttpClientSupport.getHttpClient().getAuthSchemes().register(AuthPolicy.SPNEGO,new NTLMSchemeFactory());
+  }
+ else   if (authtype == AuthType.SPNEGO_KERBEROS) {
+    HttpClientSupport.getHttpClient().getAuthSchemes().register(AuthPolicy.SPNEGO,new NegotiateSchemeFactory(null,true));
+  }
+}

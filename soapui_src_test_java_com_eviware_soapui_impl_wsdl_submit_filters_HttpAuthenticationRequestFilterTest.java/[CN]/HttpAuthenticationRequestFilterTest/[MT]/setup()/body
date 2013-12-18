@@ -1,0 +1,6 @@
+{
+  filter=new HttpAuthenticationRequestFilter();
+  wsdlRequest=Mockito.mock(WsdlRequest.class);
+  when(wsdlRequest.getUsername()).thenReturn("Uwe");
+  when(wsdlRequest.getWssPasswordType()).thenReturn(WsdlRequest.PW_TYPE_NONE);
+}

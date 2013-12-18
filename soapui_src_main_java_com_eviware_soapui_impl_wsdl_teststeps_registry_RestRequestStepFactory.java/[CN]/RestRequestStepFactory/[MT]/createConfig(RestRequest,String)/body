@@ -1,4 +1,5 @@
 {
+  request.beforeSave();
   RestRequestStepConfig requestStepConfig=RestRequestStepConfig.Factory.newInstance();
   requestStepConfig.setService(request.getOperation().getInterface().getName());
   requestStepConfig.setResourcePath(request.getOperation().getFullPath());

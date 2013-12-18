@@ -4,13 +4,14 @@
   Settings settings=wsdlRequest.getSettings();
   String password=PropertyExpander.expandProperties(context,wsdlRequest.getPassword());
   String domain=PropertyExpander.expandProperties(context,wsdlRequest.getDomain());
-  Enum authtype=AuthType.Enum.forString(wsdlRequest.getAuthType());
+  Enum authType=Enum.forString(wsdlRequest.getAuthType());
+  registerSpnegoAuthSchemeFactory(authType);
   String wssPasswordType=null;
   if (wsdlRequest instanceof WsdlRequest) {
     wssPasswordType=PropertyExpander.expandProperties(context,((WsdlRequest)wsdlRequest).getWssPasswordType());
   }
   if (StringUtils.isNullOrEmpty(wssPasswordType)) {
-    initRequestCredentials(context,username,settings,password,domain,authtype);
+    initRequestCredentials(context,username,settings,password,domain,authType);
     if (!SoapUI.isJXBrowserDisabled()) {
       BrowserCredentials.initBrowserCredentials(username,password);
     }

@@ -1,0 +1,11 @@
+{
+  for (  TestRunListener testRunListener : testRunListeners) {
+    if (Arrays.asList(getTestCase().getTestRunListeners()).contains(testRunListener)) {
+      testRunListener.beforeStep(this,getRunContext(),testStep);
+    }
+    if (!isRunning()) {
+      return false;
+    }
+  }
+  return true;
+}
