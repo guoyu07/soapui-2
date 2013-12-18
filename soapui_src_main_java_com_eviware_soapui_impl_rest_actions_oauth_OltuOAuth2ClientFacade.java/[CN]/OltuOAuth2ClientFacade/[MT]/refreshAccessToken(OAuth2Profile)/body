@@ -1,10 +1,10 @@
 {
   String refreshToken=profile.getRefreshToken();
-  validateRequiredStringValue(refreshToken,"refreshToken");
+  validateRequiredStringValue(refreshToken,"refresh token");
   OAuth2Parameters parameters=buildParametersFrom(profile);
   validateRequiredStringValue(parameters.clientId,"client ID");
   validateRequiredStringValue(parameters.clientSecret,"client secret");
-  OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenProvider(provider).setGrantType(GrantType.REFRESH_TOKEN).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRefreshToken(refreshToken).buildBodyMessage();
+  OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.REFRESH_TOKEN).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRefreshToken(refreshToken).buildBodyMessage();
   OAuthClient oAuthClient=getOAuthClient();
   OAuthToken oAuthToken=oAuthClient.accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
   profile.applyRetrievedAccessToken(oAuthToken.getAccessToken());
