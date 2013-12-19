@@ -1,4 +1,7 @@
 {
+  if (getRequestorType() != RequestorType.PROXY) {
+    return null;
+  }
   Settings settings=SoapUI.getSettings();
   try {
     String proxyUsername=PropertyExpander.expandProperties(settings.getString(ProxySettings.USERNAME,null));

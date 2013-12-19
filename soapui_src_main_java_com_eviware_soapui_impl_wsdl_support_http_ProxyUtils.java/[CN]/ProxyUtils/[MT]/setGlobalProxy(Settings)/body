@@ -1,5 +1,6 @@
 {
   ProxySelector proxySelector=null;
+  ProxySettingsAuthenticator authenticator=null;
   if (proxyEnabled) {
     if (autoProxy) {
       proxySelector=new ProxyVoleUtil().createAutoProxySearch().getProxySelector();
@@ -7,10 +8,11 @@
  else {
       proxySelector=getManualProxySelector(settings);
     }
-    Authenticator.setDefault(new ProxySettingsAuthenticator());
     if (proxySelector != null) {
       proxySelector=filterHttpHttpsProxy(proxySelector);
     }
+    authenticator=new ProxySettingsAuthenticator();
   }
   ProxySelector.setDefault(proxySelector);
+  Authenticator.setDefault(authenticator);
 }
