@@ -18,4 +18,10 @@
 );
   oauth2Form.addSpace(GROUP_SPACING);
   oauth2Form.appendTextField("accessToken","Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
+  oauth2Form.addButtonWithoutLabel("Advanced Options",new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      showAdvancedOAuth2Options();
+    }
+  }
+);
 }

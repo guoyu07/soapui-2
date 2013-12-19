@@ -1,0 +1,12 @@
+{
+  final JRadioButton radioButton=form.appendRadioButton(groupText,accessTokenPosition.toString(),group,profile.getAccessTokenPosition().equals(accessTokenPosition));
+  radioButton.setFocusPainted(false);
+  radioButton.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      radioButton.setRequestFocusEnabled(true);
+      profile.setAccessTokenPosition(accessTokenPosition);
+      group.setSelected(radioButton.getModel(),true);
+    }
+  }
+);
+}
