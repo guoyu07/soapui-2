@@ -1,8 +1,9 @@
 {
   super("Auth","Authentication and Security-related settings",true,AuthInspectorFactory.INSPECTOR_ID);
   this.request=request;
-  OAuth2ProfileContainer profileContainer=request.getOperation().getInterface().getProject().getOAuth2ProfileContainer();
-  profile=profileContainer.getOAuth2ProfileList().get(0);
+  List<OAuth2Profile> oAuth2ProfileList=request.getOperation().getInterface().getProject().getOAuth2ProfileContainer().getOAuth2ProfileList();
+  checkArgument(oAuth2ProfileList.size() == 1,"There should be one OAuth 2 profile configured on the project");
+  profile=oAuth2ProfileList.get(0);
   authTypeForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
   legacyForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
   oAuth2Form=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
