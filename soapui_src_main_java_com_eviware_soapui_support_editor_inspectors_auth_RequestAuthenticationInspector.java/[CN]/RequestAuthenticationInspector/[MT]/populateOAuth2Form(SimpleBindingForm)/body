@@ -10,12 +10,8 @@
   oauth2Form.addSpace(GROUP_SPACING);
   oauth2Form.appendTextField("scope","Scope","");
   oauth2Form.addSpace(NORMAL_SPACING);
-  oauth2Form.addButtonWithoutLabel("Get access token",new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      getAccessToken(e);
-    }
-  }
-);
+  oauth2Form.addButtonWithoutLabel("Get access token",new GetOAuthAccessTokenAction(profile));
+  oauth2Form.addButtonWithoutLabel("Refresh access token",new RefreshOAuthAccessTokenAction(profile));
   oauth2Form.addSpace(GROUP_SPACING);
   oauth2Form.appendTextField("accessToken","Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
   oauth2Form.addButtonWithoutLabel("Advanced Options",new ActionListener(){
