@@ -1,9 +1,10 @@
 {
-  project=new WsdlProject();
+  WsdlProject project=new WsdlProject();
   RestService restService=(RestService)project.addNewInterface("Test",RestServiceFactory.REST_TYPE);
   restService.addNewResource("Resource","/test");
-  oAuth2ProfileContainer=project.getOAuth2ProfileContainer();
-  oAuth2Profile=oAuth2ProfileContainer.addNewOAuth2Profile();
+  List<OAuth2Profile> oAuth2Profiles=project.getOAuth2ProfileContainer().getOAuth2ProfileList();
+  assertThat(oAuth2Profiles.size(),is(1));
+  oAuth2Profile=oAuth2Profiles.get(0);
   oAuth2Profile.setClientID("google");
   oAuth2Profile.setAccessTokenURI("http://google.com/accessTokenURI");
   oAuth2Profile.setAuthorizationURI("http://google.com/auth");
