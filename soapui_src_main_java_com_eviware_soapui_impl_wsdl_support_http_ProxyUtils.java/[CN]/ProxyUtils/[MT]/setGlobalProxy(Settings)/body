@@ -5,7 +5,7 @@
       proxySelector=new ProxyVoleUtil().createAutoProxySearch().getProxySelector();
     }
  else {
-      proxySelector=getManualProxySelector(SoapUI.getSettings());
+      proxySelector=getManualProxySelector(settings);
     }
     Authenticator.setDefault(new ProxySettingsAuthenticator());
     if (proxySelector != null) {

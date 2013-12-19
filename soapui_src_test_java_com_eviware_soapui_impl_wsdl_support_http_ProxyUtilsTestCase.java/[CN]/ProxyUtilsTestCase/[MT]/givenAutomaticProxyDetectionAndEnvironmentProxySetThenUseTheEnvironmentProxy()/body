@@ -1,6 +1,8 @@
 {
   ProxyUtils.setProxyEnabled(true);
   ProxyUtils.setAutoProxy(true);
+  ProxyUtils.setGlobalProxy(manualSettings());
+  assertGlobalProxyHost("environmentshost.com");
   ProxyUtils.initProxySettings(manualSettings(),httpMethod,null,URL,null);
-  assertProxyHost("environmentshost.com");
+  assertHttpClientProxyHost("environmentshost.com");
 }

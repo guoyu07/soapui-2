@@ -9,9 +9,9 @@
     fail(e.getMessage());
   }
   if (expectedProxyHost == null) {
-    assertNull(httpRoute.getProxyHost());
+    assertThat(httpRoute.getProxyHost(),is(nullValue()));
   }
  else {
-    assertEquals(expectedProxyHost,httpRoute.getProxyHost().getHostName());
+    assertThat(expectedProxyHost,is(httpRoute.getProxyHost().getHostName()));
   }
 }
