@@ -2,4 +2,8 @@
   String expectedBodyContent="access_token=" + profileWithOnlyAccessToken.getAccessToken();
   profileWithOnlyAccessToken.setAccessTokenPosition(OAuth2Profile.AccessTokenPosition.BODY);
   oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,httpRequest,"");
+  StringWriter writer=new StringWriter();
+  IOUtils.copy(httpRequest.getEntity().getContent(),writer,"UTF-8");
+  String actualContent=writer.toString();
+  assertThat(actualContent,is(expectedBodyContent));
 }

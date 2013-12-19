@@ -1,6 +1,5 @@
 {
-  String uriWithAccessToken=oAuthBearerClientRequest.buildQueryMessage().getLocationUri();
-  String queryString=uriWithAccessToken.split("\\?")[1];
+  String queryString=getQueryStringFromOAuthClientRequest(oAuthClientRequest);
   URI oldUri=request.getURI();
   String requestQueryString=oldUri.getQuery() != null ? oldUri.getQuery() + "&" + queryString : queryString;
   try {

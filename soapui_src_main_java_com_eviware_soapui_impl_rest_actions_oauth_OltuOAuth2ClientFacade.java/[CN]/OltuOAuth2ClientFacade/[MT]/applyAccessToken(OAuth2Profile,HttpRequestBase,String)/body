@@ -1,17 +1,17 @@
 {
   String uri=request.getURI().getPath();
-  OAuthBearerClientRequest oAuthBearerClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
+  OAuthBearerClientRequest oAuthClientRequest=new OAuthBearerClientRequest(uri).setAccessToken(profile.getAccessToken());
   try {
 switch (profile.getAccessTokenPosition()) {
 case QUERY:
-      appendAccessTokenToQuery(request,oAuthBearerClientRequest);
+      appendAccessTokenToQuery(request,oAuthClientRequest);
     break;
 case BODY:
-  appendAccessTokenToBody(request,oAuthBearerClientRequest,requestContent);
+  appendAccessTokenToBody(request,oAuthClientRequest);
 break;
 case HEADER:
 default :
-appendAccessTokenToHeader(request,oAuthBearerClientRequest);
+appendAccessTokenToHeader(request,oAuthClientRequest);
 break;
 }
 }
