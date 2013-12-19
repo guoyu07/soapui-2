@@ -1,6 +1,7 @@
 {
   oAuth2RequestFilter=new OAuth2RequestFilter();
   restRequest=ModelItemFactory.makeRestRequest();
+  restRequest.setAuthType(O_AUTH_2.toString());
   WsdlProject project=restRequest.getOperation().getInterface().getProject();
   OAuth2ProfileContainer oAuth2ProfileContainer=project.getOAuth2ProfileContainer();
   OAuth2Profile oAuth2Profile=oAuth2ProfileContainer.getOAuth2ProfileList().get(0);

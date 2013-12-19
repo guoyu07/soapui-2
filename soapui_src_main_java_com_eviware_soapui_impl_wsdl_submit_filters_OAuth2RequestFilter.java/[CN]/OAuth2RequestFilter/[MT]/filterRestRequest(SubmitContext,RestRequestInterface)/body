@@ -1,7 +1,7 @@
 {
   HttpRequestBase httpMethod=(HttpRequestBase)context.getProperty(BaseHttpRequestTransport.HTTP_METHOD);
   OAuth2ProfileContainer profileContainer=request.getResource().getService().getProject().getOAuth2ProfileContainer();
-  if (!profileContainer.getOAuth2ProfileList().isEmpty()) {
+  if (!profileContainer.getOAuth2ProfileList().isEmpty() && O_AUTH_2.toString().equals(request.getAuthType())) {
     OAuth2Profile profile=profileContainer.getOAuth2ProfileList().get(0);
     if (StringUtils.isNullOrEmpty(profile.getAccessToken())) {
       return;

@@ -1,0 +1,5 @@
+{
+  restRequest.setAuthType(PREEMPTIVE.toString());
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  assertThat(httpRequest.getHeaders(OAuth.HeaderType.AUTHORIZATION).length,is(0));
+}
