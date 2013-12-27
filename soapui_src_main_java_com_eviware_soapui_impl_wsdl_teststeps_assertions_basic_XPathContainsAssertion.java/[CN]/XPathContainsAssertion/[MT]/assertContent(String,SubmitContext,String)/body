@@ -73,7 +73,7 @@ if (e instanceof ComparisonFailure) {
 ComparisonFailure cf=(ComparisonFailure)e;
 String expected=cf.getExpected();
 String actual=cf.getActual();
-msg="XPathContains comparison failed, expecting [" + expected + "], actual was ["+ actual+ "]";
+msg="XPathContains comparison failed for path [" + path + "], expecting ["+ expected+ "], actual was ["+ actual+ "]";
 }
  else {
 msg="XPathContains assertion failed for path [" + path + "] : "+ e.getClass().getSimpleName()+ ":"+ e.getMessage();

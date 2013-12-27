@@ -1,4 +1,5 @@
 {
+  request.beforeSave();
   RestRequestConfig requestConfig=(RestRequestConfig)getConfig().addNewRequest().set(request.getConfig());
   requestConfig.setName(name);
   RestRequest newRequest=new RestRequest(this,requestConfig,false);

@@ -1,0 +1,6 @@
+{
+  selectAuthMethod(CredentialsConfig.AuthType.SPNEGO_KERBEROS);
+  filter.filterAbstractHttpRequest(null,wsdlRequest);
+  AuthScheme scheme=getSchemeFor(AuthPolicy.SPNEGO);
+  assertThat(scheme,instanceOf(NegotiateScheme.class));
+}

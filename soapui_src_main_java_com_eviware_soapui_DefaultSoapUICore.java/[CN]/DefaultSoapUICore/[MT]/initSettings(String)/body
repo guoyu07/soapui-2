@@ -34,7 +34,8 @@
  else {
           password=this.password.toCharArray();
         }
-        byte[] data=OpenSSL.decrypt("des3",password,encryptedContent);
+        String encryptionAlgorithm=settingsDocument.getSoapuiSettings().getEncryptedContentAlgorithm();
+        byte[] data=OpenSSL.decrypt(StringUtils.isNullOrEmpty(encryptionAlgorithm) ? "des3" : encryptionAlgorithm,password,encryptedContent);
         try {
           settingsDocument=SoapuiSettingsDocumentConfig.Factory.parse(new String(data,"UTF-8"));
         }
