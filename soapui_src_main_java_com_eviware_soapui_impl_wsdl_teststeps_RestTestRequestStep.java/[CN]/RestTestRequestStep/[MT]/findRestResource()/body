@@ -1,9 +1,11 @@
 {
   Project project=ModelSupport.getModelItemProject(this);
-  RestService restService=(RestService)project.getInterfaceByName(getRequestStepConfig().getService());
-  if (restService != null) {
-    for (    RestResource resource : restService.getResourcesByFullPath(getRequestStepConfig().getResourcePath())) {
-      if (getWsdlModelItemByName(resource.getRestMethodList(),getRequestStepConfig().getMethodName()) != null)       return resource;
+  for (  Interface iface : project.getInterfaceList()) {
+    if (iface.getName().equals(getRequestStepConfig().getService()) && iface instanceof RestService) {
+      RestService restService=(RestService)iface;
+      for (      RestResource resource : restService.getResourcesByFullPath(getRequestStepConfig().getResourcePath())) {
+        if (getWsdlModelItemByName(resource.getRestMethodList(),getRequestStepConfig().getMethodName()) != null)         return resource;
+      }
     }
   }
   return null;
