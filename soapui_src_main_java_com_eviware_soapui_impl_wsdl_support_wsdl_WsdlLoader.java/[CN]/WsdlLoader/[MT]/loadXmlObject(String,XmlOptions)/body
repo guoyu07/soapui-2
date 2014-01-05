@@ -5,13 +5,8 @@
     }
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
-    if (Boolean.TRUE.equals(((Boolean)SoapUI.getSettings().getBoolean(WsdlSettings.TRIM_WSDL)))) {
-      String content=Tools.readAll(load(url),0).toString().trim();
-      return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
-    }
- else {
-      return XmlUtils.createXmlObject(load(url),options);
-    }
+    String content=readCleanWsdlFrom(url);
+    return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
   }
  catch (  Exception e) {
     if (e instanceof XmlException) {

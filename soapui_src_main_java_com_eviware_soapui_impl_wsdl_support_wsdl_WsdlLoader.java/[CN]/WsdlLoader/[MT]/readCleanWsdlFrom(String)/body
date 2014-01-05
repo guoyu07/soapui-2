@@ -1,0 +1,7 @@
+{
+  String content=Tools.readAll(load(url),0).toString();
+  if (SoapUI.getSettings().getBoolean(WsdlSettings.TRIM_WSDL)) {
+    content=content.trim();
+  }
+  return PropertyExpansionRemover.removeExpansions(content);
+}

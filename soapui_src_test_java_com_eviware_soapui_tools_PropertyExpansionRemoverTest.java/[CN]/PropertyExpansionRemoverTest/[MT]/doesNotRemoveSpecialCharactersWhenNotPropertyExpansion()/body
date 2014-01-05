@@ -1,0 +1,4 @@
+{
+  String stringWithSpecialCharacters="<xsd:attribute name=\"name\" type=\"xsd:string\" default=\"$ { #testxml#$ {testxpath} } ${\"/>";
+  assertThat(PropertyExpansionRemover.removeExpansions(stringWithSpecialCharacters),is(stringWithSpecialCharacters));
+}
