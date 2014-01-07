@@ -3,10 +3,10 @@
   StringToStringMap history=recent == null ? new StringToStringMap() : StringToStringMap.fromXml(recent);
   recentWorkspacesMenu.removeAll();
   if (history.size() > 0) {
-    for (Iterator<String> i=history.keySet().iterator(); i.hasNext(); ) {
-      String filePath=i.next();
+    for (    Map.Entry<String,String> entry : history.entrySet()) {
+      String filePath=entry.getKey();
       DefaultActionMapping<WorkspaceImpl> mapping=new DefaultActionMapping<WorkspaceImpl>(SwitchWorkspaceAction.SOAPUI_ACTION_ID,null,null,false,filePath);
-      String wsName=history.get(filePath);
+      String wsName=entry.getValue();
       if (SoapUI.getWorkspace().getPath().equals(filePath))       continue;
       mapping.setName(wsName);
       mapping.setDescription("Switches to the [" + wsName + "] workspace");

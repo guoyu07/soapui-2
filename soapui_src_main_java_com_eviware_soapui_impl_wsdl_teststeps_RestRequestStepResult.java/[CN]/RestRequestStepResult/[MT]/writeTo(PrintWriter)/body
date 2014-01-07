@@ -12,8 +12,8 @@
   }
   writer.println("\r\n---------------- Request ---------------------------");
   StringToStringsMap headers=response.getRequestHeaders();
-  for (  String key : headers.keySet()) {
-    if (headers.get(key) != null)     writer.println(key + ": " + headers.get(key));
+  for (  Map.Entry<String,List<String>> headerEntry : headers.entrySet()) {
+    if (headerEntry.getValue() != null)     writer.println(headerEntry.getKey() + ": " + headerEntry.getValue());
   }
   byte[] rawRequestData=response.getRawRequestData();
   if (rawRequestData != null) {

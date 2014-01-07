@@ -13,8 +13,8 @@
     context.putAll(request.getContext());
     context.putAll(request.getRequestContext());
     StringToStringsMap responseHeaders=getResponseHeaders();
-    for (    String name : responseHeaders.keySet()) {
-      for (      String value : responseHeaders.get(name))       result.addHeader(name,PropertyExpander.expandProperties(context,value));
+    for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+      for (      String value : headerEntry.getValue())       result.addHeader(headerEntry.getKey(),PropertyExpander.expandProperties(context,value));
     }
     responseContent=PropertyExpander.expandProperties(context,responseContent,isEntitizeProperties());
     if (this.getWsaConfig().isWsaEnabled()) {
