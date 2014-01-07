@@ -93,8 +93,8 @@
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
     HttpServletResponse httpServletResponse=(HttpServletResponse)response;
-    for (    String name : responseHeaders.keySet()) {
-      for (      String header : responseHeaders.get(name))       httpServletResponse.addHeader(name,header);
+    for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+      for (      String header : headerEntry.getValue())       httpServletResponse.addHeader(headerEntry.getKey(),header);
     }
     IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
   }

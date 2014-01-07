@@ -1,9 +1,8 @@
 {
   StringToStringMap map=new StringToStringMap();
-  for (  String key : values.keySet()) {
-    String oldValue=values.get(key);
-    String newValue=internalEscapeQuotes(oldValue);
-    map.put(key,newValue);
+  for (  Map.Entry<String,String> entry : values.entrySet()) {
+    String newValue=internalEscapeQuotes(entry.getValue());
+    map.put(entry.getKey(),newValue);
   }
   return map;
 }

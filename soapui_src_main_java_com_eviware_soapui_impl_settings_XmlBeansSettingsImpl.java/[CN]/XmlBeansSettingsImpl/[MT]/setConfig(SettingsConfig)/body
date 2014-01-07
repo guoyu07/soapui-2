@@ -9,8 +9,8 @@
   for (  SettingConfig setting : settingList) {
     values.put(setting.getId(),setting);
   }
-  for (  String key : changed.keySet()) {
-    notifySettingChanged(key,getString(key,null),changed.get(key));
+  for (  Map.Entry<String,String> entry : changed.entrySet()) {
+    notifySettingChanged(entry.getKey(),getString(entry.getKey(),null),entry.getValue());
   }
   notifySettingsReloaded();
 }

@@ -1,7 +1,7 @@
 {
-  for (  String param : updatedParams.keySet()) {
-    String value=context.expand(updatedParams.get(param));
-    updatedParams.put(param,value);
+  for (  Map.Entry<String,String> param : updatedParams.entrySet()) {
+    String value=context.expand(param.getValue());
+    updatedParams.put(param.getKey(),value);
   }
   message.getProperties().put(SECURITY_CHANGED_PARAMETERS,updatedParams.toXml());
   getSecurityScanRequestResult().setMessageExchange(message);

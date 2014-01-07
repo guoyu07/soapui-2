@@ -1,10 +1,10 @@
 {
   StringToStringsMap oldHeaders=getResponseHeaders();
   getConfig().setHeaderArray(new HeaderConfig[0]);
-  for (  String header : headers.keySet()) {
-    for (    String value : headers.get(header)) {
+  for (  Map.Entry<String,List<String>> header : headers.entrySet()) {
+    for (    String value : header.getValue()) {
       HeaderConfig headerConfig=getConfig().addNewHeader();
-      headerConfig.setName(header);
+      headerConfig.setName(header.getKey());
       headerConfig.setValue(value);
     }
   }
