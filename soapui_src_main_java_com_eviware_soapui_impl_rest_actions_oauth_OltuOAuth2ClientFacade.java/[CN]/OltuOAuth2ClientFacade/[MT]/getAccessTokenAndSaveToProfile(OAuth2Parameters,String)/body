@@ -1,6 +1,7 @@
 {
   if (authorizationCode != null) {
     try {
+      parameters.receivedAuthorizationCode();
       OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRedirectURI(parameters.redirectUri).setCode(authorizationCode).buildBodyMessage();
       OAuthToken token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
       if (token != null && token.getAccessToken() != null) {
