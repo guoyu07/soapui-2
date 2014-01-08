@@ -7,6 +7,9 @@
   }
 );
   oltuClientFacade.requestAccessToken(profile);
+  assertThat(statusValues.size(),is(4));
   assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.PENDING));
+  assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION));
+  assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.RECEIVED_AUTHORIZATION_CODE));
   assertThat(statusValues,hasItem(OAuth2Profile.AccessTokenStatus.RETRIEVED_FROM_SERVER));
 }
