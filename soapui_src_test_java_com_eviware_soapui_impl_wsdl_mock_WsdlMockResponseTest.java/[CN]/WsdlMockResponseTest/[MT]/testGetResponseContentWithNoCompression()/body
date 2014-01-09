@@ -1,0 +1,5 @@
+{
+  when(compressedStringConfig.getCompression()).thenReturn("none");
+  when(compressedStringConfig.getStringValue()).thenReturn("Awesomeness");
+  assertThat(mockResponse.getResponseContent(),is("Awesomeness"));
+}
