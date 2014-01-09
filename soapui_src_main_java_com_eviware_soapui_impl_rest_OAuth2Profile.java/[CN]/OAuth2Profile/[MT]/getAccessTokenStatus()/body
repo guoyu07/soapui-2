@@ -1,12 +1,6 @@
 {
-  AccessTokenStatusConfig.Enum configurationStatus=configuration.getAccessTokenStatus();
-  if (configurationStatus != null) {
-    try {
-      return AccessTokenStatus.valueOf(configurationStatus.toString());
-    }
- catch (    IllegalArgumentException e) {
-      SoapUI.log.warn("Invalid access token value status read from configuration: " + configurationStatus);
-    }
+  if (configuration.getAccessTokenStatus() != null) {
+    return configuration.getAccessTokenStatus().toString();
   }
   return null;
 }

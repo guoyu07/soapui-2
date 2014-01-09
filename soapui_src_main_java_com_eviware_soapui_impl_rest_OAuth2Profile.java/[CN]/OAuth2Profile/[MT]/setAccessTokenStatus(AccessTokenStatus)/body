@@ -1,5 +1,5 @@
 {
-  AccessTokenStatus oldValue=getAccessTokenStatus();
+  String oldValue=getAccessTokenStatus();
   if (status == null && oldValue == null) {
     return;
   }
@@ -12,5 +12,5 @@
  else {
     configuration.setAccessTokenStatus(null);
   }
-  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValue,status);
+  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValue,status.toString());
 }
