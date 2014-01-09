@@ -1,5 +1,5 @@
 {
-  String content=Tools.readAll(load(url),0).toString();
+  String content=XmlUtils.createXmlObject(new URL(url)).xmlText();
   if (SoapUI.getSettings().getBoolean(WsdlSettings.TRIM_WSDL)) {
     content=content.trim();
   }

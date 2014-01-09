@@ -8,17 +8,18 @@
     String content=readCleanWsdlFrom(url);
     return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
   }
- catch (  Exception e) {
-    if (e instanceof XmlException) {
-      XmlError error=((XmlException)e).getError();
-      if (error != null) {
-        InvalidDefinitionException ex=new InvalidDefinitionException((XmlException)e);
-        ex.setMessage("Error loading [" + url + "]");
-        throw ex;
-      }
+ catch (  XmlException e) {
+    XmlError error=e.getError();
+    if (error != null) {
+      InvalidDefinitionException ex=new InvalidDefinitionException(e);
+      ex.setMessage("Error loading [" + url + "]");
+      throw ex;
     }
-    e.printStackTrace();
-    log.error("Failed to load url [" + url + "]");
-    throw new InvalidDefinitionException("Error loading [" + url + "]: "+ e);
+ else {
+      throw makeInvalidDefinitionException(url,e);
+    }
+  }
+catch (  Exception e) {
+    throw makeInvalidDefinitionException(url,e);
   }
 }
