@@ -17,7 +17,7 @@
   oauth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
   oauth2Form.addButtonWithoutLabel("Advanced Options",new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      showAdvancedOAuth2Options();
+      new OAuth2AdvanceOptionsDialog(profile);
     }
   }
 );
