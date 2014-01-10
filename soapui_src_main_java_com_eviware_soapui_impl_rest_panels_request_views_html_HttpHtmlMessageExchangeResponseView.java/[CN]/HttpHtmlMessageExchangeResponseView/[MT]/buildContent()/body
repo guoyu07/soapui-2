@@ -1,10 +1,10 @@
 {
-  contentPanel=new JPanel(new BorderLayout());
+  JPanel contentPanel=new JPanel(new BorderLayout());
   if (SoapUI.isJXBrowserDisabled()) {
     contentPanel.add(new JLabel("Browser Component is disabled"));
   }
  else {
-    browser=new BrowserComponent(false,false);
+    browser=new WebViewBasedBrowserComponent(false);
     Component component=browser.getComponent();
     component.setMinimumSize(new Dimension(100,100));
     contentPanel.add(new JScrollPane(component));

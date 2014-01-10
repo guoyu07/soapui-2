@@ -1,18 +1,12 @@
 {
   if (panel == null) {
     panel=new JPanel(new BorderLayout());
-    if (SoapUI.isJXBrowserDisabled()) {
-      panel.add(new JLabel("Browser Component is disabled"));
-    }
- else {
-      browser=new BrowserComponent(false,true);
-      Component component=browser.getComponent();
-      component.setMinimumSize(new Dimension(100,100));
-      panel.add(buildToolbar(),BorderLayout.NORTH);
-      panel.add(component,BorderLayout.CENTER);
-      HttpResponse response=httpRequest.getResponse();
-      if (response != null)       setEditorContent(response);
-    }
+    browser=new WebViewBasedBrowserComponent(false);
+    Component component=browser.getComponent();
+    component.setMinimumSize(new Dimension(100,100));
+    panel.add(component,BorderLayout.CENTER);
+    HttpResponse response=httpRequest.getResponse();
+    if (response != null)     setEditorContent(response);
   }
   return panel;
 }

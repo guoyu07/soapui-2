@@ -2,7 +2,6 @@
   if (browser != null) {
     browserMap.remove(browser.getPeer().getNsIWebBrowser().getContentDOMWindow());
     browserRecordingMap.remove(this);
-    httpHtmlResponseView=null;
     browser.stop();
     browser.dispose();
     browser.removeNavigationListener(internalNavigationListener);
