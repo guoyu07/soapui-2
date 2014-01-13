@@ -1,0 +1,13 @@
+{
+  SimpleForm authTypeForm=getAuthTypeForm();
+  Container cardPanel=getCardPanel();
+  Component component=authTypeForm.getComponent(COMBO_BOX_LABEL);
+  JComboBox comboBox=(JComboBox)component;
+  CardLayout layout=(CardLayout)cardPanel.getLayout();
+  if (comboBox.getSelectedItem().equals(CredentialsConfig.AuthType.O_AUTH_2.toString())) {
+    layout.show(cardPanel,OAUTH_2_FORM_LABEL);
+  }
+ else {
+    layout.show(cardPanel,LEGACY_FORM_LABEL);
+  }
+}

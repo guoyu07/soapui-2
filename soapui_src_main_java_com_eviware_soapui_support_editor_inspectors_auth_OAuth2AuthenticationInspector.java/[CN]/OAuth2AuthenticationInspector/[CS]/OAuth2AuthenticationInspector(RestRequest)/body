@@ -1,0 +1,8 @@
+{
+  super(request);
+  profile=getOAuth2Profile(request);
+  oAuth2Form=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
+  addOAuth2Panel();
+  addOAuth2ToAuthTypeComboBox();
+  selectCard();
+}

@@ -1,0 +1,9 @@
+{
+  JPanel innerPanel=new JPanel(new BorderLayout());
+  populateAuthTypeForm(authTypeForm);
+  innerPanel.add(authTypeForm.getPanel(),BorderLayout.PAGE_START);
+  populateLegacyForm(basicForm);
+  cardPanel.add(basicForm.getPanel(),LEGACY_FORM_LABEL);
+  innerPanel.add(cardPanel,BorderLayout.CENTER);
+  outerPanel.add(new JScrollPane(innerPanel),BorderLayout.CENTER);
+}

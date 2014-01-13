@@ -1,0 +1,6 @@
+{
+  DialogFixture newProjectDialog=FestMatchers.dialogWithTitle(NEW_SOAP_PROJECT_DIALOG_NAME).withTimeout(NEW_PROJECT_TIMEOUT).using(robot);
+  newProjectDialog.textBox(WSDL_FIELD_NAME).setText(TEST_WSDL);
+  JButtonFixture buttonOK=newProjectDialog.button(FestMatchers.buttonWithText(OK_BUTTON_NAME));
+  buttonOK.click();
+}

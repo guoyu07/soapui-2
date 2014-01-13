@@ -1,0 +1,13 @@
+{
+  initForm(authTypeForm);
+  authTypeForm.addSpace(OUTERMOST_SPACING);
+  String[] options={CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS.toString(),CredentialsConfig.AuthType.PREEMPTIVE.toString(),CredentialsConfig.AuthType.NTLM.toString(),CredentialsConfig.AuthType.SPNEGO_KERBEROS.toString()};
+  JComboBox comboBox=authTypeForm.appendComboBox(AUTH_TYPE_PROPERTY_NAME,COMBO_BOX_LABEL,options,"");
+  comboBox.setName(COMBO_BOX_LABEL);
+  comboBox.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      selectCard();
+    }
+  }
+);
+}

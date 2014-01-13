@@ -1,0 +1,8 @@
+{
+  DialogFixture newProjectDialog=FestMatchers.dialogWithTitle(NEW_REST_PROJECT_DIALOG_NAME).withTimeout(NEW_PROJECT_TIMEOUT).using(robot);
+  newProjectDialog.textBox().focus();
+  newProjectDialog.textBox().click();
+  newProjectDialog.textBox().setText(URI);
+  JButtonFixture buttonOK=newProjectDialog.button(FestMatchers.buttonWithText(OK_BUTTON_NAME));
+  buttonOK.click();
+}
