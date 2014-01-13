@@ -1,0 +1,6 @@
+{
+  originalDialogs=UISupport.getDialogs();
+  StubbedDialogs dialogs=new StubbedDialogs();
+  UISupport.setDialogs(dialogs);
+  dialogs.mockPromptWithReturnValue(mockServiceName);
+}
