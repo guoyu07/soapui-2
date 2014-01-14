@@ -1,6 +1,6 @@
 {
   FrameFixture rootWindow=frameWithTitle("SoapUI").using(robot);
-  restProjectUtils.createNewRestProject(rootWindow);
+  RestProjectUtils.createNewRestProject(rootWindow,robot);
   int newProjectIndexInTree=findTheIndexOfCurrentProjectInNavigationTree();
   JPanelFixture resourceEditor=openResourceEditor(newProjectIndexInTree,rootWindow);
   JPanelFixture requestEditor=openRequestEditor(newProjectIndexInTree,rootWindow);
@@ -20,5 +20,5 @@
   verifyEmptyTable(methodEditor);
   verifyParamValues(resourceEditor,2,"mParam","mValue");
   openResourceEditor(newProjectIndexInTree,rootWindow);
-  applicationUtils.closeApplicationWithoutSaving(rootWindow);
+  ApplicationUtils.closeApplicationWithoutSaving(rootWindow,robot);
 }

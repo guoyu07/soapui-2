@@ -1,7 +1,7 @@
 {
-  soapProjectUtils.createNewSoapProject(rootWindow);
-  soapProjectUtils.openRequestEditor(rootWindow);
+  SoapProjectUtils.createNewSoapProject(rootWindow,robot);
+  SoapProjectUtils.openRequestEditor(rootWindow);
   clickOnTheAuthTab(rootWindow);
   verifyThatTheOAuth2ItemIsNotPresent(rootWindow);
-  applicationUtils.closeApplicationWithoutSaving(rootWindow);
+  ApplicationUtils.closeApplicationWithoutSaving(rootWindow,robot);
 }
