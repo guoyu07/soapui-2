@@ -2,7 +2,8 @@
   ProxyUtils.setProxyEnabled(true);
   ProxyUtils.setAutoProxy(true);
   setProxySystemProperties();
-  ProxyUtils.setGlobalProxy(manualSettings());
+  ProxyUtils.setForceDirectConnection(httpMethod.getParams());
+  ProxyUtils.setGlobalProxy(emptySettings());
   assertGlobalProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
-  assertHttpClientProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
+  assertHttpClientProxyHost(null);
 }
