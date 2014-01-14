@@ -1,12 +1,10 @@
 {
-  super(config,project,"/mockService.gif");
+  super(config,project);
   List<MockOperationConfig> testStepConfigs=config.getMockOperationList();
   for (  MockOperationConfig tsc : testStepConfigs) {
     WsdlMockOperation testStep=new WsdlMockOperation(this,tsc);
-    mockOperations.add(testStep);
+    addMockOperation(testStep);
   }
-  if (!config.isSetPort() || config.getPort() < 1)   config.setPort(8080);
-  if (!config.isSetPath())   config.setPath("/");
   if (!getSettings().isSet(REQUIRE_SOAP_ACTION))   setRequireSoapAction(false);
   try {
     if (!config.isSetHost() || !StringUtils.hasContent(config.getHost()))     config.setHost(InetAddress.getLocalHost().getHostName());
@@ -14,8 +12,6 @@
  catch (  UnknownHostException e) {
     SoapUI.logError(e);
   }
-  iconAnimator=new MockServiceIconAnimator();
-  addMockRunListener(iconAnimator);
   for (  MockRunListener listener : SoapUI.getListenerRegistry().getListeners(MockRunListener.class)) {
     addMockRunListener(listener);
   }
@@ -23,6 +19,8 @@
   setPropertiesConfig(getConfig().getProperties());
   docrootProperty=new BeanPathPropertySupport(this,"docroot");
   if (getConfig().isSetFaultMockOperation()) {
-    faultMockOperation=getMockOperationByName(getConfig().getFaultMockOperation());
+    faultMockOperation=(WsdlMockOperation)getMockOperationByName(getConfig().getFaultMockOperation());
   }
+  iconAnimator=new MockServiceIconAnimator();
+  addMockRunListener(iconAnimator);
 }

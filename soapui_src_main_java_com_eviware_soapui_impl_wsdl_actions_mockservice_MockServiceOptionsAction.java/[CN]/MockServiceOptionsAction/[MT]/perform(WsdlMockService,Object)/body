@@ -17,6 +17,6 @@
     mockService.setHost(dialog.getValue(OptionsForm.HOST));
     mockService.setBindToHostOnly(dialog.getBooleanValue(OptionsForm.HOSTONLY));
     mockService.setDocroot(dialog.getValue(OptionsForm.DOCROOT));
-    mockService.setFaultMockOperation(mockService.getMockOperationByName(dialog.getValue(OptionsForm.FAULT_OPERATION)));
+    mockService.setFaultMockOperation((WsdlMockOperation)mockService.getMockOperationByName(dialog.getValue(OptionsForm.FAULT_OPERATION)));
   }
 }
