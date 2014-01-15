@@ -1,3 +1,7 @@
 {
-  configuration.setAccessTokenPosition(AccessTokenPositionConfig.Enum.forString(accessTokenPosition.toString()));
+  AccessTokenPosition oldValue=getAccessTokenPosition();
+  if (!accessTokenPosition.equals(oldValue.toString())) {
+    configuration.setAccessTokenPosition(AccessTokenPositionConfig.Enum.forString(accessTokenPosition.toString()));
+    pcs.firePropertyChange(ACCESS_TOKEN_POSITION_PROPERTY,AccessTokenPosition.valueOf(oldValue.toString()),accessTokenPosition);
+  }
 }

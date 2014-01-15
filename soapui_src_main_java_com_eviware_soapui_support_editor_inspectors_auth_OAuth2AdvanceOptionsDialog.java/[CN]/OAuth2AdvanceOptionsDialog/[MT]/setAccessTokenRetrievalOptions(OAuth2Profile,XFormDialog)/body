@@ -1,0 +1,6 @@
+{
+  XFormRadioGroup accessTokenRetrievalOptions=(XFormRadioGroup)dialog.getFormField(Form.HOW_TO_RECEIVE_ACCESS_TOKEN);
+  String[] options=new String[]{BODY_JSON.toString(),URL_FRAGMENT.toString(),BODY_URL_ENCODED_FORM.toString()};
+  accessTokenRetrievalOptions.setOptions(options);
+  dialog.setValue(Form.HOW_TO_RECEIVE_ACCESS_TOKEN,target.getAccessTokenRetrievalLocation().toString());
+}
