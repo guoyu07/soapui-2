@@ -74,12 +74,13 @@
   }
 );
   add(buildToolbar(),BorderLayout.NORTH);
+  scrollPane=new JScrollPane(paramsTable);
   if (showInspector) {
-    splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    splitPane=UISupport.createVerticalSplit(scrollPane,buildDetails());
     add(splitPane,BorderLayout.CENTER);
     splitPane.setResizeWeight(0.7);
   }
  else {
-    add(new JScrollPane(paramsTable),BorderLayout.CENTER);
+    add(scrollPane,BorderLayout.CENTER);
   }
 }
