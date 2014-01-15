@@ -9,7 +9,7 @@
   try {
     scriptEngine.setVariable("context",runContext);
     scriptEngine.setVariable("mockResult",mockResult);
-    scriptEngine.setVariable("mockRunner",runner);
+    scriptEngine.setVariable("mockRunner",getMockRunner());
     scriptEngine.setVariable("log",SoapUI.ensureGroovyLog());
     return scriptEngine.run();
   }
