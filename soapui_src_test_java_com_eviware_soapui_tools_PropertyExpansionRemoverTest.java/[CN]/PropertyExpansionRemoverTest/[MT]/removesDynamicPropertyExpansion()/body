@@ -1,0 +1,4 @@
+{
+  String stringWithDynamicPropertyExpansion="<xsd:attribute name=\"name\" type=\"xsd:string\" default=\"${= new java.util.Date() }\"/>";
+  assertThat(PropertyExpansionRemover.removeExpansions(stringWithDynamicPropertyExpansion),is("<xsd:attribute name=\"name\" type=\"xsd:string\" default=\"\"/>"));
+}
