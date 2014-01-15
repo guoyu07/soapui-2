@@ -1,0 +1,6 @@
+{
+  ProjectListenerAdapter listener=mock(ProjectListenerAdapter.class);
+  project.addProjectListener(listener);
+  action.perform(target,param);
+  verify(listener,times(1)).mockServiceAdded(any(RestMockService.class));
+}

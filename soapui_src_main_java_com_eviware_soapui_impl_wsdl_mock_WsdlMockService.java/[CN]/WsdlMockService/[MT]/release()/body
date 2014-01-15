@@ -4,8 +4,10 @@
     if (mockRunner.isRunning())     mockRunner.stop();
     if (mockRunner != null)     mockRunner.release();
   }
-  for (  WsdlMockOperation operation : mockOperations)   operation.release();
-  mockServiceListeners.clear();
+  for (  MockOperation operation : getMockOperationList()) {
+    ((WsdlMockOperation)operation).release();
+  }
+  clearMockServiceListeners();
   if (onRequestScriptEnginePool != null)   onRequestScriptEnginePool.release();
   if (afterRequestScriptEnginePool != null)   afterRequestScriptEnginePool.release();
   if (startScriptEngine != null)   startScriptEngine.release();

@@ -1,0 +1,4 @@
+{
+  String stringWithPropertyExpansion="<xsd:attribute name=\"name\" type=\"xsd:string\" default=\"${#Project#MyValue }\"/>";
+  assertThat(PropertyExpansionRemover.removeExpansions(stringWithPropertyExpansion),is("<xsd:attribute name=\"name\" type=\"xsd:string\" default=\"\"/>"));
+}

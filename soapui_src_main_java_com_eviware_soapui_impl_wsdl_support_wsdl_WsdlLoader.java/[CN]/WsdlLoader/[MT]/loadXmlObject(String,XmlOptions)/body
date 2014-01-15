@@ -5,25 +5,21 @@
     }
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
-    if (Boolean.TRUE.equals(((Boolean)SoapUI.getSettings().getBoolean(WsdlSettings.TRIM_WSDL)))) {
-      String content=Tools.readAll(load(url),0).toString().trim();
-      return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
+    String content=readCleanWsdlFrom(url);
+    return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
+  }
+ catch (  XmlException e) {
+    XmlError error=e.getError();
+    if (error != null) {
+      InvalidDefinitionException ex=new InvalidDefinitionException(e);
+      ex.setMessage("Error loading [" + url + "]");
+      throw ex;
     }
  else {
-      return XmlUtils.createXmlObject(load(url),options);
+      throw makeInvalidDefinitionException(url,e);
     }
   }
- catch (  Exception e) {
-    if (e instanceof XmlException) {
-      XmlError error=((XmlException)e).getError();
-      if (error != null) {
-        InvalidDefinitionException ex=new InvalidDefinitionException((XmlException)e);
-        ex.setMessage("Error loading [" + url + "]");
-        throw ex;
-      }
-    }
-    e.printStackTrace();
-    log.error("Failed to load url [" + url + "]");
-    throw new InvalidDefinitionException("Error loading [" + url + "]: "+ e);
+catch (  Exception e) {
+    throw makeInvalidDefinitionException(url,e);
   }
 }

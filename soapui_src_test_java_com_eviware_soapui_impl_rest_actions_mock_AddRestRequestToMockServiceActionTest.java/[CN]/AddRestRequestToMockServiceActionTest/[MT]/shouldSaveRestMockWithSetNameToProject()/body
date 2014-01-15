@@ -1,0 +1,7 @@
+{
+  action.perform(target,param);
+  List<RestMockService> serviceList=project.getRestMockServiceList();
+  assertThat(serviceList.size(),is(1));
+  RestMockService service=project.getRestMockServiceByName(mockServiceName);
+  assertThat(service.getName(),is(mockServiceName));
+}

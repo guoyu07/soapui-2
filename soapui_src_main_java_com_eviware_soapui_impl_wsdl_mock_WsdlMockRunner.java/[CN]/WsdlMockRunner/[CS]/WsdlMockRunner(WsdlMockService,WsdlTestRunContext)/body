@@ -6,7 +6,7 @@
     if (operation != null)     interfaces.add(operation.getInterface());
   }
   for (  WsdlInterface iface : interfaces)   iface.getWsdlContext().loadIfNecessary();
-  initWsdlCache();
   mockContext=new WsdlMockRunContext(mockService,context);
+  dispatcher=new WsdlMockDispatcher(mockService,mockContext);
   start();
 }
