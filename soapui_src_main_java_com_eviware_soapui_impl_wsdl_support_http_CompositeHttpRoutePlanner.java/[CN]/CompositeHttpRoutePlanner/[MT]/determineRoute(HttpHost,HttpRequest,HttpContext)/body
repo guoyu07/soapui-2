@@ -1,7 +1,7 @@
 {
   Object proxy=request.getParams().getParameter(ConnRoutePNames.DEFAULT_PROXY);
   if (proxy == null && autoProxyEnabled) {
-    ProxySelector proxySelector=getProxySelector();
+    ProxySelector proxySelector=getProxySelector().getProxySelector();
     if (proxySelector != null) {
       return new ProxySelectorRoutePlanner(registry,proxySelector).determineRoute(target,request,context);
     }

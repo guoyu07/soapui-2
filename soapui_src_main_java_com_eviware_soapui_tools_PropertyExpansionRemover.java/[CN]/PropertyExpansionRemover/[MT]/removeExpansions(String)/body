@@ -1,0 +1,7 @@
+{
+  String output=input;
+  while (containsPropertyExpansion(output)) {
+    output=removeExpansionAt(output,output.indexOf(EXPANSION_START));
+  }
+  return output;
+}

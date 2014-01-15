@@ -6,7 +6,7 @@
         throw new IllegalArgumentException("No schema found at " + schemaPath);
       }
       SchemaFactory sf=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-      Schema schema=null;
+      Schema schema;
       try {
         schema=sf.newSchema(schemaURL);
       }
