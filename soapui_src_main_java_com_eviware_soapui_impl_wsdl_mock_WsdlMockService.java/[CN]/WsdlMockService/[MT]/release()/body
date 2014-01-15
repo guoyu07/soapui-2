@@ -7,7 +7,7 @@
   for (  MockOperation operation : getMockOperationList()) {
     ((WsdlMockOperation)operation).release();
   }
-  mockServiceListeners.clear();
+  clearMockServiceListeners();
   if (onRequestScriptEnginePool != null)   onRequestScriptEnginePool.release();
   if (afterRequestScriptEnginePool != null)   afterRequestScriptEnginePool.release();
   if (startScriptEngine != null)   startScriptEngine.release();
