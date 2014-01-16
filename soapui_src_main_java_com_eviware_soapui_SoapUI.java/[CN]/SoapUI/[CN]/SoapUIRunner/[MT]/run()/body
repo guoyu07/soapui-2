@@ -10,7 +10,7 @@
       brandedTitleExt="";
     }
     startSoapUI(mainArgs,"SoapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,new StandaloneSoapUICore(true));
-    if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !SoapUI.isJXBrowserDisabled(true)) {
+    if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE)) {
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
           showPushPage();
