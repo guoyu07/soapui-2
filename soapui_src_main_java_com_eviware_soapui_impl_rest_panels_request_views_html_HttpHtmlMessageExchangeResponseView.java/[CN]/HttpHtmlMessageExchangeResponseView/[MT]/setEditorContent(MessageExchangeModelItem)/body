@@ -3,8 +3,8 @@
     String contentType=messageExchangeModelItem2.getMessageExchange().getResponseHeaders().get("Content-Type","");
     if (contentType.contains("html") || contentType.contains("text")) {
       try {
-        String content=messageExchangeModelItem2.getMessageExchange().getResponseContent();
-        browser.setContent(content);
+        final String content=messageExchangeModelItem2.getMessageExchange().getResponseContent();
+        browser.setContent(content,contentType);
       }
  catch (      Exception e) {
         e.printStackTrace();

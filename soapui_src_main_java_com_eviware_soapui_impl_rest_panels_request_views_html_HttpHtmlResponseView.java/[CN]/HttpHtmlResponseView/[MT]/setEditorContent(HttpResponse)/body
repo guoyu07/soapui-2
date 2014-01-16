@@ -1,39 +1,23 @@
 {
-  if (httpResponse != null && httpResponse.getContentAsString() != null) {
+  if (httpResponse == null) {
+    return;
+  }
+  String content=httpResponse.getContentAsString();
+  if (content != null) {
     String contentType=httpResponse.getContentType();
-    if (contentType != null) {
-      if (isSupportedContentType(contentType)) {
-        try {
-          String ext=ContentTypeHandler.getExtensionForContentType(contentType);
-          File temp=File.createTempFile("response","." + ext);
-          FileOutputStream fileOutputStream=new FileOutputStream(temp);
-          writeHttpBody(httpResponse.getRawResponseData(),fileOutputStream);
-          fileOutputStream.close();
-          browser.navigate(temp.toURI().toURL().toString(),null);
-          temp.deleteOnExit();
-          hasResponseForRecording=true;
-        }
- catch (        Throwable e) {
-          e.printStackTrace();
-        }
+    if (contentType != null && isSupportedContentType(contentType)) {
+      try {
+        browser.setContent(content,contentType);
       }
- else {
-        try {
-          browser.setContent(new String(httpResponse.getContentAsString().getBytes("utf-8")),httpResponse.getURL().toURI().toString());
-          hasResponseForRecording=true;
-        }
- catch (        Throwable e) {
-          e.printStackTrace();
-        }
+ catch (      Exception e) {
+        SoapUI.logError(e,"Could not display response from " + httpResponse.getURL() + " as HTML");
       }
     }
  else {
       browser.setContent("unsupported content-type [" + contentType + "]");
-      hasResponseForRecording=false;
     }
   }
  else {
     browser.setContent("<missing content>");
-    hasResponseForRecording=false;
   }
 }

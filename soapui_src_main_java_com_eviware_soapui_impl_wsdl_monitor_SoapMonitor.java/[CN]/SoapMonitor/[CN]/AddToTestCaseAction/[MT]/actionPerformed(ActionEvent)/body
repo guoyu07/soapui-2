@@ -53,7 +53,7 @@
  else {
         HttpRequestStepFactory httpRequestStepFactory=new HttpRequestStepFactory();
         HttpTestRequestStep test=(HttpTestRequestStep)testCase.insertTestStep(httpRequestStepFactory.createConfig(me,"Monitor Request " + (row + 1)),-1);
-        test.getTestRequest().setRequestHeaders(excludeHeaders(me.getRequestHeaders()));
+        test.getTestRequest().setRequestHeaders(excludeProxyHeaders(me.getRequestHeaders()));
         HttpTestRequest request=(HttpTestRequest)test.getHttpRequest();
         request.setEndpoint(me.getTargetUrl().toString());
         String existingMediaType=me.getResponseHeaders().get("Content-Type","");
