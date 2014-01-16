@@ -2,4 +2,6 @@
   super(config,parent,"/mockService.gif");
   if (!config.isSetPort() || config.getPort() < 1)   config.setPort(8080);
   if (!config.isSetPath())   config.setPath("/");
+  iconAnimator=new MockServiceIconAnimator();
+  addMockRunListener(iconAnimator);
 }
