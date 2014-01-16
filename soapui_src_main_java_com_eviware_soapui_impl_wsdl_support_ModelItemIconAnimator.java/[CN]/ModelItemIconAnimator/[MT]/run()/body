@@ -1,4 +1,7 @@
 {
+  if (!SoapUI.usingGraphicalEnvironment()) {
+    return;
+  }
   if (future != null) {
     if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName("ModelItemIconAnimator for " + target.getName());
   }
@@ -15,4 +18,5 @@
   }
   target.setIcon(getIcon());
   future=null;
+  notify();
 }

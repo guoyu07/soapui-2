@@ -1,8 +1,10 @@
 {
   super(config,parent,icon);
-  if (!forLoadTest && !UISupport.isHeadless()) {
+  if (!forLoadTest) {
     iconAnimator=initIconAnimator();
-    addSubmitListener(iconAnimator);
+    if (SoapUI.usingGraphicalEnvironment()) {
+      addSubmitListener(iconAnimator);
+    }
   }
   initAttachments();
   dumpFile=new SettingPathPropertySupport(this,DUMP_FILE);
