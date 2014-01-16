@@ -5,14 +5,13 @@
       OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRedirectURI(parameters.redirectUri).setCode(authorizationCode).buildBodyMessage();
       OAuthToken token=null;
 switch (parameters.accessTokenRetrievalLocation) {
-case BODY_JSON:
-        token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
-      break;
 case BODY_URL_ENCODED_FORM:
-    token=getOAuthClient().accessToken(accessTokenRequest,GitHubTokenResponse.class).getOAuthToken();
-  break;
+        token=getOAuthClient().accessToken(accessTokenRequest,GitHubTokenResponse.class).getOAuthToken();
+      break;
+case BODY_JSON:
 default :
-break;
+    token=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
+  break;
 }
 if (token != null && token.getAccessToken() != null) {
 parameters.setAccessTokenInProfile(token.getAccessToken());
