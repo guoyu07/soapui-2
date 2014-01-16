@@ -7,6 +7,6 @@
   }
   for (  WsdlInterface iface : interfaces)   iface.getWsdlContext().loadIfNecessary();
   mockContext=new WsdlMockRunContext(this.mockService,context);
-  dispatcher=new WsdlMockDispatcher(this.mockService,mockContext);
+  dispatcher=mockService.createDispatcher(mockContext);
   start();
 }

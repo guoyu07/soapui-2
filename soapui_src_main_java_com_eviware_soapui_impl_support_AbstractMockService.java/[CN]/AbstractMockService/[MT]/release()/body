@@ -5,4 +5,8 @@
     if (mockRunner.isRunning())     mockRunner.stop();
     if (mockRunner != null)     mockRunner.release();
   }
+  if (onRequestScriptEnginePool != null)   onRequestScriptEnginePool.release();
+  if (afterRequestScriptEnginePool != null)   afterRequestScriptEnginePool.release();
+  if (startScriptEngine != null)   startScriptEngine.release();
+  if (stopScriptEngine != null)   stopScriptEngine.release();
 }
