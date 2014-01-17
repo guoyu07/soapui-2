@@ -6,8 +6,9 @@
   }
  else {
     this.requestContent=readRequestContent(request);
-    if (StringUtils.hasContent(context.getMockService().getIncomingWss())) {
-      IncomingWss incoming=((WsdlProject)context.getMockService().getProject()).getWssContainer().getIncomingWssByName(context.getMockService().getIncomingWss());
+    WsdlMockService mockService=(WsdlMockService)context.getMockService();
+    if (StringUtils.hasContent(mockService.getIncomingWss())) {
+      IncomingWss incoming=((WsdlProject)mockService.getProject()).getWssContainer().getIncomingWssByName(mockService.getIncomingWss());
       if (incoming != null) {
         Document dom=XmlUtils.parseXml(requestContent);
         try {
