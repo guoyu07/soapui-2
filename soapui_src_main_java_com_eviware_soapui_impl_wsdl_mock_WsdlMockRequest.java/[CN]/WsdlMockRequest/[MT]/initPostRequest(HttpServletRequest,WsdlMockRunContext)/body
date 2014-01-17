@@ -7,7 +7,7 @@
  else {
     this.requestContent=readRequestContent(request);
     if (StringUtils.hasContent(context.getMockService().getIncomingWss())) {
-      IncomingWss incoming=context.getMockService().getProject().getWssContainer().getIncomingWssByName(context.getMockService().getIncomingWss());
+      IncomingWss incoming=((WsdlProject)context.getMockService().getProject()).getWssContainer().getIncomingWssByName(context.getMockService().getIncomingWss());
       if (incoming != null) {
         Document dom=XmlUtils.parseXml(requestContent);
         try {

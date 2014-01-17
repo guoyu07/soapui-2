@@ -49,7 +49,7 @@
     throw new DispatchException("Missing operation for soapAction [" + soapAction + "] and body element ["+ XmlUtils.getQName(mockRequest.getContentElement())+ "] with SOAP Version ["+ mockRequest.getSoapVersion()+ "]");
   }
  catch (  Exception e) {
-    if (e instanceof DispatchException)     throw (DispatchException)e;
+    if (e instanceof DispatchException)     throw e;
     throw new DispatchException(e);
   }
 }
