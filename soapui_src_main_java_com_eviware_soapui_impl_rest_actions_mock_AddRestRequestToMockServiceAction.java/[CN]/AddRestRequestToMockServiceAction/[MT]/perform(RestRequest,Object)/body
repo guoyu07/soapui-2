@@ -1,7 +1,8 @@
 {
   String title=getName();
-  WsdlProject project=target.getRestMethod().getInterface().getProject();
+  WsdlProject project=restRequest.getRestMethod().getInterface().getProject();
   String defaultName="MockService " + (project.getMockServiceCount() + 1);
   String mockServiceName=UISupport.prompt("Enter name of new MockService",title,defaultName);
-  project.addNewRestMockService(mockServiceName);
+  RestMockService mockService=project.addNewRestMockService(mockServiceName);
+  MockOperation restMockAction=mockService.addNewMockAction(restRequest);
 }

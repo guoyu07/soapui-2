@@ -1,0 +1,9 @@
+{
+  String mockActionName=restRequest.getResource().getName() + " " + restRequest.getName();
+  RESTMockActionConfig config=getConfig().addNewRestMockAction();
+  config.setName(mockActionName);
+  RestMockAction restMockAction=new RestMockAction(this,config);
+  addMockOperation(restMockAction);
+  fireMockOperationAdded(restMockAction);
+  return restMockAction;
+}
