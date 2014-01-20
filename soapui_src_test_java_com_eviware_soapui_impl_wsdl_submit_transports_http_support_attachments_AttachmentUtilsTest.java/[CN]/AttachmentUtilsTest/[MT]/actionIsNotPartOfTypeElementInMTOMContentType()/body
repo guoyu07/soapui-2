@@ -1,0 +1,5 @@
+{
+  String contentType=AttachmentUtils.buildMTOMContentType("boundary=\"----=_Part_10_7396679.1285664994648\"","SendFile",SoapVersion.Soap12);
+  String expectedContentType="multipart/related; type=\"application/xop+xml\"; " + "start=\"<rootpart@soapui.org>\"; start-info=\"application/soap+xml\"; action=\"SendFile\"; " + "boundary=\"----=_Part_10_7396679.1285664994648\"";
+  assertThat(contentType,is(expectedContentType));
+}
