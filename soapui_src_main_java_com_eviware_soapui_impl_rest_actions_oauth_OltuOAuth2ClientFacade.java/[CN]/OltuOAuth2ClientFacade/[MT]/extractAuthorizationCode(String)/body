@@ -1,6 +1,3 @@
 {
-  if (title.contains("code=")) {
-    return title.substring(title.indexOf("code=") + 5);
-  }
-  return null;
+  return (String)OAuthUtils.decodeForm(formData).get("code");
 }

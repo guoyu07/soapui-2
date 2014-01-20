@@ -2,7 +2,7 @@
   browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
     @Override public void locationChanged(    String newLocation){
       if (!parameters.redirectUri.contains(OAUTH_2_OOB_URN)) {
-        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCode(newLocation));
+        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCode(extractFormData(newLocation)));
       }
     }
     @Override public void contentChanged(    String newContent){

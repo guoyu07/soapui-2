@@ -1,4 +1,5 @@
 {
   oltuClientFacade.requestAccessToken(profile);
-  assertThat(spyingOauthClientStub.oAuthClientRequest.getBody(),containsString(authorizationCode));
+  String code=(String)OAuthUtils.decodeForm(spyingOauthClientStub.oAuthClientRequest.getBody()).get("code");
+  assertThat(code,is(authorizationCode));
 }
