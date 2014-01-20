@@ -1,5 +1,5 @@
 {
-  WorkspaceImpl workspace=mockService.getProject().getWorkspace();
+  WorkspaceImpl workspace=((WsdlProject)mockService.getProject()).getWorkspace();
   WsdlProject targetProject=(WsdlProject)workspace.getProjectByName(targetProjectName);
   if (targetProject == null) {
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone MockService","");
