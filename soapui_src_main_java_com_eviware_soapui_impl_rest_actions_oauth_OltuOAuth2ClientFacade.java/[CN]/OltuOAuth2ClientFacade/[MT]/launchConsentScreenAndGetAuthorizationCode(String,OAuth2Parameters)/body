@@ -1,17 +1,13 @@
 {
   browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
     @Override public void locationChanged(    String newLocation){
-      if (!parameters.redirectUri.contains(OAUTH_2_OOB_URN)) {
-        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCode(extractFormData(newLocation)));
-      }
+      getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation)));
     }
     @Override public void contentChanged(    String newContent){
-      if (parameters.redirectUri.contains(OAUTH_2_OOB_URN)) {
-        int titlePosition=newContent.indexOf(TITLE);
-        if (titlePosition != -1) {
-          String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
-          getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCode(title));
-        }
+      int titlePosition=newContent.indexOf(TITLE);
+      if (titlePosition != -1) {
+        String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
+        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromTitle(title));
       }
     }
   }
