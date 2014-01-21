@@ -1,4 +1,4 @@
 {
-  int charsetIndex=contentType.indexOf(";charset=");
-  return charsetIndex == -1 ? contentType : contentType.substring(0,charsetIndex);
+  Matcher matcher=charsetFinderPattern.matcher(contentType);
+  return matcher.matches() ? matcher.group(1) : contentType;
 }
