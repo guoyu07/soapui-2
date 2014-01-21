@@ -1,0 +1,13 @@
+{
+  File file=new File(path);
+  while (!(file == null) && !file.exists()) {
+    file=file.getParentFile();
+  }
+  if (file == null) {
+    file=getCurrentJvmDirectory();
+  }
+  if (!file.isDirectory()) {
+    file=file.getParentFile();
+  }
+  return file;
+}

@@ -1,0 +1,13 @@
+{
+  String currentDirectory=StringUtils.hasContent(project.getResourceRoot()) ? project.getResourceRoot() : project.getPath();
+  if (!StringUtils.hasContent(currentDirectory)) {
+    return System.getProperty("user.dir",".");
+  }
+ else   if (holder.getModelItem() instanceof AbstractWsdlModelItem) {
+    String expandedPath=PathUtils.expandPath(currentDirectory,((AbstractWsdlModelItem)(holder.getModelItem())));
+    return FilenameUtils.normalize(expandedPath);
+  }
+ else {
+    return currentDirectory;
+  }
+}

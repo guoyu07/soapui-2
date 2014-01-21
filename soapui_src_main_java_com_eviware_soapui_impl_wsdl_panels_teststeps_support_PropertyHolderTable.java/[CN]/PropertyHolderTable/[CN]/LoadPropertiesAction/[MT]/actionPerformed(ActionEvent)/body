@@ -1,28 +1,9 @@
 {
   if (dialog == null)   dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
-  Project project=getProjectFromModelItem(holder.getModelItem());
+  Project project=ModelItemUtils.getProjectFromModelItem(holder.getModelItem());
   if (project != null) {
     FileFormField fileFormField=(FileFormField)dialog.getFormField(LoadOptionsForm.FILE);
-    String currentDirectory=StringUtils.hasContent(project.getResourceRoot()) ? project.getResourceRoot() : project.getPath();
-    if (!StringUtils.hasContent(currentDirectory)) {
-      currentDirectory=System.getProperty("user.dir",".");
-    }
- else     if (holder.getModelItem() instanceof AbstractWsdlModelItem) {
-      currentDirectory=FilenameUtils.normalize(PathUtils.expandPath(currentDirectory,((AbstractWsdlModelItem)(holder.getModelItem()))));
-    }
-    File file=new File(currentDirectory);
-    while (!(file == null) && !file.exists()) {
-      file=file.getParentFile();
-    }
-    if (file == null) {
-      file=new File(System.getProperty("user.dir",".")).getAbsoluteFile();
-    }
-    if (!file.isDirectory()) {
-      currentDirectory=file.getParentFile().getAbsolutePath();
-    }
- else {
-      currentDirectory=file.getAbsolutePath();
-    }
+    String currentDirectory=extractFileChooserPathForProject(project);
     fileFormField.setCurrentDirectory(currentDirectory);
   }
   dialog.getFormField(LoadOptionsForm.DELETEREMAINING).setEnabled(holder instanceof MutableTestPropertyHolder);
