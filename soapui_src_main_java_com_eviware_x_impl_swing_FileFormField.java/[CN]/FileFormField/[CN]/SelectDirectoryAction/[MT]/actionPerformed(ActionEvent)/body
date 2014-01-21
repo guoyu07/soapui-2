@@ -4,8 +4,12 @@
       fileChooser=new JFileChooser();
       fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
     }
- else     if (type == FieldType.FOLDER || type == FieldType.PROJECT_FOLDER)     fileChooser=new JDirectoryChooser();
- else     fileChooser=new JFileChooser();
+ else     if (type == FieldType.FOLDER || type == FieldType.PROJECT_FOLDER) {
+      fileChooser=new JDirectoryChooser();
+    }
+ else {
+      fileChooser=new JFileChooser();
+    }
   }
   File file=null;
   String startingDirectory=StringUtils.hasContent(currentDirectory) ? currentDirectory : StringUtils.hasContent(projectRoot) ? projectRoot : null;
@@ -37,7 +41,7 @@
     }
   }
  else {
-    while (!(file == null) && !file.exists()) {
+    while (file != null && !file.exists()) {
       file=file.getParentFile();
     }
     if (file == null) {
