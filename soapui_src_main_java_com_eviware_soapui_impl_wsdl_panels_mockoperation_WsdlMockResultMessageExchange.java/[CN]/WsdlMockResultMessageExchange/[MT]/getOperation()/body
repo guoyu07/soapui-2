@@ -1,4 +1,4 @@
 {
-  if (mockResult.getMockOperation() != null)   return mockResult.getMockOperation().getOperation();
+  if (mockResult.getMockOperation() != null)   return (WsdlOperation)mockResult.getMockOperation().getOperation();
   return mockResponse == null ? null : mockResponse.getMockOperation().getOperation();
 }

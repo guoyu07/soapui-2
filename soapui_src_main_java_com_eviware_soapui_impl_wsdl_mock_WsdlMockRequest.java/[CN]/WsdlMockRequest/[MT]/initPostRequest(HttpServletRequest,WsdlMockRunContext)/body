@@ -2,10 +2,12 @@
   String contentType=request.getContentType();
   if (contentType != null && contentType.toUpperCase().startsWith("MULTIPART")) {
     readMultipartRequest(request);
-    if (mmSupport != null && mmSupport.getRootPart() != null)     contentType=mmSupport.getRootPart().getContentType();
+    MultipartMessageSupport multipartMessageSupport=getMultipartMessageSupport();
+    if (multipartMessageSupport != null && multipartMessageSupport.getRootPart() != null)     contentType=multipartMessageSupport.getRootPart().getContentType();
   }
  else {
-    this.requestContent=readRequestContent(request);
+    String requestContent=readRequestContent(request);
+    super.setRequestContent(requestContent);
     WsdlMockService mockService=(WsdlMockService)context.getMockService();
     if (StringUtils.hasContent(mockService.getIncomingWss())) {
       IncomingWss incoming=((WsdlProject)mockService.getProject()).getWssContainer().getIncomingWssByName(mockService.getIncomingWss());
@@ -16,8 +18,8 @@
           if (wssResult != null && wssResult.size() > 0) {
             StringWriter writer=new StringWriter();
             XmlUtils.serialize(dom,writer);
-            actualRequestContent=requestContent;
-            requestContent=writer.toString();
+            setActualRequestContent(requestContent);
+            super.setRequestContent(writer.toString());
           }
         }
  catch (        Exception e) {
@@ -33,5 +35,5 @@
  catch (  Exception e) {
   }
   if (soapVersion == null)   soapVersion=SoapVersion.Soap11;
-  soapAction=SoapUtils.getSoapAction(soapVersion,requestHeaders);
+  soapAction=SoapUtils.getSoapAction(soapVersion,getRequestHeaders());
 }

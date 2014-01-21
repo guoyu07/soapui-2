@@ -1,8 +1,8 @@
 {
-  this.requestContent=requestContent;
-  requestXmlObject=null;
+  super.setRequestContent(requestContent);
+  setRequestXmlObject(null);
   try {
-    soapVersion=SoapUtils.deduceSoapVersion(request.getContentType(),getRequestXmlObject());
+    soapVersion=SoapUtils.deduceSoapVersion(getRequest().getContentType(),getRequestXmlObject());
   }
  catch (  XmlException e) {
     SoapUI.logError(e);

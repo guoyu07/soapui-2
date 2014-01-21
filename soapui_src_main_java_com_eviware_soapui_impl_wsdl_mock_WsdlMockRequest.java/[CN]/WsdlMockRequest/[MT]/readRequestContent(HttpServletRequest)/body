@@ -14,7 +14,7 @@
       SoapUI.logError(e);
     }
   }
-  String compressionAlg=HttpClientSupport.getCompressionType(request.getContentType(),requestHeaders.get("Content-Encoding",(String)null));
+  String compressionAlg=HttpClientSupport.getCompressionType(request.getContentType(),getRequestHeaders().get("Content-Encoding",(String)null));
   if (compressionAlg != null) {
     try {
       data=CompressionSupport.decompress(compressionAlg,data);

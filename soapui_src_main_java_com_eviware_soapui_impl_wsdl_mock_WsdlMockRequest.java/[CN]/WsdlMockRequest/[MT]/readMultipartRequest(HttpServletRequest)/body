@@ -1,5 +1,9 @@
 {
   StringToStringMap values=StringToStringMap.fromHttpHeader(request.getContentType());
-  mockRequestDataSource=new MockRequestDataSource(request);
-  mmSupport=new MultipartMessageSupport(mockRequestDataSource,values.get("start"),null,true,requestContext.getMockService().getSettings().getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES));
+  MockRequestDataSource mockRequestDataSource=new MockRequestDataSource(request);
+  setMockRequestDataSource(mockRequestDataSource);
+  Settings settings=getRequestContext().getMockService().getSettings();
+  boolean isPrettyPrint=settings.getBoolean(WsdlSettings.PRETTY_PRINT_RESPONSE_MESSAGES);
+  MultipartMessageSupport mmSupport=new MultipartMessageSupport(mockRequestDataSource,values.get("start"),null,true,isPrettyPrint);
+  setMultipartMessageSupport(mmSupport);
 }

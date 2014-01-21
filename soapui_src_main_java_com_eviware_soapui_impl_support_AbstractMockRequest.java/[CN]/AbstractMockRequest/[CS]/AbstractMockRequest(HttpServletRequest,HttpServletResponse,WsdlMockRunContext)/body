@@ -1,0 +1,22 @@
+{
+  this.request=request;
+  this.response=response;
+  this.context=context;
+  requestContext=new WsdlMockRunContext(context.getMockService(),null);
+  requestHeaders=new StringToStringsMap();
+  for (Enumeration<?> e=request.getHeaderNames(); e.hasMoreElements(); ) {
+    String header=(String)e.nextElement();
+    String lcHeader=header.toLowerCase();
+    if (lcHeader.equals("soapaction"))     requestHeaders.put("SOAPAction",request.getHeader(header));
+ else     if (lcHeader.equals("content-type"))     requestHeaders.put("Content-Type",request.getHeader(header));
+ else     if (lcHeader.equals("content-length"))     requestHeaders.put("Content-Length",request.getHeader(header));
+ else     if (lcHeader.equals("content-encoding"))     requestHeaders.put("Content-Encoding",request.getHeader(header));
+ else     requestHeaders.put(header,request.getHeader(header));
+  }
+  protocol=request.getProtocol();
+  path=request.getPathInfo();
+  if (path == null)   path="";
+  if (request.getMethod().equals("POST")) {
+    initPostRequest(request,context);
+  }
+}

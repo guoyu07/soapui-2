@@ -1,0 +1,9 @@
+{
+  try {
+    RestMockRequest restMockRequest=new RestMockRequest(request,response,null);
+    return ((RestMockAction)(mockService.getMockOperationList().get(0))).dispatchRequest(restMockRequest);
+  }
+ catch (  Exception e) {
+    throw new DispatchException(e);
+  }
+}
