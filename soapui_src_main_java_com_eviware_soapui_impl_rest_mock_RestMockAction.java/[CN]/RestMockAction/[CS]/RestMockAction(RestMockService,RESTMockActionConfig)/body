@@ -1,5 +1,5 @@
 {
-  super(config,mockService,"/mockOperation.gif");
+  super(config,mockService,RestMockAction.getIconName(config));
   Interface iface=mockService.getProject().getInterfaceByName(mockService.getName());
   if (iface == null) {
     SoapUI.log.warn("Missing interface [" + mockService.getName() + "] for MockOperation in project");

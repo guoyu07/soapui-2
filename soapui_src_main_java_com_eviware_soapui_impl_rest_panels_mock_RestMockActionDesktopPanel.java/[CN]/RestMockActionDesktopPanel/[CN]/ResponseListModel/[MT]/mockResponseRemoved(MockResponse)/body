@@ -1,0 +1,8 @@
+{
+  if (response.getMockOperation() != getModelItem())   return;
+  int ix=responses.indexOf(response);
+  responses.remove(ix);
+  response.removePropertyChangeListener(this);
+  fireIntervalRemoved(this,ix,ix);
+  defaultResponseCombo.removeItem(response.getName());
+}

@@ -1,0 +1,7 @@
+{
+  RestMockResponse mockResponse=new RestMockResponse(this,responseConfig);
+  responses.add(mockResponse);
+  (getMockService()).fireMockResponseAdded(mockResponse);
+  notifyPropertyChanged("mockResponses",null,mockResponse);
+  return mockResponse;
+}

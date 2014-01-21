@@ -4,5 +4,5 @@
   String defaultName="MockService " + (project.getMockServiceCount() + 1);
   String mockServiceName=UISupport.prompt("Enter name of new MockService",title,defaultName);
   RestMockService mockService=project.addNewRestMockService(mockServiceName);
-  MockOperation restMockAction=mockService.addNewMockAction(restRequest);
+  addNewMockAction(restRequest,mockService);
 }
