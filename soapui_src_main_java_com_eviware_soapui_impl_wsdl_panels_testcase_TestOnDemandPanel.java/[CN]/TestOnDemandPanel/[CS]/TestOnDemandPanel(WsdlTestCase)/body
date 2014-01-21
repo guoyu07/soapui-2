@@ -6,14 +6,7 @@
   setValidator();
   setCaller();
   add(buildToolbar(),BorderLayout.NORTH);
-  if (!SoapUI.isJXBrowserDisabled(true)) {
-    browser=new CustomNativeBrowserComponent(true,false);
-    add(browser.getComponent(),BorderLayout.CENTER);
-  }
- else {
-    JEditorPane jxbrowserDisabledPanel=new JEditorPane();
-    jxbrowserDisabledPanel.setText("Browser component disabled or not available on this platform");
-    add(jxbrowserDisabledPanel,BorderLayout.CENTER);
-  }
+  browser=new WebViewBasedBrowserComponent(false);
+  add(browser.getComponent(),BorderLayout.CENTER);
   openInInternalBrowser(FIRST_PAGE_URL);
 }

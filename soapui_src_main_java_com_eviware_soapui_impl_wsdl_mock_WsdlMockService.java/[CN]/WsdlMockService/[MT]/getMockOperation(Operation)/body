@@ -1,6 +1,6 @@
 {
   for (int c=0; c < getMockOperationCount(); c++) {
-    WsdlMockOperation mockOperation=mockOperations.get(c);
+    WsdlMockOperation mockOperation=getMockOperationAt(c);
     if (mockOperation.getOperation() == operation)     return mockOperation;
   }
   return null;

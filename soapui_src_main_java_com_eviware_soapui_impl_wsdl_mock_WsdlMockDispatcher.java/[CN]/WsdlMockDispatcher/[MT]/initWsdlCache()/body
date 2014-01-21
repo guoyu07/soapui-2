@@ -1,0 +1,22 @@
+{
+  for (  Interface iface : mockService.getMockedInterfaces()) {
+    if (!iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE))     continue;
+    try {
+      WsdlDefinitionExporter exporter=new WsdlDefinitionExporter((WsdlInterface)iface);
+      String wsdlPrefix=trimLastSlash(getInterfacePrefix(iface));
+      StringToStringMap parts=exporter.createFilesForExport(wsdlPrefix + "&part=");
+      for (      Map.Entry<String,String> partEntry : parts.entrySet()) {
+        if (partEntry.getKey().toLowerCase().endsWith(".wsdl")) {
+          InputSource inputSource=new InputSource(new StringReader(partEntry.getValue()));
+          String content=WsdlUtils.replacePortEndpoint((WsdlInterface)iface,inputSource,mockService.getLocalMockServiceEndpoint());
+          if (content != null)           parts.put(partEntry.getKey(),content);
+        }
+      }
+      wsdlCache.put(iface.getName(),parts);
+      log.info("Mounted WSDL for interface [" + iface.getName() + "] at ["+ getOverviewUrl()+ "]");
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+}

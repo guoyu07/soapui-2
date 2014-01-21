@@ -4,7 +4,8 @@
   table.addProperty("Description","description",true);
   table.addProperty("Message Size","contentLength",false);
   table.addProperty("Encoding","encoding",new String[]{null,"UTF-8","iso-8859-1"});
-  StringList outgoingNames=new StringList(mockResponse.getMockOperation().getMockService().getProject().getWssContainer().getOutgoingWssNames());
+  WsdlProject project=(WsdlProject)mockResponse.getMockOperation().getMockService().getProject();
+  StringList outgoingNames=new StringList(project.getWssContainer().getOutgoingWssNames());
   outgoingNames.add("");
   table.addProperty("Outgoing WSS","outgoingWss",outgoingNames.toStringArray());
   table.addProperty("Enable MTOM","mtomEnabled",JPropertiesTable.BOOLEAN_OPTIONS);

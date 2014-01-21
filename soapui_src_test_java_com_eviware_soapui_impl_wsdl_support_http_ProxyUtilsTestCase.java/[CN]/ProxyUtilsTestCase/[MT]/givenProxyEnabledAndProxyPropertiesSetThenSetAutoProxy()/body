@@ -4,6 +4,5 @@
   setProxySystemProperties();
   ProxyUtils.setGlobalProxy(manualSettings());
   assertGlobalProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
-  ProxyUtils.initProxySettings(manualSettings(),httpMethod,null,URL,null);
   assertHttpClientProxyHost(SYSTEM_PROPERTY_PROXY_HOST);
 }

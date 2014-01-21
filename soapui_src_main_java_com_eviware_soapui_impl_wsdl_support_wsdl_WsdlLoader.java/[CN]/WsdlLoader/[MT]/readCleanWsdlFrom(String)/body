@@ -1,0 +1,7 @@
+{
+  String content=XmlUtils.createXmlObject(new URL(url)).xmlText();
+  if (SoapUI.getSettings().getBoolean(WsdlSettings.TRIM_WSDL)) {
+    content=content.trim();
+  }
+  return PropertyExpansionRemover.removeExpansions(content);
+}

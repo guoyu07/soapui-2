@@ -1,0 +1,6 @@
+{
+  if (configuration.getAccessTokenRetrievalLocation() == null) {
+    configuration.setAccessTokenRetrievalLocation(AccessTokenRetrievalLocationConfig.BODY_JSON);
+  }
+  return AccessTokenRetrievalLocation.valueOf(configuration.getAccessTokenRetrievalLocation().toString());
+}

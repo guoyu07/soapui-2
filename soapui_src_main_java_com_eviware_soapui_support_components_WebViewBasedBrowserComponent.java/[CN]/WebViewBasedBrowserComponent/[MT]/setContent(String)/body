@@ -1,4 +1,9 @@
 {
-  getWebEngine().loadContent(content);
-  pcs.firePropertyChange("content",null,content);
+  Platform.runLater(new Runnable(){
+    public void run(){
+      getWebEngine().loadContent(contentAsString);
+    }
+  }
+);
+  pcs.firePropertyChange("content",null,contentAsString);
 }

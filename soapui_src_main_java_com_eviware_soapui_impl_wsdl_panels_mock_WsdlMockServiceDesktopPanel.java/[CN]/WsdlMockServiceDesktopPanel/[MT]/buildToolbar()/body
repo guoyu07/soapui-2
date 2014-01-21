@@ -2,7 +2,12 @@
   JXToolBar toolbar=UISupport.createToolbar();
   runButton=createActionButton(new RunMockServiceAction(),true);
   stopButton=createActionButton(new StopMockServiceAction(),false);
-  optionsButton=createActionButton(SwingActionDelegate.createDelegate(new MockServiceOptionsAction(),getModelItem(),null,"/options.gif"),true);
+  MockServiceType modelItem=getModelItem();
+  AbstractSoapUIAction<MockServiceType> action=(AbstractSoapUIAction<MockServiceType>)new MockServiceOptionsAction();
+  if (modelItem instanceof RestMockService) {
+    action=(AbstractSoapUIAction<MockServiceType>)new RestMockServiceOptionsAction();
+  }
+  optionsButton=createActionButton(SwingActionDelegate.createDelegate(action,modelItem,null,"/options.gif"),true);
   showWsdlButton=createActionButton(new ShowWsdlAction(),false);
   toolbar.addFixed(runButton);
   toolbar.addFixed(stopButton);

@@ -1,7 +1,7 @@
 {
   Set<WsdlInterface> result=new HashSet<WsdlInterface>();
-  for (  WsdlMockOperation mockOperation : mockOperations) {
-    WsdlOperation operation=mockOperation.getOperation();
+  for (  MockOperation mockOperation : getMockOperationList()) {
+    WsdlOperation operation=(WsdlOperation)mockOperation.getOperation();
     if (operation != null)     result.add(operation.getInterface());
   }
   return result.toArray(new WsdlInterface[result.size()]);

@@ -3,7 +3,7 @@
     public void actionPerformed(    ActionEvent e){
       try {
         WsdlMockRunContext context=mockRunner == null ? new WsdlMockRunContext(WsdlMockServiceDesktopPanel.this.getModelItem(),null) : mockRunner.getMockContext();
-        WsdlMockServiceDesktopPanel.this.getModelItem().runOnRequestScript(context,mockRunner,null);
+        WsdlMockServiceDesktopPanel.this.getModelItem().runOnRequestScript(context,null);
       }
  catch (      Exception e1) {
         UISupport.showErrorMessage(e1);

@@ -1,29 +1,16 @@
 {
-  Object result=null;
-  try {
-    for (    MockRunListener listener : mockService.getMockRunListeners()) {
-      result=listener.onMockRequest(this,request,response);
-      if (result instanceof MockResult)       return (MockResult)result;
-    }
-    WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
-    result=mockService.runOnRequestScript(mockContext,this,mockRequest);
-    if (!(result instanceof MockResult)) {
-      String method=mockRequest.getMethod();
-      if (method.equals("POST"))       result=dispatchPostRequest(mockRequest);
- else       result=super.dispatchRequest(request,response);
-    }
-    mockService.runAfterRequestScript(mockContext,this,(MockResult)result);
-    return (MockResult)result;
+  for (  MockRunListener listener : mockService.getMockRunListeners()) {
+    Object result=listener.onMockRequest(this,request,response);
+    if (result instanceof MockResult)     return (MockResult)result;
   }
- catch (  Throwable e) {
-    if (e instanceof DispatchException)     throw (DispatchException)e;
- else     throw new DispatchException(e);
-  }
- finally {
-    if (result instanceof MockResult) {
-      for (      MockRunListener listener : mockService.getMockRunListeners()) {
-        listener.onMockResult((MockResult)result);
-      }
+  String qs=request.getQueryString();
+  if (qs != null && qs.startsWith("cmd=")) {
+    try {
+      dispatchCommand(request.getParameter("cmd"),request,response);
+    }
+ catch (    IOException e) {
+      throw new DispatchException(e);
     }
   }
+  return dispatcher.dispatchRequest(request,response);
 }

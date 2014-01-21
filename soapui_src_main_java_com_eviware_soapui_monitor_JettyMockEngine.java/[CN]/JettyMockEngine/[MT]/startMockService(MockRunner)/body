@@ -1,7 +1,7 @@
 {
   if (server == null)   initServer();
 synchronized (server) {
-    WsdlMockService mockService=(WsdlMockService)runner.getMockService();
+    MockService mockService=runner.getMockService();
     int port=mockService.getPort();
     if (SoapUI.getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL) && !addedSslConnector) {
       updateSslConnectorSettings();
@@ -20,7 +20,7 @@ synchronized (server) {
         connector.setConfidentialPort(sslConnector.getPort());
       }
       if (mockService.getBindToHostOnly()) {
-        String host=PropertyExpander.expandProperties(mockService,mockService.getHost());
+        String host=PropertyExpander.expandProperties((AbstractMockService)mockService,((AbstractMockService)mockService).getHost());
         if (StringUtils.hasContent(host)) {
           connector.setHost(host);
         }

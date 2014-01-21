@@ -1,0 +1,10 @@
+{
+  JPropertiesTable<RestMockService> table=new JPropertiesTable<RestMockService>("MockService Properties");
+  table.addProperty("Name","name",true);
+  table.addProperty("Description","description",true);
+  table.addProperty("Path","path",true);
+  table.addProperty("Port","port");
+  table.addProperty("Dispatch Responses","dispatchResponseMessages",JPropertiesTable.BOOLEAN_OPTIONS);
+  table.setPropertyObject(mockService);
+  return table;
+}

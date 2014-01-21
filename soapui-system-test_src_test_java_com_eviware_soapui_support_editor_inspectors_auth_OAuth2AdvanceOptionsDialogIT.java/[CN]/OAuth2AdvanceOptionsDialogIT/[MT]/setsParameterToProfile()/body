@@ -1,0 +1,18 @@
+{
+  assertThat(profile.getAccessTokenPosition(),is(HEADER));
+  assertThat(profile.getAccessTokenRetrievalLocation(),is(BODY_JSON));
+  new Thread(new Runnable(){
+    @Override public void run(){
+      new OAuth2AdvanceOptionsDialog(profile);
+    }
+  }
+).start();
+  Thread.sleep(200);
+  Dialog advanceOptionsDialog=(Dialog)robot.finder().findByName("OAuth2.0 Advanced options");
+  DialogFixture dialogFixture=new DialogFixture(robot,advanceOptionsDialog);
+  dialogFixture.radioButton(QUERY.toString()).click();
+  dialogFixture.radioButton(BODY_URL_ENCODED_FORM.toString()).click();
+  dialogFixture.button("OK").click();
+  assertThat(profile.getAccessTokenPosition(),is(QUERY));
+  assertThat(profile.getAccessTokenRetrievalLocation(),is(BODY_URL_ENCODED_FORM));
+}
