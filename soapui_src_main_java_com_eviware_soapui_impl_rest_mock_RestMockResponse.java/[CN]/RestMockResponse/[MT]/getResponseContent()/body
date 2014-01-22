@@ -1,3 +1,5 @@
 {
-  return null;
+  if (getConfig().getResponseContent() == null)   getConfig().addNewResponseContent();
+  if (responseContent == null)   responseContent=CompressedStringSupport.getString(getConfig().getResponseContent());
+  return responseContent;
 }

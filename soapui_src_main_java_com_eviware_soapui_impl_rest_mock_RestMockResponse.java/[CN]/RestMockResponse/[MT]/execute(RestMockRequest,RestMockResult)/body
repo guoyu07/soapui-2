@@ -1,3 +1,23 @@
 {
-  return result;
+  try {
+    String responseContent=getResponseContent();
+    WsdlMockRunContext context=new WsdlMockRunContext(request.getContext().getMockService(),null);
+    context.setMockResponse(this);
+    context.putAll(request.getContext());
+    context.putAll(request.getRequestContext());
+    StringToStringsMap responseHeaders=getResponseHeaders();
+    for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+      for (      String value : headerEntry.getValue())       result.addHeader(headerEntry.getKey(),PropertyExpander.expandProperties(context,value));
+    }
+    if (!result.isCommitted()) {
+      responseContent=writeResponse(result,responseContent);
+    }
+    result.setResponseContent(responseContent);
+    setMockResult(result);
+    return mockResult;
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+    throw new DispatchException(e);
+  }
 }
