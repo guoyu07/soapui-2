@@ -26,12 +26,7 @@
       }
 ).start();
     }
-    if (!getSettings().isSet(LoadUISettings.START_CAJO_SERVER_AT_STARTUP) || getSettings().getBoolean(LoadUISettings.START_CAJO_SERVER_AT_STARTUP)) {
-      CajoServer.getInstance().start();
-    }
- else {
-      log.info("Cajo server not started because setting '" + LoadUISettings.START_CAJO_SERVER_AT_STARTUP + "' is false.");
-    }
+    startCajoServerIfNotOverriddenBySetting();
   }
  catch (  Exception e) {
     e.printStackTrace();
