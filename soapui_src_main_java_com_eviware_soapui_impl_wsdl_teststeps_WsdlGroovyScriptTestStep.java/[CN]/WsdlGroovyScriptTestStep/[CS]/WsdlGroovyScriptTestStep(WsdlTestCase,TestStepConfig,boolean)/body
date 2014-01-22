@@ -11,13 +11,13 @@
  else {
     readConfig(config);
   }
-  addProperty(new DefaultTestStepProperty(Script.RESULT_PROPERTY,true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
+  addProperty(new DefaultTestStepProperty(RESULT_PROPERTY,true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
     public String getValue(    DefaultTestStepProperty property){
       return scriptResult == null ? null : scriptResult.toString();
     }
   }
 ,this));
-  addProperty(new TestStepBeanProperty(Script.SCRIPT_PROPERTY,false,this,Script.SCRIPT_PROPERTY,this));
+  addProperty(new TestStepBeanProperty(SCRIPT_PROPERTY,false,this,SCRIPT_PROPERTY,this));
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
   if (forLoadTest && !isDisabled())   try {

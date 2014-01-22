@@ -1,6 +1,6 @@
 {
   super.propertyChange(evt);
-  if (evt.getPropertyName().equals(Script.SCRIPT_PROPERTY) && !updating) {
+  if (evt.getPropertyName().equals(SCRIPT_PROPERTY) && !updating) {
     updating=true;
     groovyEditor.getEditArea().setText((String)evt.getNewValue());
     updating=false;
