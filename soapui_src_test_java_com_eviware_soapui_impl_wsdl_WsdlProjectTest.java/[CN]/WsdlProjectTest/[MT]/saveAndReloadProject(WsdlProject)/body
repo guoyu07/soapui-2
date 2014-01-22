@@ -1,0 +1,5 @@
+{
+  File tempFile=File.createTempFile("soapuitemptestfile",".xml");
+  project.saveIn(tempFile);
+  return new WsdlProject(tempFile.toURI().toString());
+}

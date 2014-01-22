@@ -1,0 +1,8 @@
+{
+  String expectedName="Teh Awesome Mock Service";
+  project.addNewRestMockService(expectedName);
+  WsdlProject reloadedProject=saveAndReloadProject(project);
+  RestMockService restMockService=reloadedProject.getRestMockServiceByName(expectedName);
+  assertThat(restMockService,notNullValue());
+  assertThat(restMockService.getName(),is(expectedName));
+}

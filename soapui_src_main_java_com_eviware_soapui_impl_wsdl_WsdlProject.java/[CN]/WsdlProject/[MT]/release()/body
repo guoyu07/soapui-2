@@ -8,6 +8,9 @@
     for (    WsdlMockService mockService : mockServices) {
       mockService.release();
     }
+    for (    RestMockService mockService : restMockServices) {
+      mockService.release();
+    }
     for (    AbstractInterface<?> iface : interfaces) {
       iface.release();
     }

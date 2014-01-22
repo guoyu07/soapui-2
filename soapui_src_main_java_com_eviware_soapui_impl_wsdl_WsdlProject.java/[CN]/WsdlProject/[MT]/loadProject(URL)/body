@@ -33,6 +33,10 @@
     for (    MockServiceConfig config : mockServiceConfigs) {
       mockServices.add(new WsdlMockService(this,config));
     }
+    List<RESTMockServiceConfig> restMockServiceConfigs=getConfig().getRestMockServiceList();
+    for (    RESTMockServiceConfig config : restMockServiceConfigs) {
+      restMockServices.add(new RestMockService(this,config));
+    }
     if (!getConfig().isSetWssContainer())     getConfig().addNewWssContainer();
     wssContainer=new DefaultWssContainer(this,getConfig().getWssContainer());
     if (!getConfig().isSetOAuth2ProfileContainer()) {
