@@ -7,7 +7,7 @@
  else {
     resource=(RestResource)iface.getOperationByName(mockService.getName());
   }
-  List<RESTMockResponseConfig> responseConfigs=config.getRestMockResponseList();
+  List<RESTMockResponseConfig> responseConfigs=config.getResponseList();
   for (  RESTMockResponseConfig responseConfig : responseConfigs) {
     RestMockResponse restMockResponse=new RestMockResponse(this,responseConfig);
     restMockResponse.addPropertyChangeListener(this);

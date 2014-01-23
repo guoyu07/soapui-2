@@ -1,5 +1,5 @@
 {
-  MockResponseConfig responseConfig=getConfig().addNewResponse();
+  MockResponseConfig responseConfig=(MockResponseConfig)getConfig().addNewResponse();
   responseConfig.setName(name);
   responseConfig.addNewResponseContent();
   if (createResponse && getOperation() != null && getOperation().isBidirectional()) {
