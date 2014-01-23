@@ -1,0 +1,50 @@
+{
+  Map<String,XmlCursor> cursorCache=new HashMap<String,XmlCursor>();
+  try {
+    XmlObject xmlObject=request.getRequestXmlObject();
+    for (    Query query : getQueries()) {
+      if (query.isDisabled())       continue;
+      String path=PropertyExpander.expandProperties(request.getContext(),query.getQuery());
+      if (StringUtils.hasContent(path)) {
+        XmlCursor cursor=cursorCache.get(path);
+        if (cursor == null && !cursorCache.containsKey(path)) {
+          cursor=xmlObject.newCursor();
+          cursor.selectPath(path);
+          if (!cursor.toNextSelection()) {
+            cursor.dispose();
+            cursor=null;
+          }
+        }
+        if (cursor != null) {
+          String value=PropertyExpander.expandProperties(request.getContext(),query.getMatch());
+          if (value.equals(XmlUtils.getValueForMatch(cursor))) {
+            WsdlMockRunContext requestContext=(WsdlMockRunContext)request.getRequestContext();
+            requestContext.put("usedQueryMatch",query.getName());
+            WsdlMockResponse resp=null;
+            for (            MockResponse mockResponse : this.getMockOperation().getMockResponses()) {
+              if (query.getResponse().equals(mockResponse.getName())) {
+                resp=(WsdlMockResponse)mockResponse;
+              }
+            }
+            if (resp != null) {
+              return resp;
+            }
+            return getMockOperation().getMockResponseByName(query.getResponse());
+          }
+        }
+        cursorCache.put(path,cursor);
+      }
+    }
+    return null;
+  }
+ catch (  Throwable e) {
+    throw new DispatchException(e);
+  }
+ finally {
+    for (    XmlCursor cursor : cursorCache.values()) {
+      if (cursor != null) {
+        cursor.dispose();
+      }
+    }
+  }
+}

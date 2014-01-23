@@ -4,7 +4,7 @@
     WsdlMockResult result=new WsdlMockResult(request);
     if (getMockResponseCount() == 0)     throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
     result.setMockOperation(this);
-    WsdlMockResponse response=dispatcher.selectMockResponse(request,result);
+    WsdlMockResponse response=(WsdlMockResponse)dispatcher.selectMockResponse(request,result);
     if (response == null) {
       response=getMockResponseByName(getDefaultResponse());
     }

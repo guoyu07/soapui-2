@@ -1,7 +1,7 @@
 {
   super.release();
   if (dispatcher != null)   dispatcher.release();
-  for (  WsdlMockResponse response : responses) {
+  for (  MockResponse response : getMockResponses()) {
     response.removePropertyChangeListener(this);
     response.release();
   }

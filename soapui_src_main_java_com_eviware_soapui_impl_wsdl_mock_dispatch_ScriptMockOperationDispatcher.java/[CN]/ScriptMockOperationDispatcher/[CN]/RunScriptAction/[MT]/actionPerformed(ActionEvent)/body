@@ -1,8 +1,8 @@
 {
-  WsdlMockResult lastMockResult=getMockOperation().getLastMockResult();
-  WsdlMockRequest mockRequest=lastMockResult == null ? null : lastMockResult.getMockRequest();
+  MockResult lastMockResult=getMockOperation().getLastMockResult();
+  MockRequest mockRequest=lastMockResult == null ? null : lastMockResult.getMockRequest();
   try {
-    WsdlMockResponse retVal=selectMockResponse(mockRequest,null);
+    MockResponse retVal=selectMockResponse(mockRequest,null);
     UISupport.showInfoMessage("Script returned [" + (retVal == null ? "null" : retVal.getName()) + "]");
   }
  catch (  Exception e1) {

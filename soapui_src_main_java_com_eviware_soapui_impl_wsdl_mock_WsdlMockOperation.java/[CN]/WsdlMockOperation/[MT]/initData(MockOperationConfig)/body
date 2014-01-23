@@ -1,6 +1,6 @@
 {
   if (!config.isSetName())   config.setName(operation == null ? "<missing operation>" : operation.getName());
-  if (!config.isSetDefaultResponse() && responses.size() > 0)   setDefaultResponse(responses.get(0).getName());
+  if (!config.isSetDefaultResponse() && getMockResponseCount() > 0)   setDefaultResponse(getMockResponseAt(0).getName());
   if (!config.isSetDispatchStyle())   config.setDispatchStyle(MockOperationDispatchStyleConfig.SEQUENCE);
   if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
   dispatcher=MockOperationDispatchRegistry.buildDispatcher(config.getDispatchStyle().toString(),this);

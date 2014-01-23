@@ -1,7 +1,7 @@
 {
   QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
   if (selectedQuery == null)   return;
-  WsdlMockResult result=getMockOperation().getLastMockResult();
+  MockResult result=getMockOperation().getLastMockResult();
   String content;
   if (result != null && StringUtils.hasContent(result.getMockRequest().getRequestContent())) {
     content=result.getMockRequest().getRequestContent();

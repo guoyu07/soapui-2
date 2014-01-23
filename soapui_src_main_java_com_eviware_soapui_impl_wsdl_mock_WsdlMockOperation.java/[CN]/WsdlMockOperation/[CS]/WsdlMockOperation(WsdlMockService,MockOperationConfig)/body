@@ -11,7 +11,7 @@
   for (  MockResponseConfig responseConfig : responseConfigs) {
     WsdlMockResponse wsdlMockResponse=new WsdlMockResponse(this,responseConfig);
     wsdlMockResponse.addPropertyChangeListener(this);
-    responses.add(wsdlMockResponse);
+    super.addMockResponse(wsdlMockResponse);
   }
   initData(config);
 }

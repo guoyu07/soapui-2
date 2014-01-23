@@ -1,0 +1,12 @@
+{
+  int ix=responses.indexOf(mockResponse);
+  responses.remove(ix);
+  mockResponse.removePropertyChangeListener(this);
+  try {
+    (getMockService()).fireMockResponseRemoved(mockResponse);
+  }
+  finally {
+    mockResponse.release();
+    removeResponseFromConfig(ix);
+  }
+}

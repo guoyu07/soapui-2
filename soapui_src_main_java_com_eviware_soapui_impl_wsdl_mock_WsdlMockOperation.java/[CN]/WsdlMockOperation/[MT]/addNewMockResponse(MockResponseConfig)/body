@@ -1,7 +1,7 @@
 {
   WsdlMockResponse mockResponse=new WsdlMockResponse(this,responseConfig);
-  responses.add(mockResponse);
-  if (responses.size() == 1)   setDefaultResponse(mockResponse.getName());
+  super.addMockResponse(mockResponse);
+  if (getMockResponseCount() == 1)   setDefaultResponse(mockResponse.getName());
   WsdlUtils.setDefaultWsaAction(mockResponse.getWsaConfig(),true);
   (getMockService()).fireMockResponseAdded(mockResponse);
   notifyPropertyChanged("mockResponses",null,mockResponse);
