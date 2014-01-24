@@ -1,6 +1,6 @@
 {
   HttpMessageEntry requestMessage=HttpMessageEntry.Factory.newInstance();
-  WsdlMockRequest mockRequest=modelItem.getMockResult().getMockRequest();
+  MockRequest mockRequest=modelItem.getMockResult().getMockRequest();
   requestMessage.addNewMessageContent().setStringValue(mockRequest.getRequestContent());
   requestMessage.setConversationID("1");
   requestMessage.setTimestamp(Calendar.getInstance());

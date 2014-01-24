@@ -6,7 +6,9 @@
     WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(assertionConfig);
     assertionsSupport.fireAssertionAdded(assertion);
     if (getMockResponse().getMockResult() != null) {
-      assertion.assertRequest(new WsdlMockResultMessageExchange(getMockResponse().getMockResult(),getMockResponse()),new WsdlSubmitContext(this));
+      WsdlMockResult mockResult=(WsdlMockResult)getMockResponse().getMockResult();
+      WsdlMockResultMessageExchange messageExchange=new WsdlMockResultMessageExchange(mockResult,getMockResponse());
+      assertion.assertRequest(messageExchange,new WsdlSubmitContext(this));
       notifier.notifyChange();
     }
     return assertion;
