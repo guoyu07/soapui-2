@@ -1,0 +1,6 @@
+{
+  AbstractHttpRequest request=mockRequest(HttpRequest.class);
+  requestFilter.filterAbstractHttpRequest(submitContext,request);
+  String contentAfterPropertyExpansion=(String)submitContext.getProperty(BaseHttpRequestTransport.REQUEST_CONTENT);
+  assertThat(contentAfterPropertyExpansion,is(EXPECTED_REQUEST_CONTENT_AFTER_PROPERTY_EXPANSION));
+}
