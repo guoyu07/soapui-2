@@ -1,0 +1,8 @@
+{
+  super.setupConfig(config);
+  if (!config.isSetDispatchStyle())   config.setDispatchStyle(MockOperationDispatchStyleConfig.SEQUENCE);
+  if (!getConfig().isSetDispatchConfig())   getConfig().addNewDispatchConfig();
+  dispatcher=MockOperationDispatchRegistry.buildDispatcher(config.getDispatchStyle().toString(),this);
+  createIcons();
+  addListeners();
+}
