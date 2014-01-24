@@ -1,14 +1,19 @@
 {
   try {
-    SoapVersion soapVersion=mockResponse.getSoapVersion();
-    if (isXOP) {
-      String header=message.getHeader("Content-Type")[0];
-      return new BasicHeader("Content-Type",AttachmentUtils.buildMTOMContentType(header,null,soapVersion));
+    if (mockResponse instanceof WsdlMockResponse) {
+      SoapVersion soapVersion=((WsdlMockResponse)mockResponse).getSoapVersion();
+      if (isXOP) {
+        String header=message.getHeader("Content-Type")[0];
+        return new BasicHeader("Content-Type",AttachmentUtils.buildMTOMContentType(header,null,soapVersion));
+      }
+ else {
+        String header=message.getHeader("Content-Type")[0];
+        int ix=header.indexOf("boundary");
+        return new BasicHeader("Content-Type","multipart/related; type=\"" + soapVersion.getContentType() + "\"; start=\""+ AttachmentUtils.ROOTPART_SOAPUI_ORG+ "\"; "+ header.substring(ix));
+      }
     }
  else {
-      String header=message.getHeader("Content-Type")[0];
-      int ix=header.indexOf("boundary");
-      return new BasicHeader("Content-Type","multipart/related; type=\"" + soapVersion.getContentType() + "\"; start=\""+ AttachmentUtils.ROOTPART_SOAPUI_ORG+ "\"; "+ header.substring(ix));
+      return new BasicHeader("Content-Type","application/xml");
     }
   }
  catch (  MessagingException e) {

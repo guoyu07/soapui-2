@@ -1,0 +1,92 @@
+{
+  MimeMultipart mp=null;
+  Operation operation=getMockOperation().getOperation();
+  boolean isXOP=isMtomEnabled() && isForceMtom();
+  StringToStringMap contentIds=new StringToStringMap();
+  if (operation instanceof WsdlMockOperation) {
+    if (operation == null)     throw new Exception("Missing WsdlOperation for mock response");
+    if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
+      try {
+        mp=new MimeMultipart();
+        MessageXmlObject requestXmlObject=new MessageXmlObject((WsdlOperation)operation,responseContent,false);
+        MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
+        for (        MessageXmlPart requestPart : requestParts) {
+          if (AttachmentUtils.prepareMessagePart(this,mp,requestPart,contentIds))           isXOP=true;
+        }
+        responseContent=requestXmlObject.getMessageContent();
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  responseContent=removeEmptyContent(responseContent);
+  if (isStripWhitespaces()) {
+    responseContent=XmlUtils.stripWhitespaces(responseContent);
+  }
+  String status=getResponseHttpStatus();
+  MockRequest request=response.getMockRequest();
+  if (status == null || status.trim().length() == 0) {
+    if (isFault(responseContent,request)) {
+      request.getHttpResponse().setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      response.setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+ else {
+      request.getHttpResponse().setStatus(HttpServletResponse.SC_OK);
+      response.setResponseStatus(HttpServletResponse.SC_OK);
+    }
+  }
+ else {
+    try {
+      int statusCode=Integer.parseInt(status);
+      request.getHttpResponse().setStatus(statusCode);
+      response.setResponseStatus(statusCode);
+    }
+ catch (    RuntimeException e) {
+      SoapUI.logError(e);
+    }
+  }
+  ByteArrayOutputStream outData=new ByteArrayOutputStream();
+  String responseCompression=getResponseCompression();
+  if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
+    String encoding=getEncoding();
+    if (responseContent == null)     responseContent="";
+    byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
+    if (!response.getResponseHeaders().containsKeyIgnoreCase("Content-Type")) {
+      response.setContentType(getContentType(operation,encoding));
+    }
+    String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
+    if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
+      response.addHeader("Content-Encoding","gzip");
+      outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));
+    }
+ else     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("DEFLATE")) {
+      response.addHeader("Content-Encoding","deflate");
+      outData.write(CompressionSupport.compress(CompressionSupport.ALG_DEFLATE,content));
+    }
+ else {
+      outData.write(content);
+    }
+  }
+ else {
+    if (mp == null)     mp=new MimeMultipart();
+    initRootPart(responseContent,mp,isXOP);
+    AttachmentUtils.addMimeParts(this,Arrays.asList(getAttachments()),mp,contentIds);
+    MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
+    message.setContent(mp);
+    message.saveChanges();
+    MimeMessageMockResponseEntity mimeMessageRequestEntity=new MimeMessageMockResponseEntity(message,isXOP,this);
+    response.addHeader("Content-Type",mimeMessageRequestEntity.getContentType().getValue());
+    response.addHeader("MIME-Version","1.0");
+    mimeMessageRequestEntity.writeTo(outData);
+  }
+  if (outData.size() > 0) {
+    byte[] data=outData.toByteArray();
+    if (responseCompression.equals(CompressionSupport.ALG_DEFLATE) || responseCompression.equals(CompressionSupport.ALG_GZIP)) {
+      response.addHeader("Content-Encoding",responseCompression);
+      data=CompressionSupport.compress(responseCompression,data);
+    }
+    response.writeRawResponseData(data);
+  }
+  return responseContent;
+}

@@ -3,7 +3,7 @@
     RestMockResult result=new RestMockResult(request);
     if (getMockResponseCount() == 0)     throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
     result.setMockOperation(this);
-    RestMockResponse response=responses.get(0);
+    RestMockResponse response=getMockResponseAt(0);
     if (response == null) {
       throw new UnknownError("not implemented");
     }

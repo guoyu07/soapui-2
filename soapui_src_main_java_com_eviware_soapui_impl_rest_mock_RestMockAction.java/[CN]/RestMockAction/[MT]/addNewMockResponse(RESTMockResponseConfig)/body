@@ -1,7 +1,7 @@
 {
   RestMockResponse mockResponse=new RestMockResponse(this,responseConfig);
-  responses.add(mockResponse);
-  if (getMockResponseCount() == 1) {
+  addMockResponse(mockResponse);
+  if (getMockResponseCount() == 1 && responseConfig.getResponseContent() != null) {
     setDefaultResponse(responseConfig.getResponseContent().toString());
   }
   (getMockService()).fireMockResponseAdded(mockResponse);

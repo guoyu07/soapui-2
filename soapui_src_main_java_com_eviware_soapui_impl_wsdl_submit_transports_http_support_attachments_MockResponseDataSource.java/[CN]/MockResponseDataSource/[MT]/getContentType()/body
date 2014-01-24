@@ -1,7 +1,12 @@
 {
-  SoapVersion soapVersion=mockResponse.getSoapVersion();
-  if (isXOP) {
-    return AttachmentUtils.buildRootPartContentType(mockResponse.getMockOperation().getOperation().getName(),soapVersion);
+  if (mockResponse instanceof WsdlMockResponse) {
+    SoapVersion soapVersion=((WsdlMockResponse)mockResponse).getSoapVersion();
+    if (isXOP) {
+      return AttachmentUtils.buildRootPartContentType(mockResponse.getMockOperation().getOperation().getName(),soapVersion);
+    }
+ else     return soapVersion.getContentType() + "; charset=UTF-8";
   }
- else   return soapVersion.getContentType() + "; charset=UTF-8";
+ else {
+    return "application/xml; charset=UTF-8";
+  }
 }
