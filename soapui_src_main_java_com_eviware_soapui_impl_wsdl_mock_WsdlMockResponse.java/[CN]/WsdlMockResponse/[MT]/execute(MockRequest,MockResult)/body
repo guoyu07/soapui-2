@@ -10,15 +10,17 @@
     String responseContent=getResponseContent();
     WsdlMockRunContext context=new WsdlMockRunContext(request.getContext().getMockService(),null);
     context.setMockResponse(this);
-    context.putAll(request.getContext());
-    context.putAll(request.getRequestContext());
+    context.putAll((WsdlMockRunContext)request.getContext());
+    context.putAll((WsdlMockRunContext)request.getRequestContext());
     StringToStringsMap responseHeaders=getResponseHeaders();
     for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
       for (      String value : headerEntry.getValue())       result.addHeader(headerEntry.getKey(),PropertyExpander.expandProperties(context,value));
     }
     responseContent=PropertyExpander.expandProperties(context,responseContent,isEntitizeProperties());
     if (this.getWsaConfig().isWsaEnabled()) {
-      responseContent=new WsaUtils(responseContent,getSoapVersion(),getMockOperation().getOperation(),context).addWSAddressingMockResponse(this,request);
+      WsdlOperation operation=getMockOperation().getOperation();
+      WsaUtils wsaUtils=new WsaUtils(responseContent,getSoapVersion(),operation,context);
+      responseContent=wsaUtils.addWSAddressingMockResponse(this,(WsdlMockRequest)request);
     }
     String outgoingWss=getOutgoingWss();
     if (StringUtils.isNullOrEmpty(outgoingWss))     outgoingWss=getMockOperation().getMockService().getOutgoingWss();
