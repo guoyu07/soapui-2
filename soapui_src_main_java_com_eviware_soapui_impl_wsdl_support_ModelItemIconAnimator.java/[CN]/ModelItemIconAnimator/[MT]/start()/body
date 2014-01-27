@@ -1,13 +1,19 @@
 {
   if (!enabled)   return;
+  if (!SoapUI.usingGraphicalEnvironment()) {
+    return;
+  }
   if (isStopped()) {
-    if (future != null && !future.isDone()) {
-      future.cancel(true);
-      while (future != null)       try {
-        Thread.sleep(500);
-      }
- catch (      InterruptedException e) {
-        e.printStackTrace();
+    Future<?> localFuture=future;
+    if (future != null && !localFuture.isDone()) {
+      localFuture.cancel(true);
+      while (future != null) {
+        try {
+          Thread.sleep(1);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     }
     stopped=false;

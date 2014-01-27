@@ -1,0 +1,7 @@
+{
+  AccessTokenRetrievalLocation oldValue=getAccessTokenRetrievalLocation();
+  if (!retrievalLocation.equals(oldValue.toString())) {
+    configuration.setAccessTokenRetrievalLocation(AccessTokenRetrievalLocationConfig.Enum.forString(retrievalLocation.toString()));
+    pcs.firePropertyChange(ACCESS_TOKEN_RETRIEVAL_PROPERTY,oldValue,retrievalLocation);
+  }
+}

@@ -1,5 +1,11 @@
 {
   if (dialog == null)   dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
+  Project project=ModelItemUtils.getProjectFromModelItem(holder.getModelItem());
+  if (project != null) {
+    FileFormField fileFormField=(FileFormField)dialog.getFormField(LoadOptionsForm.FILE);
+    String currentDirectory=extractFileChooserPathForProject(project);
+    fileFormField.setCurrentDirectory(currentDirectory);
+  }
   dialog.getFormField(LoadOptionsForm.DELETEREMAINING).setEnabled(holder instanceof MutableTestPropertyHolder);
   dialog.getFormField(LoadOptionsForm.CREATEMISSING).setEnabled(holder instanceof MutableTestPropertyHolder);
   if (dialog.show()) {

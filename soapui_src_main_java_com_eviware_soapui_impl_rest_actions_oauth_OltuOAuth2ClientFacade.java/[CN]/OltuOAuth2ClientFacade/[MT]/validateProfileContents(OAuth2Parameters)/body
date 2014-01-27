@@ -1,8 +1,6 @@
 {
   validateHttpUrl(parameters.authorizationUri,"Authorization URI ");
-  if (!parameters.redirectUri.equals(OAUTH_2_OOB_URN)) {
-    validateHttpUrl(parameters.redirectUri,"Redirect URI");
-  }
+  validateUri(parameters.redirectUri,"Redirect URI");
   validateHttpUrl(parameters.accessTokenUri,"Access token URI");
   validateRequiredStringValue(parameters.clientId,"Client ID");
   validateRequiredStringValue(parameters.clientSecret,"Client secret");

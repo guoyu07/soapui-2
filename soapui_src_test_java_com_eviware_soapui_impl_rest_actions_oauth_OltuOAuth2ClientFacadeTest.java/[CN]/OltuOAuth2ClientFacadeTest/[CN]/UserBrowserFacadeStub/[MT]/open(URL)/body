@@ -6,7 +6,7 @@
       String prefix="redirect_uri=";
       if (parameter.startsWith(prefix)) {
         String redirectURI=parameter.substring(prefix.length());
-        listener.locationChanged(redirectURI + "?code=" + authorizationCode);
+        listener.locationChanged(redirectURI + "?code=" + authorizationCode+ "&state=foo");
       }
     }
   }

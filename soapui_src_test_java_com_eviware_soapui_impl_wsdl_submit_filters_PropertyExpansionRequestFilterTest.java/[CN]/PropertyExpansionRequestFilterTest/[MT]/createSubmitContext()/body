@@ -1,0 +1,7 @@
+{
+  WsdlTestRequestStep requestStep=ModelItemFactory.makeTestRequestStep();
+  requestStep.getTestCase().setPropertyValue("StoreType","shoe_Store");
+  SubmitContext context=new WsdlSubmitContext(requestStep);
+  context.setProperty(BaseHttpRequestTransport.REQUEST_CONTENT,REQUEST_CONTENT);
+  return context;
+}

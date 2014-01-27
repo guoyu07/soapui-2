@@ -1,0 +1,5 @@
+{
+  String contentType=AttachmentUtils.buildRootPartContentType("SendFile",SoapVersion.Soap12);
+  String expectedContentType="application/xop+xml; charset=UTF-8; type=\"application/soap+xml\"; action=\"SendFile\"";
+  assertThat(contentType,is(expectedContentType));
+}

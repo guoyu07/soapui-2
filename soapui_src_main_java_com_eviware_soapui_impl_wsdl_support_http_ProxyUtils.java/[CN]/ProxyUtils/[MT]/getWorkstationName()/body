@@ -1,0 +1,10 @@
+{
+  String workstation="";
+  try {
+    workstation=InetAddress.getLocalHost().getHostName();
+  }
+ catch (  UnknownHostException e) {
+    logger.warn("Workstation name could not be fetched.",e);
+  }
+  return workstation;
+}

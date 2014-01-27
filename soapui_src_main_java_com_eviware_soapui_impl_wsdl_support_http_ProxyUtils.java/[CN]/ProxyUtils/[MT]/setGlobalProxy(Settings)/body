@@ -15,4 +15,6 @@
   }
   ProxySelector.setDefault(proxySelector);
   Authenticator.setDefault(authenticator);
+  HttpClientSupport.setProxySelector(proxySelector);
+  HttpClientSupport.getHttpClient().setCredentialsProvider(getProxyCredentials(settings));
 }
