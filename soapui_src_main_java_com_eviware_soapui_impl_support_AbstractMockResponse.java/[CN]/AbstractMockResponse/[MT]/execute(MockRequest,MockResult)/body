@@ -1,5 +1,6 @@
 {
   try {
+    getProperty("Request").setValue(request.getRequestContent());
     long delay=getResponseDelay();
     if (delay > 0)     Thread.sleep(delay);
     String script=getScript();

@@ -2,4 +2,6 @@
   super(config,operation,"/mockResponse.gif");
   scriptEnginePool=new ScriptEnginePool(this);
   scriptEnginePool.setScript(getScript());
+  propertyHolder=new MapTestPropertyHolder(this);
+  propertyHolder.addProperty("Request");
 }
