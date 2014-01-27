@@ -1,0 +1,8 @@
+{
+  if (newX < 0 || newY < 0) {
+    return true;
+  }
+  JInternalFrame internalFrame=(JInternalFrame)desktopPanel;
+  JDesktopPane desktop=internalFrame.getDesktopPane();
+  return (newX > desktop.getWidth()) || (newY > desktop.getHeight());
+}

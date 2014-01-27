@@ -2,9 +2,7 @@
   Iterator<DesktopPanel> iterator=deferredDesktopPanels.iterator();
   while (iterator.hasNext()) {
     DesktopPanel nextPanel=iterator.next();
-    if (!(UISupport.isMac() && nextPanel instanceof URLDesktopPanel)) {
-      showDesktopPanel(nextPanel);
-    }
+    showDesktopPanel(nextPanel);
     iterator.remove();
   }
 }
