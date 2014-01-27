@@ -13,7 +13,7 @@
       }
     }
  else {
-      return new BasicHeader("Content-Type","application/xml");
+      throw new IllegalStateException("Multipart support is only available for SOAP");
     }
   }
  catch (  MessagingException e) {
