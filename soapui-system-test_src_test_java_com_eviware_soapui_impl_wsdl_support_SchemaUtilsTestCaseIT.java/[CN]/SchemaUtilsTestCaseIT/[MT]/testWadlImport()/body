@@ -1,6 +1,0 @@
-{
-  String file=SchemaUtilsTestCaseIT.class.getResource("/wadl/YahooSearch.wadl").toURI().toURL().toString();
-  SchemaTypeLoader types=SchemaUtils.loadSchemaTypes(file,new UrlSchemaLoader(file));
-  assertNotNull(types.findElement(new QName("urn:yahoo:yn","ResultSet")));
-  assertNotNull(types.findElement(new QName("urn:yahoo:api","Error")));
-}

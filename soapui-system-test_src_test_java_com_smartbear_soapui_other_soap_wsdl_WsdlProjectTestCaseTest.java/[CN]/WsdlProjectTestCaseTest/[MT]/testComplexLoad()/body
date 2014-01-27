@@ -1,0 +1,6 @@
+{
+  replaceInFile("wsdls/test8/TestService.wsdl","8082","" + getPort());
+  WsdlProject project=new WsdlProject();
+  WsdlInterface[] wsdls=WsdlImporter.importWsdl(project,"http://localhost:" + getPort() + "/wsdls/test8/TestService.wsdl");
+  assertEquals(1,wsdls.length);
+}
