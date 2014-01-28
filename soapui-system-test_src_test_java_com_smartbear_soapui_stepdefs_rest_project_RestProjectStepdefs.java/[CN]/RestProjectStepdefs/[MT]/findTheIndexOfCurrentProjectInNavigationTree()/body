@@ -1,0 +1,6 @@
+{
+  List<String> projectNameListWithNewProject=WorkspaceUtils.getProjectNameList();
+  projectNameListWithNewProject.removeAll(existingProjectNameList);
+  String projectName=projectNameListWithNewProject.get(0);
+  return WorkspaceUtils.getProjectNameList().indexOf(projectName);
+}

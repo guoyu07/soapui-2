@@ -1,0 +1,10 @@
+{
+  JTableFixture restParamsTable=parentPanel.table(REST_PARAMS_TABLE);
+  for (int rowCounter=0; rowCounter < restParamsTable.rowCount(); rowCounter++) {
+    String paramNameAtIndex=restParamsTable.cell(row(rowCounter).column(0)).value();
+    if (paramNameAtIndex.equals(parameterName)) {
+      restParamsTable.cell(row(rowCounter).column(3)).enterValue(newLevel);
+      return;
+    }
+  }
+}
