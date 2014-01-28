@@ -6,7 +6,10 @@
     definitionURL=orgDef;
   }
   definitionURL=UISupport.prompt("Specify definition url to validate by","Configure Schema Compliance Assertion",definitionURL);
-  if (definitionURL == null || !canLoadDefinitionFrom(definitionURL)) {
+  if (definitionURL == null) {
+    return false;
+  }
+  if (!canLoadDefinitionFrom(definitionURL)) {
     UISupport.showErrorMessage("No valid definition found in " + definitionURL + ". Only WSDL and WADL are supported");
     return false;
   }
