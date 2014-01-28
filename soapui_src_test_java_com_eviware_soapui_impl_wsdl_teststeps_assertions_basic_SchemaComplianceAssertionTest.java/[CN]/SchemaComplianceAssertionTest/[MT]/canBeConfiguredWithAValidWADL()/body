@@ -1,0 +1,6 @@
+{
+  String validWadlURL=SchemaComplianceAssertionTest.class.getResource("/wadl/YahooSearch.wadl").toString();
+  stubbedDialogs.mockPromptWithReturnValue(validWadlURL);
+  assertThat(assertion.configure(),is(true));
+  assertThat(stubbedDialogs.getErrorMessages(),is(anEmptyCollection()));
+}

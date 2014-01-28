@@ -1,0 +1,15 @@
+{
+  try {
+    new WsdlContext(definitionURL).load();
+    return true;
+  }
+ catch (  Exception e) {
+    try {
+      new WadlDefinitionContext(definitionURL).load();
+      return true;
+    }
+ catch (    Exception e1) {
+      return false;
+    }
+  }
+}
