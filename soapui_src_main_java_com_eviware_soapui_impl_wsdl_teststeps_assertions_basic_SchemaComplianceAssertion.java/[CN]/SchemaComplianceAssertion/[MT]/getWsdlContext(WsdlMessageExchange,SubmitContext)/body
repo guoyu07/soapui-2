@@ -4,7 +4,7 @@
   String def=PathUtils.expandPath(definition,iface,context);
   if (StringUtils.isNullOrEmpty(def) || def.equals(iface.getDefinition())) {
     definitionContext=(iface).getWsdlContext();
-    ((WsdlContext)definitionContext).loadIfNecessary();
+    definitionContext.loadIfNecessary();
   }
  else {
     if (definitionContext == null || !def.equals(wsdlContextDef)) {

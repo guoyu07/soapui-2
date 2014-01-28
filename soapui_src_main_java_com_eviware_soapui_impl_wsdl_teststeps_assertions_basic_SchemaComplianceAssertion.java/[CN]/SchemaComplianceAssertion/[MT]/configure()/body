@@ -1,14 +1,17 @@
 {
-  String value=definition;
+  String definitionURL=definition;
   AbstractInterface<?> iface=(AbstractInterface<?>)getAssertable().getInterface();
   String orgDef=iface == null ? null : iface.getDefinition();
-  if (StringUtils.isNullOrEmpty(value)) {
-    value=orgDef;
+  if (StringUtils.isNullOrEmpty(definitionURL)) {
+    definitionURL=orgDef;
   }
-  value=UISupport.prompt("Specify definition url to validate by","Configure Schema Compliance Assertion",value);
-  if (value == null)   return false;
-  if (StringUtils.isNullOrEmpty(value) || value.equals(orgDef))   definition="";
- else   definition=value;
+  definitionURL=UISupport.prompt("Specify definition url to validate by","Configure Schema Compliance Assertion",definitionURL);
+  if (definitionURL == null || !canLoadDefinitionFrom(definitionURL)) {
+    UISupport.showErrorMessage("No valid definition found in " + definitionURL + ". Only WSDL and WADL are supported");
+    return false;
+  }
+  if (StringUtils.isNullOrEmpty(definitionURL) || definitionURL.equals(orgDef))   definition="";
+ else   definition=definitionURL;
   setConfiguration(createConfiguration());
   return true;
 }
