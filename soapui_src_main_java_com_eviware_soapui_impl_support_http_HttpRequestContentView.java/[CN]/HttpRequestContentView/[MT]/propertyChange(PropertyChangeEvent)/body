@@ -1,7 +1,15 @@
 {
   if (evt.getPropertyName().equals(AbstractHttpRequest.REQUEST_PROPERTY) && !updatingRequest) {
     updatingRequest=true;
-    contentEditor.setText((String)evt.getNewValue());
+    String requestBodyAsXml=(String)evt.getNewValue();
+    String contentType=(String)mediaTypeCombo.getSelectedItem();
+    if (XmlUtils.seemsToBeXml(requestBodyAsXml) && contentType != null && contentType.startsWith("application/json")) {
+      JSON jsonObject=new JsonXmlSerializer().read(requestBodyAsXml);
+      contentEditor.setText(jsonObject.toString(3,0));
+    }
+ else {
+      contentEditor.setText(requestBodyAsXml);
+    }
     updatingRequest=false;
   }
  else   if (evt.getPropertyName().equals("method")) {

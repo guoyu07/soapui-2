@@ -1,7 +1,13 @@
 {
   if (!updating) {
     updating=true;
-    getRequest().setRequestContent(xml);
+    if (getRequest().getMediaType().startsWith("application/json") && XmlUtils.seemsToBeXml(xml)) {
+      JSON json=new JsonXmlSerializer().read(xml);
+      request.setRequestContent(json.toString(3,0));
+    }
+ else {
+    }
+    request.setRequestContent(xml);
     updating=false;
   }
 }
