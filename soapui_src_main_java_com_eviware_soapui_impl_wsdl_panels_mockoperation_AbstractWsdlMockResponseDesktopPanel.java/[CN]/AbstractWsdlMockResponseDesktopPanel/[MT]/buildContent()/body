@@ -9,6 +9,7 @@
   boolean bidirectional=mockResponse.getMockOperation().getOperation().isBidirectional();
   recreateButton=createActionButton(new RecreateMockResponseAction(mockResponse),bidirectional);
   moveFocusAction=new MoveFocusAction();
+  requestEditor=buildRequestEditor();
   responseEditor=buildResponseEditor();
   requestTabs=new JTabbedPane();
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
