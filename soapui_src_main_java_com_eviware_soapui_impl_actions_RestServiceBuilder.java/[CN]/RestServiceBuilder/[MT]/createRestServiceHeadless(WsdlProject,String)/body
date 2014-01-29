@@ -4,7 +4,5 @@
   }
   RestResource restResource=createResource(project,URI);
   RestRequest restRequest=addNewRequest(addNewMethod(restResource));
-  copyParameters(extractParams(URI),restResource.getParams());
-  UISupport.select(restRequest);
-  UISupport.showDesktopPanel(restRequest);
+  copyParametersWithDefaultsOnResource(extractParams(URI),restResource.getParams(),restRequest.getParams());
 }
