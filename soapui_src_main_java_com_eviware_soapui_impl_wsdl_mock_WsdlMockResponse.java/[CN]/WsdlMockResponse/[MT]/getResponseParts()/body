@@ -1,6 +1,6 @@
 {
   try {
-    WsdlOperation op=getMockOperation().getOperation();
+    WsdlOperation op=(WsdlOperation)getMockOperation().getOperation();
     if (op == null || op.isUnidirectional())     return new MessagePart[0];
     List<MessagePart> result=new ArrayList<MessagePart>();
     WsdlContext wsdlContext=op.getInterface().getWsdlContext();

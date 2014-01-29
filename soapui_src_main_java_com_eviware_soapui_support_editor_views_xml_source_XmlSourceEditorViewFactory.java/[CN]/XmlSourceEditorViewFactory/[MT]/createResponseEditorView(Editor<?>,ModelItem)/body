@@ -17,5 +17,9 @@
  else   if (modelItem instanceof AMFRequestTestStep) {
     return new XmlSourceEditorView<AMFRequestTestStep>((XmlEditor)editor,(AMFRequestTestStep)modelItem,true);
   }
+ else   if (modelItem instanceof RestMockResponse) {
+    boolean readOnly=false;
+    return new XmlSourceEditorView((XmlEditor)editor,modelItem,readOnly);
+  }
   return null;
 }

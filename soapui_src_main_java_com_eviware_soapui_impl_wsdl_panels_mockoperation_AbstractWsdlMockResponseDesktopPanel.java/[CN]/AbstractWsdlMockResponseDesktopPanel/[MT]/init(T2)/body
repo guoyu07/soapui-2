@@ -7,14 +7,14 @@
   mockResponse.addPropertyChangeListener(propertyChangeListener);
   addFocusListener(new FocusAdapter(){
     @Override public void focusGained(    FocusEvent e){
-      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocus();
+      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus || true)       responseEditor.requestFocus();
  else       requestEditor.requestFocus();
     }
   }
 );
   try {
     if (mockResponse.getAttachmentCount() > 0) {
-      mockResponse.getOperation().getInterface().getDefinitionContext().loadIfNecessary();
+      mockResponse.getMockOperation().getOperation().getInterface().getDefinitionContext().loadIfNecessary();
     }
   }
  catch (  Exception e) {
