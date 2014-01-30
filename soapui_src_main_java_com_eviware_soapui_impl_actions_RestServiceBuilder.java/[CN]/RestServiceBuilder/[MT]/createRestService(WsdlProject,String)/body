@@ -2,8 +2,8 @@
   if (StringUtils.isNullOrEmpty(URI)) {
     return;
   }
-  RestResource restResource=createResource(project,URI);
-  RestRequest restRequest=addNewRequest(addNewMethod(restResource));
+  RestResource restResource=createResource(ModelCreationStrategy.CREATE_NEW_MODEL,project,URI);
+  RestRequest restRequest=addNewRequest(addNewMethod(ModelCreationStrategy.CREATE_NEW_MODEL,restResource));
   copyParameters(extractParams(URI),restResource.getParams());
   UISupport.select(restRequest);
   UISupport.showDesktopPanel(restRequest);

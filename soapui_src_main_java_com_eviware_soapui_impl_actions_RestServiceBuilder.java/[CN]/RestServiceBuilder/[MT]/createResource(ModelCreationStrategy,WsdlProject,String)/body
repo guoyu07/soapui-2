@@ -1,0 +1,23 @@
+{
+  RestURIParser restURIParser=new RestURIParserImpl(URI);
+  String resourcePath=restURIParser.getResourcePath();
+  String host=restURIParser.getEndpoint();
+  RestService restService=null;
+  if (creationStrategy == ModelCreationStrategy.REUSE_MODEL) {
+    AbstractInterface<?> existingInterface=project.getInterfaceByName(host);
+    if (existingInterface instanceof RestService && ArrayUtils.contains(existingInterface.getEndpoints(),host)) {
+      restService=(RestService)existingInterface;
+    }
+  }
+  if (restService == null) {
+    restService=(RestService)project.addNewInterface(host,RestServiceFactory.REST_TYPE);
+    restService.addEndpoint(restURIParser.getEndpoint());
+  }
+  if (creationStrategy == ModelCreationStrategy.REUSE_MODEL) {
+    RestResource existingResource=restService.getResourceByFullPath(resourcePath);
+    if (existingResource != null) {
+      return existingResource;
+    }
+  }
+  return restService.addNewResource(restURIParser.getResourceName(),resourcePath);
+}
