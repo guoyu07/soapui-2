@@ -1,0 +1,18 @@
+{
+  super(document,mockResponse);
+  if (getModelItem().getMockOperation().getOperation().isBidirectional()) {
+    XmlSourceEditorView<?> editor=getSourceEditor();
+    RSyntaxTextArea inputArea=editor.getInputArea();
+    inputArea.addFocusListener(new ResultAreaFocusListener());
+    if (UISupport.isMac()) {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+ else {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control alt TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+    JPopupMenu inputPopup=editor.getEditorPopup();
+    inputPopup.insert(new JSeparator(),2);
+  }
+}

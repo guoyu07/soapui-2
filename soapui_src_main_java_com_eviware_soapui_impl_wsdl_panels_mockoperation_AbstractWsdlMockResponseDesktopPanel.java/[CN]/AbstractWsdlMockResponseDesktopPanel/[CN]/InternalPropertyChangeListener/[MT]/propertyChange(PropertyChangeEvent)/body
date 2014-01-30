@@ -1,9 +1,5 @@
 {
   if (evt.getPropertyName().equals(WsdlMockResponse.MOCKRESULT_PROPERTY)) {
-    MockResult mockResult=mockResponse.getMockResult();
-    MockRequest mockRequest=mockResult == null ? null : mockResult.getMockRequest();
-    requestEditor.getDocument().setXml(mockRequest == null ? "" : mockRequest.getRequestContent());
-    boolean bidirectional=mockResponse.getMockOperation().getOperation().isBidirectional();
-    wsiValidateAction.setEnabled(bidirectional);
+    wsiValidateAction.setEnabled(isBidirectional());
   }
 }
