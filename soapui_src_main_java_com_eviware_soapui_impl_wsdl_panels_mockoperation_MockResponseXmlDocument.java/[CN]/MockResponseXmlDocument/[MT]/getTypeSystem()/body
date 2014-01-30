@@ -1,10 +1,12 @@
 {
   try {
-    WsdlOperation operation=(WsdlOperation)mockResponse.getMockOperation().getOperation();
-    if (operation != null) {
-      WsdlInterface iface=operation.getInterface();
-      WsdlContext wsdlContext=iface.getWsdlContext();
-      return wsdlContext.getSchemaTypeSystem();
+    if (mockResponse instanceof WsdlMockResponse) {
+      WsdlOperation operation=(WsdlOperation)mockResponse.getMockOperation().getOperation();
+      if (operation != null) {
+        WsdlInterface iface=operation.getInterface();
+        WsdlContext wsdlContext=iface.getWsdlContext();
+        return wsdlContext.getSchemaTypeSystem();
+      }
     }
   }
  catch (  Exception e1) {
