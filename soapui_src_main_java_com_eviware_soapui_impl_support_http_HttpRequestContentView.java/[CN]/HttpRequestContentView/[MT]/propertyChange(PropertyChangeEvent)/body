@@ -2,8 +2,8 @@
   if (evt.getPropertyName().equals(AbstractHttpRequest.REQUEST_PROPERTY) && !updatingRequest) {
     updatingRequest=true;
     String requestBodyAsXml=(String)evt.getNewValue();
-    String contentType=(String)mediaTypeCombo.getSelectedItem();
-    if (XmlUtils.seemsToBeXml(requestBodyAsXml) && contentType != null && contentType.startsWith("application/json")) {
+    String mediaType=(String)mediaTypeCombo.getSelectedItem();
+    if (XmlUtils.seemsToBeXml(requestBodyAsXml) && seemsToBeJsonContentType(mediaType)) {
       JSON jsonObject=new JsonXmlSerializer().read(requestBodyAsXml);
       contentEditor.setText(jsonObject.toString(3,0));
     }

@@ -13,8 +13,10 @@
     content=XmlUtils.prettyPrintXml(content);
     return content;
   }
- catch (  Throwable e) {
-    if (!(e instanceof JSONException))     e.printStackTrace();
+ catch (  JSONException ignore) {
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
   }
   return "<xml/>";
 }

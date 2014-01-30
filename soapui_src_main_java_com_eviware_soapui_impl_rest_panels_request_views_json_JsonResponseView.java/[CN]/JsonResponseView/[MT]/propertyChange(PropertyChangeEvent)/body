@@ -1,5 +1,7 @@
 {
   if (evt.getPropertyName().equals(AbstractHttpRequestInterface.RESPONSE_PROPERTY) && !updatingRequest) {
+    updatingRequest=true;
     setEditorContent(((HttpResponse)evt.getNewValue()));
+    updatingRequest=false;
   }
 }
