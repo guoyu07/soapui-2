@@ -1,6 +1,9 @@
 {
   initForm(oauth2Form);
   oauth2Form.addSpace(TOP_SPACING);
+  AbstractValueModel valueModel=oauth2Form.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW,"getOAuth2Flow","setOAuth2Flow");
+  ComboBoxModel comboBoxModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
+  oauth2Form.appendComboBox("OAuth2.0 Flow",comboBoxModel,"OAuth2.0 Authorization Flow",valueModel);
   oauth2Form.appendTextField(OAuth2Profile.CLIENT_ID_PROPERTY,"Client Identification","");
   oauth2Form.appendTextField(OAuth2Profile.CLIENT_SECRET_PROPERTY,"Client Secret","");
   oauth2Form.addSpace(GROUP_SPACING);

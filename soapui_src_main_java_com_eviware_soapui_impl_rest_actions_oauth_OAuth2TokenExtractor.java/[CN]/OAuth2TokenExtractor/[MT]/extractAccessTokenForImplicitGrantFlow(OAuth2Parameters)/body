@@ -1,0 +1,19 @@
+{
+{
+    browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
+      @Override public void locationChanged(      String newLocation){
+        String accessToken=extractAuthorizationCodeFromForm(extractFormData(newLocation),"access_token");
+        if (!StringUtils.isNullOrEmpty(accessToken)) {
+          parameters.setAccessTokenInProfile(accessToken);
+          browserFacade.close();
+        }
+      }
+      @Override public void contentChanged(      String newContent){
+      }
+    }
+);
+    parameters.startAccessTokenFlow();
+    browserFacade.open(new URI(createAuthorizationURLForImplicitGrantFlow(parameters)).toURL());
+    parameters.waitingForAuthorization();
+  }
+}
