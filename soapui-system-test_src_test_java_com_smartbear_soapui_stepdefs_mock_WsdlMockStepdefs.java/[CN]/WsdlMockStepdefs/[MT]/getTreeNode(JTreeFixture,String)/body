@@ -1,0 +1,11 @@
+{
+  JTreeNodeFixture treeNode=null;
+  try {
+    treeNode=tree.node(path);
+  }
+ catch (  LocationUnavailableException e) {
+    Thread.sleep(200);
+    return getTreeNode(tree,path);
+  }
+  return treeNode;
+}
