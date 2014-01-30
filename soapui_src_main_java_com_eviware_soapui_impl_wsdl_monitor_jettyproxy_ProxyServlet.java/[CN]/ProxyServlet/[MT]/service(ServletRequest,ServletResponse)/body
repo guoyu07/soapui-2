@@ -24,11 +24,12 @@
   capturedData.setRequestMethod(httpRequest.getMethod());
   capturedData.setRequestHeader(httpRequest);
   capturedData.setHttpRequestParameters(httpRequest);
+  capturedData.setQueryParameters(httpRequest.getQueryString());
   capturedData.setTargetURL(httpRequest.getRequestURL().toString());
   String connectionHeader=httpRequest.getHeader("Connection");
   if (connectionHeader != null) {
     connectionHeader=connectionHeader.toLowerCase();
-    if (connectionHeader.indexOf("keep-alive") < 0 && connectionHeader.indexOf("close") < 0)     connectionHeader=null;
+    if (!connectionHeader.contains("keep-alive") && !connectionHeader.contains("close"))     connectionHeader=null;
   }
   boolean xForwardedFor=false;
   @SuppressWarnings("unused") Enumeration<?> headerNames=httpRequest.getHeaderNames();
@@ -36,7 +37,7 @@
     String hdr=(String)headerNames.nextElement();
     String lhdr=hdr.toLowerCase();
     if (dontProxyHeaders.contains(lhdr))     continue;
-    if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
+    if (connectionHeader != null && connectionHeader.contains(lhdr))     continue;
     Enumeration<?> vals=httpRequest.getHeaders(hdr);
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
@@ -84,7 +85,7 @@
   capturedData.setRequest(requestBody == null ? null : requestBody.toByteArray());
   capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method.getHttpResponse());
-  capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,requestBody));
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),requestBody));
   capturedData.setRawResponseData(getResponseToBytes(method,capturedData.getRawResponseBody()));
   capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
   capturedData.setResponseStatusCode(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);

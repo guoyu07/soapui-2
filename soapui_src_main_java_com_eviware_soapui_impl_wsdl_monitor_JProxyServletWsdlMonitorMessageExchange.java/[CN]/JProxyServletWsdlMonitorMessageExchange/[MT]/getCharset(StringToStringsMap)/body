@@ -8,7 +8,7 @@
   if (contentEncodingHeader != null) {
     try {
       if (CompressionSupport.getAvailableAlgorithm(contentEncodingHeader) == null) {
-        new String("").getBytes(contentEncodingHeader);
+        "".getBytes(contentEncodingHeader);
         return contentEncodingHeader;
       }
     }
