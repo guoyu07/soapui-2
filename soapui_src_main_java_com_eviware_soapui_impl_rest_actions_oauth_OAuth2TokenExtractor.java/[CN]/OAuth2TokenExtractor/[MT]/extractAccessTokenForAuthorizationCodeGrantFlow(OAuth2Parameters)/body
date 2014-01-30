@@ -1,0 +1,20 @@
+{
+{
+    browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
+      @Override public void locationChanged(      String newLocation){
+        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),"code"));
+      }
+      @Override public void contentChanged(      String newContent){
+        int titlePosition=newContent.indexOf(TITLE);
+        if (titlePosition != -1) {
+          String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
+          getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromTitle(title));
+        }
+      }
+    }
+);
+    parameters.startAccessTokenFlow();
+    browserFacade.open(new URI(createAuthorizationURLForAuthorizationCodeGrantFlow(parameters)).toURL());
+    parameters.waitingForAuthorization();
+  }
+}

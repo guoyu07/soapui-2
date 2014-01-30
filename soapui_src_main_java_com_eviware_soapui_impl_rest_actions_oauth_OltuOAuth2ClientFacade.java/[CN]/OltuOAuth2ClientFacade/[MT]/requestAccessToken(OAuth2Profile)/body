@@ -1,9 +1,8 @@
 {
   try {
     OAuth2Parameters parameters=buildParametersFrom(profile);
-    validateProfileContents(parameters);
-    String authorizationURL=createAuthorizationURL(parameters);
-    launchConsentScreenAndGetAuthorizationCode(authorizationURL,parameters);
+    OAuth2ParameterValidator.validate(parameters);
+    oAuth2TokenExtractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
   }
  catch (  OAuthSystemException e) {
     logAndThrowOAuth2Exception(e);

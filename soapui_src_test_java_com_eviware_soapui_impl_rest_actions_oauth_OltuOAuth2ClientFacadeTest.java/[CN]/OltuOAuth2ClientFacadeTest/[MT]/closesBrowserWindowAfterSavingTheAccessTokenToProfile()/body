@@ -1,4 +1,4 @@
 {
   oltuClientFacade.requestAccessToken(profile);
-  assertThat(((UserBrowserFacadeStub)oltuClientFacade.browserFacade).browserClosed,is(true));
+  assertThat(((UserBrowserFacadeStub)oltuClientFacade.oAuth2TokenExtractor.browserFacade).browserClosed,is(true));
 }
