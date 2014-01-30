@@ -1,7 +1,7 @@
 {
   MockResponse mockResponse=getMockResponse();
-  createEmptyButton=createActionButton(new CreateEmptyMockResponseAction(mockResponse),isBidirectional());
-  createFaultButton=createActionButton(new CreateFaultMockResponseAction(mockResponse),isBidirectional());
+  createEmptyButton=createActionButton(new CreateEmptyWsdlMockResponseAction(mockResponse),isBidirectional());
+  createFaultButton=createActionButton(new CreateFaultWsdlMockResponseAction(mockResponse),isBidirectional());
   wsiValidateAction=SwingActionDelegate.createDelegate(new WSIValidateResponseAction(),mockResponse,"alt W");
   return super.buildContent();
 }
