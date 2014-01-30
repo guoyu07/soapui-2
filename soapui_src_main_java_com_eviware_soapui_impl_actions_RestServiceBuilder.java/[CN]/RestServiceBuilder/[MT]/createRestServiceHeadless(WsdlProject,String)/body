@@ -1,8 +1,0 @@
-{
-  if (StringUtils.isNullOrEmpty(URI)) {
-    return;
-  }
-  RestResource restResource=createResource(ModelCreationStrategy.REUSE_MODEL,project,URI);
-  RestRequest restRequest=addNewRequest(addNewMethod(ModelCreationStrategy.REUSE_MODEL,restResource));
-  copyParametersWithDefaultsOnResource(extractParams(URI),restResource.getParams(),restRequest.getParams());
-}

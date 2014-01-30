@@ -3,7 +3,7 @@
     return;
   }
   RestResource restResource=createResource(ModelCreationStrategy.CREATE_NEW_MODEL,project,URI);
-  RestRequest restRequest=addNewRequest(addNewMethod(ModelCreationStrategy.CREATE_NEW_MODEL,restResource));
+  RestRequest restRequest=addNewRequest(addNewMethod(ModelCreationStrategy.CREATE_NEW_MODEL,restResource,RestRequestInterface.RequestMethod.GET));
   copyParameters(extractParams(URI),restResource.getParams());
   UISupport.select(restRequest);
   UISupport.showDesktopPanel(restRequest);
