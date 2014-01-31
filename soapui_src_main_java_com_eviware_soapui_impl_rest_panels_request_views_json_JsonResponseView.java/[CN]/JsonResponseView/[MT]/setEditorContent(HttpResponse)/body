@@ -3,16 +3,19 @@
     contentEditor.setText("");
   }
  else {
-    String content="<Not JSON content>";
-    if (JsonMediaTypeHandler.couldBeJsonContent(httpResponse.getContentType())) {
+    String content;
+    if (JsonMediaTypeHandler.seemsToBeJsonContentType(httpResponse.getContentType())) {
       try {
         JSON json=JSONSerializer.toJSON(httpResponse.getContentAsString());
-        if (json.isEmpty())         content="<Empty JSON content>";
- else         content=json.toString(3);
+        if (json.isEmpty()) {
+          content="<Empty JSON content>";
+        }
+ else {
+          content=json.toString(3);
+        }
       }
- catch (      Throwable e) {
-        if (!"Invalid JSON String".equals(e.getMessage()))         e.printStackTrace();
- else         content=httpResponse.getContentAsString();
+ catch (      JSONException e) {
+        content=httpResponse.getContentAsString();
       }
       contentEditor.setText(content);
     }
