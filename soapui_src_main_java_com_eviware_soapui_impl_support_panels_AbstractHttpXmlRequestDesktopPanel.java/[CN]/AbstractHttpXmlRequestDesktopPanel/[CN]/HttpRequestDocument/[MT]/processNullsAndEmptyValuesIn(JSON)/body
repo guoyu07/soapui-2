@@ -1,0 +1,16 @@
+{
+  String requestContent=request.getRequestContent();
+  if (!StringUtils.hasContent(requestContent)) {
+    return;
+  }
+  try {
+    JSON oldJson=new JsonSlurper().parse(new StringReader(requestContent));
+    if (!(json instanceof JSONObject) || !(oldJson instanceof JSONObject)) {
+      return;
+    }
+    overwriteNullValues((JSONObject)json,(JSONObject)oldJson);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"Unexpected error while parsing JSON");
+  }
+}
