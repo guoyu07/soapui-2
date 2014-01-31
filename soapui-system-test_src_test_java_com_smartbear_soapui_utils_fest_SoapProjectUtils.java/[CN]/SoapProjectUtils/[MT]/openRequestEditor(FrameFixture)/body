@@ -1,6 +1,4 @@
 {
-  JTreeFixture tree=WorkspaceUtils.getNavigatorPanel(rootWindow).tree();
-  waitForProjectToLoad();
-  tree.expandPath(getOperationPath());
-  tree.node(getRequestPath()).doubleClick();
+  JTreeNodeFixture node=getTreeNode(rootWindow,getOperationPath());
+  node.doubleClick();
 }
