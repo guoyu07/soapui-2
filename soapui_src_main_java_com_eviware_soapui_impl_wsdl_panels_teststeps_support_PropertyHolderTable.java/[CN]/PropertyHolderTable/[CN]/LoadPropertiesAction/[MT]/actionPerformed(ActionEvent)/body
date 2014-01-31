@@ -1,6 +1,6 @@
 {
   if (dialog == null)   dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
-  Project project=ModelItemUtils.getProjectFromModelItem(holder.getModelItem());
+  Project project=ModelSupport.getModelItemProject(holder.getModelItem());
   if (project != null) {
     FileFormField fileFormField=(FileFormField)dialog.getFormField(LoadOptionsForm.FILE);
     String currentDirectory=extractFileChooserPathForProject(project);
