@@ -1,18 +1,8 @@
 {
-  authorizationCode="some_code";
-  accessToken="expected_access_token";
-  refreshToken="expected_refresh_token";
-  initializeOAuthProfileWithDefaultValues();
-  initializeOAuthProfileWithOnlyAccessToken();
-  spyingOauthClientStub=new SpyingOauthClientStub();
+  profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  profileWithOnlyAccessToken=OAuth2TestUtils.getOAuth2ProfileWithOnlyAccessToken();
   httpRequest=new ExtendedPostMethod();
   httpRequest.setURI(new URI("endpoint/path"));
   oltuClientFacade=new OltuOAuth2ClientFacade();
-  oltuClientFacade.oAuth2TokenExtractor=new OAuth2TokenExtractor(){
-    @Override protected OAuthClient getOAuthClient(){
-      return spyingOauthClientStub;
-    }
-  }
-;
-  oltuClientFacade.oAuth2TokenExtractor.browserFacade=new UserBrowserFacadeStub();
+  mockOAuth2TokenExtractor();
 }

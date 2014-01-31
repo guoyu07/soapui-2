@@ -1,0 +1,5 @@
+{
+  profile.setRedirectURI(OAUTH_2_OOB_URN);
+  oAuth2TokenExtractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+  assertThat(profile.getAccessToken(),is(ACCESS_TOKEN));
+}

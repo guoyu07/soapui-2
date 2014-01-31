@@ -1,0 +1,6 @@
+{
+  oAuthClientRequest=request;
+  OAuthAccessTokenResponse response=mock(responseClass);
+  when(response.getOAuthToken()).thenReturn(new BasicOAuthToken(ACCESS_TOKEN,3600L,REFRESH_TOKEN,"user"));
+  return (T)response;
+}

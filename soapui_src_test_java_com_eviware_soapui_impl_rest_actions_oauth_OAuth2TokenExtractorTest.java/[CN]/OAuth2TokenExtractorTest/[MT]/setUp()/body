@@ -1,0 +1,12 @@
+{
+  spyingOauthClientStub=new SpyingOauthClientStub();
+  oAuth2TokenExtractor=new OAuth2TokenExtractor(){
+    @Override protected OAuthClient getOAuthClient(){
+      return spyingOauthClientStub;
+    }
+  }
+;
+  oAuth2TokenExtractor.browserFacade=new UserBrowserFacadeStub();
+  profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  parameters=new OAuth2Parameters(profile);
+}

@@ -1,0 +1,5 @@
+{
+  profile.setOAuth2Flow(OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+  oltuClientFacade.requestAccessToken(profile);
+  assertThat(profile.getAccessToken(),is(OAuth2TestUtils.ACCESS_TOKEN));
+}

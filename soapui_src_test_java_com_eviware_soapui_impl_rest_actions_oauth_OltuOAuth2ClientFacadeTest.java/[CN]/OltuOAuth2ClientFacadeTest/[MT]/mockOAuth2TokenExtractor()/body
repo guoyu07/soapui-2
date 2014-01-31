@@ -1,0 +1,25 @@
+{
+  OAuth2TokenExtractor oAuth2TokenExtractor=mock(OAuth2TokenExtractor.class);
+  oltuClientFacade.oAuth2TokenExtractor=oAuth2TokenExtractor;
+  doAnswer(new Answer<Object>(){
+    @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      profile.setAccessToken(OAuth2TestUtils.ACCESS_TOKEN);
+      return profile;
+    }
+  }
+).when(oAuth2TokenExtractor).extractAccessTokenForAuthorizationCodeGrantFlow(any(OAuth2Parameters.class));
+  doAnswer(new Answer(){
+    @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      profile.setAccessToken(OAuth2TestUtils.ACCESS_TOKEN);
+      return profile;
+    }
+  }
+).when(oAuth2TokenExtractor).extractAccessTokenForImplicitGrantFlow(any(OAuth2Parameters.class));
+  doAnswer(new Answer(){
+    @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      profile.setAccessToken(OAuth2TestUtils.ACCESS_TOKEN);
+      return profile;
+    }
+  }
+).when(oAuth2TokenExtractor).refreshAccessToken(any(OAuth2Parameters.class));
+}

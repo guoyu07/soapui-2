@@ -1,0 +1,6 @@
+{
+  profile.setAccessToken("expiredAccessToken");
+  profile.setRefreshToken(OAuth2TestUtils.REFRESH_TOKEN);
+  oltuClientFacade.refreshAccessToken(profile);
+  assertThat(profile.getAccessToken(),is(OAuth2TestUtils.ACCESS_TOKEN));
+}

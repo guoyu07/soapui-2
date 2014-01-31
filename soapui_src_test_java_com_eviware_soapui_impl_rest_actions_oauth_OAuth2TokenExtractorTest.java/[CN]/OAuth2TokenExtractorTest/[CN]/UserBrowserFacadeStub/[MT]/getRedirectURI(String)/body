@@ -1,0 +1,10 @@
+{
+  String[] parameters=queryString.split("&");
+  for (  String parameter : parameters) {
+    String prefix="redirect_uri=";
+    if (parameter.startsWith(prefix)) {
+      return parameter.substring(prefix.length());
+    }
+  }
+  return null;
+}
