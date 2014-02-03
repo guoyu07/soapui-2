@@ -1,0 +1,5 @@
+{
+  oAuth2TokenExtractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+  String code=(String)OAuthUtils.decodeForm(spyingOauthClientStub.oAuthClientRequest.getBody()).get("code");
+  assertThat(code,is(AUTHORIZATION_CODE));
+}

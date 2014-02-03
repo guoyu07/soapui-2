@@ -1,0 +1,7 @@
+{
+  OAuth2Flow existingFlow=getOAuth2Flow();
+  if (!oauth2Flow.equals(existingFlow)) {
+    configuration.setOAuth2Flow(OAuth2FlowConfig.Enum.forString(oauth2Flow.name()));
+    pcs.firePropertyChange(OAUTH2_FLOW,existingFlow,oauth2Flow);
+  }
+}

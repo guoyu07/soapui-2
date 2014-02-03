@@ -1,0 +1,25 @@
+{
+  WsdlProject project=profile.getContainer().getProject();
+  project.addProperty(AUTHORIZATION_URI_PROPERTY_NAME).setValue(profile.getAuthorizationURI());
+  project.addProperty(REDIRECT_URI_PROPERTY_NAME).setValue(profile.getRedirectURI());
+  project.addProperty(ACCESS_TOKEN_URI_PROPERTY_NAME).setValue(profile.getAccessTokenURI());
+  project.addProperty(CLIENT_ID_PROPERTY_NAME).setValue(profile.getClientID());
+  project.addProperty(CLIENT_SECRET_PROPERTY_NAME).setValue(profile.getClientSecret());
+  project.addProperty(SCOPE_PROPERTY_NAME).setValue(profile.getScope());
+  project.addProperty(REFRESH_TOKEN_PROPERTY_NAME).setValue(profile.getRefreshToken());
+  profile.setAuthorizationURI("${#Project#" + AUTHORIZATION_URI_PROPERTY_NAME + "}");
+  profile.setRedirectURI("${#Project#" + REDIRECT_URI_PROPERTY_NAME + "}");
+  profile.setAccessTokenURI("${#Project#" + ACCESS_TOKEN_URI_PROPERTY_NAME + "}");
+  profile.setClientID("${#Project#" + CLIENT_ID_PROPERTY_NAME + "}");
+  profile.setClientSecret("${#Project#" + CLIENT_SECRET_PROPERTY_NAME + "}");
+  profile.setScope("${#Project#" + SCOPE_PROPERTY_NAME + "}");
+  profile.setRefreshToken("${#Project#" + REFRESH_TOKEN_PROPERTY_NAME + "}");
+  OAuth2Parameters parameters=new OAuth2Parameters(profile);
+  assertThat(parameters.authorizationUri,is(project.getPropertyValue(AUTHORIZATION_URI_PROPERTY_NAME)));
+  assertThat(parameters.redirectUri,is(project.getPropertyValue(REDIRECT_URI_PROPERTY_NAME)));
+  assertThat(parameters.accessTokenUri,is(project.getPropertyValue(ACCESS_TOKEN_URI_PROPERTY_NAME)));
+  assertThat(parameters.clientId,is(project.getPropertyValue(CLIENT_ID_PROPERTY_NAME)));
+  assertThat(parameters.clientSecret,is(project.getPropertyValue(CLIENT_SECRET_PROPERTY_NAME)));
+  assertThat(parameters.scope,is(project.getPropertyValue(SCOPE_PROPERTY_NAME)));
+  assertThat(parameters.refreshToken,is(project.getPropertyValue(REFRESH_TOKEN_PROPERTY_NAME)));
+}

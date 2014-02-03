@@ -1,0 +1,6 @@
+{
+  profile.setAccessToken("expired_token!");
+  profile.setRefreshToken(REFRESH_TOKEN);
+  oAuth2TokenExtractor.refreshAccessToken(parameters);
+  assertThat(profile.getAccessToken(),is(ACCESS_TOKEN));
+}

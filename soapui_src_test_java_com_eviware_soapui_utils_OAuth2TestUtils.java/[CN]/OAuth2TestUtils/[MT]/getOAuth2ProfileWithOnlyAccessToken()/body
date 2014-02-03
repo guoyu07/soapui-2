@@ -1,0 +1,6 @@
+{
+  OAuth2ProfileConfig configuration=OAuth2ProfileConfig.Factory.newInstance();
+  OAuth2Profile profileWithOnlyAccessToken=new OAuth2Profile(ModelItemFactory.makeOAuth2ProfileContainer(),configuration);
+  profileWithOnlyAccessToken.setAccessToken(ACCESS_TOKEN);
+  return profileWithOnlyAccessToken;
+}
