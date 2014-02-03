@@ -1,0 +1,13 @@
+{
+  boolean activated=super.activate(location);
+  if (activated) {
+    if (browser == null) {
+      browser=new WebViewBasedBrowserComponent(false);
+      Component component=browser.getComponent();
+      component.setMinimumSize(new Dimension(100,100));
+      contentPanel.add(new JScrollPane(component));
+    }
+    setEditorContent(messageExchangeModelItem);
+  }
+  return activated;
+}

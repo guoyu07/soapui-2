@@ -7,7 +7,7 @@
     String contentType=httpResponse.getContentType();
     if (contentType != null && isSupportedContentType(contentType)) {
       try {
-        browser.setContent(content,removeCharsetFrom(contentType));
+        browser.setContent(content,contentType);
       }
  catch (      Exception e) {
         SoapUI.logError(e,"Could not display response from " + httpResponse.getURL() + " as HTML");

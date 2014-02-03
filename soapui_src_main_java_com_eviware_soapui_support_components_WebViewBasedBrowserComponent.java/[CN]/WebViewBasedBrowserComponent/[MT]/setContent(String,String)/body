@@ -1,7 +1,7 @@
 {
   Platform.runLater(new Runnable(){
     public void run(){
-      getWebEngine().loadContent(contentAsString,contentType);
+      getWebEngine().loadContent(contentAsString,removeCharsetFrom(contentType));
     }
   }
 );
