@@ -87,7 +87,8 @@
   capturedData.setResponseHeader(method.getHttpResponse());
   capturedData.setRawRequestData(getRequestToBytes(request.toString(),requestBody));
   capturedData.setRawResponseData(getResponseToBytes(method,capturedData.getRawResponseBody()));
-  capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
+  byte[] decompressedResponseBody=method.getDecompressedResponseBody();
+  capturedData.setResponseContent(decompressedResponseBody != null ? new String(decompressedResponseBody) : "");
   capturedData.setResponseStatusCode(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
   capturedData.setResponseStatusLine(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().toString() : null);
   listenerCallBack.fireAfterProxy(project,request,response,method,capturedData);
@@ -98,7 +99,9 @@
     for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
       for (      String header : headerEntry.getValue())       httpServletResponse.addHeader(headerEntry.getKey(),header);
     }
-    IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
+    if (capturedData.getRawResponseBody() != null) {
+      IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
+    }
   }
 synchronized (this) {
     if (checkContentType(method)) {

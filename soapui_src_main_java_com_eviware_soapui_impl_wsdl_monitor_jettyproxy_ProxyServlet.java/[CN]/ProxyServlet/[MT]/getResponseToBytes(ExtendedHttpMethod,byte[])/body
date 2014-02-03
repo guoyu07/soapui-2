@@ -11,7 +11,9 @@
     response.append("\r\n");
     try {
       out.write(response.toString().getBytes());
-      out.write(res);
+      if (res != null) {
+        out.write(res);
+      }
     }
  catch (    IOException e) {
       e.printStackTrace();
