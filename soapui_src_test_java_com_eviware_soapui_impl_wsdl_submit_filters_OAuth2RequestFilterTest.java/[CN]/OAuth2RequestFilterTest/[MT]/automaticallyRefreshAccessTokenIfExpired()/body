@@ -1,0 +1,7 @@
+{
+  oAuth2Profile.setAccessToken(expiredAccessToken);
+  oAuth2Profile.setAccessTokenIssuedTime(0);
+  oAuth2Profile.setAccessTokenExpirationTime(1);
+  String actualAccessToken=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
+  assertThat(actualAccessToken,is(not(expiredAccessToken)));
+}
