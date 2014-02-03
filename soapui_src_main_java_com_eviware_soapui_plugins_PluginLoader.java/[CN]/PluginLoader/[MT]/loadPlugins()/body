@@ -2,7 +2,6 @@
   File[] pluginFiles=new File("plugins").listFiles();
   if (pluginFiles != null) {
     for (    File pluginFile : pluginFiles) {
-      if (!pluginFile.getName().toLowerCase().endsWith(".jar"))       continue;
       try {
         log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
         extensionClassLoader.addFile(pluginFile);
