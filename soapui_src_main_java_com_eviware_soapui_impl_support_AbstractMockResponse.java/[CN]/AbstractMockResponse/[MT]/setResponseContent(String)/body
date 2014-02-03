@@ -2,5 +2,6 @@
   String oldContent=getResponseContent();
   if (responseContent != null && responseContent.equals(oldContent))   return;
   this.responseContent=responseContent;
+  setConfigResponseContent(responseContent);
   notifyPropertyChanged(RESPONSE_CONTENT_PROPERTY,oldContent,responseContent);
 }

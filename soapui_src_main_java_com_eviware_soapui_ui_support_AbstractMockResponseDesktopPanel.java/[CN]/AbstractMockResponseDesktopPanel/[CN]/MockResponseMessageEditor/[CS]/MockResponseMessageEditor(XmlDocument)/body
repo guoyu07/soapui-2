@@ -1,6 +1,6 @@
 {
   super(document,mockResponse);
-  if (getModelItem().getMockOperation().getOperation().isBidirectional()) {
+  if (isBidirectional()) {
     XmlSourceEditorView<?> editor=getSourceEditor();
     RSyntaxTextArea inputArea=editor.getInputArea();
     inputArea.addFocusListener(new ResultAreaFocusListener());

@@ -1,0 +1,12 @@
+{
+  RESTMockServiceConfig config=RESTMockServiceConfig.Factory.newInstance();
+  config.setName("Da service");
+  RESTMockActionConfig mockActionConfig=config.addNewRestMockAction();
+  mockActionConfig.setName("Da action");
+  RESTMockResponseConfig mockResponseConfig=mockActionConfig.addNewResponse();
+  mockResponseConfig.setName("Da response");
+  CompressedStringConfig responseContent=CompressedStringConfig.Factory.newInstance();
+  responseContent.setStringValue("Some content");
+  mockResponseConfig.setResponseContent(responseContent);
+  return config;
+}
