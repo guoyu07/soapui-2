@@ -1,0 +1,7 @@
+{
+  String[] parts=animationBaseIcon.split("\\.",2);
+  String baseName=parts[0];
+  String type=parts[1];
+  animateIcons=new ImageIcon[num];
+  for (int c=0; c < animateIcons.length; c++)   animateIcons[c]=UISupport.createImageIcon(baseName + "_" + (c + 1)+ "."+ type);
+}
