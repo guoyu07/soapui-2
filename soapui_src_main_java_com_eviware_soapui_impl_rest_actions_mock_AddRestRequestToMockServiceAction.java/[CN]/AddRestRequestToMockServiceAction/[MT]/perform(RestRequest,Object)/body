@@ -1,8 +1,19 @@
 {
   String title=getName();
-  WsdlProject project=restRequest.getRestMethod().getInterface().getProject();
-  String defaultName="MockService " + (project.getMockServiceCount() + 1);
-  String mockServiceName=UISupport.prompt("Enter name of new MockService",title,defaultName);
-  RestMockService mockService=project.addNewRestMockService(mockServiceName);
+  RestMockService mockService=null;
+  WsdlProject project=restRequest.getOperation().getInterface().getProject();
+  while (mockService == null) {
+    if (project.getRestMockServiceCount() > 0) {
+      String[] mockServices=ModelSupport.getNames(project.getRestMockServiceList(),new String[]{CREATE_MOCKSUITE_OPTION});
+      String option=UISupport.prompt("Select RESTMockService for adding REST request",title,mockServices);
+      if (option == null)       return;
+      mockService=project.getRestMockServiceByName(option);
+    }
+    if (mockService == null) {
+      String defaultName="MockService " + (project.getRestMockServiceCount() + 1);
+      String mockServiceName=UISupport.prompt("Enter name of new MockService",title,defaultName);
+      mockService=project.addNewRestMockService(mockServiceName);
+    }
+  }
   addNewMockAction(restRequest,mockService);
 }
