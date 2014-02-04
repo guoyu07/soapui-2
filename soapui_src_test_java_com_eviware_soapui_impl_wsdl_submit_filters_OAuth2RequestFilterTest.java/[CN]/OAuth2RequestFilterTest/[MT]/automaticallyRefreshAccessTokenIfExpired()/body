@@ -1,7 +1,8 @@
 {
-  oAuth2Profile.setAccessToken(expiredAccessToken);
-  oAuth2Profile.setAccessTokenIssuedTime(0);
-  oAuth2Profile.setAccessTokenExpirationTime(1);
-  String actualAccessToken=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
-  assertThat(actualAccessToken,is(not(expiredAccessToken)));
+  String expiredAccessToken="EXPIREDXLA#EXPIREDX";
+  OAuth2Profile profile=OAuth2TestUtils.getOAuthProfileWithRefreshToken();
+  oAuth2ProfileContainer.getOAuth2ProfileList().set(0,profile);
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  String actualAccessTokenHeader=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
+  assertThat(actualAccessTokenHeader,is(not("Bearer " + expiredAccessToken)));
 }

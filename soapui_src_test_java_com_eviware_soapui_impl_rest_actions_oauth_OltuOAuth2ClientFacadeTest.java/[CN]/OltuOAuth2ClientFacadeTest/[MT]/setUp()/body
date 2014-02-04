@@ -4,5 +4,5 @@
   httpRequest=new ExtendedPostMethod();
   httpRequest.setURI(new URI("endpoint/path"));
   oltuClientFacade=new OltuOAuth2ClientFacade();
-  mockOAuth2TokenExtractor();
+  OAuth2TestUtils.mockOAuth2TokenExtractor(oltuClientFacade,profile);
 }
