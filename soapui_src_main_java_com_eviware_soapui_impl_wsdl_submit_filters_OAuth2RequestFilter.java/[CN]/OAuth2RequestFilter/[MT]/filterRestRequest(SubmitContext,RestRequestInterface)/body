@@ -6,7 +6,7 @@
     if (StringUtils.isNullOrEmpty(profile.getAccessToken())) {
       return;
     }
-    OAuth2ClientFacade oAuth2Client=new OltuOAuth2ClientFacade();
+    OAuth2ClientFacade oAuth2Client=getOAuth2ClientFacade();
     if (accessTokenIsExpired(profile) && hasRefreshToken(profile)) {
       refreshAccessToken(profile,oAuth2Client);
     }

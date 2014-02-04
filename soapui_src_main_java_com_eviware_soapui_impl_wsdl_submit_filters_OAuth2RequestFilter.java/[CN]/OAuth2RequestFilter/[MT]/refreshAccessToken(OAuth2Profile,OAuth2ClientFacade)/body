@@ -3,6 +3,6 @@
     oAuth2Client.refreshAccessToken(profile);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    SoapUI.logError(e,"Unable to refresh expired access token.");
   }
 }

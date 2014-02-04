@@ -4,11 +4,11 @@
     OAuth2ParameterValidator.validate(parameters);
 switch (profile.getOAuth2Flow()) {
 case IMPLICIT_GRANT:
-      oAuth2TokenExtractor.extractAccessTokenForImplicitGrantFlow(parameters);
+      getOAuth2TokenExtractor().extractAccessTokenForImplicitGrantFlow(parameters);
     break;
 case AUTHORIZATION_CODE_GRANT:
 default :
-  oAuth2TokenExtractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+  getOAuth2TokenExtractor().extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
 break;
 }
 }
