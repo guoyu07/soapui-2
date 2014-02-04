@@ -51,10 +51,10 @@
         iface.getDefinitionContext().loadIfNecessary();
       }
       if (HTTP_PROXY.equals(dialog.getValue(LaunchForm.SSLORHTTP))) {
-        openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),null);
+        soapMonitor=openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),null);
       }
  else {
-        openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),false,dialog.getValue(LaunchForm.SETSSLMON));
+        soapMonitor=openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),false,dialog.getValue(LaunchForm.SETSSLMON));
       }
     }
  catch (    Exception e) {
