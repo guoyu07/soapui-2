@@ -10,7 +10,7 @@
  else   if (httpRequest.getMethod().equals("OPTIONS"))   method=new ExtendedOptionsMethod();
  else   if (httpRequest.getMethod().equals("TRACE"))   method=new ExtendedTraceMethod();
  else   if (httpRequest.getMethod().equals("PATCH"))   method=new ExtendedPatchMethod();
- else   method=new ExtendedGetMethod();
+ else   method=new ExtendedGenericMethod(httpRequest.getMethod());
   method.setDecompress(false);
   ByteArrayOutputStream requestBody=null;
   if (method instanceof HttpEntityEnclosingRequest) {
