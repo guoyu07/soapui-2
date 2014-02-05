@@ -1,0 +1,9 @@
+{
+  int listenPort=dialog.getIntValue(LaunchForm.PORT,8080);
+  if (HTTP_PROXY.equals(dialog.getValue(LaunchForm.SSLORHTTP))) {
+    return openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),dialog.getBooleanValue(LaunchForm.SETASPROXY),null);
+  }
+ else {
+    return openSoapMonitor(project,listenPort,dialog.getValue(LaunchForm.REQUEST_WSS),dialog.getValue(LaunchForm.RESPONSE_WSS),false,dialog.getValue(LaunchForm.SETSSLMON));
+  }
+}

@@ -1,0 +1,19 @@
+{
+  int listenPort=dialog.getIntValue(LaunchForm.PORT,8080);
+  settings.setLong(LaunchForm.PORT,listenPort);
+  settings.setString(LaunchForm.SETSSLMON,dialog.getValue(LaunchForm.SETSSLMON));
+  settings.setString(SecurityTabForm.SSLTUNNEL_KEYSTORE,dialog.getValue(SecurityTabForm.SSLTUNNEL_KEYSTORE));
+  settings.setString(SecurityTabForm.SSLTUNNEL_PASSWORD,dialog.getValue(SecurityTabForm.SSLTUNNEL_PASSWORD));
+  settings.setString(SecurityTabForm.SSLTUNNEL_KEYPASSWORD,dialog.getValue(SecurityTabForm.SSLTUNNEL_KEYPASSWORD));
+  settings.setString(SecurityTabForm.SSLTUNNEL_TRUSTSTORE,dialog.getValue(SecurityTabForm.SSLTUNNEL_TRUSTSTORE));
+  settings.setString(SecurityTabForm.SSLTUNNEL_TRUSTSTORE_PASSWORD,dialog.getValue(SecurityTabForm.SSLTUNNEL_TRUSTSTORE_PASSWORD));
+  settings.setString(LaunchForm.SSLTUNNEL_REUSESTATE,dialog.getValue(LaunchForm.SSLTUNNEL_REUSESTATE));
+  settings.setString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,dialog.getValue(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH));
+  if (dialog.getValue(LaunchForm.SET_CONTENT_TYPES) != null && dialog.getValue(LaunchForm.SET_CONTENT_TYPES).trim().equals("")) {
+    settings.setString(LaunchForm.SET_CONTENT_TYPES,defaultContentTypes());
+  }
+ else {
+    settings.setString(LaunchForm.SET_CONTENT_TYPES,dialog.getValue(LaunchForm.SET_CONTENT_TYPES));
+  }
+  settings.setString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,dialog.getValue(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD));
+}
