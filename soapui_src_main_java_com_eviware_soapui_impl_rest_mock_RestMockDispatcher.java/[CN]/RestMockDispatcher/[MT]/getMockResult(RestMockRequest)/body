@@ -1,0 +1,9 @@
+{
+  RestMockAction mockAction=(RestMockAction)findOperationBasedOnPath(restMockRequest.getPath());
+  if (mockAction != null) {
+    return mockAction.dispatchRequest(restMockRequest);
+  }
+ else {
+    return getDefaultResponse(restMockRequest);
+  }
+}

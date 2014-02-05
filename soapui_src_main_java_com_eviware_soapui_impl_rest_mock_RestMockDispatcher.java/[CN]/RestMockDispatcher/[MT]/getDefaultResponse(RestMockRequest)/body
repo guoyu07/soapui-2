@@ -1,0 +1,11 @@
+{
+  RestMockResult result=null;
+  try {
+    result=new RestMockResult(restMockRequest);
+  }
+ catch (  Exception e) {
+    throw new DispatchException(e);
+  }
+  result.setResponseStatus(404);
+  return result;
+}

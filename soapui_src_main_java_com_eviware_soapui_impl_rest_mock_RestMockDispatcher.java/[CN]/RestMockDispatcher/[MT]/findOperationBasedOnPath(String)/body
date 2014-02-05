@@ -1,0 +1,9 @@
+{
+  for (  MockOperation operation : mockService.getMockOperationList()) {
+    String path=((RestMockAction)operation).getPath();
+    if (path.equals(requestPath)) {
+      return operation;
+    }
+  }
+  return null;
+}
