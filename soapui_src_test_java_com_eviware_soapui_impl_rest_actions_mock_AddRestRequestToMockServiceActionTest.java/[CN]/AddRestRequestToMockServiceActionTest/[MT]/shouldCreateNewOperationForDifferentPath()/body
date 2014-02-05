@@ -1,0 +1,8 @@
+{
+  action.perform(restRequest,notUsed);
+  restRequest.setPath("someotherpath");
+  action.perform(restRequest,notUsed);
+  mockResponseCount=project.getRestMockServiceAt(0).getMockOperationAt(0).getMockResponseCount();
+  assertThat(mockResponseCount,is(1));
+  assertThat(project.getRestMockServiceAt(0).getMockOperationCount(),is(2));
+}
