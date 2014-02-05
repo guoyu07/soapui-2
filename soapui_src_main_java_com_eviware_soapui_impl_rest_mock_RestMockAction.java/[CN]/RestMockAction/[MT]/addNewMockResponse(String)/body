@@ -1,0 +1,12 @@
+{
+  RESTMockResponseConfig restMockResponseConfig=getConfig().addNewResponse();
+  restMockResponseConfig.setName(name);
+  RestMockResponse mockResponse=new RestMockResponse(this,restMockResponseConfig);
+  addMockResponse(mockResponse);
+  if (getMockResponseCount() == 1 && restMockResponseConfig.getResponseContent() != null) {
+    setDefaultResponse(restMockResponseConfig.getResponseContent().toString());
+  }
+  (getMockService()).fireMockResponseAdded(mockResponse);
+  notifyPropertyChanged("mockResponses",null,mockResponse);
+  return mockResponse;
+}
