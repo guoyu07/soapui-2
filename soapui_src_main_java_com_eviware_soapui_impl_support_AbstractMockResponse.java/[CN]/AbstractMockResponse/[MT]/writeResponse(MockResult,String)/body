@@ -8,7 +8,8 @@
     if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
       try {
         mp=new MimeMultipart();
-        MessageXmlObject requestXmlObject=new MessageXmlObject((WsdlOperation)operation,responseContent,false);
+        WsdlOperation wsdlOperation=((WsdlMockOperation)operation).getOperation();
+        MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlOperation,responseContent,false);
         MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
         for (        MessageXmlPart requestPart : requestParts) {
           if (AttachmentUtils.prepareMessagePart(this,mp,requestPart,contentIds))           isXOP=true;
@@ -16,7 +17,7 @@
         responseContent=requestXmlObject.getMessageContent();
       }
  catch (      Exception e) {
-        e.printStackTrace();
+        SoapUI.logError(e);
       }
     }
   }

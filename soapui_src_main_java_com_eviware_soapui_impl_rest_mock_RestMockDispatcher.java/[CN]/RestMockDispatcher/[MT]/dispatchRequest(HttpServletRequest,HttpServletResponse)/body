@@ -1,8 +1,7 @@
 {
   try {
     RestMockRequest restMockRequest=new RestMockRequest(request,response,mockContext);
-    RestMockAction mockAction=mockService.getMockOperationAt(0);
-    return mockAction.dispatchRequest(restMockRequest);
+    return getMockResult(restMockRequest);
   }
  catch (  Exception e) {
     throw new DispatchException(e);

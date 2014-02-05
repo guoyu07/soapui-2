@@ -1,7 +1,6 @@
 {
   RestMockAction restMockAction=mockService.addNewMockAction(restRequest);
-  RESTMockResponseConfig responseConfig=restMockAction.getConfig().addNewResponse();
-  RestMockResponse mockResponse=restMockAction.addNewMockResponse(responseConfig);
+  RestMockResponse mockResponse=restMockAction.addNewMockResponse("Response 1");
   if (restRequest != null && restRequest.getResponse() != null) {
     HttpResponse response=restRequest.getResponse();
     mockResponse.setResponseContent(response.getContentAsString());
