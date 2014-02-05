@@ -1,5 +1,7 @@
 {
-  MockOperation matchedOperation=mockService.getMatchingOperation(restRequest);
-  RestMockResponse mockResponse=((RestMockAction)matchedOperation).addNewMockResponse("Response 1");
+  MockOperation matchedOperation=mockService.findOrCreateNewOperation(restRequest);
+  int responseCount=matchedOperation.getMockResponseCount() + 1;
+  String responseName="Response " + responseCount;
+  RestMockResponse mockResponse=((RestMockAction)matchedOperation).addNewMockResponse(responseName);
   copyResponseContent(restRequest,mockResponse);
 }
