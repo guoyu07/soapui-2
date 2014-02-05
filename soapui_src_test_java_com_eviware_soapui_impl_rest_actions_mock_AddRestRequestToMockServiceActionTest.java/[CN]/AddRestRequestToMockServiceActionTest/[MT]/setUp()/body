@@ -1,6 +1,7 @@
 {
-  target=ModelItemFactory.makeRestRequest();
-  target.setMethod(GET);
+  restRequest=ModelItemFactory.makeRestRequest();
+  restRequest.setMethod(GET);
+  restRequest.setPath("somepath");
   mockPromptDialog();
-  project=target.getRestMethod().getInterface().getProject();
+  project=restRequest.getRestMethod().getInterface().getProject();
 }

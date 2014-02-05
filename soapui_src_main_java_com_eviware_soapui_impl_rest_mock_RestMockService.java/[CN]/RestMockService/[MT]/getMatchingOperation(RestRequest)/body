@@ -1,0 +1,7 @@
+{
+  MockOperation matchedOperation=findOperationMatchingPath(restRequest.getPath());
+  if (matchedOperation == null) {
+    matchedOperation=addNewMockAction(restRequest);
+  }
+  return matchedOperation;
+}
