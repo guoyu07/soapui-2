@@ -4,6 +4,6 @@
     return;
   }
   if (UISupport.confirm("Remove MockService [" + mockService.getName() + "] from Project","Remove MockService")) {
-    ((WsdlProject)mockService.getProject()).removeMockService(mockService);
+    mockService.getProject().removeMockService(mockService);
   }
 }
