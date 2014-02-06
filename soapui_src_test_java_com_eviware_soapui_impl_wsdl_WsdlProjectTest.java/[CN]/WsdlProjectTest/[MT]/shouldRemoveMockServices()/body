@@ -1,0 +1,8 @@
+{
+  int mockServiceCountBefore=project.getMockServiceCount();
+  MockService mocka=project.addNewMockService("Mocka");
+  assertThat(project.getMockServiceCount(),is(mockServiceCountBefore + 1));
+  project.removeMockService(mocka);
+  assertThat(project.getMockServiceCount(),is(mockServiceCountBefore));
+  assertThat(project.getMockServiceByName("Mocka"),nullValue());
+}
