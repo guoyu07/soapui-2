@@ -1,0 +1,5 @@
+{
+  String[] contentTypeMonitor=new String[]{"hejhopp"};
+  ExtendedHttpMethod request=createRequestWithContentTypes("hejhopp/hejhopp");
+  assertThat(proxyServlet.contentTypeMatches(contentTypeMonitor,request),is(false));
+}
