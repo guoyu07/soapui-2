@@ -1,6 +1,6 @@
 {
   JPanel methodPanel=new JPanel(new BorderLayout());
-  JComboBox<RestRequestInterface.RequestMethod> methodComboBox=new JComboBox<RestRequestInterface.RequestMethod>(new RestRequestMethodModel(getRequest()));
+  JComboBox<HttpMethod> methodComboBox=new JComboBox<HttpMethod>(new RestRequestMethodModel(getRequest()));
   methodComboBox.setSelectedItem(getRequest().getMethod());
   JLabel methodLabel=new JLabel("Method");
   methodPanel.add(methodLabel,BorderLayout.NORTH);

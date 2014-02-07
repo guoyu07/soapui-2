@@ -1,6 +1,6 @@
 {
   restRequest=modelItemFactory.makeRestRequest();
-  restRequest.setMethod(RestRequestInterface.RequestMethod.GET);
+  restRequest.setMethod(HttpMethod.GET);
   RestResource restResource=restRequest.getResource();
   restResource.getParams().addProperty(PARAMETER_NAME);
   restResource.addNewMethod(restRequest.getRestMethod().getName());

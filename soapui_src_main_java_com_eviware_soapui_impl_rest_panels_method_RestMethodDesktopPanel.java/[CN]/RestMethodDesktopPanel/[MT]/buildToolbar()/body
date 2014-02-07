@@ -1,12 +1,12 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  methodCombo=new JComboBox(RestRequestInterface.RequestMethod.getMethods());
+  methodCombo=new JComboBox(HttpMethod.getMethods());
   methodCombo.setSelectedItem(getModelItem().getMethod());
   methodCombo.setToolTipText("Set desired HTTP method");
   methodCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       updatingRequest=true;
-      getModelItem().setMethod((RestRequestInterface.RequestMethod)methodCombo.getSelectedItem());
+      getModelItem().setMethod((HttpMethod)methodCombo.getSelectedItem());
       updatingRequest=false;
     }
   }
