@@ -3,6 +3,7 @@
   final XFormDialog dialog=dialogHandler.buildDialog();
   Settings settings=project.getSettings();
   dialogHandler.setDialogValues(settings);
+  soapMonitor=null;
   if (dialog.show()) {
     try {
       UISupport.setHourglassCursor();
