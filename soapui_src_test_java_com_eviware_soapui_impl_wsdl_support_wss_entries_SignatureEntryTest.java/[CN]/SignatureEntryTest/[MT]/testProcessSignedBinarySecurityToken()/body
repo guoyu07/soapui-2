@@ -1,0 +1,13 @@
+{
+  setRequiredFields();
+  StringToStringMap entry=new StringToStringMap();
+  entry.put("name",WSConstants.BINARY_TOKEN_LN);
+  entry.put("namespace",WSConstants.WSSE_NS);
+  signatureEntry.setParts(Collections.singletonList(entry));
+  signatureEntry.process(secHeader,doc,contextMock);
+  assertNotNull(xpath.evaluate("//wsse:BinarySecurityToken",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
+  Element reference=(Element)xpath.evaluate("//ds:Reference",doc,XPathConstants.NODE);
+  assertTrue(reference.getAttribute("URI").startsWith("#X509-"));
+  validateSignature();
+}
