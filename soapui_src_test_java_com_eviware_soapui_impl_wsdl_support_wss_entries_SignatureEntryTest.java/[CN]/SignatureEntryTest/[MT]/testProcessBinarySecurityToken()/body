@@ -1,0 +1,6 @@
+{
+  setRequiredFields();
+  signatureEntry.process(secHeader,doc,contextMock);
+  assertNotNull(xpath.evaluate("//wsse:BinarySecurityToken",doc,XPathConstants.NODE));
+  assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
+}

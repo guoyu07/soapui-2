@@ -18,6 +18,7 @@
     }
     writer=new StringWriter();
     XmlUtils.serialize(doc,writer);
+    wssSign.setCallbackLookup(new BinarySecurityTokenDOMCallbackLookup(doc,wssSign));
     wssSign.build(doc,wssCrypto.getCrypto(),secHeader);
   }
  catch (  Exception e) {

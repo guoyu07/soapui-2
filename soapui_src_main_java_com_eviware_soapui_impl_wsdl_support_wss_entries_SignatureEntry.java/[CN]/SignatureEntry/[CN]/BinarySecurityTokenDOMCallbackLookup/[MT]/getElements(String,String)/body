@@ -1,0 +1,10 @@
+{
+  List<Element> elements=super.getElements(localname,namespace);
+  if (elements.isEmpty()) {
+    Element bst=wssSign.getBinarySecurityTokenElement();
+    if (localname.equals(bst.getLocalName()) && namespace.equals(bst.getNamespaceURI())) {
+      return Collections.singletonList(bst);
+    }
+  }
+  return elements;
+}
