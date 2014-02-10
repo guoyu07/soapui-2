@@ -9,4 +9,5 @@
   assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
   Element reference=(Element)xpath.evaluate("//ds:Reference",doc,XPathConstants.NODE);
   assertTrue(reference.getAttribute("URI").startsWith("#X509-"));
+  validateSignature();
 }
