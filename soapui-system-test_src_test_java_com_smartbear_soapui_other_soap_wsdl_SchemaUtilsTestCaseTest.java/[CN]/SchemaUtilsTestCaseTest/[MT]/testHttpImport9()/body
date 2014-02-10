@@ -1,5 +1,5 @@
 {
-  String url="http://localhost:8082/wsdls/test9/testcase.wsdl";
+  String url="http://localhost:" + getPort() + "/wsdls/test9/testcase.wsdl";
   SchemaTypeLoader schemaTypes=SchemaUtils.loadSchemaTypes(url,new UrlWsdlLoader(url));
   assertNotNull(schemaTypes.findElement(new QName("http://testcase/wsdl","One")));
   assertNotNull(schemaTypes.findElement(new QName("http://testcase/wsdl","Two")));

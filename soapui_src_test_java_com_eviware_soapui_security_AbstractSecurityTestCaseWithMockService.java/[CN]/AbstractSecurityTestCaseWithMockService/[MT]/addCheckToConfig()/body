@@ -1,9 +1,0 @@
-{
-  testStep=testCase.getTestStepByName(testStepName);
-  TestStepSecurityTestConfig testStepSecurityTest=config.addNewTestStepSecurityTest();
-  testStepSecurityTest.setTestStepId(testStep.getId());
-  SecurityScanConfig securityCheckConfig=testStepSecurityTest.addNewTestStepSecurityScan();
-  securityCheckConfig.setType(securityCheckType);
-  securityCheckConfig.setName(securityCheckName);
-  return securityCheckConfig;
-}
