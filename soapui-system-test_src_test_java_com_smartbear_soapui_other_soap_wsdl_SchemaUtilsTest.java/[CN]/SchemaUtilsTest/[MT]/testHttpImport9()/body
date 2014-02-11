@@ -5,7 +5,7 @@
   assertNotNull(schemaTypes.findElement(new QName("http://testcase/wsdl","Two")));
   assertNotNull(schemaTypes.findType(new QName("http://testcase/one","OneType")));
   assertNotNull(schemaTypes.findType(new QName("http://testcase/two","TwoType")));
-  url=SchemaUtilsTestCaseTest.class.getResource("/wsdls/test9/testcase.wsdl").toURI().toURL().toString();
+  url=SchemaUtilsTest.class.getResource("/wsdls/test9/testcase.wsdl").toURI().toURL().toString();
   schemaTypes=SchemaUtils.loadSchemaTypes(url,new UrlWsdlLoader(url));
   assertNotNull(schemaTypes.findElement(new QName("http://testcase/wsdl","One")));
   assertNotNull(schemaTypes.findElement(new QName("http://testcase/wsdl","Two")));
