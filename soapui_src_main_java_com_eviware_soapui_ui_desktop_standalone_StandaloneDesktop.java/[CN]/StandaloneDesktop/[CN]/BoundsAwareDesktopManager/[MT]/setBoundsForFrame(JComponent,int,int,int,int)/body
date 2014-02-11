@@ -1,16 +1,9 @@
 {
-  boolean hasResized=(desktopPanel.getWidth() != newWidth || desktopPanel.getHeight() != newHeight);
   if (outsideDesktop(desktopPanel,newX,newY)) {
-    Container desktop=desktopPanel.getParent();
-    Dimension desktopSize=desktop.getSize();
-    int boundedX=(int)Math.min(Math.max(0,newX),desktopSize.getWidth());
-    int boundedY=(int)Math.min(Math.max(0,newY),desktopSize.getHeight());
-    desktopPanel.setBounds(boundedX,boundedY,newWidth,newHeight);
+    Point pointInsideDesktop=findPositionInsideDesktop(desktopPanel,newX,newY);
+    delegate.setBoundsForFrame(desktopPanel,pointInsideDesktop.x,pointInsideDesktop.y,newWidth,newHeight);
   }
  else {
-    desktopPanel.setBounds(newX,newY,newWidth,newHeight);
-  }
-  if (hasResized) {
-    desktopPanel.validate();
+    delegate.setBoundsForFrame(desktopPanel,newX,newY,newWidth,newHeight);
   }
 }
