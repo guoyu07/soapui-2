@@ -2,10 +2,21 @@
   initForm(oauth2Form);
   oauth2Form.addSpace(TOP_SPACING);
   AbstractValueModel valueModel=oauth2Form.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW,"getOAuth2Flow","setOAuth2Flow");
-  ComboBoxModel comboBoxModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
-  oauth2Form.appendComboBox("OAuth2.0 Flow",comboBoxModel,"OAuth2.0 Authorization Flow",valueModel);
+  ComboBoxModel oauth2FlowsModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
+  JComboBox oauth2FlowComboBox=oauth2Form.appendComboBox("OAuth2.0 Flow",oauth2FlowsModel,"OAuth2.0 Authorization Flow",valueModel);
   oauth2Form.appendTextField(OAuth2Profile.CLIENT_ID_PROPERTY,"Client Identification","");
-  oauth2Form.appendTextField(OAuth2Profile.CLIENT_SECRET_PROPERTY,"Client Secret","");
+  clientSecretField=oauth2Form.appendTextField(OAuth2Profile.CLIENT_SECRET_PROPERTY,"Client Secret","");
+  if (valueModel.getValue() == OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT) {
+    clientSecretField.setVisible(false);
+  }
+  oauth2FlowComboBox.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED) {
+        clientSecretField.setVisible(e.getItem() != OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+      }
+    }
+  }
+);
   oauth2Form.addSpace(GROUP_SPACING);
   oauth2Form.appendTextField(OAuth2Profile.AUTHORIZATION_URI_PROPERTY,"Authorization URI","");
   oauth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_URI_PROPERTY,"Access Token URI","");
