@@ -1,23 +1,14 @@
 {
-  if (UISupport.isMac()) {
-    return;
-  }
-  Platform.runLater(new Runnable(){
-    @Override public void run(){
-      browserComponent.webView.getEngine().load(null);
-      try {
-        SwingUtilities.invokeAndWait(new Runnable(){
-          @Override public void run(){
-            popupWindow.setVisible(false);
-            popupWindow.dispose();
-          }
-        }
-);
-      }
- catch (      Exception ignore) {
-        ignore.printStackTrace();
+  try {
+    SwingUtilities.invokeLater(new Runnable(){
+      @Override public void run(){
+        popupWindow.setVisible(false);
+        popupWindow.dispose();
       }
     }
-  }
 );
+  }
+ catch (  Exception e) {
+    SoapUI.log.debug("Could not close window due to unexpected error: " + e.getMessage() + "!");
+  }
 }
