@@ -3,8 +3,11 @@
   if ("resource".equals(context)) {
     currentTreeNode=findRestResourcePopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
   }
-  if ("request".equals(context)) {
+ else   if ("request".equals(context)) {
     currentTreeNode=findRestRequestPopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
+  }
+ else   if ("mock service response".equals(context)) {
+    currentTreeNode=findMockServiceResponsePopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
   }
   Thread.sleep(200);
 }
