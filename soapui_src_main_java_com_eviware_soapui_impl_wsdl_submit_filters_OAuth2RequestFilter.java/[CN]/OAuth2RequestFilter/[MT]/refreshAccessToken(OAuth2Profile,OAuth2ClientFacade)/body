@@ -5,6 +5,6 @@
     log.info("The access token has been refreshed successfully.");
   }
  catch (  Exception e) {
-    SoapUI.logError(e,"Unable to refresh expired access token.");
+    throw new RuntimeException("Unable to refresh expired access token.",e);
   }
 }
