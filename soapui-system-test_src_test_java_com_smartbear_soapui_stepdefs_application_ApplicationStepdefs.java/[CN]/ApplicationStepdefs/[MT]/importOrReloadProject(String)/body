@@ -1,0 +1,10 @@
+{
+  Workspace workspace=SoapUI.getWorkspace();
+  for (  Project project : workspace.getProjectList()) {
+    if (project.getPath().equals(fileNameWithFullPath)) {
+      ((WsdlProject)project).reload(fileNameWithFullPath);
+      return;
+    }
+  }
+  workspace.importProject(fileNameWithFullPath);
+}

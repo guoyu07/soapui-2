@@ -1,0 +1,13 @@
+{
+  Thread.sleep(200);
+  if ("resource".equals(context)) {
+    currentTreeNode=findRestResourcePopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
+  }
+ else   if ("request".equals(context)) {
+    currentTreeNode=findRestRequestPopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
+  }
+ else   if ("mock service response".equals(context)) {
+    currentTreeNode=findMockServiceResponsePopupMenu(getMainWindow(robot),newProjectIndexInNavigationTree);
+  }
+  Thread.sleep(200);
+}
