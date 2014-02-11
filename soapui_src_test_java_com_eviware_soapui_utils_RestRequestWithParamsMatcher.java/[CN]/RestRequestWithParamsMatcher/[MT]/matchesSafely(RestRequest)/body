@@ -1,4 +1,3 @@
 {
-  RestParamProperty property=restRequest.getParams().getProperty(parameterName);
-  return property != null && (parameterValue == null || parameterValue.equals(parameterValue));
+  return parametersMatcher.matchesSafely(restRequest.getParams());
 }

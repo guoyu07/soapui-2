@@ -20,6 +20,19 @@
           }
         }
 );
+        webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(){
+          @Override public WebEngine call(          PopupFeatures pf){
+            final WebEngine popupWebEngine=new WebEngine();
+            popupWebEngine.locationProperty().addListener(new InvalidationListener(){
+              @Override public void invalidated(              Observable locationProperty){
+                System.out.println(popupWebEngine.getLocation());
+              }
+            }
+);
+            return popupWebEngine;
+          }
+        }
+);
         webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>(){
           @Override public void changed(          ObservableValue ov,          Worker.State oldState,          Worker.State newState){
             if (newState == Worker.State.SUCCEEDED) {

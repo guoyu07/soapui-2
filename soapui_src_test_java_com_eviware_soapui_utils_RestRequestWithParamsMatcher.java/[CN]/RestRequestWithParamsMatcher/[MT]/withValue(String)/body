@@ -1,5 +1,5 @@
 {
   RestRequestWithParamsMatcher matcherToReturn=new RestRequestWithParamsMatcher(parameterName);
-  matcherToReturn.parameterValue=value;
+  matcherToReturn.parametersMatcher=new RestRequestParamsMatcher(parameterName).withValue(value);
   return matcherToReturn;
 }
