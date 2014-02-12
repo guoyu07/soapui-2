@@ -12,6 +12,10 @@
     if (StringUtils.hasContent(signatureCanonicalization) && !signatureCanonicalization.equals(DEFAULT_OPTION))     wssSign.setSigCanonicalization(signatureCanonicalization);
     wssSign.setUseSingleCertificate(useSingleCert);
     if (StringUtils.hasContent(digestAlgorithm))     wssSign.setDigestAlgo(digestAlgorithm);
+    if (keyIdentifierType == WSConstants.CUSTOM_KEY_IDENTIFIER) {
+      if (StringUtils.hasContent(customTokenId))       wssSign.setCustomTokenId(context.expand(customTokenId));
+      if (StringUtils.hasContent(customTokenValueType))       wssSign.setCustomTokenValueType(context.expand(customTokenValueType));
+    }
     Vector<WSEncryptionPart> wsParts=createWSParts(parts);
     if (!wsParts.isEmpty()) {
       wssSign.setParts(wsParts);
