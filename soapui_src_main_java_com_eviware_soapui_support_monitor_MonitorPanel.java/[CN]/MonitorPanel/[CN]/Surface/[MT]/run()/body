@@ -1,8 +1,8 @@
 {
   while (thread != null) {
-    float totalMemory=monitorSource.getTotal();
-    float usedMemory=monitorSource.getUsed();
-    float freeMemory=totalMemory - usedMemory;
+    long totalMemory=monitorSource.getTotal();
+    long usedMemory=monitorSource.getUsed();
+    long freeMemory=totalMemory - usedMemory;
     if (points == null) {
       points=new double[1];
       validPoints=0;
