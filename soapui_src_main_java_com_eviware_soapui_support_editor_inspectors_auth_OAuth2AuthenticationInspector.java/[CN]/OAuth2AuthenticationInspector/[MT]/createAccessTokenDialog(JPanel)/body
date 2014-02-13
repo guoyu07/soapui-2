@@ -1,0 +1,14 @@
+{
+  final JDialog accessTokenFormDialog=new JDialog();
+  accessTokenFormDialog.setUndecorated(true);
+  accessTokenFormDialog.getContentPane().add(accessTokenFormPanel);
+  accessTokenFormDialog.addFocusListener(new FocusListener(){
+    @Override public void focusGained(    FocusEvent e){
+    }
+    @Override public void focusLost(    FocusEvent e){
+      accessTokenFormDialog.setVisible(false);
+    }
+  }
+);
+  return accessTokenFormDialog;
+}
