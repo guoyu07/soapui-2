@@ -1,0 +1,13 @@
+{
+  Platform.runLater(new Runnable(){
+    public void run(){
+      try {
+        webView.getEngine().executeScript(script);
+      }
+ catch (      Exception e) {
+        SoapUI.log.warn("Error executing JavaScript",e);
+      }
+    }
+  }
+);
+}

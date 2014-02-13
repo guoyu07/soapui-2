@@ -1,19 +1,18 @@
 {
-{
-    browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
-      @Override public void locationChanged(      String newLocation){
-        String accessToken=extractAuthorizationCodeFromForm(extractFormData(newLocation),ACCESS_TOKEN);
-        if (!StringUtils.isNullOrEmpty(accessToken)) {
-          parameters.setAccessTokenInProfile(accessToken);
-          browserFacade.close();
-        }
-      }
-      @Override public void contentChanged(      String newContent){
+  addBrowserInteractionHandler(parameters);
+  browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
+    @Override public void locationChanged(    String newLocation){
+      String accessToken=extractAuthorizationCodeFromForm(extractFormData(newLocation),ACCESS_TOKEN);
+      if (!StringUtils.isNullOrEmpty(accessToken)) {
+        parameters.setAccessTokenInProfile(accessToken);
+        browserFacade.close();
       }
     }
-);
-    parameters.startAccessTokenFlow();
-    browserFacade.open(new URI(createAuthorizationURL(parameters,TOKEN)).toURL());
-    parameters.waitingForAuthorization();
+    @Override public void contentChanged(    String newContent){
+    }
   }
+);
+  parameters.startAccessTokenFlow();
+  browserFacade.open(new URI(createAuthorizationURL(parameters,TOKEN)).toURL());
+  parameters.waitingForAuthorization();
 }

@@ -1,0 +1,8 @@
+{
+  String firstScript="document.getElementById('okButton').click()";
+  String secondScript="document.getElementById('confirmButton').click()";
+  profile.setJavaScripts(Arrays.asList(firstScript,secondScript));
+  oAuth2TokenExtractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+  assertThat(executedScripts,hasItem(firstScript));
+  assertThat(executedScripts,hasItem(secondScript));
+}
