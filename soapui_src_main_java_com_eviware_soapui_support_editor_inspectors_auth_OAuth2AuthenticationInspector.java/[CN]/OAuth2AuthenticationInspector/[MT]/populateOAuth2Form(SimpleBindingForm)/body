@@ -11,8 +11,9 @@
     @Override public void actionPerformed(    ActionEvent e){
       JButton source=(JButton)e.getSource();
       Point disclosureButtonLocation=source.getLocationOnScreen();
-      accessTokenFormDialog.setVisible(!accessTokenFormDialog.isVisible());
-      if (isEnoughSpaceAvailableBelowTheButton(disclosureButtonLocation)) {
+      accessTokenFormDialog.pack();
+      accessTokenFormDialog.setVisible(true);
+      if (isEnoughSpaceAvailableBelowTheButton(disclosureButtonLocation,accessTokenFormDialog.getHeight())) {
         setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
       }
  else {
@@ -21,7 +22,21 @@
     }
   }
 );
-  accessTokenFormPanel.setBounds(0,-300,400,400);
+  accessTokenFormDialog.addWindowFocusListener(new WindowFocusListener(){
+    @Override public void windowGainedFocus(    WindowEvent e){
+      disclosureButton.setEnabled(false);
+    }
+    @Override public void windowLostFocus(    WindowEvent e){
+      accessTokenFormDialog.setVisible(false);
+      SwingUtilities.invokeLater(new Runnable(){
+        @Override public void run(){
+          disclosureButton.setEnabled(true);
+        }
+      }
+);
+    }
+  }
+);
   oauth2Form.addSpace(GROUP_SPACING);
   JButton advanceOptionsButton=oauth2Form.addButtonWithoutLabel(ADVANCED_OPTIONS,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
