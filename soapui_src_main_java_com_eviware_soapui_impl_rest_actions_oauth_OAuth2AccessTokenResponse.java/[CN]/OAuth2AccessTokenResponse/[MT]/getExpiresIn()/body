@@ -1,0 +1,4 @@
+{
+  String value=getParam(OAuth.OAUTH_EXPIRES_IN) == null ? getParam(EXPIRES) : getParam(OAuth.OAUTH_EXPIRES_IN);
+  return value == null ? null : Long.valueOf(value);
+}

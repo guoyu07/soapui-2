@@ -1,11 +1,8 @@
 {
   XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
   setAccessTokenOptions(target,dialog);
-  setAccessTokenRetrievalOptions(target,dialog);
   if (dialog.show()) {
     String accessTokenPosition=dialog.getValue(Form.ACCESS_TOKEN_POSITION);
     target.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
-    String retrievalLocation=dialog.getValue(Form.HOW_TO_RECEIVE_ACCESS_TOKEN);
-    target.setAccessTokenRetrievalLocation(OAuth2Profile.AccessTokenRetrievalLocation.valueOf(retrievalLocation));
   }
 }
