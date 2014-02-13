@@ -1,13 +1,14 @@
 {
-  initForm(oauth2Form);
-  oauth2Form.addSpace(TOP_SPACING);
-  oauth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
+  initForm(oAuth2Form);
+  oAuth2Form.addSpace(TOP_SPACING);
+  oAuth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
+  oAuth2Form.addInputFieldHintText("Enter existing access token, or use \"Get Token\" below.");
   SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
   populateGetAccessTokenForm(accessTokenForm);
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
   accessTokenFormPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
   final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
-  final JButton disclosureButton=oauth2Form.addButtonWithoutLabel("Get Token",new ActionListener(){
+  final JButton disclosureButton=oAuth2Form.addButtonWithoutLabel("> Get Token",new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
       JButton source=(JButton)e.getSource();
       Point disclosureButtonLocation=source.getLocationOnScreen();
@@ -22,6 +23,8 @@
     }
   }
 );
+  disclosureButton.setContentAreaFilled(false);
+  disclosureButton.setBorderPainted(false);
   accessTokenFormDialog.addWindowFocusListener(new WindowFocusListener(){
     @Override public void windowGainedFocus(    WindowEvent e){
       disclosureButton.setEnabled(false);
@@ -37,8 +40,8 @@
     }
   }
 );
-  oauth2Form.addSpace(GROUP_SPACING);
-  JButton advanceOptionsButton=oauth2Form.addButtonWithoutLabel(ADVANCED_OPTIONS,new ActionListener(){
+  oAuth2Form.addSpace(GROUP_SPACING);
+  JButton advanceOptionsButton=oAuth2Form.addButtonWithoutLabel(ADVANCED_OPTIONS,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
       new OAuth2AdvanceOptionsDialog(profile);
     }

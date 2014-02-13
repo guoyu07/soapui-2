@@ -2,8 +2,10 @@
   JPanel innerPanel=new JPanel(new BorderLayout());
   populateAuthTypeForm(authTypeForm);
   innerPanel.add(authTypeForm.getPanel(),BorderLayout.PAGE_START);
-  populateLegacyForm(basicForm);
-  cardPanel.add(basicForm.getPanel(),LEGACY_FORM_LABEL);
+  setBorderAndBackgroundColorOnCard(card.getPanel());
+  populateBasicForm(card);
+  cardPanel.add(card.getPanel(),LEGACY_FORM_LABEL);
+  cardPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
   innerPanel.add(cardPanel,BorderLayout.CENTER);
   outerPanel.add(new JScrollPane(innerPanel),BorderLayout.CENTER);
 }
