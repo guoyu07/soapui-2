@@ -1,3 +1,5 @@
 {
-  return new RestMethod(makeRestResource(),RestMethodConfig.Factory.newInstance());
+  RestMethod restMethod=new RestMethod(makeRestResource(),RestMethodConfig.Factory.newInstance());
+  restMethod.setMethod(HttpMethod.GET);
+  return restMethod;
 }
