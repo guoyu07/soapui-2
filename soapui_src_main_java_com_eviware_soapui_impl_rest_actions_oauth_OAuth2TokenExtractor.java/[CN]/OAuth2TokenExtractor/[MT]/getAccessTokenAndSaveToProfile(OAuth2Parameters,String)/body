@@ -3,29 +3,20 @@
     try {
       parameters.receivedAuthorizationCode();
       OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.AUTHORIZATION_CODE).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRedirectURI(parameters.redirectUri).setCode(authorizationCode).buildBodyMessage();
-      OAuthToken tokenResponse=null;
-switch (parameters.accessTokenRetrievalLocation) {
-case BODY_URL_ENCODED_FORM:
-        tokenResponse=getOAuthClient().accessToken(accessTokenRequest,GitHubTokenResponse.class).getOAuthToken();
-      break;
-case BODY_JSON:
-default :
-    tokenResponse=getOAuthClient().accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
-  break;
-}
-if (tokenResponse != null && tokenResponse.getAccessToken() != null) {
-parameters.setAccessTokenInProfile(tokenResponse.getAccessToken());
-parameters.setRefreshTokenInProfile(tokenResponse.getRefreshToken());
-parameters.setAccessTokenExpirationTimeInProfile(tokenResponse.getExpiresIn());
-parameters.setAccessTokenIssuedTimeInProfile(TimeUtils.getCurrentTimeInSeconds());
-browserFacade.close();
-}
-}
- catch (OAuthSystemException e) {
-SoapUI.logError(e);
-}
-catch (OAuthProblemException e) {
-SoapUI.logError(e);
-}
-}
+      OAuthToken token=getOAuthClient().accessToken(accessTokenRequest,OAuth2AccessTokenResponse.class).getOAuthToken();
+      if (token != null && token.getAccessToken() != null) {
+        parameters.setAccessTokenInProfile(token.getAccessToken());
+        parameters.setRefreshTokenInProfile(token.getRefreshToken());
+        parameters.setAccessTokenExpirationTimeInProfile(token.getExpiresIn());
+        parameters.setAccessTokenIssuedTimeInProfile(TimeUtils.getCurrentTimeInSeconds());
+        browserFacade.close();
+      }
+    }
+ catch (    OAuthSystemException e) {
+      SoapUI.logError(e);
+    }
+catch (    OAuthProblemException e) {
+      SoapUI.logError(e);
+    }
+  }
 }
