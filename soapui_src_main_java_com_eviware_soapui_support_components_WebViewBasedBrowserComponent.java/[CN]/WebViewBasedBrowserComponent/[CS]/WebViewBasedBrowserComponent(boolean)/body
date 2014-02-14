@@ -1,3 +1,10 @@
 {
-  this.addStatusBar=addStatusBar;
+  if (SoapUI.isBrowserDisabled()) {
+    JEditorPane browserDisabledPanel=new JEditorPane();
+    browserDisabledPanel.setText("Browser Component disabled");
+    panel.add(browserDisabledPanel);
+  }
+ else {
+    initializeWebView(addStatusBar);
+  }
 }
