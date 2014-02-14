@@ -1,4 +1,16 @@
 {
   populateOAuth2Form(oAuth2Form);
-  getCardPanel().add(oAuth2Form.getPanel(),OAUTH_2_FORM_LABEL);
+  wrapperPanel=new JPanel(new BorderLayout());
+  JPanel centerPanel=oAuth2Form.getPanel();
+  setBackgroundColorOnPanel(centerPanel);
+  JPanel southPanel=new JPanel();
+  JSeparator separator=new JSeparator(JSeparator.HORIZONTAL);
+  separator.setPreferredSize(new Dimension(wrapperPanel.getWidth(),2));
+  southPanel.add(separator);
+  southPanel.add(new JLabel("Learn about OAuth 2"));
+  setBackgroundColorOnPanel(southPanel);
+  wrapperPanel.add(centerPanel,BorderLayout.CENTER);
+  wrapperPanel.add(southPanel,BorderLayout.SOUTH);
+  setBorderOnPanel(wrapperPanel);
+  getCardPanel().add(wrapperPanel,OAUTH_2_FORM_LABEL);
 }

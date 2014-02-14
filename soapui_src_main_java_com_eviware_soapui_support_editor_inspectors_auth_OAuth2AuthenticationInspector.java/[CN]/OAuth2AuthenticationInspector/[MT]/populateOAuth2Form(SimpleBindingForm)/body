@@ -40,12 +40,11 @@
     }
   }
 );
-  oAuth2Form.addSpace(GROUP_SPACING);
-  JButton advanceOptionsButton=oAuth2Form.addButtonWithoutLabel(ADVANCED_OPTIONS,new ActionListener(){
+  JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
       new OAuth2AdvanceOptionsDialog(profile);
     }
   }
 );
-  advanceOptionsButton.setName(ADVANCED_OPTIONS);
+  advancedOptionsButton.setName(ADVANCED_OPTIONS);
 }
