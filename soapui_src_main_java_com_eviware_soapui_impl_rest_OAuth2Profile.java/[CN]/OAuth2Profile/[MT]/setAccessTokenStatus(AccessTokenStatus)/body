@@ -1,5 +1,6 @@
 {
-  String oldValue=getAccessTokenStatus();
+  AccessTokenStatusConfig.Enum savedAccessTokenStatus=configuration.getAccessTokenStatus();
+  AccessTokenStatus oldValue=savedAccessTokenStatus == null ? null : AccessTokenStatus.valueOf(savedAccessTokenStatus.toString());
   if (status == null && oldValue == null) {
     return;
   }
@@ -7,10 +8,11 @@
     if (status.equals(oldValue)) {
       return;
     }
-    configuration.setAccessTokenStatus(AccessTokenStatusConfig.Enum.forString(status.toString()));
+    configuration.setAccessTokenStatus(AccessTokenStatusConfig.Enum.forString(status.name()));
   }
  else {
     configuration.setAccessTokenStatus(null);
   }
-  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValue,status.toString());
+  String oldValueAsString=oldValue == null ? null : oldValue.toString();
+  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValueAsString,status.toString());
 }

@@ -3,7 +3,7 @@
   oAuth2Form.addSpace(TOP_SPACING);
   oAuth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
   oAuth2Form.addInputFieldHintText("Enter existing access token, or use \"Get Token\" below.");
-  SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
+  SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<OAuth2Profile>(profile));
   populateGetAccessTokenForm(accessTokenForm);
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
   accessTokenFormPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR),BorderFactory.createEmptyBorder(10,10,10,10)));
