@@ -1,8 +1,14 @@
 {
+  JLabel formTitleLabel=new JLabel("Get Access Token from the authorization server");
+  Font font=formTitleLabel.getFont();
+  Font fontBold=new Font(font.getName(),Font.BOLD,font.getSize());
+  formTitleLabel.setFont(fontBold);
+  accessTokenForm.addComponent(formTitleLabel);
   accessTokenForm.addSpace(NORMAL_SPACING);
   AbstractValueModel valueModel=accessTokenForm.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW,"getOAuth2Flow","setOAuth2Flow");
   ComboBoxModel oauth2FlowsModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
   JComboBox oauth2FlowComboBox=accessTokenForm.appendComboBox("OAuth2.0 Flow",oauth2FlowsModel,"OAuth2.0 Authorization Flow",valueModel);
+  accessTokenForm.addSpace(GROUP_SPACING);
   accessTokenForm.appendTextField(OAuth2Profile.CLIENT_ID_PROPERTY,"Client Identification","");
   clientSecretField=accessTokenForm.appendTextField(OAuth2Profile.CLIENT_SECRET_PROPERTY,"Client Secret","");
   if (valueModel.getValue() == OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT) {
@@ -26,5 +32,7 @@
   accessTokenForm.addButtonWithoutLabel("Get access token",new GetOAuthAccessTokenAction(profile));
   accessTokenForm.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
   accessTokenForm.addButtonWithoutLabel("Refresh access token",new RefreshOAuthAccessTokenAction(profile));
-  accessTokenForm.addSpace(15);
+  accessTokenForm.addSpace(NORMAL_SPACING);
+  JLabel accessTokenDocumentationLink=getLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
+  accessTokenForm.addComponent(accessTokenDocumentationLink);
 }

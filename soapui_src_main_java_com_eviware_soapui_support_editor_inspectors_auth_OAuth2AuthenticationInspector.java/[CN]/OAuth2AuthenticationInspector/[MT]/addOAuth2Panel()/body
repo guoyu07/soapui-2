@@ -3,11 +3,10 @@
   wrapperPanel=new JPanel(new BorderLayout());
   JPanel centerPanel=oAuth2Form.getPanel();
   setBackgroundColorOnPanel(centerPanel);
-  JPanel southPanel=new JPanel();
-  JSeparator separator=new JSeparator(JSeparator.HORIZONTAL);
-  separator.setPreferredSize(new Dimension(wrapperPanel.getWidth(),2));
-  southPanel.add(separator);
-  southPanel.add(new JLabel("Learn about OAuth 2"));
+  JPanel southPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+  JLabel oAuthDocumentationLink=getLabelLink("http://www.soapui.org","Learn about OAuth 2");
+  southPanel.add(oAuthDocumentationLink);
+  southPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0,CARD_BORDER_COLOR));
   setBackgroundColorOnPanel(southPanel);
   wrapperPanel.add(centerPanel,BorderLayout.CENTER);
   wrapperPanel.add(southPanel,BorderLayout.SOUTH);
