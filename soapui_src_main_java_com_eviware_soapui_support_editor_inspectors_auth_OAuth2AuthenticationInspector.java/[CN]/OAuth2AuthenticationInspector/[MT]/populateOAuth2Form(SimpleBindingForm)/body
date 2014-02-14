@@ -8,12 +8,19 @@
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
   accessTokenFormPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
   final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
-  final JButton disclosureButton=oAuth2Form.addButtonWithoutLabel("> Get Token",new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      JButton source=(JButton)e.getSource();
+  final JLabel disclosureButton=new JLabel("??? Get Token");
+  oAuth2Form.addComponentWithoutLabel(disclosureButton);
+  disclosureButton.addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      if (disclosureButtonDisabled) {
+        disclosureButtonDisabled=false;
+        return;
+      }
+      JLabel source=(JLabel)e.getSource();
       Point disclosureButtonLocation=source.getLocationOnScreen();
       accessTokenFormDialog.pack();
       accessTokenFormDialog.setVisible(true);
+      disclosureButton.setText("??? Get Token");
       if (isEnoughSpaceAvailableBelowTheButton(disclosureButtonLocation,accessTokenFormDialog.getHeight())) {
         setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
       }
@@ -21,22 +28,24 @@
         setAccessTokenFormDialogBoundsAboveTheButton(disclosureButtonLocation,accessTokenFormDialog);
       }
     }
+    @Override public void mouseEntered(    MouseEvent e){
+      isMouseOnDisclosureLabel=true;
+    }
+    @Override public void mouseExited(    MouseEvent e){
+      isMouseOnDisclosureLabel=false;
+    }
   }
 );
-  disclosureButton.setContentAreaFilled(false);
-  disclosureButton.setBorderPainted(false);
   accessTokenFormDialog.addWindowFocusListener(new WindowFocusListener(){
     @Override public void windowGainedFocus(    WindowEvent e){
-      disclosureButton.setEnabled(false);
+      disclosureButtonDisabled=true;
     }
     @Override public void windowLostFocus(    WindowEvent e){
       accessTokenFormDialog.setVisible(false);
-      SwingUtilities.invokeLater(new Runnable(){
-        @Override public void run(){
-          disclosureButton.setEnabled(true);
-        }
+      disclosureButton.setText("??? Get Token");
+      if (!isMouseOnDisclosureLabel) {
+        disclosureButtonDisabled=false;
       }
-);
     }
   }
 );
