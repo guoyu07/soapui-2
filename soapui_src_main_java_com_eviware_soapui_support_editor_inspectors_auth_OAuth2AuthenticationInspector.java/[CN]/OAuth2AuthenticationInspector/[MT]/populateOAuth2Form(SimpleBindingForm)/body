@@ -27,6 +27,7 @@
   oauth2Form.addButtonWithoutLabel("Get access token",new GetOAuthAccessTokenAction(profile));
   oauth2Form.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
   oauth2Form.addButtonWithoutLabel("Refresh access token",new RefreshOAuthAccessTokenAction(profile));
+  oauth2Form.addButtonWithoutLabel("Edit scripts",new EditScriptsAction(profile));
   oauth2Form.addSpace(GROUP_SPACING);
   oauth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.LONG_TEXT_FIELD_COLUMNS);
   JButton advanceOptionsButton=oauth2Form.addButtonWithoutLabel(ADVANCED_OPTIONS,new ActionListener(){
