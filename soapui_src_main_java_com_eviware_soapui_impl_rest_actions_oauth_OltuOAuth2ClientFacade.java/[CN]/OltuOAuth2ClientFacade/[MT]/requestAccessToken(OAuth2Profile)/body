@@ -2,7 +2,6 @@
   try {
     OAuth2Parameters parameters=buildParametersFrom(profile);
     OAuth2ParameterValidator.validate(parameters);
-    profile.setJavaScripts(Arrays.asList("document.getElementById('Email').value = '<user_name_here!>';" + "document.getElementById('Passwd').value = '<password_here!>';" + "document.getElementById('gaia_loginform').submit();","document.getElementById('submit_approve_access').click()"));
 switch (profile.getOAuth2Flow()) {
 case IMPLICIT_GRANT:
       getOAuth2TokenExtractor().extractAccessTokenForImplicitGrantFlow(parameters);
