@@ -1,3 +1,11 @@
 {
-  this.javaScripts=javaScripts;
+  List<String> oldScripts=getJavaScripts();
+  String[] scriptArray=javaScripts.toArray(new String[javaScripts.size()]);
+  StringListConfig javaScriptsConfiguration=configuration.getJavaScripts();
+  if (javaScriptsConfiguration == null) {
+    javaScriptsConfiguration=StringListConfig.Factory.newInstance();
+  }
+  javaScriptsConfiguration.setEntryArray(scriptArray);
+  configuration.setJavaScripts(javaScriptsConfiguration);
+  pcs.firePropertyChange(JAVA_SCRIPTS_PROPERTY,oldScripts,javaScripts);
 }
