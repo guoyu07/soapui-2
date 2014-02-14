@@ -4,4 +4,7 @@
   scriptEnginePool.setScript(getScript());
   propertyHolder=new MapTestPropertyHolder(this);
   propertyHolder.addProperty("Request");
+  if (!config.isSetHttpResponseStatus()) {
+    config.setHttpResponseStatus("" + HttpStatus.SC_OK);
+  }
 }

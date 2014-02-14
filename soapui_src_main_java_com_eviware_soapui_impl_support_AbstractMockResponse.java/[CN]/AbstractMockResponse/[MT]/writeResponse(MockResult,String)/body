@@ -25,28 +25,7 @@
   if (isStripWhitespaces()) {
     responseContent=XmlUtils.stripWhitespaces(responseContent);
   }
-  String status=getResponseHttpStatus();
   MockRequest request=response.getMockRequest();
-  if (status == null || status.trim().length() == 0) {
-    if (isFault(responseContent,request)) {
-      request.getHttpResponse().setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      response.setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-    }
- else {
-      request.getHttpResponse().setStatus(HttpServletResponse.SC_OK);
-      response.setResponseStatus(HttpServletResponse.SC_OK);
-    }
-  }
- else {
-    try {
-      int statusCode=Integer.parseInt(status);
-      request.getHttpResponse().setStatus(statusCode);
-      response.setResponseStatus(statusCode);
-    }
- catch (    RuntimeException e) {
-      SoapUI.logError(e);
-    }
-  }
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
