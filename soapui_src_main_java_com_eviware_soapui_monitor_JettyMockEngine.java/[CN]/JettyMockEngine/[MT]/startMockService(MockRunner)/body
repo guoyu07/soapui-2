@@ -1,7 +1,7 @@
 {
   if (server == null)   initServer();
 synchronized (server) {
-    MockService mockService=runner.getMockService();
+    MockService mockService=runner.getMockContext().getMockService();
     int port=mockService.getPort();
     if (SoapUI.getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL) && !addedSslConnector) {
       updateSslConnectorSettings();
@@ -14,13 +14,13 @@ synchronized (server) {
     }
     if (!runners.containsKey(port)) {
       SoapUIConnector connector=new SoapUIConnector();
-      PropertySupport.applySystemProperties(connector,"soapui.mock.connector",runner.getMockService());
+      PropertySupport.applySystemProperties(connector,"soapui.mock.connector",runner.getMockContext().getMockService());
       connector.setPort(port);
       if (sslConnector != null) {
         connector.setConfidentialPort(sslConnector.getPort());
       }
       if (mockService.getBindToHostOnly()) {
-        String host=PropertyExpander.expandProperties((AbstractMockService)mockService,((AbstractMockService)mockService).getHost());
+        String host=PropertyExpander.expandProperties(mockService,((AbstractMockService)mockService).getHost());
         if (StringUtils.hasContent(host)) {
           connector.setHost(host);
         }

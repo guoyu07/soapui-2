@@ -9,7 +9,7 @@
     if (overviewUrl.startsWith("/")) {
       overviewUrl=overviewUrl.substring(1);
     }
-    out.print(" [<a target=\"new\" href=\"" + overviewUrl + "\">"+ mockRunner.getMockService().getName()+ "</a>]");
+    out.print(" [<a target=\"new\" href=\"" + overviewUrl + "\">"+ mockRunner.getMockContext().getMockService().getName()+ "</a>]");
   }
   out.print("</p>");
   out.print("<hr/><p><b>Processed Requests</b>: ");

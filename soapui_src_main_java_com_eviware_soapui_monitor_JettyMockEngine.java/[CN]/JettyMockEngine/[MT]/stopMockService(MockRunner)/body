@@ -1,6 +1,6 @@
 {
 synchronized (server) {
-    MockService mockService=runner.getMockService();
+    MockService mockService=runner.getMockContext().getMockService();
     final Integer port=new Integer(mockService.getPort());
     Map<String,List<MockRunner>> map=runners.get(port);
     if (map == null || !map.containsKey(mockService.getPath()))     return;

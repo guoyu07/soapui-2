@@ -1,4 +1,4 @@
 {
-  for (  MockRunner runner : runningMockServices)   if (runner.getMockService() == mockService)   return true;
+  for (  MockRunner runner : runningMockServices)   if (runner.getMockContext().getMockService() == mockService)   return true;
   return false;
 }

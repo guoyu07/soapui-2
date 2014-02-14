@@ -2,7 +2,7 @@
   String pathInfo=request.getPathInfo();
   if (pathInfo == null)   pathInfo="";
   for (  MockRunner mockRunner : getMockRunners()) {
-    if (pathInfo.equals(mockRunner.getMockService().getPath())) {
+    if (pathInfo.equals(mockRunner.getMockContext().getMockService().getPath())) {
       MockResult result=mockRunner.dispatchRequest(request,response);
       if (maxResults > 0) {
 synchronized (results) {

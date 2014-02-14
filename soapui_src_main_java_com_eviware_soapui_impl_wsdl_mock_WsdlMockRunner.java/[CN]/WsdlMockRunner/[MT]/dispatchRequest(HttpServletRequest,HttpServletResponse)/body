@@ -1,5 +1,5 @@
 {
-  for (  MockRunListener listener : mockService.getMockRunListeners()) {
+  for (  MockRunListener listener : getMockService().getMockRunListeners()) {
     Object result=listener.onMockRequest(this,request,response);
     if (result instanceof MockResult)     return (MockResult)result;
   }
