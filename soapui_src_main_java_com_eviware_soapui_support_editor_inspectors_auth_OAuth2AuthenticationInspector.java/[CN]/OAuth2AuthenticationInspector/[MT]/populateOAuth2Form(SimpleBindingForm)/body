@@ -6,7 +6,7 @@
   SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(profile));
   populateGetAccessTokenForm(accessTokenForm);
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
-  accessTokenFormPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+  accessTokenFormPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR),BorderFactory.createEmptyBorder(10,10,10,10)));
   final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
   final JLabel disclosureButton=new JLabel("??? Get Token");
   oAuth2Form.addComponentWithoutLabel(disclosureButton);
