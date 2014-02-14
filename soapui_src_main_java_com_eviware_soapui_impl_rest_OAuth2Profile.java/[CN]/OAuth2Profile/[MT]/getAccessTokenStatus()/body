@@ -1,6 +1,6 @@
 {
   if (configuration.getAccessTokenStatus() != null) {
-    return configuration.getAccessTokenStatus().toString();
+    return AccessTokenStatus.valueOf(configuration.getAccessTokenStatus().toString()).toString();
   }
   return null;
 }
