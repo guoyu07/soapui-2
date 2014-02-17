@@ -1,3 +1,8 @@
 {
-  throw new UnsupportedOperationException("Not yet implemented!!");
+  try {
+    getAccessTokenFormDialog();
+    fail("Get access token dialog is still visible");
+  }
+ catch (  ComponentLookupException e) {
+  }
 }
