@@ -1,3 +1,6 @@
 {
-  return makeRestMockAction(makeRestMockService());
+  RestMockService mockService=makeRestMockService();
+  RestMockAction restMockAction=new RestMockAction(mockService,mockService.getConfig().addNewRestMockAction());
+  mockService.addMockOperation(restMockAction);
+  return restMockAction;
 }

@@ -1,5 +1,6 @@
 {
   WsdlProject retrievedProject=new WsdlProject(projectFileName);
-  RestMockResponse mockResponse=retrievedProject.getRestMockServiceByName(restMockServiceName).getMockOperationAt(0).getMockResponseAt(0);
+  RestMockService restMockService=retrievedProject.getRestMockServiceByName(restMockServiceName);
+  RestMockResponse mockResponse=restMockService.getMockOperationAt(0).getMockResponseAt(0);
   assertThat(mockResponse.getResponseHttpStatus(),is(httpStatusCode));
 }

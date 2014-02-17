@@ -1,3 +1,6 @@
 {
-  return new RestMockService(makeWsdlProject(),RESTMockServiceConfig.Factory.newInstance());
+  WsdlProject project=makeWsdlProject();
+  RestMockService restMockService=new RestMockService(project,project.getConfig().addNewRestMockService());
+  project.addRestMockService(restMockService);
+  return restMockService;
 }

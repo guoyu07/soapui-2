@@ -1,0 +1,8 @@
+{
+  if (canIAddAMockOperation(mockOperation)) {
+    mockOperations.add(mockOperation);
+  }
+ else {
+    throw new IllegalStateException(mockOperation.getName() + " is not attached to service " + this.getName());
+  }
+}
