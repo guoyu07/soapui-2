@@ -1,10 +1,16 @@
 {
+  authTypeForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
+  basicAuthenticationForm=new SimpleBindingForm(new PresentationModel<AbstractHttpRequest<?>>(request));
   JPanel innerPanel=new JPanel(new BorderLayout());
   populateAuthTypeForm(authTypeForm);
-  innerPanel.add(authTypeForm.getPanel(),BorderLayout.PAGE_START);
-  setBorderAndBackgroundColorOnPanel(card.getPanel());
-  populateBasicForm(card);
-  cardPanel.add(card.getPanel(),BASIC_FORM_LABEL);
+  JPanel formWrapperPanel=new JPanel(new BorderLayout());
+  formWrapperPanel.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
+  formWrapperPanel.add(authTypeForm.getPanel(),BorderLayout.LINE_START);
+  formWrapperPanel.add(UISupport.createFormButton(new ShowOnlineHelpAction("http://www.soapui.org")),BorderLayout.AFTER_LINE_ENDS);
+  innerPanel.add(formWrapperPanel,BorderLayout.PAGE_START);
+  setBorderAndBackgroundColorOnPanel(basicAuthenticationForm.getPanel());
+  populateBasicForm(basicAuthenticationForm);
+  cardPanel.add(basicAuthenticationForm.getPanel(),BASIC_FORM_LABEL);
   cardPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
   innerPanel.add(cardPanel,BorderLayout.CENTER);
   outerPanel.add(new JScrollPane(innerPanel),BorderLayout.CENTER);
