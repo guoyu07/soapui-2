@@ -6,8 +6,12 @@
   contentPane.add(inputPanel,BorderLayout.CENTER);
   JPanel buttonsPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
   JButton okButton=new JButton("OK");
+  okButton.setName(OK_BUTTON_NAME);
   okButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
+      if (inputPanel.hasInvalidJavaScripts() && !UISupport.confirm("One or more of the entered scripts you've entered seems to be incorrect.\n\n" + "Do you still want to apply it?","Incorrect JavaScript",Dialog.this)) {
+        return;
+      }
       scriptsToReturn=inputPanel.getJavaScripts();
       closeDialog();
     }

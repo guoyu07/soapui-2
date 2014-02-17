@@ -1,0 +1,9 @@
+{
+  stubbedDialogs.mockConfirmWithReturnValue(true);
+  editorDialog.setVisible(true);
+  int index=0;
+  String script="this is an invalid script";
+  enterScript(index,script);
+  clickOnOkButton();
+  assertThat(isDialogVisible,is(false));
+}
