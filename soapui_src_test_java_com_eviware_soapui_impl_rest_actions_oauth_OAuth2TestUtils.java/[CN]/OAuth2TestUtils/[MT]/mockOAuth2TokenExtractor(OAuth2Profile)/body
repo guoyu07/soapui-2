@@ -1,6 +1,5 @@
 {
   OAuth2TokenExtractor oAuth2TokenExtractor=mock(OAuth2TokenExtractor.class);
-  oltuClientFacade.oAuth2TokenExtractor=oAuth2TokenExtractor;
   doAnswer(new Answer<Object>(){
     @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
       profile.setAccessToken(OAuth2TestUtils.ACCESS_TOKEN);
@@ -22,4 +21,5 @@
     }
   }
 ).when(oAuth2TokenExtractor).refreshAccessToken(any(OAuth2Parameters.class));
+  return oAuth2TokenExtractor;
 }
