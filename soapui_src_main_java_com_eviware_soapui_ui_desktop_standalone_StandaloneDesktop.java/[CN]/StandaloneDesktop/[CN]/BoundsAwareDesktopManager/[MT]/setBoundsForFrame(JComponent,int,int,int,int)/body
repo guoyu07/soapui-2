@@ -1,0 +1,9 @@
+{
+  if (outsideDesktop(desktopPanel,newX,newY)) {
+    Point pointInsideDesktop=findPositionInsideDesktop(desktopPanel,newX,newY);
+    delegate.setBoundsForFrame(desktopPanel,pointInsideDesktop.x,pointInsideDesktop.y,newWidth,newHeight);
+  }
+ else {
+    delegate.setBoundsForFrame(desktopPanel,newX,newY,newWidth,newHeight);
+  }
+}

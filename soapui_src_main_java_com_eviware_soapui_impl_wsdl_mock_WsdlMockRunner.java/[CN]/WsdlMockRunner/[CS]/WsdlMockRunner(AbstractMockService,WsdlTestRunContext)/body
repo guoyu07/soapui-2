@@ -1,5 +1,4 @@
 {
-  this.mockService=mockService;
   Set<WsdlInterface> interfaces=new HashSet<WsdlInterface>();
   if (mockService instanceof WsdlMockService) {
     WsdlMockService wsdlMockService=(WsdlMockService)mockService;
@@ -9,7 +8,7 @@
     }
   }
   for (  WsdlInterface iface : interfaces)   iface.getWsdlContext().loadIfNecessary();
-  mockContext=new WsdlMockRunContext(this.mockService,context);
+  mockContext=new WsdlMockRunContext(mockService,context);
   dispatcher=mockService.createDispatcher(mockContext);
   start();
 }

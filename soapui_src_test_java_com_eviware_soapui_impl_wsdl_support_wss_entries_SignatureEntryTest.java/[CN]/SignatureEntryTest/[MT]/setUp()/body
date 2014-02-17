@@ -1,0 +1,22 @@
+{
+  MockitoAnnotations.initMocks(this);
+  initXpath();
+  doc=XmlUtils.parseXml(TestUtils.SAMPLE_SOAP_MESSAGE);
+  secHeader=new WSSecHeader();
+  secHeader.insertSecurityHeader(doc);
+  signatureEntry=new SignatureEntry();
+  signatureEntry.init(wssEntryConfigMock,outgoingWssMock);
+  when(wssEntryConfigMock.getConfiguration()).thenReturn(xmlObjectMock);
+  signatureEntry.setSignatureAlgorithm(WSConstants.RSA);
+  signatureEntry.setDigestAlgorithm(MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA1);
+  createCrypto();
+  when(outgoingWssMock.getWssContainer()).thenReturn(wssContainerMock);
+  when(wssContainerMock.getCryptoByName(anyString(),anyBoolean())).thenReturn(wssCryptoMock);
+  when(wssContainerMock.getCryptoByName(anyString())).thenReturn(wssCryptoMock);
+  when(wssCryptoMock.getCrypto()).thenReturn(crypto);
+  when(outgoingWssMock.getUsername()).thenReturn(ALIAS);
+  when(outgoingWssMock.getPassword()).thenReturn(KEY_PASSWORD);
+  when(contextMock.expand(ALIAS)).thenReturn(ALIAS);
+  when(contextMock.expand(KEY_PASSWORD)).thenReturn(KEY_PASSWORD);
+  when(contextMock.expand(ISSUER)).thenReturn(ISSUER);
+}

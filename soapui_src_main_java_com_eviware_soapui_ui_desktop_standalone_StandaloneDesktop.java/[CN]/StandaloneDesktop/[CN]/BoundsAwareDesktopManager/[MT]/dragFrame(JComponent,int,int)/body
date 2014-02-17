@@ -1,0 +1,9 @@
+{
+  if (outsideDesktop(f,newX,newY)) {
+    Point pointInsideDesktop=findPositionInsideDesktop(f,newX,newY);
+    delegate.dragFrame(f,pointInsideDesktop.x,pointInsideDesktop.y);
+  }
+ else {
+    delegate.dragFrame(f,newX,newY);
+  }
+}

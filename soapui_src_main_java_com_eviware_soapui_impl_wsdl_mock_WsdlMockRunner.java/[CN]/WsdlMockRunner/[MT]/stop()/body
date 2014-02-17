@@ -1,12 +1,12 @@
 {
   if (!isRunning())   return;
   SoapUI.getMockEngine().stopMockService(this);
-  MockRunListener[] mockRunListeners=mockService.getMockRunListeners();
+  MockRunListener[] mockRunListeners=getMockService().getMockRunListeners();
   for (  MockRunListener listener : mockRunListeners) {
     listener.onMockRunnerStop(this);
   }
   try {
-    mockService.runStopScript(mockContext,this);
+    getMockService().runStopScript(mockContext,this);
     running=false;
   }
  catch (  Exception e) {
