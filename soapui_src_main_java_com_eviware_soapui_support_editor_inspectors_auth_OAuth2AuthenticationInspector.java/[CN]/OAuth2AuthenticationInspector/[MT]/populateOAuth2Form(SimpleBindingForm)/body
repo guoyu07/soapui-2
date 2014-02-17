@@ -9,6 +9,7 @@
   accessTokenFormPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR),BorderFactory.createEmptyBorder(10,10,10,10)));
   final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
   final JLabel disclosureButton=new JLabel("??? Get Token");
+  disclosureButton.setName("oAuth2DisclosureButton");
   oAuth2Form.addComponentWithoutLabel(disclosureButton);
   disclosureButton.addMouseListener(new MouseAdapter(){
     @Override public void mouseClicked(    MouseEvent e){
