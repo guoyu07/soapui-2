@@ -1,0 +1,10 @@
+{
+  try {
+    log.info("The access token has expired, trying to refresh it.");
+    oAuth2Client.refreshAccessToken(profile);
+    log.info("The access token has been refreshed successfully.");
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Unable to refresh expired access token.",e);
+  }
+}

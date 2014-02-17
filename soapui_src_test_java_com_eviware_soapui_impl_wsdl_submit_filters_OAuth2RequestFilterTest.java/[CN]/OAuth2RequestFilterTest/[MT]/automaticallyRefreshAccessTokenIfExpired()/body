@@ -1,0 +1,14 @@
+{
+  final OAuth2Profile profileWithRefreshToken=OAuth2TestUtils.getOAuthProfileWithRefreshToken();
+  setExpiredAccessToken(profileWithRefreshToken);
+  oAuth2ProfileContainer.getOAuth2ProfileList().set(0,profileWithRefreshToken);
+  oAuth2RequestFilter=new OAuth2RequestFilter(){
+    @Override protected OAuth2ClientFacade getOAuth2ClientFacade(){
+      return OAuth2TestUtils.getOltuOAuth2ClientFacadeWithMockedTokenExtractor(profileWithRefreshToken);
+    }
+  }
+;
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  String actualAccessTokenHeader=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
+  assertThat(actualAccessTokenHeader,is("Bearer " + OAuth2TestUtils.ACCESS_TOKEN));
+}

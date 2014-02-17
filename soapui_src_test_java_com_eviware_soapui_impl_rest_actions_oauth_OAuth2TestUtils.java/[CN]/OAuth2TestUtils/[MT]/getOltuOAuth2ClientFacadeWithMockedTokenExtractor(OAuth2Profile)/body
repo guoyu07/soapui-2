@@ -1,0 +1,14 @@
+{
+  return new OltuOAuth2ClientFacade(){
+    @Override protected OAuth2TokenExtractor getOAuth2TokenExtractor(){
+      try {
+        return mockOAuth2TokenExtractor(profile);
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+  }
+;
+}

@@ -1,0 +1,7 @@
+{
+  long oldExpirationTime=configuration.getAccessTokenExpirationTime();
+  if (oldExpirationTime != newExpirationTime) {
+    configuration.setAccessTokenExpirationTime(newExpirationTime);
+    pcs.firePropertyChange(ACCESS_TOKEN_EXPIRATION_TIME,oldExpirationTime,newExpirationTime);
+  }
+}
