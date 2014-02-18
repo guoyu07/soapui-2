@@ -1,3 +1,6 @@
 {
-  restMockRequest=makeRestMockRequest();
+  restMockRequest=makeWsdlMockRequest();
+  mockResponse=ModelItemFactory.makeWsdlMockResponse();
+  mockOperation=mockResponse.getMockOperation();
+  mockOperation.addMockResponse(mockResponse);
 }

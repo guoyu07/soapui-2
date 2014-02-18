@@ -1,7 +1,4 @@
 {
-  WsdlMockResponse mockResponse=ModelItemFactory.makeWsdlMockResponse();
-  WsdlMockOperation mockOperation=mockResponse.getMockOperation();
-  mockOperation.addMockResponse(mockResponse);
   mockResponse.setResponseHttpStatus(HttpStatus.SC_BAD_REQUEST);
   WsdlMockResult mockResult=mockOperation.dispatchRequest(restMockRequest);
   assertThat(mockResult.getMockResponse().getResponseHttpStatus(),is(HttpStatus.SC_BAD_REQUEST));

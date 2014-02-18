@@ -1,0 +1,6 @@
+{
+  String responseContent="mock response content";
+  mockResponse.setResponseContent(responseContent);
+  WsdlMockResult mockResult=mockOperation.dispatchRequest(restMockRequest);
+  assertThat(mockResult.getMockResponse().getResponseContent(),is(responseContent));
+}
