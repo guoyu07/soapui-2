@@ -26,6 +26,7 @@
     responseContent=XmlUtils.stripWhitespaces(responseContent);
   }
   MockRequest request=response.getMockRequest();
+  request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
