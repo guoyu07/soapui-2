@@ -1,5 +1,5 @@
 {
-  DialogFixture accessTokenFormDialog=getAccessTokenFormDialog();
+  DialogFixture accessTokenFormDialog=findDialog(OAuth2AuthenticationInspector.ACCESS_TOKEN_FORM_DIALOG_NAME,robot);
   accessTokenFormDialog.textBox(OAuth2Profile.CLIENT_ID_PROPERTY).setText(CLIENT_ID);
   accessTokenFormDialog.textBox(OAuth2Profile.CLIENT_SECRET_PROPERTY).setText(CLIENT_SECRET);
   accessTokenFormDialog.textBox(OAuth2Profile.AUTHORIZATION_URI_PROPERTY).setText(AUTHORIZATION_URI);
