@@ -5,11 +5,11 @@
   testScriptsButton.setName(TEST_SCRIPTS_BUTTON_NAME);
   testScriptsButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      testScripts();
+      testScripts(profile);
     }
   }
 );
   buttonPanel.add(testScriptsButton);
   add(buttonPanel,BorderLayout.NORTH);
-  add(makeScriptsPanel(profile.getJavaScripts()),BorderLayout.CENTER);
+  add(makeScriptsPanel(profile),BorderLayout.CENTER);
 }

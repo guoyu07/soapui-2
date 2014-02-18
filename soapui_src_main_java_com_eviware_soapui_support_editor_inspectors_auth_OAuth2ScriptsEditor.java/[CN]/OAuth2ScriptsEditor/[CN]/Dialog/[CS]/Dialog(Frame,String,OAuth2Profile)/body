@@ -9,24 +9,14 @@
   okButton.setName(OK_BUTTON_NAME);
   okButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      if (inputPanel.hasInvalidJavaScripts() && !UISupport.confirm("One or more of the entered scripts you've entered seems to be incorrect.\n\n" + "Do you still want to apply it?","Incorrect JavaScript",Dialog.this)) {
+      if (inputPanel.hasInvalidJavaScripts() && !UISupport.confirm("One or more of the entered scripts you've entered seems to be incorrect.\n\n" + "Do you still want to close the dialog?","Incorrect JavaScript",Dialog.this)) {
         return;
       }
-      scriptsToReturn=inputPanel.getJavaScripts();
-      closeDialog();
-    }
-  }
-);
-  JButton cancelButton=new JButton("Cancel");
-  cancelButton.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      scriptsToReturn=null;
       closeDialog();
     }
   }
 );
   buttonsPanel.add(okButton);
-  buttonsPanel.add(cancelButton);
   contentPane.add(buttonsPanel,BorderLayout.SOUTH);
   setBounds(500,500,600,500);
 }

@@ -2,6 +2,7 @@
   final String validScript="alert('hej')";
   containerWalker.findTextComponent(OAuth2ScriptsEditor.SCRIPT_NAMES[0]).setText(validScript);
   containerWalker.findButtonWithName(OAuth2ScriptsEditor.TEST_SCRIPTS_BUTTON_NAME).doClick();
-  List<String> errorMessages=stubbedDialogs.getErrorMessages();
-  assertThat(errorMessages,is(anEmptyCollection()));
+  waitForSwingThread();
+  assertThat(stubbedDialogs.getErrorMessages(),is(anEmptyCollection()));
+  assertThat(stubbedDialogs.getInfoMessages(),is(aCollectionWithSize(1)));
 }
