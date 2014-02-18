@@ -1,6 +1,4 @@
 {
-  RestMockAction mockAction=ModelItemFactory.makeRestMockAction();
-  RestMockResponse mockResponse=mockAction.addNewMockResponse("response 1");
   mockResponse.setResponseHttpStatus(HttpStatus.SC_BAD_REQUEST);
   RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
   assertThat(mockResult.getMockResponse().getResponseHttpStatus(),is(HttpStatus.SC_BAD_REQUEST));

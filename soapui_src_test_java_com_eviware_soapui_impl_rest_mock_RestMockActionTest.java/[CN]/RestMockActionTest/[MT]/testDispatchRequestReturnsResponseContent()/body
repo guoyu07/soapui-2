@@ -1,0 +1,6 @@
+{
+  String responseContent="response content";
+  mockResponse.setResponseContent(responseContent);
+  RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  assertThat(mockResult.getMockResponse().getResponseContent(),is(responseContent));
+}
