@@ -55,7 +55,7 @@
   if (httpRequest.getServletPath() != null) {
     url.append(httpRequest.getServletPath());
     try {
-      method.setURI(new java.net.URI(url.toString()));
+      method.setURI(new java.net.URI(url.toString().replaceAll(" ","%20")));
     }
  catch (    URISyntaxException e) {
       SoapUI.logError(e);
