@@ -1,6 +1,6 @@
 {
   try {
-    getOAuthClientFacade().refreshAccessToken(target);
+    getOAuthClientFacade().refreshAccessToken(profile);
   }
  catch (  InvalidOAuth2ParametersException e) {
     UISupport.showErrorMessage("Invalid OAuth2 parameters: " + e.getMessage());

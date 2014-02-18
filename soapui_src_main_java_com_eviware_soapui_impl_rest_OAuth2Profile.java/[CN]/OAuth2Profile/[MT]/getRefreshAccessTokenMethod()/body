@@ -1,0 +1,6 @@
+{
+  if (configuration.getRefreshAccessTokenMethod() == null) {
+    configuration.setRefreshAccessTokenMethod(RefreshAccessTokenMethodConfig.Enum.forString(RefreshAccessTokenMethods.AUTOMATIC.toString()));
+  }
+  return RefreshAccessTokenMethods.valueOf(configuration.getRefreshAccessTokenMethod().toString());
+}
