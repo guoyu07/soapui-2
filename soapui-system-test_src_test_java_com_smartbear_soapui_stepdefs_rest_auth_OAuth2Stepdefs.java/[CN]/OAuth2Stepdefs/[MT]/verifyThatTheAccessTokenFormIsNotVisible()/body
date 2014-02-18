@@ -1,8 +1,3 @@
 {
-  try {
-    getAccessTokenFormDialog();
-    fail("Get access token dialog is still visible");
-  }
- catch (  ComponentLookupException e) {
-  }
+  FestUtils.verifyDialogIsNotShowing("getAccessTokenFormDialog",robot);
 }

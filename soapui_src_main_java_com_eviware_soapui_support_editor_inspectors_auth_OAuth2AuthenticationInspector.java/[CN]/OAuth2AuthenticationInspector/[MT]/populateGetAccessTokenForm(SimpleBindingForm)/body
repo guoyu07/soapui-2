@@ -8,6 +8,7 @@
   AbstractValueModel valueModel=accessTokenForm.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW,"getOAuth2Flow","setOAuth2Flow");
   ComboBoxModel oauth2FlowsModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
   JComboBox oauth2FlowComboBox=accessTokenForm.appendComboBox("OAuth2.0 Flow",oauth2FlowsModel,"OAuth2.0 Authorization Flow",valueModel);
+  oauth2FlowComboBox.setName(OAUTH_2_FLOW_COMBO_BOX_NAME);
   accessTokenForm.addSpace(GROUP_SPACING);
   accessTokenForm.appendTextField(OAuth2Profile.CLIENT_ID_PROPERTY,"Client Identification","");
   clientSecretField=accessTokenForm.appendTextField(OAuth2Profile.CLIENT_SECRET_PROPERTY,"Client Secret","");
