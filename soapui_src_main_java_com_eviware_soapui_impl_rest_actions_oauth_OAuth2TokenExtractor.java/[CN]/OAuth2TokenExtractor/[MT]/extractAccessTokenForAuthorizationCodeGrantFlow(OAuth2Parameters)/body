@@ -1,14 +1,16 @@
 {
-  addBrowserInteractionHandler(parameters);
-  browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
+  final UserBrowserFacade browserFacade=getBrowserFacade();
+  addBrowserInteractionHandler(browserFacade,parameters);
+  addExternalListeners(browserFacade);
+  browserFacade.addBrowserListener(new BrowserListenerAdapter(){
     @Override public void locationChanged(    String newLocation){
-      getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),CODE));
+      getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),CODE));
     }
     @Override public void contentChanged(    String newContent){
       int titlePosition=newContent.indexOf(TITLE);
       if (titlePosition != -1) {
         String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
-        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromTitle(title));
+        getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromTitle(title));
       }
     }
   }

@@ -1,14 +1,14 @@
 {
-  addBrowserInteractionHandler(parameters);
-  browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
+  final UserBrowserFacade browserFacade=getBrowserFacade();
+  addBrowserInteractionHandler(browserFacade,parameters);
+  addExternalListeners(browserFacade);
+  browserFacade.addBrowserListener(new BrowserListenerAdapter(){
     @Override public void locationChanged(    String newLocation){
       String accessToken=extractAuthorizationCodeFromForm(extractFormData(newLocation),ACCESS_TOKEN);
       if (!StringUtils.isNullOrEmpty(accessToken)) {
         parameters.setAccessTokenInProfile(accessToken);
         browserFacade.close();
       }
-    }
-    @Override public void contentChanged(    String newContent){
     }
   }
 );

@@ -1,0 +1,9 @@
+{
+  for (  RSyntaxTextArea scriptField : scriptFields) {
+    String script=scriptField.getText();
+    JavaScriptValidationError validate=javaScriptValidator.validate(script);
+    if (validate != null) {
+      UISupport.showErrorMessage("Validation failed for script [" + script + "]: "+ validate.getErrorMessage());
+    }
+  }
+}

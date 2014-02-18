@@ -1,0 +1,15 @@
+{
+  super(new BorderLayout());
+  JPanel buttonPanel=new JPanel();
+  JButton testScriptsButton=new JButton("Test scripts");
+  testScriptsButton.setName(TEST_SCRIPTS_BUTTON_NAME);
+  testScriptsButton.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      testScripts();
+    }
+  }
+);
+  buttonPanel.add(testScriptsButton);
+  add(buttonPanel,BorderLayout.NORTH);
+  add(makeScriptsPanel(profile.getJavaScripts()),BorderLayout.CENTER);
+}

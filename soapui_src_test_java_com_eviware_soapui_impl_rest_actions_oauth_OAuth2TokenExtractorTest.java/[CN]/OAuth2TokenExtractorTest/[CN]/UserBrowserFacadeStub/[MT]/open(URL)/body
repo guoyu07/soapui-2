@@ -1,6 +1,6 @@
 {
   String queryString=url.getQuery();
-  for (  BrowserStateChangeListener listener : listeners) {
+  for (  BrowserListener listener : listeners) {
     listener.contentChanged("<html><body>mock_login_screen_content</body></html>");
     if (queryString.contains("response_type=code")) {
       if (!queryString.contains("redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob")) {

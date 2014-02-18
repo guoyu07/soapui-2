@@ -1,9 +1,7 @@
 {
   final String firstScript="alert('first')";
   final String secondScript="alert('second')";
-  OAuth2ScriptsEditor editorWithoutScripts=new OAuth2ScriptsEditor(Collections.<String>emptyList());
-  ContainerWalker walker=new ContainerWalker(editorWithoutScripts);
-  walker.findTextComponent(OAuth2ScriptsEditor.SCRIPT_NAMES[0]).setText(firstScript);
-  walker.findTextComponent(OAuth2ScriptsEditor.SCRIPT_NAMES[1]).setText(secondScript);
+  containerWalker.findTextComponent(OAuth2ScriptsEditor.SCRIPT_NAMES[0]).setText(firstScript);
+  containerWalker.findTextComponent(OAuth2ScriptsEditor.SCRIPT_NAMES[1]).setText(secondScript);
   assertThat(editorWithoutScripts.getJavaScripts(),is(Arrays.asList(firstScript,secondScript)));
 }

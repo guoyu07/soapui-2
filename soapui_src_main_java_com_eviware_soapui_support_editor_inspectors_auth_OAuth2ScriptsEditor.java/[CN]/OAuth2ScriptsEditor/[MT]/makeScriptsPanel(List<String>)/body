@@ -1,0 +1,15 @@
+{
+  JPanel scriptsPanel=new JPanel(new GridLayout(2,1));
+  int index=0;
+  for (  String scriptName : SCRIPT_NAMES) {
+    RSyntaxTextArea scriptField=SyntaxEditorUtil.createDefaultJavaScriptSyntaxTextArea();
+    scriptField.setName(scriptName);
+    if (currentScripts.size() > index) {
+      scriptField.setText(currentScripts.get(index));
+    }
+    scriptFields.add(scriptField);
+    scriptsPanel.add(new InputAreaWithHeader(scriptName,scriptField));
+    index++;
+  }
+  return scriptsPanel;
+}

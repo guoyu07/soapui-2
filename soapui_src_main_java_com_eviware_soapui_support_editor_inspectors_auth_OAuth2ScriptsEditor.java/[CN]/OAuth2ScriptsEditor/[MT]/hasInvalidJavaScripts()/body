@@ -1,6 +1,6 @@
 {
   for (  RSyntaxTextArea scriptField : scriptFields) {
-    if (!javaScriptValidator.validate(scriptField.getText())) {
+    if (javaScriptValidator.validate(scriptField.getText()) != null) {
       return true;
     }
   }
