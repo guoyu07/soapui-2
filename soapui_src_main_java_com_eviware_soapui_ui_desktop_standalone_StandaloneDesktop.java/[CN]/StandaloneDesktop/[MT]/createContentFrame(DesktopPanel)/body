@@ -3,7 +3,7 @@
   JComponent panel=desktopPanel.getComponent();
   panel.setOpaque(true);
   String title=desktopPanel.getTitle();
-  JInternalFrame frame=new JInternalFrame(title,true,true,true,true);
+  JInternalFrame frame=new JInternalFrame(title,true,true,true,!UISupport.isMac());
   frame.addInternalFrameListener(internalFrameListener);
   frame.setContentPane(panel);
   frame.setLocation(xOffset * (openFrameCount % 10),yOffset * (openFrameCount % 10));
