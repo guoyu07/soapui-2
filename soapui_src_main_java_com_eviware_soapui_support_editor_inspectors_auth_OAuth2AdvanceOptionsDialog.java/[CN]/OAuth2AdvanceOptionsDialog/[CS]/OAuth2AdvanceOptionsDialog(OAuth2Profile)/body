@@ -1,8 +1,0 @@
-{
-  XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
-  setAccessTokenOptions(target,dialog);
-  if (dialog.show()) {
-    String accessTokenPosition=dialog.getValue(Form.ACCESS_TOKEN_POSITION);
-    target.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
-  }
-}

@@ -31,8 +31,6 @@
   accessTokenForm.addSpace(NORMAL_SPACING);
   accessTokenForm.addButtonWithoutLabel("Get Access Token",new GetOAuthAccessTokenAction(profile));
   accessTokenForm.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
-  accessTokenForm.addButtonWithoutLabel("Refresh Access Token",new RefreshOAuthAccessTokenAction(profile));
-  accessTokenForm.addSpace(NORMAL_SPACING);
   JLabel accessTokenDocumentationLink=getLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
   accessTokenForm.addComponent(accessTokenDocumentationLink);
 }

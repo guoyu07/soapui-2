@@ -1,0 +1,15 @@
+{
+  JTextField accessTokenField=new JTextField();
+  accessTokenField.setColumns(SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
+  Bindings.bind(accessTokenField,oAuth2Form.getPresentationModel().getModel(OAuth2Profile.ACCESS_TOKEN_PROPERTY));
+  final JButton refreshAccessTokenButton=new JButton("Refresh");
+  refreshAccessTokenButton.addActionListener(new RefreshOAuthAccessTokenAction(profile));
+  boolean enabled=profile.getRefreshAccessTokenMethod().equals(OAuth2Profile.RefreshAccessTokenMethods.MANUAL) && (!StringUtils.isNullOrEmpty(profile.getRefreshToken()));
+  refreshAccessTokenButton.setEnabled(enabled);
+  JPanel wrapperPanel=new JPanel(new BorderLayout(5,5));
+  wrapperPanel.setBackground(CARD_BACKGROUND_COLOR);
+  wrapperPanel.add(accessTokenField,BorderLayout.WEST);
+  wrapperPanel.add(refreshAccessTokenButton,BorderLayout.EAST);
+  oAuth2Form.append("Access Token",wrapperPanel);
+  return refreshAccessTokenButton;
+}

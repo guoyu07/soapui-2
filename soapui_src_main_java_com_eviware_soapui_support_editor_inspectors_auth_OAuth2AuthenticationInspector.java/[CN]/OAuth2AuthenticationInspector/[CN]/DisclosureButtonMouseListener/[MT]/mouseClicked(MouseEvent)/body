@@ -1,0 +1,17 @@
+{
+  if (disclosureButtonDisabled) {
+    disclosureButtonDisabled=false;
+    return;
+  }
+  JLabel source=(JLabel)e.getSource();
+  Point disclosureButtonLocation=source.getLocationOnScreen();
+  accessTokenFormDialog.pack();
+  accessTokenFormDialog.setVisible(true);
+  disclosureButton.setText("??? Get Token");
+  if (isEnoughSpaceAvailableBelowTheButton(disclosureButtonLocation,accessTokenFormDialog.getHeight())) {
+    setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
+  }
+ else {
+    setAccessTokenFormDialogBoundsAboveTheButton(disclosureButtonLocation,accessTokenFormDialog);
+  }
+}

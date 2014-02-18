@@ -1,0 +1,13 @@
+{
+  this.refreshAccessTokenButton=refreshAccessTokenButton;
+  XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
+  setAccessTokenOptions(profile,dialog);
+  setRefreshAccessTokenOptions(profile,dialog);
+  if (dialog.show()) {
+    String accessTokenPosition=dialog.getValue(Form.ACCESS_TOKEN_POSITION);
+    profile.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
+    String refreshAccessTokenMethod=dialog.getValue(Form.AUTOMATIC_ACCESS_TOKEN_REFRESH);
+    profile.setRefreshAccessTokenMethod(valueOf(refreshAccessTokenMethod));
+    enableRefreshAccessTokenButton(refreshAccessTokenMethod,profile.getRefreshToken());
+  }
+}

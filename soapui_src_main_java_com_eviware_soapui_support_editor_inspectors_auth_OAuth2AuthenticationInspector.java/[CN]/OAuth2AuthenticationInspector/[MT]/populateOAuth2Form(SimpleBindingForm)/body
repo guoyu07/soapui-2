@@ -1,58 +1,21 @@
 {
   initForm(oAuth2Form);
   oAuth2Form.addSpace(TOP_SPACING);
-  oAuth2Form.appendTextField(OAuth2Profile.ACCESS_TOKEN_PROPERTY,"Access Token","",SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
+  final JButton refreshAccessTokenButton=addAccessTokenFieldAndRefreshTokenButton(oAuth2Form);
   oAuth2Form.addInputFieldHintText("Enter existing access token, or use \"Get Token\" below.");
   SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<OAuth2Profile>(profile));
   populateGetAccessTokenForm(accessTokenForm);
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
-  accessTokenFormPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(CARD_BORDER_COLOR),BorderFactory.createEmptyBorder(10,10,10,10)));
-  final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
+  accessTokenFormPanel.setBorder(createCompoundBorder(createLineBorder(CARD_BORDER_COLOR),createEmptyBorder(10,10,10,10)));
   final JLabel disclosureButton=new JLabel("??? Get Token");
   disclosureButton.setName("oAuth2DisclosureButton");
   oAuth2Form.addComponentWithoutLabel(disclosureButton);
-  disclosureButton.addMouseListener(new MouseAdapter(){
-    @Override public void mouseClicked(    MouseEvent e){
-      if (disclosureButtonDisabled) {
-        disclosureButtonDisabled=false;
-        return;
-      }
-      JLabel source=(JLabel)e.getSource();
-      Point disclosureButtonLocation=source.getLocationOnScreen();
-      accessTokenFormDialog.pack();
-      accessTokenFormDialog.setVisible(true);
-      disclosureButton.setText("??? Get Token");
-      if (isEnoughSpaceAvailableBelowTheButton(disclosureButtonLocation,accessTokenFormDialog.getHeight())) {
-        setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
-      }
- else {
-        setAccessTokenFormDialogBoundsAboveTheButton(disclosureButtonLocation,accessTokenFormDialog);
-      }
-    }
-    @Override public void mouseEntered(    MouseEvent e){
-      isMouseOnDisclosureLabel=true;
-    }
-    @Override public void mouseExited(    MouseEvent e){
-      isMouseOnDisclosureLabel=false;
-    }
-  }
-);
-  accessTokenFormDialog.addWindowFocusListener(new WindowFocusListener(){
-    @Override public void windowGainedFocus(    WindowEvent e){
-      disclosureButtonDisabled=true;
-    }
-    @Override public void windowLostFocus(    WindowEvent e){
-      accessTokenFormDialog.setVisible(false);
-      disclosureButton.setText("??? Get Token");
-      if (!isMouseOnDisclosureLabel) {
-        disclosureButtonDisabled=false;
-      }
-    }
-  }
-);
+  final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
+  disclosureButton.addMouseListener(new DisclosureButtonMouseListener(accessTokenFormDialog,disclosureButton));
+  accessTokenFormDialog.addWindowFocusListener(new AccessTokenFormDialogWindowListener(accessTokenFormDialog,disclosureButton));
   JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      new OAuth2AdvanceOptionsDialog(profile);
+      new OAuth2AdvanceOptionsDialog(profile,refreshAccessTokenButton);
     }
   }
 );
