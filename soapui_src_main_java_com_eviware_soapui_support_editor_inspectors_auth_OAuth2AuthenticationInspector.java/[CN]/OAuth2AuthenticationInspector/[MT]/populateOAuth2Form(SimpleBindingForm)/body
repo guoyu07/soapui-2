@@ -6,11 +6,16 @@
   SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<OAuth2Profile>(profile));
   populateGetAccessTokenForm(accessTokenForm);
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
-  accessTokenFormPanel.setBorder(createCompoundBorder(createLineBorder(CARD_BORDER_COLOR),createEmptyBorder(10,10,10,10)));
+  JPanel wrapperPanel=new JPanel(new BorderLayout());
+  wrapperPanel.add(accessTokenFormPanel,BorderLayout.NORTH);
+  JLabel accessTokenDocumentationLink=getLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
+  accessTokenDocumentationLink.setBorder(createEmptyBorder(10,5,0,0));
+  wrapperPanel.add(accessTokenDocumentationLink,BorderLayout.SOUTH);
+  wrapperPanel.setBorder(createCompoundBorder(createLineBorder(CARD_BORDER_COLOR),createEmptyBorder(10,10,10,10)));
   final JLabel disclosureButton=new JLabel("??? Get Token");
   disclosureButton.setName("oAuth2DisclosureButton");
   oAuth2Form.addComponentWithoutLabel(disclosureButton);
-  final JDialog accessTokenFormDialog=createAccessTokenDialog(accessTokenFormPanel);
+  accessTokenFormDialog=createAccessTokenDialog(wrapperPanel);
   disclosureButton.addMouseListener(new DisclosureButtonMouseListener(accessTokenFormDialog,disclosureButton));
   accessTokenFormDialog.addWindowFocusListener(new AccessTokenFormDialogWindowListener(accessTokenFormDialog,disclosureButton));
   JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS,new ActionListener(){

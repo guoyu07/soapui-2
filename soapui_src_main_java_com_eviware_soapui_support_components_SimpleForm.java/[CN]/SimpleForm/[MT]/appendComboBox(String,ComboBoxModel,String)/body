@@ -1,6 +1,6 @@
 {
   JComboBox comboBox=new JComboBox(model);
-  comboBox.setToolTipText(tooltip);
+  comboBox.setToolTipText(StringUtils.defaultIfEmpty(tooltip,null));
   comboBox.getAccessibleContext().setAccessibleDescription(tooltip);
   append(label,comboBox);
   return comboBox;
