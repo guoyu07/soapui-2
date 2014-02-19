@@ -7,7 +7,9 @@
     }
  else {
       if (profile.hasAutomationJavaScripts()) {
+        log.info("The access token has expired, trying to retrieve a new one with JavaScript automation.");
         oAuth2Client.requestAccessToken(profile);
+        log.info("A new access token has been retrieved successfully.");
       }
  else {
         log.warn("No automation JavaScripts added to OAuth2 profile ??? cannot retrieve new access token");

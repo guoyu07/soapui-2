@@ -1,0 +1,7 @@
+{
+  final OAuth2Profile profileWithoutAutomationScripts=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  setExpiredAccessToken(profileWithoutAutomationScripts);
+  injectProfile(profileWithoutAutomationScripts);
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  verify(mockLogger,times(1)).warn(any(String.class));
+}
