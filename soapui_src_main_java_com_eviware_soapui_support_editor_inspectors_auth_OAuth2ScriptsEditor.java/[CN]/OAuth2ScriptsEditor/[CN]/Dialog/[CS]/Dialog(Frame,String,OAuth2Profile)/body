@@ -9,7 +9,7 @@
   okButton.setName(OK_BUTTON_NAME);
   okButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
-      if (inputPanel.hasInvalidJavaScripts() && !UISupport.confirm("One or more of the entered scripts you've entered seems to be incorrect.\n\n" + "Do you still want to close the dialog?","Incorrect JavaScript",Dialog.this)) {
+      if (inputPanel.hasInvalidJavaScripts() && !UISupport.confirm("One or more of the entered scripts you've entered seems to be incorrect.\r\n\r\n" + "Do you still want to close the dialog?","Incorrect JavaScript",Dialog.this)) {
         return;
       }
       closeDialog();

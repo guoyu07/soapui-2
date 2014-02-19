@@ -1,0 +1,8 @@
+{
+  if (message.length() > UISupport.EXTENDED_ERROR_MESSAGE_THRESHOLD) {
+    UISupport.showErrorMessage(message.replaceAll("\r\n","<br/>"));
+  }
+ else {
+    UISupport.showErrorMessage(message);
+  }
+}

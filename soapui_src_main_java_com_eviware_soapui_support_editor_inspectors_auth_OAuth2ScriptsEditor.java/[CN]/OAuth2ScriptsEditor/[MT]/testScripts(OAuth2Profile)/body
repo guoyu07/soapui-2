@@ -4,43 +4,16 @@
     String script=scriptField.getText();
     JavaScriptValidationError validate=javaScriptValidator.validate(script);
     if (validate != null) {
-      UISupport.showErrorMessage("Validation failed for script [" + script + "]: "+ validate.getErrorMessage());
+      showErrorMessage("The following script is invalid:\r\n" + script + "\r\n\r\nError:<br/>"+ validate.getErrorMessage());
       errorsFound=true;
     }
   }
   if (!errorsFound) {
     OAuth2TokenExtractor extractor=getExtractor();
-    extractor.addBrowserListener(new BrowserListenerAdapter(){
-      private boolean hasErrors=false;
-      @Override public void javaScriptErrorOccurred(      final String script,      final String location,      final Exception error){
-        hasErrors=true;
-        SwingUtilities.invokeLater(new Runnable(){
-          public void run(){
-            UISupport.showErrorMessage("The script [" + script + "] failed on the page "+ location+ " with the error ["+ error.getMessage()+ "]");
-          }
-        }
-);
-      }
-      @Override public void browserClosed(){
-        if (!hasErrors) {
-          SwingUtilities.invokeLater(new Runnable(){
-            public void run(){
-              UISupport.showInfoMessage("All scripts executed correctly.");
-            }
-          }
-);
-        }
-      }
-    }
-);
+    extractor.addBrowserListener(new JavaScriptErrorReporter());
     OAuth2Parameters parameters=new OAuth2Parameters(profile);
     try {
-      if (profile.getOAuth2Flow() == OAuth2Profile.OAuth2Flow.AUTHORIZATION_CODE_GRANT) {
-        extractor.extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
-      }
- else {
-        extractor.extractAccessTokenForImplicitGrantFlow(parameters);
-      }
+      extractor.extractAccessToken(parameters);
     }
  catch (    Exception ignore) {
     }
