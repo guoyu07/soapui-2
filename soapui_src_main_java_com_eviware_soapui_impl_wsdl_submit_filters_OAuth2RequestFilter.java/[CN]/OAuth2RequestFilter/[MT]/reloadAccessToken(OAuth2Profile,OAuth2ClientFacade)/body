@@ -1,0 +1,20 @@
+{
+  try {
+    if (profile.getRefreshToken() != null) {
+      log.info("The access token has expired, trying to refresh it.");
+      oAuth2Client.refreshAccessToken(profile);
+      log.info("The access token has been refreshed successfully.");
+    }
+ else {
+      if (profile.hasAutomationJavaScripts()) {
+        oAuth2Client.requestAccessToken(profile);
+      }
+ else {
+        log.warn("No automation JavaScripts added to OAuth2 profile ??? cannot retrieve new access token");
+      }
+    }
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Unable to refresh expired access token.",e);
+  }
+}
