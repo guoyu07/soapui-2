@@ -1,0 +1,15 @@
+{
+  try {
+    this.body=body;
+    parameters=JSONUtils.parseJSON(body);
+  }
+ catch (  JSONException e) {
+    if (body.startsWith("#")) {
+      body=body.substring(1);
+    }
+    parameters=OAuthUtils.decodeForm(body);
+    if (StringUtils.isNullOrEmpty(getAccessToken())) {
+      throw OAuthProblemException.error(OAuthError.CodeResponse.UNSUPPORTED_RESPONSE_TYPE,"Invalid response! Response body is not " + OAuth.ContentType.JSON + " encoded or form-url-encoded");
+    }
+  }
+}
