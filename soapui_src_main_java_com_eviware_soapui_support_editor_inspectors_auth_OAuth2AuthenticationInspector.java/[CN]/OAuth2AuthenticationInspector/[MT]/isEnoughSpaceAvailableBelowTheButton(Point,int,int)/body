@@ -1,0 +1,9 @@
+{
+  GraphicsConfiguration currentGraphicsConfiguration=getGraphicsConfigurationForPosition(disclosureButtonLocation);
+  if (currentGraphicsConfiguration == null) {
+    return true;
+  }
+  double bottomYCoordinate=disclosureButtonLocation.getY() + accessTokenDialogHeight + disclosureButtonHeight;
+  double bottomUsableYCoordinateOnScreen=currentGraphicsConfiguration.getBounds().getMaxY() - Toolkit.getDefaultToolkit().getScreenInsets(currentGraphicsConfiguration).bottom;
+  return bottomYCoordinate <= bottomUsableYCoordinateOnScreen;
+}
