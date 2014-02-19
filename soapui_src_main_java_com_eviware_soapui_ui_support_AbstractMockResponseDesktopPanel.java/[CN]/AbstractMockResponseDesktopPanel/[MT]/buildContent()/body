@@ -13,9 +13,14 @@
   requestTabs=new JTabbedPane();
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
   JComponent component=null;
+  responseEditorPanel=new JPanel();
+  responseEditorPanel.setLayout(new BoxLayout(responseEditorPanel,BoxLayout.Y_AXIS));
+  responseEditorPanel.add(addTopEditorPanel());
+  responseEditorPanel.add(Box.createVerticalStrut(10));
+  responseEditorPanel.add(responseEditor);
   if (mockResponse.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Last Request",requestEditor);
-    requestTabs.addTab("Mock Response",responseEditor);
+    requestTabs.addTab("Mock Response",responseEditorPanel);
     splitButton.setEnabled(false);
     tabsButton.setSelected(true);
     component=requestTabPanel;
@@ -23,7 +28,7 @@
   }
  else {
     requestSplitPane.setTopComponent(requestEditor);
-    requestSplitPane.setBottomComponent(responseEditor);
+    requestSplitPane.setBottomComponent(responseEditorPanel);
     requestSplitPane.setDividerLocation(0.5);
     component=requestSplitPane;
   }
