@@ -1,0 +1,9 @@
+{
+  StringToStringsMap responseHeaders=mockResponse.getResponseHeaders();
+  responseHeaders.add("awesomekey","awesomevalue");
+  mockResponse.setResponseHeaders(responseHeaders);
+  RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  verify(mockResult.getMockRequest().getHttpResponse()).addHeader("awesomekey","awesomevalue");
+  assertThat(mockResult.getResponseHeaders().get("awesomekey",""),is("awesomevalue"));
+  assertThat(mockResult.getMockResponse().getResponseHeaders().get("awesomekey",""),is("awesomevalue"));
+}

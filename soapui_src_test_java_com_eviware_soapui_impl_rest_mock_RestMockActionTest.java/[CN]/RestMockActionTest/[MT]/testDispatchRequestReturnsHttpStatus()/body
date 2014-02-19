@@ -1,5 +1,6 @@
 {
   mockResponse.setResponseHttpStatus(HttpStatus.SC_BAD_REQUEST);
   RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  verify(mockResult.getMockRequest().getHttpResponse()).setStatus(HttpStatus.SC_BAD_REQUEST);
   assertThat(mockResult.getMockResponse().getResponseHttpStatus(),is(HttpStatus.SC_BAD_REQUEST));
 }
