@@ -5,6 +5,9 @@
         String accessToken=extractAuthorizationCodeFromForm(extractFormData(newLocation),ACCESS_TOKEN);
         if (!StringUtils.isNullOrEmpty(accessToken)) {
           parameters.setAccessTokenInProfile(accessToken);
+          parameters.setRefreshTokenInProfile(null);
+          parameters.setAccessTokenExpirationTimeInProfile(0);
+          parameters.setAccessTokenIssuedTimeInProfile(TimeUtils.getCurrentTimeInSeconds());
           browserFacade.close();
         }
       }
