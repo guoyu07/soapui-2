@@ -3,14 +3,17 @@
   if (status == null && oldValue == null) {
     return;
   }
- else   if (status != null) {
-    if (status.equals(oldValue)) {
-      return;
+synchronized (this) {
+    if (status != null) {
+      if (status.equals(oldValue)) {
+        return;
+      }
+      configuration.setAccessTokenStatus(AccessTokenStatusConfig.Enum.forString(status.toString()));
     }
-    configuration.setAccessTokenStatus(AccessTokenStatusConfig.Enum.forString(status.toString()));
-  }
  else {
-    configuration.setAccessTokenStatus(null);
+      configuration.setAccessTokenStatus(null);
+    }
+    notifyAll();
   }
   pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValue,status.toString());
 }

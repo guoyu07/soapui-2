@@ -9,7 +9,13 @@
       if (profile.hasAutomationJavaScripts()) {
         log.info("The access token has expired, trying to retrieve a new one with JavaScript automation.");
         oAuth2Client.requestAccessToken(profile);
-        log.info("A new access token has been retrieved successfully.");
+        profile.waitForAccessTokenStatus(OAuth2Profile.AccessTokenStatus.RETRIEVED_FROM_SERVER,ACCESS_TOKEN_RETRIEVAL_TIMEOUT);
+        if (profile.getAccessTokenStatus().equals(String.valueOf(OAuth2Profile.AccessTokenStatus.RETRIEVED_FROM_SERVER))) {
+          log.info("A new access token has been retrieved successfully.");
+        }
+ else {
+          log.warn("OAuth2 access token retrieval timed out after " + ACCESS_TOKEN_RETRIEVAL_TIMEOUT + " ms");
+        }
       }
  else {
         log.warn("No automation JavaScripts added to OAuth2 profile ??? cannot retrieve new access token");

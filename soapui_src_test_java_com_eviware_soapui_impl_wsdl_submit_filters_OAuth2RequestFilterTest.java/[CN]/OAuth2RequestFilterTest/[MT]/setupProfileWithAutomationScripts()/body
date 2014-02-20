@@ -2,4 +2,16 @@
   final OAuth2Profile profileWithAutomationScripts=makeProfileWithAutomationScripts();
   setExpiredAccessToken(profileWithAutomationScripts);
   injectProfile(profileWithAutomationScripts);
+  Runnable browserCallbackSimulator=new Runnable(){
+    public void run(){
+      try {
+        Thread.sleep(50);
+      }
+ catch (      InterruptedException ignore) {
+      }
+      profileWithAutomationScripts.applyRetrievedAccessToken(RETRIEVED_ACCESS_TOKEN);
+    }
+  }
+;
+  new Thread(browserCallbackSimulator).start();
 }
