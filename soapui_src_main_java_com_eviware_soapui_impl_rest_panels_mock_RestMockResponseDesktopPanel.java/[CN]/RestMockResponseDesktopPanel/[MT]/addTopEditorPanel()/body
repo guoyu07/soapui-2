@@ -1,6 +1,9 @@
 {
   JPanel topEditorPanel=new JPanel();
   topEditorPanel.setLayout(new BoxLayout(topEditorPanel,BoxLayout.Y_AXIS));
+  topEditorPanel.add(new JLabel("Headers:"));
   topEditorPanel.add(createHeaderInspector());
+  topEditorPanel.add(Box.createVerticalStrut(5));
+  topEditorPanel.add(createHttpStatusPanel());
   return topEditorPanel;
 }
