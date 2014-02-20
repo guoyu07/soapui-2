@@ -1,6 +1,6 @@
 {
-  HttpHeadersInspector inspector=new HttpHeadersInspector(new MockResponseHeadersModel((RestMockResponse)getModelItem()));
-  JComponent component=inspector.getComponent();
-  component.setMaximumSize(new Dimension(Short.MAX_VALUE,MAX_HEIGHT_TOP_PANEL));
-  return component;
+  JPanel topEditorPanel=new JPanel();
+  topEditorPanel.setLayout(new BoxLayout(topEditorPanel,BoxLayout.Y_AXIS));
+  topEditorPanel.add(createHeaderInspector());
+  return topEditorPanel;
 }
