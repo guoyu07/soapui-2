@@ -1,11 +1,11 @@
 {
   ComboBoxModel httpStatusCodeComboBoxModel=new HttpStatusCodeComboBoxModel();
   final JComboBox statusCodeCombo=new JComboBox(httpStatusCodeComboBoxModel);
-  statusCodeCombo.setSelectedItem(getModelItem().getResponseHttpStatus());
+  statusCodeCombo.setSelectedItem(CompleteHttpStatus.from(getModelItem().getResponseHttpStatus()));
   statusCodeCombo.setToolTipText("Set desired HTTP status code");
   statusCodeCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
-      getModelItem().setResponseHttpStatus((Integer)statusCodeCombo.getSelectedItem());
+      getModelItem().setResponseHttpStatus(((CompleteHttpStatus)statusCodeCombo.getSelectedItem()).getStatusCode());
     }
   }
 );
