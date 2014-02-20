@@ -1,0 +1,6 @@
+{
+  containerWalker.findButtonWithName(OAuth2ScriptsEditor.REMOVE_SCRIPT_BUTTON_NAME).doClick();
+  containerWalker.rebuildIndex();
+  List<String> javaScripts=editorWithoutScripts.getJavaScripts();
+  assertThat(javaScripts,is(aCollectionWithSize(1)));
+}

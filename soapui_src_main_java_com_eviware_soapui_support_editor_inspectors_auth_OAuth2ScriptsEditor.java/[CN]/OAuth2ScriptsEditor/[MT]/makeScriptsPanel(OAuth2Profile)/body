@@ -6,10 +6,11 @@
   }
 ;
   List<String> currentScripts=profile.getAutomationJavaScripts();
-  JPanel scriptsPanel=new JPanel(new GridLayout(2,1));
-  int index=0;
-  for (  String scriptName : SCRIPT_NAMES) {
+  JPanel scriptsPanel=new JPanel(new GridLayout(0,1,15,15));
+  int numberOfFields=Math.max(2,currentScripts.size());
+  for (int index=0; index < numberOfFields; index++) {
     RSyntaxTextArea scriptField=SyntaxEditorUtil.createDefaultJavaScriptSyntaxTextArea();
+    String scriptName=(index < DEFAULT_SCRIPT_NAMES.length ? DEFAULT_SCRIPT_NAMES[index] : "Page " + (index + 1));
     scriptField.setName(scriptName);
     if (currentScripts.size() > index) {
       scriptField.setText(currentScripts.get(index));
@@ -17,7 +18,6 @@
     scriptField.getDocument().addDocumentListener(scriptUpdater);
     scriptFields.add(scriptField);
     scriptsPanel.add(new InputAreaWithHeader(scriptName,scriptField));
-    index++;
   }
   return scriptsPanel;
 }
