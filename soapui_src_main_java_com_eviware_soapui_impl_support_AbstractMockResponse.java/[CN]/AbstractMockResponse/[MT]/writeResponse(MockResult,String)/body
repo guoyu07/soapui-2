@@ -34,7 +34,7 @@
     if (responseContent == null)     responseContent="";
     byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
     if (!result.getResponseHeaders().containsKeyIgnoreCase("Content-Type")) {
-      result.setContentType(getContentType(operation,encoding));
+      result.setContentType(getContentType());
     }
     String acceptEncoding=result.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {

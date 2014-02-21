@@ -1,7 +1,3 @@
 {
-  JPanel httpStatusPanel=new JPanel();
-  httpStatusPanel.setLayout(new BoxLayout(httpStatusPanel,BoxLayout.X_AXIS));
-  httpStatusPanel.add(new JLabel("Http Status Code: "));
-  httpStatusPanel.add(createStatusCodeCombo());
-  return httpStatusPanel;
+  return createPanelWithLabel("Http Status Code: ",createStatusCodeCombo());
 }
