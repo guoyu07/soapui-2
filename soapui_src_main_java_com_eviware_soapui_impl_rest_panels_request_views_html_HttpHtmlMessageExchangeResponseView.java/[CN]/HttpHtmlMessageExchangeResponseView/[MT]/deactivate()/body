@@ -1,6 +1,6 @@
 {
   boolean deactivated=super.deactivate();
-  if (deactivated) {
+  if (deactivated && browser != null) {
     browser.setContent("");
   }
   return deactivated;
