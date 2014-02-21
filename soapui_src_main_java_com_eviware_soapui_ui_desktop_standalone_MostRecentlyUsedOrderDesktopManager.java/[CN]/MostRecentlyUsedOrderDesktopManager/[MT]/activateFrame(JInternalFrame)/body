@@ -1,0 +1,16 @@
+{
+  if (f == null) {
+    return;
+  }
+  super.activateFrame(f);
+  if (!mostRecentlyUsedFrames.isEmpty() && f.equals(mostRecentlyUsedFrames.getFirst())) {
+    selectTopFrame(null);
+    return;
+  }
+ else   if (!mostRecentlyUsedFrames.isEmpty() && mostRecentlyUsedFrames.contains(f)) {
+    mostRecentlyUsedFrames.remove(f);
+  }
+  JInternalFrame previousTop=mostRecentlyUsedFrames.isEmpty() ? null : mostRecentlyUsedFrames.getFirst();
+  mostRecentlyUsedFrames.addFirst(f);
+  selectTopFrame(previousTop);
+}

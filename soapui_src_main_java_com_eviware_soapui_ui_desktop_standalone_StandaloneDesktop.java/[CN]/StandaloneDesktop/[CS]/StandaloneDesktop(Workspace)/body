@@ -8,5 +8,5 @@
   desktop.setBackground(UISupport.MAC_BACKGROUND_COLOR);
   enableWindowActions();
   desktop.addComponentListener(new DesktopResizeListener());
-  desktop.setDesktopManager(new BoundsAwareDesktopManager(desktop.getDesktopManager()));
+  desktop.setDesktopManager(new BoundsAwareDesktopManager(UISupport.isMac() ? new MostRecentlyUsedOrderDesktopManager() : desktop.getDesktopManager()));
 }
