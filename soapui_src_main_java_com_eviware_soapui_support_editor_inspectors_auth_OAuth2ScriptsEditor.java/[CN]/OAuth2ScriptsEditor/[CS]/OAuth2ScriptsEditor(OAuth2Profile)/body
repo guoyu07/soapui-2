@@ -1,34 +1,9 @@
 {
   super(new BorderLayout());
-  JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
-  JButton testScriptsButton=new JButton("Test scripts");
-  testScriptsButton.setName(TEST_SCRIPTS_BUTTON_NAME);
-  testScriptsButton.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      testScripts(profile);
-    }
-  }
-);
-  JButton addScriptButton=new JButton("Add script");
-  addScriptButton.setName(ADD_SCRIPT_BUTTON_NAME);
-  addScriptButton.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      addScript();
-    }
-  }
-);
-  JButton removeScriptButton=new JButton("Remove script");
-  removeScriptButton.setName(REMOVE_SCRIPT_BUTTON_NAME);
-  removeScriptButton.addActionListener(new ActionListener(){
-    @Override public void actionPerformed(    ActionEvent e){
-      removeScript();
-    }
-  }
-);
-  buttonPanel.add(addScriptButton);
-  buttonPanel.add(removeScriptButton);
-  buttonPanel.add(testScriptsButton);
-  add(buttonPanel,BorderLayout.NORTH);
-  scriptsPanel=makeScriptsPanel(profile);
+  add(buildToolbar(profile),BorderLayout.NORTH);
+  makeScriptsPanel(profile);
   add(new JScrollPane(scriptsPanel),BorderLayout.CENTER);
+  JPanel linkPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+  linkPanel.add(makeLabelLink(HELP_LINK_URL,HELP_LINK_TEXT));
+  add(linkPanel,BorderLayout.SOUTH);
 }

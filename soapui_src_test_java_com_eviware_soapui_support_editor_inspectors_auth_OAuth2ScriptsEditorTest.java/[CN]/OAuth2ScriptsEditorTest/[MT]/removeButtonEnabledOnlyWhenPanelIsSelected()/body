@@ -1,0 +1,5 @@
+{
+  assertThat(containerWalker.findButtonWithName(OAuth2ScriptsEditor.REMOVE_SCRIPT_BUTTON_NAME),is(not(enabled())));
+  editorWithoutScripts.selectField(containerWalker.findComponent("Input panel 2",OAuth2ScriptsEditor.InputPanel.class));
+  assertThat(containerWalker.findButtonWithName(OAuth2ScriptsEditor.REMOVE_SCRIPT_BUTTON_NAME),is(enabled()));
+}

@@ -1,0 +1,22 @@
+{
+  super(new BorderLayout(20,20));
+  this.scriptField=scriptField;
+  add(new JLabel(scriptName),BorderLayout.NORTH);
+  add(new JScrollPane(scriptField),BorderLayout.CENTER);
+  MouseAdapter selectionHandler=new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      if (selectedInputField == InputPanel.this) {
+        if (e.getSource() == InputPanel.this) {
+          selectField(null);
+        }
+      }
+ else {
+        selectField(InputPanel.this);
+      }
+    }
+  }
+;
+  addMouseListener(selectionHandler);
+  setBorder(BorderFactory.createLineBorder(Color.WHITE));
+  originalBackground=getBackground();
+}

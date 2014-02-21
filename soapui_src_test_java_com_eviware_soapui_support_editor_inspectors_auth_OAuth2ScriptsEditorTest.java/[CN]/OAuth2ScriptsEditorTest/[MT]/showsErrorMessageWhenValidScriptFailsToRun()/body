@@ -1,7 +1,7 @@
 {
   final String validScript="alert('valid')";
   stubbedExtractor.shouldSimulateJavaScriptErrors=true;
-  containerWalker.findTextComponent("Page 1").setText(validScript);
+  containerWalker.findTextComponent(OAuth2ScriptsEditor.DEFAULT_SCRIPT_NAMES[0]).setText(validScript);
   containerWalker.findButtonWithName(OAuth2ScriptsEditor.TEST_SCRIPTS_BUTTON_NAME).doClick();
   waitForSwingThread();
   assertThat(stubbedDialogs.getErrorMessages(),is(aCollectionWithSize(1)));

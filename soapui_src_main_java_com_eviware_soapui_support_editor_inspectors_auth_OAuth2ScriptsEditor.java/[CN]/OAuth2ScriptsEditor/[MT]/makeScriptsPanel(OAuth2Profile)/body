@@ -6,7 +6,9 @@
   }
 ;
   List<String> currentScripts=profile.getAutomationJavaScripts();
-  JPanel scriptsPanel=new JPanel(new GridLayout(0,1,15,15));
+  scriptsPanel=new JPanel();
+  scriptsPanel.setLayout(new BoxLayout(scriptsPanel,BoxLayout.Y_AXIS));
+  scriptsPanel.setBackground(Color.WHITE);
   int numberOfFields=Math.max(2,currentScripts.size());
   for (int index=0; index < numberOfFields; index++) {
     RSyntaxTextArea scriptField=SyntaxEditorUtil.createDefaultJavaScriptSyntaxTextArea();
@@ -17,7 +19,13 @@
     }
     scriptField.getDocument().addDocumentListener(scriptUpdater);
     scriptFields.add(scriptField);
-    scriptsPanel.add(new InputAreaWithHeader(scriptName,scriptField));
+    InputPanel inputPanel=new InputPanel(scriptName,scriptField);
+    inputPanel.setName("Input panel " + (index + 1));
+    inputPanels.add(inputPanel);
+    scriptsPanel.add(inputPanel);
   }
-  return scriptsPanel;
+  JPanel parentPanel=new JPanel(new BorderLayout());
+  parentPanel.setBorder(new CompoundBorder(new LineBorder(Color.BLACK),new EmptyBorder(15,15,15,15)));
+  parentPanel.add(scriptsPanel,BorderLayout.CENTER);
+  return parentPanel;
 }

@@ -1,8 +1,13 @@
 {
   RSyntaxTextArea scriptField=SyntaxEditorUtil.createDefaultJavaScriptSyntaxTextArea();
-  String fieldName="Page " + (scriptFields.size() + 1);
+  int index=scriptFields.size() + 1;
+  String fieldName="Page " + index;
   scriptField.setName(fieldName);
   scriptFields.add(scriptField);
-  scriptsPanel.add(new InputAreaWithHeader(fieldName,scriptField));
+  InputPanel inputPanel=new InputPanel(fieldName,scriptField);
+  inputPanel.setName("Input panel " + index);
+  inputPanels.add(inputPanel);
+  scriptsPanel.add(inputPanel,-1);
   scriptsPanel.revalidate();
+  scriptsPanel.repaint();
 }
