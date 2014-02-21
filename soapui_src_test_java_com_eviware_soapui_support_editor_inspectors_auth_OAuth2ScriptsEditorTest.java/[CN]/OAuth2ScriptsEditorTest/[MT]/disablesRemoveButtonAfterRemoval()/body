@@ -1,0 +1,7 @@
+{
+  editorWithoutScripts.selectField(containerWalker.findComponent("Input panel 2",OAuth2ScriptsEditor.InputPanel.class));
+  stubbedDialogs.mockConfirmWithReturnValue(true);
+  AbstractButton removeButton=containerWalker.findButtonWithName(OAuth2ScriptsEditor.REMOVE_SCRIPT_BUTTON_NAME);
+  removeButton.doClick();
+  assertThat(removeButton,is(not(enabled())));
+}
