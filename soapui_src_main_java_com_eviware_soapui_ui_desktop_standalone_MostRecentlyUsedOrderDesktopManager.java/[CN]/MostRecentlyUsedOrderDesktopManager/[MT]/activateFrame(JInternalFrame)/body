@@ -1,8 +1,8 @@
 {
-  if (f == null) {
+  if (f == null || isClosingFrame) {
     return;
   }
-  super.activateFrame(f);
+  delegate.activateFrame(f);
   if (!mostRecentlyUsedFrames.isEmpty() && f.equals(mostRecentlyUsedFrames.getFirst())) {
     selectTopFrame(null);
     return;
