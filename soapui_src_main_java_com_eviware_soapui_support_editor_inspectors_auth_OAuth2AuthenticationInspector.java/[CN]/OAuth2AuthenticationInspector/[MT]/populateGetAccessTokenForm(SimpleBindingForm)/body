@@ -5,7 +5,7 @@
   formTitleLabel.setFont(fontBold);
   accessTokenForm.addComponent(formTitleLabel);
   accessTokenForm.addSpace(NORMAL_SPACING);
-  AbstractValueModel valueModel=accessTokenForm.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW,"getOAuth2Flow","setOAuth2Flow");
+  AbstractValueModel valueModel=accessTokenForm.getPresentationModel().getModel(OAuth2Profile.OAUTH2_FLOW_PROPERTY,"getOAuth2Flow","setOAuth2Flow");
   ComboBoxModel oauth2FlowsModel=new DefaultComboBoxModel<OAuth2Profile.OAuth2Flow>(OAuth2Profile.OAuth2Flow.values());
   JComboBox oauth2FlowComboBox=accessTokenForm.appendComboBox("OAuth2.0 Flow",oauth2FlowsModel,"OAuth2.0 Authorization Flow",valueModel);
   oauth2FlowComboBox.setName(OAUTH_2_FLOW_COMBO_BOX_NAME);
@@ -32,5 +32,6 @@
   accessTokenForm.appendTextField(OAuth2Profile.SCOPE_PROPERTY,SCOPE,"");
   accessTokenForm.addSpace(NORMAL_SPACING);
   accessTokenForm.addButtonWithoutLabel("Get Access Token",new GetOAuthAccessTokenAction(profile));
+  accessTokenForm.addButtonWithoutLabel("Edit scripts",new EditScriptsAction(profile));
   accessTokenForm.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
 }

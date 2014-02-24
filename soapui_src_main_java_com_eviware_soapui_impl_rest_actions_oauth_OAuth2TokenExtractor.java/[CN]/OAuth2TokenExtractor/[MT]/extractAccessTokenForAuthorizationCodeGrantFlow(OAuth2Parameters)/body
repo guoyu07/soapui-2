@@ -1,20 +1,21 @@
 {
-{
-    browserFacade.addBrowserStateListener(new BrowserStateChangeListener(){
-      @Override public void locationChanged(      String newLocation){
-        getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),CODE));
-      }
-      @Override public void contentChanged(      String newContent){
-        int titlePosition=newContent.indexOf(TITLE);
-        if (titlePosition != -1) {
-          String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
-          getAccessTokenAndSaveToProfile(parameters,extractAuthorizationCodeFromTitle(title));
-        }
+  final UserBrowserFacade browserFacade=getBrowserFacade();
+  addBrowserInteractionHandler(browserFacade,parameters);
+  addExternalListeners(browserFacade);
+  browserFacade.addBrowserListener(new BrowserListenerAdapter(){
+    @Override public void locationChanged(    String newLocation){
+      getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),CODE));
+    }
+    @Override public void contentChanged(    String newContent){
+      int titlePosition=newContent.indexOf(TITLE);
+      if (titlePosition != -1) {
+        String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
+        getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromTitle(title));
       }
     }
-);
-    parameters.startAccessTokenFlow();
-    browserFacade.open(new URI(createAuthorizationURL(parameters,CODE)).toURL());
-    parameters.waitingForAuthorization();
   }
+);
+  parameters.startAccessTokenFlow();
+  browserFacade.open(new URI(createAuthorizationURL(parameters,CODE)).toURL());
+  parameters.waitingForAuthorization();
 }

@@ -1,0 +1,7 @@
+{
+  JTextComponent component=(JTextComponent)Iterables.find(containedComponents,new ComponentClassAndNamePredicate(JTextComponent.class,componentName));
+  if (component == null) {
+    throw new NoSuchElementException("No text component with name '" + componentName + "' found");
+  }
+  return component;
+}
