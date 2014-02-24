@@ -1,0 +1,7 @@
+{
+  String url=urlField.getText();
+  if (!urlField.getText().toLowerCase().startsWith("http")) {
+    url="http://" + url;
+  }
+  webViewBasedBrowserComponent.navigate(url,null);
+}

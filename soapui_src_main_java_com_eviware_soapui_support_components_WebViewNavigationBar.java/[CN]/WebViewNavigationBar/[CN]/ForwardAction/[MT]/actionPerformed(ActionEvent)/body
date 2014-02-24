@@ -1,0 +1,15 @@
+{
+  if (webEngine == null)   return;
+  final WebHistory history=webEngine.getHistory();
+  if (history.getCurrentIndex() >= history.getEntries().size() - 1) {
+    Toolkit.getDefaultToolkit().beep();
+  }
+ else {
+    Platform.runLater(new Runnable(){
+      @Override public void run(){
+        history.go(1);
+      }
+    }
+);
+  }
+}

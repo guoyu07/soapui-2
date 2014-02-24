@@ -1,0 +1,23 @@
+{
+  this.webEngine=webEngine;
+  this.webViewBasedBrowserComponent=webViewBasedBrowserComponent;
+  webEngine.getHistory().currentIndexProperty().addListener(new ChangeListener<Number>(){
+    @Override public void changed(    ObservableValue<? extends Number> observableValue,    Number oldHistoryIndex,    Number newHistoryIndex){
+      if (backAction != null) {
+        backAction.setEnabled(observableValue.getValue().intValue() > 0);
+      }
+      if (forwardAction != null) {
+        forwardAction.setEnabled(observableValue.getValue().intValue() < webEngine.getHistory().getEntries().size() - 1);
+      }
+    }
+  }
+);
+  webEngine.locationProperty().addListener(new ChangeListener<String>(){
+    @Override public void changed(    ObservableValue<? extends String> observableValue,    String oldLocation,    String newLocation){
+      if (urlField != null) {
+        urlField.setText(newLocation);
+      }
+    }
+  }
+);
+}

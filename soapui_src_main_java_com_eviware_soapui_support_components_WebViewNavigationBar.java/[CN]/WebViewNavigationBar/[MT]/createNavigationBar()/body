@@ -1,0 +1,14 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  urlField=new JTextField();
+  backAction=new BackAction();
+  backAction.setEnabled(false);
+  toolbar.add(backAction);
+  forwardAction=new ForwardAction();
+  forwardAction.setEnabled(false);
+  toolbar.add(forwardAction);
+  toolbar.add(new ReloadAction());
+  toolbar.add(urlField);
+  urlField.addActionListener(new UrlEnteredActionListener());
+  return toolbar;
+}
