@@ -2,9 +2,11 @@
   if (evt.getPropertyName().equals(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY)) {
     String status=(String)evt.getNewValue();
     if (status.equals(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString())) {
-      accessTokenTextField.setBackground(Color.GREEN);
-      accessTokenStatusLabel.setText(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString());
-      accessTokenStatusLabel.setIcon(UISupport.HELP_ICON);
+      accessTokenField.setBackground(SUCCESS_COLOR);
+      accessTokenStatusIcon.setIcon(SUCCESS_ICON);
+      accessTokenStatusIcon.setVisible(true);
+      accessTokenStatusText.setText(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString());
+      accessTokenStatusText.setVisible(true);
     }
   }
 }

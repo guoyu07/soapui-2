@@ -2,9 +2,18 @@
   JTextField accessTokenField=new JTextField();
   accessTokenField.setName(OAuth2Profile.ACCESS_TOKEN_PROPERTY);
   accessTokenField.setColumns(SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
+  accessTokenField.setMargin(ACCESS_TOKEN_FIELD_INSETS);
   Bindings.bind(accessTokenField,oAuth2Form.getPresentationModel().getModel(OAuth2Profile.ACCESS_TOKEN_PROPERTY));
-  JLabel accessTokenStatusLabel=new JLabel();
-  oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusLabel);
+  JLabel accessTokenStatusIcon=new JLabel();
+  accessTokenStatusIcon.setVisible(false);
+  JTextArea accessTokenStatusText=new JTextArea();
+  accessTokenStatusText.setFont(scaledFont(accessTokenStatusText,ACCESS_TOKEN_STATUS_FONT_SCALE));
+  accessTokenStatusText.setLineWrap(true);
+  accessTokenStatusText.setColumns(10);
+  accessTokenStatusText.setBackground(CARD_BACKGROUND_COLOR);
+  accessTokenStatusText.setBorder(createEmptyBorder());
+  accessTokenStatusText.setVisible(false);
+  oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
   final JButton refreshAccessTokenButton=new JButton("Refresh");
   refreshAccessTokenButton.setName(REFRESH_ACCESS_TOKEN_BUTTON_NAME);
   refreshAccessTokenButton.addActionListener(new RefreshOAuthAccessTokenAction(profile));
@@ -14,8 +23,12 @@
   wrapperPanel.setLayout(new BoxLayout(wrapperPanel,BoxLayout.X_AXIS));
   wrapperPanel.setBackground(CARD_BACKGROUND_COLOR);
   wrapperPanel.add(accessTokenField);
-  wrapperPanel.add(accessTokenStatusLabel);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
+  wrapperPanel.add(accessTokenStatusIcon);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
+  wrapperPanel.add(accessTokenStatusText);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
   wrapperPanel.add(refreshAccessTokenButton);
-  oAuth2Form.append("Access Token",wrapperPanel);
+  oAuth2Form.append(ACCESS_TOKEN_LABEL,wrapperPanel);
   return refreshAccessTokenButton;
 }
