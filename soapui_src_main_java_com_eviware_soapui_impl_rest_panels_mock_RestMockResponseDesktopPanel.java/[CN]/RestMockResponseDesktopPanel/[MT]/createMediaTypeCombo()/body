@@ -1,3 +1,10 @@
 {
-  return createPanelWithLabel("Media type: ",new MediaTypeComboBox(this.getModelItem()));
+  MediaTypeComboBox mediaTypeComboBox=new MediaTypeComboBox(this.getModelItem());
+  mediaTypeComboBox.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      setMediaType(getResponseEditor().getInputArea(),e.getItem().toString());
+    }
+  }
+);
+  return createPanelWithLabel("Media type: ",mediaTypeComboBox);
 }
