@@ -1,5 +1,6 @@
 {
-  editorWithoutScripts=new TestableOAuth2ScriptsEditor(createProfileWith(Collections.<String>emptyList()));
-  containerWalker=new ContainerWalker(editorWithoutScripts);
+  oAuth2Profile=createProfileWith(Collections.<String>emptyList());
+  editor=new TestableOAuth2ScriptsEditor(oAuth2Profile);
+  containerWalker=new ContainerWalker(editor);
   stubbedExtractor=new StubbedExtractor();
 }
