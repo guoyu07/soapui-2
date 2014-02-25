@@ -3,6 +3,7 @@
   int index=scriptFields.size() + 1;
   String fieldName="Page " + index;
   scriptField.setName(fieldName);
+  scriptField.getDocument().addDocumentListener(scriptUpdater);
   scriptFields.add(scriptField);
   InputPanel inputPanel=new InputPanel(fieldName,scriptField);
   inputPanel.setName("Input panel " + index);

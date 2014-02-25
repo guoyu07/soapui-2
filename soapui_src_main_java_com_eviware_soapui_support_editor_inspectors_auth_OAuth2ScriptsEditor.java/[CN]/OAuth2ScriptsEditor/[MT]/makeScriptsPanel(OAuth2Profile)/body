@@ -1,10 +1,5 @@
 {
-  DocumentListener scriptUpdater=new DocumentListenerAdapter(){
-    @Override public void update(    Document document){
-      profile.setAutomationJavaScripts(getJavaScripts());
-    }
-  }
-;
+  scriptUpdater=new ScriptUpdater(profile);
   List<String> currentScripts=profile.getAutomationJavaScripts();
   scriptsPanel=new JPanel();
   scriptsPanel.setLayout(new BoxLayout(scriptsPanel,BoxLayout.Y_AXIS));

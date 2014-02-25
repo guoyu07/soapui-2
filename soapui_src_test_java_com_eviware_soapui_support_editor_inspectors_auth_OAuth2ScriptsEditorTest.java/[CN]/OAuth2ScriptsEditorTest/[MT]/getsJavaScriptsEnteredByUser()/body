@@ -1,7 +1,7 @@
 {
   final String firstScript="alert('first')";
   final String secondScript="alert('second')";
-  containerWalker.findTextComponent(OAuth2ScriptsEditor.DEFAULT_SCRIPT_NAMES[0]).setText(firstScript);
-  containerWalker.findTextComponent(OAuth2ScriptsEditor.DEFAULT_SCRIPT_NAMES[1]).setText(secondScript);
+  enterScript(0,firstScript);
+  enterScript(1,secondScript);
   assertThat(editor.getJavaScripts(),is(Arrays.asList(firstScript,secondScript)));
 }
