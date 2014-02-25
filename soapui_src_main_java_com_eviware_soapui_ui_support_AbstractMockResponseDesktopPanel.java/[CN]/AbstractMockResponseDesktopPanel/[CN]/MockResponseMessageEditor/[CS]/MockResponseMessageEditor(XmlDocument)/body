@@ -3,7 +3,9 @@
   if (isBidirectional()) {
     XmlSourceEditorView<?> editor=getSourceEditor();
     inputArea=editor.getInputArea();
-    inputArea.addFocusListener(new ResultAreaFocusListener());
+    if (hasRequestEditor()) {
+      inputArea.addFocusListener(new ResultAreaFocusListener());
+    }
     if (UISupport.isMac()) {
       inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
       inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
