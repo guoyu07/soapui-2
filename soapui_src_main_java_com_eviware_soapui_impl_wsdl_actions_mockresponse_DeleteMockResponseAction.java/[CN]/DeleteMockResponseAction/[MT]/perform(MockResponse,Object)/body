@@ -1,6 +1,6 @@
 {
   if (UISupport.confirm("Delete MockResponse [" + mockResponse.getName() + "] from MockOperation ["+ mockResponse.getMockOperation().getName()+ "]",getName())) {
-    WsdlMockOperation operation=(WsdlMockOperation)mockResponse.getMockOperation();
+    MockOperation operation=mockResponse.getMockOperation();
     operation.removeMockResponse(mockResponse);
   }
 }
