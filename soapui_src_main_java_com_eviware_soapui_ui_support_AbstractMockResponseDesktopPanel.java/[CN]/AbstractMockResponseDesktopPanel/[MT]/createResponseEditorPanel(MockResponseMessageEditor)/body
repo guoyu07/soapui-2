@@ -1,8 +1,15 @@
 {
-  JComponent responseEditorPanel=new JPanel();
-  responseEditorPanel.setLayout(new BoxLayout(responseEditorPanel,BoxLayout.Y_AXIS));
-  responseEditorPanel.add(addTopEditorPanel());
-  responseEditorPanel.add(Box.createVerticalStrut(10));
-  responseEditorPanel.add(responseEditor);
-  return responseEditorPanel;
+  if (hasTopEditorPanel()) {
+    JSplitPane responseEditorSplit=UISupport.createVerticalSplit();
+    responseEditorSplit.add(addTopEditorPanel());
+    responseEditorSplit.add(addBottomEditorPanel(responseEditor));
+    responseEditorSplit.setDividerLocation(200);
+    return responseEditorSplit;
+  }
+ else {
+    JComponent responseEditorPanel=new JPanel();
+    responseEditorPanel.setLayout(new BoxLayout(responseEditorPanel,BoxLayout.Y_AXIS));
+    responseEditorPanel.add(responseEditor);
+    return responseEditorPanel;
+  }
 }
