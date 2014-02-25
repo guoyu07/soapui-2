@@ -5,8 +5,6 @@
   splitButton=createActionButton(new ChangeSplitPaneOrientationAction(requestSplitPane),true);
   tabsButton=new JToggleButton(new ChangeToTabsAction());
   tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
-  openRequestButton=createActionButton(SwingActionDelegate.createDelegate(OpenRequestForMockResponseAction.SOAPUI_ACTION_ID,mockResponse,null,"/open_request.gif"),true);
-  recreateButton=createActionButton(new RecreateMockResponseAction(mockResponse),isBidirectional());
   moveFocusAction=new MoveFocusAction();
   requestEditor=buildRequestEditor();
   responseEditor=buildResponseEditor();
