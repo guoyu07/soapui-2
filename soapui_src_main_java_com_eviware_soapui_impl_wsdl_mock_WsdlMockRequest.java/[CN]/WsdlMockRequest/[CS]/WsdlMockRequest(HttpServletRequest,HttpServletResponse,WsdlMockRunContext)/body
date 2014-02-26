@@ -1,3 +1,6 @@
 {
   super(request,response,context);
+  if ("POST".equals(request.getMethod())) {
+    initPostRequest(request,context);
+  }
 }

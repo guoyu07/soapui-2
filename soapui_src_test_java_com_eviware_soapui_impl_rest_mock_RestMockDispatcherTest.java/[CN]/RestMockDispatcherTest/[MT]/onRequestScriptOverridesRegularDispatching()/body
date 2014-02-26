@@ -2,6 +2,6 @@
   createRestMockDispatcher();
   RestMockResult restMockResult=mock(RestMockResult.class);
   when(restMockService.runOnRequestScript(any(WsdlMockRunContext.class),any(MockRequest.class))).thenReturn(restMockResult);
-  RestMockResult mockResult=(RestMockResult)restMockDispatcher.dispatchRequest(request,response);
+  restMockDispatcher.dispatchRequest(request,response);
   verify(restMockService,never()).findOperationMatchingPath(anyString());
 }

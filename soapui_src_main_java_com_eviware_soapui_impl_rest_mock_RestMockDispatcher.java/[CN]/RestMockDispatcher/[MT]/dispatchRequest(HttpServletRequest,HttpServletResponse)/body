@@ -1,6 +1,6 @@
 {
+  RestMockRequest restMockRequest=new RestMockRequest(request,response,mockContext);
   try {
-    RestMockRequest restMockRequest=new RestMockRequest(request,response,mockContext);
     Object result=mockService.runOnRequestScript(mockContext,restMockRequest);
     if (!(result instanceof MockResult)) {
       result=getMockResult(restMockRequest);
@@ -10,6 +10,7 @@
     return mockResult;
   }
  catch (  Exception e) {
-    throw new DispatchException(e);
+    SoapUI.logError(e,"got an exception while dispatching - returning a default 500 response");
+    return createServerErrorMockResult(restMockRequest);
   }
 }
