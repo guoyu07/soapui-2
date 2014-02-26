@@ -1,7 +1,14 @@
 {
   initForm(oAuth2Form);
   oAuth2Form.addSpace(TOP_SPACING);
-  final JButton refreshAccessTokenButton=addAccessTokenFieldAndRefreshTokenButton(oAuth2Form);
+  JTextField accessTokenField=createAccessTokenField();
+  JLabel accessTokenStatusIcon=createAccessTokenStatusIcon();
+  JTextArea accessTokenStatusText=createAccessTokenStatusText();
+  oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
+  profile.addPropertyChangeListener(oAuth2StatusPropertyChangeListener);
+  final JButton refreshAccessTokenButton=createRefreshButton();
+  JPanel accessTokenRowPanel=createAccessTokenRowPanel(accessTokenField,accessTokenStatusIcon,accessTokenStatusText,refreshAccessTokenButton);
+  oAuth2Form.append(ACCESS_TOKEN_LABEL,accessTokenRowPanel);
   oAuth2Form.addInputFieldHintText("Enter existing access token, or use \"Get Token\" below.");
   final JLabel disclosureButton=new JLabel("??? Get Token");
   disclosureButton.setName("oAuth2DisclosureButton");
