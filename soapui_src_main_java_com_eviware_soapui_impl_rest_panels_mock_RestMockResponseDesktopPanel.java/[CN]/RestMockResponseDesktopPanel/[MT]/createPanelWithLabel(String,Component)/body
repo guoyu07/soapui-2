@@ -1,8 +1,8 @@
 {
-  JPanel panel=new JPanel();
-  panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS));
-  panel.add(new JLabel(labelText));
-  panel.add(rightSideComponent);
-  panel.add(Box.createHorizontalGlue());
-  return panel;
+  JPanel innerPanel=new JPanel();
+  innerPanel.add(new JLabel(labelText));
+  innerPanel.add(rightSideComponent);
+  JPanel outerPanel=new JPanel(new BorderLayout());
+  outerPanel.add(innerPanel,BorderLayout.WEST);
+  return outerPanel;
 }
