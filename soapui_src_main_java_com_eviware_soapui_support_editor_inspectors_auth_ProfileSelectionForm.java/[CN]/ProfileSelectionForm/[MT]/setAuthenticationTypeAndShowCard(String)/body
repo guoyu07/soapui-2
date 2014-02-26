@@ -4,9 +4,9 @@
     return;
   }
   request.setSelectedAuthProfile(selectedOption);
-  if (createOAuth2ProfileNameList().contains(selectedOption)) {
+  if (getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(selectedOption)) {
     request.setAuthType(CredentialsConfig.AuthType.O_AUTH_2.toString());
-    OAuth2Form oAuth2Form=new OAuth2Form(getProfileForName(selectedOption));
+    OAuth2Form oAuth2Form=new OAuth2Form(getOAuth2ProfileContainer().getProfileByName(selectedOption));
     cardPanel.add(oAuth2Form.getComponent(),OAUTH_2_FORM_LABEL);
     showCard(OAUTH_2_FORM_LABEL);
   }

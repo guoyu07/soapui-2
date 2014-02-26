@@ -1,7 +1,7 @@
 {
   ArrayList<String> options=new ArrayList<String>();
   options.add(NO_AUTHORIZATION);
-  ArrayList<String> oAuth2Profiles=createOAuth2ProfileNameList();
+  ArrayList<String> oAuth2Profiles=getOAuth2ProfileContainer().getOAuth2ProfileNameList();
   options.addAll(oAuth2Profiles);
   options.addAll(request.getBasicAuthenticationProfiles());
   ArrayList<String> addEditOptions=getAddEditOptions();

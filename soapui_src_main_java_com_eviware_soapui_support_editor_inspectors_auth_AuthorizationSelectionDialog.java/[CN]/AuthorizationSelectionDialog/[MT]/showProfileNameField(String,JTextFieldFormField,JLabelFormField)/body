@@ -1,0 +1,12 @@
+{
+  if (authorizationType.equals(CredentialsConfig.AuthType.O_AUTH_2.toString())) {
+    ((JLabel)profileNameField.getComponent().getClientProperty("labeledBy")).setVisible(true);
+    profileNameField.getComponent().setVisible(true);
+    hintTextLabel.getComponent().setVisible(true);
+  }
+ else {
+    ((JLabel)profileNameField.getComponent().getClientProperty("labeledBy")).setVisible(false);
+    profileNameField.getComponent().setVisible(false);
+    hintTextLabel.getComponent().setVisible(false);
+  }
+}

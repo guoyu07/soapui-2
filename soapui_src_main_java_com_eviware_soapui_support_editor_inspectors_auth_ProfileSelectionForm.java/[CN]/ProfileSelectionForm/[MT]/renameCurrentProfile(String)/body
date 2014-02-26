@@ -9,7 +9,7 @@
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
   }
-  OAuth2Profile profile=getProfileForName(profileOldName);
+  OAuth2Profile profile=getOAuth2ProfileContainer().getProfileByName(profileOldName);
   profile.setName(newName);
   request.setSelectedAuthProfile(newName);
   refreshProfileSelectionComboBox(newName);

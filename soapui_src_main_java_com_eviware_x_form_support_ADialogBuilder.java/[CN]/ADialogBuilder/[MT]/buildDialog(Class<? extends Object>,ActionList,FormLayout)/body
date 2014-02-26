@@ -1,12 +1,11 @@
 {
-  if (useDefaultOkCancel)   return buildDialog(formClass,actions);
   AForm formAnnotation=formClass.getAnnotation(AForm.class);
   if (formAnnotation == null) {
     throw new RuntimeException("formClass is not annotated correctly..");
   }
   MessageSupport messages=MessageSupport.getMessages(formClass);
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder(messages.get(formAnnotation.name()));
-  XForm form=createForm(builder,null);
+  XForm form=createForm(builder,layout);
   for (  Field field : formClass.getFields()) {
     AField fieldAnnotation=field.getAnnotation(AField.class);
     if (fieldAnnotation != null) {
@@ -18,11 +17,9 @@
       }
     }
   }
-  ActionList defaultActions=formAnnotation.helpUrl() == null ? null : builder.buildHelpActions(formAnnotation.helpUrl());
+  ActionList defaultActions=formAnnotation.helpUrl() == null ? builder.buildOkCancelActions() : builder.buildOkCancelHelpActions(formAnnotation.helpUrl());
   if (actions == null)   actions=defaultActions;
- else {
-    actions.insertAction(defaultActions.getActionAt(0),0);
-  }
+ else   actions.addActions(defaultActions);
   XFormDialog dialog=builder.buildDialog(actions,messages.get(formAnnotation.description()),UISupport.createImageIcon(formAnnotation.icon()));
   return dialog;
 }
