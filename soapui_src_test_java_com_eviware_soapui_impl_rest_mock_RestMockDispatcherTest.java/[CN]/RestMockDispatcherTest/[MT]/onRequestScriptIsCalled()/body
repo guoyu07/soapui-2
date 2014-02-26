@@ -1,0 +1,5 @@
+{
+  createRestMockDispatcher();
+  RestMockResult mockResult=(RestMockResult)restMockDispatcher.dispatchRequest(request,response);
+  verify(restMockService).runOnRequestScript(any(WsdlMockRunContext.class),any(MockRequest.class));
+}
