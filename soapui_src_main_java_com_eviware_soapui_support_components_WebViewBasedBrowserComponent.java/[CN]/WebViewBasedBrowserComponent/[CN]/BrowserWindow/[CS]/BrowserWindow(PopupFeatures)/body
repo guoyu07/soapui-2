@@ -2,4 +2,10 @@
   browser=new WebViewBasedBrowserComponent(popupFeatures.hasToolbar());
   getContentPane().setLayout(new BorderLayout());
   getContentPane().add(browser.getComponent());
+  addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent e){
+      browser.handleClose();
+    }
+  }
+);
 }
