@@ -1,7 +1,5 @@
 {
   this.project=project;
   this.configuration=configuration;
-  for (  OAuth2ProfileConfig profileConfig : configuration.getOAuth2ProfileList()) {
-    oAuth2ProfileList.add(new OAuth2Profile(this,profileConfig));
-  }
+  buildOAuth2ProfileList();
 }

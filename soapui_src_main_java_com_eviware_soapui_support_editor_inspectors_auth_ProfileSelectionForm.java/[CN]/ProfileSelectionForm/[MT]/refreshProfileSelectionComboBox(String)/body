@@ -1,0 +1,6 @@
+{
+  profileSelectionComboBox.setModel(new DefaultComboBoxModel(createOptionsForAuthorizationCombo()));
+  profileSelectionComboBox.removeActionListener(profileSelectionComboBox.getActionListeners()[0]);
+  profileSelectionComboBox.addActionListener(new ProfileSelectionListener());
+  profileSelectionComboBox.setSelectedItem(selectedProfile);
+}

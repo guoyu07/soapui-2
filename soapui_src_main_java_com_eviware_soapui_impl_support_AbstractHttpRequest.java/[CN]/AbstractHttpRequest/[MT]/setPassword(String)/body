@@ -1,7 +1,6 @@
 {
   String old=getPassword();
-  CredentialsConfig credentialsConfig=getConfig().getCredentials();
-  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
   credentialsConfig.setPassword(password);
   notifyPropertyChanged("password",old,password);
 }
