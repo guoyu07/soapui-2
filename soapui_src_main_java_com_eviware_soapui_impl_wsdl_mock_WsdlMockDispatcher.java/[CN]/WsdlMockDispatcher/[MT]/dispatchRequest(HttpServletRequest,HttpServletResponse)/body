@@ -16,10 +16,6 @@
  else     throw new DispatchException(e);
   }
  finally {
-    if (result != null && result instanceof MockResult) {
-      for (      MockRunListener listener : mockService.getMockRunListeners()) {
-        listener.onMockResult((MockResult)result);
-      }
-    }
+    mockService.fireOnMockResult(result);
   }
 }
