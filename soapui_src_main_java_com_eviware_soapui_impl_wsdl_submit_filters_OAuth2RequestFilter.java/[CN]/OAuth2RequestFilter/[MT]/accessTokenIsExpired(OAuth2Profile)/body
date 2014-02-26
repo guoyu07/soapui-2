@@ -2,8 +2,5 @@
   long currentTime=TimeUtils.getCurrentTimeInSeconds();
   long issuedTime=profile.getAccessTokenIssuedTime();
   long expirationTime=profile.getAccessTokenExpirationTime();
-  if (issuedTime <= 0 || expirationTime <= 0) {
-    return false;
-  }
-  return expirationTime < currentTime - issuedTime;
+  return !(issuedTime <= 0 || expirationTime <= 0) && expirationTime < currentTime - issuedTime;
 }

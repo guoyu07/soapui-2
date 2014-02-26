@@ -1,0 +1,11 @@
+{
+  mostRecentlyUsedFrames.remove(f);
+  try {
+    isClosingFrame=true;
+    delegate.closeFrame(f);
+  }
+  finally {
+    isClosingFrame=false;
+  }
+  selectTopFrame(f);
+}

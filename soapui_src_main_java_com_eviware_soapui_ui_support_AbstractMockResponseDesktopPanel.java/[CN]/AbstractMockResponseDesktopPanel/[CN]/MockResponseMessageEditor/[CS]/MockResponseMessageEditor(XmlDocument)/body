@@ -2,8 +2,10 @@
   super(document,mockResponse);
   if (isBidirectional()) {
     XmlSourceEditorView<?> editor=getSourceEditor();
-    RSyntaxTextArea inputArea=editor.getInputArea();
-    inputArea.addFocusListener(new ResultAreaFocusListener());
+    inputArea=editor.getInputArea();
+    if (hasRequestEditor()) {
+      inputArea.addFocusListener(new ResultAreaFocusListener());
+    }
     if (UISupport.isMac()) {
       inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
       inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);

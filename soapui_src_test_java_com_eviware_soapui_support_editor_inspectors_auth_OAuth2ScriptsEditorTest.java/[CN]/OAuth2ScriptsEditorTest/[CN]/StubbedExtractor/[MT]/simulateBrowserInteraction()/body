@@ -1,0 +1,10 @@
+{
+  if (shouldSimulateJavaScriptErrors) {
+    for (    BrowserListener browserListener : browserListeners) {
+      browserListener.javaScriptErrorOccurred("document.usr.value = 'kalle'","http://mock.com",new RuntimeException("Mock error"));
+    }
+  }
+  for (  BrowserListener browserListener : browserListeners) {
+    browserListener.browserClosed();
+  }
+}

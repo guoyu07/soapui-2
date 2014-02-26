@@ -4,7 +4,7 @@
   textArea.setRows(defaultTextAreaRows);
   textArea.setAutoscrolls(true);
   textArea.add(new JScrollPane());
-  textArea.setToolTipText(tooltip);
+  setToolTip(textArea,tooltip);
   textArea.getAccessibleContext().setAccessibleDescription(tooltip);
   JTextComponentPopupMenu.add(textArea);
   append(label,new JScrollPane(textArea));

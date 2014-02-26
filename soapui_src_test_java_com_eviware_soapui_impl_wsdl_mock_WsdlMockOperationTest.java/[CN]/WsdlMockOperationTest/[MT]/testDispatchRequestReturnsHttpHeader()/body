@@ -1,0 +1,11 @@
+{
+  StringToStringsMap responseHeaders=mockResponse.getResponseHeaders();
+  String headerKey="awesomekey";
+  String headerValue="awesomevalue";
+  responseHeaders.add(headerKey,headerValue);
+  mockResponse.setResponseHeaders(responseHeaders);
+  WsdlMockResult mockResult=mockOperation.dispatchRequest(restMockRequest);
+  verify(mockResult.getMockRequest().getHttpResponse()).addHeader(headerKey,headerValue);
+  assertThat(mockResult.getResponseHeaders().get(headerKey,""),is(headerValue));
+  assertThat(mockResult.getMockResponse().getResponseHeaders().get(headerKey,""),is(headerValue));
+}

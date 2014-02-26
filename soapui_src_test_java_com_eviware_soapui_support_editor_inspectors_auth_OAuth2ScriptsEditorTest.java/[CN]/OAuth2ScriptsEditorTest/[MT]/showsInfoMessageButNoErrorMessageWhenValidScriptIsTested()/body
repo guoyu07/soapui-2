@@ -1,0 +1,8 @@
+{
+  final String validScript="alert('hej')";
+  enterScript(0,validScript);
+  containerWalker.findButtonWithName(OAuth2ScriptsEditor.TEST_SCRIPTS_BUTTON_NAME).doClick();
+  waitForSwingThread();
+  assertThat(stubbedDialogs.getErrorMessages(),is(anEmptyCollection()));
+  assertThat(stubbedDialogs.getInfoMessages(),is(aCollectionWithSize(1)));
+}

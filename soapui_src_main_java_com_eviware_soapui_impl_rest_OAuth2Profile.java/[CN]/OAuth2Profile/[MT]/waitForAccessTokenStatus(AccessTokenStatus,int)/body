@@ -1,0 +1,14 @@
+{
+  int timeLeft=timeout;
+  while (!String.valueOf(getAccessTokenStatus()).equals(accessTokenStatus.toString()) && timeLeft > 0) {
+    long startTime=System.currentTimeMillis();
+    try {
+synchronized (this) {
+        wait(timeLeft);
+      }
+    }
+ catch (    InterruptedException ignore) {
+    }
+    timeLeft-=(System.currentTimeMillis() - startTime);
+  }
+}

@@ -1,7 +1,7 @@
 {
   if (outsideDesktop(f,newX,newY)) {
-    Point pointInsideDesktop=findPositionInsideDesktop(f,newX,newY);
-    delegate.dragFrame(f,pointInsideDesktop.x,pointInsideDesktop.y);
+    Point positionWherePanelReachable=findPositionWherePanelReachable(f,newX,newY);
+    delegate.dragFrame(f,positionWherePanelReachable.x,positionWherePanelReachable.y);
   }
  else {
     delegate.dragFrame(f,newX,newY);

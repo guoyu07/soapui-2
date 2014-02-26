@@ -1,0 +1,11 @@
+{
+switch (parameters.getOAuth2Flow()) {
+case IMPLICIT_GRANT:
+    extractAccessTokenForImplicitGrantFlow(parameters);
+  break;
+case AUTHORIZATION_CODE_GRANT:
+default :
+extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+break;
+}
+}

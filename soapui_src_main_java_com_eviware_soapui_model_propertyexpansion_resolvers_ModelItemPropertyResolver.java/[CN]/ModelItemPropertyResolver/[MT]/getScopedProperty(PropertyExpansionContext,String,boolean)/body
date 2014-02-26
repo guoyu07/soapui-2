@@ -4,8 +4,8 @@
   TestCase testCase=null;
   TestSuite testSuite=null;
   Project project=null;
-  WsdlMockService mockService=null;
-  WsdlMockResponse mockResponse=null;
+  MockService mockService=null;
+  AbstractMockResponse mockResponse=null;
   SecurityTest securityTest=null;
   if (modelItem instanceof WsdlTestStep) {
     testStep=(WsdlTestStep)modelItem;
@@ -50,8 +50,8 @@
     mockService=((WsdlMockOperation)modelItem).getMockService();
     project=mockService.getProject();
   }
- else   if (modelItem instanceof WsdlMockResponse) {
-    mockResponse=(WsdlMockResponse)modelItem;
+ else   if (modelItem instanceof AbstractMockResponse) {
+    mockResponse=(AbstractMockResponse)modelItem;
     mockService=mockResponse.getMockOperation().getMockService();
     project=mockService.getProject();
   }

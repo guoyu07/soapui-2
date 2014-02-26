@@ -1,0 +1,5 @@
+{
+  List<String> scripts=Arrays.asList("alert('hello')","window.status='hello'");
+  OAuth2ScriptsEditor editorWithExistingScripts=new OAuth2ScriptsEditor(createProfileWith(scripts));
+  assertThat(editorWithExistingScripts.getJavaScripts(),is(scripts));
+}

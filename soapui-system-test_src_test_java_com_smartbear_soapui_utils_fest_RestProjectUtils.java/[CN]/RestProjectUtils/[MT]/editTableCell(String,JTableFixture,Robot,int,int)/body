@@ -1,5 +1,5 @@
 {
   robot.waitForIdle();
   JTextField tableCellEditor=(JTextField)table.cell(row(row).column(column)).editor();
-  new JTextComponentFixture(robot,tableCellEditor).enterText(paramValue).pressAndReleaseKey(KeyPressInfo.keyCode(KeyEvent.VK_ENTER));
+  new JTextComponentFixture(robot,tableCellEditor).setText(paramValue).pressAndReleaseKey(KeyPressInfo.keyCode(KeyEvent.VK_ENTER));
 }

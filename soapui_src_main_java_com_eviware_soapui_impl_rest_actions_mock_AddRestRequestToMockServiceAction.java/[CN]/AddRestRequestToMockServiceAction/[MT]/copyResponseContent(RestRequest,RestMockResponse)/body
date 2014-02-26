@@ -2,5 +2,6 @@
   if (restRequest != null && restRequest.getResponse() != null) {
     HttpResponse response=restRequest.getResponse();
     mockResponse.setResponseContent(response.getContentAsString());
+    mockResponse.setContentType(response.getContentType());
   }
 }

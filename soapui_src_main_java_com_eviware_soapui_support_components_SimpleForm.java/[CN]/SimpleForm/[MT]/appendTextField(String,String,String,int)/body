@@ -2,7 +2,7 @@
   JTextField textField=new JUndoableTextField();
   textField.setName(name);
   textField.setColumns(textFieldColumns);
-  textField.setToolTipText(tooltip);
+  setToolTip(textField,tooltip);
   textField.getAccessibleContext().setAccessibleDescription(tooltip);
   JTextComponentPopupMenu.add(textField);
   append(label,textField);

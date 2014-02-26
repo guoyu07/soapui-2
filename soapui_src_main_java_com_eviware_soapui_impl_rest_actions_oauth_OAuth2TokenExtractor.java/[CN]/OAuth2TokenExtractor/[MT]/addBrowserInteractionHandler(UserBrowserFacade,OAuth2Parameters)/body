@@ -1,0 +1,6 @@
+{
+  if (parameters.getJavaScripts().isEmpty()) {
+    return;
+  }
+  browserFacade.addBrowserListener(new BrowserInteractionMonitor(browserFacade,parameters.getJavaScripts()));
+}

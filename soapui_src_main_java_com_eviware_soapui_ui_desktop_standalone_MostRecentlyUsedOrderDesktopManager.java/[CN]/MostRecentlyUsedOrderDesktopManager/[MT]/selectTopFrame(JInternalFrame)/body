@@ -1,0 +1,21 @@
+{
+  JInternalFrame topFrame;
+  try {
+    if (mostRecentlyUsedFrames.isEmpty()) {
+      return;
+    }
+ else {
+      topFrame=mostRecentlyUsedFrames.getFirst();
+    }
+    if (previousTopFrame != null && !previousTopFrame.equals(topFrame)) {
+      if (previousTopFrame.isSelected()) {
+        previousTopFrame.setSelected(false);
+      }
+    }
+    if (!topFrame.isSelected()) {
+      topFrame.setSelected(true);
+    }
+  }
+ catch (  PropertyVetoException ignore) {
+  }
+}

@@ -1,0 +1,9 @@
+{
+  final String newScript="callSomeFunction();";
+  containerWalker.findButtonWithName(OAuth2ScriptsEditor.ADD_SCRIPT_BUTTON_NAME).doClick();
+  containerWalker.rebuildIndex();
+  containerWalker.findTextComponent("Page 3").setText(newScript);
+  List<String> javaScripts=oAuth2Profile.getAutomationJavaScripts();
+  assertThat(javaScripts,is(aCollectionWithSize(3)));
+  assertThat(javaScripts.get(2),is(newScript));
+}

@@ -1,0 +1,13 @@
+{
+  String expandedValue="application/json; charset=iso-8859-1";
+  mockResponse.getMockOperation().getMockService().setPropertyValue("ContentType",expandedValue);
+  StringToStringsMap responseHeaders=mockResponse.getResponseHeaders();
+  String headerKey="ContentType";
+  String headerValue="${#MockService#ContentType}";
+  responseHeaders.add(headerKey,headerValue);
+  mockResponse.setResponseHeaders(responseHeaders);
+  RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  verify(mockResult.getMockRequest().getHttpResponse()).addHeader(headerKey,expandedValue);
+  assertThat(mockResult.getResponseHeaders().get(headerKey,""),is(expandedValue));
+  assertThat(mockResult.getMockResponse().getResponseHeaders().get(headerKey,""),is(headerValue));
+}

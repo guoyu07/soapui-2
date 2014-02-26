@@ -5,7 +5,7 @@
     return inspector;
   }
  else   if (modelItem instanceof WsdlMockResponse) {
-    HttpHeadersInspector inspector=new HttpHeadersInspector(new WsdlMockResponseHeadersModel((WsdlMockResponse)modelItem));
+    HttpHeadersInspector inspector=new HttpHeadersInspector(new MockResponseHeadersModel((WsdlMockResponse)modelItem));
     inspector.setEnabled(!JMSUtils.checkIfJMS(modelItem));
     return inspector;
   }

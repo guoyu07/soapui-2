@@ -2,6 +2,8 @@
   if (evt.getPropertyName().equals(WsdlMockResponse.MOCKRESULT_PROPERTY)) {
     MockResult mockResult=mockResponse.getMockResult();
     MockRequest mockRequest=mockResult == null ? null : mockResult.getMockRequest();
-    requestEditor.getDocument().setXml(mockRequest == null ? "" : mockRequest.getRequestContent());
+    if (hasRequestEditor()) {
+      requestEditor.getDocument().setXml(mockRequest == null ? "" : mockRequest.getRequestContent());
+    }
   }
 }

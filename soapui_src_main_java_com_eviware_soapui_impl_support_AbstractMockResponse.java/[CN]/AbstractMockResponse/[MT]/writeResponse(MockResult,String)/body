@@ -25,7 +25,7 @@
   if (isStripWhitespaces()) {
     responseContent=XmlUtils.stripWhitespaces(responseContent);
   }
-  MockRequest request=response.getMockRequest();
+  MockRequest request=result.getMockRequest();
   request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
@@ -33,16 +33,16 @@
     String encoding=getEncoding();
     if (responseContent == null)     responseContent="";
     byte[] content=encoding == null ? responseContent.getBytes() : responseContent.getBytes(encoding);
-    if (!response.getResponseHeaders().containsKeyIgnoreCase("Content-Type")) {
-      response.setContentType(getContentType(operation,encoding));
+    if (!result.getResponseHeaders().containsKeyIgnoreCase("Content-Type")) {
+      result.setContentType(getContentType());
     }
-    String acceptEncoding=response.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
+    String acceptEncoding=result.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
-      response.addHeader("Content-Encoding","gzip");
+      result.addHeader("Content-Encoding","gzip");
       outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));
     }
  else     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("DEFLATE")) {
-      response.addHeader("Content-Encoding","deflate");
+      result.addHeader("Content-Encoding","deflate");
       outData.write(CompressionSupport.compress(CompressionSupport.ALG_DEFLATE,content));
     }
  else {
@@ -57,17 +57,17 @@
     message.setContent(mp);
     message.saveChanges();
     MimeMessageMockResponseEntity mimeMessageRequestEntity=new MimeMessageMockResponseEntity(message,isXOP,this);
-    response.addHeader("Content-Type",mimeMessageRequestEntity.getContentType().getValue());
-    response.addHeader("MIME-Version","1.0");
+    result.addHeader("Content-Type",mimeMessageRequestEntity.getContentType().getValue());
+    result.addHeader("MIME-Version","1.0");
     mimeMessageRequestEntity.writeTo(outData);
   }
   if (outData.size() > 0) {
     byte[] data=outData.toByteArray();
     if (responseCompression.equals(CompressionSupport.ALG_DEFLATE) || responseCompression.equals(CompressionSupport.ALG_GZIP)) {
-      response.addHeader("Content-Encoding",responseCompression);
+      result.addHeader("Content-Encoding",responseCompression);
       data=CompressionSupport.compress(responseCompression,data);
     }
-    response.writeRawResponseData(data);
+    result.writeRawResponseData(data);
   }
   return responseContent;
 }

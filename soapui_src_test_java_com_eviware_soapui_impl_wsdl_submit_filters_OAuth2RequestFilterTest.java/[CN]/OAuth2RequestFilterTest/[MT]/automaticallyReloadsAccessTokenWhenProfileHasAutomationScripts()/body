@@ -1,0 +1,6 @@
+{
+  setupProfileWithAutomationScripts();
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  String actualAccessTokenHeader=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
+  assertThat(actualAccessTokenHeader,is("Bearer " + RETRIEVED_ACCESS_TOKEN));
+}

@@ -2,23 +2,15 @@
   try {
     OAuth2Parameters parameters=buildParametersFrom(profile);
     OAuth2ParameterValidator.validate(parameters);
-switch (profile.getOAuth2Flow()) {
-case IMPLICIT_GRANT:
-      getOAuth2TokenExtractor().extractAccessTokenForImplicitGrantFlow(parameters);
-    break;
-case AUTHORIZATION_CODE_GRANT:
-default :
-  getOAuth2TokenExtractor().extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
-break;
-}
-}
- catch (OAuthSystemException e) {
-logAndThrowOAuth2Exception(e);
-}
-catch (MalformedURLException e) {
-logAndThrowOAuth2Exception(e);
-}
-catch (URISyntaxException e) {
-logAndThrowOAuth2Exception(e);
-}
+    getOAuth2TokenExtractor().extractAccessToken(parameters);
+  }
+ catch (  OAuthSystemException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  MalformedURLException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  URISyntaxException e) {
+    logAndThrowOAuth2Exception(e);
+  }
 }

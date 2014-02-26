@@ -13,7 +13,8 @@
       webView=new WebView();
       webView.getEngine().locationProperty().addListener(new ChangeListener<String>(){
         @Override public void changed(        ObservableValue<? extends String> observableValue,        String oldLocation,        String newLocation){
-          for (          BrowserStateChangeListener listener : listeners) {
+          lastLocation=newLocation;
+          for (          BrowserListener listener : listeners) {
             listener.locationChanged(newLocation);
           }
         }
@@ -25,7 +26,7 @@
             try {
               if (getWebEngine().getDocument() != null) {
                 String output=readDocumentAsString();
-                for (                BrowserStateChangeListener listener : listeners) {
+                for (                BrowserListener listener : listeners) {
                   listener.contentChanged(output);
                 }
               }

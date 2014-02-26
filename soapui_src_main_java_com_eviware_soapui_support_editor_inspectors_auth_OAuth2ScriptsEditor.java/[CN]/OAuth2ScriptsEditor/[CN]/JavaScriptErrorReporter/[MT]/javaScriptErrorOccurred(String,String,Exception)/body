@@ -1,0 +1,9 @@
+{
+  hasErrors=true;
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      showErrorMessage("The following script failed:\r\n" + script + "\r\nPage URL: "+ location+ "\r\nError:\r\n"+ error.getMessage()+ "]");
+    }
+  }
+);
+}

@@ -1,0 +1,18 @@
+{
+  final String accessToken="mock token";
+  profile.waitingForAuthorization();
+  Runnable simulatedAccessTokenRetrieval=new Runnable(){
+    public void run(){
+      try {
+        Thread.sleep(50);
+      }
+ catch (      InterruptedException ignore) {
+      }
+      profile.applyRetrievedAccessToken(accessToken);
+    }
+  }
+;
+  new Thread(simulatedAccessTokenRetrieval).start();
+  profile.waitForAccessTokenStatus(OAuth2Profile.AccessTokenStatus.RETRIEVED_FROM_SERVER,1000);
+  assertThat(profile.getAccessToken(),is(accessToken));
+}
