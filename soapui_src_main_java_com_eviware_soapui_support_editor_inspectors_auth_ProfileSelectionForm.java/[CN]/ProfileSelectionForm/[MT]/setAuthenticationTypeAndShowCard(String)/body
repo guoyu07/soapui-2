@@ -1,6 +1,7 @@
 {
   if (getAddEditOptions().contains(selectedOption)) {
     performAddEditOperation(request.getSelectedAuthProfile(),selectedOption);
+    return;
   }
   request.setSelectedAuthProfile(selectedOption);
   if (createOAuth2ProfileNameList().contains(selectedOption)) {

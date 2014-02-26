@@ -1,4 +1,5 @@
 {
-  profileSelectionComboBox.setSelectedItem(request.getSelectedAuthProfile());
+  String selectedAuthProfile=request.getSelectedAuthProfile() == null ? NO_AUTHORIZATION : request.getSelectedAuthProfile();
+  profileSelectionComboBox.setSelectedItem(selectedAuthProfile);
   return outerPanel;
 }

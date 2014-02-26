@@ -2,13 +2,28 @@
   AddEditOptions addEditOption=getAddEditOptionForDescription(selectedOption);
 switch (addEditOption) {
 case ADD:
-    showSelectAuthorizationTypeForm();
+    SwingUtilities.invokeLater(new Runnable(){
+      @Override public void run(){
+        showSelectAuthorizationTypeForm();
+      }
+    }
+);
   break;
 case DELETE:
-deleteCurrentProfile(currentProfile);
+SwingUtilities.invokeLater(new Runnable(){
+  @Override public void run(){
+    deleteCurrentProfile(currentProfile);
+  }
+}
+);
 break;
 case RENAME:
+SwingUtilities.invokeLater(new Runnable(){
+@Override public void run(){
 renameCurrentProfile(currentProfile);
+}
+}
+);
 break;
 default :
 break;

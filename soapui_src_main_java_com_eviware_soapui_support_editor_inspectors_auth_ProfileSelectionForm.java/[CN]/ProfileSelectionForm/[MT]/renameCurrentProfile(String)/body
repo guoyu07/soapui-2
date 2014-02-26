@@ -1,2 +1,16 @@
 {
+  String newName=UISupport.prompt("Specify name of Profile","Rename Profile",profileOldName);
+  if (newName == null || profileOldName.equals(newName)) {
+    profileSelectionComboBox.setSelectedItem(profileOldName);
+    return;
+  }
+  if (newName.trim().equals("")) {
+    UISupport.showErrorMessage("New name can't be empty.");
+    profileSelectionComboBox.setSelectedItem(profileOldName);
+    return;
+  }
+  OAuth2Profile profile=getProfileForName(profileOldName);
+  profile.setName(newName);
+  request.setSelectedAuthProfile(newName);
+  refreshProfileSelectionComboBox(newName);
 }

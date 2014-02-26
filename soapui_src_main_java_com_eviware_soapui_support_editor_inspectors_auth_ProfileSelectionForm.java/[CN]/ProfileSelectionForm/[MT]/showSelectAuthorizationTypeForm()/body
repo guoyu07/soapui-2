@@ -1,5 +1,4 @@
 {
-  DefaultActionList actions=new DefaultActionList("Actions");
   final XFormDialog dialog=ADialogBuilder.buildDialog(AuthorizationTypeForm.class);
   ArrayList<String> options=new ArrayList<String>();
   options.add(CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS.toString());
@@ -11,17 +10,29 @@
   }
   options.removeAll(request.getBasicAuthenticationProfiles());
   final JTextFieldFormField profileNameField=(JTextFieldFormField)dialog.getFormField(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_FIELD);
+  int nextProfileIndex=createOAuth2ProfileNameList().size() + 1;
+  profileNameField.setValue("OAuth 2 - Profile " + nextProfileIndex);
   profileNameField.getComponent().setVisible(false);
   profileNameField.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
-      if (StringUtils.isNullOrEmpty(newValue)) {
+      ActionList actionsList=dialog.getActionsList();
+      for (int actionIndex=0; actionIndex < actionsList.getActionCount(); actionIndex++) {
+        Action action=actionsList.getActionAt(actionIndex);
+        if (action.getValue(Action.NAME).equals("OK")) {
+          if (StringUtils.isNullOrEmpty(newValue)) {
+            action.setEnabled(false);
+          }
+ else {
+            action.setEnabled(true);
+          }
+        }
       }
     }
   }
 );
-  JComboBoxFormField accessTokenPositionField=(JComboBoxFormField)dialog.getFormField(AuthorizationTypeForm.AUTHORIZATION_TYPE);
-  accessTokenPositionField.setOptions(options.toArray(new String[options.size()]));
-  accessTokenPositionField.addFormFieldListener(new XFormFieldListener(){
+  JComboBoxFormField authorizationTypesComboBox=(JComboBoxFormField)dialog.getFormField(AuthorizationTypeForm.AUTHORIZATION_TYPE);
+  authorizationTypesComboBox.setOptions(options.toArray(new String[options.size()]));
+  authorizationTypesComboBox.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       if (newValue.equals(CredentialsConfig.AuthType.O_AUTH_2.toString())) {
         profileNameField.getComponent().setVisible(true);
