@@ -1,7 +1,6 @@
 {
   String old=getAuthType();
-  CredentialsConfig credentialsConfig=getConfig().getCredentials();
-  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
   credentialsConfig.setAuthType(AuthType.Enum.forString(authType));
   notifyPropertyChanged("authType",old,authType);
 }

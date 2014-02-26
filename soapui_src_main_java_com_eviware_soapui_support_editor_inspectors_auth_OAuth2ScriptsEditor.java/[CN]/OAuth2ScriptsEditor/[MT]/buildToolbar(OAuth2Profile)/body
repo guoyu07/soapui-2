@@ -1,0 +1,13 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  JButton testScriptsButton=UISupport.createToolbarButton(new TestScriptsAction(profile));
+  testScriptsButton.setName(TEST_SCRIPTS_BUTTON_NAME);
+  toolbar.addFixed(testScriptsButton);
+  JButton addScriptButton=UISupport.createToolbarButton(new AddScriptAction());
+  addScriptButton.setName(ADD_SCRIPT_BUTTON_NAME);
+  toolbar.addFixed(addScriptButton);
+  removeScriptButton=UISupport.createToolbarButton(new RemoveScriptAction());
+  removeScriptButton.setName(REMOVE_SCRIPT_BUTTON_NAME);
+  toolbar.addFixed(removeScriptButton);
+  return toolbar;
+}

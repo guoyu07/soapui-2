@@ -3,5 +3,7 @@
   createEmptyButton=createActionButton(new CreateEmptyWsdlMockResponseAction(mockResponse),isBidirectional());
   createFaultButton=createActionButton(new CreateFaultWsdlMockResponseAction(mockResponse),isBidirectional());
   wsiValidateAction=SwingActionDelegate.createDelegate(new WSIValidateResponseAction(),mockResponse,"alt W");
+  openRequestButton=createActionButton(SwingActionDelegate.createDelegate(OpenRequestForMockResponseAction.SOAPUI_ACTION_ID,mockResponse,null,"/open_request.gif"),true);
+  recreateButton=createActionButton(new RecreateMockResponseAction(mockResponse),isBidirectional());
   return super.buildContent();
 }

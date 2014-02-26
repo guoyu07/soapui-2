@@ -1,6 +1,5 @@
 {
-  CredentialsConfig credentialsConfig=getConfig().getCredentials();
-  if (credentialsConfig == null)   credentialsConfig=getConfig().addNewCredentials();
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
   initializeAuthType(credentialsConfig);
   return credentialsConfig.getAuthType().toString();
 }

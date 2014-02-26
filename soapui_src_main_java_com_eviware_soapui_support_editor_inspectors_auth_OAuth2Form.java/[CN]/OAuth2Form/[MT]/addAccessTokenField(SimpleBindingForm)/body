@@ -1,0 +1,8 @@
+{
+  JTextField accessTokenField=new JTextField();
+  accessTokenField.setName(OAuth2Profile.ACCESS_TOKEN_PROPERTY);
+  accessTokenField.setColumns(SimpleForm.MEDIUM_TEXT_FIELD_COLUMNS);
+  accessTokenField.setMargin(ACCESS_TOKEN_FIELD_INSETS);
+  Bindings.bind(accessTokenField,oAuth2Form.getPresentationModel().getModel(OAuth2Profile.ACCESS_TOKEN_PROPERTY));
+  return accessTokenField;
+}

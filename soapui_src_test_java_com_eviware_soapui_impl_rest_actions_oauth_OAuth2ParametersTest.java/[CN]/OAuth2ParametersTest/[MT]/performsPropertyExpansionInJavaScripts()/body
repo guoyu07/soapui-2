@@ -1,0 +1,11 @@
+{
+  final String userNamePropertyName="OAuth_User";
+  final String userName="our.google.user";
+  WsdlProject project=profile.getContainer().getProject();
+  project.addProperty(userNamePropertyName).setValue(userName);
+  String javaScriptWithExpansion="document.getElementById('usr').value='${#Project#" + userNamePropertyName + "}'";
+  profile.setAutomationJavaScripts(Arrays.asList(javaScriptWithExpansion));
+  OAuth2Parameters parameters=new OAuth2Parameters(profile);
+  String expectedExpandedJavaScript="document.getElementById('usr').value='" + userName + "'";
+  assertThat(parameters.getJavaScripts().get(0),is(expectedExpandedJavaScript));
+}

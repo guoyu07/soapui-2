@@ -1,0 +1,8 @@
+{
+  final OAuth2Profile profileWithRefreshToken=OAuth2TestUtils.getOAuthProfileWithRefreshToken();
+  setExpiredAccessToken(profileWithRefreshToken);
+  injectProfile(profileWithRefreshToken);
+  oAuth2ProfileContainer.getOAuth2ProfileList().set(0,profileWithRefreshToken);
+  oAuth2Profile=profileWithRefreshToken;
+  oAuth2FilterWithMockOAuth2ClientFacade(oAuth2Profile);
+}

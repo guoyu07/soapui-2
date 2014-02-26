@@ -1,0 +1,8 @@
+{
+  this.profile=profile;
+  SimpleBindingForm accessTokenForm=new SimpleBindingForm(new PresentationModel<OAuth2Profile>(profile));
+  populateGetAccessTokenForm(accessTokenForm);
+  JPanel panel=accessTokenForm.getPanel();
+  panel.setBorder(createCompoundBorder(createLineBorder(CARD_BORDER_COLOR),createEmptyBorder(10,10,10,10)));
+  return createAccessTokenDialog(panel);
+}

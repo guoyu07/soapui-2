@@ -1,0 +1,6 @@
+{
+  String stuffMediaType="application/stuff";
+  when(model.getMediaType()).thenReturn(stuffMediaType);
+  MediaTypeComboBox mediaTypeComboBox=new MediaTypeComboBox(model);
+  assertThat((String)mediaTypeComboBox.getSelectedItem(),is(stuffMediaType));
+}

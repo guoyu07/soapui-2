@@ -1,0 +1,9 @@
+{
+  if (createOAuth2ProfileNameList().contains(profileName)) {
+    getOAuth2ProfileContainer().removeProfile(profileName);
+  }
+ else   if (getBasicAuthenticationTypes().contains(profileName)) {
+    request.removeBasicAuthenticationProfile(profileName);
+  }
+  refreshProfileSelectionComboBox(NO_AUTHORIZATION);
+}

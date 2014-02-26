@@ -1,13 +1,17 @@
 {
   boolean activated=super.activate(location);
-  if (activated) {
-    if (browser == null) {
+  if (activated && !initialized) {
+    initialized=true;
+    if (SoapUI.isBrowserDisabled()) {
+      contentPanel.add(new JLabel("Browser Component is disabled"));
+    }
+ else {
       browser=new WebViewBasedBrowserComponent(false);
       Component component=browser.getComponent();
       component.setMinimumSize(new Dimension(100,100));
       contentPanel.add(new JScrollPane(component));
+      setEditorContent(messageExchangeModelItem);
     }
-    setEditorContent(messageExchangeModelItem);
   }
   return activated;
 }

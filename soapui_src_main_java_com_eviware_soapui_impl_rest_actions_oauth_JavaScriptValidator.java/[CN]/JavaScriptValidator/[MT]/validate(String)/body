@@ -1,0 +1,10 @@
+{
+  Context mozillaJavaScriptContext=Context.enter();
+  try {
+    mozillaJavaScriptContext.compileString(script,"scriptToValidate",1,null);
+    return null;
+  }
+ catch (  EvaluatorException e) {
+    return new JavaScriptValidationError(e.getMessage(),e.lineNumber());
+  }
+}

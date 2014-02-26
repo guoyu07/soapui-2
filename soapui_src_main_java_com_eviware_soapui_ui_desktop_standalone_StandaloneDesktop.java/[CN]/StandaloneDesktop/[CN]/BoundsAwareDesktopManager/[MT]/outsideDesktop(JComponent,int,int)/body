@@ -1,3 +1,8 @@
 {
-  return newY < 0 || (newX > desktopPanel.getWidth()) || (newY > desktopPanel.getHeight());
+  int smallestReachableX=-(panel.getWidth() - horizontalInsetFactor * panel.getInsets().right);
+  int biggestReachableX=((int)desktopSize.getWidth() - horizontalInsetFactor * panel.getInsets().left);
+  int biggestReachableY=((int)desktopSize.getHeight() - verticalInsetFactor * panel.getInsets().top);
+  boolean xCoordinateOutside=newX > biggestReachableX || newX < smallestReachableX;
+  boolean yCoordinateOutside=newY < 0 || newY > biggestReachableY;
+  return xCoordinateOutside || yCoordinateOutside;
 }

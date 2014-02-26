@@ -4,7 +4,7 @@
   if (status == null && oldValue == null) {
     return;
   }
- else   if (status != null) {
+  if (status != null) {
     if (status.equals(oldValue)) {
       return;
     }
@@ -12,6 +12,9 @@
   }
  else {
     configuration.setAccessTokenStatus(null);
+  }
+synchronized (this) {
+    notifyAll();
   }
   String oldValueAsString=oldValue == null ? null : oldValue.toString();
   pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValueAsString,status.toString());

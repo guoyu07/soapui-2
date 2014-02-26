@@ -7,8 +7,8 @@
       return;
     }
     OAuth2ClientFacade oAuth2Client=getOAuth2ClientFacade();
-    if (profile.shouldRefreshAccessTokenAutomatically() && accessTokenIsExpired(profile)) {
-      refreshAccessToken(profile,oAuth2Client);
+    if (accessTokenIsExpired(profile) && profile.shouldReloadAccessTokenAutomatically()) {
+      reloadAccessToken(profile,oAuth2Client);
     }
     oAuth2Client.applyAccessToken(profile,httpMethod,request.getRequestContent());
   }

@@ -1,5 +1,5 @@
 {
-  if (requestEditor.hasFocus()) {
+  if (!hasRequestEditor() || requestEditor.hasFocus()) {
     responseEditor.requestFocus();
   }
  else {

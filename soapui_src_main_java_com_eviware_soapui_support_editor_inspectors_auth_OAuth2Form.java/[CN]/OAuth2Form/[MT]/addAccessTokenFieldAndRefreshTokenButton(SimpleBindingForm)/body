@@ -1,0 +1,20 @@
+{
+  JTextField accessTokenField=addAccessTokenField(oAuth2Form);
+  JLabel accessTokenStatusIcon=addAccessTokenStatusIcon();
+  JTextArea accessTokenStatusText=addAccessTokenStatusText();
+  oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
+  profile.addPropertyChangeListener(oAuth2StatusPropertyChangeListener);
+  final JButton refreshAccessTokenButton=addRefreshButton();
+  JPanel wrapperPanel=new JPanel();
+  wrapperPanel.setLayout(new BoxLayout(wrapperPanel,BoxLayout.X_AXIS));
+  wrapperPanel.setBackground(CARD_BACKGROUND_COLOR);
+  wrapperPanel.add(accessTokenField);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
+  wrapperPanel.add(accessTokenStatusIcon);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
+  wrapperPanel.add(accessTokenStatusText);
+  wrapperPanel.add(Box.createRigidArea(HORIZONAL_COMPONENT_SPACING));
+  wrapperPanel.add(refreshAccessTokenButton);
+  oAuth2Form.append(ACCESS_TOKEN_LABEL,wrapperPanel);
+  return refreshAccessTokenButton;
+}

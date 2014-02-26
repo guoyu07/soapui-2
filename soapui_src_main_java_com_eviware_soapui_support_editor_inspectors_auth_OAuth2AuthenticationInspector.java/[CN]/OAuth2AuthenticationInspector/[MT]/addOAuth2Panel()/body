@@ -1,5 +1,6 @@
 {
   populateOAuth2Form(oAuth2Form);
+  wrapperPanel=new JPanel(new BorderLayout());
   JPanel centerPanel=oAuth2Form.getPanel();
   setBackgroundColorOnPanel(centerPanel);
   JPanel southPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -7,7 +8,6 @@
   southPanel.add(oAuthDocumentationLink);
   southPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0,CARD_BORDER_COLOR));
   setBackgroundColorOnPanel(southPanel);
-  JPanel wrapperPanel=new JPanel(new BorderLayout());
   wrapperPanel.add(centerPanel,BorderLayout.CENTER);
   wrapperPanel.add(southPanel,BorderLayout.SOUTH);
   setBorderOnPanel(wrapperPanel);

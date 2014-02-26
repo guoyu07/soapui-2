@@ -1,0 +1,12 @@
+{
+  selectedInputField=field;
+  for (  InputPanel inputPanel : inputPanels) {
+    if (inputPanel == field) {
+      inputPanel.highlight();
+    }
+ else {
+      inputPanel.removeHighlight();
+    }
+  }
+  removeScriptButton.setEnabled(selectedInputField != null);
+}
