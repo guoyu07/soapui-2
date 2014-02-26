@@ -3,7 +3,7 @@
   oAuth2Form.addSpace(TOP_SPACING);
   JTextField accessTokenField=createAccessTokenField();
   JLabel accessTokenStatusIcon=createAccessTokenStatusIcon();
-  JTextArea accessTokenStatusText=createAccessTokenStatusText();
+  JLabel accessTokenStatusText=createAccessTokenStatusText();
   oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
   profile.addPropertyChangeListener(oAuth2StatusPropertyChangeListener);
   final JButton refreshAccessTokenButton=createRefreshButton();
@@ -17,11 +17,11 @@
   final JDialog accessTokenFormDialog=accessTokenForm.getComponent(profile);
   disclosureButton.addMouseListener(new DisclosureButtonMouseListener(accessTokenFormDialog,disclosureButton));
   accessTokenFormDialog.addWindowFocusListener(new AccessTokenFormDialogWindowListener(accessTokenFormDialog,disclosureButton));
-  JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS,new ActionListener(){
+  JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS_BUTTON_NAME,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
       new OAuth2AdvanceOptionsDialog(profile,refreshAccessTokenButton);
     }
   }
 );
-  advancedOptionsButton.setName(ADVANCED_OPTIONS);
+  advancedOptionsButton.setName(ADVANCED_OPTIONS_BUTTON_NAME);
 }
