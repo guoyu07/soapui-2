@@ -1,0 +1,10 @@
+{
+  JPanel panelWithText=new JPanel(new BorderLayout());
+  String helpText="<html><body><div style=\"text-align:center\">This request currently has no authorization configuration associated with it." + "<br>If you need to access a protected service, just add your " + "<br>configuration here, using the drop down above.</div></body></html>";
+  JLabel label=new JLabel(helpText);
+  label.setHorizontalAlignment(SwingConstants.CENTER);
+  panelWithText.add(label,BorderLayout.CENTER);
+  panelWithText.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(AbstractAuthenticationForm.CARD_BORDER_COLOR),BorderFactory.createEmptyBorder(10,10,10,10)));
+  panelWithText.setBackground(AbstractAuthenticationForm.CARD_BACKGROUND_COLOR);
+  return panelWithText;
+}

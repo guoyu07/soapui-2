@@ -4,7 +4,7 @@
   JPanel comboBoxPanel=createAuthorizationLabelAndComboBox();
   innerPanel.add(comboBoxPanel,BorderLayout.PAGE_START);
   cardPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-  cardPanel.add(new JPanel(),EMPTY_PANEL);
+  cardPanel.add(createEmptyPanel(),EMPTY_PANEL);
   innerPanel.add(cardPanel,BorderLayout.CENTER);
   BasicAuthenticationForm<T> authenticationForm=new BasicAuthenticationForm<T>(request);
   cardPanel.add(authenticationForm.getComponent(),BASIC_FORM_LABEL);

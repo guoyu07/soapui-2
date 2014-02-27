@@ -1,4 +1,9 @@
 {
+  boolean confirmedDeletion=UISupport.confirm("Do you really want to delete profile '" + profileName + "' ?","Delete Profile");
+  if (!confirmedDeletion) {
+    refreshProfileSelectionComboBox(profileName);
+    return;
+  }
   if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(profileName)) {
     getOAuth2ProfileContainer().removeProfile(profileName);
   }

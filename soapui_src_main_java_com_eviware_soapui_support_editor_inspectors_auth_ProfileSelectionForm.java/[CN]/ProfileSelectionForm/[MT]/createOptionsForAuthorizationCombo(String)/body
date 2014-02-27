@@ -10,7 +10,7 @@
       addEditOptions.remove(AddEditOptions.RENAME.getDescription());
     }
   }
-  if (options.size() <= 1) {
+  if (options.size() <= 1 || NO_AUTHORIZATION.equals(selectedAuthProfile)) {
     addEditOptions.remove(AddEditOptions.DELETE.getDescription());
   }
   options.add("------------------");
