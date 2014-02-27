@@ -9,9 +9,9 @@
   ArrayList<String> authTypes=getBasicAuthenticationTypes();
   authTypes.removeAll(request.getBasicAuthenticationProfiles());
   if (request instanceof RestRequest) {
-    authTypes.add(CredentialsConfig.AuthType.O_AUTH_2.toString());
+    authTypes.add(CredentialsConfig.AuthType.O_AUTH_2_0.toString());
     int nextProfileIndex=getOAuth2ProfileContainer().getOAuth2ProfileList().size() + 1;
-    profileNameField.setValue("OAuth 2 - Profile " + nextProfileIndex);
+    profileNameField.setValue("OAuth 2.0 - Profile " + nextProfileIndex);
   }
   setAuthTypeComboBoxOptions(dialog,authTypes);
   dialog.setValue(AuthorizationTypeForm.AUTHORIZATION_TYPE,request.getAuthType());

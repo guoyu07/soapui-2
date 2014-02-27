@@ -1,14 +1,14 @@
 {
-  FormLayout formLayout=new FormLayout("5px:none,left:pref,10px,left:default,5px:grow(1.0)");
+  FormLayout formLayout=new FormLayout("5px:none,left:pref,40px,left:default,5px:grow(1.0)");
   JPanel comboBoxPanel=new JPanel(formLayout);
-  comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
+  comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
   JLabel authorizationLabel=new JLabel(AUTHORIZATION_TYPE_COMBO_BOX_NAME);
   authorizationLabel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
   formLayout.appendRow(new RowSpec("top:pref"));
   comboBoxPanel.add(authorizationLabel,cc.xy(2,1));
   createProfileSelectionComboBox();
   comboBoxPanel.add(profileSelectionComboBox,cc.xy(4,1));
-  JPanel wrapperPanel=new JPanel(new BorderLayout());
+  JPanel wrapperPanel=new JPanel(new BorderLayout(5,5));
   wrapperPanel.add(comboBoxPanel,BorderLayout.LINE_START);
   wrapperPanel.add(UISupport.createFormButton(new ShowOnlineHelpAction("http://www.soapui.org")),BorderLayout.AFTER_LINE_ENDS);
   return wrapperPanel;
