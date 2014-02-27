@@ -1,7 +1,9 @@
 {
-  accessTokenFormDialog.setVisible(false);
-  disclosureButton.setText("??? Get Token");
-  if (!isMouseOnDisclosureLabel) {
-    disclosureButtonDisabled=false;
+  if (isMouseOnComponent(SoapUI.getFrame()) && !isMouseOnComponent(accessTokenFormDialog)) {
+    accessTokenFormDialog.setVisible(false);
+    disclosureButton.setText("??? Get Token");
+    if (!isMouseOnDisclosureLabel) {
+      disclosureButtonDisabled=false;
+    }
   }
 }

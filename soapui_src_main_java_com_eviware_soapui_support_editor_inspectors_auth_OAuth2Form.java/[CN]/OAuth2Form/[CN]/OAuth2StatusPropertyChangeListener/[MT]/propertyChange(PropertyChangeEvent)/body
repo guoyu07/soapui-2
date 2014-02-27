@@ -9,5 +9,13 @@
       accessTokenStatusText.setVisible(true);
       inspector.setIcon(SUCCESS_ICON);
     }
+ else     if (status.equals(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION.toString())) {
+      accessTokenField.setBackground(DEFAULT_COLOR);
+      accessTokenStatusIcon.setIcon(null);
+      accessTokenStatusIcon.setVisible(false);
+      accessTokenStatusText.setText("");
+      accessTokenStatusText.setVisible(false);
+      inspector.setIcon(WAITING_ICON);
+    }
   }
 }

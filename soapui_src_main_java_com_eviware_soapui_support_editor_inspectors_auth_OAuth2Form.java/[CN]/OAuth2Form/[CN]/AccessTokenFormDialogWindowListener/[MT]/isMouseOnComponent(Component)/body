@@ -1,0 +1,5 @@
+{
+  Point mouseLocation=MouseInfo.getPointerInfo().getLocation();
+  Point componentLocationOnScreen=component.getLocationOnScreen();
+  return component.contains(mouseLocation.x - componentLocationOnScreen.x,mouseLocation.y - componentLocationOnScreen.y);
+}
