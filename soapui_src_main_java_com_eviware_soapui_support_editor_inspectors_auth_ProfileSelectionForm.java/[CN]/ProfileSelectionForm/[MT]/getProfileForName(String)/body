@@ -1,6 +1,6 @@
 {
   for (  OAuth2Profile profile : getOAuth2ProfileList()) {
-    if (profile.getName().equals(profileName)) {
+    if (profile.getName() != null && profile.getName().equals(profileName)) {
       return profile;
     }
   }
