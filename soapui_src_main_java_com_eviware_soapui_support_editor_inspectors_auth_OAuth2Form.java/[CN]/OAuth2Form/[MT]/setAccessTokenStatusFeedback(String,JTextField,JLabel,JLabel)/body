@@ -1,0 +1,18 @@
+{
+  if (status.equals(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString())) {
+    accessTokenField.setBackground(SUCCESS_COLOR);
+    accessTokenStatusIcon.setIcon(SUCCESS_ICON);
+    accessTokenStatusIcon.setVisible(true);
+    accessTokenStatusText.setText(setWrappedText(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString()));
+    accessTokenStatusText.setVisible(true);
+    inspector.setIcon(SUCCESS_ICON);
+  }
+  if (status.equals(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION.toString())) {
+    accessTokenField.setBackground(DEFAULT_COLOR);
+    accessTokenStatusIcon.setIcon(null);
+    accessTokenStatusIcon.setVisible(false);
+    accessTokenStatusText.setText("");
+    accessTokenStatusText.setVisible(false);
+    inspector.setIcon(WAITING_ICON);
+  }
+}

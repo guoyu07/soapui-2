@@ -4,6 +4,7 @@
   JTextField accessTokenField=createAccessTokenField();
   JLabel accessTokenStatusIcon=createAccessTokenStatusIcon();
   JLabel accessTokenStatusText=createAccessTokenStatusText();
+  setAccessTokenStatusFeedback(profile.getAccessTokenStatus(),accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
   oAuth2StatusPropertyChangeListener=new OAuth2StatusPropertyChangeListener(accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
   profile.addPropertyChangeListener(oAuth2StatusPropertyChangeListener);
   final JButton refreshAccessTokenButton=createRefreshButton();
