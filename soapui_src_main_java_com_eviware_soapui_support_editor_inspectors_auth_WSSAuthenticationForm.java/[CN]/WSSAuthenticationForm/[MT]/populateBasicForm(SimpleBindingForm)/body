@@ -1,5 +1,7 @@
 {
-  SimpleBindingForm basicForm=getBasicForm();
+  super.populateBasicForm(basicForm);
+  StringList outgoingNames=getOutgoingNames(request);
+  StringList incomingNames=getIncomingNames(request);
   basicForm.addSpace(GROUP_SPACING);
   basicForm.appendComboBox("outgoingWss","Outgoing WSS",outgoingNames.toStringArray(),"The outgoing WS-Security configuration to use");
   basicForm.appendComboBox("incomingWss","Incoming WSS",incomingNames.toStringArray(),"The incoming WS-Security configuration to use");

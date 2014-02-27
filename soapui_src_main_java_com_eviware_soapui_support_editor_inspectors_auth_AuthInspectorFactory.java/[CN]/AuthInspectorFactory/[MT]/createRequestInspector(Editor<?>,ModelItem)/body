@@ -1,11 +1,5 @@
 {
-  if (modelItem instanceof RestRequest) {
-    return new ProfileSelectionForm((AbstractHttpRequest)modelItem);
-  }
- else   if (modelItem instanceof WsdlRequest) {
-    return new WSSAuthenticationInspector((WsdlRequest)modelItem);
-  }
- else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
+  if (modelItem instanceof AbstractHttpRequestInterface<?>) {
     return new ProfileSelectionForm((AbstractHttpRequest)modelItem);
   }
   return null;
