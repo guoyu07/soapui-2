@@ -1,0 +1,7 @@
+{
+  Component currentComponent=startComponent;
+  while (currentComponent != null && !(expectedClass.isAssignableFrom(currentComponent.getClass()))) {
+    currentComponent=currentComponent.getParent();
+  }
+  return (T)currentComponent;
+}

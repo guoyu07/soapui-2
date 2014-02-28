@@ -1,12 +1,12 @@
 {
-  endpointComponent=buildEndpointComponent();
+  JPanel endpointPanel=buildEndpointPanel();
   JXToolBar toolbar=UISupport.createToolbar();
   toolbar.add(submitButton);
   insertButtons(toolbar);
   toolbar.add(cancelButton);
   if (endpointComponent != null) {
     toolbar.addSeparator();
-    toolbar.add(endpointComponent);
+    toolbar.add(endpointPanel);
   }
   toolbar.add(Box.createHorizontalGlue());
   toolbar.add(tabsButton);
