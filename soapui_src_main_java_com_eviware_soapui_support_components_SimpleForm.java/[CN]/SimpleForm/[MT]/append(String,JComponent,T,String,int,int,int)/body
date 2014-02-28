@@ -5,9 +5,8 @@
     spaceRowIndex=layout.getRowCount();
   }
   layout.appendRow(rowSpec);
-  int row=layout.getRowCount();
   if (label != null) {
-    panel.add(label,cc.xy(2,row));
+    panel.add(label,cc.xy(DEFAULT_LABEL_COLUMN,row));
     component.addComponentListener(new LabelHider(label,spaceRowIndex));
     component.addPropertyChangeListener(ENABLED_PROPERTY_NAME,new LabelEnabler(label));
     if (label instanceof JLabel) {
@@ -24,8 +23,8 @@
     }
   }
  else   component.addComponentListener(new LabelHider(null,spaceRowIndex));
-  if (alignments == null)   panel.add(component,cc.xy(4,row));
- else   panel.add(component,cc.xy(4,row,alignments));
+  if (alignments == null)   panel.add(component,cc.xyw(column,row,columnSpan));
+ else   panel.add(component,cc.xyw(column,row,columnSpan,alignments));
   components.put(name,component);
   appended=true;
   return component;

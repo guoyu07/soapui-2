@@ -30,9 +30,12 @@
   accessTokenForm.addSpace(GROUP_SPACING);
   accessTokenForm.appendTextField(OAuth2Profile.SCOPE_PROPERTY,"Scope","");
   accessTokenForm.addSpace(NORMAL_SPACING);
-  JButton getAccessTokenButton=accessTokenForm.addButtonWithoutLabel("Get Access Token",new GetOAuthAccessTokenAction(profile));
+  JButton getAccessTokenButton=new JButton(new GetOAuthAccessTokenAction(profile));
   getAccessTokenButton.setName(GET_ACCESS_TOKEN_BUTTON_NAME);
-  accessTokenForm.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
+  PropertyComponent getAccesTokenButtonPropertyComponent=new PropertyComponent(getAccessTokenButton);
+  JLabel accessTokenStatusText=new JLabel();
+  PropertyComponent accessTokenStatusTextPropertyComponent=new PropertyComponent(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,accessTokenStatusText);
+  accessTokenForm.appendComponentsInOneRow(getAccesTokenButtonPropertyComponent,accessTokenStatusTextPropertyComponent);
   JLabel accessTokenDocumentationLink=UISupport.getLabelAsLink("http://www.soapui.org","How to get an access token from an authorization server");
   accessTokenForm.addComponent(accessTokenDocumentationLink);
 }

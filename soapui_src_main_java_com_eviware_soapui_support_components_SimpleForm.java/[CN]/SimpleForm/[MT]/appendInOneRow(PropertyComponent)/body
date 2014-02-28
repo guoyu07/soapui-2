@@ -1,0 +1,9 @@
+{
+  Preconditions.checkArgument(propertyComponents.length * 2 <= layout.getColumnCount() - 1,"There is not enough room for the components to be added");
+  int currentRow=getRowCount();
+  int currentColumn=DEFAULT_COMPONENT_COLUMN;
+  for (  PropertyComponent propertyComponent : propertyComponents) {
+    append(null,null,propertyComponent.getComponent(),null,currentColumn,currentRow,DEFAULT_COLUMN_SPAN);
+    currentColumn+=2;
+  }
+}
