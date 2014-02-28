@@ -13,7 +13,7 @@
   if (options.size() <= 1 || NO_AUTHORIZATION.equals(selectedAuthProfile)) {
     addEditOptions.remove(AddEditOptions.DELETE.getDescription());
   }
-  options.add("------------------");
+  options.add(OPTIONS_SEPARATOR);
   options.addAll(addEditOptions);
   return options.toArray(new String[options.size()]);
 }
