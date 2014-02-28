@@ -1,0 +1,14 @@
+{
+  ActionList actionsList=dialog.getActionsList();
+  for (int actionIndex=0; actionIndex < actionsList.getActionCount(); actionIndex++) {
+    Action action=actionsList.getActionAt(actionIndex);
+    if (action.getValue(Action.NAME).equals("OK")) {
+      if (StringUtils.isNullOrEmpty(newValue)) {
+        action.setEnabled(false);
+      }
+ else {
+        action.setEnabled(true);
+      }
+    }
+  }
+}

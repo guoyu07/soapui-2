@@ -6,7 +6,7 @@
   }
   MessageSupport messages=MessageSupport.getMessages(formClass);
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder(messages.get(formAnnotation.name()));
-  XForm form=builder.createForm("Basic");
+  XForm form=createForm(builder,null);
   for (  Field field : formClass.getFields()) {
     AField fieldAnnotation=field.getAnnotation(AField.class);
     if (fieldAnnotation != null) {

@@ -1,0 +1,10 @@
+{
+  JComboBoxFormField authTypesComboBox=(JComboBoxFormField)dialog.getFormField(AuthorizationTypeForm.AUTHORIZATION_TYPE);
+  authTypesComboBox.setOptions(options.toArray(new String[options.size()]));
+  authTypesComboBox.addFormFieldListener(new XFormFieldListener(){
+    @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      setProfileNameAndHintTextVisibility(newValue);
+    }
+  }
+);
+}

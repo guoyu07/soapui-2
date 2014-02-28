@@ -1,0 +1,21 @@
+{
+  FormLayout layout=new FormLayout("5px,100px,5px,left:default,5px:grow(1.0)");
+  final XFormDialog dialog=ADialogBuilder.buildDialog(AuthorizationTypeForm.class,null,layout);
+  profileNameField=(JTextFieldFormField)dialog.getFormField(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_FIELD);
+  profileNameField.addFormFieldListener(new ProfileNameFieldListener(dialog));
+  hintTextLabel=(JLabelFormField)dialog.getFormField(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_HINT_TEXT_LABEL);
+  setHintTextColor();
+  setProfileNameAndHintTextVisibility(request.getAuthType());
+  ArrayList<String> authTypes=getBasicAuthenticationTypes();
+  authTypes.removeAll(request.getBasicAuthenticationProfiles());
+  if (request instanceof RestRequest) {
+    authTypes.add(CredentialsConfig.AuthType.O_AUTH_2_0.toString());
+    int nextProfileIndex=getOAuth2ProfileContainer().getOAuth2ProfileList().size() + 1;
+    profileNameField.setValue("OAuth 2.0 - Profile " + nextProfileIndex);
+  }
+  setAuthTypeComboBoxOptions(dialog,authTypes);
+  dialog.setValue(AuthorizationTypeForm.AUTHORIZATION_TYPE,request.getAuthType());
+  if (dialog.show()) {
+    createProfileForSelectedAuthType(dialog);
+  }
+}

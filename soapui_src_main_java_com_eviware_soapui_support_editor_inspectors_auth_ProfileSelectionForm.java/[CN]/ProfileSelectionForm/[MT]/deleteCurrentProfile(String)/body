@@ -1,5 +1,5 @@
 {
-  if (createOAuth2ProfileNameList().contains(profileName)) {
+  if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(profileName)) {
     getOAuth2ProfileContainer().removeProfile(profileName);
   }
  else   if (getBasicAuthenticationTypes().contains(profileName)) {
