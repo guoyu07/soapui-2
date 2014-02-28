@@ -1,0 +1,6 @@
+{
+  restRequest.setMethod(TRACE);
+  restMockService.addNewMockAction(restRequest);
+  RestMockAction matchingAction=(RestMockAction)restMockService.findMatchingOperation(PATH,GET);
+  assertThat(matchingAction,is(nullValue()));
+}
