@@ -1,4 +1,6 @@
 {
-  String newStatusValue=Strings.nullToEmpty((String)evt.getNewValue());
-  setAccessTokenStatusFeedback(newStatusValue,accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
+  if (evt.getPropertyName().equals(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY)) {
+    String newStatusValue=Strings.nullToEmpty((String)evt.getNewValue());
+    setAccessTokenStatusFeedback(newStatusValue,accessTokenField,accessTokenStatusIcon,accessTokenStatusText);
+  }
 }

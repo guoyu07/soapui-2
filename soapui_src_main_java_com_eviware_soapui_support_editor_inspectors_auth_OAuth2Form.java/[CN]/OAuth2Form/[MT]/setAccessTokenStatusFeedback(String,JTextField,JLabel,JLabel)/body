@@ -1,5 +1,13 @@
 {
-  if (status.equals(OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString())) {
+  if (Strings.isNullOrEmpty(status)) {
+    accessTokenField.setBackground(DEFAULT_COLOR);
+    accessTokenStatusIcon.setIcon(null);
+    accessTokenStatusIcon.setVisible(false);
+    accessTokenStatusText.setText("");
+    accessTokenStatusText.setVisible(false);
+    inspector.setIcon(null);
+  }
+  if (OAuth2Profile.AccessTokenStatus.ENTERED_MANUALLY.toString().equals(status)) {
     accessTokenField.setBackground(SUCCESS_COLOR);
     accessTokenStatusIcon.setIcon(SUCCESS_ICON);
     accessTokenStatusIcon.setVisible(true);
@@ -7,9 +15,9 @@
     accessTokenStatusText.setVisible(true);
     inspector.setIcon(SUCCESS_ICON);
   }
-  if (status.equals(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION.toString())) {
+  if (OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION.toString().equals(status)) {
     accessTokenField.setBackground(DEFAULT_COLOR);
-    accessTokenStatusIcon.setIcon(null);
+    accessTokenStatusIcon.setIcon(WAITING_ICON);
     accessTokenStatusIcon.setVisible(false);
     accessTokenStatusText.setText("");
     accessTokenStatusText.setVisible(false);
