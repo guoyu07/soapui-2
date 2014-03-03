@@ -8,7 +8,7 @@
   final JPanel accessTokenFormPanel=accessTokenForm.getPanel();
   JPanel wrapperPanel=new JPanel(new BorderLayout());
   wrapperPanel.add(accessTokenFormPanel,BorderLayout.NORTH);
-  JLabel accessTokenDocumentationLink=getLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
+  JLabel accessTokenDocumentationLink=UISupport.createLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
   accessTokenDocumentationLink.setBorder(createEmptyBorder(10,5,0,0));
   wrapperPanel.add(accessTokenDocumentationLink,BorderLayout.SOUTH);
   wrapperPanel.setBorder(createCompoundBorder(createLineBorder(CARD_BORDER_COLOR),createEmptyBorder(10,10,10,10)));
