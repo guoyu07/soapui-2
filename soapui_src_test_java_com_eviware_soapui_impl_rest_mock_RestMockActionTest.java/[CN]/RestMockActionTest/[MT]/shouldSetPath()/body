@@ -1,0 +1,6 @@
+{
+  String updatedPath="an/updatedpath";
+  assertNotSame(updatedPath,mockAction.getResourcePath());
+  mockAction.setResourcePath(updatedPath);
+  assertThat(mockAction.getResourcePath(),is(updatedPath));
+}
