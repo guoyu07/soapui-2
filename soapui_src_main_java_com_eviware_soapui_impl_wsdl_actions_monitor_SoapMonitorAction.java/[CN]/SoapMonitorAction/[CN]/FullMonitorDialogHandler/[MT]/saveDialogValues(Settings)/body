@@ -10,7 +10,7 @@
   settings.setString(LaunchForm.SSLTUNNEL_REUSESTATE,dialog.getValue(LaunchForm.SSLTUNNEL_REUSESTATE));
   settings.setString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,dialog.getValue(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH));
   if (dialog.getValue(LaunchForm.SET_CONTENT_TYPES) != null && dialog.getValue(LaunchForm.SET_CONTENT_TYPES).trim().equals("")) {
-    settings.setString(LaunchForm.SET_CONTENT_TYPES,defaultContentTypes());
+    settings.setString(LaunchForm.SET_CONTENT_TYPES,defaultContentTypes().toString());
   }
  else {
     settings.setString(LaunchForm.SET_CONTENT_TYPES,dialog.getValue(LaunchForm.SET_CONTENT_TYPES));

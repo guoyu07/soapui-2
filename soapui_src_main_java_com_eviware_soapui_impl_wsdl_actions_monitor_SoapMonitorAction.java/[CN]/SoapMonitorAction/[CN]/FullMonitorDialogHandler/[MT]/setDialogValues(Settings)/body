@@ -10,7 +10,7 @@
   dialog.setValue(SecurityTabForm.SSLTUNNEL_TRUSTSTORE,settings.getString(SecurityTabForm.SSLTUNNEL_TRUSTSTORE,""));
   dialog.setValue(SecurityTabForm.SSLTUNNEL_TRUSTSTORE_PASSWORD,settings.getString(SecurityTabForm.SSLTUNNEL_TRUSTSTORE_PASSWORD,""));
   dialog.setBooleanValue(LaunchForm.SSLTUNNEL_REUSESTATE,settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE));
-  dialog.setValue(LaunchForm.SET_CONTENT_TYPES,settings.getString(LaunchForm.SET_CONTENT_TYPES,defaultContentTypes()));
+  dialog.setValue(LaunchForm.SET_CONTENT_TYPES,settings.getString(LaunchForm.SET_CONTENT_TYPES,defaultContentTypes().toString()));
   dialog.setValue(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,""));
   dialog.setValue(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   XFormField sslOrHttp=dialog.getFormField(LaunchForm.SSLORHTTP);

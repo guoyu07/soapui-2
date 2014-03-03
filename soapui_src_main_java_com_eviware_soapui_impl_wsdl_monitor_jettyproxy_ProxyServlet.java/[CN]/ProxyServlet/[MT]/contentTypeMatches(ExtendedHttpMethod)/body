@@ -1,0 +1,12 @@
+{
+  if (method.hasHttpResponse()) {
+    Header[] headers=method.getHttpResponse().getHeaders("Content-Type");
+    if (headers.length == 0)     return true;
+    for (    Header header : headers) {
+      if (includedContentTypes.matches(header.getValue())) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
