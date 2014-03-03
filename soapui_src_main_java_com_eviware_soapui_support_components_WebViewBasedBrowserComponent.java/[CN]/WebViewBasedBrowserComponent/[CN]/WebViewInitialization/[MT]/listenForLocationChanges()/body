@@ -1,0 +1,11 @@
+{
+  webView.getEngine().locationProperty().addListener(new ChangeListener<String>(){
+    @Override public void changed(    ObservableValue<? extends String> observableValue,    String oldLocation,    String newLocation){
+      lastLocation=newLocation;
+      for (      BrowserListener listener : listeners) {
+        listener.locationChanged(newLocation);
+      }
+    }
+  }
+);
+}

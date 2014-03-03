@@ -36,6 +36,6 @@
   buttonPanel.add(new JButton(new EditScriptsAction(profile)));
   accessTokenForm.addComponent(buttonPanel);
   accessTokenForm.appendLabel(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY,"Access token status");
-  JLabel accessTokenDocumentationLink=getLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
+  JLabel accessTokenDocumentationLink=UISupport.createLabelLink("http://www.soapui.org","How to get an access token from an authorization server");
   accessTokenForm.addComponent(accessTokenDocumentationLink);
 }

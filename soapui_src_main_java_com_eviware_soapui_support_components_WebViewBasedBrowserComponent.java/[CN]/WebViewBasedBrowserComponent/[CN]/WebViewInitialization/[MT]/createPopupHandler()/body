@@ -1,0 +1,19 @@
+{
+  webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(){
+    @Override public WebEngine call(    PopupFeatures pf){
+      BrowserWindow popupWindow=new BrowserWindow(pf);
+      browserWindows.add(popupWindow);
+      popupWindow.setSize(800,600);
+      popupWindow.setVisible(true);
+      final WebEngine webEngine=popupWindow.browser.getWebEngine();
+      webEngine.locationProperty().addListener(new InvalidationListener(){
+        @Override public void invalidated(        Observable property){
+          System.out.println(webEngine.getLocation());
+        }
+      }
+);
+      return webEngine;
+    }
+  }
+);
+}

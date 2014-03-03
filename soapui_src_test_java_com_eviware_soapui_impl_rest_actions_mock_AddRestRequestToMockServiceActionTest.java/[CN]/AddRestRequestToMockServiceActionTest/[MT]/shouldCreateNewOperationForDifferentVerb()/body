@@ -1,0 +1,9 @@
+{
+  action.perform(restRequest,notUsed);
+  int mockOperationCount=project.getRestMockServiceAt(0).getMockOperationCount();
+  assertThat(mockOperationCount,is(1));
+  restRequest.setMethod(HttpMethod.TRACE);
+  action.perform(restRequest,notUsed);
+  mockOperationCount=project.getRestMockServiceAt(0).getMockOperationCount();
+  assertThat(mockOperationCount,is(2));
+}

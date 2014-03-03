@@ -1,0 +1,7 @@
+{
+  String mockServiceName="RenamedFromScript";
+  mockResponse.setName("MockResponse");
+  mockResponse.setScript("mockResponse.setName('" + mockServiceName + "')");
+  RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  assertThat(mockResult.getMockResponse().getName(),is(mockServiceName));
+}
