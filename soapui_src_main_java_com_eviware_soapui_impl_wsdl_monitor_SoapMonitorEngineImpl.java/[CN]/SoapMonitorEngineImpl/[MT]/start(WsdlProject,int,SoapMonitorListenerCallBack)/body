@@ -38,7 +38,10 @@
   try {
     server.start();
   }
- catch (  Exception e) {
-    UISupport.showErrorMessage("Error starting monitor: " + e.getMessage());
+ catch (  BindException e) {
+    UISupport.showErrorMessage("Error starting " + getProxyOrTunnelString() + ": Could not open port "+ localPort+ ".\nTry a different port number.");
+  }
+catch (  Exception e) {
+    UISupport.showErrorMessage("Error starting " + getProxyOrTunnelString() + ": "+ e.getMessage());
   }
 }
