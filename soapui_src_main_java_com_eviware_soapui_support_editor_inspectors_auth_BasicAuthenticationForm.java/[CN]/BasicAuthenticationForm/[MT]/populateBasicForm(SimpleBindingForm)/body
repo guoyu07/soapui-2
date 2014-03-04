@@ -4,6 +4,9 @@
   basicConfigurationForm.appendTextField("username","Username","The username to use for HTTP Authentication");
   basicConfigurationForm.appendPasswordField("password","Password","The password to use for HTTP Authentication");
   basicConfigurationForm.appendTextField("domain","Domain","The domain to use for Authentication(NTLM/Kerberos)");
-  preemptiveBox=basicConfigurationForm.appendCheckBox("preemptive","Pre-emptive auth","Adds authentication information to the outgoing request ");
-  preemptiveBox.addActionListener(new PreemptiveCheckboxListener(preemptiveBox));
+  ButtonGroup buttonGroup=new ButtonGroup();
+  globalButton=basicConfigurationForm.appendRadioButton("","Use global preference",buttonGroup,true);
+  preemptiveButton=basicConfigurationForm.appendRadioButton("","Authenticate pre-emptively",buttonGroup,false);
+  globalButton.addActionListener(new UseGlobalSettingsRadioButtonListener(globalButton));
+  preemptiveButton.addActionListener(new PreemptiveRadioButtonListener(preemptiveButton));
 }
