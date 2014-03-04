@@ -7,7 +7,7 @@
         rawResponse.write(String.valueOf(httpMethod.getHttpResponse().getStatusLine()).getBytes());
         rawResponse.write("\r\n".getBytes());
       }
- catch (      Throwable e) {
+ catch (      Exception ignore) {
       }
     }
     rawRequest.write((method + " " + String.valueOf(url)+ " "+ version+ "\r\n").getBytes());

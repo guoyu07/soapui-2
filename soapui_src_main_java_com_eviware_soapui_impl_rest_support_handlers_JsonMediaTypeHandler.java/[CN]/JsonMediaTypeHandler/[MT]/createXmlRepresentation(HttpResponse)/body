@@ -8,7 +8,9 @@
     serializer.setTypeHintsEnabled(false);
     serializer.setRootName(HttpUtils.isErrorStatus(response.getStatusCode()) ? "Fault" : "Response");
     URL url=response.getURL();
-    serializer.setNamespace("",url.getProtocol() + "://" + url.getHost()+ url.getPath());
+    String originalUri=readOriginalUriFrom(response.getRequest());
+    String namespaceUri=originalUri != null ? originalUri : makeUrlString(url);
+    serializer.setNamespace("",namespaceUri);
     content=serializer.write(json);
     content=XmlUtils.prettyPrintXml(content);
     return content;

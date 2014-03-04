@@ -1,0 +1,20 @@
+{
+  webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>(){
+    @Override public void changed(    ObservableValue value,    Worker.State oldState,    Worker.State newState){
+      if (newState == Worker.State.SUCCEEDED) {
+        try {
+          if (getWebEngine().getDocument() != null) {
+            String output=readDocumentAsString();
+            for (            BrowserListener listener : listeners) {
+              listener.contentChanged(output);
+            }
+          }
+        }
+ catch (        Exception ex) {
+          SoapUI.logError(ex,"Error processing state change to " + newState);
+        }
+      }
+    }
+  }
+);
+}

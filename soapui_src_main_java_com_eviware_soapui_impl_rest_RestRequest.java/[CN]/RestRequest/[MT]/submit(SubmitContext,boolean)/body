@@ -14,6 +14,7 @@
   try {
     WsdlSubmit<RestRequest> submitter=new WsdlSubmit<RestRequest>(this,getSubmitListeners(),RequestTransportRegistry.getTransport(endpoint,submitContext));
     submitter.submitRequest(submitContext,async);
+    setOriginalUriInConfig();
     return submitter;
   }
  catch (  Exception e) {

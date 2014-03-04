@@ -1,0 +1,7 @@
+{
+  if (result != null && result instanceof MockResult) {
+    for (    MockRunListener listener : getMockRunListeners()) {
+      listener.onMockResult((MockResult)result);
+    }
+  }
+}
