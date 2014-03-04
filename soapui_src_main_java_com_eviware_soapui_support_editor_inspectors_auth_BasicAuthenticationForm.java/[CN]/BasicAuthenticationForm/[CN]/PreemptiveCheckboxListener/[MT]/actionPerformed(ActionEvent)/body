@@ -1,0 +1,7 @@
+{
+  String authType=CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS.toString();
+  if (preemptiveBox.isSelected()) {
+    authType=CredentialsConfig.AuthType.PREEMPTIVE.toString();
+  }
+  request.setSelectedAuthProfileAndAuthType(ProfileSelectionForm.BASIC_AUTH_PROFILE,authType);
+}

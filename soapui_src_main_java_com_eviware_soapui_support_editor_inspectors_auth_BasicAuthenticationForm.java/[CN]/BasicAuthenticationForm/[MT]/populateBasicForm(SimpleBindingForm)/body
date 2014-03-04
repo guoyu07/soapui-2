@@ -4,4 +4,6 @@
   basicConfigurationForm.appendTextField("username","Username","The username to use for HTTP Authentication");
   basicConfigurationForm.appendPasswordField("password","Password","The password to use for HTTP Authentication");
   basicConfigurationForm.appendTextField("domain","Domain","The domain to use for Authentication(NTLM/Kerberos)");
+  preemptiveBox=basicConfigurationForm.appendCheckBox("preemptive","Pre-emptive auth","Adds authentication information to the outgoing request ");
+  preemptiveBox.addActionListener(new PreemptiveCheckboxListener(preemptiveBox));
 }
