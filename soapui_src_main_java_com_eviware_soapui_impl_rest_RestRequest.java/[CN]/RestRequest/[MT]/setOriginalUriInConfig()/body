@@ -1,5 +1,11 @@
 {
-  if (getConfig().getOriginalUri() == null && (StringUtils.hasContent(getEndpoint()) || StringUtils.hasContent(getPath()))) {
-    getConfig().setOriginalUri(getEndpoint() + getPath());
+  if (getConfig().getOriginalUri() == null) {
+    if (getResponse() != null && getResponse().getURL() != null) {
+      getConfig().setOriginalUri(getResponse().getURL().toString());
+    }
+ else     if (StringUtils.hasContent(getEndpoint()) && StringUtils.hasContent(getPath())) {
+      String endpoint=removePortFrom(getEndpoint());
+      getConfig().setOriginalUri(endpoint + getPath());
+    }
   }
 }
