@@ -1,13 +1,10 @@
 {
   JXToolBar toolbar=UISupport.createToolbar();
-  final JTextField resourcePathEditor=new JTextField();
-  resourcePathEditor.addKeyListener(new KeyAdapter(){
-    @Override public void keyReleased(    KeyEvent e){
-      getModelItem().setResourcePath(resourcePathEditor.getText());
-    }
-  }
-);
-  TextPanelWithTopLabel resourcePanel=new TextPanelWithTopLabel("Resource",getModelItem().getResourcePath(),resourcePathEditor);
-  toolbar.addWithOnlyMinimumHeight(resourcePanel);
+  toolbar.setLayout(new BorderLayout());
+  Box methodBox=Box.createHorizontalBox();
+  methodBox.add(createMethodComboBox());
+  methodBox.add(Box.createHorizontalStrut(10));
+  toolbar.add(methodBox,BorderLayout.WEST);
+  toolbar.add(createResourcePathTextField(),BorderLayout.CENTER);
   return toolbar;
 }
