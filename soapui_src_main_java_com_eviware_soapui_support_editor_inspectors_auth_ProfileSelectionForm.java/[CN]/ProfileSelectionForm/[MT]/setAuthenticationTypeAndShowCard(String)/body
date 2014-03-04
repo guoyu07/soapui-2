@@ -3,9 +3,8 @@
     performAddEditOperation(request.getSelectedAuthProfile(),selectedOption);
     return;
   }
-  request.setSelectedAuthProfile(selectedOption);
   if (getBasicAuthenticationTypes().contains(selectedOption)) {
-    request.setAuthType(selectedOption);
+    request.setSelectedAuthProfileAndAuthType(selectedOption,selectedOption);
     if (isSoapRequest(request)) {
       showCard(WSS_FORM_LABEL);
     }
@@ -14,13 +13,13 @@
     }
   }
  else   if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(selectedOption)) {
-    request.setAuthType(CredentialsConfig.AuthType.O_AUTH_2_0.toString());
+    request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.O_AUTH_2_0.toString());
     OAuth2Form oAuth2Form=new OAuth2Form(getOAuth2ProfileContainer().getProfileByName(selectedOption));
     cardPanel.add(oAuth2Form.getComponent(),OAUTH_2_FORM_LABEL);
     showCard(OAUTH_2_FORM_LABEL);
   }
  else {
-    request.setAuthType(null);
+    request.setSelectedAuthProfileAndAuthType(selectedOption,null);
     showCard(EMPTY_PANEL);
   }
 }
