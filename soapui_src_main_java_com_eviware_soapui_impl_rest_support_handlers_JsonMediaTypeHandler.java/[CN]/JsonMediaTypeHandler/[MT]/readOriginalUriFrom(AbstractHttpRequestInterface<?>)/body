@@ -1,0 +1,9 @@
+{
+  if (request instanceof RestRequest) {
+    AbstractRequestConfig config=((RestRequest)request).getConfig();
+    return config.getOriginalUri();
+  }
+ else {
+    return null;
+  }
+}
