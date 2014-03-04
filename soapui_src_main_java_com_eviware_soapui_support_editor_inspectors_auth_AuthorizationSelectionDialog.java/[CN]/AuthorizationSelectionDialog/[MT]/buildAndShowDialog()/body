@@ -6,7 +6,7 @@
   hintTextLabel=(JLabelFormField)dialog.getFormField(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_HINT_TEXT_LABEL);
   setHintTextColor();
   setProfileNameAndHintTextVisibility(request.getAuthType());
-  ArrayList<String> authTypes=getBasicAuthenticationTypes();
+  List<String> authTypes=getBasicAuthenticationTypes();
   authTypes.removeAll(request.getBasicAuthenticationProfiles());
   if (request instanceof RestRequest) {
     authTypes.add(CredentialsConfig.AuthType.O_AUTH_2_0.toString());

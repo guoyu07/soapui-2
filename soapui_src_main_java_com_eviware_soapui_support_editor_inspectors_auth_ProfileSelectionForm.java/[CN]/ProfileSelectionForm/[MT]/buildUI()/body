@@ -6,7 +6,7 @@
   cardPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
   cardPanel.add(createEmptyPanel(),EMPTY_PANEL);
   innerPanel.add(cardPanel,BorderLayout.CENTER);
-  BasicAuthenticationForm<T> authenticationForm=new BasicAuthenticationForm<T>(request);
+  authenticationForm=new BasicAuthenticationForm<T>(request);
   cardPanel.add(authenticationForm.getComponent(),BASIC_FORM_LABEL);
   if (isSoapRequest(request)) {
     WSSAuthenticationForm wssAuthenticationForm=new WSSAuthenticationForm((WsdlRequest)request);
