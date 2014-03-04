@@ -2,6 +2,7 @@
   request=mock(HttpServletRequest.class);
   Enumeration enumeration=mock(Enumeration.class);
   when(request.getHeaderNames()).thenReturn(enumeration);
+  when(request.getMethod()).thenReturn(HttpMethod.DELETE.name());
   response=mock(HttpServletResponse.class);
   restMockService=mock(RestMockService.class);
   context=mock(WsdlMockRunContext.class);
