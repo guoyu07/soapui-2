@@ -1,3 +1,5 @@
 {
   getConfig().setMethod(method.name());
+  setIcon(UISupport.createImageIcon(getIconName(method.name())));
+  notifyPropertyChanged("httpMethod",null,this);
 }

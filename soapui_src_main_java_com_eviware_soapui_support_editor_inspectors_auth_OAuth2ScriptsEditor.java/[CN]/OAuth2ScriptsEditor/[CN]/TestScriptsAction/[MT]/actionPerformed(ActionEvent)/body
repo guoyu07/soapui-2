@@ -10,7 +10,7 @@
   }
   if (!errorsFound) {
     OAuth2TokenExtractor extractor=getExtractor();
-    extractor.addBrowserListener(new JavaScriptErrorReporter());
+    extractor.addBrowserListener(new JavaScriptErrorReporter(profile.getAutomationJavaScripts()));
     OAuth2Parameters parameters=new OAuth2Parameters(profile);
     try {
       extractor.extractAccessToken(parameters);

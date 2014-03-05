@@ -1,0 +1,8 @@
+{
+  String[] expectedAddEditOptions=(values + "," + ProfileSelectionForm.OPTIONS_SEPARATOR).split(",");
+  List<String> expectedOptionsList=Arrays.asList(expectedAddEditOptions);
+  String[] actualOptions=getProfileSelectionComboBox().contents();
+  for (  String actualOption : actualOptions) {
+    assertThat(expectedOptionsList,hasItem(actualOption));
+  }
+}

@@ -1,7 +1,0 @@
-{
-  OAuth2ProfileContainer oAuth2ProfileContainer=request.getOperation().getInterface().getProject().getOAuth2ProfileContainer();
-  if (oAuth2ProfileContainer.getOAuth2ProfileList().isEmpty()) {
-    oAuth2ProfileContainer.addNewOAuth2Profile("OAuth 2 - Profile");
-  }
-  return oAuth2ProfileContainer.getOAuth2ProfileList().get(0);
-}
