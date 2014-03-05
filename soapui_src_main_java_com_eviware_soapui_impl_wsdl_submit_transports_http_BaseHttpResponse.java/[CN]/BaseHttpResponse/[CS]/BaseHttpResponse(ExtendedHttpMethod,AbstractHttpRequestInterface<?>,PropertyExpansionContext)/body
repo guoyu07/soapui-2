@@ -26,13 +26,13 @@
     try {
       this.timestamp=System.currentTimeMillis();
       this.contentType=httpMethod.getResponseContentType();
-      this.statusCode=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getStatusLine().getStatusCode() : 0;
+      this.statusCode=extractStatusCode(httpMethod);
       this.sslInfo=httpMethod.getSSLInfo();
       this.url=httpMethod.getURI().toURL();
       metrics.setTimestamp(getTimestamp());
       metrics.setHttpStatus(getStatusCode());
     }
- catch (    Throwable e) {
+ catch (    Exception e) {
       e.printStackTrace();
     }
   }
@@ -45,7 +45,7 @@
   }
   initHeaders(httpMethod);
   if (this.httpRequest.get() instanceof HttpRequest) {
-    downloadIncludedResources=(HttpRequest)this.httpRequest.get() != null ? ((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources() : false;
+    downloadIncludedResources=this.httpRequest.get() != null ? ((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources() : false;
     if (downloadIncludedResources) {
       long beforeNanos=System.nanoTime();
       addIncludedContentsAsAttachments();
