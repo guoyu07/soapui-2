@@ -1,5 +1,7 @@
 {
   oAuth2Form=new SimpleBindingForm(new PresentationModel<OAuth2Profile>(profile));
   addOAuth2Panel(oAuth2Form);
+  statusChangeManager.register();
+  setAccessTokenStatusFeedback(profile.getAccesTokenStatusAsEnum());
   return formPanel;
 }

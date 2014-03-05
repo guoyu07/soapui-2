@@ -1,0 +1,17 @@
+{
+  if (status != null) {
+switch (status) {
+case PENDING:
+case WAITING_FOR_AUTHORIZATION:
+case RECEIVED_AUTHORIZATION_CODE:
+      setWaitingFeedback(status);
+    break;
+case ENTERED_MANUALLY:
+case RETRIEVED_FROM_SERVER:
+case FAILED:
+default :
+  setDefaultFeedback();
+break;
+}
+}
+}
