@@ -1,17 +1,16 @@
 {
-  if (status != null) {
+  if (status == null) {
+    setDefaultFeedback();
+  }
+ else {
 switch (status) {
 case ENTERED_MANUALLY:
 case RETRIEVED_FROM_SERVER:
       setSucessfullFeedback(status);
     break;
-case PENDING:
 case WAITING_FOR_AUTHORIZATION:
 case RECEIVED_AUTHORIZATION_CODE:
-  setWaitingFeedback();
-break;
-case FAILED:
-setFailedFeedback(status);
+  setWaitingFeedback(status);
 break;
 default :
 setDefaultFeedback();
