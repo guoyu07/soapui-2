@@ -29,6 +29,11 @@
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
   label.setInheritsPopupMenu(true);
   label.setEnabled(!testSuite.isDisabled());
+  if (UISupport.isMac()) {
+    Font oldFont=label.getFont();
+    Font newFont=new Font(oldFont.getName(),Font.BOLD,oldFont.getSize());
+    label.setFont(newFont);
+  }
   add(progressPanel,BorderLayout.CENTER);
   add(label,BorderLayout.NORTH);
   testSuitePropertyChangeListener=new TestSuitePropertyChangeListener();
