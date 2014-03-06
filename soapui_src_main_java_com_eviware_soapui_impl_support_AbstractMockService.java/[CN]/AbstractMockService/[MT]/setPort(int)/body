@@ -1,3 +1,5 @@
 {
+  int oldPort=getPort();
   getConfig().setPort(port);
+  notifyPropertyChanged(PORT_PROPERTY,oldPort,port);
 }

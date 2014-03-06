@@ -1,3 +1,5 @@
 {
+  String oldPath=getPath();
   getConfig().setPath(path);
+  notifyPropertyChanged(PATH_PROPERTY,oldPath,path);
 }
