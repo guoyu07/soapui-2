@@ -1,5 +1,5 @@
 {
-  if (!CredentialsConfig.AuthType.O_AUTH_2_0.toString().equals(authType)) {
+  if (!AuthType.O_AUTH_2_0.toString().equals(authType) && (!AuthType.NO_AUTHORIZATION.toString().equals(authType))) {
     if (authType.equals(AuthType.PREEMPTIVE.toString()) || authType.equals(AuthType.GLOBAL_HTTP_SETTINGS.toString())) {
       addBasicAuthenticationProfile(BASIC_AUTH_PROFILE);
     }
