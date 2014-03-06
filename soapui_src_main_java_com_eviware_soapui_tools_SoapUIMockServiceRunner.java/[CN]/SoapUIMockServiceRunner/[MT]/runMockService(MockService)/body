@@ -3,7 +3,7 @@
     if (path != null)     mockService.setPath(path);
     if (port != null)     mockService.setPort(Integer.parseInt(port));
     mockService.addMockRunListener(new LogListener());
-    WsdlMockRunner runner=mockService.start();
+    MockRunner runner=mockService.start();
     runner.setLogEnabled(false);
     runners.add(runner);
   }
