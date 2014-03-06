@@ -1,6 +1,6 @@
 {
   ArrayList<String> options=new ArrayList<String>();
-  options.add(NO_AUTHORIZATION);
+  options.add(CredentialsConfig.AuthType.NO_AUTHORIZATION.toString());
   options.addAll(request.getBasicAuthenticationProfiles());
   ArrayList<String> addEditOptions=getAddEditOptions();
   ArrayList<String> oAuth2Profiles=null;
@@ -11,7 +11,7 @@
   if (oAuth2Profiles == null || !oAuth2Profiles.contains(selectedAuthProfile)) {
     addEditOptions.remove(AddEditOptions.RENAME.getDescription());
   }
-  if (options.size() <= 1 || NO_AUTHORIZATION.equals(selectedAuthProfile)) {
+  if (options.size() <= 1 || CredentialsConfig.AuthType.NO_AUTHORIZATION.toString().equals(selectedAuthProfile)) {
     addEditOptions.remove(AddEditOptions.DELETE.getDescription());
   }
   options.add(OPTIONS_SEPARATOR);
