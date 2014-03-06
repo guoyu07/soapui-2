@@ -1,4 +1,12 @@
 {
+  if (authType != null && (!CredentialsConfig.AuthType.O_AUTH_2_0.toString().equals(authType))) {
+    if (authType.equals(AuthType.PREEMPTIVE.toString()) || authType.equals(AuthType.GLOBAL_HTTP_SETTINGS.toString())) {
+      addBasicAuthenticationProfile(BASIC_AUTH_PROFILE);
+    }
+ else {
+      addBasicAuthenticationProfile(authType);
+    }
+  }
   String old=getAuthType();
   CredentialsConfig credentialsConfig=getCredentialsConfig();
   credentialsConfig.setAuthType(AuthType.Enum.forString(authType));

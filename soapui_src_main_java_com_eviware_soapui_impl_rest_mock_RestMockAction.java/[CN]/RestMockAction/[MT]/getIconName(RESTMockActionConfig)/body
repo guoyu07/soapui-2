@@ -1,4 +1,6 @@
 {
-  String method=StringUtils.isNullOrEmpty(methodConfig.getMethod()) ? "get" : methodConfig.getMethod().toLowerCase();
-  return "/" + method + "_method.gif";
+  if (methodConfig.isSetMethod()) {
+    return getIconName(methodConfig.getMethod());
+  }
+  return getDefaultIcon();
 }

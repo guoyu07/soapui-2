@@ -3,17 +3,18 @@
   options.add(NO_AUTHORIZATION);
   options.addAll(request.getBasicAuthenticationProfiles());
   ArrayList<String> addEditOptions=getAddEditOptions();
+  ArrayList<String> oAuth2Profiles=null;
   if (isRestRequest(request)) {
-    ArrayList<String> oAuth2Profiles=getOAuth2ProfileContainer().getOAuth2ProfileNameList();
+    oAuth2Profiles=getOAuth2ProfileContainer().getOAuth2ProfileNameList();
     options.addAll(oAuth2Profiles);
-    if (!oAuth2Profiles.contains(selectedAuthProfile)) {
-      addEditOptions.remove(AddEditOptions.RENAME.getDescription());
-    }
   }
-  if (options.size() <= 1) {
+  if (oAuth2Profiles == null || !oAuth2Profiles.contains(selectedAuthProfile)) {
+    addEditOptions.remove(AddEditOptions.RENAME.getDescription());
+  }
+  if (options.size() <= 1 || NO_AUTHORIZATION.equals(selectedAuthProfile)) {
     addEditOptions.remove(AddEditOptions.DELETE.getDescription());
   }
-  options.add("------------------");
+  options.add(OPTIONS_SEPARATOR);
   options.addAll(addEditOptions);
   return options.toArray(new String[options.size()]);
 }

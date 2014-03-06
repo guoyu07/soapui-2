@@ -4,7 +4,7 @@ switch (addEditOption) {
 case ADD:
     SwingUtilities.invokeLater(new Runnable(){
       @Override public void run(){
-        new AuthorizationSelectionDialog<T>(request);
+        new AuthorizationSelectionDialog<T>(request,getBasicAuthenticationTypes());
         refreshProfileSelectionComboBox(request.getSelectedAuthProfile());
       }
     }

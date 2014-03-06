@@ -1,0 +1,11 @@
+{
+  if (e.getStateChange() == ItemEvent.SELECTED) {
+    String selectedProfile=(String)e.getItem();
+    setAuthenticationTypeAndShowCard(selectedProfile);
+    if (!getAddEditOptions().contains(selectedProfile)) {
+      DefaultComboBoxModel profileComboBoXModel=new DefaultComboBoxModel(createOptionsForAuthorizationCombo(selectedProfile));
+      profileComboBoXModel.setSelectedItem(selectedProfile);
+      profileSelectionComboBox.setModel(profileComboBoXModel);
+    }
+  }
+}

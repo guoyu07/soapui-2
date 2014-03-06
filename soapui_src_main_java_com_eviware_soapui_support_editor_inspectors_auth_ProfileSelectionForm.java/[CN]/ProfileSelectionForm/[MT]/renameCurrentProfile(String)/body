@@ -1,5 +1,5 @@
 {
-  String newName=UISupport.prompt("Specify name of Profile","Rename Profile",profileOldName);
+  String newName=UISupport.prompt("Specify name of Profile",RENAME_PROFILE_DIALOG_TITLE,profileOldName);
   if (newName == null || profileOldName.equals(newName)) {
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
@@ -16,6 +16,6 @@
   }
   OAuth2Profile profile=getOAuth2ProfileContainer().getProfileByName(profileOldName);
   profile.setName(newName);
-  request.setSelectedAuthProfile(newName);
+  request.setSelectedAuthProfileAndAuthType(newName,request.getAuthType());
   refreshProfileSelectionComboBox(newName);
 }

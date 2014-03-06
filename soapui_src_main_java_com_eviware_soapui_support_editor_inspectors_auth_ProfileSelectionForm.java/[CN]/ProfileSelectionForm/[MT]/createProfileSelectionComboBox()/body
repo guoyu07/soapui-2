@@ -1,6 +1,6 @@
 {
   String[] existingProfiles=createOptionsForAuthorizationCombo(request.getSelectedAuthProfile());
   profileSelectionComboBox=new JComboBox<String>(existingProfiles);
-  profileSelectionComboBox.setName(AUTHORIZATION_TYPE_COMBO_BOX_NAME);
-  profileSelectionComboBox.addActionListener(new ProfileSelectionListener());
+  profileSelectionComboBox.setName(PROFILE_COMBO_BOX);
+  profileSelectionComboBox.addItemListener(new ProfileSelectionListener());
 }
