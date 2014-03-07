@@ -1,0 +1,10 @@
+{
+  RESTMockActionConfig config=getConfig().addNewRestMockAction();
+  config.setName(name);
+  config.setMethod(method.name());
+  config.setResourcePath(path);
+  RestMockAction restMockAction=new RestMockAction(this,config);
+  addMockOperation(restMockAction);
+  fireMockOperationAdded(restMockAction);
+  return restMockAction;
+}
