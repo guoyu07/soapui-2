@@ -1,0 +1,9 @@
+{
+  SimpleBindingForm accessTokenForm=createSimpleBindingForm(profile);
+  statusChangeManager=new OAuth2AccessTokenStatusChangeManager(this);
+  populateGetAccessTokenForm(accessTokenForm);
+  statusChangeManager.register();
+  setOAuth2StatusFeedback(profile.getAccesTokenStatusAsEnum());
+  accessTokenDialog=createGetAccessTokenDialog(accessTokenForm.getPanel());
+  return accessTokenDialog;
+}

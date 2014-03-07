@@ -1,0 +1,13 @@
+{
+  for (  PropertyComponent propertyComponent : propertyComponents) {
+    if (propertyComponent.hasProperty()) {
+      if (propertyComponent.getComponent() instanceof JLabel) {
+        Bindings.bind((JLabel)propertyComponent.getComponent(),pm.getModel(propertyComponent.getProperty()));
+      }
+ else {
+        throw new RuntimeException("Components of type " + propertyComponent.getComponent().getClass() + " is not supported");
+      }
+    }
+  }
+  super.appendInOneRow(propertyComponents);
+}
