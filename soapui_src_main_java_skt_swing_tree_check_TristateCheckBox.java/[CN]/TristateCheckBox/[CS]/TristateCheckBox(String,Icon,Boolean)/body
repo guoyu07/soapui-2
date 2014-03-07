@@ -1,0 +1,23 @@
+{
+  super(text,icon);
+  super.addMouseListener(new MouseAdapter(){
+    public void mousePressed(    MouseEvent e){
+      grabFocus();
+      model.nextState();
+    }
+  }
+);
+  ActionMap map=new ActionMapUIResource();
+  map.put("pressed",new AbstractAction(){
+    public void actionPerformed(    ActionEvent e){
+      grabFocus();
+      model.nextState();
+    }
+  }
+);
+  map.put("released",null);
+  SwingUtilities.replaceUIActionMap(this,map);
+  model=new TristateDecorator(getModel());
+  setModel(model);
+  setState(initial);
+}

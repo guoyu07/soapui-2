@@ -1,0 +1,9 @@
+{
+  if (isPathSelected(path,true))   return false;
+  TreePath[] selectionPaths=getSelectionPaths();
+  if (selectionPaths == null)   return false;
+  for (int j=0; j < selectionPaths.length; j++) {
+    if (isDescendant(selectionPaths[j],path))     return true;
+  }
+  return false;
+}
