@@ -5,7 +5,7 @@
   method=httpMethod.getMethod();
   version=httpMethod.getProtocolVersion().toString();
   try {
-    this.url=httpMethod.getURI().toURL();
+    this.url=httpMethod.getURL();
   }
  catch (  Exception e1) {
     SoapUI.logError(e1);
@@ -26,13 +26,13 @@
     try {
       this.timestamp=System.currentTimeMillis();
       this.contentType=httpMethod.getResponseContentType();
-      this.statusCode=httpMethod.hasHttpResponse() ? httpMethod.getHttpResponse().getStatusLine().getStatusCode() : 0;
+      this.statusCode=extractStatusCode(httpMethod);
       this.sslInfo=httpMethod.getSSLInfo();
-      this.url=httpMethod.getURI().toURL();
+      this.url=httpMethod.getURL();
       metrics.setTimestamp(getTimestamp());
       metrics.setHttpStatus(getStatusCode());
     }
- catch (    Throwable e) {
+ catch (    Exception e) {
       e.printStackTrace();
     }
   }

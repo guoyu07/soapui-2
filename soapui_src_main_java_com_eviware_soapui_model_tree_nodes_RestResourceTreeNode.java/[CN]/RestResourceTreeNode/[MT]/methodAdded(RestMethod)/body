@@ -1,7 +1,12 @@
 {
-  RestMethodTreeNode methodTreeNode=new RestMethodTreeNode(method,getTreeModel());
-  methodNodes.add(methodTreeNode);
-  reorder(false);
-  method.addPropertyChangeListener(Request.NAME_PROPERTY,propertyChangeListener);
-  getTreeModel().notifyNodeInserted(methodTreeNode);
+  UISupport.invokeAndWaitIfNotInEDT(new Runnable(){
+    @Override public void run(){
+      RestMethodTreeNode methodTreeNode=new RestMethodTreeNode(method,getTreeModel());
+      methodNodes.add(methodTreeNode);
+      reorder(false);
+      method.addPropertyChangeListener(Request.NAME_PROPERTY,propertyChangeListener);
+      getTreeModel().notifyNodeInserted(methodTreeNode);
+    }
+  }
+);
 }

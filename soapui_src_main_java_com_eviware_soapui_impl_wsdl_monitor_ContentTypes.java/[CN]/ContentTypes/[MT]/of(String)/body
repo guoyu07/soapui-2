@@ -1,0 +1,11 @@
+{
+  List<ContentType> contentTypeList=new ArrayList<ContentType>();
+  for (  String ct : contentTypes.split(",")) {
+    try {
+      contentTypeList.add(new ContentType(ct.trim()));
+    }
+ catch (    ParseException ignore) {
+    }
+  }
+  return new ContentTypes(contentTypeList);
+}

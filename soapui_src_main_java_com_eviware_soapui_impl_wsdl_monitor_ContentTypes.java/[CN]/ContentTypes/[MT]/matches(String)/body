@@ -1,0 +1,13 @@
+{
+  for (  ContentType contentType : contentTypes) {
+    try {
+      ContentType respondedContentType=new ContentType(value);
+      if (contentTypeMatches(contentType,respondedContentType)) {
+        return true;
+      }
+    }
+ catch (    ParseException ignore) {
+    }
+  }
+  return false;
+}

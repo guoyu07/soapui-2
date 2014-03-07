@@ -11,7 +11,7 @@
       for (      Header header : headers) {
         responseHeaders.put(header.getName(),header.getValue());
       }
-      responseHeaders.put("#status#",String.valueOf(httpMethod.getHttpResponse().getStatusLine()));
+      responseHeaders.put("#status#",extractStatusLine(httpMethod));
     }
   }
  catch (  Throwable e) {
