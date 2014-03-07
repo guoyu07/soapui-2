@@ -1,4 +1,5 @@
 {
+  boolean isFirstLaunch=!new File(SoapUICore.DEFAULT_SETTINGS_FILE).exists();
   Properties props=new Properties();
   try {
     props.load(SoapUI.class.getResourceAsStream(SOAPUI_TITLE));
@@ -27,6 +28,9 @@
 ).start();
     }
     startCajoServerIfNotOverriddenBySetting();
+    if (isFirstLaunch) {
+      Tools.openURL(SOAPUI_WELCOME_PAGE);
+    }
   }
  catch (  Exception e) {
     e.printStackTrace();
