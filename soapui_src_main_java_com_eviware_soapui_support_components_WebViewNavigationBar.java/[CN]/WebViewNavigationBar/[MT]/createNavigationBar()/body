@@ -10,5 +10,21 @@
   toolbar.add(new ReloadAction());
   toolbar.add(urlField);
   urlField.addActionListener(new UrlEnteredActionListener());
+  urlField.setText("Enter URL here");
+  urlField.setFont(urlField.getFont().deriveFont(Font.ITALIC));
+  originalFontColor=urlField.getForeground();
+  urlField.setForeground(new Color(170,170,170));
+  urlField.addKeyListener(new KeyAdapter(){
+    @Override public void keyTyped(    KeyEvent e){
+      removeHintText();
+    }
+  }
+);
+  urlField.addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      removeHintText();
+    }
+  }
+);
   return toolbar;
 }
