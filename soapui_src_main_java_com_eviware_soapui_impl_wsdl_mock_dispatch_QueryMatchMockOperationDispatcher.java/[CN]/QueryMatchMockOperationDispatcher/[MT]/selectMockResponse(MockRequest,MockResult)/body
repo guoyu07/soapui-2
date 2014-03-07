@@ -29,7 +29,7 @@
             if (resp != null) {
               return resp;
             }
-            return getMockOperation().getMockResponseByName(query.getResponse());
+            return ((WsdlMockOperation)getMockOperation()).getMockResponseByName(query.getResponse());
           }
         }
         cursorCache.put(path,cursor);

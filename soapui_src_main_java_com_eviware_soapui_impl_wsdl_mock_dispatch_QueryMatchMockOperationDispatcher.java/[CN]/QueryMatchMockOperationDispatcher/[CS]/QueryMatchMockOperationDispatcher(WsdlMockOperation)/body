@@ -1,7 +1,7 @@
 {
   super(mockOperation);
   try {
-    conf=MockOperationQueryMatchDispatchConfig.Factory.parse(getConfig().xmlText());
+    conf=MockOperationQueryMatchDispatchConfig.Factory.parse(mockOperation.getConfig().getDispatchConfig().xmlText());
     for (    MockOperationQueryMatchDispatchConfig.Query query : conf.getQueryList()) {
       queries.add(new Query(query));
     }

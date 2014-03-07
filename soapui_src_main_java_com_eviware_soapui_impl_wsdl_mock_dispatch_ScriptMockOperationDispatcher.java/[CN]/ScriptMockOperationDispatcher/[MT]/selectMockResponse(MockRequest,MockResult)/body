@@ -1,10 +1,10 @@
 {
-  String dispatchScript=getMockOperation().getDispatchPath();
+  String dispatchScript=getMockOperation().getScript();
   if (StringUtils.hasContent(dispatchScript)) {
     SoapUIScriptEngine scriptEngine=scriptEnginePool.getScriptEngine();
     try {
-      WsdlMockService mockService=getMockOperation().getMockService();
-      WsdlMockRunner mockRunner=mockService.getMockRunner();
+      MockService mockService=getMockOperation().getMockService();
+      MockRunner mockRunner=mockService.getMockRunner();
       MockRunContext context=mockRunner == null ? new WsdlMockRunContext(mockService,null) : mockRunner.getMockContext();
       scriptEngine.setVariable("context",context);
       scriptEngine.setVariable("requestContext",request == null ? null : request.getRequestContext());
