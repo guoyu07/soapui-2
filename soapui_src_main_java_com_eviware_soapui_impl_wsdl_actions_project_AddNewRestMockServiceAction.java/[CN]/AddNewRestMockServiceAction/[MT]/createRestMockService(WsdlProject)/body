@@ -1,0 +1,10 @@
+{
+  String name=UISupport.prompt("Specify name of MockService","New MockService","REST MockService " + (project.getRestMockServiceCount() + 1));
+  if (name == null)   return null;
+  while (project.getMockServiceByName(name.trim()) != null) {
+    name=UISupport.prompt("Specify unique name of REST MockService","Rename MockService",name);
+  }
+  MockService mockService=project.addNewRestMockService(name.trim());
+  UISupport.select(mockService);
+  return mockService;
+}
