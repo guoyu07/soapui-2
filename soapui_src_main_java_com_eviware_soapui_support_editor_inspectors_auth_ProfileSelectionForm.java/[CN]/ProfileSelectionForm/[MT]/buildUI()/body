@@ -1,0 +1,16 @@
+{
+  JPanel innerPanel=new JPanel(new BorderLayout());
+  innerPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+  JPanel comboBoxPanel=createAuthorizationLabelAndComboBox();
+  innerPanel.add(comboBoxPanel,BorderLayout.PAGE_START);
+  cardPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+  cardPanel.add(createEmptyPanel(),EMPTY_PANEL);
+  innerPanel.add(cardPanel,BorderLayout.CENTER);
+  authenticationForm=new BasicAuthenticationForm<T>(request);
+  cardPanel.add(authenticationForm.getComponent(),BASIC_FORM_LABEL);
+  if (isSoapRequest(request)) {
+    WSSAuthenticationForm wssAuthenticationForm=new WSSAuthenticationForm((WsdlRequest)request);
+    cardPanel.add(wssAuthenticationForm.getComponent(),WSS_FORM_LABEL);
+  }
+  outerPanel.add(new JScrollPane(innerPanel),BorderLayout.CENTER);
+}

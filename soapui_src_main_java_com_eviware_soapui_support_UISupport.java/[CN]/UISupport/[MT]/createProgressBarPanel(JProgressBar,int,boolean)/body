@@ -1,11 +1,22 @@
 {
   JPanel panel=new JPanel(new BorderLayout());
+  if (isMac()) {
+    progressBar.setUI(new BasicProgressBarUI());
+  }
   progressBar.setValue(0);
   progressBar.setStringPainted(true);
   progressBar.setString("");
   progressBar.setIndeterminate(indeterimate);
-  progressBar.setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.LIGHT_GRAY));
-  panel.setBorder(BorderFactory.createEmptyBorder(space,space,space,space));
+  if (isMac()) {
+    progressBar.setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.LIGHT_GRAY));
+    Border compound=BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(space,space,space,space,MAC_PROGRESSBAR_MATTE_BORDER_COLOR),BorderFactory.createLineBorder(MAC_PROGRESSBAR_LINE_BORDER_COLOR));
+    panel.setBorder(compound);
+    panel.setBackground(MAC_PROGRESSBAR_BACKGROUND_COLOR);
+  }
+ else {
+    progressBar.setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.LIGHT_GRAY));
+    panel.setBorder(BorderFactory.createEmptyBorder(space,space,space,space));
+  }
   panel.add(progressBar,BorderLayout.CENTER);
   return panel;
 }

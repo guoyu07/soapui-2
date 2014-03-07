@@ -44,8 +44,9 @@
     }
   }
   initHeaders(httpMethod);
-  if (this.httpRequest.get() instanceof HttpRequest) {
-    downloadIncludedResources=this.httpRequest.get() != null ? ((HttpRequest)this.httpRequest.get()).getDownloadIncludedResources() : false;
+  AbstractHttpRequestInterface<?> requestInterface=this.httpRequest.get();
+  if (requestInterface instanceof HttpRequest) {
+    boolean downloadIncludedResources=((HttpRequest)requestInterface).getDownloadIncludedResources();
     if (downloadIncludedResources) {
       long beforeNanos=System.nanoTime();
       addIncludedContentsAsAttachments();

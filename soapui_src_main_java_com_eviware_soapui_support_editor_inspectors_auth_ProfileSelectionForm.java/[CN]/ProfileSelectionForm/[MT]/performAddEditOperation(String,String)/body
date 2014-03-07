@@ -1,0 +1,32 @@
+{
+  AddEditOptions addEditOption=getAddEditOptionForDescription(selectedOption);
+switch (addEditOption) {
+case ADD:
+    SwingUtilities.invokeLater(new Runnable(){
+      @Override public void run(){
+        new AuthorizationSelectionDialog<T>(request,getBasicAuthenticationTypes());
+        refreshProfileSelectionComboBox(request.getSelectedAuthProfile());
+      }
+    }
+);
+  break;
+case DELETE:
+SwingUtilities.invokeLater(new Runnable(){
+  @Override public void run(){
+    deleteCurrentProfile(currentProfile);
+  }
+}
+);
+break;
+case RENAME:
+SwingUtilities.invokeLater(new Runnable(){
+@Override public void run(){
+renameCurrentProfile(currentProfile);
+}
+}
+);
+break;
+default :
+break;
+}
+}

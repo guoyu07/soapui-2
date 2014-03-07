@@ -1,0 +1,7 @@
+{
+  CredentialsConfig credentialsConfig=getConfig().getCredentials();
+  if (credentialsConfig == null || credentialsConfig.getSelectedAuthProfile() == null) {
+    return CredentialsConfig.AuthType.NO_AUTHORIZATION.toString();
+  }
+  return credentialsConfig.getSelectedAuthProfile();
+}

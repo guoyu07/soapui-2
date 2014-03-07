@@ -1,0 +1,7 @@
+{
+  OAuth2Profile profileWithRefreshToken=setProfileWithRefreshTokenAndExpiredAccessToken();
+  oAuth2FilterWithMockOAuth2ClientFacade(profileWithRefreshToken);
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  String actualAccessTokenHeader=httpRequest.getHeaders((OAuth.HeaderType.AUTHORIZATION))[0].getValue();
+  assertThat(actualAccessTokenHeader,is("Bearer " + OAuth2TestUtils.ACCESS_TOKEN));
+}

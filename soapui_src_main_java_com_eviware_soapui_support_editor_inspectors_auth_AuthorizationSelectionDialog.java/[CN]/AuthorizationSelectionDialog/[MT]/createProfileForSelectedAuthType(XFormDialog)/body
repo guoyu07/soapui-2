@@ -1,0 +1,13 @@
+{
+  final String authType=dialog.getValue(AuthorizationTypeForm.AUTHORIZATION_TYPE);
+  String profileName=authType;
+  if (CredentialsConfig.AuthType.O_AUTH_2_0.toString().equals(authType)) {
+    profileName=dialog.getValue(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_FIELD);
+    if (getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(profileName)) {
+      UISupport.showErrorMessage("There is already a profile named '" + profileName + "'");
+      return;
+    }
+    getOAuth2ProfileContainer().addNewOAuth2Profile(profileName);
+  }
+  request.setSelectedAuthProfileAndAuthType(profileName,authType);
+}

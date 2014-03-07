@@ -1,0 +1,6 @@
+{
+  String old=getSelectedAuthProfile();
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
+  credentialsConfig.setSelectedAuthProfile(authProfile);
+  notifyPropertyChanged("selectedAuthProfile",old,authProfile);
+}

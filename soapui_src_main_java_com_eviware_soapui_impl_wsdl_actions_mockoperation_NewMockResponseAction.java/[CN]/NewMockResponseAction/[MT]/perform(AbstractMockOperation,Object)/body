@@ -1,0 +1,12 @@
+{
+  String name=UISupport.prompt("Enter name of new MockResponse",getName(),"Response " + (mockOperation.getMockResponseCount() + 1));
+  if (name != null) {
+    if (mockOperation instanceof WsdlMockOperation) {
+      boolean shouldCreateResponse=true;
+      UISupport.showDesktopPanel(((WsdlMockOperation)mockOperation).addNewMockResponse(name,shouldCreateResponse));
+    }
+ else     if (mockOperation instanceof RestMockAction) {
+      UISupport.showDesktopPanel(((RestMockAction)mockOperation).addNewMockResponse(name));
+    }
+  }
+}
