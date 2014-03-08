@@ -1,6 +1,6 @@
 {
   for (int c=0; c < getModelItem().getMockResponseCount(); c++) {
-    WsdlMockResponse mockResponse=(WsdlMockResponse)getModelItem().getMockResponseAt(c);
+    MockResponse mockResponse=getModelItem().getMockResponseAt(c);
     mockResponse.addPropertyChangeListener(this);
     responses.add(mockResponse);
   }
