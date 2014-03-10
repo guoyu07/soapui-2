@@ -20,7 +20,7 @@
         FileOutputStream fileOutputStream=new FileOutputStream(temp);
         writeHttpBody(jproxyServletWsdlMonitorMessageExchange.getRawResponseData(),fileOutputStream);
         fileOutputStream.close();
-        browser.navigate(temp.toURI().toURL().toString(),null);
+        browser.navigate(temp.toURI().toURL().toString());
         temp.deleteOnExit();
       }
  catch (      Exception e) {

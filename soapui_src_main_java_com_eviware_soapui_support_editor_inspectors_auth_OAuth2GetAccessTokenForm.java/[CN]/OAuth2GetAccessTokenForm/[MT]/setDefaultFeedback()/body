@@ -1,5 +1,10 @@
 {
   accessTokenStatusText.setText("");
   accessTokenStatusText.setIcon(DEFAULT_ICON);
-  closeGetAccessTokenDialog();
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      closeGetAccessTokenDialog();
+    }
+  }
+);
 }
