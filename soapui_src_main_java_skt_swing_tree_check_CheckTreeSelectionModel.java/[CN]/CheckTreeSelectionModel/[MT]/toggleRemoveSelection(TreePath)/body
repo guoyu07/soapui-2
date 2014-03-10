@@ -1,0 +1,25 @@
+{
+  Stack stack=new Stack();
+  TreePath parent=path.getParentPath();
+  while (parent != null && !isPathSelected(parent)) {
+    stack.push(parent);
+    parent=parent.getParentPath();
+  }
+  if (parent != null)   stack.push(parent);
+ else {
+    super.removeSelectionPaths(new TreePath[]{path});
+    return;
+  }
+  while (!stack.isEmpty()) {
+    TreePath temp=(TreePath)stack.pop();
+    TreePath peekPath=stack.isEmpty() ? path : (TreePath)stack.peek();
+    Object node=temp.getLastPathComponent();
+    Object peekNode=peekPath.getLastPathComponent();
+    int childCount=model.getChildCount(node);
+    for (int i=0; i < childCount; i++) {
+      Object childNode=model.getChild(node,i);
+      if (childNode != peekNode)       super.addSelectionPaths(new TreePath[]{temp.pathByAddingChild(childNode)});
+    }
+  }
+  super.removeSelectionPaths(new TreePath[]{parent});
+}

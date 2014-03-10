@@ -1,0 +1,11 @@
+{
+  if (cascade) {
+    for (Iterator<BrowserWindow> iterator=browserWindows.iterator(); iterator.hasNext(); ) {
+      iterator.next().close();
+      iterator.remove();
+    }
+  }
+  for (  BrowserListener listener : listeners) {
+    listener.browserClosed();
+  }
+}

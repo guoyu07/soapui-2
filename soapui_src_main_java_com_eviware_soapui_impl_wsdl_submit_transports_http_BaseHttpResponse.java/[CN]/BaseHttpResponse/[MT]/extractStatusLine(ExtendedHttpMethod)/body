@@ -1,0 +1,8 @@
+{
+  if (httpMethod instanceof HttpStatusHolder) {
+    return ((HttpStatusHolder)httpMethod).getResponseStatusLine();
+  }
+ else {
+    return String.valueOf(httpMethod.getHttpResponse().getStatusLine());
+  }
+}

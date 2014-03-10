@@ -1,0 +1,9 @@
+{
+  GraphicsConfiguration currentGraphicsConfiguration=getGraphicsConfigurationForPosition(componentLocation);
+  if (currentGraphicsConfiguration == null) {
+    return true;
+  }
+  double bottomYCoordinate=componentLocation.getY() + expandableDialogHeight + componentHeight;
+  double bottomUsableYCoordinateOnScreen=currentGraphicsConfiguration.getBounds().getMaxY() - Toolkit.getDefaultToolkit().getScreenInsets(currentGraphicsConfiguration).bottom;
+  return bottomYCoordinate <= bottomUsableYCoordinateOnScreen;
+}

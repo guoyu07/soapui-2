@@ -1,0 +1,20 @@
+{
+  if (status == null) {
+    setDefaultFeedback();
+  }
+ else {
+switch (status) {
+case ENTERED_MANUALLY:
+case RETRIEVED_FROM_SERVER:
+      setSucessfullFeedback(status);
+    break;
+case WAITING_FOR_AUTHORIZATION:
+case RECEIVED_AUTHORIZATION_CODE:
+  setWaitingFeedback(status);
+break;
+default :
+setDefaultFeedback();
+break;
+}
+}
+}

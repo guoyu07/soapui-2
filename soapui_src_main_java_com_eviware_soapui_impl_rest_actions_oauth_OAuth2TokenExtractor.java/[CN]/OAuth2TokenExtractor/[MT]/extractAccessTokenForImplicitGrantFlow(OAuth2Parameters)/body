@@ -15,7 +15,6 @@
     }
   }
 );
-  parameters.startAccessTokenFlow();
   browserFacade.open(new URI(createAuthorizationURL(parameters,TOKEN)).toURL());
   parameters.waitingForAuthorization();
 }
