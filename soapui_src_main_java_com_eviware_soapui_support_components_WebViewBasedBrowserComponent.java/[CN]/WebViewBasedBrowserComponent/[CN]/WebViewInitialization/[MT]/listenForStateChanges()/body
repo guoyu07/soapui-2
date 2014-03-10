@@ -14,6 +14,15 @@
           SoapUI.logError(ex,"Error processing state change to " + newState);
         }
       }
+ else       if (newState == Worker.State.FAILED && !showingErrorPage) {
+        try {
+          showingErrorPage=true;
+          setContent(errorPage == null ? DEFAULT_ERROR_PAGE : errorPage);
+        }
+  finally {
+          showingErrorPage=false;
+        }
+      }
     }
   }
 );
