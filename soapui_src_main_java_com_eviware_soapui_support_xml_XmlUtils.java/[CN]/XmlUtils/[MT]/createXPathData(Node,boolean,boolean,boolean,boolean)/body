@@ -20,7 +20,7 @@
   }
   if (node.getNodeType() == Node.ELEMENT_NODE) {
     int index=anonymous ? 0 : findNodeIndex(node);
-    String pc=null;
+    String pc;
     namespaceURI=node.getNamespaceURI();
     if (namespaceURI != null && namespaceURI.length() > 0) {
       String prefix=node.getPrefix();
@@ -49,7 +49,7 @@
   while (node != null && node.getNodeType() == Node.ELEMENT_NODE && (absolute || (!"Body".equals(node.getNodeName()) && !SoapVersion.Soap11.getEnvelopeNamespace().equals(namespaceURI) && !SoapVersion.Soap12.getEnvelopeNamespace().equals(namespaceURI)))) {
     int index=anonymous ? 0 : findNodeIndex(node);
     String ns=nsMap.get(namespaceURI);
-    String pc=null;
+    String pc;
     if (ns == null && namespaceURI != null && namespaceURI.length() > 0) {
       String prefix=node.getPrefix();
       if (normalize || prefix == null || prefix.length() == 0)       prefix="ns" + nsCnt++;
@@ -57,7 +57,6 @@
         prefix="ns" + nsCnt++;
       }
       nsMap.put(namespaceURI,prefix);
-      ns=nsMap.get(namespaceURI);
       pc=prefix + ":" + node.getLocalName();
     }
  else     if (ns != null) {
