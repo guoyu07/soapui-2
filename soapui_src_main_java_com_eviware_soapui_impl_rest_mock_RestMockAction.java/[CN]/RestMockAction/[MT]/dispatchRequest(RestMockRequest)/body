@@ -6,6 +6,9 @@
     result.setMockResponse(mockResponse);
     result.setMockOperation(this);
     if (mockResponse == null) {
+      mockResponse=getMockResponseByName(this.getDefaultResponse());
+    }
+    if (mockResponse == null) {
       throw new DispatchException("Failed to find MockResponse");
     }
     result.setMockResponse(mockResponse);
