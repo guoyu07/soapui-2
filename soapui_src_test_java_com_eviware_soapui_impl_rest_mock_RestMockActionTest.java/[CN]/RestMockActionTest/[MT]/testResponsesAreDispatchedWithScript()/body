@@ -4,4 +4,6 @@
   mockAction.setScript("return 'response 2'");
   RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
   assertThat(mockResult.getMockResponse().getName(),is("response 2"));
+  mockResult=mockAction.dispatchRequest(restMockRequest);
+  assertThat(mockResult.getMockResponse().getName(),is("response 2"));
 }
