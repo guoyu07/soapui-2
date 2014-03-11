@@ -1,7 +1,17 @@
 {
-  CredentialsConfig credentialsConfig=getConfig().getCredentials();
-  if (credentialsConfig == null || credentialsConfig.getSelectedAuthProfile() == null) {
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
+  String selectedAuthProfile=credentialsConfig.getSelectedAuthProfile();
+  if (selectedAuthProfile == null) {
+    String authType=getAuthType();
+    if (AuthType.PREEMPTIVE.toString().equals(authType) || AuthType.GLOBAL_HTTP_SETTINGS.toString().equals(authType)) {
+      addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive();
+      return BASIC_AUTH_PROFILE;
+    }
     return CredentialsConfig.AuthType.NO_AUTHORIZATION.toString();
   }
-  return credentialsConfig.getSelectedAuthProfile();
+ else   if (AuthType.PREEMPTIVE.toString().equals(selectedAuthProfile) || AuthType.GLOBAL_HTTP_SETTINGS.toString().equals(selectedAuthProfile)) {
+    addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive();
+    return BASIC_AUTH_PROFILE;
+  }
+  return selectedAuthProfile;
 }

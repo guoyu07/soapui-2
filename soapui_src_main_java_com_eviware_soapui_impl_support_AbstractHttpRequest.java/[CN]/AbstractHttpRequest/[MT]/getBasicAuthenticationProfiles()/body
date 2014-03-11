@@ -3,8 +3,16 @@
   CredentialsConfig credentialsConfig=getConfig().getCredentials();
   if (credentialsConfig != null) {
     for (    String type : credentialsConfig.getAddedBasicAuthenticationTypesList()) {
-      authTypes.add(type);
+      if (AuthType.PREEMPTIVE.toString().equals(type) || AuthType.GLOBAL_HTTP_SETTINGS.toString().equals(type)) {
+        authTypes.add(BASIC_AUTH_PROFILE);
+      }
+ else {
+        authTypes.add(type);
+      }
     }
+  }
+  if (authTypes.contains(BASIC_AUTH_PROFILE)) {
+    removeGlobalHttpSettingsAndPreEmptiveProfiles();
   }
   return authTypes;
 }

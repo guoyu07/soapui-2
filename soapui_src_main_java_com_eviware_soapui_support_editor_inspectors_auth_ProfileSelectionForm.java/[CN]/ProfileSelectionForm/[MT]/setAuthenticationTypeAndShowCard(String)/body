@@ -6,7 +6,7 @@
   if (getBasicAuthenticationTypes().contains(selectedOption)) {
     setIcon(AUTH_ENABLED_ICON);
     setTitle(AuthInspectorFactory.INSPECTOR_ID + " (" + selectedOption+ ")");
-    request.setSelectedAuthProfileAndAuthType(selectedOption,selectedOption);
+    request.setSelectedAuthProfileAndAuthType(selectedOption,request.getBasicAuthType(selectedOption));
     authenticationForm.setButtonGroupVisibility(selectedOption.equals(AbstractHttpRequest.BASIC_AUTH_PROFILE));
     if (isSoapRequest(request)) {
       showCard(WSS_FORM_LABEL);
@@ -17,7 +17,7 @@
   }
  else   if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(selectedOption)) {
     setTitle(AuthInspectorFactory.INSPECTOR_ID + " (" + selectedOption+ ")");
-    request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.O_AUTH_2_0.toString());
+    request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.O_AUTH_2_0);
     oAuth2Form=new OAuth2Form(getOAuth2ProfileContainer().getProfileByName(selectedOption),this);
     cardPanel.add(oAuth2Form.getComponent(),OAUTH_2_FORM_LABEL);
     showCard(OAUTH_2_FORM_LABEL);
@@ -25,7 +25,7 @@
  else {
     setIcon(AUTH_NOT_ENABLED_ICON);
     setTitle(AuthInspectorFactory.INSPECTOR_ID);
-    request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.NO_AUTHORIZATION.toString());
+    request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.NO_AUTHORIZATION);
     showCard(EMPTY_PANEL);
   }
 }
