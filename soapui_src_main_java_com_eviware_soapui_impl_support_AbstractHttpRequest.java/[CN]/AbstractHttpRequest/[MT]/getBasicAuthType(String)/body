@@ -1,0 +1,13 @@
+{
+  if (AbstractHttpRequest.BASIC_AUTH_PROFILE.equals(selectedProfile)) {
+    if (getPreemptive()) {
+      return CredentialsConfig.AuthType.PREEMPTIVE;
+    }
+ else {
+      return CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS;
+    }
+  }
+ else {
+    return CredentialsConfig.AuthType.Enum.forString(selectedProfile);
+  }
+}

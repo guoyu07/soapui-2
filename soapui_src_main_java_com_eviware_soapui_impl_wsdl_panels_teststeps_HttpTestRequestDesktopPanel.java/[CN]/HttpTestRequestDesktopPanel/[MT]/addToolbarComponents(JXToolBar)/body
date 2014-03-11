@@ -29,7 +29,10 @@
     }
   }
 );
-  toolbar.addLabeledFixed("Request URL:",pathTextField);
+  JPanel pathPanel=new JPanel(new BorderLayout(0,0));
+  pathPanel.add(getLockIcon(),BorderLayout.WEST);
+  pathPanel.add(pathTextField,BorderLayout.CENTER);
+  toolbar.addLabeledFixed("Request URL:",pathPanel);
   toolbar.addSeparator();
   addCheckBox(toolbar);
 }

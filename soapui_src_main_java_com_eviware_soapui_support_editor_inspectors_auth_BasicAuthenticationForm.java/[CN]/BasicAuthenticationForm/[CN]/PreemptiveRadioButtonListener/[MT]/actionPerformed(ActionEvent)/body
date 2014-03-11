@@ -1,7 +1,6 @@
 {
   if (preemptiveButton.isSelected()) {
-    String authType=CredentialsConfig.AuthType.PREEMPTIVE.toString();
-    request.setSelectedAuthProfileAndAuthType(AbstractHttpRequest.BASIC_AUTH_PROFILE,authType);
+    request.setSelectedAuthProfileAndAuthType(AbstractHttpRequest.BASIC_AUTH_PROFILE,CredentialsConfig.AuthType.PREEMPTIVE);
     request.setPreemptive(true);
   }
 }

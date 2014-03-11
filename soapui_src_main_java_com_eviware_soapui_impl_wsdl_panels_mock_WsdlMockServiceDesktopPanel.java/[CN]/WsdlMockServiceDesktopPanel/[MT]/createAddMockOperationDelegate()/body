@@ -1,0 +1,9 @@
+{
+  String actionId=AddNewMockOperationAction.SOAPUI_ACTION_ID;
+  String icon="/mockOperation.gif";
+  if (getModelItem() instanceof RestMockService) {
+    actionId=AddEmptyRestMockResourceAction.SOAPUI_ACTION_ID;
+    icon="/addToRestMockAction.gif";
+  }
+  return SwingActionDelegate.createDelegate(actionId,getModelItem(),null,icon);
+}
