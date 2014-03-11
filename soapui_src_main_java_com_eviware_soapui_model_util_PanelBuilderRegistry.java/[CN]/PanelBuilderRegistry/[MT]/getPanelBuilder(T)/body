@@ -1,7 +1,3 @@
 {
-  PanelBuilder<T> panelBuilder=(PanelBuilder<T>)builders.get(modelItem.getClass());
-  if (panelBuilder == null) {
-    SoapUI.logError(new SoapUIException("No mapping panel builder found for: " + modelItem.getClass().getName()));
-  }
-  return panelBuilder;
+  return (PanelBuilder<T>)builders.get(modelItem.getClass());
 }

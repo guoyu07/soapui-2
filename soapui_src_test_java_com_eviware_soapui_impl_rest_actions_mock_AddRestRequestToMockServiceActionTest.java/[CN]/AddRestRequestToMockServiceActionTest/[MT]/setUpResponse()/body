@@ -1,0 +1,9 @@
+{
+  HttpResponse response=mock(HttpResponse.class);
+  StringToStringsMap headers=new StringToStringsMap();
+  headers.add("oneHeader","oneValue");
+  headers.add("anotherHeader","anotherValue");
+  when(response.getResponseHeaders()).thenReturn(headers);
+  when(response.getContentType()).thenReturn("application/xml");
+  restRequest.setResponse(response,null);
+}

@@ -1,0 +1,6 @@
+{
+  action.perform(restRequest,notUsed);
+  StringToStringsMap responseHeaders=getFirstMockOperation().getMockResponseAt(0).getResponseHeaders();
+  assertThat(responseHeaders.get("oneHeader").get(0),is("oneValue"));
+  assertThat(responseHeaders.get("anotherHeader").get(0),is("anotherValue"));
+}
