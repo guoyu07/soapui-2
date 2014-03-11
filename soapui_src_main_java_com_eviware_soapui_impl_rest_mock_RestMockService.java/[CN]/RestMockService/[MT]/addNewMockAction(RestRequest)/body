@@ -1,6 +1,5 @@
 {
-  String mockActionName=restRequest.getResource().getName() + " " + restRequest.getPath();
-  RestMockAction mockAction=addEmptyMockAction(mockActionName,restRequest.getMethod(),restRequest.getPath());
+  RestMockAction mockAction=addEmptyMockAction(restRequest.getMethod(),restRequest.getPath());
   mockAction.setResource(restRequest.getResource());
   return mockAction;
 }
