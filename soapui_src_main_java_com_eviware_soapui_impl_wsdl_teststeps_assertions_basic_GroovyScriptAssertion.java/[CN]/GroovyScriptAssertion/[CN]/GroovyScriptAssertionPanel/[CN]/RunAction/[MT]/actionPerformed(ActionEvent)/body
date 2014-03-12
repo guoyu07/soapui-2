@@ -9,12 +9,12 @@
  else   if (testStep instanceof RestTestRequestStepInterface) {
     RestTestRequestStepInterface testRequestStep=(RestTestRequestStepInterface)testStep;
     exchange=new RestResponseMessageExchange((RestRequestInterface)testRequestStep.getTestRequest());
-    ((RestResponseMessageExchange)exchange).setResponse(((AbstractHttpRequestInterface<?>)testRequestStep.getTestRequest()).getResponse());
+    ((RestResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
   }
  else   if (testStep instanceof HttpTestRequestStepInterface) {
     HttpTestRequestStepInterface testRequestStep=(HttpTestRequestStepInterface)testStep;
     exchange=new HttpResponseMessageExchange(testRequestStep.getTestRequest());
-    ((HttpResponseMessageExchange)exchange).setResponse(((AbstractHttpRequestInterface<?>)testRequestStep.getTestRequest()).getResponse());
+    ((HttpResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
   }
  else   if (testStep instanceof WsdlMockResponseTestStep) {
     WsdlMockResponseTestStep mockResponseStep=(WsdlMockResponseTestStep)testStep;
@@ -25,12 +25,12 @@
     String result=assertScript(exchange,new WsdlTestRunContext(testStep),logger);
     UISupport.showInfoMessage("Script Assertion Passed" + ((result == null) ? "" : ": [" + result + "]"));
   }
- catch (  AssertionException e1) {
-    UISupport.showErrorMessage(e1.getMessage());
+ catch (  AssertionException e) {
+    UISupport.showErrorMessage(e.getMessage());
   }
-catch (  Throwable t) {
-    SoapUI.logError(t);
-    UISupport.showErrorMessage(t.getMessage());
+catch (  Exception e) {
+    SoapUI.logError(e);
+    UISupport.showErrorMessage(e.getMessage());
   }
   editor.requestFocusInWindow();
 }
