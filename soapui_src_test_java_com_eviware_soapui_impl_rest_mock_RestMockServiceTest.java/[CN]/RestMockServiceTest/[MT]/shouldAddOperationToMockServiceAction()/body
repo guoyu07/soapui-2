@@ -1,0 +1,9 @@
+{
+  RestResource operation=mock(RestResource.class);
+  when(operation.getRequestCount()).thenReturn(1);
+  when(operation.getRequestAt(0)).thenReturn(restRequest);
+  restMockService.addNewMockOperation(operation);
+  RestMockAction mockOperation=restMockService.getMockOperationAt(0);
+  assertThat(mockOperation.getMethod(),is(restRequest.getMethod()));
+  assertTrue(mockOperation.getResourcePath().contains(restRequest.getPath()));
+}

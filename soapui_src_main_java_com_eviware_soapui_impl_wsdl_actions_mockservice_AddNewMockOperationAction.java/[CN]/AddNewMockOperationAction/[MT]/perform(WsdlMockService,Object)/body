@@ -13,7 +13,8 @@
   }
   Object result=UISupport.prompt("Select Operation to Mock","New MockOperation",operations.toArray());
   if (result != null) {
-    WsdlMockOperation mockOperation=mockService.addNewMockOperation(((OperationWrapper)result).getOperation());
+    WsdlOperation operation=((OperationWrapper)result).getOperation();
+    WsdlMockOperation mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(operation);
     WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Response 1",true);
     UISupport.selectAndShow(mockResponse);
   }

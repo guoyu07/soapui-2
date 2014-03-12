@@ -2,7 +2,7 @@
   if (getMockOperation(operation) != null)   return null;
   MockOperationConfig config=getConfig().addNewMockOperation();
   config.setName(operation.getName());
-  WsdlMockOperation mockOperation=new WsdlMockOperation(this,config,operation);
+  WsdlMockOperation mockOperation=new WsdlMockOperation(this,config,(WsdlOperation)operation);
   addMockOperation(mockOperation);
   fireMockOperationAdded(mockOperation);
   return mockOperation;
