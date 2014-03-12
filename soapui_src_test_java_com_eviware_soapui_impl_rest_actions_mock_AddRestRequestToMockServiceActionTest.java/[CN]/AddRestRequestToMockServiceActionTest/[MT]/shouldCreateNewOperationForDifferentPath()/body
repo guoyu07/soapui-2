@@ -2,7 +2,7 @@
   action.perform(restRequest,notUsed);
   restRequest.setPath("someotherpath");
   action.perform(restRequest,notUsed);
-  mockResponseCount=getFirstMockOperation().getMockResponseCount();
+  int mockResponseCount=getFirstMockOperation().getMockResponseCount();
   assertThat(mockResponseCount,is(1));
   assertThat(getFirstRestMockService().getMockOperationCount(),is(2));
 }
