@@ -1,0 +1,7 @@
+{
+  restRequest.setPath("/");
+  restMockService.addNewMockAction(restRequest);
+  RestMockAction restMockAction=restMockService.getMockOperationAt(0);
+  assertEquals("/",restMockAction.getResourcePath());
+  assertEquals(GET,restMockAction.getMethod());
+}
