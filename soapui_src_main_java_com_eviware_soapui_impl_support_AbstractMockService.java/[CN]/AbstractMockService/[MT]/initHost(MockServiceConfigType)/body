@@ -1,0 +1,8 @@
+{
+  try {
+    if (!config.isSetHost() || !StringUtils.hasContent(config.getHost()))     config.setHost(InetAddress.getLocalHost().getHostName());
+  }
+ catch (  UnknownHostException e) {
+    SoapUI.logError(e);
+  }
+}

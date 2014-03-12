@@ -6,12 +6,6 @@
     addMockOperation(testStep);
   }
   if (!getSettings().isSet(REQUIRE_SOAP_ACTION))   setRequireSoapAction(false);
-  try {
-    if (!config.isSetHost() || !StringUtils.hasContent(config.getHost()))     config.setHost(InetAddress.getLocalHost().getHostName());
-  }
- catch (  UnknownHostException e) {
-    SoapUI.logError(e);
-  }
   for (  MockRunListener listener : SoapUI.getListenerRegistry().getListeners(MockRunListener.class)) {
     addMockRunListener(listener);
   }
