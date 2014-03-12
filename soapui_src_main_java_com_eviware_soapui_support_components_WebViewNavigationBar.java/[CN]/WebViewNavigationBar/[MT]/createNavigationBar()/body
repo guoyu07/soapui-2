@@ -14,15 +14,17 @@
   urlField.setFont(urlField.getFont().deriveFont(Font.ITALIC));
   originalFontColor=urlField.getForeground();
   urlField.setForeground(new Color(170,170,170));
-  urlField.addKeyListener(new KeyAdapter(){
-    @Override public void keyTyped(    KeyEvent e){
+  urlField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
       removeHintText();
+      urlField.getDocument().removeDocumentListener(this);
     }
   }
 );
   urlField.addMouseListener(new MouseAdapter(){
     @Override public void mouseClicked(    MouseEvent e){
       removeHintText();
+      urlField.removeMouseListener(this);
     }
   }
 );
