@@ -8,7 +8,8 @@
   JPanel accessTokenRowPanel=createAccessTokenRowPanel(accessTokenField,accessTokenStatusIcon,accessTokenStatusText,refreshAccessTokenButton);
   oAuth2Form.append(ACCESS_TOKEN_LABEL,accessTokenRowPanel);
   oAuth2Form.addInputFieldHintText("Enter existing access token, or use \"Get Token\" below.");
-  final JLabel disclosureButton=new JLabel("??? Get Token");
+  final JLabel disclosureButton=new JLabel("Get Token");
+  disclosureButton.setIcon(UISupport.createImageIcon("/pop-down-open.png"));
   disclosureButton.setName("oAuth2DisclosureButton");
   oAuth2Form.addComponentWithoutLabel(disclosureButton);
   accessTokenForm=new OAuth2GetAccessTokenForm(profile);

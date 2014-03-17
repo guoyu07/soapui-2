@@ -7,7 +7,7 @@
   Point disclosureButtonLocation=source.getLocationOnScreen();
   accessTokenFormDialog.pack();
   accessTokenFormDialog.setVisible(true);
-  disclosureButton.setText("??? Get Token");
+  disclosureButton.setIcon(UISupport.createImageIcon("/pop-down-close.png"));
   if (UISupport.isEnoughSpaceAvailableBelowComponent(disclosureButtonLocation,accessTokenFormDialog.getHeight(),source.getHeight())) {
     setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
   }
