@@ -1,4 +1,7 @@
 {
   StringToStringsMap requestHeaders=restRequest.getResponse().getResponseHeaders();
+  for (  String header : HEADERS_TO_IGNORE) {
+    requestHeaders.remove(header);
+  }
   mockResponse.setResponseHeaders(requestHeaders);
 }
