@@ -5,6 +5,7 @@
   timeUnitCombo.setName(TIME_UNIT_COMBO_NAME);
   timeUnitCombo.setEnabled(enableManualTimeControls);
   timeTextField=new JTextField(5);
+  configureInputSanitationOnTextField(timeTextField);
   timeTextField.setName(TIME_FIELD_NAME);
   timeTextField.setHorizontalAlignment(JTextField.RIGHT);
   Long manualAccessTokenExpirationTime=profile.getManualAccessTokenExpirationTime();
