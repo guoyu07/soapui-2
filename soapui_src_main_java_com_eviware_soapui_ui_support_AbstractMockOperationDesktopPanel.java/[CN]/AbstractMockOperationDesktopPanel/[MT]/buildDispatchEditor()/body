@@ -10,20 +10,20 @@
     public void itemStateChanged(    ItemEvent e){
       if (dispatchPanel.getComponentCount() > 1)       dispatchPanel.remove(1);
       String item=(String)dispatchCombo.getSelectedItem();
-      dispatcher=getModelItem().setDispatchStyle(item);
+      MockOperationDispatcher dispatcher=getModelItem().setDispatchStyle(item);
       dispatchPanel.add(dispatcher.getEditorComponent(),BorderLayout.CENTER);
       dispatchPanel.revalidate();
       dispatchPanel.repaint();
       if (dispatchInspector != null && item != null) {
         dispatchInspector.setTitle("Dispatch (" + item + ")");
       }
+      defaultResponsePanel.setVisible(getModelItem().getDispatcher().hasDefaultResponse());
     }
   }
 );
   builder.addFixed(dispatchCombo);
-  builder.addUnrelatedGap();
-  builder.addFixed(new JLabel("Default Response: "));
-  builder.addRelatedGap();
+  defaultResponsePanel=new JPanel(new BorderLayout());
+  defaultResponsePanel.add(new JLabel("Default Response: "),BorderLayout.WEST);
   ModelItemNames<MockResponse> names=new ModelItemNames<MockResponse>(getModelItem().getMockResponses());
   defaultResponseCombo=new JComboBox(new ExtendedComboBoxModel(names.getNames()));
   defaultResponseCombo.setPreferredSize(new Dimension(150,20));
@@ -34,8 +34,9 @@
     }
   }
 );
-  builder.addFixed(defaultResponseCombo);
-  builder.setBorder(BorderFactory.createEmptyBorder(2,3,3,3));
+  defaultResponsePanel.add(defaultResponseCombo,BorderLayout.CENTER);
+  builder.addUnrelatedGap();
+  builder.addFixed(defaultResponsePanel);
   dispatchPanel.add(builder.getPanel(),BorderLayout.NORTH);
   defaultResponseCombo.setSelectedItem(getModelItem().getDefaultResponse());
   dispatchCombo.setSelectedItem(getModelItem().getDispatchStyle());

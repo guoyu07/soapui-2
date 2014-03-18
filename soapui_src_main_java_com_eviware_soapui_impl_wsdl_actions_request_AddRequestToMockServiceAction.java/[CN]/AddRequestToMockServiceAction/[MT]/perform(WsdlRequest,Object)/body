@@ -28,7 +28,7 @@
       if (!retval.booleanValue())       mockService=null;
     }
   }
-  if (mockOperation == null)   mockOperation=mockService.addNewMockOperation(request.getOperation());
+  if (mockOperation == null)   mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(request.getOperation());
   WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Response " + (1 + mockOperation.getMockResponseCount()),false);
   if (request != null && request.getResponse() != null) {
     WsdlResponse response=request.getResponse();

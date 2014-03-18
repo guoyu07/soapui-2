@@ -1,0 +1,14 @@
+{
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+  }
+  String nextMockServiceName=nextMockServiceName(restService);
+  dialog.setValue(Form.MOCKSERVICENAME,nextMockServiceName);
+  MockService mockService=null;
+  while (mockService == null && dialog.show()) {
+    mockService=getMockService(dialog.getValue(Form.MOCKSERVICENAME),restService.getProject());
+  }
+  populateMockService(restService,mockService);
+  restService.addEndpoint(mockService.getLocalEndpoint());
+  UISupport.showDesktopPanel(mockService);
+}

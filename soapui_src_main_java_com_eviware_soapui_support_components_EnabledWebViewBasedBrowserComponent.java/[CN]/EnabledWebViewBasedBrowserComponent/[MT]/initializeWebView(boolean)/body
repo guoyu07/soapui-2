@@ -1,0 +1,24 @@
+{
+  if (addNavigationBar) {
+    navigationBar=new WebViewNavigationBar();
+    panel.add(navigationBar.getComponent(),BorderLayout.NORTH);
+  }
+  final JFXPanel browserPanel=new JFXPanel();
+  panel.add(browserPanel,BorderLayout.CENTER);
+  WebViewInitialization webViewInitialization=new WebViewInitialization(browserPanel);
+  if (Platform.isFxApplicationThread()) {
+    webViewInitialization.run();
+  }
+ else {
+    Platform.runLater(webViewInitialization);
+  }
+  Runnable runnable=new Runnable(){
+    public void run(){
+      if (navigationBar != null) {
+        navigationBar.focusUrlField();
+      }
+    }
+  }
+;
+  SwingUtilities.invokeLater(runnable);
+}

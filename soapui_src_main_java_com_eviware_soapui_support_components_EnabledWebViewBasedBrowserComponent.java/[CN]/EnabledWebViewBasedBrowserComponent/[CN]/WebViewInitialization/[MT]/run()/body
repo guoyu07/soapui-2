@@ -1,0 +1,11 @@
+{
+  webView=new WebView();
+  createPopupHandler();
+  listenForLocationChanges();
+  listenForStateChanges();
+  if (navigationBar != null) {
+    navigationBar.initialize(getWebEngine(),EnabledWebViewBasedBrowserComponent.this);
+  }
+  browserPanel.setScene(createJfxScene());
+  addKeyboardFocusManager(browserPanel);
+}
