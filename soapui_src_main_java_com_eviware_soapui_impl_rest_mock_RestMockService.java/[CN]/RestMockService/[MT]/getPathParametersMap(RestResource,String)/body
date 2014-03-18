@@ -1,0 +1,8 @@
+{
+  Map<String,String> pathParameters=new HashMap<String,String>();
+  for (  String pathParam : RestUtils.extractTemplateParams(path)) {
+    String pathParamValue=restResource.getParams().getPropertyValue(pathParam);
+    pathParameters.put(pathParam,pathParamValue);
+  }
+  return pathParameters;
+}

@@ -1,0 +1,9 @@
+{
+  Iterator<Map.Entry<String,String>> iterator=pathParams.entrySet().iterator();
+  while (iterator.hasNext()) {
+    Map.Entry<String,String> pathParamEntry=iterator.next();
+    PropertyConfig propertyConfig=config.addNewProperty();
+    propertyConfig.setName(pathParamEntry.getKey());
+    propertyConfig.setValue(pathParamEntry.getValue());
+  }
+}
