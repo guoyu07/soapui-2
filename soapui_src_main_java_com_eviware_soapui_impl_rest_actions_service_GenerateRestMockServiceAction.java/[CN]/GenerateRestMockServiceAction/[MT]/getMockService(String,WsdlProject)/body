@@ -1,4 +1,8 @@
 {
+  if (StringUtils.isNullOrEmpty(mockServiceName)) {
+    UISupport.showInfoMessage("The mock service name can not be empty");
+    return null;
+  }
   if (project.getRestMockServiceByName(mockServiceName) == null) {
     return project.addNewRestMockService(mockServiceName);
   }

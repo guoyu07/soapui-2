@@ -1,0 +1,6 @@
+{
+  action.perform(restService,null);
+  RestMockService restMockService=getResultingRestMockService();
+  assertThat(restMockService,is(NotNull.NOT_NULL));
+  assertThat(restMockService.getName(),is(restMockServiceName));
+}

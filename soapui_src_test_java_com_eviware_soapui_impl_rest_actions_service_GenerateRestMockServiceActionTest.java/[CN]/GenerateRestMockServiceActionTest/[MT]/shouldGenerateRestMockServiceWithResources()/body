@@ -1,0 +1,11 @@
+{
+  restService.addNewResource("one","/one");
+  restService.addNewResource("two","/two");
+  action.perform(restService,null);
+  RestMockService restMockService=getResultingRestMockService();
+  assertThat(restMockService.getMockOperationCount(),is(2));
+  assertThat(restMockService.getMockOperationAt(1).getName(),is("two"));
+  for (  MockOperation mockAction : restMockService.getMockOperationList()) {
+    assertThat(mockAction.getMockResponseCount(),is(1));
+  }
+}
