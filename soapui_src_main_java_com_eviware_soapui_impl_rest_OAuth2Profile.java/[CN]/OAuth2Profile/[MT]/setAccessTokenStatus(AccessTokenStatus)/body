@@ -17,5 +17,5 @@ synchronized (this) {
     notifyAll();
   }
   String oldValueAsString=oldValue == null ? null : oldValue.toString();
-  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValueAsString,status.toString());
+  pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldValueAsString,status != null ? status.toString() : null);
 }

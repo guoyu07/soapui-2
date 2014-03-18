@@ -1,0 +1,23 @@
+{
+  try {
+    SwingUtilities.invokeAndWait(new Runnable(){
+      public void run(){
+        fireIntervalAdded(LogListModel.this,size,1);
+        if (lines.size() > maxRows) {
+          lines.remove(0);
+          fireIntervalRemoved(LogListModel.this,0,1);
+        }
+        if (tailing) {
+          logList.ensureIndexIsVisible(lines.size() - 1);
+        }
+      }
+    }
+);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+catch (  InvocationTargetException e) {
+    e.printStackTrace();
+  }
+}

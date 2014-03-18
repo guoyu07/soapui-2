@@ -1,6 +1,3 @@
 {
-  if (!updating) {
-    setUpdating(true);
-    SoapUI.getThreadPool().submit(this);
-  }
+  updater.ensureUpdateIsStarted();
 }
