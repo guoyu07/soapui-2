@@ -1,0 +1,14 @@
+{
+  RestResource one=restService.addNewResource("one","/one");
+  RestResourceConfig nestedResourceConfig=one.getConfig().addNewResource();
+  nestedResourceConfig.setPath("/path/again");
+  RestResource three=one.addNewChildResource("three","/will/be/overwritten");
+  three.setConfig(nestedResourceConfig);
+  restService.addNewResource("two","/two");
+  action.perform(restService,null);
+  RestMockService restMockService=getResultingRestMockService();
+  assertThat(restMockService.getMockOperationCount(),is(3));
+  assertMockActionWithPath(restMockService,"/one");
+  assertMockActionWithPath(restMockService,"/one/path/again");
+  assertMockActionWithPath(restMockService,"/two");
+}

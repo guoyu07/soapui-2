@@ -1,0 +1,11 @@
+{
+  boolean foundMatch=false;
+  for (  MockOperation mockOperation : restMockService.getMockOperationList()) {
+    RestMockAction mockAction=(RestMockAction)mockOperation;
+    if (mockAction.getResourcePath().equals(expectedPath)) {
+      foundMatch=true;
+      break;
+    }
+  }
+  assertTrue("Did not find a match for " + expectedPath,foundMatch);
+}

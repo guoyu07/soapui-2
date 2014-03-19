@@ -1,7 +1,6 @@
 {
-  for (int i=0; i < restService.getOperationCount(); i++) {
-    Operation operation=restService.getOperationAt(i);
-    MockOperation mockOperation=mockService.addNewMockOperation(operation);
+  for (  RestResource oneResource : restService.getAllResources()) {
+    MockOperation mockOperation=mockService.addNewMockOperation(oneResource);
     if (mockOperation != null)     mockOperation.addNewMockResponse("Response 1");
   }
 }
