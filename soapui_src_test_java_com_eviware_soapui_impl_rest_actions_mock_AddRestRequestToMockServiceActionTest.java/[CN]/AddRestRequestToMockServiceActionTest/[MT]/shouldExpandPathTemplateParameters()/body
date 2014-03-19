@@ -9,5 +9,5 @@
   anotherRestRequest.setPropertyValue("id","42");
   anotherRestRequest.setMethod(HttpMethod.GET);
   action.perform(anotherRestRequest,notUsed);
-  assertThat(getFirstMockOperation().getExpandedResourcePath(),is("/template/42/path"));
+  assertThat(getFirstMockOperation().getResourcePath(),is("/template/42/path"));
 }

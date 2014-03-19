@@ -7,6 +7,5 @@
     httpMethod=request.getMethod();
     path=path + request.getPath();
   }
-  Map<String,String> pathParametersMap=getPathParametersMap(restResource,path);
-  return addEmptyMockAction(httpMethod,path,pathParametersMap);
+  return addEmptyMockAction(httpMethod,path);
 }

@@ -1,6 +1,5 @@
 {
-  Map<String,String> pathParametersMap=getPathParametersMap(restRequest.getResource(),restRequest.getPath());
-  RestMockAction mockAction=addEmptyMockAction(restRequest.getMethod(),restRequest.getPath(),pathParametersMap);
+  RestMockAction mockAction=addEmptyMockAction(restRequest.getMethod(),restRequest.getTemplateParamExpandedPath());
   mockAction.setResource(restRequest.getResource());
   return mockAction;
 }
