@@ -1,6 +1,7 @@
 {
+  super("Browser");
   setIconImages(SoapUI.getFrameIcons());
-  browser=new EnabledWebViewBasedBrowserComponent(popupFeatures.hasToolbar());
+  browser=new EnabledWebViewBasedBrowserComponent(popupFeatures.hasToolbar(),popupStrategy);
   getContentPane().setLayout(new BorderLayout());
   getContentPane().add(browser.getComponent());
   addWindowListener(new WindowAdapter(){

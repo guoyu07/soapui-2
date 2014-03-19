@@ -1,0 +1,8 @@
+{
+  if (SoapUI.isBrowserDisabled()) {
+    return new DisabledWebViewBasedBrowserComponent();
+  }
+ else {
+    return new EnabledWebViewBasedBrowserComponent(addNavigationBar,popupStrategy);
+  }
+}
