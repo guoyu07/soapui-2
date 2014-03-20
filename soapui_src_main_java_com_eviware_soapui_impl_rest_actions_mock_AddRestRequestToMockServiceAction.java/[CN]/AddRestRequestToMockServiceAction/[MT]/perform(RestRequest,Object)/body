@@ -11,6 +11,8 @@
     }
     if (mockService == null) {
       mockService=createNewMockService(title,project);
+      UISupport.showDesktopPanel(mockService);
+      maybeStart(mockService);
     }
   }
   addRequestToMockService(restRequest,mockService);
