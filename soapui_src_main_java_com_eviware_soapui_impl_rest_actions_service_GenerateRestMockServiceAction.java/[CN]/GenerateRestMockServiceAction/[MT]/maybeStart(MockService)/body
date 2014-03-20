@@ -1,0 +1,10 @@
+{
+  try {
+    if (SoapUI.getSettings().getBoolean(HttpSettings.START_MOCK_SERVICE)) {
+      mockService.start();
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+}

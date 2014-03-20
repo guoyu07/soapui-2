@@ -1,0 +1,6 @@
+{
+  SoapUI.getSettings().setBoolean(HttpSettings.START_MOCK_SERVICE,FALSE);
+  action.perform(restService,null);
+  RestMockService restMockService=getResultingRestMockService();
+  assertThat(restMockService.getMockRunner(),is(Null.NULL));
+}

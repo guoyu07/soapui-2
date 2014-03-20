@@ -1,16 +1,13 @@
 {
-  if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
-  }
-  String nextMockServiceName=nextMockServiceName(restService);
-  dialog.setValue(Form.MOCKSERVICENAME,nextMockServiceName);
+  createDialog(restService);
   if (dialog.show()) {
-    MockService mockService=getMockService(dialog.getValue(Form.MOCKSERVICENAME),restService.getProject());
+    String mockServiceName=dialog.getValue(Form.MOCKSERVICENAME);
+    MockService mockService=getMockService(mockServiceName,restService.getProject());
     if (mockService != null) {
       populateMockService(restService,mockService);
       restService.addEndpoint(mockService.getLocalEndpoint());
       UISupport.showDesktopPanel(mockService);
-      start(mockService);
+      maybeStart(mockService);
     }
   }
 }

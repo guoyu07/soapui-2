@@ -1,6 +1,8 @@
 {
   for (  RestResource oneResource : restService.getAllResources()) {
     MockOperation mockOperation=mockService.addNewMockOperation(oneResource);
-    if (mockOperation != null)     mockOperation.addNewMockResponse("Response 1");
+    if (mockOperation != null) {
+      mockOperation.addNewMockResponse("Response 1");
+    }
   }
 }
