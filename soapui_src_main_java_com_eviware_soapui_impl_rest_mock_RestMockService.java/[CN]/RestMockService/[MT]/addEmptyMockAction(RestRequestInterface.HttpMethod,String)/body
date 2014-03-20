@@ -1,7 +1,7 @@
 {
   RESTMockActionConfig config=getConfig().addNewRestMockAction();
   String slashifiedPath=slashify(path);
-  String name=lastPartOf(path);
+  String name=path;
   config.setName(name);
   config.setMethod(method.name());
   config.setResourcePath(slashifiedPath);

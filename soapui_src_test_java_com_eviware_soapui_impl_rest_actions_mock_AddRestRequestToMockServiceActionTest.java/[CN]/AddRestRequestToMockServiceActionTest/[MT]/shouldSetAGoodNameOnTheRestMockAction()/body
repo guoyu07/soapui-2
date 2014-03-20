@@ -1,0 +1,5 @@
+{
+  action.perform(restRequest,notUsed);
+  RestMockService service=project.getRestMockServiceByName(mockServiceName);
+  assertThat(service.getMockOperationByName(requestPath),is(NOT_NULL));
+}

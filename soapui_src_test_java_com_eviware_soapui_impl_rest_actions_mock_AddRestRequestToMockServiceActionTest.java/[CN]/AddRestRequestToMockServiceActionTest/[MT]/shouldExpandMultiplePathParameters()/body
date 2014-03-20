@@ -7,4 +7,5 @@
   anotherRestRequest.setPropertyValue("version","3.1");
   action.perform(anotherRestRequest,notUsed);
   assertThat(getFirstMockOperation().getResourcePath(),is("/template/42/path/3.1"));
+  assertThat(getFirstMockOperation().getName(),is("/template/42/path/3.1"));
 }
