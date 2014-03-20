@@ -3,4 +3,5 @@
   RestMockService restMockService=getResultingRestMockService();
   assertThat(restMockService,is(NotNull.NOT_NULL));
   assertThat(restMockService.getName(),is(restMockServiceName));
+  assertThat(restMockService.getMockRunner().isRunning(),is(TRUE));
 }
