@@ -1,0 +1,6 @@
+{
+  JTreeFixture navigationTree=WorkspaceUtils.getNavigationTree(rootWindow);
+  JPopupMenuFixture popupMenuFixture=navigationTree.showPopupMenuAt(path);
+  popupMenuFixture.menuItem(FestMatchers.menuItemWithText("New Method")).click();
+  createNewRESTMethod(robot,methodName);
+}
