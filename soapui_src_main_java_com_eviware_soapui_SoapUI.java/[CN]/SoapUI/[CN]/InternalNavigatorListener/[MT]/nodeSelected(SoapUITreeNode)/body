@@ -30,6 +30,7 @@
       Component overviewPanel=panelBuilder.buildOverviewPanel(modelItem);
       if (selectedPropertyHolderTable != null) {
         JTabbedPane tabs=new JTabbedPane();
+        tabs.setName(PROPERTIES_TAB_PANEL_NAME);
         if (overviewPanel instanceof JPropertiesTable<?>) {
           JPropertiesTable<?> t=(JPropertiesTable<?>)overviewPanel;
           tabs.addTab(t.getTitle(),overviewPanel);
