@@ -4,11 +4,12 @@
   }
   String nextMockServiceName=nextMockServiceName(restService);
   dialog.setValue(Form.MOCKSERVICENAME,nextMockServiceName);
-  MockService mockService=null;
-  while (mockService == null && dialog.show()) {
-    mockService=getMockService(dialog.getValue(Form.MOCKSERVICENAME),restService.getProject());
+  if (dialog.show()) {
+    MockService mockService=getMockService(dialog.getValue(Form.MOCKSERVICENAME),restService.getProject());
+    if (mockService != null) {
+      populateMockService(restService,mockService);
+      restService.addEndpoint(mockService.getLocalEndpoint());
+      UISupport.showDesktopPanel(mockService);
+    }
   }
-  populateMockService(restService,mockService);
-  restService.addEndpoint(mockService.getLocalEndpoint());
-  UISupport.showDesktopPanel(mockService);
 }
