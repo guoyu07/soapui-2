@@ -12,7 +12,7 @@
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);
-        value=URLEncoder.encode(value);
+        value=urlEncodeWithUtf8(value);
       }
     }
     if (param.getStyle() == ParameterStyle.TEMPLATE) {

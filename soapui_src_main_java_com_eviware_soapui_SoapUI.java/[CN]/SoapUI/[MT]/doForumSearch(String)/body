@@ -1,7 +1,7 @@
 {
   if (!searchField.getText().equals(text))   searchField.setText(text);
   if (StringUtils.hasContent(text)) {
-    Tools.openURL(HelpUrls.FORUMS_HELP_URL + "search.php?keywords=" + URLEncoder.encode(text.trim()));
+    Tools.openURL(HelpUrls.FORUMS_HELP_URL + "search.php?keywords=" + urlEncodeWithUtf8(text.trim()));
   }
  else {
     Tools.openURL(HelpUrls.FORUMS_HELP_URL);

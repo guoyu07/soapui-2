@@ -18,14 +18,14 @@
           for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i),encoding));
         }
  else {
-          value=URLEncoder.encode(value);
-          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i)));
+          value=urlEncodeWithUtf8(value);
+          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
         }
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);
-        value=URLEncoder.encode(value);
-        for (int i=0; i < valueParts.size(); i++)         valueParts.set(i,URLEncoder.encode(valueParts.get(i)));
+        value=urlEncodeWithUtf8(value);
+        for (int i=0; i < valueParts.size(); i++)         valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
       }
       value=value.replaceAll("\\+","%20");
       for (int i=0; i < valueParts.size(); i++)       valueParts.set(i,valueParts.get(i).replaceAll("\\+","%20"));
@@ -41,7 +41,7 @@ case QUERY:
   if (formMp == null || !request.isPostQueryString()) {
     for (    String valuePart : valueParts) {
       if (query.length() > 0)       query.append('&');
-      query.append(URLEncoder.encode(param.getName()));
+      query.append(urlEncodeWithUtf8(param.getName()));
       query.append('=');
       if (StringUtils.hasContent(valuePart))       query.append(valuePart);
     }
