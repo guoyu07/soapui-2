@@ -1,0 +1,7 @@
+{
+  if (restMethod.getRequestCount() > 0) {
+    RestRequest request=restMethod.getRequestAt(0);
+    return addEmptyMockAction(request.getMethod(),request.getTemplateParamExpandedPath());
+  }
+  return addEmptyMockAction(defaultHttpMethod,defaultPath);
+}

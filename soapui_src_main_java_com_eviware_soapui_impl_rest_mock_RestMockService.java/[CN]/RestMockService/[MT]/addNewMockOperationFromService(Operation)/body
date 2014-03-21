@@ -1,0 +1,14 @@
+{
+  List<MockOperation> actions=new ArrayList<MockOperation>();
+  RestResource restResource=(RestResource)operation;
+  if (restResource.getRestMethodCount() < 1) {
+    actions.add(addNewMockOperation(restResource));
+  }
+  for (  RestMethod restMethod : restResource.getRestMethodList()) {
+    HttpMethod httpMethod=restMethod.getMethod();
+    String path=restResource.getFullPath();
+    RestMockAction mockAction=addNewMockOperationFromRestMethod(restMethod,httpMethod,path);
+    actions.add(mockAction);
+  }
+  return actions;
+}

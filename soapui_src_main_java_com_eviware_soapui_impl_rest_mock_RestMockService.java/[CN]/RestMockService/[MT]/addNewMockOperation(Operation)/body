@@ -2,10 +2,8 @@
   RestResource restResource=(RestResource)operation;
   RestRequestInterface.HttpMethod httpMethod=RestRequestInterface.HttpMethod.GET;
   String path=restResource.getFullPath();
-  if (restResource.getRequestCount() > 0) {
-    RestRequest request=restResource.getRequestAt(0);
-    httpMethod=request.getMethod();
-    path=request.getPath();
+  if (restResource.getRestMethodCount() > 0) {
+    return addNewMockOperationFromRestMethod(restResource.getRestMethodAt(0),httpMethod,path);
   }
   return addEmptyMockAction(httpMethod,path);
 }
