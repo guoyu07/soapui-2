@@ -1,8 +1,5 @@
 {
   String expandedPath=getPath();
-  for (  String pathParam : RestUtils.extractTemplateParams(expandedPath)) {
-    String pathParamValue=getParams().getPropertyValue(pathParam);
-    expandedPath=expandedPath.replaceAll("\\{" + pathParam + "\\}",pathParamValue == null ? "" : pathParamValue);
-  }
-  return expandedPath;
+  RestParamsPropertyHolder params=getParams();
+  return getTemplateParamExpandedPath(expandedPath,params);
 }
