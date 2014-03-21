@@ -6,5 +6,6 @@
   methodBox.add(Box.createHorizontalStrut(10));
   toolbar.add(methodBox,BorderLayout.WEST);
   toolbar.add(createResourcePathTextField(),BorderLayout.CENTER);
+  toolbar.add(createActionButton(new ShowOnlineHelpAction(getModelItem().getHelpUrl()),true),BorderLayout.EAST);
   return toolbar;
 }
