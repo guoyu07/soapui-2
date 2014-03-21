@@ -1,5 +1,5 @@
 {
-  ExtendedHttpMethod httpMethod=prepareHttpMethodWith(originalPath);
+  ExtendedHttpMethod httpMethod=prepareHttpMethodWith(path);
   SinglePartHttpResponse response=new SinglePartHttpResponse(restRequest,httpMethod,null,mock(PropertyExpansionContext.class));
   response.setResponseContent("{ firstName: 'Kalle', secondName: 'Ek' }");
   return response;

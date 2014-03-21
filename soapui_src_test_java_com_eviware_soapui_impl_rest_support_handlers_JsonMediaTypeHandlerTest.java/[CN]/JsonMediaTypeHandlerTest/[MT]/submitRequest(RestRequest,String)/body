@@ -1,8 +1,8 @@
 {
-  SubmitContext mock=mock(SubmitContext.class);
+  SubmitContext submitContext=new WsdlSubmitContext(restRequest);
   HttpRequestBase httpMethod=mock(HttpRequestBase.class);
-  when(mock.getProperty(BaseHttpRequestTransport.HTTP_METHOD)).thenReturn(httpMethod);
-  when(mock.getProperty(BaseHttpRequestTransport.REQUEST_URI)).thenReturn(new URI(ENDPOINT + originalPath));
-  restRequest.submit(mock,false);
-  return mock;
+  submitContext.setProperty(BaseHttpRequestTransport.HTTP_METHOD,httpMethod);
+  submitContext.setProperty(BaseHttpRequestTransport.REQUEST_URI,new URI(ENDPOINT + originalPath));
+  restRequest.submit(submitContext,false);
+  return submitContext;
 }

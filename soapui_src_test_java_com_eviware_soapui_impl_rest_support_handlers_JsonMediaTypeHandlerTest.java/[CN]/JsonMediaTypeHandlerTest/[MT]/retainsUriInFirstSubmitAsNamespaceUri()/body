@@ -1,15 +1,6 @@
 {
-  RestRequest restRequest=makeRestRequest();
-  restRequest.setEndpoint(ENDPOINT);
-  String originalPath="/original/path";
-  restRequest.setPath(originalPath);
-  submitRequest(restRequest,originalPath);
-  HttpResponse response=makeResponseFor(restRequest,originalPath);
-  JsonMediaTypeHandler handler=new JsonMediaTypeHandler();
-  String originalXml=handler.createXmlRepresentation(response);
-  String anotherPath="/another/path";
-  restRequest.setPath(anotherPath);
-  submitRequest(restRequest,anotherPath);
-  HttpResponse responseWithNewPath=makeResponseFor(restRequest,anotherPath);
-  assertThat(handler.createXmlRepresentation(responseWithNewPath),is(equalTo(originalXml)));
+  HttpResponse response=submitRequestAndReceiveResponse(restRequest,"/original/path");
+  String originalXml=mediaTypeHandler.createXmlRepresentation(response);
+  HttpResponse responseWithNewPath=submitRequestAndReceiveResponse(restRequest,"/another/path");
+  assertThat(mediaTypeHandler.createXmlRepresentation(responseWithNewPath),is(equalTo(originalXml)));
 }

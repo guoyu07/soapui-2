@@ -8,5 +8,6 @@
   when(httpMethod.getAllHeaders()).thenReturn(new Header[0]);
   when(httpMethod.getResponseReadTime()).thenReturn(10L);
   when(httpMethod.getURI()).thenReturn(new java.net.URI(ENDPOINT + path));
+  when(httpMethod.getURL()).thenReturn(new java.net.URL(ENDPOINT + path));
   return httpMethod;
 }

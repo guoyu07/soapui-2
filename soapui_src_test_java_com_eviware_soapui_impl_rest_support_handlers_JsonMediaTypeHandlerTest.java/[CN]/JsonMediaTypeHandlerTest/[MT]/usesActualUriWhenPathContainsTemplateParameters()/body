@@ -1,0 +1,11 @@
+{
+  RestParamProperty userParameter=restRequest.getParams().addProperty("user");
+  userParameter.setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
+  userParameter.setValue("billy");
+  String originalPath="/original/{user}";
+  restRequest.setPath(originalPath);
+  SubmitContext submitContext=submitRequest(restRequest,originalPath);
+  HttpResponse response=makeResponseFor(restRequest,"/original/billy");
+  restRequest.setResponse(response,submitContext);
+  assertThat(mediaTypeHandler.createXmlRepresentation(response),containsString("/original/billy"));
+}

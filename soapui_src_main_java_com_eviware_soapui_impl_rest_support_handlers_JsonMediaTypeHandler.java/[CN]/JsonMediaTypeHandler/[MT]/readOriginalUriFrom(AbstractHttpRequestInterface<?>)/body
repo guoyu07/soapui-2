@@ -1,7 +1,11 @@
 {
   if (request instanceof RestRequest) {
     AbstractRequestConfig config=((RestRequest)request).getConfig();
-    return config.getOriginalUri();
+    String originalUri=config.getOriginalUri();
+    if (originalUri != null && originalUri.contains("{")) {
+      return null;
+    }
+    return originalUri;
   }
  else {
     return null;
