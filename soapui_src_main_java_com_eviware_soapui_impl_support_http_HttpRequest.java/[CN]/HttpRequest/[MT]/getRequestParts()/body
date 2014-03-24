@@ -3,7 +3,7 @@
   for (int c=0; c < getPropertyCount(); c++) {
     result.add(new ParameterMessagePart(getPropertyAt(c)));
   }
-  if (getMethod() == HttpMethod.POST || getMethod() == HttpMethod.PUT || getMethod() == HttpMethod.PATCH) {
+  if (getMethod() == RestRequestInterface.HttpMethod.POST || getMethod() == RestRequestInterface.HttpMethod.PUT || getMethod() == RestRequestInterface.HttpMethod.PATCH) {
     result.add(new HttpContentPart());
   }
   return result.toArray(new MessagePart[result.size()]);

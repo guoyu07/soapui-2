@@ -1,12 +1,12 @@
 {
   JPanel comboPanel=new JPanel(new BorderLayout());
   comboPanel.add(new JLabel("Method"),BorderLayout.NORTH);
-  final JComboBox methodCombo=new JComboBox(HttpMethod.getMethods());
+  final JComboBox methodCombo=new JComboBox(RestRequestInterface.HttpMethod.getMethods());
   methodCombo.setSelectedItem(getModelItem().getMethod());
   methodCombo.setToolTipText("Set desired HTTP method");
   methodCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
-      getModelItem().setMethod((HttpMethod)methodCombo.getSelectedItem());
+      getModelItem().setMethod((RestRequestInterface.HttpMethod)methodCombo.getSelectedItem());
     }
   }
 );

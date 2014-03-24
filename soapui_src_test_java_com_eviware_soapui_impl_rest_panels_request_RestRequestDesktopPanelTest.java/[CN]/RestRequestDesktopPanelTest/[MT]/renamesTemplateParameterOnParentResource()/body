@@ -7,7 +7,7 @@
   String expectedParentPath=parentPath + "{" + newParamName+ "}";
   String expectedChildPath=expectedParentPath + childPath;
   RestRequest childRestRequest=ModelItemFactory.makeRestRequest(childResource);
-  childRestRequest.setMethod(HttpMethod.GET);
+  childRestRequest.setMethod(RestRequestInterface.HttpMethod.GET);
   RestRequestDesktopPanel childRequestDesktopPanel=new RestRequestDesktopPanel(childRestRequest);
   restRequest.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);
   restRequest.getParams().getProperty(PARAMETER_NAME).setName(newParamName);

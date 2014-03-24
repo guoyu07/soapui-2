@@ -4,7 +4,7 @@
   RestResource childResource=parentResource.addNewChildResource("child","/child");
   String expectedChildPath=parentResource.getPath() + "{" + PARAMETER_NAME+ "}"+ childResource.getPath();
   RestRequest childRestRequest=ModelItemFactory.makeRestRequest(childResource);
-  childRestRequest.setMethod(HttpMethod.GET);
+  childRestRequest.setMethod(RestRequestInterface.HttpMethod.GET);
   RestRequestDesktopPanel childRequestDesktopPanel=new RestRequestDesktopPanel(childRestRequest);
   parentResource.addProperty(PARAMETER_NAME);
   parentResource.getParams().getProperty(PARAMETER_NAME).setStyle(RestParamsPropertyHolder.ParameterStyle.TEMPLATE);

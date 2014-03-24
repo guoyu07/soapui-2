@@ -2,7 +2,7 @@
   action.perform(restRequest,notUsed);
   int mockOperationCount=getFirstRestMockService().getMockOperationCount();
   assertThat(mockOperationCount,is(1));
-  restRequest.setMethod(HttpMethod.TRACE);
+  restRequest.setMethod(RestRequestInterface.HttpMethod.TRACE);
   action.perform(restRequest,notUsed);
   mockOperationCount=getFirstRestMockService().getMockOperationCount();
   assertThat(mockOperationCount,is(2));

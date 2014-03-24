@@ -1,11 +1,11 @@
 {
-  methodCombo=new JComboBox(HttpMethod.getMethods());
+  methodCombo=new JComboBox(RestRequestInterface.HttpMethod.getMethods());
   methodCombo.setSelectedItem(getRequest().getMethod());
   methodCombo.setToolTipText("Set desired HTTP method");
   methodCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       updatingRequest=true;
-      getRequest().setMethod((HttpMethod)methodCombo.getSelectedItem());
+      getRequest().setMethod((RestRequestInterface.HttpMethod)methodCombo.getSelectedItem());
       updatingRequest=false;
     }
   }

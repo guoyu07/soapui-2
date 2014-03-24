@@ -4,8 +4,8 @@
   methodConfig.setMethod("GET");
   final RestResource restResource=makeRestResource();
   RestMethod restMethod=new RestMethod(restResource,methodConfig){
-    @Override public HttpMethod getMethod(){
-      return HttpMethod.GET;
+    @Override public RestRequestInterface.HttpMethod getMethod(){
+      return RestRequestInterface.HttpMethod.GET;
     }
     @Override public RestResource getOperation(){
       return restResource;
