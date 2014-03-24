@@ -41,8 +41,8 @@ synchronized (server) {
           return;
         }
       }
-      connectors.put(new Integer(port),connector);
-      runners.put(new Integer(port),new HashMap<String,List<MockRunner>>());
+      connectors.put(port,connector);
+      runners.put(port,new HashMap<String,List<MockRunner>>());
     }
     Map<String,List<MockRunner>> map=runners.get(port);
     String path=mockService.getPath();
