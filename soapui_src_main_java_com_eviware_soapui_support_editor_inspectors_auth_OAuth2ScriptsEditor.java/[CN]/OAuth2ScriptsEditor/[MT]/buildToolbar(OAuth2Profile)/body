@@ -9,5 +9,7 @@
   removeScriptButton=UISupport.createToolbarButton(new RemoveScriptAction());
   removeScriptButton.setName(REMOVE_SCRIPT_BUTTON_NAME);
   toolbar.addFixed(removeScriptButton);
+  toolbar.addGlue();
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(HelpUrls.OAUTH_AUTOMATED_TOKEN_PROFILE_EDITOR)));
   return toolbar;
 }

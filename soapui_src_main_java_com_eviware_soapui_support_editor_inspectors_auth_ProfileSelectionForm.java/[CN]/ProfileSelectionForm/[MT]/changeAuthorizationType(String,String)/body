@@ -1,0 +1,8 @@
+{
+  showCard(cardName);
+  String helpKey=cardName;
+  if (cardName.equals(BASIC_FORM_LABEL) || cardName.equals(WSS_FORM_LABEL)) {
+    helpKey=selectedOption;
+  }
+  helpButton.setAction(helpActions.get(helpKey));
+}

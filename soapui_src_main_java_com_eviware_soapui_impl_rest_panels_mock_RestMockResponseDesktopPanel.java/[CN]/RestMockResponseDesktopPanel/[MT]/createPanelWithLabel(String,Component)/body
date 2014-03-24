@@ -1,8 +1,6 @@
 {
-  JPanel innerPanel=new JPanel();
+  JPanel innerPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
   innerPanel.add(new JLabel(labelText));
   innerPanel.add(rightSideComponent);
-  JPanel outerPanel=new JPanel(new BorderLayout());
-  outerPanel.add(innerPanel,BorderLayout.WEST);
-  return outerPanel;
+  return innerPanel;
 }

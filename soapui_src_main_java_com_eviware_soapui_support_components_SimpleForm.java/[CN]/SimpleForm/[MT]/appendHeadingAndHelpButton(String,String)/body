@@ -1,0 +1,12 @@
+{
+  JLabel label=new JLabel(text);
+  Font font=label.getFont();
+  Font fontBold=new Font(font.getName(),Font.BOLD,font.getSize());
+  label.setFont(fontBold);
+  JPanel innerPanel=new JPanel();
+  innerPanel.setLayout(new BoxLayout(innerPanel,BoxLayout.X_AXIS));
+  innerPanel.add(label);
+  innerPanel.add(Box.createHorizontalGlue());
+  innerPanel.add(UISupport.createFormButton(new ShowOnlineHelpAction(helpUrl)));
+  append(null,null,innerPanel,null,DEFAULT_LABEL_COLUMN,getColumnSpanToTheEnd(DEFAULT_LABEL_COLUMN));
+}
