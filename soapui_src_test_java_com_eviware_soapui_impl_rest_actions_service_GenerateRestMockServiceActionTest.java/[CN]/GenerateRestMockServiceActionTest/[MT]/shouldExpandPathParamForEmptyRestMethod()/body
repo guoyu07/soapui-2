@@ -1,8 +1,8 @@
 {
-  RestResource one=restService.addNewResource("one","/one{version}");
-  RestParamProperty path=one.addProperty("version");
+  RestResource resource=restService.addNewResource("one","/one{version}");
+  RestParamProperty path=resource.addProperty("version");
   path.setValue("v1");
-  addMethod(one,HttpMethod.GET);
+  addMethod(resource,HttpMethod.GET);
   action.perform(restService,null);
   assertMockAction(HttpMethod.GET,"/onev1",getResultingRestMockService().getMockOperationAt(0));
 }

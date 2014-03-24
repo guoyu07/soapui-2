@@ -1,7 +1,7 @@
 {
-  RestResource one=restService.addNewResource("one","/one");
-  addMethod(one,HttpMethod.GET);
-  addMethod(one,HttpMethod.POST);
+  RestResource resource=restService.addNewResource("one","/one");
+  addMethod(resource,HttpMethod.GET);
+  addMethod(resource,HttpMethod.POST);
   action.perform(restService,null);
   RestMockService restMockService=getResultingRestMockService();
   assertThat(restMockService.getMockOperationCount(),is(2));
