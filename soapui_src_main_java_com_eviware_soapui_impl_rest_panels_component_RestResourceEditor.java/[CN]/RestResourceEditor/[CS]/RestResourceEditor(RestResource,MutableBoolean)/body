@@ -2,6 +2,7 @@
   super(editingRestResource.getFullPath());
   this.editingRestResource=editingRestResource;
   this.updating=updating;
+  setName(REST_RESOURCE_EDITOR_TEXT_FIELD);
   if (isResourceLonely(editingRestResource)) {
     getDocument().addDocumentListener(new LonelyDocumentListener());
     addFocusListener(new FocusListener(){

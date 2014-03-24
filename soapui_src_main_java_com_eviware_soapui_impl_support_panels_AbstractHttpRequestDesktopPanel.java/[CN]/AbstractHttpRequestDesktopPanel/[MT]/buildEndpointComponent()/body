@@ -1,6 +1,7 @@
 {
   final JComboBox endpointCombo=new JComboBox(endpointsModel);
   endpointCombo.setEditable(true);
+  endpointCombo.setName(END_POINT_COMBO_BOX);
   Document textFieldDocument=((JTextComponent)endpointCombo.getEditor().getEditorComponent()).getDocument();
   endpointsModel.listenToChangesIn(textFieldDocument);
   endpointCombo.addPropertyChangeListener(this);
