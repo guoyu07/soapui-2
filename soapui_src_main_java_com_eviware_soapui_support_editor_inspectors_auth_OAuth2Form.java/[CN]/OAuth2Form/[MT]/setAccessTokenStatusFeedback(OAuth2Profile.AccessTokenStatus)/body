@@ -10,18 +10,11 @@ case ENTERED_MANUALLY:
 case RETRIEVED_FROM_SERVER:
   setSucessfullFeedback(status);
 break;
-case WAITING_FOR_AUTHORIZATION:
-case RECEIVED_AUTHORIZATION_CODE:
-setWaitingFeedback(status);
-break;
 case RETRIEVAL_CANCELED:
-setCanceledFeedback(status);
+setCanceledFeedback();
 break;
 case EXPIRED:
 setFailedFeedback(status);
-break;
-default :
-setDefaultFeedback();
 break;
 }
 }
