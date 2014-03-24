@@ -10,6 +10,7 @@
   comboBoxPanel.add(profileSelectionComboBox,cc.xy(4,1));
   JPanel wrapperPanel=new JPanel(new BorderLayout(5,5));
   wrapperPanel.add(comboBoxPanel,BorderLayout.LINE_START);
-  wrapperPanel.add(UISupport.createFormButton(new ShowOnlineHelpAction(HelpUrls.OAUTH_AUTHORIZATION)),BorderLayout.AFTER_LINE_ENDS);
+  helpButton=UISupport.createFormButton(helpActions.get(EMPTY_PANEL));
+  wrapperPanel.add(helpButton,BorderLayout.AFTER_LINE_ENDS);
   return wrapperPanel;
 }

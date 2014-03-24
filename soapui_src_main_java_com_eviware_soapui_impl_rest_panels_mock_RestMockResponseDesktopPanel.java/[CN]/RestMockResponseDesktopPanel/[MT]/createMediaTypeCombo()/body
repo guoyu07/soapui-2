@@ -6,5 +6,11 @@
     }
   }
 );
-  return createPanelWithLabel("Content | Media type: ",mediaTypeComboBox);
+  JComponent innerPanel=createPanelWithLabel("Content | Media type: ",mediaTypeComboBox);
+  JPanel outerPanel=new JPanel();
+  outerPanel.setLayout(new BoxLayout(outerPanel,BoxLayout.X_AXIS));
+  outerPanel.add(innerPanel);
+  outerPanel.add(Box.createHorizontalGlue());
+  outerPanel.add(UISupport.createFormButton(new ShowOnlineHelpAction(HelpUrls.REST_MOCK_RESPONSE_EDITOR_BODY)));
+  return outerPanel;
 }
