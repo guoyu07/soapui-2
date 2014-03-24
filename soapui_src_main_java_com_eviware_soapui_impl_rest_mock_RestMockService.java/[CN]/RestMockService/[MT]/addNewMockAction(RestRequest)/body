@@ -1,5 +1,5 @@
 {
-  RestMockAction mockAction=addEmptyMockAction(restRequest.getMethod(),restRequest.getTemplateParamExpandedPath());
+  RestMockAction mockAction=addEmptyMockAction(restRequest.getMethod(),RestUtils.getTemplateParamExpandedPath(restRequest.getPath(),restRequest.getParams()));
   mockAction.setResource(restRequest.getResource());
   return mockAction;
 }

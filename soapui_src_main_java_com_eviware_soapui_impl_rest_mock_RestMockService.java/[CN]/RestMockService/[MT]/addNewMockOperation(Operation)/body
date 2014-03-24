@@ -1,7 +1,7 @@
 {
   RestResource restResource=(RestResource)operation;
   RestRequestInterface.HttpMethod httpMethod=RestRequestInterface.HttpMethod.GET;
-  String path=restResource.getFullPath();
+  String path=RestUtils.getTemplateParamExpandedPath(restResource.getFullPath(),restResource.getParams());
   if (restResource.getRestMethodCount() > 0) {
     return addNewMockOperationFromRestMethod(restResource.getRestMethodAt(0),httpMethod,path);
   }
