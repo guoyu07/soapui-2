@@ -5,7 +5,7 @@
     return assertionsSupport.moveAssertion(ix,offset);
   }
   finally {
-    ((WsdlMessageAssertion)assertion).release();
+    assertion.release();
     notifier.notifyChange();
   }
 }
