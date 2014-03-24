@@ -1,11 +1,8 @@
 {
   currentStatus=AssertionStatus.UNKNOWN;
-  if (messageExchange != null) {
-    if (!messageExchange.hasResponse() && getOperation() != null && getOperation().isBidirectional()) {
-      currentStatus=AssertionStatus.FAILED;
-    }
+  if (messageExchange == null) {
+    return currentStatus;
   }
- else   return currentStatus;
   int cnt=getAssertionCount();
   if (cnt == 0)   return currentStatus;
   for (int c=0; c < cnt; c++) {
