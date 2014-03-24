@@ -1,0 +1,13 @@
+{
+  JPanelFixture panel=null;
+  try {
+    panel=rootWindow.panel(panelName);
+  }
+ catch (  Exception ex) {
+  }
+  if (panel == null) {
+    return;
+  }
+  JInternalFrame fixture=(JInternalFrame)panel.target.getParent().getParent().getParent();
+  fixture.doDefaultCloseAction();
+}
