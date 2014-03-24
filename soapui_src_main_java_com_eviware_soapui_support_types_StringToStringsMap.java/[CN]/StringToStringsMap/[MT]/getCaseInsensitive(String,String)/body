@@ -1,0 +1,8 @@
+{
+  for (  Map.Entry<String,List<String>> stringListEntry : entrySet()) {
+    if (key.equalsIgnoreCase(stringListEntry.getKey()) && !stringListEntry.getValue().isEmpty()) {
+      return stringListEntry.getValue().get(0);
+    }
+  }
+  return defaultValue;
+}
