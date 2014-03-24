@@ -2,10 +2,13 @@
   try {
     SwingUtilities.invokeAndWait(new Runnable(){
       public void run(){
-        fireIntervalAdded(LogListModel.this,size,1);
-        if (lines.size() > maxRows) {
-          lines.remove(0);
-          fireIntervalRemoved(LogListModel.this,0,1);
+        fireIntervalAdded(LogListModel.this,oldSize,lines.size() - 1);
+        int linesToRemove=lines.size() - ((int)maxRows);
+        if (linesToRemove > 0) {
+          for (int i=0; i < linesToRemove; i++) {
+            lines.remove(0);
+          }
+          fireIntervalRemoved(LogListModel.this,0,linesToRemove);
         }
         if (tailing) {
           logList.ensureIndexIsVisible(lines.size() - 1);

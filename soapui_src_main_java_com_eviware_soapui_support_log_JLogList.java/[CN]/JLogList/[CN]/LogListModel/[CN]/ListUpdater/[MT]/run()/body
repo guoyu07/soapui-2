@@ -6,8 +6,13 @@
     Object line;
     while ((line=getNextLine()) != null) {
       try {
+        List<Object> linesToAddNow=new ArrayList<Object>();
+        linesToAddNow.add(line);
+        while ((line=linesToAdd.poll()) != null) {
+          linesToAddNow.add(line);
+        }
         int oldSize=lines.size();
-        lines.add(line);
+        lines.addAll(linesToAddNow);
         updateJList(oldSize);
       }
  catch (      Exception e) {
