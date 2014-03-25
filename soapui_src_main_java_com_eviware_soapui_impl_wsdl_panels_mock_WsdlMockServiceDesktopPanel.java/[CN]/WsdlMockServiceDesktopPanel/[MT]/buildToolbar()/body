@@ -15,12 +15,10 @@
   toolbar.addFixed(optionsButton);
   toolbar.addGlue();
   runInfoLabel=new JLabel("",SwingConstants.RIGHT);
-  toolbar.addFixed(UISupport.setFixedSize(runInfoLabel,200,20));
+  runInfoLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,3));
+  toolbar.addFixed(UISupport.setFixedSize(runInfoLabel,205,20));
   toolbar.addRelatedGap();
-  progressBar=new JProgressBar();
-  JPanel progressBarPanel=UISupport.createProgressBarPanel(progressBar,2,false);
-  progressBarPanel.setPreferredSize(new Dimension(60,20));
-  toolbar.addFixed(progressBarPanel);
+  progressBarWrapper.addToToolBar(toolbar);
   toolbar.addRelatedGap();
   toolbar.addFixed(createActionButton(new ShowOnlineHelpAction(getModelItem().getHelpUrl()),true));
   return toolbar;
