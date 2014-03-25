@@ -1,6 +1,6 @@
 {
   String expandedPath=RestUtils.getTemplateParamExpandedPath(restRequest.getPath(),restRequest.getParams(),restRequest);
-  MockOperation matchedOperation=findBestMatchingOperation(expandedPath,restRequest.getMethod(),false);
+  MockOperation matchedOperation=findMatchingOperationWithExactPath(expandedPath,restRequest.getMethod());
   if (matchedOperation == null) {
     matchedOperation=addNewMockAction(restRequest);
   }
