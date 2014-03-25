@@ -9,11 +9,13 @@
     String accessTokenPosition=dialog.getValue(Form.ACCESS_TOKEN_POSITION);
     profile.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
     String refreshAccessTokenMethod=dialog.getValue(Form.AUTOMATIC_ACCESS_TOKEN_REFRESH);
-    profile.setRefreshAccessTokenMethod(valueOf(refreshAccessTokenMethod));
-    long manualExpirationTime=expirationTimeComponent.getAccessTokenExpirationTimeInSeconds();
-    if (manualExpirationTime != -1) {
+    profile.setRefreshAccessTokenMethod(RefreshAccessTokenMethods.valueOf(refreshAccessTokenMethod.toUpperCase()));
+    String manualExpirationTime=expirationTimeComponent.getAccessTokenExpirationTime();
+    TimeUnitConfig.Enum expirationTimeUnit=expirationTimeComponent.getAccessTokenExpirationTimeUnit();
+    profile.setManualAccessTokenExpirationTime(manualExpirationTime);
+    profile.setManualAccessTokenExpirationTimeUnit(expirationTimeUnit);
+    if (expirationTimeComponent.manualExpirationTimeIsSelected()) {
       profile.setUseManualAccessTokenExpirationTime(true);
-      profile.setManualAccessTokenExpirationTime(manualExpirationTime);
     }
  else {
       profile.setUseManualAccessTokenExpirationTime(false);

@@ -1,23 +1,8 @@
 {
   JPanel timeSelectionPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,3,0));
   boolean enableManualTimeControls=profile.useManualAccessTokenExpirationTime();
-  timeUnitCombo=new JComboBox(TIME_UNIT_OPTIONS);
-  timeUnitCombo.setName(TIME_UNIT_COMBO_NAME);
-  timeUnitCombo.setEnabled(enableManualTimeControls);
-  timeTextField=new JTextField(5);
-  configureInputSanitationOnTextField(timeTextField);
-  timeTextField.setName(TIME_FIELD_NAME);
-  timeTextField.setHorizontalAlignment(JTextField.RIGHT);
-  Long manualAccessTokenExpirationTime=profile.getManualAccessTokenExpirationTime();
-  if (manualAccessTokenExpirationTime == null) {
-    timeTextField.setText("");
-  }
- else {
-    TimeUnitOption appropriateUnit=getAppropriateTimeUnitOption(manualAccessTokenExpirationTime);
-    timeTextField.setText(String.valueOf(manualAccessTokenExpirationTime / appropriateUnit.seconds));
-    timeUnitCombo.setSelectedItem(appropriateUnit);
-  }
-  timeTextField.setEnabled(enableManualTimeControls);
+  timeTextField=createTimeTextField(enableManualTimeControls);
+  timeUnitCombo=createTimeUnitCombo(enableManualTimeControls);
   timeSelectionPanel.add(timeTextField);
   timeSelectionPanel.add(timeUnitCombo);
   return timeSelectionPanel;

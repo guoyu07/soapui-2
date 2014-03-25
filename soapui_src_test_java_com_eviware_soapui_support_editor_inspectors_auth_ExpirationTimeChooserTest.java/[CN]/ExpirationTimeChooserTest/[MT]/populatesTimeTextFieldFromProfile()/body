@@ -1,6 +1,6 @@
 {
   OAuth2Profile profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
-  profile.setManualAccessTokenExpirationTime(90);
+  profile.setManualAccessTokenExpirationTime("90");
   initializeChooserFromProfile(profile);
   JTextField timeField=walker.findComponent(ExpirationTimeChooser.TIME_FIELD_NAME,JTextField.class);
   assertThat(timeField.getText(),is("90"));

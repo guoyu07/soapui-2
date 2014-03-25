@@ -1,0 +1,14 @@
+{
+  JTextField timeTextField=new JTextField(5);
+  timeTextField.setName(TIME_FIELD_NAME);
+  timeTextField.setHorizontalAlignment(JTextField.RIGHT);
+  String manualAccessTokenExpirationTime=profile.getManualAccessTokenExpirationTime();
+  if (manualAccessTokenExpirationTime == null) {
+    timeTextField.setText("");
+  }
+ else {
+    timeTextField.setText(manualAccessTokenExpirationTime);
+    timeTextField.setEnabled(enableManualTimeControls);
+  }
+  return timeTextField;
+}

@@ -1,0 +1,7 @@
+{
+  TimeUnitConfig.Enum oldValue=getManualAccessTokenExpirationTimeUnit();
+  if (!oldValue.equals(newValue)) {
+    configuration.setManualAccessTokenExpirationTimeUnit(newValue);
+    pcs.firePropertyChange(MANUAL_ACCESS_TOKEN_EXPIRATION_TIME_UNIT_PROPERTY,oldValue.toString(),newValue.toString());
+  }
+}
