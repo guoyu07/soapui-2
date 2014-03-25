@@ -1,6 +1,14 @@
 {
   long currentTime=TimeUtils.getCurrentTimeInSeconds();
   long issuedTime=profile.getAccessTokenIssuedTime();
-  long expirationTime=profile.getAccessTokenExpirationTime();
+  long expirationTime;
+  if (profile.useManualAccessTokenExpirationTime()) {
+    String expirationTimeString=profile.getManualAccessTokenExpirationTime() == null ? "" : profile.getManualAccessTokenExpirationTime().toString();
+    String expandedValue=PropertyExpander.expandProperties(profile.getContainer().getProject(),expirationTimeString);
+    expirationTime=convertExpirationTimeToSeconds(expandedValue,profile.getManualAccessTokenExpirationTimeUnit());
+  }
+ else {
+    expirationTime=profile.getAccessTokenExpirationTime();
+  }
   return !(issuedTime <= 0 || expirationTime <= 0) && expirationTime < (currentTime + 10) - issuedTime;
 }

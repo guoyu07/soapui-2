@@ -1,0 +1,18 @@
+{
+  long expirationTime;
+  try {
+    expirationTime=Long.valueOf(expirationTimeString.trim());
+  }
+ catch (  NumberFormatException e) {
+    throw new IllegalArgumentException("Manual expiration time cannot be parsed due to invalid characters." + "Please review it and make sure it is set correctly.",e);
+  }
+  if (timeUnit.equals(TimeUnitConfig.HOURS)) {
+    return expirationTime * 3600;
+  }
+ else   if (timeUnit.equals(TimeUnitConfig.MINUTES)) {
+    return expirationTime * 60;
+  }
+ else {
+    return expirationTime;
+  }
+}

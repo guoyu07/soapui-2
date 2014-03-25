@@ -1,0 +1,9 @@
+{
+  JPanel timeSelectionPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,3,0));
+  boolean enableManualTimeControls=profile.useManualAccessTokenExpirationTime();
+  timeTextField=createTimeTextField(enableManualTimeControls);
+  timeUnitCombo=createTimeUnitCombo(enableManualTimeControls);
+  timeSelectionPanel.add(timeTextField);
+  timeSelectionPanel.add(timeUnitCombo);
+  return timeSelectionPanel;
+}

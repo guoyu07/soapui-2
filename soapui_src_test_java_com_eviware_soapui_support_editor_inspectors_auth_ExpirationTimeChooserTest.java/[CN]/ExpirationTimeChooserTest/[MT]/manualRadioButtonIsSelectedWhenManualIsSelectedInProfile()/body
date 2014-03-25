@@ -1,0 +1,7 @@
+{
+  OAuth2Profile profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  profile.setUseManualAccessTokenExpirationTime(true);
+  initializeChooserFromProfile(profile);
+  JRadioButton manualRadioButton=walker.findComponent(ExpirationTimeChooser.MANUAL_EXPIRATION_RADIO_NAME,JRadioButton.class);
+  assertThat(manualRadioButton,is(selected()));
+}
