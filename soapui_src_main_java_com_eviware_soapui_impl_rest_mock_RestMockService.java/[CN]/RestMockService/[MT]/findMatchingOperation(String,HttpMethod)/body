@@ -1,7 +1,7 @@
 {
   for (  MockOperation operation : getMockOperationList()) {
     String operationPath=((RestMockAction)operation).getResourcePath();
-    RestRequestInterface.HttpMethod operationVerb=((RestMockAction)operation).getMethod();
+    HttpMethod operationVerb=((RestMockAction)operation).getMethod();
     boolean matchesPath=operationPath.equals(pathToFind);
     boolean matchesVerb=verbToFind == operationVerb;
     if (matchesPath && matchesVerb) {
