@@ -1,0 +1,14 @@
+{
+  JPanel timeSelectionPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,3,0));
+  timeTextField=new JTextField(5);
+  timeTextField.setName(TIME_FIELD_NAME);
+  timeTextField.setHorizontalAlignment(JTextField.RIGHT);
+  timeTextField.setText("30");
+  timeTextField.setEnabled(false);
+  timeSelectionPanel.add(timeTextField);
+  timeUnitCombo=new JComboBox(new Object[]{new TimeUnitOption(1,"Seconds"),new TimeUnitOption(60,"Minutes"),new TimeUnitOption(3600,"Hours")});
+  timeUnitCombo.setName(TIME_UNIT_COMBO_NAME);
+  timeSelectionPanel.add(timeUnitCombo);
+  timeUnitCombo.setEnabled(false);
+  return timeSelectionPanel;
+}

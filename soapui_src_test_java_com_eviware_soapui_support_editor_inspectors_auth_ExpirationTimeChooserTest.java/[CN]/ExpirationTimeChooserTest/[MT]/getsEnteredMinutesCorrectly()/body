@@ -1,0 +1,6 @@
+{
+  walker.findComponent(ExpirationTimeChooser.MANUAL_EXPIRATION_RADIO_NAME,JRadioButton.class).doClick();
+  walker.findComponent(ExpirationTimeChooser.TIME_FIELD_NAME,JTextField.class).setText("3");
+  walker.findComponent(ExpirationTimeChooser.TIME_UNIT_COMBO_NAME,JComboBox.class).setSelectedIndex(1);
+  assertThat(chooser.getAccessTokenExpirationTimeInSeconds(),is(180));
+}

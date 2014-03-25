@@ -1,0 +1,18 @@
+{
+  ButtonGroup buttonGroup=new ButtonGroup();
+  serverExpirationTimeOption=new JRadioButton("Use expiration time from access token",true);
+  serverExpirationTimeOption.setName(SERVER_EXPIRATION_RADIO_NAME);
+  ActionListener checkBoxMonitor=new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      timeTextField.setEnabled(manualExpirationTimeOption.isSelected());
+      timeUnitCombo.setEnabled(manualExpirationTimeOption.isSelected());
+    }
+  }
+;
+  serverExpirationTimeOption.addActionListener(checkBoxMonitor);
+  manualExpirationTimeOption=new JRadioButton("Manual");
+  manualExpirationTimeOption.setName(MANUAL_EXPIRATION_RADIO_NAME);
+  manualExpirationTimeOption.addActionListener(checkBoxMonitor);
+  buttonGroup.add(serverExpirationTimeOption);
+  buttonGroup.add(manualExpirationTimeOption);
+}

@@ -1,0 +1,9 @@
+{
+  TimeUnitOption unit=(TimeUnitOption)timeUnitCombo.getSelectedItem();
+  try {
+    return serverExpirationTimeOption.isSelected() ? -1 : Integer.parseInt(timeTextField.getText()) * unit.seconds;
+  }
+ catch (  NumberFormatException e) {
+    return -1;
+  }
+}

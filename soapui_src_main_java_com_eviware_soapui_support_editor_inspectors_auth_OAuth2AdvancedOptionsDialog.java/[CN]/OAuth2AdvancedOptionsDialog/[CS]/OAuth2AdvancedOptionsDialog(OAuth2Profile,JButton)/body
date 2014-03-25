@@ -1,6 +1,8 @@
 {
   this.refreshAccessTokenButton=refreshAccessTokenButton;
+  expirationTimeComponent=new ExpirationTimeChooser(profile);
   XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.getFormField(Form.ACCESS_TOKEN_EXPIRATION_TIME).setProperty("component",expirationTimeComponent);
   setAccessTokenOptions(profile,dialog);
   setRefreshAccessTokenOptions(profile,dialog);
   if (dialog.show()) {
