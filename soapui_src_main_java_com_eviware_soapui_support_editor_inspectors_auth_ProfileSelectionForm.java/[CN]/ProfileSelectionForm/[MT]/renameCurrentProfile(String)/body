@@ -9,7 +9,7 @@
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
   }
-  if (getBasicAuthenticationTypes().contains(newName)) {
+  if (isReservedProfileName(newName)) {
     UISupport.showErrorMessage("'" + newName + "' is a reserved profile name.");
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
