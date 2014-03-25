@@ -9,7 +9,7 @@
     String accessTokenPosition=dialog.getValue(Form.ACCESS_TOKEN_POSITION);
     profile.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
     String refreshAccessTokenMethod=dialog.getValue(Form.AUTOMATIC_ACCESS_TOKEN_REFRESH);
-    profile.setRefreshAccessTokenMethod(RefreshAccessTokenMethods.valueOf(refreshAccessTokenMethod.toUpperCase()));
+    profile.setRefreshAccessTokenMethod(OAuth2Profile.RefreshAccessTokenMethods.valueOf(refreshAccessTokenMethod.toUpperCase()));
     String manualExpirationTime=expirationTimeComponent.getAccessTokenExpirationTime();
     TimeUnitConfig.Enum expirationTimeUnit=expirationTimeComponent.getAccessTokenExpirationTimeUnit();
     profile.setManualAccessTokenExpirationTime(manualExpirationTime);
