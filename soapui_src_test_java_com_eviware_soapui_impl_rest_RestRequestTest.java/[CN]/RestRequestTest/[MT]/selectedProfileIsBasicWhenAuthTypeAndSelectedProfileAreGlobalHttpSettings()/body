@@ -1,0 +1,5 @@
+{
+  setAuthTypeAndSelectedProfile(CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS,CredentialsConfig.AuthType.GLOBAL_HTTP_SETTINGS.toString());
+  assertThat(request.getSelectedAuthProfile(),is(AbstractHttpRequest.BASIC_AUTH_PROFILE));
+  assertThat(request.getPreemptive(),is(false));
+}

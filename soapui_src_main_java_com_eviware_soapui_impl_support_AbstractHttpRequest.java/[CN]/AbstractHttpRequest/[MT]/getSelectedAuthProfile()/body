@@ -4,13 +4,17 @@
   if (selectedAuthProfile == null) {
     String authType=getAuthType();
     if (AuthType.PREEMPTIVE.toString().equals(authType) || AuthType.GLOBAL_HTTP_SETTINGS.toString().equals(authType)) {
-      addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive();
+      addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive(BASIC_AUTH_PROFILE);
       return BASIC_AUTH_PROFILE;
+    }
+ else     if (AuthType.NTLM.toString().equals(authType) || AuthType.SPNEGO_KERBEROS.toString().equals(authType)) {
+      addBasicAuthenticationProfile(authType);
+      return authType;
     }
     return CredentialsConfig.AuthType.NO_AUTHORIZATION.toString();
   }
  else   if (AuthType.PREEMPTIVE.toString().equals(selectedAuthProfile) || AuthType.GLOBAL_HTTP_SETTINGS.toString().equals(selectedAuthProfile)) {
-    addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive();
+    addBasicProfileAndRemoveGlobalHttpSettingsAndPreEmptive(BASIC_AUTH_PROFILE);
     return BASIC_AUTH_PROFILE;
   }
   return selectedAuthProfile;
