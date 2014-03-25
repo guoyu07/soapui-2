@@ -1,5 +1,5 @@
 {
-  RestMockAction mockAction=(RestMockAction)mockService.findMatchingOperation(restMockRequest.getPath(),restMockRequest.getMethod());
+  RestMockAction mockAction=(RestMockAction)mockService.findBestMatchingOperation(restMockRequest.getPath(),restMockRequest.getMethod(),true);
   if (mockAction != null) {
     return mockAction.dispatchRequest(restMockRequest);
   }

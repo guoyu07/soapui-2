@@ -1,0 +1,19 @@
+{
+  MockOperation bestMatchedOperation=null;
+  for (  MockOperation operation : getMockOperationList()) {
+    String operationPath=((RestMockAction)operation).getResourcePath();
+    HttpMethod operationVerb=((RestMockAction)operation).getMethod();
+    boolean matchesPath=operationPath.equals(pathToFind);
+    boolean matchesVerb=verbToFind == operationVerb;
+    boolean matchesPathPartially=pathToFind.contains(operationPath);
+    if (matchesPath && matchesVerb) {
+      return operation;
+    }
+ else     if (includePartialMatch && matchesPathPartially && matchesVerb) {
+      if (bestMatchedOperation == null || ((RestMockAction)bestMatchedOperation).getResourcePath().length() < operationPath.length()) {
+        bestMatchedOperation=operation;
+      }
+    }
+  }
+  return bestMatchedOperation;
+}

@@ -2,7 +2,8 @@
   restRequest.setMethod(TRACE);
   restMockService.addNewMockAction(restRequest);
   RestMockAction restMockAction=restMockService.getMockOperationAt(0);
-  RestMockAction matchingAction=(RestMockAction)restMockService.findBestMatchingOperation(PATH,TRACE,true);
+  String requestPath=PATH + "/123";
+  RestMockAction matchingAction=(RestMockAction)restMockService.findBestMatchingOperation(requestPath,TRACE,true);
   assertThat(matchingAction,is(restMockAction));
   assertEquals(PATH,matchingAction.getResourcePath());
 }
