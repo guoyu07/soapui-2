@@ -1,6 +1,13 @@
 {
-  ButtonGroup buttonGroup=new ButtonGroup();
-  serverExpirationTimeOption=new JRadioButton("Use expiration time from access token",true);
+  long serverIssuedExpirationTime=profile.getAccessTokenExpirationTime();
+  String serverIssuedExpirationTimeLabel;
+  if (serverIssuedExpirationTime > 0) {
+    serverIssuedExpirationTimeLabel=getMostLegibleTimeString(serverIssuedExpirationTime);
+  }
+ else {
+    serverIssuedExpirationTimeLabel="No expiration";
+  }
+  serverExpirationTimeOption=new JRadioButton("Use expiration time from access token: " + serverIssuedExpirationTimeLabel);
   serverExpirationTimeOption.setName(SERVER_EXPIRATION_RADIO_NAME);
   ActionListener checkBoxMonitor=new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
@@ -13,6 +20,13 @@
   manualExpirationTimeOption=new JRadioButton("Manual");
   manualExpirationTimeOption.setName(MANUAL_EXPIRATION_RADIO_NAME);
   manualExpirationTimeOption.addActionListener(checkBoxMonitor);
+  ButtonGroup buttonGroup=new ButtonGroup();
   buttonGroup.add(serverExpirationTimeOption);
   buttonGroup.add(manualExpirationTimeOption);
+  if (profile.useManualAccessTokenExpirationTime()) {
+    manualExpirationTimeOption.setSelected(true);
+  }
+ else {
+    serverExpirationTimeOption.setSelected(true);
+  }
 }

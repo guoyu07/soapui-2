@@ -1,4 +1,5 @@
 {
+  this.profile=profile;
   setLayout(new BorderLayout(0,0));
   initializeRadioButtons();
   JPanel timeSelectionPanel=createTimeSelectionPanel();
@@ -8,7 +9,7 @@
   northPanel.add(timeSelectionPanel);
   add(northPanel,BorderLayout.NORTH);
   JPanel centerPanel=new JPanel(new BorderLayout(0,0));
-  JLabel label=new JLabel("<html>Here you can set an expiry time if the OAuth2 server doesn't,<br/>so that the token retrieval can be automated.</html>");
+  JLabel label=new JLabel("<html>Here you can set an expiry time if the OAuth 2.0 server doesn't,<br/>so that the token retrieval can be automated.</html>");
   label.setForeground(new Color(143,143,143));
   centerPanel.add(label,BorderLayout.NORTH);
   add(centerPanel,BorderLayout.CENTER);

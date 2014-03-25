@@ -1,0 +1,9 @@
+{
+  OAuth2Profile profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  profile.setManualAccessTokenExpirationTime(7200);
+  initializeChooserFromProfile(profile);
+  JTextField timeField=walker.findComponent(ExpirationTimeChooser.TIME_FIELD_NAME,JTextField.class);
+  JComboBox timeUnitCombo=walker.findComponent(ExpirationTimeChooser.TIME_UNIT_COMBO_NAME,JComboBox.class);
+  assertThat(timeField.getText(),is("2"));
+  assertThat(timeUnitCombo.getSelectedItem().toString(),is("Hours"));
+}

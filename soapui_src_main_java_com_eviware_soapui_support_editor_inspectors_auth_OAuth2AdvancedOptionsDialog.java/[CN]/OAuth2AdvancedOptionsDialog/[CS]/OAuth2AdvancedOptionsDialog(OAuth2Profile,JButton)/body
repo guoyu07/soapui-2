@@ -10,6 +10,11 @@
     profile.setAccessTokenPosition(AccessTokenPosition.valueOf(accessTokenPosition));
     String refreshAccessTokenMethod=dialog.getValue(Form.AUTOMATIC_ACCESS_TOKEN_REFRESH);
     profile.setRefreshAccessTokenMethod(valueOf(refreshAccessTokenMethod));
+    long manualExpirationTime=expirationTimeComponent.getAccessTokenExpirationTimeInSeconds();
+    if (manualExpirationTime != -1) {
+      profile.setUseManualAccessTokenExpirationTime(true);
+      profile.setManualAccessTokenExpirationTime(manualExpirationTime);
+    }
     enableRefreshAccessTokenButton(profile);
   }
 }
