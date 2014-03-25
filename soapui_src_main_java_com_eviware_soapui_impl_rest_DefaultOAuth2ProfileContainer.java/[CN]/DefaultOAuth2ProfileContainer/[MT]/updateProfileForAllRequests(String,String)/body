@@ -1,0 +1,10 @@
+{
+  doForAllRestRequests(new RestRequestCallback(){
+    @Override public void doit(    RestRequest restRequest){
+      if (ObjectUtils.equals(restRequest.getSelectedAuthProfile(),profileOldName)) {
+        restRequest.setSelectedAuthProfileAndAuthType(newName,CredentialsConfig.AuthType.Enum.forString(restRequest.getAuthType()));
+      }
+    }
+  }
+);
+}
