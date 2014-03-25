@@ -21,6 +21,6 @@
   }
   OAuth2Profile profile=getOAuth2ProfileContainer().getProfileByName(profileOldName);
   profile.setName(newName);
-  request.setSelectedAuthProfileAndAuthType(newName,CredentialsConfig.AuthType.Enum.forString(request.getAuthType()));
+  updateProfileForAllRequests(profileOldName,newName);
   refreshProfileSelectionComboBox(newName);
 }
