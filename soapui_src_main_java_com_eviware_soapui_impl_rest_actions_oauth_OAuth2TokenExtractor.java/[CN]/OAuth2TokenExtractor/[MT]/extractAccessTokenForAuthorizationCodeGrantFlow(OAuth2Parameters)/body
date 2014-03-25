@@ -13,6 +13,12 @@
         getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromTitle(title));
       }
     }
+    @Override public void browserClosed(){
+      super.browserClosed();
+      if (!parameters.isAccessTokenRetrivedFromServer()) {
+        setRetrievedCanceledStatus(parameters);
+      }
+    }
   }
 );
   browserFacade.open(new URI(createAuthorizationURL(parameters,CODE)).toURL());
