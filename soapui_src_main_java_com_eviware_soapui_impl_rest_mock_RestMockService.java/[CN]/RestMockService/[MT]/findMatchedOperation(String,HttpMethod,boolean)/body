@@ -10,9 +10,7 @@
       return operation;
     }
  else     if (includePartialMatch && matchesPathPartially && matchesVerb) {
-      if (bestMatchedOperation == null || ((RestMockAction)bestMatchedOperation).getResourcePath().length() < operationPath.length()) {
-        bestMatchedOperation=operation;
-      }
+      bestMatchedOperation=getBestMatchedOperation(bestMatchedOperation,operation,operationPath);
     }
   }
   return bestMatchedOperation;
