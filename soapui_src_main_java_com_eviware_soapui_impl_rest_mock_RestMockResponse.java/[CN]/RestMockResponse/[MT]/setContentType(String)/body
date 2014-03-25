@@ -1,10 +1,8 @@
 {
-  String[] parts=contentType.split(";",2);
+  String[] parts=contentType.split(";");
   getConfig().setMediaType(parts[0]);
-  if (parts.length > 1 && parts[1].trim().startsWith("charset=")) {
-    String[] encodingParts=parts[1].split("=");
-    if (encodingParts.length > 1) {
-      setEncoding(encodingParts[1]);
-    }
+  String encodingValue=getEncodingValue(parts);
+  if (encodingValue != null) {
+    setEncoding(encodingValue);
   }
 }
