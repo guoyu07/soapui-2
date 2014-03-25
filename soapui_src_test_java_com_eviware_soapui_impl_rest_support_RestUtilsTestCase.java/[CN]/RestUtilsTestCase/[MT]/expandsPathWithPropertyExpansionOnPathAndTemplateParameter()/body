@@ -1,0 +1,9 @@
+{
+  RestRequest restRequest=makeRestRequest();
+  restRequest.getProject().setPropertyValue("version","xml");
+  String templateParameterName="templateName";
+  String templateParameterValue="templateValue";
+  restRequest.getResource().setPath("/the/{" + templateParameterName + "}/path/${#Project#version}");
+  addParameter(restRequest,TEMPLATE,templateParameterName,templateParameterValue);
+  assertThat(RestUtils.getExpandedPath(restRequest.getResource().getFullPath(),restRequest.getParams(),restRequest),is("/the/" + templateParameterValue + "/path/xml"));
+}

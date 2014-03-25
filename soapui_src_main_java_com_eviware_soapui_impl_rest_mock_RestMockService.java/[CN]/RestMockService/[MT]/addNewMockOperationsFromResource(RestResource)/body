@@ -1,6 +1,6 @@
 {
   List<MockOperation> actions=new ArrayList<MockOperation>();
-  String path=RestUtils.getTemplateParamExpandedPath(restResource.getFullPath(),restResource.getParams(),restResource);
+  String path=RestUtils.getExpandedPath(restResource.getFullPath(),restResource.getParams(),restResource);
   if (restResource.getRestMethodCount() < 1) {
     actions.add(addEmptyMockAction(HttpMethod.GET,path));
   }
