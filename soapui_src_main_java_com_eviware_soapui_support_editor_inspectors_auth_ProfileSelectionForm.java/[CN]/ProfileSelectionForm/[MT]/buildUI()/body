@@ -9,7 +9,7 @@
   authenticationForm=new BasicAuthenticationForm<T>(request);
   cardPanel.add(authenticationForm.getComponent(),BASIC_FORM_LABEL);
   if (isSoapRequest(request)) {
-    WSSAuthenticationForm wssAuthenticationForm=new WSSAuthenticationForm((WsdlRequest)request);
+    wssAuthenticationForm=new WSSAuthenticationForm((WsdlRequest)request);
     cardPanel.add(wssAuthenticationForm.getComponent(),WSS_FORM_LABEL);
   }
   outerPanel.add(new JScrollPane(innerPanel),BorderLayout.CENTER);
