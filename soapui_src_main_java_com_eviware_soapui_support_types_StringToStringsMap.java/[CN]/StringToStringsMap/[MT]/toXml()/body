@@ -2,7 +2,7 @@
   StringToStringMapConfig xmlConfig=StringToStringMapConfig.Factory.newInstance();
   for (  String key : keySet()) {
     for (    String value : get(key)) {
-      Entry entry=xmlConfig.addNewEntry();
+      StringToStringMapConfig.Entry entry=xmlConfig.addNewEntry();
       entry.setKey(key);
       entry.setValue(value);
     }
