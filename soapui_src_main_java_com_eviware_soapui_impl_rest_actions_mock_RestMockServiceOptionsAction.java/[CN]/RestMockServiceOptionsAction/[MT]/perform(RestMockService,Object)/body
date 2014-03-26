@@ -8,7 +8,6 @@
   dialog.setValue(OptionsForm.HOST,mockService.getHost());
   dialog.setIntValue(OptionsForm.PORT,mockService.getPort());
   dialog.setValue(OptionsForm.DOCROOT,mockService.getDocroot());
-  dialog.setOptions(OptionsForm.FAULT_OPERATION,ModelSupport.getNames(new String[]{"- none -"},mockService.getMockOperationList()));
   if (dialog.show()) {
     mockService.setPath(dialog.getValue(OptionsForm.PATH));
     mockService.setPort(dialog.getIntValue(OptionsForm.PORT,mockService.getPort()));
