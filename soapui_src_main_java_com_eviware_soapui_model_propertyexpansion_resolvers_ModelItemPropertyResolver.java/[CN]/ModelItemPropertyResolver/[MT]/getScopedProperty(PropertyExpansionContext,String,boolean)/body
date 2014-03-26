@@ -46,6 +46,9 @@
  else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
     project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
   }
+ else   if (modelItem instanceof RestResource) {
+    project=modelItem.getProject();
+  }
  else   if (modelItem instanceof WsdlMockOperation) {
     mockService=((WsdlMockOperation)modelItem).getMockService();
     project=mockService.getProject();
