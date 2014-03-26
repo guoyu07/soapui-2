@@ -12,6 +12,9 @@ case WAITING_FOR_AUTHORIZATION:
 case RECEIVED_AUTHORIZATION_CODE:
   setWaitingFeedback(status);
 break;
+case EXPIRED:
+setFailedFeedback(status);
+break;
 default :
 setDefaultFeedback();
 break;
