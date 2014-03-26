@@ -1,0 +1,20 @@
+{
+  for (  Interface iface : project.getInterfaceList()) {
+    if (iface instanceof RestService) {
+      for (      RestResource restResource : ((RestService)iface).getAllResources()) {
+        for (        RestMethod restMethod : restResource.getRestMethodList()) {
+          for (          RestRequest restRequest : restMethod.getRequestList()) {
+            callback.doit(restRequest);
+          }
+        }
+      }
+    }
+  }
+  for (  TestSuite testSuite : project.getTestSuiteList()) {
+    for (    TestCase testCase : testSuite.getTestCaseList()) {
+      for (      RestTestRequestStep restTestRequestStep : testCase.getTestStepsOfType(RestTestRequestStep.class)) {
+        callback.doit(restTestRequestStep.getTestRequest());
+      }
+    }
+  }
+}

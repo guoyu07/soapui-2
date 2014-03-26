@@ -9,7 +9,7 @@
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
   }
-  if (getBasicAuthenticationTypes().contains(newName)) {
+  if (isReservedProfileName(newName)) {
     UISupport.showErrorMessage("'" + newName + "' is a reserved profile name.");
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
@@ -19,8 +19,5 @@
     profileSelectionComboBox.setSelectedItem(profileOldName);
     return;
   }
-  OAuth2Profile profile=getOAuth2ProfileContainer().getProfileByName(profileOldName);
-  profile.setName(newName);
-  request.setSelectedAuthProfileAndAuthType(newName,CredentialsConfig.AuthType.Enum.forString(request.getAuthType()));
-  refreshProfileSelectionComboBox(newName);
+  getOAuth2ProfileContainer().renameProfile(profileOldName,newName);
 }
