@@ -1,0 +1,6 @@
+{
+  createRestMockDispatcher();
+  when(restMockService.findBestMatchedOperation(anyString(),any(HttpMethod.class))).thenReturn(null);
+  restMockDispatcher.dispatchRequest(request,response);
+  verify(response).setStatus(HttpStatus.SC_NOT_FOUND);
+}
