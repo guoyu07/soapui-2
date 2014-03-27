@@ -15,7 +15,7 @@
   accessTokenForm=new OAuth2GetAccessTokenForm(profile);
   final JDialog accessTokenFormDialog=accessTokenForm.getComponent();
   disclosureButton.addMouseListener(new DisclosureButtonMouseListener(accessTokenFormDialog,disclosureButton));
-  accessTokenFormDialog.addWindowFocusListener(new AccessTokenFormDialogWindowListener(accessTokenFormDialog,disclosureButton));
+  accessTokenFormDialog.addWindowFocusListener(new AccessTokenFormDialogWindowListener(accessTokenFormDialog));
   JButton advancedOptionsButton=oAuth2Form.addButtonWithoutLabelToTheRight(ADVANCED_OPTIONS_BUTTON_NAME,new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
       new OAuth2AdvancedOptionsDialog(profile,refreshAccessTokenButton);
@@ -23,4 +23,6 @@
   }
 );
   advancedOptionsButton.setName(ADVANCED_OPTIONS_BUTTON_NAME);
+  mainWindowFocusListener=new SoapUIMainWindowFocusListener(accessTokenFormDialog);
+  SoapUI.getFrame().addWindowFocusListener(mainWindowFocusListener);
 }

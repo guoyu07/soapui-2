@@ -1,5 +1,5 @@
 {
-  if (httpResponse == null) {
+  if (httpResponse == null || SoapUI.isBrowserDisabled()) {
     return;
   }
   String content=httpResponse.getContentAsString();
