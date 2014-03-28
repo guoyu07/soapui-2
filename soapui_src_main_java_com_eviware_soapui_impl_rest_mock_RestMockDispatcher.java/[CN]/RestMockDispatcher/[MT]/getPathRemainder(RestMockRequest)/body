@@ -1,0 +1,7 @@
+{
+  String pathToFind=restMockRequest.getPath();
+  if (!mockService.getPath().equals("/")) {
+    pathToFind=restMockRequest.getPath().substring(mockService.getPath().length());
+  }
+  return pathToFind;
+}

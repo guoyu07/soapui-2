@@ -1,6 +1,6 @@
 {
   RestMockAction action=mock(RestMockAction.class);
-  when(restMockService.findBestMatchedOperation("api",HttpMethod.DELETE)).thenReturn(action);
+  when(restMockService.findBestMatchedOperation("/api",HttpMethod.DELETE)).thenReturn(action);
   when(restMockService.getPath()).thenReturn("/");
   when(request.getPathInfo()).thenReturn("/api");
   restMockDispatcher.dispatchRequest(request,response);
