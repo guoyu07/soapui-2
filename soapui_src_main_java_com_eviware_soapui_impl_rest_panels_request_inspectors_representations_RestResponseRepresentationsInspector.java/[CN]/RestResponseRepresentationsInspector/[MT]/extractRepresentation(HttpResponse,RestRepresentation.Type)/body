@@ -17,7 +17,7 @@
     representation.setMediaType(response.getContentType());
     representation.setStatus(Arrays.asList(response.getStatusCode()));
     String xmlContent=response.getContentAsXml();
-    if (!xmlContent.equals("<xml/>")) {
+    if (xmlContent != null && !xmlContent.equals("<xml/>")) {
       try {
         XmlCursor cursor=XmlUtils.createXmlObject(xmlContent).newCursor();
         cursor.toFirstChild();
