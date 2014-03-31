@@ -1,5 +1,6 @@
 {
-  if (UISupport.confirm("Remove MockOperation [" + mockOperation.getName() + "] from MockService ["+ mockOperation.getMockService().getName()+ "]","Remove MockOperation")) {
+  String opEquivalentName=mockOperation instanceof RestMockAction ? "Mock Action" : "Mock Operation";
+  if (UISupport.confirm("Remove " + opEquivalentName + " ["+ mockOperation.getName()+ "] from MockService ["+ mockOperation.getMockService().getName()+ "]","Remove " + opEquivalentName)) {
     MockService mockService=mockOperation.getMockService();
     mockService.removeMockOperation(mockOperation);
   }
