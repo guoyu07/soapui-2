@@ -1,0 +1,6 @@
+{
+  int endPointCount=restRequest.getOperation().getService().getEndpoints().length;
+  int expectedEndPointCount=endPointCount + 1;
+  action.perform(restRequest,notUsed);
+  assertThat(restRequest.getOperation().getService().getEndpoints().length,is(expectedEndPointCount));
+}
