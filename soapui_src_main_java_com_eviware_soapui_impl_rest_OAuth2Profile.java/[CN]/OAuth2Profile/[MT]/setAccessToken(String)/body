@@ -1,11 +1,6 @@
 {
   if (doSetAccessToken(accessToken)) {
-    if (StringUtils.isEmpty(accessToken)) {
-      setAccessTokenStatus(null);
-    }
- else {
-      setAccessTokenStatus(AccessTokenStatus.ENTERED_MANUALLY);
-      setAccessTokenStartingStatus(AccessTokenStatus.ENTERED_MANUALLY);
-    }
+    setAccessTokenStatus(AccessTokenStatus.ENTERED_MANUALLY);
+    setAccessTokenStartingStatus(AccessTokenStatus.ENTERED_MANUALLY);
   }
 }
