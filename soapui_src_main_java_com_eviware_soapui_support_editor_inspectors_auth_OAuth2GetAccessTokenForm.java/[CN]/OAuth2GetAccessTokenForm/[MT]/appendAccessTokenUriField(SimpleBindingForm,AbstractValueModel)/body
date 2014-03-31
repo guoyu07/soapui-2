@@ -1,0 +1,7 @@
+{
+  final JTextField accessTokenUriField=accessTokenForm.appendTextField(OAuth2Profile.ACCESS_TOKEN_URI_PROPERTY,ACCESS_TOKEN_URI_TITLE,"");
+  if (valueModel.getValue() == OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT) {
+    accessTokenUriField.setVisible(false);
+  }
+  return accessTokenUriField;
+}

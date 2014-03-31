@@ -8,7 +8,7 @@
   final JTextField clientSecretField=appendClientSecretField(accessTokenForm,getOAuth2FlowValueModel(accessTokenForm));
   accessTokenForm.addSpace(GROUP_SPACING);
   accessTokenForm.appendTextField(OAuth2Profile.AUTHORIZATION_URI_PROPERTY,AUTHORIZATION_URI_TITLE,"");
-  accessTokenForm.appendTextField(OAuth2Profile.ACCESS_TOKEN_URI_PROPERTY,ACCESS_TOKEN_URI_TITLE,"");
+  final JTextField accessTokenUriField=appendAccessTokenUriField(accessTokenForm,getOAuth2FlowValueModel(accessTokenForm));
   accessTokenForm.appendTextField(OAuth2Profile.REDIRECT_URI_PROPERTY,REDIRECT_URI_TITLE,"");
   accessTokenForm.addSpace(GROUP_SPACING);
   accessTokenForm.appendTextField(OAuth2Profile.SCOPE_PROPERTY,SCOPE_TITLE,"");
@@ -22,6 +22,13 @@
     @Override public void itemStateChanged(    ItemEvent e){
       if (e.getStateChange() == ItemEvent.SELECTED) {
         clientSecretField.setVisible(e.getItem() != OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+        accessTokenUriField.setVisible(e.getItem() != OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+        SwingUtilities.invokeLater(new Runnable(){
+          @Override public void run(){
+            accessTokenDialog.pack();
+          }
+        }
+);
       }
     }
   }
