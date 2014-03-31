@@ -3,7 +3,7 @@
   long issuedTime=profile.getAccessTokenIssuedTime();
   long expirationTime;
   if (profile.useManualAccessTokenExpirationTime()) {
-    String expirationTimeString=profile.getManualAccessTokenExpirationTime() == null ? "" : profile.getManualAccessTokenExpirationTime().toString();
+    String expirationTimeString=profile.getManualAccessTokenExpirationTime() == null ? "" : profile.getManualAccessTokenExpirationTime();
     String expandedValue=PropertyExpander.expandProperties(profile.getContainer().getProject(),expirationTimeString);
     expirationTime=convertExpirationTimeToSeconds(expandedValue,profile.getManualAccessTokenExpirationTimeUnit());
   }
