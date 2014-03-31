@@ -15,7 +15,9 @@
     }
     @Override public void browserClosed(){
       super.browserClosed();
-      setRetrievedCanceledStatus(parameters);
+      if (!parameters.isAccessTokenRetrivedFromServer()) {
+        setRetrievedCanceledStatus(parameters);
+      }
     }
   }
 );
