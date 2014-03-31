@@ -1,4 +1,7 @@
 {
   closeGetAccessTokenDialog();
-  UISupport.showDesktopPanel(new OAuth2ScriptsDesktopPanel(profile));
+  if (scriptEditorPanel == null) {
+    scriptEditorPanel=new OAuth2ScriptsDesktopPanel(profile);
+  }
+  UISupport.showDesktopPanel(scriptEditorPanel);
 }
