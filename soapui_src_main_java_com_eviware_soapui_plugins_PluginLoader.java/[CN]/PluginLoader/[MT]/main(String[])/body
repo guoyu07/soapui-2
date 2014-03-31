@@ -1,0 +1,7 @@
+{
+  URL url=new File("/Users/manne/projekt/soapui_new/soapui/target/soapui-5.0.0-SNAPSHOT.jar").toURI().toURL();
+  Reflections reflections=new Reflections(new ConfigurationBuilder().setUrls(url));
+  for (  Class<? extends AbstractHttpRequest> aClass : reflections.getSubTypesOf(AbstractHttpRequest.class)) {
+    System.out.println(aClass);
+  }
+}
