@@ -11,7 +11,12 @@
       try {
         if (stopped)         break;
         index=index >= animateIcons.length - 1 ? 0 : index + 1;
-        target.setIcon(getIcon());
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            target.setIcon(getIcon());
+          }
+        }
+);
         Thread.sleep(500);
       }
  catch (      InterruptedException e) {
