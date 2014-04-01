@@ -1,4 +1,9 @@
 {
   if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()))   return;
-  testCaseLog.addTestStepResult(stepResult);
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      testCaseLog.addTestStepResult(stepResult);
+    }
+  }
+);
 }
