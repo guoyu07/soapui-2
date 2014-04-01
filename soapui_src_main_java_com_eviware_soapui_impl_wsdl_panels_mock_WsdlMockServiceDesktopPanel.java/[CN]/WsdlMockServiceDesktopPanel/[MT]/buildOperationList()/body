@@ -5,7 +5,7 @@
     protected ActionList getDefaultActions(){
       if (defaultActions == null) {
         defaultActions=new DefaultActionList();
-        defaultActions.addAction(SwingActionDelegate.createDelegate(AddNewMockOperationAction.SOAPUI_ACTION_ID,getModelItem(),null,null));
+        defaultActions.addAction(createAddMockOperationDelegate());
       }
       return defaultActions;
     }

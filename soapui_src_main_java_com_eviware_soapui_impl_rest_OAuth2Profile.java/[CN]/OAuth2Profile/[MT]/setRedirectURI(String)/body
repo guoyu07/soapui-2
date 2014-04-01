@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getRedirectURI();
+  if (!StringUtils.equals(oldValue,redirectURI)) {
+    configuration.setRedirectURI(redirectURI);
+    pcs.firePropertyChange(REDIRECT_URI_PROPERTY,oldValue,redirectURI);
+  }
+}

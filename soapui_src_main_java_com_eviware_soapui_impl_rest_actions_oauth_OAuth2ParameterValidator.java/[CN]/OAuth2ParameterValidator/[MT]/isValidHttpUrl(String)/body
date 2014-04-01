@@ -1,0 +1,12 @@
+{
+  if (!StringUtils.hasContent(authorizationUri)) {
+    return false;
+  }
+  try {
+    URL url=new URL(authorizationUri);
+    return url.getProtocol().startsWith("http");
+  }
+ catch (  MalformedURLException e) {
+    return false;
+  }
+}

@@ -1,9 +1,0 @@
-{
-  if (SoapUI.isJXBrowserDisabled())   return;
-  if (browser == null) {
-    if (!initBrowser())     return;
-  }
-  configureBrowser();
-  browser.setContent(content);
-  pcs.firePropertyChange("content",null,null);
-}

@@ -1,0 +1,10 @@
+{
+  super(config,project,ICON_NAME);
+  List<RESTMockActionConfig> restActionConfigList=config.getRestMockActionList();
+  for (  RESTMockActionConfig restActionConfig : restActionConfigList) {
+    RestMockAction restMockAction=new RestMockAction(this,restActionConfig);
+    addMockOperation(restMockAction);
+  }
+  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  setPropertiesConfig(config.getProperties());
+}

@@ -1,0 +1,7 @@
+{
+  editor.selectField(containerWalker.findComponent("Input panel 2",OAuth2ScriptsEditor.InputPanel.class));
+  stubbedDialogs.mockConfirmWithReturnValue(false);
+  containerWalker.findButtonWithName(OAuth2ScriptsEditor.REMOVE_SCRIPT_BUTTON_NAME).doClick();
+  List<String> javaScripts=editor.getJavaScripts();
+  assertThat(javaScripts,is(aCollectionWithSize(2)));
+}

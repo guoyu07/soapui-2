@@ -4,7 +4,7 @@
   }
   addProperty(new DefaultTestStepProperty("Request",true,new DefaultTestStepProperty.PropertyHandlerAdapter(){
     public String getValue(    DefaultTestStepProperty property){
-      WsdlMockResult mockResult=mockResponse == null ? null : mockResponse.getMockResult();
+      MockResult mockResult=mockResponse == null ? null : mockResponse.getMockResult();
       return mockResult == null ? null : mockResult.getMockRequest().getRequestContent();
     }
   }

@@ -1,0 +1,8 @@
+{
+  XPathFactory factory=XPathFactory.newInstance();
+  NamespaceContextImpl namespaceContext=new NamespaceContextImpl();
+  namespaceContext.startPrefixMapping("wsse",WSConstants.WSSE_NS);
+  namespaceContext.startPrefixMapping("ds",WSConstants.SIG_NS);
+  xpath=factory.newXPath();
+  xpath.setNamespaceContext(namespaceContext);
+}

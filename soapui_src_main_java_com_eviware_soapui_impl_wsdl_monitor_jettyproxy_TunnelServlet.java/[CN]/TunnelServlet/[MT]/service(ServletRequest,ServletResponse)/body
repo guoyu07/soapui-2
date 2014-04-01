@@ -55,7 +55,6 @@
   }
   postMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   setProtocolversion(postMethod,request.getProtocol());
-  ProxyUtils.initProxySettings(settings,postMethod,httpState,prot + sslEndPoint,new DefaultPropertyExpansionContext(project));
   String path=null;
   if (!sslEndPoint.contains("/"))   path="/";
  else   path=sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length());
@@ -84,8 +83,8 @@
   listenerCallBack.fireAfterProxy(project,request,response,postMethod,capturedData);
   StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
   HttpServletResponse httpServletResponse=(HttpServletResponse)response;
-  for (  String name : responseHeaders.keySet()) {
-    for (    String header : responseHeaders.get(name))     httpServletResponse.addHeader(name,header);
+  for (  Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+    for (    String header : headerEntry.getValue())     httpServletResponse.addHeader(headerEntry.getKey(),header);
   }
   IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
 synchronized (this) {

@@ -1,0 +1,20 @@
+{
+  ProxySelector proxySelector=null;
+  ProxySettingsAuthenticator authenticator=null;
+  if (proxyEnabled) {
+    if (autoProxy) {
+      proxySelector=new ProxyVoleUtil().createAutoProxySearch().getProxySelector();
+    }
+ else {
+      proxySelector=getManualProxySelector(settings);
+    }
+    if (proxySelector != null) {
+      proxySelector=filterHttpHttpsProxy(proxySelector);
+    }
+    authenticator=new ProxySettingsAuthenticator();
+  }
+  ProxySelector.setDefault(proxySelector);
+  Authenticator.setDefault(authenticator);
+  HttpClientSupport.setProxySelector(proxySelector);
+  HttpClientSupport.getHttpClient().setCredentialsProvider(getProxyCredentials(settings));
+}

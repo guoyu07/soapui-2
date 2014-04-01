@@ -1,5 +1,4 @@
 {
   String scheme=getScheme();
-  if (scheme.isEmpty())   return true;
-  return scheme.matches("(HTTP|http).*");
+  return scheme.isEmpty() || scheme.matches("(HTTP|http).*");
 }

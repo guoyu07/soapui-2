@@ -1,0 +1,17 @@
+{
+  List<Element> elements=super.getElements(localname,namespace);
+  if (elements.isEmpty()) {
+    if (WSConstants.BINARY_TOKEN_LN.equals(localname) && WSConstants.WSSE_NS.equals(namespace)) {
+      try {
+        DOMResult result=new DOMResult();
+        Transformer transformer=TransformerFactory.newInstance().newTransformer();
+        transformer.transform(new DOMSource(wssSign.getBinarySecurityTokenElement()),result);
+        return Collections.singletonList(((Document)result.getNode()).getDocumentElement());
+      }
+ catch (      TransformerException e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  return elements;
+}

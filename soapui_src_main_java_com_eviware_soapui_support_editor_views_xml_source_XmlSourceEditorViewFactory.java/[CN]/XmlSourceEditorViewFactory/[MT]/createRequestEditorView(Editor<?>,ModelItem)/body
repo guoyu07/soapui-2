@@ -8,5 +8,9 @@
  else   if (modelItem instanceof MessageExchangeModelItem) {
     return new XmlSourceEditorView<MessageExchangeModelItem>((XmlEditor)editor,(MessageExchangeModelItem)modelItem,false);
   }
+ else   if (modelItem instanceof RestMockResponse) {
+    boolean readOnly=false;
+    return new XmlSourceEditorView((XmlEditor)editor,modelItem,readOnly);
+  }
   return null;
 }

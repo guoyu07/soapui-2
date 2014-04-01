@@ -1,0 +1,7 @@
+{
+  UISupport.setDialogs(originalDialogs);
+  RestMockService restMockService=project.getRestMockServiceByName(mockServiceName);
+  if (restMockService != null && restMockService.getMockRunner() != null) {
+    restMockService.getMockRunner().stop();
+  }
+}

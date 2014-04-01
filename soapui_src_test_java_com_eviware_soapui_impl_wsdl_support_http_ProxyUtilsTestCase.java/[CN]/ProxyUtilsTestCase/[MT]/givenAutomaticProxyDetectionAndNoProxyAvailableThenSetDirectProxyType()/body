@@ -1,6 +1,7 @@
 {
   ProxyUtils.setProxyEnabled(true);
   ProxyUtils.setAutoProxy(true);
-  ProxyUtils.initProxySettings(manualSettings(),httpMethod,null,URL,null);
-  assertProxyHost(null);
+  ProxyUtils.setGlobalProxy(manualSettings());
+  assertGlobalProxyHost(null);
+  assertHttpClientProxyHost(null);
 }

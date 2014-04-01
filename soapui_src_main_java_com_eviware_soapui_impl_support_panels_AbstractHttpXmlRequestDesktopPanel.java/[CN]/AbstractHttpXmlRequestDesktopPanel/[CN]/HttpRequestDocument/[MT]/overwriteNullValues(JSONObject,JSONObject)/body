@@ -1,0 +1,12 @@
+{
+  for (  Object key : json.keySet()) {
+    Object value=json.get(key);
+    Object oldValue=oldJson.get(key);
+    if (isNullValue(value) && isEmptyJson(oldValue)) {
+      json.put(key,oldJson.get(key));
+    }
+ else     if (isEmptyJson(value) && oldValue instanceof String) {
+      json.put(key,"");
+    }
+  }
+}

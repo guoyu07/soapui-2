@@ -16,7 +16,7 @@ synchronized (STATUS_PROPERTY) {
         mockRunner=mockService.start((WsdlTestRunContext)testRunContext);
       }
  else {
-        mockRunner.getMockService().addMockRunListener(mockRunListener);
+        mockRunner.getMockContext().getMockService().addMockRunListener(mockRunListener);
       }
     }
   }

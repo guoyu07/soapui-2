@@ -1,0 +1,16 @@
+{
+  FormLayout formLayout=new FormLayout("5px:none,left:pref,40px,left:default,5px:grow(1.0)");
+  JPanel comboBoxPanel=new JPanel(formLayout);
+  comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+  JLabel authorizationLabel=new JLabel(PROFILE_COMBO_BOX);
+  authorizationLabel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
+  formLayout.appendRow(new RowSpec("top:pref"));
+  comboBoxPanel.add(authorizationLabel,cc.xy(2,1));
+  createProfileSelectionComboBox();
+  comboBoxPanel.add(profileSelectionComboBox,cc.xy(4,1));
+  JPanel wrapperPanel=new JPanel(new BorderLayout(5,5));
+  wrapperPanel.add(comboBoxPanel,BorderLayout.LINE_START);
+  helpButton=UISupport.createFormButton(helpActions.get(EMPTY_PANEL));
+  wrapperPanel.add(helpButton,BorderLayout.AFTER_LINE_ENDS);
+  return wrapperPanel;
+}

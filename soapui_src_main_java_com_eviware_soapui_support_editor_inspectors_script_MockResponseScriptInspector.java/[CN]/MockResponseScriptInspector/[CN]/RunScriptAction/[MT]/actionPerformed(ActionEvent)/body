@@ -1,6 +1,7 @@
 {
   try {
-    mockResponse.evaluateScript(mockResponse.getMockResult() == null ? null : mockResponse.getMockResult().getMockRequest());
+    MockResult mockResult=mockResponse.getMockResult();
+    mockResponse.evaluateScript(mockResult == null ? null : mockResult.getMockRequest());
     StringToStringMap values=null;
     if (mockResponse.getMockResult() != null)     values=mockResponse.getMockResult().getMockRequest().getContext().toStringToStringMap();
     if (values == null || values.isEmpty()) {

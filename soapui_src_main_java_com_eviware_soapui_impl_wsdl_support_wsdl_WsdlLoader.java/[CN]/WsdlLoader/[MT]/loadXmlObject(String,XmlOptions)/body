@@ -5,8 +5,7 @@
     }
     if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
     options.setLoadLineNumbers();
-    String content=readCleanWsdlFrom(url);
-    return XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()),options);
+    return XmlUtils.createXmlObject(readCleanWsdlFrom(url),options);
   }
  catch (  XmlException e) {
     XmlError error=e.getError();

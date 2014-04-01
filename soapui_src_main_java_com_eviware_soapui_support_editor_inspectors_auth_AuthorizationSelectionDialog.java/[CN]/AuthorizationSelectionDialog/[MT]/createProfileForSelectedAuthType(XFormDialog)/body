@@ -1,0 +1,21 @@
+{
+  String authType=dialog.getValue(AuthorizationTypeForm.AUTHORIZATION_TYPE);
+  String profileName=authType;
+  if (CredentialsConfig.AuthType.O_AUTH_2_0.toString().equals(authType)) {
+    profileName=dialog.getValue(AuthorizationTypeForm.OAUTH2_PROFILE_NAME_FIELD);
+    if (ProfileSelectionForm.isReservedProfileName(profileName)) {
+      UISupport.showErrorMessage("'" + profileName + "' is a reserved profile name.");
+      return;
+    }
+    if (getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(profileName)) {
+      UISupport.showErrorMessage("There is already a profile named '" + profileName + "'");
+      return;
+    }
+    getOAuth2ProfileContainer().addNewOAuth2Profile(profileName);
+  }
+  CredentialsConfig.AuthType.Enum authTypeEnum=CredentialsConfig.AuthType.O_AUTH_2_0;
+  if (!CredentialsConfig.AuthType.O_AUTH_2_0.equals(authType)) {
+    authTypeEnum=request.getBasicAuthType(authType);
+  }
+  request.setSelectedAuthProfileAndAuthType(profileName,authTypeEnum);
+}

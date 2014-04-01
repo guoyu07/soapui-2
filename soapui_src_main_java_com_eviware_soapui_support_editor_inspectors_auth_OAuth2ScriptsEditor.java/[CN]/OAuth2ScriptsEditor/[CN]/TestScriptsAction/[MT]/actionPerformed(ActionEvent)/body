@@ -1,0 +1,21 @@
+{
+  boolean errorsFound=false;
+  for (  RSyntaxTextArea scriptField : scriptFields) {
+    String script=scriptField.getText();
+    JavaScriptValidationError validate=javaScriptValidator.validate(script);
+    if (validate != null) {
+      showErrorMessage("The following script is invalid:\r\n" + script + "\r\n\r\nError:<br/>"+ validate.getErrorMessage());
+      errorsFound=true;
+    }
+  }
+  if (!errorsFound) {
+    OAuth2TokenExtractor extractor=getExtractor();
+    extractor.addBrowserListener(new JavaScriptErrorReporter(profile.getAutomationJavaScripts()));
+    OAuth2Parameters parameters=new OAuth2Parameters(profile);
+    try {
+      extractor.extractAccessToken(parameters);
+    }
+ catch (    Exception ignore) {
+    }
+  }
+}

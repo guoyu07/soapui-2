@@ -1,0 +1,6 @@
+{
+  mockResponse.setResponseHttpStatus(HttpStatus.SC_BAD_REQUEST);
+  WsdlMockResult mockResult=mockOperation.dispatchRequest(restMockRequest);
+  verify(mockResult.getMockRequest().getHttpResponse()).setStatus(HttpStatus.SC_BAD_REQUEST);
+  assertThat(mockResult.getMockResponse().getResponseHttpStatus(),is(HttpStatus.SC_BAD_REQUEST));
+}

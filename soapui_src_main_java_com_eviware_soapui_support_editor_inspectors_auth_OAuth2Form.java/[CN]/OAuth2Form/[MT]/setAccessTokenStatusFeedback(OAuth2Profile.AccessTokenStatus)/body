@@ -1,0 +1,21 @@
+{
+  if (status == null) {
+    setDefaultFeedback();
+  }
+ else {
+switch (status) {
+case ENTERED_MANUALLY:
+      setEnteredManuallyFeedback(status);
+    break;
+case RETRIEVED_FROM_SERVER:
+  setSucessfullFeedback(status);
+break;
+case RETRIEVAL_CANCELED:
+setCanceledFeedback();
+break;
+case EXPIRED:
+setFailedFeedback(status);
+break;
+}
+}
+}

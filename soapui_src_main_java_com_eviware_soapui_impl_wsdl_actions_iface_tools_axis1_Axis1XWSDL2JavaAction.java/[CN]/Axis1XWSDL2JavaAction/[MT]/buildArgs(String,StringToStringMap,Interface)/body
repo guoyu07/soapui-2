@@ -22,8 +22,8 @@
   builder.addString(PASSWORD,"-P");
   try {
     StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
-    for (    String namespace : nsMappings.keySet()) {
-      builder.addArgs("-N" + namespace + "="+ nsMappings.get(namespace));
+    for (    Map.Entry<String,String> entry : nsMappings.entrySet()) {
+      builder.addArgs("-N" + entry.getKey() + "="+ entry.getValue());
     }
   }
  catch (  Exception e) {

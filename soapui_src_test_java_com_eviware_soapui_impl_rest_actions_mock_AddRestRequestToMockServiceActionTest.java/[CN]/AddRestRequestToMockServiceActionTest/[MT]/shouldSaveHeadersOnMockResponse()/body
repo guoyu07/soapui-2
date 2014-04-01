@@ -1,0 +1,6 @@
+{
+  action.perform(restRequest,notUsed);
+  StringToStringsMap responseHeaders=getActualResponseHeaders();
+  assertThat(responseHeaders.get(ONE_HEADER).get(0),is("oneValue"));
+  assertThat(responseHeaders.get(ANOTHER_HEADER).get(0),is("anotherValue"));
+}

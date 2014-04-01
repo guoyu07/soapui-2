@@ -1,0 +1,12 @@
+{
+  JTableFixture restParamsTable=parentPanel.table(REST_PARAMS_TABLE);
+  for (int rowCounter=0; rowCounter < restParamsTable.rowCount(); rowCounter++) {
+    JTableCellFixture cell=restParamsTable.cell(row(rowCounter).column(1));
+    String paramNameAtIndex=cell.value();
+    if (paramNameAtIndex.equals(parameterValue)) {
+      cell.doubleClick();
+      editTableCell(newValue,restParamsTable,robot,rowCounter,1);
+      return;
+    }
+  }
+}

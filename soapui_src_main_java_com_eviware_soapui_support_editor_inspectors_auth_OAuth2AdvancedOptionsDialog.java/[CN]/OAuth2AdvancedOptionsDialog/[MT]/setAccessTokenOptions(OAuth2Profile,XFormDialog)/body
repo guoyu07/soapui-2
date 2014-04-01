@@ -1,0 +1,6 @@
+{
+  XFormRadioGroup accessTokenPositionField=(XFormRadioGroup)dialog.getFormField(Form.ACCESS_TOKEN_POSITION);
+  String[] accessTokenPositions=new String[]{AccessTokenPosition.HEADER.toString(),AccessTokenPosition.QUERY.toString()};
+  accessTokenPositionField.setOptions(accessTokenPositions);
+  dialog.setValue(Form.ACCESS_TOKEN_POSITION,target.getAccessTokenPosition().toString());
+}

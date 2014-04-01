@@ -1,0 +1,32 @@
+{
+  String originalThreadName=Thread.currentThread().getName();
+  Thread.currentThread().setName("LogList Updater for " + title);
+  setUpdating(true);
+  try {
+    Object line;
+    while ((line=getNextLine()) != null) {
+      try {
+        List<Object> linesToAddNow=new ArrayList<Object>();
+        linesToAddNow.add(line);
+        while ((line=linesToAdd.poll()) != null) {
+          linesToAddNow.add(line);
+        }
+        int oldSize=lines.size();
+        lines.addAll(linesToAddNow);
+        updateJList(oldSize);
+      }
+ catch (      Exception e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+  finally {
+synchronized (this) {
+      updating=false;
+      if (!linesToAdd.isEmpty()) {
+        ensureUpdateIsStarted();
+      }
+    }
+    Thread.currentThread().setName(originalThreadName);
+  }
+}

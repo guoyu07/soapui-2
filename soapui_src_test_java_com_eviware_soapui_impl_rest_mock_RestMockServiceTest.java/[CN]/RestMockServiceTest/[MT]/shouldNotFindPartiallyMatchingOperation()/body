@@ -1,0 +1,7 @@
+{
+  restRequest.setMethod(TRACE);
+  restMockService.addNewMockAction(restRequest);
+  String requestPath=PATH + "/123";
+  RestMockAction matchingAction=(RestMockAction)restMockService.findMatchingOperationWithExactPath(requestPath,TRACE);
+  assertThat(matchingAction,is(nullValue()));
+}

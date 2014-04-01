@@ -8,4 +8,8 @@
   desktop.setBackground(UISupport.MAC_BACKGROUND_COLOR);
   enableWindowActions();
   desktop.addComponentListener(new DesktopResizeListener());
+  DesktopManager originalDesktopManager=desktop.getDesktopManager();
+  boolean mruSelectionChosen=SoapUI.isSelectingMostRecentlyUsedDesktopPanelOnClose();
+  DesktopManager delegate=mruSelectionChosen ? new MostRecentlyUsedOrderDesktopManager(originalDesktopManager) : originalDesktopManager;
+  desktop.setDesktopManager(new BoundsAwareDesktopManager(delegate));
 }

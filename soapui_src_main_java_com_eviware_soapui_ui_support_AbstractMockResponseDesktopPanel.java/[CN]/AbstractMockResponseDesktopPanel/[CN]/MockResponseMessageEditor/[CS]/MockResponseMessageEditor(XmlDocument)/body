@@ -1,0 +1,20 @@
+{
+  super(document,mockResponse);
+  if (isBidirectional()) {
+    XmlSourceEditorView<?> editor=getSourceEditor();
+    inputArea=editor.getInputArea();
+    if (hasRequestEditor()) {
+      inputArea.addFocusListener(new ResultAreaFocusListener());
+    }
+    if (UISupport.isMac()) {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+ else {
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("control alt TAB"),moveFocusAction);
+      inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+    }
+    JPopupMenu inputPopup=editor.getEditorPopup();
+    inputPopup.insert(new JSeparator(),2);
+  }
+}

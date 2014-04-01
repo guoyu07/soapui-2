@@ -1,24 +1,19 @@
 {
   if (!isEnabled())   return;
-synchronized (model.lines) {
-    if (line instanceof LoggingEvent) {
-      LoggingEvent ev=(LoggingEvent)line;
-      linesToAdd.push(new LoggingEventWrapper(ev));
-      if (ev.getThrowableInformation() != null) {
-        Throwable t=ev.getThrowableInformation().getThrowable();
-        StringWriter sw=new StringWriter();
-        PrintWriter pw=new PrintWriter(sw);
-        t.printStackTrace(pw);
-        StringTokenizer st=new StringTokenizer(sw.toString(),"\r\n");
-        while (st.hasMoreElements())         linesToAdd.push("   " + st.nextElement());
-      }
+  if (line instanceof LoggingEvent) {
+    LoggingEvent ev=(LoggingEvent)line;
+    linesToAdd.add(new LoggingEventWrapper(ev));
+    if (ev.getThrowableInformation() != null) {
+      Throwable t=ev.getThrowableInformation().getThrowable();
+      StringWriter sw=new StringWriter();
+      PrintWriter pw=new PrintWriter(sw);
+      t.printStackTrace(pw);
+      StringTokenizer st=new StringTokenizer(sw.toString(),"\r\n");
+      while (st.hasMoreElements())       linesToAdd.add("   " + st.nextElement());
     }
+  }
  else {
-      linesToAdd.push(line);
-    }
+    linesToAdd.add(line);
   }
-  if (future == null) {
-    released=false;
-    future=SoapUI.getThreadPool().submit(model);
-  }
+  model.ensureUpdateIsStarted();
 }

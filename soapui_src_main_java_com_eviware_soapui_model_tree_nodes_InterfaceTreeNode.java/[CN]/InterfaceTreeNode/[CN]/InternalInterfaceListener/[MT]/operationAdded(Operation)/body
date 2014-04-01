@@ -1,13 +1,18 @@
 {
-  if (operation instanceof RestResource) {
-    RestResource restResource=(RestResource)operation;
-    if (restResource.getParentResource() != null) {
-      RestResourceTreeNode treeNode=(RestResourceTreeNode)getTreeModel().getTreeNode(restResource.getParentResource());
-      treeNode.addChildResource(restResource);
-      return;
+  UISupport.invokeAndWaitIfNotInEDT(new Runnable(){
+    @Override public void run(){
+      if (operation instanceof RestResource) {
+        RestResource restResource=(RestResource)operation;
+        if (restResource.getParentResource() != null) {
+          RestResourceTreeNode treeNode=(RestResourceTreeNode)getTreeModel().getTreeNode(restResource.getParentResource());
+          treeNode.addChildResource(restResource);
+          return;
+        }
+      }
+      SoapUITreeNode operationTreeNode=TreeNodeFactory.createTreeNode(operation,getTreeModel());
+      operationNodes.add(operationTreeNode);
+      getTreeModel().notifyNodeInserted(operationTreeNode);
     }
   }
-  SoapUITreeNode operationTreeNode=TreeNodeFactory.createTreeNode(operation,getTreeModel());
-  operationNodes.add(operationTreeNode);
-  getTreeModel().notifyNodeInserted(operationTreeNode);
+);
 }

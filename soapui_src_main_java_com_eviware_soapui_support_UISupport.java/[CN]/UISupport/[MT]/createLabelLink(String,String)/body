@@ -1,0 +1,12 @@
+{
+  JLabel label=new JLabel(labelText);
+  label.setForeground(Color.BLUE);
+  label.addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      Tools.openURL(url);
+    }
+  }
+);
+  label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+  return label;
+}

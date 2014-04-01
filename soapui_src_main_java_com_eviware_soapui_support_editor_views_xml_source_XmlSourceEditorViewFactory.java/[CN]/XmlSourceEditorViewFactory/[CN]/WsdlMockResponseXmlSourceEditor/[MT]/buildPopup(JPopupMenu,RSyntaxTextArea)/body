@@ -9,7 +9,8 @@
     }
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
       applyMenu.removeAll();
-      DefaultWssContainer wss=getModelItem().getMockOperation().getMockService().getProject().getWssContainer();
+      WsdlProject project=(WsdlProject)getModelItem().getMockOperation().getMockService().getProject();
+      DefaultWssContainer wss=project.getWssContainer();
       List<OutgoingWss> outgoingWssList=wss.getOutgoingWssList();
       applyMenu.setEnabled(!outgoingWssList.isEmpty());
       for (      OutgoingWss outgoing : outgoingWssList) {

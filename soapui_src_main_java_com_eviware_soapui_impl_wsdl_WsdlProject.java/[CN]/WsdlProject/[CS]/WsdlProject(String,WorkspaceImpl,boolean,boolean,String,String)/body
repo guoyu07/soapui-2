@@ -1,5 +1,5 @@
 {
-  super(null,workspace,"/project.gif");
+  super(null,workspace,ICON_NAME);
   this.workspace=workspace;
   this.path=path;
   this.projectPassword=projectPassword;
@@ -53,6 +53,7 @@
       if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
       setPropertiesConfig(getConfig().addNewProperties());
       wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
+      oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());
     }
     if (getConfig() != null) {
       endpointStrategy.init(this);

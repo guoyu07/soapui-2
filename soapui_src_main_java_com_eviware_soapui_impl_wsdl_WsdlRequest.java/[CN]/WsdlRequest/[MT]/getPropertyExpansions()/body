@@ -2,8 +2,8 @@
   PropertyExpansionsResult result=new PropertyExpansionsResult(this,this);
   result.addAll(super.getPropertyExpansions());
   StringToStringsMap requestHeaders=getRequestHeaders();
-  for (  String key : requestHeaders.keySet()) {
-    for (    String value : requestHeaders.get(key))     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new HttpTestRequestStep.RequestHeaderHolder(key,value,this),"value"));
+  for (  Map.Entry<String,List<String>> headerEntry : requestHeaders.entrySet()) {
+    for (    String value : headerEntry.getValue())     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new HttpTestRequestStep.RequestHeaderHolder(headerEntry.getKey(),value,this),"value"));
   }
   addWsaPropertyExpansions(result,getWsaConfig(),this);
   addJMSHeaderExpansions(result,getJMSHeaderConfig(),this);

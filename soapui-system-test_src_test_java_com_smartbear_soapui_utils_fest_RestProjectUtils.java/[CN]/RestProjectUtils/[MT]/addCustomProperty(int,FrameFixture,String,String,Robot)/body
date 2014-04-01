@@ -1,0 +1,13 @@
+{
+  findTreeNode(newProjectIndexInNavigationTree,rootWindow,0).click();
+  JTabbedPaneFixture propertiesPaneFixture=new JTabbedPaneFixture(robot,SoapUI.PROPERTIES_TAB_PANEL_NAME);
+  propertiesPaneFixture.selectTab("Custom Properties");
+  JPanel tablePanel=(JPanel)propertiesPaneFixture.target.getComponent(1);
+  JPanelFixture panelFixture=new JPanelFixture(robot,tablePanel);
+  panelFixture.button(ADD_PARAM_ACTION_NAME).click();
+  JTableFixture table=panelFixture.table(PropertyHolderTable.PROPERTIES_HOLDER_TABLE_NAME);
+  robot.waitForIdle();
+  int rowNumToEdit=table.target.getRowCount() - 1;
+  editTableCell(propertyName,table,robot,rowNumToEdit,0);
+  editTableCell(propertyValue,table,robot,rowNumToEdit,1);
+}

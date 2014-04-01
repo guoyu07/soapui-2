@@ -1,10 +1,10 @@
 {
-  if (SoapUI.isJXBrowserDisabled(true)) {
+  if (SoapUI.isBrowserDisabled()) {
     Tools.openURL(url);
   }
  else {
     if (browser != null) {
-      browser.navigate(url,null);
+      browser.navigate(url);
     }
   }
 }

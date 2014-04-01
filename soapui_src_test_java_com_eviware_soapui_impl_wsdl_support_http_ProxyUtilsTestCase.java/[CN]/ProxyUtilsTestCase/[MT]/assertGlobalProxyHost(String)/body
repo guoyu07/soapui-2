@@ -1,0 +1,19 @@
+{
+  ProxySelector proxySelector=ProxySelector.getDefault();
+  Proxy globalProxy=null;
+  if (proxySelector != null) {
+    List<Proxy> globalProxies=proxySelector.select(URI.create("http://soapui.org/"));
+    assertThat(globalProxies.size(),is(1));
+    globalProxy=globalProxies.get(0);
+  }
+  if (expectedProxyHost == null) {
+    if (proxySelector != null) {
+      assertThat(globalProxy.type(),is(Proxy.Type.DIRECT));
+    }
+  }
+ else {
+    assertThat(proxySelector,is(not(nullValue())));
+    assertThat(globalProxy.type(),is(Proxy.Type.HTTP));
+    assertThat(expectedProxyHost,is(((InetSocketAddress)globalProxy.address()).getHostName()));
+  }
+}

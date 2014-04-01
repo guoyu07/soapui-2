@@ -1,0 +1,12 @@
+{
+  PropertyExpansionsResult result=new PropertyExpansionsResult(oAuth2ProfileContainer.getProject(),this);
+  result.extractAndAddAll(CLIENT_ID_PROPERTY);
+  result.extractAndAddAll(CLIENT_SECRET_PROPERTY);
+  result.extractAndAddAll(AUTHORIZATION_URI_PROPERTY);
+  result.extractAndAddAll(ACCESS_TOKEN_URI_PROPERTY);
+  result.extractAndAddAll(REDIRECT_URI_PROPERTY);
+  result.extractAndAddAll(ACCESS_TOKEN_PROPERTY);
+  result.extractAndAddAll(SCOPE_PROPERTY);
+  result.extractAndAddAll(MANUAL_ACCESS_TOKEN_EXPIRATION_TIME);
+  return result.toArray();
+}

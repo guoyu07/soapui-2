@@ -1,0 +1,7 @@
+{
+  boolean oldValue=configuration.getUseManualAccessTokenExpirationTime();
+  if (oldValue != useManual) {
+    configuration.setUseManualAccessTokenExpirationTime(useManual);
+    pcs.firePropertyChange(USE_MANUAL_ACCESS_TOKEN_EXPIRATION_TIME,oldValue,useManual);
+  }
+}

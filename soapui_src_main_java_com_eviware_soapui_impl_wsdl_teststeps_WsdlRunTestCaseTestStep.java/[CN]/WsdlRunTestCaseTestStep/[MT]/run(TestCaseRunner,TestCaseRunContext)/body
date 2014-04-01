@@ -26,10 +26,10 @@ synchronized (runningTestCase) {
         for (        TestRunListener listener : testRunListeners)         runningTestCase.addTestRunListener(listener);
         StringList returnProperties=getReturnProperties();
         Map<String,TestProperty> props=getProperties();
-        for (        String key : props.keySet()) {
-          if (runningTestCase.hasProperty(key) && !returnProperties.contains(key)) {
-            String value=PropertyExpander.expandProperties(testRunContext,props.get(key).getValue());
-            if (StringUtils.hasContent(value) || !isIgnoreEmptyProperties())             runningTestCase.setPropertyValue(key,value);
+        for (        Map.Entry<String,TestProperty> entry : props.entrySet()) {
+          if (runningTestCase.hasProperty(entry.getKey()) && !returnProperties.contains(entry.getKey())) {
+            String value=PropertyExpander.expandProperties(testRunContext,entry.getValue().getValue());
+            if (StringUtils.hasContent(value) || !isIgnoreEmptyProperties())             runningTestCase.setPropertyValue(entry.getKey(),value);
           }
         }
         currentLabel=getLabel();

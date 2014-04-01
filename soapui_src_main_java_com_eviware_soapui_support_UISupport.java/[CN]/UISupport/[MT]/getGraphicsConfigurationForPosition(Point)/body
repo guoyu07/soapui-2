@@ -1,0 +1,8 @@
+{
+  for (  GraphicsDevice graphicsDevice : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
+    if (graphicsDevice.getDefaultConfiguration().getBounds().contains(point)) {
+      return graphicsDevice.getDefaultConfiguration();
+    }
+  }
+  return null;
+}

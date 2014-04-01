@@ -13,7 +13,7 @@
     }
   }
   RestMethod restMethod=newResource.addNewMethod(name);
-  restMethod.setMethod(RestRequestInterface.RequestMethod.valueOf(method.getName()));
+  restMethod.setMethod(RestRequestInterface.HttpMethod.valueOf(method.getName()));
   if (method.getRequest() != null) {
     for (    Param param : method.getRequest().getParamList()) {
       param=resolveParameter(param);

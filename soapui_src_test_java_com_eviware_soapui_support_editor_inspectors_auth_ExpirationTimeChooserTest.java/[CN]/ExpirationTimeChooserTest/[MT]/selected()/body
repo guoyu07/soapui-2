@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<AbstractButton>(){
+    @Override protected boolean matchesSafely(    AbstractButton item){
+      return item.isSelected();
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("a button in selected state");
+    }
+  }
+;
+}

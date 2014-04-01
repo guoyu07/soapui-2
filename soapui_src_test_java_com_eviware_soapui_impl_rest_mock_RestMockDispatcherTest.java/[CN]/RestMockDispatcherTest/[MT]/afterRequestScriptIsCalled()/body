@@ -1,0 +1,6 @@
+{
+  when(restMockService.getPath()).thenReturn("/");
+  when(request.getPathInfo()).thenReturn("/");
+  RestMockResult mockResult=(RestMockResult)restMockDispatcher.dispatchRequest(request,response);
+  verify(restMockService).runAfterRequestScript(context,mockResult);
+}

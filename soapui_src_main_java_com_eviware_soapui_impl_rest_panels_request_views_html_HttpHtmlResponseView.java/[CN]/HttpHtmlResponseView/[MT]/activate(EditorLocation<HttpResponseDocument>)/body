@@ -1,0 +1,11 @@
+{
+  boolean activated=super.activate(location);
+  if (activated) {
+    ensureComponentIsInitialized();
+    HttpResponse response=httpRequest.getResponse();
+    if (response != null) {
+      setEditorContent(response);
+    }
+  }
+  return activated;
+}

@@ -1,0 +1,14 @@
+{
+  if (authType != null && !AuthType.O_AUTH_2_0.equals(authType) && !AuthType.NO_AUTHORIZATION.equals(authType)) {
+    if (authType.equals(AuthType.PREEMPTIVE) || authType.equals(AuthType.GLOBAL_HTTP_SETTINGS)) {
+      addBasicAuthenticationProfile(BASIC_AUTH_PROFILE);
+    }
+ else {
+      addBasicAuthenticationProfile(authType.toString());
+    }
+  }
+  String old=getAuthType();
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
+  credentialsConfig.setAuthType(authType);
+  notifyPropertyChanged("authType",old,authType);
+}

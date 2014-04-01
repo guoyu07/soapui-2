@@ -1,0 +1,13 @@
+{
+  replaceInFile("wsdls/test7/TestService.wsdl","8082","" + getPort());
+  replaceInFile("wsdls/test8/TestService.wsdl","8082","" + getPort());
+  testLoader("http://localhost:" + getPort() + "/wsdls/test1/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test2/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test3/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test4/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test5/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test6/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test7/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/test8/TestService.wsdl");
+  testLoader("http://localhost:" + getPort() + "/wsdls/testonewayop/TestService.wsdl");
+}

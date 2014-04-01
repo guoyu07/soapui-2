@@ -1,0 +1,5 @@
+{
+  restRequest.setSelectedAuthProfileAndAuthType(PREEMPTIVE.toString(),PREEMPTIVE);
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  assertThat(httpRequest.getHeaders(OAuth.HeaderType.AUTHORIZATION),is(anEmptyArray()));
+}

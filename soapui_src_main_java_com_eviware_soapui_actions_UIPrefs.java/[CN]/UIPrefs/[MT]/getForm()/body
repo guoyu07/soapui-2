@@ -22,8 +22,9 @@
     if (SoapUI.isStandalone()) {
       editorForm.appendSeparator();
       editorForm.appendComboBox(DESKTOP_TYPE,DesktopRegistry.getInstance().getNames(),"Select the type of desktop to use");
+      editorForm.appendCheckBox(MRU_PANEL_SELECTOR,"Show most recently used panel on close (requires restart)",true);
       JCheckBox cb=editorForm.appendCheckBox(NATIVE_LAF,"Use native Look & Feel (requires restart)",true);
-      if (Tools.isMac()) {
+      if (UISupport.isMac()) {
         cb.setSelected(true);
       }
     }
@@ -42,9 +43,6 @@
     editorForm.appendTextField(RAW_RESPONSE_MESSAGE_SIZE,"Sets the size of raw response mesage to show.");
     editorForm.appendTextField(RAW_REQUEST_MESSAGE_SIZE,"Sets the size of raw request mesage to show.");
     editorForm.appendCheckBox(WRAP_RAW_MESSAGES,"Wraps content in Raw Message Viewers",false);
-    editorForm.appendSeparator();
-    editorForm.appendCheckBox(DISABLE_BROWSER,"Disables integrated Browser component",false);
-    editorForm.appendCheckBox(DISABLE_BROWSER_PLUGINS,"Disables plugins in Browser component",false);
   }
   return editorForm;
 }

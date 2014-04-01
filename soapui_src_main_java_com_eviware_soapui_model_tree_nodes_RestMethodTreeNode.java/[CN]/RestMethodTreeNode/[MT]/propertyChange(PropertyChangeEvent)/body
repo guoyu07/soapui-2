@@ -1,11 +1,16 @@
 {
-  super.propertyChange(evt);
-  if (evt.getPropertyName().equals("childRequests")) {
-    if (evt.getNewValue() != null) {
-      requestAdded((RestRequest)evt.getNewValue());
-    }
+  UISupport.invokeAndWaitIfNotInEDT(new Runnable(){
+    @Override public void run(){
+      RestMethodTreeNode.super.propertyChange(evt);
+      if (evt.getPropertyName().equals("childRequests")) {
+        if (evt.getNewValue() != null) {
+          requestAdded((RestRequest)evt.getNewValue());
+        }
  else {
-      requestRemoved((RestRequest)evt.getOldValue());
+          requestRemoved((RestRequest)evt.getOldValue());
+        }
+      }
     }
   }
+);
 }

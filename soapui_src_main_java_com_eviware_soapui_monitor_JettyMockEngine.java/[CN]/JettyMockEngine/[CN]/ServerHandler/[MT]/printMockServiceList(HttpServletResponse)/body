@@ -6,8 +6,8 @@
   out.print("<html><body><p>There are currently " + mockRunners.length + " running SoapUI MockServices</p><ul>");
   for (  MockRunner mockRunner : mockRunners) {
     out.print("<li><a href=\"");
-    out.print(mockRunner.getMockService().getPath() + "?WSDL");
-    out.print("\">" + mockRunner.getMockService().getName() + "</a></li>");
+    out.print(mockRunner.getMockContext().getMockService().getPath() + "?WSDL");
+    out.print("\">" + mockRunner.getMockContext().getMockService().getName() + "</a></li>");
   }
   out.print("</ul></p></body></html>");
 }

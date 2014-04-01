@@ -1,0 +1,16 @@
+{
+  XFormDialog dialog=ADialogBuilder.buildDialog(Form.class);
+  dialog.setOptions(Form.HTTP_METHOD,RestRequestInterface.HttpMethod.getMethodsAsStringArray());
+  dialog.setValue(Form.HTTP_METHOD,RestRequestInterface.HttpMethod.GET.name());
+  JTextFieldFormField formField=(JTextFieldFormField)dialog.getFormField(Form.RESOURCE_PATH);
+  formField.getComponent().requestFocus();
+  while (dialog.show()) {
+    String resourcePath=dialog.getValue(Form.RESOURCE_PATH);
+    String httpMethod=dialog.getValue(Form.HTTP_METHOD);
+    if (StringUtils.hasContent(resourcePath)) {
+      mockService.addEmptyMockAction(RestRequestInterface.HttpMethod.valueOf(httpMethod),resourcePath);
+      break;
+    }
+    UISupport.showInfoMessage("The resource path can not be empty");
+  }
+}

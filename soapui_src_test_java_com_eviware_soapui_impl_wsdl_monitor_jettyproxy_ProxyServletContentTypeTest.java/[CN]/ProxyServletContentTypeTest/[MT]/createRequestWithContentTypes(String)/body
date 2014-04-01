@@ -1,0 +1,12 @@
+{
+  ExtendedHttpMethod method=mock(ExtendedHttpMethod.class);
+  HttpResponse httpResponse=mock(HttpResponse.class);
+  when(method.hasHttpResponse()).thenReturn(true);
+  when(method.getHttpResponse()).thenReturn(httpResponse);
+  Header[] headers=new Header[contentTypes.length];
+  for (int i=0; i < headers.length; i++) {
+    headers[i]=new BasicHeader("Content-Type",contentTypes[i]);
+  }
+  when(httpResponse.getHeaders(eq("Content-Type"))).thenReturn(headers);
+  return method;
+}

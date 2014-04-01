@@ -5,11 +5,19 @@
   if (isSnapshot) {
     currentSoapuiVersion=currentSoapuiVersion.substring(0,snapshotIndex - 1);
   }
+  int betaIndex=currentSoapuiVersion.toUpperCase().indexOf("BETA");
+  boolean isBeta=betaIndex > 0;
+  if (isBeta) {
+    currentSoapuiVersion=currentSoapuiVersion.substring(0,betaIndex - 1);
+  }
   String latestVersion=getLatestVersion();
   if (StringUtils.isNullOrEmpty(latestVersion)) {
     return false;
   }
   if (isSnapshot && currentSoapuiVersion.equals(latestVersion)) {
+    return true;
+  }
+  if (isBeta && currentSoapuiVersion.equals(latestVersion)) {
     return true;
   }
   return currentSoapuiVersion.compareTo(latestVersion) < 0;

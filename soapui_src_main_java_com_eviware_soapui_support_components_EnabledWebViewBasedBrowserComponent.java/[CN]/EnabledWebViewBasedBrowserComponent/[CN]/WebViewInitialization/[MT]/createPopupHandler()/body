@@ -1,0 +1,57 @@
+{
+switch (popupStrategy) {
+case INTERNAL_BROWSER_NEW_WINDOW:
+    webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(){
+      @Override public WebEngine call(      PopupFeatures pf){
+        BrowserWindow popupWindow=new BrowserWindow(pf);
+        browserWindows.add(popupWindow);
+        popupWindow.setSize(800,600);
+        popupWindow.setVisible(true);
+        return popupWindow.browser.getWebEngine();
+      }
+    }
+);
+  break;
+case EXTERNAL_BROWSER:
+webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(){
+  @Override public WebEngine call(  PopupFeatures pf){
+    final WebEngine webEngine=new WebEngine();
+    webEngine.locationProperty().addListener(new ChangeListener<String>(){
+      @Override public void changed(      ObservableValue<? extends String> observableValue,      String oldValue,      String newValue){
+        observableValue.removeListener(this);
+        Platform.runLater(new Runnable(){
+          @Override public void run(){
+            webEngine.loadContent("");
+          }
+        }
+);
+        try {
+          Desktop.getDesktop().browse(new URI(newValue));
+        }
+ catch (        IOException e) {
+          SoapUI.logError(e,"Error opening popup in external browser");
+        }
+catch (        URISyntaxException e) {
+          SoapUI.logError(e,"Error opening popup in external browser");
+        }
+      }
+    }
+);
+    return webEngine;
+  }
+}
+);
+break;
+case DISABLED:
+webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(){
+@Override public WebEngine call(PopupFeatures pf){
+return null;
+}
+}
+);
+break;
+case INTERNAL_BROWSER_REUSE_WINDOW:
+default :
+break;
+}
+}

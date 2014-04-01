@@ -1,0 +1,10 @@
+{
+  HttpServletRequest request=mock(HttpServletRequest.class);
+  Enumeration enumeration=mock(Enumeration.class);
+  when(request.getHeaderNames()).thenReturn(enumeration);
+  HttpServletResponse response=mock(HttpServletResponse.class);
+  ServletOutputStream os=mock(ServletOutputStream.class);
+  when(response.getOutputStream()).thenReturn(os);
+  WsdlMockRunContext context=mock(WsdlMockRunContext.class);
+  return new WsdlMockRequest(request,response,context);
+}

@@ -1,0 +1,16 @@
+{
+  try {
+    OAuth2Parameters parameters=buildParametersFrom(profile);
+    OAuth2ParameterValidator.validate(parameters);
+    getOAuth2TokenExtractor().extractAccessToken(parameters);
+  }
+ catch (  OAuthSystemException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  MalformedURLException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+catch (  URISyntaxException e) {
+    logAndThrowOAuth2Exception(e);
+  }
+}

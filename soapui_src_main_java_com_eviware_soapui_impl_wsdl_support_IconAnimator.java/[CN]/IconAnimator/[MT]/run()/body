@@ -1,0 +1,33 @@
+{
+  if (!SoapUI.usingGraphicalEnvironment()) {
+    return;
+  }
+  String oldThreadName=Thread.currentThread().getName();
+  if (future != null) {
+    if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName("IconAnimator for " + target.getName());
+  }
+  try {
+    while (!stopped) {
+      try {
+        if (stopped)         break;
+        index=index >= animateIcons.length - 1 ? 0 : index + 1;
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            target.setIcon(getIcon());
+          }
+        }
+);
+        Thread.sleep(500);
+      }
+ catch (      InterruptedException e) {
+        stopped=true;
+      }
+    }
+    target.setIcon(getIcon());
+    future=null;
+    notify();
+  }
+  finally {
+    if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName(oldThreadName);
+  }
+}

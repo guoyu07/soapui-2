@@ -6,7 +6,7 @@
   XFormOptionsField operationsFormField=(XFormOptionsField)dialog.getFormField(Form.OPERATIONS);
   operationsFormField.setSelectedOptions(names);
   dialog.getFormField(Form.START_MOCKSERVICE).setEnabled(!atCreation);
-  WsdlProject project=(WsdlProject)iface.getProject();
+  WsdlProject project=iface.getProject();
   String[] mockServices=ModelSupport.getNames(new String[]{CREATE_MOCKSUITE_OPTION},project.getMockServiceList());
   dialog.setOptions(Form.MOCKSERVICE,mockServices);
   dialog.setValue(Form.PATH,"/mock" + iface.getName());
@@ -15,14 +15,12 @@
     List<String> operations=StringUtils.toStringList(operationsFormField.getSelectedOptions());
     if (operations.size() == 0) {
       UISupport.showErrorMessage("No Operations selected..");
-      return null;
+      return;
     }
     String mockServiceName=dialog.getValue(Form.MOCKSERVICE);
-    WsdlMockService mockService=(WsdlMockService)project.getMockServiceByName(mockServiceName);
-    if (mockService == null || mockServiceName.equals(CREATE_MOCKSUITE_OPTION)) {
-      mockServiceName=UISupport.prompt("Specify name of MockService to create",getName(),iface.getName() + " MockService");
-      if (mockServiceName == null)       return null;
-      mockService=(WsdlMockService)project.addNewMockService(mockServiceName);
+    MockService mockService=getMockService(iface,project,mockServiceName);
+    if (mockService == null) {
+      return;
     }
     mockService.setPath(dialog.getValue(Form.PATH));
     try {
@@ -31,10 +29,10 @@
  catch (    NumberFormatException e1) {
     }
     for (int i=0; i < iface.getOperationCount(); i++) {
-      WsdlOperation operation=(WsdlOperation)iface.getOperationAt(i);
+      Operation operation=iface.getOperationAt(i);
       if (!operations.contains(operation.getName()))       continue;
-      WsdlMockOperation mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(operation);
-      if (mockOperation != null)       mockOperation.addNewMockResponse("Response 1",true);
+      MockOperation mockOperation=mockService.addNewMockOperation(operation);
+      if (mockOperation != null)       mockOperation.addNewMockResponse("Response 1");
     }
     if (dialog.getBooleanValue(Form.ADD_ENDPOINT)) {
       iface.addEndpoint(mockService.getLocalEndpoint());
@@ -46,7 +44,5 @@
         SoapUI.getDesktop().minimize(desktopPanel);
       }
     }
-    return mockService;
   }
-  return null;
 }

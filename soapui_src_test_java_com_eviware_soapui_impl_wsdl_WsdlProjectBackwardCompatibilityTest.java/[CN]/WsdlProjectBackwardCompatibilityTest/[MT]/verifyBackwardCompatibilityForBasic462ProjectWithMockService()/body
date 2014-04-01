@@ -1,0 +1,7 @@
+{
+  assertThat(project.getMockServiceCount(),is(2));
+  MockService mockService=project.getMockServiceByName("MockService 1");
+  MockOperation mockOperation=mockService.getMockOperationByName("ConversionRate");
+  MockResponse mockResponse=mockOperation.getMockResponseByName("Response 1");
+  assertTrue(mockResponse.getResponseContent().contains("10"));
+}

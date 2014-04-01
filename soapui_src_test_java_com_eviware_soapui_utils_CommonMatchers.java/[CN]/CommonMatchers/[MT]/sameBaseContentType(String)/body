@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<ContentType>(){
+    @Override public boolean matchesSafely(    ContentType item){
+      return contentType.equals(item.getBaseType());
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("the content type " + contentType);
+    }
+  }
+;
+}

@@ -1,6 +1,6 @@
 {
   JButton button=new JButton();
-  button.setToolTipText(tooltip);
+  button.setToolTipText(StringUtils.defaultIfEmpty(tooltip,null));
   button.getAccessibleContext().setAccessibleDescription(tooltip);
   append(label,button);
   return button;

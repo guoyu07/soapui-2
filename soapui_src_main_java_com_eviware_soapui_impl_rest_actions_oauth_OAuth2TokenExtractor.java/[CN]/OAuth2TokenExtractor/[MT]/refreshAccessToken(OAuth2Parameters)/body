@@ -1,0 +1,7 @@
+{
+  OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.REFRESH_TOKEN).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setRefreshToken(parameters.refreshToken).buildBodyMessage();
+  OAuthClient oAuthClient=getOAuthClient();
+  OAuthToken oAuthToken=oAuthClient.accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
+  parameters.applyRetrievedAccessToken(oAuthToken.getAccessToken());
+  parameters.setAccessTokenIssuedTimeInProfile(TimeUtils.getCurrentTimeInSeconds());
+}

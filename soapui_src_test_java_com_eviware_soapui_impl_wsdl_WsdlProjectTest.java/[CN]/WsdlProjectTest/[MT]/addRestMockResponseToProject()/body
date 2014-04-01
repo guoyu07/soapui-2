@@ -1,0 +1,11 @@
+{
+  RestMockService restMockService=project.addNewRestMockService(restMockServiceName);
+  RestRequest restRequest=ModelItemFactory.makeRestRequest();
+  restRequest.setMethod(GET);
+  restRequest.setName("REST Mock Action");
+  restRequest.setPath("Resource/path/subpath");
+  RestMockAction restMockAction=restMockService.addNewMockAction(restRequest);
+  RestMockResponse mockResponse=restMockAction.addNewMockResponse("Response 1");
+  mockResponse.setResponseContent(restMockResponseContent);
+  mockResponse.setName(restMockResponseName);
+}

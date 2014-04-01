@@ -1,0 +1,26 @@
+{
+  final UserBrowserFacade browserFacade=getBrowserFacade();
+  addBrowserInteractionHandler(browserFacade,parameters);
+  addExternalListeners(browserFacade);
+  browserFacade.addBrowserListener(new BrowserListenerAdapter(){
+    @Override public void locationChanged(    String newLocation){
+      getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromForm(extractFormData(newLocation),CODE));
+    }
+    @Override public void contentChanged(    String newContent){
+      int titlePosition=newContent.indexOf(TITLE);
+      if (titlePosition != -1) {
+        String title=newContent.substring(titlePosition + TITLE.length(),newContent.indexOf("</TITLE>"));
+        getAccessTokenAndSaveToProfile(browserFacade,parameters,extractAuthorizationCodeFromTitle(title));
+      }
+    }
+    @Override public void browserClosed(){
+      super.browserClosed();
+      if (!parameters.isAccessTokenRetrivedFromServer()) {
+        setRetrievedCanceledStatus(parameters);
+      }
+    }
+  }
+);
+  browserFacade.open(new URI(createAuthorizationURL(parameters,CODE)).toURL());
+  parameters.waitingForAuthorization();
+}

@@ -1,0 +1,10 @@
+{
+  final String scriptToKeep="first()";
+  final String scriptToDiscard="second()";
+  oAuth2Profile.setAutomationJavaScripts(Arrays.asList(scriptToKeep,scriptToDiscard));
+  editor=new TestableOAuth2ScriptsEditor(oAuth2Profile);
+  containerWalker=new ContainerWalker(editor);
+  removeInputPanel("Input panel 2");
+  assertThat(oAuth2Profile.getAutomationJavaScripts(),hasItem(scriptToKeep));
+  assertThat(oAuth2Profile.getAutomationJavaScripts(),not(hasItem(scriptToDiscard)));
+}

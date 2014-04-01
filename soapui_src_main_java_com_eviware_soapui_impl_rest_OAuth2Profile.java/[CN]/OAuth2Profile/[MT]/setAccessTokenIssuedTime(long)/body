@@ -1,0 +1,7 @@
+{
+  long oldIssuedTime=configuration.getAccessTokenIssuedTime();
+  if (oldIssuedTime != newIssuedTime) {
+    configuration.setAccessTokenIssuedTime(newIssuedTime);
+    pcs.firePropertyChange(ACCESS_TOKEN_ISSUED_TIME,oldIssuedTime,newIssuedTime);
+  }
+}

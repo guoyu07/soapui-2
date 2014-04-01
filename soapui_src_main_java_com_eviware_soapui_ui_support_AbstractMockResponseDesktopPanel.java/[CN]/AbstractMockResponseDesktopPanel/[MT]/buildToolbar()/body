@@ -1,0 +1,11 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  createToolbar(toolbar);
+  toolbar.add(Box.createHorizontalGlue());
+  if (hasRequestEditor()) {
+    toolbar.add(tabsButton);
+    toolbar.add(splitButton);
+  }
+  toolbar.add(UISupport.createToolbarButton(new ShowOnlineHelpAction(getHelpUrl())));
+  return toolbar;
+}

@@ -1,0 +1,9 @@
+{
+  if (selectedProfile != null) {
+    request.setSelectedAuthProfileAndAuthType(selectedProfile,authType);
+  }
+ else {
+    request.getConfig().addNewCredentials();
+    request.getConfig().getCredentials().setAuthType(authType);
+  }
+}

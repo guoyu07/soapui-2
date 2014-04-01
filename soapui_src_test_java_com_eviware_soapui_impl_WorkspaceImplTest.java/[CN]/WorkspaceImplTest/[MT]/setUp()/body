@@ -1,6 +1,8 @@
 {
-  File file=new File(TEST_WORKSPACE_FILE_PATH);
-  if (file.exists())   file.delete();
-  file=new File(TEST_PROJECT_FILE_PATH);
-  if (file.exists())   file.delete();
+  workspaceFile=new File(TEST_WORKSPACE_FILE_PATH);
+  workspace=new WorkspaceImpl(workspaceFile.getAbsolutePath(),null);
+  projectFile=new File(TEST_PROJECT_FILE_PATH);
+  WsdlProject project=workspace.createProject("Test Project",null);
+  project.saveAs(projectFile.getAbsolutePath());
+  workspace.save(false);
 }

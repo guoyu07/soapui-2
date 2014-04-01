@@ -1,0 +1,12 @@
+{
+  RESTMockActionConfig config=getConfig().addNewRestMockAction();
+  String slashifiedPath=slashify(path);
+  String name=path;
+  config.setName(name);
+  config.setMethod(method.name());
+  config.setResourcePath(slashifiedPath);
+  RestMockAction restMockAction=new RestMockAction(this,config);
+  addMockOperation(restMockAction);
+  fireMockOperationAdded(restMockAction);
+  return restMockAction;
+}

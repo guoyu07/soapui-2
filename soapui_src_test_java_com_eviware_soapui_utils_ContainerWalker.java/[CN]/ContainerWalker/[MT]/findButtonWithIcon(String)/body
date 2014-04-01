@@ -1,11 +1,7 @@
 {
-  for (  Component component : containedComponents) {
-    if (component instanceof AbstractButton) {
-      AbstractButton button=(AbstractButton)component;
-      if (String.valueOf(button.getIcon()).endsWith("/" + iconFile)) {
-        return button;
-      }
-    }
+  AbstractButton returnedButton=(AbstractButton)Iterables.find(containedComponents,new ButtonWithIconPredicate(iconFile));
+  if (returnedButton == null) {
+    throw new NoSuchElementException("No button found with icon file " + iconFile);
   }
-  throw new NoSuchElementException("No button found with icon file " + iconFile);
+  return returnedButton;
 }

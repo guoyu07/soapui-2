@@ -1,0 +1,8 @@
+{
+  String[] parts=contentType.split(";");
+  getConfig().setMediaType(parts[0]);
+  String encodingValue=getEncodingValue(parts);
+  if (encodingValue != null) {
+    setEncoding(encodingValue);
+  }
+}

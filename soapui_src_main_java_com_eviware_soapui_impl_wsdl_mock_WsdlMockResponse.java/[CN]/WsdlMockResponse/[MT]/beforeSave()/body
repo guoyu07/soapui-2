@@ -1,6 +1,4 @@
 {
   super.beforeSave();
-  if (responseContent != null) {
-    CompressedStringSupport.setString(getConfig().getResponseContent(),responseContent);
-  }
+  CompressedStringSupport.setString(getConfig().getResponseContent(),getResponseContent());
 }

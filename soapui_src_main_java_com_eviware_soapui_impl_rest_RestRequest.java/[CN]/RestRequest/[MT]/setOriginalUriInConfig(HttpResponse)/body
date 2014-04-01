@@ -1,0 +1,5 @@
+{
+  if (getConfig().getOriginalUri() == null && response.getURL() != null) {
+    getConfig().setOriginalUri(JsonMediaTypeHandler.makeNamespaceUriFrom(response.getURL()));
+  }
+}

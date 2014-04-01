@@ -1,0 +1,14 @@
+{
+  try {
+    String proxyHost=getExpandedProperty(null,settings,ProxySettings.HOST);
+    String proxyPort=getExpandedProperty(null,settings,ProxySettings.PORT);
+    if (!StringUtils.isNullOrEmpty(proxyHost) && !StringUtils.isNullOrEmpty(proxyPort)) {
+      String[] excludes=PropertyExpander.expandProperties(settings.getString(ProxySettings.EXCLUDES,"")).split(",");
+      return new ManualProxySelector(proxyHost,Integer.valueOf(proxyPort),excludes);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e,"Unable to expand proxy settings");
+  }
+  return null;
+}

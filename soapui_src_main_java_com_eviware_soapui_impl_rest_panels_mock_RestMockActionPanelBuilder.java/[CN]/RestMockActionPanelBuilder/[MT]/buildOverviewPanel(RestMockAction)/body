@@ -1,0 +1,10 @@
+{
+  JPropertiesTable<RestMockAction> table=new JPropertiesTable<RestMockAction>("MockAction Properties");
+  boolean editable=true;
+  table.addProperty("Name","name",editable);
+  table.addProperty("Description","description",editable);
+  table.addProperty("Resource path","resourcePath",editable);
+  table.addProperty("Method","method",RestRequestInterface.HttpMethod.values());
+  table.setPropertyObject(mockAction);
+  return table;
+}

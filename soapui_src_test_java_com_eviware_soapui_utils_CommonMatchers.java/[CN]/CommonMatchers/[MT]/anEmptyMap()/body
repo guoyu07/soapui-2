@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<Map>(){
+    @Override public boolean matchesSafely(    Map collection){
+      return collection.isEmpty();
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("an empty map");
+    }
+  }
+;
+}

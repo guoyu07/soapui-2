@@ -1,5 +1,4 @@
 {
   String endpoint=getEndpoint();
-  if (endpoint.isEmpty())   return true;
-  return !endpoint.matches(".*[\\\\]+.*");
+  return endpoint.isEmpty() || !endpoint.matches(".*[\\\\]+.*");
 }

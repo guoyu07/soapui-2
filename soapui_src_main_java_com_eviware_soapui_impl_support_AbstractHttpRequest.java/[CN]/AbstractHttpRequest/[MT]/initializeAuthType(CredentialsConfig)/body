@@ -1,6 +1,6 @@
 {
   try {
-    if (credentialsConfig.getAuthType() == null)     credentialsConfig.setAuthType(AuthType.GLOBAL_HTTP_SETTINGS);
+    if (credentialsConfig.getAuthType() == null)     credentialsConfig.setAuthType(CredentialsConfig.AuthType.NO_AUTHORIZATION);
   }
  catch (  XmlValueOutOfRangeException e) {
     credentialsConfig.setAuthType(AuthType.NTLM);

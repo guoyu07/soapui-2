@@ -1,0 +1,12 @@
+{
+  mockResponse.removePropertyChangeListener(propertyChangeListener);
+  if (hasRequestEditor()) {
+    requestEditor.release();
+    requestEditor.getParent().remove(requestEditor);
+    requestEditor=null;
+  }
+  responseEditor.release();
+  responseEditor.getParent().remove(responseEditor);
+  responseEditor=null;
+  return release();
+}

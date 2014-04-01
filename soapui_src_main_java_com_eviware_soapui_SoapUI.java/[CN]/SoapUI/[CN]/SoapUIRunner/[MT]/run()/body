@@ -1,4 +1,5 @@
 {
+  boolean isFirstLaunch=!DefaultSoapUICore.settingsFileExists();
   Properties props=new Properties();
   try {
     props.load(SoapUI.class.getResourceAsStream(SOAPUI_TITLE));
@@ -10,7 +11,7 @@
       brandedTitleExt="";
     }
     startSoapUI(mainArgs,"SoapUI " + SOAPUI_VERSION + " "+ brandedTitleExt,new StandaloneSoapUICore(true));
-    if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !SoapUI.isJXBrowserDisabled(true)) {
+    if (getSettings().getBoolean(UISettings.SHOW_STARTUP_PAGE) && !isBrowserDisabled()) {
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
           showPushPage();
@@ -26,7 +27,10 @@
       }
 ).start();
     }
-    CajoServer.getInstance().start();
+    startCajoServerIfNotOverriddenBySetting();
+    if (isFirstLaunch) {
+      Tools.openURL(SOAPUI_WELCOME_PAGE);
+    }
   }
  catch (  Exception e) {
     e.printStackTrace();

@@ -1,0 +1,6 @@
+{
+  ContentTypes contentTypes=ContentTypes.of("text/plain, application/*");
+  assertThat(contentTypes.matches("text/plain"),is(true));
+  assertThat(contentTypes.matches("application/xml"),is(true));
+  assertThat(contentTypes.matches("text/html"),is(false));
+}

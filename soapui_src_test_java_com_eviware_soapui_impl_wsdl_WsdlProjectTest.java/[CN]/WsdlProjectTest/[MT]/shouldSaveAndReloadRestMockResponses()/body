@@ -1,0 +1,9 @@
+{
+  addRestMockResponseToProject();
+  WsdlProject reloadedProject=saveAndReloadProject(project);
+  RestMockService reloadedMockService=reloadedProject.getRestMockServiceByName(restMockServiceName);
+  RestMockResponse reloadedMockResponse=reloadedMockService.getMockOperationAt(0).getMockResponseAt(0);
+  assertThat(reloadedMockResponse,notNullValue());
+  assertThat(reloadedMockResponse.getName(),is(restMockResponseName));
+  assertThat(reloadedMockResponse.getResponseContent(),is(restMockResponseContent));
+}

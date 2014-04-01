@@ -2,21 +2,26 @@
   JXToolBar toolbar=UISupport.createToolbar();
   runButton=createActionButton(new RunMockServiceAction(),true);
   stopButton=createActionButton(new StopMockServiceAction(),false);
-  optionsButton=createActionButton(SwingActionDelegate.createDelegate(new MockServiceOptionsAction(),getModelItem(),null,"/options.gif"),true);
+  MockServiceType modelItem=getModelItem();
+  AbstractSoapUIAction<MockServiceType> action=(AbstractSoapUIAction<MockServiceType>)new MockServiceOptionsAction();
+  if (modelItem instanceof RestMockService) {
+    action=(AbstractSoapUIAction<MockServiceType>)new RestMockServiceOptionsAction();
+  }
+  optionsButton=createActionButton(SwingActionDelegate.createDelegate(action,modelItem,null,"/options.gif"),true);
   showWsdlButton=createActionButton(new ShowWsdlAction(),false);
   toolbar.addFixed(runButton);
   toolbar.addFixed(stopButton);
-  toolbar.addFixed(showWsdlButton);
+  if (modelItem instanceof WsdlMockService) {
+    toolbar.addFixed(showWsdlButton);
+  }
   toolbar.addFixed(optionsButton);
   toolbar.addGlue();
   runInfoLabel=new JLabel("",SwingConstants.RIGHT);
-  toolbar.addFixed(UISupport.setFixedSize(runInfoLabel,200,20));
+  runInfoLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,3));
+  toolbar.addFixed(UISupport.setFixedSize(runInfoLabel,205,20));
   toolbar.addRelatedGap();
-  progressBar=new JProgressBar();
-  JPanel progressBarPanel=UISupport.createProgressBarPanel(progressBar,2,false);
-  progressBarPanel.setPreferredSize(new Dimension(60,20));
-  toolbar.addFixed(progressBarPanel);
+  progressBarWrapper.addToToolBar(toolbar);
   toolbar.addRelatedGap();
-  toolbar.addFixed(createActionButton(new ShowOnlineHelpAction(HelpUrls.MOCKSERVICE_HELP_URL),true));
+  toolbar.addFixed(createActionButton(new ShowOnlineHelpAction(getModelItem().getHelpUrl()),true));
   return toolbar;
 }

@@ -1,0 +1,11 @@
+{
+  JTableFixture restParamsTable=parentPanel.table(REST_PARAMS_TABLE);
+  for (int rowNum=0; rowNum < restParamsTable.rowCount(); rowNum++) {
+    JTableCellFixture cell=restParamsTable.cell(row(rowNum).column(0));
+    if (cell.value().equals(paramName)) {
+      cell.click();
+      break;
+    }
+  }
+  parentPanel.button(MovePropertyUpAction.MOVE_PROPERTY_UP_ACTION_NAME).click();
+}

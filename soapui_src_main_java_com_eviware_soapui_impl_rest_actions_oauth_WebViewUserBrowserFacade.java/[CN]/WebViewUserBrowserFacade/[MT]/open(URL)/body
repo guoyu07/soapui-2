@@ -1,0 +1,14 @@
+{
+  popupWindow=new JFrame("Browser");
+  popupWindow.setIconImages(SoapUI.getFrameIcons());
+  popupWindow.getContentPane().add(browserComponent.getComponent());
+  popupWindow.setBounds(100,100,800,600);
+  popupWindow.setVisible(true);
+  popupWindow.addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent e){
+      browserComponent.close(true);
+    }
+  }
+);
+  browserComponent.navigate(url.toString());
+}

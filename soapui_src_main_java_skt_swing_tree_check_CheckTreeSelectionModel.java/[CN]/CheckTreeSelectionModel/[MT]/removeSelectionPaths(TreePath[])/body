@@ -1,0 +1,11 @@
+{
+  if (!dig) {
+    super.removeSelectionPaths(paths);
+    return;
+  }
+  for (int i=0; i < paths.length; i++) {
+    TreePath path=paths[i];
+    if (path.getPathCount() == 1)     super.removeSelectionPaths(new TreePath[]{path});
+ else     toggleRemoveSelection(path);
+  }
+}

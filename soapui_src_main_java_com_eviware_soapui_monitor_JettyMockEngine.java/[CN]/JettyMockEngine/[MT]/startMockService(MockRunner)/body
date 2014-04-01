@@ -1,7 +1,7 @@
 {
   if (server == null)   initServer();
 synchronized (server) {
-    WsdlMockService mockService=(WsdlMockService)runner.getMockService();
+    MockService mockService=runner.getMockContext().getMockService();
     int port=mockService.getPort();
     if (SoapUI.getSettings().getBoolean(SSLSettings.ENABLE_MOCK_SSL) && !addedSslConnector) {
       updateSslConnectorSettings();
@@ -14,13 +14,13 @@ synchronized (server) {
     }
     if (!runners.containsKey(port)) {
       SoapUIConnector connector=new SoapUIConnector();
-      PropertySupport.applySystemProperties(connector,"soapui.mock.connector",runner.getMockService());
+      PropertySupport.applySystemProperties(connector,"soapui.mock.connector",runner.getMockContext().getMockService());
       connector.setPort(port);
       if (sslConnector != null) {
         connector.setConfidentialPort(sslConnector.getPort());
       }
       if (mockService.getBindToHostOnly()) {
-        String host=PropertyExpander.expandProperties(mockService,mockService.getHost());
+        String host=PropertyExpander.expandProperties(mockService,((AbstractMockService)mockService).getHost());
         if (StringUtils.hasContent(host)) {
           connector.setHost(host);
         }
@@ -41,8 +41,8 @@ synchronized (server) {
           return;
         }
       }
-      connectors.put(new Integer(port),connector);
-      runners.put(new Integer(port),new HashMap<String,List<MockRunner>>());
+      connectors.put(port,connector);
+      runners.put(port,new HashMap<String,List<MockRunner>>());
     }
     Map<String,List<MockRunner>> map=runners.get(port);
     String path=mockService.getPath();

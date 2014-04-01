@@ -1,0 +1,5 @@
+{
+  proxyServlet.setIncludedContentTypes(ContentTypes.of(""));
+  ExtendedHttpMethod request=createRequestWithContentTypes();
+  assertThat(proxyServlet.contentTypeMatches(request),is(true));
+}

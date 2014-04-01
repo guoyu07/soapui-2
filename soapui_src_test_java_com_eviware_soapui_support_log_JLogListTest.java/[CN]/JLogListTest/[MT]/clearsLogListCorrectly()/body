@@ -1,0 +1,9 @@
+{
+  for (int i=0; i < 20 + 1; i++) {
+    logList.addLine("Line " + i);
+  }
+  waitForUpdaterThread();
+  logList.clear();
+  waitForUpdaterThread();
+  assertThat(model.getSize(),is(0));
+}

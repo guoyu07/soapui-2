@@ -1,0 +1,13 @@
+{
+  String encoding=null;
+  for (int i=0; i < parameters.length; i++) {
+    if (parameters[i].trim().startsWith("charset=")) {
+      String[] encodingParts=parameters[i].split("=");
+      if (encodingParts.length > 1) {
+        encoding=encodingParts[1];
+        return encoding;
+      }
+    }
+  }
+  return encoding;
+}

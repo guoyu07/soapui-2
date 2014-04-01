@@ -1,0 +1,6 @@
+{
+  if (configuration.getOAuth2Flow() == null) {
+    configuration.setOAuth2Flow(OAuth2FlowConfig.AUTHORIZATION_CODE_GRANT);
+  }
+  return OAuth2Flow.valueOf(configuration.getOAuth2Flow().toString());
+}

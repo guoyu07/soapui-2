@@ -1,0 +1,10 @@
+{
+  restRequest=ModelItemFactory.makeRestRequest();
+  restRequest.setMethod(GET);
+  restRequest.setPath(requestPath);
+  mockPromptDialog();
+  project=restRequest.getRestMethod().getInterface().getProject();
+  setUpResponse();
+  SoapUI.getSettings().setBoolean(HttpSettings.START_MOCK_SERVICE,FALSE);
+  SoapUI.getSettings().setBoolean(HttpSettings.LEAVE_MOCKENGINE,FALSE);
+}

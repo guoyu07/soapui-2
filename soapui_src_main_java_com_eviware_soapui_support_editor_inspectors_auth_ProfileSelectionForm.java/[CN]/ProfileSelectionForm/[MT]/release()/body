@@ -1,0 +1,7 @@
+{
+  super.release();
+  if (oAuth2Form != null) {
+    oAuth2Form.release();
+  }
+  getOAuth2ProfileContainer().removeOAuth2ProfileListener(profileListener);
+}

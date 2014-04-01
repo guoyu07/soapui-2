@@ -18,5 +18,8 @@
   for (  WsdlMockService mockService : mockServices) {
     mockService.beforeSave();
   }
+  for (  RestMockService mockService : restMockServices) {
+    mockService.beforeSave();
+  }
   endpointStrategy.onSave();
 }

@@ -1,0 +1,11 @@
+{
+  WsdlMockOperation mockOperation=mock(WsdlMockOperation.class);
+  XmlBeansSettingsImpl mockedSettings=mock(XmlBeansSettingsImpl.class);
+  when(mockOperation.getSettings()).thenReturn(mockedSettings);
+  compressedStringConfig=mock(CompressedStringConfig.class);
+  MockResponseConfig mockResponseConfig=mock(MockResponseConfig.class);
+  SettingsConfig mockedResponseSettings=mock(SettingsConfig.class);
+  when(mockResponseConfig.getSettings()).thenReturn(mockedResponseSettings);
+  when(mockResponseConfig.getResponseContent()).thenReturn(compressedStringConfig);
+  mockResponse=new WsdlMockResponse(mockOperation,mockResponseConfig);
+}

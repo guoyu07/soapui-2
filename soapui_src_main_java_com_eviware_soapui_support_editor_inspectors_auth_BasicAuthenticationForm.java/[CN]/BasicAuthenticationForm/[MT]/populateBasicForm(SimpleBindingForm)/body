@@ -1,0 +1,15 @@
+{
+  initForm(basicConfigurationForm);
+  basicConfigurationForm.addSpace(TOP_SPACING);
+  basicConfigurationForm.appendTextField("username","Username","The username to use for HTTP Authentication");
+  basicConfigurationForm.appendPasswordField("password","Password","The password to use for HTTP Authentication");
+  basicConfigurationForm.appendTextField("domain","Domain","The domain to use for Authentication(NTLM/Kerberos)");
+  ButtonGroup buttonGroup=new ButtonGroup();
+  globalButton=basicConfigurationForm.appendRadioButton("Pre-emptive auth","Use global preference",buttonGroup,false);
+  globalButton.setBackground(CARD_BACKGROUND_COLOR);
+  preemptiveButton=basicConfigurationForm.appendRadioButton("","Authenticate pre-emptively",buttonGroup,false);
+  preemptiveButton.setBackground(CARD_BACKGROUND_COLOR);
+  selectCorrectRadioButton();
+  globalButton.addActionListener(new UseGlobalSettingsRadioButtonListener(globalButton));
+  preemptiveButton.addActionListener(new PreemptiveRadioButtonListener(preemptiveButton));
+}

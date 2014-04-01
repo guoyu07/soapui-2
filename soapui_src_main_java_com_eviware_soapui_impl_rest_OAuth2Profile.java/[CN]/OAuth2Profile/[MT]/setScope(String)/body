@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getScope();
+  if (!StringUtils.equals(oldValue,scope)) {
+    configuration.setScope(scope);
+    pcs.firePropertyChange(SCOPE_PROPERTY,oldValue,scope);
+  }
+}

@@ -1,10 +1,13 @@
 {
+  if (browser == null) {
+    return;
+  }
   if (messageExchangeModelItem2 != null && messageExchangeModelItem2.getMessageExchange() != null) {
     String contentType=messageExchangeModelItem2.getMessageExchange().getResponseHeaders().get("Content-Type","");
     if (contentType.contains("html") || contentType.contains("text")) {
       try {
-        String content=messageExchangeModelItem2.getMessageExchange().getResponseContent();
-        browser.setContent(content);
+        final String content=messageExchangeModelItem2.getMessageExchange().getResponseContent();
+        browser.setContent(content,contentType);
       }
  catch (      Exception e) {
         e.printStackTrace();
@@ -17,7 +20,7 @@
         FileOutputStream fileOutputStream=new FileOutputStream(temp);
         writeHttpBody(messageExchangeModelItem2.getMessageExchange().getRawResponseData(),fileOutputStream);
         fileOutputStream.close();
-        browser.navigate(temp.toURI().toURL().toString(),null);
+        browser.navigate(temp.toURI().toURL().toString());
         temp.deleteOnExit();
       }
  catch (      Exception e) {

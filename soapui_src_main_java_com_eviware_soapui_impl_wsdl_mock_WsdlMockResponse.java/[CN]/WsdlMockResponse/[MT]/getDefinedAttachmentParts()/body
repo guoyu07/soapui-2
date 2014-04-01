@@ -1,7 +1,7 @@
 {
   if (definedAttachmentParts == null) {
     try {
-      WsdlOperation operation=getMockOperation().getOperation();
+      WsdlOperation operation=(WsdlOperation)getMockOperation().getOperation();
       if (operation == null) {
         definedAttachmentParts=new ArrayList<HttpAttachmentPart>();
       }

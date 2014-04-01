@@ -1,0 +1,9 @@
+{
+  if (outsideDesktop(f,newX,newY)) {
+    Point positionWherePanelReachable=findPositionWherePanelReachable(f,newX,newY);
+    delegate.dragFrame(f,positionWherePanelReachable.x,positionWherePanelReachable.y);
+  }
+ else {
+    delegate.dragFrame(f,newX,newY);
+  }
+}

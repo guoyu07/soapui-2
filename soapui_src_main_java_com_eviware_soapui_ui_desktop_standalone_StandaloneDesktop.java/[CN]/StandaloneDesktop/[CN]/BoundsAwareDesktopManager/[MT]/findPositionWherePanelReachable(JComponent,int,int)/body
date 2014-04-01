@@ -1,0 +1,9 @@
+{
+  int smallestReachableX=-(panel.getWidth() - horizontalInsetFactor * panel.getInsets().right);
+  int biggestReachableX=((int)desktopSize.getWidth() - horizontalInsetFactor * panel.getInsets().left);
+  int biggestReachableY=((int)desktopSize.getHeight() - verticalInsetFactor * panel.getInsets().top);
+  int boundedX, boundedY;
+  boundedX=((newX <= 0) ? Math.max(smallestReachableX,newX) : Math.min(biggestReachableX,newX));
+  boundedY=((newY <= 0) ? 0 : Math.min(biggestReachableY,newY));
+  return new Point(boundedX,boundedY);
+}

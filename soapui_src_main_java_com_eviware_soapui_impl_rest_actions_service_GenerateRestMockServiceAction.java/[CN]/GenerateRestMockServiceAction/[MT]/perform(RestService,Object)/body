@@ -1,0 +1,13 @@
+{
+  createDialog(restService);
+  if (dialog.show()) {
+    String mockServiceName=dialog.getValue(Form.MOCKSERVICENAME);
+    RestMockService mockService=getMockService(mockServiceName,restService.getProject());
+    if (mockService != null) {
+      populateMockService(restService,mockService);
+      restService.addEndpoint(mockService.getLocalEndpoint());
+      UISupport.showDesktopPanel(mockService);
+      maybeStart(mockService);
+    }
+  }
+}

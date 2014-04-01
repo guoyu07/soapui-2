@@ -1,0 +1,7 @@
+{
+  AbstractHttpRequest request=Mockito.mock(type);
+  XmlBeansSettingsImpl settings=Mockito.mock(XmlBeansSettingsImpl.class);
+  Mockito.when(settings.getBoolean(CommonSettings.ENTITIZE_PROPERTIES)).thenReturn(false);
+  Mockito.when(request.getSettings()).thenReturn(settings);
+  return request;
+}

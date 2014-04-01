@@ -1,0 +1,3 @@
+{
+  return contentType.match(respondedContentType) || ((contentType.getPrimaryType().charAt(0) == '*' || respondedContentType.getPrimaryType().charAt(0) == '*') && (contentType.getSubType().charAt(0) == '*' || respondedContentType.getSubType().charAt(0) == '*' || contentType.getSubType().equalsIgnoreCase(respondedContentType.getSubType())));
+}

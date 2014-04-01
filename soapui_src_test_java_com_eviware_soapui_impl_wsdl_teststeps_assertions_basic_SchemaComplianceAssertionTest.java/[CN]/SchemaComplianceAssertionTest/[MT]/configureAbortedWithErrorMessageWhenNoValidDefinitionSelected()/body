@@ -1,0 +1,5 @@
+{
+  stubbedDialogs.mockPromptWithReturnValue("<invalid URL>");
+  assertThat(assertion.configure(),is(false));
+  assertThat(stubbedDialogs.getErrorMessages(),is(not(anEmptyCollection())));
+}

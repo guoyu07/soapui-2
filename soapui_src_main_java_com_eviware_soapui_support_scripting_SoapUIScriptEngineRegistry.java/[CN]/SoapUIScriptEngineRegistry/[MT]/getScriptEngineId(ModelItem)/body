@@ -1,8 +1,7 @@
 {
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(modelItem);
   String scriptEngineId=null;
-  if (project == null)   log.warn("Project is null for modelItem [" + String.valueOf(modelItem) + "], using default script language ["+ DEFAULT_SCRIPT_ENGINE_ID+ "]");
- else   scriptEngineId=project.getDefaultScriptLanguage();
+  if (project != null)   scriptEngineId=project.getDefaultScriptLanguage();
   if (StringUtils.isNullOrEmpty(scriptEngineId))   scriptEngineId=DEFAULT_SCRIPT_ENGINE_ID;
   return scriptEngineId;
 }

@@ -3,7 +3,7 @@
   RestService service=operation.getService();
   if (StringUtils.isNullOrEmpty(definition) || definition.equals(PathUtils.expandPath(service.getDefinition(),service,context))) {
     definitionContext=service.getWadlContext();
-    ((WadlDefinitionContext)definitionContext).loadIfNecessary();
+    definitionContext.loadIfNecessary();
   }
  else {
     String def=PathUtils.expandPath(definition,service,context);

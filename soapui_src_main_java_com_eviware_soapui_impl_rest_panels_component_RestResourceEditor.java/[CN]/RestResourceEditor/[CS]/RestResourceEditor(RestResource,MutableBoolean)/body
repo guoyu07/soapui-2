@@ -2,11 +2,21 @@
   super(editingRestResource.getFullPath());
   this.editingRestResource=editingRestResource;
   this.updating=updating;
+  setName(REST_RESOURCE_EDITOR_TEXT_FIELD);
   if (isResourceLonely(editingRestResource)) {
     getDocument().addDocumentListener(new LonelyDocumentListener());
     addFocusListener(new FocusListener(){
       public void focusLost(      FocusEvent e){
         scanForTemplateParameters(editingRestResource);
+        removeMatrixParameters();
+      }
+      /** 
+ * Matrix parameters should not be added directly on the rest resource.
+ * The parameter editor should be used. Hence they are removed from the rest resource editor
+ * text field at this time.
+ */
+      private void removeMatrixParameters(){
+        setText(getText().split(";")[0]);
       }
       public void focusGained(      FocusEvent e){
       }

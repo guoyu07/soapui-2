@@ -5,7 +5,7 @@
   if (mockServiceConfig.isSetId() && createCopy)   mockServiceConfig.unsetId();
   mockService=new WsdlMockService(this,mockServiceConfig);
   mockService.setDescription(description);
-  mockServices.add(mockService);
+  addWsdlMockService(mockService);
   if (createCopy)   ModelSupport.unsetIds(mockService);
   mockService.afterLoad();
   fireMockServiceAdded(mockService);

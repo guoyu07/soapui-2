@@ -26,9 +26,9 @@
   try {
     StringBuilder nsMapArg=new StringBuilder();
     StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
-    for (    String namespace : nsMappings.keySet()) {
+    for (    Map.Entry<String,String> entry : nsMappings.entrySet()) {
       if (nsMapArg.length() > 0)       nsMapArg.append(',');
-      nsMapArg.append(namespace).append('=').append(nsMappings.get(namespace));
+      nsMapArg.append(entry.getKey()).append('=').append(entry.getValue());
     }
     builder.addArgs("-ns2p",nsMapArg.toString());
   }

@@ -1,0 +1,8 @@
+{
+  JComboBox timeUnitCombo=new JComboBox(TIME_UNIT_OPTIONS);
+  timeUnitCombo.setName(TIME_UNIT_COMBO_NAME);
+  timeUnitCombo.setEnabled(enableManualTimeControls);
+  TimeUnitConfig.Enum timeUnit=profile.getManualAccessTokenExpirationTimeUnit();
+  timeUnitCombo.setSelectedItem(WordUtils.capitalize(timeUnit.toString().toLowerCase()));
+  return timeUnitCombo;
+}

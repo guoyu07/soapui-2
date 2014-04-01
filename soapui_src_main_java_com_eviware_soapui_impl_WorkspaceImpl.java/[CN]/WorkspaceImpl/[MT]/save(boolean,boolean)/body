@@ -15,9 +15,6 @@
         if (status == SaveStatus.CANCELLED || status == SaveStatus.FAILED) {
           return status;
         }
-        if (status == SaveStatus.DONT_SAVE) {
-          continue;
-        }
       }
       saveWorkspaceProjectConfig(projects,project);
     }

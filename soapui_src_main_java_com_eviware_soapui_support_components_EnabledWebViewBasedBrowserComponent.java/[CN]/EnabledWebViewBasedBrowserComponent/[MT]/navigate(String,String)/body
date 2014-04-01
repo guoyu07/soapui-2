@@ -1,0 +1,13 @@
+{
+  if (SoapUI.isBrowserDisabled()) {
+    return;
+  }
+  setErrorPage(errorPage);
+  this.url=url;
+  Platform.runLater(new Runnable(){
+    public void run(){
+      getWebEngine().load(url);
+    }
+  }
+);
+}

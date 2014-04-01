@@ -1,0 +1,8 @@
+{
+  oAuth2RequestFilter=new OAuth2RequestFilter(){
+    @Override protected OAuth2ClientFacade getOAuth2ClientFacade(){
+      return OAuth2TestUtils.getOltuOAuth2ClientFacadeWithMockedTokenExtractor(profileWithRefreshToken);
+    }
+  }
+;
+}

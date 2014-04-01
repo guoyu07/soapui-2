@@ -14,6 +14,14 @@
   try {
     WsdlSubmit<RestRequest> submitter=new WsdlSubmit<RestRequest>(this,getSubmitListeners(),RequestTransportRegistry.getTransport(endpoint,submitContext));
     submitter.submitRequest(submitContext,async);
+    addPropertyChangeListener(AbstractHttpRequest.RESPONSE_PROPERTY,new PropertyChangeListener(){
+      @Override public void propertyChange(      PropertyChangeEvent evt){
+        if (evt.getNewValue() != null) {
+          setOriginalUriInConfig((HttpResponse)evt.getNewValue());
+        }
+      }
+    }
+);
     return submitter;
   }
  catch (  Exception e) {

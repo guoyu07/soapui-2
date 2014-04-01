@@ -11,6 +11,7 @@
  else {
       if (c > 0)       builder.addRelatedGap();
       JButton button=new JButton(action);
+      button.setName((String)action.getValue(Action.NAME));
       if (c == 0 || actions.getDefaultAction() == action)       defaultButton=button;
       if (action.getValue(Action.SMALL_ICON) != null)       button.setText(null);
       builder.addFixed(button);

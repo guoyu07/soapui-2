@@ -1,0 +1,36 @@
+{
+  accessTokenForm.addSpace(BOARDER_SPACING);
+  accessTokenForm.appendHeadingAndHelpButton("Get Access Token from the authorization server",HelpUrls.OAUTH_ACCESS_TOKEN_RETRIEVAL);
+  accessTokenForm.addSpace(NORMAL_SPACING);
+  JComboBox oauth2FlowComboBox=appendOAuth2ComboBox(accessTokenForm);
+  accessTokenForm.addSpace(GROUP_SPACING);
+  accessTokenForm.appendTextField(OAuth2Profile.CLIENT_ID_PROPERTY,CLIENT_ID_TITLE,"");
+  final JTextField clientSecretField=appendClientSecretField(accessTokenForm,getOAuth2FlowValueModel(accessTokenForm));
+  accessTokenForm.addSpace(GROUP_SPACING);
+  accessTokenForm.appendTextField(OAuth2Profile.AUTHORIZATION_URI_PROPERTY,AUTHORIZATION_URI_TITLE,"");
+  final JTextField accessTokenUriField=appendAccessTokenUriField(accessTokenForm,getOAuth2FlowValueModel(accessTokenForm));
+  accessTokenForm.appendTextField(OAuth2Profile.REDIRECT_URI_PROPERTY,REDIRECT_URI_TITLE,"");
+  accessTokenForm.addSpace(GROUP_SPACING);
+  accessTokenForm.appendTextField(OAuth2Profile.SCOPE_PROPERTY,SCOPE_TITLE,"");
+  accessTokenForm.addSpace(NORMAL_SPACING);
+  accessTokenForm.appendComponentsInOneRow(createGetAccessTokenButton(),createAccessTokenStatusText());
+  accessTokenForm.appendButtonWithoutLabel(AUTOMATION_BUTTON_TITLE,new EditAutomationScriptsAction(profile));
+  accessTokenForm.addSpace(GROUP_SPACING);
+  accessTokenForm.appendLabelAsLink(HelpUrls.OAUTH_ACCESS_TOKEN_FROM_SERVER,"How to get an access token from an authorization server");
+  accessTokenForm.addSpace(BOARDER_SPACING);
+  oauth2FlowComboBox.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED) {
+        clientSecretField.setVisible(e.getItem() != OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+        accessTokenUriField.setVisible(e.getItem() != OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT);
+        SwingUtilities.invokeLater(new Runnable(){
+          @Override public void run(){
+            accessTokenDialog.pack();
+          }
+        }
+);
+      }
+    }
+  }
+);
+}

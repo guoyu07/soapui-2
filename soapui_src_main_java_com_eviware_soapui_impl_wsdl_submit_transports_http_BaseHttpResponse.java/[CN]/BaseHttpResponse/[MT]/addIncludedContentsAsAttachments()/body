@@ -7,7 +7,7 @@
  catch (  ClassCastException cce) {
     attachments=new Attachment[1];
     try {
-      attachments[0]=downloader.createAttachment(rawResponseData,url,(HttpRequest)httpRequest.get());
+      attachments[0]=downloader.createAttachment(rawResponseData,url,httpRequest.get());
     }
  catch (    IOException e) {
       SoapUI.log.error(e);

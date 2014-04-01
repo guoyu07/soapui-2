@@ -1,0 +1,8 @@
+{
+  int restMockServiceCountBefore=project.getRestMockServiceCount();
+  MockService mocka=project.addNewRestMockService("Mocka");
+  assertThat(project.getRestMockServiceCount(),is(restMockServiceCountBefore + 1));
+  project.removeMockService(mocka);
+  assertThat(project.getRestMockServiceCount(),is(restMockServiceCountBefore));
+  assertThat(project.getRestMockServiceByName("Mocka"),nullValue());
+}

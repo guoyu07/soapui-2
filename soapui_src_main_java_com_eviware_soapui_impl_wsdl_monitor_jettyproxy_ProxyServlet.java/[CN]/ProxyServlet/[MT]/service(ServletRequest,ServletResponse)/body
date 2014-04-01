@@ -10,7 +10,7 @@
  else   if (httpRequest.getMethod().equals("OPTIONS"))   method=new ExtendedOptionsMethod();
  else   if (httpRequest.getMethod().equals("TRACE"))   method=new ExtendedTraceMethod();
  else   if (httpRequest.getMethod().equals("PATCH"))   method=new ExtendedPatchMethod();
- else   method=new ExtendedGetMethod();
+ else   method=new ExtendedGenericMethod(httpRequest.getMethod());
   method.setDecompress(false);
   ByteArrayOutputStream requestBody=null;
   if (method instanceof HttpEntityEnclosingRequest) {
@@ -24,11 +24,12 @@
   capturedData.setRequestMethod(httpRequest.getMethod());
   capturedData.setRequestHeader(httpRequest);
   capturedData.setHttpRequestParameters(httpRequest);
+  capturedData.setQueryParameters(httpRequest.getQueryString());
   capturedData.setTargetURL(httpRequest.getRequestURL().toString());
   String connectionHeader=httpRequest.getHeader("Connection");
   if (connectionHeader != null) {
     connectionHeader=connectionHeader.toLowerCase();
-    if (connectionHeader.indexOf("keep-alive") < 0 && connectionHeader.indexOf("close") < 0)     connectionHeader=null;
+    if (!connectionHeader.contains("keep-alive") && !connectionHeader.contains("close"))     connectionHeader=null;
   }
   boolean xForwardedFor=false;
   @SuppressWarnings("unused") Enumeration<?> headerNames=httpRequest.getHeaderNames();
@@ -36,7 +37,7 @@
     String hdr=(String)headerNames.nextElement();
     String lhdr=hdr.toLowerCase();
     if (dontProxyHeaders.contains(lhdr))     continue;
-    if (connectionHeader != null && connectionHeader.indexOf(lhdr) >= 0)     continue;
+    if (connectionHeader != null && connectionHeader.contains(lhdr))     continue;
     Enumeration<?> vals=httpRequest.getHeaders(hdr);
     while (vals.hasMoreElements()) {
       String val=(String)vals.nextElement();
@@ -54,7 +55,7 @@
   if (httpRequest.getServletPath() != null) {
     url.append(httpRequest.getServletPath());
     try {
-      method.setURI(new java.net.URI(url.toString()));
+      method.setURI(new java.net.URI(url.toString().replaceAll(" ","%20")));
     }
  catch (    URISyntaxException e) {
       SoapUI.logError(e);
@@ -71,6 +72,7 @@
   }
   method.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
   setProtocolversion(method,request.getProtocol());
+  ProxyUtils.setForceDirectConnection(method.getParams());
   listenerCallBack.fireBeforeProxy(project,request,response,method);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
     if (httpState == null)     httpState=new BasicHttpContext();
@@ -83,9 +85,10 @@
   capturedData.setRequest(requestBody == null ? null : requestBody.toByteArray());
   capturedData.setRawResponseBody(method.getResponseBody());
   capturedData.setResponseHeader(method.getHttpResponse());
-  capturedData.setRawRequestData(getRequestToBytes(request.toString(),method,requestBody));
+  capturedData.setRawRequestData(getRequestToBytes(request.toString(),requestBody));
   capturedData.setRawResponseData(getResponseToBytes(method,capturedData.getRawResponseBody()));
-  capturedData.setResponseContent(new String(method.getDecompressedResponseBody()));
+  byte[] decompressedResponseBody=method.getDecompressedResponseBody();
+  capturedData.setResponseContent(decompressedResponseBody != null ? new String(decompressedResponseBody) : "");
   capturedData.setResponseStatusCode(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().getStatusCode() : null);
   capturedData.setResponseStatusLine(method.hasHttpResponse() ? method.getHttpResponse().getStatusLine().toString() : null);
   listenerCallBack.fireAfterProxy(project,request,response,method,capturedData);
@@ -93,13 +96,15 @@
   if (!response.isCommitted()) {
     StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
     HttpServletResponse httpServletResponse=(HttpServletResponse)response;
-    for (    String name : responseHeaders.keySet()) {
-      for (      String header : responseHeaders.get(name))       httpServletResponse.addHeader(name,header);
+    for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+      for (      String header : headerEntry.getValue())       httpServletResponse.addHeader(headerEntry.getKey(),header);
     }
-    IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
+    if (capturedData.getRawResponseBody() != null) {
+      IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
+    }
   }
 synchronized (this) {
-    if (checkContentType(method)) {
+    if (contentTypeMatches(method)) {
       listenerCallBack.fireAddMessageExchange(capturedData);
     }
   }

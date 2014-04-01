@@ -5,10 +5,10 @@
     StringToStringMap nsMappings=StringToStringMap.fromXml(values.get(NAMESPACE_MAPPING));
     if (!nsMappings.isEmpty()) {
       GlobalType global=config.addNewGlobal();
-      for (      String namespace : nsMappings.keySet()) {
+      for (      Map.Entry<String,String> namespaceEntry : nsMappings.entrySet()) {
         PkgNSType entry=global.addNewPackageNamespace();
-        entry.setNamespace(namespace);
-        entry.setPackage(nsMappings.get(namespace));
+        entry.setNamespace(namespaceEntry.getKey());
+        entry.setPackage(namespaceEntry.getValue());
       }
     }
   }

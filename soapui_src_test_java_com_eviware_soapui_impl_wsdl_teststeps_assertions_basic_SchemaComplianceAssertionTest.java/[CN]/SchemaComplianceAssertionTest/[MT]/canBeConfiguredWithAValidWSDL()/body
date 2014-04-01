@@ -1,0 +1,6 @@
+{
+  String validWsdlURL=SchemaComplianceAssertionTest.class.getResource("/attachment-test.wsdl").toString();
+  stubbedDialogs.mockPromptWithReturnValue(validWsdlURL);
+  assertThat(assertion.configure(),is(true));
+  assertThat(stubbedDialogs.getErrorMessages(),is(anEmptyCollection()));
+}

@@ -2,9 +2,9 @@
   StringBuffer result=new StringBuffer();
   String status=headers.get("#status#","");
   if (status != null)   result.append(status).append('\n');
-  for (  String header : headers.keySet()) {
-    if (header.equals("#status#"))     continue;
-    for (    String value : headers.get(header))     result.append(header).append(": ").append(value).append('\n');
+  for (  Map.Entry<String,List<String>> headerEntry : headers.entrySet()) {
+    if (headerEntry.getKey().equals("#status#"))     continue;
+    for (    String value : headerEntry.getValue())     result.append(headerEntry.getKey()).append(": ").append(value).append('\n');
   }
   result.append('\n');
   if (data != null)   result.append(new String(data).trim());

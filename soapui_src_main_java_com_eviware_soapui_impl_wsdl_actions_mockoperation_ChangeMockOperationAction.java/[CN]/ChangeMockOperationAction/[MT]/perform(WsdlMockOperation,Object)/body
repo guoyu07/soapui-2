@@ -4,7 +4,7 @@
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.INTERFACE).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        WsdlProject project=testStep.getMockService().getProject();
+        WsdlProject project=(WsdlProject)testStep.getMockService().getProject();
         dialog.setOptions(Form.OPERATION,ModelSupport.getNames(project.getInterfaceByName(newValue).getOperationList()));
         WsdlOperation operation=testStep.getOperation();
         dialog.setValue(Form.OPERATION,operation == null ? "" : operation.getName());
@@ -23,7 +23,7 @@
     dialog.getFormField(Form.KEEP_EXISTING).setEnabled(false);
   }
   WsdlOperation operation=testStep.getOperation();
-  WsdlProject project=testStep.getMockService().getProject();
+  WsdlProject project=(WsdlProject)testStep.getMockService().getProject();
   String[] interfaceNames=ModelSupport.getNames(project.getInterfaceList(),new ModelSupport.InterfaceTypeFilter(WsdlInterfaceFactory.WSDL_TYPE));
   dialog.setOptions(Form.INTERFACE,interfaceNames);
   dialog.setValue(Form.INTERFACE,operation == null ? interfaceNames[0] : operation.getInterface().getName());

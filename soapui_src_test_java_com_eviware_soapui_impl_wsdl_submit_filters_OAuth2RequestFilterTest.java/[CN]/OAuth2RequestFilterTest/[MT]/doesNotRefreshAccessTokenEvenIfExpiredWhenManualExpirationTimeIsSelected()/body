@@ -1,0 +1,10 @@
+{
+  setupProfileWithRefreshToken();
+  oAuth2Profile.setAccessTokenIssuedTime(System.currentTimeMillis());
+  oAuth2Profile.setAccessTokenExpirationTime(1);
+  oAuth2Profile.setUseManualAccessTokenExpirationTime(true);
+  oAuth2Profile.setManualAccessTokenExpirationTime("3600");
+  String originalAccessToken=oAuth2Profile.getAccessToken();
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  assertThat(oAuth2Profile.getAccessToken(),is(originalAccessToken));
+}

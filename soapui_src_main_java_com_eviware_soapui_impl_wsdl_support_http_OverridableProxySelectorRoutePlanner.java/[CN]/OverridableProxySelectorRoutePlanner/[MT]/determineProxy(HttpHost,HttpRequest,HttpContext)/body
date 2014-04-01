@@ -1,0 +1,10 @@
+{
+  if (request.getParams().getBooleanParameter(FORCE_DIRECT_CONNECTION,false)) {
+    return null;
+  }
+  final HttpHost proxy=ConnRouteParams.getDefaultProxy(request.getParams());
+  if (proxy != null) {
+    return proxy;
+  }
+  return super.determineProxy(target,request,context);
+}

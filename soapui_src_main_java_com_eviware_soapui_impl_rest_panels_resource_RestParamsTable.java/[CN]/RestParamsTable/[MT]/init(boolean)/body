@@ -43,8 +43,8 @@
     initEditableButtons();
   }
   paramsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox<ParameterStyle>(getStylesForLocation(ParamLocation.RESOURCE))));
-  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox<ParamLocation>(ParamLocation.values())));
+  paramsTable.setDefaultEditor(ParameterStyle.class,new DefaultCellEditor(new JComboBox(getStylesForLocation(ParamLocation.RESOURCE))));
+  paramsTable.setDefaultEditor(ParamLocation.class,new DefaultCellEditor(new JComboBox(ParamLocation.values())));
   paramsTable.setRowHeight(25);
   paramsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
     public void valueChanged(    ListSelectionEvent e){
@@ -74,12 +74,13 @@
   }
 );
   add(buildToolbar(),BorderLayout.NORTH);
+  scrollPane=new JScrollPane(paramsTable);
   if (showInspector) {
-    splitPane=UISupport.createVerticalSplit(new JScrollPane(paramsTable),buildDetails());
+    splitPane=UISupport.createVerticalSplit(scrollPane,buildDetails());
     add(splitPane,BorderLayout.CENTER);
     splitPane.setResizeWeight(0.7);
   }
  else {
-    add(new JScrollPane(paramsTable),BorderLayout.CENTER);
+    add(scrollPane,BorderLayout.CENTER);
   }
 }

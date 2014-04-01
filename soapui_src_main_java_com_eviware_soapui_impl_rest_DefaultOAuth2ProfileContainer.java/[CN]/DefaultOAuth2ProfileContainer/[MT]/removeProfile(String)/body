@@ -1,0 +1,18 @@
+{
+  for (int count=0; count < configuration.sizeOfOAuth2ProfileArray(); count++) {
+    if (configuration.getOAuth2ProfileArray(count).getName().equals(profileName)) {
+      configuration.removeOAuth2Profile(count);
+      break;
+    }
+  }
+  buildOAuth2ProfileList();
+  doForAllRestRequests(new RestRequestCallback(){
+    @Override public void doit(    RestRequest restRequest){
+      if (ObjectUtils.equals(restRequest.getSelectedAuthProfile(),profileName)) {
+        restRequest.setSelectedAuthProfileAndAuthType(CredentialsConfig.AuthType.NO_AUTHORIZATION.toString(),CredentialsConfig.AuthType.NO_AUTHORIZATION);
+      }
+    }
+  }
+);
+  fireOAuth2ProfileRemoved(profileName);
+}

@@ -1,0 +1,16 @@
+{
+  try {
+    if (request instanceof HttpEntityEnclosingRequest) {
+      HttpEntity httpEntity=((HttpEntityEnclosingRequest)request).getEntity();
+      if (httpEntity == null) {
+        String accessTokenParameter=getQueryStringFromOAuthClientRequest(oAuthClientRequest);
+        ((HttpEntityEnclosingRequest)request).setEntity(new StringEntity(accessTokenParameter));
+      }
+ else {
+      }
+    }
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new OAuthSystemException(e);
+  }
+}

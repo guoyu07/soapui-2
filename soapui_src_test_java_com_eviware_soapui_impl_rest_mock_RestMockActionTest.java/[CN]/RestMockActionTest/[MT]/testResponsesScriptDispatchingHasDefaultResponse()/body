@@ -1,0 +1,8 @@
+{
+  mockAction.addNewMockResponse("response 2");
+  mockAction.setDispatcher(new ScriptMockOperationDispatcher(mockAction));
+  mockAction.setDefaultResponse("response 2");
+  mockAction.setScript("return 'absent response'");
+  RestMockResult mockResult=mockAction.dispatchRequest(restMockRequest);
+  assertThat(mockResult.getMockResponse().getName(),is("response 2"));
+}

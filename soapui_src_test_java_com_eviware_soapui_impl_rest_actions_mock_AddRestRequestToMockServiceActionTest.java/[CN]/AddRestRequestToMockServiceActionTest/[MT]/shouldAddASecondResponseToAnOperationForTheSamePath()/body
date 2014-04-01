@@ -1,0 +1,6 @@
+{
+  action.perform(restRequest,notUsed);
+  action.perform(restRequest,notUsed);
+  int mockResponseCount=getFirstMockOperation().getMockResponseCount();
+  assertThat(mockResponseCount,is(2));
+}

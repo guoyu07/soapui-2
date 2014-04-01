@@ -1,0 +1,13 @@
+{
+  int ix=mockOperations.indexOf(mockOperation);
+  if (ix == -1)   throw new RuntimeException("Unknown MockOperation specified to removeMockOperation");
+  mockOperations.remove(ix);
+  fireMockOperationRemoved(mockOperation);
+  mockOperation.release();
+  if (this instanceof WsdlMockService) {
+    ((WsdlMockService)this).getConfig().removeMockOperation(ix);
+  }
+ else   if (this instanceof RestMockService) {
+    ((RestMockService)this).getConfig().removeRestMockAction(ix);
+  }
+}

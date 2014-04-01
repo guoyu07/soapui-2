@@ -6,7 +6,7 @@
   }
   MessageSupport messages=MessageSupport.getMessages(formClass);
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder(messages.get(formAnnotation.name()));
-  XForm form=builder.createForm("Basic");
+  XForm form=createForm(builder,null);
   for (  Field field : formClass.getFields()) {
     AField fieldAnnotation=field.getAnnotation(AField.class);
     if (fieldAnnotation != null) {
@@ -18,7 +18,7 @@
       }
     }
   }
-  ActionList defaultActions=formAnnotation.helpUrl() == null ? null : builder.buildHelpActions(formAnnotation.helpUrl());
+  ActionList defaultActions=StringUtils.isBlank(formAnnotation.helpUrl()) ? null : builder.buildHelpActions(formAnnotation.helpUrl());
   if (actions == null)   actions=defaultActions;
  else {
     actions.insertAction(defaultActions.getActionAt(0),0);

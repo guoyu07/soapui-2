@@ -8,13 +8,17 @@
     serializer.setTypeHintsEnabled(false);
     serializer.setRootName(HttpUtils.isErrorStatus(response.getStatusCode()) ? "Fault" : "Response");
     URL url=response.getURL();
-    serializer.setNamespace("",url.getProtocol() + "://" + url.getHost()+ url.getPath());
+    String originalUri=readOriginalUriFrom(response.getRequest());
+    String namespaceUri=originalUri != null ? originalUri : makeNamespaceUriFrom(url);
+    serializer.setNamespace("",namespaceUri);
     content=serializer.write(json);
     content=XmlUtils.prettyPrintXml(content);
     return content;
   }
- catch (  Throwable e) {
-    if (!(e instanceof JSONException))     e.printStackTrace();
+ catch (  JSONException ignore) {
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
   }
   return "<xml/>";
 }

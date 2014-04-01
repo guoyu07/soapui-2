@@ -1,0 +1,5 @@
+{
+  profileWithOnlyAccessToken.setAccessTokenPosition(OAuth2Profile.AccessTokenPosition.QUERY);
+  oltuClientFacade.applyAccessToken(profileWithOnlyAccessToken,httpRequest,"");
+  assertThat(httpRequest.getURI().getQuery(),is("access_token=" + profileWithOnlyAccessToken.getAccessToken()));
+}

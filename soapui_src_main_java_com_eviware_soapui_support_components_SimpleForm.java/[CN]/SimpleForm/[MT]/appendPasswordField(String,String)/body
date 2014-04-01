@@ -1,7 +1,7 @@
 {
   JPasswordField textField=new JPasswordField();
   textField.setColumns(defaultTextFieldColumns);
-  textField.setToolTipText(tooltip);
+  textField.setToolTipText(StringUtils.defaultIfEmpty(tooltip,null));
   textField.getAccessibleContext().setAccessibleDescription(tooltip);
   append(label,textField);
   return textField;

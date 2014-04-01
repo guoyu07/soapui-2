@@ -1,6 +1,8 @@
 {
+  DesktopPanel desktopPanel=null;
   if (sslEndpoint == null) {
-    UISupport.showDesktopPanel(new SoapMonitorDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,null));
+    desktopPanel=createDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,null);
+    UISupport.showDesktopPanel(desktopPanel);
   }
  else {
     String ssl=validate(sslEndpoint);
@@ -8,7 +10,9 @@
       UISupport.showErrorMessage("SSL Monitor needs endpoint.");
     }
  else {
-      UISupport.showDesktopPanel(new SoapMonitorDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,ssl));
+      desktopPanel=createDesktopPanel(target,listenPort,incomingRequestWss,incomingResponseWss,setAsProxy,ssl);
+      UISupport.showDesktopPanel(desktopPanel);
     }
   }
+  return desktopPanel != null ? ((SoapMonitorContainer)desktopPanel).getSoapMonitor() : null;
 }

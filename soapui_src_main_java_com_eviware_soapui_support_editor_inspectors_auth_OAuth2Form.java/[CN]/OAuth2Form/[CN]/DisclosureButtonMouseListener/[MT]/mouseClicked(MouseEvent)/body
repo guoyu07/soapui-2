@@ -1,0 +1,17 @@
+{
+  if (disclosureButtonDisabled) {
+    disclosureButtonDisabled=false;
+    return;
+  }
+  JLabel source=(JLabel)e.getSource();
+  Point disclosureButtonLocation=source.getLocationOnScreen();
+  accessTokenFormDialog.pack();
+  accessTokenFormDialog.setVisible(true);
+  disclosureButton.setIcon(UISupport.createImageIcon("/pop-down-close.png"));
+  if (UISupport.isEnoughSpaceAvailableBelowComponent(disclosureButtonLocation,accessTokenFormDialog.getHeight(),source.getHeight())) {
+    setAccessTokenFormDialogBoundsBelowTheButton(disclosureButtonLocation,accessTokenFormDialog,source.getHeight());
+  }
+ else {
+    setAccessTokenFormDialogBoundsAboveTheButton(disclosureButtonLocation,accessTokenFormDialog);
+  }
+}

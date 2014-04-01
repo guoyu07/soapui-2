@@ -4,9 +4,10 @@
   String response=messageExchange.getResponseContent();
   Set<String> messages=new HashSet<String>();
   try {
-    for (    String token : checkMap.keySet()) {
+    for (    Map.Entry<String,String> tokenEntry : checkMap.entrySet()) {
+      String token=tokenEntry.getKey();
       boolean useRegexp=token.trim().startsWith(PREFIX);
-      String description=!checkMap.get(token).equals("") ? checkMap.get(token) : token;
+      String description=!tokenEntry.getValue().equals("") ? tokenEntry.getValue() : token;
       if (useRegexp) {
         token=token.substring(token.indexOf(PREFIX) + 1);
       }

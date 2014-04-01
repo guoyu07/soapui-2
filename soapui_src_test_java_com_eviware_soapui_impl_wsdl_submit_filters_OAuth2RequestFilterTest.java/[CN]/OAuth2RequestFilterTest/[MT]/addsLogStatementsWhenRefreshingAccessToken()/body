@@ -1,0 +1,5 @@
+{
+  setupProfileWithRefreshToken();
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  verify(mockLogger,times(2)).info(any(String.class));
+}

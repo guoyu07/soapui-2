@@ -12,7 +12,7 @@
   dialog.getFormField(Form.PARAMSTABLE).setProperty("component",paramsTable);
   if (dialog.show()) {
     RestMethod method=resource.addNewMethod(dialog.getValue(Form.RESOURCENAME));
-    method.setMethod(RestRequestInterface.RequestMethod.valueOf(dialog.getValue(Form.METHOD)));
+    method.setMethod(RestRequestInterface.HttpMethod.valueOf(dialog.getValue(Form.METHOD)));
     paramsTable.extractParams(method.getParams(),ParamLocation.METHOD);
     method.addPropertyChangeListener(paramsTableModel);
     UISupport.select(method);

@@ -12,6 +12,7 @@
   values.put(LINEBREAK,settings.getBoolean(UISettings.LINEBREAK));
   if (SoapUI.isStandalone()) {
     values.put(DESKTOP_TYPE,settings.getString(UISettings.DESKTOP_TYPE,SoapUI.DEFAULT_DESKTOP));
+    values.put(MRU_PANEL_SELECTOR,settings.getBoolean(UISettings.MRU_PANEL_SELECTOR));
     values.put(NATIVE_LAF,settings.getBoolean(UISettings.NATIVE_LAF));
   }
   values.put(ENABLE_GROOVY_LOG,settings.getBoolean(UISettings.DONT_DISABLE_GROOVY_LOG));
@@ -24,7 +25,5 @@
   values.put(RAW_RESPONSE_MESSAGE_SIZE,settings.getString(UISettings.RAW_RESPONSE_MESSAGE_SIZE,"10000"));
   values.put(RAW_REQUEST_MESSAGE_SIZE,settings.getString(UISettings.RAW_REQUEST_MESSAGE_SIZE,"10000"));
   values.put(WRAP_RAW_MESSAGES,settings.getBoolean(UISettings.WRAP_RAW_MESSAGES));
-  values.put(DISABLE_BROWSER,settings.getBoolean(UISettings.DISABLE_BROWSER));
-  values.put(DISABLE_BROWSER_PLUGINS,settings.getBoolean(UISettings.DISABLE_BROWSER_PLUGINS));
   return values;
 }

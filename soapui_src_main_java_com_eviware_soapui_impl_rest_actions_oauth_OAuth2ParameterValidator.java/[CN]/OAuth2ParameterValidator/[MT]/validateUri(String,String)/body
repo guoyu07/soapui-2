@@ -1,0 +1,11 @@
+{
+  if (!StringUtils.hasContent(uri)) {
+    throw new InvalidOAuth2ParametersException(uri + " is not a valid " + uriName);
+  }
+  try {
+    new URI(uri);
+  }
+ catch (  URISyntaxException e) {
+    throw new InvalidOAuth2ParametersException(uri + " is not a valid " + uriName);
+  }
+}

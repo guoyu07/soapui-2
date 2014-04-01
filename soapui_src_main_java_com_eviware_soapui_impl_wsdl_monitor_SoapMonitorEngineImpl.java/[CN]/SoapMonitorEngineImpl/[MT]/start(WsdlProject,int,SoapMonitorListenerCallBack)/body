@@ -14,13 +14,17 @@
       sslConnector.setMaxIdleTime(30000);
       sslConnector.setPort(localPort);
       server.addConnector(sslConnector);
-      context.addServlet(new ServletHolder(new TunnelServlet(project,sslEndpoint,listenerCallBack)),ROOT);
+      TunnelServlet tunnelServlet=new TunnelServlet(project,sslEndpoint,listenerCallBack);
+      tunnelServlet.setIncludedContentTypes(includedContentTypes);
+      context.addServlet(new ServletHolder(tunnelServlet),ROOT);
     }
  else {
       if (sslEndpoint.startsWith(HTTP)) {
         connector.setPort(localPort);
         server.addConnector(connector);
-        context.addServlet(new ServletHolder(new TunnelServlet(project,sslEndpoint,listenerCallBack)),ROOT);
+        TunnelServlet tunnelServlet=new TunnelServlet(project,sslEndpoint,listenerCallBack);
+        tunnelServlet.setIncludedContentTypes(includedContentTypes);
+        context.addServlet(new ServletHolder(tunnelServlet),ROOT);
       }
  else {
         UISupport.showErrorMessage("Unsupported/unknown protocol tunnel will not start");
@@ -33,12 +37,17 @@
     proxyOrTunnel=true;
     connector.setPort(localPort);
     server.addConnector(connector);
-    context.addServlet(new ServletHolder(new ProxyServlet(project,listenerCallBack)),ROOT);
+    ProxyServlet proxyServlet=new ProxyServlet(project,listenerCallBack);
+    proxyServlet.setIncludedContentTypes(includedContentTypes);
+    context.addServlet(new ServletHolder(proxyServlet),ROOT);
   }
   try {
     server.start();
   }
- catch (  Exception e) {
-    UISupport.showErrorMessage("Error starting monitor: " + e.getMessage());
+ catch (  BindException e) {
+    UISupport.showErrorMessage("Error starting " + getProxyOrTunnelString() + ": Could not open port "+ localPort+ ".\nTry a different port number.");
+  }
+catch (  Exception e) {
+    UISupport.showErrorMessage("Error starting " + getProxyOrTunnelString() + ": "+ e.getMessage());
   }
 }

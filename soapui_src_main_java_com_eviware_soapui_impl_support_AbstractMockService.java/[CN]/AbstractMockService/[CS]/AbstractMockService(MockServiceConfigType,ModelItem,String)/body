@@ -1,0 +1,9 @@
+{
+  super(config,parent,icon);
+  if (!config.isSetPort() || config.getPort() < 1)   config.setPort(8080);
+  if (!config.isSetPath())   config.setPath("/");
+  initHost(config);
+  docrootProperty=new BeanPathPropertySupport(this,"docroot");
+  iconAnimator=new MockServiceIconAnimator();
+  addMockRunListener(iconAnimator);
+}

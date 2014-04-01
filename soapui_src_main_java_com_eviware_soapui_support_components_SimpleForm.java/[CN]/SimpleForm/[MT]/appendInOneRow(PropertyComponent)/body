@@ -1,0 +1,14 @@
+{
+  Preconditions.checkArgument(propertyComponents.length * 2 <= layout.getColumnCount() - 1,"There is not enough room for the components to be added");
+  int currentColumn=DEFAULT_COMPONENT_COLUMN;
+  for (int i=0; i < propertyComponents.length; i++) {
+    PropertyComponent propertyComponent=propertyComponents[i];
+    if (i == 0) {
+      append(null,null,propertyComponent.getComponent(),"left,center",currentColumn,DEFAULT_COLUMN_SPAN);
+    }
+ else {
+      addComponentToRow(null,propertyComponent.getComponent(),"left,center",currentColumn,getRowCount(),DEFAULT_COLUMN_SPAN);
+    }
+    currentColumn+=2;
+  }
+}

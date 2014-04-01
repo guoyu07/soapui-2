@@ -8,12 +8,19 @@
     for (    WsdlMockService mockService : mockServices) {
       mockService.release();
     }
+    for (    RestMockService mockService : restMockServices) {
+      mockService.release();
+    }
     for (    AbstractInterface<?> iface : interfaces) {
       iface.release();
     }
     if (wssContainer != null) {
       wssContainer.release();
       wssContainer=null;
+    }
+    if (oAuth2ProfileContainer != null) {
+      oAuth2ProfileContainer.release();
+      oAuth2ProfileContainer=null;
     }
   }
   projectListeners.clear();

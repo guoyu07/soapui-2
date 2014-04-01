@@ -1,0 +1,10 @@
+{
+  String pathToFind=getPathRemainder(restMockRequest);
+  RestMockAction mockAction=(RestMockAction)mockService.findBestMatchedOperation(pathToFind,restMockRequest.getMethod());
+  if (mockAction != null) {
+    return mockAction.dispatchRequest(restMockRequest);
+  }
+ else {
+    return createNotFoundResponse(restMockRequest);
+  }
+}

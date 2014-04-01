@@ -1,0 +1,12 @@
+{
+  if (javaScripts.size() > pageIndex) {
+    String script=javaScripts.get(pageIndex);
+    try {
+      browserFacade.executeJavaScript(script);
+    }
+ catch (    Exception e) {
+      SoapUI.log.warn("Error when running JavaScript [" + script + "]: "+ e.getMessage());
+    }
+    pageIndex++;
+  }
+}

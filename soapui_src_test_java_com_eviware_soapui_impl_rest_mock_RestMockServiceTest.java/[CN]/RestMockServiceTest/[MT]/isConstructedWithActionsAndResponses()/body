@@ -1,0 +1,9 @@
+{
+  Project project=ModelItemFactory.makeWsdlProject();
+  RESTMockServiceConfig config=createRestMockServiceConfig();
+  RestMockService mockService=new RestMockService(project,config);
+  assertEquals(config.getName(),mockService.getName());
+  RestMockAction mockOperation=mockService.getMockOperationAt(0);
+  RestMockResponse mockResponse=mockOperation.getMockResponseAt(0);
+  assertEquals("Some content",mockResponse.getResponseContent());
+}

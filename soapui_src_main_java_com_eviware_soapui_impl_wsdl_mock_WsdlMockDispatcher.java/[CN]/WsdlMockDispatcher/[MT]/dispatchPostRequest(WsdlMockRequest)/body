@@ -1,0 +1,55 @@
+{
+  WsdlMockResult result=null;
+  try {
+    long timestamp=System.currentTimeMillis();
+    SoapVersion soapVersion=mockRequest.getSoapVersion();
+    if (soapVersion == null)     throw new DispatchException("Unrecognized SOAP Version");
+    String soapAction=mockRequest.getSoapAction();
+    WsdlOperation operation=null;
+    if (SoapUtils.isSoapFault(mockRequest.getRequestContent(),soapVersion)) {
+      WsdlMockOperation faultMockOperation=mockService.getFaultMockOperation();
+      if (faultMockOperation != null)       operation=faultMockOperation.getOperation();
+    }
+ else {
+      try {
+        operation=SoapUtils.findOperationForRequest(soapVersion,soapAction,mockRequest.getRequestXmlObject(),mockService.getMockedOperations(),mockService.isRequireSoapVersion(),mockService.isRequireSoapAction(),mockRequest.getRequestAttachments());
+      }
+ catch (      Exception e) {
+        if (mockService.isDispatchResponseMessages()) {
+          try {
+            operation=SoapUtils.findOperationForResponse(soapVersion,soapAction,mockRequest.getRequestXmlObject(),mockService.getMockedOperations(),mockService.isRequireSoapVersion(),mockService.isRequireSoapAction());
+            if (operation != null) {
+              mockRequest.setResponseMessage(true);
+            }
+          }
+ catch (          Exception e2) {
+            throw e;
+          }
+        }
+ else {
+          throw e;
+        }
+      }
+    }
+    if (operation != null) {
+      WsdlMockOperation mockOperation=mockService.getMockOperation(operation);
+      if (mockOperation != null) {
+        long startTime=System.nanoTime();
+        result=mockOperation.dispatchRequest(mockRequest);
+        if (mockRequest.getHttpRequest() instanceof org.mortbay.jetty.Request)         ((org.mortbay.jetty.Request)mockRequest.getHttpRequest()).setHandled(true);
+        result.setTimeTaken((System.nanoTime() - startTime) / 1000000);
+        result.setTimestamp(timestamp);
+        addMockResult(result);
+        return result;
+      }
+ else {
+        throw new DispatchException("Failed to find matching operation for request");
+      }
+    }
+    throw new DispatchException("Missing operation for soapAction [" + soapAction + "] and body element ["+ XmlUtils.getQName(mockRequest.getContentElement())+ "] with SOAP Version ["+ mockRequest.getSoapVersion()+ "]");
+  }
+ catch (  Exception e) {
+    if (e instanceof DispatchException)     throw e;
+    throw new DispatchException(e);
+  }
+}

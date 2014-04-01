@@ -1,0 +1,14 @@
+{
+  boolean confirmedDeletion=UISupport.confirm("Do you really want to delete profile '" + profileName + "' ?",DELETE_PROFILE_DIALOG_TITLE);
+  if (!confirmedDeletion) {
+    refreshProfileSelectionComboBox(profileName);
+    return;
+  }
+  if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(profileName)) {
+    getOAuth2ProfileContainer().removeProfile(profileName);
+  }
+ else   if (getBasicAuthenticationTypes().contains(profileName)) {
+    request.removeBasicAuthenticationProfile(profileName);
+  }
+  refreshProfileSelectionComboBox(CredentialsConfig.AuthType.NO_AUTHORIZATION.toString());
+}

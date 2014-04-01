@@ -1,0 +1,11 @@
+{
+  super(config,mockService,RestMockAction.getIconName(config));
+  mockService.getMockOperationByName(config.getName());
+  List<RESTMockResponseConfig> responseConfigs=config.getResponseList();
+  for (  RESTMockResponseConfig responseConfig : responseConfigs) {
+    RestMockResponse restMockResponse=new RestMockResponse(this,responseConfig);
+    restMockResponse.addPropertyChangeListener(this);
+    addMockResponse(restMockResponse);
+  }
+  super.setupConfig(config);
+}

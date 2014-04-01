@@ -1,0 +1,7 @@
+{
+  profile.setRefreshToken("");
+  action=new RefreshOAuthAccessTokenAction(profile);
+  assertThat(action.isEnabled(),is(false));
+  profile.setRefreshToken("some_refresh_token");
+  assertThat(action.isEnabled(),is(true));
+}

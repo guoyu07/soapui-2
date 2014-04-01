@@ -1,0 +1,8 @@
+{
+  RestMockAction restMockAction=ModelItemFactory.makeRestMockAction();
+  WsdlProject project=(WsdlProject)restMockAction.getMockService().getProject();
+  restMockAction.getMockService().setName(restMockServiceName);
+  restMockResponse=restMockAction.addNewMockResponse("REST Mock Response");
+  restMockResponse.setResponseHttpStatus(httpStatusCode);
+  project.saveAs(projectFileName);
+}

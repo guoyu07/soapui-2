@@ -1,0 +1,5 @@
+{
+  String threeLineScript="alert(1)\nalert(2)\nthis is not valid JavaScript";
+  JavaScriptValidationError validationError=javaScriptValidator.validate(threeLineScript);
+  assertThat(validationError.getLineNumber(),is(3));
+}

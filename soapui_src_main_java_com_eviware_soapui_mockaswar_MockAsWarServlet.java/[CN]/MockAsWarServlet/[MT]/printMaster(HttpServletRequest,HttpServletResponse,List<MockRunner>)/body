@@ -3,13 +3,13 @@
   response.setContentType("text/html");
   PrintWriter out=response.getWriter();
   startHtmlPage(out,"MockService Log Table","15");
-  out.print("<h3><img src=\"header_logo.jpg\"> SoapUI MockServices Log for project [" + project.getName() + "]</h3>"+ "<p style=\"text-align: left\">WSDLs:");
+  out.print("<img src=\"header_logo.png\"><h3>SoapUI MockServices Log for project [" + project.getName() + "]</h3>"+ "<p style=\"text-align: left\">WSDLs:");
   for (  MockRunner mockRunner : mockRunners) {
     String overviewUrl=((WsdlMockRunner)mockRunner).getOverviewUrl();
     if (overviewUrl.startsWith("/")) {
       overviewUrl=overviewUrl.substring(1);
     }
-    out.print(" [<a target=\"new\" href=\"" + overviewUrl + "\">"+ mockRunner.getMockService().getName()+ "</a>]");
+    out.print(" [<a target=\"new\" href=\"" + overviewUrl + "\">"+ mockRunner.getMockContext().getMockService().getName()+ "</a>]");
   }
   out.print("</p>");
   out.print("<hr/><p><b>Processed Requests</b>: ");

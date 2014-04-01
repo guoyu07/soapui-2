@@ -1,0 +1,5 @@
+{
+  String contentType="application/atom+xml; type=feed; charset=UTF-8; ";
+  String[] parameters=contentType.split(";");
+  assertThat(restMockResponse.getEncodingValue(parameters),is("UTF-8"));
+}

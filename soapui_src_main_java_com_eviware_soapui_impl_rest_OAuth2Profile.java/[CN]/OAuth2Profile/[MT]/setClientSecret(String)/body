@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getClientSecret();
+  if (!StringUtils.equals(oldValue,clientSecret)) {
+    configuration.setClientSecret(clientSecret);
+    pcs.firePropertyChange(CLIENT_SECRET_PROPERTY,oldValue,clientSecret);
+  }
+}

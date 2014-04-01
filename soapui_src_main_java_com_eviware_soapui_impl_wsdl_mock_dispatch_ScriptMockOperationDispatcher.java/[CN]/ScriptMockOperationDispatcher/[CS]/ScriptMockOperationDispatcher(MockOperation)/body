@@ -1,0 +1,6 @@
+{
+  super(mockOperation);
+  scriptEnginePool=new ScriptEnginePool(mockOperation);
+  scriptEnginePool.setScript(mockOperation.getScript());
+  mockOperation.addPropertyChangeListener(AbstractMockOperation.DISPATCH_PATH_PROPERTY,this);
+}

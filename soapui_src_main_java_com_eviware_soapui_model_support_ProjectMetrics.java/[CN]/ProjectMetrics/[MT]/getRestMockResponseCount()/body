@@ -1,0 +1,9 @@
+{
+  int restMockResponseCount=0;
+  for (  MockService mockService : project.getRestMockServiceList()) {
+    for (    MockOperation mockOperation : mockService.getMockOperationList()) {
+      restMockResponseCount+=mockOperation.getMockResponseCount();
+    }
+  }
+  return restMockResponseCount;
+}

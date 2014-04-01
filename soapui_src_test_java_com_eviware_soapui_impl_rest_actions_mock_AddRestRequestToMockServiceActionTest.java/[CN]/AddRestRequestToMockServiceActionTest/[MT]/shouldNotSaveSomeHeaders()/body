@@ -1,0 +1,8 @@
+{
+  String[] headersNotToSave=new String[]{HEADER_STATUS,HEADER_CONTENT_TYPE,HEADER_CONTENT_LENGTH};
+  action.perform(restRequest,notUsed);
+  StringToStringsMap responseHeaders=getActualResponseHeaders();
+  for (  String header : headersNotToSave) {
+    assertThat(responseHeaders.get(header),is(NULL));
+  }
+}

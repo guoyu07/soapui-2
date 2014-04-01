@@ -1,0 +1,20 @@
+{
+  if (this.getWsaConfig().isWsaEnabled()) {
+    WsdlOperation operation=getMockOperation().getOperation();
+    WsaUtils wsaUtils=new WsaUtils(responseContent,getSoapVersion(),operation,context);
+    responseContent=wsaUtils.addWSAddressingMockResponse(this,(WsdlMockRequest)request);
+  }
+  String outgoingWss=getOutgoingWss();
+  if (StringUtils.isNullOrEmpty(outgoingWss))   outgoingWss=getMockOperation().getMockService().getOutgoingWss();
+  if (StringUtils.hasContent(outgoingWss)) {
+    OutgoingWss outgoing=((WsdlProject)getMockOperation().getMockService().getProject()).getWssContainer().getOutgoingWssByName(outgoingWss);
+    if (outgoing != null) {
+      Document dom=XmlUtils.parseXml(responseContent);
+      outgoing.processOutgoing(dom,context);
+      StringWriter writer=new StringWriter();
+      XmlUtils.serialize(dom,writer);
+      responseContent=writer.toString();
+    }
+  }
+  return responseContent;
+}

@@ -1,5 +1,5 @@
 {
-  super(config,mockService,"/mockOperation.gif");
+  super(config,mockService,ICON_NAME);
   Interface iface=mockService.getProject().getInterfaceByName(config.getInterface());
   if (iface == null) {
     SoapUI.log.warn("Missing interface [" + config.getInterface() + "] for MockOperation in project");
@@ -11,7 +11,7 @@
   for (  MockResponseConfig responseConfig : responseConfigs) {
     WsdlMockResponse wsdlMockResponse=new WsdlMockResponse(this,responseConfig);
     wsdlMockResponse.addPropertyChangeListener(this);
-    responses.add(wsdlMockResponse);
+    super.addMockResponse(wsdlMockResponse);
   }
-  initData(config);
+  setupConfig(config);
 }

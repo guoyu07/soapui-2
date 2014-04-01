@@ -6,6 +6,7 @@
   inspector.addPropertyChangeListener(JInspectorPanelImpl.this);
   inspectorPanel.add(inspector.getComponent(),inspector.getInspectorId());
   JToggleButton button=new JToggleButton(new SelectInspectorAction(inspector));
+  button.setName(inspector.getInspectorId());
   inspectorButtons.put(inspector,button);
   if (orientation == SwingConstants.LEFT) {
     String text=button.getText();

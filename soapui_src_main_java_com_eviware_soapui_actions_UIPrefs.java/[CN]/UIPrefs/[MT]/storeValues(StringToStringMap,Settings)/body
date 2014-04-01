@@ -12,6 +12,7 @@
   if (SoapUI.isStandalone()) {
     settings.setString(UISettings.DESKTOP_TYPE,values.get(DESKTOP_TYPE));
     settings.setBoolean(UISettings.NATIVE_LAF,values.getBoolean(NATIVE_LAF));
+    settings.setBoolean(UISettings.MRU_PANEL_SELECTOR,values.getBoolean(MRU_PANEL_SELECTOR));
   }
   settings.setBoolean(UISettings.DONT_DISABLE_GROOVY_LOG,values.getBoolean(ENABLE_GROOVY_LOG));
   if (SoapUI.isStandalone()) {
@@ -24,8 +25,6 @@
   settings.setString(UISettings.RAW_RESPONSE_MESSAGE_SIZE,values.get(RAW_RESPONSE_MESSAGE_SIZE));
   settings.setString(UISettings.RAW_REQUEST_MESSAGE_SIZE,values.get(RAW_REQUEST_MESSAGE_SIZE));
   settings.setBoolean(UISettings.WRAP_RAW_MESSAGES,values.getBoolean(WRAP_RAW_MESSAGES));
-  settings.setBoolean(UISettings.DISABLE_BROWSER,values.getBoolean(DISABLE_BROWSER));
-  settings.setBoolean(UISettings.DISABLE_BROWSER_PLUGINS,values.getBoolean(DISABLE_BROWSER_PLUGINS));
   SoapUI.initAutoSaveTimer();
   SoapUI.initGCTimer();
 }

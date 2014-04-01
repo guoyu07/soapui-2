@@ -1,6 +1,4 @@
 {
-  String oldContent=getResponseContent();
-  if (responseContent != null && responseContent.equals(oldContent))   return;
-  this.responseContent=responseContent;
-  notifyPropertyChanged(RESPONSE_CONTENT_PROPERTY,oldContent,responseContent);
+  super.setResponseContent(responseContent);
+  handleFault(responseContent);
 }

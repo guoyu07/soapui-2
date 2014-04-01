@@ -1,0 +1,8 @@
+{
+  restRequest.setMethod(TRACE);
+  restMockService.addNewMockAction(restRequest);
+  RestMockAction restMockAction=restMockService.getMockOperationAt(0);
+  RestMockAction matchingAction=(RestMockAction)restMockService.findMatchingOperationWithExactPath(PATH,TRACE);
+  assertThat(matchingAction,is(restMockAction));
+  assertEquals(PATH,matchingAction.getResourcePath());
+}

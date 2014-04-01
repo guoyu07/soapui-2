@@ -1,12 +1,9 @@
 {
   try {
-    if (Tools.isMac()) {
+    if (UISupport.isMac()) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       getSettings().setBoolean(UISettings.NATIVE_LAF,true);
       log.info("Defaulting to native L&F for Mac OS X");
-    }
- else     if (!SoapUI.isJXBrowserDisabled(true) && PlatformContext.isMacOS()) {
-      javax.swing.UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     }
  else     if (getSettings().getBoolean(UISettings.NATIVE_LAF)) {
       javax.swing.UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -22,7 +19,7 @@
       PlasticXPLookAndFeel.setPlasticTheme(theme);
     }
   }
- catch (  Throwable e) {
-    System.err.println("Error initializing PlasticXPLookAndFeel; " + e.getMessage());
+ catch (  Exception e) {
+    SoapUI.logError(e,"Error initializing Look and Feel");
   }
 }

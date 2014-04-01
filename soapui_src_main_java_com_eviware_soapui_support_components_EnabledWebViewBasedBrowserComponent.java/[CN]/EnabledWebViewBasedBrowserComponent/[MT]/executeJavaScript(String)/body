@@ -1,0 +1,19 @@
+{
+  Platform.runLater(new Runnable(){
+    public void run(){
+      try {
+        webView.getEngine().executeScript(script);
+        for (        BrowserListener listener : listeners) {
+          listener.javaScriptExecuted(script,null,null);
+        }
+      }
+ catch (      Exception e) {
+        SoapUI.log.warn("Error executing JavaScript [" + script + "]",e);
+        for (        BrowserListener listener : listeners) {
+          listener.javaScriptExecuted(script,lastLocation,e);
+        }
+      }
+    }
+  }
+);
+}

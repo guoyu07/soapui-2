@@ -2,7 +2,7 @@
   QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
   if (selectedQuery == null)   return;
   try {
-    WsdlMockResult lastResult=getMockOperation().getLastMockResult();
+    MockResult lastResult=getMockOperation().getLastMockResult();
     String content=null;
     if (lastResult == null) {
       if (!UISupport.confirm("Missing last result, declare from default request instead?","Declare Namespaces")) {

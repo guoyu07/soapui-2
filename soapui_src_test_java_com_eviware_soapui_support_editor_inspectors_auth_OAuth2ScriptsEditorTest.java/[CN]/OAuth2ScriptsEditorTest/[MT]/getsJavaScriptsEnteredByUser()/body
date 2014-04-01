@@ -1,0 +1,7 @@
+{
+  final String firstScript="alert('first')";
+  final String secondScript="alert('second')";
+  enterScript(0,firstScript);
+  enterScript(1,secondScript);
+  assertThat(editor.getJavaScripts(),is(Arrays.asList(firstScript,secondScript)));
+}

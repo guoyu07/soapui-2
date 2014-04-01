@@ -1,0 +1,12 @@
+{
+  if (SoapUI.isBrowserDisabled()) {
+    return;
+  }
+  Platform.runLater(new Runnable(){
+    public void run(){
+      getWebEngine().loadContent(contentAsString);
+    }
+  }
+);
+  pcs.firePropertyChange("content",null,contentAsString);
+}

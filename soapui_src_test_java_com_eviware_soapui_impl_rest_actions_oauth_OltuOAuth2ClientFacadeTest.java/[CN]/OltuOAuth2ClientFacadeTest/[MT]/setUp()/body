@@ -1,0 +1,7 @@
+{
+  profile=OAuth2TestUtils.getOAuthProfileWithDefaultValues();
+  profileWithOnlyAccessToken=OAuth2TestUtils.getOAuth2ProfileWithOnlyAccessToken();
+  httpRequest=new ExtendedPostMethod();
+  httpRequest.setURI(new URI("endpoint/path"));
+  oltuClientFacade=OAuth2TestUtils.getOltuOAuth2ClientFacadeWithMockedTokenExtractor(profile);
+}

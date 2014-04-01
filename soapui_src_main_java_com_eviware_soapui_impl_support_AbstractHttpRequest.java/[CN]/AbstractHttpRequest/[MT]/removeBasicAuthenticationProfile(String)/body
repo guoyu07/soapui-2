@@ -1,0 +1,9 @@
+{
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
+  for (int count=0; count < credentialsConfig.sizeOfAddedBasicAuthenticationTypesArray(); count++) {
+    if (credentialsConfig.getAddedBasicAuthenticationTypesArray(count).equals(authType)) {
+      credentialsConfig.removeAddedBasicAuthenticationTypes(count);
+      break;
+    }
+  }
+}

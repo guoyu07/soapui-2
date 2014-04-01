@@ -2,8 +2,8 @@
   List<PropertyExpansion> result=new ArrayList<PropertyExpansion>();
   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,this,"responseContent"));
   StringToStringsMap responseHeaders=getResponseHeaders();
-  for (  String key : responseHeaders.keySet()) {
-    for (    String value : responseHeaders.get(key))     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new ResponseHeaderHolder(key,value,this),"value"));
+  for (  Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
+    for (    String value : headerEntry.getValue())     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new ResponseHeaderHolder(headerEntry.getKey(),value,this),"value"));
   }
   addWsaPropertyExpansions(result,getWsaConfig(),this);
   return result.toArray(new PropertyExpansion[result.size()]);

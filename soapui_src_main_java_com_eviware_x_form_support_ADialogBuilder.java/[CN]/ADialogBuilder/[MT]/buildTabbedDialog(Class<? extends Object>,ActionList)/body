@@ -21,7 +21,7 @@
       }
     }
   }
-  ActionList defaultActions=formAnnotation.helpUrl().length() == 0 ? builder.buildOkCancelActions() : builder.buildOkCancelHelpActions(formAnnotation.helpUrl());
+  ActionList defaultActions=StringUtils.isBlank(formAnnotation.helpUrl()) ? builder.buildOkCancelActions() : builder.buildOkCancelHelpActions(formAnnotation.helpUrl());
   if (actions == null)   actions=defaultActions;
  else   actions.addActions(defaultActions);
   XFormDialog dialog=builder.buildDialog(actions,formAnnotation.description(),UISupport.createImageIcon(formAnnotation.icon()));

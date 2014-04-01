@@ -1,6 +1,6 @@
 {
   RestRequest restRequest=ModelItemFactory.makeRestRequest();
-  restRequest.setMethod(RestRequestInterface.RequestMethod.POST);
+  restRequest.setMethod(RestRequestInterface.HttpMethod.POST);
   String requestBody="Some meaningful data";
   restRequest.setRequestContent(requestBody);
   TestStepConfig testStepConfig=RestRequestStepFactory.createConfig(restRequest,"Rest Request");

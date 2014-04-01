@@ -1,0 +1,7 @@
+{
+  Container desktop=f.getParent();
+  Dimension desktopSize=desktop.getSize();
+  int boundedX=(int)Math.min(Math.max(0,newX),desktopSize.getWidth());
+  int boundedY=(int)Math.min(Math.max(0,newY),desktopSize.getHeight());
+  return new Point(boundedX,boundedY);
+}

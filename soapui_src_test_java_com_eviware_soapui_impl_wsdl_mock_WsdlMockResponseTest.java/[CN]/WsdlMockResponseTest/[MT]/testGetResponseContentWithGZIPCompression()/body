@@ -1,0 +1,7 @@
+{
+  when(compressedStringConfig.getCompression()).thenReturn("gzip");
+  byte[] gZippedBytes=CompressionSupport.compress("gzip","Awesomeness".getBytes());
+  gZippedBytes=Base64.encodeBase64(gZippedBytes);
+  when(compressedStringConfig.getStringValue()).thenReturn(new String(gZippedBytes));
+  assertThat(mockResponse.getResponseContent(),is("Awesomeness"));
+}

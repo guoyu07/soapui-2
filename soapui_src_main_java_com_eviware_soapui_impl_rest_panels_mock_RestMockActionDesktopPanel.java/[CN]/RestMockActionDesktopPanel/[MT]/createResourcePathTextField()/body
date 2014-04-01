@@ -1,0 +1,10 @@
+{
+  final JTextField resourcePathEditor=new JTextField();
+  resourcePathEditor.addKeyListener(new KeyAdapter(){
+    @Override public void keyReleased(    KeyEvent e){
+      getModelItem().setResourcePath(resourcePathEditor.getText());
+    }
+  }
+);
+  return new TextPanelWithTopLabel("Resource Path",getModelItem().getResourcePath(),resourcePathEditor);
+}

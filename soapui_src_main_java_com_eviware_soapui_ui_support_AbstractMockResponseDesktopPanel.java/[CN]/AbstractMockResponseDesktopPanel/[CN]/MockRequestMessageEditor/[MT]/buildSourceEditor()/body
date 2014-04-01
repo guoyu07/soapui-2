@@ -1,0 +1,13 @@
+{
+  XmlSourceEditorView<?> editor=getSourceEditor();
+  RSyntaxTextArea inputArea=editor.getInputArea();
+  inputArea.addFocusListener(new InputAreaFocusListener());
+  if (UISupport.isMac()) {
+    inputArea.getInputMap().put(KeyStroke.getKeyStroke("control meta TAB"),moveFocusAction);
+  }
+ else {
+    inputArea.getInputMap().put(KeyStroke.getKeyStroke("control alt TAB"),moveFocusAction);
+  }
+  inputArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F4"),closePanelAction);
+  return editor;
+}

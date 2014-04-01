@@ -27,10 +27,6 @@
       FileOutputStream projectOut=new FileOutputStream(projectFile);
       projectDocument.save(projectOut,options);
       projectOut.close();
-      if (!tempFile.delete()) {
-        SoapUI.getErrorLog().warn("Failed to delete temporary project file; " + tempFile.getAbsolutePath());
-        tempFile.deleteOnExit();
-      }
     }
     if (!tempFile.delete()) {
       SoapUI.getErrorLog().warn("Failed to delete temporary project file; " + tempFile.getAbsolutePath());

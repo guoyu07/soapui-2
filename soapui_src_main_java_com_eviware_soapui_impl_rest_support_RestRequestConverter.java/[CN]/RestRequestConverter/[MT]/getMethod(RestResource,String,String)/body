@@ -16,7 +16,7 @@
     }
  else {
       method=resource.addNewMethod(methodType + " Method");
-      method.setMethod(RequestMethod.valueOf(methodType));
+      method.setMethod(RestRequestInterface.HttpMethod.valueOf(methodType));
       log.info("Created new Method for Resource '" + resource.getName() + "'.");
     }
   }
@@ -36,7 +36,7 @@
       String name=UISupport.prompt("Name for REST " + methodType + " Method","Create new REST Method",methodType + " Method");
       if (name == null)       throw new RestConversionException("Cannot get name for RestMethod!");
       method=resource.addNewMethod(name);
-      method.setMethod(RequestMethod.valueOf(methodType));
+      method.setMethod(RestRequestInterface.HttpMethod.valueOf(methodType));
     }
   }
   return method;

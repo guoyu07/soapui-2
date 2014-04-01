@@ -1,0 +1,8 @@
+{
+  Operation operation=getOperation();
+  if (operation != null) {
+    operation.getInterface().getProject().addProjectListener(projectListener);
+    operation.getInterface().addInterfaceListener(interfaceListener);
+    operation.getInterface().addPropertyChangeListener(WsdlInterface.NAME_PROPERTY,this);
+  }
+}

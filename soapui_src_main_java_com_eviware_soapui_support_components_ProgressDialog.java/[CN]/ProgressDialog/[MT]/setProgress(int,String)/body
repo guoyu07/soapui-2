@@ -1,5 +1,10 @@
 {
-  progressBar.setValue(value);
-  progressBar.setString(string);
-  pack();
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      progressBar.setValue(value);
+      progressBar.setString(string);
+      pack();
+    }
+  }
+);
 }

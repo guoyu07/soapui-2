@@ -1,0 +1,14 @@
+{
+  if (getScript() == null) {
+    try {
+      String groovyScriptName="com/eviware/soapui/impl/rest/mock/dispatching-script-sample.groovy";
+      InputStream groovyStream=getClass().getClassLoader().getResourceAsStream(groovyScriptName);
+      InputStreamReader groovyReader=new InputStreamReader(groovyStream);
+      String groovyScript=CharStreams.toString(groovyReader);
+      setScript(groovyScript);
+    }
+ catch (    IOException e) {
+      SoapUI.logError(e);
+    }
+  }
+}

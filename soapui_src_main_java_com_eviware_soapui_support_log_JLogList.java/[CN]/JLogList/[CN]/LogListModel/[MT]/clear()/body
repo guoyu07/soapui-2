@@ -1,8 +1,13 @@
 {
-  int sz=lines.size();
-  if (sz == 0)   return;
-synchronized (lines) {
-    lines.clear();
-    fireIntervalRemoved(this,0,sz - 1);
+  final int size=lines.size();
+  if (size == 0) {
+    return;
   }
+  lines.clear();
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      fireIntervalRemoved(this,0,size - 1);
+    }
+  }
+);
 }

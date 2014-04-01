@@ -1,0 +1,7 @@
+{
+  restRequest.setPath(originalPath);
+  SubmitContext submitContext=submitRequest(restRequest,originalPath);
+  HttpResponse response=makeResponseFor(restRequest,originalPath);
+  restRequest.setResponse(response,submitContext);
+  return response;
+}

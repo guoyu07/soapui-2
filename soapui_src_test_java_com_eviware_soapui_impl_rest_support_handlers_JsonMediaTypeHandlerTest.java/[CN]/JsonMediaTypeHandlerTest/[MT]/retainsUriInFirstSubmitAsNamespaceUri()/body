@@ -1,0 +1,6 @@
+{
+  HttpResponse response=submitRequestAndReceiveResponse(restRequest,"/original/path");
+  String originalXml=mediaTypeHandler.createXmlRepresentation(response);
+  HttpResponse responseWithNewPath=submitRequestAndReceiveResponse(restRequest,"/another/path");
+  assertThat(mediaTypeHandler.createXmlRepresentation(responseWithNewPath),is(equalTo(originalXml)));
+}

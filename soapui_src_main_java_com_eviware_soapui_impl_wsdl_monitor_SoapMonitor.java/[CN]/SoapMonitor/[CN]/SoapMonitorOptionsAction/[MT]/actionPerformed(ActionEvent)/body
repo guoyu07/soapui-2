@@ -13,7 +13,7 @@
   optionsDialog.setOptions(OptionsForm.RESPONSE_WSS,StringUtils.merge(project.getWssContainer().getIncomingWssNames(),"<none>"));
   optionsDialog.setValue(OptionsForm.REQUEST_WSS,incomingRequestWss);
   optionsDialog.setValue(OptionsForm.RESPONSE_WSS,incomingResponseWss);
-  optionsDialog.setValue(LaunchForm.SET_CONTENT_TYPES,project.getSettings().getString(LaunchForm.SET_CONTENT_TYPES,SoapMonitorAction.defaultContentTypes()));
+  optionsDialog.setValue(LaunchForm.SET_CONTENT_TYPES,project.getSettings().getString(LaunchForm.SET_CONTENT_TYPES,SoapMonitorAction.defaultContentTypes().toString()));
   if (optionsDialog.show()) {
     Settings settings=getProject().getSettings();
     settings.setLong(OptionsForm.PORT,listenPort=optionsDialog.getIntValue(OptionsForm.PORT,listenPort));

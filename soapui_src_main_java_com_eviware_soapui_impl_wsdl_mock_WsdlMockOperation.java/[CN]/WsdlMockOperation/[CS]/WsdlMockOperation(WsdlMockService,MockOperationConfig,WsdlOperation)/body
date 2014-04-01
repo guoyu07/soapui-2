@@ -1,8 +1,7 @@
 {
-  super(config,mockService,"/mockOperation.gif");
+  super(config,mockService,ICON_NAME);
   this.operation=operation;
   config.setInterface(operation.getInterface().getName());
   config.setOperation(operation.getName());
-  initData(config);
-  interfaceListener=new InternalInterfaceListener();
+  setupConfig(config);
 }

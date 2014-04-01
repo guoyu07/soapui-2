@@ -1,0 +1,21 @@
+{
+  String queryString=url.getQuery();
+  for (  BrowserListener listener : listeners) {
+    listener.contentChanged("<html><body>mock_login_screen_content</body></html>");
+    if (queryString.contains("response_type=code")) {
+      if (!queryString.contains("redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob")) {
+        String redirectURI=getRedirectURI(queryString);
+        listener.locationChanged("consent_screen");
+        listener.contentChanged("<html><body>mock_consent_screen_content</body></html>");
+        listener.locationChanged(redirectURI + "?code=" + AUTHORIZATION_CODE+ "&state=foo");
+      }
+ else {
+        listener.contentChanged("<TITLE>code=" + AUTHORIZATION_CODE + "</TITLE>");
+      }
+    }
+ else     if (queryString.contains("response_type=token")) {
+      String redirectURI=getRedirectURI(queryString);
+      listener.locationChanged(redirectURI + "#access_token=" + ACCESS_TOKEN+ "&refresh_token="+ REFRESH_TOKEN+ "&expires_in=3600");
+    }
+  }
+}

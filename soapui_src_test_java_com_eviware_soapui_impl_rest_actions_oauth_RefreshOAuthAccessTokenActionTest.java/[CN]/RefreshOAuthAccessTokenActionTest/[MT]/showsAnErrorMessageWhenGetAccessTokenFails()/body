@@ -1,0 +1,5 @@
+{
+  Mockito.doThrow(new OAuth2Exception(new RuntimeException())).when(clientFacade).refreshAccessToken(profile);
+  action.actionPerformed(DUMMY_ACTION_EVENT);
+  assertThat(stubbedDialogs.getErrorMessages(),is(aCollectionWithSize(1)));
+}

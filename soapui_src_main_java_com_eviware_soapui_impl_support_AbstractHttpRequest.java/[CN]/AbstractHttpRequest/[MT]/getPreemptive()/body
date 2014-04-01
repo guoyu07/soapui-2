@@ -1,0 +1,7 @@
+{
+  CredentialsConfig credentialsConfig=getCredentialsConfig();
+  if (AuthType.PREEMPTIVE.toString().equals(getAuthType()) && !credentialsConfig.getPreemptive()) {
+    credentialsConfig.setPreemptive(true);
+  }
+  return credentialsConfig.getPreemptive();
+}

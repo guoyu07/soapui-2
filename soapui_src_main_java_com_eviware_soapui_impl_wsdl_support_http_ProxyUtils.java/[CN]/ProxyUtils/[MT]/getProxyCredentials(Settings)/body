@@ -1,0 +1,19 @@
+{
+  String proxyUsername=getExpandedProperty(null,settings,ProxySettings.USERNAME);
+  String proxyPassword=getExpandedProperty(null,settings,ProxySettings.PASSWORD);
+  if (!StringUtils.isNullOrEmpty(proxyUsername) && !StringUtils.isNullOrEmpty(proxyPassword)) {
+    Credentials proxyCreds=new UsernamePasswordCredentials(proxyUsername,proxyPassword);
+    int ix=proxyUsername.indexOf('\\');
+    if (ix > 0) {
+      String domain=proxyUsername.substring(0,ix);
+      if (proxyUsername.length() > ix + 1) {
+        String user=proxyUsername.substring(ix + 1);
+        proxyCreds=new NTCredentials(user,proxyPassword,getWorkstationName(),domain);
+      }
+    }
+    CredentialsProvider credsProvider=new BasicCredentialsProvider();
+    credsProvider.setCredentials(AuthScope.ANY,proxyCreds);
+    return credsProvider;
+  }
+  return null;
+}

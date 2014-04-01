@@ -1,0 +1,15 @@
+{
+  int ix=mockServices.indexOf(mockService);
+  boolean isRestMockService=ix == -1;
+  if (isRestMockService) {
+    ix=restMockServices.indexOf(mockService);
+  }
+  removeMockServiceFromList(ix,isRestMockService);
+  try {
+    fireMockServiceRemoved(mockService);
+  }
+  finally {
+    mockService.release();
+    removeMockServiceFromConfig(ix,isRestMockService);
+  }
+}

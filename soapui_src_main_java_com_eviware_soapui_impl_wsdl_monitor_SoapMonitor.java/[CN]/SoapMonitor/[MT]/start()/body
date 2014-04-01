@@ -7,6 +7,7 @@
   }
 ;
   monitorEngine=new SoapMonitorEngineImpl(sslEndpoint);
+  monitorEngine.setIncludedContentTypes(ContentTypes.of(project.getSettings().getString(SoapMonitorAction.LaunchForm.SET_CONTENT_TYPES,SoapMonitorAction.defaultContentTypes().toString())));
   monitorEngine.start(this.getProject(),localPort,listenerCallBack);
   if (monitorEngine.isRunning()) {
     stopButton.setEnabled(true);

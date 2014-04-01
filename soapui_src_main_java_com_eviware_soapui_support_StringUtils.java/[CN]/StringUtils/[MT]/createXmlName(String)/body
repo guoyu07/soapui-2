@@ -1,13 +1,11 @@
 {
-  StringBuffer result=new StringBuffer();
+  StringBuilder result=new StringBuilder();
   boolean skipped=false;
-  boolean numbersOnly=true;
   for (int c=0; c < str.length(); c++) {
     char ch=str.charAt(c);
     if (Character.isLetter(ch) || ch == '_' || ch == '-' || ch == '.') {
       if (skipped)       result.append(Character.toUpperCase(ch));
  else       result.append(ch);
-      numbersOnly=false;
       skipped=false;
     }
  else     if (Character.isDigit(ch)) {
@@ -19,6 +17,6 @@
     }
   }
   str=result.toString();
-  if (numbersOnly && str.length() > 0)   str="_" + str;
+  if (str.length() > 0 && Character.isDigit(str.charAt(0)))   str="_" + str;
   return str;
 }

@@ -1,7 +1,5 @@
 {
-  if (actions == null) {
-    actions=new DefaultActionList("MockResult");
-    actions.setDefaultAction(new ShowMessageExchangeAction(new WsdlMockResultMessageExchange(this,mockResponse),"MockResult"));
-  }
-  return actions;
+  ActionList actionList=super.getActions();
+  actionList.setDefaultAction(createMessageExchangeAction());
+  return actionList;
 }

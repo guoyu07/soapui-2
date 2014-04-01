@@ -1,0 +1,22 @@
+{
+  if (!enabled)   return;
+  if (!SoapUI.usingGraphicalEnvironment()) {
+    return;
+  }
+  if (isStopped()) {
+    Future<?> localFuture=future;
+    if (future != null && !localFuture.isDone()) {
+      localFuture.cancel(true);
+      while (future != null) {
+        try {
+          Thread.sleep(1);
+        }
+ catch (        InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    stopped=false;
+    future=SoapUI.getThreadPool().submit(this);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  final String accessToken="4/98789adfc8234278243987";
+  doAnswer(new Answer(){
+    @Override public Object answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      profile.setAccessToken(accessToken);
+      return null;
+    }
+  }
+).when(clientFacade).refreshAccessToken(profile);
+  action.actionPerformed(DUMMY_ACTION_EVENT);
+  assertThat(profile.getAccessToken(),is(accessToken));
+}

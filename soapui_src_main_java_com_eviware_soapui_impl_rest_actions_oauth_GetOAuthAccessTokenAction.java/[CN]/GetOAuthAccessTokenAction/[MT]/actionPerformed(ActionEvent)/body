@@ -1,0 +1,12 @@
+{
+  try {
+    getOAuthClientFacade().requestAccessToken(target);
+  }
+ catch (  InvalidOAuth2ParametersException e) {
+    UISupport.showErrorMessage("Invalid OAuth 2 parameters: " + e.getMessage());
+  }
+catch (  Exception e) {
+    SoapUI.logError(e,"Error retrieving OAuth 2 access token");
+    UISupport.showErrorMessage("Could not retrieve access token. Check the SoapUI log for details");
+  }
+}

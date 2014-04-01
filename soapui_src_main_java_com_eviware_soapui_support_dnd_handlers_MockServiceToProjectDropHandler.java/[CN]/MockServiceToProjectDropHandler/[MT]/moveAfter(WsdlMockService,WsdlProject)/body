@@ -4,6 +4,6 @@
   String name=UISupport.prompt("Specify name for moved MockService","Move MockService",source.getName());
   if (name == null)   return false;
   if (a.cloneToAnotherProject(source,target.getName(),name,source.getDescription()) == null)   return false;
-  source.getProject().removeMockService(source);
+  ((WsdlProject)source.getProject()).removeMockService(source);
   return true;
 }

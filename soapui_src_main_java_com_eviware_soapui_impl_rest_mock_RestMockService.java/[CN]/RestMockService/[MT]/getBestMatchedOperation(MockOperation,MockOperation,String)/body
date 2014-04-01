@@ -1,0 +1,7 @@
+{
+  MockOperation bestMatchedOperation=currentBestMatchedOperation;
+  if (bestMatchedOperation == null || foundBetterMatch((RestMockAction)bestMatchedOperation,operationPath)) {
+    bestMatchedOperation=operation;
+  }
+  return bestMatchedOperation;
+}

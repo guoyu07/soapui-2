@@ -29,7 +29,7 @@
       WsdlMonitorMessageExchange me=tableModel.getMessageExchangeAt(row);
       if (me.getOperation() == null)       continue;
       WsdlMockOperation mockOperation=mockService.getMockOperation(me.getOperation());
-      if (mockOperation == null)       mockOperation=mockService.addNewMockOperation(me.getOperation());
+      if (mockOperation == null)       mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(me.getOperation());
       WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Monitor Response " + (++cnt),false);
       mockResponse.setResponseContent(me.getResponseContent());
       Attachment[] requestAttachments=me.getResponseAttachments();

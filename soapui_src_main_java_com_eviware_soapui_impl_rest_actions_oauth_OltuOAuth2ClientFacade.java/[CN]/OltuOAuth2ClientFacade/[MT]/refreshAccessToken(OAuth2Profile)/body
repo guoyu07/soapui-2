@@ -1,0 +1,7 @@
+{
+  OAuth2Parameters parameters=buildParametersFrom(profile);
+  validateRequiredStringValue(parameters.refreshToken,"refresh token");
+  validateRequiredStringValue(parameters.clientId,"client ID");
+  validateRequiredStringValue(parameters.clientSecret,"client secret");
+  getOAuth2TokenExtractor().refreshAccessToken(parameters);
+}

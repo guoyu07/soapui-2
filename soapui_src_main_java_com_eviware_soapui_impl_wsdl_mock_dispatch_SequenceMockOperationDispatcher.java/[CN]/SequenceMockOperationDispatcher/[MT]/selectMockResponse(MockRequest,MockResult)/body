@@ -1,0 +1,6 @@
+{
+  if (currentDispatchIndex >= getMockOperation().getMockResponseCount())   currentDispatchIndex=0;
+  MockResponse mockResponse=getMockOperation().getMockResponseAt(currentDispatchIndex);
+  currentDispatchIndex++;
+  return mockResponse;
+}

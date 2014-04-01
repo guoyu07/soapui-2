@@ -1,0 +1,7 @@
+{
+  RestMockService mockService=new RestMockService(this,getConfig().addNewRestMockService());
+  mockService.setName(name);
+  addRestMockService(mockService);
+  fireMockServiceAdded(mockService);
+  return mockService;
+}

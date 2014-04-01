@@ -1,0 +1,11 @@
+{
+  moveFocusAction=new MoveFocusAction();
+  responseEditor=buildResponseEditor();
+  JComponent responseEditorPanel=createResponseEditorPanel(responseEditor);
+  if (hasRequestEditor()) {
+    return buildEverythingPanel(responseEditorPanel);
+  }
+ else {
+    return responseEditorPanel;
+  }
+}

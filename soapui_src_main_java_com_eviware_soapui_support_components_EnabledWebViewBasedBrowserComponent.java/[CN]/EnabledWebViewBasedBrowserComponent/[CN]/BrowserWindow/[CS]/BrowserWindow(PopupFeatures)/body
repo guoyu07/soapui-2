@@ -1,0 +1,13 @@
+{
+  super("Browser");
+  setIconImages(SoapUI.getFrameIcons());
+  browser=new EnabledWebViewBasedBrowserComponent(popupFeatures.hasToolbar(),popupStrategy);
+  getContentPane().setLayout(new BorderLayout());
+  getContentPane().add(browser.getComponent());
+  addWindowListener(new WindowAdapter(){
+    @Override public void windowClosing(    WindowEvent e){
+      browser.close(false);
+    }
+  }
+);
+}

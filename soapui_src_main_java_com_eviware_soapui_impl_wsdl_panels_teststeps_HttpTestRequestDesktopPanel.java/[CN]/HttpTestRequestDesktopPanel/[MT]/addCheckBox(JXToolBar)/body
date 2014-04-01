@@ -1,7 +1,7 @@
 {
   downloadResources=new JCheckBox();
   try {
-    downloadResources.setSelected(((HttpRequest)((HttpTestRequestStep)getModelItem()).getHttpRequest()).getDownloadIncludedResources());
+    downloadResources.setSelected(((HttpRequest)getModelItem().getHttpRequest()).getDownloadIncludedResources());
   }
  catch (  Exception cce) {
     SoapUI.logError(cce);
@@ -12,7 +12,7 @@
     public void actionPerformed(    ActionEvent e){
       try {
         if (1001 == e.getID() && getModelItem() instanceof HttpTestRequestStep) {
-          ((HttpRequest)((HttpTestRequestStep)getModelItem()).getHttpRequest()).setDownloadIncludedResources(((JCheckBox)e.getSource()).isSelected());
+          ((HttpRequest)getModelItem().getHttpRequest()).setDownloadIncludedResources(((JCheckBox)e.getSource()).isSelected());
         }
       }
  catch (      Exception cce) {

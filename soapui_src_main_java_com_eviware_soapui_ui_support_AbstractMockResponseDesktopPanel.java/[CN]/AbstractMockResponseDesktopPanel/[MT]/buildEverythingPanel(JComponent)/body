@@ -1,0 +1,27 @@
+{
+  requestSplitPane=UISupport.createHorizontalSplit();
+  requestSplitPane.setResizeWeight(0.5);
+  requestSplitPane.setBorder(null);
+  splitButton=createActionButton(new ChangeSplitPaneOrientationAction(requestSplitPane),true);
+  JComponent component;
+  tabsButton=new JToggleButton(new ChangeToTabsAction());
+  tabsButton.setPreferredSize(UISupport.TOOLBAR_BUTTON_DIMENSION);
+  requestEditor=buildRequestEditor();
+  requestTabs=new JTabbedPane();
+  requestTabPanel=UISupport.createTabPanel(requestTabs,true);
+  if (mockResponse.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
+    requestTabs.addTab("Last Request",requestEditor);
+    requestTabs.addTab("Mock Response",responseEditorPanel);
+    splitButton.setEnabled(false);
+    tabsButton.setSelected(true);
+    component=requestTabPanel;
+    requestTabs.setSelectedIndex(1);
+  }
+ else {
+    requestSplitPane.setTopComponent(requestEditor);
+    requestSplitPane.setBottomComponent(responseEditorPanel);
+    requestSplitPane.setDividerLocation(0.5);
+    component=requestSplitPane;
+  }
+  return component;
+}

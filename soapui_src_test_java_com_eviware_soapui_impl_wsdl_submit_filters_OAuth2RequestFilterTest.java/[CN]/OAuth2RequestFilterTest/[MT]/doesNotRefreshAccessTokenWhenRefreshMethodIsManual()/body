@@ -1,0 +1,7 @@
+{
+  OAuth2Profile profileWithRefreshToken=setProfileWithRefreshTokenAndExpiredAccessToken();
+  profileWithRefreshToken.setRefreshAccessTokenMethod(OAuth2Profile.RefreshAccessTokenMethods.MANUAL);
+  oAuth2FilterWithMockOAuth2ClientFacade(profileWithRefreshToken);
+  oAuth2RequestFilter.filterRestRequest(mockContext,restRequest);
+  assertThat(profileWithRefreshToken.getAccessToken(),is(EXPIRED_TOKEN));
+}

@@ -1,0 +1,11 @@
+{
+  JXToolBar toolbar=UISupport.createToolbar();
+  toolbar.setLayout(new BorderLayout());
+  Box methodBox=Box.createHorizontalBox();
+  methodBox.add(createMethodComboBox());
+  methodBox.add(Box.createHorizontalStrut(10));
+  toolbar.add(methodBox,BorderLayout.WEST);
+  toolbar.add(createResourcePathTextField(),BorderLayout.CENTER);
+  toolbar.add(createActionButton(new ShowOnlineHelpAction(getModelItem().getHelpUrl()),true),BorderLayout.EAST);
+  return toolbar;
+}
