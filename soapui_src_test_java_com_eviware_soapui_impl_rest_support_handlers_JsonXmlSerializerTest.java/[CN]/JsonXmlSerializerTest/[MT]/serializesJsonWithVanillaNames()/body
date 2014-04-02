@@ -1,0 +1,4 @@
+{
+  JSON parse=JSONSerializer.toJSON("{ name: 'Barack', surname: 'Obama', profession: 'president'}");
+  assertThat(serializer.write(parse),is("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<o>" + "<name type=\"string\">Barack</name>" + "<profession type=\"string\">president</profession>"+ "<surname type=\"string\">Obama</surname>"+ "</o>\r\n"));
+}

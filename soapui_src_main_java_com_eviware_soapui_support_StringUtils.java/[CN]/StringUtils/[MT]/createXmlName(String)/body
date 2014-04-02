@@ -16,7 +16,6 @@
       skipped=true;
     }
   }
-  str=result.toString();
-  if (str.length() > 0 && Character.isDigit(str.charAt(0)))   str="_" + str;
-  return str;
+  String resultString=result.toString();
+  return isValidXmlName(str) ? resultString : "_" + resultString;
 }
