@@ -25,15 +25,7 @@ webView.getEngine().setCreatePopupHandler(new Callback<PopupFeatures,WebEngine>(
           }
         }
 );
-        try {
-          Desktop.getDesktop().browse(new URI(newValue));
-        }
- catch (        IOException e) {
-          SoapUI.logError(e,"Error opening popup in external browser");
-        }
-catch (        URISyntaxException e) {
-          SoapUI.logError(e,"Error opening popup in external browser");
-        }
+        Tools.openURL(newValue);
       }
     }
 );
