@@ -1,7 +1,7 @@
 {
   createDialog(restService);
   if (dialog.show()) {
-    String mockServiceName=dialog.getValue(Form.MOCKSERVICENAME);
+    String mockServiceName=dialog.getValue(Form.MOCKSERVICE_NAME);
     RestMockService mockService=getMockService(mockServiceName,restService.getProject());
     if (mockService != null) {
       populateMockService(restService,mockService);
