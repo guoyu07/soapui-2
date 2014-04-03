@@ -1,7 +1,9 @@
 {
   switchingWorkspace=true;
   recentEditorsMenu.removeAll();
-  if (recentEditorsMenu.getItemCount() == 0)   recentEditorsMenu.add(EMPTYMARKER).setEnabled(false);
+  if (recentEditorsMenu.getItemCount() == 0) {
+    recentEditorsMenu.add(EMPTYMARKER).setEnabled(false);
+  }
   String filePath=workspace.getPath();
   DefaultActionMapping<WorkspaceImpl> mapping=new DefaultActionMapping<WorkspaceImpl>(SwitchWorkspaceAction.SOAPUI_ACTION_ID,null,null,false,filePath);
   mapping.setName(workspace.getName());
@@ -14,6 +16,8 @@
   StringToStringMap history=recent == null ? new StringToStringMap() : StringToStringMap.fromXml(recent);
   history.put(filePath,workspace.getName());
   SoapUI.getSettings().setString(RECENT_WORKSPACES_SETTING,history.toXml());
-  if (isEmptyMarker(recentWorkspacesMenu.getItem(0)))   recentWorkspacesMenu.remove(0);
+  if (isEmptyMarker(recentWorkspacesMenu.getItem(0))) {
+    recentWorkspacesMenu.remove(0);
+  }
   recentEditorsMenu.removeAll();
 }

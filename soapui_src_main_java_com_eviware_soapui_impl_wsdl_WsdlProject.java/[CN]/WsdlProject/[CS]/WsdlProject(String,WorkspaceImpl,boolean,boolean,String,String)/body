@@ -25,7 +25,9 @@
       }
  else {
         try {
-          if (!PathUtils.isHttpPath(path))           SoapUI.log.info("File [" + file.getAbsolutePath() + "] does not exist, trying URL instead");
+          if (!PathUtils.isHttpPath(path)) {
+            SoapUI.log.info("File [" + file.getAbsolutePath() + "] does not exist, trying URL instead");
+          }
           remote=true;
           loadProject(new URL(path));
         }
@@ -50,7 +52,9 @@
     if (projectDocument == null) {
       projectDocument=SoapuiProjectDocumentConfig.Factory.newInstance();
       setConfig(projectDocument.addNewSoapuiProject());
-      if (tempName != null || path != null)       getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
+      if (tempName != null || path != null) {
+        getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
+      }
       setPropertiesConfig(getConfig().addNewProperties());
       wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
       oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());

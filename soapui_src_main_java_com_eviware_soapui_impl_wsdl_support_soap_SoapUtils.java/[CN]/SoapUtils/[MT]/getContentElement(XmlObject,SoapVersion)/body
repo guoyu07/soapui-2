@@ -1,11 +1,15 @@
 {
-  if (messageObject == null)   return null;
+  if (messageObject == null) {
+    return null;
+  }
   XmlObject bodyElement=SoapUtils.getBodyElement(messageObject,soapVersion);
   if (bodyElement != null) {
     XmlCursor cursor=bodyElement.newCursor();
     try {
       if (cursor.toFirstChild()) {
-        while (!cursor.isContainer())         cursor.toNextSibling();
+        while (!cursor.isContainer()) {
+          cursor.toNextSibling();
+        }
         if (cursor.isContainer()) {
           return cursor.getObject();
         }

@@ -8,8 +8,12 @@
   }
  else {
     resolveContextTableModel=new ResolveContextTableModel(context);
-    if (dialog == null)     buildDialog();
- else     table.setModel(resolveContextTableModel);
+    if (dialog == null) {
+      buildDialog();
+    }
+ else {
+      table.setModel(resolveContextTableModel);
+    }
     UISupport.centerDialog(dialog);
     dialog.setVisible(true);
   }

@@ -10,7 +10,9 @@
     createdContext=true;
   }
   String localAddress=System.getProperty("soapui.bind.address",httpRequest.getBindAddress());
-  if (localAddress == null || localAddress.trim().length() == 0)   localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
+  if (localAddress == null || localAddress.trim().length() == 0) {
+    localAddress=SoapUI.getSettings().getString(HttpSettings.BIND_ADDRESS,null);
+  }
   org.apache.http.HttpResponse httpResponse;
   if (localAddress != null && localAddress.trim().length() > 0) {
     try {
@@ -50,7 +52,9 @@
       httpMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,crypto.getSource() + " " + crypto.getPassword());
     }
     httpMethod.setDumpFile(PathUtils.expandPath(httpRequest.getDumpFile(),(AbstractWsdlModelItem<?>)httpRequest,submitContext));
-    if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN))     httpMethod.initStartTime();
+    if (settings.getBoolean(HttpSettings.INCLUDE_REQUEST_IN_TIME_TAKEN)) {
+      httpMethod.initStartTime();
+    }
     if (httpMethod.getMetrics() != null) {
       httpMethod.getMetrics().setHttpMethod(httpMethod.getMethod());
       captureMetrics(httpMethod,httpClient);
@@ -72,7 +76,9 @@
   }
  catch (  Throwable t) {
     httpMethod.setFailed(t);
-    if (t instanceof Exception)     throw (Exception)t;
+    if (t instanceof Exception) {
+      throw (Exception)t;
+    }
     SoapUI.logError(t);
     throw new Exception(t);
   }

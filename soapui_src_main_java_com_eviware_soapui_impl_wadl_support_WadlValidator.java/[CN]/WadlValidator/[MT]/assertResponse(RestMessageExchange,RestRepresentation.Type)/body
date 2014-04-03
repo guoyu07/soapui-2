@@ -15,8 +15,12 @@
           xmlOptions.setValidateTreatLaxAsSkip();
           xmlObject.validate(xmlOptions);
           for (          Object o : list) {
-            if (o instanceof XmlError)             result.add(new AssertionError((XmlError)o));
- else             result.add(new AssertionError(o.toString()));
+            if (o instanceof XmlError) {
+              result.add(new AssertionError((XmlError)o));
+            }
+ else {
+              result.add(new AssertionError(o.toString()));
+            }
           }
           asserted=true;
         }

@@ -6,7 +6,9 @@
     if (WsdlTestStepRegistry.getInstance().hasFactory(configs.get(c))) {
       (testSteps.get(c - mod)).resetConfigOnMove(configs.get(c));
     }
- else     mod++;
+ else {
+      mod++;
+    }
   }
   List<LoadTestConfig> loadTestConfigs=getConfig().getLoadTestList();
   for (int c=0; c < loadTestConfigs.size(); c++) {

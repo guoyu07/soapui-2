@@ -1,6 +1,8 @@
 {
   BindingOutput output=operation.getBindingOutput();
-  if (output == null)   return new MIMEContent[0];
+  if (output == null) {
+    return new MIMEContent[0];
+  }
   MIMEMultipartRelated multipartOutput=WsdlUtils.getExtensiblityElement(output.getExtensibilityElements(),MIMEMultipartRelated.class);
   return getContentParts(part,multipartOutput);
 }

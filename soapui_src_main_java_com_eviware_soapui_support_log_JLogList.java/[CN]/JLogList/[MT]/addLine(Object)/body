@@ -1,5 +1,7 @@
 {
-  if (!isEnabled())   return;
+  if (!isEnabled()) {
+    return;
+  }
   if (line instanceof LoggingEvent) {
     LoggingEvent ev=(LoggingEvent)line;
     linesToAdd.add(new LoggingEventWrapper(ev));
@@ -9,7 +11,9 @@
       PrintWriter pw=new PrintWriter(sw);
       t.printStackTrace(pw);
       StringTokenizer st=new StringTokenizer(sw.toString(),"\r\n");
-      while (st.hasMoreElements())       linesToAdd.add("   " + st.nextElement());
+      while (st.hasMoreElements()) {
+        linesToAdd.add("   " + st.nextElement());
+      }
     }
   }
  else {

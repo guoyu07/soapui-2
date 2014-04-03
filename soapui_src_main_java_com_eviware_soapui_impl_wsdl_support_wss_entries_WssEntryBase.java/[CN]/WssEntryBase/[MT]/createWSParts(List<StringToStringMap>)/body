@@ -6,7 +6,9 @@
     }
  else {
       String ns=map.get("namespace");
-      if (ns == null)       ns="";
+      if (ns == null) {
+        ns="";
+      }
       String name=map.get("name");
       if (StringUtils.hasContent(name)) {
         result.add(new WSEncryptionPart(name,ns,map.get("enc")));

@@ -1,5 +1,7 @@
 {
-  if (dialog == null)   buildDialog();
+  if (dialog == null) {
+    buildDialog();
+  }
   dialog.show();
   if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
     checkResponse=Boolean.valueOf(dialog.getFormField(CrossSiteScripSeparateHTMLConfigDialog.CHECK_RESPONSE).getValue());

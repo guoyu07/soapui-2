@@ -5,7 +5,9 @@
       fireTableDataChanged();
       changed=false;
     }
-    if (!running && samplesStack.isEmpty())     break;
+    if (!running && samplesStack.isEmpty()) {
+      break;
+    }
     try {
       Thread.sleep(updateFrequency < 1 ? 1000 : updateFrequency);
     }

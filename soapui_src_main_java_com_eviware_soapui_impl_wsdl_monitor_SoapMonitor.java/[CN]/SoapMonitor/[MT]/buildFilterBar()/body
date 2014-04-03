@@ -11,10 +11,16 @@
   requestHostFilterCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       int ix=requestHostFilterCombo.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       requestHostFilter.setAcceptNull(ix == 0);
-      if (ix == 0)       requestHostFilter.setPattern(".*",0);
- else       requestHostFilter.setPattern(requestHostFilterCombo.getSelectedItem().toString(),0);
+      if (ix == 0) {
+        requestHostFilter.setPattern(".*",0);
+      }
+ else {
+        requestHostFilter.setPattern(requestHostFilterCombo.getSelectedItem().toString(),0);
+      }
       updateRowCountLabel();
     }
   }
@@ -27,10 +33,16 @@
   targetHostFilterCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       int ix=targetHostFilterCombo.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       targetHostFilter.setAcceptNull(ix == 0);
-      if (ix == 0)       targetHostFilter.setPattern(".*",0);
- else       targetHostFilter.setPattern(targetHostFilterCombo.getSelectedItem().toString(),0);
+      if (ix == 0) {
+        targetHostFilter.setPattern(".*",0);
+      }
+ else {
+        targetHostFilter.setPattern(targetHostFilterCombo.getSelectedItem().toString(),0);
+      }
       updateRowCountLabel();
     }
   }
@@ -53,7 +65,9 @@
  else       if (getProject().getInterfaceByName(item) != null) {
         WsdlInterface iface=(WsdlInterface)getProject().getInterfaceByName(item);
         String[] operationNames=ModelSupport.getNames(new String[]{ALL_FILTER_OPTION},iface.getOperationList());
-        for (        String s : operationNames)         operationFilterModel.addElement(s);
+        for (        String s : operationNames) {
+          operationFilterModel.addElement(s);
+        }
         interfaceFilter.setPattern(iface.getName(),0);
       }
     }
@@ -72,8 +86,12 @@
         return;
       }
       operationFilter.setAcceptNull(ix == 0);
-      if (ix == 0)       operationFilter.setPattern(".*",0);
- else       operationFilter.setPattern(operationFilterCombo.getSelectedItem().toString(),0);
+      if (ix == 0) {
+        operationFilter.setPattern(".*",0);
+      }
+ else {
+        operationFilter.setPattern(operationFilterCombo.getSelectedItem().toString(),0);
+      }
       updateRowCountLabel();
     }
   }

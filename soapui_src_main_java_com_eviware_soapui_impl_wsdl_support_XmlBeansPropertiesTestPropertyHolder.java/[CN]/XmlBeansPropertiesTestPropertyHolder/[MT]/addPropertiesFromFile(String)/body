@@ -1,5 +1,7 @@
 {
-  if (!StringUtils.hasContent(propFile))   return 0;
+  if (!StringUtils.hasContent(propFile)) {
+    return 0;
+  }
   try {
     InputStream input=null;
     File file=new File(propFile);
@@ -12,12 +14,16 @@
       input=loader.load();
     }
     if (input != null) {
-      if (overrideProperties == null)       overrideProperties=new Properties();
+      if (overrideProperties == null) {
+        overrideProperties=new Properties();
+      }
       int sz=overrideProperties.size();
       overrideProperties.load(input);
       for (      Object key : overrideProperties.keySet()) {
         String name=key.toString();
-        if (!hasProperty(name))         addProperty(name);
+        if (!hasProperty(name)) {
+          addProperty(name);
+        }
       }
       return overrideProperties.size() - sz;
     }

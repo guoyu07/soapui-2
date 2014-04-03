@@ -2,7 +2,9 @@
   int ix=transferList.getSelectedIndex();
   PropertyTransfer config=transferStep.getTransferAt(ix);
   String name=UISupport.prompt("Specify name for value transfer","Copy Transfer",config.getName());
-  if (name == null || name.trim().length() == 0)   return;
+  if (name == null || name.trim().length() == 0) {
+    return;
+  }
   PropertyTransfer transfer=transferStep.addTransfer(name);
   transfer.setSourceStepName(config.getSourceStepName());
   transfer.setSourcePropertyName(config.getSourcePropertyName());

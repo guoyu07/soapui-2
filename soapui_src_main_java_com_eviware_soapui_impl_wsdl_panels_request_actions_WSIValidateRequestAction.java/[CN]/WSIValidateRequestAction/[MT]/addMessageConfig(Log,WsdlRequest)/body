@@ -6,8 +6,12 @@
   requestMessage.setID("1");
   URL endpoint=new URL(modelItem.getEndpoint());
   requestMessage.setSenderHostAndPort("localhost");
-  if (endpoint.getPort() > 0)   requestMessage.setReceiverHostAndPort(endpoint.getHost() + ":" + endpoint.getPort());
- else   requestMessage.setReceiverHostAndPort(endpoint.getHost());
+  if (endpoint.getPort() > 0) {
+    requestMessage.setReceiverHostAndPort(endpoint.getHost() + ":" + endpoint.getPort());
+  }
+ else {
+    requestMessage.setReceiverHostAndPort(endpoint.getHost());
+  }
   requestMessage.setType(TcpMessageType.REQUEST);
   Response response=modelItem.getResponse();
   HttpMessageEntry responseMessage=HttpMessageEntry.Factory.newInstance();

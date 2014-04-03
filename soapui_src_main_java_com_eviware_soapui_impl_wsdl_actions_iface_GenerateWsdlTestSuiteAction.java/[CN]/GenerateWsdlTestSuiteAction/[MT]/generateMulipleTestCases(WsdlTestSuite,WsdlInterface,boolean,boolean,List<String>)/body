@@ -1,7 +1,9 @@
 {
   for (int i=0; i < iface.getOperationCount(); i++) {
     WsdlOperation operation=iface.getOperationAt(i);
-    if (!operations.contains(operation.getName()))     continue;
+    if (!operations.contains(operation.getName())) {
+      continue;
+    }
     WsdlTestCase testCase=testSuite.addNewTestCase(operation.getName() + " TestCase");
     if (useExisting && operation.getRequestCount() > 0) {
       for (int x=0; x < operation.getRequestCount(); x++) {

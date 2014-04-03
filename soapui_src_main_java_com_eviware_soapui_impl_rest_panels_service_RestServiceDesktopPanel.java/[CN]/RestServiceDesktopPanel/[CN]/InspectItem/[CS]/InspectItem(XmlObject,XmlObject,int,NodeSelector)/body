@@ -2,11 +2,17 @@
   this.item=item;
   this.selector=selector;
   this.name=XmlUtils.getNodeValue(nameObj.getDomNode());
-  if (name == null)   name=nameObj.toString();
+  if (name == null) {
+    name=nameObj.toString();
+  }
   this.tabIndex=tabIndex;
   ArrayList<?> list=new ArrayList<Object>();
   XmlCursor cursor=item.newCursor();
   cursor.getAllBookmarkRefs(list);
-  for (  Object o : list)   if (o instanceof XmlLineNumber)   lineNumber=(XmlLineNumber)o;
+  for (  Object o : list) {
+    if (o instanceof XmlLineNumber) {
+      lineNumber=(XmlLineNumber)o;
+    }
+  }
   cursor.dispose();
 }

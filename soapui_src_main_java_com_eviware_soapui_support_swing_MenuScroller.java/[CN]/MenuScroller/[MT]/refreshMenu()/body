@@ -13,7 +13,9 @@
     }
     menu.add(upItem);
     for (int i=firstIndex; i < scrollCount + firstIndex; i++) {
-      if (i == scrollCount + firstIndex - 1 && menuItems[i] instanceof JPopupMenu.Separator)       continue;
+      if (i == scrollCount + firstIndex - 1 && menuItems[i] instanceof JPopupMenu.Separator) {
+        continue;
+      }
       menu.add(menuItems[i]);
     }
     menu.add(downItem);

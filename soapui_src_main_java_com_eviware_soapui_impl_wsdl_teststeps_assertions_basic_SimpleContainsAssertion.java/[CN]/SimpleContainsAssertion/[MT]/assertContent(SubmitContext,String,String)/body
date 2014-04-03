@@ -1,19 +1,29 @@
 {
-  if (token == null)   token="";
-  if (content == null)   content="";
+  if (token == null) {
+    token="";
+  }
+  if (content == null) {
+    content="";
+  }
   String replToken=PropertyExpander.expandProperties(context,token);
-  if (replToken == null)   replToken="";
+  if (replToken == null) {
+    replToken="";
+  }
   replToken=normalize(replToken);
   content=normalize(content);
   if (replToken.length() > 0) {
     int ix=-1;
     if (useRegEx) {
-      if (content.matches(replToken))       ix=0;
+      if (content.matches(replToken)) {
+        ix=0;
+      }
     }
  else {
       ix=ignoreCase ? content.toUpperCase().indexOf(replToken.toUpperCase()) : content.indexOf(replToken);
     }
-    if (ix == -1)     throw new AssertionException(new AssertionError("Missing token [" + replToken + "] in "+ type));
+    if (ix == -1) {
+      throw new AssertionException(new AssertionError("Missing token [" + replToken + "] in "+ type));
+    }
   }
   return type + " contains token [" + replToken+ "]";
 }

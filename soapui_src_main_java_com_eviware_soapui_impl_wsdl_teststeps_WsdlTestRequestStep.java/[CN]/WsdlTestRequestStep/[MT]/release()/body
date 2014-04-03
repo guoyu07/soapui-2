@@ -1,6 +1,8 @@
 {
   super.release();
-  if (wsdlOperation == null)   wsdlOperation=findWsdlOperation();
+  if (wsdlOperation == null) {
+    wsdlOperation=findWsdlOperation();
+  }
   if (wsdlOperation != null) {
     wsdlOperation.removePropertyChangeListener(this);
     wsdlOperation.getInterface().getProject().removeProjectListener(projectListener);

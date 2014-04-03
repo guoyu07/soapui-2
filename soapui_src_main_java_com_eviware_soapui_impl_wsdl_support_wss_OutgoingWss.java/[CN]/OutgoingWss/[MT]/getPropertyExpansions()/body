@@ -3,7 +3,9 @@
   result.extractAndAddAll("username");
   result.extractAndAddAll("password");
   for (  WssEntry entry : entries) {
-    if (entry instanceof PropertyExpansionContainer)     result.addAll(((PropertyExpansionContainer)entry).getPropertyExpansions());
+    if (entry instanceof PropertyExpansionContainer) {
+      result.addAll(((PropertyExpansionContainer)entry).getPropertyExpansions());
+    }
   }
   return result.toArray();
 }

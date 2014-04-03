@@ -19,7 +19,9 @@
       int lineLen=textArea.getTabExpandedLineLength(line);
       x1=textArea._offsetToX(line,Math.min(lineLen,selectionStart - textArea.getLineStartOffset(selectionStartLine)));
       x2=textArea._offsetToX(line,Math.min(lineLen,selectionEnd - textArea.getLineStartOffset(selectionEndLine)));
-      if (x1 == x2)       x2++;
+      if (x1 == x2) {
+        x2++;
+      }
     }
  else     if (selectionStartLine == selectionEndLine) {
       x1=textArea._offsetToX(line,selectionStart - lineStart);

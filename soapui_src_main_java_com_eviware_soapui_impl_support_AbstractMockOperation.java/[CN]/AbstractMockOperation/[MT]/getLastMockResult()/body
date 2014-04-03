@@ -3,7 +3,9 @@
   for (  MockResponse response : getMockResponses()) {
     MockResult mockResult=response.getMockResult();
     if (mockResult != null) {
-      if (result == null || result.getTimestamp() > mockResult.getTimestamp())       result=mockResult;
+      if (result == null || result.getTimestamp() > mockResult.getTimestamp()) {
+        result=mockResult;
+      }
     }
   }
   return result;

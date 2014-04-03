@@ -1,6 +1,10 @@
 {
-  if (this.condition != null)   this.condition.removePropertyChangeListener(GotoCondition.TARGET_STEP_PROPERTY,propertyChangeListener);
+  if (this.condition != null) {
+    this.condition.removePropertyChangeListener(GotoCondition.TARGET_STEP_PROPERTY,propertyChangeListener);
+  }
   this.condition=condition;
-  if (condition != null)   condition.addPropertyChangeListener(GotoCondition.TARGET_STEP_PROPERTY,propertyChangeListener);
+  if (condition != null) {
+    condition.addPropertyChangeListener(GotoCondition.TARGET_STEP_PROPERTY,propertyChangeListener);
+  }
   fireContentsChanged(this,0,getSize());
 }

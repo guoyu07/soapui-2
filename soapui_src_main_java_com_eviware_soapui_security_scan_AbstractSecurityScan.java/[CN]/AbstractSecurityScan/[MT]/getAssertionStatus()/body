@@ -1,7 +1,13 @@
 {
   int cnt=getAssertionCount();
-  if (cnt == 0)   return currentStatus;
-  if (securityScanResult != null && securityScanResult.getStatus() == ResultStatus.OK)   currentStatus=AssertionStatus.VALID;
- else   currentStatus=AssertionStatus.FAILED;
+  if (cnt == 0) {
+    return currentStatus;
+  }
+  if (securityScanResult != null && securityScanResult.getStatus() == ResultStatus.OK) {
+    currentStatus=AssertionStatus.VALID;
+  }
+ else {
+    currentStatus=AssertionStatus.FAILED;
+  }
   return currentStatus;
 }

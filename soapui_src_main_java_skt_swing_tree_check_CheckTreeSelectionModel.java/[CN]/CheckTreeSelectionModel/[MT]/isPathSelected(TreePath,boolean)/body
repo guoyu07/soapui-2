@@ -1,5 +1,9 @@
 {
-  if (!dig)   return super.isPathSelected(path);
-  while (path != null && !super.isPathSelected(path))   path=path.getParentPath();
+  if (!dig) {
+    return super.isPathSelected(path);
+  }
+  while (path != null && !super.isPathSelected(path)) {
+    path=path.getParentPath();
+  }
   return path != null;
 }

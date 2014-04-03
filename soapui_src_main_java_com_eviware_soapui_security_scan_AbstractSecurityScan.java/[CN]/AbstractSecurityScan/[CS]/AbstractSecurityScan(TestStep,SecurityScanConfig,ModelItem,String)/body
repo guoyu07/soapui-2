@@ -15,8 +15,12 @@
     config.getExecutionStrategy().setDelay(100);
   }
   setExecutionStrategy(new ExecutionStrategyHolder(config.getExecutionStrategy()));
-  if (config.getCheckedParameters() == null)   config.addNewCheckedParameters();
+  if (config.getCheckedParameters() == null) {
+    config.addNewCheckedParameters();
+  }
   initAssertions();
   setApplyForFailedTestStep(config.getApplyForFailedStep());
-  if (!config.isSetDisabled())   setDisabled(false);
+  if (!config.isSetDisabled()) {
+    setDisabled(false);
+  }
 }

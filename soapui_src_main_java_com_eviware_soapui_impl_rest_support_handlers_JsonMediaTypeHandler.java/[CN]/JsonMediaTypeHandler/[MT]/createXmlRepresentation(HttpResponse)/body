@@ -1,7 +1,9 @@
 {
   try {
     String content=response.getContentAsString().trim();
-    if (!StringUtils.hasContent(content))     return null;
+    if (!StringUtils.hasContent(content)) {
+      return null;
+    }
     content=content.replaceAll("\\\\u0000","");
     JSON json=JSONSerializer.toJSON(content);
     JsonXmlSerializer serializer=new JsonXmlSerializer();

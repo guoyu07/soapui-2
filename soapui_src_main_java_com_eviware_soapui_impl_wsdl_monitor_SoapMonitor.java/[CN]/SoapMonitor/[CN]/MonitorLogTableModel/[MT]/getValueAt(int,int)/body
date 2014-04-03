@@ -1,7 +1,11 @@
 {
-  if (rowIndex < 0 || rowIndex >= exchanges.size())   return null;
+  if (rowIndex < 0 || rowIndex >= exchanges.size()) {
+    return null;
+  }
   WsdlMonitorMessageExchange exchange=exchanges.get(rowIndex);
-  if (exchange == null)   return null;
+  if (exchange == null) {
+    return null;
+  }
 switch (columnIndex) {
 case 0:
     return rowIndex;

@@ -1,13 +1,17 @@
 {
   super(config,project,ICON_NAME);
   this.project=project;
-  if (!config.isSetProperties())   config.addNewProperties();
+  if (!config.isSetProperties()) {
+    config.addNewProperties();
+  }
   setPropertiesConfig(config.getProperties());
   List<TestCaseConfig> testCaseConfigs=config.getTestCaseList();
   for (int i=0; i < testCaseConfigs.size(); i++) {
     testCases.add(buildTestCase(testCaseConfigs.get(i),false));
   }
-  if (!config.isSetRunType())   config.setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
+  if (!config.isSetRunType()) {
+    config.setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
+  }
   for (  TestSuiteListener listener : SoapUI.getListenerRegistry().getListeners(TestSuiteListener.class)) {
     addTestSuiteListener(listener);
   }

@@ -1,9 +1,13 @@
 {
   String name=property.getName();
   String value=property.getValue();
-  if (value == null)   value="";
+  if (value == null) {
+    value="";
+  }
  else {
-    if (value.length() > 12)     value=value.substring(0,12) + "..";
+    if (value.length() > 12) {
+      value=value.substring(0,12) + "..";
+    }
     value="'" + value + "'";
   }
   return name + " : " + value;

@@ -7,16 +7,20 @@
   pathTextField.setToolTipText(pathTextField.getText());
   pathTextField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
-      if (updating)       return;
+      if (updating) {
+        return;
+      }
       updating=true;
       String text=pathTextField.getText();
       getRequest().setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(text));
-      if (!text.equals(getRequest().getEndpoint()))       SwingUtilities.invokeLater(new Runnable(){
-        public void run(){
-          pathTextField.setText(getRequest().getEndpoint());
+      if (!text.equals(getRequest().getEndpoint())) {
+        SwingUtilities.invokeLater(new Runnable(){
+          public void run(){
+            pathTextField.setText(getRequest().getEndpoint());
+          }
         }
-      }
 );
+      }
       updating=false;
     }
   }

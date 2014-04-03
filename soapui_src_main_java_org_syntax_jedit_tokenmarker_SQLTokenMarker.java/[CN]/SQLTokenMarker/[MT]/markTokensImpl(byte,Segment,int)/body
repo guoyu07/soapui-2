@@ -125,7 +125,11 @@ default :
 break;
 }
 }
-if (token == Token.NULL) searchBack(line,length,false);
-if (lastOffset != length) addToken(length - lastOffset,token);
+if (token == Token.NULL) {
+searchBack(line,length,false);
+}
+if (lastOffset != length) {
+addToken(length - lastOffset,token);
+}
 return token;
 }

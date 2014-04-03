@@ -1,6 +1,8 @@
 {
   Document document=element.getOwnerDocument();
   Element result=(Element)element.appendChild(document.createElement(name));
-  if (text != null)   result.appendChild(document.createTextNode(text));
+  if (text != null) {
+    result.appendChild(document.createTextNode(text));
+  }
   return result;
 }

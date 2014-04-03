@@ -4,14 +4,30 @@
   setMinimumSize(new Dimension(50,50));
   addKeyListener(new KeyAdapter(){
     public void keyPressed(    KeyEvent e){
-      if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu Z")))       undo();
- else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu Y")))       redo();
- else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu X")))       cut();
- else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu C")))       copy();
- else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu V")))       paste();
- else       if (UISupport.isMac() && KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("meta F")))       findAndReplace();
- else       if (!UISupport.isMac() && KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("ctrl F")))       findAndReplace();
- else       return;
+      if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu Z"))) {
+        undo();
+      }
+ else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu Y"))) {
+        redo();
+      }
+ else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu X"))) {
+        cut();
+      }
+ else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu C"))) {
+        copy();
+      }
+ else       if (KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("menu V"))) {
+        paste();
+      }
+ else       if (UISupport.isMac() && KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("meta F"))) {
+        findAndReplace();
+      }
+ else       if (!UISupport.isMac() && KeyStroke.getKeyStrokeForEvent(e).equals(UISupport.getKeyStroke("ctrl F"))) {
+        findAndReplace();
+      }
+ else {
+        return;
+      }
       e.consume();
     }
   }

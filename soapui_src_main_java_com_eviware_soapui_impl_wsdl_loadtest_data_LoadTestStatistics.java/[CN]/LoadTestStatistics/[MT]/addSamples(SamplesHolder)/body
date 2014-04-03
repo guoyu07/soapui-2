@@ -1,5 +1,7 @@
 {
-  if (adding)   throw new RuntimeException("Already adding!");
+  if (adding) {
+    throw new RuntimeException("Already adding!");
+  }
   adding=true;
   int totalIndex=data.length - 1;
   if (holder.samples.length != totalIndex || holder.sizes.length != totalIndex) {
@@ -37,8 +39,12 @@
         data[c][CNT_COLUMN]+=holder.sampleCounts[c];
         data[c][CURRENT_CNT_COLUMN]+=holder.sampleCounts[c];
         data[c][SUM_COLUMN]+=holder.samples[c];
-        if (sampleAvg > 0 && (sampleAvg < data[c][MIN_COLUMN] || data[c][MIN_COLUMN] == 0))         data[c][MIN_COLUMN]=sampleAvg;
-        if (sampleAvg > data[c][MAX_COLUMN])         data[c][MAX_COLUMN]=sampleAvg;
+        if (sampleAvg > 0 && (sampleAvg < data[c][MIN_COLUMN] || data[c][MIN_COLUMN] == 0)) {
+          data[c][MIN_COLUMN]=sampleAvg;
+        }
+        if (sampleAvg > data[c][MAX_COLUMN]) {
+          data[c][MAX_COLUMN]=sampleAvg;
+        }
         float average=(float)data[c][SUM_COLUMN] / (float)data[c][CURRENT_CNT_COLUMN];
         data[c][AVG_COLUMN]=(long)(average * 100);
         data[c][BYTES_COLUMN]+=holder.sizes[c];
@@ -89,7 +95,11 @@
     data[totalIndex][SUM_COLUMN]=totalSum;
     data[totalIndex][LAST_COLUMN]=totalLast;
   }
-  if (updateFrequency == 0)   fireTableDataChanged();
- else   changed=true;
+  if (updateFrequency == 0) {
+    fireTableDataChanged();
+  }
+ else {
+    changed=true;
+  }
   adding=false;
 }

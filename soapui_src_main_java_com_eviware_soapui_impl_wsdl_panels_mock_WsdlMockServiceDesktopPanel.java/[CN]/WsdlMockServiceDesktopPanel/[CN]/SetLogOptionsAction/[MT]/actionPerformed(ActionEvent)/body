@@ -3,7 +3,9 @@
   if (s != null) {
     try {
       long newMaxSize=Long.parseLong(s);
-      if (newMaxSize > 0)       setMaxLogSize(newMaxSize);
+      if (newMaxSize > 0) {
+        setMaxLogSize(newMaxSize);
+      }
     }
  catch (    NumberFormatException e1) {
     }

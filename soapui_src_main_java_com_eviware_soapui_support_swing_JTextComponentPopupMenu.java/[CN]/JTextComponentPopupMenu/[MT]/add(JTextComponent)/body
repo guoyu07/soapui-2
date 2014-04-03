@@ -1,6 +1,8 @@
 {
   JPopupMenu componentPopupMenu=textComponent instanceof RSyntaxTextArea ? ((RSyntaxTextArea)textComponent).getPopupMenu() : textComponent.getComponentPopupMenu();
-  if (componentPopupMenu instanceof JTextComponentPopupMenu)   return (JTextComponentPopupMenu)componentPopupMenu;
+  if (componentPopupMenu instanceof JTextComponentPopupMenu) {
+    return (JTextComponentPopupMenu)componentPopupMenu;
+  }
   JTextComponentPopupMenu popupMenu=new JTextComponentPopupMenu(textComponent);
   if (componentPopupMenu != null && componentPopupMenu.getComponentCount() > 0) {
     while (componentPopupMenu.getComponentCount() > 0) {
@@ -21,7 +23,11 @@
       popupMenu.addPopupMenuListener(listener);
     }
   }
-  if (textComponent instanceof RSyntaxTextArea)   ((RSyntaxTextArea)textComponent).setPopupMenu(popupMenu);
- else   textComponent.setComponentPopupMenu(popupMenu);
+  if (textComponent instanceof RSyntaxTextArea) {
+    ((RSyntaxTextArea)textComponent).setPopupMenu(popupMenu);
+  }
+ else {
+    textComponent.setComponentPopupMenu(popupMenu);
+  }
   return popupMenu;
 }

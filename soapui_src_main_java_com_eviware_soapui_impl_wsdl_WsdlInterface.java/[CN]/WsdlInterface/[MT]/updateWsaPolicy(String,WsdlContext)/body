@@ -3,7 +3,9 @@
   policyFlag=false;
   processPolicy(PolicyUtils.getAttachedPolicy(getBinding(),definition));
   Map<?,?> serviceMap=definition.getAllServices();
-  if (serviceMap.isEmpty())   log.info("Missing services in [" + url + "], check for bindings");
+  if (serviceMap.isEmpty()) {
+    log.info("Missing services in [" + url + "], check for bindings");
+  }
  else {
     Iterator<?> i=serviceMap.values().iterator();
     while (i.hasNext()) {

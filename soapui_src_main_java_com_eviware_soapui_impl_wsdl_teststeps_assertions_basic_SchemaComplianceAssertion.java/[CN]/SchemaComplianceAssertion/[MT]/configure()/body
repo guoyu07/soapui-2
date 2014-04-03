@@ -13,8 +13,12 @@
     UISupport.showErrorMessage("No valid definition found in " + definitionURL + ". Only WSDL and WADL are supported");
     return false;
   }
-  if (StringUtils.isNullOrEmpty(definitionURL) || definitionURL.equals(orgDef))   definition="";
- else   definition=definitionURL;
+  if (StringUtils.isNullOrEmpty(definitionURL) || definitionURL.equals(orgDef)) {
+    definition="";
+  }
+ else {
+    definition=definitionURL;
+  }
   setConfiguration(createConfiguration());
   return true;
 }

@@ -1,4 +1,8 @@
 {
-  if (getInterface() != null && (getInterface().isGenerated() || StringUtils.isNullOrEmpty(getInterface().getWadlUrl()) || getInterface().exportChanges()))   return new GeneratedWadlDefinitionLoader(getInterface());
- else   return new InterfaceCacheDefinitionLoader(restServiceDefinitionCache);
+  if (getInterface() != null && (getInterface().isGenerated() || StringUtils.isNullOrEmpty(getInterface().getWadlUrl()) || getInterface().exportChanges())) {
+    return new GeneratedWadlDefinitionLoader(getInterface());
+  }
+ else {
+    return new InterfaceCacheDefinitionLoader(restServiceDefinitionCache);
+  }
 }

@@ -9,6 +9,8 @@
       }
     }
   }
- else   throw new RuntimeException("cannot wait on null future");
+ else {
+    throw new RuntimeException("cannot wait on null future");
+  }
   return getStatus();
 }

@@ -1,6 +1,8 @@
 {
   String href=param.getHref();
-  if (!StringUtils.hasContent(href))   return param;
+  if (!StringUtils.hasContent(href)) {
+    return param;
+  }
   try {
     Application app=application;
     if (!href.startsWith("#")) {
@@ -9,9 +11,13 @@
     }
     if (app != null) {
       int ix=href.lastIndexOf('#');
-      if (ix >= 0)       href=href.substring(ix + 1);
+      if (ix >= 0) {
+        href=href.substring(ix + 1);
+      }
       for (      Param p : application.getParamList()) {
-        if (p.getId().equals(href))         return p;
+        if (p.getId().equals(href)) {
+          return p;
+        }
       }
     }
   }

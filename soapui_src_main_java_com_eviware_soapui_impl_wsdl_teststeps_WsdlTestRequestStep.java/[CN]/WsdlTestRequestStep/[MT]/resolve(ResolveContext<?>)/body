@@ -1,11 +1,15 @@
 {
   super.resolve(context);
   if (wsdlOperation == null) {
-    if (context.hasThisModelItem(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation()))     return;
+    if (context.hasThisModelItem(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation())) {
+      return;
+    }
     context.addPathToResolve(this,"Missing SOAP Operation in Project",requestStepConfig.getInterface() + "/" + requestStepConfig.getOperation()).addResolvers(new RemoveTestStepResolver(this),new ImportInterfaceResolver(this){
       @Override protected boolean update(){
         wsdlOperation=findWsdlOperation();
-        if (wsdlOperation == null)         return false;
+        if (wsdlOperation == null) {
+          return false;
+        }
         initTestRequest(getConfig(),false);
         initRequestProperties();
         setDisabled(false);
@@ -15,7 +19,9 @@
 ,new ChangeOperationResolver(this,"Operation"){
       @Override public boolean update(){
         WsdlOperation wsdlOperation=(WsdlOperation)getSelectedOperation();
-        if (wsdlOperation == null)         return false;
+        if (wsdlOperation == null) {
+          return false;
+        }
         setOperation(wsdlOperation);
         initTestRequest(getConfig(),false);
         initRequestProperties();

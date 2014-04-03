@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(pathOrEndpoint))   return "";
+  if (StringUtils.isNullOrEmpty(pathOrEndpoint)) {
+    return "";
+  }
   String path=pathOrEndpoint;
   String queryString="";
   URL url=null;
@@ -41,7 +43,9 @@
           int ix=matrixParam.indexOf('=');
           if (ix == -1) {
             String name=URLDecoder.decode(matrixParam,"Utf-8");
-            if (!params.hasProperty(name))             params.addProperty(name).setStyle(ParameterStyle.MATRIX);
+            if (!params.hasProperty(name)) {
+              params.addProperty(name).setStyle(ParameterStyle.MATRIX);
+            }
           }
  else {
             String name=URLDecoder.decode(matrixParam.substring(0,ix),"Utf-8");
@@ -59,12 +63,16 @@
  catch (    Exception e) {
       SoapUI.logError(e,"Couldn't parse the template/matrix parameters from URI");
     }
-    if (StringUtils.hasContent(item))     resultPath.append('/').append(item);
+    if (StringUtils.hasContent(item)) {
+      resultPath.append('/').append(item);
+    }
   }
   if (StringUtils.hasContent(queryString)) {
     extractParamsFromQueryString(params,queryString);
   }
-  if (path.endsWith("/"))   resultPath.append('/');
+  if (path.endsWith("/")) {
+    resultPath.append('/');
+  }
   if (keepHost && url != null) {
     return Tools.getEndpointFromUrl(url) + resultPath.toString();
   }

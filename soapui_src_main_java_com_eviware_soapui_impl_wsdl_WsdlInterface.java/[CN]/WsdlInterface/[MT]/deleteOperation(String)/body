@@ -3,7 +3,9 @@
     WsdlOperation wsdlOperation=operations.get(c);
     if (wsdlOperation.getBindingOperationName().equals(bindingOperationName)) {
       log.info("deleting operation [" + bindingOperationName + "]");
-      while (wsdlOperation.getRequestCount() > 0)       wsdlOperation.removeRequest(wsdlOperation.getRequestAt(0));
+      while (wsdlOperation.getRequestCount() > 0) {
+        wsdlOperation.removeRequest(wsdlOperation.getRequestAt(0));
+      }
       operations.remove(c);
       try {
         fireOperationRemoved(wsdlOperation);

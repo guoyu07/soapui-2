@@ -24,8 +24,12 @@
  catch (  MalformedURLException e) {
     ((Element)wsdl2Java.getDomNode()).setAttribute("file",wsdlUrl);
   }
-  if (values.getBoolean(UNWRAP))   wsdl2Java.setParameterStyle(ParameterStyle.BARE);
- else   wsdl2Java.setParameterStyle(ParameterStyle.WRAPPED);
+  if (values.getBoolean(UNWRAP)) {
+    wsdl2Java.setParameterStyle(ParameterStyle.BARE);
+  }
+ else {
+    wsdl2Java.setParameterStyle(ParameterStyle.WRAPPED);
+  }
   if (values.get(EJB_LINK) != null && values.get(EJB_LINK).length() > 0) {
     WsxmlType webservices=wsdl2Java.addNewWebservices();
     webservices.setEjbLink(values.get(EJB_LINK));

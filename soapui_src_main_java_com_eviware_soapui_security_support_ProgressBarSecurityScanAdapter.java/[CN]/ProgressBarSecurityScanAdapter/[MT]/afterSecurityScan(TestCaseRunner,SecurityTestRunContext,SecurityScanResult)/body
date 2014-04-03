@@ -24,9 +24,15 @@
           }
         }
       }
-      if (progressBar.getString().equals(SKIPPED_VALUE))       progressBar.setValue(0);
- else       progressBar.setValue(progressBar.getMaximum());
-      if (progressBar.getString().equals(""))       progressBar.setString(STATE_RUN);
+      if (progressBar.getString().equals(SKIPPED_VALUE)) {
+        progressBar.setValue(0);
+      }
+ else {
+        progressBar.setValue(progressBar.getMaximum());
+      }
+      if (progressBar.getString().equals("")) {
+        progressBar.setString(STATE_RUN);
+      }
     }
  else {
       progressBar.setString(STATE_CANCEL);

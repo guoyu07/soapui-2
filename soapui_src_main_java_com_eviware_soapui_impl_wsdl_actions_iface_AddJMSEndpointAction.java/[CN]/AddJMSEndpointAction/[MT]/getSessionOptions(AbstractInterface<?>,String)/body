@@ -11,7 +11,9 @@
   }
   List<String> hermesSessionList=new ArrayList<String>();
   for (  Hermes h : hermesList) {
-    if (!h.getSessionConfig().getId().equals("<new>"))     hermesSessionList.add(h.getSessionConfig().getId());
+    if (!h.getSessionConfig().getId().equals("<new>")) {
+      hermesSessionList.add(h.getSessionConfig().getId());
+    }
   }
   return hermesSessionList.toArray(new String[hermesSessionList.size()]);
 }

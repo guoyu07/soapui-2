@@ -4,8 +4,12 @@
   for (int c=0; c < str.length(); c++) {
     char ch=str.charAt(c);
     if (Character.isLetter(ch) || ch == '_' || ch == '-' || ch == '.') {
-      if (skipped)       result.append(Character.toUpperCase(ch));
- else       result.append(ch);
+      if (skipped) {
+        result.append(Character.toUpperCase(ch));
+      }
+ else {
+        result.append(ch);
+      }
       skipped=false;
     }
  else     if (Character.isDigit(ch)) {

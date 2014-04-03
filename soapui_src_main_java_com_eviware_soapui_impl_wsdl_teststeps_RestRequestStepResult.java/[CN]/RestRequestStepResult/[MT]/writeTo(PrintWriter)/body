@@ -7,13 +7,17 @@
   writer.println("\r\n----------------- Properties ------------------------------");
   if (properties != null) {
     for (    String key : properties.keySet()) {
-      if (properties.get(key) != null)       writer.println(key + ": " + properties.get(key));
+      if (properties.get(key) != null) {
+        writer.println(key + ": " + properties.get(key));
+      }
     }
   }
   writer.println("\r\n---------------- Request ---------------------------");
   StringToStringsMap headers=response.getRequestHeaders();
   for (  Map.Entry<String,List<String>> headerEntry : headers.entrySet()) {
-    if (headerEntry.getValue() != null)     writer.println(headerEntry.getKey() + ": " + headerEntry.getValue());
+    if (headerEntry.getValue() != null) {
+      writer.println(headerEntry.getKey() + ": " + headerEntry.getValue());
+    }
   }
   byte[] rawRequestData=response.getRawRequestData();
   if (rawRequestData != null) {
@@ -22,8 +26,12 @@
   writer.println("\r\n---------------- Response --------------------------");
   headers=response.getResponseHeaders();
   for (  String key : headers.keySet()) {
-    if (headers.get(key) != null)     writer.println(key + ": " + headers.get(key));
+    if (headers.get(key) != null) {
+      writer.println(key + ": " + headers.get(key));
+    }
   }
   String respContent=response.getContentAsString();
-  if (respContent != null)   writer.println("\r\n" + respContent);
+  if (respContent != null) {
+    writer.println("\r\n" + respContent);
+  }
 }

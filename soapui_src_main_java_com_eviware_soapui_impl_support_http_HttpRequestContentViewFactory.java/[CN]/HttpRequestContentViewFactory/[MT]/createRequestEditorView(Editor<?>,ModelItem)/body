@@ -1,8 +1,14 @@
 {
   if (editor instanceof AbstractHttpXmlRequestDesktopPanel.HttpRequestMessageEditor && modelItem instanceof HttpRequestInterface<?>) {
-    if (modelItem instanceof RestTestRequestInterface)     return new RestTestRequestContentView((HttpRequestMessageEditor)editor,(RestRequestInterface)modelItem);
- else     if (modelItem instanceof RestRequestInterface)     return new RestRequestContentView((HttpRequestMessageEditor)editor,(RestRequestInterface)modelItem);
- else     return new HttpRequestContentView((HttpRequestMessageEditor)editor,(HttpRequestInterface<?>)modelItem);
+    if (modelItem instanceof RestTestRequestInterface) {
+      return new RestTestRequestContentView((HttpRequestMessageEditor)editor,(RestRequestInterface)modelItem);
+    }
+ else     if (modelItem instanceof RestRequestInterface) {
+      return new RestRequestContentView((HttpRequestMessageEditor)editor,(RestRequestInterface)modelItem);
+    }
+ else {
+      return new HttpRequestContentView((HttpRequestMessageEditor)editor,(HttpRequestInterface<?>)modelItem);
+    }
   }
   return null;
 }

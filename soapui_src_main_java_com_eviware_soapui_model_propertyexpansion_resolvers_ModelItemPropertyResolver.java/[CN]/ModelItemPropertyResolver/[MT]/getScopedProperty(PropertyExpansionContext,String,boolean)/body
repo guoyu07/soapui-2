@@ -67,18 +67,32 @@
  else   if (modelItem instanceof OAuth2Profile) {
     project=((WsdlProject)modelItem.getParent());
   }
-  if (project == null)   return null;
+  if (project == null) {
+    return null;
+  }
   String result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.PROJECT_REFERENCE,project,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.TESTSUITE_REFERENCE,testSuite,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.TESTCASE_REFERENCE,testCase,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.MOCKSERVICE_REFERENCE,mockService,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.MOCKRESPONSE_REFERENCE,mockResponse,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   result=ResolverUtils.checkForExplicitReference(pe,PropertyExpansion.SECURITYTEST_REFERENCE,securityTest,context,globalOverride);
-  if (result != null)   return result;
+  if (result != null) {
+    return result;
+  }
   return null;
 }

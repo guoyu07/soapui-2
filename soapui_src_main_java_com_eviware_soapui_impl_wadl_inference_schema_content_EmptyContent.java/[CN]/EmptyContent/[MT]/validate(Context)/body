@@ -6,8 +6,12 @@
     return new SequenceContent(schema,completed);
   }
  else   if (cursor.pop() && !cursor.isEnd()) {
-    if (completed)     return new SimpleContent(schema,TypeInferrer.getBlankType());
- else     return new SimpleContent(schema,cursor.getTextValue());
+    if (completed) {
+      return new SimpleContent(schema,TypeInferrer.getBlankType());
+    }
+ else {
+      return new SimpleContent(schema,cursor.getTextValue());
+    }
   }
   completed=true;
   return this;

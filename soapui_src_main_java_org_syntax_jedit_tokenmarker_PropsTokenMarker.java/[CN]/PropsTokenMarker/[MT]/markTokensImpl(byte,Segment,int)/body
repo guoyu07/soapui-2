@@ -43,6 +43,8 @@ default :
 throw new InternalError("Invalid state: " + token);
 }
 }
-if (lastOffset != length) addToken(length - lastOffset,Token.NULL);
+if (lastOffset != length) {
+addToken(length - lastOffset,Token.NULL);
+}
 return Token.NULL;
 }

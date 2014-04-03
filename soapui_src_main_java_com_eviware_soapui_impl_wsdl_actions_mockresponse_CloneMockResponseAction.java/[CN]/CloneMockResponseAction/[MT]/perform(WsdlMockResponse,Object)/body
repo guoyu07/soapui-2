@@ -1,6 +1,8 @@
 {
   String name=UISupport.prompt("Specify name of cloned MockResponse",getName(),"Copy of " + mockResponse.getName());
-  if (name == null)   return;
+  if (name == null) {
+    return;
+  }
   WsdlMockOperation mockOperation=mockResponse.getMockOperation();
   mockOperation.beforeSave();
   MockResponseConfig config=mockOperation.getConfig().addNewResponse();

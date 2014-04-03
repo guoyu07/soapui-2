@@ -1,5 +1,7 @@
 {
-  if (switchingWorkspace)   return;
+  if (switchingWorkspace) {
+    return;
+  }
   String filePath=((WsdlProject)project).getPath();
   String recent=SoapUI.getSettings().getString(RECENT_PROJECTS_SETTING,null);
   StringToStringMap history=recent == null ? new StringToStringMap() : StringToStringMap.fromXml(recent);
@@ -11,6 +13,8 @@
   AbstractAction delegate=new SwingActionDelegate(mapping,SoapUI.getWorkspace());
   recentProjectsMenu.add(new JMenuItem(delegate),recentProjectsMenu.getItemCount() - 2);
   recentProjectsMenu.getItem(recentProjectsMenu.getItemCount() - 1).setEnabled(true);
-  if (isEmptyMarker(recentProjectsMenu.getItem(0)))   recentProjectsMenu.remove(0);
+  if (isEmptyMarker(recentProjectsMenu.getItem(0))) {
+    recentProjectsMenu.remove(0);
+  }
   removeProjectEditors(project);
 }

@@ -1,6 +1,10 @@
 {
   List<String> values=get(key);
-  if (values == null)   return;
+  if (values == null) {
+    return;
+  }
   int ix=values.indexOf(oldValue);
-  if (ix >= 0)   values.set(ix,value);
+  if (ix >= 0) {
+    values.set(ix,value);
+  }
 }

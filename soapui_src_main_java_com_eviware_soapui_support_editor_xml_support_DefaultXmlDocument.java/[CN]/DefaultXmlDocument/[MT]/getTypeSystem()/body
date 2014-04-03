@@ -1,5 +1,7 @@
 {
-  if (typeSystem != null)   return typeSystem;
+  if (typeSystem != null) {
+    return typeSystem;
+  }
   try {
     typeSystem=XmlUtils.createXmlObject(xml).schemaType().getTypeSystem();
     return typeSystem;

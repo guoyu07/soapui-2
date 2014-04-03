@@ -3,7 +3,9 @@
   SoapUIActionMappingList actionMappings=actionGroup.getActionMappings(null);
   for (int c=0; c < actionMappings.size(); c++) {
     SoapUIActionMapping mapping=(SoapUIActionMapping)actionMappings.get(c);
-    if (mapping == null)     continue;
+    if (mapping == null) {
+      continue;
+    }
     SoapUIAction action=mapping.getAction();
     if (action instanceof SeperatorAction) {
       if (!prevWasSeparator) {
@@ -30,7 +32,9 @@
       if (targets.size() > 0) {
         SwingMultiActionDelegate actionDelegate=new SwingMultiActionDelegate(mapping,modelItems);
         actions.addAction(actionDelegate);
-        if (mapping.isDefault())         actions.setDefaultAction(actionDelegate);
+        if (mapping.isDefault()) {
+          actions.setDefaultAction(actionDelegate);
+        }
         actionDelegate.setEnabled(mapping.isEnabled());
         prevWasSeparator=false;
       }

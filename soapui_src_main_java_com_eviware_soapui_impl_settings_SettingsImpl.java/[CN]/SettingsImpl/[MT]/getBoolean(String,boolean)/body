@@ -1,4 +1,6 @@
 {
-  if (values.containsKey(id))   return Boolean.parseBoolean(values.get(id));
+  if (values.containsKey(id)) {
+    return Boolean.parseBoolean(values.get(id));
+  }
   return parent == null ? defaultValue : parent.getBoolean(id);
 }

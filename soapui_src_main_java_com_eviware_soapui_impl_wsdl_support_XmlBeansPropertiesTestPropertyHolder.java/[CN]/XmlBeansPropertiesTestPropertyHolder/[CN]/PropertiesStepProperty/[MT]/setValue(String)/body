@@ -3,7 +3,9 @@
   propertyConfig.setValue(value);
   if (overrideProperties != null && overrideProperties.containsKey(getName())) {
     overrideProperties.remove(getName());
-    if (overrideProperties.isEmpty())     overrideProperties=null;
+    if (overrideProperties.isEmpty()) {
+      overrideProperties=null;
+    }
   }
   firePropertyValueChanged(getName(),oldValue,value);
 }

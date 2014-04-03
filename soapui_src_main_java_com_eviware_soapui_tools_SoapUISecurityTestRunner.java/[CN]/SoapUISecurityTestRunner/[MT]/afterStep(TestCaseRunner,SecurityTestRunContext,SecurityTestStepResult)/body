@@ -1,5 +1,7 @@
 {
-  if (!isPrintReport())   return;
+  if (!isPrintReport()) {
+    return;
+  }
   TestStep currentStep=runContext.getCurrentStep();
   String securityTestName="";
   String securityScanName="";
@@ -26,7 +28,9 @@
       }
       String absoluteOutputFolder=getAbsoluteOutputFolder(ModelSupport.getModelItemProject(tc));
       String fileName=absoluteOutputFolder + File.separator + nameBase+ ".txt";
-      if (result.getStatus() == SecurityResult.ResultStatus.FAILED)       log.error(currentStep.getName() + " failed, exporting to [" + fileName+ "]");
+      if (result.getStatus() == SecurityResult.ResultStatus.FAILED) {
+        log.error(currentStep.getName() + " failed, exporting to [" + fileName+ "]");
+      }
       File file=new File(fileName);
       file.getParentFile().mkdirs();
       PrintWriter writer=new PrintWriter(file);

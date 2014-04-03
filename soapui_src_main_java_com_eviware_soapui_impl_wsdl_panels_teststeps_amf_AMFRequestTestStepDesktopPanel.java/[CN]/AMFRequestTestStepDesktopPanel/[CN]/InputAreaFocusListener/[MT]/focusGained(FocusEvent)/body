@@ -5,7 +5,13 @@
     return;
   }
   int pos=requestSplitPane.getDividerLocation();
-  if (pos >= 600)   return;
-  if (requestSplitPane.getMaximumDividerLocation() > 700)   requestSplitPane.setDividerLocation(600);
- else   requestSplitPane.setDividerLocation(0.8);
+  if (pos >= 600) {
+    return;
+  }
+  if (requestSplitPane.getMaximumDividerLocation() > 700) {
+    requestSplitPane.setDividerLocation(600);
+  }
+ else {
+    requestSplitPane.setDividerLocation(0.8);
+  }
 }

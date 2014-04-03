@@ -11,9 +11,13 @@
     return;
   }
   String name=UISupport.prompt("Specify type of security scan","Add SecurityScan",availableScanNames);
-  if (name == null || name.trim().length() == 0)   return;
+  if (name == null || name.trim().length() == 0) {
+    return;
+  }
   String type=SoapUI.getSoapUICore().getSecurityScanRegistry().getSecurityScanTypeForName(name);
-  if (type == null || type.trim().length() == 0)   return;
+  if (type == null || type.trim().length() == 0) {
+    return;
+  }
   SecurityScan securityScan=securityTest.addNewSecurityScan(testStep,name);
   if (securityScan == null) {
     UISupport.showErrorMessage("Failed to add security scan");

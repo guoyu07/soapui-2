@@ -1,6 +1,8 @@
 {
   for (  HttpConnection connection : connections) {
-    if (!connection.isIdle())     return true;
+    if (!connection.isIdle()) {
+      return true;
+    }
   }
   return false;
 }

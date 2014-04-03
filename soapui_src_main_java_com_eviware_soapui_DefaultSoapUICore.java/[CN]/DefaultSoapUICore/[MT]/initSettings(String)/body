@@ -10,7 +10,9 @@
     }
  else {
       settingsFile=new File(fileName);
-      if (!settingsFile.getAbsolutePath().equals(this.settingsFile))       lastSettingsLoad=0;
+      if (!settingsFile.getAbsolutePath().equals(this.settingsFile)) {
+        lastSettingsLoad=0;
+      }
     }
     if (!settingsFile.exists()) {
       if (settingsDocument == null) {

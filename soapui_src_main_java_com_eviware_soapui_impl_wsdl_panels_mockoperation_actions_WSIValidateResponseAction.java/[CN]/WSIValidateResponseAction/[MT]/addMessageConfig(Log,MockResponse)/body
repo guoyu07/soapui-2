@@ -8,8 +8,12 @@
   MockService mockService=modelItem.getMockOperation().getMockService();
   URL endpoint=new URL("http://127.0.0.1:" + mockService.getPort() + mockService.getPath());
   requestMessage.setSenderHostAndPort("localhost");
-  if (endpoint.getPort() > 0)   requestMessage.setReceiverHostAndPort(endpoint.getHost() + ":" + endpoint.getPort());
- else   requestMessage.setReceiverHostAndPort(endpoint.getHost());
+  if (endpoint.getPort() > 0) {
+    requestMessage.setReceiverHostAndPort(endpoint.getHost() + ":" + endpoint.getPort());
+  }
+ else {
+    requestMessage.setReceiverHostAndPort(endpoint.getHost());
+  }
   requestMessage.setType(TcpMessageType.REQUEST);
   HttpMessageEntry responseMessage=HttpMessageEntry.Factory.newInstance();
   responseMessage.addNewMessageContent().setStringValue(modelItem.getMockResult().getResponseContent());

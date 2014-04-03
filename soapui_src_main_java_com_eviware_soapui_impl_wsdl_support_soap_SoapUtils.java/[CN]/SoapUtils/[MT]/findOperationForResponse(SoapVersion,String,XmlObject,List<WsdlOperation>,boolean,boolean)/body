@@ -1,6 +1,8 @@
 {
   XmlObject contentElm=getContentElement(responseContent,soapVersion);
-  if (contentElm == null)   return null;
+  if (contentElm == null) {
+    return null;
+  }
   QName contentQName=XmlUtils.getQName(contentElm.getDomNode());
   NodeList contentChildNodes=null;
   for (int c=0; c < operations.size(); c++) {
@@ -8,7 +10,9 @@
     String action=wsdlOperation.getAction();
     if (!requireSoapActionMatch || ((soapAction == null && wsdlOperation.getAction() == null) || (action != null && action.equals(soapAction)))) {
       QName qname=wsdlOperation.getResponseBodyElementQName();
-      if (!contentQName.equals(qname))       continue;
+      if (!contentQName.equals(qname)) {
+        continue;
+      }
       SoapVersion ifaceSoapVersion=wsdlOperation.getInterface().getSoapVersion();
       if (requireSoapVersionMatch && ifaceSoapVersion != soapVersion) {
         continue;
@@ -20,7 +24,9 @@
         BindingOperation bindingOperation=wsdlOperation.getBindingOperation();
         Message message=bindingOperation.getOperation().getOutput().getMessage();
         List<Part> parts=message.getOrderedParts(null);
-        if (contentChildNodes == null)         contentChildNodes=XmlUtils.getChildElements((Element)contentElm.getDomNode());
+        if (contentChildNodes == null) {
+          contentChildNodes=XmlUtils.getChildElements((Element)contentElm.getDomNode());
+        }
         int i=0;
         if (parts.size() > 0) {
           for (int x=0; x < parts.size(); x++) {
@@ -31,20 +37,28 @@
           }
           for (; i < contentChildNodes.getLength() && !parts.isEmpty(); i++) {
             Node item=contentChildNodes.item(i);
-            if (item.getNodeType() != Node.ELEMENT_NODE)             continue;
+            if (item.getNodeType() != Node.ELEMENT_NODE) {
+              continue;
+            }
             int j=0;
             while ((j < parts.size()) && (!item.getNodeName().equals(parts.get(j).getName()))) {
               Part part=parts.get(j);
               if (part.getElementName() != null) {
                 QName qn=part.getElementName();
-                if (item.getLocalName().equals(qn.getLocalPart()) && item.getNamespaceURI().equals(qn.getNamespaceURI()))                 break;
+                if (item.getLocalName().equals(qn.getLocalPart()) && item.getNamespaceURI().equals(qn.getNamespaceURI())) {
+                  break;
+                }
               }
  else {
-                if (item.getNodeName().equals(parts.get(j).getName()))                 break;
+                if (item.getNodeName().equals(parts.get(j).getName())) {
+                  break;
+                }
               }
               j++;
             }
-            if (j == parts.size())             break;
+            if (j == parts.size()) {
+              break;
+            }
             parts.remove(j);
           }
         }

@@ -25,7 +25,9 @@
             SoapUI.log.info("Failed to add jar to " + classLoader.getClass().getName() + ", trying parent");
             addUrlToClassLoader(u,classLoader.getParent());
           }
- else           throw new IOException("Error, could not add URL to classloader " + classLoader.getClass().getName());
+ else {
+            throw new IOException("Error, could not add URL to classloader " + classLoader.getClass().getName());
+          }
         }
  catch (        IOException e3) {
           SoapUI.logError(t);

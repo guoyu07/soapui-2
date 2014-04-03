@@ -4,7 +4,9 @@
     RestParamProperty p=getPropertyAt(i);
     String name=p.getName();
     String value=values.containsKey(name) ? values.get(name) : p.getValue();
-    if (value == null)     value="";
+    if (value == null) {
+      value="";
+    }
     props.setProperty(name,value);
   }
 }

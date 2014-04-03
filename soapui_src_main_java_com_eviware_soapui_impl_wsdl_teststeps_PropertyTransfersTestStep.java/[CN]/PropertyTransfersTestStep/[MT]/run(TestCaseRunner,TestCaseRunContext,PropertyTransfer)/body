@@ -4,7 +4,9 @@
   long startTime=System.currentTimeMillis();
   for (int c=0; c < transfers.size(); c++) {
     PropertyTransfer valueTransfer=transfers.get(c);
-    if ((transfer != null && transfer != valueTransfer) || valueTransfer.isDisabled())     continue;
+    if ((transfer != null && transfer != valueTransfer) || valueTransfer.isDisabled()) {
+      continue;
+    }
     try {
       if (canceled) {
         result.setStatus(TestStepStatus.CANCELED);
@@ -25,12 +27,16 @@
         result.setError(e);
         result.setStatus(TestStepStatus.FAILED);
         result.setTimeTaken(System.currentTimeMillis() - startTime);
-        if (failedIcon != null)         setIcon(failedIcon);
+        if (failedIcon != null) {
+          setIcon(failedIcon);
+        }
         return result;
       }
     }
   }
-  if (okIcon != null)   setIcon(okIcon);
+  if (okIcon != null) {
+    setIcon(okIcon);
+  }
   result.setStatus(TestStepStatus.OK);
   result.setTimeTaken(System.currentTimeMillis() - startTime);
   return result;

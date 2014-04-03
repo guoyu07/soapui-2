@@ -6,7 +6,9 @@
     getSubmitButton().setEnabled(getSubmit() == null && StringUtils.hasContent(getRequest().getEndpoint()));
   }
  else   if (evt.getPropertyName().equals(AbstractHttpRequest.ENDPOINT_PROPERTY)) {
-    if (updating)     return;
+    if (updating) {
+      return;
+    }
     updating=true;
     pathTextField.setText(String.valueOf(evt.getNewValue()));
     updating=false;

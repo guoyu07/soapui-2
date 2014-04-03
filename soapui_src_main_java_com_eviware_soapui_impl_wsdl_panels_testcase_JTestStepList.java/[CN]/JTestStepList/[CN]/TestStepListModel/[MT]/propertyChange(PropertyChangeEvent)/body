@@ -1,6 +1,8 @@
 {
   final int ix=testCase.getIndexOfTestStep((TestStep)arg0.getSource());
-  if (ix == -1)   return;
+  if (ix == -1) {
+    return;
+  }
   if (!SwingUtilities.isEventDispatchThread()) {
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){

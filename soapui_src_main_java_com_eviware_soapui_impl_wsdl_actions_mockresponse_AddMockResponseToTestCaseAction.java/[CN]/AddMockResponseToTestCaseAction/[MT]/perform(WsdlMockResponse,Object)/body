@@ -1,6 +1,8 @@
 {
   WsdlMockService mockService=mockResponse.getMockOperation().getMockService();
   WsdlTestCase testCase=getTargetTestCase((WsdlProject)mockService.getProject());
-  if (testCase == null)   return;
+  if (testCase == null) {
+    return;
+  }
   addMockResponseToTestCase(mockResponse,testCase,-1);
 }

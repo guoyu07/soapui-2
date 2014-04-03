@@ -1,5 +1,7 @@
 {
-  if (settingResponse)   return;
+  if (settingResponse) {
+    return;
+  }
   if (evt.getPropertyName().equals(WsdlRequest.RESPONSE_PROPERTY)) {
     Response oldResponse=(Response)evt.getOldValue();
     Response newResponse=(Response)evt.getNewValue();

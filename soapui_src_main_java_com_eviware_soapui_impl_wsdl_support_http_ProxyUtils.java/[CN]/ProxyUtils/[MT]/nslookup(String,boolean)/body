@@ -3,8 +3,12 @@
   String address;
   try {
     host=InetAddress.getByName(s);
-    if (ip)     address=host.getHostAddress();
- else     address=host.getHostName();
+    if (ip) {
+      address=host.getHostAddress();
+    }
+ else {
+      address=host.getHostName();
+    }
   }
  catch (  UnknownHostException ue) {
     return s;

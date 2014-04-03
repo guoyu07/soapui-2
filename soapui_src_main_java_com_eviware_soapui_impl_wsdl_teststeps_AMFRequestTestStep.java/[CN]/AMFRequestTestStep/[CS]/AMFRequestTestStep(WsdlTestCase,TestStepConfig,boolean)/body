@@ -6,17 +6,21 @@
  else {
     amfRequestTestStepConfig=(AMFRequestTestStepConfig)getConfig().addNewConfig().changeType(AMFRequestTestStepConfig.type);
   }
-  if (amfRequestTestStepConfig.getProperties() == null)   amfRequestTestStepConfig.addNewProperties();
+  if (amfRequestTestStepConfig.getProperties() == null) {
+    amfRequestTestStepConfig.addNewProperties();
+  }
   amfRequest=new AMFRequest(this,forLoadTest);
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,amfRequestTestStepConfig.getProperties());
   addResponseAsXmlVirtualProperty();
   initAssertions();
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
-  if (forLoadTest && !isDisabled())   try {
-    scriptEngine.compile();
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
+  if (forLoadTest && !isDisabled()) {
+    try {
+      scriptEngine.compile();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
   }
 }

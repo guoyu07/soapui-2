@@ -5,10 +5,20 @@
     requestTabs.setSelectedIndex(0);
     return;
   }
-  if (getModelItem().getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR))   return;
-  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged())   return;
+  if (getModelItem().getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR)) {
+    return;
+  }
+  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged()) {
+    return;
+  }
   int pos=requestSplitPane.getDividerLocation();
-  if (pos >= 600)   return;
-  if (requestSplitPane.getMaximumDividerLocation() > 700)   requestSplitPane.setDividerLocation(600);
- else   requestSplitPane.setDividerLocation(0.8);
+  if (pos >= 600) {
+    return;
+  }
+  if (requestSplitPane.getMaximumDividerLocation() > 700) {
+    requestSplitPane.setDividerLocation(600);
+  }
+ else {
+    requestSplitPane.setDividerLocation(0.8);
+  }
 }

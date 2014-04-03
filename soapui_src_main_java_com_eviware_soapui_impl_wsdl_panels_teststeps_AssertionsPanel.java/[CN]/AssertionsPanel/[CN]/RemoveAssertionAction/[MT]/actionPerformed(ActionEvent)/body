@@ -1,8 +1,12 @@
 {
   List<TestAssertion> removeAssertionList=new ArrayList<TestAssertion>();
   int indices[]=assertionList.getSelectedIndices();
-  if (indices.length == 0)   return;
-  if (hasRunningTestCase(indices[0]))   return;
+  if (indices.length == 0) {
+    return;
+  }
+  if (hasRunningTestCase(indices[0])) {
+    return;
+  }
   for (  int i : indices) {
     removeAssertionList.add(assertionListModel.getAssertionAt(i));
   }

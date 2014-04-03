@@ -1,5 +1,7 @@
 {
-  if (submit.getRequest() != amfRequestTestStep.getAMFRequest())   return;
+  if (submit.getRequest() != amfRequestTestStep.getAMFRequest()) {
+    return;
+  }
   Status status=submit.getStatus();
   AMFResponse response=(AMFResponse)submit.getResponse();
   if (status == Status.FINISHED) {
@@ -22,12 +24,16 @@
  else {
       message="response time: " + response.getTimeTaken() + "ms ("+ response.getContentLength()+ " bytes)";
       infoMessage="Got response for [" + requestName + "] in "+ response.getTimeTaken()+ "ms ("+ response.getContentLength()+ " bytes)";
-      if (!splitButton.isEnabled())       requestTabs.setSelectedIndex(1);
+      if (!splitButton.isEnabled()) {
+        requestTabs.setSelectedIndex(1);
+      }
       responseEditor.requestFocus();
     }
   }
   logMessages(message,infoMessage);
-  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_RESPONSE))   responseEditor.getSourceEditor().validate();
+  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_RESPONSE)) {
+    responseEditor.getSourceEditor().validate();
+  }
   AMFRequestTestStepDesktopPanel.this.submit=null;
   updateStatusIcon();
 }

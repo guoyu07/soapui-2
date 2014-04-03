@@ -18,7 +18,11 @@
         }
       }
     }
-    if (cnt == 0)     log.warn("Missing schema files in  schemaDirectory [" + schemaDirectory + "]");
+    if (cnt == 0) {
+      log.warn("Missing schema files in  schemaDirectory [" + schemaDirectory + "]");
+    }
   }
- else   log.warn("Failed to open schemaDirectory [" + schemaDirectory + "]");
+ else {
+    log.warn("Failed to open schemaDirectory [" + schemaDirectory + "]");
+  }
 }

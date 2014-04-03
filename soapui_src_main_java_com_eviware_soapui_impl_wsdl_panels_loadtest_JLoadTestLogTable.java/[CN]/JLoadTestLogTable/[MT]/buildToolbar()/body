@@ -17,10 +17,16 @@
   typesFilterComboBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       int ix=typesFilterComboBox.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       typeFilter.setAcceptNull(ix == 0);
-      if (ix == 0)       typeFilter.setPattern(".*",0);
- else       typeFilter.setPattern(typesFilterComboBox.getSelectedItem().toString(),0);
+      if (ix == 0) {
+        typeFilter.setPattern(".*",0);
+      }
+ else {
+        typeFilter.setPattern(typesFilterComboBox.getSelectedItem().toString(),0);
+      }
       updateRowCountLabel();
     }
   }
@@ -38,10 +44,16 @@
   stepsFilterComboBox.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       int ix=stepsFilterComboBox.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       stepFilter.setAcceptNull(ix == 0);
-      if (ix == 0)       stepFilter.setPattern(".*",0);
- else       stepFilter.setPattern(stepsFilterComboBox.getSelectedItem().toString(),0);
+      if (ix == 0) {
+        stepFilter.setPattern(".*",0);
+      }
+ else {
+        stepFilter.setPattern(stepsFilterComboBox.getSelectedItem().toString(),0);
+      }
       updateRowCountLabel();
     }
   }

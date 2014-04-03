@@ -13,16 +13,24 @@
  else {
       if (backslash) {
         backslash=false;
-        if (token == Token.KEYWORD2 || token == EDFORMULA)         token=Token.KEYWORD2;
+        if (token == Token.KEYWORD2 || token == EDFORMULA) {
+          token=Token.KEYWORD2;
+        }
         addToken(i1 - lastOffset,token);
         lastOffset=i1;
-        if (token == Token.KEYWORD1)         token=Token.NULL;
+        if (token == Token.KEYWORD1) {
+          token=Token.NULL;
+        }
         continue;
       }
  else {
-        if (token == BDFORMULA || token == EDFORMULA)         token=Token.KEYWORD2;
+        if (token == BDFORMULA || token == EDFORMULA) {
+          token=Token.KEYWORD2;
+        }
         addToken(i - lastOffset,token);
-        if (token == Token.KEYWORD1)         token=Token.NULL;
+        if (token == Token.KEYWORD1) {
+          token=Token.NULL;
+        }
         lastOffset=i;
       }
     }
@@ -76,6 +84,8 @@ lastOffset=i1;
 break;
 }
 }
-if (lastOffset != length) addToken(length - lastOffset,token == BDFORMULA || token == EDFORMULA ? Token.KEYWORD2 : token);
+if (lastOffset != length) {
+addToken(length - lastOffset,token == BDFORMULA || token == EDFORMULA ? Token.KEYWORD2 : token);
+}
 return (token != Token.KEYWORD1 ? token : Token.NULL);
 }

@@ -1,6 +1,8 @@
 {
   File file=new File(path);
-  if (!file.exists() || !file.isDirectory())   file.mkdirs();
+  if (!file.exists() || !file.isDirectory()) {
+    file.mkdirs();
+  }
   List<String> result=new ArrayList<String>();
   Iterator<String> keyset=reports.keySet().iterator();
   while (keyset.hasNext()) {

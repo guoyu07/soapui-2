@@ -3,7 +3,9 @@
   for (int c=0; c < loadTestLog.getSize(); c++) {
     if (logTable != null) {
       int index=logTable.getFilters().convertRowIndexToView(c);
-      if (index == -1)       continue;
+      if (index == -1) {
+        continue;
+      }
     }
     LoadTestLogEntry logEntry=(LoadTestLogEntry)loadTestLog.getElementAt(c);
     writer.write(DateUtil.formatFull(new Date(logEntry.getTimeStamp())));

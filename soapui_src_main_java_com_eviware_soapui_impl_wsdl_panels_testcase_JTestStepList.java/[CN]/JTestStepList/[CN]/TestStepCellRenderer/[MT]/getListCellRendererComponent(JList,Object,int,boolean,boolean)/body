@@ -12,7 +12,11 @@
   }
   setEnabled(list.isEnabled() && !testStep.isDisabled());
   String toolTipText=list.getToolTipText();
-  if (toolTipText == null)   setToolTipText(testStep.getDescription());
- else   setToolTipText(toolTipText.length() == 0 ? null : toolTipText);
+  if (toolTipText == null) {
+    setToolTipText(testStep.getDescription());
+  }
+ else {
+    setToolTipText(toolTipText.length() == 0 ? null : toolTipText);
+  }
   return this;
 }

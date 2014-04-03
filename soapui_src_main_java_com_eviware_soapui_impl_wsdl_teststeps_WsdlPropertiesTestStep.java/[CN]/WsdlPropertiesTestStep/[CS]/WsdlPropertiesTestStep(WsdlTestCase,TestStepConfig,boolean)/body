@@ -15,7 +15,9 @@
     if (!propertiesStepConfig.isSetProperties()) {
       propertiesStepConfig.addNewProperties();
     }
-    if (!propertiesStepConfig.isSetSaveFirst())     propertiesStepConfig.setSaveFirst(true);
+    if (!propertiesStepConfig.isSetSaveFirst()) {
+      propertiesStepConfig.setSaveFirst(true);
+    }
   }
   propertyHolderSupport=new XmlBeansPropertiesTestPropertyHolder(this,propertiesStepConfig.getProperties());
   sourceProperty=new BeanPathPropertySupport(this,propertiesStepConfig,"source");

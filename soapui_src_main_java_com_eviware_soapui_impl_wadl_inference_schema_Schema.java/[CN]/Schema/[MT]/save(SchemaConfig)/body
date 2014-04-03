@@ -6,7 +6,11 @@
     mapEntry.setValue(entry.getValue());
   }
   List<ParticleConfig> particleList=new ArrayList<ParticleConfig>();
-  for (  Particle item : particles)   particleList.add(item.save());
+  for (  Particle item : particles) {
+    particleList.add(item.save());
+  }
   xml.setParticleArray(particleList.toArray(new ParticleConfig[0]));
-  for (  ComplexType item : types.values())   item.save(xml.addNewComplexType());
+  for (  ComplexType item : types.values()) {
+    item.save(xml.addNewComplexType());
+  }
 }

@@ -3,6 +3,8 @@
   properties.put("#TestSuiteRunner#",this);
   TestCaseRunner currentRunner=testCaseAt.run(properties,true);
   activeRunners.add(currentRunner);
-  if (!async)   currentRunner.waitUntilFinished();
+  if (!async) {
+    currentRunner.waitUntilFinished();
+  }
   return currentRunner;
 }

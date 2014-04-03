@@ -3,7 +3,9 @@
   config=PropertiesTypeConfig.Factory.newInstance();
   try {
     String str=settings.getString(settingsName,null);
-    if (StringUtils.hasContent(str))     config=PropertiesTypeConfig.Factory.parse(str);
+    if (StringUtils.hasContent(str)) {
+      config=PropertiesTypeConfig.Factory.parse(str);
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);

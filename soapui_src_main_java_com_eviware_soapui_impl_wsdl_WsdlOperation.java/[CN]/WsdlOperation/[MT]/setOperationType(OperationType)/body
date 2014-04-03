@@ -1,7 +1,9 @@
 {
   OperationConfig config=getConfig();
   if (type == null) {
-    if (config.isSetType())     config.unsetType();
+    if (config.isSetType()) {
+      config.unsetType();
+    }
   }
  else {
     if (OperationType.ONE_WAY.equals(type)) {

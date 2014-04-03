@@ -4,7 +4,9 @@
     setIcon(UISupport.createImageIcon("/wait.gif"));
   }
   if (config.getConfig() == null) {
-    if (!forLoadTest)     saveDelay(config);
+    if (!forLoadTest) {
+      saveDelay(config);
+    }
   }
  else {
     readConfig(config);

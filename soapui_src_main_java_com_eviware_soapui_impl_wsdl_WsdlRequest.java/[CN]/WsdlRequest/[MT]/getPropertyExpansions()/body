@@ -3,7 +3,9 @@
   result.addAll(super.getPropertyExpansions());
   StringToStringsMap requestHeaders=getRequestHeaders();
   for (  Map.Entry<String,List<String>> headerEntry : requestHeaders.entrySet()) {
-    for (    String value : headerEntry.getValue())     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new HttpTestRequestStep.RequestHeaderHolder(headerEntry.getKey(),value,this),"value"));
+    for (    String value : headerEntry.getValue()) {
+      result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new HttpTestRequestStep.RequestHeaderHolder(headerEntry.getKey(),value,this),"value"));
+    }
   }
   addWsaPropertyExpansions(result,getWsaConfig(),this);
   addJMSHeaderExpansions(result,getJMSHeaderConfig(),this);

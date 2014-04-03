@@ -1,5 +1,9 @@
 {
   int dt=getDropTypeAtPoint(e.getLocation());
-  if (dt == DropType.NONE || !isDragAcceptable(e,dt))   e.rejectDrag();
- else   e.acceptDrag(e.getDropAction());
+  if (dt == DropType.NONE || !isDragAcceptable(e,dt)) {
+    e.rejectDrag();
+  }
+ else {
+    e.acceptDrag(e.getDropAction());
+  }
 }

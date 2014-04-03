@@ -3,7 +3,9 @@
   for (  TestProperty p : properties) {
     String name=p.getName();
     String value=p.getValue();
-    if (value == null)     value="";
+    if (value == null) {
+      value="";
+    }
     props.setProperty(name,value);
     cnt++;
   }

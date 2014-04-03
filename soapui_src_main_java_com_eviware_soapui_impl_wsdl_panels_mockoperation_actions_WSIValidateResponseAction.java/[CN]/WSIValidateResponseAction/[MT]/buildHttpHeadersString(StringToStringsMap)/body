@@ -5,7 +5,9 @@
   }
   for (  Map.Entry<String,List<String>> headerEntry : headers.entrySet()) {
     if (!headerEntry.getKey().equals("#status#")) {
-      for (      String value : headerEntry.getValue())       buffer.append(headerEntry.getKey()).append(": ").append(value).append("\r\n");
+      for (      String value : headerEntry.getValue()) {
+        buffer.append(headerEntry.getKey()).append(": ").append(value).append("\r\n");
+      }
     }
   }
   return buffer.toString();

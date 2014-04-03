@@ -10,7 +10,9 @@
     }
     if (StringUtils.hasContent(wssType) || StringUtils.hasContent(wssTimeToLive)) {
       try {
-        if (wssTimeToLive != null && wssTimeToLive.length() == 0)         wssTimeToLive=null;
+        if (wssTimeToLive != null && wssTimeToLive.length() == 0) {
+          wssTimeToLive=null;
+        }
         WssAuthenticationRequestFilter.setWssHeaders(context,username,password,wssType,wssTimeToLive);
       }
  catch (      Exception e) {

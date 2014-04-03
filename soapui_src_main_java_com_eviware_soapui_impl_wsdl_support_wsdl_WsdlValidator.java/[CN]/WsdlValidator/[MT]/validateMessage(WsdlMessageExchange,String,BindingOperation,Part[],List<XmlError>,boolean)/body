@@ -19,14 +19,22 @@
  else {
           validateDocLiteral(bindingOperation,parts,xml,errors,isResponse);
         }
-        if (isResponse)         validateOutputAttachments(messageExchange,xml,errors,bindingOperation,parts);
- else         validateInputAttachments(messageExchange,errors,bindingOperation,parts);
+        if (isResponse) {
+          validateOutputAttachments(messageExchange,xml,errors,bindingOperation,parts);
+        }
+ else {
+          validateInputAttachments(messageExchange,errors,bindingOperation,parts);
+        }
       }
- else       errors.add(XmlError.forMessage("Validation of SOAP-Encoded messages not supported"));
+ else {
+        errors.add(XmlError.forMessage("Validation of SOAP-Encoded messages not supported"));
+      }
     }
   }
  catch (  XmlException e) {
-    if (e.getErrors() != null)     errors.addAll(e.getErrors());
+    if (e.getErrors() != null) {
+      errors.addAll(e.getErrors());
+    }
     errors.add(XmlError.forMessage(e.getMessage()));
   }
 catch (  Exception e) {

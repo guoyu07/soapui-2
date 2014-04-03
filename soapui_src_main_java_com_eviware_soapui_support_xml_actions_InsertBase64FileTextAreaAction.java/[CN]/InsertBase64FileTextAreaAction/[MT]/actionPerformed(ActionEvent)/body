@@ -1,6 +1,8 @@
 {
   File file=UISupport.getFileDialogs().open(this,dialogTitle,null,null,null);
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   try {
     byte[] ba=FileUtils.readFileToByteArray(file);
     Base64 b64=new Base64();

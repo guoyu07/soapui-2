@@ -1,14 +1,22 @@
 {
-  if (StringUtils.isNullOrEmpty(path))   return null;
-  if (iconCache.containsKey(path))   return iconCache.get(path);
+  if (StringUtils.isNullOrEmpty(path)) {
+    return null;
+  }
+  if (iconCache.containsKey(path)) {
+    return iconCache.get(path);
+  }
   String orgPath=path;
   java.net.URL imgURL=null;
   try {
     File file=new File(path);
-    if (file.exists())     imgURL=file.toURI().toURL();
+    if (file.exists()) {
+      imgURL=file.toURI().toURL();
+    }
  else {
       String p=path;
-      if (p.indexOf('/',1) == -1)       p="/com/eviware/soapui/resources/images" + p;
+      if (p.indexOf('/',1) == -1) {
+        p="/com/eviware/soapui/resources/images" + p;
+      }
       imgURL=SoapUI.class.getResource(p);
       if (imgURL == null && path.endsWith(".gif")) {
         imgURL=SoapUI.class.getResource(p.substring(0,p.length() - 4) + ".png");
@@ -29,8 +37,12 @@
       return imageIcon;
     }
  catch (    Throwable e) {
-      if (e instanceof NoClassDefFoundError)       isHeadless=true;
- else       System.err.println("Failed to create icon: " + e);
+      if (e instanceof NoClassDefFoundError) {
+        isHeadless=true;
+      }
+ else {
+        System.err.println("Failed to create icon: " + e);
+      }
       return null;
     }
   }

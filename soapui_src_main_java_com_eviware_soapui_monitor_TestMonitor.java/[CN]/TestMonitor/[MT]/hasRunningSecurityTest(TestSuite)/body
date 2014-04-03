@@ -1,4 +1,8 @@
 {
-  for (  TestCase testCase : testSuite.getTestCaseList())   if (hasRunningSecurityTest(testCase))   return true;
+  for (  TestCase testCase : testSuite.getTestCaseList()) {
+    if (hasRunningSecurityTest(testCase)) {
+      return true;
+    }
+  }
   return false;
 }

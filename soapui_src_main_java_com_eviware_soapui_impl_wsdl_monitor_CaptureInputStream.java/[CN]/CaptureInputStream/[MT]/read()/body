@@ -5,7 +5,9 @@
  else {
     inCapture=true;
     int i=super.read();
-    if (i != -1 && (maxData == 0 || capture.size() < maxData))     capture.write(i);
+    if (i != -1 && (maxData == 0 || capture.size() < maxData)) {
+      capture.write(i);
+    }
     inCapture=false;
     return i;
   }

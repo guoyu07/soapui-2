@@ -2,7 +2,9 @@
   String responseContent=messageExchange.getResponseContent();
   try {
     SoapVersion soapVersion=((WsdlMessageExchange)messageExchange).getOperation().getInterface().getSoapVersion();
-    if (!SoapUtils.isSoapFault(responseContent,soapVersion))     throw new AssertionException(new AssertionError("Response is not a SOAP Fault"));
+    if (!SoapUtils.isSoapFault(responseContent,soapVersion)) {
+      throw new AssertionException(new AssertionError("Response is not a SOAP Fault"));
+    }
   }
  catch (  Exception e) {
     throw new AssertionException(new AssertionError(e.getMessage()));

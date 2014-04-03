@@ -1,6 +1,8 @@
 {
   int[] rows=logTable.getSelectedRows();
-  if (rows.length == 0)   return;
+  if (rows.length == 0) {
+    return;
+  }
   if (dialog == null) {
     dialog=ADialogBuilder.buildDialog(this.getClass());
     dialog.getFormField(TESTSUITE).addFormFieldListener(new XFormFieldListener(){
@@ -26,13 +28,17 @@
     WsdlTestSuite testSuite=getProject().getTestSuiteByName(targetTestSuiteName);
     if (testSuite == null) {
       targetTestSuiteName=ModelSupport.promptForUniqueName("TestSuite",getProject(),"");
-      if (targetTestSuiteName == null)       return;
+      if (targetTestSuiteName == null) {
+        return;
+      }
       testSuite=getProject().addNewTestSuite(targetTestSuiteName);
     }
     WsdlTestCase testCase=testSuite.getTestCaseByName(targetTestCaseName);
     if (testCase == null) {
       targetTestCaseName=ModelSupport.promptForUniqueName("TestCase",testSuite,"");
-      if (targetTestCaseName == null)       return;
+      if (targetTestCaseName == null) {
+        return;
+      }
       testCase=testSuite.addNewTestCase(targetTestCaseName);
     }
     for (    int row : rows) {
@@ -75,6 +81,8 @@
         }
       }
     }
-    if (dialog.getBooleanValue(OPENEDITOR))     UISupport.selectAndShow(testCase);
+    if (dialog.getBooleanValue(OPENEDITOR)) {
+      UISupport.selectAndShow(testCase);
+    }
   }
 }

@@ -1,8 +1,12 @@
 {
   int bytes=0;
   if (target.exists()) {
-    if (overwrite)     target.delete();
- else     return -1;
+    if (overwrite) {
+      target.delete();
+    }
+ else {
+      return -1;
+    }
   }
  else {
     String path=target.getAbsolutePath();
@@ -10,7 +14,9 @@
     if (ix != -1) {
       path=path.substring(0,ix);
       File pathFile=new File(path);
-      if (!pathFile.exists())       pathFile.mkdirs();
+      if (!pathFile.exists()) {
+        pathFile.mkdirs();
+      }
     }
   }
   BufferedInputStream in=new BufferedInputStream(new FileInputStream(source));

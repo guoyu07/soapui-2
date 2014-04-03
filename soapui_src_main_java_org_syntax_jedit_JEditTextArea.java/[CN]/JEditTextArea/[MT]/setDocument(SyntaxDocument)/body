@@ -1,8 +1,14 @@
 {
-  if (this.document == document)   return;
-  if (this.document != null)   this.document.removeDocumentListener(documentHandler);
+  if (this.document == document) {
+    return;
+  }
+  if (this.document != null) {
+    this.document.removeDocumentListener(documentHandler);
+  }
   this.document=document;
-  if (getParent() != null)   document.addDocumentListener(documentHandler);
+  if (getParent() != null) {
+    document.addDocumentListener(documentHandler);
+  }
   select(0,0);
   updateScrollBars();
   painter.repaint();

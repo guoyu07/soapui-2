@@ -20,7 +20,9 @@ case '%':
       i+=2;
       lastOffset=i;
     }
- else     token=Token.KEYWORD2;
+ else {
+      token=Token.KEYWORD2;
+    }
   break;
 case '"':
 addToken(i - lastOffset,token);
@@ -61,8 +63,12 @@ throw new InternalError("Invalid state: " + token);
 }
 }
 if (lastOffset != length) {
-if (token != Token.NULL) token=Token.INVALID;
- else if (lastOffset == offset) token=Token.KEYWORD1;
+if (token != Token.NULL) {
+token=Token.INVALID;
+}
+ else if (lastOffset == offset) {
+token=Token.KEYWORD1;
+}
 addToken(length - lastOffset,token);
 }
 return Token.NULL;

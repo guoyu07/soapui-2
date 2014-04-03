@@ -14,7 +14,9 @@
         tuple.binding=tuple.port.getBinding();
       }
     }
-    if (tuple.binding != null)     break;
+    if (tuple.binding != null) {
+      break;
+    }
     tuple.service=null;
   }
   if (tuple.service == null && tuple.binding == null) {
@@ -23,7 +25,9 @@
   if (tuple.binding == null) {
     Map bindings=definition.getAllBindings();
     Object retval=UISupport.prompt("Missing matching binding [" + getBindingName() + "] in definition, select new\nbinding to map to","Map Binding",bindings.keySet().toArray());
-    if (retval == null)     return null;
+    if (retval == null) {
+      return null;
+    }
     tuple.binding=(Binding)bindings.get(retval);
   }
   return tuple;

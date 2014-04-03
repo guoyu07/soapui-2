@@ -1,4 +1,8 @@
 {
-  for (  TestCase testCase : testSuite.getTestCaseList())   if (hasRunningLoadTest(testCase))   return true;
+  for (  TestCase testCase : testSuite.getTestCaseList()) {
+    if (hasRunningLoadTest(testCase)) {
+      return true;
+    }
+  }
   return false;
 }

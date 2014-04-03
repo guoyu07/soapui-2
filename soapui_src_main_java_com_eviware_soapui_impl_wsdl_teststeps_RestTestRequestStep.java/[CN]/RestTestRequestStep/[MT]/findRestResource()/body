@@ -4,7 +4,9 @@
     if (iface.getName().equals(getRequestStepConfig().getService()) && iface instanceof RestService) {
       RestService restService=(RestService)iface;
       for (      RestResource resource : restService.getResourcesByFullPath(getRequestStepConfig().getResourcePath())) {
-        if (getWsdlModelItemByName(resource.getRestMethodList(),getRequestStepConfig().getMethodName()) != null)         return resource;
+        if (getWsdlModelItemByName(resource.getRestMethodList(),getRequestStepConfig().getMethodName()) != null) {
+          return resource;
+        }
       }
     }
   }

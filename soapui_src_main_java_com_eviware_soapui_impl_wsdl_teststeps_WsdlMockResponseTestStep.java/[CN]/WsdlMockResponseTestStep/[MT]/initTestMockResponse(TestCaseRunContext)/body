@@ -5,7 +5,9 @@
     testMockResponse.setConfig((MockResponseConfig)mockResponse.getConfig().copy());
     testMockResponse.setName(name);
     QueryMatchMockOperationDispatcher dispatcher=(QueryMatchMockOperationDispatcher)mockOperation.setDispatchStyle(MockOperationDispatchStyleConfig.QUERY_MATCH.toString());
-    for (    QueryMatchMockOperationDispatcher.Query query : dispatcher.getQueries())     dispatcher.deleteQuery(query);
+    for (    QueryMatchMockOperationDispatcher.Query query : dispatcher.getQueries()) {
+      dispatcher.deleteQuery(query);
+    }
     mockOperation.setDefaultResponse(null);
     QueryMatchMockOperationDispatcher.Query query=dispatcher.addQuery("Match");
     query.setQuery(PropertyExpander.expandProperties(testRunContext,getQuery()));

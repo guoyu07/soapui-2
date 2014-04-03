@@ -1,5 +1,7 @@
 {
-  if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+  }
   dialog.getFormField(Form.CLONE_DESCRIPTION).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       if (dialog.getBooleanValue(Form.CLONE_DESCRIPTION)) {

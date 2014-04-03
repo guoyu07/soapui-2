@@ -1,8 +1,12 @@
 {
   int startStepIndex=0;
   if (items.size() > currentStepEntriesCount) {
-    if (currentStepEntriesCount > 0)     startStepIndex=items.size() - currentStepEntriesCount;
- else     startStepIndex=items.size();
+    if (currentStepEntriesCount > 0) {
+      startStepIndex=items.size() - currentStepEntriesCount;
+    }
+ else {
+      startStepIndex=items.size();
+    }
   }
   if ((errorsOnly && !result.isHasScansWithWarnings()) || (startStepLogEntryAdded && !hasChecksToProcess)) {
     int size=items.size() - 1;

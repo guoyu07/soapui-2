@@ -3,12 +3,16 @@
   try {
     long timestamp=System.currentTimeMillis();
     SoapVersion soapVersion=mockRequest.getSoapVersion();
-    if (soapVersion == null)     throw new DispatchException("Unrecognized SOAP Version");
+    if (soapVersion == null) {
+      throw new DispatchException("Unrecognized SOAP Version");
+    }
     String soapAction=mockRequest.getSoapAction();
     WsdlOperation operation=null;
     if (SoapUtils.isSoapFault(mockRequest.getRequestContent(),soapVersion)) {
       WsdlMockOperation faultMockOperation=mockService.getFaultMockOperation();
-      if (faultMockOperation != null)       operation=faultMockOperation.getOperation();
+      if (faultMockOperation != null) {
+        operation=faultMockOperation.getOperation();
+      }
     }
  else {
       try {
@@ -36,7 +40,9 @@
       if (mockOperation != null) {
         long startTime=System.nanoTime();
         result=mockOperation.dispatchRequest(mockRequest);
-        if (mockRequest.getHttpRequest() instanceof org.mortbay.jetty.Request)         ((org.mortbay.jetty.Request)mockRequest.getHttpRequest()).setHandled(true);
+        if (mockRequest.getHttpRequest() instanceof org.mortbay.jetty.Request) {
+          ((org.mortbay.jetty.Request)mockRequest.getHttpRequest()).setHandled(true);
+        }
         result.setTimeTaken((System.nanoTime() - startTime) / 1000000);
         result.setTimestamp(timestamp);
         addMockResult(result);
@@ -49,7 +55,9 @@
     throw new DispatchException("Missing operation for soapAction [" + soapAction + "] and body element ["+ XmlUtils.getQName(mockRequest.getContentElement())+ "] with SOAP Version ["+ mockRequest.getSoapVersion()+ "]");
   }
  catch (  Exception e) {
-    if (e instanceof DispatchException)     throw e;
+    if (e instanceof DispatchException) {
+      throw e;
+    }
     throw new DispatchException(e);
   }
 }

@@ -3,7 +3,9 @@
   if (contentType != null && contentType.toUpperCase().startsWith("MULTIPART")) {
     readMultipartRequest(request);
     MultipartMessageSupport multipartMessageSupport=getMultipartMessageSupport();
-    if (multipartMessageSupport != null && multipartMessageSupport.getRootPart() != null)     contentType=multipartMessageSupport.getRootPart().getContentType();
+    if (multipartMessageSupport != null && multipartMessageSupport.getRootPart() != null) {
+      contentType=multipartMessageSupport.getRootPart().getContentType();
+    }
   }
  else {
     String requestContent=readRequestContent(request);
@@ -23,7 +25,9 @@
           }
         }
  catch (        Exception e) {
-          if (wssResult == null)           wssResult=new Vector<Object>();
+          if (wssResult == null) {
+            wssResult=new Vector<Object>();
+          }
           wssResult.add(e);
         }
       }
@@ -34,6 +38,8 @@
   }
  catch (  Exception e) {
   }
-  if (soapVersion == null)   soapVersion=SoapVersion.Soap11;
+  if (soapVersion == null) {
+    soapVersion=SoapVersion.Soap11;
+  }
   soapAction=SoapUtils.getSoapAction(soapVersion,getRequestHeaders());
 }

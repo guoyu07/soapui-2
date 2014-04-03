@@ -8,7 +8,9 @@
     builder.addFixed(new JButton(new AbstractAction("Select Font.."){
       public void actionPerformed(      ActionEvent e){
         Font font=JFontChooser.showDialog(UISupport.getMainFrame(),"Select XML Editor Font",Font.decode(editorFontTextField.getText()));
-        if (font != null)         editorFontTextField.setText(encodeFont(font));
+        if (font != null) {
+          editorFontTextField.setText(encodeFont(font));
+        }
       }
     }
 ));

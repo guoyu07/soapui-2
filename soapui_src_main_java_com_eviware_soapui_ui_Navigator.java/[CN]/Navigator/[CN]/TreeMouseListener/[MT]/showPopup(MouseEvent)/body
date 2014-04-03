@@ -13,7 +13,9 @@
     }
     SoapUITreeNode node=(SoapUITreeNode)path.getLastPathComponent();
     JPopupMenu popupMenu=node.getPopup();
-    if (popupMenu == null)     return;
+    if (popupMenu == null) {
+      return;
+    }
     mainTree.setSelectionPath(path);
     popupMenu.show(mainTree,e.getX(),e.getY());
   }

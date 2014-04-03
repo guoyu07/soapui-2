@@ -1,4 +1,6 @@
 {
-  if (factories.containsKey(action.getId()))   return factories.get(action.getId()).buildActionComponent(action,modelItem);
+  if (factories.containsKey(action.getId())) {
+    return factories.get(action.getId()).buildActionComponent(action,modelItem);
+  }
   return null;
 }

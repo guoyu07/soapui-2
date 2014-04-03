@@ -21,7 +21,9 @@
       }
  else       if (workspace.getOpenProjectList().size() > 0) {
         Boolean val=UISupport.confirmOrCancel(messages.get("SwitchWorkspaceAction.SaveOpenProjects.Label"),messages.get("SwitchWorkspaceAction.SaveOpenProjects.Title"));
-        if (val == null)         return;
+        if (val == null) {
+          return;
+        }
         save=val.booleanValue();
       }
       workspace.save(!save);

@@ -5,7 +5,9 @@
     if (result != null) {
       normalizedPropertyNames.get(name.toUpperCase()).remove(name);
       propertyList.remove(result);
-      if (notify)       firePropertyRemoved(name);
+      if (notify) {
+        firePropertyRemoved(name);
+      }
       return result;
     }
   }

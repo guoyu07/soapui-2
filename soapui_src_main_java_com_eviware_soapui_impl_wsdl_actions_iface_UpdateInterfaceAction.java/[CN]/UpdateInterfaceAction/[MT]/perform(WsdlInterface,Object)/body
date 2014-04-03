@@ -21,14 +21,22 @@
   }
   dialog.setValue(Form.DEFINITION_URL,iface.getDefinition());
   dialog.getFormField(Form.DEFINITION_URL).setToolTip(PathUtils.expandPath(iface.getDefinition(),iface));
-  if (!dialog.show())   return;
+  if (!dialog.show()) {
+    return;
+  }
   String url=dialog.getValue(Form.DEFINITION_URL);
-  if (url == null || url.trim().length() == 0)   return;
+  if (url == null || url.trim().length() == 0) {
+    return;
+  }
   String expUrl=PathUtils.expandPath(url,iface);
-  if (expUrl.trim().length() == 0)   return;
+  if (expUrl.trim().length() == 0) {
+    return;
+  }
   try {
     File file=new File(expUrl);
-    if (file.exists())     expUrl=file.toURI().toURL().toString();
+    if (file.exists()) {
+      expUrl=file.toURI().toURL().toString();
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);
@@ -38,7 +46,9 @@
     UISupport.setHourglassCursor();
     if (iface.updateDefinition(expUrl,createRequests)) {
       afterUpdate(iface);
-      if (!url.equals(expUrl))       iface.setDefinition(url,false);
+      if (!url.equals(expUrl)) {
+        iface.setDefinition(url,false);
+      }
     }
  else {
       UISupport.showInfoMessage("Update of interface failed","Update Definition");

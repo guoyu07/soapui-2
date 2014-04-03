@@ -1,5 +1,7 @@
 {
-  if (listeners == null || listeners.length == 0)   return;
+  if (listeners == null || listeners.length == 0) {
+    return;
+  }
   for (int i=0; i < listeners.length; i++) {
     listeners[i].beforeTestCase(this,getRunContext(),testCase);
   }

@@ -1,6 +1,8 @@
 {
   super.release();
-  if (getDispatcher() != null)   getDispatcher().release();
+  if (getDispatcher() != null) {
+    getDispatcher().release();
+  }
   for (  MockResponse response : getMockResponses()) {
     response.removePropertyChangeListener(this);
     response.release();

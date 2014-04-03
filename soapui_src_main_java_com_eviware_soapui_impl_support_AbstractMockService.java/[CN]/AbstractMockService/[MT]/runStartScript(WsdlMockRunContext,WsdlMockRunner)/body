@@ -1,6 +1,8 @@
 {
   String script=getStartScript();
-  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (StringUtils.isNullOrEmpty(script)) {
+    return null;
+  }
   if (startScriptEngine == null) {
     startScriptEngine=SoapUIScriptEngineRegistry.create(this);
     startScriptEngine.setScript(script);

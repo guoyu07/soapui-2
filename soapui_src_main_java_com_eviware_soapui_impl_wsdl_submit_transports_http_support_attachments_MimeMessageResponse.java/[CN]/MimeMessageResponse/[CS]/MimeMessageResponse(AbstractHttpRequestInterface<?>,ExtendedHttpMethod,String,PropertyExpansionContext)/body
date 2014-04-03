@@ -1,6 +1,8 @@
 {
   super(httpMethod,httpRequest,context);
-  if (getRequestContent() == null || !getRequestContent().equals(requestContent))   this.requestContent=requestContent;
+  if (getRequestContent() == null || !getRequestContent().equals(requestContent)) {
+    this.requestContent=requestContent;
+  }
   try {
     postResponseDataSource=new PostResponseDataSource(httpMethod);
     responseContentLength=postResponseDataSource.getDataSize();
@@ -15,11 +17,15 @@
         String name=element.getName().toUpperCase();
         if (name.startsWith("MULTIPART/")) {
           NameValuePair parameter=element.getParameterByName("start");
-          if (parameter != null)           rootPartId=parameter.getValue();
+          if (parameter != null) {
+            rootPartId=parameter.getValue();
+          }
         }
       }
       mmSupport=new MultipartMessageSupport(postResponseDataSource,rootPartId,(AbstractHttpOperation)httpRequest.getOperation(),false,httpRequest.isPrettyPrint());
-      if (httpRequest.getSettings().getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN))       this.timeTaken+=httpMethod.getResponseReadTime();
+      if (httpRequest.getSettings().getBoolean(HttpSettings.INCLUDE_RESPONSE_IN_TIME_TAKEN)) {
+        this.timeTaken+=httpMethod.getResponseReadTime();
+      }
     }
   }
  catch (  Exception e) {

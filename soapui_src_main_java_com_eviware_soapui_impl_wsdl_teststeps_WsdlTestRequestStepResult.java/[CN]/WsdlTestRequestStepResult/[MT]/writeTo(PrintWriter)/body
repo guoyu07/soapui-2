@@ -3,7 +3,9 @@
   writer.println("\r\n----------------- Properties ------------------------------");
   if (properties != null) {
     for (    String key : properties.keySet()) {
-      if (properties.get(key) != null)       writer.println(key + ": " + properties.get(key));
+      if (properties.get(key) != null) {
+        writer.println(key + ": " + properties.get(key));
+      }
     }
   }
   writer.println("\r\n---------------- Request ---------------------------");
@@ -11,13 +13,21 @@
   if (resp != null) {
     writer.println("Request Headers: " + resp.getRequestHeaders().toString() + "\r\n");
   }
-  if (getRequestContent() != null)   writer.println(XmlUtils.prettyPrintXml(getRequestContent()));
- else   writer.println("- missing request / garbage collected -");
+  if (getRequestContent() != null) {
+    writer.println(XmlUtils.prettyPrintXml(getRequestContent()));
+  }
+ else {
+    writer.println("- missing request / garbage collected -");
+  }
   writer.println("\r\n---------------- Response --------------------------");
   if (resp != null) {
     writer.println("Response Headers: " + resp.getResponseHeaders().toString() + "\r\n");
     String respContent=resp.getContentAsString();
-    if (respContent != null)     writer.println(XmlUtils.prettyPrintXml(respContent));
+    if (respContent != null) {
+      writer.println(XmlUtils.prettyPrintXml(respContent));
+    }
   }
- else   writer.println("- missing response / garbage collected -");
+ else {
+    writer.println("- missing response / garbage collected -");
+  }
 }

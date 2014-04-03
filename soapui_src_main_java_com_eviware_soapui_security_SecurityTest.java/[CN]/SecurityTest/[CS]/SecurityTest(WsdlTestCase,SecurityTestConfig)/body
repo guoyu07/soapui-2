@@ -1,7 +1,9 @@
 {
   super(config,testCase,ICON_NAME);
   this.testCase=testCase;
-  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  if (!getConfig().isSetProperties()) {
+    getConfig().addNewProperties();
+  }
   setPropertiesConfig(getConfig().getProperties());
   securityTestStepResultMap=new LinkedHashMap<TestStep,SecurityTestStepResult>();
   for (  SecurityTestRunListener listener : SoapUI.getListenerRegistry().getListeners(SecurityTestRunListener.class)) {

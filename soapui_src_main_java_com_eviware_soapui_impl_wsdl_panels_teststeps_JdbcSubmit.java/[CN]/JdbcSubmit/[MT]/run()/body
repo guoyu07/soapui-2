@@ -18,7 +18,9 @@
     error=e;
   }
  finally {
-    if (error != null)     status=Status.ERROR;
+    if (error != null) {
+      status=Status.ERROR;
+    }
     if (status != Status.CANCELED) {
       for (int i=0; i < listeners.length; i++) {
         try {

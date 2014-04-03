@@ -3,6 +3,8 @@
   query.setName(name);
   queries.add(query);
   getPropertyChangeSupport().firePropertyChange("queries",null,query);
-  if (queryItemListModel != null)   queryItemListModel.fireAdded();
+  if (queryItemListModel != null) {
+    queryItemListModel.fireAdded();
+  }
   return query;
 }

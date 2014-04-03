@@ -18,9 +18,13 @@
     int newStartLine=getLineOfOffset(newStart);
     int newEndLine=getLineOfOffset(newEnd);
     if (painter.isBracketHighlightEnabled()) {
-      if (bracketLine != -1)       painter.invalidateLine(bracketLine);
+      if (bracketLine != -1) {
+        painter.invalidateLine(bracketLine);
+      }
       updateBracketHighlight(end);
-      if (bracketLine != -1)       painter.invalidateLine(bracketLine);
+      if (bracketLine != -1) {
+        painter.invalidateLine(bracketLine);
+      }
     }
     painter.invalidateLineRange(selectionStartLine,selectionEndLine);
     painter.invalidateLineRange(newStartLine,newEndLine);
@@ -34,7 +38,9 @@
   }
   blink=true;
   caretTimer.restart();
-  if (selectionStart == selectionEnd)   rectSelect=false;
+  if (selectionStart == selectionEnd) {
+    rectSelect=false;
+  }
   magicCaret=-1;
   scrollToCaret();
 }

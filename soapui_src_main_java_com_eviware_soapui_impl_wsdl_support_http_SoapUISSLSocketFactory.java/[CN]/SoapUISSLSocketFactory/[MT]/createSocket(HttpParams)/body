@@ -5,8 +5,12 @@
   }
   SSLSocketFactory factory=factoryMap.get(sslConfig);
   if (factory != null) {
-    if (factory == this)     return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
- else     return enableSocket((SSLSocket)factory.createSocket(params));
+    if (factory == this) {
+      return enableSocket((SSLSocket)sslContext.getSocketFactory().createSocket());
+    }
+ else {
+      return enableSocket((SSLSocket)factory.createSocket(params));
+    }
   }
   try {
     int ix=sslConfig.lastIndexOf(' ');

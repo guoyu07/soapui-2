@@ -1,5 +1,7 @@
 {
-  if (properties != null && properties.containsKey(name))   return properties.get(name);
+  if (properties != null && properties.containsKey(name)) {
+    return properties.get(name);
+  }
   if (testCase != null) {
     int ix=name.indexOf(PROPERTY_SEPARATOR);
     if (ix > 0) {
@@ -12,10 +14,14 @@
     }
     if (testCase.getSearchProperties()) {
       ix=testStep == null ? testCase.getTestStepCount() - 1 : testCase.getIndexOfTestStep(testStep);
-      if (ix >= testCase.getTestStepCount())       ix=testCase.getTestStepCount() - 1;
+      if (ix >= testCase.getTestStepCount()) {
+        ix=testCase.getTestStepCount() - 1;
+      }
       while (ix >= 0) {
         TestProperty property=testCase.getTestStepAt(ix).getProperty(name);
-        if (property != null)         return property.getValue();
+        if (property != null) {
+          return property.getValue();
+        }
         ix--;
       }
     }

@@ -1,5 +1,7 @@
 {
-  if (value == null || value.trim().length() == 0 || value.equals("<xml-fragment/>"))   return new StringToStringsMap();
+  if (value == null || value.trim().length() == 0 || value.equals("<xml-fragment/>")) {
+    return new StringToStringsMap();
+  }
   try {
     StringToStringMapConfig nsMapping=StringToStringMapConfig.Factory.parse(value);
     return fromXml(nsMapping);

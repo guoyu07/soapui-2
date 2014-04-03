@@ -1,7 +1,9 @@
 {
   for (  MockRunListener listener : getMockService().getMockRunListeners()) {
     Object result=listener.onMockRequest(this,request,response);
-    if (result instanceof MockResult)     return (MockResult)result;
+    if (result instanceof MockResult) {
+      return (MockResult)result;
+    }
   }
   String qs=request.getQueryString();
   if (qs != null && qs.startsWith("cmd=")) {

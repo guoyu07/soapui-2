@@ -7,10 +7,12 @@
           if (!testStepSecurityTestListConfig.getTestStepSecurityScanList().isEmpty()) {
             for (            SecurityScanConfig secScanConfig : testStepSecurityTestListConfig.getTestStepSecurityScanList()) {
               TestStep testStep=null;
-              for (              TestStep ts : testCase.getTestSteps().values())               if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
-                testStep=ts;
-                SecurityScan securityScan=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(secScanConfig.getType()).buildSecurityScan(testStep,secScanConfig,this);
-                scanList.add(securityScan);
+              for (              TestStep ts : testCase.getTestSteps().values()) {
+                if (testStepSecurityTestListConfig.getTestStepId().equals(ts.getId())) {
+                  testStep=ts;
+                  SecurityScan securityScan=SoapUI.getSoapUICore().getSecurityScanRegistry().getFactory(secScanConfig.getType()).buildSecurityScan(testStep,secScanConfig,this);
+                  scanList.add(securityScan);
+                }
               }
             }
           }

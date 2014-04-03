@@ -3,7 +3,9 @@
   NodeList nl=elm.getChildNodes();
   for (int c=0; c < nl.getLength(); c++) {
     Node item=nl.item(c);
-    if (item.getParentNode() == elm && item.getNodeType() == Node.ELEMENT_NODE && name.equals(item.getNodeName()))     list.add((Element)item);
+    if (item.getParentNode() == elm && item.getNodeType() == Node.ELEMENT_NODE && name.equals(item.getNodeName())) {
+      list.add((Element)item);
+    }
   }
   return new ElementNodeList(list);
 }

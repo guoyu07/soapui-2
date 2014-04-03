@@ -9,6 +9,10 @@
     getComponent().setEditable(false);
   }
   getComponent().setModel(model);
-  if (selectedItem != null)   getComponent().setSelectedItem(selectedItem);
- else   if (getComponent().isEditable())   getComponent().setSelectedItem("");
+  if (selectedItem != null) {
+    getComponent().setSelectedItem(selectedItem);
+  }
+ else   if (getComponent().isEditable()) {
+    getComponent().setSelectedItem("");
+  }
 }

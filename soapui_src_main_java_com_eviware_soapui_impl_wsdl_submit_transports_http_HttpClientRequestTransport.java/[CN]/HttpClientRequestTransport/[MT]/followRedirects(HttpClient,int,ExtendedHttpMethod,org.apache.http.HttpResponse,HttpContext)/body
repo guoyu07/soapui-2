@@ -9,13 +9,17 @@
   getMethod.setURI(newUri);
   org.apache.http.HttpResponse response=submitRequest(getMethod,httpContext);
   if (isRedirectResponse(response.getStatusLine().getStatusCode())) {
-    if (redirectCount == 10)     throw new Exception("Maximum number of Redirects reached [10]");
+    if (redirectCount == 10) {
+      throw new Exception("Maximum number of Redirects reached [10]");
+    }
     try {
       getMethod=followRedirects(httpClient,redirectCount + 1,getMethod,response,httpContext);
     }
   finally {
     }
   }
-  for (  Header header : httpMethod.getAllHeaders())   getMethod.addHeader(header);
+  for (  Header header : httpMethod.getAllHeaders()) {
+    getMethod.addHeader(header);
+  }
   return getMethod;
 }

@@ -6,7 +6,9 @@
     String url=urlProperty.expand();
     if (url != null) {
       File file=new File(url);
-      if (file.exists())       return file.length();
+      if (file.exists()) {
+        return file.length();
+      }
     }
   }
   return -1;

@@ -6,7 +6,9 @@
     log.warn("missing namespace on soapbind:body for RPC response, using targetNamespace instead (BP violation)");
   }
   cursor.beginElement(new QName(ns,bindingOperation.getName() + "Response"));
-  if (xmlGenerator.isSoapEnc())   cursor.insertAttributeWithValue(new QName(wsdlContext.getSoapVersion().getEnvelopeNamespace(),"encodingStyle"),wsdlContext.getSoapVersion().getEncodingNamespace());
+  if (xmlGenerator.isSoapEnc()) {
+    cursor.insertAttributeWithValue(new QName(wsdlContext.getSoapVersion().getEnvelopeNamespace(),"encodingStyle"),wsdlContext.getSoapVersion().getEncodingNamespace());
+  }
   Part[] inputParts=WsdlUtils.getOutputParts(bindingOperation);
   for (int i=0; i < inputParts.length; i++) {
     Part part=inputParts[i];
@@ -32,7 +34,9 @@
             xmlGenerator.createSampleForType(type,c);
             c.dispose();
           }
- else           log.warn("Failed to find type [" + typeName + "]");
+ else {
+            log.warn("Failed to find type [" + typeName + "]");
+          }
         }
  else {
           SchemaGlobalElement element=wsdlContext.getSchemaTypeLoader().findElement(part.getElementName());
@@ -44,7 +48,9 @@
             xmlGenerator.createSampleForType(element.getType(),c);
             c.dispose();
           }
- else           log.warn("Failed to find element [" + part.getElementName() + "]");
+ else {
+            log.warn("Failed to find element [" + part.getElementName() + "]");
+          }
         }
       }
     }

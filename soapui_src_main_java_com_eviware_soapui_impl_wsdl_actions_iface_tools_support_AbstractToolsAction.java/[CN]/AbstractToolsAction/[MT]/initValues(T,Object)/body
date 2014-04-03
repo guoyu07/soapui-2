@@ -6,7 +6,9 @@
   }
   if (dialog != null && modelItem != null) {
     String projectRoot=modelItem.getSettings().getString(ProjectSettings.PROJECT_ROOT,null);
-    if (projectRoot != null)     dialog.setFormFieldProperty(ProjectSettings.PROJECT_ROOT,projectRoot);
+    if (projectRoot != null) {
+      dialog.setFormFieldProperty(ProjectSettings.PROJECT_ROOT,projectRoot);
+    }
   }
   return result;
 }

@@ -7,7 +7,9 @@
     }
  else {
       properties.put("org.apache.ws.security.crypto.merlin.keystore.file",sourceProperty.expand());
-      if (StringUtils.hasContent(getDefaultAlias()))       properties.put("org.apache.ws.security.crypto.merlin.keystore.alias",getDefaultAlias());
+      if (StringUtils.hasContent(getDefaultAlias())) {
+        properties.put("org.apache.ws.security.crypto.merlin.keystore.alias",getDefaultAlias());
+      }
     }
     KeyMaterialCrypto keyMaterialCrypto=new KeyMaterialCrypto(properties);
     return keyMaterialCrypto;

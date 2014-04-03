@@ -15,35 +15,51 @@
       try {
         if (StringUtils.hasContent(encoding)) {
           value=URLEncoder.encode(value,encoding);
-          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,URLEncoder.encode(valueParts.get(i),encoding));
+          for (int i=0; i < valueParts.size(); i++) {
+            valueParts.set(i,URLEncoder.encode(valueParts.get(i),encoding));
+          }
         }
  else {
           value=urlEncodeWithUtf8(value);
-          for (int i=0; i < valueParts.size(); i++)           valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
+          for (int i=0; i < valueParts.size(); i++) {
+            valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
+          }
         }
       }
  catch (      UnsupportedEncodingException e1) {
         SoapUI.logError(e1);
         value=urlEncodeWithUtf8(value);
-        for (int i=0; i < valueParts.size(); i++)         valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
+        for (int i=0; i < valueParts.size(); i++) {
+          valueParts.set(i,urlEncodeWithUtf8(valueParts.get(i)));
+        }
       }
       value=value.replaceAll("\\+","%20");
-      for (int i=0; i < valueParts.size(); i++)       valueParts.set(i,valueParts.get(i).replaceAll("\\+","%20"));
+      for (int i=0; i < valueParts.size(); i++) {
+        valueParts.set(i,valueParts.get(i).replaceAll("\\+","%20"));
+      }
     }
     if (param.getStyle() == ParameterStyle.QUERY && !sendEmptyParameters(request)) {
-      if (!StringUtils.hasContent(value) && !param.getRequired())       continue;
+      if (!StringUtils.hasContent(value) && !param.getRequired()) {
+        continue;
+      }
     }
 switch (param.getStyle()) {
 case HEADER:
-      for (      String valuePart : valueParts)       httpMethod.addHeader(param.getName(),valuePart);
+      for (      String valuePart : valueParts) {
+        httpMethod.addHeader(param.getName(),valuePart);
+      }
     break;
 case QUERY:
   if (formMp == null || !request.isPostQueryString()) {
     for (    String valuePart : valueParts) {
-      if (query.length() > 0)       query.append('&');
+      if (query.length() > 0) {
+        query.append('&');
+      }
       query.append(urlEncodeWithUtf8(param.getName()));
       query.append('=');
-      if (StringUtils.hasContent(valuePart))       query.append(valuePart);
+      if (StringUtils.hasContent(valuePart)) {
+        query.append(valuePart);
+      }
     }
   }
  else {
@@ -87,7 +103,9 @@ case PLAIN:
 break;
 }
 }
-if (request.getSettings().getBoolean(HttpSettings.FORWARD_SLASHES)) path=PathUtils.fixForwardSlashesInPath(path);
+if (request.getSettings().getBoolean(HttpSettings.FORWARD_SLASHES)) {
+path=PathUtils.fixForwardSlashesInPath(path);
+}
 if (PathUtils.isHttpPath(path)) {
 try {
 URI uri=new URI(path,request.getSettings().getBoolean(HttpSettings.ENCODED_URLS));
@@ -132,10 +150,14 @@ for (Attachment attachment : request.getAttachments()) {
 MimeBodyPart part=new PreencodedMimeBodyPart("binary");
 if (attachment instanceof FileAttachment<?>) {
 String name=attachment.getName();
-if (StringUtils.hasContent(attachment.getContentID()) && !name.equals(attachment.getContentID())) name=attachment.getContentID();
+if (StringUtils.hasContent(attachment.getContentID()) && !name.equals(attachment.getContentID())) {
+name=attachment.getContentID();
+}
 part.setDisposition("form-data; name=\"" + name + "\"; filename=\""+ attachment.getName()+ "\"");
 }
- else part.setDisposition("form-data; name=\"" + attachment.getName() + "\"");
+ else {
+part.setDisposition("form-data; name=\"" + attachment.getName() + "\"");
+}
 part.setDataHandler(new DataHandler(new AttachmentDataSource(attachment)));
 formMp.addBodyPart(part);
 }
@@ -152,7 +174,9 @@ SoapUI.logError(e);
 }
 }
  else if (request.hasRequestBody() && httpMethod instanceof HttpEntityEnclosingRequest) {
-if (StringUtils.hasContent(request.getMediaType())) httpMethod.setHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
+if (StringUtils.hasContent(request.getMediaType())) {
+httpMethod.setHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
+}
 if (request.isPostQueryString()) {
 try {
 ((HttpEntityEnclosingRequest)httpMethod).setEntity(new StringEntity(query.toString()));
@@ -190,7 +214,9 @@ initRootPart(request,requestContent,mp);
 httpMethod.setHeader("Content-Type",getContentTypeHeader(request.getMediaType(),encoding));
 }
 if (((HttpEntityEnclosingRequest)httpMethod).getEntity() == null) {
-if (mp == null) mp=new MimeMultipart();
+if (mp == null) {
+mp=new MimeMultipart();
+}
 AttachmentUtils.addMimeParts(request,attachments,mp,new StringToStringMap());
 MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);
 message.setContent(mp);

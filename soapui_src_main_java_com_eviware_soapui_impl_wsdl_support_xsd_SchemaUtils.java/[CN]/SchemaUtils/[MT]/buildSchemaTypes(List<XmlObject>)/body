@@ -29,8 +29,12 @@
       Map<?,?> map=new HashMap<String,String>();
       cursor=s.newCursor();
       cursor.toStartDoc();
-      if (toNextContainer(cursor))       cursor.getAllNamespaces(map);
- else       log.warn("Can not get namespaces for " + s);
+      if (toNextContainer(cursor)) {
+        cursor.getAllNamespaces(map);
+      }
+ else {
+        log.warn("Can not get namespaces for " + s);
+      }
       String tns=getTargetNamespace(s);
       if (strictSchemaTypes && defaultSchemas.containsKey(tns)) {
         schemas.remove(c);
@@ -54,6 +58,8 @@
     for (int c=0; c < errorList.size(); c++) {
       log.warn("Error: " + errorList.get(c));
     }
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
 }

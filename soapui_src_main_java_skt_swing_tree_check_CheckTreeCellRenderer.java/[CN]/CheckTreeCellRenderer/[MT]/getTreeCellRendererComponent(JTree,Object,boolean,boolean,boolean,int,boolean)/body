@@ -2,8 +2,12 @@
   Component renderer=delegate.getTreeCellRendererComponent(tree,value,selected,expanded,leaf,row,hasFocus);
   TreePath path=tree.getPathForRow(row);
   if (path != null) {
-    if (selectionModel.isPathSelected(path,selectionModel.isDigged()))     checkBox.setState(Boolean.TRUE);
- else     checkBox.setState(selectionModel.isDigged() && selectionModel.isPartiallySelected(path) ? null : Boolean.FALSE);
+    if (selectionModel.isPathSelected(path,selectionModel.isDigged())) {
+      checkBox.setState(Boolean.TRUE);
+    }
+ else {
+      checkBox.setState(selectionModel.isDigged() && selectionModel.isPartiallySelected(path) ? null : Boolean.FALSE);
+    }
   }
   removeAll();
   checkBox.setVisible(path == null || selectable == null || selectable.isSelectable(path));

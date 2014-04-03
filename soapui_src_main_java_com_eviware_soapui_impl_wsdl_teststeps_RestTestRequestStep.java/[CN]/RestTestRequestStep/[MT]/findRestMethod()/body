@@ -3,7 +3,9 @@
     RestRequestConverter.updateRestTestRequest(this);
     if (getResource() == null) {
       restResource=RestRequestConverter.resolveResource(this);
-      if (restResource == null)       return null;
+      if (restResource == null) {
+        return null;
+      }
       getRequestStepConfig().setService(restResource.getInterface().getName());
       getRequestStepConfig().setResourcePath(restResource.getFullPath());
     }
@@ -13,7 +15,9 @@
   }
  else   if (getResource() == null) {
     restResource=RestRequestConverter.resolveResource(this);
-    if (restResource == null)     return null;
+    if (restResource == null) {
+      return null;
+    }
     getRequestStepConfig().setService(restResource.getInterface().getName());
     getRequestStepConfig().setResourcePath(restResource.getFullPath());
     RestMethod m=(RestMethod)getWsdlModelItemByName(getResource().getRestMethodList(),getRequestStepConfig().getMethodName());

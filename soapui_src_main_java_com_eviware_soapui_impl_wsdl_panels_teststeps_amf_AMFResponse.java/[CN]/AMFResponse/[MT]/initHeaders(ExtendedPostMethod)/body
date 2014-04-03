@@ -1,7 +1,9 @@
 {
   requestHeaders=new StringToStringsMap();
   responseHeaders=new StringToStringsMap();
-  if (postMethod == null)   return;
+  if (postMethod == null) {
+    return;
+  }
   try {
     ByteArrayOutputStream rawResponse=new ByteArrayOutputStream();
     ByteArrayOutputStream rawRequest=new ByteArrayOutputStream();
@@ -28,7 +30,9 @@
       if (postMethod.getRequestEntity().isRepeatable() && postMethod.getEntity() != null) {
         postMethod.getEntity().writeTo(rawRequest);
       }
- else       rawRequest.write("<request data not available>".getBytes());
+ else {
+        rawRequest.write("<request data not available>".getBytes());
+      }
     }
     if (!postMethod.isFailed()) {
       rawResponse.write("\r\n".getBytes());

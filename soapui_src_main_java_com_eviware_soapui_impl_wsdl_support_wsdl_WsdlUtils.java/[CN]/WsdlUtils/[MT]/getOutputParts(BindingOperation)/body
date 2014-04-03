@@ -1,9 +1,13 @@
 {
   BindingOutput bindingOutput=operation.getBindingOutput();
-  if (bindingOutput == null)   return new Part[0];
+  if (bindingOutput == null) {
+    return new Part[0];
+  }
   List<Part> result=new ArrayList<Part>();
   Output output=operation.getOperation().getOutput();
-  if (output == null)   return new Part[0];
+  if (output == null) {
+    return new Part[0];
+  }
   Message msg=output.getMessage();
   if (msg != null) {
     SOAPBody soapBody=WsdlUtils.getExtensiblityElement(bindingOutput.getExtensibilityElements(),SOAPBody.class);

@@ -3,7 +3,9 @@
   if (value instanceof String) {
     if (((String)value).length() > 0) {
       String val=((String)table.getValueAt(row,0)).toLowerCase();
-      if (val.startsWith("password") || val.endsWith("password"))       component=super.getTableCellRendererComponent(table,"**************",isSelected,hasFocus,row,column);
+      if (val.startsWith("password") || val.endsWith("password")) {
+        component=super.getTableCellRendererComponent(table,"**************",isSelected,hasFocus,row,column);
+      }
     }
   }
   return component;

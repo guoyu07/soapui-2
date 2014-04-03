@@ -1,6 +1,8 @@
 {
   String name=UISupport.prompt("Specify name of copied TestCase","Copy TestCase","Copy of " + testCase.getName());
-  if (name == null)   return null;
+  if (name == null) {
+    return null;
+  }
   if (testCase.getTestSuite() == target) {
     return target.importTestCase(testCase,name,position,true,true,true);
   }

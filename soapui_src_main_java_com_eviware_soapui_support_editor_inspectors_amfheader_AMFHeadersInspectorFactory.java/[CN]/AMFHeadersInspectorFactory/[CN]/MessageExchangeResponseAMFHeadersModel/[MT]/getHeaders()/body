@@ -4,7 +4,9 @@
     if (((AMFRequestTestStep)messageExchange.getTestStep()).getAMFRequest().getResponse() != null) {
       return ((AMFRequestTestStep)messageExchange.getTestStep()).getAMFRequest().getResponse().getResponseAMFHeaders();
     }
- else     return new StringToStringMap();
+ else {
+      return new StringToStringMap();
+    }
   }
   return new StringToStringMap();
 }

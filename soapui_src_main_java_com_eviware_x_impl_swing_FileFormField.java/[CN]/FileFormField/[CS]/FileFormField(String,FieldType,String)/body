@@ -12,7 +12,9 @@
   textField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       String text=textField.getText();
-      if (!updating)       fireValueChanged(text,oldValue);
+      if (!updating) {
+        fireValueChanged(text,oldValue);
+      }
       oldValue=text;
     }
   }

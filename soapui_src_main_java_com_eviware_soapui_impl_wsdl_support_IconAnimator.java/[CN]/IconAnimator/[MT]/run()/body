@@ -4,12 +4,16 @@
   }
   String oldThreadName=Thread.currentThread().getName();
   if (future != null) {
-    if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName("IconAnimator for " + target.getName());
+    if (System.getProperty("soapui.enablenamedthreads") != null) {
+      Thread.currentThread().setName("IconAnimator for " + target.getName());
+    }
   }
   try {
     while (!stopped) {
       try {
-        if (stopped)         break;
+        if (stopped) {
+          break;
+        }
         index=index >= animateIcons.length - 1 ? 0 : index + 1;
         SwingUtilities.invokeLater(new Runnable(){
           public void run(){
@@ -28,6 +32,8 @@
     notify();
   }
   finally {
-    if (System.getProperty("soapui.enablenamedthreads") != null)     Thread.currentThread().setName(oldThreadName);
+    if (System.getProperty("soapui.enablenamedthreads") != null) {
+      Thread.currentThread().setName(oldThreadName);
+    }
   }
 }

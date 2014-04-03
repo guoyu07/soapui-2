@@ -1,5 +1,7 @@
 {
-  if (cursor == null)   return null;
+  if (cursor == null) {
+    return null;
+  }
   positionCursor(cursor);
   SchemaType resultType=null;
   XmlObject xo=cursor.getObject();
@@ -12,8 +14,12 @@
         resultType=findXsiType(xsiType);
       }
     }
-    if (resultType == null)     resultType=typeSystem.findType(xo.schemaType().getName());
-    if (resultType == null)     resultType=xo.schemaType();
+    if (resultType == null) {
+      resultType=typeSystem.findType(xo.schemaType().getName());
+    }
+    if (resultType == null) {
+      resultType=xo.schemaType();
+    }
     if (resultType.isNoType()) {
       QName nm=cursor.getName();
       if (parent != null && parent.getSchemaType() != null) {
@@ -28,7 +34,9 @@
               break;
             }
           }
-          if (resultType.isNoType() && nm.equals(contentModel.getName()))           resultType=contentModel.getType();
+          if (resultType.isNoType() && nm.equals(contentModel.getName())) {
+            resultType=contentModel.getType();
+          }
           if (resultType.isNoType()) {
             SchemaType[] anonymousTypes=parentSchemaType.getAnonymousTypes();
             for (int c=0; anonymousTypes != null && c < anonymousTypes.length; c++) {
@@ -56,7 +64,11 @@
       }
     }
   }
-  if (resultType == null)   resultType=XmlAnyTypeImpl.type;
-  if (documentation == null)   documentation=SchemaUtils.getDocumentation(resultType);
+  if (resultType == null) {
+    resultType=XmlAnyTypeImpl.type;
+  }
+  if (documentation == null) {
+    documentation=SchemaUtils.getDocumentation(resultType);
+  }
   return resultType;
 }

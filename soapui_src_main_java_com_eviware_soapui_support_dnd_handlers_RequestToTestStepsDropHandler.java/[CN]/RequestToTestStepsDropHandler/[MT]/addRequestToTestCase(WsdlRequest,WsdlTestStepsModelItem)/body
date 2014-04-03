@@ -1,5 +1,7 @@
 {
-  if (!UISupport.confirm("Add Request [" + source.getName() + "] to TestCase ["+ target.getTestCase().getName()+ "]","Add Request to TestCase"))   return false;
+  if (!UISupport.confirm("Add Request [" + source.getName() + "] to TestCase ["+ target.getTestCase().getName()+ "]","Add Request to TestCase")) {
+    return false;
+  }
   WsdlProject targetProject=target.getTestCase().getTestSuite().getProject();
   if (targetProject != source.getOperation().getInterface().getProject()) {
     HashSet<Interface> requiredInterfaces=new HashSet<Interface>();

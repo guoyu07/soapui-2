@@ -7,7 +7,9 @@
     HttpAuthenticationRequestFilter.initRequestCredentials(context,defUsername,project.getSettings(),defPassword,defDomain,authType);
   }
   String wssTimeToLive=def.getWssTimeToLive();
-  if (wssTimeToLive == null)   wssTimeToLive="";
+  if (wssTimeToLive == null) {
+    wssTimeToLive="";
+  }
   try {
     WssAuthenticationRequestFilter.setWssHeaders(context,defUsername,defPassword,wssType,wssTimeToLive);
   }

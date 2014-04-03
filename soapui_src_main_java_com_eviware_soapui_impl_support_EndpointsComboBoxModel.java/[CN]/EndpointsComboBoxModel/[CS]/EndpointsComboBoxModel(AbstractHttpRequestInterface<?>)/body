@@ -2,5 +2,7 @@
   this.request=request;
   initEndpoints();
   request.addPropertyChangeListener(this);
-  if (request.getOperation() != null)   request.getOperation().getInterface().addPropertyChangeListener(this);
+  if (request.getOperation() != null) {
+    request.getOperation().getInterface().addPropertyChangeListener(this);
+  }
 }

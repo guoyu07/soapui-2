@@ -11,7 +11,9 @@
       if (url != null) {
         DOMConfigurator.configure(url);
       }
- else       System.err.println("Missing soapui-log4j.xml configuration");
+ else {
+        System.err.println("Missing soapui-log4j.xml configuration");
+      }
     }
     logIsInitialized=true;
     log=Logger.getLogger(DefaultSoapUICore.class);

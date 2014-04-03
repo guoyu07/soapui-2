@@ -14,10 +14,14 @@
       }
  else       if (root != null) {
         Enumeration<?> children=root.children();
-        while (children.hasMoreElements())         treeNodes.add((DefaultMutableTreeNode)children.nextElement());
+        while (children.hasMoreElements()) {
+          treeNodes.add((DefaultMutableTreeNode)children.nextElement());
+        }
       }
     }
-    if (items.length == 0)     return resultNodes;
+    if (items.length == 0) {
+      return resultNodes;
+    }
     for (    XmlObject item : items) {
       XmlObject[] selectPath=item.selectPath(nameQuery);
       if (selectPath.length > 0) {

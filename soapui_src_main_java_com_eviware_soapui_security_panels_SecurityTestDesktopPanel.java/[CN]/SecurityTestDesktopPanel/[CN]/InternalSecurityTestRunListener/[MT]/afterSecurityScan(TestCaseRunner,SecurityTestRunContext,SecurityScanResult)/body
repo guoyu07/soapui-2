@@ -7,6 +7,8 @@
     securityStatus=ResultStatus.FAILED;
   }
  else   if (securityCheckResult.getStatus() == ResultStatus.OK) {
-    if (securityStatus != ResultStatus.FAILED)     securityStatus=ResultStatus.OK;
+    if (securityStatus != ResultStatus.FAILED) {
+      securityStatus=ResultStatus.OK;
+    }
   }
 }

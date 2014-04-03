@@ -9,7 +9,9 @@
   comesBefore=new HashMap<QName,List<QName>>();
   for (  ComesBefore item : xml.getComesBeforeList()) {
     List<QName> others=new ArrayList<QName>();
-    for (    QName item2 : item.getOtherList())     others.add(item2);
+    for (    QName item2 : item.getOtherList()) {
+      others.add(item2);
+    }
     comesBefore.put(item.getQname(),others);
   }
 }

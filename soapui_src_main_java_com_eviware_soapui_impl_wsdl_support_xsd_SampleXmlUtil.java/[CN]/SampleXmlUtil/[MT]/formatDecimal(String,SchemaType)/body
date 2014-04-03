@@ -27,7 +27,9 @@
   if (xmlD != null) {
     totalDigits=xmlD.getBigDecimalValue().intValue();
     StringBuffer sb=new StringBuffer(totalDigits);
-    for (int i=0; i < totalDigits; i++)     sb.append('9');
+    for (int i=0; i < totalDigits; i++) {
+      sb.append('9');
+    }
     BigDecimal digitsLimit=new BigDecimal(sb.toString());
     if (max != null && max.compareTo(digitsLimit) > 0) {
       max=digitsLimit;
@@ -46,34 +48,58 @@
   xmlD=(XmlDecimal)sType.getFacet(SchemaType.FACET_FRACTION_DIGITS);
   int fractionDigits=-1;
   BigDecimal increment;
-  if (xmlD == null)   increment=new BigDecimal(1);
+  if (xmlD == null) {
+    increment=new BigDecimal(1);
+  }
  else {
     fractionDigits=xmlD.getBigDecimalValue().intValue();
     if (fractionDigits > 0) {
       StringBuffer sb=new StringBuffer("0.");
-      for (int i=1; i < fractionDigits; i++)       sb.append('0');
+      for (int i=1; i < fractionDigits; i++) {
+        sb.append('0');
+      }
       sb.append('1');
       increment=new BigDecimal(sb.toString());
     }
- else     increment=new BigDecimal(1);
+ else {
+      increment=new BigDecimal(1);
+    }
   }
   if (minOk && maxOk) {
   }
  else   if (minOk && !maxOk) {
-    if (maxInclusive)     result=max;
- else     result=max.subtract(increment);
+    if (maxInclusive) {
+      result=max;
+    }
+ else {
+      result=max.subtract(increment);
+    }
   }
  else   if (!minOk && maxOk) {
-    if (minInclusive)     result=min;
- else     result=min.add(increment);
+    if (minInclusive) {
+      result=min;
+    }
+ else {
+      result=min.add(increment);
+    }
   }
  else {
   }
   int digits=0;
   BigDecimal ONE=new BigDecimal(BigInteger.ONE);
-  for (BigDecimal n=result; n.abs().compareTo(ONE) >= 0; digits++)   n=n.movePointLeft(1);
-  if (fractionDigits > 0)   if (totalDigits >= 0)   result.setScale(Math.max(fractionDigits,totalDigits - digits));
- else   result.setScale(fractionDigits);
- else   if (fractionDigits == 0)   result.setScale(0);
+  for (BigDecimal n=result; n.abs().compareTo(ONE) >= 0; digits++) {
+    n=n.movePointLeft(1);
+  }
+  if (fractionDigits > 0) {
+    if (totalDigits >= 0) {
+      result.setScale(Math.max(fractionDigits,totalDigits - digits));
+    }
+ else {
+      result.setScale(fractionDigits);
+    }
+  }
+ else   if (fractionDigits == 0) {
+    result.setScale(0);
+  }
   return result.toString();
 }

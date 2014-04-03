@@ -1,6 +1,8 @@
 {
   String str=UISupport.prompt("Enter new url below","Extract Params","");
-  if (str == null)   return;
+  if (str == null) {
+    return;
+  }
   try {
     RestUtils.extractParams(str,params,false,defaultParamLocation == ParamLocation.RESOURCE ? RestUtils.TemplateExtractionOption.EXTRACT_TEMPLATE_PARAMETERS : RestUtils.TemplateExtractionOption.IGNORE_TEMPLATE_PARAMETERS);
   }

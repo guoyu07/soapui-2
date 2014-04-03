@@ -12,7 +12,9 @@
     s.validate(context);
   }
  catch (  XmlException e) {
-    if (created)     schemas.remove(s.getNamespace());
+    if (created) {
+      schemas.remove(s.getNamespace());
+    }
     throw e;
   }
 }

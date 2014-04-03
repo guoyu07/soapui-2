@@ -4,15 +4,23 @@
     WsdlMockRequest mockRequest=new WsdlMockRequest(request,response,mockContext);
     result=mockService.runOnRequestScript(mockContext,mockRequest);
     if (!(result instanceof MockResult)) {
-      if (mockRequest.getMethod() == RestRequestInterface.HttpMethod.POST)       result=dispatchPostRequest(mockRequest);
- else       result=super.dispatchRequest(request,response);
+      if (mockRequest.getMethod() == RestRequestInterface.HttpMethod.POST) {
+        result=dispatchPostRequest(mockRequest);
+      }
+ else {
+        result=super.dispatchRequest(request,response);
+      }
     }
     mockService.runAfterRequestScript(mockContext,(MockResult)result);
     return (MockResult)result;
   }
  catch (  Throwable e) {
-    if (e instanceof DispatchException)     throw (DispatchException)e;
- else     throw new DispatchException(e);
+    if (e instanceof DispatchException) {
+      throw (DispatchException)e;
+    }
+ else {
+      throw new DispatchException(e);
+    }
   }
  finally {
     mockService.fireOnMockResult(result);

@@ -1,7 +1,9 @@
 {
   String old=getDispatchStyle();
   MockOperationDispatcher dispatcher=getDispatcher();
-  if (dispatcher != null && dispatchStyle.equals(old))   return dispatcher;
+  if (dispatcher != null && dispatchStyle.equals(old)) {
+    return dispatcher;
+  }
   getConfig().setDispatchStyle(MockOperationDispatchStyleConfig.Enum.forString(dispatchStyle));
   if (dispatcher != null) {
     dispatcher.release();

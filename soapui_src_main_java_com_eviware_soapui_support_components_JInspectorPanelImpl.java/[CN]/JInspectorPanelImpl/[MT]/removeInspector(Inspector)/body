@@ -6,7 +6,9 @@
   inspectors.remove(inspector);
   JToggleButton toggleButton=inspectorButtons.get(inspector);
   int ix=inspectToolbar.getComponentIndex(toggleButton);
-  if (ix > 1)   inspectToolbar.remove(ix - 1);
+  if (ix > 1) {
+    inspectToolbar.remove(ix - 1);
+  }
   inspectToolbar.remove(toggleButton);
   inspectorPanel.remove(inspector.getComponent());
   inspectToolbar.repaint();

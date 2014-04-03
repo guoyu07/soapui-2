@@ -1,8 +1,16 @@
 {
-  if (StringUtils.isNullOrEmpty(root) || StringUtils.isNullOrEmpty(str))   return str;
-  if (!isRelativePath(str))   return str;
+  if (StringUtils.isNullOrEmpty(root) || StringUtils.isNullOrEmpty(str)) {
+    return str;
+  }
+  if (!isRelativePath(str)) {
+    return str;
+  }
   root=PropertyExpander.expandProperties(contextModelItem,root);
-  if (isHttpPath(root))   root+="/";
- else   root+=File.separatorChar;
+  if (isHttpPath(root)) {
+    root+="/";
+  }
+ else {
+    root+=File.separatorChar;
+  }
   return Tools.joinRelativeUrl(root,str);
 }

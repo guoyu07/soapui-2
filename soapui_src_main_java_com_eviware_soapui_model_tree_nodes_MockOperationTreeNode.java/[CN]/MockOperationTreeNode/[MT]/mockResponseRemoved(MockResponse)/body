@@ -4,5 +4,7 @@
     getTreeModel().notifyNodeRemoved(treeNode);
     mockResponseNodes.remove(treeNode);
   }
- else   throw new RuntimeException("Removing unkown mockResponse; " + mockResponse.getName());
+ else {
+    throw new RuntimeException("Removing unkown mockResponse; " + mockResponse.getName());
+  }
 }

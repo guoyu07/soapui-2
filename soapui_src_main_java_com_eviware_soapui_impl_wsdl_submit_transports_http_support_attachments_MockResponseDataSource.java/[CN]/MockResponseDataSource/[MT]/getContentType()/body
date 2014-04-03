@@ -4,7 +4,9 @@
     if (isXOP) {
       return AttachmentUtils.buildRootPartContentType(mockResponse.getMockOperation().getOperation().getName(),soapVersion);
     }
- else     return soapVersion.getContentType() + "; charset=UTF-8";
+ else {
+      return soapVersion.getContentType() + "; charset=UTF-8";
+    }
   }
  else {
     throw new IllegalStateException("Multipart support is only available for SOAP");

@@ -1,7 +1,11 @@
 {
   TreePath[] treePaths=getSelectionPaths();
-  if (treePaths == null)   return Collections.enumeration(Collections.EMPTY_LIST);
+  if (treePaths == null) {
+    return Collections.enumeration(Collections.EMPTY_LIST);
+  }
   Enumeration enumer=Collections.enumeration(Arrays.asList(treePaths));
-  if (dig)   enumer=new PreorderEnumeration(enumer,model);
+  if (dig) {
+    enumer=new PreorderEnumeration(enumer,model);
+  }
   return enumer;
 }

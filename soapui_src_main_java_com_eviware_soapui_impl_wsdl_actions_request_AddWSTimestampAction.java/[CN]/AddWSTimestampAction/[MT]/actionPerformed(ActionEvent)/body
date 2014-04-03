@@ -2,7 +2,9 @@
   String req=request.getRequestContent();
   try {
     String ttlString=UISupport.prompt("Add WS-Timestamp","Specify Time-To-Live value","60");
-    if (ttlString == null)     return;
+    if (ttlString == null) {
+      return;
+    }
     int ttl=0;
     try {
       ttl=Integer.parseInt(ttlString);

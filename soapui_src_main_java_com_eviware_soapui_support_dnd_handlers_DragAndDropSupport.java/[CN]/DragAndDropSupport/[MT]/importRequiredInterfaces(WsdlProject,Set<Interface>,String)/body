@@ -15,7 +15,9 @@
       msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
     msg+="\r\nThese will be cloned to the target project as well";
-    if (!UISupport.confirm(msg,title))     return false;
+    if (!UISupport.confirm(msg,title)) {
+      return false;
+    }
     for (    Interface iface : requiredInterfaces) {
       project.importInterface((AbstractInterface<?>)iface,true,true);
     }

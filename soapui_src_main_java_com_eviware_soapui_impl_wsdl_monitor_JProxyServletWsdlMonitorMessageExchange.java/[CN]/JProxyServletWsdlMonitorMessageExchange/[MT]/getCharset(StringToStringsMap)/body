@@ -2,7 +2,9 @@
   String requestContentType=headers.get("Content-Type","");
   if (requestContentType != null) {
     StringToStringMap values=StringToStringMap.fromHttpHeader(requestContentType);
-    if (values.containsKey("charset"))     return values.get("charset");
+    if (values.containsKey("charset")) {
+      return values.get("charset");
+    }
   }
   String contentEncodingHeader=headers.get("Content-Encoding","");
   if (contentEncodingHeader != null) {

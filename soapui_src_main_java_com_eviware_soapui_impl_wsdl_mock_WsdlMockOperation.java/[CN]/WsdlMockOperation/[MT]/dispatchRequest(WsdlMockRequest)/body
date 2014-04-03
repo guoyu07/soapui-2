@@ -2,7 +2,9 @@
   try {
     request.setOperation(getOperation());
     WsdlMockResult result=new WsdlMockResult(request);
-    if (getMockResponseCount() == 0)     throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
+    if (getMockResponseCount() == 0) {
+      throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
+    }
     result.setMockOperation(this);
     WsdlMockResponse response=(WsdlMockResponse)getDispatcher().selectMockResponse(request,result);
     if (response == null) {
@@ -16,7 +18,11 @@
     return result;
   }
  catch (  Throwable e) {
-    if (e instanceof DispatchException)     throw (DispatchException)e;
- else     throw new DispatchException(e);
+    if (e instanceof DispatchException) {
+      throw (DispatchException)e;
+    }
+ else {
+      throw new DispatchException(e);
+    }
   }
 }

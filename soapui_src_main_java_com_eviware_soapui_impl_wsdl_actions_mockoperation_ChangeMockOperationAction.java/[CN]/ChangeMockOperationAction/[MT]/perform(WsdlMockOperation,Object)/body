@@ -37,7 +37,9 @@
     operation=iface.getOperationByName(operationName);
     target.setOperation(operation);
     String name=dialog.getValue(Form.NAME).trim();
-    if (name.length() > 0 && !target.getName().equals(name))     target.setName(name);
+    if (name.length() > 0 && !target.getName().equals(name)) {
+      target.setName(name);
+    }
     if (dialog.getBooleanValue(Form.RECREATE_REQUEST)) {
       String req=operation.createResponse(dialog.getBooleanValue(Form.CREATE_OPTIONAL));
       if (req == null) {

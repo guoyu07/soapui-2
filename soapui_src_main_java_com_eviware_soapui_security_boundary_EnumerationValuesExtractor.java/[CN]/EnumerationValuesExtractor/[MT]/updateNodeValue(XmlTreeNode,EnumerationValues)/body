@@ -1,6 +1,10 @@
 {
-  if (!selectedEnumerationParameters.contains(mynode.getDomNode().getLocalName()))   return;
+  if (!selectedEnumerationParameters.contains(mynode.getDomNode().getLocalName())) {
+    return;
+  }
   int size=maxLengthStringSize(enumerationValues.getValuesList());
   String value=createOutOfBoundaryValue(enumerationValues,size);
-  if (value != null)   mynode.setValue(1,value);
+  if (value != null) {
+    mynode.setValue(1,value);
+  }
 }

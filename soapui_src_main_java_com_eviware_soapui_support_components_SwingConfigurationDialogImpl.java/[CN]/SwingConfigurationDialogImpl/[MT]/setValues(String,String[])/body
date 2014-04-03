@@ -6,5 +6,7 @@
  else   if (component instanceof JList) {
     ((JList)component).setModel(new DefaultComboBoxModel(values));
   }
- else   throw new RuntimeException("Could not set values on [" + component + "]");
+ else {
+    throw new RuntimeException("Could not set values on [" + component + "]");
+  }
 }

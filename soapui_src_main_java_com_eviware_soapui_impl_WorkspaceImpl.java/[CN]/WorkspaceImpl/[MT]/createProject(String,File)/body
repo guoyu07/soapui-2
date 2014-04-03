@@ -4,7 +4,9 @@
     Boolean result=Boolean.FALSE;
     while (!result) {
       result=UISupport.confirmOrCancel(messages.get("OverwriteProject.Label"),messages.get("OverwriteProject.Title"));
-      if (result == null)       return null;
+      if (result == null) {
+        return null;
+      }
       if (result) {
         projectFile.delete();
       }

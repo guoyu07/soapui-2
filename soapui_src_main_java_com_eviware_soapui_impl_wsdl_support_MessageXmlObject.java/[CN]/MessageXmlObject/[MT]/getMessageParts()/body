@@ -20,7 +20,9 @@
       for (int i=0; i < inputParts.length; i++) {
         Part part=inputParts[i];
         QName partName=part.getElementName();
-        if (partName == null)         partName=new QName(part.getName());
+        if (partName == null) {
+          partName=new QName(part.getName());
+        }
         XmlObject[] children=wrapper.selectChildren(partName);
         if (WsdlUtils.isAttachmentInputPart(part,bindingOperation)) {
           if (children.length == 1) {
@@ -40,14 +42,18 @@
             if (type != null) {
               messageParts.add(new MessageXmlPart(children[0],type.getType(),part,bindingOperation,isRequest));
             }
- else             log.error("Missing element [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+ else {
+              log.error("Missing element [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+            }
           }
  else {
             SchemaType type=wsdlContext.getSchemaTypeLoader().findType(typeName);
             if (type != null) {
               messageParts.add(new MessageXmlPart(children[0],type,part,bindingOperation,isRequest));
             }
- else             log.error("Missing type [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+ else {
+              log.error("Missing type [" + typeName + "] in associated schema for part ["+ part.getName()+ "]");
+            }
           }
         }
       }
@@ -63,9 +69,13 @@
         if (elm != null) {
           messageParts.add(new MessageXmlPart(paths[0],elm.getType(),part,bindingOperation,isRequest));
         }
- else         throw new Exception("Missing part type in associated schema");
+ else {
+          throw new Exception("Missing part type in associated schema");
+        }
       }
- else       throw new Exception("Missing message part with name [" + elementName + "]");
+ else {
+        throw new Exception("Missing message part with name [" + elementName + "]");
+      }
     }
   }
   return messageParts.toArray(new MessageXmlPart[messageParts.size()]);

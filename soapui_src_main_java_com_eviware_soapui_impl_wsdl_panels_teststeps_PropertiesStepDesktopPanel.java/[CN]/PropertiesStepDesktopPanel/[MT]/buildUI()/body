@@ -16,7 +16,9 @@
   sourceField.setToolTipText("The filename/url or referring system-property to load properties from");
   sourceField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     public void update(    Document document){
-      if (updatingSource)       return;
+      if (updatingSource) {
+        return;
+      }
       updatingSource=true;
       testStep.setSource(sourceField.getText());
       updatingSource=false;
@@ -39,7 +41,9 @@
   targetField.setToolTipText("The filename/url or referring system-property to save properties to");
   targetField.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     public void update(    Document document){
-      if (updatingTarget)       return;
+      if (updatingTarget) {
+        return;
+      }
       updatingTarget=true;
       testStep.setTarget(targetField.getText());
       updatingTarget=false;

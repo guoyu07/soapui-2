@@ -1,6 +1,8 @@
 {
   int[] rows=logTable.getSelectedRows();
-  if (rows.length == 0)   return;
+  if (rows.length == 0) {
+    return;
+  }
   if (UISupport.confirm("Create " + rows.length + " requests","Create Request")) {
     int withoutOperation=0;
     for (    int row : rows) {

@@ -13,7 +13,11 @@
   namespaces.setTargetNamespace(values.get(TARGET_NAMESPACE));
   namespaces.setTypeNamespace(values.get(TYPES_NAMESPACE));
   WsxmlType webservices=java2Wsdl.addNewWebservices();
-  if (values.get(EJB_LINK) != null && values.get(EJB_LINK).length() > 0)   webservices.setEjbLink(values.get(EJB_LINK));
-  if (values.get(SERVLET_LINK) != null && values.get(SERVLET_LINK).length() > 0)   webservices.setServletLink(values.get(SERVLET_LINK));
+  if (values.get(EJB_LINK) != null && values.get(EJB_LINK).length() > 0) {
+    webservices.setEjbLink(values.get(EJB_LINK));
+  }
+  if (values.get(SERVLET_LINK) != null && values.get(SERVLET_LINK).length() > 0) {
+    webservices.setServletLink(values.get(SERVLET_LINK));
+  }
   return configDocument;
 }

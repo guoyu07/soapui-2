@@ -1,6 +1,10 @@
 {
-  if (!SoapUI.getSettings().getBoolean(HttpSettings.ENABLE_MOCK_WIRE_LOG))   return;
-  if (SoapUI.getLogMonitor() == null || SoapUI.getLogMonitor().getLogArea("jetty log") == null || SoapUI.getLogMonitor().getLogArea("jetty log").getLoggers() == null)   return;
+  if (!SoapUI.getSettings().getBoolean(HttpSettings.ENABLE_MOCK_WIRE_LOG)) {
+    return;
+  }
+  if (SoapUI.getLogMonitor() == null || SoapUI.getLogMonitor().getLogArea("jetty log") == null || SoapUI.getLogMonitor().getLogArea("jetty log").getLoggers() == null) {
+    return;
+  }
   Logger logger=SoapUI.getLogMonitor().getLogArea("jetty log").getLoggers()[0];
   try {
     ServletInputStream inputStream=request.getInputStream();

@@ -2,7 +2,9 @@
   super.release();
   params.release();
   getService().removePropertyChangeListener(this);
-  if (parentResource != null)   parentResource.removePropertyChangeListener(this);
+  if (parentResource != null) {
+    parentResource.removePropertyChangeListener(this);
+  }
   for (  RestResource resource : resources) {
     resource.release();
   }

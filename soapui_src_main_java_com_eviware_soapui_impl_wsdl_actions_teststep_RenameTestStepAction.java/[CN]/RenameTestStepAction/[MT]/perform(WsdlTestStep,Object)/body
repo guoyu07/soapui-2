@@ -1,9 +1,13 @@
 {
   String name=UISupport.prompt("Specify unique name of TestStep","Rename TestStep",testStep.getName());
-  if (name == null || name.equals(testStep.getName()))   return;
+  if (name == null || name.equals(testStep.getName())) {
+    return;
+  }
   while (testStep.getTestCase().getTestStepByName(name.trim()) != null) {
     name=UISupport.prompt("Specify unique name of TestStep","Rename TestStep",testStep.getName());
-    if (name == null || name.equals(testStep.getName()))     return;
+    if (name == null || name.equals(testStep.getName())) {
+      return;
+    }
   }
   testStep.setName(name);
 }

@@ -7,8 +7,12 @@
   editArea=new RSyntaxTextArea();
   editArea.restoreDefaultSyntaxScheme();
   String defaultScriptLanguage=((WsdlProject)ModelSupport.getModelItemProject(model.getModelItem())).getDefaultScriptLanguage();
-  if (defaultScriptLanguage.equals(GroovyScriptEngineFactory.ID))   editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);
- else   if (defaultScriptLanguage.equals(JsScriptEngineFactory.ID))   editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+  if (defaultScriptLanguage.equals(GroovyScriptEngineFactory.ID)) {
+    editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_GROOVY);
+  }
+ else   if (defaultScriptLanguage.equals(JsScriptEngineFactory.ID)) {
+    editArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+  }
   editArea.setFont(editorFont);
   editArea.setBorder(BorderFactory.createMatteBorder(0,2,0,0,Color.WHITE));
   editArea.setText(model.getScript());
@@ -35,8 +39,12 @@
 );
   JPopupMenu popup=editArea.getPopupMenu();
   findAndReplaceDialog=new FindAndReplaceDialogView(editArea);
-  if (UISupport.isMac())   editArea.getInputMap().put(KeyStroke.getKeyStroke("meta F"),findAndReplaceDialog);
- else   editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),findAndReplaceDialog);
+  if (UISupport.isMac()) {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("meta F"),findAndReplaceDialog);
+  }
+ else {
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),findAndReplaceDialog);
+  }
   popup.add(findAndReplaceDialog);
   popup.addSeparator();
   goToLineAction=new GoToLineAction(editArea,"Go To Line");

@@ -15,15 +15,21 @@
   add(scrollPane,BorderLayout.CENTER);
   table.addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() < 2)       return;
+      if (e.getClickCount() < 2) {
+        return;
+      }
       int ix=table.getSelectedRow();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       ix=table.convertRowIndexToModel(ix);
       Object obj=loadTest.getAssertionAt(ix);
       if (obj instanceof Configurable) {
         ((Configurable)obj).configure();
       }
- else       Toolkit.getDefaultToolkit().beep();
+ else {
+        Toolkit.getDefaultToolkit().beep();
+      }
     }
   }
 );
@@ -33,7 +39,9 @@
       int ix=table.getSelectedRow();
       configureAssertionAction.setEnabled(ix >= 0);
       removeAssertionAction.setEnabled(ix >= 0);
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       ix=table.convertRowIndexToModel(ix);
       configureAssertionAction.setEnabled(loadTest.getAssertionAt(ix) instanceof Configurable);
     }

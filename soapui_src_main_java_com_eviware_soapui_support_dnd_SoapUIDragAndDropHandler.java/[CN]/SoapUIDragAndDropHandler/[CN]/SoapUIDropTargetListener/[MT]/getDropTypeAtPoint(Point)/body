@@ -1,6 +1,8 @@
 {
   ModelItem modelItem=dragAndDropable.getModelItemForLocation(pt.x,pt.y);
-  if (modelItem == null)   return DropType.NONE;
+  if (modelItem == null) {
+    return DropType.NONE;
+  }
   Rectangle raPath=dragAndDropable.getModelItemBounds(modelItem);
   if (pt.y > (raPath.y + (raPath.getHeight() / 2) + ON_RANGE)) {
     return DropType.AFTER;

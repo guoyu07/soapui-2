@@ -1,7 +1,11 @@
 {
   Enumeration enumer=(Enumeration)stack.peek();
   TreePath path=(TreePath)enumer.nextElement();
-  if (!enumer.hasMoreElements())   stack.pop();
-  if (model.getChildCount(path.getLastPathComponent()) > 0)   stack.push(new ChildrenEnumeration(path,model));
+  if (!enumer.hasMoreElements()) {
+    stack.pop();
+  }
+  if (model.getChildCount(path.getLastPathComponent()) > 0) {
+    stack.push(new ChildrenEnumeration(path,model));
+  }
   return path;
 }

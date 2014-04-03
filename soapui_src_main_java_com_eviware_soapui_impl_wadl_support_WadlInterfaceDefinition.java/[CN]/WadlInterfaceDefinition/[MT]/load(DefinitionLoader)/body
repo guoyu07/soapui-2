@@ -9,6 +9,8 @@
   if (!loader.isAborted()) {
     super.loadSchemaTypes(loader);
   }
- else   throw new Exception("Loading of WADL from [" + loader.getBaseURI() + "] was aborted");
+ else {
+    throw new Exception("Loading of WADL from [" + loader.getBaseURI() + "] was aborted");
+  }
   return this;
 }

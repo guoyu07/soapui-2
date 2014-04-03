@@ -16,10 +16,16 @@
         break;
       }
     }
-    if (dialog.getValue(Form.STATUS).equals("Pass"))     testStepResult.setStatus(TestStepStatus.OK);
- else     if (dialog.getValue(Form.STATUS).equals("Fail"))     testStepResult.setStatus(TestStepStatus.FAILED);
+    if (dialog.getValue(Form.STATUS).equals("Pass")) {
+      testStepResult.setStatus(TestStepStatus.OK);
+    }
+ else     if (dialog.getValue(Form.STATUS).equals("Fail")) {
+      testStepResult.setStatus(TestStepStatus.FAILED);
+    }
     String result=dialog.getValue(Form.RESULT);
-    if (StringUtils.hasContent(result))     testStepResult.setResult(result);
+    if (StringUtils.hasContent(result)) {
+      testStepResult.setResult(result);
+    }
     testStepResult.setUrls(((XFormOptionsField)dialog.getFormField(Form.URLS)).getOptions());
     dialog.release();
   }

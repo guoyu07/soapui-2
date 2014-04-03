@@ -16,7 +16,9 @@ switch (token) {
 case Token.NULL:
 switch (c) {
 case '#':
-        if (backslash)         backslash=false;
+        if (backslash) {
+          backslash=false;
+        }
  else {
           doKeyword(line,i,c);
           addToken(i - lastOffset,token);
@@ -27,7 +29,9 @@ case '#':
       break;
 case '"':
     doKeyword(line,i,c);
-  if (backslash)   backslash=false;
+  if (backslash) {
+    backslash=false;
+  }
  else {
     addToken(i - lastOffset,token);
     if (SyntaxUtilities.regionMatches(false,line,i1,"\"\"")) {
@@ -41,7 +45,9 @@ case '"':
 break;
 case '\'':
 doKeyword(line,i,c);
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 if (SyntaxUtilities.regionMatches(false,line,i1,"''")) {
@@ -55,12 +61,16 @@ lastOffset=lastKeyword=i;
 break;
 default :
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 }
 break;
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,token);
 token=Token.NULL;
@@ -68,7 +78,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 token=Token.NULL;
@@ -76,7 +88,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case TRIPLEQUOTE1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (SyntaxUtilities.regionMatches(false,line,i,"\"\"\"")) {
 addToken((i+=4) - lastOffset,Token.LITERAL1);
 token=Token.NULL;
@@ -84,7 +98,9 @@ lastOffset=lastKeyword=i;
 }
 break;
 case TRIPLEQUOTE2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (SyntaxUtilities.regionMatches(false,line,i,"'''")) {
 addToken((i+=4) - lastOffset,Token.LITERAL1);
 token=Token.NULL;

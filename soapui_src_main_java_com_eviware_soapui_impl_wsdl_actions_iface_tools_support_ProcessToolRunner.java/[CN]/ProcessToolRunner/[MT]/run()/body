@@ -6,7 +6,9 @@
       beforeProcess(builders[c],context);
       logRunInfo(builders[c]);
       process=builders[c].start();
-      if (c == 0)       context.setStatus(RunnerContext.RunnerStatus.RUNNING);
+      if (c == 0) {
+        context.setStatus(RunnerContext.RunnerStatus.RUNNING);
+      }
       running=true;
       InputStream in=process.getInputStream();
       InputStream err=process.getErrorStream();

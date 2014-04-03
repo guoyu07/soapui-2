@@ -2,7 +2,9 @@
   setEnabled(list.isEnabled());
   TestAssertion assertion=(TestAssertion)value;
   setText(assertion.getLabel());
-  if (assertion.isDisabled() && isEnabled())   setEnabled(false);
+  if (assertion.isDisabled() && isEnabled()) {
+    setEnabled(false);
+  }
   if (isSelected) {
     setBackground(list.getSelectionBackground());
     setForeground(list.getSelectionForeground());

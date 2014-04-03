@@ -6,10 +6,14 @@
   Boolean saveProject=Boolean.FALSE;
   if (project.isOpen()) {
     saveProject=UISupport.confirmOrCancel("Save project [" + project.getName() + "] before removing?","Remove Project");
-    if (saveProject == null)     return;
+    if (saveProject == null) {
+      return;
+    }
   }
  else {
-    if (!UISupport.confirm("Remove project [" + project.getName() + "] from workspace","Remove Project"))     return;
+    if (!UISupport.confirm("Remove project [" + project.getName() + "] from workspace","Remove Project")) {
+      return;
+    }
   }
   if (saveProject) {
     try {

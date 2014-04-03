@@ -1,5 +1,7 @@
 {
-  if (initialized)   return;
+  if (initialized) {
+    return;
+  }
   buttons=UISupport.initDialogActions(buildActions(helpUrl,okAndCancel),this);
   buttons.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
   getContentPane().add(UISupport.buildDescription(title,description,UISupport.createImageIcon(UISupport.TOOL_ICON_PATH)),BorderLayout.NORTH);

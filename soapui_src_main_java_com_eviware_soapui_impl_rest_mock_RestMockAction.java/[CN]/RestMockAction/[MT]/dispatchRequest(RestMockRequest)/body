@@ -1,5 +1,7 @@
 {
-  if (getMockResponseCount() == 0)   throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
+  if (getMockResponseCount() == 0) {
+    throw new DispatchException("Missing MockResponse(s) in MockOperation [" + getName() + "]");
+  }
   try {
     RestMockResult result=new RestMockResult(request);
     MockResponse mockResponse=getDispatcher().selectMockResponse(request,result);

@@ -1,6 +1,10 @@
 {
-  if (getExpression() == null || getExpression().trim().length() == 0)   throw new Exception("Missing expression in condition [" + getName() + "]");
-  if (getTargetStep() == null || getTargetStep().trim().length() == 0)   throw new Exception("Missing target step in condition [" + getName() + "]");
+  if (getExpression() == null || getExpression().trim().length() == 0) {
+    throw new Exception("Missing expression in condition [" + getName() + "]");
+  }
+  if (getTargetStep() == null || getTargetStep().trim().length() == 0) {
+    throw new Exception("Missing target step in condition [" + getName() + "]");
+  }
   if (getType().equals(GotoConditionTypeConfig.XPATH.toString())) {
     TestRequest testRequest=previousStep.getTestRequest();
     XmlObject xmlObject=XmlUtils.createXmlObject(testRequest.getResponse().getContentAsXml());

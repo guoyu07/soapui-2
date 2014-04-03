@@ -11,7 +11,9 @@
       validateContent(context);
       return;
     }
- else     throw new XmlException(problem);
+ else {
+      throw new XmlException(problem);
+    }
   }
   context.getCursor().pop();
 }

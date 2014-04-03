@@ -5,7 +5,9 @@
   DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
   sourceStepCombo=form.appendComboBox("Interfaces",sourceStepComboModel,"Target Interface");
   sourceStepCombo.setRenderer(new ModelItemListCellRenderer());
-  for (  Interface element : ifaces)   sourceStepComboModel.addElement(element);
+  for (  Interface element : ifaces) {
+    sourceStepComboModel.addElement(element);
+  }
   propertiesCombo=form.appendComboBox(operationType,((Interface)sourceStepCombo.getSelectedItem()).getOperationList().toArray(),"Target " + operationType);
   propertiesCombo.setRenderer(new ModelItemListCellRenderer());
   sourceStepCombo.addActionListener(new ActionListener(){
@@ -14,7 +16,9 @@
       propertiesCombo.removeAllItems();
       if (iface != null) {
         propertiesCombo.setEnabled(true);
-        for (        Operation op : iface.getOperationList())         propertiesCombo.addItem(op);
+        for (        Operation op : iface.getOperationList()) {
+          propertiesCombo.addItem(op);
+        }
       }
  else {
         propertiesCombo.setEnabled(false);

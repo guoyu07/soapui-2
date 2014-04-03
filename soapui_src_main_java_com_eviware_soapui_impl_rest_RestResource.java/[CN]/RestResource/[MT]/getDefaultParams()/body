@@ -1,9 +1,13 @@
 {
   List<RestParamProperty> result=new ArrayList<RestParamProperty>();
   Set<String> names=new HashSet<String>();
-  if (parentResource != null)   result.addAll(Arrays.asList(parentResource.getDefaultParams()));
+  if (parentResource != null) {
+    result.addAll(Arrays.asList(parentResource.getDefaultParams()));
+  }
   for (int c=0; c < getPropertyCount(); c++) {
-    if (names.contains(getPropertyAt(c).getName()))     continue;
+    if (names.contains(getPropertyAt(c).getName())) {
+      continue;
+    }
     result.add(getPropertyAt(c));
     names.add(getPropertyAt(c).getName());
   }

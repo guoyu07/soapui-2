@@ -1,6 +1,8 @@
 {
   QueryMatchMockOperationDispatcher.Query selectedQuery=getSelectedQuery();
-  if (selectedQuery == null)   return;
+  if (selectedQuery == null) {
+    return;
+  }
   try {
     MockResult lastResult=getMockOperation().getLastMockResult();
     String content=null;
@@ -14,7 +16,9 @@
       content=lastResult.getMockRequest().getRequestContent();
     }
     String path=selectedQuery.getQuery();
-    if (path == null)     path="";
+    if (path == null) {
+      path="";
+    }
     selectedQuery.setQuery(XmlUtils.declareXPathNamespaces(content) + path);
   }
  catch (  Exception e1) {

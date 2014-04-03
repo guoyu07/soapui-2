@@ -3,12 +3,18 @@
   _typeComment=SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_TYPE_COMMENT_TYPE);
   _skipComments=SoapUI.getSettings().getBoolean(WsdlSettings.XML_GENERATION_SKIP_COMMENTS);
   QName nm=stype.getName();
-  if (nm == null && stype.getContainerField() != null)   nm=stype.getContainerField().getName();
+  if (nm == null && stype.getContainerField() != null) {
+    nm=stype.getContainerField().getName();
+  }
   if (nm != null && excludedTypes.contains(nm)) {
-    if (!_skipComments)     xmlc.insertComment("Ignoring type [" + nm + "]");
+    if (!_skipComments) {
+      xmlc.insertComment("Ignoring type [" + nm + "]");
+    }
     return;
   }
-  if (_typeStack.contains(stype))   return;
+  if (_typeStack.contains(stype)) {
+    return;
+  }
   _typeStack.add(stype);
   try {
     if (stype.isSimpleType() || stype.isURType()) {

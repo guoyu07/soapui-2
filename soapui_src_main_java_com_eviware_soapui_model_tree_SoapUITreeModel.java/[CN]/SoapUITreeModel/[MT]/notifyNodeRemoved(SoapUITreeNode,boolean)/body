@@ -8,5 +8,7 @@
   if (!(treeNode instanceof PropertyTreeNode) || showProperties) {
     notifyNodesRemoved(new TreeModelEvent(this,getPath(parent),new int[]{ix},new Object[]{parent.getChildNode(ix)}));
   }
-  if (release)   treeNode.release();
+  if (release) {
+    treeNode.release();
+  }
 }

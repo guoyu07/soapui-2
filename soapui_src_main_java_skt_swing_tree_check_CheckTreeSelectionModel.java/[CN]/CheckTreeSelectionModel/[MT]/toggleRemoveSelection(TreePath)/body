@@ -5,7 +5,9 @@
     stack.push(parent);
     parent=parent.getParentPath();
   }
-  if (parent != null)   stack.push(parent);
+  if (parent != null) {
+    stack.push(parent);
+  }
  else {
     super.removeSelectionPaths(new TreePath[]{path});
     return;
@@ -18,7 +20,9 @@
     int childCount=model.getChildCount(node);
     for (int i=0; i < childCount; i++) {
       Object childNode=model.getChild(node,i);
-      if (childNode != peekNode)       super.addSelectionPaths(new TreePath[]{temp.pathByAddingChild(childNode)});
+      if (childNode != peekNode) {
+        super.addSelectionPaths(new TreePath[]{temp.pathByAddingChild(childNode)});
+      }
     }
   }
   super.removeSelectionPaths(new TreePath[]{parent});

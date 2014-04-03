@@ -5,7 +5,9 @@
     responseContent=wsaUtils.addWSAddressingMockResponse(this,(WsdlMockRequest)request);
   }
   String outgoingWss=getOutgoingWss();
-  if (StringUtils.isNullOrEmpty(outgoingWss))   outgoingWss=getMockOperation().getMockService().getOutgoingWss();
+  if (StringUtils.isNullOrEmpty(outgoingWss)) {
+    outgoingWss=getMockOperation().getMockService().getOutgoingWss();
+  }
   if (StringUtils.hasContent(outgoingWss)) {
     OutgoingWss outgoing=((WsdlProject)getMockOperation().getMockService().getProject()).getWssContainer().getOutgoingWssByName(outgoingWss);
     if (outgoing != null) {

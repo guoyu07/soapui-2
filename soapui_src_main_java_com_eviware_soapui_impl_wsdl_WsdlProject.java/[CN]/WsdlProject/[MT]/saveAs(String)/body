@@ -1,5 +1,7 @@
 {
-  if (!isOpen() || isDisabled())   return SaveStatus.FAILED;
+  if (!isOpen() || isDisabled()) {
+    return SaveStatus.FAILED;
+  }
   String oldPath=path;
   path=fileName;
   SaveStatus result=save();

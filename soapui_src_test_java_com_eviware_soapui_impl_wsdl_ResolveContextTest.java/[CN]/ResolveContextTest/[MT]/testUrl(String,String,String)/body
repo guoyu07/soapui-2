@@ -3,7 +3,9 @@
   if (!rValue) {
     return rValue;
   }
-  if (!rootPath.endsWith("/"))   rootPath+="/";
+  if (!rootPath.endsWith("/")) {
+    rootPath+="/";
+  }
   rValue=absolutePath.equals(Tools.joinRelativeUrl(rootPath,relativePath));
   return rValue;
 }

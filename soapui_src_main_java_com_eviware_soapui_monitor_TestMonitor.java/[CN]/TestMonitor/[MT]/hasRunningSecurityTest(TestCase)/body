@@ -1,7 +1,9 @@
 {
   Iterator<SecurityTestRunner> iterator=runningSecurityTests.iterator();
   while (iterator.hasNext()) {
-    if (iterator.next().getSecurityTest().getTestCase() == testCase)     return true;
+    if (iterator.next().getSecurityTest().getTestCase() == testCase) {
+      return true;
+    }
   }
   return false;
 }

@@ -1,19 +1,27 @@
 {
-  if (securityTest.isRunning())   return;
+  if (securityTest.isRunning()) {
+    return;
+  }
   TreePath path=securityTestTree.getPathForLocation(e.getX(),e.getY());
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK && (securityTestTree.getSelectionRows().length <= 1 || multypopupvisible)) {
     securityTestTree.setSelectionPath(path);
     multypopupvisible=false;
   }
   Object node=securityTestTree.getLastSelectedPathComponent();
-  if (node == null)   return;
+  if (node == null) {
+    return;
+  }
   if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
     if (node instanceof SecurityScanNode) {
       if (securityTestTree.getSelectionRows().length == 1) {
         SecurityScan scan=((SecurityScanNode)node).getSecurityScan();
         enableDisableSecurityScan.setText(scan.isDisabled());
-        if (scan instanceof AbstractSecurityScanWithProperties)         securityScanWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
- else         securityScanPopUp.show(securityTestTree,e.getX(),e.getY());
+        if (scan instanceof AbstractSecurityScanWithProperties) {
+          securityScanWithPropertiesPopUp.show(securityTestTree,e.getX(),e.getY());
+        }
+ else {
+          securityScanPopUp.show(securityTestTree,e.getX(),e.getY());
+        }
       }
  else       if (securityTestTree.getSelectionRows().length > 1) {
         populateMultySecurityScanPopup(true,true);

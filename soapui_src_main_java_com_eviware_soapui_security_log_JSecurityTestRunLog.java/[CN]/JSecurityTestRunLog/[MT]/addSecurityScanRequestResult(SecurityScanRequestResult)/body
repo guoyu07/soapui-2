@@ -1,12 +1,2 @@
 {
-  if (errorsOnly && checkRequestResult.getStatus() != SecurityScanRequestResult.ResultStatus.FAILED)   return;
-  logListModel.addSecurityScanRequestResult(checkRequestResult);
-  if (follow) {
-    try {
-      testLogList.ensureIndexIsVisible(logListModel.getSize() - 1);
-    }
- catch (    RuntimeException e) {
-      log.error(e.getMessage());
-    }
-  }
 }

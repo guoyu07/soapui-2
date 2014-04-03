@@ -43,9 +43,13 @@
   xmlBombPosition=0;
   if (xmlBombList.size() > 0) {
     attachementArea.setText(xmlBombList.get(xmlBombPosition));
-    if (xmlBombList.size() == 1)     next.setEnabled(false);
+    if (xmlBombList.size() == 1) {
+      next.setEnabled(false);
+    }
   }
- else   next.setEnabled(false);
+ else {
+    next.setEnabled(false);
+  }
   form.append(new JScrollPane(attachementArea));
   form.addSpace(5);
   add(form.getPanel());
