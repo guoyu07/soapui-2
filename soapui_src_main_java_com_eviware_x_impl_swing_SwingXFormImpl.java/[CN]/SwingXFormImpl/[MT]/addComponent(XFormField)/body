@@ -1,5 +1,7 @@
 {
-  if (rowSpacing > 0 && !components.isEmpty())   ddSpace(rowSpacing);
+  if (rowSpacing > 0 && !components.isEmpty()) {
+    addSpace(rowSpacing);
+  }
   layout.appendRow(rowSpec);
   int row=layout.getRowCount();
   AbstractSwingXFormField<?> swingFormComponent=(AbstractSwingXFormField<?>)component;

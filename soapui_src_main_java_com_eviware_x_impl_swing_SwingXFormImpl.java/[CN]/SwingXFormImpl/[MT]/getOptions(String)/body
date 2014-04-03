@@ -1,2 +1,7 @@
 {
+  XFormField combo=getComponent(name);
+  if (combo instanceof XFormOptionsField) {
+    return ((XFormOptionsField)combo).getOptions();
+  }
+  return null;
 }
