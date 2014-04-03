@@ -1,0 +1,10 @@
+{
+  dialog=ADialogBuilder.buildDialog(MockAsWarDialog.class);
+  dialog.getFormField(MockAsWarDialog.GLOBAL_SETTINGS).addFormFieldListener(new XFormFieldListener(){
+    public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
+      dialog.getFormField(MockAsWarDialog.SETTINGS_FILE).setEnabled(Boolean.valueOf(newValue));
+    }
+  }
+);
+  dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY).addFormFieldValidator(new RequiredValidator("WAR Directory is required"));
+}

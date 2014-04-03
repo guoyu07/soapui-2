@@ -1,21 +1,12 @@
 {
-  if (project.getMockServiceCount() == 0) {
+  if ((project.getMockServiceCount() + project.getRestMockServiceCount()) == 0) {
     UISupport.showErrorMessage("Project does not have any MockServices to deploy");
     return;
   }
   if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(MockAsWarDialog.class);
-    dialog.getFormField(MockAsWarDialog.GLOBAL_SETTINGS).addFormFieldListener(new XFormFieldListener(){
-      public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        dialog.getFormField(MockAsWarDialog.SETTINGS_FILE).setEnabled(Boolean.valueOf(newValue));
-      }
-    }
-);
-    dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY).addFormFieldValidator(new RequiredValidator("WAR Directory is required"));
+    buildDialog();
   }
-  XFormField settingFile=dialog.getFormField(MockAsWarDialog.SETTINGS_FILE);
-  settingFile.setValue(((DefaultSoapUICore)SoapUI.getSoapUICore()).getSettingsFile());
-  settingFile.setEnabled(dialog.getBooleanValue(MockAsWarDialog.GLOBAL_SETTINGS));
+  XFormField settingFile=getPreFilledSettings();
   XFormField warDirectory=dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY);
   XFormField warFile=dialog.getFormField(MockAsWarDialog.WAR_FILE);
   String passwordForEncryption=project.getSettings().getString(ProjectSettings.SHADOW_PASSWORD,null);
