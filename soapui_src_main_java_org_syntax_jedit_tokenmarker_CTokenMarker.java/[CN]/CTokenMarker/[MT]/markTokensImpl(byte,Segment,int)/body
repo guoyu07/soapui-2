@@ -16,9 +16,13 @@ switch (token) {
 case Token.NULL:
 switch (c) {
 case '#':
-        if (backslash)         backslash=false;
+        if (backslash) {
+          backslash=false;
+        }
  else         if (cpp) {
-          if (doKeyword(line,i,c))           break;
+          if (doKeyword(line,i,c)) {
+            break;
+          }
           addToken(i - lastOffset,token);
           addToken(length - i,Token.KEYWORD2);
           lastOffset=lastKeyword=length;
@@ -27,7 +31,9 @@ case '#':
       break;
 case '"':
     doKeyword(line,i,c);
-  if (backslash)   backslash=false;
+  if (backslash) {
+    backslash=false;
+  }
  else {
     addToken(i - lastOffset,token);
     token=Token.LITERAL1;
@@ -36,7 +42,9 @@ case '"':
 break;
 case '\'':
 doKeyword(line,i,c);
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 token=Token.LITERAL2;
@@ -45,12 +53,16 @@ lastOffset=lastKeyword=i;
 break;
 case ':':
 if (lastKeyword == offset) {
-if (doKeyword(line,i,c)) break;
+if (doKeyword(line,i,c)) {
+break;
+}
 backslash=false;
 addToken(i1 - lastOffset,Token.LABEL);
 lastOffset=lastKeyword=i1;
 }
- else if (doKeyword(line,i,c)) break;
+ else if (doKeyword(line,i,c)) {
+break;
+}
 break;
 case '/':
 backslash=false;
@@ -60,8 +72,12 @@ switch (array[i1]) {
 case '*':
 addToken(i - lastOffset,token);
 lastOffset=lastKeyword=i;
-if (length - i > 2 && array[i + 2] == '*') token=Token.COMMENT2;
- else token=Token.COMMENT1;
+if (length - i > 2 && array[i + 2] == '*') {
+token=Token.COMMENT2;
+}
+ else {
+token=Token.COMMENT1;
+}
 break;
 case '/':
 addToken(i - lastOffset,token);
@@ -73,7 +89,9 @@ break loop;
 break;
 default :
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 }
 break;
@@ -90,7 +108,9 @@ lastOffset=lastKeyword=i + 1;
 }
 break;
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,token);
 token=Token.NULL;
@@ -98,7 +118,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 token=Token.NULL;
@@ -109,7 +131,9 @@ default :
 throw new InternalError("Invalid state: " + token);
 }
 }
-if (token == Token.NULL) doKeyword(line,length,'\0');
+if (token == Token.NULL) {
+doKeyword(line,length,'\0');
+}
 switch (token) {
 case Token.LITERAL1:
 case Token.LITERAL2:
@@ -118,7 +142,9 @@ token=Token.NULL;
 break;
 case Token.KEYWORD2:
 addToken(length - lastOffset,token);
-if (!backslash) token=Token.NULL;
+if (!backslash) {
+token=Token.NULL;
+}
 default :
 addToken(length - lastOffset,token);
 break;

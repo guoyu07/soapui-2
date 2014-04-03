@@ -7,7 +7,9 @@
   for (int c=0; c < mp.getCount(); c++) {
     BodyPart bodyPart=mp.getBodyPart(c);
     String contentType=bodyPart.getContentType().toUpperCase();
-    if (contentType.startsWith("APPLICATION/XOP+XML"))     attachmentType=AttachmentType.XOP;
+    if (contentType.startsWith("APPLICATION/XOP+XML")) {
+      attachmentType=AttachmentType.XOP;
+    }
     if (contentType.startsWith("MULTIPART/")) {
       MimeMultipart mp2=new MimeMultipart(new BodyPartDataSource(bodyPart));
       for (int i=0; i < mp2.getCount(); i++) {
@@ -20,10 +22,14 @@
       if (contentIdHeaders != null && contentIdHeaders.length > 0 && contentIdHeaders[0].equals(rootPartId)) {
         rootPart=attachment;
       }
- else       attachments.add(attachment);
+ else {
+        attachments.add(attachment);
+      }
     }
   }
-  if (operation != null && rootPart == null)   rootPart=attachments.remove(0);
+  if (operation != null && rootPart == null) {
+    rootPart=attachments.remove(0);
+  }
   if (rootPart != null) {
     ((BodyPartAttachment)rootPart).setAttachmentType(AttachmentType.CONTENT);
   }

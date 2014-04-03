@@ -17,7 +17,9 @@
     }
   }
   String selected=(String)UISupport.prompt("Select endpoint to set for all requests","Set Endpoint",endpointSet.toArray(),currentEndpointSet.size() == 1 ? currentEndpointSet.iterator().next() : USE_CURRENT);
-  if (selected == null || selected.equals(USE_CURRENT))   return;
+  if (selected == null || selected.equals(USE_CURRENT)) {
+    return;
+  }
   int cnt=0;
   for (int c=0; c < testCase.getTestStepCount(); c++) {
     TestStep step=testCase.getTestStepAt(c);

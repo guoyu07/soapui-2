@@ -2,7 +2,9 @@
   Map<QName,String> map=new HashMap<QName,String>();
   XmlCursor cursor=xmlObject.newCursor();
   while (cursor.hasNextToken()) {
-    if (cursor.toNextToken().isNamespace())     map.put(cursor.getName(),cursor.getTextValue());
+    if (cursor.toNextToken().isNamespace()) {
+      map.put(cursor.getName(),cursor.getTextValue());
+    }
   }
   cursor.dispose();
   int nsCnt=0;
@@ -12,14 +14,22 @@
   for (  Map.Entry<QName,String> entry : map.entrySet()) {
     QName name=entry.getKey();
     String prefix=name.getLocalPart();
-    if (prefix.length() == 0)     prefix="ns" + Integer.toString(++nsCnt);
- else     if (prefix.equals("xsd") || prefix.equals("xsi"))     continue;
+    if (prefix.length() == 0) {
+      prefix="ns" + Integer.toString(++nsCnt);
+    }
+ else     if (prefix.equals("xsd") || prefix.equals("xsi")) {
+      continue;
+    }
     if (usedPrefixes.contains(prefix)) {
       int c=1;
-      while (usedPrefixes.contains(prefix + c))       c++;
+      while (usedPrefixes.contains(prefix + c)) {
+        c++;
+      }
       prefix=prefix + Integer.toString(c);
     }
- else     prefixes.add(prefix);
+ else {
+      prefixes.add(prefix);
+    }
     buf.append("declare namespace ");
     buf.append(prefix);
     buf.append("='");

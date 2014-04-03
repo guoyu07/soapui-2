@@ -2,7 +2,9 @@
   LoadTestAssertion assertion=LoadTestAssertionRegistry.createAssertion(type,this);
   assertion.setTargetStep(targetStep);
   if (assertion instanceof Configurable && showConfig) {
-    if (!((Configurable)assertion).configure())     return null;
+    if (!((Configurable)assertion).configure()) {
+      return null;
+    }
   }
   assertions.add(assertion);
   getConfig().addNewAssertion().set(assertion.getConfiguration());

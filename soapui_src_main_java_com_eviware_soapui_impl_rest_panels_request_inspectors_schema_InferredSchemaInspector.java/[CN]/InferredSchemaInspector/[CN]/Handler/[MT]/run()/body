@@ -8,8 +8,12 @@
         e.printStackTrace();
       }
     }
- else     yesToAll=true;
-    if (kill)     return;
+ else {
+      yesToAll=true;
+    }
+    if (kill) {
+      return;
+    }
     InferredSchemaManager.getInferredSchema(service).learningValidate(xml,this);
     panel.update();
     setTitle("Schema");

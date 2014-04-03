@@ -5,11 +5,15 @@
     WsdlMockOperation testStep=new WsdlMockOperation(this,tsc);
     addMockOperation(testStep);
   }
-  if (!getSettings().isSet(REQUIRE_SOAP_ACTION))   setRequireSoapAction(false);
+  if (!getSettings().isSet(REQUIRE_SOAP_ACTION)) {
+    setRequireSoapAction(false);
+  }
   for (  MockRunListener listener : SoapUI.getListenerRegistry().getListeners(MockRunListener.class)) {
     addMockRunListener(listener);
   }
-  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  if (!getConfig().isSetProperties()) {
+    getConfig().addNewProperties();
+  }
   setPropertiesConfig(getConfig().getProperties());
   if (getConfig().isSetFaultMockOperation()) {
     faultMockOperation=(WsdlMockOperation)getMockOperationByName(getConfig().getFaultMockOperation());

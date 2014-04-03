@@ -11,7 +11,9 @@
     Map<String,List<Attachment>> attachmentsMap=new HashMap<String,List<Attachment>>();
     for (int c=0; c < attachments.size(); c++) {
       Attachment att=attachments.get(c);
-      if (att.getAttachmentType() == Attachment.AttachmentType.CONTENT)       continue;
+      if (att.getAttachmentType() == Attachment.AttachmentType.CONTENT) {
+        continue;
+      }
       String partName=att.getPart();
       if (!attachmentsMap.containsKey(partName)) {
         attachmentsMap.put(partName,new ArrayList<Attachment>());

@@ -5,10 +5,14 @@
   }
   if (UISupport.confirm("Remove interface [" + iface.getName() + "] from project ["+ iface.getProject().getName()+ "]?","Remove Interface")) {
     if (hasDependingTests(iface)) {
-      if (!UISupport.confirm("Interface has depending TestSteps which will also be removed. Remove anyway?","Remove Interface"))       return;
+      if (!UISupport.confirm("Interface has depending TestSteps which will also be removed. Remove anyway?","Remove Interface")) {
+        return;
+      }
     }
     if (hasDependingMockOperations(iface)) {
-      if (!UISupport.confirm("Interface has depending MockOperations which will also be removed. Remove anyway?","Remove Interface"))       return;
+      if (!UISupport.confirm("Interface has depending MockOperations which will also be removed. Remove anyway?","Remove Interface")) {
+        return;
+      }
     }
     WsdlProject project=(WsdlProject)iface.getProject();
     project.removeInterface(iface);

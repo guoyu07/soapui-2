@@ -13,7 +13,9 @@
     }
   }
 );
-  for (int c=0; c < table.getColumnCount(); c++)   table.getColumnModel().getColumn(c).setHeaderRenderer(new MetricsPanel.InternalHeaderRenderer(getBackground()));
+  for (int c=0; c < table.getColumnCount(); c++) {
+    table.getColumnModel().getColumn(c).setHeaderRenderer(new MetricsPanel.InternalHeaderRenderer(getBackground()));
+  }
   table.getColumnModel().getColumn(0).setPreferredWidth(250);
   InternalRowCellrenderer internalRowCellRendered=new InternalRowCellrenderer();
   table.getColumnModel().getColumn(tableModel.getPasswordColumnIndex()).setCellRenderer(internalRowCellRendered);

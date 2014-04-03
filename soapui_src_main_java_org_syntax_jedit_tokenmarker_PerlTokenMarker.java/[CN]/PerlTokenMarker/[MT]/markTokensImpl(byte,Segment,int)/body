@@ -32,8 +32,12 @@ switch (token) {
 case Token.NULL:
 switch (c) {
 case '#':
-        if (doKeyword(line,i,c))         break;
-      if (backslash)       backslash=false;
+        if (doKeyword(line,i,c)) {
+          break;
+        }
+      if (backslash) {
+        backslash=false;
+      }
  else {
         addToken(i - lastOffset,token);
         addToken(length - i,Token.COMMENT1);
@@ -49,16 +53,22 @@ if (i == offset) {
   lastOffset=lastKeyword=length;
   break loop;
 }
- else doKeyword(line,i,c);
+ else {
+  doKeyword(line,i,c);
+}
 break;
 case '$':
 case '&':
 case '%':
 case '@':
 backslash=false;
-if (doKeyword(line,i,c)) break;
+if (doKeyword(line,i,c)) {
+break;
+}
 if (length - i > 1) {
-if (c == '&' && (array[i1] == '&' || Character.isWhitespace(array[i1]))) i++;
+if (c == '&' && (array[i1] == '&' || Character.isWhitespace(array[i1]))) {
+i++;
+}
  else {
 addToken(i - lastOffset,token);
 lastOffset=lastKeyword=i;
@@ -67,8 +77,12 @@ token=Token.KEYWORD2;
 }
 break;
 case '"':
-if (doKeyword(line,i,c)) break;
-if (backslash) backslash=false;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 token=Token.LITERAL1;
@@ -77,19 +91,29 @@ lastOffset=lastKeyword=i;
 }
 break;
 case '\'':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 int oldLastKeyword=lastKeyword;
-if (doKeyword(line,i,c)) break;
-if (i != oldLastKeyword) break;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (i != oldLastKeyword) {
+break;
+}
 addToken(i - lastOffset,token);
 token=Token.LITERAL2;
 lastOffset=lastKeyword=i;
 }
 break;
 case '`':
-if (doKeyword(line,i,c)) break;
-if (backslash) backslash=false;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 token=Token.OPERATOR;
@@ -97,30 +121,44 @@ lastOffset=lastKeyword=i;
 }
 break;
 case '<':
-if (doKeyword(line,i,c)) break;
-if (backslash) backslash=false;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (backslash) {
+backslash=false;
+}
  else {
 if (length - i > 2 && array[i1] == '<' && !Character.isWhitespace(array[i + 2])) {
 addToken(i - lastOffset,token);
 lastOffset=lastKeyword=i;
 token=Token.LITERAL1;
 int len=length - (i + 2);
-if (array[length - 1] == ';') len--;
+if (array[length - 1] == ';') {
+len--;
+}
 lineInfo[lineIndex].obj=createReadinString(array,i + 2,len);
 }
 }
 break;
 case ':':
 backslash=false;
-if (doKeyword(line,i,c)) break;
-if (lastKeyword != 0) break;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (lastKeyword != 0) {
+break;
+}
 addToken(i1 - lastOffset,Token.LABEL);
 lastOffset=lastKeyword=i1;
 break;
 case '-':
 backslash=false;
-if (doKeyword(line,i,c)) break;
-if (i != lastKeyword || length - i <= 1) break;
+if (doKeyword(line,i,c)) {
+break;
+}
+if (i != lastKeyword || length - i <= 1) {
+break;
+}
 switch (array[i1]) {
 case 'r':
 case 'w':
@@ -157,11 +195,15 @@ i++;
 break;
 case '/':
 case '?':
-if (doKeyword(line,i,c)) break;
+if (doKeyword(line,i,c)) {
+break;
+}
 if (length - i > 1) {
 backslash=false;
 char ch=array[i1];
-if (Character.isWhitespace(ch)) break;
+if (Character.isWhitespace(ch)) {
+break;
+}
 matchChar=c;
 matchSpacesAllowed=false;
 addToken(i - lastOffset,token);
@@ -171,7 +213,9 @@ lastOffset=lastKeyword=i;
 break;
 default :
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 }
 break;
@@ -192,11 +236,17 @@ token=Token.NULL;
 break;
 case S_ONE:
 case S_TWO:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 if (matchChar == '\0') {
-if (Character.isWhitespace(matchChar) && !matchSpacesAllowed) break;
- else matchChar=c;
+if (Character.isWhitespace(matchChar) && !matchSpacesAllowed) {
+break;
+}
+ else {
+matchChar=c;
+}
 }
  else {
 switch (matchChar) {
@@ -220,10 +270,14 @@ default :
 matchCharBracket=false;
 break;
 }
-if (c != matchChar) break;
+if (c != matchChar) {
+break;
+}
 if (token == S_TWO) {
 token=S_ONE;
-if (matchCharBracket) matchChar='\0';
+if (matchCharBracket) {
+matchChar='\0';
+}
 }
  else {
 token=S_END;
@@ -235,19 +289,25 @@ lastOffset=lastKeyword=i1;
 break;
 case S_END:
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 case Token.COMMENT2:
 backslash=false;
 if (i == offset) {
 addToken(line.count,token);
-if (length - i > 3 && SyntaxUtilities.regionMatches(false,line,offset,"=cut")) token=Token.NULL;
+if (length - i > 3 && SyntaxUtilities.regionMatches(false,line,offset,"=cut")) {
+token=Token.NULL;
+}
 lastOffset=lastKeyword=length;
 break loop;
 }
 break;
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,token);
 token=Token.NULL;
@@ -255,7 +315,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 token=Token.NULL;
@@ -263,7 +325,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case Token.OPERATOR:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '`') {
 addToken(i1 - lastOffset,token);
 token=Token.NULL;
@@ -274,7 +338,9 @@ default :
 throw new InternalError("Invalid state: " + token);
 }
 }
-if (token == Token.NULL) doKeyword(line,length,'\0');
+if (token == Token.NULL) {
+doKeyword(line,length,'\0');
+}
 switch (token) {
 case Token.KEYWORD2:
 addToken(length - lastOffset,token);

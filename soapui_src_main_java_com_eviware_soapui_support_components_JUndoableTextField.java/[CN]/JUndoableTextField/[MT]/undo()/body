@@ -4,7 +4,9 @@
     return;
   }
   try {
-    if (undoManager != null)     undoManager.undo();
+    if (undoManager != null) {
+      undoManager.undo();
+    }
   }
  catch (  CannotUndoException cue) {
     Toolkit.getDefaultToolkit().beep();

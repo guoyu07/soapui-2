@@ -2,8 +2,12 @@
   this.status=status;
   if (status == RunnerStatus.RUNNING) {
     progressBar.setIndeterminate(true);
-    if (cancelButton != null)     cancelButton.setEnabled(true);
-    if (closeButton != null)     closeButton.setEnabled(false);
+    if (cancelButton != null) {
+      cancelButton.setEnabled(true);
+    }
+    if (closeButton != null) {
+      closeButton.setEnabled(false);
+    }
   }
  else   if (status == RunnerStatus.ERROR) {
     if (logArea == null) {
@@ -12,8 +16,12 @@
     }
     progressBar.setIndeterminate(false);
     progressBar.setValue(0);
-    if (cancelButton != null)     cancelButton.setEnabled(false);
-    if (closeButton != null)     closeButton.setEnabled(true);
+    if (cancelButton != null) {
+      cancelButton.setEnabled(false);
+    }
+    if (closeButton != null) {
+      closeButton.setEnabled(true);
+    }
   }
  else   if (status == RunnerStatus.FINISHED) {
     if (logArea == null) {
@@ -22,7 +30,11 @@
     }
     progressBar.setIndeterminate(false);
     progressBar.setValue(1);
-    if (cancelButton != null)     cancelButton.setEnabled(false);
-    if (closeButton != null)     closeButton.setEnabled(true);
+    if (cancelButton != null) {
+      cancelButton.setEnabled(false);
+    }
+    if (closeButton != null) {
+      closeButton.setEnabled(true);
+    }
   }
 }

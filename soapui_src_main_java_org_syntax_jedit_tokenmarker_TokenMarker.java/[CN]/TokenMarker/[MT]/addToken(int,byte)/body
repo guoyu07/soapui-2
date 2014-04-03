@@ -1,6 +1,10 @@
 {
-  if (id >= Token.INTERNAL_FIRST && id <= Token.INTERNAL_LAST)   throw new InternalError("Invalid id: " + id);
-  if (length == 0 && id != Token.END)   return;
+  if (id >= Token.INTERNAL_FIRST && id <= Token.INTERNAL_LAST) {
+    throw new InternalError("Invalid id: " + id);
+  }
+  if (length == 0 && id != Token.END) {
+    return;
+  }
   if (firstToken == null) {
     firstToken=new Token(length,id);
     lastToken=firstToken;

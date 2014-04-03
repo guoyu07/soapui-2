@@ -5,11 +5,21 @@
     requestTabs.setSelectedIndex(1);
     return;
   }
-  if (request.getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR))   return;
-  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged() || request.getResponse() == null)   return;
+  if (request.getSettings().getBoolean(UISettings.NO_RESIZE_REQUEST_EDITOR)) {
+    return;
+  }
+  if (requestSplitPane.getUI() instanceof SoapUISplitPaneUI && ((SoapUISplitPaneUI)requestSplitPane.getUI()).hasBeenDragged() || request.getResponse() == null) {
+    return;
+  }
   int pos=requestSplitPane.getDividerLocation();
   int maximumDividerLocation=requestSplitPane.getMaximumDividerLocation();
-  if (pos + 600 < maximumDividerLocation)   return;
-  if (maximumDividerLocation > 700)   requestSplitPane.setDividerLocation(maximumDividerLocation - 600);
- else   requestSplitPane.setDividerLocation(0.2);
+  if (pos + 600 < maximumDividerLocation) {
+    return;
+  }
+  if (maximumDividerLocation > 700) {
+    requestSplitPane.setDividerLocation(maximumDividerLocation - 600);
+  }
+ else {
+    requestSplitPane.setDividerLocation(0.2);
+  }
 }

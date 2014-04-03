@@ -11,7 +11,9 @@
       result.addMessage("Failed to save properties to [" + target + "]");
       result.setStatus(TestStepStatus.FAILED);
       result.setError(e);
-      if (failedIcon != null)       setIcon(failedIcon);
+      if (failedIcon != null) {
+        setIcon(failedIcon);
+      }
       return false;
     }
   }

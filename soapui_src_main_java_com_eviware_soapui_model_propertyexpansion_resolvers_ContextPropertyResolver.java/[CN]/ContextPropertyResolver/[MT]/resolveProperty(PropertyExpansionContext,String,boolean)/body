@@ -10,8 +10,12 @@
     xpath=propertyName.substring(sepIx + 1);
     propertyName=propertyName.substring(0,sepIx);
   }
-  if (globalOverride)   property=PropertyExpansionUtils.getGlobalProperty(propertyName);
-  if (property == null)   property=context.getProperty(propertyName);
+  if (globalOverride) {
+    property=PropertyExpansionUtils.getGlobalProperty(propertyName);
+  }
+  if (property == null) {
+    property=context.getProperty(propertyName);
+  }
   if (property != null && xpath != null) {
     property=ResolverUtils.extractXPathPropertyValue(property,PropertyExpander.expandProperties(context,xpath));
   }

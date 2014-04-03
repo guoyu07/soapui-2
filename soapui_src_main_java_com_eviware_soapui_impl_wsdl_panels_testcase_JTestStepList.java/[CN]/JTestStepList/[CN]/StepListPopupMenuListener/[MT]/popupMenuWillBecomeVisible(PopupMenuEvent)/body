@@ -30,7 +30,9 @@
     }
  else {
       ModelItem[] modelItems=new ModelItem[indices.length];
-      for (int c=0; c < indices.length; c++)       modelItems[c]=testCase.getTestStepAt(indices[c]).getModelItem();
+      for (int c=0; c < indices.length; c++) {
+        modelItems[c]=testCase.getTestStepAt(indices[c]).getModelItem();
+      }
       ActionSupport.addActions(ActionListBuilder.buildMultiActions(modelItems),testListPopup);
     }
   }

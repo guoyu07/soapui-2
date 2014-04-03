@@ -2,7 +2,9 @@
   currentLoader=createDefinitionLoader(cache);
   currentLoader.setProgressInfo("Loading Definition");
   definition=loadDefinition(currentLoader);
-  if (definition != null)   definition.setDefinitionCache(cache);
+  if (definition != null) {
+    definition.setDefinitionCache(cache);
+  }
   log.debug("Loaded Definition: " + (definition != null ? "ok" : "null"));
   if (!currentLoader.isAborted() && iface != null && iface.isDefinitionShareble()) {
     definitionCache.put(url,definition);
@@ -13,6 +15,8 @@
       urlReferences.put(url,1);
     }
   }
-  if (currentLoader.isAborted())   throw new Exception("Loading of Definition from [" + url + "] was aborted");
+  if (currentLoader.isAborted()) {
+    throw new Exception("Loading of Definition from [" + url + "] was aborted");
+  }
   loaded=true;
 }

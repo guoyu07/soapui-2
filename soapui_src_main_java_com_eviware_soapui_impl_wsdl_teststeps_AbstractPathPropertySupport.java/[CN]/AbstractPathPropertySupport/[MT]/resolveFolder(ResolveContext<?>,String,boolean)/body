@@ -1,5 +1,7 @@
 {
-  if (containsPropertyExpansion())   return;
+  if (containsPropertyExpansion()) {
+    return;
+  }
   String source=expand();
   if (StringUtils.hasContent(source)) {
     try {
@@ -8,7 +10,9 @@
  catch (    Exception e) {
       File file=new File(source);
       if (!file.exists() || !file.isDirectory()) {
-        if (context.hasThisModelItem(modelItem,errorDescription,source))         return;
+        if (context.hasThisModelItem(modelItem,errorDescription,source)) {
+          return;
+        }
         context.addPathToResolve(modelItem,errorDescription,source,new ResolveContext.DirectoryResolver("Select Directory",source){
           @Override public boolean apply(          File newFile){
             set(newFile.getAbsolutePath(),notify);
@@ -18,7 +22,9 @@
 );
       }
  else {
-        if (context.hasThisModelItem(modelItem,errorDescription,source))         context.getPath(modelItem,errorDescription,source).setSolved(true);
+        if (context.hasThisModelItem(modelItem,errorDescription,source)) {
+          context.getPath(modelItem,errorDescription,source).setSolved(true);
+        }
       }
     }
   }

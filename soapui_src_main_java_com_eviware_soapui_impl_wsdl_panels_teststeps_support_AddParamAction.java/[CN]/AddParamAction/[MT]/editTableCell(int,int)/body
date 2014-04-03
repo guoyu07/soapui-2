@@ -14,7 +14,9 @@
         public void run(){
           parameterTable.editCellAt(row,column);
           Component editorComponent=parameterTable.getEditorComponent();
-          if (editorComponent != null)           editorComponent.requestFocusInWindow();
+          if (editorComponent != null) {
+            editorComponent.requestFocusInWindow();
+          }
         }
       }
 );

@@ -1,5 +1,7 @@
 {
-  if (line == selectionEndLine)   return selectionEnd;
+  if (line == selectionEndLine) {
+    return selectionEnd;
+  }
  else   if (rectSelect) {
     Element map=document.getDefaultRootElement();
     int end=selectionEnd - map.getElement(selectionEndLine).getStartOffset();
@@ -8,5 +10,7 @@
     int lineEnd=lineElement.getEndOffset() - 1;
     return Math.min(lineEnd,lineStart + end);
   }
- else   return getLineEndOffset(line) - 1;
+ else {
+    return getLineEndOffset(line) - 1;
+  }
 }

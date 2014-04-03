@@ -5,5 +5,7 @@
     requestNodes.remove(requestTreeNode);
     request.removePropertyChangeListener(propertyChangeListener);
   }
- else   throw new RuntimeException("Removing unknown request");
+ else {
+    throw new RuntimeException("Removing unknown request");
+  }
 }

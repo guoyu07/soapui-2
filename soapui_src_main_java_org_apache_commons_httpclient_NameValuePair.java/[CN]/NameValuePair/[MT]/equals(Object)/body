@@ -1,6 +1,10 @@
 {
-  if (object == null)   return false;
-  if (this == object)   return true;
+  if (object == null) {
+    return false;
+  }
+  if (this == object) {
+    return true;
+  }
   if (object instanceof NameValuePair) {
     NameValuePair that=(NameValuePair)object;
     return LangUtils.equals(this.name,that.name) && LangUtils.equals(this.value,that.value);

@@ -19,6 +19,10 @@
     soapcpp2Builder.directory(new File(Tools.getDir(values.get(WSDL2H_OUTPUT))));
     builders.add(soapcpp2Builder);
   }
-  if (builders.isEmpty())   UISupport.showErrorMessage("Nothing to run!");
- else   toolHost.run(new ProcessToolRunner(builders.toArray(new ProcessBuilder[builders.size()]),"GSoap",modelItem));
+  if (builders.isEmpty()) {
+    UISupport.showErrorMessage("Nothing to run!");
+  }
+ else {
+    toolHost.run(new ProcessToolRunner(builders.toArray(new ProcessBuilder[builders.size()]),"GSoap",modelItem));
+  }
 }

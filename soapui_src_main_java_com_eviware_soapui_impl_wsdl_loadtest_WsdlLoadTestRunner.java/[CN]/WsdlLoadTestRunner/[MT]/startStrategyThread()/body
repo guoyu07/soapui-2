@@ -5,7 +5,9 @@
         try {
           loadTest.getLoadStrategy().recalculate(WsdlLoadTestRunner.this,context);
           long strategyInterval=loadTest.getStrategyInterval();
-          if (strategyInterval < 1)           strategyInterval=WsdlLoadTest.DEFAULT_STRATEGY_INTERVAL;
+          if (strategyInterval < 1) {
+            strategyInterval=WsdlLoadTest.DEFAULT_STRATEGY_INTERVAL;
+          }
           Thread.sleep(strategyInterval);
         }
  catch (        InterruptedException e) {

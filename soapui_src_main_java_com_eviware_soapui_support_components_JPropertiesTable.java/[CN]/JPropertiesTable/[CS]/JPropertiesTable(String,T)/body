@@ -10,8 +10,12 @@
   add(new JScrollPane(table),BorderLayout.CENTER);
   titledBorder=BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),title);
   Font defaultUIFont=getUIDefaultFont();
-  if (defaultUIFont != null)   titledBorder.setTitleFont(getUIDefaultFont().deriveFont(Font.PLAIN,11));
-  if (title != null)   setBorder(titledBorder);
+  if (defaultUIFont != null) {
+    titledBorder.setTitleFont(getUIDefaultFont().deriveFont(Font.PLAIN,11));
+  }
+  if (title != null) {
+    setBorder(titledBorder);
+  }
   table.setBackground(Color.WHITE);
   setPreferredSize(table.getPreferredSize());
 }

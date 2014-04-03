@@ -7,6 +7,8 @@
   postMethod.setHeader("Content-Type",soapVersion.getContentTypeHttpHeader(encoding,soapAction));
   if (!wsdlRequest.isSkipSoapAction()) {
     String soapActionHeader=soapVersion.getSoapActionHeader(soapAction);
-    if (soapActionHeader != null)     postMethod.setHeader("SOAPAction",soapActionHeader);
+    if (soapActionHeader != null) {
+      postMethod.setHeader("SOAPAction",soapActionHeader);
+    }
   }
 }

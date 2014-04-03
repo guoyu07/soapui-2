@@ -6,7 +6,9 @@
   String req=request.getRequestContent();
   try {
     String passwordType=(String)UISupport.prompt("Add WSS Username Token","Specify Password Type",new String[]{WsdlRequest.PW_TYPE_TEXT,WsdlRequest.PW_TYPE_DIGEST});
-    if (passwordType == null)     return;
+    if (passwordType == null) {
+      return;
+    }
     DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db=dbf.newDocumentBuilder();

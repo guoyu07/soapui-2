@@ -10,9 +10,13 @@
     WsdlRequest request=operation.getRequestByName(name);
     if (request == null) {
       name=UISupport.prompt("Specify name of new request","Open Request","Request " + (operation.getRequestCount() + 1));
-      if (name == null)       return;
+      if (name == null) {
+        return;
+      }
       boolean createOptional=operation.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS);
-      if (!createOptional)       createOptional=UISupport.confirm("Create optional elements from schema?","Create Request");
+      if (!createOptional) {
+        createOptional=UISupport.confirm("Create optional elements from schema?","Create Request");
+      }
       request=operation.addNewRequest(name);
       String requestContent=operation.createRequest(createOptional);
       if (requestContent != null) {

@@ -25,31 +25,53 @@
   }
   RestRequestConfig newConfig=request.getConfig();
   newConfig.setRequest(oldConfig.getRequest());
-  for (  AttachmentConfig ac : oldConfig.getAttachmentList())   try {
-    if (ac.isSetData()) {
-      File temp=File.createTempFile("pattern",".suffix");
-      temp.deleteOnExit();
-      FileOutputStream out=new FileOutputStream(temp);
-      out.write(ac.getData());
-      request.attachFile(temp,true);
-    }
+  for (  AttachmentConfig ac : oldConfig.getAttachmentList()) {
+    try {
+      if (ac.isSetData()) {
+        File temp=File.createTempFile("pattern",".suffix");
+        temp.deleteOnExit();
+        FileOutputStream out=new FileOutputStream(temp);
+        out.write(ac.getData());
+        request.attachFile(temp,true);
+      }
  else {
-      request.attachFile(new File(ac.getUrl()),false);
+        request.attachFile(new File(ac.getUrl()),false);
+      }
     }
-  }
- catch (  IOException e) {
-    e.printStackTrace();
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
   }
   newConfig.setAttachmentArray(oldConfig.getAttachmentArray());
-  if (oldConfig.isSetFullPath())   newConfig.setFullPath(oldConfig.getFullPath());
-  if (oldConfig.isSetMediaType())   newConfig.setMediaType(oldConfig.getMediaType());
-  if (oldConfig.isSetPostQueryString())   newConfig.setPostQueryString(oldConfig.getPostQueryString());
-  if (oldConfig.isSetAccept())   newConfig.setAccept(oldConfig.getAccept());
-  if (oldConfig.isSetDescription())   newConfig.setDescription(oldConfig.getDescription());
-  if (oldConfig.isSetId())   newConfig.setId(oldConfig.getId());
-  if (oldConfig.isSetSettings())   newConfig.setSettings((SettingsConfig)oldConfig.getSettings().copy());
-  if (oldConfig.isSetSslKeystore())   newConfig.setSslKeystore(oldConfig.getSslKeystore());
-  if (oldConfig.isSetTimestamp())   newConfig.setTimestamp(oldConfig.getTimestamp());
-  if (oldConfig.isSetWadlId())   newConfig.setWadlId(oldConfig.getWadlId());
+  if (oldConfig.isSetFullPath()) {
+    newConfig.setFullPath(oldConfig.getFullPath());
+  }
+  if (oldConfig.isSetMediaType()) {
+    newConfig.setMediaType(oldConfig.getMediaType());
+  }
+  if (oldConfig.isSetPostQueryString()) {
+    newConfig.setPostQueryString(oldConfig.getPostQueryString());
+  }
+  if (oldConfig.isSetAccept()) {
+    newConfig.setAccept(oldConfig.getAccept());
+  }
+  if (oldConfig.isSetDescription()) {
+    newConfig.setDescription(oldConfig.getDescription());
+  }
+  if (oldConfig.isSetId()) {
+    newConfig.setId(oldConfig.getId());
+  }
+  if (oldConfig.isSetSettings()) {
+    newConfig.setSettings((SettingsConfig)oldConfig.getSettings().copy());
+  }
+  if (oldConfig.isSetSslKeystore()) {
+    newConfig.setSslKeystore(oldConfig.getSslKeystore());
+  }
+  if (oldConfig.isSetTimestamp()) {
+    newConfig.setTimestamp(oldConfig.getTimestamp());
+  }
+  if (oldConfig.isSetWadlId()) {
+    newConfig.setWadlId(oldConfig.getWadlId());
+  }
   request.updateConfig(newConfig);
 }

@@ -3,7 +3,9 @@
   statistics.addTableModelListener(internalTableModelListener);
   statistics.getLoadTest().addLoadTestRunListener(new LoadTestRunListenerAdapter(){
     public void beforeLoadTest(    LoadTestRunner loadTestRunner,    LoadTestRunContext context){
-      if (resolution > 0)       new Thread(updater,StatisticsHistory.this.statistics.getLoadTest().getName() + " StatisticsHistory Updater").start();
+      if (resolution > 0) {
+        new Thread(updater,StatisticsHistory.this.statistics.getLoadTest().getName() + " StatisticsHistory Updater").start();
+      }
     }
   }
 );

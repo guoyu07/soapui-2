@@ -5,7 +5,9 @@
   }
   WsdlMockOperation mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(operation);
   WsdlMockResponse mockResponse=mockOperation.addNewMockResponse("Response 1",false);
-  if (operation.isBidirectional())   mockResponse.setResponseContent(operation.createResponse(true));
+  if (operation.isBidirectional()) {
+    mockResponse.setResponseContent(operation.createResponse(true));
+  }
   if (UISupport.confirm("Open MockResponse editor?",getName())) {
     SoapUI.getDesktop().showDesktopPanel(mockResponse);
   }

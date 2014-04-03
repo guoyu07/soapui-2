@@ -4,7 +4,9 @@
   List<SecurityScan> securityScansList=getTestStepSecurityScans(testStepId);
   if (securityScansList != null && !securityScansList.isEmpty()) {
     for (    SecurityScan existingScan : securityScansList) {
-      if (existingScan.getType().equals(name))       numNames++;
+      if (existingScan.getType().equals(name)) {
+        numNames++;
+      }
     }
   }
   if (numNames != 0) {

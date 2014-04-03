@@ -2,8 +2,12 @@
   int row=getPropertiesTable().rowAtPoint(point);
   if (row >= 0) {
     int column=getPropertiesTable().columnAtPoint(point);
-    if (column != 1)     return false;
-    if (!getPropertiesTable().isCellEditable(row,column))     return false;
+    if (column != 1) {
+      return false;
+    }
+    if (!getPropertiesTable().isCellEditable(row,column)) {
+      return false;
+    }
   }
  else   if (!(getHolder() instanceof MutableTestPropertyHolder)) {
     return false;

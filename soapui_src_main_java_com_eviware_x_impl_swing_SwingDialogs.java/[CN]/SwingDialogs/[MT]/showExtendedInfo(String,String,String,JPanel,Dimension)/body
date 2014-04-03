@@ -15,8 +15,12 @@
   buttonBar.setBorder(BorderFactory.createEmptyBorder(0,0,5,5));
   panel.add(buttonBar,BorderLayout.SOUTH);
   extendedInfoDialog.getRootPane().setContentPane(panel);
-  if (size == null)   extendedInfoDialog.setSize(400,300);
- else   extendedInfoDialog.setSize(size);
+  if (size == null) {
+    extendedInfoDialog.setSize(400,300);
+  }
+ else {
+    extendedInfoDialog.setSize(size);
+  }
   extendedInfoResult=null;
   UISupport.showDialog(extendedInfoDialog);
 }

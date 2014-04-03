@@ -1,11 +1,17 @@
 {
   List<TestProperty> values=new ArrayList<TestProperty>();
   for (  TestProperty prop : parent.values()) {
-    if (overlay.hasProperty(prop.getName()))     values.add(overlay.getProperty(prop.getName()));
- else     values.add(prop);
+    if (overlay.hasProperty(prop.getName())) {
+      values.add(overlay.getProperty(prop.getName()));
+    }
+ else {
+      values.add(prop);
+    }
   }
   for (  TestProperty prop : overlay.values()) {
-    if (!parent.hasProperty(prop.getName()))     values.add(prop);
+    if (!parent.hasProperty(prop.getName())) {
+      values.add(prop);
+    }
   }
   return values;
 }

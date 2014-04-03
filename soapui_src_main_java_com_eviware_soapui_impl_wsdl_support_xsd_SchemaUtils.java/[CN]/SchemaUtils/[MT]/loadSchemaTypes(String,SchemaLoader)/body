@@ -7,8 +7,12 @@
   }
  catch (  Exception e) {
     SoapUI.logError(e);
-    if (e instanceof SchemaException)     throw (SchemaException)e;
- else     throw new SchemaException("Error loading schema types",e);
+    if (e instanceof SchemaException) {
+      throw (SchemaException)e;
+    }
+ else {
+      throw new SchemaException("Error loading schema types",e);
+    }
   }
  finally {
     state.restore();

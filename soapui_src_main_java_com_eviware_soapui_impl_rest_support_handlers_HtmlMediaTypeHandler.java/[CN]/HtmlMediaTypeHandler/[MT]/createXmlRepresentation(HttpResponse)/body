@@ -1,6 +1,8 @@
 {
   String content=response == null ? null : response.getContentAsString();
-  if (!StringUtils.hasContent(content))   return "<xml/>";
+  if (!StringUtils.hasContent(content)) {
+    return "<xml/>";
+  }
   try {
     XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()));
     return content;

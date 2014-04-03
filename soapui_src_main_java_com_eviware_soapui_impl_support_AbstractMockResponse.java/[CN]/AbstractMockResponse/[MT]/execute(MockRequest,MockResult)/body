@@ -2,7 +2,9 @@
   try {
     getProperty("Request").setValue(request.getRequestContent());
     long delay=getResponseDelay();
-    if (delay > 0)     Thread.sleep(delay);
+    if (delay > 0) {
+      Thread.sleep(delay);
+    }
     String script=getScript();
     if (script != null && script.trim().length() > 0) {
       evaluateScript(request);
@@ -14,7 +16,9 @@
     context.putAll((WsdlMockRunContext)request.getRequestContext());
     StringToStringsMap responseHeaders=getResponseHeaders();
     for (    Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
-      for (      String value : headerEntry.getValue())       result.addHeader(headerEntry.getKey(),PropertyExpander.expandProperties(context,value));
+      for (      String value : headerEntry.getValue()) {
+        result.addHeader(headerEntry.getKey(),PropertyExpander.expandProperties(context,value));
+      }
     }
     responseContent=PropertyExpander.expandProperties(context,responseContent,isEntitizeProperties());
     responseContent=executeSpecifics(request,responseContent,context);

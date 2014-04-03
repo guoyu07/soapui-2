@@ -41,7 +41,9 @@
     cursor.beginElement(WSRM_ACKNOWLEDGMENTS_TO,wsrmNamespace);
     cursor.insertNamespace("wsa",wsaNamespace);
     cursor.beginElement("Address",wsaNamespace);
-    if (ackTo == null || ackTo.length() < 1)     ackTo=WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()) + "/anonymous" + "?id="+ uuid;
+    if (ackTo == null || ackTo.length() < 1) {
+      ackTo=WsaUtils.getNamespace(startSequenceRequest.getWsaConfig().getVersion()) + "/anonymous" + "?id="+ uuid;
+    }
     cursor.insertChars(ackTo);
     if (expires != 0) {
       cursor.toParent();

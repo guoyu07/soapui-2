@@ -9,7 +9,9 @@
     return;
   }
   if (modelItem.getAttachmentCount() > 0) {
-    if (!UISupport.confirm("Response contains attachments which is not supported by " + "validation tools, validate anyway?","Validation Warning"))     return;
+    if (!UISupport.confirm("Response contains attachments which is not supported by " + "validation tools, validate anyway?","Validation Warning")) {
+      return;
+    }
   }
   ProcessBuilder builder=new ProcessBuilder();
   File reportFile=File.createTempFile("wsi-report",".xml");

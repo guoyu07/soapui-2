@@ -4,10 +4,16 @@
   Header responseContentTypeHeader=null;
   if (httpMethod.hasHttpResponse()) {
     Header[] headers=httpMethod.getHttpResponse().getHeaders("Content-Type");
-    if (headers != null && headers.length > 0)     responseContentTypeHeader=headers[0];
+    if (headers != null && headers.length > 0) {
+      responseContentTypeHeader=headers[0];
+    }
   }
   Response response=null;
-  if (request instanceof WsdlRequest)   response=wsdlRequest(context,(WsdlRequest)request,httpMethod,responseContentTypeHeader,requestContent);
- else   if (request instanceof HttpRequestInterface<?>)   response=httpRequest(context,(HttpRequestInterface<?>)request,httpMethod,responseContentTypeHeader,requestContent);
+  if (request instanceof WsdlRequest) {
+    response=wsdlRequest(context,(WsdlRequest)request,httpMethod,responseContentTypeHeader,requestContent);
+  }
+ else   if (request instanceof HttpRequestInterface<?>) {
+    response=httpRequest(context,(HttpRequestInterface<?>)request,httpMethod,responseContentTypeHeader,requestContent);
+  }
   context.setProperty(BaseHttpRequestTransport.RESPONSE,response);
 }

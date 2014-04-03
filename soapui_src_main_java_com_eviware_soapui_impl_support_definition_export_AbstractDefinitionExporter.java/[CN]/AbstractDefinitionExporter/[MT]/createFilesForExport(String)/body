@@ -1,19 +1,27 @@
 {
   StringToStringMap result=new StringToStringMap();
   Map<String,String> urlToFileMap=new HashMap<String,String>();
-  if (urlPrefix == null)   urlPrefix="";
+  if (urlPrefix == null) {
+    urlPrefix="";
+  }
   setFilenameForPart(definition.getDefinitionCache().getRootPart(),urlToFileMap,urlPrefix);
   List<InterfaceDefinitionPart> partList=definition.getDefinitionCache().getDefinitionParts();
   for (  InterfaceDefinitionPart part : partList) {
-    if (!part.isRootPart())     setFilenameForPart(part,urlToFileMap,urlPrefix);
+    if (!part.isRootPart()) {
+      setFilenameForPart(part,urlToFileMap,urlPrefix);
+    }
   }
   for (  InterfaceDefinitionPart part : partList) {
     XmlObject obj=XmlUtils.createXmlObject(part.getContent());
     replaceImportsAndIncludes(obj,urlToFileMap,part.getUrl());
     String urlString=urlToFileMap.get(part.getUrl());
-    if (urlString.startsWith(urlPrefix))     urlString=urlString.substring(urlPrefix.length());
+    if (urlString.startsWith(urlPrefix)) {
+      urlString=urlString.substring(urlPrefix.length());
+    }
     result.put(urlString,obj.xmlText());
-    if (part.isRootPart())     result.put("#root#",urlString);
+    if (part.isRootPart()) {
+      result.put("#root#",urlString);
+    }
   }
   return result;
 }

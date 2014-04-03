@@ -3,11 +3,17 @@
   if (getConfig().getConfig() != null) {
     restRequestStepConfig=(RestRequestStepConfig)getConfig().getConfig().changeType(RestRequestStepConfig.type);
     testRequest=buildTestRequest(forLoadTest);
-    if (testRequest == null)     throw new ItemDeletedException();
+    if (testRequest == null) {
+      throw new ItemDeletedException();
+    }
     testRequest.addPropertyChangeListener(this);
     testRequest.addTestPropertyListener(new InternalTestPropertyListener());
-    if (config.isSetName())     testRequest.setName(config.getName());
- else     config.setName(testRequest.getName());
+    if (config.isSetName()) {
+      testRequest.setName(config.getName());
+    }
+ else {
+      config.setName(testRequest.getName());
+    }
   }
  else {
     restRequestStepConfig=(RestRequestStepConfig)getConfig().addNewConfig().changeType(RestRequestStepConfig.type);

@@ -9,8 +9,12 @@
       }
  else {
         Element elm=getFirstChildElement(modelElement,t);
-        if (elm == null)         modelElement=(Element)modelElement.insertBefore(document.createElement(t),getFirstChildElement(modelElement,t));
- else         modelElement=elm;
+        if (elm == null) {
+          modelElement=(Element)modelElement.insertBefore(document.createElement(t),getFirstChildElement(modelElement,t));
+        }
+ else {
+          modelElement=elm;
+        }
       }
     }
  else {

@@ -1,8 +1,12 @@
 {
-  if (file == null || file.length() == 0)   return "";
+  if (file == null || file.length() == 0) {
+    return "";
+  }
   File dirFile=new File(basedir,file);
   if (!dirFile.isAbsolute()) {
-    if (basedir.length() == 0)     basedir=new File("").getAbsolutePath();
+    if (basedir.length() == 0) {
+      basedir=new File("").getAbsolutePath();
+    }
     dirFile=new File(basedir,file);
   }
   String absolutePath=dirFile.getAbsolutePath();

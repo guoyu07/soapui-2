@@ -3,7 +3,9 @@
   result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,mockResponse,"responseContent"));
   StringToStringsMap responseHeaders=mockResponse.getResponseHeaders();
   for (  Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
-    for (    String value : headerEntry.getValue())     result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new ResponseHeaderHolder(headerEntry.getKey(),value,mockResponse),"value"));
+    for (    String value : headerEntry.getValue()) {
+      result.addAll(PropertyExpansionUtils.extractPropertyExpansions(this,new ResponseHeaderHolder(headerEntry.getKey(),value,mockResponse),"value"));
+    }
   }
   mockResponse.addWsaPropertyExpansions(result,mockResponse.getWsaConfig(),this);
   return result.toArray(new PropertyExpansion[result.size()]);

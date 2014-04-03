@@ -15,6 +15,8 @@
  else {
     chooser.setSelectedFile(null);
   }
-  if (chooser.showSaveDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
+  if (chooser.showSaveDialog(getParent()) != JFileChooser.APPROVE_OPTION) {
+    return null;
+  }
   return chooser.getSelectedFile();
 }

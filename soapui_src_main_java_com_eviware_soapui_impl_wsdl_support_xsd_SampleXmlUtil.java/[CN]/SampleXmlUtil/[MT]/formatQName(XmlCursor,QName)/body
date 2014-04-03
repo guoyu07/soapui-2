@@ -4,7 +4,11 @@
   String prefix=parent.prefixForNamespace(qName.getNamespaceURI());
   parent.dispose();
   String name;
-  if (prefix == null || prefix.length() == 0)   name=qName.getLocalPart();
- else   name=prefix + ":" + qName.getLocalPart();
+  if (prefix == null || prefix.length() == 0) {
+    name=qName.getLocalPart();
+  }
+ else {
+    name=prefix + ":" + qName.getLocalPart();
+  }
   return name;
 }

@@ -7,7 +7,9 @@
     if (header != null) {
       for (      HeaderElement headerElement : header.getElements()) {
         NameValuePair parameter=headerElement.getParameterByName("charset");
-        if (parameter != null)         return parameter.getValue();
+        if (parameter != null) {
+          return parameter.getValue();
+        }
       }
     }
     Header contentEncodingHeader=null;

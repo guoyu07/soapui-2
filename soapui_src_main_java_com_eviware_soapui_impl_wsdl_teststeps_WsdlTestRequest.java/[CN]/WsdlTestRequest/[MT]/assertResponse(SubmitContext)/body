@@ -1,5 +1,7 @@
 {
-  if (notifier == null)   notifier=new PropertyChangeNotifier();
+  if (notifier == null) {
+    notifier=new PropertyChangeNotifier();
+  }
   if (getResponse() instanceof JMSResponse) {
     messageExchange=getResponse() == null ? null : new WsdlResponseMessageExchange(this){
       @Override public boolean hasResponse(){

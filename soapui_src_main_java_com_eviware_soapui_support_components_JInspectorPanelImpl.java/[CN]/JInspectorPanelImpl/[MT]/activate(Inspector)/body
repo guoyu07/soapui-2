@@ -1,5 +1,7 @@
 {
-  if (inspector == currentInspector)   return;
+  if (inspector == currentInspector) {
+    return;
+  }
   if (currentInspector != null) {
     inspectorButtons.get(currentInspector).setSelected(false);
     currentInspector.deactivate();
@@ -15,8 +17,12 @@
     button.setBackground(Color.WHITE);
     if (!inspectorPanel.isVisible()) {
       inspectorPanel.setVisible(true);
-      if (lastDividerLocation == 0)       mainSplit.setDividerLocation(defaultDividerLocation);
- else       mainSplit.setDividerLocation(lastDividerLocation);
+      if (lastDividerLocation == 0) {
+        mainSplit.setDividerLocation(defaultDividerLocation);
+      }
+ else {
+        mainSplit.setDividerLocation(lastDividerLocation);
+      }
     }
     CardLayout cards=(CardLayout)inspectorPanel.getLayout();
     cards.show(inspectorPanel,inspector.getInspectorId());

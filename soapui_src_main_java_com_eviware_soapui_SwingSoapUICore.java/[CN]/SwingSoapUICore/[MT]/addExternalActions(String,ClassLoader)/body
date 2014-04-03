@@ -6,7 +6,9 @@
         addExternalActions(actionFile.getAbsolutePath(),classLoader);
         continue;
       }
-      if (!actionFile.getName().toLowerCase().endsWith("-actions.xml"))       continue;
+      if (!actionFile.getName().toLowerCase().endsWith("-actions.xml")) {
+        continue;
+      }
       try {
         log.info("Adding actions from [" + actionFile.getAbsolutePath() + "]");
         SoapUI.getActionRegistry().addConfig(new FileInputStream(actionFile),classLoader);

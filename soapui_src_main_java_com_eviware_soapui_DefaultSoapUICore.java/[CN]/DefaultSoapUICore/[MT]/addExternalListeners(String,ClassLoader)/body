@@ -6,7 +6,9 @@
         addExternalListeners(actionFile.getAbsolutePath(),classLoader);
         continue;
       }
-      if (!actionFile.getName().toLowerCase().endsWith("-listeners.xml"))       continue;
+      if (!actionFile.getName().toLowerCase().endsWith("-listeners.xml")) {
+        continue;
+      }
       try {
         log.info("Adding listeners from [" + actionFile.getAbsolutePath() + "]");
         SoapUI.getListenerRegistry().addConfig(new FileInputStream(actionFile),classLoader);

@@ -20,7 +20,9 @@
             treeModel=new XmlObjectTreeModel(messagePart.getSchemaType().getTypeSystem(),rootXmlObject);
           }
           XmlTreeNode tn=treeModel.getXmlTreeNode(xmlObj);
-          if (tn != null)           schemaType=tn.getSchemaType();
+          if (tn != null) {
+            schemaType=tn.getSchemaType();
+          }
         }
         if (AttachmentUtils.isSwaRefType(schemaType)) {
           String textContent=XmlUtils.getNodeValue(cursor.getDomNode());
@@ -47,7 +49,9 @@
               XmlCursor cur=cursor.newCursor();
               if (cur.toParent()) {
                 String contentType=getXmlMimeContentType(cur);
-                if (contentType != null && contentType.length() > 0)                 attachments[0].setContentType(contentType);
+                if (contentType != null && contentType.length() > 0) {
+                  attachments[0].setContentType(contentType);
+                }
               }
               cur.dispose();
             }
@@ -63,7 +67,9 @@
               if (container.isMtomEnabled()) {
                 MimeBodyPart part=new PreencodedMimeBodyPart("binary");
                 String xmimeContentType=getXmlMimeContentType(cursor);
-                if (StringUtils.isNullOrEmpty(xmimeContentType))                 xmimeContentType=ContentTypeHandler.getContentTypeFromFilename(filename);
+                if (StringUtils.isNullOrEmpty(xmimeContentType)) {
+                  xmimeContentType=ContentTypeHandler.getContentTypeFromFilename(filename);
+                }
                 part.setDataHandler(new DataHandler(new XOPPartDataSource(new File(filename),xmimeContentType,schemaType)));
                 part.setContentID("<" + filename + ">");
                 mp.addBodyPart(part);
@@ -75,7 +81,9 @@
                 }
  else {
                   Attachment att=getAttachmentForFilename(container,filename);
-                  if (att != null)                   inlineData(cursor,schemaType,att.getInputStream());
+                  if (att != null) {
+                    inlineData(cursor,schemaType,att.getInputStream());
+                  }
                 }
               }
             }

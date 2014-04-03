@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(samlAssertion))   return;
+  if (StringUtils.isNullOrEmpty(samlAssertion)) {
+    return;
+  }
   try {
     Document samlAssertionDOM=XmlUtils.parseXml(XmlUtils.stripWhitespaces(context.expand(samlAssertion)));
     Element samlAssertionRootElement=samlAssertionDOM.getDocumentElement();

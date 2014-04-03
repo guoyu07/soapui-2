@@ -15,11 +15,21 @@
         PropertyTransfer valueTransfer=getCurrentTransfer();
         if (valueTransfer != null) {
           String name;
-          if (targetStep == PropertyExpansionUtils.getGlobalProperties())           name=PropertyExpansion.GLOBAL_REFERENCE;
- else           if (targetStep == transferStep.getTestCase().getTestSuite().getProject())           name=PropertyExpansion.PROJECT_REFERENCE;
- else           if (targetStep == transferStep.getTestCase().getTestSuite())           name=PropertyExpansion.TESTSUITE_REFERENCE;
- else           if (targetStep == transferStep.getTestCase())           name=PropertyExpansion.TESTCASE_REFERENCE;
- else           name=targetStep.getModelItem().getName();
+          if (targetStep == PropertyExpansionUtils.getGlobalProperties()) {
+            name=PropertyExpansion.GLOBAL_REFERENCE;
+          }
+ else           if (targetStep == transferStep.getTestCase().getTestSuite().getProject()) {
+            name=PropertyExpansion.PROJECT_REFERENCE;
+          }
+ else           if (targetStep == transferStep.getTestCase().getTestSuite()) {
+            name=PropertyExpansion.TESTSUITE_REFERENCE;
+          }
+ else           if (targetStep == transferStep.getTestCase()) {
+            name=PropertyExpansion.TESTCASE_REFERENCE;
+          }
+ else {
+            name=targetStep.getModelItem().getName();
+          }
           valueTransfer.setTargetStepName(name);
         }
       }

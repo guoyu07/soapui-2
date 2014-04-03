@@ -1,5 +1,7 @@
 {
-  if (panel != null)   return panel;
+  if (panel != null) {
+    return panel;
+  }
   headersTableModel=new StringToStringMapTableModel(model.getJMSHeadersAndProperties(),"Key","Value",!model.isReadOnly());
   headersTableModel.addTableModelListener(new TableModelListener(){
     public void tableChanged(    TableModelEvent arg0){

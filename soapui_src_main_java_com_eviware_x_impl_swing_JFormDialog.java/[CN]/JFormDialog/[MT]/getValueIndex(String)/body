@@ -1,5 +1,7 @@
 {
   Object[] options=form.getOptions(name);
-  if (options == null)   return -1;
+  if (options == null) {
+    return -1;
+  }
   return StringUtils.toStringList(options).indexOf(form.getComponentValue(name));
 }

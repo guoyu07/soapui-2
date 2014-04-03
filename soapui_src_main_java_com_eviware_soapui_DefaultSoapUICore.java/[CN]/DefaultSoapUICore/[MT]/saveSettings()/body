@@ -3,7 +3,9 @@
   SecurityScanUtil.saveGlobalSecuritySettings();
   isSavingSettings=true;
   try {
-    if (settingsFile == null)     settingsFile=getRoot() + File.separatorChar + DEFAULT_SETTINGS_FILE;
+    if (settingsFile == null) {
+      settingsFile=getRoot() + File.separatorChar + DEFAULT_SETTINGS_FILE;
+    }
     File file=new File(settingsFile);
     if (!file.canWrite()) {
       file=new File(new File(System.getProperty("user.home",".")),DEFAULT_SETTINGS_FILE);

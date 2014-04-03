@@ -9,7 +9,9 @@
       List bindingOperations=binding.getBindingOperations();
       for (Iterator iter=bindingOperations.iterator(); iter.hasNext(); ) {
         BindingOperation op=(BindingOperation)iter.next();
-        if (op.getName().equals(bindingOperation.getName()))         return binding;
+        if (op.getName().equals(bindingOperation.getName())) {
+          return binding;
+        }
       }
     }
   }
@@ -20,7 +22,9 @@
     List bindingOperations=binding.getBindingOperations();
     for (Iterator iter=bindingOperations.iterator(); iter.hasNext(); ) {
       BindingOperation op=(BindingOperation)iter.next();
-      if (op.getName().equals(bindingOperation.getName()))       return binding;
+      if (op.getName().equals(bindingOperation.getName())) {
+        return binding;
+      }
     }
   }
   return null;

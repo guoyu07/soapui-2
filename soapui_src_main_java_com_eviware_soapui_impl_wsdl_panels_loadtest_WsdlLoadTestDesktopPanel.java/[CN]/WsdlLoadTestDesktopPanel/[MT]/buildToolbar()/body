@@ -19,7 +19,9 @@
   strategyCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       Object item=e.getItem();
-      if (item == null)       return;
+      if (item == null) {
+        return;
+      }
       setLoadStrategy(item.toString());
     }
   }

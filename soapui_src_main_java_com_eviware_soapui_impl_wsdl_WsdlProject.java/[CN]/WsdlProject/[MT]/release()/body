@@ -25,6 +25,10 @@
   }
   projectListeners.clear();
   environmentListeners.clear();
-  if (afterLoadScriptEngine != null)   afterLoadScriptEngine.release();
-  if (beforeSaveScriptEngine != null)   beforeSaveScriptEngine.release();
+  if (afterLoadScriptEngine != null) {
+    afterLoadScriptEngine.release();
+  }
+  if (beforeSaveScriptEngine != null) {
+    beforeSaveScriptEngine.release();
+  }
 }

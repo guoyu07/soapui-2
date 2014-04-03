@@ -3,18 +3,28 @@
   XFormRadioGroup strategy=(XFormRadioGroup)strategyDialog.getFormField(Strategy.STRATEGY);
   final String[] strategyOptions=new String[]{"One by One","All At Once"};
   strategy.setOptions(strategyOptions);
-  if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.NO_STRATEGY)   strategy.setEnabled(false);
+  if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.NO_STRATEGY) {
+    strategy.setEnabled(false);
+  }
  else {
-    if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE)     strategy.setValue(strategyOptions[0]);
- else     strategy.setValue(strategyOptions[1]);
+    if (securityCheck.getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
+      strategy.setValue(strategyOptions[0]);
+    }
+ else {
+      strategy.setValue(strategyOptions[1]);
+    }
   }
   if (securityCheck.getExecutionStrategy().getImmutable()) {
     strategy.setDisabled();
   }
   strategy.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
-      if (newValue.equals(strategyOptions[0]))       securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
- else       securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ALL_AT_ONCE);
+      if (newValue.equals(strategyOptions[0])) {
+        securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ONE_BY_ONE);
+      }
+ else {
+        securityCheck.getExecutionStrategy().setStrategy(StrategyTypeConfig.ALL_AT_ONCE);
+      }
     }
   }
 );
@@ -23,7 +33,9 @@
   delay.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       try {
-        if ("".equals(newValue))         return;
+        if ("".equals(newValue)) {
+          return;
+        }
         Integer.valueOf(newValue);
         securityCheck.getExecutionStrategy().setDelay(Integer.valueOf(newValue));
       }

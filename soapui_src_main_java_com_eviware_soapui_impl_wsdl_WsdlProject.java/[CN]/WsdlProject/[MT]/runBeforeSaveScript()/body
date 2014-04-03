@@ -1,6 +1,8 @@
 {
   String script=getBeforeSaveScript();
-  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (StringUtils.isNullOrEmpty(script)) {
+    return null;
+  }
   if (beforeSaveScriptEngine == null) {
     beforeSaveScriptEngine=SoapUIScriptEngineRegistry.create(this);
     beforeSaveScriptEngine.setScript(script);

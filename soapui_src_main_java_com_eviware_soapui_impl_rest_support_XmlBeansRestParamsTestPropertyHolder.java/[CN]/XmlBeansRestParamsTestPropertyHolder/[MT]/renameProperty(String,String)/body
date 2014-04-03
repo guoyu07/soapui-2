@@ -1,7 +1,11 @@
 {
-  if (getProperty(newName) != null)   return false;
+  if (getProperty(newName) != null) {
+    return false;
+  }
   RestParamProperty property=getProperty(name);
-  if (property == null)   return false;
+  if (property == null) {
+    return false;
+  }
   property.setName(newName);
   firePropertyRenamed(name,newName);
   return true;

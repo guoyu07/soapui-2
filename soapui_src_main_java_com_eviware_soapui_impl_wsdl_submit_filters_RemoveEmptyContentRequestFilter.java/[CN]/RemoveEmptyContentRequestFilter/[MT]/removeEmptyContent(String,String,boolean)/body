@@ -34,7 +34,9 @@
           }
         }
       }
-      if (!flag)       cursor.toNextToken();
+      if (!flag) {
+        cursor.toNextToken();
+      }
     }
     if (removed) {
       return xmlObject.xmlText();
@@ -44,7 +46,9 @@
     SoapUI.logError(e);
   }
  finally {
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
   return content;
 }

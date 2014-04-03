@@ -2,7 +2,9 @@
   PropertyChangeNotifier notifier=new PropertyChangeNotifier();
   try {
     WsdlMessageAssertion assertion=assertionsSupport.addWsdlAssertion(label);
-    if (assertion == null)     return null;
+    if (assertion == null) {
+      return null;
+    }
     if (getAssertableContent() != null) {
       assertRequests(assertion);
       assertResponses(assertion);

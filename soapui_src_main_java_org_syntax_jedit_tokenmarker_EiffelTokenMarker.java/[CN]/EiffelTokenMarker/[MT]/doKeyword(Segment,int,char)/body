@@ -12,10 +12,14 @@
         break;
       }
     }
-    if (klassname)     id=Token.KEYWORD3;
+    if (klassname) {
+      id=Token.KEYWORD3;
+    }
   }
   if (id != Token.NULL) {
-    if (lastKeyword != lastOffset)     addToken(lastKeyword - lastOffset,Token.NULL);
+    if (lastKeyword != lastOffset) {
+      addToken(lastKeyword - lastOffset,Token.NULL);
+    }
     addToken(len,id);
     lastOffset=i;
   }

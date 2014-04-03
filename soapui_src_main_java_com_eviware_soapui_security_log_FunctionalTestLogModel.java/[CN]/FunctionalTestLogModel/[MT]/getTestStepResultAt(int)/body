@@ -1,5 +1,7 @@
 {
-  if (index >= results.size())   return null;
+  if (index >= results.size()) {
+    return null;
+  }
   SoftReference<TestStepResult> result=results.get(index);
   return result == null ? null : result.get();
 }

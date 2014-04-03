@@ -1,6 +1,8 @@
 {
   String script=getAfterRequestScript();
-  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (StringUtils.isNullOrEmpty(script)) {
+    return null;
+  }
   if (afterRequestScriptEnginePool == null) {
     afterRequestScriptEnginePool=new ScriptEnginePool(this);
     afterRequestScriptEnginePool.setScript(script);

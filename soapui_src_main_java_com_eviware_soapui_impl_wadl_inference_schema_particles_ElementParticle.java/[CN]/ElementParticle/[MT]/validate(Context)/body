@@ -7,7 +7,9 @@
       if (context.getHandler().callback(ConflictHandler.Event.MODIFICATION,ConflictHandler.Type.ELEMENT,getName(),context.getPath(),"Non-nillable element is nil.")) {
         setAttribute("nillable","true");
       }
- else       throw new XmlException("Non-nillable element is nil!");
+ else {
+        throw new XmlException("Non-nillable element is nil!");
+      }
     }
     context.putAttribute("nil","true");
   }
@@ -21,7 +23,9 @@
       validate(context);
       return;
     }
- else     throw new XmlException(problem);
+ else {
+      throw new XmlException(problem);
+    }
   }
   context.clearAttribute("nil");
   context.up();

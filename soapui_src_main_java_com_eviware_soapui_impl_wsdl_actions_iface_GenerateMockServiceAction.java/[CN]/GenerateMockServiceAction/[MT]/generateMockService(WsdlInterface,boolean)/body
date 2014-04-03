@@ -30,9 +30,13 @@
     }
     for (int i=0; i < iface.getOperationCount(); i++) {
       Operation operation=iface.getOperationAt(i);
-      if (!operations.contains(operation.getName()))       continue;
+      if (!operations.contains(operation.getName())) {
+        continue;
+      }
       MockOperation mockOperation=mockService.addNewMockOperation(operation);
-      if (mockOperation != null)       mockOperation.addNewMockResponse("Response 1");
+      if (mockOperation != null) {
+        mockOperation.addNewMockResponse("Response 1");
+      }
     }
     if (dialog.getBooleanValue(Form.ADD_ENDPOINT)) {
       iface.addEndpoint(mockService.getLocalEndpoint());

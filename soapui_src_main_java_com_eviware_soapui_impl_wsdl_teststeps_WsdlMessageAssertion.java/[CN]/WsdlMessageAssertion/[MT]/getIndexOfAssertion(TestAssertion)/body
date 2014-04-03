@@ -3,5 +3,7 @@
     List<AssertionEntryConfig> assertionEntryConfigList=((GroupAssertionListConfig)getConfig()).getAssertionsList();
     return assertionEntryConfigList.indexOf(((WsdlMessageAssertion)assertion).getConfig());
   }
- else   return -1;
+ else {
+    return -1;
+  }
 }

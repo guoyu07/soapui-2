@@ -1,8 +1,14 @@
 {
   super.release();
-  if (browser != null)   browser.close(true);
-  if (messageExchangeModelItem != null)   messageExchangeModelItem.removePropertyChangeListener(this);
- else   httpRequest.removePropertyChangeListener(this);
+  if (browser != null) {
+    browser.close(true);
+  }
+  if (messageExchangeModelItem != null) {
+    messageExchangeModelItem.removePropertyChangeListener(this);
+  }
+ else {
+    httpRequest.removePropertyChangeListener(this);
+  }
   httpRequest=null;
   messageExchangeModelItem=null;
 }

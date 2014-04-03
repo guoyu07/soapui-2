@@ -2,10 +2,14 @@
   TestAssertionConfig conf=assertableConfig.addNewAssertion();
   conf.set(source.getConfig());
   conf.setName(newName);
-  if (createCopy && conf.isSetId())   conf.unsetId();
+  if (createCopy && conf.isSetId()) {
+    conf.unsetId();
+  }
   if (!source.isAllowMultiple()) {
     List<WsdlMessageAssertion> existing=getAssertionsOfType(source.getClass());
-    if (!existing.isEmpty() && !overwrite)     return null;
+    if (!existing.isEmpty() && !overwrite) {
+      return null;
+    }
     while (!existing.isEmpty()) {
       removeAssertion(existing.remove(0));
     }

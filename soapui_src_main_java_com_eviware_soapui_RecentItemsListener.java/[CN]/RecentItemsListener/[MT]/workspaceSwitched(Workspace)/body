@@ -9,16 +9,24 @@
   }
   for (int c=0; c < recentWorkspacesMenu.getItemCount(); c++) {
     JMenuItem item=recentWorkspacesMenu.getItem(c);
-    if (item == null)     continue;
+    if (item == null) {
+      continue;
+    }
     Action action=item.getAction();
-    if (!(action instanceof SwingActionDelegate))     continue;
+    if (!(action instanceof SwingActionDelegate)) {
+      continue;
+    }
     SwingActionDelegate actionDelegate=(SwingActionDelegate)action;
-    if (actionDelegate == null)     continue;
+    if (actionDelegate == null) {
+      continue;
+    }
     SoapUIActionMapping mapping=actionDelegate.getMapping();
     if (filePath.equals(mapping.getParam())) {
       recentWorkspacesMenu.remove(c);
       break;
     }
   }
-  if (recentWorkspacesMenu.getItemCount() == 2)   recentWorkspacesMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
+  if (recentWorkspacesMenu.getItemCount() == 2) {
+    recentWorkspacesMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
+  }
 }

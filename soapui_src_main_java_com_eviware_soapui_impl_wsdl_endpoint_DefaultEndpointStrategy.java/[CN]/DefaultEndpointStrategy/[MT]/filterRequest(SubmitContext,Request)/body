@@ -29,7 +29,9 @@ synchronized (defaults) {
         }
       }
     }
-    if (def == null)     return;
+    if (def == null) {
+      return;
+    }
   }
   applyDefaultsToWsdlRequest(context,(AbstractHttpRequestInterface<?>)wsdlRequest,def);
 }

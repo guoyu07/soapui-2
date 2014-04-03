@@ -1,7 +1,11 @@
 {
-  if (e.getClickCount() < 2)   return;
+  if (e.getClickCount() < 2) {
+    return;
+  }
   int ix=list.getSelectedIndex();
-  if (ix == -1)   return;
+  if (ix == -1) {
+    return;
+  }
   Object obj=list.getModel().getElementAt(ix);
   if (obj instanceof ValidationError) {
     ValidationError error=(ValidationError)obj;
@@ -14,7 +18,11 @@
       }
       textArea.requestFocus();
     }
- else     Toolkit.getDefaultToolkit().beep();
+ else {
+      Toolkit.getDefaultToolkit().beep();
+    }
   }
- else   Toolkit.getDefaultToolkit().beep();
+ else {
+    Toolkit.getDefaultToolkit().beep();
+  }
 }

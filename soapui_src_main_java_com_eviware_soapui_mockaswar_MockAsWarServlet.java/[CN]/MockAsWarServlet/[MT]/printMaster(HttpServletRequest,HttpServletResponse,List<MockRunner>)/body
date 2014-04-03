@@ -27,7 +27,9 @@
       out.print("<td><a target=\"detail\" href=\"detail?" + result.hashCode() + "\">"+ new java.util.Date(result.getTimestamp())+ "</a></td>");
       out.print("<td>" + result.getTimeTaken() + "</td>");
       out.print("<td>" + result.getMockOperation().getName() + "</td>");
-      if (result.getMockResponse() != null)       out.print("<td>" + result.getMockResponse().getName() + "</td>");
+      if (result.getMockResponse() != null) {
+        out.print("<td>" + result.getMockResponse().getName() + "</td>");
+      }
       out.print("<td>" + result.getMockOperation().getMockService().getName() + "</td></tr>");
     }
   }

@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(xml))   return xml;
+  if (StringUtils.isNullOrEmpty(xml)) {
+    return xml;
+  }
   XmlObject xmlObject;
   XmlCursor cursor=null;
   try {
@@ -32,7 +34,9 @@
  catch (  XmlException e) {
   }
  finally {
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
   return xml;
 }

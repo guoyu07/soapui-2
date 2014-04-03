@@ -6,7 +6,9 @@
   DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
   sourceStepCombo=new JComboBox(sourceStepComboModel);
   sourceStepCombo.setRenderer(new StepComboRenderer());
-  for (  Object element : sources)   sourceStepComboModel.addElement(element);
+  for (  Object element : sources) {
+    sourceStepComboModel.addElement(element);
+  }
   sourceStepCombo.setSelectedIndex(0);
   panel.add(sourceStepCombo,cc.xyw(4,2,3));
   int index=sourceStepCombo.getSelectedIndex();
@@ -21,7 +23,9 @@
       propertiesCombo.removeAllItems();
       if (properties.get(index).length > 0) {
         propertiesCombo.setEnabled(true);
-        for (        String str : properties.get(index))         propertiesCombo.addItem(str);
+        for (        String str : properties.get(index)) {
+          propertiesCombo.addItem(str);
+        }
       }
  else {
         propertiesCombo.setEnabled(false);
@@ -33,11 +37,21 @@
     public void actionPerformed(    ActionEvent e){
       String name;
       TestPropertyHolder sourceStep=(TestPropertyHolder)sourceStepCombo.getSelectedItem();
-      if (sourceStep == PropertyExpansionUtils.getGlobalProperties())       name=PropertyExpansion.GLOBAL_REFERENCE;
- else       if (sourceStep == parent.getTestCase().getTestSuite().getProject())       name=PropertyExpansion.PROJECT_REFERENCE;
- else       if (sourceStep == parent.getTestCase().getTestSuite())       name=PropertyExpansion.TESTSUITE_REFERENCE;
- else       if (sourceStep == parent.getTestCase())       name=PropertyExpansion.TESTCASE_REFERENCE;
- else       name=sourceStep.getModelItem().getName();
+      if (sourceStep == PropertyExpansionUtils.getGlobalProperties()) {
+        name=PropertyExpansion.GLOBAL_REFERENCE;
+      }
+ else       if (sourceStep == parent.getTestCase().getTestSuite().getProject()) {
+        name=PropertyExpansion.PROJECT_REFERENCE;
+      }
+ else       if (sourceStep == parent.getTestCase().getTestSuite()) {
+        name=PropertyExpansion.TESTSUITE_REFERENCE;
+      }
+ else       if (sourceStep == parent.getTestCase()) {
+        name=PropertyExpansion.TESTCASE_REFERENCE;
+      }
+ else {
+        name=sourceStep.getModelItem().getName();
+      }
       badTransfer.setTargetStepName(name);
       badTransfer.setTargetPropertyName((String)propertiesCombo.getSelectedItem());
       resolved=true;

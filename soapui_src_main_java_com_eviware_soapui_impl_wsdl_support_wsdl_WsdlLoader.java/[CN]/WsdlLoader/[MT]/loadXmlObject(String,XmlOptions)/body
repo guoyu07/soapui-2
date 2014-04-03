@@ -3,7 +3,9 @@
     if (options == null) {
       options=new XmlOptions();
     }
-    if (monitor != null)     monitor.setProgress(progressIndex,"Loading [" + url + "]");
+    if (monitor != null) {
+      monitor.setProgress(progressIndex,"Loading [" + url + "]");
+    }
     options.setLoadLineNumbers();
     return XmlUtils.createXmlObject(readCleanWsdlFrom(url),options);
   }

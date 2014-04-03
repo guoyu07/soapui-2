@@ -1,5 +1,7 @@
 {
-  if (timeToLive <= 0)   return;
+  if (timeToLive <= 0) {
+    return;
+  }
   WSSecTimestamp timestamp=new WSSecTimestamp();
   timestamp.setTimeToLive(timeToLive);
   if (!strictTimestamp) {

@@ -6,7 +6,9 @@
     if (project.getRestMockServiceCount() > 0) {
       String option=promptForMockServiceSelection(title,project);
       boolean userCancelled=option == null;
-      if (userCancelled)       return;
+      if (userCancelled) {
+        return;
+      }
       mockService=project.getRestMockServiceByName(option);
     }
     if (mockService == null) {

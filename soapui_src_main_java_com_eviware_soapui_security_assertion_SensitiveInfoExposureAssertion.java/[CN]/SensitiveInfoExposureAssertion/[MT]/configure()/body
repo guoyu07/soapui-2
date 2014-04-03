@@ -1,5 +1,7 @@
 {
-  if (dialog == null)   buildDialog();
+  if (dialog == null) {
+    buildDialog();
+  }
   if (dialog.show()) {
     assertionSpecificExposureList=createListFromTable();
     includeProjectSpecific=Boolean.valueOf(dialog.getFormField(SensitiveInformationConfigDialog.INCLUDE_PROJECT_SPECIFIC).getValue());

@@ -9,8 +9,12 @@
   setPreferredSize(new Dimension(1200,800));
   addFocusListener(new FocusAdapter(){
     @Override public void focusGained(    FocusEvent e){
-      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocusInWindow();
- else       requestEditor.requestFocusInWindow();
+      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus) {
+        responseEditor.requestFocusInWindow();
+      }
+ else {
+        requestEditor.requestFocusInWindow();
+      }
     }
   }
 );

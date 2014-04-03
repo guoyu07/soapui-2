@@ -1,9 +1,13 @@
 {
   SoapUIClassLoaderState clState=SoapUIExtensionClassLoader.ensure();
   try {
-    if (StringUtils.isNullOrEmpty(content))     return content;
+    if (StringUtils.isNullOrEmpty(content)) {
+      return content;
+    }
     int ix=content.indexOf("${");
-    if (ix == -1)     return content;
+    if (ix == -1) {
+      return content;
+    }
     StringBuffer buf=new StringBuffer();
     int lastIx=0;
     while (ix != -1) {
@@ -13,9 +17,13 @@
         ix=content.indexOf("${",lastIx + 1);
         continue;
       }
-      if (ix > lastIx)       buf.append(content.substring(lastIx,ix));
+      if (ix > lastIx) {
+        buf.append(content.substring(lastIx,ix));
+      }
       int ix2=content.indexOf('}',ix + 2);
-      if (ix2 == -1)       break;
+      if (ix2 == -1) {
+        break;
+      }
       int ix3=content.lastIndexOf("${",ix2);
       if (ix3 != ix) {
         content=content.substring(0,ix3) + expand(context,content.substring(ix3,ix2 + 1)) + content.substring(ix2 + 1);
@@ -31,8 +39,12 @@
         }
       }
       if (propertyValue != null) {
-        if (!content.equals(propertyValue))         propertyValue=expand(context,propertyValue);
-        if (entitize)         propertyValue=XmlUtils.entitize(propertyValue);
+        if (!content.equals(propertyValue)) {
+          propertyValue=expand(context,propertyValue);
+        }
+        if (entitize) {
+          propertyValue=XmlUtils.entitize(propertyValue);
+        }
         TestCase testCase=ModelSupport.getModelItemTestCase(context.getModelItem());
         if (debuggingMode && testCase != null) {
           StringToStringMap props=debuggingExpandedProperties.get(testCase.getId());
@@ -49,7 +61,9 @@
       lastIx=ix2 + 1;
       ix=content.indexOf("${",lastIx);
     }
-    if (lastIx < content.length())     buf.append(content.substring(lastIx));
+    if (lastIx < content.length()) {
+      buf.append(content.substring(lastIx));
+    }
     return buf.toString();
   }
   finally {

@@ -44,7 +44,9 @@ testStepResult.addProperty("Method",String.valueOf(response.getMethod()));
 testStepResult.addProperty("StatusCode",String.valueOf(response.getStatusCode()));
 testStepResult.addProperty("HTTP Version",response.getHttpVersion());
 }
- else testStepResult.setRequestContent(testRequest.getRequestContent());
+ else {
+testStepResult.setRequestContent(testRequest.getRequestContent());
+}
 }
  catch (SubmitException e) {
 testStepResult.setStatus(TestStepStatus.FAILED);
@@ -67,12 +69,14 @@ testStepResult.setStatus(TestStepStatus.FAILED);
 if (getAssertionCount() == 0) {
 testStepResult.addMessage("Invalid/empty response");
 }
- else for (int c=0; c < getAssertionCount(); c++) {
+ else {
+for (int c=0; c < getAssertionCount(); c++) {
 WsdlMessageAssertion assertion=getAssertionAt(c);
 AssertionError[] errors=assertion.getErrors();
 if (errors != null) {
-for (AssertionError error : errors) {
-  testStepResult.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+  for (  AssertionError error : errors) {
+    testStepResult.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+  }
 }
 }
 }
@@ -80,6 +84,8 @@ break;
 }
 }
 }
-if (testRequest.isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) testRequest.setResponse(null,runContext);
+if (testRequest.isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) {
+testRequest.setResponse(null,runContext);
+}
 return testStepResult;
 }

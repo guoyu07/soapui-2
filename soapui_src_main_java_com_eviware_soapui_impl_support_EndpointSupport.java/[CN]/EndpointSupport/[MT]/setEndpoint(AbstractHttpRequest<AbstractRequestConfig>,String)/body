@@ -1,6 +1,8 @@
 {
   String old=request.getEndpoint();
-  if (old != null && old.equals(endpoint))   return;
+  if (old != null && old.equals(endpoint)) {
+    return;
+  }
   request.getConfig().setEndpoint(endpoint);
   request.notifyPropertyChanged(Request.ENDPOINT_PROPERTY,old,endpoint);
 }

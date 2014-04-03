@@ -1,5 +1,7 @@
 {
-  if ((e.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) == 0)   return false;
+  if ((e.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
+    return false;
+  }
   if (!e.isDataFlavorSupported(ModelItemTransferable.MODELITEM_DATAFLAVOR)) {
     return false;
   }
@@ -13,7 +15,9 @@
         ModelItem pathSource=(ModelItem)transferable.getTransferData(flavor);
         ModelItem pathTarget=dragAndDropable.getModelItemForLocation(pt.x,pt.y);
         for (        ModelItemDropHandler<ModelItem> handler : handlers) {
-          if (handler.canDrop(pathSource,pathTarget,e.getDropAction(),dt))           return true;
+          if (handler.canDrop(pathSource,pathTarget,e.getDropAction(),dt)) {
+            return true;
+          }
         }
       }
  catch (      Exception ex) {

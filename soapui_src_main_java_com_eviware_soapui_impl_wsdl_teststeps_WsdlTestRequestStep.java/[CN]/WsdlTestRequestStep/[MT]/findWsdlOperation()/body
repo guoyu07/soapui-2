@@ -1,6 +1,8 @@
 {
   WsdlTestCase testCase=getTestCase();
-  if (testCase == null || testCase.getTestSuite() == null)   return null;
+  if (testCase == null || testCase.getTestSuite() == null) {
+    return null;
+  }
   Project project=testCase.getTestSuite().getProject();
   WsdlOperation operation=null;
   for (int c=0; c < project.getInterfaceCount(); c++) {
@@ -12,7 +14,9 @@
           break;
         }
       }
-      if (operation != null)       break;
+      if (operation != null) {
+        break;
+      }
     }
   }
   return operation;

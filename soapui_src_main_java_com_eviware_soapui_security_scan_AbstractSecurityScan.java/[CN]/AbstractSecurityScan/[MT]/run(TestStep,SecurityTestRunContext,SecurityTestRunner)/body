@@ -19,7 +19,9 @@
     assertResponse(getSecurityScanRequestResult().getMessageExchange(),context);
     securityScanResult.addSecurityRequestResult(getSecurityScanRequestResult());
     for (int i=0; i < securityTestListeners.length; i++) {
-      if (Arrays.asList(((SecurityTest)getParent()).getSecurityTestRunListeners()).contains(securityTestListeners[i]))       securityTestListeners[i].afterSecurityScanRequest((SecurityTestRunnerImpl)securityTestRunner,context,securityScanRequestResult);
+      if (Arrays.asList(((SecurityTest)getParent()).getSecurityTestRunListeners()).contains(securityTestListeners[i])) {
+        securityTestListeners[i].afterSecurityScanRequest((SecurityTestRunnerImpl)securityTestRunner,context,securityScanRequestResult);
+      }
     }
     try {
       Thread.sleep(getExecutionStrategy().getDelay());

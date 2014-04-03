@@ -9,7 +9,9 @@
     tabs.addTab(form.getName(),panel);
   }
   buttons=UISupport.initDialogActions(actions,dialog);
-  if (description != null || icon != null)   dialog.getContentPane().add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
+  if (description != null || icon != null) {
+    dialog.getContentPane().add(UISupport.buildDescription(name,description,icon),BorderLayout.NORTH);
+  }
   dialog.getContentPane().add(UISupport.createTabPanel(tabs,false),BorderLayout.CENTER);
   buttons.setBorder(BorderFactory.createEmptyBorder(3,5,3,5));
   dialog.getContentPane().add(buttons,BorderLayout.SOUTH);

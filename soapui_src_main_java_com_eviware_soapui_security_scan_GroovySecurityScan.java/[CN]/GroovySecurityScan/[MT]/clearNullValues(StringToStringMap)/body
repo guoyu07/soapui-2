@@ -1,7 +1,9 @@
 {
   StringToStringMap params=new StringToStringMap();
   for (  Map.Entry<String,String> entry : parameters.entrySet()) {
-    if (entry.getValue() != null)     params.put(entry.getKey(),entry.getValue());
+    if (entry.getValue() != null) {
+      params.put(entry.getKey(),entry.getValue());
+    }
   }
   return params;
 }

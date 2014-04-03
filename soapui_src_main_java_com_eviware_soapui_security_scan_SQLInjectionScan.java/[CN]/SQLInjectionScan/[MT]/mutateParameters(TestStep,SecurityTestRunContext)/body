@@ -5,19 +5,25 @@
       TestProperty property=testStep.getProperties().get(parameter.getName());
       if (parameter.getXpath() == null || parameter.getXpath().trim().length() == 0) {
         for (        String sqlInjectionString : sqlInjectionConfig.getSqlInjectionStringsList()) {
-          if (!parameterMutations.containsKey(parameter))           parameterMutations.put(parameter,new ArrayList<String>());
+          if (!parameterMutations.containsKey(parameter)) {
+            parameterMutations.put(parameter,new ArrayList<String>());
+          }
           parameterMutations.get(parameter).add(sqlInjectionString);
         }
       }
  else {
-        if (property.getValue() == null && property.getDefaultValue() == null)         continue;
+        if (property.getValue() == null && property.getDefaultValue() == null) {
+          continue;
+        }
         String value=context.expand(property.getValue());
         XmlObjectTreeModel model=null;
         model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(value));
         XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(parameter.getXpath()));
         for (        String sqlInjectionString : sqlInjectionConfig.getSqlInjectionStringsList()) {
           if (nodes.length > 0) {
-            if (!parameterMutations.containsKey(parameter))             parameterMutations.put(parameter,new ArrayList<String>());
+            if (!parameterMutations.containsKey(parameter)) {
+              parameterMutations.put(parameter,new ArrayList<String>());
+            }
             parameterMutations.get(parameter).add(sqlInjectionString);
           }
         }

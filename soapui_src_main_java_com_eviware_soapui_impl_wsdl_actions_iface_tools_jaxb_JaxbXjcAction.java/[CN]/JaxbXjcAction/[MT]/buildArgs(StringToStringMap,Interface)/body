@@ -16,7 +16,9 @@
   builder.addArgs("-wsdl",getWsdlUrl(values,modelItem));
   String[] bindings=values.get(BINDINGS).split(",");
   for (  String binding : bindings) {
-    if (binding.trim().length() > 0)     builder.addArgs("-b",binding.trim());
+    if (binding.trim().length() > 0) {
+      builder.addArgs("-b",binding.trim());
+    }
   }
   return builder;
 }

@@ -1,8 +1,12 @@
 {
   RestParamProperty property=getProperty(propertyName);
   int ix=properties.indexOf(property);
-  if (ix == targetIndex)   return;
-  if (targetIndex < 0)   targetIndex=0;
+  if (ix == targetIndex) {
+    return;
+  }
+  if (targetIndex < 0) {
+    targetIndex=0;
+  }
   String value=property.getValue();
   String defaultValue=property.getDefaultValue();
   String style=property.getStyle().name();
@@ -31,6 +35,8 @@
   propertyConfig.setDescription(description);
   propertyConfig.setDisableUrlEncoding(disableUrlEncoding);
   resetPropertiesConfig(config);
-  if (targetIndex > properties.size())   targetIndex=properties.size();
+  if (targetIndex > properties.size()) {
+    targetIndex=properties.size();
+  }
   firePropertyMoved(propertyName,ix,targetIndex);
 }

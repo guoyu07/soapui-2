@@ -1,5 +1,9 @@
 {
-  if (enabled == this.enabled)   return;
+  if (enabled == this.enabled) {
+    return;
+  }
   this.enabled=enabled;
-  if (propertyChangeSupport != null)   propertyChangeSupport.firePropertyChange(Inspector.ENABLED_PROPERTY,!enabled,enabled);
+  if (propertyChangeSupport != null) {
+    propertyChangeSupport.firePropertyChange(Inspector.ENABLED_PROPERTY,!enabled,enabled);
+  }
 }

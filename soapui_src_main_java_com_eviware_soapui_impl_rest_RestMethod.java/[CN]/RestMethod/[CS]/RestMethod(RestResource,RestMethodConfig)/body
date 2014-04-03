@@ -1,7 +1,9 @@
 {
   super(methodConfig,service,"/" + (StringUtils.isNullOrEmpty(methodConfig.getMethod()) ? "get" : methodConfig.getMethod().toLowerCase()) + "_method.gif");
   this.resource=service;
-  if (methodConfig.getParameters() == null)   methodConfig.addNewParameters();
+  if (methodConfig.getParameters() == null) {
+    methodConfig.addNewParameters();
+  }
   params=new XmlBeansRestParamsTestPropertyHolder(this,methodConfig.getParameters());
   for (  RestResourceRepresentationConfig config : methodConfig.getRepresentationList()) {
     RestRepresentation representation=new RestRepresentation(this,config);

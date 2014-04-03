@@ -1,6 +1,8 @@
 {
   File outFolder=new File(folderName);
-  if (!outFolder.exists() && !outFolder.mkdirs())   throw new Exception("Failed to create directory [" + folderName + "]");
+  if (!outFolder.exists() && !outFolder.mkdirs()) {
+    throw new Exception("Failed to create directory [" + folderName + "]");
+  }
   Map<String,String> urlToFileMap=new HashMap<String,String>();
   setFilenameForUrl(config.getRootPart(),Constants.WSDL11_NS,urlToFileMap,null);
   List<DefintionPartConfig> partList=config.getPartList();

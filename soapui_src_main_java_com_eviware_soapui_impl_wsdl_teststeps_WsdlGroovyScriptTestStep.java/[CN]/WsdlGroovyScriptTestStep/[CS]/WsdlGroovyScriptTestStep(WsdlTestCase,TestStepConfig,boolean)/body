@@ -6,7 +6,9 @@
     failedIcon=UISupport.createImageIcon("/groovy_script_failed.gif");
   }
   if (config.getConfig() == null) {
-    if (!forLoadTest)     saveScript(config);
+    if (!forLoadTest) {
+      saveScript(config);
+    }
   }
  else {
     readConfig(config);
@@ -20,10 +22,12 @@
   addProperty(new TestStepBeanProperty(SCRIPT_PROPERTY,false,this,SCRIPT_PROPERTY,this));
   scriptEngine=SoapUIScriptEngineRegistry.create(this);
   scriptEngine.setScript(getScript());
-  if (forLoadTest && !isDisabled())   try {
-    scriptEngine.compile();
-  }
- catch (  Exception e) {
-    SoapUI.logError(e);
+  if (forLoadTest && !isDisabled()) {
+    try {
+      scriptEngine.compile();
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
   }
 }

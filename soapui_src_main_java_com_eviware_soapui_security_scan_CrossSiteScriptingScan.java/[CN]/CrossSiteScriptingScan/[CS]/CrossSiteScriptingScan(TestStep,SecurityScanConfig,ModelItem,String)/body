@@ -1,5 +1,9 @@
 {
   super(testStep,config,parent,icon);
-  if (config.getConfig() == null || !(config.getConfig() instanceof CrossSiteScriptingScanConfig))   initConfig();
- else   cssConfig=(CrossSiteScriptingScanConfig)getConfig().getConfig();
+  if (config.getConfig() == null || !(config.getConfig() instanceof CrossSiteScriptingScanConfig)) {
+    initConfig();
+  }
+ else {
+    cssConfig=(CrossSiteScriptingScanConfig)getConfig().getConfig();
+  }
 }

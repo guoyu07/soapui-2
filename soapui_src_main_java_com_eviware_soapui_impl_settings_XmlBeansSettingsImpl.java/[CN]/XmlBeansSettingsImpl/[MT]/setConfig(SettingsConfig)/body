@@ -1,7 +1,9 @@
 {
   StringToStringMap changed=new StringToStringMap();
   for (  SettingConfig config : soapuiSettings.getSettingList()) {
-    if (!config.getStringValue().equals(getString(config.getId(),null)))     changed.put(config.getId(),getString(config.getId(),null));
+    if (!config.getStringValue().equals(getString(config.getId(),null))) {
+      changed.put(config.getId(),getString(config.getId(),null));
+    }
   }
   values.clear();
   config.set(soapuiSettings);

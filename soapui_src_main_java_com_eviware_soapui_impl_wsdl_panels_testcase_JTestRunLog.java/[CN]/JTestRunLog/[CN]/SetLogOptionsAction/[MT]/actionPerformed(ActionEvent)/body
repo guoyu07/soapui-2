@@ -1,5 +1,7 @@
 {
-  if (optionsDialog == null)   optionsDialog=ADialogBuilder.buildDialog(OptionsForm.class);
+  if (optionsDialog == null) {
+    optionsDialog=ADialogBuilder.buildDialog(OptionsForm.class);
+  }
   optionsDialog.setIntValue(OptionsForm.MAXROWS,(int)settings.getLong(OptionsForm.class.getName() + "@max_rows",1000));
   optionsDialog.setBooleanValue(OptionsForm.ERRORSONLY,settings.getBoolean(OptionsForm.class.getName() + "@errors_only"));
   optionsDialog.setBooleanValue(OptionsForm.FOLLOW,follow);

@@ -14,7 +14,9 @@
  else {
     threadCount-=(int)Math.round(((1 - ((timePassed % quarter) / quarter)) * variance * threadCount));
   }
-  if (threadCount < 1)   threadCount=1;
+  if (threadCount < 1) {
+    threadCount=1;
+  }
   WsdlLoadTest wsdlLoadTest=((WsdlLoadTest)loadTestRunner.getLoadTest());
   if (wsdlLoadTest.getThreadCount() != (int)threadCount) {
     log.debug("Changing threadcount to " + threadCount);

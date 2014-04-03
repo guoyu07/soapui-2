@@ -1,6 +1,8 @@
 {
   for (  Interface iface : mockService.getMockedInterfaces()) {
-    if (!iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE))     continue;
+    if (!iface.getInterfaceType().equals(WsdlInterfaceFactory.WSDL_TYPE)) {
+      continue;
+    }
     try {
       WsdlDefinitionExporter exporter=new WsdlDefinitionExporter((WsdlInterface)iface);
       String wsdlPrefix=trimLastSlash(getInterfacePrefix(iface));
@@ -9,7 +11,9 @@
         if (partEntry.getKey().toLowerCase().endsWith(".wsdl")) {
           InputSource inputSource=new InputSource(new StringReader(partEntry.getValue()));
           String content=WsdlUtils.replacePortEndpoint((WsdlInterface)iface,inputSource,mockService.getLocalMockServiceEndpoint());
-          if (content != null)           parts.put(partEntry.getKey(),content);
+          if (content != null) {
+            parts.put(partEntry.getKey(),content);
+          }
         }
       }
       wsdlCache.put(iface.getName(),parts);

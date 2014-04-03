@@ -3,7 +3,9 @@
   try {
     out.write(footer.trim().getBytes());
     out.write("\r\n\r\n".getBytes());
-    if (requestBody != null)     out.write(requestBody.toByteArray());
+    if (requestBody != null) {
+      out.write(requestBody.toByteArray());
+    }
   }
  catch (  IOException e) {
     e.printStackTrace();

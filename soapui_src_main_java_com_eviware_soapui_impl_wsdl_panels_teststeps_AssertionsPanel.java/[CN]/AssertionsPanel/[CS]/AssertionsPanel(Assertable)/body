@@ -8,7 +8,9 @@
   assertionListPopup.add(addAssertionAction);
   assertionListPopup.addPopupMenuListener(new PopupMenuListener(){
     public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
-      while (assertionListPopup.getComponentCount() > 1)       assertionListPopup.remove(1);
+      while (assertionListPopup.getComponentCount() > 1) {
+        assertionListPopup.remove(1);
+      }
       int ix=assertionList.getSelectedIndex();
       if (ix == -1) {
         assertionListPopup.addSeparator();
@@ -22,7 +24,9 @@
       }
  else {
         TestAssertion[] testAssertion=new TestAssertion[indices.length];
-        for (int c=0; c < indices.length; c++)         testAssertion[c]=assertionListModel.getAssertionAt(indices[c]);
+        for (int c=0; c < indices.length; c++) {
+          testAssertion[c]=assertionListModel.getAssertionAt(indices[c]);
+        }
         ActionSupport.addActions(ActionListBuilder.buildMultiActions(testAssertion),assertionListPopup);
       }
     }
@@ -35,13 +39,19 @@
   assertionList.setComponentPopupMenu(assertionListPopup);
   assertionList.addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() < 2)       return;
+      if (e.getClickCount() < 2) {
+        return;
+      }
       int ix=assertionList.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       Object obj=assertionList.getModel().getElementAt(ix);
       if (obj instanceof TestAssertion) {
         TestAssertion assertion=(TestAssertion)obj;
-        if (assertion.isConfigurable())         assertion.configure();
+        if (assertion.isConfigurable()) {
+          assertion.configure();
+        }
         return;
       }
       if (obj instanceof AssertionError) {
@@ -49,21 +59,29 @@
         if (error.getLineNumber() >= 0) {
           selectError(error);
         }
- else         Toolkit.getDefaultToolkit().beep();
+ else {
+          Toolkit.getDefaultToolkit().beep();
+        }
       }
- else       Toolkit.getDefaultToolkit().beep();
+ else {
+        Toolkit.getDefaultToolkit().beep();
+      }
     }
   }
 );
   assertionList.addKeyListener(new KeyAdapter(){
     public void keyPressed(    KeyEvent e){
       int ix=assertionList.getSelectedIndex();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       int[] indices=assertionList.getSelectedIndices();
       if (indices.length == 1) {
         TestAssertion assertion=assertionListModel.getAssertionAt(ix);
         if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-          if (assertion.isConfigurable())           assertion.configure();
+          if (assertion.isConfigurable()) {
+            assertion.configure();
+          }
         }
  else {
           ActionList actions=ActionListBuilder.buildActions(assertion);

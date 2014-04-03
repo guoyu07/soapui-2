@@ -34,7 +34,9 @@
         httpMethod.getRequestEntity().writeTo(tempOut);
         tempOut.writeTo(rawRequest);
       }
- else       rawRequest.write("<request data not available>".getBytes());
+ else {
+        rawRequest.write("<request data not available>".getBytes());
+      }
     }
     if (!httpMethod.isFailed() && httpMethod.hasHttpResponse() && httpMethod.getResponseBody() != null) {
       rawResponse.write("\r\n".getBytes());

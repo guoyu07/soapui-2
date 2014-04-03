@@ -7,12 +7,20 @@
     if (JsonMediaTypeHandler.seemsToBeJsonContentType(me.getResponseHeaders().get("Content-Type",""))) {
       try {
         JSON json=JSONSerializer.toJSON(me.getResponseContent());
-        if (json.isEmpty())         content="<Empty JSON content>";
- else         content=json.toString(3);
+        if (json.isEmpty()) {
+          content="<Empty JSON content>";
+        }
+ else {
+          content=json.toString(3);
+        }
       }
  catch (      Throwable e) {
-        if (!"Invalid JSON String".equals(e.getMessage()))         e.printStackTrace();
- else         content=me.getResponseContent();
+        if (!"Invalid JSON String".equals(e.getMessage())) {
+          e.printStackTrace();
+        }
+ else {
+          content=me.getResponseContent();
+        }
       }
       contentEditor.setText(content);
     }

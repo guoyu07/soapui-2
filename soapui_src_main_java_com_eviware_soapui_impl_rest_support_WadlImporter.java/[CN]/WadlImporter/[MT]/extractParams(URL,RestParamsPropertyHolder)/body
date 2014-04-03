@@ -31,7 +31,9 @@
     }
  catch (    Exception e) {
     }
-    if (StringUtils.hasContent(item))     resultPath.append('/').append(item);
+    if (StringUtils.hasContent(item)) {
+      resultPath.append('/').append(item);
+    }
   }
   String query=((URL)param).getQuery();
   if (StringUtils.hasContent(query)) {

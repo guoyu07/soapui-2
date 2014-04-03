@@ -10,8 +10,12 @@
   builder.addBoolean(ALL,"-a");
   builder.addBoolean(HELPER_GEN,"-H");
   builder.addBoolean(WRAP_ARRAYS,"-w");
-  if (!values.get(SKELETON_DEPLOY).equals("none"))   builder.addString(SKELETON_DEPLOY,"-S");
-  if (!values.get(DEPLOY_SCOPE).equals("none"))   builder.addString(DEPLOY_SCOPE,"-d");
+  if (!values.get(SKELETON_DEPLOY).equals("none")) {
+    builder.addString(SKELETON_DEPLOY,"-S");
+  }
+  if (!values.get(DEPLOY_SCOPE).equals("none")) {
+    builder.addString(DEPLOY_SCOPE,"-d");
+  }
   values.put(OUTPUT,Tools.ensureDir(values.get(OUTPUT)));
   builder.addString(TYPE_MAPPING_VERSION,"-T");
   builder.addString(PACKAGE,"-p");

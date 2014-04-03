@@ -4,8 +4,12 @@
   if (result.getStatus() == TestStepStatus.FAILED) {
     if (maxErrors > 0) {
       Integer errors=errorCount.get(testCase);
-      if (errors == null)       errors=0;
-      if (errors >= maxErrors)       return;
+      if (errors == null) {
+        errors=0;
+      }
+      if (errors >= maxErrors) {
+        return;
+      }
       errorCount.put(testCase,errors + 1);
     }
     StringBuffer buf=new StringBuffer();

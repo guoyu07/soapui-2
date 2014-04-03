@@ -1,5 +1,7 @@
 {
-  if (config == null)   return null;
+  if (config == null) {
+    return null;
+  }
   XmlObject[] paths=config.selectPath("$this/" + name);
   String[] result=new String[paths.length];
   for (int c=0; c < paths.length; c++) {

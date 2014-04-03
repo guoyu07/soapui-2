@@ -3,13 +3,17 @@
   section.clear();
   try {
     WadlDefinitionContext wadlContext=iface.getWadlContext();
-    if (iface.isGenerated())     wadlContext.regenerateWadl();
+    if (iface.isGenerated()) {
+      wadlContext.regenerateWadl();
+    }
     List<InterfaceDefinitionPart> parts=wadlContext.getDefinitionParts();
     int tabCount=partTabs.getTabCount();
     for (    InterfaceDefinitionPart part : parts) {
       addTab(part.getUrl(),part.getContent());
     }
-    while (tabCount-- > 0)     partTabs.remove(0);
+    while (tabCount-- > 0) {
+      partTabs.remove(0);
+    }
     return null;
   }
  catch (  Exception e) {

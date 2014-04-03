@@ -1,6 +1,8 @@
 {
   while (true) {
-    if (!loadTestIsRunning)     break;
+    if (!loadTestIsRunning) {
+      break;
+    }
     if (getModelItem().getTestLimit() == 0) {
       if (loadTestIsRunning && !progressBar.isIndeterminate()) {
         progressBar.setIndeterminate(true);

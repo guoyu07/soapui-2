@@ -1,7 +1,9 @@
 {
 synchronized (this) {
     int ix=items.indexOf(assertion);
-    if (ix == -1)     return;
+    if (ix == -1) {
+      return;
+    }
     assertion.removePropertyChangeListener(this);
     items.remove(ix);
     fireIntervalRemoved(this,ix,ix);

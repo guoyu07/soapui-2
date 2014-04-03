@@ -1,7 +1,9 @@
 {
   super.resolve(context);
   if (mockOperation == null) {
-    if (context.hasThisModelItem(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation()))     return;
+    if (context.hasThisModelItem(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation())) {
+      return;
+    }
     context.addPathToResolve(this,"Missing Operation in Project",mockResponseStepConfig.getInterface() + "/" + mockResponseStepConfig.getOperation()).addResolvers(new RemoveTestStepResolver(this),new ImportInterfaceResolver(this){
       @Override protected boolean update(){
         initMockObjects(getTestCase());

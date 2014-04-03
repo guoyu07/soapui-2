@@ -8,7 +8,9 @@
   dispatchCombo.setSelectedItem(null);
   dispatchCombo.addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
-      if (dispatchPanel.getComponentCount() > 1)       dispatchPanel.remove(1);
+      if (dispatchPanel.getComponentCount() > 1) {
+        dispatchPanel.remove(1);
+      }
       String item=(String)dispatchCombo.getSelectedItem();
       MockOperationDispatcher dispatcher=getModelItem().setDispatchStyle(item);
       dispatchPanel.add(dispatcher.getEditorComponent(),BorderLayout.CENTER);

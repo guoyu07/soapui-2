@@ -17,7 +17,9 @@ synchronized (hca) {
       }
     }
  catch (    IOException iox) {
-      if (log.isDebugEnabled())       log.debug("Exception shutting down released connection.",iox);
+      if (log.isDebugEnabled()) {
+        log.debug("Exception shutting down released connection.",iox);
+      }
     }
  finally {
       boolean reusable=hca.isMarkedReusable();

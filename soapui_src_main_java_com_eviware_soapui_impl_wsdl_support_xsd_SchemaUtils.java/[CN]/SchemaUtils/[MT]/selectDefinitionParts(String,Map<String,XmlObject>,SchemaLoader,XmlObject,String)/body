@@ -4,7 +4,9 @@
     String location=((SimpleValue)wsdlImports[i]).getStringValue();
     if (location != null) {
       if (StringUtils.hasContent(location)) {
-        if (!location.startsWith("file:") && location.indexOf("://") == -1)         location=Tools.joinRelativeUrl(wsdlUrl,location);
+        if (!location.startsWith("file:") && location.indexOf("://") == -1) {
+          location=Tools.joinRelativeUrl(wsdlUrl,location);
+        }
         getDefinitionParts(location,existing,loader);
       }
  else {

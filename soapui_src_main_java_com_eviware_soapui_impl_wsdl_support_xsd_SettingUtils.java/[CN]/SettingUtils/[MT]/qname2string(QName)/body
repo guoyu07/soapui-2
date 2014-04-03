@@ -1,6 +1,10 @@
 {
   String ns=qname.getNamespaceURI();
   String localPart=qname.getLocalPart();
-  if (ns != null && ns.length() > 0)   return localPart + "@" + ns;
- else   return localPart;
+  if (ns != null && ns.length() > 0) {
+    return localPart + "@" + ns;
+  }
+ else {
+    return localPart;
+  }
 }

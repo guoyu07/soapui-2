@@ -4,7 +4,9 @@
     TestAssertion assertion=(TestAssertion)value;
     setText(assertion.getLabel() + " - " + assertion.getStatus().toString());
     setIcon(assertion.getIcon());
-    if (assertion.isDisabled() && isEnabled())     setEnabled(false);
+    if (assertion.isDisabled() && isEnabled()) {
+      setEnabled(false);
+    }
   }
  else   if (value instanceof AssertionError) {
     AssertionError assertion=(AssertionError)value;

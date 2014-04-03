@@ -6,7 +6,9 @@
     }
   }
 );
-  if (defaultButton != null)   dialog.getRootPane().setDefaultButton(defaultButton);
+  if (defaultButton != null) {
+    dialog.getRootPane().setDefaultButton(defaultButton);
+  }
   if (helpAction != null) {
     dialog.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_F1,0),"HELP");
     dialog.getRootPane().getActionMap().put("HELP",helpAction);

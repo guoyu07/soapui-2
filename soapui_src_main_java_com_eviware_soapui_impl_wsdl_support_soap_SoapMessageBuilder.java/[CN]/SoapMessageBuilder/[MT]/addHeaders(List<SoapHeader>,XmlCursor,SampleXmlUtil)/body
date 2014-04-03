@@ -12,7 +12,11 @@
       continue;
     }
     Part part=message.getPart(header.getPart());
-    if (part != null)     createElementForPart(part,cursor,xmlGenerator);
- else     log.error("Missing part for header; " + header.getPart());
+    if (part != null) {
+      createElementForPart(part,cursor,xmlGenerator);
+    }
+ else {
+      log.error("Missing part for header; " + header.getPart());
+    }
   }
 }

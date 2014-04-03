@@ -1,5 +1,7 @@
 {
-  if (inputHandler == null)   return;
+  if (inputHandler == null) {
+    return;
+  }
 switch (evt.getID()) {
 case KeyEvent.KEY_TYPED:
     inputHandler.keyTyped(evt);
@@ -25,8 +27,12 @@ case KeyEvent.KEY_RELEASED:
 listener.keyReleased(evt);
 break;
 }
-if (evt.isConsumed()) break;
+if (evt.isConsumed()) {
+break;
 }
-if (!evt.isConsumed()) getParent().dispatchEvent(evt);
+}
+if (!evt.isConsumed()) {
+getParent().dispatchEvent(evt);
+}
 }
 }

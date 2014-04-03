@@ -16,8 +16,12 @@
     popupMenu.insert(formatXmlAction,1);
     popupMenu.addSeparator();
     popupMenu.add(findAndReplaceDialog);
-    if (UISupport.isMac())     editor.getInputMap().put(KeyStroke.getKeyStroke("meta F"),findAndReplaceDialog);
- else     editor.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),findAndReplaceDialog);
+    if (UISupport.isMac()) {
+      editor.getInputMap().put(KeyStroke.getKeyStroke("meta F"),findAndReplaceDialog);
+    }
+ else {
+      editor.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),findAndReplaceDialog);
+    }
   }
   popupMenu.addSeparator();
   popupMenu.add(goToLineAction);

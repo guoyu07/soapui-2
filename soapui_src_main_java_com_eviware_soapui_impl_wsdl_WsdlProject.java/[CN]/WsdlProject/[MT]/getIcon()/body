@@ -10,7 +10,13 @@
       return closedEncyptedIcon;
     }
   }
- else   if (!isOpen())   return closedIcon;
- else   if (isRemote())   return remoteIcon;
- else   return super.getIcon();
+ else   if (!isOpen()) {
+    return closedIcon;
+  }
+ else   if (isRemote()) {
+    return remoteIcon;
+  }
+ else {
+    return super.getIcon();
+  }
 }

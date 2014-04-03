@@ -16,7 +16,9 @@
       return null;
     }
     String testSuiteName=dialog.getValue(GenerateForm.TESTSUITE);
-    if (testSuiteName.equals("<create>"))     testSuiteName=UISupport.prompt("Enter name of TestSuite to create","Generate TestSuite",iface.getName() + " TestSuite");
+    if (testSuiteName.equals("<create>")) {
+      testSuiteName=UISupport.prompt("Enter name of TestSuite to create","Generate TestSuite",iface.getName() + " TestSuite");
+    }
     if (testSuiteName != null && testSuiteName.trim().length() > 0) {
       WsdlTestSuite testSuite=project.getTestSuiteByName(testSuiteName);
       if (testSuite == null) {

@@ -7,7 +7,9 @@
       TestAssertion assertion=requestStep.getAssertionAt(c);
       log.info("Assertion [" + assertion.getName() + "] has status "+ assertion.getStatus());
       if (assertion.getStatus() == AssertionStatus.FAILED) {
-        for (        AssertionError error : assertion.getErrors())         log.error("ASSERTION FAILED -> " + error.getMessage());
+        for (        AssertionError error : assertion.getErrors()) {
+          log.error("ASSERTION FAILED -> " + error.getMessage());
+        }
         assertions.add(assertion);
         assertionResults.put(assertion,(WsdlTestStepResult)result);
       }
@@ -33,7 +35,9 @@
       }
       String absoluteOutputFolder=getAbsoluteOutputFolder(ModelSupport.getModelItemProject(tc));
       String fileName=absoluteOutputFolder + File.separator + nameBase+ ".txt";
-      if (result.getStatus() == TestStepStatus.FAILED)       log.error(currentStep.getName() + " failed, exporting to [" + fileName+ "]");
+      if (result.getStatus() == TestStepStatus.FAILED) {
+        log.error(currentStep.getName() + " failed, exporting to [" + fileName+ "]");
+      }
       new File(fileName).getParentFile().mkdirs();
       PrintWriter writer=new PrintWriter(fileName);
       result.writeTo(writer);

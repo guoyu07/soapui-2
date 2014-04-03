@@ -3,7 +3,9 @@ synchronized (server) {
     MockService mockService=runner.getMockContext().getMockService();
     final Integer port=mockService.getPort();
     Map<String,List<MockRunner>> map=runners.get(port);
-    if (map == null || !map.containsKey(mockService.getPath()))     return;
+    if (map == null || !map.containsKey(mockService.getPath())) {
+      return;
+    }
     map.get(mockService.getPath()).remove(runner);
     if (map.get(mockService.getPath()).isEmpty()) {
       map.remove(mockService.getPath());

@@ -3,7 +3,9 @@
     UISupport.showErrorMessage("Can not set MockService options while running");
     return;
   }
-  if (dialog == null)   dialog=ADialogBuilder.buildDialog(OptionsForm.class);
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(OptionsForm.class);
+  }
   dialog.setValue(OptionsForm.PATH,mockService.getPath());
   dialog.setValue(OptionsForm.HOST,mockService.getHost());
   dialog.setIntValue(OptionsForm.PORT,mockService.getPort());

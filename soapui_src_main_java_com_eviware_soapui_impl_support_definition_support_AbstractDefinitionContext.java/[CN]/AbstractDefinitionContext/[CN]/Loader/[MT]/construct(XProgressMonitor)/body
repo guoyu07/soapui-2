@@ -6,7 +6,9 @@
       currentLoader=getDefinitionLoader();
       currentLoader.setProgressMonitor(monitor,2);
       cache.update(currentLoader);
-      if (currentLoader.isAborted())       throw new Exception("Loading of Definition from [" + url + "] was aborted");
+      if (currentLoader.isAborted()) {
+        throw new Exception("Loading of Definition from [" + url + "] was aborted");
+      }
     }
     monitor.setProgress(1,"Loading Definition from " + (iface == null ? "url" : "cache"));
     log.debug("Loading Definition...");

@@ -1,4 +1,6 @@
 {
-  if (requestXmlObject == null && StringUtils.hasContent(getRequestContent()))   requestXmlObject=XmlUtils.createXmlObject(getRequestContent(),XmlUtils.createDefaultXmlOptions());
+  if (requestXmlObject == null && StringUtils.hasContent(getRequestContent())) {
+    requestXmlObject=XmlUtils.createXmlObject(getRequestContent(),XmlUtils.createDefaultXmlOptions());
+  }
   return requestXmlObject;
 }

@@ -8,10 +8,14 @@
     }
     XmlObject xml=XmlUtils.createXmlObject(assertableContent);
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
-    if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
+    if (txt == null) {
+      txt=pathArea == null ? "" : pathArea.getText();
+    }
     WsdlTestRunContext context=new WsdlTestRunContext(getAssertable().getTestStep());
     String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
-    if (contentArea != null && contentArea.isVisible())     contentArea.setText("");
+    if (contentArea != null && contentArea.isVisible()) {
+      contentArea.setText("");
+    }
     cursor=xml.newCursor();
     cursor.selectPath(expandedPath);
     if (!cursor.toNextSelection()) {
@@ -22,7 +26,9 @@
     }
  else {
       String stringValue=XmlUtils.getValueForMatch(cursor);
-      if (contentArea != null && contentArea.isVisible())       contentArea.setText(stringValue);
+      if (contentArea != null && contentArea.isVisible()) {
+        contentArea.setText(stringValue);
+      }
  else {
         setExpectedContent(stringValue,false);
       }
@@ -33,6 +39,8 @@
     SoapUI.logError(e);
   }
  finally {
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
 }

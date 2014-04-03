@@ -1,6 +1,8 @@
 {
   ScrollableMenu menu=new ScrollableMenu(string);
-  if (holder instanceof TestModelItem)   menu.setIcon(((TestModelItem)holder).getIcon());
+  if (holder instanceof TestModelItem) {
+    menu.setIcon(((TestModelItem)holder).getIcon());
+  }
   String[] propertyNames=holder.getPropertyNames();
   for (  String name : propertyNames) {
     menu.add(new TransferFromPropertyActionInvoker(holder,name));

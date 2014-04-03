@@ -77,7 +77,9 @@ token=Token.NULL;
 }
 break;
 case '"':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 doKeyword(line,i,c);
 addToken(i - lastOffset,Token.NULL);
@@ -86,7 +88,9 @@ token=Token.LITERAL1;
 }
 break;
 case '\'':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 doKeyword(line,i,c);
 addToken(i - lastOffset,Token.NULL);
@@ -112,12 +116,16 @@ token=Token.COMMENT2;
 break;
 default :
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 }
 break;
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 lastOffset=lastKeyword=i1;
@@ -125,7 +133,9 @@ token=JAVASCRIPT;
 }
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 lastOffset=lastKeyword=i1;

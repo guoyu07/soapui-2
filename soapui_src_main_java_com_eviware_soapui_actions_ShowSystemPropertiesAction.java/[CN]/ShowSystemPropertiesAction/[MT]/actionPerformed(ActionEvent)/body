@@ -2,12 +2,16 @@
   StringBuffer buffer=new StringBuffer();
   Properties properties=System.getProperties();
   List<String> keys=new ArrayList<String>();
-  for (  Object key : properties.keySet())   keys.add(key.toString());
+  for (  Object key : properties.keySet()) {
+    keys.add(key.toString());
+  }
   Collections.sort(keys);
   String lastKey=null;
   for (  String key : keys) {
     if (lastKey != null) {
-      if (!key.startsWith(lastKey))       buffer.append("\r\n");
+      if (!key.startsWith(lastKey)) {
+        buffer.append("\r\n");
+      }
     }
     int ix=key.indexOf('.');
     lastKey=ix == -1 ? key : key.substring(0,ix);

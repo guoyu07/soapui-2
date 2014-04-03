@@ -4,7 +4,9 @@
     String selection=getSelectedText();
     int repeatCount=inputHandler.getRepeatCount();
     StringBuffer buf=new StringBuffer();
-    for (int i=0; i < repeatCount; i++)     buf.append(selection);
+    for (int i=0; i < repeatCount; i++) {
+      buf.append(selection);
+    }
     clipboard.setContents(new StringSelection(buf.toString()),null);
   }
 }

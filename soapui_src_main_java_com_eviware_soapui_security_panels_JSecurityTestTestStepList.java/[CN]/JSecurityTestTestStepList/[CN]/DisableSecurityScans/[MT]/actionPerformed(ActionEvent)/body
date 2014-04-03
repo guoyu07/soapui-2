@@ -1,3 +1,7 @@
 {
-  for (  TreePath path : securityTestTree.getSelectionPaths())   if (path.getLastPathComponent() instanceof SecurityScanNode)   ((SecurityScanNode)path.getLastPathComponent()).getSecurityScan().setDisabled(true);
+  for (  TreePath path : securityTestTree.getSelectionPaths()) {
+    if (path.getLastPathComponent() instanceof SecurityScanNode) {
+      ((SecurityScanNode)path.getLastPathComponent()).getSecurityScan().setDisabled(true);
+    }
+  }
 }

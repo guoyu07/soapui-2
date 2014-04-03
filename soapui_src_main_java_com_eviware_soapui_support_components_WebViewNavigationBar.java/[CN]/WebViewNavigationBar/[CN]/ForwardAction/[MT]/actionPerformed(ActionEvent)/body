@@ -1,5 +1,7 @@
 {
-  if (webEngine == null)   return;
+  if (webEngine == null) {
+    return;
+  }
   final WebHistory history=webEngine.getHistory();
   if (history.getCurrentIndex() >= history.getEntries().size() - 1) {
     Toolkit.getDefaultToolkit().beep();

@@ -15,8 +15,16 @@
     WsdlTestCase newTestCase=buildTestCase(newConfig,false);
     ModelSupport.unsetIds(newTestCase);
     LinkedHashMap<String,String> oldNewIds=new LinkedHashMap<String,String>();
-    for (int cnt=0; cnt < importTestCaseConfig.getTestStepList().size(); cnt++)     oldNewIds.put(importTestCaseConfig.getTestStepList().get(cnt).getId(),newTestCase.getTestStepList().get(cnt).getId());
-    for (    SecurityTest scan : newTestCase.getSecurityTests().values())     for (    TestStepSecurityTestConfig secStepConfig : scan.getConfig().getTestStepSecurityTestList())     if (oldNewIds.containsKey(secStepConfig.getTestStepId()))     secStepConfig.setTestStepId(oldNewIds.get(secStepConfig.getTestStepId()));
+    for (int cnt=0; cnt < importTestCaseConfig.getTestStepList().size(); cnt++) {
+      oldNewIds.put(importTestCaseConfig.getTestStepList().get(cnt).getId(),newTestCase.getTestStepList().get(cnt).getId());
+    }
+    for (    SecurityTest scan : newTestCase.getSecurityTests().values()) {
+      for (      TestStepSecurityTestConfig secStepConfig : scan.getConfig().getTestStepSecurityTestList()) {
+        if (oldNewIds.containsKey(secStepConfig.getTestStepId())) {
+          secStepConfig.setTestStepId(oldNewIds.get(secStepConfig.getTestStepId()));
+        }
+      }
+    }
     newTestCase.afterLoad();
     testCases.add(newTestCase);
     fireTestCaseAdded(newTestCase);

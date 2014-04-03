@@ -1,7 +1,11 @@
 {
   this.valuesSettingID=this.getClass().getName() + "@values";
-  if (target == null)   this.valuesSettingID+="-global";
- else   this.valuesSettingID+="-local";
+  if (target == null) {
+    this.valuesSettingID+="-global";
+  }
+ else {
+    this.valuesSettingID+="-local";
+  }
   modelItem=target;
   dialog=buildDialog((T)target);
   if (dialog == null) {

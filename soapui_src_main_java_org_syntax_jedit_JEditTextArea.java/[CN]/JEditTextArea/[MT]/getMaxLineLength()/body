@@ -2,7 +2,9 @@
   int max=0;
   for (int c=0; c < getLineCount(); c++) {
     int lineLength=getTabExpandedLineLength(c);
-    if (lineLength > max)     max=lineLength;
+    if (lineLength > max) {
+      max=lineLength;
+    }
   }
   return max;
 }

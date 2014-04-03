@@ -5,6 +5,10 @@
     textArea.getToolkit().beep();
     return;
   }
-  if (select)   textArea.select(textArea.getMarkPosition(),caret - 1);
- else   textArea.setCaretPosition(caret - 1);
+  if (select) {
+    textArea.select(textArea.getMarkPosition(),caret - 1);
+  }
+ else {
+    textArea.setCaretPosition(caret - 1);
+  }
 }

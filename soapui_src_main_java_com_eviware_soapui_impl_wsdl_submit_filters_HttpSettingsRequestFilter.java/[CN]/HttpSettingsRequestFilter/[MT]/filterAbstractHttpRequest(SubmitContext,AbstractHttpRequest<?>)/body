@@ -8,7 +8,9 @@
     httpMethod.getParams().setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE,Boolean.TRUE);
   }
   String compressionAlg=settings.getString(HttpSettings.REQUEST_COMPRESSION,"None");
-  if (!"None".equals(compressionAlg))   httpMethod.setHeader("Content-Encoding",compressionAlg);
+  if (!"None".equals(compressionAlg)) {
+    httpMethod.setHeader("Content-Encoding",compressionAlg);
+  }
   if (settings.getBoolean(HttpSettings.RESPONSE_COMPRESSION)) {
     httpMethod.setHeader("Accept-Encoding",CompressionSupport.getAvailableAlgorithms(","));
   }
@@ -23,8 +25,12 @@
     httpMethod.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION,HttpVersion.HTTP_1_1);
   }
   long maxSize=httpRequest.getMaxSize();
-  if (maxSize == 0)   maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
-  if (maxSize > 0)   httpMethod.setMaxSize(maxSize);
+  if (maxSize == 0) {
+    maxSize=settings.getLong(HttpSettings.MAX_RESPONSE_SIZE,0);
+  }
+  if (maxSize > 0) {
+    httpMethod.setMaxSize(maxSize);
+  }
   httpMethod.getParams().setParameter(ClientPNames.HANDLE_REDIRECTS,false);
   HttpClientSupport.applyHttpSettings(httpMethod,settings);
   String timeout=context.expand(httpRequest.getTimeout());

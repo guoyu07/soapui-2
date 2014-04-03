@@ -1,5 +1,7 @@
 {
-  if (status == Status.CANCELED)   return;
+  if (status == Status.CANCELED) {
+    return;
+  }
   JdbcRequest.logger.info("Canceling request..");
   if (status == Status.RUNNING) {
     cancelQuery();

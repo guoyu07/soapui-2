@@ -13,7 +13,9 @@
     context.removeProperty(WSS_USERNAME_TOKEN);
     Element parentNode=(Element)elm.getParentNode();
     parentNode.removeChild(elm);
-    if (XmlUtils.getChildElements(parentNode).getLength() == 0)     parentNode.getParentNode().removeChild(parentNode);
+    if (XmlUtils.getChildElements(parentNode).getLength() == 0) {
+      parentNode.getParentNode().removeChild(parentNode);
+    }
   }
   if (StringUtils.hasContent(wsTimestamp)) {
     Element elm=(Element)context.getProperty(WSS_TIMESTAMP_TOKEN);
@@ -28,7 +30,9 @@
     context.removeProperty(WSS_TIMESTAMP_TOKEN);
     Element parentNode=(Element)elm.getParentNode();
     parentNode.removeChild(elm);
-    if (XmlUtils.getChildElements(parentNode).getLength() == 0)     parentNode.getParentNode().removeChild(parentNode);
+    if (XmlUtils.getChildElements(parentNode).getLength() == 0) {
+      parentNode.getParentNode().removeChild(parentNode);
+    }
   }
   updateWssDocument(context,doc);
 }

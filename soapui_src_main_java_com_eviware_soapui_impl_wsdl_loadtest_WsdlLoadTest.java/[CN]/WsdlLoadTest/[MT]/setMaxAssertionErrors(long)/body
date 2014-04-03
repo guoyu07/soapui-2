@@ -1,5 +1,7 @@
 {
-  if (testLimit < 0)   return;
+  if (testLimit < 0) {
+    return;
+  }
   long oldLimit=getMaxAssertionErrors();
   getConfig().setMaxAssertionErrors(testLimit);
   notifyPropertyChanged(MAXASSERTIONERRORS_PROPERTY,oldLimit,testLimit);

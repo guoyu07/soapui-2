@@ -1,6 +1,8 @@
 {
   XmlObject[] envelope=messageObject.selectChildren(soapVersion.getEnvelopeQName());
-  if (envelope.length != 1)   throw new XmlException("Missing/Invalid SOAP Envelope, expecting [" + soapVersion.getEnvelopeQName() + "]");
+  if (envelope.length != 1) {
+    throw new XmlException("Missing/Invalid SOAP Envelope, expecting [" + soapVersion.getEnvelopeQName() + "]");
+  }
   QName headerQName=soapVersion.getHeaderQName();
   XmlObject[] header=envelope[0].selectChildren(headerQName);
   if (header.length == 0 && create) {

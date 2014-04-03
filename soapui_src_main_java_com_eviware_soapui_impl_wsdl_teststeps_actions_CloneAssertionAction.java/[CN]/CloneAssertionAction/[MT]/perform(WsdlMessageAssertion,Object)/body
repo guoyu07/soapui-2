@@ -2,8 +2,12 @@
   String name=target.getName();
   while (target.getName().equals(name)) {
     name=UISupport.prompt("Specify unique name for cloned assertion","Clone Assertion",target.getName());
-    if (name == null)     return;
+    if (name == null) {
+      return;
+    }
   }
   TestAssertion assertion=target.getAssertable().cloneAssertion(target,name);
-  if (assertion.isConfigurable())   assertion.configure();
+  if (assertion.isConfigurable()) {
+    assertion.configure();
+  }
 }

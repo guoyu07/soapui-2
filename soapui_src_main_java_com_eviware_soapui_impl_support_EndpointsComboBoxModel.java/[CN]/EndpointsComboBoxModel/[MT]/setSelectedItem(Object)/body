@@ -6,7 +6,9 @@
       public void run(){
         String value=UISupport.prompt("Add new endpoint for interface [" + request.getOperation().getInterface().getName() + "]","Add new endpoint",enteredValue);
         if (value != null) {
-          if (request.getOperation() != null)           request.getOperation().getInterface().addEndpoint(value);
+          if (request.getOperation() != null) {
+            request.getOperation().getInterface().addEndpoint(value);
+          }
           request.setEndpoint(value);
         }
  else {
@@ -21,7 +23,9 @@
       public void run(){
         String value=UISupport.prompt("Edit endpoint for interface [" + request.getOperation().getInterface().getName() + "]","Edit endpoint",enteredValue);
         if (value != null) {
-          if (request.getOperation() != null)           request.getOperation().getInterface().changeEndpoint(endpoint,value);
+          if (request.getOperation() != null) {
+            request.getOperation().getInterface().changeEndpoint(endpoint,value);
+          }
           request.setEndpoint(value);
         }
  else {
@@ -35,7 +39,9 @@
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){
         if (UISupport.confirm("Delete endpoint [" + endpoint + "]","Delete endpoint")) {
-          if (request.getOperation() != null)           request.getOperation().getInterface().removeEndpoint(endpoint);
+          if (request.getOperation() != null) {
+            request.getOperation().getInterface().removeEndpoint(endpoint);
+          }
           request.setEndpoint(null);
         }
       }

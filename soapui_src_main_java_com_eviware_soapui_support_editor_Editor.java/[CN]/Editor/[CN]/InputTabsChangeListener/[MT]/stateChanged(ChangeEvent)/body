@@ -1,7 +1,9 @@
 {
   int currentViewIndex=views.indexOf(currentView);
   if (currentView != null) {
-    if (inputTabs.getSelectedIndex() == currentViewIndex)     return;
+    if (inputTabs.getSelectedIndex() == currentViewIndex) {
+      return;
+    }
     if (!currentView.deactivate()) {
       inputTabs.setSelectedIndex(currentViewIndex);
       return;
@@ -16,7 +18,9 @@
   currentView=views.get(selectedIndex);
   if (currentView != null && !currentView.activate(previousView == null ? null : previousView.getEditorLocation())) {
     inputTabs.setSelectedIndex(currentViewIndex);
-    if (currentViewIndex == -1)     return;
+    if (currentViewIndex == -1) {
+      return;
+    }
   }
   EditorInspector<T> currentInspector=(EditorInspector<T>)inspectorPanel.getCurrentInspector();
   if (currentInspector != null) {
@@ -26,13 +30,21 @@
     inspectorPanel.setInspectorVisible(inspector,((EditorInspector<T>)inspector).isEnabledFor(currentView));
   }
   if (currentInspector != null && ((EditorInspector<T>)currentInspector).isEnabledFor(currentView)) {
-    if (lastDividerLocation == 0)     inspectorPanel.setResetDividerLocation();
- else     inspectorPanel.setDividerLocation(lastDividerLocation);
+    if (lastDividerLocation == 0) {
+      inspectorPanel.setResetDividerLocation();
+    }
+ else {
+      inspectorPanel.setDividerLocation(lastDividerLocation);
+    }
   }
- else   currentInspector=null;
+ else {
+    currentInspector=null;
+  }
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
-      if (currentView != null)       currentView.getComponent().requestFocus();
+      if (currentView != null) {
+        currentView.getComponent().requestFocus();
+      }
     }
   }
 );

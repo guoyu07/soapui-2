@@ -1,5 +1,7 @@
 {
-  if (errorsOnly && stepResult.getStatus() != TestStepResult.TestStepStatus.FAILED)   return;
+  if (errorsOnly && stepResult.getStatus() != TestStepResult.TestStepStatus.FAILED) {
+    return;
+  }
   logListModel.addTestStepResult(stepResult);
   if (follow) {
     try {

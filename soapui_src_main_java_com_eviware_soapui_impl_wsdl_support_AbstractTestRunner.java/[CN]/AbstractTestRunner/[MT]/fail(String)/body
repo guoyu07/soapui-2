@@ -1,5 +1,7 @@
 {
-  if (status == Status.CANCELED || status == Status.FAILED || runContext == null)   return;
+  if (status == Status.CANCELED || status == Status.FAILED || runContext == null) {
+    return;
+  }
   onFail(reason);
   status=Status.FAILED;
   this.reason=reason;

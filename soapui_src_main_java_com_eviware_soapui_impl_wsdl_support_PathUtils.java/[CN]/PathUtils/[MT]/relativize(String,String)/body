@@ -1,11 +1,15 @@
 {
-  if (StringUtils.isNullOrEmpty(path) || StringUtils.isNullOrEmpty(rootPath))   return path;
+  if (StringUtils.isNullOrEmpty(path) || StringUtils.isNullOrEmpty(rootPath)) {
+    return path;
+  }
   if (path.toLowerCase().startsWith("http:/") || path.toLowerCase().startsWith("https:/")) {
     String prefix="";
     while (rootPath != null) {
       if (path.startsWith(rootPath)) {
         path=path.substring(rootPath.length());
-        if (path.startsWith("/"))         path=path.substring(1);
+        if (path.startsWith("/")) {
+          path=path.substring(1);
+        }
         break;
       }
  else {
@@ -40,7 +44,9 @@
     while (rootPath != null) {
       if (path.startsWith(rootPath)) {
         path=path.substring(rootPath.length());
-        if (path.startsWith(File.separator))         path=path.substring(1);
+        if (path.startsWith(File.separator)) {
+          path=path.substring(1);
+        }
         break;
       }
  else {

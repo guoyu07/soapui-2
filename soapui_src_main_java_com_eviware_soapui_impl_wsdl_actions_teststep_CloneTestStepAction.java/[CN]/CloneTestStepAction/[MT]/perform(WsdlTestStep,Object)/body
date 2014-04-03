@@ -61,14 +61,18 @@
       project=(WsdlProject)workspace.getProjectByName(targetProjectName);
       if (project == null) {
         targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestStep","");
-        if (targetProjectName == null)         return;
+        if (targetProjectName == null) {
+          return;
+        }
         try {
           project=workspace.createProject(targetProjectName,null);
         }
  catch (        SoapUIException e) {
           UISupport.showErrorMessage(e);
         }
-        if (project == null)         return;
+        if (project == null) {
+          return;
+        }
       }
       if (requiredInterfaces.size() > 0 && project.getInterfaceCount() > 0) {
         Map<String,Interface> bindings=new HashMap<String,Interface>();
@@ -86,7 +90,9 @@
           msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
         }
         msg+="\r\nThese will be cloned to the targetProject as well";
-        if (!UISupport.confirm(msg,"Clone TestStep"))         return;
+        if (!UISupport.confirm(msg,"Clone TestStep")) {
+          return;
+        }
         for (        Interface iface : requiredInterfaces) {
           project.importInterface((AbstractInterface<?>)iface,true,true);
         }
@@ -95,20 +101,30 @@
     targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
     if (targetTestSuite == null) {
       targetTestSuiteName=UISupport.prompt("Specify name for new TestSuite","Clone TestStep","Copy of " + testStep.getTestCase().getTestSuite().getName());
-      if (targetTestSuiteName == null)       return;
+      if (targetTestSuiteName == null) {
+        return;
+      }
       targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
     }
     targetTestCase=targetTestSuite.getTestCaseByName(targetTestCaseName);
     if (targetTestCase == null) {
       targetTestCaseName=UISupport.prompt("Specify name for new TestCase","Clone TestStep","Copy of " + testStep.getTestCase().getName());
-      if (targetTestCaseName == null)       return;
+      if (targetTestCaseName == null) {
+        return;
+      }
       targetTestCase=targetTestSuite.addNewTestCase(targetTestCaseName);
     }
     boolean move=dialog.getBooleanValue(Form.MOVE);
     WsdlTestStep newTestStep=targetTestCase.importTestStep(testStep,name,-1,!move);
-    if (newTestStep == null)     return;
-    if (dialog.getBooleanValue(Form.OPEN))     UISupport.selectAndShow(newTestStep);
- else     UISupport.select(newTestStep);
+    if (newTestStep == null) {
+      return;
+    }
+    if (dialog.getBooleanValue(Form.OPEN)) {
+      UISupport.selectAndShow(newTestStep);
+    }
+ else {
+      UISupport.select(newTestStep);
+    }
     if (move) {
       testStep.getTestCase().removeTestStep(testStep);
     }

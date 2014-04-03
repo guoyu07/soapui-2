@@ -1,4 +1,6 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestSuite()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(testRunner.getTestSuite())) {
+    return;
+  }
   testCase.addTestRunListener(this);
 }

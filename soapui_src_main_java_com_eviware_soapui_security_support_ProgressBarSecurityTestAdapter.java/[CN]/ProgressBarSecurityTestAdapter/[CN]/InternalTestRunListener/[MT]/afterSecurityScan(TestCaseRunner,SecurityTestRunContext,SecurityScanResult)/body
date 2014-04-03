@@ -9,6 +9,8 @@
     progressBar.setForeground(FAILED_COLOR);
   }
  else   if (securityCheckResult.getStatus() == ResultStatus.OK) {
-    if (!progressBar.getForeground().equals(FAILED_COLOR))     progressBar.setForeground(OK_COLOR);
+    if (!progressBar.getForeground().equals(FAILED_COLOR)) {
+      progressBar.setForeground(OK_COLOR);
+    }
   }
 }

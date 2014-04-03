@@ -24,7 +24,9 @@
         DispatchException ex=null;
         MockResult result=null;
         for (        MockRunner wsdlMockRunner : wsdlMockRunners) {
-          if (!wsdlMockRunner.isRunning())           continue;
+          if (!wsdlMockRunner.isRunning()) {
+            continue;
+          }
           try {
             result=wsdlMockRunner.dispatchRequest(request,response);
             if (result != null) {
@@ -36,7 +38,9 @@
             ex=e;
           }
         }
-        if (ex != null && result == null)         throw ex;
+        if (ex != null && result == null) {
+          throw ex;
+        }
       }
  catch (      Exception e) {
         SoapUI.logError(e);

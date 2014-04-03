@@ -66,9 +66,13 @@
 );
   fileTable.addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() < 2)       return;
+      if (e.getClickCount() < 2) {
+        return;
+      }
       int ix=fileTable.getSelectedRow();
-      if (ix == -1)       return;
+      if (ix == -1) {
+        return;
+      }
       Attachment attachment=container.getAttachmentAt(ix);
       if (attachment.isCached()) {
         String name=attachment.getName();

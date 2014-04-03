@@ -1,9 +1,15 @@
 {
   String contentType=response.getContentType();
   String content=response.getContentAsString();
-  if (StringUtils.hasContent(contentType) && contentType.toUpperCase().endsWith("XML"))   return content;
-  if (XmlUtils.seemsToBeXml(content))   return content;
- else   if (content == null)   content="";
+  if (StringUtils.hasContent(contentType) && contentType.toUpperCase().endsWith("XML")) {
+    return content;
+  }
+  if (XmlUtils.seemsToBeXml(content)) {
+    return content;
+  }
+ else   if (content == null) {
+    content="";
+  }
   String result="<data contentType=\"" + contentType + "\" contentLength=\""+ response.getContentLength()+ "\">";
   for (int c=0; c < content.length(); c++) {
     if (content.charAt(c) < 8) {

@@ -1,4 +1,8 @@
 {
-  if (!messageExchange.hasRequest(true))   return "Missing Request";
- else   return assertContent(messageExchange.getRequestContent(),context,"Request");
+  if (!messageExchange.hasRequest(true)) {
+    return "Missing Request";
+  }
+ else {
+    return assertContent(messageExchange.getRequestContent(),context,"Request");
+  }
 }

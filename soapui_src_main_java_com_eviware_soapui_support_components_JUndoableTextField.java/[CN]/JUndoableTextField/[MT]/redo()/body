@@ -4,7 +4,9 @@
     return;
   }
   try {
-    if (undoManager != null)     undoManager.redo();
+    if (undoManager != null) {
+      undoManager.redo();
+    }
   }
  catch (  CannotRedoException cue) {
     Toolkit.getDefaultToolkit().beep();

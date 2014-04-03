@@ -1,5 +1,9 @@
 {
   status=Status.RUNNING;
-  if (async)   future=SoapUI.getThreadPool().submit(this);
- else   run();
+  if (async) {
+    future=SoapUI.getThreadPool().submit(this);
+  }
+ else {
+    run();
+  }
 }

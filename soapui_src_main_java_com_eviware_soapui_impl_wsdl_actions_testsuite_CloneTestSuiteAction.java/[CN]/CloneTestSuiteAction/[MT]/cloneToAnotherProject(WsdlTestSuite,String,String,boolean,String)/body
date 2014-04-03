@@ -3,14 +3,18 @@
   WsdlProject targetProject=(WsdlProject)workspace.getProjectByName(targetProjectName);
   if (targetProject == null) {
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestSuite","");
-    if (targetProjectName == null)     return null;
+    if (targetProjectName == null) {
+      return null;
+    }
     try {
       targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);
     }
-    if (targetProject == null)     return null;
+    if (targetProject == null) {
+      return null;
+    }
   }
   Set<Interface> requiredInterfaces=getRequiredInterfaces(testSuite,targetProject);
   if (requiredInterfaces.size() > 0) {
@@ -20,7 +24,9 @@
     }
     msg+="\r\nShould these be cloned to the targetProject as well?";
     Boolean result=UISupport.confirmOrCancel(msg,"Clone TestSuite");
-    if (result == null)     return null;
+    if (result == null) {
+      return null;
+    }
     if (result) {
       for (      Interface iface : requiredInterfaces) {
         targetProject.importInterface((AbstractInterface<?>)iface,true,true);

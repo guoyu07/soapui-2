@@ -1,6 +1,8 @@
 {
   super.onClose(canCancel);
-  if (currentInterface != null)   currentInterface.removeInterfaceListener(interfaceListener);
+  if (currentInterface != null) {
+    currentInterface.removeInterfaceListener(interfaceListener);
+  }
   getModelItem().getMockService().getProject().removeProjectListener(projectListener);
   return release();
 }

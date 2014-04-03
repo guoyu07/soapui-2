@@ -45,7 +45,9 @@
   }
  else {
     if (event.getSource() == testRequest && event.getPropertyName().equals(WsdlTestRequest.NAME_PROPERTY)) {
-      if (!super.getName().equals(event.getNewValue()))       super.setName((String)event.getNewValue());
+      if (!super.getName().equals(event.getNewValue())) {
+        super.setName((String)event.getNewValue());
+      }
     }
  else     if (event.getSource() == testRequest && event.getPropertyName().equals("restMethod")) {
       refreshRequestProperties();

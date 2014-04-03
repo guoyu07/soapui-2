@@ -4,7 +4,9 @@
   prefixes=new HashMap<String,String>();
   particles=new ArrayList<Particle>();
   types=new HashMap<String,ComplexType>();
-  for (  MapEntryConfig entry : xml.getPrefixList())   prefixes.put(entry.getKey(),entry.getValue());
+  for (  MapEntryConfig entry : xml.getPrefixList()) {
+    prefixes.put(entry.getKey(),entry.getValue());
+  }
   for (  ParticleConfig item : xml.getParticleList()) {
     particles.add(Particle.Factory.parse(item,this));
   }

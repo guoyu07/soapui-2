@@ -6,14 +6,18 @@
     cursor.push();
     do {
       QName qname=cursor.getName();
-      if (qname == null)       break;
+      if (qname == null) {
+        break;
+      }
       if (orderSet.contains(qname)) {
         if (!orderSet.get(orderSet.size() - 1).equals(qname)) {
           cursor.pop();
           throw new XmlException("Same element occurs multiple times in sequence!");
         }
       }
- else       orderSet.add(qname);
+ else {
+        orderSet.add(qname);
+      }
       orderList.add(qname);
     }
  while (cursor.toNextSibling());
@@ -27,7 +31,9 @@
       cursor.toNextSibling();
     }
   }
- else   throw new XmlException("Sequence validation");
+ else {
+    throw new XmlException("Sequence validation");
+  }
   completed=true;
   return this;
 }

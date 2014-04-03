@@ -12,7 +12,9 @@
       writer.println("Properties -----------------------------------------------------------------------");
       writer.println();
       for (      String name : scanRequestResult.getMessageExchange().getProperties().keySet()) {
-        if (scanRequestResult.getMessageExchange().getProperties().get(name) != null)         writer.println(name + " = " + scanRequestResult.getMessageExchange().getProperties().get(name));
+        if (scanRequestResult.getMessageExchange().getProperties().get(name) != null) {
+          writer.println(name + " = " + scanRequestResult.getMessageExchange().getProperties().get(name));
+        }
       }
       writer.println();
       writer.println("Request ---------------------------------------------------------------------------");

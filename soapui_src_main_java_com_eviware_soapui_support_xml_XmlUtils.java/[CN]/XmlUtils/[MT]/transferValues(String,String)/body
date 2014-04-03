@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(source) || StringUtils.isNullOrEmpty(dest))   return dest;
+  if (StringUtils.isNullOrEmpty(source) || StringUtils.isNullOrEmpty(dest)) {
+    return dest;
+  }
   XmlCursor cursor=null;
   try {
     XmlObject sourceXml=XmlObject.Factory.parse(source);
@@ -7,7 +9,9 @@
     cursor=sourceXml.newCursor();
     cursor.toNextToken();
     while (!cursor.isEnddoc()) {
-      while (!cursor.isContainer() && !cursor.isEnddoc())       cursor.toNextToken();
+      while (!cursor.isContainer() && !cursor.isEnddoc()) {
+        cursor.toNextToken();
+      }
       if (cursor.isContainer()) {
         Element elm=(Element)cursor.getDomNode();
         String path=createXPath(elm);
@@ -32,7 +36,9 @@
     SoapUI.logError(e);
   }
  finally {
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
   return dest;
 }

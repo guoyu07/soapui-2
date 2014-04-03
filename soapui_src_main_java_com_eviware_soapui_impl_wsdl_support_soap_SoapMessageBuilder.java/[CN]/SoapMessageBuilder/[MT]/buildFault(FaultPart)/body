@@ -13,7 +13,9 @@
       cursor.toFirstContentToken();
       generator.setTypeComment(true);
       generator.setIgnoreOptional(iface.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS));
-      for (      Part part : faultPart.getWsdlParts())       createElementForPart(part,cursor,generator);
+      for (      Part part : faultPart.getWsdlParts()) {
+        createElementForPart(part,cursor,generator);
+      }
     }
     faultResponse=xmlObject.xmlText(new XmlOptions().setSaveAggressiveNamespaces().setSavePrettyPrint());
   }
@@ -21,7 +23,9 @@
     SoapUI.logError(e1);
   }
  finally {
-    if (cursor != null)     cursor.dispose();
+    if (cursor != null) {
+      cursor.dispose();
+    }
   }
   return faultResponse;
 }

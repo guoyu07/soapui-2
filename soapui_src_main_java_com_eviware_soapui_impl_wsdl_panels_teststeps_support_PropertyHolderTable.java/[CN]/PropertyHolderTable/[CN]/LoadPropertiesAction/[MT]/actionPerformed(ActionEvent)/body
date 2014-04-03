@@ -1,5 +1,7 @@
 {
-  if (dialog == null)   dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(LoadOptionsForm.class);
+  }
   Project project=ModelSupport.getModelItemProject(holder.getModelItem());
   if (project != null) {
     FileFormField fileFormField=(FileFormField)dialog.getFormField(LoadOptionsForm.FILE);
@@ -27,8 +29,12 @@
                 value+=ln.substring(0,ln.length() - 1);
                 ln=reader.readLine();
               }
-              if (ln != null)               value+=ln;
-              if (ln == null)               break;
+              if (ln != null) {
+                value+=ln;
+              }
+              if (ln == null) {
+                break;
+              }
             }
             if (holder.hasProperty(name)) {
               count++;

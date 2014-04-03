@@ -4,9 +4,17 @@
   int length=evt.getLength();
   int newStart;
   int newEnd;
-  if (selectionStart > offset || (selectionStart == selectionEnd && selectionStart == offset))   newStart=selectionStart + length;
- else   newStart=selectionStart;
-  if (selectionEnd >= offset)   newEnd=selectionEnd + length;
- else   newEnd=selectionEnd;
+  if (selectionStart > offset || (selectionStart == selectionEnd && selectionStart == offset)) {
+    newStart=selectionStart + length;
+  }
+ else {
+    newStart=selectionStart;
+  }
+  if (selectionEnd >= offset) {
+    newEnd=selectionEnd + length;
+  }
+ else {
+    newEnd=selectionEnd;
+  }
   select(newStart,newEnd);
 }

@@ -44,7 +44,9 @@
     }
     public void mouseClicked(    MouseEvent e){
       if (e.getClickCount() < 2) {
-        if (selectedTestSuite != null)         selectedTestSuite.setSelected(false);
+        if (selectedTestSuite != null) {
+          selectedTestSuite.setSelected(false);
+        }
         setSelected(true);
         selectedTestSuite=TestSuiteListPanel.this;
         return;

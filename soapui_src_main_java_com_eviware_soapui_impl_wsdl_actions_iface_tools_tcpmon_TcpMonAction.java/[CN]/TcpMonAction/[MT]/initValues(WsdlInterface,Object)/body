@@ -8,7 +8,9 @@
     mainForm.setOptions(ENDPOINT,new String[]{null});
   }
   StringToStringMap values=super.initValues(modelItem,param);
-  if (!values.isEmpty())   return values;
+  if (!values.isEmpty()) {
+    return values;
+  }
   values.put(ENDPOINT,getDefinition(modelItem));
   values.put(PORT,"8080");
   return values;

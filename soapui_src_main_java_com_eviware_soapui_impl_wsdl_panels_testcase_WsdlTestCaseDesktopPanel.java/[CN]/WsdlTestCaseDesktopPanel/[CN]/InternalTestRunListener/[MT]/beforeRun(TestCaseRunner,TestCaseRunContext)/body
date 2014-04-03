@@ -1,5 +1,7 @@
 {
-  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem()))   return;
+  if (SoapUI.getTestMonitor().hasRunningLoadTest(getModelItem()) || SoapUI.getTestMonitor().hasRunningSecurityTest(getModelItem())) {
+    return;
+  }
   runButton.setEnabled(false);
   cancelButton.setEnabled(true);
   testStepList.setEnabled(false);
@@ -7,5 +9,7 @@
   testCaseLog.clear();
   testCaseLog.addText("Test started at " + DateUtil.formatExtraFull(new Date()));
   WsdlTestCaseDesktopPanel.this.beforeRun();
-  if (runner == null)   runner=testRunner;
+  if (runner == null) {
+    runner=testRunner;
+  }
 }

@@ -1,14 +1,20 @@
 {
-  if (status != Status.RUNNING)   return;
+  if (status != Status.RUNNING) {
+    return;
+  }
   long newCount=loadTest.getThreadCount();
   Iterator<InternalTestCaseRunner> iterator=runners.iterator();
   List<InternalTestCaseRunner> activeRunners=new ArrayList<InternalTestCaseRunner>();
   while (iterator.hasNext()) {
     InternalTestCaseRunner runner=iterator.next();
-    if (!runner.isCanceled())     activeRunners.add(runner);
+    if (!runner.isCanceled()) {
+      activeRunners.add(runner);
+    }
   }
   long diff=newCount - activeRunners.size();
-  if (diff == 0)   return;
+  if (diff == 0) {
+    return;
+  }
   if (diff < 0 && loadTest.getCancelExcessiveThreads()) {
     diff=Math.abs(diff);
     for (int c=0; c < diff && c < activeRunners.size(); c++) {
@@ -26,7 +32,9 @@
           SoapUI.logError(e);
         }
       }
-      if (status == Status.RUNNING)       startTestCase(createTestCase());
+      if (status == Status.RUNNING) {
+        startTestCase(createTestCase());
+      }
     }
   }
 }

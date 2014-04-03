@@ -1,6 +1,8 @@
 {
   String script=getTearDownScript();
-  if (StringUtils.isNullOrEmpty(script))   return null;
+  if (StringUtils.isNullOrEmpty(script)) {
+    return null;
+  }
   if (tearDownScriptEngine == null) {
     tearDownScriptEngine=SoapUIScriptEngineRegistry.create(this);
     tearDownScriptEngine.setScript(script);

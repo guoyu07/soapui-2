@@ -6,6 +6,8 @@
     if (encrypted == 1 & (evt.getNewValue() == null || ((String)evt.getNewValue()).length() == 0)) {
       encrypted=0;
     }
-    if (SoapUI.getNavigator() != null)     SoapUI.getNavigator().repaint();
+    if (SoapUI.getNavigator() != null) {
+      SoapUI.getNavigator().repaint();
+    }
   }
 }

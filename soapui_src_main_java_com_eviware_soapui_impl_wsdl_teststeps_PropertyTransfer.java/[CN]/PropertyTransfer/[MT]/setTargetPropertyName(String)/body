@@ -1,6 +1,8 @@
 {
   String old=getTargetPropertyName();
-  if ((name == null && old == null) || (name != null && old != null && name.equals(old)))   return;
+  if ((name == null && old == null) || (name != null && old != null && name.equals(old))) {
+    return;
+  }
   targetType=name;
   config.setTargetType(name);
   TestPropertyHolder targetStep2=getTargetStep();

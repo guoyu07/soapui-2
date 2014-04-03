@@ -10,8 +10,12 @@
   builder.startScript("testrunner",".bat",".sh");
   builder.addString(ENDPOINT,"-e","");
   builder.addString(HOSTPORT,"-h","");
-  if (!values.get(TESTSUITE).equals(ALL_VALUE))   builder.addString(TESTSUITE,"-s","");
-  if (!values.get(TESTCASE).equals(ALL_VALUE))   builder.addString(TESTCASE,"-c","");
+  if (!values.get(TESTSUITE).equals(ALL_VALUE)) {
+    builder.addString(TESTSUITE,"-s","");
+  }
+  if (!values.get(TESTCASE).equals(ALL_VALUE)) {
+    builder.addString(TESTCASE,"-c","");
+  }
   builder.addString(USERNAME,"-u","");
   builder.addStringShadow(PASSWORD,"-p","");
   builder.addString(DOMAIN,"-d","");

@@ -4,7 +4,9 @@
   if (port != oldPort) {
     super.setPort(port);
     for (    WsdlInterface iface : getMockedInterfaces()) {
-      if (Arrays.asList(iface.getEndpoints()).contains(oldEndpoint))       iface.changeEndpoint(oldEndpoint,getLocalEndpoint());
+      if (Arrays.asList(iface.getEndpoints()).contains(oldEndpoint)) {
+        iface.changeEndpoint(oldEndpoint,getLocalEndpoint());
+      }
     }
   }
 }

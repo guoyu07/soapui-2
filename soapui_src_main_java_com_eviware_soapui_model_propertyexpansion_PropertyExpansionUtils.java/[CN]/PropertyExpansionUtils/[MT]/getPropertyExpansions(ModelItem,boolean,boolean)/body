@@ -4,7 +4,9 @@
     PropertyExpansion[] pes=((PropertyExpansionContainer)modelItem).getPropertyExpansions();
     if (pes != null && pes.length > 0) {
       for (      PropertyExpansion pe : pes) {
-        if (mutableOnly && !(pe instanceof MutablePropertyExpansion))         continue;
+        if (mutableOnly && !(pe instanceof MutablePropertyExpansion)) {
+          continue;
+        }
         result.add(pe);
       }
     }

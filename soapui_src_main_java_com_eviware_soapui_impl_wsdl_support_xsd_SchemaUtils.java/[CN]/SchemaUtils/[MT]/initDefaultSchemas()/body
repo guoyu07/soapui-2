@@ -14,7 +14,9 @@
     loadDefaultSchema(SoapUI.class.getResource(root + "/soapEnvelope12.xsd"));
     loadDefaultSchema(SoapUI.class.getResource(root + "/soapEncoding12.xsd"));
     String schemaDirectory=SoapUI.getSettings().getString(WsdlSettings.SCHEMA_DIRECTORY,null);
-    if (StringUtils.hasContent(schemaDirectory))     loadSchemaDirectory(schemaDirectory);
+    if (StringUtils.hasContent(schemaDirectory)) {
+      loadSchemaDirectory(schemaDirectory);
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);

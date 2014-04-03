@@ -1,5 +1,9 @@
 {
   AbstractHttpRequestInterface<?> request=getModelItem();
-  if (request instanceof WsdlAttachmentContainer && ((WsdlAttachmentContainer)request).isEncodeAttachments())   return ((WsdlAttachmentContainer)request).getAttachmentEncoding(getPart());
- else   return AttachmentEncoding.NONE;
+  if (request instanceof WsdlAttachmentContainer && ((WsdlAttachmentContainer)request).isEncodeAttachments()) {
+    return ((WsdlAttachmentContainer)request).getAttachmentEncoding(getPart());
+  }
+ else {
+    return AttachmentEncoding.NONE;
+  }
 }

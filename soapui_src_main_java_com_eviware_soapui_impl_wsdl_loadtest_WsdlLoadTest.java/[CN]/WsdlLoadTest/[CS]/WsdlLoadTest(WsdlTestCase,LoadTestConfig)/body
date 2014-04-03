@@ -1,7 +1,9 @@
 {
   super(config,testCase,ICON_NAME);
   this.testCase=testCase;
-  if (getConfig().getThreadCount() < 1)   getConfig().setThreadCount(5);
+  if (getConfig().getThreadCount() < 1) {
+    getConfig().setThreadCount(5);
+  }
   if (getConfig().getLimitType() == null) {
     getConfig().setLimitType(LoadTestLimitTypesConfig.TIME);
     getConfig().setTestLimit(60);
@@ -24,7 +26,9 @@
   loadStrategy.addConfigurationChangeListener(loadStrategyListener);
   addLoadTestRunListener(loadStrategy);
   statisticsModel=new LoadTestStatistics(this);
-  if (getConfig().xgetSampleInterval() == null)   setSampleInterval(LoadTestStatistics.DEFAULT_SAMPLE_INTERVAL);
+  if (getConfig().xgetSampleInterval() == null) {
+    setSampleInterval(LoadTestStatistics.DEFAULT_SAMPLE_INTERVAL);
+  }
   statisticsModel.setUpdateFrequency(getSampleInterval());
   List<LoadTestAssertionConfig> assertionList=getConfig().getAssertionList();
   for (  LoadTestAssertionConfig assertionConfig : assertionList) {
@@ -37,14 +41,26 @@
       logger.warn("Failed to build LoadTestAssertion from getConfig() [" + assertionConfig + "]");
     }
   }
-  if (getConfig().xgetResetStatisticsOnThreadCountChange() == null)   getConfig().setResetStatisticsOnThreadCountChange(true);
-  if (getConfig().xgetCalculateTPSOnTimePassed() == null)   getConfig().setCalculateTPSOnTimePassed(true);
-  if (!getConfig().isSetMaxAssertionErrors())   getConfig().setMaxAssertionErrors(100);
-  if (getConfig().xgetCancelExcessiveThreads() == null)   getConfig().setCancelExcessiveThreads(true);
-  if (getConfig().xgetStrategyInterval() == null)   getConfig().setStrategyInterval(DEFAULT_STRATEGY_INTERVAL);
+  if (getConfig().xgetResetStatisticsOnThreadCountChange() == null) {
+    getConfig().setResetStatisticsOnThreadCountChange(true);
+  }
+  if (getConfig().xgetCalculateTPSOnTimePassed() == null) {
+    getConfig().setCalculateTPSOnTimePassed(true);
+  }
+  if (!getConfig().isSetMaxAssertionErrors()) {
+    getConfig().setMaxAssertionErrors(100);
+  }
+  if (getConfig().xgetCancelExcessiveThreads() == null) {
+    getConfig().setCancelExcessiveThreads(true);
+  }
+  if (getConfig().xgetStrategyInterval() == null) {
+    getConfig().setStrategyInterval(DEFAULT_STRATEGY_INTERVAL);
+  }
   loadTestLog=new LoadTestLog(this);
   for (  LoadTestRunListener listener : SoapUI.getListenerRegistry().getListeners(LoadTestRunListener.class)) {
     addLoadTestRunListener(listener);
   }
-  if (!getSettings().isSet(HttpSettings.CLOSE_CONNECTIONS))   getSettings().setBoolean(HttpSettings.CLOSE_CONNECTIONS,SoapUI.getSettings().getBoolean(HttpSettings.CLOSE_CONNECTIONS));
+  if (!getSettings().isSet(HttpSettings.CLOSE_CONNECTIONS)) {
+    getSettings().setBoolean(HttpSettings.CLOSE_CONNECTIONS,SoapUI.getSettings().getBoolean(HttpSettings.CLOSE_CONNECTIONS));
+  }
 }

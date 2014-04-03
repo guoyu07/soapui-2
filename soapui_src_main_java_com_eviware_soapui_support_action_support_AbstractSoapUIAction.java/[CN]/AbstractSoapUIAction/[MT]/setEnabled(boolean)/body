@@ -1,5 +1,7 @@
 {
-  if (enabled == this.enabled)   return;
+  if (enabled == this.enabled) {
+    return;
+  }
   boolean oldEnabled=this.enabled;
   this.enabled=enabled;
   propertySupport.firePropertyChange(ENABLED_PROPERTY,oldEnabled,enabled);

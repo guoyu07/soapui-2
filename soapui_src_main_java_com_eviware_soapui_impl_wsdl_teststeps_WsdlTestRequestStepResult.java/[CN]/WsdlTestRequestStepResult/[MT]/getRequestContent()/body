@@ -1,4 +1,6 @@
 {
-  if (isDiscarded())   return "<discarded>";
+  if (isDiscarded()) {
+    return "<discarded>";
+  }
   return requestContent != null ? requestContent : softRequestContent == null ? null : softRequestContent.get();
 }

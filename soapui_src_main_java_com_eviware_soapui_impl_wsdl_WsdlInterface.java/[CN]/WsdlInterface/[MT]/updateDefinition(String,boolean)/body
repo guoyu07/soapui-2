@@ -5,9 +5,13 @@
     return false;
   }
   BindingTuple tuple=findBinding(newContext);
-  if (tuple == null)   return false;
+  if (tuple == null) {
+    return false;
+  }
   setBindingName(tuple.binding.getQName());
-  if (getSettings().getBoolean(WsdlSettings.NAME_WITH_BINDING))   setName(tuple.binding.getQName().getLocalPart());
+  if (getSettings().getBoolean(WsdlSettings.NAME_WITH_BINDING)) {
+    setName(tuple.binding.getQName().getLocalPart());
+  }
   setWsdlContext(newContext);
   transferOperations(tuple.binding,createRequests);
   setDefinition(url,false);

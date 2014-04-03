@@ -1,6 +1,8 @@
 {
   File file=UISupport.getFileDialogs().saveAs(this,dialogTitle,".xml","XML Files (*.xml)",null);
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   FileWriter writer=null;
   try {
     try {

@@ -1,6 +1,8 @@
 {
   String pathInfo=request.getPathInfo();
-  if (pathInfo == null)   pathInfo="";
+  if (pathInfo == null) {
+    pathInfo="";
+  }
   for (  MockRunner mockRunner : getMockRunners()) {
     if (pathInfo.equals(mockRunner.getMockContext().getMockService().getPath())) {
       MockResult result=mockRunner.dispatchRequest(request,response);

@@ -11,7 +11,9 @@
         log.warn("Result [" + c + "] is null in TestCase ["+ testRunner.getTestCase().getName()+ "]");
         continue;
       }
-      if (stepResult.getTestStep().equals(testStep))       results.add(new LoadTestStepSample(stepResult));
+      if (stepResult.getTestStep().equals(testStep)) {
+        results.add(new LoadTestStepSample(stepResult));
+      }
     }
     s.add(results.toArray(new LoadTestStepSample[results.size()]));
   }

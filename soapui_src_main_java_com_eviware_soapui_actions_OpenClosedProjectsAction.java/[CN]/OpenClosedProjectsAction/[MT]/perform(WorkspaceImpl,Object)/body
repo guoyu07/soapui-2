@@ -1,6 +1,10 @@
 {
   List<Project> openProjects=new ArrayList<Project>();
-  for (  Project project : workspace.getProjectList())   if (!project.isOpen() && !project.isDisabled())   openProjects.add(project);
+  for (  Project project : workspace.getProjectList()) {
+    if (!project.isOpen() && !project.isDisabled()) {
+      openProjects.add(project);
+    }
+  }
   if (openProjects.isEmpty()) {
     UISupport.showErrorMessage("No closed projects in workspace");
     return;

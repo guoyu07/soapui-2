@@ -5,7 +5,9 @@
   }
   if (UISupport.confirm("Delete Service [" + service.getName() + "] from Project?","Delete Service")) {
     if (RemoveInterfaceAction.hasDependingTests(service)) {
-      if (!UISupport.confirm("Service has depending TestSteps which will also be removed. Remove anyway?","Remove Service"))       return;
+      if (!UISupport.confirm("Service has depending TestSteps which will also be removed. Remove anyway?","Remove Service")) {
+        return;
+      }
     }
     service.getProject().removeInterface(service);
   }

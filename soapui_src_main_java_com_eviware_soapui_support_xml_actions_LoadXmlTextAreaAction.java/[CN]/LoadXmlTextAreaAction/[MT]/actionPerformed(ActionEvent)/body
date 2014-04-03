@@ -1,6 +1,8 @@
 {
   File file=UISupport.getFileDialogs().open(this,dialogTitle,".xml","XML Files (*.xml)",null);
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   try {
     textArea.setText(Tools.readAll(new FileInputStream(file),0).toString());
   }

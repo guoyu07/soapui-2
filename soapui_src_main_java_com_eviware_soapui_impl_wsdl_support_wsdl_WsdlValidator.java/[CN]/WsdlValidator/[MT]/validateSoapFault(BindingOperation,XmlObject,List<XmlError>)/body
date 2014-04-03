@@ -7,8 +7,12 @@
   xmlOptions.setValidateTreatLaxAsSkip();
   msgXml.validate(xmlOptions);
   for (  Object o : list) {
-    if (o instanceof XmlError)     errors.add((XmlError)o);
- else     errors.add(XmlError.forMessage(o.toString()));
+    if (o instanceof XmlError) {
+      errors.add((XmlError)o);
+    }
+ else {
+      errors.add(XmlError.forMessage(o.toString()));
+    }
   }
   while (i.hasNext()) {
     BindingFault bindingFault=i.next();
@@ -31,7 +35,9 @@
         if (elm != null) {
           validateMessageBody(errors,elm.getType(),paths[0]);
         }
- else         errors.add(XmlError.forMessage("Missing fault part element [" + elementName + "] for fault ["+ part.getName()+ "] in associated schema"));
+ else {
+          errors.add(XmlError.forMessage("Missing fault part element [" + elementName + "] for fault ["+ part.getName()+ "] in associated schema"));
+        }
         return;
       }
     }
@@ -43,13 +49,17 @@
         if (type != null) {
           validateMessageBody(errors,type,paths[0]);
         }
- else         errors.add(XmlError.forMessage("Missing fault part type [" + typeName + "] for fault ["+ part.getName()+ "] in associated schema"));
+ else {
+          errors.add(XmlError.forMessage("Missing fault part type [" + typeName + "] for fault ["+ part.getName()+ "] in associated schema"));
+        }
         return;
       }
     }
   }
   XmlObject[] paths=msgXml.selectPath("declare namespace env='" + wsdlContext.getSoapVersion().getEnvelopeNamespace() + "'; declare namespace flt='"+ wsdlContext.getSoapVersion().getFaultDetailNamespace()+ "';//env:Fault/flt:detail");
-  if (paths.length == 0)   log.warn("Missing matching Fault in wsdl for bindingOperation [" + bindingOperation.getName() + "]");
+  if (paths.length == 0) {
+    log.warn("Missing matching Fault in wsdl for bindingOperation [" + bindingOperation.getName() + "]");
+  }
  else {
     String xmlText=paths[0].xmlText(new XmlOptions().setSaveOuter());
     log.warn("Missing matching Fault in wsdl for Fault Detail element [" + XmlUtils.removeUnneccessaryNamespaces(xmlText) + "] in bindingOperation ["+ bindingOperation.getName()+ "]");

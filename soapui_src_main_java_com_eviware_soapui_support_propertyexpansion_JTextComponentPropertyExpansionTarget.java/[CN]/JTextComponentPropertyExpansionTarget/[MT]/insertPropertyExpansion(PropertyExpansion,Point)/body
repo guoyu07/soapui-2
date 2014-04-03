@@ -1,6 +1,8 @@
 {
   int pos=pt == null ? -1 : textField.viewToModel(pt);
-  if (pos == -1)   pos=textField.getCaretPosition();
+  if (pos == -1) {
+    pos=textField.getCaretPosition();
+  }
   if (pos == -1 || textField.getSelectionStart() == textField.getSelectionEnd()) {
     textField.setText(expansion.toString());
     textField.requestFocusInWindow();

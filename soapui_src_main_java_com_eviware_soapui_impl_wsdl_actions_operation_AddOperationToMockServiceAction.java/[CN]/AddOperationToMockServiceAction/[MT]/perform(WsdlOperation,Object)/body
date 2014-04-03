@@ -6,12 +6,16 @@
     if (project.getMockServiceCount() > 0) {
       String[] mockServices=ModelSupport.getNames(project.getMockServiceList(),new String[]{CREATE_MOCKSUITE_OPTION});
       String option=UISupport.prompt("Select MockService for MockOperation",title,mockServices);
-      if (option == null)       return;
+      if (option == null) {
+        return;
+      }
       mockService=project.getMockServiceByName(option);
     }
     if (mockService == null) {
       String mockServiceName=UISupport.prompt("Enter name of new MockService",title,"MockService " + (project.getMockServiceCount() + 1));
-      if (mockServiceName == null || mockServiceName.trim().length() == 0)       return;
+      if (mockServiceName == null || mockServiceName.trim().length() == 0) {
+        return;
+      }
       mockService=project.addNewMockService(mockServiceName);
     }
     if (mockService.hasMockOperation(operation)) {

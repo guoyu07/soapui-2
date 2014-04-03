@@ -1,7 +1,11 @@
 {
   File file=UISupport.getFileDialogs().openXML(this,"Choose test case to import");
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   String fileName=file.getAbsolutePath();
-  if (fileName == null)   return;
+  if (fileName == null) {
+    return;
+  }
   target.importMockOperation(file);
 }

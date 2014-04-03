@@ -1,6 +1,8 @@
 {
   if (mockRunListener != null) {
-    if (mockRunListener.isWaiting())     mockRunListener.cancel();
+    if (mockRunListener.isWaiting()) {
+      mockRunListener.cancel();
+    }
     mockService.removeMockRunListener(mockRunListener);
     mockRunListener=null;
   }

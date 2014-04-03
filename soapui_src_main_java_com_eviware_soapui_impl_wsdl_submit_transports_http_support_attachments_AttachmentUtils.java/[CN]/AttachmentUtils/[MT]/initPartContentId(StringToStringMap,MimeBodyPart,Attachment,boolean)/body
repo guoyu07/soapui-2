@@ -4,10 +4,16 @@
   if (StringUtils.hasContent(contentID)) {
     contentID=contentID.trim();
     int ix=contentID.indexOf(' ');
-    if (ix != -1)     part.setContentID("<" + (isMultipart ? contentID.substring(ix + 1) : contentID.substring(0,ix)) + ">");
+    if (ix != -1) {
+      part.setContentID("<" + (isMultipart ? contentID.substring(ix + 1) : contentID.substring(0,ix)) + ">");
+    }
  else {
-      if (!contentID.startsWith("<"))       contentID="<" + contentID;
-      if (!contentID.endsWith(">"))       contentID=contentID + ">";
+      if (!contentID.startsWith("<")) {
+        contentID="<" + contentID;
+      }
+      if (!contentID.endsWith(">")) {
+        contentID=contentID + ">";
+      }
       part.setContentID(contentID);
     }
   }
@@ -23,8 +29,12 @@
   String file=attachment.getUrl();
   if (PathUtils.isFilePath(file)) {
     int ix=file.lastIndexOf(File.separatorChar);
-    if (ix == -1)     ix=file.lastIndexOf('/');
-    if (ix > 0 && ix < file.length() - 1)     file=file.substring(ix + 1);
+    if (ix == -1) {
+      ix=file.lastIndexOf('/');
+    }
+    if (ix > 0 && ix < file.length() - 1) {
+      file=file.substring(ix + 1);
+    }
     part.setDisposition("attachment; name=\"" + name + "\"; filename=\""+ file+ "\"");
   }
  else {

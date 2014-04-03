@@ -4,6 +4,8 @@
     return;
   }
   String url=param == null ? this.url : param.toString();
-  if (!url.startsWith("http://"))   url=HelpUrls.HELP_URL_ROOT + url;
+  if (!url.startsWith("http://")) {
+    url=HelpUrls.HELP_URL_ROOT + url;
+  }
   Tools.openURL(url);
 }

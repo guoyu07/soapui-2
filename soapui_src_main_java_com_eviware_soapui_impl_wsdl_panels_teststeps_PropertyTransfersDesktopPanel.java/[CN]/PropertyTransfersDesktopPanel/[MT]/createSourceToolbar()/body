@@ -25,10 +25,14 @@
   sourceStepModel.addElement(transferStep.getTestCase());
   for (int c=0; c < transferStep.getTestCase().getTestStepCount(); c++) {
     WsdlTestStep testStep=transferStep.getTestCase().getTestStepAt(c);
-    if (testStep == transferStep)     continue;
+    if (testStep == transferStep) {
+      continue;
+    }
     sourceStepModel.addElement(testStep);
   }
-  for (int c=0; c < sourceStepModel.getSize(); c++)   targetStepModel.addElement(sourceStepModel.getElementAt(c));
+  for (int c=0; c < sourceStepModel.getSize(); c++) {
+    targetStepModel.addElement(sourceStepModel.getElementAt(c));
+  }
   sourceStepCombo.setSelectedItem(null);
   sourceStepCombo.setEnabled(false);
   sourceStepCombo.addItemListener(new StepComboItemListener(sourcePropertyCombo,sourceStepPropertiesListener));
@@ -39,11 +43,21 @@
         PropertyTransfer valueTransfer=getCurrentTransfer();
         if (valueTransfer != null) {
           String name;
-          if (sourceStep == PropertyExpansionUtils.getGlobalProperties())           name=PropertyExpansion.GLOBAL_REFERENCE;
- else           if (sourceStep == transferStep.getTestCase().getTestSuite().getProject())           name=PropertyExpansion.PROJECT_REFERENCE;
- else           if (sourceStep == transferStep.getTestCase().getTestSuite())           name=PropertyExpansion.TESTSUITE_REFERENCE;
- else           if (sourceStep == transferStep.getTestCase())           name=PropertyExpansion.TESTCASE_REFERENCE;
- else           name=sourceStep.getModelItem().getName();
+          if (sourceStep == PropertyExpansionUtils.getGlobalProperties()) {
+            name=PropertyExpansion.GLOBAL_REFERENCE;
+          }
+ else           if (sourceStep == transferStep.getTestCase().getTestSuite().getProject()) {
+            name=PropertyExpansion.PROJECT_REFERENCE;
+          }
+ else           if (sourceStep == transferStep.getTestCase().getTestSuite()) {
+            name=PropertyExpansion.TESTSUITE_REFERENCE;
+          }
+ else           if (sourceStep == transferStep.getTestCase()) {
+            name=PropertyExpansion.TESTCASE_REFERENCE;
+          }
+ else {
+            name=sourceStep.getModelItem().getName();
+          }
           valueTransfer.setSourceStepName(name);
         }
       }

@@ -8,7 +8,9 @@
       String key=(String)iterator.next();
       Port port=service.getPort(key);
       BindingOperation bindingOperation=port.getBinding().getBindingOperation(operationName,null,null);
-      if (bindingOperation != null)       return bindingOperation;
+      if (bindingOperation != null) {
+        return bindingOperation;
+      }
     }
   }
   Map bindings=definition.getAllBindings();
@@ -16,7 +18,9 @@
     Object key=i.next();
     Binding binding=(Binding)bindings.get(key);
     BindingOperation bindingOperation=binding.getBindingOperation(operationName,null,null);
-    if (bindingOperation != null)     return bindingOperation;
+    if (bindingOperation != null) {
+      return bindingOperation;
+    }
   }
   return null;
 }
