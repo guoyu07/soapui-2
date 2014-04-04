@@ -1,6 +1,7 @@
 {
   XFormField settingFile=dialog.getFormField(MockAsWarDialog.SETTINGS_FILE);
-  settingFile.setValue(((DefaultSoapUICore)SoapUI.getSoapUICore()).getSettingsFile());
+  DefaultSoapUICore soapUICore=(DefaultSoapUICore)SoapUI.getSoapUICore();
+  settingFile.setValue(soapUICore.getSettingsFile());
   settingFile.setEnabled(dialog.getBooleanValue(MockAsWarDialog.GLOBAL_SETTINGS));
   return settingFile;
 }
