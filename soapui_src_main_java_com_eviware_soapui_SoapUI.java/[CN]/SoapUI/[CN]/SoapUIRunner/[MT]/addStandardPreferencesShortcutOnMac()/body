@@ -1,0 +1,14 @@
+{
+  if (UISupport.isMac()) {
+    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher(){
+      @Override public boolean dispatchKeyEvent(      KeyEvent e){
+        int modifiers=e.getModifiers();
+        if (e.getKeyChar() == ',' && (modifiers == InputEvent.META_DOWN_MASK || modifiers == InputEvent.META_MASK)) {
+          SoapUIPreferencesAction.getInstance().actionPerformed(new ActionEvent(frame,1,"ShowPreferences"));
+        }
+        return false;
+      }
+    }
+);
+  }
+}
