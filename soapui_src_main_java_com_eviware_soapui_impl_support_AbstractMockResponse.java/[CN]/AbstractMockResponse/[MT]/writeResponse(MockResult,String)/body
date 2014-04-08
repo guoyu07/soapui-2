@@ -5,7 +5,7 @@
   StringToStringMap contentIds=new StringToStringMap();
   if (operation instanceof WsdlMockOperation) {
     if (operation == null) {
-      throw new Exception("Missing WsdlOperation for mock response");
+      throw new IllegalStateException("Missing WsdlOperation for mock response");
     }
     if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
       try {
@@ -24,13 +24,11 @@
         SoapUI.logError(e);
       }
     }
+    responseContent=removeEmptyContent(responseContent);
   }
-  responseContent=removeEmptyContent(responseContent);
   if (isStripWhitespaces()) {
     responseContent=XmlUtils.stripWhitespaces(responseContent);
   }
-  MockRequest request=result.getMockRequest();
-  request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
@@ -80,5 +78,7 @@
     }
     result.writeRawResponseData(data);
   }
+  MockRequest request=result.getMockRequest();
+  request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   return responseContent;
 }
