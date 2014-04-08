@@ -1,0 +1,7 @@
+{
+  RestMockResponse mockResponse=ModelItemFactory.makeRestResponse();
+  MockResult result=createMockResult();
+  String originalResponseContent="<content>awful lot of content</content>";
+  String writtenResponseContent=mockResponse.writeResponse(result,originalResponseContent);
+  assertThat(writtenResponseContent,is(originalResponseContent));
+}
