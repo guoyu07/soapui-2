@@ -1,0 +1,5 @@
+{
+  mockResponse.setResponseHttpStatus(HttpStatus.SC_CONFLICT);
+  mockResponse.writeResponse(result,originalResponseContent);
+  verify(servletResponse).setStatus(HttpStatus.SC_CONFLICT);
+}
