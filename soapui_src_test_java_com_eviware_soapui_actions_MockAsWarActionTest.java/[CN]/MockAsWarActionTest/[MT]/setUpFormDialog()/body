@@ -4,6 +4,6 @@
   when(mockedDialog.getFormField(anyString())).thenReturn(any(XFormField.class));
   createFileformfield(getFilePathFromResource("/config/soapui-test-settings.xml"),MockAsWarAction.MockAsWarDialog.SETTINGS_FILE);
   createFileformfield(WAR_FILE_NAME,MockAsWarAction.MockAsWarDialog.WAR_FILE);
-  createFileformfield(warTestDir.getPath(),MockAsWarAction.MockAsWarDialog.WAR_DIRECTORY);
+  createFileformfield(warDirectoryPath,MockAsWarAction.MockAsWarDialog.WAR_DIRECTORY);
   when(mockedDialog.getValue(MockAsWarAction.MockAsWarDialog.MOCKSERVICE_ENDPOINT)).thenReturn("http://localhost:8080");
 }
