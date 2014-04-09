@@ -1,6 +1,9 @@
 {
-  if (soapuiOriginalHome != null) {
+  if (soapuiOriginalHome == null) {
+    System.getProperties().remove(SOAPUI_HOME);
+  }
+ else {
     System.setProperty(SOAPUI_HOME,soapuiOriginalHome);
   }
-  FileUtils.deleteDirectory(mockSoapHomeDir);
+  FileUtils.deleteDirectory(warTestDir);
 }
