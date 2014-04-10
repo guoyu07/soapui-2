@@ -3,14 +3,14 @@
   Operation operation=getMockOperation().getOperation();
   boolean isXOP=isMtomEnabled() && isForceMtom();
   StringToStringMap contentIds=new StringToStringMap();
-  if (operation instanceof WsdlMockOperation) {
+  if (operation instanceof WsdlOperation) {
     if (operation == null) {
       throw new IllegalStateException("Missing WsdlOperation for mock response");
     }
     if (isMtomEnabled() || isInlineFilesEnabled() || getAttachmentCount() > 0) {
       try {
         mp=new MimeMultipart();
-        WsdlOperation wsdlOperation=((WsdlMockOperation)operation).getOperation();
+        WsdlOperation wsdlOperation=((WsdlOperation)operation);
         MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlOperation,responseContent,false);
         MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
         for (        MessageXmlPart requestPart : requestParts) {
