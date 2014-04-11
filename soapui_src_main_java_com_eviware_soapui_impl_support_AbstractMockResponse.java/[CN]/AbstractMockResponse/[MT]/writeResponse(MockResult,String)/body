@@ -26,6 +26,9 @@
     }
     responseContent=removeEmptyContent(responseContent);
   }
+  if (isStripWhitespaces()) {
+    responseContent=XmlUtils.stripWhitespaces(responseContent);
+  }
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
