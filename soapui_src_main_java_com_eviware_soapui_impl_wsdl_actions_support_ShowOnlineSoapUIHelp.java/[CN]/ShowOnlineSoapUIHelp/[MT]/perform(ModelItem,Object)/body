@@ -5,7 +5,7 @@
   }
   String url=param == null ? this.url : param.toString();
   if (!url.startsWith("http://")) {
-    url=HelpUrls.HELP_URL_ROOT + url;
+    url="http://www.soapui.org/userguide/" + url;
   }
   Tools.openURL(url);
 }
