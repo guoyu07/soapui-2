@@ -11,10 +11,10 @@
       try {
         mp=new MimeMultipart();
         WsdlOperation wsdlOperation=((WsdlOperation)operation);
-        MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlOperation,responseContent,false);
+        MessageXmlObject requestXmlObject=createMessageXmlObject(responseContent,wsdlOperation);
         MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
         for (        MessageXmlPart requestPart : requestParts) {
-          if (AttachmentUtils.prepareMessagePart(this,mp,requestPart,contentIds)) {
+          if (prepareMessagePart(mp,contentIds,requestPart)) {
             isXOP=true;
           }
         }

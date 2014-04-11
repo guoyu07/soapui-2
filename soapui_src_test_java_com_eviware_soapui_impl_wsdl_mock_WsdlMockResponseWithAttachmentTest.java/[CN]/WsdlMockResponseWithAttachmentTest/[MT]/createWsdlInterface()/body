@@ -1,0 +1,7 @@
+{
+  WsdlInterface wsdlInterface=mock(WsdlInterface.class);
+  when(wsdlInterface.getSoapVersion()).thenReturn(SoapVersion.Soap12);
+  WsdlContext wsdlContext=createWsdlContext();
+  when(wsdlInterface.getWsdlContext()).thenReturn(wsdlContext);
+  return wsdlInterface;
+}
