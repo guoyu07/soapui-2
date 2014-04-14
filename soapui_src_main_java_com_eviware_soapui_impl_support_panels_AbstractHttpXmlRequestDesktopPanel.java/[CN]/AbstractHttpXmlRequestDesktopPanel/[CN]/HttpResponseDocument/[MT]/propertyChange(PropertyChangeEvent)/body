@@ -1,3 +1,6 @@
 {
-  fireXmlChanged(evt.getOldValue() == null ? null : ((HttpResponse)evt.getOldValue()).getContentAsString(),getXml());
+  HttpResponse oldResponse=(HttpResponse)evt.getOldValue();
+  HttpResponse response=(HttpResponse)evt.getNewValue();
+  fireContentChanged(extractContentFrom(oldResponse),extractContentFrom(response));
+  fireXmlChanged(oldResponse == null ? null : oldResponse.getContentAsString(),getXml());
 }

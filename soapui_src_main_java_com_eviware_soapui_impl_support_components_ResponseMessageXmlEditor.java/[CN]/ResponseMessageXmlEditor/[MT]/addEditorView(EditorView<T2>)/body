@@ -1,0 +1,6 @@
+{
+  super.addEditorView(editorView);
+  if (editorView instanceof ContentChangeListener) {
+    getDocument().addContentChangeListener((ContentChangeListener)editorView);
+  }
+}
