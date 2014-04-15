@@ -1,0 +1,8 @@
+{
+  String path="/numeric";
+  when(reqeust.getPathInfo()).thenReturn(path);
+  MockRunner spiedRunner=getMockRunnerByPath(path);
+  stubMockAsWarServlet.service(reqeust,response);
+  verify(reqeust,atLeastOnce()).getPathInfo();
+  verify(spiedRunner).dispatchRequest(reqeust,response);
+}
