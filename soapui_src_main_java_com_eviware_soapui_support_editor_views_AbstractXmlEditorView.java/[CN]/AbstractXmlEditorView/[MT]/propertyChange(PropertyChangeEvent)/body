@@ -1,10 +1,18 @@
 {
   if (evt.getSource() == this.xmlDocument && evt.getPropertyName().equals(XmlDocument.XML_PROPERTY)) {
     if (isActive()) {
-      setXml((String)evt.getNewValue());
+      setDocumentContent(xmlDocument.getDocumentContent().withContent((String)evt.getNewValue()));
     }
  else {
-      xmlChanged=true;
+      documentContentChanged=true;
+    }
+  }
+  if (evt.getPropertyName().equals("mediaType")) {
+    if (isActive()) {
+      setDocumentContent(xmlDocument.getDocumentContent().withContentType((String)evt.getNewValue()));
+    }
+ else {
+      documentContentChanged=true;
     }
   }
 }
