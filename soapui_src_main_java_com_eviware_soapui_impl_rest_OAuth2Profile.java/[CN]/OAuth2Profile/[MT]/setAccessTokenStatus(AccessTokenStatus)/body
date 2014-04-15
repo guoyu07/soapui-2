@@ -4,6 +4,10 @@
   if (newStatus == oldStatus) {
     return;
   }
+  saveEnum(newStatus,configuration);
+  if (isAStartingStatus(newStatus)) {
+    setAccessTokenStartingStatus(newStatus);
+  }
 synchronized (this) {
     notifyAll();
   }
