@@ -1,0 +1,6 @@
+{
+  SoapUI.initDefaultCore();
+  String wsdlUriString=SchemaUtilsDefaultNSTest.class.getResource("/chameleon/chameleon.wsdl").toString();
+  SchemaTypeSystem sts=SchemaUtils.loadSchemaTypes(wsdlUriString,new UrlWsdlLoader(wsdlUriString));
+  assertNotNull(sts);
+}
