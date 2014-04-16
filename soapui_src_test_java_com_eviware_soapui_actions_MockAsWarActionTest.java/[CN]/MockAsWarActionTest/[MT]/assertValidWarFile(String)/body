@@ -1,0 +1,7 @@
+{
+  JarFile jarFile=new JarFile(warFileName);
+  for (  String fileName : getExpectedWarContents()) {
+    JarEntry jarEntry=jarFile.getJarEntry(fileName);
+    assertNotNull(jarEntry);
+  }
+}
