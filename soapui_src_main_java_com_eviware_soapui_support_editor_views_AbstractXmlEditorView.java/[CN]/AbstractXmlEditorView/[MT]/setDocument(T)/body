@@ -1,11 +1,11 @@
 {
   if (this.xmlDocument != null) {
-    this.xmlDocument.removePropertyChangeListener(XmlDocument.XML_PROPERTY,this);
+    this.xmlDocument.removePropertyChangeListener(XmlDocument.CONTENT_PROPERTY,this);
   }
   this.xmlDocument=xmlDocument;
   documentContentChanged=false;
   if (xmlDocument != null) {
-    this.xmlDocument.addPropertyChangeListener(XmlDocument.XML_PROPERTY,this);
+    this.xmlDocument.addPropertyChangeListener(XmlDocument.CONTENT_PROPERTY,this);
     if (isActive()) {
       setDocumentContent(xmlDocument.getDocumentContent());
     }

@@ -42,7 +42,7 @@
     public void update(    Document document){
       if (!updating && getDocument() != null) {
         updating=true;
-        getDocument().setXml(getDocument().getDocumentContent().withContent(editArea.getText()));
+        getDocument().setDocumentContent(getDocument().getDocumentContent().withContent(editArea.getText()));
         updating=false;
       }
     }
