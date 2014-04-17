@@ -1,0 +1,23 @@
+{
+  try {
+    String content=typedContent.getContentAsString().trim();
+    if (!StringUtils.hasContent(content)) {
+      return null;
+    }
+    content=content.replaceAll("\\\\u0000","");
+    JSON json=JSONSerializer.toJSON(content);
+    JsonXmlSerializer serializer=new JsonXmlSerializer();
+    serializer.setTypeHintsEnabled(false);
+    serializer.setRootName("Response");
+    serializer.setNamespace("","json");
+    content=serializer.write(json);
+    content=XmlUtils.prettyPrintXml(content);
+    return content;
+  }
+ catch (  JSONException ignore) {
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return "<xml/>";
+}

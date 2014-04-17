@@ -1,0 +1,29 @@
+{
+  String content=typedContent == null ? null : typedContent.getContentAsString();
+  if (!StringUtils.hasContent(content)) {
+    return "<xml/>";
+  }
+  try {
+    XmlUtils.createXmlObject(new ByteArrayInputStream(content.getBytes()));
+    return content;
+  }
+ catch (  Exception e) {
+  }
+  try {
+    Tidy tidy=new Tidy();
+    tidy.setXmlOut(true);
+    tidy.setShowWarnings(false);
+    tidy.setErrout(new PrintWriter(new StringWriter()));
+    tidy.setNumEntities(true);
+    tidy.setQuoteNbsp(true);
+    tidy.setFixUri(false);
+    Document document=tidy.parseDOM(new ByteArrayInputStream(content.getBytes()),null);
+    StringWriter writer=new StringWriter();
+    XmlUtils.serializePretty(document,writer);
+    return writer.toString();
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

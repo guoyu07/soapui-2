@@ -2,10 +2,5 @@
   HttpResponse oldResponse=(HttpResponse)evt.getOldValue();
   HttpResponse response=(HttpResponse)evt.getNewValue();
   final DocumentContent newValue=extractContentFrom(response);
-  if (seemsToBeJsonContentType(newValue.getContentType())) {
-    fireContentChanged(extractContentFrom(oldResponse),newValue);
-  }
- else {
-    fireContentChanged(getDocumentContent().withContent(oldResponse == null ? null : oldResponse.getContentAsString()),getDocumentContent().withContent(getXml()));
-  }
+  fireContentChanged(extractContentFrom(oldResponse),newValue);
 }
