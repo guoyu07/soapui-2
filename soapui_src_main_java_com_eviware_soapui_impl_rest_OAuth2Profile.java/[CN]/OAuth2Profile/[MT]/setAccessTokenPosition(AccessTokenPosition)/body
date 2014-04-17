@@ -1,6 +1,6 @@
 {
   Preconditions.checkNotNull(newAccessTokenPosition);
-  AccessTokenPosition oldAccessTokenPosition=getSavedEnum(configuration.getAccessTokenPosition());
-  saveEnum(newAccessTokenPosition,configuration);
+  AccessTokenPosition oldAccessTokenPosition=getSavedAccessTokenPositionEnum(configuration.getAccessTokenPosition());
+  saveAccessTokenPositionEnum(newAccessTokenPosition,configuration);
   pcs.firePropertyChange(ACCESS_TOKEN_POSITION_PROPERTY,oldAccessTokenPosition,newAccessTokenPosition);
 }

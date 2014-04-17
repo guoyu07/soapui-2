@@ -1,9 +1,9 @@
 {
-  AccessTokenStatus oldStatus=getSavedEnum(configuration.getAccessTokenStatus());
+  AccessTokenStatus oldStatus=getSavedAccessTokenStatusEnum(configuration.getAccessTokenStatus());
   if (newStatus == oldStatus) {
     return;
   }
-  saveEnum(newStatus,configuration);
+  saveAccessTokenStatusEnum(newStatus,configuration);
   if (isAStartingStatus(newStatus)) {
     setAccessTokenStartingStatus(newStatus);
   }
