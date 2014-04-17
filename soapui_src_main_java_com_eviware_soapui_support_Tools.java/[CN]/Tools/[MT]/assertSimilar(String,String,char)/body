@@ -1,25 +1,5 @@
 {
-  if (!expected.equals(String.valueOf(wildcard))) {
-    StringBuilder sb=new StringBuilder();
-    if (expected.startsWith(String.valueOf(wildcard))) {
-      sb.append(".*");
-    }
-    boolean first=true;
-    for (    String token : expected.split(Pattern.quote(String.valueOf(wildcard)))) {
-      if (token.isEmpty()) {
-        continue;
-      }
-      if (!first) {
-        sb.append(".*");
-      }
-      first=false;
-      sb.append(Pattern.quote(token));
-    }
-    if (expected.endsWith(String.valueOf(wildcard))) {
-      sb.append(".*");
-    }
-    if (!Pattern.compile(sb.toString()).matcher(real).matches()) {
-      throw new ComparisonFailure("Not matched",expected,real);
-    }
+  if (!isSimilar(expected,real,wildcard)) {
+    throw new ComparisonFailure("Not matched",expected,real);
   }
 }

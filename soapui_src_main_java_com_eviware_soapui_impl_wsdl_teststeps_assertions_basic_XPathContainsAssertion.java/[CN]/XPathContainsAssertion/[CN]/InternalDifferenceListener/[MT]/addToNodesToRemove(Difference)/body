@@ -1,0 +1,5 @@
+{
+  Node node=diff.getTestNodeDetail().getNode();
+  String xp=XmlUtils.createAbsoluteXPath(node.getNodeType() == Node.ATTRIBUTE_NODE ? node : node.getParentNode());
+  nodesToRemove.add(xp);
+}
