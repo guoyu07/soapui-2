@@ -1,0 +1,15 @@
+{
+  if (response == null) {
+    return new DocumentContent(null,null);
+  }
+ else {
+    String contentAsString;
+    if (format == Format.XML) {
+      contentAsString=MediaTypeHandlerRegistry.getTypeHandler(response.getContentType()).createXmlRepresentation(response);
+    }
+ else {
+      contentAsString=response.getContentAsString();
+    }
+    return new DocumentContent(response.getContentType(),contentAsString);
+  }
+}

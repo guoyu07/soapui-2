@@ -1,6 +1,6 @@
 {
-  if (!isActive() && documentContentChanged) {
-    setDocumentContent(xmlDocument == null ? null : xmlDocument.getDocumentContent());
-    documentContentChanged=false;
+  if (!isActive() && editorDocumentChanged) {
+    documentUpdated();
+    editorDocumentChanged=false;
   }
 }

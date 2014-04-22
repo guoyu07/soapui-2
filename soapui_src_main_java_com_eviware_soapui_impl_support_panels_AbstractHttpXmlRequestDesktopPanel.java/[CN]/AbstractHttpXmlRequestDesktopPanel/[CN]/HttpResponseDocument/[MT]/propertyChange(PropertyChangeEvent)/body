@@ -1,6 +1,3 @@
 {
-  HttpResponse oldResponse=(HttpResponse)evt.getOldValue();
-  HttpResponse response=(HttpResponse)evt.getNewValue();
-  final DocumentContent newValue=extractContentFrom(response);
-  fireContentChanged(extractContentFrom(oldResponse),newValue);
+  fireContentChanged();
 }

@@ -1,10 +1,10 @@
 {
-  if (evt.getSource() == this.xmlDocument && evt.getPropertyName().equals(XmlDocument.CONTENT_PROPERTY)) {
+  if (evt.getSource() == this.xmlDocument && evt.getPropertyName().equals(XmlDocument.DOCUMENT_PROPERTY)) {
     if (isActive()) {
-      setDocumentContent((DocumentContent)evt.getNewValue());
+      documentUpdated();
     }
  else {
-      documentContentChanged=true;
+      editorDocumentChanged=true;
     }
   }
 }
