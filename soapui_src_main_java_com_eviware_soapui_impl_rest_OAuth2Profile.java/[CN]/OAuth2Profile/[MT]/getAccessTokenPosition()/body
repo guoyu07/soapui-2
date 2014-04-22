@@ -1,6 +1,3 @@
 {
-  if (configuration.getAccessTokenPosition() == null) {
-    configuration.setAccessTokenPosition(AccessTokenPositionConfig.HEADER);
-  }
-  return AccessTokenPosition.valueOf(configuration.getAccessTokenPosition().toString());
+  return getSavedAccessTokenPositionEnum(configuration.getAccessTokenPosition());
 }

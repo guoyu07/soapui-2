@@ -1,6 +1,6 @@
 {
   if (evt.getPropertyName().equals(OAuth2Profile.ACCESS_TOKEN_STATUS_PROPERTY)) {
-    OAuth2Profile.AccessTokenStatus status=OAuth2Profile.AccessTokenStatus.byDescription((String)evt.getNewValue());
+    OAuth2Profile.AccessTokenStatus status=(OAuth2Profile.AccessTokenStatus)evt.getNewValue();
     listener.onAccessTokenStatusChanged(status);
   }
 }

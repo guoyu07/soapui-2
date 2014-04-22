@@ -1,6 +1,15 @@
 {
-  JRadioButton button=new JRadioButton(String.valueOf(value));
-  button.setActionCommand(String.valueOf(value));
+  JRadioButton button;
+  if (value instanceof Enum) {
+    button=new JRadioButton(value.toString());
+    button.setActionCommand(((Enum)value).name());
+    models.put(((Enum)value).name(),button.getModel());
+  }
+ else {
+    button=new JRadioButton(String.valueOf(value));
+    button.setActionCommand(String.valueOf(value));
+    models.put(String.valueOf(value),button.getModel());
+  }
   button.setName(String.valueOf(value));
   button.setFocusPainted(false);
   button.addActionListener(new ActionListener(){
@@ -11,6 +20,5 @@
 );
   getComponent().add(button);
   buttonGroup.add(button);
-  models.put(String.valueOf(value),button.getModel());
-  items.add(String.valueOf(value));
+  items.add(value);
 }
