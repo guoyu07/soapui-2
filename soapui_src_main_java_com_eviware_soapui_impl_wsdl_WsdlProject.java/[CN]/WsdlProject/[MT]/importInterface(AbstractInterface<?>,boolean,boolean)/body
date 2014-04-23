@@ -8,7 +8,7 @@
     endpointStrategy.importEndpoints(iface);
   }
   if (createCopy) {
-    ModelSupport.unsetIds(imported);
+    ModelSupport.createNewIds(imported);
   }
   imported.afterLoad();
   fireInterfaceAdded(imported);

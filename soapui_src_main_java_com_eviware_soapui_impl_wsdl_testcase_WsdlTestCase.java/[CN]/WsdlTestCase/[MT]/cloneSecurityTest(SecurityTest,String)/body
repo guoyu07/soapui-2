@@ -3,7 +3,7 @@
   securityTestConfig.set(securityTest.getConfig().copy());
   SecurityTest newSecurityTest=buildSecurityTest(securityTestConfig);
   newSecurityTest.setName(name);
-  ModelSupport.unsetIds(newSecurityTest);
+  ModelSupport.createNewIds(newSecurityTest);
   newSecurityTest.afterLoad();
   securityTests.add(newSecurityTest);
   (getTestSuite()).fireSecurityTestAdded(newSecurityTest);

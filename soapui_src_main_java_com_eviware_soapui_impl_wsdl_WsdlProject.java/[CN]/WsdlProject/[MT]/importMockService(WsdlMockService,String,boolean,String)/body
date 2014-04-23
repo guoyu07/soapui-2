@@ -9,7 +9,7 @@
   mockService.setDescription(description);
   addWsdlMockService(mockService);
   if (createCopy) {
-    ModelSupport.unsetIds(mockService);
+    ModelSupport.createNewIds(mockService);
   }
   mockService.afterLoad();
   fireMockServiceAdded(mockService);

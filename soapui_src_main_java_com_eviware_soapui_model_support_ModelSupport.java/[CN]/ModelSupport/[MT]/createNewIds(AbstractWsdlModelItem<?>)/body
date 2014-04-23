@@ -1,10 +1,10 @@
 {
   if (modelItem.getConfig().isSetId()) {
-    modelItem.getConfig().unsetId();
+    modelItem.getConfig().setId(generateModelItemID());
   }
   for (  ModelItem child : modelItem.getChildren()) {
     if (child instanceof AbstractWsdlModelItem<?>) {
-      unsetIds((AbstractWsdlModelItem<?>)child);
+      createNewIds((AbstractWsdlModelItem<?>)child);
     }
   }
 }

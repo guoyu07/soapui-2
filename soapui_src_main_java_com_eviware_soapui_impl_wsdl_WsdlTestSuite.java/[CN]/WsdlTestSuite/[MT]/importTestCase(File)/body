@@ -13,7 +13,7 @@
   if (importTestCaseConfig != null) {
     TestCaseConfig newConfig=(TestCaseConfig)getConfig().addNewTestCase().set(importTestCaseConfig).changeType(TestCaseConfig.type);
     WsdlTestCase newTestCase=buildTestCase(newConfig,false);
-    ModelSupport.unsetIds(newTestCase);
+    ModelSupport.createNewIds(newTestCase);
     LinkedHashMap<String,String> oldNewIds=new LinkedHashMap<String,String>();
     for (int cnt=0; cnt < importTestCaseConfig.getTestStepList().size(); cnt++) {
       oldNewIds.put(importTestCaseConfig.getTestStepList().get(cnt).getId(),newTestCase.getTestStepList().get(cnt).getId());
