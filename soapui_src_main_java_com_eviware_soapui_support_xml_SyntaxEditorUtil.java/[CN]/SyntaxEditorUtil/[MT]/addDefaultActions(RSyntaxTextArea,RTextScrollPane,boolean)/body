@@ -29,12 +29,10 @@
   popupMenu.addSeparator();
   popupMenu.add(saveXmlTextAreaAction);
   LoadXmlTextAreaAction loadXmlTextAreaAction=null;
-  InsertBase64FileTextAreaAction insertBase64FileTextAreaAction=null;
   if (!readOnly) {
     loadXmlTextAreaAction=new LoadXmlTextAreaAction(editor,"Load");
-    insertBase64FileTextAreaAction=new InsertBase64FileTextAreaAction(editor,"Insert File as Base64");
     popupMenu.add(loadXmlTextAreaAction);
-    popupMenu.add(insertBase64FileTextAreaAction);
+    popupMenu.add(new InsertBase64FileTextAreaAction(editor,"Insert File as Base64"));
   }
   if (UISupport.isMac()) {
     editor.getInputMap().put(KeyStroke.getKeyStroke("meta S"),saveXmlTextAreaAction);
@@ -53,8 +51,6 @@
       editor.getInputMap().put(KeyStroke.getKeyStroke("alt F"),formatXmlAction);
       editor.getInputMap().put(KeyStroke.getKeyStroke("ctrl L"),loadXmlTextAreaAction);
     }
-  }
-  if (!readOnly) {
   }
   return editor;
 }
