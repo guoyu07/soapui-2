@@ -1,0 +1,24 @@
+{
+  WsdlMockService mockService=(WsdlMockService)context.getMockService();
+  if (StringUtils.hasContent(mockService.getIncomingWss())) {
+    IncomingWss incoming=((WsdlProject)mockService.getProject()).getWssContainer().getIncomingWssByName(mockService.getIncomingWss());
+    if (incoming != null) {
+      Document dom=XmlUtils.parseXml(requestContent);
+      try {
+        wssResult=incoming.processIncoming(dom,context);
+        if (wssResult != null && wssResult.size() > 0) {
+          StringWriter writer=new StringWriter();
+          XmlUtils.serialize(dom,writer);
+          setActualRequestContent(requestContent);
+          super.setRequestContent(writer.toString());
+        }
+      }
+ catch (      Exception e) {
+        if (wssResult == null) {
+          wssResult=new Vector<Object>();
+        }
+        wssResult.add(e);
+      }
+    }
+  }
+}

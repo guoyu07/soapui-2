@@ -1,0 +1,10 @@
+{
+  try {
+    soapVersion=SoapUtils.deduceSoapVersion(contentType,getRequestXmlObject());
+  }
+ catch (  Exception e) {
+  }
+  if (soapVersion == null) {
+    soapVersion=SoapVersion.Soap11;
+  }
+}
