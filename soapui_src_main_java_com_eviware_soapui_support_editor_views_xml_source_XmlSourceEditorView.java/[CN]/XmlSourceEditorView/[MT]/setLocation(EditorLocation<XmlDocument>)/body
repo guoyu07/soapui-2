@@ -1,6 +1,6 @@
 {
   int line=location.getLine() - 1;
-  if (location != null && line >= 0) {
+  if (line >= 0) {
     try {
       int caretLine=editArea.getCaretLineNumber();
       int offset=editArea.getLineStartOffset(line);
@@ -14,7 +14,7 @@
       }
       editArea.scrollRectToVisible(new Rectangle(scrollLine,location.getColumn()));
     }
- catch (    RuntimeException e) {
+ catch (    RuntimeException ignore) {
     }
 catch (    BadLocationException e) {
       SoapUI.logError(e,"Unable to set the location in the XML document.");

@@ -1,5 +1,5 @@
 {
-  if (httpResponse == null) {
+  if (httpResponse == null || httpResponse.getContentAsString() == null) {
     contentEditor.setText("");
   }
  else {
@@ -20,7 +20,7 @@
       contentEditor.setText(content);
     }
  else {
-      contentEditor.setText("<Not JSON content>");
+      contentEditor.setText("The content you are trying to view cannot be viewed as JSON");
     }
   }
 }
