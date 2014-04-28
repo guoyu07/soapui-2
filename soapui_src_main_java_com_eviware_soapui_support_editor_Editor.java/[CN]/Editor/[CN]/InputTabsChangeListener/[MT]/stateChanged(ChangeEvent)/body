@@ -22,24 +22,7 @@
       return;
     }
   }
-  EditorInspector<T> currentInspector=(EditorInspector<T>)inspectorPanel.getCurrentInspector();
-  if (currentInspector != null) {
-    lastDividerLocation=inspectorPanel.getDividerLocation();
-  }
-  for (  Inspector inspector : inspectorPanel.getInspectors()) {
-    inspectorPanel.setInspectorVisible(inspector,((EditorInspector<T>)inspector).isEnabledFor(currentView));
-  }
-  if (currentInspector != null && ((EditorInspector<T>)currentInspector).isEnabledFor(currentView)) {
-    if (lastDividerLocation == 0) {
-      inspectorPanel.setResetDividerLocation();
-    }
- else {
-      inspectorPanel.setDividerLocation(lastDividerLocation);
-    }
-  }
- else {
-    currentInspector=null;
-  }
+  refreshVisibleInspectors();
   SwingUtilities.invokeLater(new Runnable(){
     public void run(){
       if (currentView != null) {
