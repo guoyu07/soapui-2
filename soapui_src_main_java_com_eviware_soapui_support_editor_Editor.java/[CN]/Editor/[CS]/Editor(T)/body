@@ -1,6 +1,7 @@
 {
   super(new BorderLayout());
   this.document=document;
+  document.addPropertyChangeListener(EditorDocument.DOCUMENT_PROPERTY,this);
   setBackground(Color.LIGHT_GRAY);
   inputTabs=new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
   prettifyTabbedPaneUI();
