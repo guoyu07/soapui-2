@@ -1,7 +1,5 @@
 {
-  PanelBuilder builder=panelBuilderClass.newInstance();
-  ModelItem model=mock(modelClass,RETURNS_MOCKS);
-  JPropertiesTable table=(JPropertiesTable)builder.buildOverviewPanel(model);
+  JPropertiesTable table=(JPropertiesTable)panelBuilder.buildOverviewPanel(modelItem);
   JPropertiesTable.PropertiesTableModel tableModel=table.getTableModel();
   int numberOfProperties=tableModel.getRowCount();
   for (int i=0; i < numberOfProperties; i++) {
