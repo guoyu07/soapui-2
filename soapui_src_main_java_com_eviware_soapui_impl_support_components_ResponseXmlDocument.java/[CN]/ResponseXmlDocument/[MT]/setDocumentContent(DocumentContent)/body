@@ -1,0 +1,13 @@
+{
+  HttpResponse response=request.getResponse();
+  if (response != null) {
+    try {
+      settingResponse=true;
+      response.setResponseContent(documentContent.getContentAsString());
+      fireContentChanged();
+    }
+  finally {
+      settingResponse=false;
+    }
+  }
+}
