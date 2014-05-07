@@ -1,7 +1,8 @@
 {
   String oldValue=configuration.getAuthorizationURI();
-  if (!StringUtils.equals(oldValue,authorizationURI)) {
-    configuration.setAuthorizationURI(authorizationURI);
-    pcs.firePropertyChange(AUTHORIZATION_URI_PROPERTY,oldValue,authorizationURI);
+  String newValue=nullSafeTrim(authorizationURI);
+  if (!StringUtils.equals(oldValue,newValue)) {
+    configuration.setAuthorizationURI(newValue);
+    pcs.firePropertyChange(AUTHORIZATION_URI_PROPERTY,oldValue,newValue);
   }
 }
