@@ -1,0 +1,17 @@
+{
+  super(null,workspace,ICON_NAME);
+  this.workspace=workspace;
+  this.open=true;
+  this.endpointSupport=new EndpointSupport();
+  addProjectListeners();
+  loadProject(inputStream);
+  lastModified=System.currentTimeMillis();
+  initProjectIcons();
+  if (getConfig() != null) {
+    endpointStrategy.init(this);
+  }
+  if (getConfig() != null && this.environment == null) {
+    setActiveEnvironment(DefaultEnvironment.getInstance());
+  }
+  addPropertyChangeListener(this);
+}

@@ -1,0 +1,6 @@
+{
+  System.out.println(workspace.getName() + " lol");
+  InputStream projectPath=getClass().getResourceAsStream("/soapui-projects/trial/Data-driven-soapui-project.xml");
+  Project project=workspace.importProject(projectPath);
+  selectDataSourceTestStep(project);
+}

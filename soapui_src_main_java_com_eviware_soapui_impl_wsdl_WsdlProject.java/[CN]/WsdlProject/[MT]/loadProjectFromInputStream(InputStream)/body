@@ -1,0 +1,56 @@
+{
+  projectDocument=SoapuiProjectDocumentConfig.Factory.parse(inputStream);
+  inputStream.close();
+  this.encrypted=checkForEncodedData(projectDocument.getSoapuiProject());
+  setConfig(projectDocument.getSoapuiProject());
+  if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
+    removeDefinitionCaches(projectDocument);
+  }
+  try {
+    int majorVersion=Integer.parseInt(projectDocument.getSoapuiProject().getSoapuiVersion().split("\\.")[0]);
+    if (majorVersion > Integer.parseInt(SoapUI.SOAPUI_VERSION.split("\\.")[0])) {
+      log.warn("Project '" + projectDocument.getSoapuiProject().getName() + "' is from a newer version ("+ projectDocument.getSoapuiProject().getSoapuiVersion()+ ") of SoapUI than this ("+ SoapUI.SOAPUI_VERSION+ ") and parts of it may be incompatible or incorrect. "+ "Saving this project with this version of SoapUI may cause it to function differently.");
+    }
+  }
+ catch (  Exception e) {
+  }
+  if (!getConfig().isSetProperties()) {
+    getConfig().addNewProperties();
+  }
+  setPropertiesConfig(getConfig().getProperties());
+  List<InterfaceConfig> interfaceConfigs=getConfig().getInterfaceList();
+  for (  InterfaceConfig config : interfaceConfigs) {
+    AbstractInterface<?> iface=InterfaceFactoryRegistry.build(this,config);
+    interfaces.add(iface);
+  }
+  List<TestSuiteConfig> testSuiteConfigs=getConfig().getTestSuiteList();
+  for (  TestSuiteConfig config : testSuiteConfigs) {
+    testSuites.add(buildTestSuite(config));
+  }
+  List<MockServiceConfig> mockServiceConfigs=getConfig().getMockServiceList();
+  for (  MockServiceConfig config : mockServiceConfigs) {
+    addWsdlMockService(new WsdlMockService(this,config));
+  }
+  List<RESTMockServiceConfig> restMockServiceConfigs=getConfig().getRestMockServiceList();
+  for (  RESTMockServiceConfig config : restMockServiceConfigs) {
+    addRestMockService(new RestMockService(this,config));
+  }
+  if (!getConfig().isSetWssContainer()) {
+    getConfig().addNewWssContainer();
+  }
+  wssContainer=new DefaultWssContainer(this,getConfig().getWssContainer());
+  if (!getConfig().isSetOAuth2ProfileContainer()) {
+    getConfig().addNewOAuth2ProfileContainer();
+  }
+  oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().getOAuth2ProfileContainer());
+  endpointStrategy.init(this);
+  setActiveEnvironment(DefaultEnvironment.getInstance());
+  if (!getConfig().isSetAbortOnError()) {
+    getConfig().setAbortOnError(false);
+  }
+  if (!getConfig().isSetRunType()) {
+    getConfig().setRunType(TestSuiteRunTypesConfig.SEQUENTIAL);
+  }
+  afterLoad();
+  return projectDocument;
+}
