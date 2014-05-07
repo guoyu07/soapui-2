@@ -7,7 +7,7 @@
         JPopupMenu collapsePopup=new JPopupMenu();
         collapsePopup.add("Collapse").addActionListener(new CollapseRowAction(row));
         collapsePopup.add("Expand").addActionListener(new ExpandRowAction(row));
-        collapsePopup.show(mainTree,e.getX(),e.getY());
+        showTollTipLessPopupMenu(collapsePopup,e.getX(),e.getY());
       }
       return;
     }
@@ -17,7 +17,7 @@
       return;
     }
     mainTree.setSelectionPath(path);
-    popupMenu.show(mainTree,e.getX(),e.getY());
+    showTollTipLessPopupMenu(popupMenu,e.getX(),e.getY());
   }
  else {
     TreePath[] selectionPaths=mainTree.getSelectionPaths();
@@ -31,7 +31,7 @@
       if (actions.getActionCount() > 0) {
         JPopupMenu popup=new JPopupMenu();
         ActionSupport.addActions(actions,popup);
-        popup.show(mainTree,e.getX(),e.getY());
+        showTollTipLessPopupMenu(popup,e.getX(),e.getY());
       }
     }
   }
