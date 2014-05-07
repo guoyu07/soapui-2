@@ -3,15 +3,13 @@
   this.workspace=workspace;
   this.open=true;
   this.endpointSupport=new EndpointSupport();
+  this.projectPassword=null;
   addProjectListeners();
   loadProject(inputStream);
+  if (projectDocument == null) {
+    createEmptyProjectConfiguration(null,null);
+  }
   lastModified=System.currentTimeMillis();
   initProjectIcons();
-  if (getConfig() != null) {
-    endpointStrategy.init(this);
-  }
-  if (getConfig() != null && this.environment == null) {
-    setActiveEnvironment(DefaultEnvironment.getInstance());
-  }
-  addPropertyChangeListener(this);
+  finalizeProjectLoading(open);
 }

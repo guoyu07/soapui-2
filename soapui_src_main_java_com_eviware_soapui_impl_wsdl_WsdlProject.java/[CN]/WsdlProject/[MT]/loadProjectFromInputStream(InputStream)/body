@@ -1,7 +1,7 @@
 {
   projectDocument=SoapuiProjectDocumentConfig.Factory.parse(inputStream);
   inputStream.close();
-  this.encrypted=checkForEncodedData(projectDocument.getSoapuiProject());
+  this.encryptionStatus=checkForEncodedData(projectDocument.getSoapuiProject());
   setConfig(projectDocument.getSoapuiProject());
   if (!getSettings().getBoolean(WsdlSettings.CACHE_WSDLS)) {
     removeDefinitionCaches(projectDocument);

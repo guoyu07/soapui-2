@@ -39,26 +39,12 @@
   }
  finally {
     initProjectIcons();
-    this.open=open && !disabled && (this.encrypted != -1);
     if (projectDocument == null) {
-      projectDocument=SoapuiProjectDocumentConfig.Factory.newInstance();
-      setConfig(projectDocument.addNewSoapuiProject());
-      if (tempName != null || path != null) {
-        getConfig().setName(StringUtils.isNullOrEmpty(tempName) ? getNameFromPath() : tempName);
-      }
-      setPropertiesConfig(getConfig().addNewProperties());
-      wssContainer=new DefaultWssContainer(this,getConfig().addNewWssContainer());
-      oAuth2ProfileContainer=new DefaultOAuth2ProfileContainer(this,getConfig().addNewOAuth2ProfileContainer());
-    }
-    if (getConfig() != null) {
-      endpointStrategy.init(this);
+      createEmptyProjectConfiguration(path,tempName);
     }
     if (getSettings() != null) {
       setProjectRoot(path);
     }
-    if (getConfig() != null && this.environment == null) {
-      setActiveEnvironment(DefaultEnvironment.getInstance());
-    }
-    addPropertyChangeListener(this);
+    finalizeProjectLoading(open);
   }
 }
