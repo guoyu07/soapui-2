@@ -11,6 +11,7 @@
   mainTree.setBorder(null);
   mainTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
   mainTree.addKeyListener(new TreeKeyListener());
+  ToolTipManager.sharedInstance().registerComponent(mainTree);
   add(new JScrollPane(mainTree),BorderLayout.CENTER);
   add(buildToolbar(),BorderLayout.NORTH);
   setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
