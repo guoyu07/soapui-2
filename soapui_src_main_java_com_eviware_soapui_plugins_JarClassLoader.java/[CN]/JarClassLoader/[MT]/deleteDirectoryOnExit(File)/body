@@ -1,0 +1,13 @@
+{
+  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        FileUtils.deleteDirectory(libDirectory);
+      }
+ catch (      IOException e) {
+        log.warn("Could not delete temporary directory " + libDirectory);
+      }
+    }
+  }
+));
+}
