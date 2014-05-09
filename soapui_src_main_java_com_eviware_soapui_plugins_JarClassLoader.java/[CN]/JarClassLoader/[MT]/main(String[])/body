@@ -1,0 +1,5 @@
+{
+  JarClassLoader jarClassLoader=new JarClassLoader(new File("/Users/manne/projekt/soapui-pro/soapui-pro/test.jar"),ClassLoader.getSystemClassLoader());
+  Class<?> aClass=jarClassLoader.loadClass("com.eviware.soapui.SoapUIPro");
+  System.out.println(aClass.getProtectionDomain().getCodeSource().getLocation());
+}

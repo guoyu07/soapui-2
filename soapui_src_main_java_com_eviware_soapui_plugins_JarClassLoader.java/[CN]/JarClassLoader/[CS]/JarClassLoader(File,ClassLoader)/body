@@ -1,4 +1,5 @@
 {
-  super(new URL[]{jarFile.toURI().toURL()},parent);
-  addLibrariesIn(jarFile);
+  super(new URL[]{jarFile.toURI().toURL()},null);
+  this.parent=parent;
+  addLibrariesIn(new JarFile(jarFile));
 }

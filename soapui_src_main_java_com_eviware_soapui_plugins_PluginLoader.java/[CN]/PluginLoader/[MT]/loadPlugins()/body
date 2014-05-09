@@ -2,20 +2,14 @@
   File[] pluginFiles=new File("plugins").listFiles();
   if (pluginFiles != null) {
     for (    File pluginFile : pluginFiles) {
+      log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
       try {
-        log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
-        extensionClassLoader.addFile(pluginFile);
-        JarFile jarFile=new JarFile(pluginFile);
-        JarEntry entry=jarFile.getJarEntry("META-INF/factories.xml");
-        if (entry != null)         factoryRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
-        entry=jarFile.getJarEntry("META-INF/listeners.xml");
-        if (entry != null)         listenerRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
-        entry=jarFile.getJarEntry("META-INF/actions.xml");
-        if (entry != null)         actionRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
-        UISupport.addResourceClassLoader(new URLClassLoader(new URL[]{pluginFile.toURI().toURL()}));
+        if (!loadPluginFrom(pluginFile)) {
+          loadOldStylePluginFrom(pluginFile);
+        }
       }
- catch (      Exception e) {
-        SoapUI.logError(e);
+ catch (      IOException e) {
+        log.warn("Could not load plugin from file [" + pluginFile + "]");
       }
     }
   }

@@ -1,0 +1,23 @@
+{
+  try {
+    Plugin plugin=pluginClass.newInstance();
+    plugin.initialize();
+    for (    SoapUIFactory factory : plugin.getFactories()) {
+      factoryRegistry.addFactory(factory.getFactoryType(),factory);
+    }
+    for (    SoapUIAction action : plugin.getActions()) {
+      actionRegistry.addAction(action.getId(),action);
+    }
+    for (    Class<? extends SoapUIListener> listenerClass : plugin.getListeners()) {
+      for (      Class<?> implementedInterface : listenerClass.getInterfaces()) {
+        if (implementedInterface.isAssignableFrom(SoapUIListener.class)) {
+          listenerRegistry.addListener(implementedInterface,listenerClass,null);
+        }
+      }
+    }
+    return plugin;
+  }
+ catch (  Exception e) {
+    throw new InvalidPluginException("Error loading plugin " + pluginClass,e);
+  }
+}

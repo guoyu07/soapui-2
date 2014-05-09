@@ -1,0 +1,15 @@
+{
+  JarClassLoader jarClassLoader=new JarClassLoader(pluginFile,extensionClassLoader);
+  Reflections jarFileScanner=new Reflections(new ConfigurationBuilder().setUrls(jarClassLoader.getURLs()));
+  Set<Class<? extends Plugin>> pluginClasses=jarFileScanner.getSubTypesOf(Plugin.class);
+  if (pluginClasses.isEmpty()) {
+    log.warn("No plugin classes found in JAR file " + pluginFile);
+  }
+  if (pluginClasses.size() == 1) {
+    installedPlugins.add(loadPlugin(pluginClasses.iterator().next()));
+    return true;
+  }
+ else {
+    throw new InvalidPluginException("Multiple plugin classes found in " + pluginFile + ": "+ pluginClasses);
+  }
+}
