@@ -1,6 +1,42 @@
 {
   if (dialog == null) {
-    dialog=ADialogBuilder.buildDialog(Form.class);
+    ActionList actions=new DefaultActionList();
+    final AbstractAction cloneAction=new AbstractAction("Clone"){
+      @Override public void actionPerformed(      ActionEvent e){
+        if (dialog.validate()) {
+          dialog.setVisible(false);
+          String targetProjectName=dialog.getValue(Form.PROJECT);
+          String name=dialog.getValue(Form.NAME);
+          WsdlProject project=(WsdlProject)testSuite.getProject();
+          boolean move=dialog.getBooleanValue(Form.MOVE);
+          boolean cloneDescription=dialog.getBooleanValue(Form.CLONE_DESCRIPTION);
+          String description=testSuite.getDescription();
+          if (!cloneDescription) {
+            description=dialog.getValue(Form.DESCRIPTION);
+          }
+          TestSuite result=null;
+          if (targetProjectName.equals(testSuite.getProject().getName())) {
+            result=cloneTestSuiteWithinProject(testSuite,name,project,description);
+          }
+ else {
+            result=cloneToAnotherProject(testSuite,targetProjectName,name,move,description);
+          }
+          if (move && result != null) {
+            testSuite.getProject().removeTestSuite(testSuite);
+          }
+        }
+      }
+    }
+;
+    actions.addAction(cloneAction);
+    actions.addAction(new AbstractAction("Cancel"){
+      @Override public void actionPerformed(      ActionEvent e){
+        dialog.setVisible(false);
+      }
+    }
+);
+    actions.setDefaultAction(cloneAction);
+    dialog=ADialogBuilder.buildDialog(Form.class,actions,false);
   }
   dialog.getFormField(Form.CLONE_DESCRIPTION).addFormFieldListener(new XFormFieldListener(){
     public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
@@ -21,25 +57,5 @@
   WorkspaceImpl workspace=testSuite.getProject().getWorkspace();
   dialog.setOptions(Form.PROJECT,ModelSupport.getNames(workspace.getOpenProjectList(),new String[]{"<Create New>"}));
   dialog.setValue(Form.PROJECT,testSuite.getProject().getName());
-  if (dialog.show()) {
-    String targetProjectName=dialog.getValue(Form.PROJECT);
-    String name=dialog.getValue(Form.NAME);
-    WsdlProject project=(WsdlProject)testSuite.getProject();
-    boolean move=dialog.getBooleanValue(Form.MOVE);
-    boolean cloneDescription=dialog.getBooleanValue(Form.CLONE_DESCRIPTION);
-    String description=testSuite.getDescription();
-    if (!cloneDescription) {
-      description=dialog.getValue(Form.DESCRIPTION);
-    }
-    TestSuite result=null;
-    if (targetProjectName.equals(testSuite.getProject().getName())) {
-      result=cloneTestSuiteWithinProject(testSuite,name,project,description);
-    }
- else {
-      result=cloneToAnotherProject(testSuite,targetProjectName,name,move,description);
-    }
-    if (move && result != null) {
-      testSuite.getProject().removeTestSuite(testSuite);
-    }
-  }
+  dialog.show();
 }
