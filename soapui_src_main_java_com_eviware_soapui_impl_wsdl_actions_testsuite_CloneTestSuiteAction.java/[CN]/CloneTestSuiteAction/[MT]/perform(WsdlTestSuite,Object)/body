@@ -1,7 +1,7 @@
 {
   if (dialog == null) {
     ActionList actions=new DefaultActionList();
-    actions.addAction(new AbstractAction("Clone"){
+    final AbstractAction cloneAction=new AbstractAction("Clone"){
       @Override public void actionPerformed(      ActionEvent e){
         if (dialog.validate()) {
           dialog.setVisible(false);
@@ -27,13 +27,15 @@
         }
       }
     }
-);
+;
+    actions.addAction(cloneAction);
     actions.addAction(new AbstractAction("Cancel"){
       @Override public void actionPerformed(      ActionEvent e){
         dialog.setVisible(false);
       }
     }
 );
+    actions.setDefaultAction(cloneAction);
     dialog=ADialogBuilder.buildDialog(Form.class,actions,false);
   }
   dialog.getFormField(Form.CLONE_DESCRIPTION).addFormFieldListener(new XFormFieldListener(){
