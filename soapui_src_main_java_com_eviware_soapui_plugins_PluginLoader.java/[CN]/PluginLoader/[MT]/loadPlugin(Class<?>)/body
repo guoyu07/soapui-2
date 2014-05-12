@@ -1,6 +1,9 @@
 {
   try {
-    Plugin plugin=pluginClass.newInstance();
+    if (!Plugin.class.isAssignableFrom(pluginClass)) {
+      throw new InvalidPluginException("Invalid plugin class: " + pluginClass + " does not implement Plugin");
+    }
+    Plugin plugin=(Plugin)pluginClass.newInstance();
     plugin.initialize();
     for (    SoapUIFactory factory : plugin.getFactories()) {
       factoryRegistry.addFactory(factory.getFactoryType(),factory);
