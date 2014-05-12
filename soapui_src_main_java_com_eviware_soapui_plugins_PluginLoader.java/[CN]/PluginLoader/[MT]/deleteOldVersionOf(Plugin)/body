@@ -1,0 +1,11 @@
+{
+  for (  File installedPluginFile : installedPlugins.keySet()) {
+    if (installedPlugins.get(installedPluginFile).getId().equals(plugin.getId())) {
+      if (!installedPluginFile.delete()) {
+        throw new RuntimeException("Couldn't delete old plugin file " + installedPluginFile);
+      }
+      installedPlugins.remove(installedPluginFile);
+      break;
+    }
+  }
+}
