@@ -1,6 +1,8 @@
 {
   String script=getScript();
-  if (script == null || script.trim().length() == 0)   return;
+  if (script == null || script.trim().length() == 0) {
+    return;
+  }
   MockService mockService=getMockOperation().getMockService();
   MockRunner mockRunner=mockService.getMockRunner();
   MockRunContext context=mockRunner == null ? new WsdlMockRunContext(mockService,null) : mockRunner.getMockContext();
