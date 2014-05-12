@@ -5,7 +5,7 @@
       return null;
     }
     content=content.replaceAll("\\\\u0000","");
-    JSON json=JSONSerializer.toJSON(content);
+    JSON json=new JsonUtil().parseTrimmedText(content);
     JsonXmlSerializer serializer=new JsonXmlSerializer();
     serializer.setTypeHintsEnabled(false);
     serializer.setRootName("Response");
