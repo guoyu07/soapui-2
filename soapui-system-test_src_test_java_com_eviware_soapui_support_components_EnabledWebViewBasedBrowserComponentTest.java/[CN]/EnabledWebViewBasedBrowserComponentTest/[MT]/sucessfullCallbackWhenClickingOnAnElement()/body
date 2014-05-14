@@ -1,0 +1,11 @@
+{
+  SwingUtilities.invokeLater(new Runnable(){
+    @Override public void run(){
+      WebViewBasedBrowserComponent browserComponent=new EnabledWebViewBasedBrowserComponent(true,WebViewBasedBrowserComponent.PopupStrategy.INTERNAL_BROWSER_REUSE_WINDOW);
+      browserComponent.addJavaScriptEventHandler(MEMBER_NAME,new JavaScriptCallback());
+      browserComponent.navigate(TEST_STARTER_PAGE_URL);
+    }
+  }
+);
+  assertThat(latch.await(TIMEOUT,TimeUnit.SECONDS),is(true));
+}
