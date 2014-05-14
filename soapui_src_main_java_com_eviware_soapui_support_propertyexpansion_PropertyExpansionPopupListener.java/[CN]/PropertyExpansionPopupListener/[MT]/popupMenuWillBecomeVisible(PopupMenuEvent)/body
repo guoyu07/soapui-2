@@ -1,11 +1,11 @@
 {
   targetMenu.removeAll();
-  WsdlTestStep testStep=null;
+  WsdlTestStep testStep;
   WsdlTestCase testCase=null;
   WsdlTestSuite testSuite=null;
   WsdlProject project=null;
-  WsdlMockService mockService=null;
-  WsdlMockResponse mockResponse=null;
+  MockService mockService=null;
+  MockResponse mockResponse=null;
   SecurityTest securityTest=null;
   if (modelItem instanceof WsdlTestStep) {
     testStep=(WsdlTestStep)modelItem;
@@ -25,8 +25,8 @@
  else   if (modelItem instanceof WsdlMockService) {
     project=((WsdlMockService)modelItem).getProject();
   }
- else   if (modelItem instanceof WsdlMockResponse) {
-    mockResponse=(WsdlMockResponse)modelItem;
+ else   if (modelItem instanceof MockResponse) {
+    mockResponse=(MockResponse)modelItem;
     mockService=(mockResponse).getMockOperation().getMockService();
     project=mockService.getProject();
   }
