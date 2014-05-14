@@ -1,0 +1,10 @@
+{
+  MockResult mockResult=mockResponse.getMockResult();
+  if (mockResult != null) {
+    mockResult.getMockRequest().setRequestContent(documentContent.getContentAsString());
+    fireContentChanged();
+  }
+ else {
+    fireContentChanged();
+  }
+}

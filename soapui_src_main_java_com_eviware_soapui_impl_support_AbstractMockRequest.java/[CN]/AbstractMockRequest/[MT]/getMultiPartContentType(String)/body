@@ -1,0 +1,7 @@
+{
+  MultipartMessageSupport multipartMessageSupport=getMultipartMessageSupport();
+  if (multipartMessageSupport != null && multipartMessageSupport.getRootPart() != null) {
+    contentType=multipartMessageSupport.getRootPart().getContentType();
+  }
+  return contentType;
+}

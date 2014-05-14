@@ -1,0 +1,7 @@
+{
+  String key=tableModel.getPropertyDescriptorAt(index).getName();
+  Object propertyValue=tableModel.getValueAt(index,VALUE_INDEX);
+  if (propertyValue == null && !isEnum(key)) {
+    fail(failureMessage(key));
+  }
+}

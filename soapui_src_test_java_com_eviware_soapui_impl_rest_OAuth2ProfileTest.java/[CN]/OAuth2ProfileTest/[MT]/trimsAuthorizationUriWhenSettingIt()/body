@@ -1,0 +1,5 @@
+{
+  String authorizationUriWithoutWhitespace="wuryew2347234987";
+  profile.setAuthorizationURI("\t" + authorizationUriWithoutWhitespace + " \n");
+  assertThat(profile.getAuthorizationURI(),is(authorizationUriWithoutWhitespace));
+}

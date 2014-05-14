@@ -1,8 +1,9 @@
 {
   String oldValue=configuration.getAccessToken();
-  if (!StringUtils.equals(oldValue,accessToken)) {
-    configuration.setAccessToken(accessToken);
-    pcs.firePropertyChange(ACCESS_TOKEN_PROPERTY,oldValue,accessToken);
+  String newValue=accessToken == null ? null : accessToken.trim();
+  if (!StringUtils.equals(oldValue,newValue)) {
+    configuration.setAccessToken(newValue);
+    pcs.firePropertyChange(ACCESS_TOKEN_PROPERTY,oldValue,newValue);
     return true;
   }
   return false;

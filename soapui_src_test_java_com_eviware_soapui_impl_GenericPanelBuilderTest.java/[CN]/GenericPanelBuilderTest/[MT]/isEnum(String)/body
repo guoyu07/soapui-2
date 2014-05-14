@@ -1,0 +1,10 @@
+{
+  try {
+    Method getter=modelItem.getClass().getMethod("get" + StringUtils.capitalize(key));
+    boolean isEnum=getter.getReturnType().isEnum();
+    return isEnum;
+  }
+ catch (  NoSuchMethodException e) {
+    return false;
+  }
+}

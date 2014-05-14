@@ -1,0 +1,12 @@
+{
+  if (mainpanel == null) {
+    mainpanel=new JPanel(new BorderLayout());
+    JXToolBar toolbar=UISupport.createToolbar();
+    toolbar.add(UISupport.createToolbarButton(new AddTokenAction()));
+    toolbar.add(UISupport.createToolbarButton(new RemoveTokenAction()));
+    tokenTable=JTableFactory.getInstance().makeJXTable(sensitiveInformationTableModel);
+    mainpanel.add(toolbar,BorderLayout.NORTH);
+    mainpanel.add(new JScrollPane(tokenTable),BorderLayout.CENTER);
+  }
+  return mainpanel;
+}

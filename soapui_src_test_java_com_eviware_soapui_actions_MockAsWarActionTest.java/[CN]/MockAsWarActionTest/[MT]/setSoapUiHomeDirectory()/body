@@ -1,0 +1,10 @@
+{
+  File mockSoapHomeDir=new File(warTestDir,"soapuihometestdir");
+  mockSoapHomeDir.mkdirs();
+  File lib=new File(mockSoapHomeDir,"lib");
+  lib.mkdir();
+  File sampleJarFile=new File(lib,"soapui.jar");
+  FileUtils.touch(sampleJarFile);
+  soapuiOriginalHome=System.getProperty(SOAPUI_HOME);
+  System.setProperty(SOAPUI_HOME,lib.getPath());
+}

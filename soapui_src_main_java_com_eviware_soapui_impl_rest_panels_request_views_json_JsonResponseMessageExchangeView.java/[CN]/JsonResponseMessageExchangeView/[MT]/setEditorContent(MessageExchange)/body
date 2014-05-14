@@ -6,7 +6,7 @@
     String content="<Not JSON content>";
     if (JsonMediaTypeHandler.seemsToBeJsonContentType(me.getResponseHeaders().get("Content-Type",""))) {
       try {
-        JSON json=JSONSerializer.toJSON(me.getResponseContent());
+        JSON json=new JsonUtil().parseTrimmedText(me.getResponseContent());
         if (json.isEmpty()) {
           content="<Empty JSON content>";
         }

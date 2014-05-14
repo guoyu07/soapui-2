@@ -14,7 +14,7 @@
   WsdlTestCase oldTestCase=testCase;
   testCase=buildTestCase(testCaseConfig,false);
   if (createCopy) {
-    ModelSupport.unsetIds(testCase);
+    ModelSupport.createNewIds(testCase);
   }
   if (index == -1) {
     testCases.add(testCase);

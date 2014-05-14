@@ -1,7 +1,8 @@
 {
-  RestMockRequest restMockRequest=new RestMockRequest(request,response,mockContext);
+  RestMockRequest restMockRequest=null;
   Object result=null;
   try {
+    restMockRequest=new RestMockRequest(request,response,mockContext);
     result=mockService.runOnRequestScript(mockContext,restMockRequest);
     if (!(result instanceof MockResult)) {
       result=getMockResult(restMockRequest);

@@ -1,7 +1,6 @@
 {
-  RefreshAccessTokenMethods oldValue=getRefreshAccessTokenMethod();
-  if (!oldValue.equals(newValue)) {
-    configuration.setRefreshAccessTokenMethod(RefreshAccessTokenMethodConfig.Enum.forString(newValue.toString()));
-    pcs.firePropertyChange(REFRESH_ACCESS_TOKEN_METHOD_PROPERTY,oldValue.toString(),newValue.toString());
-  }
+  Preconditions.checkNotNull(newRefreshAccessTokenMethod);
+  RefreshAccessTokenMethods oldRefreshTokenMethod=getSavedRefreshAccessTokenMethodsEnum(configuration.getRefreshAccessTokenMethod());
+  saveRefreshTokenMethodsEnum(newRefreshAccessTokenMethod,configuration);
+  pcs.firePropertyChange(REFRESH_ACCESS_TOKEN_METHOD_PROPERTY,oldRefreshTokenMethod,newRefreshAccessTokenMethod);
 }

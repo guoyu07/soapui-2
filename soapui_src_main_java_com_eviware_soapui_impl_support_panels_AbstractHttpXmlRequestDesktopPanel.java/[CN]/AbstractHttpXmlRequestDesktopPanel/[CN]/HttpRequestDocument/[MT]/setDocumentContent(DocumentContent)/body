@@ -1,0 +1,19 @@
+{
+  if (!updating) {
+    updating=true;
+    try {
+      String contentAsString=documentContent.getContentAsString();
+      if (seemsToBeJsonContentType(getRequest().getMediaType()) && XmlUtils.seemsToBeXml(contentAsString)) {
+        JSON json=new JsonXmlSerializer().read(contentAsString);
+        processNullsAndEmptyValuesIn(json);
+        request.setRequestContent(json.toString(3,0));
+      }
+ else {
+        request.setRequestContent(contentAsString);
+      }
+    }
+  finally {
+      updating=false;
+    }
+  }
+}

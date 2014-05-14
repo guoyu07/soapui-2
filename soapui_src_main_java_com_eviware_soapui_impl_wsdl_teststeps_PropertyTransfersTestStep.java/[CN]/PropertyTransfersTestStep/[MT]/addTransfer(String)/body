@@ -3,5 +3,6 @@
   transfer.setName(name);
   transfer.setFailOnError(true);
   transfers.add(transfer);
+  fireIndexedPropertyChange(TRANSFERS,transfers.size() - 1,null,transfer);
   return transfer;
 }

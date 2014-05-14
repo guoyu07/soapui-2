@@ -1,6 +1,6 @@
 {
   final String accessToken="mock token";
-  profile.waitingForAuthorization();
+  profile.setAccessTokenStatus(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION);
   Runnable simulatedAccessTokenRetrieval=new Runnable(){
     public void run(){
       try {

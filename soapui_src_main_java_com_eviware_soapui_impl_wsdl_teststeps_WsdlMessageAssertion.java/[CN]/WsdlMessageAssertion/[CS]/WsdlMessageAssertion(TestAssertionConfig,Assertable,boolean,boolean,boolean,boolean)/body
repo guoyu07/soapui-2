@@ -1,5 +1,8 @@
 {
   this.assertionConfig=assertionConfig;
+  if (assertionConfig != null && !assertionConfig.isSetId()) {
+    assertionConfig.setId(ModelSupport.generateModelItemID());
+  }
   this.assertable=modelItem;
   this.cloneable=cloneable;
   this.configurable=configurable;

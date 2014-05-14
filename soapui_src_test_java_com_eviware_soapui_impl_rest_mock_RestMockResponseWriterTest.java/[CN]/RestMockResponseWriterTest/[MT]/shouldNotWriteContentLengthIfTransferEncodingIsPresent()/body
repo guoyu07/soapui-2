@@ -1,0 +1,5 @@
+{
+  result.addHeader("Transfer-Encoding","chunked");
+  mockResponse.writeResponse(result,originalResponseContent);
+  verify(servletResponse,never()).addHeader(eq("Content-Length"),anyString());
+}

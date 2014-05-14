@@ -1,0 +1,13 @@
+{
+  try {
+    MessageXmlPart onePart=mock(MessageXmlPart.class);
+    MessageXmlPart[] messageXmlParts=new MessageXmlPart[]{onePart};
+    MessageXmlObject messageXmlObject=mock(MessageXmlObject.class);
+    when(messageXmlObject.getMessageParts()).thenReturn(messageXmlParts);
+    when(messageXmlObject.getMessageContent()).thenReturn(responseContent);
+    return messageXmlObject;
+  }
+ catch (  Exception e) {
+    throw new IllegalStateException(e);
+  }
+}

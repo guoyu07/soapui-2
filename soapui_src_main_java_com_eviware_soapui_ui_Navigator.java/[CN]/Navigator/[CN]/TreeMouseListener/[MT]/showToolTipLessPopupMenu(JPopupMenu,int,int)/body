@@ -1,0 +1,15 @@
+{
+  pm.addPopupMenuListener(new PopupMenuListener(){
+    @Override public void popupMenuCanceled(    PopupMenuEvent e){
+      ToolTipManager.sharedInstance().setEnabled(true);
+    }
+    @Override public void popupMenuWillBecomeInvisible(    PopupMenuEvent e){
+      ToolTipManager.sharedInstance().setEnabled(true);
+    }
+    @Override public void popupMenuWillBecomeVisible(    PopupMenuEvent e){
+      ToolTipManager.sharedInstance().setEnabled(false);
+    }
+  }
+);
+  pm.show(mainTree,x,y);
+}

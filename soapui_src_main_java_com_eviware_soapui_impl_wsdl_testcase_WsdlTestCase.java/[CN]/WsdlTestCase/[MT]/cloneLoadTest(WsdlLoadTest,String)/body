@@ -4,7 +4,7 @@
   loadTestConfig.set(loadTest.getConfig().copy());
   WsdlLoadTest newLoadTest=buildLoadTest(loadTestConfig);
   newLoadTest.setName(name);
-  ModelSupport.unsetIds(newLoadTest);
+  ModelSupport.createNewIds(newLoadTest);
   newLoadTest.afterLoad();
   loadTests.add(newLoadTest);
   (getTestSuite()).fireLoadTestAdded(newLoadTest);

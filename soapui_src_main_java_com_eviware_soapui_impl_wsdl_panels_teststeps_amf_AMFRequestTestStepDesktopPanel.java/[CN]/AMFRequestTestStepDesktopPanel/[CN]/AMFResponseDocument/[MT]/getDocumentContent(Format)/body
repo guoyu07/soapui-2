@@ -1,0 +1,4 @@
+{
+  AMFResponse response=amfRequestTestStep.getAMFRequest().getResponse();
+  return new DocumentContent(response == null ? null : response.getContentType(),response == null ? null : response.getResponseContentXML());
+}

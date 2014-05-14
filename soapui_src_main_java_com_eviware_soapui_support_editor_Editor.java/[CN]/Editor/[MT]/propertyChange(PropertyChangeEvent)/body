@@ -6,4 +6,7 @@
     }
     inputTabs.setTitleAt(ix,(String)evt.getNewValue());
   }
+  if (evt.getPropertyName().equals(EditorDocument.DOCUMENT_PROPERTY)) {
+    inputTabsChangeListener.refreshVisibleInspectors();
+  }
 }

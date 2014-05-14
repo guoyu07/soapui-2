@@ -1,5 +1,11 @@
 {
   mediaTypeCombo=new MediaTypeComboBox(httpRequest);
+  mediaTypeCombo.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      SyntaxEditorUtil.setMediaType(contentEditor,e.getItem().toString());
+    }
+  }
+);
   mediaTypeCombo.setEnabled(httpRequest.hasRequestBody());
   toolbar.addLabeledFixed("Media Type",mediaTypeCombo);
 }

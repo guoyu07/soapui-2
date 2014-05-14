@@ -1,0 +1,6 @@
+{
+  String sourceValue=sourceProperty.getValue();
+  String jsonValue=String.valueOf(JsonPath.read(sourceValue,getSourcePath()));
+  targetProperty.setValue(jsonValue);
+  return jsonValue;
+}

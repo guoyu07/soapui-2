@@ -1,0 +1,8 @@
+{
+  HttpServletResponse servletResponse=mock(HttpServletResponse.class);
+  ServletOutputStream os=mock(ServletOutputStream.class);
+  when(servletResponse.getOutputStream()).thenReturn(os);
+  PrintWriter writer=mock(PrintWriter.class);
+  when(servletResponse.getWriter()).thenReturn(writer);
+  return servletResponse;
+}

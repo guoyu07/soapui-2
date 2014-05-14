@@ -7,4 +7,6 @@
   transferStep.getTestCase().getTestSuite().addTestSuiteListener(testSuiteListener);
   testRunListener=new InternalTestRunListener();
   transferStep.getTestCase().addTestRunListener(testRunListener);
+  transferListListener=new ListUpdater();
+  transferStep.addPropertyChangeListener(PropertyTransfersTestStep.TRANSFERS,transferListListener);
 }

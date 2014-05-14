@@ -4,7 +4,7 @@
     if (osName.startsWith("Mac OS")) {
       Class<?> fileMgr=Class.forName("com.apple.eio.FileManager");
       Method openURL=fileMgr.getDeclaredMethod("openURL",new Class[]{String.class});
-      openURL.invoke(null,new Object[]{url});
+      openURL.invoke(null,url);
     }
  else     if (osName.startsWith("Windows")) {
       if (url.startsWith("file:")) {

@@ -1,6 +1,7 @@
 {
   JPanel contentPanel=new JPanel(new BorderLayout());
   contentEditor=SyntaxEditorUtil.createDefaultXmlSyntaxTextArea();
+  SyntaxEditorUtil.setMediaType(contentEditor,httpRequest.getMediaType());
   contentEditor.setText(httpRequest.getRequestContent());
   contentEditor.getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){

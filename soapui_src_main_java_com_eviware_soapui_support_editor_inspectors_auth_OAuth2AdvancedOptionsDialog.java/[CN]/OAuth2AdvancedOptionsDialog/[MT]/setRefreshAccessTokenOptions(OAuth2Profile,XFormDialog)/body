@@ -1,5 +1,5 @@
 {
   XFormRadioGroup refreshOptions=(XFormRadioGroup)dialog.getFormField(Form.AUTOMATIC_ACCESS_TOKEN_REFRESH);
   refreshOptions.setOptions(OAuth2Profile.RefreshAccessTokenMethods.values());
-  refreshOptions.setValue(profile.getRefreshAccessTokenMethod().toString());
+  refreshOptions.setValue(profile.getRefreshAccessTokenMethod().name());
 }

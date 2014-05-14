@@ -1,0 +1,8 @@
+{
+  if (!updating) {
+    updating=true;
+    request.setRequestContent(documentContent.getContentAsString());
+    fireContentChanged();
+    updating=false;
+  }
+}

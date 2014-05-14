@@ -9,8 +9,8 @@
   }
  else {
     Toolkit.getDefaultToolkit().beep();
-    for (int c=0; c < errors.length; c++) {
-      errorListModel.addElement(errors[c]);
+    for (    ValidationError error : errors) {
+      errorListModel.addElement(error);
     }
     errorScrollPane.setVisible(true);
     splitter.setDividerLocation(0.8);

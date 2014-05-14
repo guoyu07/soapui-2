@@ -1,0 +1,10 @@
+{
+  if (text == null) {
+    return null;
+  }
+  String trimmedText=text.trim();
+  if (trimmedText.startsWith(WHILE_1)) {
+    trimmedText=trimmedText.substring(WHILE_1.length()).trim();
+  }
+  return JSONSerializer.toJSON(trimmedText);
+}

@@ -5,7 +5,7 @@
     if (messageExchange != null && messageExchange.getOperation() != null) {
       defaultXmlDocument.setTypeSystem(messageExchange.getOperation().getInterface().getDefinitionContext().getInterfaceDefinition().getSchemaTypeSystem());
     }
-    defaultXmlDocument.setXml(messageExchange == null ? null : messageExchange.getRequestContentAsXml());
+    defaultXmlDocument.setDocumentContent(new DocumentContent(null,messageExchange == null ? null : messageExchange.getRequestContentAsXml()));
   }
  catch (  Throwable e) {
     SoapUI.logError(e);

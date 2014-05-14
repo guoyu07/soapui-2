@@ -1,12 +1,12 @@
 {
-  if (httpResponse == null) {
+  if (httpResponse == null || httpResponse.getContentAsString() == null) {
     contentEditor.setText("");
   }
  else {
     String content;
     if (JsonMediaTypeHandler.seemsToBeJsonContentType(httpResponse.getContentType())) {
       try {
-        JSON json=JSONSerializer.toJSON(httpResponse.getContentAsString());
+        JSON json=new JsonUtil().parseTrimmedText(httpResponse.getContentAsString());
         if (json.isEmpty()) {
           content="<Empty JSON content>";
         }
@@ -20,7 +20,7 @@
       contentEditor.setText(content);
     }
  else {
-      contentEditor.setText("<Not JSON content>");
+      contentEditor.setText("The content you are trying to view cannot be viewed as JSON");
     }
   }
 }
