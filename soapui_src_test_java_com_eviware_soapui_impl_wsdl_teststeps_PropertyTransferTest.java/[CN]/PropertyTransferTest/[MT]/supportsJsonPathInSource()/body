@@ -1,6 +1,0 @@
-{
-  sourceProperty.setValue("{ persons: [" + "{ firstName: 'Anders', lastName: 'And' }," + "{ firstName: 'Anders', lastName: 'And' }"+ "] }");
-  transfer.setSourcePath("persons[0].firstName");
-  transfer.transferJsonPathToString(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertThat(targetProperty.getValue(),is("Anders"));
-}
