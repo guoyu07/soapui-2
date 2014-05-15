@@ -4,20 +4,23 @@
       throw new InvalidPluginException("Invalid plugin class: " + pluginClass + " does not implement Plugin");
     }
     Plugin plugin=(Plugin)pluginClass.newInstance();
-    plugin.initialize();
-    for (    SoapUIFactory factory : plugin.getFactories()) {
-      factoryRegistry.addFactory(factory.getFactoryType(),factory);
-    }
-    for (    SoapUIAction action : plugin.getActions()) {
-      actionRegistry.addAction(action.getId(),action);
-    }
-    for (    Class<? extends SoapUIListener> listenerClass : plugin.getListeners()) {
-      for (      Class<?> implementedInterface : listenerClass.getInterfaces()) {
-        if (implementedInterface.isAssignableFrom(SoapUIListener.class)) {
-          listenerRegistry.addListener(implementedInterface,listenerClass,null);
+    if (plugin.isActive()) {
+      plugin.initialize();
+      for (      SoapUIFactory factory : plugin.getFactories()) {
+        factoryRegistry.addFactory(factory.getFactoryType(),factory);
+      }
+      for (      SoapUIAction action : plugin.getActions()) {
+        actionRegistry.addAction(action.getId(),action);
+      }
+      for (      Class<? extends SoapUIListener> listenerClass : plugin.getListeners()) {
+        for (        Class<?> implementedInterface : listenerClass.getInterfaces()) {
+          if (implementedInterface.isAssignableFrom(SoapUIListener.class)) {
+            listenerRegistry.addListener(implementedInterface,listenerClass,null);
+          }
         }
       }
     }
+    UISupport.addResourceClassLoader(pluginClass.getClassLoader());
     return plugin;
   }
  catch (  Exception e) {
