@@ -1,0 +1,12 @@
+{
+  Plugin plugin=pluginLoader.loadPluginFrom(pluginFile);
+  if (plugin != null) {
+    uninstallPlugin(plugin);
+    File destinationFile=new File(pluginDirectory,pluginFile.getName());
+    FileUtils.copyFile(pluginFile,destinationFile);
+    installedPlugins.put(destinationFile,plugin);
+  }
+ else {
+    throw new InvalidPluginException("Could not load plugin from file [" + pluginFile + "]");
+  }
+}

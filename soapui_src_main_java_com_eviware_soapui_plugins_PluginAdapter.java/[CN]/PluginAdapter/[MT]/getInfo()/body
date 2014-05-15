@@ -1,0 +1,6 @@
+{
+  PluginConfiguration annotation=getConfigurationAnnotation();
+  PluginId id=new PluginId(annotation.groupId(),annotation.name());
+  Version version=Version.fromString(annotation.version());
+  return new PluginInfo(id,version,annotation.description());
+}
