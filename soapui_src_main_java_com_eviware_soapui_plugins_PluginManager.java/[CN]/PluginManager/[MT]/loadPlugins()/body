@@ -1,0 +1,20 @@
+{
+  File[] pluginFiles=pluginDirectory.listFiles();
+  if (pluginFiles != null) {
+    for (    File pluginFile : pluginFiles) {
+      log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
+      try {
+        Plugin plugin=pluginLoader.loadPluginFrom(pluginFile);
+        if (plugin == null) {
+          pluginLoader.loadOldStylePluginFrom(pluginFile);
+        }
+ else {
+          installedPlugins.put(pluginFile,plugin);
+        }
+      }
+ catch (      IOException e) {
+        log.warn("Could not load plugin from file [" + pluginFile + "]");
+      }
+    }
+  }
+}

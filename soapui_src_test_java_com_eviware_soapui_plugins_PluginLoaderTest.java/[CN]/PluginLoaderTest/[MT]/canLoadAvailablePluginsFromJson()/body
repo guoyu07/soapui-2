@@ -1,0 +1,8 @@
+{
+  PluginLoader pluginLoader=new PluginLoader(null,null,null,null);
+  URL jsonUrl=PluginLoaderTest.class.getResource("availablePlugins.json");
+  List<AvailablePlugin> availablePlugins=pluginLoader.loadAvailablePluginsFrom(jsonUrl);
+  assertThat(availablePlugins,is(aCollectionWithSize(2)));
+  verifyCorrectContent(availablePlugins.get(0),"1");
+  verifyCorrectContent(availablePlugins.get(1),"2");
+}
