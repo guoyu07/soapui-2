@@ -8,7 +8,7 @@
         JSONObject jsonObject=(JSONObject)pluginElement;
         PluginId id=new PluginId((String)jsonObject.get("groupId"),(String)jsonObject.get("name"));
         Version version=Version.fromString((String)jsonObject.get("version"));
-        PluginInfo pluginInfo=new PluginInfo(id,version,(String)jsonObject.get("description"));
+        PluginInfo pluginInfo=new PluginInfo(id,version,jsonObject.getString("description"),jsonObject.optString("infoUrl",""));
         URL pluginUrl=new URL((String)jsonObject.get("url"));
         plugins.add(new AvailablePlugin(pluginInfo,pluginUrl));
       }
