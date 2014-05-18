@@ -1,12 +1,4 @@
 {
-  threadPool.shutdown();
-  try {
-    threadPool.awaitTermination(1500,TimeUnit.MILLISECONDS);
-  }
- catch (  InterruptedException e) {
-    threadPool.shutdownNow();
-    Thread.currentThread().interrupt();
-  }
   System.out.println("exiting..");
   SoapUI.getSoapUITimer().cancel();
   System.exit(0);
