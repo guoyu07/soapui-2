@@ -1,0 +1,7 @@
+{
+  ActionList actions=super.buildActions(url,okAndCancel);
+  actions.insertAction(new LoadPluginFromFileAction(pluginsTableModel),0);
+  actions.insertAction(new LoadPluginFromRepositoryAction(pluginsTableModel),1);
+  actions.insertSeparator(2);
+  return actions;
+}

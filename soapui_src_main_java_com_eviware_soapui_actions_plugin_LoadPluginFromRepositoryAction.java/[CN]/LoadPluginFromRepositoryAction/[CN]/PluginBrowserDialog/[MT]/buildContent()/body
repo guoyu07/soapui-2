@@ -1,0 +1,23 @@
+{
+  JPanel panel=UISupport.createEmptyPanel(5,15,15,15);
+  panel.add(BorderLayout.NORTH,UISupport.wrapInEmptyPanel(new JLabel("Installed Plugins"),BorderFactory.createEmptyBorder(0,0,5,0)));
+  pluginsTableModel=new PluginsTableModel();
+  table=new JTable(pluginsTableModel);
+  table.setDefaultRenderer(URL.class,new UrlTableCellRenderer());
+  table.setCellSelectionEnabled(false);
+  table.setRowSelectionAllowed(true);
+  table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  table.addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      int row=table.rowAtPoint(e.getPoint());
+      int column=table.columnAtPoint(e.getPoint());
+      if (row >= 0 && column == 4) {
+        URL url=(URL)pluginsTableModel.getValueAt(row,column);
+        if (url != null)         Tools.openURL(url.toString());
+      }
+    }
+  }
+);
+  panel.add(BorderLayout.CENTER,new JScrollPane(table));
+  return panel;
+}
