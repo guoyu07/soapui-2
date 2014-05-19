@@ -1,0 +1,4 @@
+{
+  List arrayElements=new JsonPathFacade(SIMPLE_JSON).readObjectValue("$.children");
+  assertThat(arrayElements,is(aCollectionWithSize(2)));
+}

@@ -30,7 +30,7 @@
       XmlUtils.createXmlObject(val);
       sourceXPath=UISupport.selectXPath("Select XPath","Select source xpath for property transfer",val,null);
     }
- else     if (seemsToBeJson(val)) {
+ else     if (JsonUtil.isValidJson(val)) {
       sourceXPath=UISupport.selectJsonPath("Select JSON","Select JSON value to transfer",val,null);
     }
   }

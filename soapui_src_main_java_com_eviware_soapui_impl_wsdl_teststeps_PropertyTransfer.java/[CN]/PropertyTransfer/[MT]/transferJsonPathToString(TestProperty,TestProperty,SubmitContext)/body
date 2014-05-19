@@ -1,0 +1,6 @@
+{
+  String sourceValue=sourceProperty.getValue();
+  String jsonValue=new JsonPathFacade(sourceValue).readStringValue(getSourcePath());
+  targetProperty.setValue(jsonValue);
+  return jsonValue;
+}
