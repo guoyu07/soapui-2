@@ -1,0 +1,7 @@
+{
+  Map<String,String> params=new HashMap<String,String>();
+  for (int c=0; c < args.length; c+=2) {
+    if (StringUtils.hasContent(args[c]) && StringUtils.hasContent(args[c + 1]))     params.put(args[c],args[c + 1]);
+  }
+  SoapUI.getSoapUICore().getAnalyticsManager().trackAction(action,params);
+}
