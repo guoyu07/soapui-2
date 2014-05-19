@@ -1,7 +1,7 @@
 {
   boolean retry=true;
   while (retry) {
-    File file=UISupport.getFileDialogs().open("PluginManager","Select Plugin","jar","Plugin File",null);
+    File file=UISupport.getFileDialogs().open("ExtensionManager","Select Extension","jar","Extension File",null);
     if (file != null) {
       try {
         SoapUI.getSoapUICore().getPluginManager().installPlugin(file);
