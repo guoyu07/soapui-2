@@ -15,7 +15,7 @@
             monitor.setProgress(0,"Installing...");
             pluginManager.installPlugin(tempFile);
             installedPluginsTableModel.refresh();
-            UISupport.showInfoMessage("Plugin installed successfully");
+            UISupport.showInfoMessage("Plugin [" + plugin.getPluginInfo().getId().getName() + "] installed successfully");
           }
  catch (          IOException e) {
             UISupport.showErrorMessage(e);
