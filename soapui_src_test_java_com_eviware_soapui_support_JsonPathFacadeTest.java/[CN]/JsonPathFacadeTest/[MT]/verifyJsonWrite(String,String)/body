@@ -1,0 +1,15 @@
+{
+  JsonPathFacade jsonPathFacade=new JsonPathFacade(json);
+  jsonPathFacade.writeValue(jsonPathExpression,"newValue");
+  String newJson=jsonPathFacade.getCurrentJson();
+  Object read=JsonPath.read(newJson,jsonPathExpression);
+  if (read instanceof List) {
+    List valueList=(List)read;
+    for (    Object value : valueList) {
+      assertThat(value,is((Object)"newValue"));
+    }
+  }
+ else {
+    assertThat(read,is((Object)"newValue"));
+  }
+}
