@@ -1,0 +1,21 @@
+{
+  if (sourceObject instanceof Map) {
+    JSONObject jsonObject=new JSONObject();
+    Map sourceMap=(Map)sourceObject;
+    for (    Object key : sourceMap.keySet()) {
+      jsonObject.put(key,makeJSONObject(sourceMap.get(key)));
+    }
+    return jsonObject;
+  }
+ else   if (sourceObject instanceof List) {
+    List sourceList=(List)sourceObject;
+    JSONArray array=new JSONArray();
+    for (    Object element : sourceList) {
+      array.add(makeJSONObject(element));
+    }
+    return array;
+  }
+ else {
+    return sourceObject;
+  }
+}

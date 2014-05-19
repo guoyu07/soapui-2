@@ -1,6 +1,9 @@
 {
+  if (sourcePath.trim().startsWith("/")) {
+    return false;
+  }
   try {
-    JsonPath.compile(sourcePath);
+    JsonPath jsonPath=JsonPath.compile(sourcePath);
     return true;
   }
  catch (  Exception e) {

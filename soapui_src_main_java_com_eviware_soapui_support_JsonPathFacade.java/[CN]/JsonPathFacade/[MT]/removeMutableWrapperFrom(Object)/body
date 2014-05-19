@@ -1,0 +1,7 @@
+{
+  Object value=MutableValue.extractValueFromMutable(o);
+  if (value instanceof JSON) {
+    removeMutableWrappersFrom((JSON)value);
+  }
+  return value;
+}

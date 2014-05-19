@@ -1,0 +1,10 @@
+{
+  try {
+    JSON jsonRoot=jsonSlurper.parse(jsonReader);
+    Object converted=convertToPlainJavaImplementation(jsonRoot);
+    return MutableValue.TO_MUTABLE_VALUE.apply(converted);
+  }
+ catch (  Exception e) {
+    throw new InvalidJsonException(e);
+  }
+}

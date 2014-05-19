@@ -2,7 +2,7 @@
   try {
     String value=property instanceof TestProperty ? ((TestProperty)property).getValue() : property.toString();
     if (pathExpression.startsWith("$")) {
-      return String.valueOf(JsonPath.read(value,pathExpression));
+      return new JsonPathFacade(value).readStringValue(pathExpression);
     }
  else {
       XmlObject xmlObject=XmlUtils.createXmlObject(value);

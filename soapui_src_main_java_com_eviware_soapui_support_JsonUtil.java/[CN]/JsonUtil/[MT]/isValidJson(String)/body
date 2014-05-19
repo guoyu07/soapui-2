@@ -1,0 +1,9 @@
+{
+  try {
+    JSON json=new JsonSlurper().parseText(value);
+    return json != null && !(json instanceof JSONNull);
+  }
+ catch (  Exception e) {
+    return false;
+  }
+}
