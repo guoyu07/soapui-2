@@ -1,0 +1,7 @@
+{
+  setFileWritePermission(SAMPLE_PROJECT_ABSOLUTE_PATH,false);
+  Project project=new WsdlProject(SAMPLE_PROJECT_ABSOLUTE_PATH,(WorkspaceImpl)null);
+  answerNoWhenTheDoYouWantToWriteToNewFileDialogIsShown();
+  SaveStatus status=project.save();
+  assertThat(status,is(SaveStatus.DONT_SAVE));
+}

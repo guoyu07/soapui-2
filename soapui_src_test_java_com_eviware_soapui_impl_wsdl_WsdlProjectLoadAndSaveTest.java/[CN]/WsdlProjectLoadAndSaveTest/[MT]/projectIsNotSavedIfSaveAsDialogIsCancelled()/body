@@ -1,0 +1,7 @@
+{
+  Project project=new WsdlProject(sampleProjectInputSteam,null);
+  answerYesWhenTheOverwriteDialogIsShown();
+  cancelWhenTheSaveAsFileDialogIsShown();
+  SaveStatus status=project.save();
+  assertThat(status,is(SaveStatus.CANCELLED));
+}
