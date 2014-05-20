@@ -34,5 +34,6 @@ catch (  Exception e) {
     log.error("Error creating requests: " + e.getMessage());
     throw new SoapUIException("Error creating requests",e);
   }
+  AnalyticsManager.getAnalytics().trackAction("ImportWSDL");
   return result;
 }

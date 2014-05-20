@@ -22,6 +22,7 @@
           getActionRegistry().addConfig(jarFile.getInputStream(entry),extClassLoader);
         }
         UISupport.addResourceClassLoader(new URLClassLoader(new URL[]{pluginFile.toURI().toURL()}));
+        AnalyticsManager.getAnalytics().trackAction("InstallExtension","Extension",pluginFile.getName());
       }
  catch (      Exception e) {
         SoapUI.logError(e);
