@@ -1,6 +1,6 @@
 {
   crypto=reader.readString("crypto",null);
-  keyIdentifierType=reader.readInt("keyIdentifierType",0);
+  keyIdentifierType=readKeyIdentifierType(reader);
   symmetricEncAlgorithm=reader.readString("symmetricEncAlgorithm",null);
   encKeyTransport=reader.readString("encKeyTransport",null);
   embeddedKeyName=reader.readString("embeddedKeyName",null);
