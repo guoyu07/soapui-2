@@ -7,8 +7,5 @@
   if (isAStartingStatus(newStatus)) {
     setAccessTokenStartingStatus(newStatus);
   }
-synchronized (this) {
-    notifyAll();
-  }
   pcs.firePropertyChange(ACCESS_TOKEN_STATUS_PROPERTY,oldStatus,newStatus);
 }
