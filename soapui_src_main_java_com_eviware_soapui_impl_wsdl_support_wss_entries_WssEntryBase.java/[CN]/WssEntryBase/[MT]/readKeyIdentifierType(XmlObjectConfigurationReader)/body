@@ -1,0 +1,7 @@
+{
+  int identifierType=reader.readInt("keyIdentifierType",WSConstants.ISSUER_SERIAL);
+  if (identifierType == 0) {
+    return WSConstants.ISSUER_SERIAL;
+  }
+  return identifierType;
+}
