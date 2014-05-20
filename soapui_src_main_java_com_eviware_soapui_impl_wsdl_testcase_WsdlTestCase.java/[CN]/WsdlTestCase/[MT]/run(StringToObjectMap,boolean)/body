@@ -1,5 +1,6 @@
 {
   WsdlTestCaseRunner runner=new WsdlTestCaseRunner(this,properties);
   runner.start(async);
+  AnalyticsManager.getAnalytics().trackAction("RunTestCase","Type","WSDL");
   return runner;
 }
