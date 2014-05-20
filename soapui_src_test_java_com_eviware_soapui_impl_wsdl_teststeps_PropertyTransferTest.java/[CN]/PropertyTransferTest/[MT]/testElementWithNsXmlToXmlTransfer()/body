@@ -4,6 +4,6 @@
   transfer.setTransferTextContent(false);
   transfer.setSourcePath("declare namespace ns='ns1';//ns:bil/ns:name");
   transfer.setTargetPath("//bil/name");
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil xmlns:ns1=\"ns1\"><ns1:name>audi</ns1:name></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil xmlns:ns1=\"ns1\"><ns1:name>audi</ns1:name></bil>"));
 }
