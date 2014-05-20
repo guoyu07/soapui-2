@@ -4,6 +4,6 @@
   transfer.setTransferTextContent(true);
   transfer.setSourcePath("//name");
   transfer.setTargetPath("//name2");
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil><name2>audi</name2></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name2>audi</name2></bil>"));
 }

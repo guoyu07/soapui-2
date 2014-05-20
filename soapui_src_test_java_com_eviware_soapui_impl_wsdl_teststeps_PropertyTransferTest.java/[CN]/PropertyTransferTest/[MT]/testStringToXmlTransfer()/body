@@ -2,12 +2,12 @@
   sourceProperty.setValue("audi");
   targetProperty.setValue("<bil><name>bmw</name></bil>");
   transfer.setTargetPath("//name/text()");
-  transfer.transferStringToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil><name>audi</name></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name>audi</name></bil>"));
   targetProperty.setValue("<bil><name test=\"test\">bmw</name></bil>");
-  transfer.transferStringToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil><name test=\"test\">audi</name></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name test=\"test\">audi</name></bil>"));
   transfer.setTargetPath("//name/@test");
-  transfer.transferStringToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil><name test=\"audi\">audi</name></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name test=\"audi\">audi</name></bil>"));
 }
