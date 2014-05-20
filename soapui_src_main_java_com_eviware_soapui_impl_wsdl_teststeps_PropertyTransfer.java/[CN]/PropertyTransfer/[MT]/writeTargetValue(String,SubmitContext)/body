@@ -1,0 +1,40 @@
+{
+  if (!hasTargetPath()) {
+    getTargetProperty().setValue(value);
+  }
+ else {
+    String targetPath=PropertyExpander.expandProperties(context,getTargetPath());
+    if (seemsToBeJsonPath(targetPath)) {
+      JsonPathFacade jsonPathFacade=new JsonPathFacade(getTargetProperty().getValue());
+      jsonPathFacade.writeValue(targetPath,value);
+      getTargetProperty().setValue(jsonPathFacade.getCurrentJson());
+    }
+ else {
+      XmlObject targetXml=XmlObject.Factory.parse(getTargetProperty().getValue());
+      XmlCursor targetCursor=targetXml.newCursor();
+      try {
+        List<String> result=new ArrayList<String>();
+        targetCursor.selectPath(targetPath);
+        if (!targetCursor.toNextSelection()) {
+          throw new Exception("Missing match for Target XPath [" + targetPath + "]");
+        }
+        Node targetNode=targetCursor.getDomNode();
+        setNodeValue(value,targetNode);
+        result.add(value);
+        if (getTransferToAll()) {
+          while (targetCursor.toNextSelection()) {
+            targetNode=targetCursor.getDomNode();
+            setNodeValue(value,targetNode);
+            result.add(value);
+          }
+        }
+        getTargetProperty().setValue(targetXml.xmlText(new XmlOptions().setSaveAggressiveNamespaces()));
+        return result.toArray(new String[result.size()]);
+      }
+  finally {
+        targetCursor.dispose();
+      }
+    }
+  }
+  return new String[]{value};
+}
