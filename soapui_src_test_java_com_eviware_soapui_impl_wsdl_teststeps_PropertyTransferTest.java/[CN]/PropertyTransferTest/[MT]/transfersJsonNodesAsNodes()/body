@@ -1,0 +1,10 @@
+{
+  sourceProperty.setValue("{ numbers : { key1: 1, key2: 2} }");
+  targetProperty.setValue("{ numbers : [1, 2, 3] }");
+  String path="$.numbers";
+  transfer.setSourcePath(path);
+  transfer.setTargetPath(path);
+  transfer.transferProperties(submitContext);
+  Object insertedValue=new JsonPathFacade(targetProperty.getValue()).readObjectValue(path);
+  assertTrue("Expected a map object but got " + insertedValue,insertedValue instanceof Map);
+}
