@@ -1,6 +1,7 @@
 {
+  String stringValue=value == null ? null : String.valueOf(value);
   if (!hasTargetPath()) {
-    getTargetProperty().setValue(value);
+    getTargetProperty().setValue(stringValue);
   }
  else {
     String targetPath=PropertyExpander.expandProperties(context,getTargetPath());
@@ -19,13 +20,13 @@
           throw new Exception("Missing match for Target XPath [" + targetPath + "]");
         }
         Node targetNode=targetCursor.getDomNode();
-        setNodeValue(value,targetNode);
-        result.add(value);
+        setNodeValue(stringValue,targetNode);
+        result.add(stringValue);
         if (getTransferToAll()) {
           while (targetCursor.toNextSelection()) {
             targetNode=targetCursor.getDomNode();
-            setNodeValue(value,targetNode);
-            result.add(value);
+            setNodeValue(stringValue,targetNode);
+            result.add(stringValue);
           }
         }
         getTargetProperty().setValue(targetXml.xmlText(new XmlOptions().setSaveAggressiveNamespaces()));
@@ -36,5 +37,5 @@
       }
     }
   }
-  return new String[]{value};
+  return new String[]{stringValue};
 }

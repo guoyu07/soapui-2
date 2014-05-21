@@ -4,7 +4,7 @@
     return sourceValue;
   }
  else   if (seemsToBeJsonPath(getSourcePath())) {
-    return new JsonPathFacade(sourceValue).readStringValue(getSourcePath());
+    return new JsonPathFacade(sourceValue).readObjectValue(getSourcePath());
   }
  else {
     XmlObject sourceXml=XmlUtils.createXmlObject(sourceValue);
