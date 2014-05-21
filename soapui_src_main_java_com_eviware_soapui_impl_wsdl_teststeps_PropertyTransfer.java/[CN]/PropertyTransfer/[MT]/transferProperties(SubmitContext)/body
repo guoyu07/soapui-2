@@ -15,10 +15,8 @@
       return transferXPathToXml(getSourceProperty(),getTargetProperty(),context);
     }
  else {
-      String sourceValue=readSourceValue(context);
-      if (StringUtils.hasContent(sourceValue) && getEntitize()) {
-        sourceValue=XmlUtils.entitize(sourceValue);
-      }
+      Object sourceValue=readSourceValue(context);
+      sourceValue=entitizeIfApplicable(sourceValue);
       return writeTargetValue(sourceValue,context);
     }
   }
