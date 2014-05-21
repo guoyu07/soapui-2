@@ -1,4 +1,5 @@
 {
+  Analytics.trackAction("CreateRequest","RequestType",operation.getType().toString());
   String name=UISupport.prompt("Specify name of request","New request","Request " + (operation.getRequestCount() + 1));
   if (name == null) {
     return;
