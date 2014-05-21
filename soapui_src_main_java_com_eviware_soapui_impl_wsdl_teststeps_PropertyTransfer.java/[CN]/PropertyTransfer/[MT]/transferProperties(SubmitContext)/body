@@ -11,25 +11,16 @@
     if (sourceProperty.getValue() == null && !getSetNullOnMissingSource() && !getIgnoreEmpty()) {
       throw new Exception("Source property is null");
     }
-    if (!hasSourcePath() && !hasTargetPath()) {
-      if (!getIgnoreEmpty() || (sourceProperty.getValue() != null && sourceProperty.getValue().length() > 0)) {
-        return transferStringToString(sourceProperty,targetProperty);
-      }
+    if (bothPathsAreXmlBased()) {
+      return transferXPathToXml(getSourceProperty(),getTargetProperty(),context);
     }
- else     if (hasSourcePath() && hasTargetPath()) {
-      return transferXPathToXml(sourceProperty,targetProperty,context);
-    }
- else     if (hasSourcePath() && !hasTargetPath()) {
-      return new String[]{transferXPathToString(sourceProperty,targetProperty,context)};
-    }
- else     if (!hasSourcePath() && hasTargetPath()) {
-      if (!getIgnoreEmpty() || (sourceProperty.getValue() != null && sourceProperty.getValue().length() > 0)) {
-        return transferStringToXml(sourceProperty,targetProperty,context);
-      }
+ else {
+      Object sourceValue=readSourceValue(context);
+      sourceValue=entitizeIfApplicable(sourceValue);
+      return writeTargetValue(sourceValue,context);
     }
   }
  catch (  Exception e) {
     throw new PropertyTransferException(e.getMessage(),getSourceStepName(),sourceProperty,getTargetStepName(),targetProperty);
   }
-  return new String[0];
 }
