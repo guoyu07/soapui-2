@@ -3,6 +3,6 @@
   if ((StringUtils.isNullOrEmpty(request) && StringUtils.isNullOrEmpty(old)) || (request != null && request.equals(old))) {
     return;
   }
-  requestContent=request;
+  requestContent=request == null ? null : request.replaceAll("\r","\\\\r");
   notifyPropertyChanged(REQUEST_PROPERTY,old,request);
 }
