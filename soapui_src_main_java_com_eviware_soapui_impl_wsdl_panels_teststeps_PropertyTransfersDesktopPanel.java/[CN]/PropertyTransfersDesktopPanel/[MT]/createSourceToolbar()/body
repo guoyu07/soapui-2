@@ -8,8 +8,10 @@
   sourceStepCombo=UISupport.addTooltipListener(new JComboBox(sourceStepModel),"Source Step or Property Container");
   sourceStepCombo.setRenderer(new StepComboRenderer());
   sourcePropertyCombo.setRenderer(new PropertyComboRenderer());
+  sourceTransferLanguageCombo=createTransferLanguageComboBox("Source");
   componentEnabler.add(sourcePropertyCombo);
   componentEnabler.add(sourceStepCombo);
+  componentEnabler.add(sourceTransferLanguageCombo);
   targetPropertyCombo=UISupport.addTooltipListener(new JComboBox(),"Target Property");
   targetStepModel=new DefaultComboBoxModel();
   targetStepCombo=UISupport.addTooltipListener(new JComboBox(targetStepModel),"Target Step or Property Container");
@@ -83,6 +85,17 @@
   }
 );
   toolbar.add(UISupport.setFixedSize(sourcePropertyCombo,130,21));
+  toolbar.addRelatedGap();
+  toolbar.addFixed(new JLabel("Path language: "));
+  sourceTransferLanguageCombo.addItemListener(new ItemListener(){
+    @Override public void itemStateChanged(    ItemEvent e){
+      if (e.getStateChange() == ItemEvent.SELECTED) {
+        getCurrentTransfer().setSourcePathLanguage((PathLanguage)e.getItem());
+      }
+    }
+  }
+);
+  toolbar.add(UISupport.setFixedSize(sourceTransferLanguageCombo,115,21));
   customizeSourceToolbar(toolbar);
   return toolbar;
 }

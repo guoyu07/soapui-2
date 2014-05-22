@@ -5,7 +5,7 @@
   }
  else {
     String targetPath=PropertyExpander.expandProperties(context,getTargetPath());
-    if (seemsToBeJsonPath(targetPath)) {
+    if (getTargetPathLanguage() == PathLanguage.JSONPATH) {
       JsonPathFacade jsonPathFacade=new JsonPathFacade(getTargetProperty().getValue());
       jsonPathFacade.writeValue(targetPath,value);
       getTargetProperty().setValue(jsonPathFacade.getCurrentJson());
