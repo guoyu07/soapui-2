@@ -1,5 +1,4 @@
 {
-  Analytics.trackAction("DeployRestAsMock");
   if ((project.getMockServiceCount() + project.getRestMockServiceCount()) == 0) {
     UISupport.showErrorMessage("Project does not have any MockServices to deploy");
     return;
@@ -22,7 +21,7 @@
  finally {
       project.getSettings().setString(ProjectSettings.SHADOW_PASSWORD,passwordForEncryption);
     }
-    MockAsWar mockAsWar=new MockAsWar(project.getPath(),dialog.getBooleanValue(MockAsWarDialog.GLOBAL_SETTINGS) ? settingFile.getValue() : "",dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY).getValue(),dialog.getFormField(MockAsWarDialog.WAR_FILE).getValue(),dialog.getBooleanValue(MockAsWarDialog.EXT_LIBS),dialog.getBooleanValue(MockAsWarDialog.ACTIONS),dialog.getBooleanValue(MockAsWarDialog.LISTENERS),dialog.getValue(MockAsWarDialog.MOCKSERVICE_ENDPOINT),dialog.getBooleanValue(MockAsWarDialog.ENABLE_WEBUI));
+    MockAsWar mockAsWar=new MockAsWar(project.getPath(),dialog.getBooleanValue(MockAsWarDialog.GLOBAL_SETTINGS) ? settingFile.getValue() : "",dialog.getFormField(MockAsWarDialog.WAR_DIRECTORY).getValue(),dialog.getFormField(MockAsWarDialog.WAR_FILE).getValue(),dialog.getBooleanValue(MockAsWarDialog.EXT_LIBS),dialog.getBooleanValue(MockAsWarDialog.ACTIONS),dialog.getBooleanValue(MockAsWarDialog.LISTENERS),dialog.getValue(MockAsWarDialog.MOCKSERVICE_ENDPOINT),dialog.getBooleanValue(MockAsWarDialog.ENABLE_WEBUI),project);
     mockAsWar.createMockAsWarArchive();
   }
 }

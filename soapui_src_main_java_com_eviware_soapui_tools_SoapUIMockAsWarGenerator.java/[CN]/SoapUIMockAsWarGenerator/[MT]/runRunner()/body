@@ -9,7 +9,7 @@
   pFile=tmpProjectFile.getAbsolutePath();
   String endpoint=StringUtils.hasContent(localEndpoint) ? localEndpoint : project.getName();
   log.info("Creating WAR file with endpoint [" + endpoint + "]");
-  MockAsWar mockAsWar=new MockAsWar(pFile,getSettingsFile(),getOutputFolder(),warFile,includeLibraries,includeActions,includeListeners,endpoint,enableWebUI);
+  MockAsWar mockAsWar=new MockAsWar(pFile,getSettingsFile(),getOutputFolder(),warFile,includeLibraries,includeActions,includeListeners,endpoint,enableWebUI,project);
   mockAsWar.createMockAsWarArchive();
   log.info("WAR Generation complete");
   return true;
