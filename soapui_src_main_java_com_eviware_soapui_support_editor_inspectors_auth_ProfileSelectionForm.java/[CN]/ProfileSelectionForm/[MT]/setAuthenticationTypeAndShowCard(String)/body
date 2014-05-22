@@ -17,6 +17,7 @@
     }
   }
  else   if (isRestRequest(request) && getOAuth2ProfileContainer().getOAuth2ProfileNameList().contains(selectedOption)) {
+    Analytics.trackAction("AssignOAuth");
     setTitle(AuthInspectorFactory.INSPECTOR_ID + " (" + selectedOption+ ")");
     request.setSelectedAuthProfileAndAuthType(selectedOption,CredentialsConfig.AuthType.O_AUTH_2_0);
     oAuth2Form=new OAuth2Form(getOAuth2ProfileContainer().getProfileByName(selectedOption),this);
