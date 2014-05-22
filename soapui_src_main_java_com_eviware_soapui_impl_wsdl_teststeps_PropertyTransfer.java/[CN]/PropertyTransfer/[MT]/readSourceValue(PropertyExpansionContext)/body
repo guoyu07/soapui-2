@@ -3,7 +3,7 @@
   if (!hasSourcePath()) {
     return sourceValue;
   }
- else   if (seemsToBeJsonPath(getSourcePath())) {
+ else   if (getSourcePathLanguage() == PathLanguage.JSONPATH) {
     return new JsonPathFacade(sourceValue).readObjectValue(getSourcePath());
   }
  else {
@@ -12,7 +12,8 @@
     try {
       String value=null;
       String pathExpression=PropertyExpander.expandProperties(context,getSourcePath());
-      if (getUseXQuery()) {
+      boolean usingXQuery=getSourcePathLanguage() == PathLanguage.XQUERY;
+      if (usingXQuery) {
         XmlCursor resultCursor=sourceCursor.execQuery(pathExpression);
         sourceCursor.dispose();
         sourceCursor=resultCursor;
@@ -23,7 +24,7 @@
  else {
         sourceCursor.selectPath(pathExpression);
       }
-      if (!getUseXQuery() && !sourceCursor.toNextSelection()) {
+      if (!usingXQuery && !sourceCursor.toNextSelection()) {
         if (!getSetNullOnMissingSource() && !getIgnoreEmpty()) {
           throw new Exception("Missing match for Source XPath [" + pathExpression + "]");
         }

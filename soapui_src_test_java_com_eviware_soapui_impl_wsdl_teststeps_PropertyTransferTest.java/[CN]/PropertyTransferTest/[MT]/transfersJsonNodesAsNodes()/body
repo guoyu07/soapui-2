@@ -3,7 +3,9 @@
   targetProperty.setValue("{ numbers : [1, 2, 3] }");
   String path="$.numbers";
   transfer.setSourcePath(path);
+  transfer.setSourcePathLanguage(PathLanguage.JSONPATH);
   transfer.setTargetPath(path);
+  transfer.setTargetPathLanguage(PathLanguage.JSONPATH);
   transfer.transferProperties(submitContext);
   Object insertedValue=new JsonPathFacade(targetProperty.getValue()).readObjectValue(path);
   assertTrue("Expected a map object but got " + insertedValue,insertedValue instanceof Map);

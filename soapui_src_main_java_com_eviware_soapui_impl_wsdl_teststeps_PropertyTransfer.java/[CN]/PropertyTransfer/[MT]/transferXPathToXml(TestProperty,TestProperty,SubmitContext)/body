@@ -36,7 +36,7 @@
         }
       }
     }
- else     if (getUseXQuery()) {
+ else     if (getSourcePathLanguage() == PathLanguage.XQUERY) {
       String sp=PropertyExpander.expandProperties(context,getSourcePath());
       XmlCursor resultCursor=sourceXml.execQuery(sp);
       sourceXml.dispose();
