@@ -1,7 +1,5 @@
 {
   String url=urlField.getText();
-  if (!urlField.getText().contains("://")) {
-    url="http://" + url;
-  }
+  url=HttpUtils.completeUrlWithHttpIfProtocolIsMissing(url);
   webViewBasedBrowserComponent.navigate(url);
 }
