@@ -1,2 +1,26 @@
 {
+  TestProperty sourceProperty=getSourceProperty();
+  TestProperty targetProperty=getTargetProperty();
+  try {
+    if (sourceProperty == null) {
+      throw new Exception("Missing source property");
+    }
+    if (targetProperty == null) {
+      throw new Exception("Missing target property");
+    }
+    if (sourceProperty.getValue() == null && !getSetNullOnMissingSource() && !getIgnoreEmpty()) {
+      throw new Exception("Source property is null");
+    }
+    if (bothPathsAreXmlBased()) {
+      return transferXPathToXml(getSourceProperty(),getTargetProperty(),context);
+    }
+ else {
+      Object sourceValue=readSourceValue(context);
+      sourceValue=entitizeIfApplicable(sourceValue);
+      return writeTargetValue(sourceValue,context);
+    }
+  }
+ catch (  Exception e) {
+    throw new PropertyTransferException(e.getMessage(),getSourceStepName(),sourceProperty,getTargetStepName(),targetProperty);
+  }
 }
