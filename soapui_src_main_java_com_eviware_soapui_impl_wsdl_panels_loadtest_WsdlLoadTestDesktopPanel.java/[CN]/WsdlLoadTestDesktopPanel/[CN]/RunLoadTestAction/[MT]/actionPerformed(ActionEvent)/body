@@ -1,5 +1,4 @@
 {
-  Analytics.trackAction("RunLoadTest");
   WsdlLoadTest loadtest=getModelItem();
   if (loadtest.getTestCase().getTestStepCount() == 0) {
     UISupport.showErrorMessage("Missing TestSteps for testing!");
@@ -12,4 +11,5 @@
   }
   runButton.setEnabled(false);
   runner=loadtest.run();
+  Analytics.trackAction("RunLoadTest");
 }
