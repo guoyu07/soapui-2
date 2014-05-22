@@ -4,6 +4,7 @@
   targetProperty.setValue("{ persons: [" + "{ firstName: 'Anders', lastName: 'And' }," + "{ firstName: 'Anders', lastName: 'And' }"+ "] }");
   String path="$.persons[0].firstName";
   transfer.setTargetPath(path);
+  transfer.setTargetPathLanguage(PathLanguage.JSONPATH);
   transfer.transferProperties(submitContext);
   assertThat(new JsonPathFacade(targetProperty.getValue()).readStringValue(path),is(newName));
 }
