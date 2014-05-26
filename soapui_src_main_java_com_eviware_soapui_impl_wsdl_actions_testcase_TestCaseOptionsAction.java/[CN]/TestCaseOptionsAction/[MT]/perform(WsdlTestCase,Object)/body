@@ -4,7 +4,7 @@
     form=builder.createForm("Basic");
     form.addCheckBox(SEARCH_PROPERTIES,"Search preceding TestSteps for property values");
     form.addCheckBox(KEEP_SESSION,"Maintain HTTP session");
-    form.addCheckBox(FAIL_ON_ERROR,"Fail on error").addFormFieldListener(new XFormFieldListener(){
+    form.addCheckBox(FAIL_ON_ERROR,"Abort test if an error occurs").addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
         form.getFormField(FAIL_TESTCASE_ON_ERROR).setEnabled(!Boolean.parseBoolean(newValue));
       }
