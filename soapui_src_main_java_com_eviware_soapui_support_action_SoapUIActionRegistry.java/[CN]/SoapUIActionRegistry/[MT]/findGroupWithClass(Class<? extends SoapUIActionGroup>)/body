@@ -1,0 +1,8 @@
+{
+  for (  SoapUIActionGroup soapUIActionGroup : actionGroups.values()) {
+    if (soapUIActionGroup.getClass().equals(aClass)) {
+      return soapUIActionGroup;
+    }
+  }
+  throw new IllegalArgumentException("Action group not found for class " + aClass);
+}
