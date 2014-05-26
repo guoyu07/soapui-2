@@ -1,6 +1,6 @@
 {
   SoapUI.logError(ex);
-  Analytics.tackError(ex.toString());
+  Analytics.trackError(ex.toString());
   if (ex.toString().length() > 100) {
     dialogs.showExtendedInfo("Error","An error of type " + ex.getClass().getSimpleName() + " occured.",ex.toString(),null);
   }
