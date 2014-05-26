@@ -14,12 +14,13 @@
       }
     }
     for (    SoapUIActionGroupConfig group : soapuiActions.getActionGroupList()) {
-      SoapUIActionGroup actionGroup=null;
-      if (actionGroups.containsKey(group.getId())) {
-        actionGroup=actionGroups.get(group.getId());
+      SoapUIActionGroup actionGroup;
+      String groupId=group.getId();
+      if (actionGroups.containsKey(groupId)) {
+        actionGroup=actionGroups.get(groupId);
         if (group.isSetClass1()) {
           actionGroup=createActionGroupClassFromConfig(group);
-          actionGroups.put(group.getId(),actionGroup);
+          addActionGroup(actionGroup,groupId);
         }
         addMappings(actionGroup,group);
       }
@@ -28,10 +29,10 @@
           actionGroup=createActionGroupClassFromConfig(group);
         }
  else {
-          actionGroup=new DefaultSoapUIActionGroup(group.getId(),group.getName());
+          actionGroup=new DefaultSoapUIActionGroup(groupId,group.getName());
         }
         addMappings(actionGroup,group);
-        actionGroups.put(group.getId(),actionGroup);
+        addActionGroup(actionGroup,groupId);
       }
     }
   }

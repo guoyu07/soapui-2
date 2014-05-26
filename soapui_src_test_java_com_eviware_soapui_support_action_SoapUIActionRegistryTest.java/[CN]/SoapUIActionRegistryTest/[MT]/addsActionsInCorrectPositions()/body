@@ -1,0 +1,14 @@
+{
+  TestActionGroup actionGroup=new TestActionGroup();
+  registry.addActionGroup(actionGroup,"TestActionGroup");
+  registry.addAction("Dummy2",new DummyAction2());
+  registry.addAction("Dummy4",new DummyAction4());
+  registry.addAction("Dummy3",new DummyAction3());
+  registry.addAction("Dummy1",new DummyAction1());
+  SoapUIActionGroup<ModelItem> retrievedGroup=registry.getActionGroup(TestActionGroup.ID);
+  SoapUIActionMappingList<ModelItem> actionMappings=retrievedGroup.getActionMappings(null);
+  assertThat(actionMappings.getMappingIndex("DummyAction1"),is(0));
+  assertThat(actionMappings.getMappingIndex("DummyAction2"),is(1));
+  assertThat(actionMappings.getMappingIndex("DummyAction3"),is(2));
+  assertThat(actionMappings.getMappingIndex("DummyAction4"),is(3));
+}
