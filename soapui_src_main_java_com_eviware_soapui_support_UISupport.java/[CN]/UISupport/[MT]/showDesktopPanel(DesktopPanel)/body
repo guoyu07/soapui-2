@@ -2,9 +2,6 @@
   try {
     UISupport.setHourglassCursor();
     SoapUIDesktop desktop=SoapUI.getDesktop();
-    if (desktopPanel != null && desktopPanel.getModelItem() != null) {
-      Analytics.trackActiveScreen(desktopPanel.getModelItem().getName());
-    }
     return desktop == null ? null : desktop.showDesktopPanel(desktopPanel);
   }
   finally {
