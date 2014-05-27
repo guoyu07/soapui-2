@@ -1,6 +1,5 @@
 {
-  for (int i=0; i < factories.size(); i++) {
-    AnalyticsProviderFactory factory=factories.get(i);
+  for (  AnalyticsProviderFactory factory : factories) {
     if (factory.getName().compareToIgnoreCase(name) == 0) {
       registerActiveProvider(factory.allocateProvider(),keepTheOnlyOne);
       return true;
