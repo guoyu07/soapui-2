@@ -7,7 +7,7 @@
     if (!UISupport.confirm(question,"Question")) {
       return false;
     }
-    AnalyticsManager.getAnalytics().trackStartupAction(AnalyticsManager.SESSION_FINISHED_ACTION);
+    AnalyticsManager.getAnalytics().trackSessionStop();
     try {
       soapUICore.saveSettings();
       SaveStatus saveStatus=workspace.onClose();
