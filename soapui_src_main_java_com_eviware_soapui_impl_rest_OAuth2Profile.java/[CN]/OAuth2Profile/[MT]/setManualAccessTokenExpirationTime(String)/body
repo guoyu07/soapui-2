@@ -1,6 +1,6 @@
 {
   String oldExpirationTime=configuration.getManualAccessTokenExpirationTime();
-  if (!Objects.equals(oldExpirationTime,newExpirationTime)) {
+  if (!Objects.equal(oldExpirationTime,newExpirationTime)) {
     configuration.setManualAccessTokenExpirationTime(newExpirationTime);
     pcs.firePropertyChange(MANUAL_ACCESS_TOKEN_EXPIRATION_TIME,oldExpirationTime,newExpirationTime);
   }
