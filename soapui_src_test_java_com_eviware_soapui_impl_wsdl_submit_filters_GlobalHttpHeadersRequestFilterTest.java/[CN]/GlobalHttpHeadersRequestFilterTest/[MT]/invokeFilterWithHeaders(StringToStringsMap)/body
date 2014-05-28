@@ -1,0 +1,8 @@
+{
+  SubmitContext context=mockContext();
+  AbstractHttpRequest<?> request=mockRequest(requestHeaders);
+  globalHttpHeadersRequestFilter.filterAbstractHttpRequest(context,request);
+  ArgumentCaptor<StringToStringsMap> headers=ArgumentCaptor.forClass(StringToStringsMap.class);
+  Mockito.verify(request).setRequestHeaders(headers.capture());
+  return headers.getValue();
+}

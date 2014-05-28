@@ -1,0 +1,12 @@
+{
+  StringToStringsMap headers=request.getRequestHeaders();
+  savedHeaders.put(request,createCopyOfHeaders(headers));
+  boolean replaceHeaders=isReplaceHeaders();
+  for (  String name : headersToAdd.keySet()) {
+    if (replaceHeaders && headers.containsKey(name))     headers.get(name).clear();
+    for (    String value : headersToAdd.get(name)) {
+      headers.add(name,PropertyExpander.expandProperties(context,value));
+    }
+  }
+  request.setRequestHeaders(headers);
+}

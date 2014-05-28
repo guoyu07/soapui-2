@@ -1,0 +1,12 @@
+{
+  headersToAdd=new StringToStringsMap(globalHeadersToAdd);
+  for (  Object key : System.getProperties().keySet()) {
+    if (String.valueOf(key).startsWith(HEADER_SYSTEM_PROPERTY_PREFIX)) {
+      String headerName=String.valueOf(key).substring(HEADER_SYSTEM_PROPERTY_PREFIX.length());
+      if (headerName.length() > 0) {
+        String headerValue=System.getProperty(String.valueOf(key));
+        if (StringUtils.hasContent(headerValue))         headersToAdd.add(headerName,headerValue);
+      }
+    }
+  }
+}

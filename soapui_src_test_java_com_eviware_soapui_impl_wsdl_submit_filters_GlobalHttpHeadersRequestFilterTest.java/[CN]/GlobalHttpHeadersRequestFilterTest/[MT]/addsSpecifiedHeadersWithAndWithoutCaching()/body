@@ -1,0 +1,15 @@
+{
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent","Testing");
+  StringToStringsMap value=invokeFilterWithHeaders(new StringToStringsMap());
+  Assert.assertEquals("Testing",value.get("User-Agent").get(0));
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User.Agent","Testing");
+  value=invokeFilterWithHeaders(new StringToStringsMap());
+  Assert.assertEquals("Testing",value.get("User-Agent").get(0));
+  System.setProperty(GlobalHttpHeadersRequestFilter.CACHE_HEADERS_SYSTEM_PROPERTY,"false");
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User.Agent","Testing");
+  value=invokeFilterWithHeaders(new StringToStringsMap());
+  Assert.assertEquals("Testing",value.get("User.Agent").get(0));
+  Assert.assertEquals("Testing",value.get("User-Agent").get(0));
+  System.clearProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent");
+  System.clearProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User.Agent");
+}

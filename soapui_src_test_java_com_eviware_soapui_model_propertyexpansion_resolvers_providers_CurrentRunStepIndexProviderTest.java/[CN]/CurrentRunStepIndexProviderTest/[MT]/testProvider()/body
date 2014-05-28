@@ -1,0 +1,8 @@
+{
+  CurrentRunStepIndexProvider provider=new CurrentRunStepIndexProvider();
+  WsdlTestRunContext context=Mockito.mock(WsdlTestRunContext.class);
+  AbstractTestCaseRunner runner=Mockito.mock(AbstractTestCaseRunner.class);
+  Mockito.when(runner.getResultCount()).thenReturn(3);
+  Mockito.when(context.getTestRunner()).thenReturn(runner);
+  Assert.assertEquals("3",provider.getValue(context));
+}
