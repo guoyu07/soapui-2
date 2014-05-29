@@ -1,0 +1,13 @@
+{
+  if (context instanceof WsdlTestRunContext) {
+    TestRunner runner=((WsdlTestRunContext)context).getTestRunner();
+    if (runner instanceof AbstractTestCaseRunner) {
+      List<TestStepResult> resultList=((AbstractTestCaseRunner)runner).getResults();
+      TestStep currentStep=((WsdlTestRunContext)context).getCurrentStep();
+      int ix=0;
+      for (      TestStepResult result : resultList)       if (result.getTestStep().getId().equals(currentStep.getId()))       ix++;
+      return String.valueOf(ix);
+    }
+  }
+  return null;
+}
