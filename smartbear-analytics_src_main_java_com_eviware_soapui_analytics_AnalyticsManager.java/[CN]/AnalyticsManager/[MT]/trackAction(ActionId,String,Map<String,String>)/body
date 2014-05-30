@@ -2,7 +2,7 @@
   if (providers.isEmpty()) {
     return false;
   }
-  ActionDescription actionDescr=new ActionDescription(sessionId,category,action,params);
+  ActionDescription actionDescr=new ActionDescription(sessionId,category,actionName,params);
   new Thread(new ActionDescrRunnable(actionDescr){
     public void run(){
       for (      AnalyticsProvider provider : providers) {
