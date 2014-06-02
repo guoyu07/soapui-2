@@ -1,4 +1,7 @@
 {
+  if (disabled) {
+    return;
+  }
   for (  AnalyticsProvider provider : providers) {
     provider.trackError(error);
   }

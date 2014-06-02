@@ -15,6 +15,7 @@
   if (!processCommandLineArgs(cmd)) {
     System.exit(1);
   }
+  initializeAnalytics();
   if (workspaceName != null) {
     workspace=WorkspaceFactory.getInstance().openWorkspace(workspaceName,projectOptions);
     soapUICore.getSettings().setString(CURRENT_SOAPUI_WORKSPACE,workspaceName);
