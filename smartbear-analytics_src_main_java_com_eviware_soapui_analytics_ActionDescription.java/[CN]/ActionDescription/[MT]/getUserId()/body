@@ -2,14 +2,11 @@
   try {
     NetworkInterface network=NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
     byte[] mac=network.getHardwareAddress();
-    StringBuilder sb=new StringBuilder();
-    for (    byte aMac : mac) {
-      sb.append(String.format("%d",aMac));
-    }
-    return sb.toString();
+    MessageDigest hasher=MessageDigest.getInstance("SHA-1");
+    return DatatypeConverter.printHexBinary(hasher.digest(mac));
   }
- catch (  IOException e) {
-    log.warn("Couldn't determine MAC address - returning empty String");
+ catch (  Exception e) {
+    log.warn("Error generating Analytics session ID - returning empty String",e);
     return "";
   }
 }
