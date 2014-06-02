@@ -2,11 +2,11 @@
   if (providers.isEmpty()) {
     return false;
   }
-  ActionDescription actionDescr=new ActionDescription(sessionId,category,actionName,params);
-  new Thread(new ActionDescrRunnable(actionDescr){
+  final ActionDescription description=new ActionDescription(sessionId,category,actionName,params);
+  new Thread(new Runnable(){
     public void run(){
       for (      AnalyticsProvider provider : providers) {
-        provider.trackAction(ad);
+        provider.trackAction(description);
       }
     }
   }

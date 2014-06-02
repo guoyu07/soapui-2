@@ -1,4 +1,7 @@
 {
+  if (disabled) {
+    return false;
+  }
   Map<String,String> params=new HashMap<String,String>();
   params.put(paramName,value);
   return trackAction(ActionId.ACTION,actionName,params);
