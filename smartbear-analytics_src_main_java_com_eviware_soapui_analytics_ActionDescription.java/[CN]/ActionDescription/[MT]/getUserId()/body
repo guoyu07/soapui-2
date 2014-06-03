@@ -3,7 +3,10 @@
   byte[] mac=network.getHardwareAddress();
   StringBuilder sb=new StringBuilder();
   for (  byte aMac : mac) {
-    sb.append(String.format("%d",aMac));
+    sb.append(String.format("%x",aMac));
   }
-  return sb.toString();
+  byte bytes[]=sb.toString().getBytes();
+  Checksum checksum=new CRC32();
+  checksum.update(bytes,0,bytes.length);
+  return String.format("%d",checksum.getValue());
 }
