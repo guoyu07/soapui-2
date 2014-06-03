@@ -1,6 +1,6 @@
 {
   try {
-    target.createProject(ModelItemNamer.createName("Project",target.getProjectList()),null);
+    ((WorkspaceImpl)target).createProject("Empty project");
   }
  catch (  SoapUIException e) {
     UISupport.showErrorMessage(e);

@@ -3,14 +3,14 @@
   initializeRadioButtons();
   this.add(emptyProjectRadio);
   JPanel importPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
-  LabeledItem[] importMethods=getAllImportMethods();
-  importMethodsComboBox=new JComboBox(importMethods);
+  ImportMethod[] importMethods=getAllImportMethods();
+  importMethodsComboBox=new JComboBox<ImportMethod>(importMethods);
   importPanel.add(importProjectRadio);
   importPanel.add(importMethodsComboBox);
   this.add(importPanel);
   JPanel discoveryPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
-  LabeledItem[] discoveryMethods=getAllDiscoveryMethods();
-  discoveryMethodsComboBox=new JComboBox(discoveryMethods);
+  DiscoveryMethod[] discoveryMethods=getAllDiscoveryMethods();
+  discoveryMethodsComboBox=new JComboBox<DiscoveryMethod>(discoveryMethods);
   discoveryPanel.add(discoverResourcesRadio);
   discoveryPanel.add(discoveryMethodsComboBox);
   this.add(discoveryPanel);
