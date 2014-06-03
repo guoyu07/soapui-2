@@ -1,0 +1,9 @@
+{
+  NetworkInterface network=NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+  byte[] mac=network.getHardwareAddress();
+  StringBuilder sb=new StringBuilder();
+  for (  byte aMac : mac) {
+    sb.append(String.format("%d",aMac));
+  }
+  return sb.toString();
+}
