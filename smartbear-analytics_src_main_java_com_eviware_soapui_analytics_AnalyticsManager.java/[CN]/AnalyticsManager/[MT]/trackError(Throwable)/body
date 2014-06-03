@@ -1,8 +1,13 @@
 {
-  if (disabled) {
+  if (providers.isEmpty()) {
     return;
   }
-  for (  AnalyticsProvider provider : providers) {
-    provider.trackError(error);
+  runInBackground(new Runnable(){
+    public void run(){
+      for (      AnalyticsProvider provider : providers) {
+        provider.trackError(error);
+      }
+    }
   }
+);
 }
