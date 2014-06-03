@@ -1,0 +1,11 @@
+{
+  SoapUI.initDefaultCore();
+  SoapUIFactoryRegistry factoryRegistry=SoapUI.getSoapUICore().getFactoryRegistry();
+  factoryRegistry.addFactory(ImportMethodFactory.class,new WsdlImportMethodFactory());
+  factoryRegistry.addFactory(ImportMethodFactory.class,new WadlImportMethodFactory());
+  factoryRegistry.addFactory(DiscoveryMethodFactory.class,new InternalBrowserDiscoveryFactory());
+  JFrame main=new JFrame();
+  main.getContentPane().add(new CreationTypeSelectionPanel());
+  main.setSize(400,300);
+  main.setVisible(true);
+}

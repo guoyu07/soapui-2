@@ -1,0 +1,11 @@
+{
+  if (emptyProjectRadio.isSelected()) {
+    return new NewEmptyProjectAction();
+  }
+ else   if (importProjectRadio.isSelected()) {
+    return new ImportAction((ImportMethod)importMethodsComboBox.getSelectedItem());
+  }
+ else {
+    return new DiscoveryAction((DiscoveryMethod)discoveryMethodsComboBox.getSelectedItem());
+  }
+}
