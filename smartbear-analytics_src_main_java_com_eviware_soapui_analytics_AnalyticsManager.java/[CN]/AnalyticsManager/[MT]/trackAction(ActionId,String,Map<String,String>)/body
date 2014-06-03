@@ -6,7 +6,7 @@
     return false;
   }
   final ActionDescription description=new ActionDescription(sessionId,actionId,actionName,params);
-  executor.execute(new Runnable(){
+  runInBackground(new Runnable(){
     public void run(){
       for (      AnalyticsProvider provider : providers) {
         provider.trackAction(description);
@@ -14,16 +14,5 @@
     }
   }
 );
-  if (actionId == ActionId.SESSION_STOP) {
-    executor.shutdown();
-    while (!executor.isTerminated()) {
-      try {
-        Thread.sleep(20);
-      }
- catch (      InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-  }
   return providers.size() > 0;
 }
