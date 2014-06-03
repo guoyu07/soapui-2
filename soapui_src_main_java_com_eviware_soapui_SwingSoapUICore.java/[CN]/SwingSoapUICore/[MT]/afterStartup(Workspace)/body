@@ -20,6 +20,10 @@
   for (  InspectorFactory factory : SoapUI.getFactoryRegistry().getFactories(InspectorFactory.class)) {
     inspectorRegistry.addFactory(factory);
   }
+  getFactoryRegistry().addFactory(ImportMethodFactory.class,new WsdlImportMethodFactory());
+  getFactoryRegistry().addFactory(ImportMethodFactory.class,new WadlImportMethodFactory());
+  getFactoryRegistry().addFactory(DiscoveryMethodFactory.class,new InternalBrowserDiscoveryFactory());
+  getFactoryRegistry().addFactory(DiscoveryMethodFactory.class,new SoapUIProxyDiscoveryFactory());
   String actionsDir=System.getProperty("soapui.ext.actions");
   addExternalActions(actionsDir == null ? getRoot() == null ? "actions" : getRoot() + File.separatorChar + "actions" : actionsDir,getExtensionClassLoader());
 }

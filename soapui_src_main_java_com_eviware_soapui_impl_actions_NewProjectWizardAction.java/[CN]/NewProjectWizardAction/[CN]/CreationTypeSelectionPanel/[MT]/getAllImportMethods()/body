@@ -1,0 +1,8 @@
+{
+  List<ImportMethodFactory> factories=SoapUI.getSoapUICore().getFactoryRegistry().getFactories(ImportMethodFactory.class);
+  ImportMethod[] returnValue=new ImportMethod[factories.size()];
+  for (int i=0; i < factories.size(); i++) {
+    returnValue[i]=factories.get(i).createNewImportMethod();
+  }
+  return returnValue;
+}
