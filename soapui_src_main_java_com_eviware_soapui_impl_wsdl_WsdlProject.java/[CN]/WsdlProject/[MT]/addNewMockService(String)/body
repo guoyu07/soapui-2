@@ -3,5 +3,6 @@
   mockService.setName(name);
   addWsdlMockService(mockService);
   fireMockServiceAdded(mockService);
+  Analytics.trackAction("CreateSOAPService");
   return mockService;
 }
