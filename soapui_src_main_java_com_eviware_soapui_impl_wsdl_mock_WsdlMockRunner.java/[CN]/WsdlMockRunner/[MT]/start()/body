@@ -10,4 +10,5 @@
   for (  MockRunListener listener : mockRunListeners) {
     listener.onMockRunnerStart(this);
   }
+  Analytics.trackAction("Start" + getMockService().getStringID() + "Service");
 }
