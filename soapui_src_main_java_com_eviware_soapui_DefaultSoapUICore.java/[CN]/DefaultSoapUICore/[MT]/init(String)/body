@@ -4,8 +4,7 @@
   loadExternalLibraries();
   initSettings(settingsFile == null ? DEFAULT_SETTINGS_FILE : settingsFile);
   initExtensions(getExtensionClassLoader());
-  pluginManager=new PluginManager(getExtensionClassLoader(),getFactoryRegistry(),getActionRegistry(),getListenerRegistry());
-  pluginManager.loadPlugins();
+  loadPlugins();
   initCoreComponents();
   SoapVersion.Soap11.equals(SoapVersion.Soap12);
 }
