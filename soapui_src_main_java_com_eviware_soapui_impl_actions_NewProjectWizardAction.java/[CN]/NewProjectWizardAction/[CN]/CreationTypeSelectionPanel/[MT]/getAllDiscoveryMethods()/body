@@ -1,8 +1,0 @@
-{
-  List<DiscoveryMethodFactory> factories=SoapUI.getSoapUICore().getFactoryRegistry().getFactories(DiscoveryMethodFactory.class);
-  LabeledItem[] returnValue=new LabeledItem[factories.size()];
-  for (int i=0; i < factories.size(); i++) {
-    returnValue[i]=new LabeledItem(factories.get(i).createNewDiscoveryMethod());
-  }
-  return returnValue;
-}
