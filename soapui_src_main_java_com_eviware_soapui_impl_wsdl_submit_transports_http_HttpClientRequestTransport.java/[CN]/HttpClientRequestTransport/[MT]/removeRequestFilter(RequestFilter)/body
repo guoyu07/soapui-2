@@ -1,3 +1,10 @@
 {
-  filters.remove(filter);
+  if (!filters.remove(filterToRemove)) {
+    for (    RequestFilter requestFilter : filters) {
+      if (requestFilter.getClass().equals(filterToRemove.getClass())) {
+        filters.remove(requestFilter);
+        break;
+      }
+    }
+  }
 }
