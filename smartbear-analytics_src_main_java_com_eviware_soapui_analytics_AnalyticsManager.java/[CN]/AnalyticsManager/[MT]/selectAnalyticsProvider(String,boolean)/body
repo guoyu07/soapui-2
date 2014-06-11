@@ -1,0 +1,12 @@
+{
+  for (  AnalyticsProviderFactory factory : factories) {
+    if (factory.getName().compareToIgnoreCase(name) == 0) {
+      registerActiveProvider(factory.allocateProvider(),keepTheOnlyOne);
+      return true;
+    }
+  }
+  if (keepTheOnlyOne) {
+    providers.clear();
+  }
+  return false;
+}

@@ -1,0 +1,13 @@
+{
+  if (providers.isEmpty()) {
+    return;
+  }
+  runInBackground(new Runnable(){
+    public void run(){
+      for (      AnalyticsProvider provider : providers) {
+        provider.trackError(error);
+      }
+    }
+  }
+);
+}

@@ -16,6 +16,7 @@
     throw ex;
   }
  finally {
+    Analytics.trackAction("RunTool","Tool",runner.getName());
     if (processDialog != null) {
       processDialog.setVisible(false);
     }
