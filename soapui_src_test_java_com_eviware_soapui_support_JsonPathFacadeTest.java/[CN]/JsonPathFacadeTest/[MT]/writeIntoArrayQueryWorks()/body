@@ -1,0 +1,5 @@
+{
+  String json="{" + "customers: [" + "{ id: 1, name: 'Lisa' },"+ "{ id: 2, name: 'Anna' }"+ "]"+ "}";
+  String jsonPathExpression="$.customers[?(@.id == 2)].name";
+  verifyJsonWrite(json,jsonPathExpression);
+}

@@ -2,6 +2,6 @@
   sourceProperty.setValue("<bil><name>audi</name></bil>");
   targetProperty.setValue("");
   transfer.setSourcePath("//name/text()");
-  transfer.transferXPathToString(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("audi",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("audi"));
 }

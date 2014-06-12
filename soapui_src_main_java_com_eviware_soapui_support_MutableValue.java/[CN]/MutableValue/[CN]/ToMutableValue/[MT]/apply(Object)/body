@@ -1,0 +1,11 @@
+{
+  if (o instanceof List) {
+    return new MutableValue(new ArrayList<Object>(Lists.transform((List)o,this)));
+  }
+ else   if (o instanceof Map) {
+    return new MutableValue(new LinkedHashMap<Object,Object>(Maps.transformValues((Map)o,this)));
+  }
+ else {
+    return new MutableValue(o);
+  }
+}

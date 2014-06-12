@@ -4,7 +4,7 @@
   }
  else {
     String content;
-    if (JsonMediaTypeHandler.seemsToBeJsonContentType(httpResponse.getContentType())) {
+    if (JsonUtil.seemsToBeJsonContentType(httpResponse.getContentType())) {
       try {
         JSON json=new JsonUtil().parseTrimmedText(httpResponse.getContentAsString());
         if (json.isEmpty()) {

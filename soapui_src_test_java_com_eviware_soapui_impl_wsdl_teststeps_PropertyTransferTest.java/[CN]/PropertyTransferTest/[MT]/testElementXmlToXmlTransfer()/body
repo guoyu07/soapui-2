@@ -4,11 +4,11 @@
   transfer.setSourcePath("//bil");
   transfer.setTargetPath("//bil");
   transfer.setTransferTextContent(false);
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals(sourceProperty.getValue(),targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is(sourceProperty.getValue()));
   targetProperty.setValue("<bil><name></name></bil>");
   transfer.setSourcePath("//bil/name/text()");
   transfer.setTargetPath("//bil/name");
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals(sourceProperty.getValue(),targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is(sourceProperty.getValue()));
 }

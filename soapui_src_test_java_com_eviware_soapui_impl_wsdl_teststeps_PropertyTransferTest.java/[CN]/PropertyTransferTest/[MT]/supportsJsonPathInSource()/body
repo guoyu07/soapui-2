@@ -1,0 +1,7 @@
+{
+  sourceProperty.setValue("{ persons: [" + "{ firstName: 'Anders', lastName: 'And' }," + "{ firstName: 'Anders', lastName: 'And' }"+ "] }");
+  transfer.setSourcePath("$.persons[0].firstName");
+  transfer.setSourcePathLanguage(PathLanguage.JSONPATH);
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("Anders"));
+}

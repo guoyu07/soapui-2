@@ -3,6 +3,6 @@
   targetProperty.setValue("<bil><name>bmw</name></bil>");
   transfer.setSourcePath("//name/text()");
   transfer.setTargetPath("//name/text()");
-  transfer.transferXPathToXml(sourceProperty,targetProperty,new WsdlSubmitContext(null));
-  assertEquals("<bil><name/></bil>",targetProperty.getValue());
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name/></bil>"));
 }

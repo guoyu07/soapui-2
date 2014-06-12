@@ -1,0 +1,32 @@
+{
+  if (jsonRoot.isArray()) {
+    List<Object> returnedList=new ArrayList<Object>();
+    JSONArray array=(JSONArray)jsonRoot;
+    for (    Object originalValue : array) {
+      if (originalValue instanceof JSON) {
+        returnedList.add(convertToPlainJavaImplementation((JSON)originalValue));
+      }
+ else {
+        returnedList.add(originalValue);
+      }
+    }
+    return returnedList;
+  }
+ else   if (jsonRoot instanceof JSONObject) {
+    Map<Object,Object> returnedMap=new HashMap<Object,Object>();
+    JSONObject jsonObject=(JSONObject)jsonRoot;
+    for (    Object o : jsonObject.keySet()) {
+      Object value=jsonObject.get(o);
+      if (value instanceof JSON) {
+        returnedMap.put(o,convertToPlainJavaImplementation((JSON)value));
+      }
+ else {
+        returnedMap.put(o,value);
+      }
+    }
+    return returnedMap;
+  }
+ else {
+    return null;
+  }
+}

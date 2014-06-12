@@ -1,10 +1,15 @@
 {
   try {
     String value=property instanceof TestProperty ? ((TestProperty)property).getValue() : property.toString();
-    XmlObject xmlObject=XmlUtils.createXmlObject(value);
-    String ns=xpath.trim().startsWith("declare namespace") ? "" : XmlUtils.declareXPathNamespaces(xmlObject);
-    Node domNode=XmlUtils.selectFirstDomNode(xmlObject,ns + xpath);
-    return domNode == null ? null : XmlUtils.getValueForMatch(domNode,false);
+    if (pathExpression.startsWith("$")) {
+      return new JsonPathFacade(value).readStringValue(pathExpression);
+    }
+ else {
+      XmlObject xmlObject=XmlUtils.createXmlObject(value);
+      String ns=pathExpression.trim().startsWith("declare namespace") ? "" : XmlUtils.declareXPathNamespaces(xmlObject);
+      Node domNode=XmlUtils.selectFirstDomNode(xmlObject,ns + pathExpression);
+      return domNode == null ? null : XmlUtils.getValueForMatch(domNode,false);
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);

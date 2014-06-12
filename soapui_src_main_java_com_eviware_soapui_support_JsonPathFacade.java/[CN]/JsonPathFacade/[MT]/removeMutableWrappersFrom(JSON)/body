@@ -1,0 +1,14 @@
+{
+  if (jsonObject.isArray()) {
+    JSONArray array=(JSONArray)jsonObject;
+    for (int i=0; i < array.size(); i++) {
+      array.set(i,removeMutableWrapperFrom(array.get(i)));
+    }
+  }
+ else   if (jsonObject instanceof JSONObject) {
+    JSONObject object=(JSONObject)jsonObject;
+    for (    Object key : object.keySet()) {
+      object.put(key,removeMutableWrapperFrom(object.get(key)));
+    }
+  }
+}

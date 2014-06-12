@@ -1,0 +1,7 @@
+{
+  if (!isValidJson(targetJson)) {
+    throw new IllegalArgumentException("Invalid JSON: " + targetJson);
+  }
+  this.currentJson=targetJson;
+  jsonObject=new JsonSlurper().parseText(targetJson);
+}

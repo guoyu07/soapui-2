@@ -1,0 +1,6 @@
+{
+  if (savedLanguage == null) {
+    return getUseXQuery() ? PathLanguage.XQUERY : PathLanguage.XPATH;
+  }
+  return PathLanguage.valueOf(savedLanguage.toString());
+}
