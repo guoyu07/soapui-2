@@ -3,5 +3,6 @@
   String type=(String)UISupport.prompt("Select assertion type to add","Add Assertion",types);
   if (type != null) {
     loadTest.addAssertion(type,LoadTestAssertion.ANY_TEST_STEP,true);
+    Analytics.trackAction("AddLoadTestAssertion");
   }
 }

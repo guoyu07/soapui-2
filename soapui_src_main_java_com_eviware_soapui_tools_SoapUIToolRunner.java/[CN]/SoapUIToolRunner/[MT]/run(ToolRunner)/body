@@ -1,5 +1,6 @@
 {
   status=RunnerStatus.RUNNING;
   runner.setContext(this);
+  Analytics.trackAction("RunCmdLineTool","Tool",runner.getName());
   runner.run();
 }

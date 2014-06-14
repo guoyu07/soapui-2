@@ -1,0 +1,9 @@
+{
+  RequestTransport transport=factory.newRequestTransport();
+  for (  Map.Entry<String,RequestTransport> transportEntry : transports.entrySet()) {
+    if (transportEntry.getValue().getClass().equals(transport.getClass())) {
+      transports.remove(transportEntry.getKey());
+      break;
+    }
+  }
+}

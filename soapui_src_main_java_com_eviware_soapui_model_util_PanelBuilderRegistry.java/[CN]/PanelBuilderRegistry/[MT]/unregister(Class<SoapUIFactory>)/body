@@ -1,0 +1,8 @@
+{
+  for (  Map.Entry<Class<? extends ModelItem>,PanelBuilder<? extends ModelItem>> builderEntry : builders.entrySet()) {
+    if (builderEntry.getClass().equals(aClass)) {
+      builders.remove(builderEntry.getKey());
+      break;
+    }
+  }
+}
