@@ -6,12 +6,14 @@
       UISupport.showErrorMessage("Missing content to select from");
       return;
     }
+    JTextArea pathArea=getPathArea();
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
     if (txt == null) {
       txt=pathArea == null ? "" : pathArea.getText();
     }
     WsdlTestRunContext context=new WsdlTestRunContext(getAssertable().getTestStep());
     String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
+    JTextArea contentArea=getContentArea();
     if (contentArea != null && contentArea.isVisible()) {
       contentArea.setText("");
     }

@@ -1,0 +1,20 @@
+{
+  String oldPath=assertion.getPath();
+  String oldContent=assertion.getExpectedContent();
+  boolean oldAllowWildcards=assertion.isAllowWildcards();
+  assertion.setPath(pathArea.getText().trim());
+  assertion.setExpectedContent(contentArea.getText());
+  assertion.setAllowWildcards(allowWildcardsCheckBox.isSelected());
+  assertion.setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
+  assertion.setIgnoreComments(ignoreCommentsCheckBox.isSelected());
+  try {
+    String msg=assertion.assertContent(assertion.getAssertable().getAssertableContentAsXml(),new WsdlTestRunContext(assertion.getAssertable().getTestStep()),"Response");
+    UISupport.showInfoMessage(msg,"Success");
+  }
+ catch (  AssertionException e) {
+    UISupport.showErrorMessage(e.getMessage());
+  }
+  assertion.setPath(oldPath);
+  assertion.setExpectedContent(oldContent);
+  assertion.setAllowWildcards(oldAllowWildcards);
+}
