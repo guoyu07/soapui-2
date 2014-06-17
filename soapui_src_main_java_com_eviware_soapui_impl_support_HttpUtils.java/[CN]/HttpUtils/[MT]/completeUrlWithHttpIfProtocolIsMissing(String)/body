@@ -1,0 +1,10 @@
+{
+  if (StringUtils.isNullOrEmpty(endpoint)) {
+    return endpoint;
+  }
+  endpoint=endpoint.toLowerCase().trim();
+  if (!endpoint.contains("://")) {
+    return "http://" + endpoint;
+  }
+  return endpoint;
+}

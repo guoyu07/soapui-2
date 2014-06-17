@@ -1,0 +1,13 @@
+{
+  if (starterPageDesktopPanel == null || starterPageDesktopPanel.isClosed()) {
+    try {
+      starterPageDesktopPanel=new URLDesktopPanel(STARTER_PAGE_HEADER,STARTER_PAGE_TOOL_TIP,null);
+    }
+ catch (    Exception e) {
+      logError(e);
+      return;
+    }
+  }
+  UISupport.showDesktopPanel(starterPageDesktopPanel);
+  starterPageDesktopPanel.navigate(STARTER_PAGE_URL,STARTER_PAGE_ERROR_URL,true);
+}

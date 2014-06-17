@@ -6,7 +6,7 @@
   endpoint=RestUtils.extractParams(endpoint,params,true);
   XmlBeansRestParamsTestPropertyHolder tempParams=new XmlBeansRestParamsTestPropertyHolder(testCase,httpRequest.addNewParameters());
   tempParams.addParameters(params);
-  httpRequest.setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(endpoint));
+  httpRequest.setEndpoint(HttpUtils.completeUrlWithHttpIfProtocolIsNotHttpOrHttpsOrPropertyExpansion(endpoint));
   TestStepConfig testStep=TestStepConfig.Factory.newInstance();
   testStep.setType(HTTPREQUEST_TYPE);
   testStep.setConfig(httpRequest);
