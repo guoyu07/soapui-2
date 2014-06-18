@@ -16,7 +16,8 @@
   addPrefs(new SecurityScansPrefs(GLOBAL_SENSITIVE_INFORMATION_TOKENS));
   addPrefs(new AnnotatedSettingsPrefs(VersionUpdateSettings.class,VERSIONUPDATE_SETTINGS));
   for (  PrefsFactory factory : SoapUI.getFactoryRegistry().getFactories(PrefsFactory.class)) {
-    addPrefs(factory.createPrefs());
+    addPrefsFactory(factory);
   }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
   instance=this;
 }

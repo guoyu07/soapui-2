@@ -3,4 +3,5 @@
     factories.put(factoryType,new ArrayList<Object>());
   }
   factories.get(factoryType).add(factory);
+  for (  SoapUIFactoryRegistryListener listener : listeners)   listener.factoryAdded(factoryType,factory);
 }

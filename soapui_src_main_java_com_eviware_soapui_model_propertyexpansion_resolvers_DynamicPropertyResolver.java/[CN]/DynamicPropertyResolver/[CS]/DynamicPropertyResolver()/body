@@ -1,2 +1,6 @@
 {
+  for (  ValueProviderFactory obj : SoapUI.getFactoryRegistry().getFactories(ValueProviderFactory.class)) {
+    addProvider(obj);
+  }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
 }

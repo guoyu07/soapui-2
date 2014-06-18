@@ -1,9 +1,10 @@
 {
-  TestStepConfig newStepConfig=((HttpRequestStepFactory)WsdlTestStepRegistry.getInstance().getFactory(type)).createNewTestStep(this,name,endpoint,method);
-  if (newStepConfig != null) {
-    return addTestStep(newStepConfig);
+  WsdlTestStepFactory requestStepFactory=WsdlTestStepRegistry.getInstance().getFactory(type);
+  if (requestStepFactory instanceof HttpRequestStepFactory) {
+    TestStepConfig newStepConfig=((HttpRequestStepFactory)requestStepFactory).createNewTestStep(this,name,endpoint,method);
+    if (newStepConfig != null) {
+      return addTestStep(newStepConfig);
+    }
   }
- else {
-    return null;
-  }
+  return null;
 }

@@ -20,4 +20,5 @@
   for (  WsdlTestStepFactory factory : SoapUI.getFactoryRegistry().getFactories(WsdlTestStepFactory.class)) {
     addFactory(factory);
   }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
 }
