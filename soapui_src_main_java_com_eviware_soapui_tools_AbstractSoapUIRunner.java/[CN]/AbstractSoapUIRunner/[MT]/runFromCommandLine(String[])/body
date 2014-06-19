@@ -2,7 +2,7 @@
   try {
     if (initFromCommandLine(args,true)) {
       if (run()) {
-        return 0;
+        return NORMAL_TERMINATION;
       }
     }
   }
@@ -10,5 +10,5 @@
     log.error(e);
     SoapUI.logError(e);
   }
-  return -1;
+  return ABNORMAL_TERMINATION;
 }
