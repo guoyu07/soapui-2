@@ -2,15 +2,18 @@
   String oldPath=assertion.getPath();
   String oldContent=assertion.getExpectedContent();
   boolean oldAllowWildcards=assertion.isAllowWildcards();
-  assertion.setPath(pathArea.getText().trim());
-  assertion.setExpectedContent(contentArea.getText());
-  assertion.setAllowWildcards(allowWildcardsCheckBox.isSelected());
+  setAssertionParameters(pathArea.getText().trim(),contentArea.getText(),allowWildcardsCheckBox.isSelected());
   assertion.setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
   assertion.setIgnoreComments(ignoreCommentsCheckBox.isSelected());
   try {
     String assertableContent=assertion.getAssertable().getAssertableContent();
-    if (!JsonUtil.seemsToBeJson(assertableContent)) {
+    if (XPathContainsAssertion.ID.equals(assertion.getConfig().getType()) || (!JsonUtil.seemsToBeJson(assertableContent))) {
       assertableContent=assertion.getAssertable().getAssertableContentAsXml();
+    }
+    if (assertableContent == null) {
+      UISupport.showErrorMessage("Missing content!!");
+      setAssertionParameters(oldPath,oldContent,oldAllowWildcards);
+      return;
     }
     String msg=assertion.assertContent(assertableContent,new WsdlTestRunContext(assertion.getAssertable().getTestStep()),"Response");
     UISupport.showInfoMessage(msg,"Success");
@@ -18,7 +21,5 @@
  catch (  AssertionException e) {
     UISupport.showErrorMessage(e.getMessage());
   }
-  assertion.setPath(oldPath);
-  assertion.setExpectedContent(oldContent);
-  assertion.setAllowWildcards(oldAllowWildcards);
+  setAssertionParameters(oldPath,oldContent,oldAllowWildcards);
 }
