@@ -1,6 +1,10 @@
 {
-  if (mockRequest.getHttpResponse() != null) {
-    mockRequest.getHttpResponse().addHeader(name,value);
+  HttpServletResponse httpResponse=mockRequest.getHttpResponse();
+  if (httpResponse != null) {
+    if (httpResponse.containsHeader(name)) {
+      return;
+    }
+    httpResponse.addHeader(name,value);
   }
   responseHeaders.add(name,value);
 }
