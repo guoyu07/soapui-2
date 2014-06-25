@@ -1,14 +1,9 @@
 {
   Analytics.trackError(new Throwable(message));
-  SwingUtilities.invokeLater(new Runnable(){
-    public void run(){
-      if (message != null && message.length() > EXTENDED_ERROR_MESSAGE_THRESHOLD) {
-        dialogs.showExtendedInfo("Error","An error occurred",message,null);
-      }
- else {
-        dialogs.showErrorMessage(message);
-      }
-    }
+  if (message != null && message.length() > EXTENDED_ERROR_MESSAGE_THRESHOLD) {
+    dialogs.showExtendedInfo("Error","An error occurred",message,null);
   }
-);
+ else {
+    dialogs.showErrorMessage(message);
+  }
 }
