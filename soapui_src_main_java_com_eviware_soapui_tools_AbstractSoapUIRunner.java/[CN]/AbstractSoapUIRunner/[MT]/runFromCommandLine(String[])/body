@@ -1,14 +1,7 @@
 {
-  try {
-    if (initFromCommandLine(args,true)) {
-      if (run()) {
-        return NORMAL_TERMINATION;
-      }
-    }
+  int results=ABNORMAL_TERMINATION;
+  if (validateCommandLineArgument(args)) {
+    results=run(args);
   }
- catch (  Throwable e) {
-    log.error(e);
-    SoapUI.logError(e);
-  }
-  return ABNORMAL_TERMINATION;
+  return results;
 }
