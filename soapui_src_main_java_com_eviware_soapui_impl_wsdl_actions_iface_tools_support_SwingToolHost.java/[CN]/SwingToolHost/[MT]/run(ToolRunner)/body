@@ -16,7 +16,7 @@
     throw ex;
   }
  finally {
-    Analytics.trackAction("RunTool","Tool",runner.getName());
+    Analytics.trackAction(SoapUIActions.RUN_TOOL.getActionName(),"Tool",runner.getName());
     if (processDialog != null) {
       processDialog.setVisible(false);
     }
