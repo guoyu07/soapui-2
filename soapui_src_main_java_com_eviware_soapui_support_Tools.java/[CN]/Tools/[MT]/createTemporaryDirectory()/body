@@ -1,0 +1,9 @@
+{
+  String libDirectoryName=UUID.randomUUID().toString();
+  final File libDirectory=new File(System.getProperty("java.io.tmpdir"),libDirectoryName);
+  if (!libDirectory.mkdir()) {
+    throw new IOException("Could not create directory for unpacked JAR libraries at " + libDirectory);
+  }
+  deleteDirectoryOnExit(libDirectory);
+  return libDirectory;
+}
