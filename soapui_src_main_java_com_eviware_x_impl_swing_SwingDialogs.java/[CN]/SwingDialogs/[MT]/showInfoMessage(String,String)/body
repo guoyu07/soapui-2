@@ -1,3 +1,8 @@
 {
-  JOptionPane.showMessageDialog(parent,message,title,JOptionPane.INFORMATION_MESSAGE);
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      JOptionPane.showMessageDialog(parent,message,title,JOptionPane.INFORMATION_MESSAGE);
+    }
+  }
+);
 }

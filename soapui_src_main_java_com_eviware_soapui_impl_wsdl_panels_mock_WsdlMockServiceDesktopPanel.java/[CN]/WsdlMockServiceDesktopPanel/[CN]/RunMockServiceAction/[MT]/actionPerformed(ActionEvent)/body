@@ -1,5 +1,5 @@
 {
-  if (getModelItem() instanceof WsdlMockService)   Analytics.trackAction("StartSOAPMock");
- else   if (getModelItem() instanceof RestMockService)   Analytics.trackAction("StartRestMock");
+  if (getModelItem() instanceof WsdlMockService)   Analytics.trackAction(SoapUIActions.START_SOAP_MOCK.getActionName());
+ else   if (getModelItem() instanceof RestMockService)   Analytics.trackAction(SoapUIActions.START_REST_MOCK.getActionName());
   startMockService();
 }

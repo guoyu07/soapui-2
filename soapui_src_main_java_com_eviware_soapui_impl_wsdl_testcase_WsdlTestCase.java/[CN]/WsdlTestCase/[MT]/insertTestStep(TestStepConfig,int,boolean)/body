@@ -21,6 +21,6 @@
     (getTestSuite()).fireTestStepAdded(testStep,ix == -1 ? testSteps.size() - 1 : ix);
   }
   notifyPropertyChanged("testSteps",null,testStep);
-  Analytics.trackAction("AddRequestToTestCase","Type",testStep.getClass().getSimpleName());
+  Analytics.trackAction(SoapUIActions.CREATE_TEST_STEP.getActionName(),"Type",testStep.getClass().getSimpleName());
   return testStep;
 }
