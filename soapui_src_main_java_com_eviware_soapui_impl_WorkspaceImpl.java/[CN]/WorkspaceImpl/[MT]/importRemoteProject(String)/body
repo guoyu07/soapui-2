@@ -1,8 +1,5 @@
 {
-  WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(url,this,false);
-  projectList.add(project);
-  fireProjectAdded(project);
-  resolveProject(project);
-  save(true);
+  WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(url,this);
+  afterProjectImport(project);
   return project;
 }

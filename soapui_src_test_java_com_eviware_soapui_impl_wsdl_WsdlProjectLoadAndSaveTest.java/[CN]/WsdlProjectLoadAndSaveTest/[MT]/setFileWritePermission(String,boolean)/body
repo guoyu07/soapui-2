@@ -1,0 +1,6 @@
+{
+  boolean couldSetWritable=new File(projectFilePath).setWritable(writable);
+  if (!couldSetWritable) {
+    throw new IOException("Can't set project file '" + projectFilePath + "' to writable");
+  }
+}

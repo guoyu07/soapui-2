@@ -1,6 +1,6 @@
 {
   HttpRequestConfig httpRequest=HttpRequestConfig.Factory.newInstance();
-  httpRequest.setEndpoint(HttpUtils.ensureEndpointStartsWithProtocol(url));
+  httpRequest.setEndpoint(HttpUtils.completeUrlWithHttpIfProtocolIsNotHttpOrHttpsOrPropertyExpansion(url));
   httpRequest.setMethod("GET");
   TestStepConfig testStepConfig=TestStepConfig.Factory.newInstance();
   testStepConfig.setType(HttpRequestStepFactory.HTTPREQUEST_TYPE);

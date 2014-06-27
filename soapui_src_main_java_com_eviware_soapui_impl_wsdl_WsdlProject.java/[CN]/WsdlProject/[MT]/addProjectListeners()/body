@@ -1,0 +1,8 @@
+{
+  for (  ProjectListener listener : SoapUI.getListenerRegistry().getListeners(ProjectListener.class)) {
+    addProjectListener(listener);
+  }
+  for (  ProjectRunListener listener : SoapUI.getListenerRegistry().getListeners(ProjectRunListener.class)) {
+    addProjectRunListener(listener);
+  }
+}

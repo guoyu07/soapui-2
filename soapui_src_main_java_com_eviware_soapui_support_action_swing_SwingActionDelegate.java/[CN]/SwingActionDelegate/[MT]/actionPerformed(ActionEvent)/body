@@ -3,8 +3,8 @@
   try {
     mapping.getAction().perform(target,param == null ? mapping.getParam() : param);
   }
- catch (  Throwable t) {
-    SoapUI.logError(t);
+ catch (  Exception exception) {
+    SoapUI.logError(exception);
   }
  finally {
     state.restore();

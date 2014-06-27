@@ -1,0 +1,15 @@
+{
+  super(null,workspace,ICON_NAME);
+  this.workspace=workspace;
+  this.open=true;
+  this.endpointSupport=new EndpointSupport();
+  this.projectPassword=null;
+  addProjectListeners();
+  loadProject(inputStream);
+  if (projectDocument == null) {
+    createEmptyProjectConfiguration(null,null);
+  }
+  lastModified=System.currentTimeMillis();
+  initProjectIcons();
+  finalizeProjectLoading(open);
+}

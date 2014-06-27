@@ -8,7 +8,7 @@
       wpc.setType(Type.REMOTE);
     }
     if (!project.isOpen()) {
-      if (project.getEncrypted() == 0) {
+      if (project.getEncryptionStatus() == NOT_ENCRYPTED) {
         wpc.setStatus(Status.CLOSED);
       }
  else {

@@ -1,6 +1,6 @@
 {
   status=RunnerStatus.RUNNING;
   runner.setContext(this);
-  Analytics.trackAction("RunCmdLineTool","Tool",runner.getName());
+  Analytics.trackAction(SoapUIActions.RUN_TOOL_FROM_COMMAND_LINE.getActionName(),"Tool",runner.getName());
   runner.run();
 }

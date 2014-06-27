@@ -1,0 +1,9 @@
+{
+  StringToStringsMap resultResponseHeaders=result.getResponseHeaders();
+  if (resultResponseHeaders.containsKeyIgnoreCase(headerName)) {
+    if (resultResponseHeaders.get(headerName).contains(headerValue)) {
+      return true;
+    }
+  }
+  return false;
+}

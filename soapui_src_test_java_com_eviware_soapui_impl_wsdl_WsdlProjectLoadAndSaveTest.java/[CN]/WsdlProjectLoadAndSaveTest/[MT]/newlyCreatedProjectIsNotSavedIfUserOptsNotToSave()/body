@@ -1,0 +1,6 @@
+{
+  Project project=createTemporaryProject();
+  cancelWhenTheSaveAsFileDialogIsShown();
+  SaveStatus status=project.save();
+  assertThat(status,is(not(SaveStatus.SUCCESS)));
+}
