@@ -44,7 +44,9 @@
     }
     String acceptEncoding=result.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
-      result.addHeader("Content-Encoding","gzip");
+      if (!headerExists("Content-Encoding","gzip",result)) {
+        result.addHeader("Content-Encoding","gzip");
+      }
       outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));
     }
  else     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("DEFLATE")) {
