@@ -1,5 +1,5 @@
 {
-  Analytics.trackAction("RunTestStep","StepType","GroovyScript");
+  Analytics.trackAction(SoapUIActions.RUN_TEST_STEP.getActionName(),"StepType","GroovyScript");
   MockResult lastMockResult=getMockOperation().getLastMockResult();
   MockRequest mockRequest=lastMockResult == null ? null : lastMockResult.getMockRequest();
   try {

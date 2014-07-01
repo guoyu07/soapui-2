@@ -7,6 +7,6 @@
  catch (  Exception e) {
     UISupport.showErrorMessage(e);
   }
-  AnalyticsManager.getAnalytics().trackAction("ImportWADL");
+  Analytics.trackAction(SoapUIActions.IMPORT_WADL.getActionName());
   return restService;
 }

@@ -17,16 +17,16 @@
  catch (    Exception e1) {
       SoapUI.logError(e1);
     }
-    Analytics.trackAction("Exit");
+    Analytics.trackAction(SoapUIActions.EXIT.getActionName());
   }
  else {
     if (!UISupport.confirm("Exit SoapUI without saving?","Question")) {
       saveOnExit=true;
       return false;
     }
-    Analytics.trackAction("ExitWithoutSave");
+    Analytics.trackAction(SoapUIActions.EXIT_WITHOUT_SAVE.getActionName());
   }
-  AnalyticsManager.getAnalytics().trackSessionStop();
+  Analytics.trackSessionStop();
   shutdown();
   return true;
 }

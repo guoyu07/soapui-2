@@ -20,12 +20,25 @@ synchronized (defaults) {
       for (      String ep : defaults.keySet()) {
         try {
           URL tempUrl=new URL(PropertyExpander.expandProperties(context,ep));
-          if (tempUrl.toString().equals(uri.toString())) {
+          if (tempUrl.toString().equalsIgnoreCase(uri.toString())) {
             def=defaults.get(ep);
             break;
           }
         }
  catch (        Exception e) {
+        }
+      }
+      if (wsdlRequest instanceof RestRequestInterface) {
+        for (        String ep : defaults.keySet()) {
+          try {
+            URL tempUrl=new URL(PropertyExpander.expandProperties(context,ep));
+            if (tempUrl.getHost().toString().equalsIgnoreCase(uri.getHost().toString())) {
+              def=defaults.get(ep);
+              break;
+            }
+          }
+ catch (          Exception e) {
+          }
         }
       }
     }
