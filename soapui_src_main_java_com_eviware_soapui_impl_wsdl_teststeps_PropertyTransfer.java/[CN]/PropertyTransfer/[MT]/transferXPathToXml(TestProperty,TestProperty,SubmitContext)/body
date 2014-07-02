@@ -2,6 +2,9 @@
   XmlCursor sourceXml;
   try {
     String sourcePropertyValue=sourceProperty.getValue();
+    if (isResponseProperty(sourceProperty)) {
+      sourcePropertyValue=removeExpansions(sourceProperty.getValue());
+    }
     XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlUtils.createXmlObject(sourcePropertyValue);
     sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
   }

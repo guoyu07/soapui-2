@@ -17,6 +17,9 @@
  else {
       Object sourceValue=readSourceValue(context);
       sourceValue=entitizeIfApplicable(sourceValue);
+      if (isResponseProperty(sourceProperty) && sourceValue instanceof String) {
+        sourceValue=removeExpansions((String)sourceValue);
+      }
       return writeTargetValue(sourceValue,context);
     }
   }
