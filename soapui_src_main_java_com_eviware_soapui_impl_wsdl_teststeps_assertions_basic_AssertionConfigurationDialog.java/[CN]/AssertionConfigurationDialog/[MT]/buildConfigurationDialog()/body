@@ -1,0 +1,44 @@
+{
+  configurationDialog=new JDialog(UISupport.getMainFrame());
+  configurationDialog.setTitle(assertion.getConfigurationDialogTitle());
+  configurationDialog.addWindowListener(new WindowAdapter(){
+    @Override public void windowOpened(    WindowEvent event){
+      SwingUtilities.invokeLater(new Runnable(){
+        public void run(){
+        }
+      }
+);
+    }
+  }
+);
+  JPanel contentPanel=new JPanel(new BorderLayout());
+  contentPanel.add(UISupport.buildDescription(assertion.getPathAreaTitle(),assertion.getPathAreaDescription(),null),BorderLayout.NORTH);
+  JSplitPane splitPane=UISupport.createVerticalSplit();
+  JPanel pathPanel=getPathAreaPanel();
+  splitPane.setTopComponent(UISupport.addTitledBorder(pathPanel,assertion.getPathAreaBorderTitle()));
+  contentArea=new JUndoableTextArea();
+  contentArea.setToolTipText(assertion.getContentAreaToolTipText());
+  JPanel matchPanel=new JPanel(new BorderLayout());
+  JXToolBar contentToolbar=UISupport.createToolbar();
+  assertion.addMatchEditorActions(contentToolbar);
+  matchPanel.add(contentToolbar,BorderLayout.NORTH);
+  matchPanel.add(new JScrollPane(contentArea),BorderLayout.CENTER);
+  splitPane.setBottomComponent(UISupport.addTitledBorder(matchPanel,assertion.getContentAreaBorderTitle()));
+  splitPane.setDividerLocation(250);
+  splitPane.setBorder(BorderFactory.createEmptyBorder(0,1,0,1));
+  contentPanel.add(splitPane,BorderLayout.CENTER);
+  ButtonBarBuilder builder=new ButtonBarBuilder();
+  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.XPATHASSERTIONEDITOR_HELP_URL);
+  builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
+  builder.addGlue();
+  JButton okButton=new JButton(createOkAction());
+  builder.addFixed(okButton);
+  builder.addRelatedGap();
+  builder.addFixed(new JButton(new CancelAction()));
+  builder.setBorder(BorderFactory.createEmptyBorder(1,5,5,5));
+  contentPanel.add(builder.getPanel(),BorderLayout.SOUTH);
+  configurationDialog.setContentPane(contentPanel);
+  configurationDialog.setSize(800,500);
+  configurationDialog.setModal(true);
+  UISupport.initDialogActions(configurationDialog,showOnlineHelpAction,okButton);
+}

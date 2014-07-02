@@ -1,0 +1,10 @@
+{
+  pathArea=new JUndoableTextArea();
+  pathArea.setToolTipText(assertion.getPathAreaToolTipText());
+  JPanel pathPanel=new JPanel(new BorderLayout());
+  JXToolBar pathToolbar=UISupport.createToolbar();
+  assertion.addPathEditorActions(pathToolbar);
+  pathPanel.add(pathToolbar,BorderLayout.NORTH);
+  pathPanel.add(new JScrollPane(pathArea),BorderLayout.CENTER);
+  return pathPanel;
+}
