@@ -1,7 +1,7 @@
 {
   boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
   if (isDebug) {
-    Analytics.trackAction(SoapUIActions.DEBUG_MODE.getActionName());
+    Analytics.trackAction("DebuggingMode");
   }
   WebstartUtilCore.init();
   mainArgs=args;

@@ -4,4 +4,8 @@
   addFactory(new JsonResponseViewFactory());
   addFactory(new HttpHtmlResponseViewFactory());
   addFactory(new RawXmlEditorFactory());
+  for (  EditorViewFactory factory : SoapUI.getFactoryRegistry().getFactories(EditorViewFactory.class)) {
+    addFactory(factory);
+  }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
 }

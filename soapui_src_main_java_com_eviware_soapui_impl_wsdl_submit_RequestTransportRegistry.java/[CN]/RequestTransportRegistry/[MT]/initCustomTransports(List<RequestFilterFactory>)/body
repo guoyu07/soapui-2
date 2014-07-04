@@ -1,0 +1,14 @@
+{
+  for (  RequestTransportFactory factory : SoapUI.getFactoryRegistry().getFactories(RequestTransportFactory.class)) {
+    RequestTransport transport=factory.newRequestTransport();
+    String protocol=factory.getProtocol();
+    for (    RequestFilterFactory filterFactory : filterFactories) {
+      if (filterFactory.getProtocol().equals(protocol)) {
+        RequestFilter requestFilter=filterFactory.createRequestFilter();
+        transport.addRequestFilter(requestFilter);
+        addToCustomRequestFilters(protocol,requestFilter);
+      }
+    }
+    transports.put(protocol,transport);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  Prefs pref=prefsFactories.get(factory);
+  if (pref != null) {
+    prefsFactories.remove(factory);
+    if (tabs != null) {
+      int ix=tabs.indexOfTab(pref.getTitle());
+      if (ix != -1)       tabs.removeTabAt(ix);
+    }
+    prefs.remove(pref);
+  }
+}
