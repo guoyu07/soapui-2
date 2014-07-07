@@ -1,0 +1,12 @@
+{
+  try {
+    if (run()) {
+      return NORMAL_TERMINATION;
+    }
+  }
+ catch (  Exception e) {
+    log.error(e);
+    SoapUI.logError(e);
+  }
+  return ABNORMAL_TERMINATION;
+}
