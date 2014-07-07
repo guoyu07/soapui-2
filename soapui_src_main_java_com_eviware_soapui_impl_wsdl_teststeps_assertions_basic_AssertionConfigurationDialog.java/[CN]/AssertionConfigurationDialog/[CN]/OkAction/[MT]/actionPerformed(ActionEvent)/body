@@ -1,0 +1,10 @@
+{
+  assertion.setPath(pathArea.getText().trim());
+  assertion.setExpectedContent(contentArea.getText());
+  assertion.setAllowWildcards(allowWildcardsCheckBox.isSelected());
+  assertion.setIgnoreNamespaceDifferences(ignoreNamespaceDifferencesCheckBox.isSelected());
+  assertion.setIgnoreComments(ignoreCommentsCheckBox.isSelected());
+  assertion.setConfiguration(assertion.createConfiguration());
+  configureResult=true;
+  configurationDialog.setVisible(false);
+}

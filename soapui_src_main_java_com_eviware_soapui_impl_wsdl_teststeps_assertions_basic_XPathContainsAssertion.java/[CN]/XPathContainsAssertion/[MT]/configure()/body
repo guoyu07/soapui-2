@@ -1,11 +1,6 @@
 {
   if (configurationDialog == null) {
-    buildConfigurationDialog();
+    configurationDialog=new AssertionConfigurationDialog(getAssertion());
   }
-  pathArea.setText(path);
-  contentArea.setText(expectedContent);
-  allowWildcardsCheckBox.setSelected(allowWildcards);
-  ignoreNamespaceDifferencesCheckBox.setSelected(ignoreNamespaceDifferences);
-  UISupport.showDialog(configurationDialog);
-  return configureResult;
+  return configurationDialog.configure();
 }

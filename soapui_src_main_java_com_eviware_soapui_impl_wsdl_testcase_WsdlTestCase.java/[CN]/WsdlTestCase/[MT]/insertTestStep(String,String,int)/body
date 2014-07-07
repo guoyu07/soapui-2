@@ -1,9 +1,10 @@
 {
-  TestStepConfig newStepConfig=WsdlTestStepRegistry.getInstance().getFactory(type).createNewTestStep(this,name);
-  if (newStepConfig != null) {
-    return insertTestStep(newStepConfig,index,false);
+  WsdlTestStepFactory testStepFactory=WsdlTestStepRegistry.getInstance().getFactory(type);
+  if (testStepFactory != null) {
+    TestStepConfig newStepConfig=testStepFactory.createNewTestStep(this,name);
+    if (newStepConfig != null) {
+      return insertTestStep(newStepConfig,index,false);
+    }
   }
- else {
-    return null;
-  }
+  return null;
 }

@@ -1,0 +1,13 @@
+{
+  String originalValue="<a><b>Attack here:${= attack() }</b></a>";
+  sourceProperty.setValue(originalValue);
+  sourceProperty.setName(WsdlTestStepWithProperties.RESPONSE);
+  String path="/a/b";
+  targetProperty.setValue("<a><b>some content</b></a>");
+  transfer.setSourcePath(path);
+  transfer.setSourcePathLanguage(PathLanguage.XPATH);
+  transfer.setTargetPath(path);
+  transfer.setTargetPathLanguage(PathLanguage.XPATH);
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<a><b>Attack here:</b></a>"));
+}
