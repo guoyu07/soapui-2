@@ -1,0 +1,11 @@
+{
+  boolean commandLineArgumentsAreValid=false;
+  try {
+    commandLineArgumentsAreValid=initFromCommandLine(args,true);
+  }
+ catch (  Exception e) {
+    log.error(e);
+    SoapUI.logError(e);
+  }
+  return commandLineArgumentsAreValid;
+}
