@@ -13,8 +13,8 @@
         log.info("Adding factories from [" + factoryFile.getAbsolutePath() + "]");
         getFactoryRegistry().addConfig(new FileInputStream(factoryFile),classLoader);
       }
- catch (      Exception e) {
-        SoapUI.logError(e);
+ catch (      Throwable e) {
+        SoapUI.logError(e,"Couldn't load factories in " + factoryFile.getAbsolutePath());
       }
     }
   }
