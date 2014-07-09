@@ -35,6 +35,12 @@
   targetType=config.getTargetType();
   currentTargetProperty=currentTargetStep == null || targetType == null ? null : currentTargetStep.getProperty(targetType);
   targetPath=config.getTargetPath();
+  if (!config.getUpgraded()) {
+    if (shouldConvertSourceProperty()) {
+      setSourcePropertyName(WsdlTestStepWithProperties.RESPONSE_AS_XML);
+    }
+    config.setUpgraded(true);
+  }
   name=config.getName();
   initListeners();
   propertyChangeSupport.firePropertyChange(CONFIG_PROPERTY,null,null);
