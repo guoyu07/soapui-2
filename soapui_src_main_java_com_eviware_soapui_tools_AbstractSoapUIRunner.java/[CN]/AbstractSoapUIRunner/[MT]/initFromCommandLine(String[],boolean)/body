@@ -2,7 +2,7 @@
   SoapUIOptions options=initCommandLineOptions();
   CommandLineParser parser=new PosixParser();
   CommandLine cmd=parser.parse(options,args);
-  if (options.requiresProject()) {
+  if (requiresProjectArgument(cmd)) {
     args=cmd.getArgs();
     if (args.length != 1) {
       if (printHelp) {

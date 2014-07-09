@@ -1,0 +1,14 @@
+{
+  Iterator<RestParamProperty> propertyIterator=properties.iterator();
+  while (propertyIterator.hasNext()) {
+    RestParamProperty property=propertyIterator.next();
+    String propertyName=property.getName();
+    if (!StringUtils.hasContent(propertyName)) {
+      int index=properties.indexOf(property);
+      propertyMap.remove(propertyName.toUpperCase());
+      propertyIterator.remove();
+      firePropertyRemoved(propertyName);
+      config.removeParameter(index);
+    }
+  }
+}
