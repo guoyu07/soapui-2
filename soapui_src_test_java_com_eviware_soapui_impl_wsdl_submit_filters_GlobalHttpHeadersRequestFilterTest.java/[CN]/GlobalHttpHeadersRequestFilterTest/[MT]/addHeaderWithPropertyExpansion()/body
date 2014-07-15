@@ -1,5 +1,5 @@
 {
-  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent","Testing Replace.${currentStepIndex}.${currentRunStepIndex}");
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent","Testing Replace.${currentStepIndex}.${currentStepRunIndex}");
   AbstractTestCaseRunner runner=Mockito.mock(AbstractTestCaseRunner.class);
   Mockito.when(runner.getResultCount()).thenReturn(4);
   WsdlTestRunContext context=mockContext();
