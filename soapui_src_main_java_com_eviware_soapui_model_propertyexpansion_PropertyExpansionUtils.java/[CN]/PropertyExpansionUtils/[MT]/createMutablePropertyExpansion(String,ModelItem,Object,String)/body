@@ -30,19 +30,19 @@
   }
  else   if (modelItem instanceof WsdlMockService) {
     mockService=(WsdlMockService)modelItem;
-    project=(WsdlProject)mockService.getProject();
+    project=mockService.getProject();
   }
  else   if (modelItem instanceof AbstractHttpRequestInterface<?>) {
     project=((AbstractHttpRequest<?>)modelItem).getOperation().getInterface().getProject();
   }
  else   if (modelItem instanceof WsdlMockOperation) {
     mockService=((WsdlMockOperation)modelItem).getMockService();
-    project=(WsdlProject)mockService.getProject();
+    project=mockService.getProject();
   }
  else   if (modelItem instanceof WsdlMockResponse) {
     mockResponse=(WsdlMockResponse)modelItem;
     mockService=mockResponse.getMockOperation().getMockService();
-    project=(WsdlProject)mockService.getProject();
+    project=mockService.getProject();
   }
  else   if (modelItem instanceof SecurityTest) {
     securityTest=(SecurityTest)modelItem;
@@ -89,7 +89,9 @@
     xpath=pe.substring(sepIx + 1);
     pe=pe.substring(0,sepIx);
   }
-  if (holder == null)   holder=getGlobalProperties();
+  if (holder == null) {
+    holder=getGlobalProperties();
+  }
   TestProperty tp=holder.getProperty(pe);
   return tp == null ? null : new MutablePropertyExpansionImpl(tp,xpath,target,propertyName);
 }

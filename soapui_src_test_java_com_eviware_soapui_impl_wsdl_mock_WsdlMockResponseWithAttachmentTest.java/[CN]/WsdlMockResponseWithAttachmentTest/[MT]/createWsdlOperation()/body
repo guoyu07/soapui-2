@@ -1,0 +1,8 @@
+{
+  WsdlOperation operation=mock(WsdlOperation.class);
+  BindingOperation bindingOperation=mock(BindingOperation.class);
+  when(operation.getBindingOperation()).thenReturn(bindingOperation);
+  WsdlInterface wsdlInterface=createWsdlInterface();
+  when(operation.getInterface()).thenReturn(wsdlInterface);
+  return operation;
+}

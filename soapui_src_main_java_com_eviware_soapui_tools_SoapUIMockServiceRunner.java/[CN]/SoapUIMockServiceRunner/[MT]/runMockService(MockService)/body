@@ -1,7 +1,11 @@
 {
   try {
-    if (path != null)     mockService.setPath(path);
-    if (port != null)     mockService.setPort(Integer.parseInt(port));
+    if (path != null) {
+      mockService.setPath(path);
+    }
+    if (port != null) {
+      mockService.setPort(Integer.parseInt(port));
+    }
     mockService.addMockRunListener(new LogListener());
     MockRunner runner=mockService.start();
     runner.setLogEnabled(false);

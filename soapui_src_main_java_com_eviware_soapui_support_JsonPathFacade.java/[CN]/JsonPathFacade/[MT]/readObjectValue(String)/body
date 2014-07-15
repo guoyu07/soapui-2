@@ -1,0 +1,6 @@
+{
+  PlainJavaJsonProvider provider=new PlainJavaJsonProvider();
+  Configuration configuration=Configuration.builder().jsonProvider(provider).build();
+  JsonPath jsonPath=JsonPath.compile(jsonPathExpression);
+  return jsonPath.read(jsonObject,configuration);
+}

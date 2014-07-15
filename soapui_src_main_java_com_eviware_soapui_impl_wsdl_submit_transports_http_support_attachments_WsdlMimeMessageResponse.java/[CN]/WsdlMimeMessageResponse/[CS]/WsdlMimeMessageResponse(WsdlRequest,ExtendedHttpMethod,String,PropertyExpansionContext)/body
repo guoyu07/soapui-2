@@ -13,7 +13,9 @@
       String name=element.getName().toUpperCase();
       if (name.startsWith("MULTIPART/")) {
         NameValuePair parameter=element.getParameterByName("type");
-        if (parameter != null)         multipartType=parameter.getValue();
+        if (parameter != null) {
+          multipartType=parameter.getValue();
+        }
       }
     }
   }

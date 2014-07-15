@@ -23,7 +23,9 @@
       String url=dialog.getValue(Form.INITIALWSDL).trim();
       if (StringUtils.hasContent(url)) {
         String expUrl=PathUtils.expandPath(url,project);
-        if (new File(expUrl).exists())         url=new File(expUrl).toURI().toURL().toString();
+        if (new File(expUrl).exists()) {
+          url=new File(expUrl).toURI().toURL().toString();
+        }
         WsdlInterface[] results=importWsdl(project,expUrl);
         if (!url.equals(expUrl)) {
           for (          WsdlInterface iface : results) {

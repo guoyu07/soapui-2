@@ -5,8 +5,12 @@
   chooser.setAcceptAllFileFilterUsed(true);
   if (current != null) {
     File file=new File(current);
-    if (file.isDirectory())     chooser.setCurrentDirectory(file);
- else     chooser.setSelectedFile(file);
+    if (file.isDirectory()) {
+      chooser.setCurrentDirectory(file);
+    }
+ else {
+      chooser.setSelectedFile(file);
+    }
   }
  else {
     chooser.setSelectedFile(null);
@@ -17,6 +21,8 @@
  else {
     chooser.setFileFilter(null);
   }
-  if (chooser.showOpenDialog(getParent()) != JFileChooser.APPROVE_OPTION)   return null;
+  if (chooser.showOpenDialog(getParent()) != JFileChooser.APPROVE_OPTION) {
+    return null;
+  }
   return chooser.getSelectedFile();
 }

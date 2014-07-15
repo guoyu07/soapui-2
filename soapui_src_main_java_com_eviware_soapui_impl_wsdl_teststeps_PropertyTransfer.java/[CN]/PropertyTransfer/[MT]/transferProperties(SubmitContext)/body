@@ -2,24 +2,28 @@
   TestProperty sourceProperty=getSourceProperty();
   TestProperty targetProperty=getTargetProperty();
   try {
-    if (sourceProperty == null)     throw new Exception("Missing source property");
-    if (targetProperty == null)     throw new Exception("Missing target property");
-    if (sourceProperty.getValue() == null && !getSetNullOnMissingSource() && !getIgnoreEmpty())     throw new Exception("Source property is null");
-    if (!hasSourcePath() && !hasTargetPath()) {
-      if (!getIgnoreEmpty() || (sourceProperty.getValue() != null && sourceProperty.getValue().length() > 0))       return transferStringToString(sourceProperty,targetProperty);
+    if (sourceProperty == null) {
+      throw new Exception("Missing source property");
     }
- else     if (hasSourcePath() && hasTargetPath()) {
-      return transferXPathToXml(sourceProperty,targetProperty,context);
+    if (targetProperty == null) {
+      throw new Exception("Missing target property");
     }
- else     if (hasSourcePath() && !hasTargetPath()) {
-      return new String[]{transferXPathToString(sourceProperty,targetProperty,context)};
+    if (sourceProperty.getValue() == null && !getSetNullOnMissingSource() && !getIgnoreEmpty()) {
+      throw new Exception("Source property is null");
     }
- else     if (!hasSourcePath() && hasTargetPath()) {
-      if (!getIgnoreEmpty() || (sourceProperty.getValue() != null && sourceProperty.getValue().length() > 0))       return transferStringToXml(sourceProperty,targetProperty,context);
+    if (bothPathsAreXmlBased()) {
+      return transferXPathToXml(getSourceProperty(),getTargetProperty(),context);
+    }
+ else {
+      Object sourceValue=readSourceValue(context);
+      sourceValue=entitizeIfApplicable(sourceValue);
+      if (isResponseProperty(sourceProperty) && sourceValue instanceof String) {
+        sourceValue=removeExpansions((String)sourceValue);
+      }
+      return writeTargetValue(sourceValue,context);
     }
   }
  catch (  Exception e) {
     throw new PropertyTransferException(e.getMessage(),getSourceStepName(),sourceProperty,getTargetStepName(),targetProperty);
   }
-  return new String[0];
 }

@@ -1,3 +1,6 @@
 {
-  if (factories.containsKey(factoryType))   factories.get(factoryType).remove(factory);
+  if (factories.containsKey(factoryType)) {
+    factories.get(factoryType).remove(factory);
+    for (    SoapUIFactoryRegistryListener listener : listeners)     listener.factoryRemoved(factoryType,factory);
+  }
 }

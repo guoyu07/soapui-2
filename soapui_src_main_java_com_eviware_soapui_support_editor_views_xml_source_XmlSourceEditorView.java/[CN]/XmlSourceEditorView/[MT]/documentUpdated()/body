@@ -1,0 +1,23 @@
+{
+  if (!updating) {
+    updating=true;
+    final DocumentContent rawDocumentContent=getDocument().getDocumentContent(EditorDocument.Format.RAW);
+    final String contentType=rawDocumentContent.getContentType();
+    if (rawDocumentContent.getContentAsString() == null) {
+      editArea.setText("");
+      editArea.setEnabled(false);
+    }
+ else     if (seemsToBeJsonContentType(contentType) && readOnly) {
+      editArea.setText("The content you are trying to view cannot be viewed as XML");
+      editArea.setEnabled(false);
+    }
+ else {
+      int caretPosition=editArea.getCaretPosition();
+      editArea.setEnabled(true);
+      final String contentAsString=getDocument().getDocumentContent(EditorDocument.Format.XML).getContentAsString();
+      editArea.setText(contentAsString);
+      editArea.setCaretPosition(caretPosition < contentAsString.length() ? caretPosition : 0);
+    }
+    updating=false;
+  }
+}

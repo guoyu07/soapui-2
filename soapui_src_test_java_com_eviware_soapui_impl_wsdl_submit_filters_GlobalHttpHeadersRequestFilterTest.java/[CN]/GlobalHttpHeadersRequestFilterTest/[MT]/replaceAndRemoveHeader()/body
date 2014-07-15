@@ -1,0 +1,17 @@
+{
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent","Testing");
+  System.setProperty(GlobalHttpHeadersRequestFilter.REPLACE_HEADERS_SYSTEM_PROPERTY,"true");
+  WsdlTestRunContext context=mockContext();
+  StringToStringsMap requestHeaders=new StringToStringsMap();
+  requestHeaders.add("User-Agent","Existing header");
+  AbstractHttpRequest<?> request=mockRequest(requestHeaders);
+  globalHttpHeadersRequestFilter.filterAbstractHttpRequest(context,request);
+  globalHttpHeadersRequestFilter.afterAbstractHttpResponse(context,request);
+  ArgumentCaptor<StringToStringsMap> headers=ArgumentCaptor.forClass(StringToStringsMap.class);
+  Mockito.verify(request,new Times(2)).setRequestHeaders(headers.capture());
+  Assert.assertEquals("Testing",headers.getAllValues().get(0).get("User-Agent").get(0));
+  Assert.assertEquals(1,headers.getAllValues().get(0).size());
+  Assert.assertEquals(1,headers.getAllValues().get(1).size());
+  Assert.assertEquals("Existing header",headers.getAllValues().get(1).get("User-Agent").get(0));
+  System.clearProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent");
+}

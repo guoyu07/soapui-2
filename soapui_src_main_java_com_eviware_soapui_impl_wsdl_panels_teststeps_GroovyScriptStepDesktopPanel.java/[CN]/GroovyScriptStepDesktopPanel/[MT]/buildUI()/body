@@ -4,9 +4,13 @@
   logArea.addLogger(groovyStep.getName() + "#" + hashCode(),true);
   logArea.getLogList().addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() < 2)       return;
+      if (e.getClickCount() < 2) {
+        return;
+      }
       String value=logArea.getLogList().getSelectedValue().toString();
-      if (value == null)       return;
+      if (value == null) {
+        return;
+      }
       editor.selectError(value);
     }
   }

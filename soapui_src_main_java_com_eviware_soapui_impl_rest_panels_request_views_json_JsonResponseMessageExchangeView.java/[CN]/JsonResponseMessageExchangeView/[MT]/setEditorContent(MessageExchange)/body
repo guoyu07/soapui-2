@@ -4,15 +4,23 @@
   }
  else {
     String content="<Not JSON content>";
-    if (JsonMediaTypeHandler.seemsToBeJsonContentType(me.getResponseHeaders().get("Content-Type",""))) {
+    if (JsonUtil.seemsToBeJsonContentType(me.getResponseHeaders().get("Content-Type",""))) {
       try {
-        JSON json=JSONSerializer.toJSON(me.getResponseContent());
-        if (json.isEmpty())         content="<Empty JSON content>";
- else         content=json.toString(3);
+        JSON json=new JsonUtil().parseTrimmedText(me.getResponseContent());
+        if (json.isEmpty()) {
+          content="<Empty JSON content>";
+        }
+ else {
+          content=json.toString(3);
+        }
       }
  catch (      Throwable e) {
-        if (!"Invalid JSON String".equals(e.getMessage()))         e.printStackTrace();
- else         content=me.getResponseContent();
+        if (!"Invalid JSON String".equals(e.getMessage())) {
+          e.printStackTrace();
+        }
+ else {
+          content=me.getResponseContent();
+        }
       }
       contentEditor.setText(content);
     }

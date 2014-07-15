@@ -29,6 +29,8 @@
   if (isStripWhitespaces()) {
     responseContent=XmlUtils.stripWhitespaces(responseContent);
   }
+  MockRequest request=result.getMockRequest();
+  request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   ByteArrayOutputStream outData=new ByteArrayOutputStream();
   String responseCompression=getResponseCompression();
   if (!isXOP && (mp == null || mp.getCount() == 0) && getAttachmentCount() == 0) {
@@ -42,7 +44,9 @@
     }
     String acceptEncoding=result.getMockRequest().getRequestHeaders().get("Accept-Encoding","");
     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("GZIP")) {
-      result.addHeader("Content-Encoding","gzip");
+      if (!headerExists("Content-Encoding","gzip",result)) {
+        result.addHeader("Content-Encoding","gzip");
+      }
       outData.write(CompressionSupport.compress(CompressionSupport.ALG_GZIP,content));
     }
  else     if (AUTO_RESPONSE_COMPRESSION.equals(responseCompression) && acceptEncoding != null && acceptEncoding.toUpperCase().contains("DEFLATE")) {
@@ -78,7 +82,5 @@
     }
     result.writeRawResponseData(data);
   }
-  MockRequest request=result.getMockRequest();
-  request.getHttpResponse().setStatus(this.getResponseHttpStatus());
   return responseContent;
 }

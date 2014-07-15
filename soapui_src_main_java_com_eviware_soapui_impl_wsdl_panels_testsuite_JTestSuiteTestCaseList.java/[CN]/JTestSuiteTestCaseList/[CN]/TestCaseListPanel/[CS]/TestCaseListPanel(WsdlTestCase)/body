@@ -39,7 +39,9 @@
     }
     public void mouseClicked(    MouseEvent e){
       if (e.getClickCount() < 2) {
-        if (selectedTestCase != null)         selectedTestCase.setSelected(false);
+        if (selectedTestCase != null) {
+          selectedTestCase.setSelected(false);
+        }
         setSelected(true);
         selectedTestCase=TestCaseListPanel.this;
         return;

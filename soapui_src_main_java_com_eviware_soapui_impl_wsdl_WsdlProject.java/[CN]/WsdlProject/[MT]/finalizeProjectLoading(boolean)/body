@@ -1,0 +1,10 @@
+{
+  if (getConfig() != null) {
+    endpointStrategy.init(this);
+  }
+  if (getConfig() != null && this.environment == null) {
+    setActiveEnvironment(DefaultEnvironment.getInstance());
+  }
+  this.open=open && !disabled && (this.encryptionStatus != ENCRYPTED_BAD_OR_NO_PASSWORD);
+  addPropertyChangeListener(this);
+}

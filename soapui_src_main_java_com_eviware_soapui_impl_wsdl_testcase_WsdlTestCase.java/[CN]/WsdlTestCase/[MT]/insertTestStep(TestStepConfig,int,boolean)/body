@@ -7,11 +7,20 @@
     getConfig().getTestStepList().remove(newStepConfig);
     return null;
   }
-  if (clearIds)   ModelSupport.unsetIds(testStep);
-  if (ix == -1)   testSteps.add(testStep);
- else   testSteps.add(ix,testStep);
+  if (clearIds) {
+    ModelSupport.createNewIds(testStep);
+  }
+  if (ix == -1) {
+    testSteps.add(testStep);
+  }
+ else {
+    testSteps.add(ix,testStep);
+  }
   testStep.afterLoad();
-  if (getTestSuite() != null)   (getTestSuite()).fireTestStepAdded(testStep,ix == -1 ? testSteps.size() - 1 : ix);
+  if (getTestSuite() != null) {
+    (getTestSuite()).fireTestStepAdded(testStep,ix == -1 ? testSteps.size() - 1 : ix);
+  }
   notifyPropertyChanged("testSteps",null,testStep);
+  Analytics.trackAction("AddRequestToTestCase","Type",testStep.getClass().getSimpleName());
   return testStep;
 }

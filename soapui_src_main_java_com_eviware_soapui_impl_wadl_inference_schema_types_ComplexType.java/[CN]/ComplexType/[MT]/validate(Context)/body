@@ -29,13 +29,17 @@
           if (ref == null) {
             ref=otherSchema.newAttribute(qname.getLocalPart());
           }
-          if (completed)           ref.setAttribute("use","optional");
+          if (completed) {
+            ref.setAttribute("use","optional");
+          }
           Particle newAttribute=Particle.Factory.newReferenceInstance(schema,ref);
           attributes.put(qname,newAttribute);
           newAttribute.validate(context);
         }
       }
- else       throw new XmlException("Illegal attribute!");
+ else {
+        throw new XmlException("Illegal attribute!");
+      }
       seen.add(qname);
     }
  while (cursor.toNextAttribute());
@@ -45,12 +49,18 @@
       if (context.getHandler().callback(ConflictHandler.Event.MODIFICATION,ConflictHandler.Type.ATTRIBUTE,item,context.getPath(),"Required attribute missing.")) {
         attributes.get(item).setAttribute("use","optional");
       }
- else       throw new XmlException("Required attribute missing!");
+ else {
+        throw new XmlException("Required attribute missing!");
+      }
     }
   }
   cursor.pop();
-  if (!cursor.toFirstChild())   cursor.toFirstContentToken();
-  if (!context.getAttribute("nil").equals("true"))   validateContent(context);
+  if (!cursor.toFirstChild()) {
+    cursor.toFirstContentToken();
+  }
+  if (!context.getAttribute("nil").equals("true")) {
+    validateContent(context);
+  }
   completed=true;
   return this;
 }

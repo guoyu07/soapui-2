@@ -1,16 +1,20 @@
 {
-  WorkspaceImpl workspace=((WsdlProject)mockService.getProject()).getWorkspace();
+  WorkspaceImpl workspace=mockService.getProject().getWorkspace();
   WsdlProject targetProject=(WsdlProject)workspace.getProjectByName(targetProjectName);
   if (targetProject == null) {
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone MockService","");
-    if (targetProjectName == null)     return null;
+    if (targetProjectName == null) {
+      return null;
+    }
     try {
       targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);
     }
-    if (targetProject == null)     return null;
+    if (targetProject == null) {
+      return null;
+    }
   }
   Set<WsdlInterface> requiredInterfaces=getRequiredInterfaces(mockService,targetProject);
   if (requiredInterfaces.size() > 0) {
@@ -19,7 +23,9 @@
       msg+=iface.getName() + " [" + iface.getTechnicalId()+ "]\r\n";
     }
     msg+="\r\nThese will be cloned to the targetProject as well";
-    if (!UISupport.confirm(msg,"Clone MockService"))     return null;
+    if (!UISupport.confirm(msg,"Clone MockService")) {
+      return null;
+    }
     for (    WsdlInterface iface : requiredInterfaces) {
       targetProject.importInterface(iface,false,true);
     }

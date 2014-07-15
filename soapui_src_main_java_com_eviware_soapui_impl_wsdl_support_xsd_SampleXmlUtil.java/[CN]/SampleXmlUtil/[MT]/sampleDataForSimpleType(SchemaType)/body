@@ -1,19 +1,35 @@
 {
   if (sType.getName() != null) {
-    if (sType.getName().equals(new QName("http://ws-i.org/profiles/basic/1.1/xsd","swaRef")))     return "cid:" + (long)(System.currentTimeMillis() * Math.random());
-    if (sType.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","base64Binary")))     return "cid:" + (long)(System.currentTimeMillis() * Math.random());
-    if (sType.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","hexBinary")))     return "cid:" + (long)(System.currentTimeMillis() * Math.random());
+    if (sType.getName().equals(new QName("http://ws-i.org/profiles/basic/1.1/xsd","swaRef"))) {
+      return "cid:" + (long)(System.currentTimeMillis() * Math.random());
+    }
+    if (sType.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","base64Binary"))) {
+      return "cid:" + (long)(System.currentTimeMillis() * Math.random());
+    }
+    if (sType.getName().equals(new QName("http://www.w3.org/2005/05/xmlmime","hexBinary"))) {
+      return "cid:" + (long)(System.currentTimeMillis() * Math.random());
+    }
   }
   SchemaType primitiveType=sType.getPrimitiveType();
-  if (primitiveType != null && (primitiveType.getBuiltinTypeCode() == SchemaType.BTC_BASE_64_BINARY || primitiveType.getBuiltinTypeCode() == SchemaType.BTC_HEX_BINARY))   return "cid:" + (long)(System.currentTimeMillis() * Math.random());
-  if (!_exampleContent)   return "?";
-  if (XmlObject.type.equals(sType))   return "anyType";
-  if (XmlAnySimpleType.type.equals(sType))   return "anySimpleType";
+  if (primitiveType != null && (primitiveType.getBuiltinTypeCode() == SchemaType.BTC_BASE_64_BINARY || primitiveType.getBuiltinTypeCode() == SchemaType.BTC_HEX_BINARY)) {
+    return "cid:" + (long)(System.currentTimeMillis() * Math.random());
+  }
+  if (!_exampleContent) {
+    return "?";
+  }
+  if (XmlObject.type.equals(sType)) {
+    return "anyType";
+  }
+  if (XmlAnySimpleType.type.equals(sType)) {
+    return "anySimpleType";
+  }
   if (sType.getSimpleVariety() == SchemaType.LIST) {
     SchemaType itemType=sType.getListItemType();
     StringBuffer sb=new StringBuffer();
     int length=pickLength(sType);
-    if (length > 0)     sb.append(sampleDataForSimpleType(itemType));
+    if (length > 0) {
+      sb.append(sampleDataForSimpleType(itemType));
+    }
     for (int i=1; i < length; i+=1) {
       sb.append(' ');
       sb.append(sampleDataForSimpleType(itemType));
@@ -22,7 +38,9 @@
   }
   if (sType.getSimpleVariety() == SchemaType.UNION) {
     SchemaType[] possibleTypes=sType.getUnionConstituentTypes();
-    if (possibleTypes.length == 0)     return "";
+    if (possibleTypes.length == 0) {
+      return "";
+    }
     return sampleDataForSimpleType(possibleTypes[pick(possibleTypes.length)]);
   }
   XmlAnySimpleType[] enumValues=sType.getEnumerationValues();

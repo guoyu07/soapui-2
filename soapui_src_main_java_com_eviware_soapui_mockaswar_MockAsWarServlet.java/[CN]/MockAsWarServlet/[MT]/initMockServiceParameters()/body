@@ -23,7 +23,9 @@
       SoapUI.setSoapUICore(new MockServletSoapUICore(getServletContext()),true);
     }
   }
- else   logger.info("SoapUI core already exists, reusing existing one");
+ else {
+    logger.info("SoapUI core already exists, reusing existing one");
+  }
   if (StringUtils.hasContent(getInitParameter("enableWebUI"))) {
     if ("true".equals(getInitParameter("enableWebUI"))) {
       logger.info("WebUI ENABLED");
@@ -37,7 +39,7 @@
   try {
     maxResults=Integer.parseInt(getInitParameter("maxResults"));
   }
- catch (  Throwable t) {
+ catch (  NumberFormatException ex) {
     maxResults=1000;
   }
   SoapUI.ensureGroovyLog().addAppender(new GroovyLogAppender());

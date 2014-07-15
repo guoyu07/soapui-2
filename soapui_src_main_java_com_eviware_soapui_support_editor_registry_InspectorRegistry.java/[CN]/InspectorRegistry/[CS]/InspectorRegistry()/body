@@ -1,2 +1,6 @@
 {
+  for (  InspectorFactory factory : SoapUI.getFactoryRegistry().getFactories(InspectorFactory.class)) {
+    addFactory(factory);
+  }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
 }

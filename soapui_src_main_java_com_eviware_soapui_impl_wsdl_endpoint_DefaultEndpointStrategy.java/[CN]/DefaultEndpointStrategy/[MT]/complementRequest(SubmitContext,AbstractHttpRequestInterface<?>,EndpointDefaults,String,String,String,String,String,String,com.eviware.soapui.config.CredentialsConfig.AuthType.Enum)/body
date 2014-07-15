@@ -11,8 +11,12 @@
     }
  else     if (StringUtils.hasContent(wssType) || StringUtils.hasContent(wssTimeToLive)) {
       try {
-        if (wssTimeToLive != null && wssTimeToLive.length() == 0)         wssTimeToLive=null;
-        if (StringUtils.hasContent(username) || StringUtils.hasContent(password))         WssAuthenticationRequestFilter.setWssHeaders(context,username,password,wssType,wssTimeToLive);
+        if (wssTimeToLive != null && wssTimeToLive.length() == 0) {
+          wssTimeToLive=null;
+        }
+        if (StringUtils.hasContent(username) || StringUtils.hasContent(password)) {
+          WssAuthenticationRequestFilter.setWssHeaders(context,username,password,wssType,wssTimeToLive);
+        }
       }
  catch (      Exception e) {
         SoapUI.logError(e);

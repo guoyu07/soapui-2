@@ -7,8 +7,12 @@
     String str=modelItem.getName() + " [";
     for (int c=1; c < treePath.getPathCount(); c++) {
       SoapUITreeNode comp=(SoapUITreeNode)treePath.getPathComponent(c);
-      if (comp.getModelItem() instanceof EmptyModelItem)       continue;
-      if (c > 1)       str+="/";
+      if (comp.getModelItem() instanceof EmptyModelItem) {
+        continue;
+      }
+      if (c > 1) {
+        str+="/";
+      }
       str+=comp.toString();
     }
     str+="]";

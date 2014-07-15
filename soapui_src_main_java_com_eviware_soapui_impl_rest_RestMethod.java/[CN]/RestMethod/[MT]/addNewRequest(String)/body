@@ -5,7 +5,9 @@
   requests.add(request);
   request.resetPropertyValues();
   String[] endpoints=getInterface().getEndpoints();
-  if (endpoints.length > 0)   request.setEndpoint(endpoints[0]);
+  if (endpoints.length > 0) {
+    request.setEndpoint(endpoints[0]);
+  }
   notifyPropertyChanged("childRequests",null,request);
   return request;
 }

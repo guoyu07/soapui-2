@@ -7,11 +7,15 @@
   for (  Project project : workspace.getProjectList()) {
     if (project.isOpen()) {
       closeMapping.setEnabled(true);
-      if (openMapping.isEnabled())       break;
+      if (openMapping.isEnabled()) {
+        break;
+      }
     }
  else     if (!project.isDisabled()) {
       openMapping.setEnabled(true);
-      if (closeMapping.isEnabled())       break;
+      if (closeMapping.isEnabled()) {
+        break;
+      }
     }
   }
   return mappings;

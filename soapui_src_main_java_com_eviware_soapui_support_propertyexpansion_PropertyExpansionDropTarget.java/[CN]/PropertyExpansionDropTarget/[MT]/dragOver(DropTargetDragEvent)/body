@@ -1,5 +1,7 @@
 {
-  if (!isAcceptable(dtde.getTransferable()))   dtde.rejectDrag();
+  if (!isAcceptable(dtde.getTransferable())) {
+    dtde.rejectDrag();
+  }
   if (dtde.getDropTargetContext().getComponent() instanceof JTextComponent) {
     JTextComponent textField=(JTextComponent)dtde.getDropTargetContext().getComponent();
     int pos=textField.viewToModel(dtde.getLocation());

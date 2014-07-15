@@ -1,6 +1,8 @@
 {
   if (project != null) {
-    if (!project.isOpen())     project=workspace.openProject(project);
+    if (!project.isOpen()) {
+      project=workspace.openProject(project);
+    }
   }
  else {
     project=workspace.importProject(projectFilePath);

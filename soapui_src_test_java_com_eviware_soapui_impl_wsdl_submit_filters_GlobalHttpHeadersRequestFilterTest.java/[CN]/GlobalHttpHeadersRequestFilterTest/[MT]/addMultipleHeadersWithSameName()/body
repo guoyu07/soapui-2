@@ -1,0 +1,8 @@
+{
+  GlobalHttpHeadersRequestFilter.addGlobalHeader("User-Agent","Testing");
+  GlobalHttpHeadersRequestFilter.addGlobalHeader("User-Agent","Testing2");
+  StringToStringsMap value=invokeFilterWithHeaders(new StringToStringsMap());
+  Assert.assertEquals("Testing",value.get("User-Agent").get(0));
+  Assert.assertEquals("Testing2",value.get("User-Agent").get(1));
+  GlobalHttpHeadersRequestFilter.removeGlobalHeader("User-Agent",null);
+}

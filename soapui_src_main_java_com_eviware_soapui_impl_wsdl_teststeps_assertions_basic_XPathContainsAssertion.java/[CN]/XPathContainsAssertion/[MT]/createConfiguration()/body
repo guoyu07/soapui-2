@@ -1,9 +1,5 @@
 {
   XmlObjectConfigurationBuilder builder=new XmlObjectConfigurationBuilder();
-  builder.add("path",path);
-  builder.add("content",expectedContent);
-  builder.add("allowWildcards",allowWildcards);
-  builder.add("ignoreNamspaceDifferences",ignoreNamespaceDifferences);
-  builder.add("ignoreComments",ignoreComments);
+  addConfigurationValues(builder);
   return builder.finish();
 }

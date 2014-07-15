@@ -1,5 +1,7 @@
 {
-  if (submit.getRequest() != request)   return true;
+  if (submit.getRequest() != request) {
+    return true;
+  }
   if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_REQUEST)) {
     boolean result=requestEditor.saveDocument(true);
     if (!result && getModelItem().getSettings().getBoolean(UISettings.ABORT_ON_INVALID_REQUEST)) {
@@ -8,7 +10,9 @@
     }
   }
  else {
-    if (requestEditor != null)     requestEditor.saveDocument(false);
+    if (requestEditor != null) {
+      requestEditor.saveDocument(false);
+    }
   }
   setEnabled(false);
   cancelButton.setEnabled(AbstractHttpRequestDesktopPanel.this.submit != null);

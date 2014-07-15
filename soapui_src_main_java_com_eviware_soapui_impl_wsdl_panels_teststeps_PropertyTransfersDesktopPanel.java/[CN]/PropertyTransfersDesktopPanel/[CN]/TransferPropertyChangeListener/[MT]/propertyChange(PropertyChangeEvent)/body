@@ -1,10 +1,14 @@
 {
   Object newValue=evt.getNewValue();
   if (evt.getPropertyName().equals(PropertyTransfer.SOURCE_PATH_PROPERTY)) {
-    if (!sourceArea.getText().equals(newValue))     sourceArea.setText((String)newValue);
+    if (!sourceArea.getText().equals(newValue)) {
+      sourceArea.setText((String)newValue);
+    }
   }
  else   if (evt.getPropertyName().equals(PropertyTransfer.TARGET_PATH_PROPERTY)) {
-    if (!targetArea.getText().equals(newValue))     targetArea.setText((String)newValue);
+    if (!targetArea.getText().equals(newValue)) {
+      targetArea.setText((String)newValue);
+    }
   }
  else   if (evt.getPropertyName().equals(PropertyTransfer.SOURCE_STEP_PROPERTY)) {
     Object selectedItem=sourceStepCombo.getSelectedItem();
@@ -24,10 +28,14 @@
   }
  else   if (evt.getPropertyName().equals(PropertyTransfer.SOURCE_TYPE_PROPERTY)) {
     Object selectedItem=sourcePropertyCombo.getSelectedItem();
-    if (selectedItem == null || !selectedItem.equals(newValue))     sourcePropertyCombo.setSelectedItem(newValue);
+    if (selectedItem == null || !selectedItem.equals(newValue)) {
+      sourcePropertyCombo.setSelectedItem(newValue);
+    }
   }
  else   if (evt.getPropertyName().equals(PropertyTransfer.TARGET_TYPE_PROPERTY)) {
     Object selectedItem=targetPropertyCombo.getSelectedItem();
-    if (selectedItem == null || !selectedItem.equals(newValue))     targetPropertyCombo.setSelectedItem(newValue);
+    if (selectedItem == null || !selectedItem.equals(newValue)) {
+      targetPropertyCombo.setSelectedItem(newValue);
+    }
   }
 }

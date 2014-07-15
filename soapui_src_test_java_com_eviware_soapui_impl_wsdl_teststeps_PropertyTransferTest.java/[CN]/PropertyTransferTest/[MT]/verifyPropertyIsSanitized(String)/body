@@ -1,0 +1,6 @@
+{
+  sourceProperty.setValue("${= attack() }");
+  sourceProperty.setName(propertyName);
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is(anEmptyString()));
+}

@@ -5,7 +5,9 @@
     for (int c=0; c < parts.size(); c++) {
       List<MIMEContent> contentParts=WsdlUtils.getExtensiblityElements(parts.get(c).getExtensibilityElements(),MIMEContent.class);
       for (      MIMEContent content : contentParts) {
-        if (content.getPart().equals(part.getName()))         result.add(content);
+        if (content.getPart().equals(part.getName())) {
+          result.add(content);
+        }
       }
     }
   }

@@ -3,7 +3,9 @@
   for (int c=0; c < assertions.size(); c++) {
     TestAssertion assertion=assertions.get(c);
     Assertable assertable=assertion.getAssertable();
-    if (assertable instanceof WsdlTestStep)     failedTests.remove(((WsdlTestStep)assertable).getTestCase());
+    if (assertable instanceof WsdlTestStep) {
+      failedTests.remove(((WsdlTestStep)assertable).getTestCase());
+    }
     buf.append(assertion.getName() + " in [" + assertable.getModelItem().getName()+ "] failed;\n");
     buf.append(Arrays.toString(assertion.getErrors()) + "\n");
     WsdlTestStepResult result=assertionResults.get(assertion);

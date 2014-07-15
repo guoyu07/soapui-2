@@ -1,14 +1,18 @@
 {
   WsdlTestStepFactory factory=(WsdlTestStepFactory)param;
   WsdlTestCase testCase=testStep.getTestCase();
-  if (!factory.canAddTestStepToTestCase(testCase))   return;
+  if (!factory.canAddTestStepToTestCase(testCase)) {
+    return;
+  }
   String name=UISupport.prompt("Specify name for new step","Insert Step",factory.getTestStepName());
   if (name != null) {
     TestStepConfig newTestStepConfig=factory.createNewTestStep(testCase,name);
     if (newTestStepConfig != null) {
       int ix=testCase.getIndexOfTestStep(testStep);
       testStep=testCase.insertTestStep(newTestStepConfig,ix + 1);
-      if (testStep != null)       UISupport.selectAndShow(testStep);
+      if (testStep != null) {
+        UISupport.selectAndShow(testStep);
+      }
     }
   }
 }

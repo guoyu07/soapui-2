@@ -1,6 +1,9 @@
 {
   String name=UISupport.prompt("Specify name of LoadTest","New LoadTest","LoadTest " + (testCase.getLoadTestCount() + 1));
-  if (name == null)   return;
+  if (name == null) {
+    return;
+  }
   WsdlLoadTest loadTest=testCase.addNewLoadTest(name);
   UISupport.selectAndShow(loadTest);
+  Analytics.trackAction(SoapUIActions.CREATE_LOAD_TEST.getActionName());
 }

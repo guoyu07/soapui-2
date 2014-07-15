@@ -1,7 +1,9 @@
 {
   writers.clear();
   String statisticsLogFolder=context.expand(getStatisticsLogFolder());
-  if (StringUtils.isNullOrEmpty(statisticsLogFolder))   return;
+  if (StringUtils.isNullOrEmpty(statisticsLogFolder)) {
+    return;
+  }
   File folder=new File(statisticsLogFolder);
   if (!folder.exists()) {
     if (!folder.mkdirs()) {

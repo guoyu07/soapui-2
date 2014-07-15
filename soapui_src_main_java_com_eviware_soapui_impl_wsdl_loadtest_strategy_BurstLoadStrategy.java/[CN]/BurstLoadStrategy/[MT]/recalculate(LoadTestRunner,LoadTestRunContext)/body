@@ -12,6 +12,8 @@
       wsdlLoadTest.setThreadCount(threadCount);
       label=((burstDelay + burstDuration) - mod) / 1000 + "s burst left";
     }
-    if (infoLabel != null && !infoLabel.getText().equals(label))     infoLabel.setText(label);
+    if (infoLabel != null && !infoLabel.getText().equals(label)) {
+      infoLabel.setText(label);
+    }
   }
 }

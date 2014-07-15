@@ -1,0 +1,12 @@
+{
+  JarFile jarFile=new JarFile(warFileName);
+  try {
+    for (    String fileName : getExpectedWarContents()) {
+      JarEntry jarEntry=jarFile.getJarEntry(fileName);
+      assertNotNull(jarEntry);
+    }
+  }
+  finally {
+    jarFile.close();
+  }
+}

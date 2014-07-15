@@ -23,14 +23,22 @@
  else {
       StringBuffer buffer=new StringBuffer();
       for (      char ch : original.toCharArray()) {
-        if (Character.isUpperCase(ch))         buffer.append(Character.toLowerCase(ch));
- else         buffer.append(Character.toUpperCase(ch));
+        if (Character.isUpperCase(ch)) {
+          buffer.append(Character.toLowerCase(ch));
+        }
+ else {
+          buffer.append(Character.toUpperCase(ch));
+        }
       }
       result.add(nodeXml.replaceAll(original,buffer.toString()));
       buffer=new StringBuffer();
       for (      char ch : original.toCharArray()) {
-        if (Character.isUpperCase(ch))         buffer.append("_").append(Character.toLowerCase(ch));
- else         buffer.append(ch);
+        if (Character.isUpperCase(ch)) {
+          buffer.append("_").append(Character.toLowerCase(ch));
+        }
+ else {
+          buffer.append(ch);
+        }
       }
       result.add(nodeXml.replaceAll(original,buffer.toString()));
     }

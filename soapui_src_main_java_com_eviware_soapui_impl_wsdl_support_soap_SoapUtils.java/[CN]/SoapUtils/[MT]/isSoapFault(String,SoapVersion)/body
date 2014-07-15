@@ -1,9 +1,13 @@
 {
-  if (StringUtils.isNullOrEmpty(responseContent))   return false;
+  if (StringUtils.isNullOrEmpty(responseContent)) {
+    return false;
+  }
   if (responseContent.indexOf(":Fault") > 0 || responseContent.indexOf("<Fault") > 0) {
     XmlObject xml=XmlUtils.createXmlObject(responseContent);
     XmlObject[] paths=xml.selectPath("declare namespace env='" + soapVersion.getEnvelopeNamespace() + "';"+ "//env:Fault");
-    if (paths.length > 0)     return true;
+    if (paths.length > 0) {
+      return true;
+    }
   }
   return false;
 }

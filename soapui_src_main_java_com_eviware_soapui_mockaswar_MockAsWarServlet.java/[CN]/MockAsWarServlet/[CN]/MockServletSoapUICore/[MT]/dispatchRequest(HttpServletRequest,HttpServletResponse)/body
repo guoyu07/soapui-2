@@ -1,21 +1,22 @@
 {
   String pathInfo=request.getPathInfo();
-  if (pathInfo == null)   pathInfo="";
-  for (  MockRunner mockRunner : getMockRunners()) {
-    if (pathInfo.equals(mockRunner.getMockContext().getMockService().getPath())) {
-      MockResult result=mockRunner.dispatchRequest(request,response);
-      if (maxResults > 0) {
+  if (pathInfo == null) {
+    pathInfo="";
+  }
+  MockRunner mockRunner=getMatchedMockRunner(getMockRunners(),pathInfo);
+  if (mockRunner != null) {
+    MockResult result=mockRunner.dispatchRequest(request,response);
+    if (maxResults > 0) {
 synchronized (results) {
-          while (maxResults > 0 && results.size() > maxResults) {
-            results.remove(0);
-          }
-          if (result != null) {
-            results.add(result);
-          }
+        while (maxResults > 0 && results.size() > maxResults) {
+          results.remove(0);
+        }
+        if (result != null) {
+          results.add(result);
         }
       }
-      return;
     }
+    return;
   }
   if (enableWebUI) {
     String realPath=servletContext.getRealPath(pathInfo);

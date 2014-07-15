@@ -5,7 +5,9 @@
   enableLogCheckBox.addActionListener(new ActionListener(){
     public void actionPerformed(    ActionEvent arg0){
       testLogList.setEnabled(enableLogCheckBox.isSelected());
-      if (mockRunner != null)       mockRunner.setLogEnabled(enableLogCheckBox.isSelected());
+      if (mockRunner != null) {
+        mockRunner.setLogEnabled(enableLogCheckBox.isSelected());
+      }
       logScrollPane.repaint();
     }
   }

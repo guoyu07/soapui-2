@@ -1,5 +1,7 @@
 {
-  if (submit.getRequest() != jdbcRequestTestStep.getJdbcRequest())   return;
+  if (submit.getRequest() != jdbcRequestTestStep.getJdbcRequest()) {
+    return;
+  }
   Status status=submit.getStatus();
   JdbcResponse response=(JdbcResponse)submit.getResponse();
   if (status == Status.FINISHED) {
@@ -24,13 +26,19 @@
       message="response time: " + response.getTimeTaken() + "ms ("+ response.getContentLength()+ " bytes)";
       infoMessage="Got response for [" + requestName + "] in "+ response.getTimeTaken()+ "ms ("+ response.getContentLength()+ " bytes)";
       rawSql=((JdbcSubmit)submit).getRawSql();
-      if (!splitButton.isEnabled())       requestTabs.setSelectedIndex(1);
+      if (!splitButton.isEnabled()) {
+        requestTabs.setSelectedIndex(1);
+      }
       responseEditor.requestFocus();
     }
   }
-  if (!StringUtils.isNullOrEmpty(rawSql))   logMessages("Sql executed: " + rawSql,rawSql);
+  if (!StringUtils.isNullOrEmpty(rawSql)) {
+    logMessages("Sql executed: " + rawSql,rawSql);
+  }
   logMessages(message,infoMessage);
-  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_RESPONSE))   responseEditor.getSourceEditor().validate();
+  if (getModelItem().getSettings().getBoolean(UISettings.AUTO_VALIDATE_RESPONSE)) {
+    responseEditor.getSourceEditor().validate();
+  }
   JdbcRequestTestStepDesktopPanel.this.submit=null;
   updateStatusIcon();
 }

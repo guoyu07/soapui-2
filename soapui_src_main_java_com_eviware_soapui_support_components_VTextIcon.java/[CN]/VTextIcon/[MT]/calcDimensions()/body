@@ -14,11 +14,19 @@
     for (int i=0; i < len; i++) {
       ch=data[i];
       fCharWidths[i]=fm.charWidth(ch);
-      if (fCharWidths[i] > fWidth)       fWidth=fCharWidths[i];
+      if (fCharWidths[i] > fWidth) {
+        fWidth=fCharWidths[i];
+      }
       fCharStrings[i]=new String(data,i,1);
-      if (sDrawsInTopRight.indexOf(ch) >= 0)       fPosition[i]=POSITION_TOP_RIGHT;
- else       if (sDrawsInFarTopRight.indexOf(ch) >= 0)       fPosition[i]=POSITION_FAR_TOP_RIGHT;
- else       fPosition[i]=POSITION_NORMAL;
+      if (sDrawsInTopRight.indexOf(ch) >= 0) {
+        fPosition[i]=POSITION_TOP_RIGHT;
+      }
+ else       if (sDrawsInFarTopRight.indexOf(ch) >= 0) {
+        fPosition[i]=POSITION_FAR_TOP_RIGHT;
+      }
+ else {
+        fPosition[i]=POSITION_NORMAL;
+      }
     }
     fHeight=fCharHeight * len + fDescent;
   }

@@ -2,6 +2,9 @@
   XmlCursor sourceXml;
   try {
     String sourcePropertyValue=sourceProperty.getValue();
+    if (isResponseProperty(sourceProperty)) {
+      sourcePropertyValue=removeExpansions(sourceProperty.getValue());
+    }
     XmlObject sourceXmlObject=sourcePropertyValue == null ? null : XmlUtils.createXmlObject(sourcePropertyValue);
     sourceXml=sourceXmlObject == null ? null : sourceXmlObject.newCursor();
   }
@@ -23,16 +26,20 @@
     List<String> result=new ArrayList<String>();
     String tp=PropertyExpander.expandProperties(context,getTargetPath());
     targetXml.selectPath(tp);
-    if (!targetXml.hasNextSelection())     throw new Exception("Missing match for Target XPath [" + tp + "]");
+    if (!targetXml.hasNextSelection()) {
+      throw new Exception("Missing match for Target XPath [" + tp + "]");
+    }
     if (sourceXml == null) {
       if (getSetNullOnMissingSource()) {
         while (targetXml.toNextSelection()) {
           result.add(setNodeValue(null,targetXml.getDomNode()));
-          if (!getTransferToAll())           break;
+          if (!getTransferToAll()) {
+            break;
+          }
         }
       }
     }
- else     if (getUseXQuery()) {
+ else     if (getSourcePathLanguage() == PathLanguage.XQUERY) {
       String sp=PropertyExpander.expandProperties(context,getSourcePath());
       XmlCursor resultCursor=sourceXml.execQuery(sp);
       sourceXml.dispose();
@@ -41,10 +48,14 @@
         if (getSetNullOnMissingSource()) {
           while (targetXml.toNextSelection()) {
             result.add(setNodeValue(null,targetXml.getDomNode()));
-            if (!getTransferToAll())             break;
+            if (!getTransferToAll()) {
+              break;
+            }
           }
         }
- else         if (!getIgnoreEmpty())         throw new Exception("Missing match for Source XQuery [" + sp + "]");
+ else         if (!getIgnoreEmpty()) {
+          throw new Exception("Missing match for Source XQuery [" + sp + "]");
+        }
       }
       boolean hasTarget=targetXml.toNextSelection();
       if (hasTarget) {
@@ -59,16 +70,22 @@
         if (getSetNullOnMissingSource()) {
           while (targetXml.toNextSelection()) {
             result.add(setNodeValue(null,targetXml.getDomNode()));
-            if (!getTransferToAll())             break;
+            if (!getTransferToAll()) {
+              break;
+            }
           }
         }
- else         if (!getIgnoreEmpty())         throw new Exception("Missing match for Source XPath [" + sp + "]");
+ else         if (!getIgnoreEmpty()) {
+          throw new Exception("Missing match for Source XPath [" + sp + "]");
+        }
       }
  else {
         boolean hasSource=sourceXml.toNextSelection();
         boolean hasTarget=targetXml.toNextSelection();
         while (hasSource && hasTarget) {
-          if (lastSource != null)           lastSource.dispose();
+          if (lastSource != null) {
+            lastSource.dispose();
+          }
           lastSource=sourceXml.newCursor();
           result.add(transferXmlValue(sourceXml,targetXml));
           hasSource=sourceXml.toNextSelection();

@@ -11,8 +11,12 @@
  else {
     iface.addInterfaceListener(interfaceListener);
     mockOperation=(WsdlMockOperation)mockService.addNewMockOperation(iface.getOperationByName(mockResponseStepConfig.getOperation()));
-    if (mockResponseStepConfig.getHandleFault())     mockService.setFaultMockOperation(mockOperation);
-    if (mockResponseStepConfig.getHandleResponse())     mockService.setDispatchResponseMessages(true);
+    if (mockResponseStepConfig.getHandleFault()) {
+      mockService.setFaultMockOperation(mockOperation);
+    }
+    if (mockResponseStepConfig.getHandleResponse()) {
+      mockService.setDispatchResponseMessages(true);
+    }
     mockResponse=mockOperation.addNewMockResponse("MockResponse",false);
     mockResponse.setConfig(mockResponseConfig);
     mockOperation.setDefaultResponse(mockResponse.getName());

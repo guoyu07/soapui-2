@@ -1,5 +1,7 @@
 {
-  if (!factory.canAddTestStepToTestCase(testCase))   return;
+  if (!factory.canAddTestStepToTestCase(testCase)) {
+    return;
+  }
   int ix=testStepList.getTestStepList().getSelectedIndex();
   String name;
   if (factory.promptForName()) {
@@ -12,7 +14,9 @@
     TestStepConfig newTestStepConfig=factory.createNewTestStep(getModelItem(),name);
     if (newTestStepConfig != null) {
       WsdlTestStep testStep=getModelItem().insertTestStep(newTestStepConfig,ix);
-      if (testStep != null)       UISupport.selectAndShow(testStep);
+      if (testStep != null) {
+        UISupport.selectAndShow(testStep);
+      }
     }
   }
 }

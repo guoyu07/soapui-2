@@ -1,0 +1,12 @@
+{
+  String contentType=request.getContentType();
+  if (isMultiPart(contentType)) {
+    readMultipartRequest(request);
+    contentType=getMultiPartContentType(contentType);
+  }
+ else {
+    String requestContent=readRequestContent(request);
+    setRequestContent(requestContent);
+  }
+  initProtocolSpecificPostContent(context,contentType);
+}

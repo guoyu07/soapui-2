@@ -3,7 +3,9 @@
     throw new IllegalArgumentException("Authentication scope may not be null");
   }
   String pw=getPassword();
-  if (pw == null)   pw="";
+  if (pw == null) {
+    pw="";
+  }
   if (AuthPolicy.NTLM.equalsIgnoreCase(authScope.getScheme()) || AuthPolicy.SPNEGO.equalsIgnoreCase(authScope.getScheme())) {
     String workstation="";
     try {

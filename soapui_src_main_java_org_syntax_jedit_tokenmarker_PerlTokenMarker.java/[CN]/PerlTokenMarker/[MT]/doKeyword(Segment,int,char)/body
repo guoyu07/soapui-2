@@ -10,18 +10,26 @@
   int len=i - lastKeyword;
   byte id=keywords.lookup(line,lastKeyword,len);
   if (id == S_ONE || id == S_TWO) {
-    if (lastKeyword != lastOffset)     addToken(lastKeyword - lastOffset,Token.NULL);
+    if (lastKeyword != lastOffset) {
+      addToken(lastKeyword - lastOffset,Token.NULL);
+    }
     addToken(len,Token.LITERAL2);
     lastOffset=i;
     lastKeyword=i1;
-    if (Character.isWhitespace(c))     matchChar='\0';
- else     matchChar=c;
+    if (Character.isWhitespace(c)) {
+      matchChar='\0';
+    }
+ else {
+      matchChar=c;
+    }
     matchSpacesAllowed=true;
     token=id;
     return true;
   }
  else   if (id != Token.NULL) {
-    if (lastKeyword != lastOffset)     addToken(lastKeyword - lastOffset,Token.NULL);
+    if (lastKeyword != lastOffset) {
+      addToken(lastKeyword - lastOffset,Token.NULL);
+    }
     addToken(len,id);
     lastOffset=i;
   }

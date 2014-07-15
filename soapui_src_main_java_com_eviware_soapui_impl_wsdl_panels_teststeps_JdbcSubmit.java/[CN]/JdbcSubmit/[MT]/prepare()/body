@@ -4,7 +4,9 @@
   List<TestProperty> props=testStep.getPropertyList();
   if (testStep.isStoredProcedure()) {
     rawSql=PropertyExpander.expandProperties(context,testStep.getQuery());
-    if (!rawSql.startsWith("{call ") && !rawSql.endsWith("}"))     rawSql="{call " + rawSql + "}";
+    if (!rawSql.startsWith("{call ") && !rawSql.endsWith("}")) {
+      rawSql="{call " + rawSql + "}";
+    }
   }
  else {
     rawSql=PropertyExpander.expandProperties(context,testStep.getQuery());

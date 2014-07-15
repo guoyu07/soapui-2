@@ -1,11 +1,11 @@
 {
   final String accessToken="mock token";
-  profile.waitingForAuthorization();
+  profile.setAccessTokenStatus(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION);
   Runnable simulatedAccessTokenRetrieval=new Runnable(){
     public void run(){
       try {
         Thread.sleep(50);
-        profile.waitingForAuthorization();
+        profile.setAccessTokenStatus(OAuth2Profile.AccessTokenStatus.WAITING_FOR_AUTHORIZATION);
         Thread.sleep(10);
       }
  catch (      InterruptedException ignore) {

@@ -1,11 +1,15 @@
 {
   TreePath path=mainTree.getSelectionPath();
-  if (path == null)   return null;
+  if (path == null) {
+    return null;
+  }
   Object node=path.getLastPathComponent();
   while (node != null && !(node instanceof ProjectTreeNode)) {
     path=path.getParentPath();
     node=(path == null ? null : path.getLastPathComponent());
   }
-  if (node == null)   return null;
+  if (node == null) {
+    return null;
+  }
   return ((ProjectTreeNode)node).getProject();
 }

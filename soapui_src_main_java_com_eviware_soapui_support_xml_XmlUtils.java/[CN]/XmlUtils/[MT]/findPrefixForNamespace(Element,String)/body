@@ -6,7 +6,9 @@
         return attributes.item(c).getNodeName().substring(6);
       }
     }
-    if (elm.getParentNode().getNodeType() != Node.ELEMENT_NODE)     break;
+    if (elm.getParentNode().getNodeType() != Node.ELEMENT_NODE) {
+      break;
+    }
     elm=(Element)elm.getParentNode();
   }
   return null;

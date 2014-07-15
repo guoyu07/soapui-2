@@ -5,12 +5,16 @@
       TestProperty property=getTestStep().getProperties().get(parameter.getName());
       if (parameter.getXpath() == null || parameter.getXpath().trim().length() == 0) {
         for (        SchemaTypeForSecurityScanConfig invalidType : invalidTypeConfig.getTypesListList()) {
-          if (!parameterMutations.containsKey(parameter))           parameterMutations.put(parameter,new ArrayList<String>());
+          if (!parameterMutations.containsKey(parameter)) {
+            parameterMutations.put(parameter,new ArrayList<String>());
+          }
           parameterMutations.get(parameter).add(invalidType.getValue());
         }
       }
  else {
-        if (property.getValue() == null && property.getDefaultValue() == null)         continue;
+        if (property.getValue() == null && property.getDefaultValue() == null) {
+          continue;
+        }
         String value=context.expand(property.getValue());
         if (XmlUtils.seemsToBeXml(value)) {
           XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(value));
@@ -19,7 +23,9 @@
           for (          SchemaTypeForSecurityScanConfig type : invalidTypes) {
             if (nodes.length > 0) {
               if (nodes[0].getSchemaType().getBuiltinTypeCode() != type.getType()) {
-                if (!parameterMutations.containsKey(parameter))                 parameterMutations.put(parameter,new ArrayList<String>());
+                if (!parameterMutations.containsKey(parameter)) {
+                  parameterMutations.put(parameter,new ArrayList<String>());
+                }
                 parameterMutations.get(parameter).add(type.getValue());
               }
             }

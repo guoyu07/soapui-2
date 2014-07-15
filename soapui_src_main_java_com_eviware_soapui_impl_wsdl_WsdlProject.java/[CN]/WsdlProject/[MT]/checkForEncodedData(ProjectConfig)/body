@@ -2,7 +2,7 @@
   byte[] encryptedContent=soapuiProject.getEncryptedContent();
   char[] password;
   if (encryptedContent == null || encryptedContent.length == 0) {
-    return 0;
+    return NOT_ENCRYPTED;
   }
   String projectPassword;
   if (workspace != null) {
@@ -19,7 +19,7 @@
   }
   byte[] data;
   if (password == null) {
-    return -1;
+    return ENCRYPTED_BAD_OR_NO_PASSWORD;
   }
   try {
     String encryptionAlgorithm=soapuiProject.getEncryptedContentAlgorithm();
@@ -27,7 +27,7 @@
   }
  catch (  Exception e) {
     SoapUI.logError(e);
-    return -1;
+    return ENCRYPTED_BAD_OR_NO_PASSWORD;
   }
   String decryptedData=new String(data,"UTF-8");
   if (data != null) {
@@ -40,7 +40,7 @@
         UISupport.showErrorMessage("Wrong password. Project needs to be reloaded.");
         wrongPasswordSupplied=true;
         getWorkspace().clearProjectPassword(soapuiProject.getName());
-        return -1;
+        return ENCRYPTED_BAD_OR_NO_PASSWORD;
       }
     }
   }
@@ -48,8 +48,8 @@
     UISupport.showErrorMessage("Wrong project password");
     wrongPasswordSupplied=true;
     getWorkspace().clearProjectPassword(soapuiProject.getName());
-    return -1;
+    return ENCRYPTED_BAD_OR_NO_PASSWORD;
   }
   projectDocument.getSoapuiProject().setEncryptedContent(null);
-  return 1;
+  return ENCRYPTED_GOOD_PASSWORD;
 }

@@ -4,7 +4,7 @@
     return;
   }
   try {
-    JSON oldJson=new JsonSlurper().parse(new StringReader(requestContent));
+    JSON oldJson=new JsonUtil().parseTrimmedText(requestContent);
     if (!(json instanceof JSONObject) || !(oldJson instanceof JSONObject)) {
       return;
     }

@@ -1,3 +1,5 @@
 {
-  createRestMockService(target);
+  if (createRestMockService(target) != null) {
+    Analytics.trackAction(SoapUIActions.CREATE_REST_MOCK.getActionName());
+  }
 }

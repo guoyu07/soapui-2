@@ -1,5 +1,7 @@
 {
-  if (simpleType == null)   return attrs;
+  if (simpleType == null) {
+    return attrs;
+  }
   String xsdns=schema.getPrefixForNamespace(Settings.xsdns);
   StringBuilder s=new StringBuilder("<" + xsdns + ":simpleContent><"+ xsdns+ ":extension base=\""+ xsdns+ ":"+ simpleType.schemaType().getName().getLocalPart()+ "\">");
   s.append(attrs);

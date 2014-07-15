@@ -1,0 +1,13 @@
+{
+  try {
+    Field tokenizerField=JsonPath.class.getDeclaredField("tokenizer");
+    tokenizerField.setAccessible(true);
+    PathTokenizer tokenizer=(PathTokenizer)tokenizerField.get(jsonPathObject);
+    Field pathTokensField=PathTokenizer.class.getDeclaredField("pathTokens");
+    pathTokensField.setAccessible(true);
+    return (LinkedList<PathToken>)pathTokensField.get(tokenizer);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,7 +1,9 @@
 {
   super(resourceConfig,service,"/rest_resource.gif");
   parentResource=parent;
-  if (resourceConfig.getParameters() == null)   resourceConfig.addNewParameters();
+  if (resourceConfig.getParameters() == null) {
+    resourceConfig.addNewParameters();
+  }
   params=new XmlBeansRestParamsTestPropertyHolder(this,resourceConfig.getParameters());
   params.addTestPropertyListener(new PathChanger());
   for (  String name : params.getPropertyNames()) {

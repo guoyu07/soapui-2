@@ -2,7 +2,9 @@
   _colorCueLine=new Color(SystemColor.controlShadow.getRed(),SystemColor.controlShadow.getGreen(),SystemColor.controlShadow.getBlue(),128);
   _timerHover=new Timer(1000,new ActionListener(){
     public void actionPerformed(    ActionEvent e){
-      if (_ptOffset != null)       dragAndDropable.toggleExpansion(_pathLast);
+      if (_ptOffset != null) {
+        dragAndDropable.toggleExpansion(_pathLast);
+      }
     }
   }
 );

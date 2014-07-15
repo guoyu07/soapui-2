@@ -1,10 +1,18 @@
 {
   WSSecUsernameToken token=new WSSecUsernameToken();
-  if (addCreated)   token.addCreated();
-  if (addNonce)   token.addNonce();
+  if (addCreated) {
+    token.addCreated();
+  }
+  if (addNonce) {
+    token.addNonce();
+  }
   if (StringUtils.hasContent(passwordType)) {
-    if (passwordType.equals(PASSWORD_TEXT))     token.setPasswordType(WSConstants.PASSWORD_TEXT);
- else     if (passwordType.equals(PASSWORD_DIGEST) || passwordType.equals(PASSWORD_DIGEST_EXT))     token.setPasswordType(WSConstants.PASSWORD_DIGEST);
+    if (passwordType.equals(PASSWORD_TEXT)) {
+      token.setPasswordType(WSConstants.PASSWORD_TEXT);
+    }
+ else     if (passwordType.equals(PASSWORD_DIGEST) || passwordType.equals(PASSWORD_DIGEST_EXT)) {
+      token.setPasswordType(WSConstants.PASSWORD_DIGEST);
+    }
   }
   String password=context.expand(getPassword());
   if (PASSWORD_DIGEST_EXT.equals(password)) {

@@ -8,7 +8,9 @@
   String responseURI=getResponseURI();
   ActionMessage requestMessage=new ActionMessage(getObjectEncoding());
   if (amfHeaders != null) {
-    for (    MessageHeader header : amfHeaders)     requestMessage.addHeader(header);
+    for (    MessageHeader header : amfHeaders) {
+      requestMessage.addHeader(header);
+    }
   }
   MessageBody amfMessage=new MessageBody(command,responseURI,arguments);
   requestMessage.addBody(amfMessage);
@@ -22,8 +24,12 @@
     return result;
   }
  catch (  Exception e) {
-    if (e instanceof ClientStatusException)     throw (ClientStatusException)e;
- else     if (e instanceof ServerStatusException)     throw (ServerStatusException)e;
+    if (e instanceof ClientStatusException) {
+      throw (ClientStatusException)e;
+    }
+ else     if (e instanceof ServerStatusException) {
+      throw (ServerStatusException)e;
+    }
     ClientStatusException exception=new ClientStatusException(e,ClientStatusException.AMF_CALL_FAILED_CODE);
     throw exception;
   }

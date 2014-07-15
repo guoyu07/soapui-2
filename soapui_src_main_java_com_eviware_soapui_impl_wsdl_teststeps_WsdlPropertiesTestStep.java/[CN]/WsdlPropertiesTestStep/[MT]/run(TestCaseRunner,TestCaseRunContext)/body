@@ -1,9 +1,13 @@
 {
   WsdlTestStepResult result=new WsdlTestStepResult(this);
-  if (okIcon != null)   setIcon(okIcon);
+  if (okIcon != null) {
+    setIcon(okIcon);
+  }
   result.setStatus(TestStepStatus.OK);
   result.startTimer();
-  if (isSaveFirst())   saveDuringRun(result,testRunContext);
+  if (isSaveFirst()) {
+    saveDuringRun(result,testRunContext);
+  }
   String source=sourceProperty.expand(testRunContext);
   if (StringUtils.hasContent(source)) {
     try {
@@ -16,10 +20,14 @@
       result.addMessage("Failed to load properties from [" + source + "]");
       result.setStatus(TestStepStatus.FAILED);
       result.setError(e);
-      if (failedIcon != null)       setIcon(failedIcon);
+      if (failedIcon != null) {
+        setIcon(failedIcon);
+      }
     }
   }
-  if (!isSaveFirst())   saveDuringRun(result,testRunContext);
+  if (!isSaveFirst()) {
+    saveDuringRun(result,testRunContext);
+  }
   result.stopTimer();
   return result;
 }

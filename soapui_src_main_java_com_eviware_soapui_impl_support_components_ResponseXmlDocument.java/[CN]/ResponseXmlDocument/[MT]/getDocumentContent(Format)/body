@@ -1,0 +1,4 @@
+{
+  Response response=request.getResponse();
+  return new DocumentContent(response == null ? null : response.getContentType(),response == null ? null : response.getContentAsString());
+}

@@ -16,14 +16,22 @@
  else {
     TestSuiteConfig config=(TestSuiteConfig)projectDocument.getSoapuiProject().addNewTestSuite().set(newTestSuiteConfig.getTestSuite());
     WsdlTestSuite testSuite=buildTestSuite(config);
-    ModelSupport.unsetIds(testSuite);
+    ModelSupport.createNewIds(testSuite);
     testSuite.afterLoad();
     for (int cnt2=0; cnt2 < config.getTestCaseList().size(); cnt2++) {
       TestCaseConfig newTestCase=config.getTestCaseList().get(cnt2);
       TestCaseConfig importTestCaseConfig=newTestSuiteConfig.getTestSuite().getTestCaseList().get(cnt2);
       LinkedHashMap<String,String> oldNewIds=new LinkedHashMap<String,String>();
-      for (int cnt=0; cnt < importTestCaseConfig.getTestStepList().size(); cnt++)       oldNewIds.put(importTestCaseConfig.getTestStepList().get(cnt).getId(),newTestCase.getTestStepList().get(cnt).getId());
-      for (      SecurityTestConfig scan : newTestCase.getSecurityTestList())       for (      TestStepSecurityTestConfig secStepConfig : scan.getTestStepSecurityTestList())       if (oldNewIds.containsKey(secStepConfig.getTestStepId()))       secStepConfig.setTestStepId(oldNewIds.get(secStepConfig.getTestStepId()));
+      for (int cnt=0; cnt < importTestCaseConfig.getTestStepList().size(); cnt++) {
+        oldNewIds.put(importTestCaseConfig.getTestStepList().get(cnt).getId(),newTestCase.getTestStepList().get(cnt).getId());
+      }
+      for (      SecurityTestConfig scan : newTestCase.getSecurityTestList()) {
+        for (        TestStepSecurityTestConfig secStepConfig : scan.getTestStepSecurityTestList()) {
+          if (oldNewIds.containsKey(secStepConfig.getTestStepId())) {
+            secStepConfig.setTestStepId(oldNewIds.get(secStepConfig.getTestStepId()));
+          }
+        }
+      }
     }
     testSuites.add(testSuite);
     fireTestSuiteAdded(testSuite);

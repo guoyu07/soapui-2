@@ -3,6 +3,7 @@
     UISupport.showErrorMessage("No transfer selectd!");
     return;
   }
+  Analytics.trackAction(SoapUIActions.RUN_TEST_STEP.getActionName(),"RequestType","PropertyTransfer");
   MockTestRunner mockRunner=new MockTestRunner(transferStep.getTestCase());
   MockTestRunContext context=new MockTestRunContext(mockRunner,transferStep);
   PropertyTransferResult result=(PropertyTransferResult)transferStep.run(mockRunner,context,getCurrentTransfer());

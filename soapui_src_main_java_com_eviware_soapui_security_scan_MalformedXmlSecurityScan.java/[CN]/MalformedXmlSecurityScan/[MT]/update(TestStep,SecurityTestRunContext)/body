@@ -1,43 +1,51 @@
 {
   StringToStringMap params=new StringToStringMap();
-  if (parameterMutations.size() == 0)   mutateParameters(testStep,context);
+  if (parameterMutations.size() == 0) {
+    mutateParameters(testStep,context);
+  }
   if (getExecutionStrategy().getStrategy() == StrategyTypeConfig.ONE_BY_ONE) {
     for (    SecurityCheckedParameter param : getParameterHolder().getParameterList()) {
-      if (parameterMutations.containsKey(param))       if (parameterMutations.get(param).size() > 0) {
-        TestProperty property=testStep.getProperties().get(param.getName());
-        String value=context.expand(property.getValue());
-        if (param.getXpath() == null || param.getXpath().trim().length() == 0) {
-        }
- else {
-          if (value == null || value.trim().equals(""))           continue;
-          XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(value));
-          XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXpath()));
-          StringBuffer buffer=new StringBuffer(value);
-          for (int cnt=0; cnt < nodes.length; cnt++) {
-            int start=value.indexOf("<" + nodes[cnt].getNodeName());
-            int cnt2=0;
-            while (cnt2 < cnt) {
-              start=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
-              cnt2++;
-            }
-            String nodeXml=getXmlForNode(nodes[cnt]);
-            int end=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
-            if (end <= 0) {
-              if (nodeXml.endsWith("</" + nodes[cnt].getDomNode().getNodeName() + ">")) {
-                end=value.indexOf("</" + nodes[cnt].getDomNode().getNodeName() + ">") + ("</" + nodes[cnt].getDomNode().getNodeName() + ">").length();
-              }
- else {
-                end=value.indexOf(">",value.indexOf("/",start));
-              }
-            }
-            if (end <= 0 || end <= start)             break;
-            buffer.replace(start,end + 1,parameterMutations.get(param).get(0));
+      if (parameterMutations.containsKey(param)) {
+        if (parameterMutations.get(param).size() > 0) {
+          TestProperty property=testStep.getProperties().get(param.getName());
+          String value=context.expand(property.getValue());
+          if (param.getXpath() == null || param.getXpath().trim().length() == 0) {
           }
-          params.put(param.getLabel(),parameterMutations.get(param).get(0));
-          parameterMutations.get(param).remove(0);
-          testStep.getProperties().get(param.getName()).setValue(buffer.toString());
+ else {
+            if (value == null || value.trim().equals("")) {
+              continue;
+            }
+            XmlObjectTreeModel model=new XmlObjectTreeModel(property.getSchemaType().getTypeSystem(),XmlUtils.createXmlObject(value));
+            XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXpath()));
+            StringBuffer buffer=new StringBuffer(value);
+            for (int cnt=0; cnt < nodes.length; cnt++) {
+              int start=value.indexOf("<" + nodes[cnt].getNodeName());
+              int cnt2=0;
+              while (cnt2 < cnt) {
+                start=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
+                cnt2++;
+              }
+              String nodeXml=getXmlForNode(nodes[cnt]);
+              int end=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
+              if (end <= 0) {
+                if (nodeXml.endsWith("</" + nodes[cnt].getDomNode().getNodeName() + ">")) {
+                  end=value.indexOf("</" + nodes[cnt].getDomNode().getNodeName() + ">") + ("</" + nodes[cnt].getDomNode().getNodeName() + ">").length();
+                }
+ else {
+                  end=value.indexOf(">",value.indexOf("/",start));
+                }
+              }
+              if (end <= 0 || end <= start) {
+                break;
+              }
+              buffer.replace(start,end + 1,parameterMutations.get(param).get(0));
+            }
+            params.put(param.getLabel(),parameterMutations.get(param).get(0));
+            parameterMutations.get(param).remove(0);
+            testStep.getProperties().get(param.getName()).setValue(buffer.toString());
+          }
+          break;
         }
-        break;
       }
     }
   }
@@ -57,37 +65,45 @@
             }
           }
  else {
-            if (value == null || value.trim().equals(""))             continue;
+            if (value == null || value.trim().equals("")) {
+              continue;
+            }
             if (param.getName().equals(property.getName())) {
               XmlTreeNode[] nodes=model.selectTreeNodes(context.expand(param.getXpath()));
-              if (parameterMutations.containsKey(param))               if (parameterMutations.get(param).size() > 0) {
-                for (int cnt=0; cnt < nodes.length; cnt++) {
-                  int start=value.indexOf("<" + nodes[cnt].getNodeName());
-                  int cnt2=0;
-                  while (cnt2 < cnt) {
-                    start=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
-                    cnt2++;
-                  }
-                  String nodeXml=getXmlForNode(nodes[cnt]);
-                  int end=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
-                  if (end <= 0) {
-                    if (nodeXml.endsWith("</" + nodes[cnt].getDomNode().getNodeName() + ">")) {
-                      end=value.indexOf("</" + nodes[cnt].getDomNode().getNodeName() + ">");
+              if (parameterMutations.containsKey(param)) {
+                if (parameterMutations.get(param).size() > 0) {
+                  for (int cnt=0; cnt < nodes.length; cnt++) {
+                    int start=value.indexOf("<" + nodes[cnt].getNodeName());
+                    int cnt2=0;
+                    while (cnt2 < cnt) {
+                      start=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
+                      cnt2++;
                     }
+                    String nodeXml=getXmlForNode(nodes[cnt]);
+                    int end=value.indexOf("<" + nodes[cnt].getNodeName(),start + 1);
+                    if (end <= 0) {
+                      if (nodeXml.endsWith("</" + nodes[cnt].getDomNode().getNodeName() + ">")) {
+                        end=value.indexOf("</" + nodes[cnt].getDomNode().getNodeName() + ">");
+                      }
  else {
-                      end=value.indexOf(">",value.indexOf("/",start));
+                        end=value.indexOf(">",value.indexOf("/",start));
+                      }
                     }
+                    if (end <= 0 || end <= start) {
+                      break;
+                    }
+                    buffer.replace(start,end + 1,parameterMutations.get(param).get(0));
                   }
-                  if (end <= 0 || end <= start)                   break;
-                  buffer.replace(start,end + 1,parameterMutations.get(param).get(0));
+                  params.put(param.getLabel(),parameterMutations.get(param).get(0));
+                  parameterMutations.get(param).remove(0);
                 }
-                params.put(param.getLabel(),parameterMutations.get(param).get(0));
-                parameterMutations.get(param).remove(0);
               }
             }
           }
         }
-        if (model != null)         property.setValue(buffer.toString());
+        if (model != null) {
+          property.setValue(buffer.toString());
+        }
       }
     }
   }

@@ -11,7 +11,9 @@
   project=mockResponseTestStep.getTestCase().getTestSuite().getProject();
   List<Interface> interfaces=new ArrayList<Interface>();
   for (int c=0; c < project.getInterfaceCount(); c++) {
-    if (project.getInterfaceAt(c).getOperationCount() > 0)     interfaces.add(project.getInterfaceAt(c));
+    if (project.getInterfaceAt(c).getOperationCount() > 0) {
+      interfaces.add(project.getInterfaceAt(c));
+    }
   }
   dialog.setOptions(CreateForm.INTERFACE,new ModelItemNames<Interface>(interfaces).getNames());
   String ifaceName=mockResponseTestStep.getOperation().getInterface().getName();

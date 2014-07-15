@@ -1,14 +1,13 @@
 {
-  if (status == null) {
-    setDefaultFeedback();
-  }
- else {
 switch (status) {
+case UNKNOWN:
+    setDefaultFeedback();
+  break;
 case ENTERED_MANUALLY:
-      setEnteredManuallyFeedback(status);
-    break;
+setEnteredManuallyFeedback(status);
+break;
 case RETRIEVED_FROM_SERVER:
-  setSucessfullFeedback(status);
+setSucessfulFeedback(status);
 break;
 case RETRIEVAL_CANCELED:
 setCanceledFeedback();
@@ -16,6 +15,5 @@ break;
 case EXPIRED:
 setFailedFeedback(status);
 break;
-}
 }
 }

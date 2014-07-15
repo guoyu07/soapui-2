@@ -1,6 +1,8 @@
 {
   int ix=mockOperations.indexOf(mockOperation);
-  if (ix == -1)   throw new RuntimeException("Unknown MockOperation specified to removeMockOperation");
+  if (ix == -1) {
+    throw new RuntimeException("Unknown MockOperation specified to removeMockOperation");
+  }
   mockOperations.remove(ix);
   fireMockOperationRemoved(mockOperation);
   mockOperation.release();

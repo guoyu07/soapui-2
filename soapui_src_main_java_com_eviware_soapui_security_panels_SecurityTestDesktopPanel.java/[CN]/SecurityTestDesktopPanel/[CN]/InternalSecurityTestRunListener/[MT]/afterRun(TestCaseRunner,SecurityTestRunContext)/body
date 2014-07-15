@@ -7,7 +7,9 @@
  else   if (testRunner.getStatus() == SecurityTestRunner.Status.FAILED) {
     String msg=securityRunner.getReason();
     if (securityRunner.getError() != null) {
-      if (msg != null)       msg+=":";
+      if (msg != null) {
+        msg+=":";
+      }
       msg+=securityRunner.getError();
     }
     securityTestLog.addText("SecurityTest failed [" + msg + "], time taken = "+ securityRunner.getTimeTaken());
@@ -34,7 +36,9 @@
     securityStatus=ResultStatus.FAILED;
   }
  else   if (testRunner.getStatus() == Status.FINISHED || testRunner.getStatus() == Status.CANCELED) {
-    if (securityStatus != ResultStatus.FAILED)     securityStatus=ResultStatus.OK;
+    if (securityStatus != ResultStatus.FAILED) {
+      securityStatus=ResultStatus.OK;
+    }
   }
   updateStatusIcon(securityStatus,securityLogInspector);
   updateStatusIcon(functionalStatus,functionalLogInspector);

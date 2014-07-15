@@ -1,7 +1,9 @@
 {
+  Analytics.trackAction(SoapUIActions.ADD_PROPERTY_TRASNFER_IN_PROPERTY_TRANSFER_TEST_STEP.getActionName());
   String name=UISupport.prompt("Specify name for value transfer","Add Transfer","");
-  if (name == null || name.trim().length() == 0)   return;
+  if (name == null || name.trim().length() == 0) {
+    return;
+  }
   transferStep.addTransfer(name);
-  listModel.addElement(name);
   transferList.setSelectedIndex(listModel.getSize() - 1);
 }

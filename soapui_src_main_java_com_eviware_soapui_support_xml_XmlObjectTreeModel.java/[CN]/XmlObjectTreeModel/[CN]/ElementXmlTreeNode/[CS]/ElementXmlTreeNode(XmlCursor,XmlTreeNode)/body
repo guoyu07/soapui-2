@@ -11,7 +11,9 @@
   positionCursor(cursor);
   cursor.toFirstContentToken();
   while (true) {
-    while (cursor.isComment() || cursor.isProcinst())     cursor.toNextToken();
+    while (cursor.isComment() || cursor.isProcinst()) {
+      cursor.toNextToken();
+    }
     if (cursor.isContainer()) {
       elements.add(new ElementXmlTreeNode(cursor,this));
       cursor.toEndToken();
@@ -21,7 +23,9 @@
       elements.add(new TextXmlTreeNode(cursor,this));
       cursor.toNextToken();
     }
-    if (cursor.isEnd() || cursor.isEnddoc())     break;
+    if (cursor.isEnd() || cursor.isEnddoc()) {
+      break;
+    }
   }
   if (elements.size() == attrCount + 1 && (elements.get(attrCount) instanceof TextXmlTreeNode)) {
     textTreeNode=(TextXmlTreeNode)elements.remove(attrCount);

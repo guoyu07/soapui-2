@@ -4,6 +4,8 @@
   if (!backupFolder.isAbsolute()) {
     backupFolder=new File(projectFile.getParentFile(),backupFolderName);
   }
-  if (!backupFolder.exists())   backupFolder.mkdirs();
+  if (!backupFolder.exists()) {
+    backupFolder.mkdirs();
+  }
   return new File(backupFolder,projectFile.getName() + ".backup");
 }

@@ -4,9 +4,13 @@
   desktop.transferTo(newDesktop);
   desktop.release();
   desktop=newDesktop;
-  if (logMonitor instanceof InspectorLog4JMonitor)   ((InspectorLog4JMonitor)logMonitor).setContentComponent(desktop.getDesktopComponent());
+  if (logMonitor instanceof InspectorLog4JMonitor) {
+    ((InspectorLog4JMonitor)logMonitor).setContentComponent(desktop.getDesktopComponent());
+  }
   desktop.addDesktopListener(internalDesktopListener);
-  while (desktopMenu.getItemCount() > DEFAULT_DESKTOP_ACTIONS_COUNT)   desktopMenu.remove(DEFAULT_DESKTOP_ACTIONS_COUNT);
+  while (desktopMenu.getItemCount() > DEFAULT_DESKTOP_ACTIONS_COUNT) {
+    desktopMenu.remove(DEFAULT_DESKTOP_ACTIONS_COUNT);
+  }
   ActionSupport.addActions(desktop.getActions(),desktopMenu);
   desktop.init();
 }

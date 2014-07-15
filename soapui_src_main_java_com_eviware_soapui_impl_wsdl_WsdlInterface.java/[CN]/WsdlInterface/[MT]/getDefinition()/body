@@ -1,5 +1,7 @@
 {
-  if (!getConfig().isSetDefinition())   return null;
+  if (!getConfig().isSetDefinition()) {
+    return null;
+  }
   String result=definitionProperty.get();
   if (PathUtils.isFilePath(result) && !PathUtils.isRelativePath(result) && !result.startsWith("file:")&& !result.startsWith("$")) {
     try {

@@ -1,5 +1,9 @@
 {
   Enum runType=getConfig().getRunType();
-  if (TestSuiteRunTypesConfig.PARALLELL.equals(runType))   return TestSuiteRunType.PARALLEL;
- else   return TestSuiteRunType.SEQUENTIAL;
+  if (TestSuiteRunTypesConfig.PARALLELL.equals(runType)) {
+    return TestSuiteRunType.PARALLEL;
+  }
+ else {
+    return TestSuiteRunType.SEQUENTIAL;
+  }
 }

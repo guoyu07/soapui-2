@@ -51,10 +51,14 @@
       }
     }
  catch (    Exception e) {
-      if (e instanceof NullPointerException)       SoapUI.logError(e);
+      if (e instanceof NullPointerException) {
+        SoapUI.logError(e);
+      }
       log.warn(e.getMessage());
     }
   }
-  if (addAnonymous)   result.add(new HttpAttachmentPart());
+  if (addAnonymous) {
+    result.add(new HttpAttachmentPart());
+  }
   return result;
 }

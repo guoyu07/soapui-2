@@ -4,7 +4,9 @@
       SecurityTestStepResult results=securityTest.getSecurityTestStepResultMap().get(testStep);
       boolean skipped=results.getSecurityScanResultList().size() > 0;
       for (      SecurityScanResult res : results.getSecurityScanResultList()) {
-        if (res.getStatus() == ResultStatus.SKIPPED)         continue;
+        if (res.getStatus() == ResultStatus.SKIPPED) {
+          continue;
+        }
  else {
           skipped=false;
           break;
@@ -19,7 +21,9 @@
       }
     }
   }
- else   progressBar.setBackground(UNKNOWN_COLOR);
+ else {
+    progressBar.setBackground(UNKNOWN_COLOR);
+  }
   progressBar.setValue(progressBar.getMaximum() == 0 ? 1 : progressBar.getMaximum());
   ((DefaultTreeModel)tree.getModel()).nodeChanged(node);
 }

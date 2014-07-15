@@ -5,7 +5,9 @@
     for (    Class<?> listenerClass : list) {
       try {
         T listener=(T)listenerClass.newInstance();
-        if (listenerConfigs.containsKey(listenerClass) && listener instanceof InitializableListener)         ((InitializableListener)listener).init(listenerConfigs.get(listenerClass));
+        if (listenerConfigs.containsKey(listenerClass) && listener instanceof InitializableListener) {
+          ((InitializableListener)listener).init(listenerConfigs.get(listenerClass));
+        }
         result.add(listener);
       }
  catch (      Exception e) {
@@ -13,6 +15,8 @@
       }
     }
   }
-  if (singletonListeners.containsKey(listenerType))   result.addAll((Collection<? extends T>)singletonListeners.get(listenerType));
+  if (singletonListeners.containsKey(listenerType)) {
+    result.addAll((Collection<? extends T>)singletonListeners.get(listenerType));
+  }
   return result;
 }

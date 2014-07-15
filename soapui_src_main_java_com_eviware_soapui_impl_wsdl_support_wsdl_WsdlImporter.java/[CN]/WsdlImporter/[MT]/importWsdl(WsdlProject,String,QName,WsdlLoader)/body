@@ -13,7 +13,9 @@
   }
   Map<Binding,WsdlInterface> importedBindings=new HashMap<Binding,WsdlInterface>();
   Map<?,?> serviceMap=definition.getAllServices();
-  if (serviceMap.isEmpty())   log.info("Missing services in [" + wsdlUrl + "], check for bindings");
+  if (serviceMap.isEmpty()) {
+    log.info("Missing services in [" + wsdlUrl + "], check for bindings");
+  }
  else {
     Iterator<?> i=serviceMap.values().iterator();
     while (i.hasNext()) {
@@ -25,14 +27,18 @@
         Binding binding=port.getBinding();
         if (importedBindings.containsKey(binding)) {
           String endpoint=WsdlUtils.getSoapEndpoint(port);
-          if (endpoint != null)           importedBindings.get(binding).addEndpoint(endpoint);
+          if (endpoint != null) {
+            importedBindings.get(binding).addEndpoint(endpoint);
+          }
           continue;
         }
         String ifaceName=getInterfaceNameForBinding(binding);
         WsdlInterface ifc=(WsdlInterface)project.getInterfaceByName(ifaceName);
         if (ifc != null) {
           Boolean res=UISupport.confirmOrCancel("Interface [" + ifc.getName() + "] already exists in project, update instead?","Import WSDL");
-          if (res == null)           return new WsdlInterface[0];
+          if (res == null) {
+            return new WsdlInterface[0];
+          }
           if (res.booleanValue()) {
             if (ifc.updateDefinition(wsdlUrl,false)) {
               importedBindings.put(binding,ifc);
@@ -44,8 +50,12 @@
         WsdlInterface iface=importBinding(project,wsdlContext,binding);
         if (iface != null) {
           String endpoint=WsdlUtils.getSoapEndpoint(port);
-          if (endpoint != null)           iface.addEndpoint(endpoint);
-          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString()))           iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
+          if (endpoint != null) {
+            iface.addEndpoint(endpoint);
+          }
+          if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
+            iface.setWsaVersion(WsdlUtils.getUsingAddressing(port));
+          }
           if (iface.getWsaVersion().equals(WsaVersionTypeConfig.NONE.toString())) {
             iface.processPolicy(PolicyUtils.getAttachedPolicy(port,wsdlContext.getDefinition()));
           }
@@ -72,7 +82,9 @@
         WsdlInterface ifc=(WsdlInterface)project.getInterfaceByName(ifaceName);
         if (ifc != null && result.indexOf(ifc) == -1) {
           Boolean res=UISupport.confirmOrCancel("Interface [" + ifc.getName() + "] already exists in project, update instead?","Import WSDL");
-          if (res == null)           return new WsdlInterface[0];
+          if (res == null) {
+            return new WsdlInterface[0];
+          }
           if (res.booleanValue()) {
             if (ifc.updateDefinition(wsdlUrl,false)) {
               importedBindings.put(binding,ifc);

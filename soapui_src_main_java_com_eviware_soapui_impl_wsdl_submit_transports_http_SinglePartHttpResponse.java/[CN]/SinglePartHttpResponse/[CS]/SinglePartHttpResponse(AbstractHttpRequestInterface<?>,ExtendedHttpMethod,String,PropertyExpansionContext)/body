@@ -1,10 +1,14 @@
 {
   super(httpMethod,httpRequest,context);
-  if (getRequestContent() == null || !getRequestContent().equals(requestContent))   this.requestContent=requestContent;
+  if (getRequestContent() == null || !getRequestContent().equals(requestContent)) {
+    this.requestContent=requestContent;
+  }
   try {
     byte[] responseBody=httpMethod.getResponseBody();
     int contentOffset=0;
-    if (responseBody == null)     responseBody=new byte[0];
+    if (responseBody == null) {
+      responseBody=new byte[0];
+    }
     responseSize=responseBody.length;
     String contentType=httpMethod.getResponseContentType();
     String charset=httpMethod.getResponseCharSet();
@@ -14,7 +18,9 @@
         contentOffset=3;
       }
     }
-    if (charset == null)     charset=httpRequest.getEncoding();
+    if (charset == null) {
+      charset=httpRequest.getEncoding();
+    }
     charset=StringUtils.unquote(charset);
     try {
       responseContent=responseBody.length == 0 ? null : charset == null ? new String(responseBody,contentOffset,(int)(responseSize - contentOffset)) : new String(responseBody,contentOffset,(int)(responseSize - contentOffset),charset);

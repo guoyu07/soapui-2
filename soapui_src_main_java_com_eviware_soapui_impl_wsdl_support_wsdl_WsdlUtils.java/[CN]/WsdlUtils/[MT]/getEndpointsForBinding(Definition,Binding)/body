@@ -8,7 +8,9 @@
       Port port=(Port)i2.next();
       if (port.getBinding() == binding) {
         String endpoint=WsdlUtils.getSoapEndpoint(port);
-        if (endpoint != null)         result.add(endpoint);
+        if (endpoint != null) {
+          result.add(endpoint);
+        }
       }
     }
   }

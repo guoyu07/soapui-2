@@ -9,7 +9,9 @@
       runTestCase(suite.getTestCaseAt(c));
       testCaseCount++;
     }
- else     log.info("Skipping testcase [" + name + "], filter is ["+ testCase+ "]");
+ else {
+      log.info("Skipping testcase [" + name + "], filter is ["+ testCase+ "]");
+    }
   }
   log.info("SoapUI suite [" + suite.getName() + "] finished in "+ (System.currentTimeMillis() - start)+ "ms");
 }

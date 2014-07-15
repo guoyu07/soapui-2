@@ -1,0 +1,14 @@
+{
+  sourceProperty=new DefaultTestStepProperty("source",null);
+  targetProperty=new DefaultTestStepProperty("target",null);
+  transfer=new PropertyTransfer(null,PropertyTransferConfig.Factory.newInstance()){
+    @Override public TestProperty getSourceProperty(){
+      return sourceProperty;
+    }
+    @Override public TestProperty getTargetProperty(){
+      return targetProperty;
+    }
+  }
+;
+  submitContext=mock(WsdlSubmitContext.class);
+}

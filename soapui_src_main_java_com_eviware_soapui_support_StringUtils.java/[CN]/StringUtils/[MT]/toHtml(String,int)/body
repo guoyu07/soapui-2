@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(string))   return "<html><body></body></html>";
+  if (StringUtils.isNullOrEmpty(string)) {
+    return "<html><body></body></html>";
+  }
   BufferedReader st=new BufferedReader(new StringReader(string));
   StringBuilder buf=new StringBuilder("<html><body>");
   String str=null;
@@ -19,7 +21,9 @@
  catch (  IOException e) {
     e.printStackTrace();
   }
-  if (str != null)   buf.append("...");
+  if (str != null) {
+    buf.append("...");
+  }
   buf.append("</body></html>");
   string=buf.toString();
   return string;

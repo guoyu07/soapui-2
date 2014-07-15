@@ -1,7 +1,11 @@
 {
   this.valuesSettingID=this.getClass().getName() + "@values";
-  if (target == null)   this.valuesSettingID+="-global";
- else   this.valuesSettingID+="-local";
+  if (target == null) {
+    this.valuesSettingID+="-global";
+  }
+ else {
+    this.valuesSettingID+="-local";
+  }
   modelItem=target;
   try {
     generate(initValues((T)target,param),UISupport.getToolHost(),(T)target);

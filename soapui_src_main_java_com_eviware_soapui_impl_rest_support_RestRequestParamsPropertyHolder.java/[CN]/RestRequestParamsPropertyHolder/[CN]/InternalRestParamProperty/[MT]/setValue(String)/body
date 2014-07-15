@@ -1,7 +1,13 @@
 {
   String oldValue=getValue();
-  if (getDefaultValue() != null && getDefaultValue().equals(value))   value=null;
-  if (value == null)   values.remove(getName());
- else   values.put(getName(),value);
+  if (getDefaultValue() != null && getDefaultValue().equals(value)) {
+    value=null;
+  }
+  if (value == null) {
+    values.remove(getName());
+  }
+ else {
+    values.put(getName(),value);
+  }
   firePropertyValueChanged(getName(),oldValue,getValue());
 }

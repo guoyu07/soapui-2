@@ -1,23 +1,43 @@
 {
-  if (offset == 0)   return;
+  if (offset == 0) {
+    return;
+  }
   WsdlTestStep step=testSteps.get(ix);
-  if (ix + offset >= testSteps.size())   offset=testSteps.size() - ix - 1;
+  if (ix + offset >= testSteps.size()) {
+    offset=testSteps.size() - ix - 1;
+  }
   testSteps.remove(ix);
   testSteps.add(ix + offset,step);
   TestStepConfig[] configs=new TestStepConfig[testSteps.size()];
   TestCaseConfig conf=getConfig();
   for (int c=0; c < testSteps.size(); c++) {
     if (offset > 0) {
-      if (c < ix)       configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
- else       if (c < (ix + offset))       configs[c]=(TestStepConfig)conf.getTestStepArray(c + 1).copy();
- else       if (c == ix + offset)       configs[c]=(TestStepConfig)conf.getTestStepArray(ix).copy();
- else       configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      if (c < ix) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      }
+ else       if (c < (ix + offset)) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c + 1).copy();
+      }
+ else       if (c == ix + offset) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(ix).copy();
+      }
+ else {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      }
     }
  else {
-      if (c < ix + offset)       configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
- else       if (c == ix + offset)       configs[c]=(TestStepConfig)conf.getTestStepArray(ix).copy();
- else       if (c <= ix)       configs[c]=(TestStepConfig)conf.getTestStepArray(c - 1).copy();
- else       configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      if (c < ix + offset) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      }
+ else       if (c == ix + offset) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(ix).copy();
+      }
+ else       if (c <= ix) {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c - 1).copy();
+      }
+ else {
+        configs[c]=(TestStepConfig)conf.getTestStepArray(c).copy();
+      }
     }
   }
   conf.setTestStepArray(configs);

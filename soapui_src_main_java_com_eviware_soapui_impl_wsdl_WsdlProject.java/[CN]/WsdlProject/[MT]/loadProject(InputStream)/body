@@ -1,0 +1,18 @@
+{
+  UISupport.setHourglassCursor();
+  try {
+    loadProjectFromInputStream(inputStream);
+  }
+ catch (  XmlException e) {
+    e.printStackTrace();
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+  }
+catch (  GeneralSecurityException e) {
+    e.printStackTrace();
+  }
+ finally {
+    UISupport.resetCursor();
+  }
+}

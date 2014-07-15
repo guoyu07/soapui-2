@@ -7,7 +7,9 @@
   DefaultComboBoxModel sourceStepComboModel=new DefaultComboBoxModel();
   tSuiteStepCombo=new JComboBox(sourceStepComboModel);
   tSuiteStepCombo.setRenderer(new TestSuiteComboRenderer());
-  for (  TestSuite element : tSuites)   sourceStepComboModel.addElement(element);
+  for (  TestSuite element : tSuites) {
+    sourceStepComboModel.addElement(element);
+  }
   tSuiteStepCombo.setSelectedIndex(0);
   panel.add(tSuiteStepCombo,cc.xyw(3,2,3));
   tCaseCombo=new JComboBox(((TestSuite)tSuiteStepCombo.getSelectedItem()).getTestCaseList().toArray());
@@ -22,7 +24,9 @@
       tCaseCombo.removeAllItems();
       if (iface != null) {
         tCaseCombo.setEnabled(true);
-        for (        Operation op : iface.getOperationList())         tCaseCombo.addItem(op);
+        for (        Operation op : iface.getOperationList()) {
+          tCaseCombo.addItem(op);
+        }
       }
  else {
         tCaseCombo.setEnabled(false);

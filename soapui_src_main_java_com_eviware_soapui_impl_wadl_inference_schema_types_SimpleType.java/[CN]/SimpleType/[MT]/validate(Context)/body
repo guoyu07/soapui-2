@@ -6,14 +6,22 @@
  else   if (!context.getAttribute("nil").equals("true")) {
     String value="";
     cursor.toFirstContentToken();
-    if (!cursor.isEnd())     value=cursor.getTextValue();
-    if (TypeInferrer.validateSimpleType(value,simpleType))     return this;
+    if (!cursor.isEnd()) {
+      value=cursor.getTextValue();
+    }
+    if (TypeInferrer.validateSimpleType(value,simpleType)) {
+      return this;
+    }
     XmlAnySimpleType newType=TypeInferrer.expandTypeForValue(value,simpleType);
-    if (cursor.getName() == null)     cursor.toParent();
+    if (cursor.getName() == null) {
+      cursor.toParent();
+    }
     if (context.getHandler().callback(ConflictHandler.Event.MODIFICATION,ConflictHandler.Type.TYPE,cursor.getName(),context.getPath(),"Illegal content '" + value + "'")) {
       simpleType=newType;
     }
- else     throw new XmlException("Invalid value!");
+ else {
+      throw new XmlException("Invalid value!");
+    }
   }
   return this;
 }

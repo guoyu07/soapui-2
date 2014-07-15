@@ -1,5 +1,7 @@
 {
-  if (!values.containsKey(name))   return false;
+  if (!values.containsKey(name)) {
+    return false;
+  }
   args.add(arg);
   if (Boolean.valueOf(values.get(name).toString())) {
     args.add(trueValue);

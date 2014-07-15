@@ -2,9 +2,15 @@
   super(mapping.getName());
   this.mapping=mapping;
   this.target=target;
-  if (mapping.getDescription() != null)   putValue(Action.SHORT_DESCRIPTION,mapping.getDescription());
-  if (mapping.getIconPath() != null)   putValue(Action.SMALL_ICON,UISupport.createImageIcon(mapping.getIconPath()));
-  if (mapping.getKeyStroke() != null)   putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke(mapping.getKeyStroke()));
+  if (mapping.getDescription() != null) {
+    putValue(Action.SHORT_DESCRIPTION,mapping.getDescription());
+  }
+  if (mapping.getIconPath() != null) {
+    putValue(Action.SMALL_ICON,UISupport.createImageIcon(mapping.getIconPath()));
+  }
+  if (mapping.getKeyStroke() != null) {
+    putValue(Action.ACCELERATOR_KEY,UISupport.getKeyStroke(mapping.getKeyStroke()));
+  }
   setEnabled(mapping.getAction().isEnabled());
   mapping.getAction().addPropertyChangeListener(new WeakPropertyChangeListener(this,mapping.getAction()));
   String name=mapping.getName();

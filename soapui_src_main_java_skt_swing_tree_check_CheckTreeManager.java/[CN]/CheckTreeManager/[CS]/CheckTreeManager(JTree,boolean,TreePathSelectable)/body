@@ -2,7 +2,9 @@
   this.tree=tree;
   selectionModel=new CheckTreeSelectionModel(tree.getModel(),dig);
   this.selectable=selectable;
-  if (selectable != null)   tree.setLargeModel(true);
+  if (selectable != null) {
+    tree.setLargeModel(true);
+  }
   tree.setCellRenderer(new CheckTreeCellRenderer(tree.getCellRenderer(),selectionModel,selectable));
   tree.addMouseListener(this);
   selectionModel.addTreeSelectionListener(this);

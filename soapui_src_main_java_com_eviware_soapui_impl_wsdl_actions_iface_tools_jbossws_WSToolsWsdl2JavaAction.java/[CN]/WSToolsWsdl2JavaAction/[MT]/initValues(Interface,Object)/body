@@ -9,7 +9,9 @@
  else {
     ejbLinkField.setEnabled(hasEjbLink && !hasServletLink);
     servletLinkField.setEnabled(hasServletLink && !hasEjbLink);
-    if (hasEjbLink && hasServletLink)     values.put(SERVLET_LINK,"");
+    if (hasEjbLink && hasServletLink) {
+      values.put(SERVLET_LINK,"");
+    }
   }
   appendField.setEnabled(hasEjbLink || hasServletLink);
   return values;

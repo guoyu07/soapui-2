@@ -1,11 +1,17 @@
 {
   listenerCallBack.fireOnRequest(project,request,response);
-  if (response.isCommitted())   return;
+  if (response.isCommitted()) {
+    return;
+  }
   ExtendedHttpMethod postMethod;
   InetSocketAddress inetAddress=new InetSocketAddress(sslEndPoint,sslPort);
   HttpServletRequest httpRequest=(HttpServletRequest)request;
-  if (httpRequest.getMethod().equals("GET"))   postMethod=new ExtendedGetMethod();
- else   postMethod=new ExtendedPostMethod();
+  if (httpRequest.getMethod().equals("GET")) {
+    postMethod=new ExtendedGetMethod();
+  }
+ else {
+    postMethod=new ExtendedPostMethod();
+  }
   JProxyServletWsdlMonitorMessageExchange capturedData=new JProxyServletWsdlMonitorMessageExchange(project);
   capturedData.setRequestHost(httpRequest.getRemoteHost());
   capturedData.setRequestHeader(httpRequest);
@@ -22,7 +28,9 @@
       contentLength=Long.parseLong(val);
       continue;
     }
-    if ("transfer-encoding".equals(lhdr))     continue;
+    if ("transfer-encoding".equals(lhdr)) {
+      continue;
+    }
     if ("host".equals(lhdr)) {
       Enumeration<?> vals=httpRequest.getHeaders(hdr);
       while (vals.hasMoreElements()) {
@@ -56,8 +64,12 @@
   postMethod.getParams().setParameter(SoapUIHttpRoute.SOAPUI_SSL_CONFIG,settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPATH,"") + " " + settings.getString(SecurityTabForm.SSLTUNNEL_KEYSTOREPASSWORD,""));
   setProtocolversion(postMethod,request.getProtocol());
   String path=null;
-  if (!sslEndPoint.contains("/"))   path="/";
- else   path=sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length());
+  if (!sslEndPoint.contains("/")) {
+    path="/";
+  }
+ else {
+    path=sslEndPoint.substring(sslEndPoint.indexOf("/"),sslEndPoint.length());
+  }
   if (uri != null) {
     try {
       postMethod.setURI(URIUtils.createURI(uri.getScheme(),uri.getHost(),uri.getPort(),path,uri.getQuery(),uri.getFragment()));
@@ -68,7 +80,9 @@
   }
   listenerCallBack.fireBeforeProxy(project,request,response,postMethod);
   if (settings.getBoolean(LaunchForm.SSLTUNNEL_REUSESTATE)) {
-    if (httpState == null)     httpState=new BasicHttpContext();
+    if (httpState == null) {
+      httpState=new BasicHttpContext();
+    }
     HttpClientSupport.execute(postMethod,httpState);
   }
  else {
@@ -84,7 +98,9 @@
   StringToStringsMap responseHeaders=capturedData.getResponseHeaders();
   HttpServletResponse httpServletResponse=(HttpServletResponse)response;
   for (  Map.Entry<String,List<String>> headerEntry : responseHeaders.entrySet()) {
-    for (    String header : headerEntry.getValue())     httpServletResponse.addHeader(headerEntry.getKey(),header);
+    for (    String header : headerEntry.getValue()) {
+      httpServletResponse.addHeader(headerEntry.getKey(),header);
+    }
   }
   IO.copy(new ByteArrayInputStream(capturedData.getRawResponseBody()),httpServletResponse.getOutputStream());
 synchronized (this) {

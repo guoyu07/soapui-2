@@ -23,13 +23,17 @@
     }
     if (runningTestCase != null) {
 synchronized (runningTestCase) {
-        for (        TestRunListener listener : testRunListeners)         runningTestCase.addTestRunListener(listener);
+        for (        TestRunListener listener : testRunListeners) {
+          runningTestCase.addTestRunListener(listener);
+        }
         StringList returnProperties=getReturnProperties();
         Map<String,TestProperty> props=getProperties();
         for (        Map.Entry<String,TestProperty> entry : props.entrySet()) {
           if (runningTestCase.hasProperty(entry.getKey()) && !returnProperties.contains(entry.getKey())) {
             String value=PropertyExpander.expandProperties(testRunContext,entry.getValue().getValue());
-            if (StringUtils.hasContent(value) || !isIgnoreEmptyProperties())             runningTestCase.setPropertyValue(entry.getKey(),value);
+            if (StringUtils.hasContent(value) || !isIgnoreEmptyProperties()) {
+              runningTestCase.setPropertyValue(entry.getKey(),value);
+            }
           }
         }
         currentLabel=getLabel();
@@ -54,7 +58,9 @@ synchronized (runningTestCase) {
         testCaseRunner.waitUntilFinished();
         result.stopTimer();
         for (        String key : returnProperties) {
-          if (runningTestCase.hasProperty(key))           setPropertyValue(key,runningTestCase.getPropertyValue(key));
+          if (runningTestCase.hasProperty(key)) {
+            setPropertyValue(key,runningTestCase.getPropertyValue(key));
+          }
         }
         for (        TestStepResult testStepResult : testCaseRunner.getResults()) {
           result.addMessage(testStepResult.getTestStep().getName() + " - " + testStepResult.getStatus()+ " - "+ testStepResult.getTimeTaken());
@@ -79,8 +85,12 @@ default :
 result.setStatus(TestStepStatus.UNKNOWN);
 break;
 }
-for (TestRunListener listener : testRunListeners) runningTestCase.removeTestRunListener(listener);
-if (runMode == RunTestCaseRunModeTypeConfig.PARALLELL) runningTestCase.release();
+for (TestRunListener listener : testRunListeners) {
+runningTestCase.removeTestRunListener(listener);
+}
+if (runMode == RunTestCaseRunModeTypeConfig.PARALLELL) {
+runningTestCase.release();
+}
 runningTestCase.removeTestRunListener(testRunListener);
 runningTestCase=null;
 testCaseRunner=null;

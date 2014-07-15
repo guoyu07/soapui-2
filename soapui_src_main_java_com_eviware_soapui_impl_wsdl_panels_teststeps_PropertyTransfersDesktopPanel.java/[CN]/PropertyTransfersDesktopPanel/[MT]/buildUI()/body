@@ -1,11 +1,6 @@
 {
   JSplitPane splitPane=UISupport.createHorizontalSplit();
-  listModel=new DefaultListModel();
-  for (int c=0; c < transferStep.getTransferCount(); c++) {
-    String name=transferStep.getTransferAt(c).getName();
-    if (transferStep.getTransferAt(c).isDisabled())     name+=" (disabled)";
-    listModel.addElement(name);
-  }
+  listModel=createListModel();
   transferList=new JList(listModel);
   transferList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   transferList.addListSelectionListener(new TransferListSelectionListener());
@@ -56,8 +51,12 @@
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
   setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   setPreferredSize(new Dimension(550,400));
-  if (listModel.getSize() > 0)   transferList.setSelectedIndex(0);
- else   setSelectedTransfer(null);
+  if (listModel.getSize() > 0) {
+    transferList.setSelectedIndex(0);
+  }
+ else {
+    setSelectedTransfer(null);
+  }
   componentEnabler.add(deleteButton);
   componentEnabler.add(declareButton);
   componentEnabler.add(runButton);
@@ -69,7 +68,6 @@
   componentEnabler.add(transferTextContentCheckBox);
   componentEnabler.add(ignoreEmptyCheckBox);
   componentEnabler.add(transferAllCheckBox);
-  componentEnabler.add(useXQueryCheckBox);
   componentEnabler.add(entitizeCheckBox);
   componentEnabler.add(transferChildNodesCheckBox);
 }

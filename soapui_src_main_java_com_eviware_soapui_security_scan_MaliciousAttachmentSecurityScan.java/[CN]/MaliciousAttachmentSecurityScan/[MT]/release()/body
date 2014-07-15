@@ -1,6 +1,12 @@
 {
-  if (advancedSettingsPanel != null)   advancedSettingsPanel.release();
-  if (mutationsPanel != null)   mutationsPanel.release();
-  if (request != null)   request.removeAttachmentsChangeListener(this);
+  if (advancedSettingsPanel != null) {
+    advancedSettingsPanel.release();
+  }
+  if (mutationsPanel != null) {
+    mutationsPanel.release();
+  }
+  if (request != null) {
+    request.removeAttachmentsChangeListener(this);
+  }
   super.release();
 }

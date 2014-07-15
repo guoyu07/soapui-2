@@ -11,5 +11,6 @@
     if (dialog.getBooleanValue(Form.OPENSREQUEST)) {
       UISupport.showDesktopPanel(request);
     }
+    Analytics.trackAction(SoapUIActions.CREATE_REQUEST.getActionName(),"RequestType","REST");
   }
 }

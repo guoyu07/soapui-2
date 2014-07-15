@@ -11,7 +11,11 @@
     magic=textArea.offsetToX(line,caret - textArea.getLineStartOffset(line));
   }
   caret=textArea.getLineStartOffset(line + 1) + textArea.xToOffset(line + 1,magic);
-  if (select)   textArea.select(textArea.getMarkPosition(),caret);
- else   textArea.setCaretPosition(caret);
+  if (select) {
+    textArea.select(textArea.getMarkPosition(),caret);
+  }
+ else {
+    textArea.setCaretPosition(caret);
+  }
   textArea.setMagicCaretPosition(magic);
 }

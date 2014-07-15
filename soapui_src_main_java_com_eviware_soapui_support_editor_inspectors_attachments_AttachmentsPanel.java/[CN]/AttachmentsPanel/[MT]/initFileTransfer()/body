@@ -21,7 +21,9 @@
             for (            File f : files) {
               System.out.println("Dropping file: " + f.getName());
               Boolean retval=UISupport.confirmOrCancel("Cache attachment in request?","Att Attachment");
-              if (retval == null)               return;
+              if (retval == null) {
+                return;
+              }
               tableModel.addFile(f,retval);
             }
           }

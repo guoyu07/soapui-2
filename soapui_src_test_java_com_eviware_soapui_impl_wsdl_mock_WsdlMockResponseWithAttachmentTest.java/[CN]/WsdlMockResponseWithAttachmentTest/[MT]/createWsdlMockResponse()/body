@@ -1,0 +1,7 @@
+{
+  WsdlMockOperation mockOperation=createWsdlMockOperation();
+  MockResponseConfig responseConfig=MockResponseConfig.Factory.newInstance();
+  WsdlMockResponse mockResponse=new MockedWsdlMockResponse(mockOperation,responseConfig);
+  addAttachment(mockResponse);
+  return mockResponse;
+}

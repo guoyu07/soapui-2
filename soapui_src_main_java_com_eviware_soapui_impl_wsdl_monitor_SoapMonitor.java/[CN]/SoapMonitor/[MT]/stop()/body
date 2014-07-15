@@ -1,7 +1,9 @@
 {
   monitorEngine.stop();
   if (addedEndpoints != null) {
-    for (    Interface iface : addedEndpoints.keySet())     iface.removeEndpoint(addedEndpoints.get(iface));
+    for (    Interface iface : addedEndpoints.keySet()) {
+      iface.removeEndpoint(addedEndpoints.get(iface));
+    }
     addedEndpoints.clear();
   }
   stopButton.setEnabled(false);

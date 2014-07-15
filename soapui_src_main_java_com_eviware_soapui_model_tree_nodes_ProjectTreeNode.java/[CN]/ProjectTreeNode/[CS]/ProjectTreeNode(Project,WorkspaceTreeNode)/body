@@ -1,6 +1,8 @@
 {
   super(project,workspaceNode.getWorkspace(),workspaceNode.getTreeModel());
-  if (!project.isOpen())   return;
+  if (!project.isOpen()) {
+    return;
+  }
   internalProjectListener=new InternalProjectListener();
   project.addProjectListener(internalProjectListener);
   for (int c=0; c < project.getInterfaceCount(); c++) {

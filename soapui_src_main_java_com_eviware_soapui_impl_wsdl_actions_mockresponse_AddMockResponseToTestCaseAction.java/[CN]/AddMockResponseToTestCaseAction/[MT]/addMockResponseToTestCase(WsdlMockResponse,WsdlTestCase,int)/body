@@ -4,7 +4,9 @@
     return;
   }
   WsdlMockService mockService=mockResponse.getMockOperation().getMockService();
-  if (dialog == null)   dialog=ADialogBuilder.buildDialog(Form.class);
+  if (dialog == null) {
+    dialog=ADialogBuilder.buildDialog(Form.class);
+  }
   dialog.setValue(Form.STEP_NAME,mockResponse.getMockOperation().getName());
   dialog.setBooleanValue(Form.CLOSE_EDITOR,true);
   dialog.setBooleanValue(Form.SHOW_TESTCASE,true);
@@ -12,7 +14,9 @@
   dialog.setValue(Form.PATH,mockService.getPath());
   SoapUIDesktop desktop=SoapUI.getDesktop();
   dialog.getFormField(Form.CLOSE_EDITOR).setEnabled(desktop != null && desktop.hasDesktopPanel(mockResponse));
-  if (!dialog.show())   return;
+  if (!dialog.show()) {
+    return;
+  }
   TestStepConfig config=WsdlMockResponseStepFactory.createConfig(mockResponse.getMockOperation().getOperation(),false);
   MockResponseStepConfig mockResponseStepConfig=((MockResponseStepConfig)config.getConfig());
   config.setName(dialog.getValue(Form.STEP_NAME));
@@ -21,8 +25,12 @@
   mockResponse.beforeSave();
   mockResponseStepConfig.getResponse().set(mockResponse.getConfig());
   WsdlMockResponseTestStep testStep=(WsdlMockResponseTestStep)testCase.insertTestStep(config,-1);
-  if (testStep == null)   return;
-  if (dialog.getBooleanValue(Form.ADD_SCHEMA_ASSERTION))   testStep.addAssertion(SchemaComplianceAssertion.ID);
+  if (testStep == null) {
+    return;
+  }
+  if (dialog.getBooleanValue(Form.ADD_SCHEMA_ASSERTION)) {
+    testStep.addAssertion(SchemaComplianceAssertion.ID);
+  }
   UISupport.selectAndShow(testStep);
   if (dialog.getBooleanValue(Form.CLOSE_EDITOR) && desktop != null) {
     desktop.closeDesktopPanel(mockResponse);

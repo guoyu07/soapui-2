@@ -25,10 +25,16 @@
   String toolTipText=tree.getToolTipText();
   if (toolTipText == null) {
     String description=modelItem.getDescription();
-    if (description == null || description.trim().length() == 0)     description=modelItem.getName();
-    if (description != null && description.trim().indexOf('\n') > 0)     description=Tools.convertToHtml(description);
+    if (description == null || description.trim().length() == 0) {
+      description=modelItem.getName();
+    }
+    if (description != null && description.trim().indexOf('\n') > 0) {
+      description=Tools.convertToHtml(description);
+    }
     setToolTipText(description);
   }
- else   setToolTipText(toolTipText.length() > 0 ? toolTipText : null);
+ else {
+    setToolTipText(toolTipText.length() > 0 ? toolTipText : null);
+  }
   return this;
 }

@@ -1,0 +1,25 @@
+{
+  if (mediaType.contains("json")) {
+    inputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+  }
+ else   if (mediaType.contains("xml")) {
+    inputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+  }
+ else {
+    try {
+      ContentType contentType=new ContentType(mediaType);
+      String subType=contentType.getSubType();
+      String textContentType="text/" + subType.replaceAll(".*\\+","");
+      if (TokenMakerFactory.getDefaultInstance().keySet().contains(textContentType)) {
+        inputArea.setSyntaxEditingStyle(textContentType);
+      }
+ else {
+        inputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+      }
+    }
+ catch (    ParseException e) {
+      inputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+    }
+  }
+  inputArea.setText(inputArea.getText());
+}

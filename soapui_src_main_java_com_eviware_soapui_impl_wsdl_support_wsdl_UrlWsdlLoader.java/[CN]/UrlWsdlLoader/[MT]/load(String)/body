@@ -2,7 +2,9 @@
   if (!PathUtils.isHttpPath(url)) {
     try {
       File file=new File(url.replace('/',File.separatorChar));
-      if (file.exists())       url=file.toURI().toURL().toString();
+      if (file.exists()) {
+        url=file.toURI().toURL().toString();
+      }
     }
  catch (    Exception e) {
     }
@@ -16,10 +18,16 @@
   }
   log.debug("Getting wsdl component from [" + url + "]");
   createGetMethod(url);
-  if (aborted)   return null;
+  if (aborted) {
+    return null;
+  }
   LoaderWorker worker=new LoaderWorker();
-  if (useWorker)   worker.start();
- else   worker.construct();
+  if (useWorker) {
+    worker.start();
+  }
+ else {
+    worker.construct();
+  }
   while (!aborted && !finished) {
     Thread.sleep(200);
   }
@@ -38,10 +46,14 @@
  else {
     if (content != null) {
       String compressionAlg=HttpClientSupport.getResponseCompressionType(httpResponse);
-      if (compressionAlg != null)       content=CompressionSupport.decompress(compressionAlg,content);
+      if (compressionAlg != null) {
+        content=CompressionSupport.decompress(compressionAlg,content);
+      }
       urlCache.put(url,content);
       String newUrl=getMethod.getURI().toString();
-      if (!url.equals(newUrl))       log.info("BaseURI was redirected to [" + newUrl + "]");
+      if (!url.equals(newUrl)) {
+        log.info("BaseURI was redirected to [" + newUrl + "]");
+      }
       setNewBaseURI(newUrl);
       urlCache.put(newUrl,content);
       return new ByteArrayInputStream(content);

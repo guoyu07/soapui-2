@@ -1,7 +1,9 @@
 {
   boolean prevWasSeparator=false;
   for (  SoapUIActionMapping<? extends ModelItem> mapping : actionGroup.getActionMappings(modelItem)) {
-    if (mapping == null)     continue;
+    if (mapping == null) {
+      continue;
+    }
     SoapUIActionMapping<T> actionMapping=(com.eviware.soapui.support.action.SoapUIActionMapping<T>)mapping;
     SoapUIAction<T> action=(SoapUIAction<T>)mapping.getAction();
     if (action != null && !action.applies(modelItem)) {
@@ -25,7 +27,9 @@
  else     if (action != null) {
       SwingActionDelegate<T> actionDelegate=new SwingActionDelegate<T>(actionMapping,modelItem);
       actions.addAction(actionDelegate);
-      if (mapping.isDefault())       actions.setDefaultAction(actionDelegate);
+      if (mapping.isDefault()) {
+        actions.setDefaultAction(actionDelegate);
+      }
       actionDelegate.setEnabled(mapping.isEnabled());
       prevWasSeparator=false;
     }

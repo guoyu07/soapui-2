@@ -15,13 +15,19 @@
       requestIndex=0;
     }
     @Override public void afterStep(    TestCaseRunner testRunner,    SecurityTestRunContext runContext,    SecurityTestStepResult result){
-      if (result.getStatus() == ResultStatus.FAILED)       failedResults.add(result);
+      if (result.getStatus() == ResultStatus.FAILED) {
+        failedResults.add(result);
+      }
     }
   }
 );
-  if (isJUnitReport())   securityTest.addSecurityTestRunListener(reportCollector);
+  if (isJUnitReport()) {
+    securityTest.addSecurityTestRunListener(reportCollector);
+  }
   log.info("Running SecurityTest [" + securityTest.getName() + "] in TestCase ["+ securityTest.getTestCase().getName()+ "] in TestSuite ["+ securityTest.getTestCase().getTestSuite().getName()+ "]");
   SecurityTestRunner runner=securityTest.run(null,false);
   log.info("SecurityTest [" + securityTest.getName() + "] finished with status ["+ runner.getStatus()+ "] in "+ (runner.getTimeTaken())+ "ms");
-  if (isJUnitReport())   securityTest.removeSecurityTestRunListener(reportCollector);
+  if (isJUnitReport()) {
+    securityTest.removeSecurityTestRunListener(reportCollector);
+  }
 }

@@ -5,8 +5,12 @@
   setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
   addWindowListener(new WindowAdapter(){
     public void windowClosing(    WindowEvent e){
-      if (runner != null && !runner.isRunning())       dispose();
- else       UISupport.showErrorMessage("Cannot close while task is running..");
+      if (runner != null && !runner.isRunning()) {
+        dispose();
+      }
+ else {
+        UISupport.showErrorMessage("Cannot close while task is running..");
+      }
     }
   }
 );
@@ -26,7 +30,9 @@
     progressBar.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
     getContentPane().add(progressBar,BorderLayout.NORTH);
   }
-  if (showLog)   getContentPane().add(buildLog(),BorderLayout.CENTER);
+  if (showLog) {
+    getContentPane().add(buildLog(),BorderLayout.CENTER);
+  }
   if (allowCancel) {
     ButtonBarBuilder builder=ButtonBarBuilder.createLeftToRightBuilder();
     builder.addGlue();

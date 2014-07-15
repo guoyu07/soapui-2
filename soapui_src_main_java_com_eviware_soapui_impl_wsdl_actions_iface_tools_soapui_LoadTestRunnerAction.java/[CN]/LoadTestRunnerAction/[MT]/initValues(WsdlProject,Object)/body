@@ -3,7 +3,9 @@
     List<String> endpoints=new ArrayList<String>();
     for (    Interface iface : modelItem.getInterfaceList()) {
       for (      String endpoint : iface.getEndpoints()) {
-        if (!endpoints.contains(endpoint))         endpoints.add(endpoint);
+        if (!endpoints.contains(endpoint)) {
+          endpoints.add(endpoint);
+        }
       }
     }
     endpoints.add(0,null);

@@ -2,7 +2,9 @@
   if (!loaded && iface != null) {
     loaded=definitionCache.containsKey(url);
   }
-  if (loaded)   return true;
+  if (loaded) {
+    return true;
+  }
   Loader loader=new Loader(wsdlLoader);
   if (progressDialog != null) {
     progressDialog.run(loader);
@@ -12,7 +14,9 @@
     progressDialog.run(loader);
   }
   if (loader.hasError()) {
-    if (loader.getError() instanceof InvalidDefinitionException)     throw (InvalidDefinitionException)loader.getError();
+    if (loader.getError() instanceof InvalidDefinitionException) {
+      throw (InvalidDefinitionException)loader.getError();
+    }
     if (loader.getError() instanceof SchemaException) {
       schemaException=(SchemaException)loader.getError();
       ArrayList<?> errorList=schemaException.getErrorList();
@@ -24,7 +28,9 @@
       }
       throw new InvalidDefinitionException(schemaException);
     }
- else     throw new Exception(loader.getError());
+ else {
+      throw new Exception(loader.getError());
+    }
   }
  else {
     loaded=true;

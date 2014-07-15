@@ -1,13 +1,23 @@
 {
   TreePath path=tree.getPathForLocation(me.getX(),me.getY());
-  if (path == null)   return;
-  if (me.getX() > tree.getPathBounds(path).x + hotspot)   return;
-  if (selectable != null && !selectable.isSelectable(path))   return;
+  if (path == null) {
+    return;
+  }
+  if (me.getX() > tree.getPathBounds(path).x + hotspot) {
+    return;
+  }
+  if (selectable != null && !selectable.isSelectable(path)) {
+    return;
+  }
   boolean selected=selectionModel.isPathSelected(path,selectionModel.isDigged());
   selectionModel.removeTreeSelectionListener(this);
   try {
-    if (selected)     selectionModel.removeSelectionPath(path);
- else     selectionModel.addSelectionPath(path);
+    if (selected) {
+      selectionModel.removeSelectionPath(path);
+    }
+ else {
+      selectionModel.addSelectionPath(path);
+    }
   }
   finally {
     selectionModel.addTreeSelectionListener(this);

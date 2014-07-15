@@ -1,6 +1,6 @@
 {
   try {
-    String content=getAssertable().getAssertableContent();
+    String content=getAssertable().getAssertableContentAsXml();
     if (content != null && content.trim().length() > 0) {
       pathArea.setText(XmlUtils.declareXPathNamespaces(content) + pathArea.getText());
     }

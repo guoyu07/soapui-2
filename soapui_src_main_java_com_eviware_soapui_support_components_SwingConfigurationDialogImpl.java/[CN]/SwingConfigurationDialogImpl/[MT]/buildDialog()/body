@@ -15,7 +15,9 @@
  else {
     panel.add(buttons,BorderLayout.SOUTH);
   }
-  if (description != null || icon != null)   dialog.getContentPane().add(UISupport.buildDescription(title,description,icon),BorderLayout.NORTH);
+  if (description != null || icon != null) {
+    dialog.getContentPane().add(UISupport.buildDescription(title,description,icon),BorderLayout.NORTH);
+  }
   dialog.getContentPane().add(panel);
   dialog.pack();
 }

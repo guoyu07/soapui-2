@@ -12,7 +12,9 @@
  else     if (SchemaUtils.isAnyType(schemaType)) {
       return new ByteArrayInputStream(content.getBytes());
     }
- else     throw new IOException("Invalid type for XOPPartDataSource; " + schemaType.getName());
+ else {
+      throw new IOException("Invalid type for XOPPartDataSource; " + schemaType.getName());
+    }
   }
  catch (  Exception e) {
     SoapUI.logError(e);

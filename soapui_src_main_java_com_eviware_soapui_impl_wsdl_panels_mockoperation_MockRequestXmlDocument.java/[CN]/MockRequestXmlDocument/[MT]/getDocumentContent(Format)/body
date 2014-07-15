@@ -1,0 +1,5 @@
+{
+  MockResult mockResult=mockResponse.getMockResult();
+  final String requestContent=mockResult == null ? null : mockResult.getMockRequest().getRequestContent();
+  return new DocumentContent(null,requestContent);
+}

@@ -1,7 +1,13 @@
 {
-  if (isOpen())   return super.getDescription();
+  if (isOpen()) {
+    return super.getDescription();
+  }
   String name=getName();
-  if (isDisabled())   name+=" - disabled [" + getPath() + "]";
- else   name+=" - closed [" + getPath() + "]";
+  if (isDisabled()) {
+    name+=" - disabled [" + getPath() + "]";
+  }
+ else {
+    name+=" - closed [" + getPath() + "]";
+  }
   return name;
 }

@@ -18,7 +18,9 @@
         }
       }
       AssertionError assertionError=new AssertionError(error);
-      if (!response.contains(assertionError))       response.add(assertionError);
+      if (!response.contains(assertionError)) {
+        response.add(assertionError);
+      }
     }
     return response.toArray(new AssertionError[response.size()]);
   }

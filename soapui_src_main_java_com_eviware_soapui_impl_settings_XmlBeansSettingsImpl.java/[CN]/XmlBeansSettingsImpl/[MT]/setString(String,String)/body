@@ -1,7 +1,11 @@
 {
   String oldValue=getString(id,null);
-  if (oldValue == null && value == null)   return;
-  if (value != null && value.equals(oldValue))   return;
+  if (oldValue == null && value == null) {
+    return;
+  }
+  if (value != null && value.equals(oldValue)) {
+    return;
+  }
   if (value == null) {
     clearSetting(id);
   }

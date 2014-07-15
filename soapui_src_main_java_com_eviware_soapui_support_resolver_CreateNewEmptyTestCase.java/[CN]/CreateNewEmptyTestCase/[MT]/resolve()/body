@@ -2,5 +2,6 @@
   WsdlTestCase tCase=testStep.getTestCase().getTestSuite().addNewTestCase("New Test Case");
   testStep.setTargetTestCase(tCase);
   resolved=true;
+  Analytics.trackAction(SoapUIActions.CREATE_TEST_CASE.getActionName());
   return resolved;
 }

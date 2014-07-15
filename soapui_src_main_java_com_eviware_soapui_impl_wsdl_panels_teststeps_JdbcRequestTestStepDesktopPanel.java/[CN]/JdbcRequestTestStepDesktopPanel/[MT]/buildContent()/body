@@ -18,8 +18,12 @@
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
           int ix=requestTabs.getSelectedIndex();
-          if (ix == 0)           requestEditor.requestFocus();
- else           if (ix == 1 && responseEditor != null)           responseEditor.requestFocus();
+          if (ix == 0) {
+            requestEditor.requestFocus();
+          }
+ else           if (ix == 1 && responseEditor != null) {
+            responseEditor.requestFocus();
+          }
         }
       }
 );
@@ -28,8 +32,12 @@
 );
   addFocusListener(new FocusAdapter(){
     @Override public void focusGained(    FocusEvent e){
-      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocusInWindow();
- else       requestEditor.requestFocusInWindow();
+      if (requestTabs.getSelectedIndex() == 1 || responseHasFocus) {
+        responseEditor.requestFocusInWindow();
+      }
+ else {
+        requestEditor.requestFocusInWindow();
+      }
     }
   }
 );
@@ -38,7 +46,9 @@
   responseEditor=buildResponseEditor();
   if (jdbcRequestTestStep.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Request",requestEditor);
-    if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
+    if (responseEditor != null) {
+      requestTabs.addTab("Response",responseEditor);
+    }
     tabsButton.setSelected(true);
     splitButton.setEnabled(false);
     content=requestTabPanel;

@@ -1,12 +1,16 @@
 {
   int ix=content.indexOf("${");
-  if (ix == -1)   return content;
-  StringBuffer buf=new StringBuffer();
+  if (ix == -1) {
+    return content;
+  }
+  StringBuilder buf=new StringBuilder();
   int lastIx=0;
   while (ix != -1) {
     buf.append(content.substring(lastIx,ix));
     int ix2=content.indexOf('}',ix + 2);
-    if (ix2 == -1)     break;
+    if (ix2 == -1) {
+      break;
+    }
     int ix3=content.lastIndexOf("${",ix2);
     if (ix3 != ix) {
       buf.append(content.substring(ix,ix3));
@@ -23,6 +27,8 @@
     lastIx=ix2 + 1;
     ix=content.indexOf("${",lastIx);
   }
-  if (lastIx < content.length())   buf.append(content.substring(lastIx));
+  if (lastIx < content.length()) {
+    buf.append(content.substring(lastIx));
+  }
   return buf.toString();
 }

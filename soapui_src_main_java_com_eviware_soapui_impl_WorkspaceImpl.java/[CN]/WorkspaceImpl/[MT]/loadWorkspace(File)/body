@@ -2,7 +2,9 @@
   if (file.exists()) {
     log.info(messages.get("FailedToLoadWorkspaceFrom",file.getAbsolutePath()));
     workspaceConfig=SoapuiWorkspaceDocumentConfig.Factory.parse(file);
-    if (workspaceConfig.getSoapuiWorkspace().getSettings() == null)     workspaceConfig.getSoapuiWorkspace().addNewSettings();
+    if (workspaceConfig.getSoapuiWorkspace().getSettings() == null) {
+      workspaceConfig.getSoapuiWorkspace().addNewSettings();
+    }
     setPath(file.getAbsolutePath());
     settings=new XmlBeansSettingsImpl(this,SoapUI.getSettings(),workspaceConfig.getSoapuiWorkspace().getSettings());
     boolean closeOnStartup=getSettings().getBoolean(UISettings.CLOSE_PROJECTS);
@@ -11,7 +13,7 @@
       String str=PathUtils.denormalizePath(wsc.getStringValue());
       str=PathUtils.adjustRelativePath(str,getProjectRoot(),this);
       try {
-        WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(str,this,false,!closeOnStartup && wsc.getStatus() != Status.CLOSED && wsc.getType() != Type.REMOTE,wsc.getName(),null);
+        WsdlProject project=(WsdlProject)ProjectFactoryRegistry.getProjectFactory("wsdl").createNew(str,this,!closeOnStartup && wsc.getStatus() != Status.CLOSED && wsc.getType() != Type.REMOTE,wsc.getName(),null);
         projectList.add(project);
       }
  catch (      Exception e) {

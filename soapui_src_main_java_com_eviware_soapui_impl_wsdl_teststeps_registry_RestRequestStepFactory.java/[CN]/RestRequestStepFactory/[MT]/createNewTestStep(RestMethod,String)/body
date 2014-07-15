@@ -8,7 +8,9 @@
     requestStepConfig.setMethodName(restMethod.getName());
     requestStepConfig.setResourcePath(restMethod.getOperation().getFullPath());
     String[] endpoints=restMethod.getInterface().getEndpoints();
-    if (endpoints.length > 0)     testRequestConfig.setEndpoint(endpoints[0]);
+    if (endpoints.length > 0) {
+      testRequestConfig.setEndpoint(endpoints[0]);
+    }
     testRequestConfig.addNewRequest();
     StringToStringMapConfig parametersConfig=testRequestConfig.addNewParameters();
     for (    RestParamProperty property : restMethod.getDefaultParams()) {

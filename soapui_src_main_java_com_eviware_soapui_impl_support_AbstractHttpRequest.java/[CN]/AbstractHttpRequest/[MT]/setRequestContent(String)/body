@@ -1,6 +1,8 @@
 {
   String old=getRequestContent();
-  if ((StringUtils.isNullOrEmpty(request) && StringUtils.isNullOrEmpty(old)) || (request != null && request.equals(old)))   return;
-  requestContent=request;
+  if ((StringUtils.isNullOrEmpty(request) && StringUtils.isNullOrEmpty(old)) || (request != null && request.equals(old))) {
+    return;
+  }
+  requestContent=escapeCarriageReturnsIn(request);
   notifyPropertyChanged(REQUEST_PROPERTY,old,request);
 }

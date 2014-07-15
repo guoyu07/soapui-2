@@ -1,6 +1,8 @@
 {
   for (  GotoCondition condition : conditions) {
-    if (canceled)     break;
+    if (canceled) {
+      break;
+    }
     try {
       if (condition.evaluate(previousStep,context)) {
         return condition;

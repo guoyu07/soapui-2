@@ -4,7 +4,9 @@
   maximal.addFormFieldListener(new XFormFieldListener(){
     @Override public void valueChanged(    XFormField sourceField,    String newValue,    String oldValue){
       try {
-        if ("".equals(newValue))         return;
+        if ("".equals(newValue)) {
+          return;
+        }
         Integer.valueOf(newValue);
         fuzzerScanConfig.setMaximal(Integer.valueOf(newValue));
       }

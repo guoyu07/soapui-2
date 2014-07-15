@@ -12,13 +12,25 @@
   }
   String fileName=ix == -1 ? path : path.substring(ix + 1);
   ix=fileName.lastIndexOf('.');
-  if (ix != -1)   fileName=fileName.substring(0,ix);
+  if (ix != -1) {
+    fileName=fileName.substring(0,ix);
+  }
   String type=part.getType();
-  if (type.equals(Constants.WSDL11_NS))   fileName+=".wsdl";
- else   if (part.getType().equals(Constants.XSD_NS))   fileName+=".xsd";
- else   if (getDefinition().getInterface() instanceof RestService && part.getType().equals(((RestService)getDefinition().getInterface()).getWadlVersion()))   fileName+=".wadl";
- else   fileName+=".xml";
-  if (urlPrefix != null)   fileName=urlPrefix + fileName;
+  if (type.equals(Constants.WSDL11_NS)) {
+    fileName+=".wsdl";
+  }
+ else   if (part.getType().equals(Constants.XSD_NS)) {
+    fileName+=".xsd";
+  }
+ else   if (getDefinition().getInterface() instanceof RestService && part.getType().equals(((RestService)getDefinition().getInterface()).getWadlVersion())) {
+    fileName+=".wadl";
+  }
+ else {
+    fileName+=".xml";
+  }
+  if (urlPrefix != null) {
+    fileName=urlPrefix + fileName;
+  }
   int cnt=1;
   while (urlToFileMap.containsValue(fileName)) {
     ix=fileName.lastIndexOf('.');

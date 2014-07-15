@@ -2,7 +2,9 @@
   UISupport.invokeAndWaitIfNotInEDT(new Runnable(){
     @Override public void run(){
       SoapUITreeNode operationTreeNode=getTreeModel().getTreeNode(request.getOperation());
-      if (operationTreeNode != null && operationTreeNode instanceof OperationTreeNode)       ((OperationTreeNode)operationTreeNode).requestAdded(request);
+      if (operationTreeNode != null && operationTreeNode instanceof OperationTreeNode) {
+        ((OperationTreeNode)operationTreeNode).requestAdded(request);
+      }
     }
   }
 );

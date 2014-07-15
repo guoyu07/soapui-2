@@ -1,6 +1,8 @@
 {
   requestFocus();
-  if (isEditable())   setCaretVisible(true);
+  if (isEditable()) {
+    setCaretVisible(true);
+  }
   focusedComponentRef=new WeakReference<JEditTextArea>(JEditTextArea.this);
   if (popup != null && evt.isPopupTrigger()) {
     doPopup(evt);

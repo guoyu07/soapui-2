@@ -1,0 +1,14 @@
+{
+  System.setProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent","Testing Replace.${currentStepIndex}.${currentStepRunIndex}");
+  AbstractTestCaseRunner runner=Mockito.mock(AbstractTestCaseRunner.class);
+  Mockito.when(runner.getResultCount()).thenReturn(4);
+  WsdlTestRunContext context=mockContext();
+  Mockito.when(context.getTestRunner()).thenReturn(runner);
+  Mockito.when(context.getCurrentStepIndex()).thenReturn(3);
+  AbstractHttpRequest<?> request=mockRequest(new StringToStringsMap());
+  globalHttpHeadersRequestFilter.filterAbstractHttpRequest(context,request);
+  ArgumentCaptor<StringToStringsMap> headers=ArgumentCaptor.forClass(StringToStringsMap.class);
+  Mockito.verify(request).setRequestHeaders(headers.capture());
+  Assert.assertEquals("Testing Replace.3.4",headers.getAllValues().get(0).get("User-Agent").get(0));
+  System.clearProperty(GlobalHttpHeadersRequestFilter.HEADER_SYSTEM_PROPERTY_PREFIX + "User-Agent");
+}

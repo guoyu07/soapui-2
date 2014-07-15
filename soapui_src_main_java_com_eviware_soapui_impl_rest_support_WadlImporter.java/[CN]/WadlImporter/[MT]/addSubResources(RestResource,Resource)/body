@@ -1,7 +1,9 @@
 {
   for (  Resource res : resource.getResourceList()) {
     String path=res.getPath();
-    if (path == null)     path="";
+    if (path == null) {
+      path="";
+    }
     String name=getFirstTitle(res.getDocList(),path);
     RestResource newRes=null;
     for (    RestResource child : newResource.getChildResourceList()) {
@@ -10,7 +12,9 @@
         break;
       }
     }
-    if (newRes == null)     newRes=newResource.addNewChildResource(name,path);
+    if (newRes == null) {
+      newRes=newResource.addNewChildResource(name,path);
+    }
     initResourceFromWadlResource(newRes,res);
     addSubResources(newRes,res);
   }

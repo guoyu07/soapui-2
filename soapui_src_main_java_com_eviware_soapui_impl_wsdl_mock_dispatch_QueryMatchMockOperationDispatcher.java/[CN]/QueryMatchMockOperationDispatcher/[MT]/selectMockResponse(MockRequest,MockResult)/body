@@ -3,7 +3,9 @@
   try {
     XmlObject xmlObject=request.getRequestXmlObject();
     for (    Query query : getQueries()) {
-      if (query.isDisabled())       continue;
+      if (query.isDisabled()) {
+        continue;
+      }
       String path=PropertyExpander.expandProperties(request.getContext(),query.getQuery());
       if (StringUtils.hasContent(path)) {
         XmlCursor cursor=cursorCache.get(path);

@@ -1,5 +1,5 @@
 {
-  if (JdbcUtils.missingConnSettings(driver,connectionString,password)) {
+  if (JdbcUtils.missingConnSettings(driver,connectionString)) {
     throw new SoapUIException("Some connections settings are missing");
   }
   String drvr=PropertyExpander.expandProperties(context,driver).trim();
@@ -20,7 +20,7 @@
     }
  catch (    Exception e1) {
       SoapUI.logError(e);
-      throw new SoapUIException("Failed to init connection for drvr [" + drvr + "], connectionString ["+ masskedPass+ "]");
+      throw new SoapUIException("Failed to init connection for driver [" + drvr + "], connectionString ["+ masskedPass+ "]");
     }
   }
   return DriverManager.getConnection(connStr);

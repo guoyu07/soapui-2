@@ -1,5 +1,7 @@
 {
-  if (testRequest == null)   return new PropertyExpansion[0];
+  if (testRequest == null) {
+    return new PropertyExpansion[0];
+  }
   PropertyExpansionsResult result=new PropertyExpansionsResult(this,testRequest);
   result.extractAndAddAll("requestContent");
   result.extractAndAddAll("endpoint");
@@ -8,7 +10,9 @@
   result.extractAndAddAll("domain");
   StringToStringsMap requestHeaders=testRequest.getRequestHeaders();
   for (  Map.Entry<String,List<String>> headerEntry : requestHeaders.entrySet()) {
-    for (    String value : headerEntry.getValue())     result.extractAndAddAll(new HttpTestRequestStep.RequestHeaderHolder(headerEntry.getKey(),value,testRequest),"value");
+    for (    String value : headerEntry.getValue()) {
+      result.extractAndAddAll(new HttpTestRequestStep.RequestHeaderHolder(headerEntry.getKey(),value,testRequest),"value");
+    }
   }
   testRequest.addWsaPropertyExpansions(result,testRequest.getWsaConfig(),this);
   testRequest.addJMSHeaderExpansions(result,testRequest.getJMSHeaderConfig(),this);

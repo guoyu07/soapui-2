@@ -1,5 +1,7 @@
 {
-  if (response.getMockOperation() != getModelItem())   return;
+  if (response.getMockOperation() != getModelItem()) {
+    return;
+  }
   int ix=responses.indexOf(response);
   responses.remove(ix);
   response.removePropertyChangeListener(this);

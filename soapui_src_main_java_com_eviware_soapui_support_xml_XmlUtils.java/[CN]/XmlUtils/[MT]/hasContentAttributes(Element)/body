@@ -3,7 +3,9 @@
   for (int c=0; c < attributes.getLength(); c++) {
     Node item=attributes.item(c);
     String ns=item.getNamespaceURI();
-    if (!ns.equals(Constants.XML_NS))     return true;
+    if (!ns.equals(Constants.XML_NS)) {
+      return true;
+    }
   }
   return false;
 }

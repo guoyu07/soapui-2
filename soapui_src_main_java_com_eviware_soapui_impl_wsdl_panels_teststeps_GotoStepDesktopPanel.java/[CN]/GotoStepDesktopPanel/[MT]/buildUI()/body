@@ -9,7 +9,9 @@
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
   setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
   setPreferredSize(new Dimension(550,300));
-  if (listModel.getSize() > 0)   conditionList.setSelectedIndex(0);
+  if (listModel.getSize() > 0) {
+    conditionList.setSelectedIndex(0);
+  }
   componentEnabler.add(conditionList);
   componentEnabler.add(expressionArea);
   componentEnabler.add(testStepsCombo);

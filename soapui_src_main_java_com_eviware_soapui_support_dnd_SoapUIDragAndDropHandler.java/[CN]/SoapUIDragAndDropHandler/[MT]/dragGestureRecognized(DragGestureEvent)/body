@@ -1,9 +1,13 @@
 {
   Point ptDragOrigin=e.getDragOrigin();
   ModelItem modelItem=dragAndDropable.getModelItemForLocation(ptDragOrigin.x,ptDragOrigin.y);
-  if (modelItem == null)   return;
+  if (modelItem == null) {
+    return;
+  }
   Rectangle raPath=dragAndDropable.getModelItemBounds(modelItem);
-  if (raPath == null)   return;
+  if (raPath == null) {
+    return;
+  }
   _ptOffset=new Point(ptDragOrigin.x - raPath.x,ptDragOrigin.y - raPath.y);
   Component renderer=dragAndDropable.getRenderer(modelItem);
   if (renderer != null) {

@@ -11,7 +11,11 @@
     path=path.substring(prefix.length());
   }
   path=path.replaceAll("/{2,}","/");
-  if (prefix != null)   path=prefix + path;
-  if (query != null)   path=path + query;
+  if (prefix != null) {
+    path=prefix + path;
+  }
+  if (query != null) {
+    path=path + query;
+  }
   return path;
 }

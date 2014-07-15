@@ -3,5 +3,6 @@
   if (!amfRequestTestStep.initAmfRequest(submitContext)) {
     throw new SubmitException("AMF request is not initialised properly !");
   }
+  Analytics.trackAction(SoapUIActions.RUN_TEST_STEP.getActionName(),"StepType","AMF");
   return amfRequestTestStep.getAMFRequest().submit(submitContext,true);
 }

@@ -1,5 +1,7 @@
 {
-  if (getTabExpandedLineLength(line) == 0)   return;
+  if (getTabExpandedLineLength(line) == 0) {
+    return;
+  }
   try {
     int bracket=TextUtilities.findMatchingBracket(document,Math.max(0,dot - 1));
     if (bracket != -1) {
@@ -18,7 +20,9 @@
   String lineText=getLineText(line);
   char ch=lineText.charAt(Math.max(0,offset - 1));
   String noWordSep=(String)document.getProperty("noWordSep");
-  if (noWordSep == null)   noWordSep="";
+  if (noWordSep == null) {
+    noWordSep="";
+  }
   boolean selectNoLetter=(!Character.isLetterOrDigit(ch) && noWordSep.indexOf(ch) == -1);
   int wordStart=0;
   for (int i=offset - 1; i >= 0; i--) {

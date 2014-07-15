@@ -3,6 +3,7 @@
     @Override public void actionPerformed(    ActionEvent e){
       dialog.setVisible(false);
       SoapUI.getActionRegistry().getAction(NewWadlProjectAction.SOAPUI_ACTION_ID).perform(SoapUI.getWorkspace(),null);
+      Analytics.trackAction(SoapUIActions.IMPORT_WADL.getActionName());
     }
   }
 );
@@ -14,6 +15,7 @@
         project=workspace.createProject(ModelItemNamer.createName(DEFAULT_PROJECT_NAME,workspace.getProjectList()),null);
         serviceBuilder.createRestService(project,uri);
       }
+      Analytics.trackAction(SoapUIActions.CREATE_REST_PROJECT.getActionName());
       break;
     }
  catch (    Exception ex) {

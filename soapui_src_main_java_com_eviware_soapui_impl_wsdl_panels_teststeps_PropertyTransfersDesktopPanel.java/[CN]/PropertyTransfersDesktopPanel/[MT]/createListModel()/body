@@ -1,0 +1,11 @@
+{
+  DefaultListModel listModel=new DefaultListModel();
+  for (int c=0; c < transferStep.getTransferCount(); c++) {
+    String name=transferStep.getTransferAt(c).getName();
+    if (transferStep.getTransferAt(c).isDisabled()) {
+      name+=" (disabled)";
+    }
+    listModel.addElement(name);
+  }
+  return listModel;
+}

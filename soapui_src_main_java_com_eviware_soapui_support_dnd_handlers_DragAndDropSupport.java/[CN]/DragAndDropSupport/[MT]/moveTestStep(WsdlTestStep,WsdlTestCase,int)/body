@@ -6,19 +6,28 @@
     }
  else     if (ix >= 0 && defaultPosition != ix) {
       int offset=defaultPosition - ix;
-      if (offset > 0)       offset--;
+      if (offset > 0) {
+        offset--;
+      }
       target.moveTestStep(ix,offset);
     }
   }
  else {
     String name=UISupport.prompt("Enter name for moved TestStep","Move TestStep",source.getName());
-    if (name == null)     return false;
+    if (name == null) {
+      return false;
+    }
     WsdlProject sourceProject=source.getTestCase().getTestSuite().getProject();
     WsdlProject targetProject=target.getTestSuite().getProject();
     if (sourceProject != targetProject) {
-      if (!importRequiredInterfaces(targetProject,new HashSet<Interface>(source.getRequiredInterfaces()),"Move Test Step"))       return false;
+      if (!importRequiredInterfaces(targetProject,new HashSet<Interface>(source.getRequiredInterfaces()),"Move Test Step")) {
+        return false;
+      }
     }
-    target.importTestStep(source,name,defaultPosition,false);
+    final WsdlTestStep result=target.importTestStep(source,name,defaultPosition,false);
+    if (result == null) {
+      return false;
+    }
     source.getTestCase().removeTestStep(source);
   }
   return true;

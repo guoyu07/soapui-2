@@ -1,6 +1,6 @@
 {
   MockResponseXmlDocument documentContent=new MockResponseXmlDocument(getMockResponse());
   MockResponseMessageEditor mockResponseMessageEditor=new MockResponseMessageEditor(documentContent);
-  setMediaType(mockResponseMessageEditor.getInputArea(),getModelItem().getMediaType());
+  SyntaxEditorUtil.setMediaType(mockResponseMessageEditor.getInputArea(),getModelItem().getMediaType());
   return mockResponseMessageEditor;
 }

@@ -1,6 +1,10 @@
 {
-  if (isAbsoluteUrl(imp))   last=imp;
- else   last=Tools.joinRelativeUrl(parent,imp);
+  if (isAbsoluteUrl(imp)) {
+    last=imp;
+  }
+ else {
+    last=Tools.joinRelativeUrl(parent,imp);
+  }
   try {
     InputStream input=load(last);
     return input == null ? null : new InputSource(input);

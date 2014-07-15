@@ -2,23 +2,16 @@
   TestStep testStep=getAssertable().getTestStep();
   MessageExchange exchange=null;
   if (testStep instanceof WsdlTestRequestStep) {
-    WsdlTestRequestStep testRequestStep=(WsdlTestRequestStep)testStep;
-    exchange=new WsdlResponseMessageExchange(testRequestStep.getTestRequest());
-    ((WsdlResponseMessageExchange)exchange).setResponse(testRequestStep.getTestRequest().getResponse());
+    exchange=new WsdlResponseMessageExchange(((WsdlTestRequestStep)testStep).getTestRequest());
   }
  else   if (testStep instanceof RestTestRequestStepInterface) {
-    RestTestRequestStepInterface testRequestStep=(RestTestRequestStepInterface)testStep;
-    exchange=new RestResponseMessageExchange((RestRequestInterface)testRequestStep.getTestRequest());
-    ((RestResponseMessageExchange)exchange).setResponse(((HttpRequest)testRequestStep.getTestRequest()).getResponse());
+    exchange=new RestResponseMessageExchange(((RestRequestInterface)((RestTestRequestStepInterface)testStep).getTestRequest()));
   }
  else   if (testStep instanceof HttpTestRequestStepInterface) {
-    HttpTestRequestStepInterface testRequestStep=(HttpTestRequestStepInterface)testStep;
-    exchange=new HttpResponseMessageExchange(testRequestStep.getTestRequest());
-    ((HttpResponseMessageExchange)exchange).setResponse(((HttpRequest)testRequestStep.getTestRequest()).getResponse());
+    exchange=new HttpResponseMessageExchange(((HttpTestRequestStepInterface)testStep).getTestRequest());
   }
  else   if (testStep instanceof WsdlMockResponseTestStep) {
-    WsdlMockResponseTestStep mockResponseStep=(WsdlMockResponseTestStep)testStep;
-    exchange=new WsdlMockResponseMessageExchange(mockResponseStep.getMockResponse());
+    exchange=new WsdlMockResponseMessageExchange(((WsdlMockResponseTestStep)testStep).getMockResponse());
   }
   try {
     setScriptText(editor.getEditArea().getText());

@@ -1,8 +1,12 @@
 {
-  if (submit.getResponse() == null)   return;
+  if (submit.getResponse() == null) {
+    return;
+  }
   HttpResponse httpResponse=(HttpResponse)submit.getResponse();
   String content=httpResponse.getContentAsXml();
-  if (content == null || content.equals("<xml/>"))   return;
+  if (content == null || content.equals("<xml/>")) {
+    return;
+  }
   XmlObject xml;
   try {
     URL url=httpResponse.getURL();

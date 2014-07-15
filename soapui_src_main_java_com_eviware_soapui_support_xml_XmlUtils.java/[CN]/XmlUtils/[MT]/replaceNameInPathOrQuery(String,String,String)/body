@@ -11,7 +11,9 @@
     }
     t.next();
   }
-  if (lastIx < pathOrQuery.length())   result.append(pathOrQuery.substring(lastIx));
+  if (lastIx < pathOrQuery.length()) {
+    result.append(pathOrQuery.substring(lastIx));
+  }
   System.out.println("returning " + result.toString());
   return result.toString();
 }

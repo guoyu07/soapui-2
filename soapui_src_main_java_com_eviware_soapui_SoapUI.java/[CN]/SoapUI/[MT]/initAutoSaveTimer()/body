@@ -2,7 +2,9 @@
   Settings settings=SoapUI.getSettings();
   long interval=settings.getLong(UISettings.AUTO_SAVE_INTERVAL,0);
   if (autoSaveTimerTask != null) {
-    if (interval == 0)     SoapUI.log("Cancelling AutoSave Timer");
+    if (interval == 0) {
+      SoapUI.log("Cancelling AutoSave Timer");
+    }
     autoSaveTimerTask.cancel();
     autoSaveTimerTask=null;
   }

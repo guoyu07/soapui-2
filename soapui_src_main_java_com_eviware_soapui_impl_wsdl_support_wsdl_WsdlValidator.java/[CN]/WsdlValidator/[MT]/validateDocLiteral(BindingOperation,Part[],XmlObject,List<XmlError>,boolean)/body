@@ -28,9 +28,13 @@
           }
         }
       }
- else       errors.add(XmlError.forMessage("Missing part type [" + elementName + "] in associated schema"));
+ else {
+        errors.add(XmlError.forMessage("Missing part type [" + elementName + "] in associated schema"));
+      }
     }
- else     errors.add(XmlError.forMessage("Missing message part with name [" + elementName + "]"));
+ else {
+      errors.add(XmlError.forMessage("Missing message part with name [" + elementName + "]"));
+    }
   }
  else   if (part.getTypeName() != null) {
     QName typeName=part.getTypeName();
@@ -40,8 +44,12 @@
       if (type != null) {
         validateMessageBody(errors,type,paths[0]);
       }
- else       errors.add(XmlError.forMessage("Missing part type in associated schema"));
+ else {
+        errors.add(XmlError.forMessage("Missing part type in associated schema"));
+      }
     }
- else     errors.add(XmlError.forMessage("Missing message part with name:type [" + part.getName() + ":"+ typeName+ "]"));
+ else {
+      errors.add(XmlError.forMessage("Missing message part with name:type [" + part.getName() + ":"+ typeName+ "]"));
+    }
   }
 }

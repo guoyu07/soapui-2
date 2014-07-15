@@ -7,7 +7,9 @@
   List<String> options=new ArrayList<String>();
   for (int c=0; c < resource.getRestMethodCount(); c++) {
     RestMethod restMethod=resource.getRestMethodAt(c);
-    if (restMethod.getMethod().toString().equals(methodType))     options.add(restMethod.getName());
+    if (restMethod.getMethod().toString().equals(methodType)) {
+      options.add(restMethod.getName());
+    }
   }
   if (autoConvert.get(project)) {
     if (options.size() > 0) {
@@ -22,7 +24,9 @@
   }
  else {
     options.add("[Create new REST Method]");
-    if (requestName == null)     requestName="REST Request";
+    if (requestName == null) {
+      requestName="REST Request";
+    }
     String message="Select REST Method to place \"" + resource.getName() + " > "+ requestName+ "\" under.";
     Object op=UISupport.prompt(message,"Migrate REST Request",options.toArray());
     if (op != null) {
@@ -31,10 +35,14 @@
         method=resource.getRestMethodByName((String)op);
       }
     }
- else     throw new RestConversionException("Cannot get RestMethod selection!");
+ else {
+      throw new RestConversionException("Cannot get RestMethod selection!");
+    }
     if (method == null) {
       String name=UISupport.prompt("Name for REST " + methodType + " Method","Create new REST Method",methodType + " Method");
-      if (name == null)       throw new RestConversionException("Cannot get name for RestMethod!");
+      if (name == null) {
+        throw new RestConversionException("Cannot get name for RestMethod!");
+      }
       method=resource.addNewMethod(name);
       method.setMethod(RestRequestInterface.HttpMethod.valueOf(methodType));
     }

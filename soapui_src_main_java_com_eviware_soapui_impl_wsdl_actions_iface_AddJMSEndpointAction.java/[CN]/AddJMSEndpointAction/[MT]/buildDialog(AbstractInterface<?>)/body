@@ -1,5 +1,7 @@
 {
-  if (iface == null)   return null;
+  if (iface == null) {
+    return null;
+  }
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Add JMS endpoint");
   mainForm=builder.createForm("Basic");
   mainForm.addTextField(HERMES_CONFIG,"choose folder where hermes-config.xml is",XForm.FieldType.FOLDER).addFormFieldListener(new XFormFieldListener(){

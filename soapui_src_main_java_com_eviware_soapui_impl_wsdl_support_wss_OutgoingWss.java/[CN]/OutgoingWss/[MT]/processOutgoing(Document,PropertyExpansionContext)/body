@@ -5,7 +5,9 @@
     header=WSSecurityUtil.findWsseSecurityHeaderBlock(soapDocument,soapDocument.getDocumentElement(),false);
   }
   WSSecHeader secHeader=new WSSecHeader();
-  if (StringUtils.hasContent(getActor()))   secHeader.setActor(getActor());
+  if (StringUtils.hasContent(getActor())) {
+    secHeader.setActor(getActor());
+  }
   secHeader.setMustUnderstand(getMustUnderstand());
   secHeader.insertSecurityHeader(soapDocument);
   for (  WssEntry entry : entries) {

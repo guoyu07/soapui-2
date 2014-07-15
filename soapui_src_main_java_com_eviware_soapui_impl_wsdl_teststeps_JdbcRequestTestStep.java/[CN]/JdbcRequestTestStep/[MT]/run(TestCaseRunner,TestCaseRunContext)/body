@@ -39,8 +39,12 @@ testStepResult.setResponse(response,testStepResult.getStatus() != TestStepStatus
 testStepResult.setStatus(TestStepStatus.CANCELED);
 testStepResult.addMessage("Request was canceled");
 }
-if (response != null) testStepResult.setRequestContent(response.getRequestContent());
- else testStepResult.setRequestContent(jdbcRequest.getRequestContent());
+if (response != null) {
+testStepResult.setRequestContent(response.getRequestContent());
+}
+ else {
+testStepResult.setRequestContent(jdbcRequest.getRequestContent());
+}
 testStepResult.stopTimer();
 }
  catch (SubmitException e) {
@@ -61,12 +65,14 @@ testStepResult.setStatus(TestStepStatus.FAILED);
 if (getAssertionCount() == 0) {
 testStepResult.addMessage("Invalid/empty response");
 }
- else for (int c=0; c < getAssertionCount(); c++) {
+ else {
+for (int c=0; c < getAssertionCount(); c++) {
 TestAssertion assertion=getAssertionAt(c);
 AssertionError[] errors=assertion.getErrors();
 if (errors != null) {
-for (AssertionError error : errors) {
-  testStepResult.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+  for (  AssertionError error : errors) {
+    testStepResult.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+  }
 }
 }
 }
@@ -74,7 +80,9 @@ break;
 }
 }
 }
-if (isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) jdbcRequest.setResponse(null);
+if (isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) {
+jdbcRequest.setResponse(null);
+}
 firePropertyValueChanged("ResponseAsXml",null,testStepResult.getResponseContentAsXml());
 return testStepResult;
 }

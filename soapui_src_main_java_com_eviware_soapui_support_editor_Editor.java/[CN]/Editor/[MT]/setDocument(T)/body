@@ -1,7 +1,12 @@
 {
-  if (this.document != null)   this.document.release();
+  if (this.document != null) {
+    this.document.release();
+    this.document.removePropertyChangeListener(EditorDocument.DOCUMENT_PROPERTY,this);
+  }
   this.document=document;
+  this.document.addPropertyChangeListener(EditorDocument.DOCUMENT_PROPERTY,this);
   for (  EditorView<T> view : views) {
     view.setDocument(document);
   }
+  inputTabsChangeListener.refreshVisibleInspectors();
 }

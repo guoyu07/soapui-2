@@ -1,6 +1,8 @@
 {
   ModelItem propertyModelItem=property.getModelItem();
-  if (propertyModelItem == null || propertyModelItem instanceof Project)   return true;
+  if (propertyModelItem == null || propertyModelItem instanceof Project) {
+    return true;
+  }
   if (contextModelItem instanceof TestSuite) {
     return propertyModelItem == contextModelItem;
   }

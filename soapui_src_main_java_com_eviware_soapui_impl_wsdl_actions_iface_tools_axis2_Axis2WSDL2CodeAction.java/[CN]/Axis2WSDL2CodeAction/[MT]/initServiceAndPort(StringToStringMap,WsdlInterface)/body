@@ -1,5 +1,7 @@
 {
-  if (modelItem == null)   return;
+  if (modelItem == null) {
+    return;
+  }
   try {
     QName bindingName=modelItem.getBindingName();
     Definition definition=modelItem.getWsdlContext().getDefinition();
@@ -15,7 +17,9 @@
           break;
         }
       }
-      if (values.containsKey(PORT_NAME))       break;
+      if (values.containsKey(PORT_NAME)) {
+        break;
+      }
     }
   }
  catch (  Exception e) {

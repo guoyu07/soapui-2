@@ -1,6 +1,10 @@
 {
-  if (getConfig().isSetRequestParts())   getConfig().unsetRequestParts();
-  if (getConfig().isSetResponseParts())   getConfig().unsetResponseParts();
+  if (getConfig().isSetRequestParts()) {
+    getConfig().unsetRequestParts();
+  }
+  if (getConfig().isSetResponseParts()) {
+    getConfig().unsetResponseParts();
+  }
   BindingOutput bindingOutput=operation.getBindingOutput();
   BindingInput bindingInput=operation.getBindingInput();
   if (bindingOutput != null) {
@@ -14,10 +18,14 @@
         for (        MIMEContent content : contentParts) {
           Part part=partMap.get(content.getPart());
           if (part != null) {
-            if (!part.getContentTypeList().contains(content.getType()))             part.addContentType(content.getType());
+            if (!part.getContentTypeList().contains(content.getType())) {
+              part.addContentType(content.getType());
+            }
           }
  else {
-            if (!getConfig().isSetResponseParts())             getConfig().addNewResponseParts();
+            if (!getConfig().isSetResponseParts()) {
+              getConfig().addNewResponseParts();
+            }
             Part responsePart=getConfig().getResponseParts().addNewPart();
             responsePart.addContentType(content.getType());
             responsePart.setName(content.getPart());
@@ -38,10 +46,14 @@
         for (        MIMEContent content : contentParts) {
           Part part=partMap.get(content.getPart());
           if (part != null) {
-            if (!part.getContentTypeList().contains(content.getType()))             part.addContentType(content.getType());
+            if (!part.getContentTypeList().contains(content.getType())) {
+              part.addContentType(content.getType());
+            }
           }
  else {
-            if (!getConfig().isSetRequestParts())             getConfig().addNewRequestParts();
+            if (!getConfig().isSetRequestParts()) {
+              getConfig().addNewRequestParts();
+            }
             Part requestPart=getConfig().getRequestParts().addNewPart();
             requestPart.addContentType(content.getType());
             requestPart.setName(content.getPart());

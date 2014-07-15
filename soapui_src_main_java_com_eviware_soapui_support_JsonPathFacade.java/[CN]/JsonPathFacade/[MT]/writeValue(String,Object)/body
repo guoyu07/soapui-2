@@ -1,0 +1,14 @@
+{
+  PlainJavaJsonProvider provider=new PlainJavaJsonProvider();
+  Configuration configuration=Configuration.builder().jsonProvider(provider).build();
+  jsonObject=provider.parse(currentJson);
+  JsonPath path=JsonPath.compile(jsonPathExpression);
+  LinkedList<PathToken> pathTokens=getPathTokensFrom(path);
+  PathToken endToken=pathTokens.removeLast();
+  int index=pathTokens.size();
+  JsonWriteDecorator writeDecorator=new JsonWriteDecorator(provider,index,endToken,value);
+  pathTokens.addLast(writeDecorator);
+  path.read(jsonObject,configuration);
+  jsonObject=MutableValue.FROM_MUTABLE_VALUE.apply(jsonObject);
+  currentJson=buildJsonStringFrom(jsonObject);
+}

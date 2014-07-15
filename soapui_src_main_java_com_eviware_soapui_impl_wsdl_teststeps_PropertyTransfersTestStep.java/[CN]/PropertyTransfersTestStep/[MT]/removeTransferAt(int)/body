@@ -1,4 +1,6 @@
 {
-  transfers.remove(index).release();
+  final PropertyTransfer removed=transfers.remove(index);
+  fireIndexedPropertyChange(TRANSFERS,index,removed,null);
+  removed.release();
   transferStepConfig.removeTransfers(index);
 }

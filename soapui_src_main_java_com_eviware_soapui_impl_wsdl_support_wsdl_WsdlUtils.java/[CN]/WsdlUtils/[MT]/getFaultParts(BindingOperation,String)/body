@@ -5,18 +5,24 @@
   Operation operation=bindingOperation.getOperation();
   if (soapFault != null && soapFault.getName() != null) {
     Fault fault=operation.getFault(soapFault.getName());
-    if (fault == null)     throw new Exception("Missing Fault [" + soapFault.getName() + "] in operation ["+ operation.getName()+ "]");
+    if (fault == null) {
+      throw new Exception("Missing Fault [" + soapFault.getName() + "] in operation ["+ operation.getName()+ "]");
+    }
     result.addAll(fault.getMessage().getOrderedParts(null));
   }
  else {
     SOAP12Fault soap12Fault=WsdlUtils.getExtensiblityElement(bindingFault.getExtensibilityElements(),SOAP12Fault.class);
     if (soap12Fault != null && soap12Fault.getName() != null) {
       Fault fault=operation.getFault(soap12Fault.getName());
-      if (fault != null && fault.getMessage() != null)       result.addAll(fault.getMessage().getOrderedParts(null));
+      if (fault != null && fault.getMessage() != null) {
+        result.addAll(fault.getMessage().getOrderedParts(null));
+      }
     }
  else {
       Fault fault=operation.getFault(faultName);
-      if (fault != null && fault.getMessage() != null)       result.addAll(fault.getMessage().getOrderedParts(null));
+      if (fault != null && fault.getMessage() != null) {
+        result.addAll(fault.getMessage().getOrderedParts(null));
+      }
     }
   }
   return result.toArray(new Part[result.size()]);

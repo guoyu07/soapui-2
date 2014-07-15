@@ -1,5 +1,7 @@
 {
   XPathData xpathData=createXPathData(node,anonymous,selectText,absolute,normalize);
-  if (xpathData == null)   return null;
+  if (xpathData == null) {
+    return null;
+  }
   return xpathData.buildXPath(modifier);
 }

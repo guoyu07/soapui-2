@@ -2,7 +2,7 @@
   MediaTypeComboBox mediaTypeComboBox=new MediaTypeComboBox(this.getModelItem());
   mediaTypeComboBox.addItemListener(new ItemListener(){
     @Override public void itemStateChanged(    ItemEvent e){
-      setMediaType(getResponseEditor().getInputArea(),e.getItem().toString());
+      SyntaxEditorUtil.setMediaType(getResponseEditor().getInputArea(),e.getItem().toString());
     }
   }
 );

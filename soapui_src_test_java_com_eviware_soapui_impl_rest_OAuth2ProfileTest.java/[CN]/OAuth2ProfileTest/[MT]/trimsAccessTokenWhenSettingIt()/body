@@ -1,0 +1,5 @@
+{
+  String accessTokenWithoutWhitespace="wuryew2347234987";
+  profile.setAccessToken("\t" + accessTokenWithoutWhitespace + " \n");
+  assertThat(profile.getAccessToken(),is(accessTokenWithoutWhitespace));
+}

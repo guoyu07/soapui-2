@@ -4,5 +4,7 @@
     config.setType(type);
     return build(config,parent);
   }
- else   throw new RuntimeException("Invalid type [" + type + "]");
+ else {
+    throw new RuntimeException("Invalid type [" + type + "]");
+  }
 }

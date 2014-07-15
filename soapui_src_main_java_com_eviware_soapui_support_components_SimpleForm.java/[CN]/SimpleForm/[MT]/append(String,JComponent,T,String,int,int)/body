@@ -20,10 +20,14 @@
         jl.setDisplayedMnemonicIndex(ix);
         jl.setDisplayedMnemonic(text.charAt(ix + 1));
       }
-      if (component.getAccessibleContext() != null)       component.getAccessibleContext().setAccessibleName(text);
+      if (component.getAccessibleContext() != null) {
+        component.getAccessibleContext().setAccessibleName(text);
+      }
     }
   }
- else   component.addComponentListener(new LabelHider(null,spaceRowIndex));
+ else {
+    component.addComponentListener(new LabelHider(null,spaceRowIndex));
+  }
   addComponentToRow(name,component,alignments,column,row,columnSpan);
   return component;
 }

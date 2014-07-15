@@ -7,7 +7,9 @@
     for (int c=0; c < actions.size(); c++) {
       Action action=actions.get(c);
       KeyStroke acc=(KeyStroke)action.getValue(Action.ACCELERATOR_KEY);
-      if (acc == null)       continue;
+      if (acc == null) {
+        continue;
+      }
       if (acc.equals(KeyStroke.getKeyStrokeForEvent(e))) {
         action.actionPerformed(new ActionEvent(e.getSource(),0,null));
         e.consume();

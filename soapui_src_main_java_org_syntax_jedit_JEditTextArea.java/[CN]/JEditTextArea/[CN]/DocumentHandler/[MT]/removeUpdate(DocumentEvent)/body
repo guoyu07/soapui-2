@@ -5,14 +5,26 @@
   int newStart;
   int newEnd;
   if (selectionStart > offset) {
-    if (selectionStart > offset + length)     newStart=selectionStart - length;
- else     newStart=offset;
+    if (selectionStart > offset + length) {
+      newStart=selectionStart - length;
+    }
+ else {
+      newStart=offset;
+    }
   }
- else   newStart=selectionStart;
+ else {
+    newStart=selectionStart;
+  }
   if (selectionEnd > offset) {
-    if (selectionEnd > offset + length)     newEnd=selectionEnd - length;
- else     newEnd=offset;
+    if (selectionEnd > offset + length) {
+      newEnd=selectionEnd - length;
+    }
+ else {
+      newEnd=offset;
+    }
   }
- else   newEnd=selectionEnd;
+ else {
+    newEnd=selectionEnd;
+  }
   select(newStart,newEnd);
 }

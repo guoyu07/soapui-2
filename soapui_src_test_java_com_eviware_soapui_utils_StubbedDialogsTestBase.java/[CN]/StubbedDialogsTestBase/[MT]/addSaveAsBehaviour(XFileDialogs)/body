@@ -1,0 +1,4 @@
+{
+  File savedFile=File.createTempFile(SAVED_PROJECT_FILE_NAME,SAVED_PROJECT_FILE_EXTENSION);
+  when(mockedFileDialogs.saveAs(anyObject(),anyString(),anyString(),anyString(),isA(File.class))).thenReturn(savedFile);
+}

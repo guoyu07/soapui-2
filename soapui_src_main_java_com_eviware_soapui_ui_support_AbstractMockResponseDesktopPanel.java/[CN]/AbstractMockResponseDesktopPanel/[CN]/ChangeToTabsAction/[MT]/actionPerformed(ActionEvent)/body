@@ -14,8 +14,12 @@
     requestSplitPane.setTopComponent(requestEditor);
     requestSplitPane.setBottomComponent(responseEditor);
     requestSplitPane.setDividerLocation(0.5);
-    if (selectedIndex == 0)     requestEditor.requestFocus();
- else     responseEditor.requestFocus();
+    if (selectedIndex == 0) {
+      requestEditor.requestFocus();
+    }
+ else {
+      responseEditor.requestFocus();
+    }
   }
   revalidate();
 }

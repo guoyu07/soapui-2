@@ -1,5 +1,9 @@
 {
   Response response=(Response)context.getProperty(BaseHttpRequestTransport.RESPONSE);
-  if (response != null)   afterRequest(context,response);
-  if (request instanceof AbstractHttpRequestInterface<?>)   afterAbstractHttpResponse(context,(AbstractHttpRequestInterface<?>)request);
+  if (response != null) {
+    afterRequest(context,response);
+  }
+  if (request instanceof AbstractHttpRequestInterface<?>) {
+    afterAbstractHttpResponse(context,(AbstractHttpRequestInterface<?>)request);
+  }
 }

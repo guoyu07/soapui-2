@@ -3,7 +3,9 @@
   getComponent().getDocument().addDocumentListener(new DocumentListenerAdapter(){
     @Override public void update(    Document document){
       String text=getComponent().getText();
-      if (!updating)       fireValueChanged(text,oldValue);
+      if (!updating) {
+        fireValueChanged(text,oldValue);
+      }
       oldValue=text;
     }
   }

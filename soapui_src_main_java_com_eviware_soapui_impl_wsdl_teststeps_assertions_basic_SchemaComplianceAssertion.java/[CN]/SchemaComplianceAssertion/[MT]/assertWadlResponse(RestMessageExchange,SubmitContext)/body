@@ -9,7 +9,9 @@
   WadlValidator validator=new WadlValidator(wadlContext);
   try {
     AssertionError[] errors=validator.assertResponse(messageExchange);
-    if (errors.length > 0)     throw new AssertionException(errors);
+    if (errors.length > 0) {
+      throw new AssertionException(errors);
+    }
   }
  catch (  AssertionException e) {
     throw e;

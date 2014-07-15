@@ -1,5 +1,7 @@
 {
-  if (securityTest.isRunning())   return;
+  if (securityTest.isRunning()) {
+    return;
+  }
   securityTestLog.locateSecurityScan(((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan());
   addSecurityScanAction.setEnabled(false);
   configureSecurityScanAction.setEnabled(true);

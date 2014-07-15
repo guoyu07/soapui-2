@@ -1,5 +1,7 @@
 {
-  if (registeredDrivers.containsKey(name))   return;
+  if (registeredDrivers.containsKey(name)) {
+    return;
+  }
   try {
 synchronized (mutex) {
       Class driverClass=Class.forName(name,true,SoapUI.getSoapUICore().getExtensionClassLoader());

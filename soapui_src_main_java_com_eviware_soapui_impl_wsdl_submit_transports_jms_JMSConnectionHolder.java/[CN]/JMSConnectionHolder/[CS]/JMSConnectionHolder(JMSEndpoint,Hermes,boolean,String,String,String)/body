@@ -9,7 +9,9 @@
   }
  catch (  Throwable t) {
     SoapUI.logError(t);
-    if (connection != null)     connection.close();
+    if (connection != null) {
+      connection.close();
+    }
     throw new JMSException(t.getMessage());
   }
 }

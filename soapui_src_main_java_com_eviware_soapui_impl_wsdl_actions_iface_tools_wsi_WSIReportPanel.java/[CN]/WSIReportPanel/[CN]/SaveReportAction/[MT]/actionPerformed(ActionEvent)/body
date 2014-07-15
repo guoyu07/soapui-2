@@ -1,6 +1,8 @@
 {
   File file=UISupport.getFileDialogs().saveAs(this,"Save Report","html","HTML files",null);
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   try {
     FileWriter writer=new FileWriter(file);
     writer.write(editorPane.getText());

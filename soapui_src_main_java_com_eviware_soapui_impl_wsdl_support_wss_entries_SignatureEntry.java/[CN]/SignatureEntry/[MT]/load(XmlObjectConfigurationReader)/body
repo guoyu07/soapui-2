@@ -1,6 +1,6 @@
 {
   crypto=reader.readString("crypto",null);
-  keyIdentifierType=reader.readInt("keyIdentifierType",0);
+  keyIdentifierType=readKeyIdentifierType(reader);
   signatureAlgorithm=reader.readString("signatureAlgorithm",null);
   signatureCanonicalization=reader.readString("signatureCanonicalization",null);
   useSingleCert=reader.readBoolean("useSingleCert",false);

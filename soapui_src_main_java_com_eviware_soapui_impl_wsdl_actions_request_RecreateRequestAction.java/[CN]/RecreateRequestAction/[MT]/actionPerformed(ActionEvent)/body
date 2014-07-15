@@ -2,7 +2,9 @@
   boolean createOptional=request.getSettings().getBoolean(WsdlSettings.XML_GENERATION_ALWAYS_INCLUDE_OPTIONAL_ELEMENTS);
   if (!createOptional) {
     Boolean create=UISupport.confirmOrCancel("Create optional elements in schema?","Create Request");
-    if (create == null)     return;
+    if (create == null) {
+      return;
+    }
     createOptional=create.booleanValue();
   }
   WsdlOperation wsdlOperation=(WsdlOperation)request.getOperation();

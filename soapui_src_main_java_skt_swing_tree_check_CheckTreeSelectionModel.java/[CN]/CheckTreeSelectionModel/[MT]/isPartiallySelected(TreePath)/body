@@ -1,9 +1,15 @@
 {
-  if (isPathSelected(path,true))   return false;
+  if (isPathSelected(path,true)) {
+    return false;
+  }
   TreePath[] selectionPaths=getSelectionPaths();
-  if (selectionPaths == null)   return false;
+  if (selectionPaths == null) {
+    return false;
+  }
   for (int j=0; j < selectionPaths.length; j++) {
-    if (isDescendant(selectionPaths[j],path))     return true;
+    if (isDescendant(selectionPaths[j],path)) {
+      return true;
+    }
   }
   return false;
 }

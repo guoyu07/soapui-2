@@ -4,10 +4,18 @@
     if (o instanceof Component) {
       Component c=(Component)o;
       for (; ; ) {
-        if (c instanceof JEditTextArea)         return (JEditTextArea)c;
- else         if (c == null)         break;
-        if (c instanceof JPopupMenu)         c=((JPopupMenu)c).getInvoker();
- else         c=c.getParent();
+        if (c instanceof JEditTextArea) {
+          return (JEditTextArea)c;
+        }
+ else         if (c == null) {
+          break;
+        }
+        if (c instanceof JPopupMenu) {
+          c=((JPopupMenu)c).getInvoker();
+        }
+ else {
+          c=c.getParent();
+        }
       }
     }
   }

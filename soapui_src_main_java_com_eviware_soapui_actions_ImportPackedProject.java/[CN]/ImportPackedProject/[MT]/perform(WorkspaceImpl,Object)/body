@@ -1,16 +1,24 @@
 {
   try {
     File target=UISupport.getFileDialogs().open(this,"Select file to unpack project","zip","zip",System.getProperty("user.home"));
-    if (target == null)     return;
+    if (target == null) {
+      return;
+    }
     String fileName=target.getAbsolutePath();
-    if (fileName == null)     return;
+    if (fileName == null) {
+      return;
+    }
     File dest=UISupport.getFileDialogs().saveAsDirectory(this,"Select where to unpack it",new File(System.getProperty("user.home")));
-    if (dest.getAbsoluteFile() == null)     return;
+    if (dest.getAbsoluteFile() == null) {
+      return;
+    }
     ProjectExporter.unpackageAll(fileName,dest.getAbsolutePath());
     List<String> contents=ProjectExporter.getZipContents(fileName);
-    for (    String fName : dest.list())     if (contents.contains(fName) && fName.endsWith("-soapui-project.xml")) {
-      new ImportWsdlProjectAction().perform(workspace,new File(dest,fName).getAbsoluteFile());
-      break;
+    for (    String fName : dest.list()) {
+      if (contents.contains(fName) && fName.endsWith("-soapui-project.xml")) {
+        new ImportWsdlProjectAction().perform(workspace,new File(dest,fName).getAbsoluteFile());
+        break;
+      }
     }
   }
  catch (  Exception e1) {

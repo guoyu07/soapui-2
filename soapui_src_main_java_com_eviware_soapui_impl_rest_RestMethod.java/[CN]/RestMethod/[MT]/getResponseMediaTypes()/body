@@ -1,7 +1,9 @@
 {
   StringList result=new StringList();
   for (  RestRepresentation representation : getRepresentations(Type.RESPONSE,null)) {
-    if (!result.contains(representation.getMediaType()))     result.add(representation.getMediaType());
+    if (!result.contains(representation.getMediaType())) {
+      result.add(representation.getMediaType());
+    }
   }
   return result.toStringArray();
 }

@@ -1,5 +1,7 @@
 {
-  if (token == null)   token="";
+  if (token == null) {
+    token="";
+  }
   String replToken=PropertyExpander.expandProperties(context,token);
   String result=null;
   if (replToken.length() > 0) {
@@ -13,12 +15,18 @@
       Pattern pattern=Pattern.compile(token);
       Matcher matcher=pattern.matcher(content);
       if (matcher.matches()) {
-        if (grouped && matcher.groupCount() > 2)         result=content.substring(matcher.start(3),matcher.end(3));
- else         result=content.substring(matcher.start(),matcher.end());
+        if (grouped && matcher.groupCount() > 2) {
+          result=content.substring(matcher.start(3),matcher.end(3));
+        }
+ else {
+          result=content.substring(matcher.start(),matcher.end());
+        }
       }
     }
  else {
-      if (content.toUpperCase().indexOf(replToken.toUpperCase()) >= 0)       result=replToken;
+      if (content.toUpperCase().indexOf(replToken.toUpperCase()) >= 0) {
+        result=replToken;
+      }
     }
   }
   return result;

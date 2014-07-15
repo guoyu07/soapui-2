@@ -1,0 +1,7 @@
+{
+  WsdlContext wsdlContext=mock(WsdlContext.class);
+  when(wsdlContext.hasSchemaTypes()).thenReturn(true);
+  Definition definition=mock(Definition.class);
+  when(wsdlContext.getDefinition()).thenReturn(definition);
+  return wsdlContext;
+}

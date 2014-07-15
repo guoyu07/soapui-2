@@ -5,7 +5,9 @@
       String url=dialog.getValue(Form.INITIALWSDL).trim();
       if (StringUtils.hasContent(url)) {
         String expandedUrl=PathUtils.expandPath(url,project);
-        if (new File(expandedUrl).exists())         expandedUrl=new File(expandedUrl).toURI().toURL().toString();
+        if (new File(expandedUrl).exists()) {
+          expandedUrl=new File(expandedUrl).toURI().toURL().toString();
+        }
         RestService result=importWadl(project,expandedUrl);
         if (!url.equals(expandedUrl) && result != null) {
           result.setWadlUrl(url);

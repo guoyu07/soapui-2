@@ -1,7 +1,11 @@
 {
   String oldScript=getOnRequestScript();
-  if (!getConfig().isSetOnRequestScript())   getConfig().addNewOnRequestScript();
+  if (!getConfig().isSetOnRequestScript()) {
+    getConfig().addNewOnRequestScript();
+  }
   getConfig().getOnRequestScript().setStringValue(script);
-  if (onRequestScriptEnginePool != null)   onRequestScriptEnginePool.setScript(script);
+  if (onRequestScriptEnginePool != null) {
+    onRequestScriptEnginePool.setScript(script);
+  }
   notifyPropertyChanged("onRequestScript",oldScript,script);
 }

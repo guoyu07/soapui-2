@@ -1,8 +1,12 @@
 {
   for (  String name : propertyHolderSupport.getPropertyNames()) {
-    if (!targetTestCase.hasProperty(name))     propertyHolderSupport.removeProperty(name);
+    if (!targetTestCase.hasProperty(name)) {
+      propertyHolderSupport.removeProperty(name);
+    }
   }
   for (  String name : targetTestCase.getPropertyNames()) {
-    if (!propertyHolderSupport.hasProperty(name))     propertyHolderSupport.addProperty(name);
+    if (!propertyHolderSupport.hasProperty(name)) {
+      propertyHolderSupport.addProperty(name);
+    }
   }
 }

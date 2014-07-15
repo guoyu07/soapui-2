@@ -10,7 +10,9 @@
       }
     }
     WsdlMessageAssertion assertion=addWsdlAssertion(assertionConfig);
-    if (assertion == null)     return null;
+    if (assertion == null) {
+      return null;
+    }
     assertionConfig.setName(name);
     assertion.updateConfig(assertionConfig);
     if (assertion != null) {

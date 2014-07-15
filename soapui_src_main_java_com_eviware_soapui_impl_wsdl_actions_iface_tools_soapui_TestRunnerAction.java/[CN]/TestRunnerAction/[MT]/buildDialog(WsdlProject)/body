@@ -1,5 +1,7 @@
 {
-  if (modelItem == null)   return null;
+  if (modelItem == null) {
+    return null;
+  }
   proVersion=isProVersion(modelItem);
   XFormDialogBuilder builder=XFormFactory.createDialogBuilder("Launch TestRunner");
   mainForm=builder.createForm("Basic");
@@ -10,13 +12,17 @@
       if (newValue.equals(ALL_VALUE)) {
         for (        TestSuite testSuite : testSuites) {
           for (          TestCase testCase : testSuite.getTestCaseList()) {
-            if (!testCases.contains(testCase.getName()))             testCases.add(testCase.getName());
+            if (!testCases.contains(testCase.getName())) {
+              testCases.add(testCase.getName());
+            }
           }
         }
       }
  else {
         TestSuite testSuite=getModelItem().getTestSuiteByName(newValue);
-        if (testSuite != null)         testCases.addAll(Arrays.asList(ModelSupport.getNames(testSuite.getTestCaseList())));
+        if (testSuite != null) {
+          testCases.addAll(Arrays.asList(ModelSupport.getNames(testSuite.getTestCaseList())));
+        }
       }
       testCases.add(0,ALL_VALUE);
       mainForm.setOptions(TESTCASE,testCases.toArray());

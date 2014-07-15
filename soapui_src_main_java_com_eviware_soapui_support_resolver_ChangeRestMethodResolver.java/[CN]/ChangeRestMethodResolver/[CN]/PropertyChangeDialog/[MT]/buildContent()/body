@@ -6,7 +6,9 @@
   serviceCombo=form.appendComboBox("REST Services",serviceComboModel,"Target Service");
   serviceCombo.setRenderer(new ModelItemListCellRenderer());
   for (  Interface element : ifaces) {
-    if (element instanceof RestService)     serviceComboModel.addElement(element);
+    if (element instanceof RestService) {
+      serviceComboModel.addElement(element);
+    }
   }
   resourceCombo=form.appendComboBox("REST Resources",((RestService)serviceCombo.getSelectedItem()).getOperationList().toArray(),"Target Resource");
   resourceCombo.setRenderer(new ModelItemListCellRenderer());
@@ -18,7 +20,9 @@
       resourceCombo.removeAllItems();
       if (iface != null) {
         resourceCombo.setEnabled(true);
-        for (        Operation op : iface.getOperationList())         resourceCombo.addItem(op);
+        for (        Operation op : iface.getOperationList()) {
+          resourceCombo.addItem(op);
+        }
       }
  else {
         resourceCombo.setEnabled(false);
@@ -32,7 +36,9 @@
       methodCombo.removeAllItems();
       if (resource != null) {
         methodCombo.setEnabled(true);
-        for (        RestMethod method : resource.getRestMethodList())         methodCombo.addItem(method);
+        for (        RestMethod method : resource.getRestMethodList()) {
+          methodCombo.addItem(method);
+        }
       }
  else {
         methodCombo.setEnabled(false);

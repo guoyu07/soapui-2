@@ -7,7 +7,9 @@
   if (iface.getProject() != this && importEndpoints) {
     endpointStrategy.importEndpoints(iface);
   }
-  if (createCopy)   ModelSupport.unsetIds(imported);
+  if (createCopy) {
+    ModelSupport.createNewIds(imported);
+  }
   imported.afterLoad();
   fireInterfaceAdded(imported);
   return imported;

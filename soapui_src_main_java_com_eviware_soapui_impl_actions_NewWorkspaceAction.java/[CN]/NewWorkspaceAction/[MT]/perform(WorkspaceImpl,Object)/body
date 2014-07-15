@@ -4,9 +4,13 @@
     return;
   }
   String name=UISupport.prompt(messages.get("EnterName.Prompt"),messages.get("EnterName.Title"),"");
-  if (name == null)   return;
+  if (name == null) {
+    return;
+  }
   File newPath=UISupport.getFileDialogs().saveAs(this,messages.get("SaveAs.Title"),".xml","SoapUI Workspace (*.xml)",new File(name + "-workspace.xml"));
-  if (newPath == null)   return;
+  if (newPath == null) {
+    return;
+  }
   if (SoapUI.getDesktop().closeAll()) {
     if (newPath.exists()) {
       if (!UISupport.confirm(messages.get("Overwrite.Prompt"),messages.get("Overwrite.Title"))) {
@@ -20,7 +24,9 @@
     Boolean val=Boolean.TRUE;
     if (workspace.getOpenProjectList().size() > 0) {
       val=UISupport.confirmOrCancel(messages.get("SaveAllProjects.Prompt"),messages.get("SaveAllProjects.Title"));
-      if (val == null)       return;
+      if (val == null) {
+        return;
+      }
     }
     workspace.save(val.booleanValue());
     try {

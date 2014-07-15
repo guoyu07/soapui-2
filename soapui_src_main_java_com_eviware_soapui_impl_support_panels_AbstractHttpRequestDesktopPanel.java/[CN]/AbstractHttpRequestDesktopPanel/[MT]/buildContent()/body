@@ -18,8 +18,12 @@
       SwingUtilities.invokeLater(new Runnable(){
         public void run(){
           int ix=requestTabs.getSelectedIndex();
-          if (ix == 0)           requestEditor.requestFocus();
- else           if (ix == 1 && responseEditor != null)           responseEditor.requestFocus();
+          if (ix == 0) {
+            requestEditor.requestFocus();
+          }
+ else           if (ix == 1 && responseEditor != null) {
+            responseEditor.requestFocus();
+          }
         }
       }
 );
@@ -29,7 +33,9 @@
   requestTabPanel=UISupport.createTabPanel(requestTabs,true);
   if (request.getSettings().getBoolean(UISettings.START_WITH_REQUEST_TABS)) {
     requestTabs.addTab("Request",requestEditor);
-    if (responseEditor != null)     requestTabs.addTab("Response",responseEditor);
+    if (responseEditor != null) {
+      requestTabs.addTab("Response",responseEditor);
+    }
     splitButton.setEnabled(false);
     tabsButton.setSelected(true);
     return requestTabPanel;

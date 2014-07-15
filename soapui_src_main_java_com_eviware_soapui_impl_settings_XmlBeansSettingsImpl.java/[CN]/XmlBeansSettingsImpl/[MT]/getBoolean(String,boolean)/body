@@ -1,5 +1,7 @@
 {
   String value=getString(id,null);
-  if (value != null)   return Boolean.parseBoolean(value);
+  if (value != null) {
+    return Boolean.parseBoolean(value);
+  }
   return parent == null ? defaultValue : parent.getBoolean(id);
 }

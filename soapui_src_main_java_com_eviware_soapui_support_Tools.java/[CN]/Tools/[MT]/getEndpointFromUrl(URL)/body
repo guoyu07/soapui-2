@@ -1,7 +1,9 @@
 {
-  StringBuffer result=new StringBuffer();
+  StringBuilder result=new StringBuilder();
   result.append(baseUrl.getProtocol()).append("://");
   result.append(baseUrl.getHost());
-  if (baseUrl.getPort() > 0)   result.append(':').append(baseUrl.getPort());
+  if (baseUrl.getPort() > 0) {
+    result.append(':').append(baseUrl.getPort());
+  }
   return result.toString();
 }

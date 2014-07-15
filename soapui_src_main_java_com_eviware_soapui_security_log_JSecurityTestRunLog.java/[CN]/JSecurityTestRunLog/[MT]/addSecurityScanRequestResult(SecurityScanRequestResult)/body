@@ -1,5 +1,7 @@
 {
-  if (errorsOnly && checkRequestResult.getStatus() != SecurityScanRequestResult.ResultStatus.FAILED)   return;
+  if (errorsOnly && checkRequestResult.getStatus() != SecurityScanRequestResult.ResultStatus.FAILED) {
+    return;
+  }
   logListModel.addSecurityScanRequestResult(checkRequestResult);
   if (follow) {
     try {

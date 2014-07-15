@@ -1,5 +1,7 @@
 {
-  if (selectionStart == selectionEnd)   return null;
+  if (selectionStart == selectionEnd) {
+    return null;
+  }
   if (rectSelect) {
     Element map=document.getDefaultRootElement();
     int start=selectionStart - map.getElement(selectionStartLine).getStartOffset();
@@ -20,7 +22,9 @@
       lineLen=Math.min(end - start,lineEnd - lineStart);
       getText(lineStart,lineLen,seg);
       buf.append(seg.array,seg.offset,seg.count);
-      if (i != selectionEndLine)       buf.append('\n');
+      if (i != selectionEndLine) {
+        buf.append('\n');
+      }
     }
     return buf.toString();
   }

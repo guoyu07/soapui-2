@@ -2,7 +2,9 @@
   super(config,testSuite,ICON_NAME);
   this.testSuite=testSuite;
   this.forLoadTest=forLoadTest;
-  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  if (!getConfig().isSetProperties()) {
+    getConfig().addNewProperties();
+  }
   setPropertiesConfig(getConfig().getProperties());
   List<TestStepConfig> testStepConfigs=config.getTestStepList();
   List<TestStepConfig> removed=new ArrayList<TestStepConfig>();
@@ -31,10 +33,18 @@
     SecurityTest securityTest=buildSecurityTest(tsc);
     securityTests.add(securityTest);
   }
-  if (!config.isSetFailOnError())   config.setFailOnError(true);
-  if (!config.isSetFailTestCaseOnErrors())   config.setFailTestCaseOnErrors(true);
-  if (!config.isSetKeepSession())   config.setKeepSession(false);
-  if (!config.isSetMaxResults())   config.setMaxResults(0);
+  if (!config.isSetFailOnError()) {
+    config.setFailOnError(true);
+  }
+  if (!config.isSetFailTestCaseOnErrors()) {
+    config.setFailTestCaseOnErrors(true);
+  }
+  if (!config.isSetKeepSession()) {
+    config.setKeepSession(false);
+  }
+  if (!config.isSetMaxResults()) {
+    config.setMaxResults(0);
+  }
   for (  TestRunListener listener : SoapUI.getListenerRegistry().getListeners(TestRunListener.class)) {
     addTestRunListener(listener);
   }

@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isNullOrEmpty(root))   return path;
+  if (StringUtils.isNullOrEmpty(root)) {
+    return path;
+  }
   root=PropertyExpander.expandProperties(contextModelItem,root);
   return relativize(path,root);
 }

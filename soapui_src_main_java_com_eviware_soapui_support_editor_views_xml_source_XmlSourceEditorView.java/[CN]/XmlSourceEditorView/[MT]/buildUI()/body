@@ -42,7 +42,7 @@
     public void update(    Document document){
       if (!updating && getDocument() != null) {
         updating=true;
-        getDocument().setXml(editArea.getText());
+        getDocument().setDocumentContent(getDocument().getDocumentContent(EditorDocument.Format.XML).withContent(editArea.getText()));
         updating=false;
       }
     }
@@ -56,7 +56,7 @@
     editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta V"),validateXmlAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("meta S"),saveXmlTextAreaAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("control L"),enableLineNumbersAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("control meta L"),goToLineAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control G"),goToLineAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("meta F"),findAndReplaceDialog);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("shift meta F"),formatXmlAction);
     if (!readOnly) {
@@ -67,7 +67,7 @@
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt V"),validateXmlAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl S"),saveXmlTextAreaAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt L"),enableLineNumbersAction);
-    editArea.getInputMap().put(KeyStroke.getKeyStroke("control alt L"),goToLineAction);
+    editArea.getInputMap().put(KeyStroke.getKeyStroke("control G"),goToLineAction);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("ctrl F"),findAndReplaceDialog);
     editArea.getInputMap().put(KeyStroke.getKeyStroke("alt F"),formatXmlAction);
     if (!readOnly) {

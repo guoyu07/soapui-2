@@ -5,6 +5,8 @@
   ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
   builder.startScript("Analyzer",".bat",".sh");
   builder.addArgs("-config",file.getAbsolutePath());
-  if (settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION))   builder.addArgs("-assertionDescription","true");
+  if (settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION)) {
+    builder.addArgs("-assertionDescription","true");
+  }
   return builder;
 }

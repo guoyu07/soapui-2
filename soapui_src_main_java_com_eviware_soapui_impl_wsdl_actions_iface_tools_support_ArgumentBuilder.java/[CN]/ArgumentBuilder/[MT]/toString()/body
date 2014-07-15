@@ -16,13 +16,19 @@
       }
     }
     if (value.indexOf('-') == 0) {
-      if (value.indexOf(' ') > 1)       buf.append(value.substring(0,2)).append('"').append(value.substring(2)).append('"');
- else       buf.append(value);
+      if (value.indexOf(' ') > 1) {
+        buf.append(value.substring(0,2)).append('"').append(value.substring(2)).append('"');
+      }
+ else {
+        buf.append(value);
+      }
     }
  else     if (value.indexOf(' ') >= 0) {
       buf.append('"').append(value).append('"');
     }
- else     buf.append(value);
+ else {
+      buf.append(value);
+    }
   }
   return buf.toString();
 }

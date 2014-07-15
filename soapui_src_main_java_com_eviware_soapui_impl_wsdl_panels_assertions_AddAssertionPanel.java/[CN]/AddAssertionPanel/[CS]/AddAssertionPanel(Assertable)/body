@@ -6,11 +6,14 @@
   selectionListener=new InternalListSelectionListener();
   categoriesAssertionsMap=AssertionCategoryMapping.getCategoriesAssertionsMap(assertable,recentAssertionHandler);
   WsdlProject project=(WsdlProject)ModelSupport.getModelItemProject(assertable.getModelItem());
-  for (  Interface inf : project.getInterfaceList())   try {
-    if (inf instanceof WsdlInterface)     ((WsdlInterface)inf).getWsdlContext().loadIfNecessary();
- else     ((RestService)inf).getDefinitionContext().loadIfNecessary();
-  }
- catch (  Exception e) {
-    e.printStackTrace();
+  for (  Interface inf : project.getInterfaceList()) {
+    try {
+      if (inf instanceof WsdlInterface) {
+        ((WsdlInterface)inf).getWsdlContext().loadIfNecessary();
+      }
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -5,7 +5,11 @@
   progressBar.setValue(0);
   progressBar.setString("");
   finishCount=0;
-  if (runLogListener == null)   runLogListener=new TestRunLogTestRunListener(testRunLog,false);
+  if (runLogListener == null) {
+    runLogListener=new TestRunLogTestRunListener(testRunLog,false);
+  }
   testRunLog.clear();
-  if (getModelItem().getRunType() == TestSuiteRunType.PARALLEL)   testRunLog.addText("<log disabled during parallell execution>");
+  if (getModelItem().getRunType() == TestSuiteRunType.PARALLEL) {
+    testRunLog.addText("<log disabled during parallell execution>");
+  }
 }

@@ -5,7 +5,9 @@
   XmlCursor cur=msg.newCursor();
   Map<String,String> map=new HashMap<String,String>();
   while (cur.hasNextToken()) {
-    if (cur.toNextToken().isNamespace())     map.put(cur.getName().getLocalPart(),cur.getTextValue());
+    if (cur.toNextToken().isNamespace()) {
+      map.put(cur.getName().getLocalPart(),cur.getTextValue());
+    }
   }
   xmlOptions.setUseDefaultNamespace();
   xmlOptions.setSaveOuter();
@@ -28,7 +30,9 @@
     XmlError error=(XmlError)list.get(c);
     if (error instanceof XmlValidationError) {
       XmlValidationError validationError=((XmlValidationError)error);
-      if (wsdlContext.getSoapVersion().shouldIgnore(validationError))       continue;
+      if (wsdlContext.getSoapVersion().shouldIgnore(validationError)) {
+        continue;
+      }
       if (validationError.getErrorCode().equals("base64Binary") || validationError.getErrorCode().equals("hexBinary")) {
         XmlCursor cursor=validationError.getCursorLocation();
         if (cursor.toParent()) {

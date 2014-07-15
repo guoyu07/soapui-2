@@ -12,18 +12,28 @@
       label=new JLabel(testStep.getLabel() + " (0 scans)",SwingConstants.LEFT);
     }
   }
- else   label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
+ else {
+    label=new JLabel(testStep.getLabel(),SwingConstants.LEFT);
+  }
   label.setIcon(testStep.getIcon());
   label.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
   label.setEnabled(!testStep.isDisabled() && AbstractSecurityScan.isSecurable(testStep));
   testStep.addPropertyChangeListener(TestStep.ICON_PROPERTY,TestStepCellRender.this);
   testStep.addPropertyChangeListener(TestStep.DISABLED_PROPERTY,TestStepCellRender.this);
   innerLeftPanel=new JPanel(new BorderLayout());
-  if (exp)   expandCollapseBtn=new JLabel(expanded);
- else   expandCollapseBtn=new JLabel(collapsed);
+  if (exp) {
+    expandCollapseBtn=new JLabel(expanded);
+  }
+ else {
+    expandCollapseBtn=new JLabel(collapsed);
+  }
   expandCollapseBtn.setEnabled(false);
-  if (securityTest.getSecurityScansMap().get(testStep.getId()) == null || securityTest.getSecurityScansMap().get(testStep.getId()).size() == 0)   expandCollapseBtn.setVisible(false);
- else   expandCollapseBtn.setVisible(true);
+  if (securityTest.getSecurityScansMap().get(testStep.getId()) == null || securityTest.getSecurityScansMap().get(testStep.getId()).size() == 0) {
+    expandCollapseBtn.setVisible(false);
+  }
+ else {
+    expandCollapseBtn.setVisible(true);
+  }
   innerLeftPanel.add(expandCollapseBtn,BorderLayout.WEST);
   if (AbstractSecurityScan.isSecurable(testStep)) {
     progressBar=new JProgressBar();

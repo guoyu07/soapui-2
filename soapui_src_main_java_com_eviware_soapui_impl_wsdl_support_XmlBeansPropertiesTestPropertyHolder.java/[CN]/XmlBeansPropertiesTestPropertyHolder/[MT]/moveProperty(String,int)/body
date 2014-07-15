@@ -1,8 +1,12 @@
 {
   PropertiesStepProperty property=getProperty(propertyName);
   int ix=properties.indexOf(property);
-  if (ix == targetIndex)   return;
-  if (targetIndex < 0)   targetIndex=0;
+  if (ix == targetIndex) {
+    return;
+  }
+  if (targetIndex < 0) {
+    targetIndex=0;
+  }
   String value=property.getValue();
   config.removeProperty(ix);
   PropertyConfig propertyConfig=null;
@@ -17,6 +21,8 @@
   propertyConfig.setName(propertyName);
   propertyConfig.setValue(value);
   resetPropertiesConfig(config);
-  if (targetIndex > properties.size())   targetIndex=properties.size();
+  if (targetIndex > properties.size()) {
+    targetIndex=properties.size();
+  }
   firePropertyMoved(propertyName,ix,targetIndex);
 }

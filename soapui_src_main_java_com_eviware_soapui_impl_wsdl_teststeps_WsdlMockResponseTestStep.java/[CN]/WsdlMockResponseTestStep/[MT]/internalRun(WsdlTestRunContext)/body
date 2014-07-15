@@ -1,23 +1,31 @@
 {
-  if (iconAnimator != null)   iconAnimator.start();
+  if (iconAnimator != null) {
+    iconAnimator.start();
+  }
   WsdlSingleMessageExchangeTestStepResult result=new WsdlSingleMessageExchangeTestStepResult(this);
   try {
     this.lastResult=null;
     mockResponse.setMockResult(null);
     result.startTimer();
     if (!mockRunListener.hasResult()) {
-      if (testMockResponse == null)       initTestMockResponse(context);
+      if (testMockResponse == null) {
+        initTestMockResponse(context);
+      }
       if (mockRunner == null) {
         mockRunner=mockService.start(context);
       }
-      if (!mockRunner.isRunning())       mockRunner.start();
+      if (!mockRunner.isRunning()) {
+        mockRunner.start();
+      }
       long timeout=getTimeout();
 synchronized (mockRunListener) {
         mockRunListener.waitForRequest(timeout);
       }
     }
     result.stopTimer();
-    if (mockRunner != null && mockRunner.isRunning())     mockRunner.stop();
+    if (mockRunner != null && mockRunner.isRunning()) {
+      mockRunner.stop();
+    }
     AssertedWsdlMockResultMessageExchange messageExchange=new AssertedWsdlMockResultMessageExchange(mockRunListener.getLastResult());
     result.setMessageExchange(messageExchange);
     if (mockRunListener.getLastResult() != null) {
@@ -42,12 +50,14 @@ synchronized (mockRunListener) {
         if (getAssertionCount() == 0) {
           result.addMessage("Invalid/empty request");
         }
- else         for (int c=0; c < getAssertionCount(); c++) {
-          WsdlMessageAssertion assertion=getAssertionAt(c);
-          AssertionError[] errors=assertion.getErrors();
-          if (errors != null) {
-            for (            AssertionError error : errors) {
-              result.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+ else {
+          for (int c=0; c < getAssertionCount(); c++) {
+            WsdlMessageAssertion assertion=getAssertionAt(c);
+            AssertionError[] errors=assertion.getErrors();
+            if (errors != null) {
+              for (              AssertionError error : errors) {
+                result.addMessage("[" + assertion.getName() + "] "+ error.getMessage());
+              }
             }
           }
         }
@@ -68,7 +78,9 @@ synchronized (mockRunListener) {
     SoapUI.logError(e);
   }
  finally {
-    if (iconAnimator != null)     iconAnimator.stop();
+    if (iconAnimator != null) {
+      iconAnimator.stop();
+    }
   }
   return result;
 }

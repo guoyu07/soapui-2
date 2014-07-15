@@ -10,7 +10,9 @@
       int row=testStepList.locationToIndex(e.getPoint());
       if (row != -1) {
         ModelItem item=(ModelItem)testStepList.getModel().getElementAt(row);
-        if (item != null)         UISupport.select(item);
+        if (item != null) {
+          UISupport.select(item);
+        }
       }
       super.mouseClicked(e);
     }
@@ -22,7 +24,9 @@
   WsdlTestStepRegistry registry=WsdlTestStepRegistry.getInstance();
   WsdlTestStepFactory[] factories=(WsdlTestStepFactory[])registry.getFactories();
   for (int c=0; c < factories.length; c++) {
-    if (factories[c].canCreate())     appendStepMenu.add(new InsertTestStepAction(factories[c]));
+    if (factories[c].canCreate()) {
+      appendStepMenu.add(new InsertTestStepAction(factories[c]));
+    }
   }
   testListPopup.add(appendStepMenu);
   testListPopup.addPopupMenuListener(new StepListPopupMenuListener(testCase));

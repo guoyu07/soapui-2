@@ -2,7 +2,9 @@
   XFormDialog dialog=ADialogBuilder.buildDialog(GenerateForm.class);
   dialog.setValue(GenerateForm.STYLE,"One TestCase for each Resource");
   StringList paths=new StringList();
-  for (  RestResource resource : service.getAllResources())   paths.add(resource.getName() + ": " + resource.getFullPath(false));
+  for (  RestResource resource : service.getAllResources()) {
+    paths.add(resource.getName() + ": " + resource.getFullPath(false));
+  }
   dialog.setOptions(GenerateForm.RESOURCES,paths.toStringArray());
   XFormOptionsField operationsFormField=(XFormOptionsField)dialog.getFormField(GenerateForm.RESOURCES);
   operationsFormField.setSelectedOptions(paths.toStringArray());
@@ -16,7 +18,9 @@
       return null;
     }
     String testSuiteName=dialog.getValue(GenerateForm.TESTSUITE);
-    if (testSuiteName.equals("<create>"))     testSuiteName=UISupport.prompt("Enter name of TestSuite to create","Generate TestSuite",service.getName() + " TestSuite");
+    if (testSuiteName.equals("<create>")) {
+      testSuiteName=UISupport.prompt("Enter name of TestSuite to create","Generate TestSuite",service.getName() + " TestSuite");
+    }
     if (testSuiteName != null && testSuiteName.trim().length() > 0) {
       WsdlTestSuite testSuite=project.getTestSuiteByName(testSuiteName);
       if (testSuite == null) {

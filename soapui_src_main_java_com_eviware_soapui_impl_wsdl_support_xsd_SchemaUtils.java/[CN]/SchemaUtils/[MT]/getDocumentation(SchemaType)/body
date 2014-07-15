@@ -37,8 +37,12 @@
         result=result.substring(0,ix);
       }
     }
-    if (xsPrefix == null || xsPrefix.length() == 0)     xsPrefix="xs:";
- else     xsPrefix+=":";
+    if (xsPrefix == null || xsPrefix.length() == 0) {
+      xsPrefix="xs:";
+    }
+ else {
+      xsPrefix+=":";
+    }
     result=result.trim().replaceAll(xsPrefix,"").trim();
     result=StringUtils.toHtml(result);
   }

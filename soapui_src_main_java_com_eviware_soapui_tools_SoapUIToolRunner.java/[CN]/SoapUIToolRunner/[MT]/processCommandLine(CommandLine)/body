@@ -1,7 +1,11 @@
 {
   setTool(cmd.getOptionValue("t"));
-  if (cmd.hasOption("i"))   setInterface(cmd.getOptionValue("i"));
-  if (cmd.hasOption("s"))   setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
+  if (cmd.hasOption("i")) {
+    setInterface(cmd.getOptionValue("i"));
+  }
+  if (cmd.hasOption("s")) {
+    setSettingsFile(getCommandLineOptionSubstSpace(cmd,"s"));
+  }
   if (cmd.hasOption("x")) {
     setProjectPassword(cmd.getOptionValue("x"));
   }
@@ -14,6 +18,8 @@
   if (cmd.hasOption("G")) {
     setGlobalProperties(cmd.getOptionValues("G"));
   }
-  if (cmd.hasOption("f"))   setOutputFolder(cmd.getOptionValue("f"));
+  if (cmd.hasOption("f")) {
+    setOutputFolder(cmd.getOptionValue("f"));
+  }
   return true;
 }

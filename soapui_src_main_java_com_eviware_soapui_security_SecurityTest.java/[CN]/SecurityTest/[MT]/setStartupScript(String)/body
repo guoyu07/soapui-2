@@ -1,7 +1,11 @@
 {
   String oldScript=getStartupScript();
-  if (!getConfig().isSetSetupScript())   getConfig().addNewSetupScript();
+  if (!getConfig().isSetSetupScript()) {
+    getConfig().addNewSetupScript();
+  }
   getConfig().getSetupScript().setStringValue(script);
-  if (startupScriptEngine != null)   startupScriptEngine.setScript(script);
+  if (startupScriptEngine != null) {
+    startupScriptEngine.setScript(script);
+  }
   notifyPropertyChanged(STARTUP_SCRIPT_PROPERTY,oldScript,script);
 }

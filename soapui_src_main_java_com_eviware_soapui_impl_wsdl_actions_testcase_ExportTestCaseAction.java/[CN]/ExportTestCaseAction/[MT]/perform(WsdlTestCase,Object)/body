@@ -2,8 +2,12 @@
   testCase.beforeSave();
   String defaultFileName=System.getProperty("user.home",".") + File.separator + StringUtils.createFileName(testCase.getName(),'-')+ ".xml";
   File file=UISupport.getFileDialogs().saveAs(this,"Select test case file","xml","XML",new File(defaultFileName));
-  if (file == null)   return;
+  if (file == null) {
+    return;
+  }
   String fileName=file.getAbsolutePath();
-  if (fileName == null)   return;
+  if (fileName == null) {
+    return;
+  }
   testCase.exportTestCase(file);
 }

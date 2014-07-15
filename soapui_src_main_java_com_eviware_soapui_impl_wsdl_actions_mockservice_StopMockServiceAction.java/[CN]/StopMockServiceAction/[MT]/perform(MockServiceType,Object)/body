@@ -1,7 +1,9 @@
 {
   try {
-    WsdlMockRunner mockRunner=mockService.getMockRunner();
-    if (mockRunner != null)     mockRunner.stop();
+    MockRunner mockRunner=mockService.getMockRunner();
+    if (mockRunner != null) {
+      mockRunner.stop();
+    }
   }
  catch (  Exception e) {
     UISupport.showErrorMessage(e);

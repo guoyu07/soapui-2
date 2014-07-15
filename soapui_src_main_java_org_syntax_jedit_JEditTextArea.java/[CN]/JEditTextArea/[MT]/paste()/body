@@ -6,7 +6,9 @@
       selection=selection.replace("\n\n","\n");
       int repeatCount=inputHandler.getRepeatCount();
       StringBuffer buf=new StringBuffer();
-      for (int i=0; i < repeatCount; i++)       buf.append(selection);
+      for (int i=0; i < repeatCount; i++) {
+        buf.append(selection);
+      }
       selection=buf.toString();
       setSelectedText(selection);
     }

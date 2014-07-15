@@ -3,7 +3,9 @@
   for (  SecurityCheckedParameter parameter : getParameterHolder().getParameterList()) {
     if (parameter.isChecked()) {
       for (      String bomb : xmlBombConfig.getXmlBombsList()) {
-        if (!parameterMutations.containsKey(parameter))         parameterMutations.put(parameter,new ArrayList<String>());
+        if (!parameterMutations.containsKey(parameter)) {
+          parameterMutations.put(parameter,new ArrayList<String>());
+        }
         parameterMutations.get(parameter).add(bomb);
       }
     }

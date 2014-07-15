@@ -1,8 +1,12 @@
 {
   if (saveOnExit) {
     String question="Exit SoapUI?";
-    if (getTestMonitor().hasRunningTests())     question+="\n(Projects with running tests will not be saved)";
-    if (!UISupport.confirm(question,"Question"))     return false;
+    if (getTestMonitor().hasRunningTests()) {
+      question+="\n(Projects with running tests will not be saved)";
+    }
+    if (!UISupport.confirm(question,"Question")) {
+      return false;
+    }
     try {
       soapUICore.saveSettings();
       SaveStatus saveStatus=workspace.onClose();
@@ -13,13 +17,16 @@
  catch (    Exception e1) {
       SoapUI.logError(e1);
     }
+    Analytics.trackAction("Exit");
   }
  else {
     if (!UISupport.confirm("Exit SoapUI without saving?","Question")) {
       saveOnExit=true;
       return false;
     }
+    Analytics.trackAction("ExitWithoutSave");
   }
+  Analytics.trackSessionStop();
   shutdown();
   return true;
 }

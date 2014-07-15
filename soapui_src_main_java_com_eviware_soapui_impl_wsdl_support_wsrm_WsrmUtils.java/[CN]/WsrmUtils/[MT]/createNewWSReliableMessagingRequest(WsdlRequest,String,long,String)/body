@@ -14,7 +14,9 @@
     header.appendChild(sequence);
     content=xmlContentObject.xmlText();
     wsrmContainer.getWsaConfig().setWsaEnabled(true);
-    if (wsrmContainer.getWsaConfig().getAction() == null)     wsrmContainer.getWsaConfig().setAddDefaultAction(true);
+    if (wsrmContainer.getWsaConfig().getAction() == null) {
+      wsrmContainer.getWsaConfig().setAddDefaultAction(true);
+    }
     wsrmContainer.getWsaConfig().setTo(endpoint);
     wsrmContainer.getWsaConfig().setGenerateMessageId(true);
     WsaUtils wsaUtils=new WsaUtils(content,wsrmContainer.getOperation().getInterface().getSoapVersion(),null,new DefaultPropertyExpansionContext(wsrmContainer));

@@ -1,4 +1,6 @@
 {
-  if (response == null)   response=getModelItem().getResponse();
+  if (response == null) {
+    response=getModelItem().getResponse();
+  }
   return response == null ? new StringToStringsMap() : response.getResponseHeaders();
 }

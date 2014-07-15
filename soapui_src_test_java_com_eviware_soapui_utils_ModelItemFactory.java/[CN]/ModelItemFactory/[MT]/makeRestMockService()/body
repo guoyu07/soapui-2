@@ -1,8 +1,4 @@
 {
   WsdlProject project=makeWsdlProject();
-  RESTMockServiceConfig restMockServiceConfig=project.getConfig().addNewRestMockService();
-  restMockServiceConfig.setName("mockServiceConfig");
-  RestMockService restMockService=new RestMockService(project,restMockServiceConfig);
-  project.addRestMockService(restMockService);
-  return restMockService;
+  return makeRestMockService(project);
 }

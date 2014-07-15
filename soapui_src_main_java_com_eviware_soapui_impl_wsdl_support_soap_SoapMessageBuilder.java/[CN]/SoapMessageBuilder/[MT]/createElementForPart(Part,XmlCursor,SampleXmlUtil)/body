@@ -9,7 +9,9 @@
         cursor.toFirstChild();
         xmlGenerator.createSampleForType(elm.getType(),cursor);
       }
- else       log.error("Could not find element [" + elementName + "] specified in part ["+ part.getName()+ "]");
+ else {
+        log.error("Could not find element [" + elementName + "] specified in part ["+ part.getName()+ "]");
+      }
     }
     cursor.toParent();
   }
@@ -21,7 +23,9 @@
         cursor.toFirstChild();
         xmlGenerator.createSampleForType(type,cursor);
       }
- else       log.error("Could not find type [" + typeName + "] specified in part ["+ part.getName()+ "]");
+ else {
+        log.error("Could not find type [" + typeName + "] specified in part ["+ part.getName()+ "]");
+      }
     }
     cursor.toParent();
   }

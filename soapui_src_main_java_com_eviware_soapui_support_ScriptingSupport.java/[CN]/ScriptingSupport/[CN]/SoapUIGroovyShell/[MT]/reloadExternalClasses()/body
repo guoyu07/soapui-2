@@ -6,7 +6,9 @@
     if (scripts.exists() && scripts.isDirectory()) {
       File[] listFiles=scripts.listFiles();
       for (      File file : listFiles) {
-        if (file.isDirectory() || !file.getName().endsWith(".groovy"))         continue;
+        if (file.isDirectory() || !file.getName().endsWith(".groovy")) {
+          continue;
+        }
         System.out.println("parsing " + file.getAbsolutePath());
         classLoader.parseClass(file);
       }

@@ -26,7 +26,9 @@
           String sourceName=xmlError.getSourceName();
           String message=xmlError.getMessage();
           if (!doubles.containsKey(message) || !doubles.get(message).equalsIgnoreCase(sourceName)) {
-            if (appended)             result.append("<hr>");
+            if (appended) {
+              result.append("<hr>");
+            }
             result.append("<b>Source:</b> ").append(sourceName).append("<br>");
             result.append("<b>Error:</b> ").append(message).append("<br>");
             appended=true;
@@ -34,7 +36,9 @@
           }
         }
  else {
-          if (appended)           result.append("<hr>");
+          if (appended) {
+            result.append("<hr>");
+          }
           result.append("<b>Error:</b> ").append(error.toString()).append("<br>");
           appended=true;
         }

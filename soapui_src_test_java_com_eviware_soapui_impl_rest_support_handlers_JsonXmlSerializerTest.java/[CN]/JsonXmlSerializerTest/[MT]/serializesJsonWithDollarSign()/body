@@ -1,0 +1,4 @@
+{
+  JSON parse=new JsonUtil().parseTrimmedText("{ $: 'value' }");
+  assertThat(serializer.write(parse),is("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<o>" + "<_ type=\"string\">value</_>" + "</o>\r\n"));
+}

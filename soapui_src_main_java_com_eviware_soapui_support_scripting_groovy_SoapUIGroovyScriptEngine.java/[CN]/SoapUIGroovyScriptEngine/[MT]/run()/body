@@ -2,7 +2,9 @@
   saver.lockSave();
   SoapUIClassLoaderState state=SoapUIExtensionClassLoader.ensure();
   try {
-    if (StringUtils.isNullOrEmpty(scriptText))     return null;
+    if (StringUtils.isNullOrEmpty(scriptText)) {
+      return null;
+    }
     if (script == null) {
       compile();
     }

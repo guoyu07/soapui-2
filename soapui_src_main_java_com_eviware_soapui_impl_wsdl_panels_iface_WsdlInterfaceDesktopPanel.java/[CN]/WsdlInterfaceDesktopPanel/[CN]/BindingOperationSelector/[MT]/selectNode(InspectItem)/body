@@ -6,7 +6,9 @@
   String type=bindingElm.getAttribute("type");
   if (type.length() > 0) {
     int ix=type.indexOf(':');
-    if (ix != -1)     type=type.substring(ix + 1);
+    if (ix != -1) {
+      type=type.substring(ix + 1);
+    }
     TreePath treePath=pathMap.get("/" + getModelItem().getName() + "/PortTypes/"+ type+ "/"+ operationElm.getAttribute("name")+ "/"+ name);
     if (treePath != null) {
       tree.setSelectionPath(treePath);

@@ -1,7 +1,13 @@
 {
-  if (securityTest.isRunning())   return;
-  if (node.getAllowsChildren())   addSecurityScanAction.setEnabled(true);
- else   addSecurityScanAction.setEnabled(false);
+  if (securityTest.isRunning()) {
+    return;
+  }
+  if (node.getAllowsChildren()) {
+    addSecurityScanAction.setEnabled(true);
+  }
+ else {
+    addSecurityScanAction.setEnabled(false);
+  }
   configureSecurityScanAction.setEnabled(false);
   removeSecurityScanAction.setEnabled(false);
   cloneParametersAction.setEnabled(false);

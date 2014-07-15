@@ -1,0 +1,7 @@
+{
+  if (!isMultiPart(contentType)) {
+    addWSSResult(context,getRequestContent());
+  }
+  initSoapVersion(contentType);
+  soapAction=SoapUtils.getSoapAction(soapVersion,getRequestHeaders());
+}

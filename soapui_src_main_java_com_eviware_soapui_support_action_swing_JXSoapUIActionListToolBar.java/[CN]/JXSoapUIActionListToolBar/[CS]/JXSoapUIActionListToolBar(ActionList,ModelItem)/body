@@ -5,7 +5,9 @@
   setBorder(BorderFactory.createEmptyBorder(3,0,3,0));
   for (int i=0; i < actions.getActionCount(); i++) {
     Action action=actions.getActionAt(i);
-    if (action instanceof MarkerAction)     continue;
+    if (action instanceof MarkerAction) {
+      continue;
+    }
     if (action == ActionSupport.SEPARATOR_ACTION) {
       addSeparator();
     }
@@ -18,8 +20,12 @@
         component=ActionComponentRegistry.buildActionComponent(soapUIAction,modelItem);
         actionMap.put(soapUIAction.getId(),action);
       }
-      if (component != null)       add(component);
- else       add(action);
+      if (component != null) {
+        add(component);
+      }
+ else {
+        add(action);
+      }
     }
   }
 }

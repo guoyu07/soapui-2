@@ -1,7 +1,9 @@
 {
   String xsdns=schema.getPrefixForNamespace(Settings.xsdns);
   StringBuilder s=new StringBuilder("<" + xsdns + ":complexType name=\""+ name+ "\"");
-  if (mixed)   s.append(" mixed=\"true\"");
+  if (mixed) {
+    s.append(" mixed=\"true\"");
+  }
   s.append(">");
   StringBuilder attrs=new StringBuilder();
   for (  Particle item : attributes.values()) {

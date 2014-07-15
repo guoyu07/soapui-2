@@ -1,0 +1,15 @@
+{
+  File pluginDirectory=new File(System.getProperty("soapui.home"),"plugins");
+  File[] pluginFiles=pluginDirectory.listFiles();
+  if (pluginFiles != null) {
+    for (    File pluginFile : pluginFiles) {
+      log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
+      try {
+        loadOldStylePluginFrom(pluginFile);
+      }
+ catch (      Throwable e) {
+        log.warn("Could not load plugin from file [" + pluginFile + "]");
+      }
+    }
+  }
+}

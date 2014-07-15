@@ -3,17 +3,21 @@
     XmlOptions options=new XmlOptions();
     options.setSavePrettyPrint();
     options.setSaveAggressiveNamespaces();
-    String assertableContent=getAssertable().getAssertableContent();
+    String assertableContent=getAssertable().getAssertableContentAsXml();
     if (assertableContent == null || assertableContent.trim().length() == 0) {
       UISupport.showErrorMessage("Missing content to select from");
       return;
     }
     XmlObject xml=XmlUtils.createXmlObject(assertableContent);
     String txt=pathArea == null || !pathArea.isVisible() ? getPath() : pathArea.getSelectedText();
-    if (txt == null)     txt=pathArea == null ? "" : pathArea.getText();
+    if (txt == null) {
+      txt=pathArea == null ? "" : pathArea.getText();
+    }
     WsdlTestRunContext context=new WsdlTestRunContext(getAssertable().getTestStep());
     String expandedPath=PropertyExpander.expandProperties(context,txt.trim());
-    if (contentArea != null && contentArea.isVisible())     contentArea.setText("");
+    if (contentArea != null && contentArea.isVisible()) {
+      contentArea.setText("");
+    }
     XmlObject[] paths=xml.execQuery(expandedPath);
     if (paths.length == 0) {
       UISupport.showErrorMessage("No match in current response");
@@ -30,15 +34,23 @@
  else {
         if (domNode.getNodeType() == Node.ELEMENT_NODE) {
           Element elm=(Element)domNode;
-          if (elm.getChildNodes().getLength() == 1 && elm.getAttributes().getLength() == 0)           stringValue=XmlUtils.getElementText(elm);
- else           stringValue=paths[0].xmlText(options);
+          if (elm.getChildNodes().getLength() == 1 && elm.getAttributes().getLength() == 0) {
+            stringValue=XmlUtils.getElementText(elm);
+          }
+ else {
+            stringValue=paths[0].xmlText(options);
+          }
         }
  else {
           stringValue=paths[0].xmlText(options);
         }
       }
-      if (contentArea != null && contentArea.isVisible())       contentArea.setText(stringValue);
- else       setContent(stringValue);
+      if (contentArea != null && contentArea.isVisible()) {
+        contentArea.setText(stringValue);
+      }
+ else {
+        setContent(stringValue);
+      }
     }
   }
  catch (  Throwable e) {

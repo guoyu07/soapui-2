@@ -14,8 +14,12 @@
     properties.load(input);
     for (    Object key : properties.keySet()) {
       String name=key.toString();
-      if (!hasProperty(name))       addProperty(name).setValue(properties.getProperty(name));
- else       setPropertyValue(name,properties.getProperty(name));
+      if (!hasProperty(name)) {
+        addProperty(name).setValue(properties.getProperty(name));
+      }
+ else {
+        setPropertyValue(name,properties.getProperty(name));
+      }
     }
     return properties.size();
   }

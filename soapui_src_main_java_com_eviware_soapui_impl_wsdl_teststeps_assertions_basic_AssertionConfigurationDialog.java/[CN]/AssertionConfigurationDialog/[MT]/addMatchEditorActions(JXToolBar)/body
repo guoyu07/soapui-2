@@ -1,0 +1,27 @@
+{
+  toolbar.addFixed(new JButton(createSelectFromCurrentAction()));
+  toolbar.addRelatedGap();
+  toolbar.addFixed(new JButton(createTestPathAction()));
+  allowWildcardsCheckBox=new JCheckBox("Allow Wildcards");
+  Dimension dim=new Dimension(120,20);
+  allowWildcardsCheckBox.setSize(dim);
+  allowWildcardsCheckBox.setPreferredSize(dim);
+  allowWildcardsCheckBox.setOpaque(false);
+  Dimension largerDim=new Dimension(170,20);
+  ignoreNamespaceDifferencesCheckBox=new JCheckBox("Ignore namespace prefixes");
+  ignoreNamespaceDifferencesCheckBox.setSize(largerDim);
+  ignoreNamespaceDifferencesCheckBox.setPreferredSize(largerDim);
+  ignoreNamespaceDifferencesCheckBox.setOpaque(false);
+  ignoreCommentsCheckBox=new JCheckBox("Ignore XML Comments");
+  ignoreCommentsCheckBox.setSize(largerDim);
+  ignoreCommentsCheckBox.setPreferredSize(largerDim);
+  ignoreCommentsCheckBox.setOpaque(false);
+  if (assertion.canAssertXmlContent()) {
+    toolbar.addRelatedGap();
+    toolbar.addFixed(allowWildcardsCheckBox);
+    toolbar.addRelatedGap();
+    toolbar.addFixed(ignoreNamespaceDifferencesCheckBox);
+    toolbar.addRelatedGap();
+    toolbar.addFixed(ignoreCommentsCheckBox);
+  }
+}

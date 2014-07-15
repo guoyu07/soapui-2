@@ -1,7 +1,9 @@
 {
   for (int c=0; c < recentEditorsMenu.getItemCount(); c++) {
     ShowEditorAction action=getShowEditorAction(recentEditorsMenu,c);
-    if (action == null)     continue;
+    if (action == null) {
+      continue;
+    }
     if (action.isReleased()) {
       recentEditorsMenu.remove(c);
       c--;
@@ -11,5 +13,7 @@
       break;
     }
   }
-  if (recentEditorsMenu.getItemCount() == 2)   recentEditorsMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
+  if (recentEditorsMenu.getItemCount() == 2) {
+    recentEditorsMenu.add(new JMenuItem(EMPTYMARKER),0).setEnabled(false);
+  }
 }

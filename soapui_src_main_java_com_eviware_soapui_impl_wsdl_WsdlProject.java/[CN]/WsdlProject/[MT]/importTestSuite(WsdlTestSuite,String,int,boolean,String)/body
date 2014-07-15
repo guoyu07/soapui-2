@@ -9,10 +9,18 @@
   }
   WsdlTestSuite oldTestSuite=testSuite;
   testSuite=buildTestSuite(testSuiteConfig);
-  if (description != null)   testSuite.setDescription(description);
-  if (index == -1)   testSuites.add(testSuite);
- else   testSuites.add(index,testSuite);
-  if (createCopy)   ModelSupport.unsetIds(testSuite);
+  if (description != null) {
+    testSuite.setDescription(description);
+  }
+  if (index == -1) {
+    testSuites.add(testSuite);
+  }
+ else {
+    testSuites.add(index,testSuite);
+  }
+  if (createCopy) {
+    ModelSupport.createNewIds(testSuite);
+  }
   testSuite.afterLoad();
   if (createCopy) {
     testSuite.afterCopy(oldTestSuite);

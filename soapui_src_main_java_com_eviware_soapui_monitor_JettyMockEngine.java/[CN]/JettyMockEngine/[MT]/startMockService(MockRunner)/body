@@ -1,5 +1,7 @@
 {
-  if (server == null)   initServer();
+  if (server == null) {
+    initServer();
+  }
 synchronized (server) {
     MockService mockService=runner.getMockContext().getMockService();
     int port=mockService.getPort();
@@ -9,7 +11,9 @@ synchronized (server) {
       addedSslConnector=true;
     }
  else {
-      if (addedSslConnector)       server.removeConnector(sslConnector);
+      if (addedSslConnector) {
+        server.removeConnector(sslConnector);
+      }
       addedSslConnector=false;
     }
     if (!runners.containsKey(port)) {
@@ -20,7 +24,7 @@ synchronized (server) {
         connector.setConfidentialPort(sslConnector.getPort());
       }
       if (mockService.getBindToHostOnly()) {
-        String host=PropertyExpander.expandProperties(mockService,((AbstractMockService)mockService).getHost());
+        String host=PropertyExpander.expandProperties(mockService,mockService.getHost());
         if (StringUtils.hasContent(host)) {
           connector.setHost(host);
         }

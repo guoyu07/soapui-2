@@ -44,8 +44,12 @@
       List<TestCase> testCaseList=project.getTestSuiteAt(0).getTestCaseList();
       testCaseList.remove(getModelItem().getTestCase());
       optionsDialog.setOptions(OptionsForm.TESTCASE,ModelSupport.getNames(testCaseList));
-      if (testCaseList.isEmpty())       optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,new String[0]);
- else       optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,testCaseList.get(0).getPropertyNames());
+      if (testCaseList.isEmpty()) {
+        optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,new String[0]);
+      }
+ else {
+        optionsDialog.setOptions(OptionsForm.RETURN_PROPERTIES,testCaseList.get(0).getPropertyNames());
+      }
     }
   }
 switch (getModelItem().getRunMode().intValue()) {

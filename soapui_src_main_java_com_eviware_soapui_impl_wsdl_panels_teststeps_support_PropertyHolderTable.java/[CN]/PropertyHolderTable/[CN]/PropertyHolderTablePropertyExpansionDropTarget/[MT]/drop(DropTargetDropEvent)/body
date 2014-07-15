@@ -12,7 +12,9 @@
         String xpath=modelItem.getXPath();
         if (xpath == null && XmlUtils.seemsToBeXml(modelItem.getProperty().getValue())) {
           xpath=UISupport.selectXPath("Create PropertyExpansion","Select XPath below",modelItem.getProperty().getValue(),null);
-          if (xpath != null)           xpath=PropertyExpansionUtils.shortenXPathForPropertyExpansion(xpath,modelItem.getProperty().getValue());
+          if (xpath != null) {
+            xpath=PropertyExpansionUtils.shortenXPathForPropertyExpansion(xpath,modelItem.getProperty().getValue());
+          }
         }
         PropertyExpansion propertyExpansion=new PropertyExpansionImpl(modelItem.getProperty(),xpath);
         Point point=dtde.getLocation();
@@ -25,7 +27,9 @@
             while (name != null && mtph.hasProperty(name)) {
               name=UISupport.prompt("Specify unique name of property","Add Property",modelItem.getProperty().getName());
             }
-            if (name != null)             mtph.addProperty(name).setValue(propertyExpansion.toString());
+            if (name != null) {
+              mtph.addProperty(name).setValue(propertyExpansion.toString());
+            }
           }
         }
  else {

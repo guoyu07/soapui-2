@@ -1,0 +1,62 @@
+{
+  String sourceValue=getSourceProperty().getValue();
+  if (!hasSourcePath()) {
+    return sourceValue;
+  }
+ else   if (getSourcePathLanguage() == PathLanguage.JSONPATH) {
+    return new JsonPathFacade(sourceValue).readObjectValue(getSourcePath());
+  }
+ else {
+    XmlObject sourceXml=XmlUtils.createXmlObject(sourceValue);
+    XmlCursor sourceCursor=sourceXml.newCursor();
+    try {
+      String value=null;
+      String pathExpression=PropertyExpander.expandProperties(context,getSourcePath());
+      boolean usingXQuery=getSourcePathLanguage() == PathLanguage.XQUERY;
+      if (usingXQuery) {
+        XmlCursor resultCursor=sourceCursor.execQuery(pathExpression);
+        sourceCursor.dispose();
+        sourceCursor=resultCursor;
+        if (sourceCursor.toNextToken() != TokenType.START && !getSetNullOnMissingSource() && !getIgnoreEmpty()) {
+          throw new Exception("Missing match for Source XQuery [" + pathExpression + "]");
+        }
+      }
+ else {
+        sourceCursor.selectPath(pathExpression);
+      }
+      if (!usingXQuery && !sourceCursor.toNextSelection()) {
+        if (!getSetNullOnMissingSource() && !getIgnoreEmpty()) {
+          throw new Exception("Missing match for Source XPath [" + pathExpression + "]");
+        }
+      }
+      Node sourceNode=sourceCursor.getDomNode();
+      short sourceNodeType=sourceNode.getNodeType();
+      if (sourceNodeType == Node.DOCUMENT_FRAGMENT_NODE) {
+        sourceNode=sourceNode.getFirstChild();
+        if (sourceNode != null) {
+          sourceNodeType=sourceNode.getNodeType();
+        }
+ else {
+          throw new Exception("Missing source value for " + getSourcePropertyName());
+        }
+      }
+      if (sourceNodeType == Node.TEXT_NODE || sourceNodeType == Node.ATTRIBUTE_NODE) {
+        value=sourceNode.getNodeValue();
+      }
+ else       if (sourceNodeType == Node.ELEMENT_NODE) {
+        if (getTransferTextContent()) {
+          value=XmlUtils.getElementText((Element)sourceNode);
+        }
+        if (value == null || !getTransferTextContent()) {
+          value=sourceCursor.getObject().xmlText(new XmlOptions().setSaveOuter().setSaveAggressiveNamespaces());
+        }
+      }
+      return value;
+    }
+  finally {
+      if (sourceCursor != null) {
+        sourceCursor.dispose();
+      }
+    }
+  }
+}

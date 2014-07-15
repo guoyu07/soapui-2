@@ -9,7 +9,9 @@
     try {
       HtmlElement htmlElement=(HtmlElement)i.next();
       String path=htmlElement.getAttribute("src").equals("") ? htmlElement.getAttribute("href") : htmlElement.getAttribute("src");
-      if (path == null || path.equals(""))       continue;
+      if (path == null || path.equals("")) {
+        continue;
+      }
       URL url=htmlPage.getFullyQualifiedUrl(path);
       try {
         bytes=downloadResource(htmlPage,htmlElement,url);

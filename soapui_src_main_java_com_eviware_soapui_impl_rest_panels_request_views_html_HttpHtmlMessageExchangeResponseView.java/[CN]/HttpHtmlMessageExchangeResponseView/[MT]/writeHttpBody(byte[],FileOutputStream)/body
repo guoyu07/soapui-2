@@ -4,7 +4,9 @@
   for (; index < (rawResponse.length - divider.length); index++) {
     int i;
     for (i=0; i < divider.length; i++) {
-      if (rawResponse[index + i] != divider[i])       break;
+      if (rawResponse[index + i] != divider[i]) {
+        break;
+      }
     }
     if (i == divider.length) {
       out.write(rawResponse,index + divider.length,rawResponse.length - (index + divider.length));

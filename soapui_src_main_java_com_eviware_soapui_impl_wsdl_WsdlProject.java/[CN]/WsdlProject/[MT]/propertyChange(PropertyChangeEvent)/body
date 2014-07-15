@@ -1,11 +1,13 @@
 {
   if ("projectPassword".equals(evt.getPropertyName())) {
-    if (encrypted == 0 & (evt.getOldValue() == null || ((String)evt.getOldValue()).length() == 0)) {
-      encrypted=1;
+    if (encryptionStatus == NOT_ENCRYPTED && (evt.getOldValue() == null || ((String)evt.getOldValue()).length() == 0)) {
+      encryptionStatus=ENCRYPTED_GOOD_PASSWORD;
     }
-    if (encrypted == 1 & (evt.getNewValue() == null || ((String)evt.getNewValue()).length() == 0)) {
-      encrypted=0;
+    if (encryptionStatus == ENCRYPTED_GOOD_PASSWORD && (evt.getNewValue() == null || ((String)evt.getNewValue()).length() == 0)) {
+      encryptionStatus=NOT_ENCRYPTED;
     }
-    if (SoapUI.getNavigator() != null)     SoapUI.getNavigator().repaint();
+    if (SoapUI.getNavigator() != null) {
+      SoapUI.getNavigator().repaint();
+    }
   }
 }

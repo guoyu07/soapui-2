@@ -1,4 +1,6 @@
 {
-  if (root == null || root.length() == 0)   root=System.getProperty("soapui.home",new File(".").getAbsolutePath());
+  if (root == null || root.length() == 0) {
+    root=System.getProperty("soapui.home",new File(".").getAbsolutePath());
+  }
   return FilenameUtils.normalize(root);
 }

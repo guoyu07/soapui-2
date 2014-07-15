@@ -3,8 +3,12 @@
     XmlTreeNode child=treeNode.getChild(c);
     XmlLineNumber ln=child.getNodeLineNumber();
     if (ln != null && (line < ln.getLine() || (line == ln.getLine() && column <= ln.getColumn()))) {
-      if (c == 0)       return treeNode;
- else       return findXmlTreeNode(treeNode.getChild(c - 1),line,column);
+      if (c == 0) {
+        return treeNode;
+      }
+ else {
+        return findXmlTreeNode(treeNode.getChild(c - 1),line,column);
+      }
     }
   }
   if (treeNode.getChildCount() > 0) {

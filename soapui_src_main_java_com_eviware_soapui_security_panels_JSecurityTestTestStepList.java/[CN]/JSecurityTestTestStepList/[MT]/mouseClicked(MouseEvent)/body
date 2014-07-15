@@ -1,7 +1,11 @@
 {
   DefaultMutableTreeNode node=(DefaultMutableTreeNode)securityTestTree.getLastSelectedPathComponent();
-  if (node == null)   return;
-  if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)   return;
+  if (node == null) {
+    return;
+  }
+  if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
+    return;
+  }
   if (e.getClickCount() == 1) {
     if (securityTestTree.isExpanded(TreePathUtils.getPath(node)) && node instanceof TestStepNode && cellRender.isOn((TestStepNode)node,e.getX(),e.getY())) {
       securityTestTree.collapseRow(securityTestTree.getRowForLocation(e.getX(),e.getY()));
@@ -13,7 +17,9 @@
     return;
   }
   if (node instanceof SecurityScanNode) {
-    if (securityTest.isRunning())     return;
+    if (securityTest.isRunning()) {
+      return;
+    }
     SecurityScan securityScan=((SecurityScanNode)securityTestTree.getLastSelectedPathComponent()).getSecurityScan();
     if (securityScan.isConfigurable()) {
       SecurityScanConfig backupScanConfig=(SecurityScanConfig)securityScan.getConfig().copy();

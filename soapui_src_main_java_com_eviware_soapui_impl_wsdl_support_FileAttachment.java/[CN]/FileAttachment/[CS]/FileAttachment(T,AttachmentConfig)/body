@@ -16,8 +16,12 @@
     }
   }
   if (isCached()) {
-    if (config.isSetTempFilename())     config.unsetTempFilename();
-    if (config.isSetUrl())     config.unsetUrl();
+    if (config.isSetTempFilename()) {
+      config.unsetTempFilename();
+    }
+    if (config.isSetUrl()) {
+      config.unsetUrl();
+    }
   }
   urlProperty=new BeanPathPropertySupport(modelItem,config,"url");
 }

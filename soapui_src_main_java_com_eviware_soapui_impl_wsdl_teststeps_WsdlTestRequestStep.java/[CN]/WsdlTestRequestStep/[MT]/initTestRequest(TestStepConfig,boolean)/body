@@ -7,6 +7,10 @@
   }
   testRequest=new WsdlTestRequest(wsdlOperation,requestStepConfig.getRequest(),this,forLoadTest);
   testRequest.addPropertyChangeListener(this);
-  if (config.isSetName())   testRequest.setName(config.getName());
- else   config.setName(testRequest.getName());
+  if (config.isSetName()) {
+    testRequest.setName(config.getName());
+  }
+ else {
+    config.setName(testRequest.getName());
+  }
 }

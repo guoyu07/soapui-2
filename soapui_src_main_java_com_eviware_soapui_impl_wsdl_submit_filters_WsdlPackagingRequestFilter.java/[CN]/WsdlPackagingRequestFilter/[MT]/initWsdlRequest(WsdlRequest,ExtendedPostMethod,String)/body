@@ -8,7 +8,9 @@
       MessageXmlObject requestXmlObject=new MessageXmlObject(wsdlRequest.getOperation(),requestContent,true);
       MessageXmlPart[] requestParts=requestXmlObject.getMessageParts();
       for (      MessageXmlPart requestPart : requestParts) {
-        if (AttachmentUtils.prepareMessagePart(wsdlRequest,mp,requestPart,contentIds))         isXOP=true;
+        if (AttachmentUtils.prepareMessagePart(wsdlRequest,mp,requestPart,contentIds)) {
+          isXOP=true;
+        }
       }
       requestContent=requestXmlObject.getMessageContent();
     }
@@ -22,7 +24,9 @@
     postMethod.setEntity(new ByteArrayEntity(content));
   }
  else {
-    if (mp == null)     mp=new MimeMultipart();
+    if (mp == null) {
+      mp=new MimeMultipart();
+    }
     initRootPart(wsdlRequest,requestContent,mp,isXOP);
     AttachmentUtils.addMimeParts(wsdlRequest,Arrays.asList(wsdlRequest.getAttachments()),mp,contentIds);
     MimeMessage message=new MimeMessage(AttachmentUtils.JAVAMAIL_SESSION);

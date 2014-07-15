@@ -1,0 +1,12 @@
+{
+  MockRunner mockRunner=null;
+  String bestMatchedRootPath="";
+  for (  MockRunner runner : mockRunners) {
+    String mockServicePath=runner.getMockContext().getMockService().getPath();
+    if (pathInfo.startsWith(mockServicePath) && mockServicePath.length() > bestMatchedRootPath.length()) {
+      bestMatchedRootPath=mockServicePath;
+      mockRunner=runner;
+    }
+  }
+  return mockRunner;
+}

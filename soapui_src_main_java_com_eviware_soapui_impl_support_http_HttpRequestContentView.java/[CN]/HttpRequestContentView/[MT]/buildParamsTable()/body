@@ -12,8 +12,12 @@
     }
     @Override public void setValueAt(    Object value,    int rowIndex,    int columnIndex){
       RestParamProperty prop=params.getPropertyAt(rowIndex);
-      if (columnIndex == 0)       prop.setName(value.toString());
- else       prop.setValue(value.toString());
+      if (columnIndex == 0) {
+        prop.setName(value.toString());
+      }
+ else {
+        prop.setValue(value.toString());
+      }
     }
   }
 ;

@@ -7,7 +7,9 @@
   desktopPanelsList.setToolTipText("Open windows");
   desktopPanelsList.addMouseListener(new MouseAdapter(){
     public void mouseClicked(    MouseEvent e){
-      if (e.getClickCount() < 2)       return;
+      if (e.getClickCount() < 2) {
+        return;
+      }
       JDesktopPanelsList.this.desktop.showDesktopPanel((DesktopPanel)desktopPanelsList.getSelectedValue());
     }
   }

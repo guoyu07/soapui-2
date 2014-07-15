@@ -9,7 +9,9 @@
     startTimeoutTimer(project.getTimeout());
   }
   notifyBeforeRun();
-  if (!isRunning())   return;
+  if (!isRunning()) {
+    return;
+  }
   if (project.getRunType() == TestSuiteRunType.SEQUENTIAL) {
     runSequential(project,runContext);
   }

@@ -9,8 +9,12 @@
  else {
       TestProperty newProperty=project.addProperty(name);
       name=UISupport.prompt("What is default value for property " + name,"Add Property Value","");
-      if (StringUtils.hasContent(name))       newProperty.setValue(name);
- else       newProperty.setValue(newProperty.getName());
+      if (StringUtils.hasContent(name)) {
+        newProperty.setValue(name);
+      }
+ else {
+        newProperty.setValue(newProperty.getName());
+      }
       badTransfer.setSourcePropertyName(newProperty.getName());
       resolved=true;
     }

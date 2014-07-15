@@ -2,11 +2,15 @@
   mockService.beforeSave();
   MockServiceConfig mockServiceConfig=(MockServiceConfig)getConfig().addNewMockService().set(mockService.getConfig().copy());
   mockServiceConfig.setName(name);
-  if (mockServiceConfig.isSetId() && createCopy)   mockServiceConfig.unsetId();
+  if (mockServiceConfig.isSetId() && createCopy) {
+    mockServiceConfig.unsetId();
+  }
   mockService=new WsdlMockService(this,mockServiceConfig);
   mockService.setDescription(description);
   addWsdlMockService(mockService);
-  if (createCopy)   ModelSupport.unsetIds(mockService);
+  if (createCopy) {
+    ModelSupport.createNewIds(mockService);
+  }
   mockService.afterLoad();
   fireMockServiceAdded(mockService);
   return mockService;

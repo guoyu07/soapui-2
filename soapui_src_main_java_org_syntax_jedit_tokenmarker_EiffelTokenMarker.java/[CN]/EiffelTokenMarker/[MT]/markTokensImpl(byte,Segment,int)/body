@@ -17,7 +17,9 @@ case Token.NULL:
 switch (c) {
 case '"':
         doKeyword(line,i,c);
-      if (backslash)       backslash=false;
+      if (backslash) {
+        backslash=false;
+      }
  else {
         addToken(i - lastOffset,token);
         token=Token.LITERAL1;
@@ -26,7 +28,9 @@ case '"':
     break;
 case '\'':
   doKeyword(line,i,c);
-if (backslash) backslash=false;
+if (backslash) {
+  backslash=false;
+}
  else {
   addToken(i - lastOffset,token);
   token=Token.LITERAL2;
@@ -35,12 +39,16 @@ if (backslash) backslash=false;
 break;
 case ':':
 if (lastKeyword == offset) {
-if (doKeyword(line,i,c)) break;
+if (doKeyword(line,i,c)) {
+break;
+}
 backslash=false;
 addToken(i1 - lastOffset,Token.LABEL);
 lastOffset=lastKeyword=i1;
 }
- else if (doKeyword(line,i,c)) break;
+ else if (doKeyword(line,i,c)) {
+break;
+}
 break;
 case '-':
 backslash=false;
@@ -57,7 +65,9 @@ break loop;
 break;
 default :
 backslash=false;
-if (!Character.isLetterOrDigit(c) && c != '_') doKeyword(line,i,c);
+if (!Character.isLetterOrDigit(c) && c != '_') {
+doKeyword(line,i,c);
+}
 break;
 }
 break;
@@ -65,7 +75,9 @@ case Token.COMMENT1:
 case Token.COMMENT2:
 throw new RuntimeException("Wrong eiffel parser state");
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,token);
 token=Token.NULL;
@@ -73,7 +85,9 @@ lastOffset=lastKeyword=i1;
 }
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 token=Token.NULL;
@@ -84,7 +98,9 @@ default :
 throw new InternalError("Invalid state: " + token);
 }
 }
-if (token == Token.NULL) doKeyword(line,length,'\0');
+if (token == Token.NULL) {
+doKeyword(line,length,'\0');
+}
 switch (token) {
 case Token.LITERAL1:
 case Token.LITERAL2:
@@ -93,7 +109,9 @@ token=Token.NULL;
 break;
 case Token.KEYWORD2:
 addToken(length - lastOffset,token);
-if (!backslash) token=Token.NULL;
+if (!backslash) {
+token=Token.NULL;
+}
 default :
 addToken(length - lastOffset,token);
 break;

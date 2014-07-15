@@ -1,3 +1,8 @@
 {
-  JOptionPane.showMessageDialog(parent,message,"Error",JOptionPane.ERROR_MESSAGE);
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      JOptionPane.showMessageDialog(parent,message,"Error",JOptionPane.ERROR_MESSAGE);
+    }
+  }
+);
 }

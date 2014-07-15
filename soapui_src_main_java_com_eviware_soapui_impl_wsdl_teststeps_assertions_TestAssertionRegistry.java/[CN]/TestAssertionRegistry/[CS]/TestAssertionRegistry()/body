@@ -26,4 +26,5 @@
   for (  TestAssertionFactory factory : SoapUI.getFactoryRegistry().getFactories(TestAssertionFactory.class)) {
     addAssertion(factory);
   }
+  SoapUI.getFactoryRegistry().addFactoryRegistryListener(this);
 }

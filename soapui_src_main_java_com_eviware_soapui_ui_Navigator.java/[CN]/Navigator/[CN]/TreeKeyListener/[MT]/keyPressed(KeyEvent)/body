@@ -1,6 +1,8 @@
 {
   TreePath selectionPath=mainTree.getSelectionPath();
-  if (selectionPath == null || mainTree.getSelectionCount() == 0)   return;
+  if (selectionPath == null || mainTree.getSelectionCount() == 0) {
+    return;
+  }
   if (mainTree.getSelectionCount() == 1) {
     SoapUITreeNode lastPathComponent=(SoapUITreeNode)selectionPath.getLastPathComponent();
     ActionList actions=lastPathComponent.getActions();

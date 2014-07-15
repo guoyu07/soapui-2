@@ -4,18 +4,24 @@
   List<String> asList=new ArrayList<String>(Arrays.asList(names));
   asList.remove(iface.getProject().getName());
   String targetProjectName=UISupport.prompt("Select target Project for cloned Interface","Clone Interface",asList);
-  if (targetProjectName == null)   return;
+  if (targetProjectName == null) {
+    return;
+  }
   WsdlProject targetProject=(WsdlProject)workspace.getProjectByName(targetProjectName);
   if (targetProject == null) {
     targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestSuite","");
-    if (targetProjectName == null)     return;
+    if (targetProjectName == null) {
+      return;
+    }
     try {
       targetProject=workspace.createProject(targetProjectName,null);
     }
  catch (    SoapUIException e) {
       UISupport.showErrorMessage(e);
     }
-    if (targetProject == null)     return;
+    if (targetProject == null) {
+      return;
+    }
   }
   WsdlInterface targetIface=(WsdlInterface)targetProject.getInterfaceByTechnicalId(iface.getTechnicalId());
   if (targetIface != null) {

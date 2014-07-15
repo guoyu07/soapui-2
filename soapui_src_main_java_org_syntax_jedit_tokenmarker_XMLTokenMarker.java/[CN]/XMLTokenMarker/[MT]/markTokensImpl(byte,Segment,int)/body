@@ -25,7 +25,9 @@ case '<':
       i+=1;
       token=Token.KEYWORD3;
     }
- else     token=Token.KEYWORD1;
+ else {
+      token=Token.KEYWORD1;
+    }
   break;
 case '&':
 addToken(i - lastOffset,token);
@@ -81,8 +83,12 @@ case '\"':
 case '\'':
 addToken(i - lastOffset,token);
 lastOffset=i;
-if (c == '\"') token=Token.LITERAL1;
- else token=Token.LITERAL2;
+if (c == '\"') {
+token=Token.LITERAL1;
+}
+ else {
+token=Token.LITERAL2;
+}
 break;
 }
 break;

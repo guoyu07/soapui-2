@@ -6,7 +6,9 @@
       return;
     }
     File file=UISupport.getFileDialogs().saveAs(this,"Select file for export");
-    if (file == null)     return;
+    if (file == null) {
+      return;
+    }
     int cnt=exportToFile(file,model);
     UISupport.showInfoMessage("Saved " + cnt + " rows to file ["+ file.getName()+ "]");
   }

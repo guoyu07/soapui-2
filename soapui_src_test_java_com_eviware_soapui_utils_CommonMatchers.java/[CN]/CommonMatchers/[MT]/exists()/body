@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<File>(){
+    @Override public boolean matchesSafely(    File file){
+      return file.exists();
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("an existing file");
+    }
+  }
+;
+}

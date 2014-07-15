@@ -4,7 +4,9 @@
     result=expand((String)key);
     if (key.equals(result)) {
       result=expand("${" + key + "}");
-      if (StringUtils.isNullOrEmpty((String)result))       result=null;
+      if (StringUtils.isNullOrEmpty((String)result)) {
+        result=null;
+      }
     }
   }
   return result;

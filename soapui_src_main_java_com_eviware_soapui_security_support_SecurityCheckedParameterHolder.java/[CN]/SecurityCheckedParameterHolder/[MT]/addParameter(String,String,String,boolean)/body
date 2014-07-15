@@ -1,5 +1,7 @@
 {
-  if (paramsMap.get(label.toUpperCase()) != null)   return false;
+  if (paramsMap.get(label.toUpperCase()) != null) {
+    return false;
+  }
   CheckedParameterConfig newParameterConfig=paramsConfig.addNewParameters();
   SecurityCheckedParameterImpl newParameter=new SecurityCheckedParameterImpl(newParameterConfig);
   newParameter.setLabel(label);

@@ -13,6 +13,9 @@
   if (item != null) {
     item.removeTestPropertyListener(targetStepPropertiesListener);
   }
+  if (transferListListener != null) {
+    transferStep.removePropertyChangeListener(transferListListener);
+  }
   componentEnabler.release();
   inspectorPanel.release();
   return release();

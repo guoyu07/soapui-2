@@ -9,7 +9,9 @@
         URL url=new URL(project.getPath());
         String str=url.getProtocol() + "://" + url.getHost()+ ((url.getPort() != -1 ? ":" + url.getPort() : ""))+ url.getPath();
         int ix=str.lastIndexOf('/');
-        if (ix != -1)         return str.substring(0,ix);
+        if (ix != -1) {
+          return str.substring(0,ix);
+        }
       }
  catch (      MalformedURLException e) {
       }

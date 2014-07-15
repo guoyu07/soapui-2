@@ -5,7 +5,9 @@
     name=name.substring(0,sepIx);
     if (globalOverride) {
       String value=PropertyExpansionUtils.getGlobalProperty(name);
-      if (value != null)       return value;
+      if (value != null) {
+        return value;
+      }
     }
     TestProperty property=holder.getProperty(name);
     if (property != null) {
@@ -15,7 +17,9 @@
  else {
     if (globalOverride) {
       String value=PropertyExpansionUtils.getGlobalProperty(name);
-      if (value != null)       return value;
+      if (value != null) {
+        return value;
+      }
     }
     TestProperty property=holder.getProperty(name);
     if (property != null) {

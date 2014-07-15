@@ -3,7 +3,9 @@
     dialog=ADialogBuilder.buildDialog(Form.class);
     dialog.getFormField(Form.PROJECT).addFormFieldListener(new XFormFieldListener(){
       public void valueChanged(      XFormField sourceField,      String newValue,      String oldValue){
-        if (newValue.equals(CREATE_NEW_OPTION))         dialog.setOptions(Form.TESTSUITE,new String[]{CREATE_NEW_OPTION});
+        if (newValue.equals(CREATE_NEW_OPTION)) {
+          dialog.setOptions(Form.TESTSUITE,new String[]{CREATE_NEW_OPTION});
+        }
  else {
           Project project=SoapUI.getWorkspace().getProjectByName(newValue);
           dialog.setOptions(Form.TESTSUITE,ModelSupport.getNames(project.getTestSuiteList(),new String[]{CREATE_NEW_OPTION}));
@@ -54,14 +56,18 @@
       project=(WsdlProject)workspace.getProjectByName(targetProjectName);
       if (project == null) {
         targetProjectName=UISupport.prompt("Enter name for new Project","Clone TestCase","");
-        if (targetProjectName == null)         return;
+        if (targetProjectName == null) {
+          return;
+        }
         try {
           project=workspace.createProject(targetProjectName,null);
         }
  catch (        SoapUIException e) {
           UISupport.showErrorMessage(e);
         }
-        if (project == null)         return;
+        if (project == null) {
+          return;
+        }
       }
       if (requiredInterfaces.size() > 0 && project.getInterfaceCount() > 0) {
         Map<String,Interface> bindings=new HashMap<String,Interface>();
@@ -80,7 +86,9 @@
         }
         msg+="\r\nShould these will be cloned to the targetProject as well?";
         Boolean result=UISupport.confirmOrCancel(msg,"Clone TestCase");
-        if (result == null)         return;
+        if (result == null) {
+          return;
+        }
         if (result) {
           for (          Interface iface : requiredInterfaces) {
             project.importInterface((AbstractInterface<?>)iface,true,true);
@@ -91,7 +99,9 @@
     targetTestSuite=project.getTestSuiteByName(targetTestSuiteName);
     if (targetTestSuite == null) {
       targetTestSuiteName=UISupport.prompt("Specify name for new TestSuite","Clone TestCase","Copy of " + testCase.getTestSuite().getName());
-      if (targetTestSuiteName == null)       return;
+      if (targetTestSuiteName == null) {
+        return;
+      }
       targetTestSuite=project.addNewTestSuite(targetTestSuiteName);
     }
     boolean move=dialog.getBooleanValue(Form.MOVE);

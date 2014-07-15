@@ -5,6 +5,8 @@
     RestMockAction restMockAction=new RestMockAction(this,restActionConfig);
     addMockOperation(restMockAction);
   }
-  if (!getConfig().isSetProperties())   getConfig().addNewProperties();
+  if (!getConfig().isSetProperties()) {
+    getConfig().addNewProperties();
+  }
   setPropertiesConfig(config.getProperties());
 }

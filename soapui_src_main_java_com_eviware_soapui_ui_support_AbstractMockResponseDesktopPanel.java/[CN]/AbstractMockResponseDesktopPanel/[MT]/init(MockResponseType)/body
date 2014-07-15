@@ -7,8 +7,12 @@
   mockResponse.addPropertyChangeListener(propertyChangeListener);
   addFocusListener(new FocusAdapter(){
     @Override public void focusGained(    FocusEvent e){
-      if (!hasRequestEditor() || requestTabs.getSelectedIndex() == 1 || responseHasFocus)       responseEditor.requestFocus();
- else       requestEditor.requestFocus();
+      if (!hasRequestEditor() || requestTabs.getSelectedIndex() == 1 || responseHasFocus) {
+        responseEditor.requestFocus();
+      }
+ else {
+        requestEditor.requestFocus();
+      }
     }
   }
 );

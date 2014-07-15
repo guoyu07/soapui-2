@@ -1,6 +1,8 @@
 {
   String wsdlUrl=origWsdlUrl;
-  if (existing.containsKey(wsdlUrl))   return;
+  if (existing.containsKey(wsdlUrl)) {
+    return;
+  }
   XmlObject xmlObject=loader.loadXmlObject(wsdlUrl,null);
   existing.put(wsdlUrl,xmlObject);
   selectDefinitionParts(wsdlUrl,existing,loader,xmlObject,"declare namespace s='" + Constants.WSDL11_NS + "' .//s:import/@location");

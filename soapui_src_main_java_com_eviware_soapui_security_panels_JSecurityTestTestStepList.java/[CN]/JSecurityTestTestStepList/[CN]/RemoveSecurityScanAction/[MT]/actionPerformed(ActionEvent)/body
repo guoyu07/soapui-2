@@ -15,9 +15,11 @@
     SecurityScanNode node=(SecurityScanNode)securityTestTree.getLastSelectedPathComponent();
     TestStep testStep=((TestStepNode)node.getParent()).getTestStep();
     if (UISupport.confirm("Remove all selected security scans","Remove SecurityScan")) {
-      for (      TreePath path : securityTestTree.getSelectionPaths())       if (path.getLastPathComponent() instanceof SecurityScanNode) {
-        SecurityScan securityScan=((SecurityScanNode)path.getLastPathComponent()).getSecurityScan();
-        securityTest.removeSecurityScan(testStep,(SecurityScan)securityScan);
+      for (      TreePath path : securityTestTree.getSelectionPaths()) {
+        if (path.getLastPathComponent() instanceof SecurityScanNode) {
+          SecurityScan securityScan=((SecurityScanNode)path.getLastPathComponent()).getSecurityScan();
+          securityTest.removeSecurityScan(testStep,(SecurityScan)securityScan);
+        }
       }
     }
   }

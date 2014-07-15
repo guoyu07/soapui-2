@@ -1,0 +1,8 @@
+{
+  if (request == null) {
+    return null;
+  }
+  String modifiedRequest=request.replaceAll("\\\\r",CR_ESCAPE_SEQUENCE);
+  modifiedRequest=modifiedRequest.replaceAll("\r","\\\\r");
+  return modifiedRequest;
+}

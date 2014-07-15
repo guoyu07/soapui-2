@@ -39,6 +39,8 @@
   result.setStatus(canceled ? TestStepStatus.CANCELED : TestStepStatus.OK);
   timeWaited=0;
   running=false;
-  if (context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null)   notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
+  if (context.getProperty(TestCaseRunContext.LOAD_TEST_RUNNER) == null) {
+    notifyPropertyChanged(WsdlTestStep.LABEL_PROPERTY,oldLabel,getLabel());
+  }
   return result;
 }

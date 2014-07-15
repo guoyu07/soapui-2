@@ -1,0 +1,15 @@
+{
+  sourceProperty.setValue("<bil><name value=\"fiat\" value2=\"volvo\">alfa</name></bil>");
+  targetProperty.setValue("<bil><name test=\"test\">bmw</name></bil>");
+  transfer.setSourcePath("//name/@value");
+  transfer.setTargetPath("//name/text()");
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name test=\"test\">fiat</name></bil>"));
+  transfer.setSourcePath("//name/text()");
+  transfer.setTargetPath("//name/@test");
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name test=\"alfa\">fiat</name></bil>"));
+  transfer.setSourcePath("//name/@value2");
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is("<bil><name test=\"volvo\">fiat</name></bil>"));
+}

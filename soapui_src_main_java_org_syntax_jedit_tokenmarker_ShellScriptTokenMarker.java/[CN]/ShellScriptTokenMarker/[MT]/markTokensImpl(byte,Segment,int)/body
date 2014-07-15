@@ -49,11 +49,17 @@ break;
 case '&':
 case '|':
 case ';':
-if (backslash) backslash=false;
- else cmdState=0;
+if (backslash) {
+backslash=false;
+}
+ else {
+cmdState=0;
+}
 break;
 case '#':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 addToken(length - i,Token.COMMENT1);
@@ -62,7 +68,9 @@ break loop;
 }
 break;
 case '$':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 cmdState=2;
@@ -79,11 +87,15 @@ token=Token.KEYWORD2;
 break;
 }
 }
- else token=Token.KEYWORD2;
+ else {
+token=Token.KEYWORD2;
+}
 }
 break;
 case '"':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 token=Token.LITERAL1;
@@ -93,7 +105,9 @@ lastOffset=i;
 }
 break;
 case '\'':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 addToken(i - lastOffset,token);
 token=Token.LITERAL2;
@@ -102,7 +116,9 @@ lastOffset=i;
 }
 break;
 case '<':
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else {
 if (length - i > 1 && array[i1] == '<') {
 addToken(i - lastOffset,token);
@@ -141,24 +157,32 @@ token=Token.NULL;
 }
 break;
 case Token.LITERAL1:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '"') {
 addToken(i1 - lastOffset,token);
 cmdState=2;
 lastOffset=i1;
 token=Token.NULL;
 }
- else backslash=false;
+ else {
+backslash=false;
+}
 break;
 case Token.LITERAL2:
-if (backslash) backslash=false;
+if (backslash) {
+backslash=false;
+}
  else if (c == '\'') {
 addToken(i1 - lastOffset,Token.LITERAL1);
 cmdState=2;
 lastOffset=i1;
 token=Token.NULL;
 }
- else backslash=false;
+ else {
+backslash=false;
+}
 break;
 case LVARIABLE:
 backslash=false;
@@ -174,8 +198,12 @@ throw new InternalError("Invalid state: " + token);
 }
 switch (token) {
 case Token.NULL:
-if (cmdState == 1) addToken(length - lastOffset,Token.KEYWORD1);
- else addToken(length - lastOffset,token);
+if (cmdState == 1) {
+addToken(length - lastOffset,Token.KEYWORD1);
+}
+ else {
+addToken(length - lastOffset,token);
+}
 break;
 case Token.LITERAL2:
 addToken(length - lastOffset,Token.LITERAL1);

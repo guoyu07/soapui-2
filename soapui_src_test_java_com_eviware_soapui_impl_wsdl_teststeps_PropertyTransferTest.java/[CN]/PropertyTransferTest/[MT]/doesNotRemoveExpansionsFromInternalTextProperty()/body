@@ -1,0 +1,6 @@
+{
+  String value="${= someCode() }";
+  sourceProperty.setValue(value);
+  transfer.transferProperties(submitContext);
+  assertThat(targetProperty.getValue(),is(value));
+}

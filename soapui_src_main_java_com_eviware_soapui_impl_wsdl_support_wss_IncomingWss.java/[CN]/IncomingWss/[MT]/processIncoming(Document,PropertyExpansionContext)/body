@@ -1,15 +1,23 @@
 {
   Element header=WSSecurityUtil.findWsseSecurityHeaderBlock(soapDocument,soapDocument.getDocumentElement(),false);
-  if (header == null)   return null;
+  if (header == null) {
+    return null;
+  }
   try {
     WSSecurityEngine wssecurityEngine=new WSSecurityEngine();
     WssCrypto signatureCrypto=getWssContainer().getCryptoByName(getSignatureCrypto());
     WssCrypto decryptCrypto=getWssContainer().getCryptoByName(getDecryptCrypto());
     Crypto sig=signatureCrypto == null ? null : signatureCrypto.getCrypto();
     Crypto dec=decryptCrypto == null ? null : decryptCrypto.getCrypto();
-    if (sig == null && dec == null)     throw new WSSecurityException("Missing cryptos");
-    if (sig == null)     sig=dec;
- else     if (dec == null)     dec=sig;
+    if (sig == null && dec == null) {
+      throw new WSSecurityException("Missing cryptos");
+    }
+    if (sig == null) {
+      sig=dec;
+    }
+ else     if (dec == null) {
+      dec=sig;
+    }
     List<WSSecurityEngineResult> incomingResult=wssecurityEngine.processSecurityHeader(soapDocument,(String)null,new WSSCallbackHandler(dec),sig,dec);
     Vector<Object> wssResult=new Vector<Object>();
     wssResult.setSize(incomingResult.size());

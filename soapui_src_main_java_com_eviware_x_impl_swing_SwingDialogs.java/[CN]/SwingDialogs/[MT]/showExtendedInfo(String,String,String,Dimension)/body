@@ -1,4 +1,9 @@
 {
-  JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(new JButton(new OkAction("OK")));
-  showExtendedInfo(title,description,content,buttonBar,size);
+  SwingUtilities.invokeLater(new Runnable(){
+    public void run(){
+      JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(new JButton(new OkAction("OK")));
+      showExtendedInfo(title,description,content,buttonBar,size);
+    }
+  }
+);
 }

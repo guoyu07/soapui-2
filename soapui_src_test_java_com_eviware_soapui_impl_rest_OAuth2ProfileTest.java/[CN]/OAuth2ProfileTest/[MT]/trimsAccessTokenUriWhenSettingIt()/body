@@ -1,0 +1,5 @@
+{
+  String accessTokenUriWithoutWhitespace="wuryew2347234987";
+  profile.setAccessTokenURI("\t" + accessTokenUriWithoutWhitespace + " \n");
+  assertThat(profile.getAccessTokenURI(),is(accessTokenUriWithoutWhitespace));
+}

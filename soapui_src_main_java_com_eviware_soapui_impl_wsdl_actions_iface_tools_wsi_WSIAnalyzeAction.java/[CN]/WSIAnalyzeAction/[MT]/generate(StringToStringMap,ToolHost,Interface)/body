@@ -8,11 +8,15 @@
       }
     }
   }
-  if (Tools.isEmpty(wsiDir))   return;
+  if (Tools.isEmpty(wsiDir)) {
+    return;
+  }
   ProcessBuilder builder=new ProcessBuilder();
   File reportFile=File.createTempFile("wsi-report",".xml");
   File wsiToolDir=new File(wsiDir + File.separatorChar + "cs"+ File.separatorChar+ "bin");
-  if (!wsiToolDir.exists())   wsiToolDir=new File(wsiDir + File.separatorChar + "java"+ File.separatorChar+ "bin");
+  if (!wsiToolDir.exists()) {
+    wsiToolDir=new File(wsiDir + File.separatorChar + "java"+ File.separatorChar+ "bin");
+  }
   ArgumentBuilder args=buildArgs(wsiToolDir,reportFile,modelItem);
   builder.command(args.getArgs());
   builder.directory(wsiToolDir);

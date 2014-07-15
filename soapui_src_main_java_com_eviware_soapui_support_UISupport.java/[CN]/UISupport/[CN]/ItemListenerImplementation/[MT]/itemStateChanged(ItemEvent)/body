@@ -5,8 +5,12 @@
   }
  else {
     String selectedItem=item.toString();
-    if (item instanceof ModelItem)     selectedItem=((ModelItem)item).getName();
- else     if (item instanceof TestProperty)     selectedItem=((TestProperty)item).getName();
+    if (item instanceof ModelItem) {
+      selectedItem=((ModelItem)item).getName();
+    }
+ else     if (item instanceof TestProperty) {
+      selectedItem=((TestProperty)item).getName();
+    }
     combo.setToolTipText(selectedItem);
   }
 }

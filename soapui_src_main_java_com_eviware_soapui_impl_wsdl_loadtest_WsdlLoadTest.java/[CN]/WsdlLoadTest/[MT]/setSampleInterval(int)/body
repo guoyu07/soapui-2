@@ -1,5 +1,7 @@
 {
-  if (sampleInterval < 0)   return;
+  if (sampleInterval < 0) {
+    return;
+  }
   long oldInterval=getSampleInterval();
   getConfig().setSampleInterval(sampleInterval);
   statisticsModel.setUpdateFrequency(sampleInterval);

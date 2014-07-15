@@ -2,9 +2,13 @@
   TreeMap<String,NodeInfo> result=new TreeMap<String,NodeInfo>();
   for (int cnt=0; cnt < rootXmlTreeNode.getChildCount(); cnt++) {
     XmlTreeNode xmlTreeNodeChild=(XmlTreeNode)rootXmlTreeNode.getChild(cnt);
-    if (xmlTreeNodeChild.getChildCount() > 0)     result.putAll(getElements(rootXmlTreeNode.getChild(cnt)));
+    if (xmlTreeNodeChild.getChildCount() > 0) {
+      result.putAll(getElements(rootXmlTreeNode.getChild(cnt)));
+    }
  else {
-      if (xmlTreeNodeChild.getSchemaType() != null && xmlTreeNodeChild.getSchemaType().isPrimitiveType())       result.put(xmlTreeNodeChild.getDomNode().getLocalName(),new NodeInfo(rootXmlTreeNode.getChild(cnt)));
+      if (xmlTreeNodeChild.getSchemaType() != null && xmlTreeNodeChild.getSchemaType().isPrimitiveType()) {
+        result.put(xmlTreeNodeChild.getDomNode().getLocalName(),new NodeInfo(rootXmlTreeNode.getChild(cnt)));
+      }
     }
   }
   return result;

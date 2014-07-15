@@ -1,6 +1,16 @@
 {
-  String extDir=System.getProperty("soapui.ext.listeners");
-  addExternalListeners(FilenameUtils.normalize(extDir != null ? extDir : root == null ? "listeners" : root + File.separatorChar + "listeners"),extensionClassLoader);
-  String factoriesDir=System.getProperty("soapui.ext.factories");
-  addExternalFactories(FilenameUtils.normalize(factoriesDir != null ? factoriesDir : root == null ? "factories" : root + File.separatorChar + "factories"),extensionClassLoader);
+  try {
+    String extDir=System.getProperty("soapui.ext.listeners");
+    addExternalListeners(FilenameUtils.normalize(extDir != null ? extDir : root == null ? "listeners" : root + File.separatorChar + "listeners"),extensionClassLoader);
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e,"Couldn't load external listeners");
+  }
+  try {
+    String factoriesDir=System.getProperty("soapui.ext.factories");
+    addExternalFactories(FilenameUtils.normalize(factoriesDir != null ? factoriesDir : root == null ? "factories" : root + File.separatorChar + "factories"),extensionClassLoader);
+  }
+ catch (  Throwable e) {
+    SoapUI.logError(e,"Couldn't load external factories");
+  }
 }

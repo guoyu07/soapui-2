@@ -1,16 +1,24 @@
 {
   if (this.xmlDocument != null) {
-    this.xmlDocument.removePropertyChangeListener(XmlDocument.XML_PROPERTY,this);
+    this.xmlDocument.removePropertyChangeListener(EditorDocument.DOCUMENT_PROPERTY,this);
   }
   this.xmlDocument=xmlDocument;
-  xmlChanged=false;
+  editorDocumentChanged=false;
   if (xmlDocument != null) {
-    this.xmlDocument.addPropertyChangeListener(XmlDocument.XML_PROPERTY,this);
-    if (isActive())     setXml(xmlDocument.getXml());
- else     xmlChanged=true;
+    this.xmlDocument.addPropertyChangeListener(EditorDocument.DOCUMENT_PROPERTY,this);
+    if (isActive()) {
+      documentUpdated();
+    }
+ else {
+      editorDocumentChanged=true;
+    }
   }
  else {
-    if (isActive())     setXml(null);
- else     xmlChanged=true;
+    if (isActive()) {
+      documentUpdated();
+    }
+ else {
+      editorDocumentChanged=true;
+    }
   }
 }

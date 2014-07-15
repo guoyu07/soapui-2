@@ -1,0 +1,12 @@
+{
+  Object value=extractValueFromMutable(o);
+  if (value instanceof List) {
+    return new ArrayList<Object>(Lists.transform((List)value,this));
+  }
+ else   if (value instanceof Map) {
+    return new LinkedHashMap<Object,Object>(Maps.transformValues((Map)value,this));
+  }
+ else {
+    return value;
+  }
+}

@@ -28,10 +28,14 @@
     }
     if (XmlUtils.seemsToBeXml(val)) {
       XmlUtils.createXmlObject(val);
-      sourceXPath=UISupport.selectXPath("Select XPath","Select source xpath for property transfer",val,null);
+      sourceXPath=UISupport.selectXPath("Select XPath","Select source xpath",val,null);
+    }
+ else     if (JsonUtil.isValidJson(val)) {
+      sourceXPath=UISupport.selectJsonPath("Select JSON","Select JSON value",val,null);
     }
   }
- catch (  Throwable e) {
+ catch (  Exception e) {
+    e.printStackTrace();
   }
   if (StringUtils.hasContent(sourceXPath)) {
     sourceXPath=PropertyExpansionUtils.shortenXPathForPropertyExpansion(sourceXPath,val);

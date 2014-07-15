@@ -1,6 +1,8 @@
 {
   String nodeName=mockOperation instanceof RestMockAction ? "RestMockAction" : "MockOperation";
   String name=UISupport.prompt("Specify name of " + nodeName,"Rename " + nodeName,mockOperation.getName());
-  if (name == null || name.equals(mockOperation.getName()))   return;
+  if (name == null || name.equals(mockOperation.getName())) {
+    return;
+  }
   mockOperation.setName(name);
 }

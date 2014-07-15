@@ -2,7 +2,9 @@
   contentPanel=new JPanel(new BorderLayout());
   contentEditor=SyntaxEditorUtil.createDefaultJsonSyntaxTextArea();
   MessageExchange me=messageExchangeModelItem.getMessageExchange();
-  if (me != null)   setEditorContent(me);
+  if (me != null) {
+    setEditorContent(me);
+  }
   RTextScrollPane scrollPane=new RTextScrollPane(contentEditor);
   scrollPane.setLineNumbersEnabled(true);
   scrollPane.setFoldIndicatorEnabled(true);

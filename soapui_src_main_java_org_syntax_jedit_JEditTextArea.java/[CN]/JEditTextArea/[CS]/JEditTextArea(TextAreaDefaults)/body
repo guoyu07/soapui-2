@@ -26,8 +26,12 @@
       if ((e.getModifiers() & Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) == Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) {
         int caretLine=getCaretLine();
         int newLine=caretLine + e.getWheelRotation();
-        if (newLine < 0)         newLine=0;
- else         if (newLine > getLineCount() - 1)         newLine=getLineCount() - 1;
+        if (newLine < 0) {
+          newLine=0;
+        }
+ else         if (newLine > getLineCount() - 1) {
+          newLine=getLineCount() - 1;
+        }
         int newPos=getLineStartOffset(newLine);
         setCaretPosition(newPos);
       }

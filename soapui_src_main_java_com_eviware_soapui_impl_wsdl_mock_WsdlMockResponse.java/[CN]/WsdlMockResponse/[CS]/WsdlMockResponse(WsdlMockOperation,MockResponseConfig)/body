@@ -3,6 +3,8 @@
   for (  AttachmentConfig ac : getConfig().getAttachmentList()) {
     attachments.add(new MockFileAttachment(ac,this));
   }
-  if (!config.isSetEncoding())   config.setEncoding("UTF-8");
+  if (!config.isSetEncoding()) {
+    config.setEncoding("UTF-8");
+  }
   iconAnimator=new IconAnimator<WsdlMockResponse>(this,"/mockResponse.gif","/exec_request.gif",4);
 }

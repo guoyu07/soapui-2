@@ -1,0 +1,8 @@
+{
+  String path="/numeric/numericpath";
+  when(reqeust.getPathInfo()).thenReturn(path);
+  when(reqeust.getMethod()).thenReturn(RestRequestInterface.HttpMethod.GET.name());
+  stubMockAsWarServlet.service(reqeust,response);
+  verify(reqeust,atLeastOnce()).getPathInfo();
+  verify(response,atLeastOnce()).getOutputStream();
+}

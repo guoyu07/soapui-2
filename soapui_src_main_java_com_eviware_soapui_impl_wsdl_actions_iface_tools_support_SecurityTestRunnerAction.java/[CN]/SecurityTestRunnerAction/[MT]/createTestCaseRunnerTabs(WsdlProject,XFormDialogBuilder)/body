@@ -7,13 +7,17 @@
       if (newValue.equals(ALL_VALUE)) {
         for (        TestSuite testSuite : testSuites) {
           for (          TestCase testCase : testSuite.getTestCaseList()) {
-            if (!testCases.contains(testCase.getName()))             testCases.add(testCase.getName());
+            if (!testCases.contains(testCase.getName())) {
+              testCases.add(testCase.getName());
+            }
           }
         }
       }
  else {
         TestSuite testSuite=getModelItem().getTestSuiteByName(newValue);
-        if (testSuite != null)         testCases.addAll(Arrays.asList(ModelSupport.getNames(testSuite.getTestCaseList())));
+        if (testSuite != null) {
+          testCases.addAll(Arrays.asList(ModelSupport.getNames(testSuite.getTestCaseList())));
+        }
       }
       testCases.add(0,ALL_VALUE);
       mainForm.setOptions(TESTCASE,testCases.toArray());
@@ -31,7 +35,9 @@
         for (        TestSuite testSuite : testSuites) {
           for (          TestCase testCase : testSuite.getTestCaseList()) {
             for (            SecurityTest securityTest : testCase.getSecurityTestList()) {
-              if (!securityTests.contains(securityTest.getName()))               securityTests.add(securityTest.getName());
+              if (!securityTests.contains(securityTest.getName())) {
+                securityTests.add(securityTest.getName());
+              }
             }
           }
         }
@@ -43,7 +49,9 @@
         }
  catch (        NullPointerException npe) {
         }
-        if (testCase != null)         securityTests.addAll(Arrays.asList(ModelSupport.getNames(testCase.getSecurityTestList())));
+        if (testCase != null) {
+          securityTests.addAll(Arrays.asList(ModelSupport.getNames(testCase.getSecurityTestList())));
+        }
       }
       securityTests.add(0,ALL_VALUE);
       mainForm.setOptions(SECURITYTEST,securityTests.toArray());

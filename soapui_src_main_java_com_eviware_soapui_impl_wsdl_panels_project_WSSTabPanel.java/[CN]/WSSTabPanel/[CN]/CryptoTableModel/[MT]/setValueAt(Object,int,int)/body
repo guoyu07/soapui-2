@@ -1,6 +1,8 @@
 {
   KeyMaterialWssCrypto crypto=(KeyMaterialWssCrypto)cryptos.get(rowIndex);
-  if (aValue == null || aValue.equals(DEFAULT_OPTION))   aValue="";
+  if (aValue == null || aValue.equals(DEFAULT_OPTION)) {
+    aValue="";
+  }
 switch (columnIndex) {
 case 2:
     crypto.setPassword(aValue.toString());

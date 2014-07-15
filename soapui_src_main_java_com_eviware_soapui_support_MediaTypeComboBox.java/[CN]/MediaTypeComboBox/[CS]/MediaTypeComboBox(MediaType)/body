@@ -1,7 +1,9 @@
 {
   super(getMediaTypes());
   setEditable(true);
-  if (model.getMediaType() != null)   setSelectedItem(model.getMediaType());
+  if (model.getMediaType() != null) {
+    setSelectedItem(model.getMediaType());
+  }
   addItemListener(new ItemListener(){
     public void itemStateChanged(    ItemEvent e){
       model.setMediaType(String.valueOf(getSelectedItem()));

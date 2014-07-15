@@ -12,17 +12,23 @@
   }
   fillInTestRunnableListeners();
   runSetupScripts(runContext);
-  if (!isRunning())   return;
+  if (!isRunning()) {
+    return;
+  }
   if (testCase.getTimeout() > 0) {
     startTimeoutTimer(testCase.getTimeout());
   }
   notifyBeforeRun();
-  if (!isRunning())   return;
+  if (!isRunning()) {
+    return;
+  }
   initCount=getStartStep();
   setStartTime();
   for (; initCount < testCase.getTestStepCount() && isRunning(); initCount++) {
     WsdlTestStep testStep=testCase.getTestStepAt(initCount);
-    if (testStep.isDisabled())     continue;
+    if (testStep.isDisabled()) {
+      continue;
+    }
     try {
       testStep.prepare(this,runContext);
     }

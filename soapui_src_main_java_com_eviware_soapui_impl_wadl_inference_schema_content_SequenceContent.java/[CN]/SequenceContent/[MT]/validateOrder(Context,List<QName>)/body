@@ -6,7 +6,9 @@
       if (context.getHandler().callback(ConflictHandler.Event.CREATION,ConflictHandler.Type.ELEMENT,item,context.getPath() + "/" + item.getLocalPart(),"Element has undeclared child element.")) {
         if (item.getNamespaceURI().equals(schema.getNamespace())) {
           Particle element=Particle.Factory.newElementInstance(schema,item.getLocalPart());
-          if (completed)           element.setAttribute("minOccurs","0");
+          if (completed) {
+            element.setAttribute("minOccurs","0");
+          }
           particles.put(item,element);
         }
  else {
@@ -19,22 +21,30 @@
           if (ref == null) {
             ref=otherSchema.newElement(item.getLocalPart());
           }
-          if (completed)           ref.setAttribute("minOccurs","0");
+          if (completed) {
+            ref.setAttribute("minOccurs","0");
+          }
           particles.put(item,Particle.Factory.newReferenceInstance(schema,ref));
         }
       }
- else       return false;
+ else {
+        return false;
+      }
     }
     if (comesBefore.containsKey(item)) {
       for (      QName item2 : comesBefore.get(item)) {
-        if (seen.contains(item2))         return false;
+        if (seen.contains(item2)) {
+          return false;
+        }
       }
     }
  else {
       comesBefore.put(item,new ArrayList<QName>());
     }
     for (    QName item2 : seen) {
-      if (!comesBefore.get(item2).contains(item))       comesBefore.get(item2).add(item);
+      if (!comesBefore.get(item2).contains(item)) {
+        comesBefore.get(item2).add(item);
+      }
     }
     seen.add(item);
   }

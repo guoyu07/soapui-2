@@ -1,8 +1,0 @@
-{
-  PropertyTransfer transfer=new PropertyTransfer(null,PropertyTransferConfig.Factory.newInstance());
-  DefaultTestStepProperty sourceProperty=new DefaultTestStepProperty("source",null);
-  sourceProperty.setValue("Test");
-  DefaultTestStepProperty targetProperty=new DefaultTestStepProperty("target",null);
-  transfer.transferStringToString(sourceProperty,targetProperty);
-  assertEquals(sourceProperty.getValue(),targetProperty.getValue());
-}

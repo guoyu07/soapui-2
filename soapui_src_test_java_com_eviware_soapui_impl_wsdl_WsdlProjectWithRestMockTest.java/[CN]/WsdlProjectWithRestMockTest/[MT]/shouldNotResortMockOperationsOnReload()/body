@@ -1,0 +1,9 @@
+{
+  RestMockService restMockService=project.addNewRestMockService("x");
+  restMockService.addEmptyMockAction(RestRequestInterface.HttpMethod.GET,"b");
+  restMockService.addEmptyMockAction(RestRequestInterface.HttpMethod.GET,"a");
+  WsdlProject reloadedProject=saveAndReloadProject(project);
+  RestMockService mockServiceX=reloadedProject.getRestMockServiceByName("x");
+  assertThat(mockServiceX.getMockOperationAt(0).getName(),is("b"));
+  assertThat(mockServiceX.getMockOperationAt(1).getName(),is("a"));
+}
