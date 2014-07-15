@@ -1,0 +1,7 @@
+{
+  StringToStringsMap requestHeaders=new StringToStringsMap();
+  SubmitContext context=mockContext();
+  AbstractHttpRequest<?> request=mockRequest(requestHeaders);
+  globalHttpHeadersRequestFilter.filterAbstractHttpRequest(context,request);
+  Mockito.verifyZeroInteractions(request);
+}

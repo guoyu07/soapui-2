@@ -1,0 +1,10 @@
+{
+  if (headersToAdd == null || !isCacheHeaders()) {
+synchronized (this) {
+      if (headersToAdd == null || !isCacheHeaders())       initHeadersToAdd();
+    }
+  }
+  if (!headersToAdd.isEmpty()) {
+    addHeadersToRequest(context,request);
+  }
+}

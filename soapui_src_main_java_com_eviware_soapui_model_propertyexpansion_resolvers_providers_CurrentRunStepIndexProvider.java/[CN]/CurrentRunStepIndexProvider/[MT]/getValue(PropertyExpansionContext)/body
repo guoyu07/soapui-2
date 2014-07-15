@@ -1,0 +1,7 @@
+{
+  if (context instanceof TestRunContext) {
+    TestRunner runner=((TestRunContext)context).getTestRunner();
+    if (runner instanceof AbstractTestCaseRunner)     return String.valueOf(((AbstractTestCaseRunner)runner).getResultCount());
+  }
+  return null;
+}
