@@ -19,4 +19,6 @@
   when(contextMock.expand(ALIAS)).thenReturn(ALIAS);
   when(contextMock.expand(KEY_PASSWORD)).thenReturn(KEY_PASSWORD);
   when(contextMock.expand(ISSUER)).thenReturn(ISSUER);
+  when(contextMock.expand("Assertion-01")).thenReturn("Assertion-01");
+  when(contextMock.expand(WSConstants.WSS_SAML_KI_VALUE_TYPE)).thenReturn(WSConstants.WSS_SAML_KI_VALUE_TYPE);
 }
