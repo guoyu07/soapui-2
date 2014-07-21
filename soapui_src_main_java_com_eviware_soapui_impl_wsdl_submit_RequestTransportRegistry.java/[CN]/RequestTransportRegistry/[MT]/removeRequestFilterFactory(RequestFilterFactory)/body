@@ -2,7 +2,9 @@
   String protocol=factory.getProtocol();
   if (addedCustomRequestFilters.containsKey(protocol)) {
     for (    RequestFilter filter : addedCustomRequestFilters.get(protocol)) {
-      for (      RequestTransport transport : transports.values())       transport.removeRequestFilter(filter);
+      for (      RequestTransport transport : transports.values()) {
+        transport.removeRequestFilter(filter);
+      }
     }
     addedCustomRequestFilters.remove(protocol);
   }
