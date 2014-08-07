@@ -20,6 +20,7 @@
   }
   for (int c=0; c < result.length; c++) {
     result[c].afterLoad();
+    result[c].afterCopy(oldTestCase.getTestSuite(),oldTestCase);
     if (getTestSuite() != null) {
       (getTestSuite()).fireTestStepAdded(result[c],getIndexOfTestStep(result[c]));
     }

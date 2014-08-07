@@ -17,6 +17,8 @@
     testSteps.add(ix,testStep);
   }
   testStep.afterLoad();
+  WsdlTestSuite oldTestSuite=oldTestCase == null ? null : oldTestCase.getTestSuite();
+  testStep.afterCopy(oldTestSuite,oldTestCase);
   if (getTestSuite() != null) {
     (getTestSuite()).fireTestStepAdded(testStep,ix == -1 ? testSteps.size() - 1 : ix);
   }
