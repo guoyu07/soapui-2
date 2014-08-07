@@ -4,8 +4,10 @@
     UISupport.showErrorMessage("Error loading test case ");
     return;
   }
+  WsdlTestCase oldTestCase=null;
   try {
     importTestCaseConfig=TestCaseDocumentConfig.Factory.parse(file).getTestCase();
+    oldTestCase=buildTestCase(TestCaseDocumentConfig.Factory.parse(file).getTestCase(),false);
   }
  catch (  Exception e) {
     SoapUI.logError(e);
@@ -26,6 +28,8 @@
       }
     }
     newTestCase.afterLoad();
+    WsdlTestSuite oldTestSuite=oldTestCase == null ? null : oldTestCase.getTestSuite();
+    newTestCase.afterCopy(oldTestSuite,oldTestCase);
     testCases.add(newTestCase);
     fireTestCaseAdded(newTestCase);
     resolveImportedTestCase(newTestCase);

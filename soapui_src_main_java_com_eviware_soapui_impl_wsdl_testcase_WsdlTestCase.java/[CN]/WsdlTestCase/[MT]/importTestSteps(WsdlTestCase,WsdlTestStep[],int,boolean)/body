@@ -4,7 +4,7 @@
     testSteps[c].beforeSave();
     newStepConfigs[c]=(TestStepConfig)testSteps[c].getConfig().copy();
   }
-  WsdlTestStep[] result=insertTestSteps(newStepConfigs,index,createCopies);
+  WsdlTestStep[] result=insertTestSteps(oldTestCase,newStepConfigs,index,createCopies);
   resolveTestCase();
   return result;
 }
