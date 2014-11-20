@@ -86,6 +86,7 @@ break;
 }
 if (testRequest.isDiscardResponse() && !SoapUI.getDesktop().hasDesktopPanel(this)) {
 testRequest.setResponse(null,runContext);
+runContext.removeProperty(BaseHttpRequestTransport.RESPONSE);
 }
 return testStepResult;
 }

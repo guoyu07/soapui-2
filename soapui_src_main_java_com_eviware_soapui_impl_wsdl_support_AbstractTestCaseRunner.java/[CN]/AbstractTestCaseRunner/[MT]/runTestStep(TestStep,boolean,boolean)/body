@@ -11,7 +11,7 @@
       testRunListeners[i].afterStep(this,getRunContext(),stepResult);
     }
   }
-  if (discard && stepResult.getStatus() == TestStepStatus.OK && getTestCase().getDiscardOkResults() && !stepResult.isDiscarded()) {
+  if (discard && stepResult.getStatus() != TestStepStatus.FAILED && getTestCase().getDiscardOkResults() && !stepResult.isDiscarded()) {
     stepResult.discard();
   }
   if (process && stepResult.getStatus() == TestStepStatus.FAILED) {
