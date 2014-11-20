@@ -3,7 +3,8 @@
     File fromDir=new File(System.getProperty(SOAPUI_HOME),".." + File.separator + "lib");
     JarPackager.copyAllFromTo(fromDir,lib,new CaseInsensitiveFileFilter());
     if (includeExt) {
-      fromDir=new File(System.getProperty(SOAPUI_HOME),"ext");
+      String extDirPath=System.getProperty("soapui.ext.libraries");
+      fromDir=extDirPath != null ? new File(extDirPath) : new File(new File(System.getProperty(SOAPUI_HOME)),"ext");
       JarPackager.copyAllFromTo(fromDir,lib,null);
     }
     File soapUIHome=new File(System.getProperty(SOAPUI_HOME));
