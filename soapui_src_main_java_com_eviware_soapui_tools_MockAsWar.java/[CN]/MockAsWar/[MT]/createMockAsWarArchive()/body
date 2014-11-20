@@ -5,6 +5,7 @@
       if (prepareWarFile()) {
         createWebXml();
         if (warFile != null) {
+          warFile.getParentFile().mkdirs();
           ArrayList<File> files=getAllFilesFrom(webInf);
           files.add(new File(warDir,"stylesheet.css"));
           files.add(new File(warDir,"header_logo.png"));
