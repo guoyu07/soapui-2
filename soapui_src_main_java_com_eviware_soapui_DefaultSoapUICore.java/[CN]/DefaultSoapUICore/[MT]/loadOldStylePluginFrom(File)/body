@@ -4,15 +4,15 @@
   extensionClassLoader.addFile(pluginFile);
   JarEntry entry=jarFile.getJarEntry("META-INF/factories.xml");
   if (entry != null) {
-    factoryRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
+    getFactoryRegistry().addConfig(jarFile.getInputStream(entry),extensionClassLoader);
   }
   entry=jarFile.getJarEntry("META-INF/listeners.xml");
   if (entry != null) {
-    listenerRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
+    getListenerRegistry().addConfig(jarFile.getInputStream(entry),extensionClassLoader);
   }
   entry=jarFile.getJarEntry("META-INF/actions.xml");
   if (entry != null) {
-    actionRegistry.addConfig(jarFile.getInputStream(entry),extensionClassLoader);
+    getActionRegistry().addConfig(jarFile.getInputStream(entry),extensionClassLoader);
   }
   UISupport.addResourceClassLoader(new URLClassLoader(new URL[]{pluginFile.toURI().toURL()}));
 }
