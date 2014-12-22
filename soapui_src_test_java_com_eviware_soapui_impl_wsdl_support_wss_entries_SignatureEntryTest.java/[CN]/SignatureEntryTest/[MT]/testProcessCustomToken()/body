@@ -1,0 +1,14 @@
+{
+  signatureEntry.setKeyIdentifierType(WSConstants.CUSTOM_KEY_IDENTIFIER);
+  signatureEntry.setCustomTokenId("Assertion-01");
+  signatureEntry.setCustomTokenValueType(WSConstants.WSS_SAML_KI_VALUE_TYPE);
+  setRequiredFields();
+  doc=XmlUtils.parseXml(TestUtils.SAMPLE_SOAP_MESSAGE_CUSTOM_TOKEN);
+  secHeader=new WSSecHeader();
+  secHeader.insertSecurityHeader(doc);
+  signatureEntry.process(secHeader,doc,contextMock);
+  System.out.println(TestUtils.SAMPLE_SOAP_MESSAGE_CUSTOM_TOKEN);
+  System.out.println(XmlUtils.serialize(doc));
+  assertNotNull(xpath.evaluate("//ds:Signature",doc,XPathConstants.NODE));
+  validateSignature();
+}
