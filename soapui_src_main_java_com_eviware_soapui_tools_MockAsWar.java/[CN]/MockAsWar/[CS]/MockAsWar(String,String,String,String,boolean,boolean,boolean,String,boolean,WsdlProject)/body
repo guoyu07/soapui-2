@@ -5,7 +5,7 @@
   this.settingsFile=StringUtils.hasContent(settingsPath) ? new File(settingsPath) : null;
   this.warDir=StringUtils.hasContent(warDir) ? new File(warDir) : new File(System.getProperty("java.io.tmpdir"),"warasmock");
   if (!this.warDir.exists()) {
-    this.warDir.mkdir();
+    this.warDir.mkdirs();
   }
   this.warFile=!StringUtils.hasContent(warFile) ? null : new File(warFile);
   this.includeExt=includeExt;

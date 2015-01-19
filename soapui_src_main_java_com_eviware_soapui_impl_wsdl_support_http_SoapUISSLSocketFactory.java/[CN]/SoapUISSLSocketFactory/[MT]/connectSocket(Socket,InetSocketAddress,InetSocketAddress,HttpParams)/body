@@ -24,7 +24,7 @@
     sslsock=(SSLSocket)sock;
   }
  else {
-    sslsock=(SSLSocket)getSocketFactory().createSocket(sock,remoteAddress.getHostName(),remoteAddress.getPort(),true);
+    sslsock=(SSLSocket)sslContext.getSocketFactory().createSocket(sock,remoteAddress.getHostName(),remoteAddress.getPort(),true);
     sslsock=enableSocket(sslsock);
   }
   return sslsock;

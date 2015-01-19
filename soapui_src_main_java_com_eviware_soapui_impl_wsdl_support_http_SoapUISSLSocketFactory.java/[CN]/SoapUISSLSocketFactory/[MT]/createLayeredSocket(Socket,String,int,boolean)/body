@@ -1,5 +1,5 @@
 {
-  SSLSocket sslSocket=(SSLSocket)getSocketFactory().createSocket(socket,host,port,autoClose);
+  SSLSocket sslSocket=(SSLSocket)sslContext.getSocketFactory().createSocket(socket,host,port,autoClose);
   sslSocket=enableSocket(sslSocket);
   return sslSocket;
 }

@@ -1,4 +1,5 @@
 {
+  signatureEntry.setKeyIdentifierType(WSConstants.BST_DIRECT_REFERENCE);
   setRequiredFields();
   signatureEntry.process(secHeader,doc,contextMock);
   assertNotNull(xpath.evaluate("//wsse:BinarySecurityToken",doc,XPathConstants.NODE));
