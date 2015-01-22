@@ -1,0 +1,22 @@
+{
+  Map<String,Object> event=new HashMap<String,Object>();
+switch (actionDescription.getCategory()) {
+case SESSION_START:
+    sessionStartTime=System.currentTimeMillis();
+  featureUsageCount=new HashMap<String,Integer>();
+return;
+case SESSION_STOP:
+populateEventMapWithSessionData(actionDescription,event);
+sendEvent(KeenIOCollections.SESSIONS.toString().toLowerCase(),event);
+break;
+case ACTION:
+populateFeatureUsageCount(actionDescription);
+break;
+case LICENSE_UPDATE:
+populateEventMapWithActionData(actionDescription,event);
+sendEvent(KeenIOCollections.LicenseUpdate.toString(),event);
+break;
+default :
+break;
+}
+}

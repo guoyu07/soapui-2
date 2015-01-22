@@ -1,0 +1,12 @@
+{
+  try {
+    if (AnalyticsManager.Category.LICENSE_UPDATE == actionDescription.getCategory()) {
+      return;
+    }
+    sendRecord(buildParametersString(actionDescription));
+    trackActiveScreen(actionDescription.getActionName());
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

@@ -1,0 +1,21 @@
+{
+  event.put("license_type",getLicenseType());
+  event.put("license_id","");
+  event.put("soapui_version",getSoapUIVersion());
+  Map<String,Object> session=new HashMap<String,Object>();
+  session.put("id",actionDescription.getSessionId());
+  session.put("duration",String.valueOf((System.currentTimeMillis() - sessionStartTime) / 1000));
+  session.put("start_time",new Date(sessionStartTime).toString());
+  event.put("session",session);
+  if (featureUsageCount != null) {
+    event.put("features",featureUsageCount);
+  }
+  Map<String,Object> environment=new HashMap<String,Object>();
+  environment.put("os_name",getOsName());
+  environment.put("os_version",getOsVersion());
+  environment.put("java_version",getJavaVersion());
+  environment.put("screensize",getStrScreenSize());
+  environment.put("user_country",getUserCountry());
+  environment.put("user_language",getUserLanguage());
+  event.put("environment",environment);
+}

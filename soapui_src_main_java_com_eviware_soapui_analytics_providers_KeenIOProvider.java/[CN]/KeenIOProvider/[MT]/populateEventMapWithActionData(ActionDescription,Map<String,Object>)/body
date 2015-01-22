@@ -1,0 +1,10 @@
+{
+  event.put("action",actionDescription.getActionName());
+  event.put("session_id",actionDescription.getSessionId());
+  Map<String,String> params=actionDescription.getParams();
+  if (params != null) {
+    for (    String key : params.keySet()) {
+      event.put(key,params.get(key));
+    }
+  }
+}

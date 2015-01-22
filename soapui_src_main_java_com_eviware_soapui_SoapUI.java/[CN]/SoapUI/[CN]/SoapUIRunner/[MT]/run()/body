@@ -1,4 +1,9 @@
 {
+  initializeAnalytics();
+  boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+  if (isDebug) {
+    Analytics.trackAction("DebuggingMode");
+  }
   addStandardPreferencesShortcutOnMac();
   boolean isFirstLaunch=!DefaultSoapUICore.settingsFileExists();
   Properties props=new Properties();
