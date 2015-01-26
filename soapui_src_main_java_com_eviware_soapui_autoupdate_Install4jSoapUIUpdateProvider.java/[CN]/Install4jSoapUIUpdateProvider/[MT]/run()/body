@@ -1,0 +1,22 @@
+{
+  Date now=new Date();
+  Date whenCheck=new Date(SoapUI.getSettings().getLong(NEXT_AUTO_UPDATE_CHECK,now.getTime()));
+  if (!now.before(whenCheck)) {
+    String error=checkURLisReachable(APPLICATION_UPDATES_XML_URL);
+    if (StringUtils.hasContent(error)) {
+      logger.info(error);
+    }
+ else {
+      UpdateCheckResult checkResult=checkUpdate();
+      if (StringUtils.hasContent(checkResult.errorText)) {
+        logger.info(checkResult.errorText);
+        return;
+      }
+      if (checkResult.version != null && !autoCheckCancelled) {
+        if (!updatePostponedByUser(checkResult.version,new SoapUIVersionInfo(this.currentVersion),checkResult.comments)) {
+          update(true);
+        }
+      }
+    }
+  }
+}

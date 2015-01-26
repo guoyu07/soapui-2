@@ -1,0 +1,18 @@
+{
+  JPanel mainPanel=new JPanel(new GridBagLayout());
+  mainPanel.add(UISupport.buildDescription(NEW_VERSION_AVAILABLE_MESSAGE,NEW_VERSION_AVAILABLE_MESSAGE_EX,null),new GridBagConstraints(0,0,2,1,0,0,GridBagConstraints.WEST,GridBagConstraints.HORIZONTAL,new Insets(0,0,0,0),0,0));
+  mainPanel.add(new JLabel("Current version:"),new GridBagConstraints(0,1,1,1,0,0,GridBagConstraints.WEST,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+  mainPanel.add(new JLabel(curVersion.toString()),new GridBagConstraints(1,1,1,1,1,0,GridBagConstraints.WEST,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+  mainPanel.add(new JLabel("New version:"),new GridBagConstraints(0,2,1,1,0,0,GridBagConstraints.WEST,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+  mainPanel.add(new JLabel(newProductVersion.toString()),new GridBagConstraints(1,2,1,1,1,0,GridBagConstraints.WEST,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+  JEditorPane releaseNotesPane=createReleaseNotesPane();
+  JScrollPane scb=new JScrollPane(releaseNotesPane);
+  scb.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),"Release notes"));
+  mainPanel.add(scb,new GridBagConstraints(0,3,2,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(4,4,4,4),0,0));
+  JPanel toolbar=buildToolbar(this);
+  mainPanel.add(toolbar,new GridBagConstraints(0,4,2,1,0,0,GridBagConstraints.WEST,GridBagConstraints.HORIZONTAL,new Insets(4,4,4,4),0,0));
+  setTitle("New Version Check");
+  getContentPane().add(mainPanel);
+  setSize(new Dimension(500,440));
+  UISupport.centerDialog(this);
+}
