@@ -4,6 +4,10 @@
   if (isDebug) {
     Analytics.trackAction("DebuggingMode");
   }
+  SoapUIUpdateProvider updateProvider=new Install4jSoapUIUpdateProvider(SoapUI.SOAPUI_VERSION,SoapUI.getTestMonitor());
+  if (!isDebug && SoapUI.getSettings().getBoolean(VersionUpdateSettings.AUTO_CHECK_VERSION_UPDATE)) {
+    updateProvider.start();
+  }
   addStandardPreferencesShortcutOnMac();
   boolean isFirstLaunch=!DefaultSoapUICore.settingsFileExists();
   Properties props=new Properties();
