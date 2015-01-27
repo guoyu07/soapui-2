@@ -29,14 +29,6 @@
       }
 );
     }
-    if (isAutoUpdateVersion()) {
-      new Thread(new Runnable(){
-        @Override public void run(){
-          new SoapUIVersionUpdate().checkForNewVersion(false);
-        }
-      }
-).start();
-    }
     startCajoServerIfNotOverriddenBySetting();
     if (isFirstLaunch) {
       Tools.openURL(SOAPUI_WELCOME_PAGE);
