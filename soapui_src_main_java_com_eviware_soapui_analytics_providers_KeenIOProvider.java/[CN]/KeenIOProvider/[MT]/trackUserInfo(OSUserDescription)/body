@@ -1,0 +1,10 @@
+{
+  Map<String,Object> event=new HashMap<String,Object>();
+  populateUserInfoWithData(osUserDescription,event);
+  try {
+    KeenClient.client().addEvent(OPEN_SOURCE_USER_COLLECTION_NAME,event);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
