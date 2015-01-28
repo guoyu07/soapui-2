@@ -54,5 +54,10 @@
       }
     }
   }
+  if (workspace.isSupportInformationDialog()) {
+    CollectInfoAboutUserForSupportAction collector=new CollectInfoAboutUserForSupportAction();
+    collector.show();
+    workspace.setSupportInformationDialog(false);
+  }
   return soapUI;
 }
