@@ -7,15 +7,15 @@
     }
  else {
       clearDir(webInf);
-      lib=new File(webInf,"lib");
-      if (!directoryIsUsable(lib)) {
+      warLibDir=new File(webInf,"lib");
+      if (!directoryIsUsable(warLibDir)) {
         return false;
       }
-      soapuiDir=new File(webInf,"soapui");
-      if (!directoryIsUsable(soapuiDir)) {
+      soapUIDir=new File(webInf,"soapui");
+      if (!directoryIsUsable(soapUIDir)) {
         return false;
       }
-      clearDir(soapuiDir);
+      clearDir(soapUIDir);
       if (includeActions) {
         actionsDir=new File(webInf,"actions");
         if (!directoryIsUsable(actionsDir)) {
