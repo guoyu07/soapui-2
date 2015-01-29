@@ -9,7 +9,7 @@
       return;
     }
     File dest=UISupport.getFileDialogs().saveAsDirectory(this,"Select where to unpack it",new File(System.getProperty("user.home")));
-    if (dest.getAbsoluteFile() == null) {
+    if (dest == null) {
       return;
     }
     ProjectExporter.unpackageAll(fileName,dest.getAbsolutePath());
