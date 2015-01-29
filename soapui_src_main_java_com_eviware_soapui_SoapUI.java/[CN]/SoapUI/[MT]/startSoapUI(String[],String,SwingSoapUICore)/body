@@ -7,6 +7,12 @@
   ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
   isStandalone=true;
   soapUICore=core;
+  AnalyticHelper.InitializeAnalytics();
+  Analytics.trackSessionStart();
+  boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+  if (isDebug) {
+    Analytics.trackAction("DebuggingMode");
+  }
   SoapUI soapUI=new SoapUI();
   Workspace workspace=null;
   org.apache.commons.cli.Options options=initSoapUIOptions();
