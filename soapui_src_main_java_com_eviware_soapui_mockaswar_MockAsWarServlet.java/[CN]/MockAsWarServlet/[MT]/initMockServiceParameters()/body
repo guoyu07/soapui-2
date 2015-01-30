@@ -1,7 +1,25 @@
 {
   if (StringUtils.hasContent(getInitParameter("listeners"))) {
     logger.info("Init listeners");
-    System.setProperty("soapui.ext.listeners",getServletContext().getRealPath(getInitParameter("listeners")));
+    String listeners=getInitParameter("listeners");
+    if (listeners != null) {
+      ServletContext sc=getServletContext();
+      if (sc != null) {
+        String realPath=sc.getRealPath(listeners);
+        if (realPath != null) {
+          System.setProperty("soapui.ext.listeners",realPath);
+        }
+ else {
+          logger.info("Listeners not set! Real path not found");
+        }
+      }
+ else {
+        logger.info("Listeners not set! ServletContext not found");
+      }
+    }
+ else {
+      logger.info("Listeners not set! Listeners params not found");
+    }
   }
  else {
     logger.info("Listeners not set!");
