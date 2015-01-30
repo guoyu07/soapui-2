@@ -1,12 +1,16 @@
 {
   SoapUI.ensureGroovyLog();
   WsdlTestStepResult result=new WsdlTestStepResult(this);
+  Logger log=(Logger)context.getProperty("log");
+  if (log == null) {
+    log=logger;
+  }
   try {
     if (scriptText.trim().length() > 0) {
 synchronized (this) {
         scriptEngine.setVariable("context",context);
         scriptEngine.setVariable("testRunner",testRunner);
-        scriptEngine.setVariable("log",logger);
+        scriptEngine.setVariable("log",log);
         result.setTimeStamp(System.currentTimeMillis());
         result.startTimer();
         scriptResult=scriptEngine.run();
