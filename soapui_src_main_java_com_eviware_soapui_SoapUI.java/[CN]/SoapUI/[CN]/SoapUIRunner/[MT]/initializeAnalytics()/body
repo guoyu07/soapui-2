@@ -1,7 +1,7 @@
 {
   AnalyticsManager manager=Analytics.getAnalyticsManager();
   manager.setExecutorService(SoapUI.getThreadPool());
-  manager.registerAnalyticsProviderFactory(new KeenIOProviderFactory());
+  manager.registerAnalyticsProviderFactory(new OSUserProviderFactory());
   if (analyticsDisabled()) {
     return;
   }
