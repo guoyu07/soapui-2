@@ -1,0 +1,14 @@
+{
+  if (isInitialize)   return;
+  isInitialize=true;
+  AnalyticsManager manager=Analytics.getAnalyticsManager();
+  manager.setExecutorService(SoapUI.getThreadPool());
+  manager.registerAnalyticsProviderFactory(new KeenIOProviderFactory());
+  if (analyticsDisabled()) {
+    return;
+  }
+  manager.registerAnalyticsProviderFactory(new GoogleAnalyticsProviderFactory());
+  if (System.getProperty("soapui.analytics.logtab","false").equals("true")) {
+    manager.registerAnalyticsProviderFactory(new LogTabAnalyticsProvider.LogTabAnalyticsProviderFactory());
+  }
+}

@@ -1,0 +1,27 @@
+{
+  String newVersion=null;
+  UpdateDescriptorEntry entry=null;
+  try {
+    UpdateDescriptor descriptor=getUpdateDescriptor();
+    if (descriptor != null) {
+      entry=descriptor.getPossibleUpdateEntry();
+      if (entry != null) {
+        newVersion=entry.getNewVersion();
+      }
+    }
+  }
+ catch (  UserCanceledException ex) {
+    return UpdateCheckResult.error(TERMINATED);
+  }
+catch (  IOException ex) {
+    return UpdateCheckResult.error(ex.getMessage());
+  }
+  if (newVersion != null && newVersion.length() != 0) {
+    SoapUIVersionInfo newVersionObj=new SoapUIVersionInfo(newVersion);
+    SoapUIVersionInfo currentVersionObj=new SoapUIVersionInfo(currentVersion);
+    if (currentVersionObj.compare(currentVersionObj,newVersionObj) < 0) {
+      return UpdateCheckResult.found(newVersionObj,entry.getComment());
+    }
+  }
+  return UpdateCheckResult.noUpdate();
+}

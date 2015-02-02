@@ -1,9 +1,8 @@
 {
-  initializeAnalytics();
-  Analytics.trackOSUser("Ilya","Avdeev","Ilya.Avdeev@smartbear.com");
   boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-  if (isDebug) {
-    Analytics.trackAction("DebuggingMode");
+  SoapUIUpdateProvider updateProvider=SoapUIAutoUpdaterUtils.getProvider();
+  if (!isDebug && SoapUI.getSettings().getBoolean(VersionUpdateSettings.AUTO_CHECK_VERSION_UPDATE)) {
+    updateProvider.start();
   }
   addStandardPreferencesShortcutOnMac();
   boolean isFirstLaunch=!DefaultSoapUICore.settingsFileExists();
@@ -25,14 +24,6 @@
         }
       }
 );
-    }
-    if (isAutoUpdateVersion()) {
-      new Thread(new Runnable(){
-        @Override public void run(){
-          new SoapUIVersionUpdate().checkForNewVersion(false);
-        }
-      }
-).start();
     }
     startCajoServerIfNotOverriddenBySetting();
     if (isFirstLaunch) {

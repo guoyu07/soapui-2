@@ -1,0 +1,13 @@
+{
+  try {
+    SoapUI.saveSettings();
+    SaveStatus saveStatus=SoapUI.getWorkspace().onClose();
+    if (saveStatus == SaveStatus.CANCELLED || saveStatus == SaveStatus.FAILED) {
+      return;
+    }
+  }
+ catch (  Exception e1) {
+    logger.error("Error saving settings during exit",e1);
+  }
+  SoapUI.shutdown();
+}

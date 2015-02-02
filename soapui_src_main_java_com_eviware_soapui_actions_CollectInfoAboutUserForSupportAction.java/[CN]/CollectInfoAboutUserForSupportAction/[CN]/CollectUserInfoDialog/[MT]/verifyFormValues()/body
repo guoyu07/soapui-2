@@ -1,0 +1,25 @@
+{
+  List<String> fieldErrors=new ArrayList<String>();
+  if (StringUtils.isNullOrEmpty(form.getComponentValue(FIRST_NAME)) || StringUtils.isNullOrEmpty(form.getComponentValue(LAST_NAME))) {
+    fieldErrors.add("your name");
+  }
+  if (!isValidEmailAddress(form.getComponentValue(WORK_EMAIL))) {
+    fieldErrors.add("a valid email address");
+  }
+  if (fieldErrors.isEmpty()) {
+    return true;
+  }
+ else {
+    StringBuilder buf=new StringBuilder("You must enter ");
+    int numberOfErrors=fieldErrors.size();
+    for (int i=0; i < numberOfErrors; i++) {
+      if (i > 0) {
+        buf.append(i < numberOfErrors - 1 ? ", " : " and ");
+      }
+      buf.append(fieldErrors.get(i));
+    }
+    buf.append(".");
+    UISupport.showErrorMessage(buf.toString());
+    return false;
+  }
+}
