@@ -1,7 +1,7 @@
 {
   if (createWarFileSystem()) {
     String homePath=System.getProperty(SOAPUI_HOME) == null ? SOAPUI_BIN_FOLDER : System.getProperty(SOAPUI_HOME);
-    File fromDir=new File(System.getProperty(SOAPUI_HOME),SOAPUI_LIB_FOLDER);
+    File fromDir=new File(homePath,SOAPUI_LIB_FOLDER);
     JarPackager.copyAllFromTo(fromDir,warLibDir,new CaseInsensitiveFileFilter());
     if (includeExt) {
       String extDirPath=System.getProperty("soapui.ext.libraries");
