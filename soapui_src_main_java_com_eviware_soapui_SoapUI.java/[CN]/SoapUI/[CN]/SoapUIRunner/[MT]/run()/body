@@ -1,9 +1,5 @@
 {
-  initializeAnalytics();
   boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-  if (isDebug) {
-    Analytics.trackAction("DebuggingMode");
-  }
   SoapUIUpdateProvider updateProvider=SoapUIAutoUpdaterUtils.getProvider();
   if (!isDebug && SoapUI.getSettings().getBoolean(VersionUpdateSettings.AUTO_CHECK_VERSION_UPDATE)) {
     updateProvider.start();
