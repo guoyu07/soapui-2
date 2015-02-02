@@ -1,8 +1,4 @@
 {
-  Map<String,Object> event=new HashMap<String,Object>();
-  try {
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
+  String requestParams=prepareRequestParams(osUserDescription);
+  sendRecord(ANALYTICS_SERVER_URL,requestParams);
 }
