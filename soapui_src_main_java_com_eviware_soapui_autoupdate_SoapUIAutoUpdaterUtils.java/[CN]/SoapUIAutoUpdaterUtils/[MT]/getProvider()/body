@@ -1,0 +1,8 @@
+{
+  if (new File(".." + File.separator + ".install4j").exists() && !UISupport.isHeadless()) {
+    return new Install4jSoapUIUpdateProvider(SoapUI.SOAPUI_VERSION,SoapUI.getTestMonitor());
+  }
+ else {
+    return new SoapUIUpdateProviderStub();
+  }
+}
