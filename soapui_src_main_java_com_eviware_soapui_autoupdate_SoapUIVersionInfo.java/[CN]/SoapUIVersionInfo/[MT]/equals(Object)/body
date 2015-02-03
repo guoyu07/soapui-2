@@ -1,0 +1,10 @@
+{
+  SoapUIVersionInfo ver=(SoapUIVersionInfo)obj;
+  if (ver == null) {
+    return false;
+  }
+  if (getMajorVersion() == ver.getMajorVersion() && getMiddleVersion() == ver.getMiddleVersion() && getMinorVersion() == ver.getMinorVersion()) {
+    return true;
+  }
+  return false;
+}

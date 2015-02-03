@@ -5,6 +5,9 @@
   if (log == null) {
     log=logger;
   }
+ else {
+    log.addAppender(logger.getAppender("GLOBAL_GROOVY_LOG"));
+  }
   try {
     if (scriptText.trim().length() > 0) {
 synchronized (this) {

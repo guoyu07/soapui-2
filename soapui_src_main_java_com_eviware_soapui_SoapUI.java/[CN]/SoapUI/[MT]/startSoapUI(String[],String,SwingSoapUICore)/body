@@ -7,7 +7,7 @@
   ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
   isStandalone=true;
   soapUICore=core;
-  AnalyticHelper.InitializeAnalytics();
+  AnalyticsHelper.InitializeAnalytics();
   Analytics.trackSessionStart();
   boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
   if (isDebug) {
@@ -60,10 +60,12 @@
       }
     }
   }
-  if (workspace.isSupportInformationDialog()) {
-    CollectInfoAboutUserForSupportAction collector=new CollectInfoAboutUserForSupportAction();
-    collector.show();
-    workspace.setSupportInformationDialog(false);
+  if (SoapUI.usingGraphicalEnvironment()) {
+    if (workspace.isSupportInformationDialog()) {
+      CollectInfoAboutUserForSupportAction collector=new CollectInfoAboutUserForSupportAction();
+      collector.show();
+      workspace.setSupportInformationDialog(false);
+    }
   }
   return soapUI;
 }
