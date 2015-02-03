@@ -1,0 +1,12 @@
+{
+  JEditorPane text=new JEditorPane();
+  try {
+    text.setPage(this.releaseNotes);
+    text.setEditable(false);
+  }
+ catch (  IOException e) {
+    text.setText("No release notes");
+    SoapUI.logError(e);
+  }
+  return text;
+}
