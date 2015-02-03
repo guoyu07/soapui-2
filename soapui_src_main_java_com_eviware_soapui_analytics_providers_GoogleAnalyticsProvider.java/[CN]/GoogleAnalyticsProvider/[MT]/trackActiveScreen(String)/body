@@ -7,8 +7,8 @@
     for (int i=0; i < mac.length; i++) {
       sb.append(String.format("%d",mac[i]));
     }
-    gaParametersString=String.format("v=1&an=%s&av=%s&cd=%s&tid=%s&cid=%s&t=screenview&cd=%s&sr=%s",urlEncodeWithUtf8("SoapUI-pro"),urlEncodeWithUtf8(getSoapUIVersion()),"undefined",GA_ID,sb.toString(),urlEncodeWithUtf8(screenName),getStrScreenSize());
-    sendRecord(gaParametersString);
+    gaParametersString=String.format("v=1&an=%s&av=%s&cd=%s&tid=%s&cid=%s&t=screenview&cd=%s&sr=%s",urlEncodeWithUtf8(SoapUI_REVISION),urlEncodeWithUtf8(getSoapUIVersion()),"undefined",GA_ID,sb.toString(),urlEncodeWithUtf8(screenName),getStrScreenSize());
+    sendRecord(GA_URL,gaParametersString);
   }
  catch (  Exception e) {
     e.printStackTrace();
