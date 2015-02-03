@@ -1,0 +1,22 @@
+{
+  this.asString=version;
+  String[] versionParts=version.split("\\.");
+  try {
+    majorVersion=Integer.parseInt(versionParts[0]);
+  }
+ catch (  NumberFormatException ex) {
+    majorVersion=0;
+  }
+  try {
+    middleVersion=Integer.parseInt(versionParts[1]);
+  }
+ catch (  NumberFormatException ex) {
+    middleVersion=0;
+  }
+  try {
+    minorVersion=Integer.parseInt(versionParts[2]);
+  }
+ catch (  NumberFormatException ex) {
+    minorVersion=0;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  try {
+    ApplicationLauncher.launchApplication(APPLICATION_SILENT_VERSION_CHECK_ID,null,blocking,new ApplicationLauncher.Callback(){
+      @Override public void exited(      int i){
+      }
+      @Override public void prepareShutdown(){
+        if (testMonitor.hasRunningTests()) {
+          testMonitor.cancelAllTests("Terminated because of auto-update.");
+        }
+        DoExit();
+      }
+    }
+);
+  }
+ catch (  IOException exception) {
+    return false;
+  }
+  return true;
+}
