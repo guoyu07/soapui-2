@@ -3,6 +3,17 @@
     UISupport.showErrorMessage("Missing help URL");
   }
  else {
-    Tools.openURL(url);
+    if (url.substring(0,4).equals("http")) {
+      helpurl=url;
+    }
+ else {
+      if ((e.getModifiers() & ActionEvent.SHIFT_MASK) == ActionEvent.SHIFT_MASK) {
+        helpurl=HelpUrls.BASE_URL_DEV + url;
+      }
+ else {
+        helpurl=HelpUrls.BASE_URL_PROD + url;
+      }
+    }
+    Tools.openURL(helpurl);
   }
 }
