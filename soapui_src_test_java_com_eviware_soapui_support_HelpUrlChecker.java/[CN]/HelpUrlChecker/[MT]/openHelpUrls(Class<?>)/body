@@ -1,0 +1,17 @@
+{
+  for (  Field field : helpUrlsClass.getDeclaredFields()) {
+    String url=(String)field.get(null);
+    if (!StringUtils.isNullOrEmpty(url)) {
+      try {
+        int responseCode=((HttpURLConnection)new URL(url).openConnection()).getResponseCode();
+        if (responseCode != 200) {
+          System.out.println(responseCode + " " + url);
+        }
+      }
+ catch (      Exception e) {
+        System.out.println("Error: " + url);
+        e.printStackTrace();
+      }
+    }
+  }
+}
