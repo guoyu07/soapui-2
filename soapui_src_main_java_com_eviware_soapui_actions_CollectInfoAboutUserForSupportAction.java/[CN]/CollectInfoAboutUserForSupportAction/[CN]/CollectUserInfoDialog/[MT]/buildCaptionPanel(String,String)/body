@@ -1,0 +1,17 @@
+{
+  JPanel jRoot=new JPanel(new BorderLayout());
+  jRoot.setBorder(new EmptyBorder(10,25,0,25));
+  setBackgroundColor(jRoot);
+  title=new JLabel();
+  setBackgroundColor(title);
+  title.setText("<html><div style=\"font-size: 11px\"><b>" + titleStr + "</b></div></html>");
+  title.setOpaque(true);
+  title.setBackground(Color.WHITE);
+  description=new JLabel();
+  setBackgroundColor(description);
+  description.setText("<html><div style=\"font-size: 9px\">" + descriptionStr + "</div></html>");
+  description.setBorder(new EmptyBorder(5,0,0,0));
+  jRoot.add(title,BorderLayout.NORTH);
+  jRoot.add(description);
+  return jRoot;
+}

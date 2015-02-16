@@ -1,5 +1,12 @@
 {
-  super("Stay Tuned!","Please provide your name and e-mail to receive updates and additional materials for SoapUI","www.smartbear.com");
-  this.setModal(true);
+  super(UISupport.getMainFrame(),DIALOG_CAPTION,true);
+  setModal(true);
+  setSize(430,265);
+  setBackground(Color.WHITE);
+  JPanel jBasePanel=new JPanel(new BorderLayout(5,5));
+  setBackgroundColor(jBasePanel);
+  this.add(jBasePanel);
+  jBasePanel.add(buildCaptionPanel(DIALOG_MAIN_TEXT,DIALOG_DESCRIPTION),BorderLayout.NORTH);
+  jBasePanel.add(buildControlsPanel());
   validEmailRegex=Pattern.compile(VALID_EMAIL_PATTERN);
 }
