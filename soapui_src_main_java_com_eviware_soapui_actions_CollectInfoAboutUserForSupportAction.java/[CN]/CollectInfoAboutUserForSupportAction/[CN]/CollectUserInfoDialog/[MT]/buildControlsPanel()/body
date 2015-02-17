@@ -1,8 +1,17 @@
 {
+  JPanel jbase=new JPanel(new BorderLayout());
+  JPanel jLeftPanel=new JPanel();
+  jLeftPanel.setLayout(new BorderLayout());
+  jLeftPanel.setBorder(new EmptyBorder(0,0,25,0));
+  JLabel arrowIcon=new JLabel(UISupport.createImageIcon("/big_arrow.png"));
+  jLeftPanel.add(arrowIcon,BorderLayout.SOUTH);
+  setBackgroundColor(jLeftPanel);
   JPanel jControlsPanel=new JPanel(new BorderLayout());
-  jControlsPanel.setBorder(new EmptyBorder(5,35,10,35));
+  jControlsPanel.setBorder(new EmptyBorder(5,2,10,35));
   setBackgroundColor(jControlsPanel);
   jControlsPanel.add(buildButtonsPanel(),BorderLayout.SOUTH);
   jControlsPanel.add(buildUserInfoPanel());
-  return jControlsPanel;
+  jbase.add(jLeftPanel,BorderLayout.WEST);
+  jbase.add(jControlsPanel);
+  return jbase;
 }
