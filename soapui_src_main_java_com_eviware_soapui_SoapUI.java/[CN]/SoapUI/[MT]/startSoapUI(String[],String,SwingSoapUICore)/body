@@ -7,6 +7,12 @@
   ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
   isStandalone=true;
   soapUICore=core;
+  AnalyticsHelper.InitializeAnalytics();
+  Analytics.trackSessionStart();
+  boolean isDebug=java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
+  if (isDebug) {
+    Analytics.trackAction("DebuggingMode");
+  }
   SoapUI soapUI=new SoapUI();
   Workspace workspace=null;
   org.apache.commons.cli.Options options=initSoapUIOptions();
@@ -52,6 +58,13 @@
       }
  catch (      Exception ignore) {
       }
+    }
+  }
+  if (SoapUI.usingGraphicalEnvironment()) {
+    if (workspace.isSupportInformationDialog()) {
+      CollectInfoAboutUserForSupportAction collector=new CollectInfoAboutUserForSupportAction();
+      collector.show();
+      workspace.setSupportInformationDialog(false);
     }
   }
   return soapUI;

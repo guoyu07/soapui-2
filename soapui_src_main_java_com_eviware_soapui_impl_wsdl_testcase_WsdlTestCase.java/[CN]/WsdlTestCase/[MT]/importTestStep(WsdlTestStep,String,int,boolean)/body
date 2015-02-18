@@ -2,7 +2,7 @@
   testStep.beforeSave();
   TestStepConfig newStepConfig=(TestStepConfig)testStep.getConfig().copy();
   newStepConfig.setName(name);
-  WsdlTestStep result=insertTestStep(newStepConfig,index,createCopy);
+  WsdlTestStep result=insertTestStep(testStep.getTestCase(),newStepConfig,index,createCopy);
   if (result == null) {
     return null;
   }

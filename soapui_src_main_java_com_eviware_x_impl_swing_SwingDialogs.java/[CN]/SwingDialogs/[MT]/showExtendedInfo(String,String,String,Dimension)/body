@@ -1,9 +1,19 @@
 {
-  SwingUtilities.invokeLater(new Runnable(){
-    public void run(){
-      JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(new JButton(new OkAction("OK")));
+  try {
+    final JPanel buttonBar=ButtonBarFactory.buildRightAlignedBar(new JButton(new OkAction("OK")));
+    if (SwingUtilities.isEventDispatchThread()) {
       showExtendedInfo(title,description,content,buttonBar,size);
     }
-  }
+ else {
+      SwingUtilities.invokeAndWait(new Runnable(){
+        public void run(){
+          showExtendedInfo(title,description,content,buttonBar,size);
+        }
+      }
 );
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
 }

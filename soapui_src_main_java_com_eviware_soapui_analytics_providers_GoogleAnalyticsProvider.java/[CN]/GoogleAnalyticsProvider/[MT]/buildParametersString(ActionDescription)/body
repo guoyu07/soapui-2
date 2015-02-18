@@ -1,0 +1,12 @@
+{
+  String gaParametersString=String.format("v=1&an=%s&av=%s&cd=%s&tid=%s&cid=%s&t=event&ec=%s&ea=%s&el=%s&ev=1&sr=%s&cm1=%s&aip=1",urlEncodeWithUtf8(SoapUI_REVISION),urlEncodeWithUtf8(getSoapUIVersion()),"undefined",GA_ID,getMacAddressString(),urlEncodeWithUtf8(getEventCategory(actionDescription)),urlEncodeWithUtf8(getEventAction(actionDescription)),urlEncodeWithUtf8(getEventLabel(actionDescription)),getStrScreenSize(),urlEncodeWithUtf8(actionDescription.getSessionId()));
+switch (actionDescription.getCategory()) {
+case SESSION_START:
+    gaParametersString+="&sc=start&ua=" + urlEncodeWithUtf8(SoapUI_REVISION + "/" + getSoapUIVersion()+ " ("+ getOsName()+ " "+ getOsVersion()+ ")");
+  break;
+case SESSION_STOP:
+gaParametersString+="&sc=end";
+break;
+}
+return gaParametersString;
+}

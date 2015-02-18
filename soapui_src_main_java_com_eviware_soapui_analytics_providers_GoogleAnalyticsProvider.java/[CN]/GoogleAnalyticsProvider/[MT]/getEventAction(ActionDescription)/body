@@ -1,0 +1,14 @@
+{
+switch (actionDescription.getCategory()) {
+case SESSION_START:
+    return EVENT_START;
+case SESSION_STOP:
+  return EVENT_STOP;
+case ACTION:
+return actionDescription.getActionName();
+case CUSTOM_PLUGIN_ACTION:
+return EVENT_CUSTOM;
+default :
+return EVENT_INVALID;
+}
+}

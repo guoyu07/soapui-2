@@ -4,6 +4,6 @@
     if (getConfig().getRequest() == null) {
       getConfig().addNewRequest();
     }
-    CompressedStringSupport.setString(getConfig().getRequest(),requestContent);
+    CompressedStringSupport.setString(getConfig().getRequest(),escapeCarriageReturnsIn(requestContent));
   }
 }
