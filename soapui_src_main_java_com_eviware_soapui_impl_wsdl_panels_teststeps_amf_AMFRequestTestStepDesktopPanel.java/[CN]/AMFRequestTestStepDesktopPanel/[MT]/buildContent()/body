@@ -64,7 +64,7 @@
   add(buildToolbar(),BorderLayout.NORTH);
   add(inspectorPanel.getComponent(),BorderLayout.CENTER);
   assertionsPanel=buildAssertionsPanel();
-  assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Test Request",true);
+  assertionInspector=new JComponentInspector<JComponent>(assertionsPanel,"Assertions (" + getModelItem().getAssertionCount() + ")","Assertions for this Request",true);
   inspectorPanel.addInspector(assertionInspector);
   updateStatusIcon();
   return inspectorPanel.getComponent();
