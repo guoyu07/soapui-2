@@ -4,5 +4,5 @@
   sb.append(osUserDescription.getName());
   sb.append("&email=");
   sb.append(osUserDescription.getEmail());
-  return sb.toString();
+  return HttpUtils.urlEncodeWithUtf8(sb.toString());
 }
