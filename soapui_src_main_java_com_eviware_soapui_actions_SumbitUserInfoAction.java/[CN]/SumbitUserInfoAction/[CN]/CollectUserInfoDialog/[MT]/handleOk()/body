@@ -2,6 +2,6 @@
   if (!validateFormValues()) {
     return false;
   }
-  Analytics.trackOSUser(form.getComponentValue(NAME),form.getComponentValue(WORK_EMAIL));
+  Analytics.trackOSUser(getUserName(),getUserEMail());
   return true;
 }
