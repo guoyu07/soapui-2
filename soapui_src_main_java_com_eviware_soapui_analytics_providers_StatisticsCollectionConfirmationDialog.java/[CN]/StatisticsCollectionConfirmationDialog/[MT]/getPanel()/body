@@ -1,0 +1,10 @@
+{
+  JPanel panel=new JPanel();
+  panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+  JLabel label=new JLabel("Do you want to help us improve SoapUI by sending anonymous usage statistics?");
+  JLabel labelEx=new JLabel("This can be turned off any time in UI settings.");
+  panel.add(label);
+  panel.add(labelEx);
+  panel.add(UISupport.createLabelLink("http://www.soapui.org/Store-Info/privacy-policy.html","Privacy policy"));
+  return panel;
+}
