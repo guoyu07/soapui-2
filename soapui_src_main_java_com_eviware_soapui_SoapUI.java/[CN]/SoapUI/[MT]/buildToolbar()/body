@@ -19,12 +19,12 @@
   searchField.addKeyListener(new KeyAdapter(){
     @Override public void keyTyped(    KeyEvent e){
       if (e.getKeyChar() == '\n') {
-        doForumSearch(searchField.getText());
+        doCommunitySearch(searchField.getText());
       }
     }
   }
 );
-  JLabel searchLabel=new JLabel("Search Forum");
+  JLabel searchLabel=new JLabel("Search Community");
   searchLabel.setPreferredSize(new Dimension((int)(searchLabel.getPreferredSize().getWidth() * 1.1),(int)searchLabel.getPreferredSize().getHeight()));
   mainToolbar.addFixed(searchLabel);
   mainToolbar.addSeparator(new Dimension(3,3));
