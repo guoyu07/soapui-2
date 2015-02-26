@@ -1,0 +1,38 @@
+{
+  String helpUrl=url;
+  int modifier=0;
+  if (helpUrl == null) {
+    modifier=1;
+  }
+ else   if (url.substring(0,4).equals("http")) {
+    modifier=2;
+  }
+ else   if (((mods & ActionEvent.SHIFT_MASK) != 0) && ((mods & ActionEvent.CTRL_MASK) != 0)) {
+    modifier=3;
+  }
+ else   if (((mods & ActionEvent.SHIFT_MASK) != 0) && ((mods & ActionEvent.ALT_MASK) != 0)) {
+    modifier=4;
+  }
+ else {
+    modifier=0;
+  }
+switch (modifier) {
+case 1:
+    UISupport.showErrorMessage("Missing help URL");
+  helpUrl=HelpUrls.MISSING_URL + url;
+break;
+case 2:
+helpUrl=url;
+break;
+case 3:
+helpUrl=HelpUrls.BASE_URL_DEV + url;
+break;
+case 4:
+helpUrl=HelpUrls.BASE_URL_NEXT + url;
+break;
+default :
+helpUrl=HelpUrls.BASE_URL_PROD + url;
+break;
+}
+return helpUrl;
+}
