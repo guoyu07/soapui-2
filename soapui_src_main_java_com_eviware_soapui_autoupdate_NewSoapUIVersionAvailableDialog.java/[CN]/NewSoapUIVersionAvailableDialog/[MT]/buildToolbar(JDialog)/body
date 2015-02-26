@@ -4,7 +4,7 @@
   choice.addItem("3 days");
   choice.addItem("7 days");
   choice.setSelectedIndex(0);
-  dialogResult=ReadyApiUpdateDialogResult.DontUpdate;
+  dialogResult=ReadyApiUpdateDialogResult.DoNotUpdate;
   JButton remindMeLaterButton=new JButton("Remind me later");
   remindMeLaterButton.addActionListener(new ActionListener(){
     @Override public void actionPerformed(    ActionEvent e){
@@ -25,7 +25,7 @@ setVisible(false);
 }
 }
 );
-JButton downloadButton=new JButton("Download");
+JButton downloadButton=new JButton("Download and install");
 downloadButton.addActionListener(new ActionListener(){
 @Override public void actionPerformed(ActionEvent e){
 dialogResult=ReadyApiUpdateDialogResult.Update;
@@ -33,10 +33,12 @@ setVisible(false);
 }
 }
 );
+JButton ignoreUpdate=new JButton(new IgnoreUpdateAction(this));
 JPanel toolbarPanel=new JPanel(new GridBagLayout());
 toolbarPanel.add(choice,new GridBagConstraints(0,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
 toolbarPanel.add(remindMeLaterButton,new GridBagConstraints(1,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
 toolbarPanel.add(new JPanel(),new GridBagConstraints(2,0,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
-toolbarPanel.add(downloadButton,new GridBagConstraints(3,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+toolbarPanel.add(ignoreUpdate,new GridBagConstraints(3,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
+toolbarPanel.add(downloadButton,new GridBagConstraints(4,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.NONE,new Insets(4,4,4,4),0,0));
 return toolbarPanel;
 }
