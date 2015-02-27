@@ -1,0 +1,91 @@
+{
+  this.helpString=helpString;
+  originalColor=getForeground();
+  setToolTipText(helpString);
+  setHelpString();
+  setBorder(new LineBorder(greyColor,1));
+  this.addMouseMotionListener(new MouseMotionAdapter(){
+    @Override public void mouseDragged(    MouseEvent e){
+      if (isItOnlyHelpStr()) {
+        select(0,0);
+      }
+    }
+    @Override public void mouseMoved(    MouseEvent e){
+      super.mouseMoved(e);
+    }
+  }
+);
+  addMouseListener(new MouseAdapter(){
+    @Override public void mouseClicked(    MouseEvent e){
+      if (isItOnlyHelpStr()) {
+        select(0,0);
+      }
+    }
+    @Override public void mousePressed(    MouseEvent e){
+      if (isItOnlyHelpStr()) {
+        select(0,0);
+      }
+    }
+  }
+);
+  addFocusListener(new FocusListener(){
+    @Override public void focusGained(    FocusEvent e){
+      if (e.getSource() instanceof JTextField) {
+        ((JTextField)e.getSource()).select(0,0);
+      }
+    }
+    @Override public void focusLost(    FocusEvent e){
+    }
+  }
+);
+  this.addKeyListener(new KeyListener(){
+    private void CommonKeyPress(    KeyEvent e){
+      if (isItOnlyHelpStr() && (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_HOME || e.getKeyCode() == KeyEvent.VK_END || e.getKeyCode() == KeyEvent.VK_DELETE)) {
+        select(0,0);
+        e.consume();
+      }
+    }
+    @Override public void keyTyped(    KeyEvent e){
+    }
+    @Override public void keyPressed(    KeyEvent e){
+      CommonKeyPress(e);
+    }
+    @Override public void keyReleased(    KeyEvent e){
+      CommonKeyPress(e);
+    }
+  }
+);
+  getDocument().addDocumentListener(new DocumentListenerAdapter(){
+    @Override public void update(    Document document){
+      try {
+        final String fullText=document.getText(0,document.getLength());
+        if (!updateInProgress) {
+          if ("".equals(fullText)) {
+            updateInProgress=true;
+            SwingUtilities.invokeLater(new Runnable(){
+              public void run(){
+                setHelpString();
+              }
+            }
+);
+          }
+ else           if (fullText.contains(helpString)) {
+            final String fullTextTemp=fullText.replace(helpString,"");
+            if (!"".equals(fullTextTemp)) {
+              updateInProgress=true;
+              SwingUtilities.invokeLater(new Runnable(){
+                public void run(){
+                  setCustomString(fullTextTemp);
+                }
+              }
+);
+            }
+          }
+        }
+      }
+ catch (      Exception Ex) {
+      }
+    }
+  }
+);
+}

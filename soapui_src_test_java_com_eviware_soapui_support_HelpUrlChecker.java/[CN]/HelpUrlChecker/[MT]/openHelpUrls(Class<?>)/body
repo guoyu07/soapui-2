@@ -1,0 +1,24 @@
+{
+  for (  Field field : helpUrlsClass.getDeclaredFields()) {
+    String url=(String)field.get(null);
+    if (!StringUtils.isNullOrEmpty(url)) {
+      String helpUrl=url;
+      if (url.substring(0,1).equals("/")) {
+        helpUrl=HelpUrls.BASE_URL_PROD + url;
+      }
+      try {
+        int responseCode=((HttpURLConnection)new URL(helpUrl).openConnection()).getResponseCode();
+        if (responseCode != 200) {
+          System.out.println(responseCode + " " + helpUrl);
+        }
+      }
+ catch (      UnknownHostException e) {
+        System.out.println("No host: " + helpUrl);
+      }
+catch (      Exception e) {
+        System.out.println("Error: " + helpUrl);
+        e.printStackTrace();
+      }
+    }
+  }
+}
