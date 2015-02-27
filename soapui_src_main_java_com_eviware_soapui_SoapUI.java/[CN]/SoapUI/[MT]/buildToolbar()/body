@@ -7,7 +7,7 @@
   mainToolbar.add(new ImportWsdlProjectActionDelegate());
   mainToolbar.add(new SaveAllActionDelegate());
   mainToolbar.addSpace(2);
-  mainToolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.FORUMS_HELP_URL,"Opens the SoapUI Forum in a browser","/group_go.png"));
+  mainToolbar.add(new ShowOnlineHelpAction("Forum",HelpUrls.COMMUNITY_HELP_URL,"Opens the SoapUI Forum in a browser","/group_go.png"));
   mainToolbar.addSpace(2);
   mainToolbar.add(new ShowOnlineHelpAction("Trial",HelpUrls.TRIAL_URL,"Apply for SoapUI Pro Trial License","/favicon.png"));
   mainToolbar.addSpace(2);
@@ -19,12 +19,12 @@
   searchField.addKeyListener(new KeyAdapter(){
     @Override public void keyTyped(    KeyEvent e){
       if (e.getKeyChar() == '\n') {
-        doForumSearch(searchField.getText());
+        doCommunitySearch(searchField.getText());
       }
     }
   }
 );
-  JLabel searchLabel=new JLabel("Search Forum");
+  JLabel searchLabel=new JLabel("Search Community");
   searchLabel.setPreferredSize(new Dimension((int)(searchLabel.getPreferredSize().getWidth() * 1.1),(int)searchLabel.getPreferredSize().getHeight()));
   mainToolbar.addFixed(searchLabel);
   mainToolbar.addSeparator(new Dimension(3,3));

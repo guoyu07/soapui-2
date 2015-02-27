@@ -1,0 +1,15 @@
+{
+  textFieldName=new JFriendlyTextField(NAME_HINT);
+  textFieldName.setPreferredSize(new Dimension(300,24));
+  textFieldEmail=new JFriendlyTextField(EMAIL_HINT);
+  textFieldEmail.setPreferredSize(new Dimension(300,24));
+  JPanel jHelpEmail=new JPanel(new BorderLayout());
+  setBackgroundColor(jHelpEmail);
+  jHelpEmail.setBorder(new EmptyBorder(8,0,0,0));
+  jHelpEmail.add(textFieldEmail,BorderLayout.NORTH);
+  JPanel userInfoContent=new JPanel(new BorderLayout());
+  setBackgroundColor(userInfoContent);
+  userInfoContent.add(textFieldName,BorderLayout.NORTH);
+  userInfoContent.add(jHelpEmail);
+  return userInfoContent;
+}

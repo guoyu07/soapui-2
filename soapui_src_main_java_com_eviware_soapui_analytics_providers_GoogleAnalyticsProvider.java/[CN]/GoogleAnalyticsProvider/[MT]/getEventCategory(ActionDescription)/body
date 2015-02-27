@@ -1,0 +1,13 @@
+{
+switch (actionDescription.getCategory()) {
+case SESSION_START:
+case SESSION_STOP:
+    return CATEGORY_SESSION;
+case ACTION:
+  return CATEGORY_ACTION;
+case CUSTOM_PLUGIN_ACTION:
+return CATEGORY_PGU_IN;
+default :
+return CATEGORY_INVALID;
+}
+}

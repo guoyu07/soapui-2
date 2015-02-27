@@ -1,0 +1,13 @@
+{
+  String prefix="/t5/forums/searchpage/tab/message?include_forums=true";
+  String forum="location=board%3ASoapUI_OS";
+  String suffix="&search_type=thread&filter=labels%2Clocation";
+  String searchText="&q=" + urlEncodeWithUtf8(text.trim());
+  String searchUrl=HelpUrls.COMMUNITY_SEARCH_URL + prefix + forum+ searchText+ suffix;
+  if (StringUtils.hasContent(text)) {
+    Tools.openURL(searchUrl);
+  }
+ else {
+    Tools.openURL(HelpUrls.COMMUNITY_SEARCH_URL);
+  }
+}

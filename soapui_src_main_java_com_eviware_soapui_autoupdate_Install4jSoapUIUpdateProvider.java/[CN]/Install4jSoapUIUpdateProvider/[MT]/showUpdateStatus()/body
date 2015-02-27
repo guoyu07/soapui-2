@@ -1,0 +1,50 @@
+{
+  autoCheckCancelled=true;
+  final XProgressDialog waitDialog=UISupport.getDialogs().createProgressDialog("Checking for update",100,"Update is checking...",true);
+  try {
+    waitDialog.run(new Worker(){
+      private UpdateCheckResult result;
+      private boolean cancelled=false;
+      @Override public Object construct(      XProgressMonitor monitor){
+        String error=checkURLisReachable(APPLICATION_UPDATES_XML_URL);
+        if (StringUtils.isNullOrEmpty(error) || cancelled) {
+          result=checkUpdate();
+        }
+ else {
+          result=UpdateCheckResult.error(error);
+        }
+        return null;
+      }
+      @Override public void finished(){
+        if (cancelled) {
+          return;
+        }
+        waitDialog.setVisible(false);
+        if (StringUtils.hasContent(result.errorText)) {
+          if (!TERMINATED.equals(result.errorText)) {
+            UISupport.showErrorMessage(result.errorText);
+          }
+        }
+ else {
+          if (result.version == null) {
+            UISupport.showInfoMessage("You are using the latest accessible release of SoapUI");
+          }
+ else {
+            if (!updatePostponedByUser(result.version,new SoapUIVersionInfo(currentVersion),result.comments)) {
+              update(false);
+            }
+          }
+        }
+      }
+      @Override public boolean onCancel(){
+        cancelled=true;
+        waitDialog.setVisible(false);
+        return true;
+      }
+    }
+);
+  }
+ catch (  Exception e) {
+    UISupport.showErrorMessage(e.getMessage());
+  }
+}

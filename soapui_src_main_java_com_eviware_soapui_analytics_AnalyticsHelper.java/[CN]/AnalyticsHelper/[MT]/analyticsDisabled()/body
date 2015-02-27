@@ -1,0 +1,17 @@
+{
+  Settings settings=SoapUI.getSettings();
+  boolean disableAnalytics=settings.getBoolean(UISettings.DISABLE_ANALYTICS,SoapUI.usingGraphicalEnvironment());
+  if (!disableAnalytics) {
+    return false;
+  }
+  Version optOutVersion=new Version(settings.getString(UISettings.ANALYTICS_OPT_OUT_VERSION,"0.0"));
+  Version currentSoapUIVersion=new Version(SoapUI.SOAPUI_VERSION);
+  if (!optOutVersion.getMajorVersion().equals(currentSoapUIVersion.getMajorVersion()) && SoapUI.usingGraphicalEnvironment()) {
+    disableAnalytics=StatisticsCollectionConfirmationDialog.showDialog() == JOptionPane.NO_OPTION;
+    settings.setBoolean(UISettings.DISABLE_ANALYTICS,disableAnalytics);
+  }
+  if (disableAnalytics) {
+    settings.setString(UISettings.ANALYTICS_OPT_OUT_VERSION,currentSoapUIVersion.getMajorVersion());
+  }
+  return disableAnalytics;
+}

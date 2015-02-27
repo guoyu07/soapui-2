@@ -1,8 +1,0 @@
-{
-  URLConnection connection=versionUrl.openConnection();
-  InputStream inputStream=connection.getInputStream();
-  String response=IOUtils.toString(inputStream);
-  inputStream.close();
-  Authenticator.setDefault(null);
-  return response;
-}

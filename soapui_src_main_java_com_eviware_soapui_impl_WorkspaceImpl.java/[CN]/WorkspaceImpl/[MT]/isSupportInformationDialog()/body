@@ -1,0 +1,10 @@
+{
+  boolean isCollect=false;
+  if (workspaceConfig != null) {
+    if (!workspaceConfig.getSoapuiWorkspace().isSetCollectInfoForSupport()) {
+      return true;
+    }
+    isCollect=workspaceConfig.getSoapuiWorkspace().getCollectInfoForSupport();
+  }
+  return isCollect;
+}

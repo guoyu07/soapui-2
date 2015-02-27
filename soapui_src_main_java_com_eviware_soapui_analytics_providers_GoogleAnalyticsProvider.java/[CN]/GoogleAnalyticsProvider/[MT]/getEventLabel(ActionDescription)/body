@@ -1,0 +1,12 @@
+{
+switch (actionDescription.getCategory()) {
+case SESSION_START:
+{
+      return String.format("%s %s, %s; License: %s",getOsName(),getOsVersion(),getStrScreenSize(),getLicenseDescription());
+    }
+default :
+{
+    return actionDescription.getParamsAsString();
+  }
+}
+}
