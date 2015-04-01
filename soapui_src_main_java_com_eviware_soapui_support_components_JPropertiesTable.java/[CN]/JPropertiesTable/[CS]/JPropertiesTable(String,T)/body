@@ -1,8 +1,10 @@
 {
   super(new BorderLayout());
   this.title=title;
+  setBackground(Color.WHITE);
   tableModel=new PropertiesTableModel<T>(propertyObject);
   table=new PTable(tableModel);
+  table.setBackground(Color.WHITE);
   table.getColumnModel().getColumn(0).setHeaderValue("Property");
   table.getColumnModel().getColumn(1).setHeaderValue("Value");
   table.getColumnModel().getColumn(0).setCellRenderer(new PropertiesTableCellRenderer());
