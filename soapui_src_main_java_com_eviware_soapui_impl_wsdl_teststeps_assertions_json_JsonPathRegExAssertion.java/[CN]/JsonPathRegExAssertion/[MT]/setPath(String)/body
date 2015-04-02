@@ -1,0 +1,12 @@
+{
+  if (path.indexOf("##") > 0) {
+    String[] parts=path.split("##");
+    if (parts.length > 2) {
+      setRegularExpression(parts[2]);
+    }
+    super.setPath(parts[0]);
+  }
+ else {
+    super.setPath(path);
+  }
+}

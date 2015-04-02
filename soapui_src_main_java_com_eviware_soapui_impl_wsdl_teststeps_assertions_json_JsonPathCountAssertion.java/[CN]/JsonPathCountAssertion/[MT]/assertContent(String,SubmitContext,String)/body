@@ -1,0 +1,20 @@
+{
+  String path=getPath();
+  try {
+    if (path == null) {
+      return "Missing path for JsonPath assertion";
+    }
+    if (getExpectedContent() == null) {
+      return "Missing content for JsonPath assertion";
+    }
+    String expandedPath=PropertyExpander.expandProperties(context,path);
+    Object result=new JsonPathFacade(assertableContent).readObjectValue(expandedPath);
+    String resultSize=getResultSize(result).toString();
+    String expandedContent=PropertyExpander.expandProperties(context,getExpectedContent());
+    Assert.assertEquals(expandedContent,resultSize);
+  }
+ catch (  Throwable exception) {
+    throwAssertionException(path,exception);
+  }
+  return type + " matches content for [" + path+ "]";
+}

@@ -1,0 +1,7 @@
+{
+  String path=getPathArea() == null || !getPathArea().isVisible() ? getPath() : getPathArea().getSelectedText();
+  if (path == null) {
+    path=getPathArea() == null ? "" : getPathArea().getText();
+  }
+  return path;
+}

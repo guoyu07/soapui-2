@@ -1,0 +1,25 @@
+{
+  try {
+    if (getPath() == null) {
+      return "Missing path for JsonPath assertion";
+    }
+    if (getExpectedContent() == null) {
+      return "Missing content for JsonPath assertion";
+    }
+    String expandedPath=PropertyExpander.expandProperties(context,getPath());
+    JsonPathFacade jsonPathFacade=new JsonPathFacade(assertableContent);
+    String result=jsonPathFacade.readStringValue(expandedPath);
+    String expandedResult=PropertyExpander.expandProperties(context,result);
+    String expandedContent=PropertyExpander.expandProperties(context,getExpectedContent());
+    if (allowWildcards) {
+      assertSimilar(expandedContent,expandedResult,'*');
+    }
+ else {
+      Assert.assertEquals(expandedContent,expandedResult);
+    }
+  }
+ catch (  Throwable exception) {
+    throwAssertionException(getPath(),exception);
+  }
+  return type + " matches content for [" + getPath()+ "]";
+}

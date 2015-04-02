@@ -1,0 +1,38 @@
+{
+  try {
+    String assertableContent=getAssertable().getAssertableContent();
+    if (StringUtils.isNullOrEmpty(assertableContent)) {
+      UISupport.showErrorMessage("Missing content to select from");
+      return;
+    }
+    if (StringUtils.isNullOrEmpty(this.regularExpression)) {
+      UISupport.showErrorMessage("Missing regular expression");
+      return;
+    }
+    String path=getPathString();
+    PropertyExpansionContext context=getPropertyExpansionContext();
+    String expandedPath=PropertyExpander.expandProperties(context,path.trim());
+    JTextArea contentArea=getContentArea();
+    if (contentArea != null && contentArea.isVisible()) {
+      contentArea.setText("");
+    }
+    String stringValue=readStringValue(assertableContent,expandedPath);
+    if (stringValue == null) {
+      setExpectedValueFromSelectedNode(contentArea,Boolean.FALSE.toString());
+    }
+ else {
+      try {
+        String matches=String.valueOf(stringValue.matches(this.regularExpression));
+        setExpectedValueFromSelectedNode(contentArea,matches);
+      }
+ catch (      PatternSyntaxException pse) {
+        UISupport.showErrorMessage("Invalid regular expression. " + pse.getMessage());
+        return;
+      }
+    }
+  }
+ catch (  Throwable e) {
+    UISupport.showErrorMessage("Invalid JsonPath expression.");
+    SoapUI.logError(e);
+  }
+}

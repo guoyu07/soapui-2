@@ -1,0 +1,13 @@
+{
+  String msg="";
+  if (exception instanceof ComparisonFailure) {
+    ComparisonFailure cf=(ComparisonFailure)exception;
+    String expected=cf.getExpected();
+    String actual=cf.getActual();
+    msg="Comparison failed for path [" + path + "], expecting ["+ expected+ "], actual was ["+ actual+ "]";
+  }
+ else {
+    msg="Assertion failed for path [" + path + "] : "+ exception.getClass().getSimpleName()+ ":"+ exception.getMessage();
+  }
+  throw new AssertionException(new AssertionError(msg));
+}

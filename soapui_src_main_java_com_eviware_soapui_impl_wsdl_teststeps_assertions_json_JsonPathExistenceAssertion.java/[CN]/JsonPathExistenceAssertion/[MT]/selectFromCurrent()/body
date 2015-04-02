@@ -1,0 +1,22 @@
+{
+  try {
+    String assertableContent=getAssertable().getAssertableContent();
+    if (StringUtils.isNullOrEmpty(assertableContent)) {
+      UISupport.showErrorMessage("Missing content to select from");
+      return;
+    }
+    String pathString=getPathString();
+    PropertyExpansionContext context=getPropertyExpansionContext();
+    String expandedPath=PropertyExpander.expandProperties(context,pathString.trim());
+    JTextArea contentArea=getContentArea();
+    if (contentArea != null && contentArea.isVisible()) {
+      contentArea.setText("");
+    }
+    Object result=new JsonPathFacade(assertableContent).readObjectValue(expandedPath);
+    setExpectedValueFromSelectedNode(contentArea,Boolean.toString(result != null));
+  }
+ catch (  Throwable e) {
+    UISupport.showErrorMessage("Invalid JsonPath expression.");
+    SoapUI.logError(e);
+  }
+}
