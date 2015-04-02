@@ -1,0 +1,26 @@
+{
+  String path=getPath();
+  try {
+    if (path == null) {
+      return "Missing path for JsonPath assertion";
+    }
+    if (getExpectedContent() == null) {
+      return "Missing content for JsonPath assertion";
+    }
+    if (this.regularExpression == null) {
+      return "Missing RegEx for JsonPath assertion";
+    }
+    String expandedPath=PropertyExpander.expandProperties(context,path);
+    String result=readStringValue(assertableContent,expandedPath);
+    Boolean actualValue=Boolean.FALSE;
+    if (result != null && result.matches(this.regularExpression)) {
+      actualValue=Boolean.TRUE;
+    }
+    String expandedExpectedValue=PropertyExpander.expandProperties(context,getExpectedContent());
+    Assert.assertEquals(expandedExpectedValue,actualValue.toString());
+  }
+ catch (  Throwable exception) {
+    throwAssertionException(getPath(),exception);
+  }
+  return type + " matches content for [" + path+ "]";
+}

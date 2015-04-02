@@ -1,0 +1,7 @@
+{
+  if (!modelItem.getProperty(property).getSchemaType().isPrimitiveType()) {
+    return true;
+  }
+  String content=modelItem.getPropertyValue(property);
+  return JsonUtil.seemsToBeJson(content);
+}

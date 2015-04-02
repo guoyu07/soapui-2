@@ -1,0 +1,8 @@
+{
+  JPanel pathAreaPanel=super.getPathAreaPanel();
+  regExArea=new JUndoableTextArea();
+  regExArea.setRows(2);
+  JScrollPane jScrollPane=UISupport.addTitledBorder(new JScrollPane(regExArea),"Regular Expression");
+  pathAreaPanel.add(jScrollPane,BorderLayout.SOUTH);
+  return pathAreaPanel;
+}

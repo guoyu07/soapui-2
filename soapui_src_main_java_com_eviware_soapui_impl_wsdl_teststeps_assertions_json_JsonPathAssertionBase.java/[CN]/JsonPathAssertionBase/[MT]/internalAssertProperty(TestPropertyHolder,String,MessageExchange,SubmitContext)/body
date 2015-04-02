@@ -1,0 +1,6 @@
+{
+  if (!JsonUtil.seemsToBeJson(source.getPropertyValue(propertyName))) {
+    throw new AssertionException(new AssertionError("Property '" + propertyName + "' has value which is not JSON!"));
+  }
+  return assertContent(source.getPropertyValue(propertyName),context,propertyName);
+}
