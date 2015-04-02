@@ -1,6 +1,7 @@
 {
   desktop=new SoapUIDesktopPane();
   JScrollPane scrollPane=new JScrollPane(desktop);
+  scrollPane.setBorder(BorderFactory.createEmptyBorder());
   inspector=JInspectorPanelFactory.build(scrollPane,SwingConstants.RIGHT);
   inspectorPanel=new JPanel(new BorderLayout());
   inspector.addInspector(new JComponentInspector<JComponent>(inspectorPanel,"Inspector","Object Inspector",true));

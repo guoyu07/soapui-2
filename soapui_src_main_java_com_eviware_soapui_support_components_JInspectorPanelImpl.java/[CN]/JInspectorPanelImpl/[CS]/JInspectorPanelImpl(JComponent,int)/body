@@ -4,6 +4,14 @@
   inspectorPanel=new JPanel(new CardLayout());
   inspectorPanel.setVisible(false);
   mainSplit=new JSplitPane(orientation == SwingConstants.LEFT || orientation == SwingConstants.RIGHT ? JSplitPane.HORIZONTAL_SPLIT : JSplitPane.VERTICAL_SPLIT);
+  BasicSplitPaneUI basic=(BasicSplitPaneUI)mainSplit.getUI();
+  basic.getDivider().setBorder(new LineBorder(Color.WHITE,1){
+    @Override public void paintBorder(    Component c,    Graphics g,    int x,    int y,    int width,    int height){
+      g.setColor(Color.LIGHT_GRAY);
+      g.drawLine(c.getWidth() - 1,0,c.getWidth() - 1,c.getHeight());
+    }
+  }
+);
   mainSplit.setDividerSize(5);
   mainSplit.setBorder(null);
   mainSplit.setOneTouchExpandable(false);
@@ -19,6 +27,13 @@
     mainSplit.setRightComponent(contentComponent);
     JPanel p=new JPanel(new BorderLayout());
     p.add(toolbar);
+    p.setBorder(new LineBorder(Color.WHITE,1){
+      @Override public void paintBorder(      Component c,      Graphics g,      int x,      int y,      int width,      int height){
+        g.setColor(Color.LIGHT_GRAY);
+        g.drawLine(c.getWidth() - 1,0,c.getWidth() - 1,c.getHeight());
+      }
+    }
+);
     toolbar.setBorder(BorderFactory.createEmptyBorder(2,3,0,4));
     mainSplit.setLeftComponent(inspectorPanel);
     mainSplit.setResizeWeight(0.2);
