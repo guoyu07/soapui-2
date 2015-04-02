@@ -14,7 +14,9 @@
   }
  else   if (panelBuilder != null && panelBuilder.hasDesktopPanel()) {
     DesktopPanel desktopPanel=panelBuilder.buildDesktopPanel(modelItem);
-    if (desktopPanel == null)     return null;
+    if (desktopPanel == null) {
+      return null;
+    }
     JInternalFrame frame=createContentFrame(desktopPanel);
     desktop.add(frame);
     try {
@@ -29,7 +31,9 @@
     currentPanel=desktopPanel;
     desktopPanel.getComponent().requestFocusInWindow();
   }
- else   Toolkit.getDefaultToolkit().beep();
+ else {
+    Toolkit.getDefaultToolkit().beep();
+  }
   enableWindowActions();
   return currentPanel;
 }

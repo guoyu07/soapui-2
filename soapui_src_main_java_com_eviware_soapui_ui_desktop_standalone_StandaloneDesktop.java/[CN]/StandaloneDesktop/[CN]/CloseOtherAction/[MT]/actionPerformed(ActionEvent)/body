@@ -1,6 +1,8 @@
 {
   JInternalFrame frame=desktop.getSelectedFrame();
-  if (frame == null)   return;
+  if (frame == null) {
+    return;
+  }
   JInternalFrame[] frames=internalFrameToDesktopPanelMap.keySet().toArray(new JInternalFrame[internalFrameToDesktopPanelMap.size()]);
   for (  JInternalFrame f : frames) {
     if (f != frame) {
