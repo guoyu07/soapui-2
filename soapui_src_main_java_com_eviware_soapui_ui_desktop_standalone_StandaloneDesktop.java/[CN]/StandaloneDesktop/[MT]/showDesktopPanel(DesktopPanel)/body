@@ -17,9 +17,7 @@
  else {
     frame=createContentFrame(desktopPanel);
     desktop.add(frame);
-    if (desktopPanel.getModelItem() != null) {
-      modelItemToInternalFrameMap.put(desktopPanel.getModelItem(),frame);
-    }
+    if (desktopPanel.getModelItem() != null)     modelItemToInternalFrameMap.put(desktopPanel.getModelItem(),frame);
     internalFrameToDesktopPanelMap.put(frame,desktopPanel);
     fireDesktopPanelCreated(desktopPanel);
     frame.moveToFront();

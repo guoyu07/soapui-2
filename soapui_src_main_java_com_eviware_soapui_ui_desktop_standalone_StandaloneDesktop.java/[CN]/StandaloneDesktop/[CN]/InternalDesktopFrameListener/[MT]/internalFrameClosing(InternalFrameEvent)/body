@@ -8,10 +8,6 @@
   internalFrameToDesktopPanelMap.remove(e.getInternalFrame());
   e.getInternalFrame().setContentPane(new JPanel());
   e.getInternalFrame().dispose();
-  if (!transferring) {
-    fireDesktopPanelClosed(desktopPanel);
-  }
-  if (currentPanel == desktopPanel) {
-    currentPanel=null;
-  }
+  if (!transferring)   fireDesktopPanelClosed(desktopPanel);
+  if (currentPanel == desktopPanel)   currentPanel=null;
 }
