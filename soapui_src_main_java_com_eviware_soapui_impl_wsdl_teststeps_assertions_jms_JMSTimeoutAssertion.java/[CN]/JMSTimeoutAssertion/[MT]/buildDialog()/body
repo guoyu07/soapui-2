@@ -1,0 +1,7 @@
+{
+  XFormDialogBuilder builder=XFormFactory.createDialogBuilder("JMS timeout assertion");
+  XForm mainForm=builder.createForm("Basic");
+  mainForm.addTextField(JMS_TIMEOUT_DURATION,JMS_TIMEOUT_DURATION,XForm.FieldType.TEXT);
+  dialog=builder.buildDialog(builder.buildOkCancelHelpActions(HelpUrls.ASSERTION_JMS_TIMEOUT_EDITOR_HELP_URL),"Specify option",UISupport.OPTIONS_ICON);
+  return dialog;
+}
