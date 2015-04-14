@@ -1,0 +1,10 @@
+{
+  for (  SubmitListener listener : listeners) {
+    try {
+      listener.afterSubmit(this,submitContext);
+    }
+ catch (    Throwable e) {
+      SoapUI.logError(e);
+    }
+  }
+}

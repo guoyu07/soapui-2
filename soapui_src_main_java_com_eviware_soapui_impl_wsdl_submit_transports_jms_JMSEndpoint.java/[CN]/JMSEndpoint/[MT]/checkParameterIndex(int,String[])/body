@@ -1,0 +1,10 @@
+{
+  if (parameterIndex < 0 || parameterIndex > 2) {
+    throw new IllegalArgumentException("\n" + "Illegal JMS endpoint parameter index: \" + parameterIndex \n" + "For JMS please use this endpoint pattern: \n"+ "for sending 'jms://sessionName::queue_myqueuename' \n"+ "for receive 'jms://sessionName::-::queue_myqueuename' \n"+ "for send-receive 'jms://sessionName::queue_myqueuename1::queue_myqueuename2'");
+  }
+  if (parameterIndex > parameters.length - 1) {
+    SoapUI.log("JMS Endpoint String does not contain a parameter at index " + parameterIndex + ", parameters: "+ Arrays.toString(parameters));
+    return false;
+  }
+  return true;
+}
