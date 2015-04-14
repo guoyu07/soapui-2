@@ -1,0 +1,15 @@
+{
+  for (  SubmitListener listener : listeners) {
+    try {
+      if (!listener.beforeSubmit(this,submitContext)) {
+        status=Status.CANCELED;
+        System.err.println("listener cancelled submit...");
+        return true;
+      }
+    }
+ catch (    Throwable e) {
+      SoapUI.logError(e,"Error in SubmitListener");
+    }
+  }
+  return false;
+}
