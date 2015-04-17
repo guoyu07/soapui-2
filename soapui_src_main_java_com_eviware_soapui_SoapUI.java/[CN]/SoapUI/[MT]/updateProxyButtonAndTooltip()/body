@@ -18,4 +18,6 @@
     applyProxyButton.getAction().putValue(Action.SHORT_DESCRIPTION,"Proxy Setting: None");
   }
   applyProxyButton.setSelected(ProxyUtils.isProxyEnabled());
+  UIManager.put("ToggleButton.select",Color.WHITE);
+  SwingUtilities.updateComponentTreeUI(applyProxyButton);
 }
