@@ -1,0 +1,17 @@
+{
+  if (dialog == null) {
+    buildDialog();
+  }
+  StringToStringMap values=new StringToStringMap();
+  values.put(JMS_TIMEOUT_DURATION,new Long(jmsTimeoutDuration).toString());
+  values=dialog.show(values);
+  if (dialog.getReturnValue() == XFormDialog.OK_OPTION) {
+    Long newJmsTimeoutDuration=new Long(values.get(JMS_TIMEOUT_DURATION));
+    if (jmsTimeoutDuration != newJmsTimeoutDuration) {
+      jmsTimeoutDuration=newJmsTimeoutDuration;
+      setConfiguration(createConfiguration());
+      return true;
+    }
+  }
+  return false;
+}

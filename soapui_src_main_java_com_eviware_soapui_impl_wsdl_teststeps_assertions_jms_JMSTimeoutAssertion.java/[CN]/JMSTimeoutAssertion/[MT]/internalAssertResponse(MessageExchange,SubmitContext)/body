@@ -1,9 +1,23 @@
 {
+  PropertyExpansionContext propertyExpansionContext=(PropertyExpansionContext)context;
+  boolean isRun=propertyExpansionContext.hasProperty(HermesJmsRequestTransport.IS_JMS_MESSAGE_RECEIVED);
   Boolean temp=(Boolean)context.getProperty(HermesJmsRequestTransport.IS_JMS_MESSAGE_RECEIVED);
   Boolean messageReceived=temp != null ? temp : false;
-  Long timeout=(Long)context.getProperty(HermesJmsRequestTransport.JMS_RECEIVE_TIMEOUT);
-  if (messageReceived != null && !messageReceived) {
-    throw new AssertionException(new AssertionError("JMS Message timeout error! Message is not received in " + timeout + " ms."));
+  if (isRun) {
+    lastJmsResponseResult.timeTaken=messageExchange.getTimeTaken();
+    lastJmsResponseResult.isRecieved=messageReceived;
   }
-  return "JMS Timeout OK";
+  Long timeout=jmsTimeoutDuration;
+  String jmsTimeoutError="JMS Message timeout error! Message is not received in " + timeout + " ms.";
+  if (isRun) {
+    if (!messageReceived || lastJmsResponseResult.timeTaken > timeout) {
+      throw new AssertionException(new AssertionError(jmsTimeoutError));
+    }
+  }
+ else {
+    if (lastJmsResponseResult.timeTaken > timeout || !lastJmsResponseResult.isRecieved) {
+      throw new AssertionException(new AssertionError(jmsTimeoutError));
+    }
+  }
+  return JMS_TIMEOUT_OK;
 }
