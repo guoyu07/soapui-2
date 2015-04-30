@@ -10,7 +10,7 @@
   statisticsGraphButton.setEnabled(getModelItem().getHistoryLimit() != 0);
   testTimesGraphButton.setEnabled(getModelItem().getHistoryLimit() != 0);
   AbstractAction optionsDelegate=SwingActionDelegate.createDelegate(LoadTestOptionsAction.SOAPUI_ACTION_ID,loadTest);
-  optionsDelegate.putValue(Action.SMALL_ICON,UISupport.createImageIcon("/options.gif"));
+  optionsDelegate.putValue(Action.SMALL_ICON,UISupport.createImageIcon("/preferences.png"));
   optionsButton=UISupport.createToolbarButton(optionsDelegate);
   strategyCombo=new JComboBox(LoadStrategyRegistry.getInstance().getStrategies());
   strategyCombo.setToolTipText("Selects which LoadTest Strategy to use");
