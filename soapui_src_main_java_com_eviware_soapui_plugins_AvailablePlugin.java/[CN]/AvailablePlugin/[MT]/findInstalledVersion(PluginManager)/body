@@ -1,0 +1,8 @@
+{
+  for (  Plugin p : pluginManager.getInstalledPlugins()) {
+    if (p.getInfo().getId().equals(getPluginInfo().getId())) {
+      return p.getInfo().getVersion();
+    }
+  }
+  return null;
+}

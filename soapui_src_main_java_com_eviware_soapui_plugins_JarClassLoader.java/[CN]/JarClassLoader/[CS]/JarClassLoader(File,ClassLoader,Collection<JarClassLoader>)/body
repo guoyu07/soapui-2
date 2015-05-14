@@ -1,0 +1,8 @@
+{
+  super(new URL[]{jarFile.toURI().toURL()},null);
+  this.parent=parent;
+  this.dependencyClassLoaders=dependencyClassLoaders;
+  JarFile file=new JarFile(jarFile);
+  addLibrariesIn(file);
+  addScriptsIn(file);
+}

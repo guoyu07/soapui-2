@@ -1,0 +1,10 @@
+{
+  for (  Plugin plugin : getInstalledPlugins()) {
+    PluginId dependencyId=dependency.getId();
+    Version minimumVersion=dependency.getVersion();
+    if (plugin.getInfo().getId().equals(dependencyId) && plugin.getInfo().getVersion().compareTo(minimumVersion) != -1) {
+      return true;
+    }
+  }
+  return false;
+}

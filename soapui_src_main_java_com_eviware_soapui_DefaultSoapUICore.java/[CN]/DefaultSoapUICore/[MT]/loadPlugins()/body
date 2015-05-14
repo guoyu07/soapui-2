@@ -12,4 +12,7 @@
       }
     }
   }
+  pluginManager=new PluginManager(getFactoryRegistry(),getActionRegistry(),getListenerRegistry());
+  pluginManager.loadPlugins();
+  log.info("All plugins loaded");
 }

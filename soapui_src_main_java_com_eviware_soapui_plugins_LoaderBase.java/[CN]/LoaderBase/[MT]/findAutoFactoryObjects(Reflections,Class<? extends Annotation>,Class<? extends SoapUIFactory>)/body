@@ -1,0 +1,15 @@
+{
+  Collection<SoapUIFactory> factories=new HashSet<SoapUIFactory>();
+  Set<Class<?>> objectClasses=jarFileScanner.getTypesAnnotatedWith(annotationType);
+  for (  Class<?> clazz : objectClasses) {
+    try {
+      Annotation annotation=clazz.getAnnotation(annotationType);
+      factories.add(createAutoFactory(annotationType,factoryClass,clazz,annotation));
+      SoapUI.log("Added AutoFactory for [" + annotationType.getSimpleName() + "]");
+    }
+ catch (    Exception e) {
+      SoapUI.logError(e);
+    }
+  }
+  return factories;
+}

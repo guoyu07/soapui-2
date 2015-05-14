@@ -1,0 +1,18 @@
+{
+  PluginInfo pluginInfo=pluginLoader.loadPluginInfoFrom(pluginFile,Collections.<JarClassLoader>emptySet());
+  if (findInstalledVersionOf(pluginInfo) != null && !overwriteConfirmed(pluginInfo)) {
+    return null;
+  }
+  File destinationFile=new File(pluginDirectory,pluginFile.getName());
+  if (destinationFile.exists()) {
+    destinationFile=createNonExistingFileName(destinationFile);
+  }
+  fileOperations.copyFile(pluginFile,destinationFile);
+  resolver.addPlugin(pluginInfo,destinationFile);
+  if (uninstallPlugin(pluginInfo,true)) {
+    return doInstallPlugin(destinationFile,findDependentClassLoaders(destinationFile));
+  }
+ else {
+    return null;
+  }
+}

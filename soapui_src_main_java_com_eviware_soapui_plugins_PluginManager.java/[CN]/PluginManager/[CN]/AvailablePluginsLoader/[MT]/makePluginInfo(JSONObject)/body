@@ -1,0 +1,5 @@
+{
+  PluginId id=new PluginId((String)pluginElement.get("groupId"),(String)pluginElement.get("name"));
+  Version version=Version.fromString((String)pluginElement.get("version"));
+  return new PluginInfo(id,version,pluginElement.optString("description"),pluginElement.optString("infoUrl",""));
+}

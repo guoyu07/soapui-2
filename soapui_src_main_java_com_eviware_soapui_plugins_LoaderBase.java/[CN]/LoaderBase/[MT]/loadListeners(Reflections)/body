@@ -1,0 +1,13 @@
+{
+  List<Class<? extends SoapUIListenerEx>> listeners=new ArrayList<Class<? extends SoapUIListenerEx>>();
+  Set<Class<?>> listenerClasses=jarFileScanner.getTypesAnnotatedWith(ListenerConfiguration.class);
+  for (  Class<?> listenerClass : listenerClasses) {
+    if (!SoapUIListenerEx.class.isAssignableFrom(listenerClass)) {
+      logger.warn("Class " + listenerClass + " is annotated with @ListenerConfiguration "+ "but does not implement SoapUIListener");
+    }
+ else {
+      listeners.add(((Class<SoapUIListenerEx>)listenerClass));
+    }
+  }
+  return registerListeners(listeners);
+}

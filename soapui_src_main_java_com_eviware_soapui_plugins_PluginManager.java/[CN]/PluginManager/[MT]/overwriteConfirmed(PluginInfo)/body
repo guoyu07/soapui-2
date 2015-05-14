@@ -1,0 +1,4 @@
+{
+  PluginInfo installedPluginInfo=findInstalledVersionOf(pluginInfo).getInfo();
+  return UISupport.confirm("You currently have version " + installedPluginInfo.getVersion() + " of the plugin "+ pluginInfo.getId().getName()+ " installed.\nDo you want to overwrite it with version "+ pluginInfo.getVersion()+ " of the same plugin?","Overwrite plugin");
+}

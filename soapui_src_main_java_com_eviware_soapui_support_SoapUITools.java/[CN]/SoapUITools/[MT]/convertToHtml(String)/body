@@ -1,0 +1,14 @@
+{
+  StringBuilder result=new StringBuilder("<html><body>");
+  for (int c=0; c < str.length(); c++) {
+    char ch=str.charAt(c);
+    if (ch == '\n') {
+      result.append("<br>");
+    }
+ else {
+      result.append(ch);
+    }
+  }
+  result.append("</body></html>");
+  return result.toString();
+}

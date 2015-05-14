@@ -1,0 +1,7 @@
+{
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  Version that=(Version)o;
+  return this.majorVersion == that.majorVersion && this.minorVersion == that.minorVersion && StringUtils.equals(this.patchVersion,that.patchVersion);
+}

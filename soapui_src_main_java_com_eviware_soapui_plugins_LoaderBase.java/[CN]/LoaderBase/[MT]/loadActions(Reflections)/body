@@ -1,0 +1,22 @@
+{
+  List<SoapUIAction> actions=new ArrayList<SoapUIAction>();
+  Set<Class<?>> actionClasses=jarFileScanner.getTypesAnnotatedWith(ActionConfiguration.class);
+  for (  Class<?> actionClass : actionClasses) {
+    if (!SoapUIAction.class.isAssignableFrom(actionClass)) {
+      logger.error("Class " + actionClass + " is annotated with @ActionConfiguration "+ "but does not implement SoapUIAction");
+    }
+ else {
+      actions.add(createAction((Class<SoapUIAction>)actionClass));
+    }
+  }
+  actionClasses=jarFileScanner.getTypesAnnotatedWith(ActionConfigurations.class);
+  for (  Class<?> actionClass : actionClasses) {
+    if (!SoapUIAction.class.isAssignableFrom(actionClass)) {
+      logger.error("Class " + actionClass + " is annotated with @ActionConfigurations "+ "but does not implement SoapUIAction");
+    }
+ else {
+      actions.add(createAction((Class<SoapUIAction>)actionClass));
+    }
+  }
+  return registerActions(actions);
+}

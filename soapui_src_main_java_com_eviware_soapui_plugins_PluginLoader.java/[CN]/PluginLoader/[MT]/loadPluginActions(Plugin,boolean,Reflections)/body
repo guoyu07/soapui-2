@@ -1,0 +1,8 @@
+{
+  List<SoapUIAction> actions=new ArrayList<SoapUIAction>(plugin.getActions());
+  if (!actions.isEmpty())   registerActions(actions);
+  if (autoDetect) {
+    actions.addAll(loadActions(jarFileScanner));
+  }
+  return actions;
+}

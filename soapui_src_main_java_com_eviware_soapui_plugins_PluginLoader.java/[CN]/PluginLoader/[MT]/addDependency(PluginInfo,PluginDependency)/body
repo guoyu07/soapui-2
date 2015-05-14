@@ -1,0 +1,6 @@
+{
+  if (dependencyAnnotation != null) {
+    PluginId id=new PluginId(dependencyAnnotation.groupId(),dependencyAnnotation.name());
+    pluginInfo.addDependency(new PluginInfo(id,Version.fromString(dependencyAnnotation.minimumVersion()),"",""));
+  }
+}

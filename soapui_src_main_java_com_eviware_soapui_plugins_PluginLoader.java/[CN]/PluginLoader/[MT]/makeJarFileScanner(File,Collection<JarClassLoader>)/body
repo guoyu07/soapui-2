@@ -1,0 +1,13 @@
+{
+  File tempFile=File.createTempFile("soapuios",".jar");
+  tempFile.deleteOnExit();
+  FileUtils.copyFile(pluginFile,tempFile);
+  JarClassLoader jarClassLoader=new JarClassLoader(tempFile,PluginLoader.class.getClassLoader(),dependencyClassLoaders);
+  ConfigurationBuilder configurationBuilder=new ConfigurationBuilder().setUrls(jarClassLoader.getURLs()).addClassLoader(jarClassLoader);
+  if (jarClassLoader.hasScripts()) {
+    configurationBuilder.addClassLoader(jarClassLoader.getScriptClassLoader());
+    configurationBuilder.addScanners(new TypeAnnotationsScanner());
+    configurationBuilder.setMetadataAdapter(new GroovyAndJavaReflectionAdapter(jarClassLoader));
+  }
+  return new ReflectionsAndClassLoader(new Reflections(configurationBuilder),jarClassLoader);
+}

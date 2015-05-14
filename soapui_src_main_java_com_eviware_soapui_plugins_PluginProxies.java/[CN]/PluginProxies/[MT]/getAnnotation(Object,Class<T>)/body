@@ -1,0 +1,13 @@
+{
+  if (possiblyProxiedObject == null) {
+    return null;
+  }
+  if (possiblyProxiedObject instanceof Class) {
+    return (T)((Class)possiblyProxiedObject).getAnnotation(annotationClass);
+  }
+  T annotation=possiblyProxiedObject.getClass().getAnnotation(annotationClass);
+  if (annotation != null) {
+    return annotation;
+  }
+  return (possiblyProxiedObject instanceof PluginProxy) ? ((PluginProxy)possiblyProxiedObject).getProxiedClassAnnotation(annotationClass) : null;
+}

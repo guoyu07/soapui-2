@@ -1,0 +1,31 @@
+{
+  boolean hasScripts=false;
+  if (containsScripts(jarFile)) {
+    File scriptsDirectory=SoapUITools.createTemporaryDirectory();
+    Enumeration<JarEntry> entries=jarFile.entries();
+    while (entries.hasMoreElements()) {
+      JarEntry jarEntry=entries.nextElement();
+      if (isScript(jarEntry)) {
+        String pathToScript=jarEntry.getName();
+        File outputFile=null;
+        int lastSlashIndex=pathToScript.lastIndexOf('/');
+        if (lastSlashIndex >= 0) {
+          File packageDirectory=new File(scriptsDirectory,pathToScript.substring(0,lastSlashIndex));
+          if (!packageDirectory.exists() || !packageDirectory.isDirectory()) {
+            if (!packageDirectory.mkdirs()) {
+              log.error("Failed to create directory for [" + pathToScript + "]");
+              packageDirectory=null;
+            }
+          }
+          if (packageDirectory != null) {
+            outputFile=new File(packageDirectory,pathToScript.substring(lastSlashIndex + 1));
+          }
+        }
+        if (outputFile != null) {
+          FileUtils.copyInputStreamToFile(jarFile.getInputStream(jarEntry),outputFile);
+          hasScripts=true;
+        }
+      }
+    }
+  }
+}

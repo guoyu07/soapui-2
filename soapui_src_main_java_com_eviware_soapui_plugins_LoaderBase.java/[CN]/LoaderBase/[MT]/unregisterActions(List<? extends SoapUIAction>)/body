@@ -1,0 +1,8 @@
+{
+  for (  SoapUIAction soapUIAction : actions) {
+    actionRegistry.removeAction(soapUIAction.getId());
+    if (isToolbarAction(soapUIAction)) {
+      SoapUI.removeToolbarAction(soapUIAction);
+    }
+  }
+}

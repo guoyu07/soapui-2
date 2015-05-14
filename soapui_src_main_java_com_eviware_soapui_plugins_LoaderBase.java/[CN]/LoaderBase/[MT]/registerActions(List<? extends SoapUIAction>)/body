@@ -1,0 +1,22 @@
+{
+  Collections.sort(actions,new Comparator<SoapUIAction>(){
+    @Override public int compare(    SoapUIAction o1,    SoapUIAction o2){
+      return o1.getId().compareTo(o2.getId());
+    }
+  }
+);
+  for (  SoapUIAction action : actions) {
+    actionRegistry.addAction(action.getId(),action);
+    ActionConfiguration configuration=PluginProxies.getAnnotation(action,ActionConfiguration.class);
+    if (configuration != null) {
+      configureAction(action,configuration);
+    }
+    ActionConfigurations configurations=PluginProxies.getAnnotation(action,ActionConfigurations.class);
+    if (configurations != null) {
+      for (      ActionConfiguration config : configurations.configurations()) {
+        configureAction(action,config);
+      }
+    }
+  }
+  return actions;
+}

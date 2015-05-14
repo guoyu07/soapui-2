@@ -1,0 +1,30 @@
+{
+  List<AvailablePlugin> plugins=new ArrayList<AvailablePlugin>();
+  String urlString=jsonUrl.toString();
+  String json;
+  if (urlString.startsWith("file:")) {
+    json=SoapUITools.readAll(jsonUrl.openStream(),0).toString();
+  }
+ else {
+    HttpGet get=new HttpGet(urlString);
+    org.apache.http.HttpResponse response=HttpClientSupport.getHttpClient().execute(get);
+    json=SoapUITools.readAll(response.getEntity().getContent(),0).toString();
+  }
+  JSON pluginsAsJson=new JsonSlurper().parseText(json);
+  if (pluginsAsJson instanceof JSONArray) {
+    JSONArray array=(JSONArray)pluginsAsJson;
+    for (    Object pluginElement : array) {
+      if (pluginElement instanceof JSONObject) {
+        AvailablePlugin availablePlugin=makeAvailablePluginEntry((JSONObject)pluginElement);
+        if (availablePlugin == null) {
+          continue;
+        }
+        plugins.add(availablePlugin);
+      }
+    }
+    return plugins;
+  }
+ else {
+    throw new InvalidPluginException("Invalid JSON found at URL " + jsonUrl);
+  }
+}

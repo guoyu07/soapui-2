@@ -1,0 +1,9 @@
+{
+  for (  AvailablePlugin availablePlugin : availablePlugins) {
+    PluginInfo pluginInfo=availablePlugin.getPluginInfo();
+    if (pluginInfo.getId().equals(requiredPlugin.getId()) && pluginInfo.getVersion().compareTo(requiredPlugin.getVersion()) != -1) {
+      return true;
+    }
+  }
+  return false;
+}

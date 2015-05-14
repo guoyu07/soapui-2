@@ -1,0 +1,10 @@
+{
+  JXToolBar toolbar=SoapUI.getToolBar();
+  if (toolbar != null) {
+    toolbar.add(makeToolbarButton(action),lastToolbarButtonIndex);
+    lastToolbarButtonIndex++;
+  }
+ else {
+    extraToolbarActions.add(action);
+  }
+}
