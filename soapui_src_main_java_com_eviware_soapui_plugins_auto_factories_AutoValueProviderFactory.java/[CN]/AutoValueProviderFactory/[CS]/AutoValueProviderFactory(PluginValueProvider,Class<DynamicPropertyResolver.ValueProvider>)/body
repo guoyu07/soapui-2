@@ -1,0 +1,5 @@
+{
+  super(DynamicPropertyResolver.ValueProviderFactory.class,valueProviderClass);
+  valueId=valueProviderClass.getAnnotation(PluginValueProvider.class).valueName();
+  logger.debug("Added ValueProvider for [" + valueId + "]");
+}

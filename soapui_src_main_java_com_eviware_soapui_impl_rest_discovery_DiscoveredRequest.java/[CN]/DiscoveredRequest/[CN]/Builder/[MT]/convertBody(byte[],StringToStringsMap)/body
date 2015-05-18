@@ -1,0 +1,13 @@
+{
+  if (bodyByteArray == null) {
+    return null;
+  }
+  byte[] decodedBody=HttpContentDecoder.decode(bodyByteArray,headers);
+  String charset=getCharset(headersMap);
+  try {
+    return charset == null ? new String(decodedBody,"UTF-8") : new String(decodedBody,charset);
+  }
+ catch (  UnsupportedEncodingException e) {
+    return new String(bodyByteArray);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    Prefs prefsInstance=createWithInjector(prefsClass);
+    return PluginProxies.proxyIfApplicable(prefsInstance);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

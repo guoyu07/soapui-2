@@ -1,0 +1,13 @@
+{
+  try {
+    T returnValue=createWithInjector(objectClass);
+    return PluginProxies.proxyIfApplicable(returnValue);
+  }
+ catch (  IllegalAccessException e) {
+    e.printStackTrace();
+  }
+catch (  InstantiationException e) {
+    e.printStackTrace();
+  }
+  return null;
+}

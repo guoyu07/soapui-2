@@ -1,0 +1,13 @@
+{
+  try {
+    Method method=testStepClass.getMethod("canCreate");
+    return Boolean.valueOf(method.invoke(new Object[0]).toString());
+  }
+ catch (  NoSuchMethodException e) {
+    return true;
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return true;
+}

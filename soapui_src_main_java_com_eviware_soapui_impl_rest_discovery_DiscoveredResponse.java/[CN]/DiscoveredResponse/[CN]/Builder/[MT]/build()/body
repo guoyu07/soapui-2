@@ -1,0 +1,9 @@
+{
+  if (bodyByteArray != null) {
+    body=convertBody(bodyByteArray,headers);
+  }
+  DiscoveredResponse response=new DiscoveredResponse(url,body,headers);
+  response.statusLine=this.statusLine;
+  response.rawContent=HttpContentDecoder.decode(this.bodyByteArray,headers);
+  return response;
+}

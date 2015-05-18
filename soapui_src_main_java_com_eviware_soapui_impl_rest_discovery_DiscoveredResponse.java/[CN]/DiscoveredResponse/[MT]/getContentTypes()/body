@@ -1,0 +1,15 @@
+{
+  List<String> contentTypes=getHeaders().get("Content-Type");
+  if (contentTypes == null) {
+    return Collections.emptyList();
+  }
+  List<ContentType> result=new ArrayList<ContentType>();
+  for (  String contentType : contentTypes) {
+    try {
+      result.add(new ContentType(contentType));
+    }
+ catch (    ParseException ignore) {
+    }
+  }
+  return result;
+}

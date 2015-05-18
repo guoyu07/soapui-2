@@ -1,0 +1,9 @@
+{
+  injectMembers(plugin,plugin);
+  for (  SoapUIAction action : plugin.getActions()) {
+    injectMembers(action,plugin);
+  }
+  for (  SoapUIFactory factory : plugin.getFactories()) {
+    injectMembers(factory,plugin);
+  }
+}
