@@ -1,7 +1,7 @@
 {
   JMenu menu=getMenu(groupId);
   for (  Component component : menu.getMenuComponents()) {
-    disableEnableMenuSubItems(component,false);
-    component.setEnabled(false);
+    activateMenuSubItems(component,activate);
+    component.setEnabled(activate);
   }
 }

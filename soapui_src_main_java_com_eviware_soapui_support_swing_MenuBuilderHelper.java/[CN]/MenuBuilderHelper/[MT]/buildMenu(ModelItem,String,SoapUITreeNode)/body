@@ -1,25 +1,28 @@
 {
   String[] groupsId={SoapUI.STEP,SoapUI.CASE,SoapUI.SUITE,SoapUI.PROJECT};
   if (curModelItem instanceof Workspace) {
-    for (int i=0; i < groupsId.length; i++) {
-      disableMenuItems(groupsId[i]);
+    for (    String groupId : groupsId) {
+      activateMenuItems(groupId,false);
     }
   }
  else   if (ModelSupport.isOneOf(curModelItem,WsdlTestSuite.class,WsdlTestCase.class,WsdlTestStep.class,WsdlProject.class)) {
     ActionList actionList=ActionListBuilder.buildActions(curModelItem);
-    JMenu curMenu=FunctionalMenu.getMenu(menuName);
+    JMenu curMenu=MenuBuilderHelper.getMenu(menuName);
     curMenu.removeAll();
     ActionSupport.addActions(actionList,curMenu);
-    for (int i=0; !groupsId[i].equals(menuName); i++) {
-      disableMenuItems(groupsId[i]);
+    for (    String groupId : groupsId) {
+      if (groupId.equals(menuName)) {
+        break;
+      }
+      activateMenuItems(groupId,false);
     }
     while (!(curModelItem.getParent() instanceof Workspace)) {
       curModelItem=curModelItem.getParent();
       ActionList parentActionList=ActionListBuilder.buildActions(curModelItem);
-      JMenu parentMenu=FunctionalMenu.getMenu(selectMenuName(curModelItem));
+      JMenu parentMenu=MenuBuilderHelper.getMenu(getMenuNameForModelItem(curModelItem));
       parentMenu.removeAll();
       ActionSupport.addActions(parentActionList,parentMenu);
-      enableMenuItems(selectMenuName(curModelItem));
+      activateMenuItems(getMenuNameForModelItem(curModelItem),true);
     }
   }
  else {
