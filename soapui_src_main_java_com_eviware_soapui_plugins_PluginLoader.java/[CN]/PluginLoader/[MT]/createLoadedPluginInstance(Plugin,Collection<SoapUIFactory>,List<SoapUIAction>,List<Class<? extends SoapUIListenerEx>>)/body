@@ -1,5 +1,5 @@
 {
-  LoadedPlugin loadedPlugin=new LoadedPlugin(plugin,factories,actions,listeners,apiImporters);
+  LoadedPlugin loadedPlugin=new LoadedPlugin(plugin,factories,actions,listeners);
   for (  SoapUIFactory factory : factories) {
     if (factory instanceof PluginAware) {
       ((PluginAware)factory).setPlugin(loadedPlugin);
