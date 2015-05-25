@@ -1,6 +1,6 @@
 {
   try {
-    Prefs prefsInstance=createWithInjector(prefsClass);
+    Prefs prefsInstance=createByReflection(prefsClass);
     return PluginProxies.proxyIfApplicable(prefsInstance);
   }
  catch (  Exception e) {

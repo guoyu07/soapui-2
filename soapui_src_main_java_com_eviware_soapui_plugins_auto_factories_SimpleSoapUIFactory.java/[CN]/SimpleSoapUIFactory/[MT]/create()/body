@@ -1,6 +1,6 @@
 {
   try {
-    T returnValue=createWithInjector(objectClass);
+    T returnValue=createByReflection(objectClass);
     return PluginProxies.proxyIfApplicable(returnValue);
   }
  catch (  IllegalAccessException e) {

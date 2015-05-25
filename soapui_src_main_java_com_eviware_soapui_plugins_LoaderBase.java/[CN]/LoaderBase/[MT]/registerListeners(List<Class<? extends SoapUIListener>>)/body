@@ -3,7 +3,7 @@
     Class currentListenerClass=listenerClass;
     while (currentListenerClass != null) {
       for (      Class<?> implementedInterface : currentListenerClass.getInterfaces()) {
-        if (SoapUIListenerEx.class.isAssignableFrom(implementedInterface)) {
+        if (SoapUIListener.class.isAssignableFrom(implementedInterface)) {
           listenerRegistry.addListener(implementedInterface,listenerClass,null);
         }
       }

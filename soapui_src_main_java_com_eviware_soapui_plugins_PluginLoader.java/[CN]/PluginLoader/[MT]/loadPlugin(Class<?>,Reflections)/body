@@ -18,7 +18,7 @@
       plugin.initialize();
       Collection<SoapUIFactory> factories=loadPluginFactories(plugin,autoDetect,jarFileScanner);
       List<SoapUIAction> actions=loadPluginActions(plugin,autoDetect,jarFileScanner);
-      List<Class<? extends SoapUIListenerEx>> listeners=loadPluginListeners(plugin,autoDetect,jarFileScanner);
+      List<Class<? extends SoapUIListener>> listeners=loadPluginListeners(plugin,autoDetect,jarFileScanner);
       return createLoadedPluginInstance(plugin,factories,actions,listeners);
     }
     return plugin;
