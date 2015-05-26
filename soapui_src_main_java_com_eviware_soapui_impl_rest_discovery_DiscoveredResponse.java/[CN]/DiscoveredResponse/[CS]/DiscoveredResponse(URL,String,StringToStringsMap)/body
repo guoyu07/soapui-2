@@ -1,8 +1,0 @@
-{
-  if (url == null) {
-    throw new NullPointerException();
-  }
-  this.url=removeExpansionsFrom(url);
-  this.body=PropertyExpansionRemover.removeExpansions(body);
-  this.headers=headers == null ? new StringToStringsMap() : removeExpansionsFrom(headers);
-}

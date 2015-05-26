@@ -1,9 +1,0 @@
-{
-  StringToStringsMap cleanedHeaders=new StringToStringsMap();
-  for (  Map.Entry<String,List<String>> header : requestHeaders.entrySet()) {
-    for (    String value : header.getValue()) {
-      cleanedHeaders.put(header.getKey(),PropertyExpansionRemover.removeExpansions(value));
-    }
-  }
-  return cleanedHeaders;
-}
