@@ -23,7 +23,4 @@
   if (configuration.separatorAfter()) {
     targetGroup.addMapping(SoapUIActionRegistry.SeperatorAction.SOAPUI_ACTION_ID,++insertIndex,SoapUIActionRegistry.SeperatorAction.getDefaultMapping());
   }
-  if (configuration.toolbarPosition() == ToolbarPosition.FUNCTIONAL_TESTING) {
-    SoapUI.addToolbarAction(new PluginToolbarAction(action,configuration.toolbarIcon(),configuration.description()));
-  }
 }
