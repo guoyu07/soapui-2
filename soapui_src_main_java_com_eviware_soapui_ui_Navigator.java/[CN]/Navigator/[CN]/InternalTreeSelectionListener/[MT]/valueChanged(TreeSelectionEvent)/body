@@ -2,6 +2,7 @@
   Object obj=e.getPath().getLastPathComponent();
   if (obj instanceof SoapUITreeNode) {
     SoapUITreeNode treeNode=(SoapUITreeNode)obj;
+    MenuBuilderHelper.buildTreeNodeMenu(treeNode);
     if (!listeners.isEmpty()) {
       TreePath newPath=e.getNewLeadSelectionPath();
       NavigatorListener[] array=listeners.toArray(new NavigatorListener[listeners.size()]);

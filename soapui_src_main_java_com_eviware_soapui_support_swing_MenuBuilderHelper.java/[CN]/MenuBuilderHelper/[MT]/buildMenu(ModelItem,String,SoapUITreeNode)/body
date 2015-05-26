@@ -1,0 +1,44 @@
+{
+  String[] groupsId={SoapUI.STEP,SoapUI.CASE,SoapUI.SUITE,SoapUI.PROJECT};
+  if (curModelItem instanceof Workspace) {
+    for (    String groupId : groupsId) {
+      activateMenuItems(groupId,false);
+    }
+  }
+ else   if (ModelSupport.isOneOf(curModelItem,WsdlTestSuite.class,WsdlTestCase.class,WsdlTestStep.class,WsdlProject.class)) {
+    ActionList actionList=ActionListBuilder.buildActions(curModelItem);
+    JMenu curMenu=MenuBuilderHelper.getMenu(menuName);
+    curMenu.removeAll();
+    ActionSupport.addActions(actionList,curMenu);
+    for (    String groupId : groupsId) {
+      if (groupId.equals(menuName)) {
+        break;
+      }
+      activateMenuItems(groupId,false);
+    }
+    while (!(curModelItem.getParent() instanceof Workspace)) {
+      curModelItem=curModelItem.getParent();
+      ActionList parentActionList=ActionListBuilder.buildActions(curModelItem);
+      JMenu parentMenu=MenuBuilderHelper.getMenu(getMenuNameForModelItem(curModelItem));
+      parentMenu.removeAll();
+      ActionSupport.addActions(parentActionList,parentMenu);
+      activateMenuItems(getMenuNameForModelItem(curModelItem),true);
+    }
+  }
+ else {
+    SoapUITreeNode node=path.getParentTreeNode();
+    curModelItem=node.getModelItem();
+    while (!(curModelItem instanceof Workspace)) {
+      if (curModelItem instanceof WsdlTestCase) {
+        buildMenu(curModelItem,SoapUI.CASE,null);
+        break;
+      }
+ else       if (curModelItem instanceof WsdlProject) {
+        buildMenu(curModelItem,SoapUI.PROJECT,null);
+        break;
+      }
+      node=node.getParentTreeNode();
+      curModelItem=node.getModelItem();
+    }
+  }
+}

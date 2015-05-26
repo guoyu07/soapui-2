@@ -1,0 +1,14 @@
+{
+  if (modelItem instanceof WsdlTestSuite) {
+    return SoapUI.SUITE;
+  }
+ else   if (modelItem instanceof WsdlTestStep) {
+    return SoapUI.STEP;
+  }
+ else   if (modelItem instanceof WsdlProject) {
+    return SoapUI.PROJECT;
+  }
+ else {
+    return SoapUI.CASE;
+  }
+}
