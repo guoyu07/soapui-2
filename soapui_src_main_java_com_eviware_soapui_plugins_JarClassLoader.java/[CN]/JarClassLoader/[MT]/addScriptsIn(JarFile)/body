@@ -1,7 +1,7 @@
 {
   boolean hasScripts=false;
   if (containsScripts(jarFile)) {
-    File scriptsDirectory=SoapUITools.createTemporaryDirectory();
+    File scriptsDirectory=Tools.createTemporaryDirectory();
     Enumeration<JarEntry> entries=jarFile.entries();
     while (entries.hasMoreElements()) {
       JarEntry jarEntry=entries.nextElement();
