@@ -9,7 +9,6 @@
     return innerObject.getClass().getAnnotation((Class<Annotation>)args[0]);
   }
   ClassLoader originalClassLoader=Thread.currentThread().getContextClassLoader();
-  PluginCallAspect.getOnPluginCall().run();
   if (shouldUsePluginClassloaderFor(method)) {
     Thread.currentThread().setContextClassLoader(innerObject.getClass().getClassLoader());
   }
@@ -19,6 +18,5 @@
   }
   finally {
     Thread.currentThread().setContextClassLoader(originalClassLoader);
-    PluginCallAspect.getAfterPluginCall().run();
   }
 }
