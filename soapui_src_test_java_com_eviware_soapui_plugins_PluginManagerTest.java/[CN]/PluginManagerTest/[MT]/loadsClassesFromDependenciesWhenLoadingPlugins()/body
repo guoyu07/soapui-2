@@ -1,0 +1,8 @@
+{
+  copyResourceToDirectory("/root-plugin.jar",pluginsDirectory);
+  copyResourceToDirectory("/single-dependency-plugin.jar",pluginsDirectory);
+  copyResourceToDirectory("/multiple-dependency-plugin.jar",pluginsDirectory);
+  PluginManager nonMockingPluginManager=makePluginManager();
+  nonMockingPluginManager.loadPlugins();
+  assertThat(nonMockingPluginManager.getInstalledPlugins(),is(aCollectionWithSize(3)));
+}

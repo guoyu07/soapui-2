@@ -1,0 +1,7 @@
+{
+  Plugin plugin=pluginLoader.loadPlugin(AwarenessPlugin.class,null);
+  AwareAction action=(AwareAction)plugin.getActions().get(0);
+  AwareFactory factory=(AwareFactory)plugin.getFactories().iterator().next();
+  assertThat(action.plugin,is(plugin));
+  assertThat(factory.plugin,is(plugin));
+}

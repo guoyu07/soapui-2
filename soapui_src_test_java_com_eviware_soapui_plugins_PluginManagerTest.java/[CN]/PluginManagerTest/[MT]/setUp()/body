@@ -1,0 +1,15 @@
+{
+  originalUserHome=System.getProperty("user.home");
+  File fakeHomeDirectory=SoapUITools.createTemporaryDirectory();
+  System.setProperty("user.home",fakeHomeDirectory.getAbsolutePath());
+  pluginsDirectory=new File(fakeHomeDirectory,".soapui/plugins");
+  if (!pluginsDirectory.mkdirs()) {
+    throw new Error("Couldn't create directory " + pluginsDirectory);
+  }
+  pluginManager=makePluginManager();
+  MockitoAnnotations.initMocks(this);
+  pluginManager.fileOperations=fileOperations;
+  pluginManager.pluginLoader=pluginLoader;
+  pluginManager.loadPlugins();
+  setUpPluginsAndFiles();
+}

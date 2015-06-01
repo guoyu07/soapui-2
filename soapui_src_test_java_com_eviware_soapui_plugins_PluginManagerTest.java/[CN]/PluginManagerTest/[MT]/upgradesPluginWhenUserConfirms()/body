@@ -1,0 +1,11 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  when(fileOperations.deleteFile(any(File.class))).thenReturn(true);
+  stubbedDialogs.mockConfirmWithReturnValue(true);
+  pluginManager.installPlugin(secondPluginFile);
+  assertThat(stubbedDialogs.getConfirmations(),is(aCollectionWithSize(1)));
+  verify(fileOperations).copyFile(eq(pluginFile),any(File.class));
+  assertThat(pluginManager.getInstalledPlugins(),is(aCollectionWithSize(1)));
+  Plugin installedPlugin=pluginManager.getInstalledPlugins().iterator().next();
+  assertThat(installedPlugin.getInfo().getVersion(),is(Version.fromString("0.2")));
+}
