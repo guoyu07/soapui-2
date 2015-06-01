@@ -1,0 +1,8 @@
+{
+  pluginManager.installPlugin(secondPluginFile);
+  when(fileOperations.deleteFile(any(File.class))).thenReturn(true);
+  pluginManager.uninstallPlugin(upgradedAndUninstallablePlugin);
+  List<String> infoMessages=stubbedDialogs.getInfoMessages();
+  assertThat(infoMessages,is(aCollectionWithSize(1)));
+  assertThat(infoMessages.get(0),not(containsString("restart")));
+}

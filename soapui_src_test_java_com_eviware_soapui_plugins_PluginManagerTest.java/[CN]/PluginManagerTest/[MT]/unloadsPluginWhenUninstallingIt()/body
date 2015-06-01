@@ -1,0 +1,6 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  when(fileOperations.deleteFile(any(File.class))).thenReturn(true);
+  pluginManager.uninstallPlugin(plugin);
+  verify(pluginLoader).unloadPlugin(plugin);
+}

@@ -1,0 +1,9 @@
+{
+  String homePath=System.getProperty("soapui.home");
+  if (homePath == null) {
+    File homeFile=new File(".");
+    log.warn("System property 'soapui.home' is not set! Using this directory instead: {}",homeFile);
+    return homeFile.toPath();
+  }
+  return ensureExists(Paths.get(homePath));
+}

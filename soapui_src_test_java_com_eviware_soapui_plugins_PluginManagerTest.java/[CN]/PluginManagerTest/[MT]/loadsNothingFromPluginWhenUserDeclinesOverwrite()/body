@@ -1,0 +1,7 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  when(pluginLoader.loadPluginInfoFrom(secondPluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(upgradedAndUninstallablePlugin.getInfo());
+  stubbedDialogs.mockConfirmWithReturnValue(false);
+  pluginManager.installPlugin(secondPluginFile);
+  verify(pluginLoader,never()).loadPlugin(secondPluginFile,java.util.Collections.<JarClassLoader>emptySet());
+}

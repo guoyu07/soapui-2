@@ -1,0 +1,10 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  DependentPlugin dependentPlugin=new DependentPlugin();
+  when(pluginLoader.loadPluginInfoFrom(secondPluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(PluginLoader.readPluginInfoFrom(DependentPlugin.class));
+  when(pluginLoader.loadPlugin(eq(secondPluginFile),isA(Collection.class))).thenReturn(recordWith(dependentPlugin));
+  pluginManager.installPlugin(secondPluginFile);
+  Collection<Plugin> dependentPlugins=pluginManager.getDependentPlugins(plugin);
+  assertThat(dependentPlugins,is(aCollectionWithSize(1)));
+  assertThat(dependentPlugins,hasItem(dependentPlugin));
+}
