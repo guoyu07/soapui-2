@@ -1,0 +1,16 @@
+{
+  try {
+    Method method=testStepClass.getMethod("createNewTestStep",WsdlTestCase.class,String.class);
+    return (TestStepConfig)method.invoke(testCase,name);
+  }
+ catch (  NoSuchMethodException e) {
+    TestStepConfig config=TestStepConfig.Factory.newInstance();
+    config.setType(annotation.typeName());
+    config.setName(annotation.name());
+    return config;
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

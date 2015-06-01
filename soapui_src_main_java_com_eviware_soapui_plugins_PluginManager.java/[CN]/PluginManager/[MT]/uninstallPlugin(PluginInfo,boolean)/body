@@ -1,0 +1,46 @@
+{
+  for (  File installedPluginFile : installedPlugins.keySet()) {
+    Plugin installedPlugin=installedPlugins.get(installedPluginFile).plugin;
+    if (installedPlugin.getInfo().getId().equals(pluginInfo.getId())) {
+      if (!fileOperations.deleteFile(installedPluginFile)) {
+        log.warn("Couldn't delete old plugin file " + installedPluginFile + " - aborting uninstall");
+        return false;
+      }
+      String uninstallMessage="Plugin uninstalled - you should restart SoapUI to ensure that the changes to take effect";
+      if (installedPlugin instanceof UninstallablePlugin) {
+        try {
+          boolean uninstalled=((UninstallablePlugin)installedPlugin).uninstall();
+          if (uninstalled) {
+            uninstallMessage="Plugin uninstalled successfully";
+          }
+        }
+ catch (        Exception e) {
+          if (silent) {
+            log.error("Error while uninstalling plugin",e);
+          }
+ else {
+            UISupport.showErrorMessage("The plugin file has been deleted but could not be uninstalled - " + "restart SoapUI for the changes to take effect");
+          }
+          return false;
+        }
+      }
+      try {
+        pluginLoader.unloadPlugin(installedPlugin);
+        for (        PluginListener listener : listeners) {
+          listener.pluginUnloaded(installedPlugin);
+        }
+      }
+ catch (      Exception e) {
+        uninstallMessage="Plugin unloaded unsuccessfully - please restart";
+        log.error("Couldn't unload plugin",e);
+      }
+      installedPlugins.remove(installedPluginFile);
+      resolver.removePlugin(pluginInfo);
+      if (!silent) {
+        UISupport.showInfoMessage(uninstallMessage);
+      }
+      break;
+    }
+  }
+  return true;
+}

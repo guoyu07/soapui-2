@@ -1,0 +1,8 @@
+{
+  for (  Map.Entry<PluginInfo,File> entry : infoToFileMap.entrySet()) {
+    if (entry.getValue().equals(pluginFile)) {
+      return findAllDependencies(entry.getKey());
+    }
+  }
+  return Collections.emptySet();
+}

@@ -1,0 +1,7 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  stubbedDialogs.mockConfirmWithReturnValue(false);
+  pluginManager.installPlugin(secondPluginFile);
+  Plugin installedPlugin=pluginManager.getInstalledPlugins().iterator().next();
+  assertThat(installedPlugin.getInfo().getVersion(),is(Version.fromString("0.1")));
+}

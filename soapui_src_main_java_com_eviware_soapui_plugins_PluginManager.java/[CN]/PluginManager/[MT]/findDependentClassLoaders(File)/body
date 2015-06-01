@@ -1,0 +1,16 @@
+{
+  if (resolver == null) {
+    return Collections.emptySet();
+  }
+  Collection<PluginInfo> allDependencies=resolver.findAllDependencies(pluginFile);
+  Set<JarClassLoader> classLoaders=new HashSet<JarClassLoader>();
+  for (  PluginInfo dependency : allDependencies) {
+    for (    InstalledPluginRecord installedPluginRecord : installedPlugins.values()) {
+      if (installedPluginRecord.plugin.getInfo().isCompatibleWith(dependency)) {
+        classLoaders.add(installedPluginRecord.pluginClassLoader);
+        break;
+      }
+    }
+  }
+  return classLoaders;
+}

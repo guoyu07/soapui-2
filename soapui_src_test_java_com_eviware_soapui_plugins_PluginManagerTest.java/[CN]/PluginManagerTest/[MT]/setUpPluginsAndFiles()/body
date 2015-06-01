@@ -1,0 +1,10 @@
+{
+  plugin=new OldPlugin();
+  upgradedAndUninstallablePlugin=new UpgradedPlugin();
+  pluginFile=new File(pluginsDirectory,"plugin-file.jar");
+  when(pluginLoader.loadPlugin(pluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(recordWith(plugin));
+  when(pluginLoader.loadPluginInfoFrom(pluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(plugin.getInfo());
+  secondPluginFile=new File(pluginsDirectory,"plugin-file-0.2.jar");
+  when(pluginLoader.loadPlugin(secondPluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(recordWith(upgradedAndUninstallablePlugin));
+  when(pluginLoader.loadPluginInfoFrom(secondPluginFile,java.util.Collections.<JarClassLoader>emptySet())).thenReturn(upgradedAndUninstallablePlugin.getInfo());
+}

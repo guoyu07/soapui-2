@@ -1,0 +1,9 @@
+{
+  if (majorVersion != other.majorVersion) {
+    return majorVersion - other.majorVersion;
+  }
+  if (minorVersion != other.minorVersion) {
+    return minorVersion - other.minorVersion;
+  }
+  return normalizePatchVersion(patchVersion).compareTo(normalizePatchVersion(other.patchVersion));
+}

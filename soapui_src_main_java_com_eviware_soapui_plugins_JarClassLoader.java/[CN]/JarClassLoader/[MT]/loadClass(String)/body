@@ -1,0 +1,29 @@
+{
+  try {
+    return super.loadClass(name);
+  }
+ catch (  ClassNotFoundException e) {
+    for (    JarClassLoader dependencyClassLoader : dependencyClassLoaders) {
+      try {
+        return dependencyClassLoader.loadClass(name);
+      }
+ catch (      ClassNotFoundException ignore) {
+      }
+catch (      NoClassDefFoundError ignore) {
+      }
+    }
+    return parent.loadClass(name);
+  }
+catch (  NoClassDefFoundError e) {
+    for (    JarClassLoader dependencyClassLoader : dependencyClassLoaders) {
+      try {
+        return dependencyClassLoader.loadClass(name);
+      }
+ catch (      ClassNotFoundException ignore) {
+      }
+catch (      NoClassDefFoundError ignore) {
+      }
+    }
+    return parent.loadClass(name);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  PluginId id=pluginInfo.getId();
+  assertThat(id.getGroupId(),is(expectedGroupId));
+  assertThat(id.getName(),is(expectedName));
+  assertThat(pluginInfo.getVersion(),is(Version.fromString(expectedVersion)));
+}

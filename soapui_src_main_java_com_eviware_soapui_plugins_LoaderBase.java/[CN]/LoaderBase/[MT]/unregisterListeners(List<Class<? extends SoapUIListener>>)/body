@@ -1,0 +1,10 @@
+{
+  for (  Class<? extends SoapUIListener> listenerClass : listeners) {
+    for (    Class<?> implementedInterface : listenerClass.getInterfaces()) {
+      if (SoapUIListener.class.isAssignableFrom(implementedInterface)) {
+        listenerRegistry.removeListener(implementedInterface,listenerClass);
+        listenerRegistry.removeSingletonListener(implementedInterface,listenerClass);
+      }
+    }
+  }
+}

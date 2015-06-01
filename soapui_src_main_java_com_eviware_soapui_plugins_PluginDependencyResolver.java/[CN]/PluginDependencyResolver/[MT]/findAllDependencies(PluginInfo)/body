@@ -1,0 +1,11 @@
+{
+  Set<PluginInfo> allDependencies=new HashSet<PluginInfo>();
+  for (  PluginInfo dependency : plugin.getDependencies()) {
+    PluginInfo realDependency=findDependency(dependency.getId());
+    if (realDependency != null) {
+      allDependencies.add(realDependency);
+      allDependencies.addAll(findAllDependencies(realDependency));
+    }
+  }
+  return allDependencies;
+}

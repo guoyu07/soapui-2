@@ -1,0 +1,8 @@
+{
+  for (  InstalledPluginRecord installedPlugin : installedPlugins.values()) {
+    if (installedPlugin.plugin.getInfo().getId().equals(pluginInfo.getId())) {
+      return installedPlugin.plugin;
+    }
+  }
+  return null;
+}

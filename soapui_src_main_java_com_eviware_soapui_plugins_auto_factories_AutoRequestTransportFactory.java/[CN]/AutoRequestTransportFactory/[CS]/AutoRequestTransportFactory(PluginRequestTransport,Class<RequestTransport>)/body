@@ -1,0 +1,5 @@
+{
+  super(RequestTransportFactory.class,requestTransportClass);
+  protocol=requestTransportClass.getAnnotation(PluginRequestTransport.class).protocol();
+  SoapUI.log("Added RequestTransport for protocol [" + protocol + "]");
+}

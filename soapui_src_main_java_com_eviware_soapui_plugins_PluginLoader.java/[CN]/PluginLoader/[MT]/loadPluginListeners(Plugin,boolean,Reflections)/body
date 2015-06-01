@@ -1,0 +1,8 @@
+{
+  List<Class<? extends SoapUIListener>> listeners=new ArrayList<Class<? extends SoapUIListener>>(plugin.getListeners());
+  if (!listeners.isEmpty())   registerListeners(listeners);
+  if (autoDetect) {
+    listeners.addAll(loadListeners(jarFileScanner));
+  }
+  return listeners;
+}
