@@ -1,0 +1,11 @@
+{
+  return new TypeSafeMatcher<Comparable<T>>(){
+    @Override protected boolean matchesSafely(    Comparable<T> other){
+      return other.compareTo(version) > 0;
+    }
+    @Override public void describeTo(    Description description){
+      description.appendText("an object that is considered 'greater' than " + version);
+    }
+  }
+;
+}

@@ -1,0 +1,7 @@
+{
+  assertThat(BASE_VERSION,is(equalTo(Version.fromString("1.7"))));
+  assertThat(BASE_VERSION,is(not(equalTo(Version.fromString("1.7.1")))));
+  assertThat(BASE_VERSION,is(not(equalTo(null))));
+  assertThat(Version.fromString("1.7.2"),is(equalTo(Version.fromString("1.7.2"))));
+  assertThat(Version.fromString("1.7.2"),is(not(equalTo(Version.fromString("1.7.3")))));
+}
