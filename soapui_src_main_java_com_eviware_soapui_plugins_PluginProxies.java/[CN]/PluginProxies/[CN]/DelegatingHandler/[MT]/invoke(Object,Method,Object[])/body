@@ -1,0 +1,22 @@
+{
+  if (method.equals(OBJECT_EQUALS_METHOD)) {
+    return equalsInternal(args[0]);
+  }
+ else   if (method.getName().equals("hashCode")) {
+    return innerObject.hashCode();
+  }
+ else   if (method.getDeclaringClass().equals(PluginProxy.class) && method.getName().equals("getProxiedClassAnnotation")) {
+    return innerObject.getClass().getAnnotation((Class<Annotation>)args[0]);
+  }
+  ClassLoader originalClassLoader=Thread.currentThread().getContextClassLoader();
+  if (shouldUsePluginClassloaderFor(method)) {
+    Thread.currentThread().setContextClassLoader(innerObject.getClass().getClassLoader());
+  }
+  try {
+    Object returnValue=method.invoke(innerObject,args);
+    return proxyIfApplicable(returnValue);
+  }
+  finally {
+    Thread.currentThread().setContextClassLoader(originalClassLoader);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  File pluginFile=new File(PluginLoaderTest.class.getResource("bare-plugin.jar").getPath());
+  Plugin loadedPlugin=pluginLoader.loadPlugin(pluginFile,java.util.Collections.<JarClassLoader>emptySet()).plugin;
+  assertThat(loadedPlugin.getInfo().getId().getName(),is("NonAdapterPlugin"));
+}

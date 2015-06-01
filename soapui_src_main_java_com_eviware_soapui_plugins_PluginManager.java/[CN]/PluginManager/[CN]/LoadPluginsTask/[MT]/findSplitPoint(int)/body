@@ -1,0 +1,25 @@
+{
+  if (tentativeSplitPoint <= 0) {
+    return 0;
+  }
+ else   if (tentativeSplitPoint >= files.size() - 1) {
+    return files.size() - 1;
+  }
+  List<PluginInfo> pluginInfoList=resolver.getPluginInfoListFromFiles(files);
+  if (pluginInfoList.get(tentativeSplitPoint + 1).getDependencies().isEmpty()) {
+    return tentativeSplitPoint;
+  }
+ else {
+    int leftSplitPoint=findSplitPoint(tentativeSplitPoint - 1);
+    int rightSplitPoint=findSplitPoint(tentativeSplitPoint + 1);
+    if (leftSplitPoint > 0 && (tentativeSplitPoint - leftSplitPoint <= rightSplitPoint - tentativeSplitPoint)) {
+      return leftSplitPoint;
+    }
+ else     if (rightSplitPoint < files.size() - 1) {
+      return rightSplitPoint;
+    }
+ else {
+      return 0;
+    }
+  }
+}

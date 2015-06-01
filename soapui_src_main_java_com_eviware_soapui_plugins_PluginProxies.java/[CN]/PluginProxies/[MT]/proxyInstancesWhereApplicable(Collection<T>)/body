@@ -1,0 +1,7 @@
+{
+  Collection<T> proxiedInstances=new HashSet<T>();
+  for (  T instance : instancesToProxy) {
+    proxiedInstances.add(proxyIfApplicable(instance));
+  }
+  return proxiedInstances;
+}

@@ -1,0 +1,9 @@
+{
+  List<PluginInfo> unsatisfiedDependencies=new ArrayList<PluginInfo>();
+  for (  PluginInfo dependency : pluginInfo.getDependencies()) {
+    if (!dependencyInstalled(dependency)) {
+      unsatisfiedDependencies.add(dependency);
+    }
+  }
+  return unsatisfiedDependencies;
+}

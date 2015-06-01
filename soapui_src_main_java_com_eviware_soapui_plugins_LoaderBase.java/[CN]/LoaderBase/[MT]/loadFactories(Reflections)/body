@@ -1,0 +1,12 @@
+{
+  Collection<SoapUIFactory> factories=new HashSet<SoapUIFactory>();
+  Set<Class<?>> factoryClasses=jarFileScanner.getTypesAnnotatedWith(FactoryConfiguration.class);
+  for (  Class<?> factoryClass : factoryClasses) {
+    if (!SoapUIFactory.class.isAssignableFrom(factoryClass)) {
+      logger.warn("Class " + factoryClass + " is annotated with @FactoryConfiguration "+ "but does not implement SoapUIFactory");
+    }
+ else     factories.add(createFactory((Class<SoapUIFactory>)factoryClass));
+  }
+  loadAutoFactories(jarFileScanner,factories);
+  return registerFactories(factories);
+}

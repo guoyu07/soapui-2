@@ -1,0 +1,6 @@
+{
+  PluginDependencyResolver downloadsResolver=new PluginDependencyResolver(pluginLoader,pluginFilesToInstall);
+  for (  File file : downloadsResolver.determineLoadOrder()) {
+    installPlugin(file);
+  }
+}

@@ -1,0 +1,20 @@
+{
+  WsdlTestStep result=null;
+  try {
+    Method method=testStepClass.getMethod("buildTestStep",WsdlTestCase.class,TestStepConfig.class,Boolean.class);
+    result=(WsdlTestStep)method.invoke(testCase,config,forLoadTest);
+  }
+ catch (  NoSuchMethodException e) {
+    try {
+      Constructor constructor=testStepClass.getConstructor(WsdlTestCase.class,TestStepConfig.class,boolean.class);
+      result=(WsdlTestStep)constructor.newInstance(testCase,config,forLoadTest);
+    }
+ catch (    Exception e1) {
+      SoapUI.logError(e);
+    }
+  }
+catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return result;
+}

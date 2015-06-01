@@ -1,0 +1,12 @@
+{
+  List<PluginInfo> result=new ArrayList<PluginInfo>();
+  for (  File file : files) {
+    for (    Map.Entry<PluginInfo,File> entry : infoToFileMap.entrySet()) {
+      if (entry.getValue().equals(file)) {
+        result.add(entry.getKey());
+        break;
+      }
+    }
+  }
+  return result;
+}

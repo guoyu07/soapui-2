@@ -1,0 +1,12 @@
+{
+  if (!fileToDelete.delete()) {
+    try {
+      FileUtils.write(pluginDeleteListFile,fileToDelete.getName() + "\r\n",true);
+    }
+ catch (    IOException e) {
+      log.error("Couldn't schedule plugin file " + fileToDelete.getName() + " for deletion",e);
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,7 @@
+{
+  Set<Plugin> plugins=new HashSet<Plugin>();
+  for (  InstalledPluginRecord installedPluginRecord : installedPlugins.values()) {
+    plugins.add(installedPluginRecord.plugin);
+  }
+  return Collections.unmodifiableCollection(plugins);
+}

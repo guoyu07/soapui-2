@@ -1,0 +1,11 @@
+{
+  if (originalUserHome != null) {
+    System.setProperty("user.home",originalUserHome);
+  }
+  try {
+    FileUtils.deleteDirectory(pluginsDirectory);
+  }
+ catch (  Exception e) {
+    System.err.println("Error when deleting fake plugins directory: " + e);
+  }
+}

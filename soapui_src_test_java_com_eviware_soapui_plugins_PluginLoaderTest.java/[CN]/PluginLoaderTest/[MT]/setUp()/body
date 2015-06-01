@@ -1,0 +1,7 @@
+{
+  originalSoapUIHome=SoapUITools.absolutePath(SoapUITools.soapuiHomeDir());
+  File fakeSoapUIHome=new File(System.getProperty("java.io.tmpdir"),UUID.randomUUID().toString());
+  System.setProperty("soapui.home",fakeSoapUIHome.getAbsolutePath());
+  defaultSoapUICore=DefaultSoapUICore.createDefault();
+  pluginLoader=new PluginLoader(defaultSoapUICore.getFactoryRegistry(),defaultSoapUICore.getActionRegistry(),defaultSoapUICore.getListenerRegistry());
+}

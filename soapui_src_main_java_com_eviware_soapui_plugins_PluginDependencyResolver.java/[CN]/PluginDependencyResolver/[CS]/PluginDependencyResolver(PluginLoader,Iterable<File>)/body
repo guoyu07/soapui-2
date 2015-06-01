@@ -1,0 +1,6 @@
+{
+  infoToFileMap=new HashMap<PluginInfo,File>();
+  for (  File pluginFile : pluginFiles) {
+    infoToFileMap.put(pluginLoader.loadPluginInfoFrom(pluginFile,Collections.<JarClassLoader>emptySet()),pluginFile);
+  }
+}

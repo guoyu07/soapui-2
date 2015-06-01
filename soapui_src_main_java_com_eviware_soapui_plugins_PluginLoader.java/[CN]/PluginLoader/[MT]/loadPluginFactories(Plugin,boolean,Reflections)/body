@@ -1,0 +1,8 @@
+{
+  Collection<SoapUIFactory> factories=new HashSet<SoapUIFactory>(plugin.getFactories());
+  if (!factories.isEmpty())   registerFactories(factories);
+  if (autoDetect) {
+    factories.addAll(loadFactories(jarFileScanner));
+  }
+  return factories;
+}

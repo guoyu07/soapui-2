@@ -1,0 +1,15 @@
+{
+  if (containsLibraries(jarFile)) {
+    File libDirectory=Tools.createTemporaryDirectory();
+    Enumeration<JarEntry> entries=jarFile.entries();
+    while (entries.hasMoreElements()) {
+      JarEntry jarEntry=entries.nextElement();
+      if (isLibrary(jarEntry)) {
+        String fileName=jarEntry.getName().substring(LIB_PREFIX.length());
+        File outputFile=new File(libDirectory,fileName);
+        FileUtils.copyInputStreamToFile(jarFile.getInputStream(jarEntry),outputFile);
+        this.addURL(outputFile.toURI().toURL());
+      }
+    }
+  }
+}

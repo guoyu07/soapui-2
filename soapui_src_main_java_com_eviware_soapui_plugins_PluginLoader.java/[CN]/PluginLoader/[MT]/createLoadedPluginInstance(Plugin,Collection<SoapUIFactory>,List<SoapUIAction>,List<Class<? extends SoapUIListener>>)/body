@@ -1,0 +1,14 @@
+{
+  LoadedPlugin loadedPlugin=new LoadedPlugin(plugin,factories,actions,listeners);
+  for (  SoapUIFactory factory : factories) {
+    if (factory instanceof PluginAware) {
+      ((PluginAware)factory).setPlugin(loadedPlugin);
+    }
+  }
+  for (  SoapUIAction action : actions) {
+    if (action instanceof PluginAware) {
+      ((PluginAware)action).setPlugin(loadedPlugin);
+    }
+  }
+  return loadedPlugin;
+}

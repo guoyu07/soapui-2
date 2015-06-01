@@ -1,0 +1,13 @@
+{
+  Set<Plugin> dependentPlugins=new HashSet<Plugin>();
+  for (  InstalledPluginRecord installedPluginRecord : installedPlugins.values()) {
+    Collection<PluginInfo> allDependencies=resolver.findAllDependencies(installedPluginRecord.plugin.getInfo());
+    for (    PluginInfo dependency : allDependencies) {
+      if (dependency.isCompatibleWith(selectedPlugin.getInfo())) {
+        dependentPlugins.add(installedPluginRecord.plugin);
+        break;
+      }
+    }
+  }
+  return dependentPlugins;
+}

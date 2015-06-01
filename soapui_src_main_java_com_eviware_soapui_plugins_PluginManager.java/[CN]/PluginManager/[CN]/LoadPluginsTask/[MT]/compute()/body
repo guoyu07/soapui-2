@@ -1,0 +1,17 @@
+{
+  int splitPoint=findSplitPoint(files.size() / 2);
+  if (splitPoint == 0 || splitPoint == files.size() - 1) {
+    return computeSequentially();
+  }
+ else {
+    LoadPluginsTask leftTask=new LoadPluginsTask(files.subList(0,splitPoint));
+    leftTask.fork();
+    LoadPluginsTask rightTask=new LoadPluginsTask(files.subList(splitPoint,files.size()));
+    List<Plugin> rightTaskResult=rightTask.compute();
+    List<Plugin> leftTaskResult=leftTask.join();
+    List<Plugin> result=new ArrayList<Plugin>();
+    result.addAll(leftTaskResult);
+    result.addAll(rightTaskResult);
+    return result;
+  }
+}
