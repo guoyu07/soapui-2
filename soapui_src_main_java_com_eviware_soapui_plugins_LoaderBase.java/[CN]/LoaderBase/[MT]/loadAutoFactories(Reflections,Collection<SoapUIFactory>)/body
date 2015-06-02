@@ -1,0 +1,19 @@
+{
+  ConfigurationBuilder builder=new ConfigurationBuilder();
+  builder.addUrls(ClasspathHelper.forClass(AutoFactory.class));
+  builder.setScanners(new SubTypesScanner(),new TypeAnnotationsScanner());
+  builder.addClassLoader(Thread.currentThread().getContextClassLoader());
+  Reflections autoAnnotationFinder=new Reflections(builder);
+  for (  Class clazz : autoAnnotationFinder.getTypesAnnotatedWith(AutoFactory.class)) {
+    if (clazz.isAnnotation() && clazz.getSimpleName().startsWith("Plugin")) {
+      try {
+        String className="Auto" + clazz.getSimpleName().substring(6) + "Factory";
+        Class<? extends SoapUIFactory> factoryClass=(Class<? extends SoapUIFactory>)Class.forName(clazz.getPackage().getName() + ".factories." + className);
+        factories.addAll(findAutoFactoryObjects(jarFileScanner,clazz,factoryClass));
+      }
+ catch (      ClassNotFoundException e) {
+        SoapUI.logError(e);
+      }
+    }
+  }
+}

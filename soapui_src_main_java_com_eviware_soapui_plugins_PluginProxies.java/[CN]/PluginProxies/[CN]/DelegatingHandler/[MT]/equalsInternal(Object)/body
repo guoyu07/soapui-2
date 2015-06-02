@@ -1,0 +1,16 @@
+{
+  if (other == null) {
+    return false;
+  }
+  Object actualOtherObject=null;
+  if (Proxy.isProxyClass(other.getClass())) {
+    InvocationHandler handler=Proxy.getInvocationHandler(other);
+    if (handler instanceof DelegatingHandler) {
+      actualOtherObject=((DelegatingHandler)handler).innerObject;
+    }
+  }
+ else {
+    actualOtherObject=other;
+  }
+  return innerObject.equals(actualOtherObject);
+}

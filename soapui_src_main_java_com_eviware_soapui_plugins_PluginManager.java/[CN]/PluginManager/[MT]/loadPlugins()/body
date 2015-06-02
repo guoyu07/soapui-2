@@ -1,0 +1,23 @@
+{
+  File[] pluginFiles=pluginDirectory.listFiles(new FileFilter(){
+    @Override public boolean accept(    File pathname){
+      return pathname.isFile() && (pathname.getName().toLowerCase().endsWith(".jar") || pathname.getName().toLowerCase().endsWith(".zip"));
+    }
+  }
+);
+  if (pluginFiles != null) {
+    List<File> pluginFileList=Arrays.asList(pluginFiles);
+    resolver=null;
+    try {
+      resolver=new PluginDependencyResolver(pluginLoader,pluginFileList);
+      pluginFileList=resolver.determineLoadOrder();
+    }
+ catch (    Exception e) {
+      log.error("Couldn't resolve plugin dependency order. This may impair plugin functionality.",e);
+    }
+    long startTime=System.currentTimeMillis();
+    getForkJoinPool().invoke(new LoadPluginsTask(pluginFileList));
+    long timeTaken=System.currentTimeMillis() - startTime;
+    log.info(pluginFiles.length + " plugins loaded in " + timeTaken+ " ms");
+  }
+}

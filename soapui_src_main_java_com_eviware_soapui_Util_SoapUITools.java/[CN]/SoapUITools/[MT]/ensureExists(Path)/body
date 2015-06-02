@@ -1,0 +1,11 @@
+{
+  File file=path.toFile();
+  boolean ok=true;
+  if (!file.exists()) {
+    ok=file.mkdirs();
+  }
+  if (!ok) {
+    throw new RuntimeException("Cannot create local storage at: " + file);
+  }
+  return path;
+}

@@ -1,0 +1,32 @@
+{
+  try {
+    PluginConfiguration configurationAnnotation=pluginClass.getAnnotation(PluginConfiguration.class);
+    Version minimumReadyApiVersion=Version.fromString(configurationAnnotation.minimumReadyApiVersion());
+    Version installedReadyApiVersion=Version.fromString(SoapUI.SOAPUI_VERSION);
+    if (minimumReadyApiVersion.compareTo(installedReadyApiVersion) > 0) {
+      throw new InvalidPluginException("Plugin " + configurationAnnotation.name() + " requires version "+ minimumReadyApiVersion+ " of Ready!API. Current application version: "+ installedReadyApiVersion);
+    }
+    Plugin plugin;
+    if (Plugin.class.isAssignableFrom(pluginClass)) {
+      plugin=(Plugin)pluginClass.newInstance();
+    }
+ else {
+      plugin=new EmptyPlugin(configurationAnnotation);
+    }
+    boolean autoDetect=configurationAnnotation.autoDetect();
+    if (plugin.isActive()) {
+      plugin.initialize();
+      Collection<SoapUIFactory> factories=loadPluginFactories(plugin,autoDetect,jarFileScanner);
+      List<SoapUIAction> actions=loadPluginActions(plugin,autoDetect,jarFileScanner);
+      List<Class<? extends SoapUIListener>> listeners=loadPluginListeners(plugin,autoDetect,jarFileScanner);
+      return createLoadedPluginInstance(plugin,factories,actions,listeners);
+    }
+    return plugin;
+  }
+ catch (  InvalidPluginException e) {
+    throw e;
+  }
+catch (  Throwable e) {
+    throw new InvalidPluginException("Error loading plugin " + pluginClass,e);
+  }
+}

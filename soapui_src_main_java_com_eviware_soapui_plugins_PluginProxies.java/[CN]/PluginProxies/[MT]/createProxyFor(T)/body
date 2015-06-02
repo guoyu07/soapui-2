@@ -1,0 +1,13 @@
+{
+  if (delegate instanceof JComponent) {
+    log.warn("Can't proxy JComponent derived classes");
+    return delegate;
+  }
+  Collection<Class> interfaces=ClassUtils.getAllInterfaces(delegate.getClass());
+  if (interfaces.isEmpty()) {
+    log.warn("Can't proxy instance of {} because the class doesn't implement any interfaces",delegate.getClass());
+    return delegate;
+  }
+  interfaces.add(PluginProxy.class);
+  return (T)Proxy.newProxyInstance(PluginProxies.class.getClassLoader(),interfaces.toArray(new Class[interfaces.size()]),new DelegatingHandler<T>(delegate));
+}

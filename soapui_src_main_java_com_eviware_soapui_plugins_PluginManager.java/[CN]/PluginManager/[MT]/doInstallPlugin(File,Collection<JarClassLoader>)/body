@@ -1,0 +1,9 @@
+{
+  UISupport.addResourceClassLoader(new URLClassLoader(new URL[]{pluginFile.toURI().toURL()}));
+  InstalledPluginRecord context=pluginLoader.loadPlugin(pluginFile,classLoaders);
+  installedPlugins.put(pluginFile,context);
+  for (  PluginListener listener : listeners) {
+    listener.pluginLoaded(context.plugin);
+  }
+  return context.plugin;
+}

@@ -1,0 +1,8 @@
+{
+  pluginManager.installPlugin(pluginFile);
+  stubbedDialogs.mockConfirmWithReturnValue(false);
+  pluginManager.installPlugin(secondPluginFile);
+  String confirmationQuestion=stubbedDialogs.getConfirmations().get(0).question;
+  assertThat(confirmationQuestion,containsString("0.1"));
+  assertThat(confirmationQuestion,containsString("0.2"));
+}

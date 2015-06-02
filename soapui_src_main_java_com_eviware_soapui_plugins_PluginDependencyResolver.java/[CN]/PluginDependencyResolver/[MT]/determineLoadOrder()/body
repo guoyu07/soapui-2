@@ -1,0 +1,9 @@
+{
+  List<PluginInfo> infoList=new ArrayList<PluginInfo>(infoToFileMap.keySet());
+  Collections.sort(infoList,new PluginDependencyComparator());
+  List<File> resultList=new ArrayList<File>();
+  for (  PluginInfo pluginInfo : infoList) {
+    resultList.add(infoToFileMap.get(pluginInfo));
+  }
+  return resultList;
+}

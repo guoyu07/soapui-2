@@ -1,0 +1,5 @@
+{
+  assertThat(pluginManager.installPlugin(pluginFile),is(plugin));
+  verify(pluginLoader).loadPlugin(pluginFile,java.util.Collections.<JarClassLoader>emptySet());
+  verify(fileOperations).copyFile(eq(pluginFile),any(File.class));
+}

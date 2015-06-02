@@ -1,0 +1,22 @@
+{
+  List<Plugin> result=new ArrayList<Plugin>();
+  for (  File pluginFile : files) {
+    try {
+      log.info("Adding plugin from [" + pluginFile.getAbsolutePath() + "]");
+      try {
+        Plugin plugin=doInstallPlugin(pluginFile,findDependentClassLoaders(pluginFile));
+        result.add(plugin);
+      }
+ catch (      MissingPluginClassException e) {
+        log.error("No plugin found in [" + pluginFile + "]");
+      }
+catch (      Exception e) {
+        log.warn("Could not load plugin from file [" + pluginFile + "]",e);
+      }
+    }
+ catch (    Throwable e) {
+      log.error("Failed to load module [" + pluginFile.getName() + "]",e);
+    }
+  }
+  return result;
+}

@@ -1,0 +1,6 @@
+{
+  int result=majorVersion;
+  result=31 * result + minorVersion;
+  result=31 * result + (patchVersion == null ? 0 : patchVersion.hashCode());
+  return result;
+}

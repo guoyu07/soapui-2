@@ -1,0 +1,22 @@
+{
+  try {
+    if (targetClass.isAssignableFrom(modelItem.getClass())) {
+      try {
+        Method appliesMethod=editorViewClass.getMethod("applies",targetClass);
+        if (appliesMethod != null) {
+          Object applies=appliesMethod.invoke(null,modelItem);
+          if (!Boolean.valueOf(String.valueOf(applies)))           return null;
+        }
+      }
+ catch (      NoSuchMethodException e) {
+      }
+      Constructor<EditorView> constructor=editorViewClass.getConstructor(Editor.class,targetClass);
+      EditorView editorViewToReturn=constructor.newInstance(editor,modelItem);
+      return PluginProxies.proxyIfApplicable(editorViewToReturn);
+    }
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+  }
+  return null;
+}

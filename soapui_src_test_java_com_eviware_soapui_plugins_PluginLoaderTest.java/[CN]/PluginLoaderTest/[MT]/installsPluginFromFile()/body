@@ -1,0 +1,8 @@
+{
+  File pluginFile=new File(PluginLoaderTest.class.getResource("plugin-example-1.0.jar").getPath());
+  Plugin loadedPlugin=pluginLoader.loadPlugin(pluginFile,java.util.Collections.<JarClassLoader>emptySet()).plugin;
+  assertThat(loadedPlugin.getInfo().getId().getName(),is("Example plugin"));
+  assertThat(defaultSoapUICore.getActionRegistry().getAction("ExampleAction"),is(notNullValue()));
+  assertThat(defaultSoapUICore.getFactoryRegistry().getFactories(RequestTransportFactory.class),is(aCollectionWithSize(1)));
+  assertThat(defaultSoapUICore.getListenerRegistry().getListeners(WorkspaceListener.class),is(aCollectionWithSize(1)));
+}

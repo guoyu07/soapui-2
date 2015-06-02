@@ -1,0 +1,24 @@
+{
+  try {
+    List<String> filesToDelete=FileUtils.readLines(pluginDeleteListFile);
+    for (    String fileName : filesToDelete) {
+      File oldPluginFile=new File(pluginDirectory,fileName.trim());
+      if (oldPluginFile.exists()) {
+        if (!oldPluginFile.delete()) {
+          log.warn("Couldn't delete old plugin file " + fileName + " on startup");
+        }
+      }
+ else {
+        log.info("Old plugin file not found: " + fileName);
+      }
+    }
+  }
+ catch (  IOException e) {
+    log.error("Couldn't read list of old plugin files to delete from file " + pluginDeleteListFile.getAbsolutePath());
+  }
+ finally {
+    if (!pluginDeleteListFile.delete()) {
+      log.warn("Couldn't remove file with list of old plugin files to delete");
+    }
+  }
+}

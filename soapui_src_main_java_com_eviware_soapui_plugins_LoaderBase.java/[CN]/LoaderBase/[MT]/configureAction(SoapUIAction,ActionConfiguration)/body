@@ -1,0 +1,26 @@
+{
+  String groupId=configuration.actionGroup();
+  SoapUIActionGroup targetGroup=actionRegistry.getActionGroup(groupId);
+  if (targetGroup == null) {
+    targetGroup=new DefaultSoapUIActionGroup(groupId,groupId);
+    actionRegistry.addActionGroup(targetGroup);
+  }
+  DefaultActionMapping mapping=new DefaultActionMapping(action.getId(),configuration.keyStroke(),configuration.iconPath(),configuration.defaultAction(),null);
+  mapping.setName(action.getName());
+  mapping.setDescription(configuration.description());
+  mapping.setToolbarAction(configuration.isToolbarAction());
+  int insertIndex=-1;
+  if (StringUtils.hasContent(configuration.beforeAction())) {
+    insertIndex=targetGroup.getMappingIndex(configuration.beforeAction());
+  }
+ else   if (StringUtils.hasContent(configuration.afterAction())) {
+    insertIndex=targetGroup.getMappingIndex(configuration.afterAction()) + 1;
+  }
+  if (configuration.separatorBefore()) {
+    targetGroup.addMapping(SoapUIActionRegistry.SeperatorAction.SOAPUI_ACTION_ID,insertIndex++,SoapUIActionRegistry.SeperatorAction.getDefaultMapping());
+  }
+  targetGroup.addMapping(action.getId(),insertIndex,mapping);
+  if (configuration.separatorAfter()) {
+    targetGroup.addMapping(SoapUIActionRegistry.SeperatorAction.SOAPUI_ACTION_ID,++insertIndex,SoapUIActionRegistry.SeperatorAction.getDefaultMapping());
+  }
+}

@@ -1,0 +1,15 @@
+{
+  String originalFileName=fileToWrite.getName();
+  String newFileName=null;
+  if (originalFileName.matches(".+\\-\\d+\\.jar")) {
+    while (newFileName == null || new File(pluginDirectory,newFileName).exists()) {
+      int lastDashIndex=originalFileName.lastIndexOf('-');
+      int fileCountIndex=Integer.parseInt(originalFileName.substring(lastDashIndex + 1,originalFileName.length() - 4));
+      newFileName=originalFileName.substring(0,lastDashIndex + 1) + (fileCountIndex + 1) + ".jar";
+    }
+  }
+ else {
+    newFileName=originalFileName.substring(0,originalFileName.length() - 4) + "-2.jar";
+  }
+  return new File(pluginDirectory,newFileName);
+}

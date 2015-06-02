@@ -1,0 +1,11 @@
+{
+  PluginInfo pluginInfo=readPluginInfoFromAnnotation(pluginClass.getAnnotation(PluginConfiguration.class));
+  addDependency(pluginInfo,pluginClass.getAnnotation(PluginDependency.class));
+  PluginDependencies pluginDependenciesAnnotation=pluginClass.getAnnotation(PluginDependencies.class);
+  if (pluginDependenciesAnnotation != null) {
+    for (    PluginDependency pluginDependency : pluginDependenciesAnnotation.value()) {
+      addDependency(pluginInfo,pluginDependency);
+    }
+  }
+  return pluginInfo;
+}

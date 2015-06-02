@@ -1,0 +1,8 @@
+{
+  if (file.getName().endsWith(".groovy")) {
+    return jarClassLoader.loadScriptClass(file.getRelativePath());
+  }
+ else {
+    return super.getOfCreateClassObject(file,jarClassLoader);
+  }
+}

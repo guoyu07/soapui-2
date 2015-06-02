@@ -1,0 +1,58 @@
+{
+  List<SoapUIActionGroup> actionGroups=new ArrayList<SoapUIActionGroup>();
+  Set<Class<?>> actionGroupClasses=jarFileScanner.getTypesAnnotatedWith(ActionGroup.class);
+  for (  Class<?> actionGroupClass : actionGroupClasses) {
+    if (!SoapUIActionGroup.class.isAssignableFrom(actionGroupClass)) {
+      logger.warn("Class " + actionGroupClass + " is annotated with @ActionGroup "+ "but does not implement SoapUIActionGroup");
+    }
+ else {
+      ActionGroup annotation=actionGroupClass.getAnnotation(ActionGroup.class);
+      SoapUIActionGroup actionGroup=createActionGroup((Class<SoapUIActionGroup>)actionGroupClass);
+      for (      ActionMapping mapping : annotation.actions()) {
+        try {
+          if (mapping.type() == ActionMapping.Type.SEPARATOR) {
+            actionGroup.addMapping(SoapUIActionRegistry.SeperatorAction.SOAPUI_ACTION_ID,SoapUIActionRegistry.SeperatorAction.getDefaultMapping());
+          }
+ else           if (mapping.type() == ActionMapping.Type.GROUP || mapping.type() == ActionMapping.Type.INSERT) {
+            SoapUIActionRegistry.SoapUIActionGroupAction actionListAction=new SoapUIActionRegistry.SoapUIActionGroupAction(mapping.name(),mapping.description(),mapping.groupId());
+            actionListAction.setInsert(mapping.type() == ActionMapping.Type.INSERT);
+            StandaloneActionMapping actionMapping=new StandaloneActionMapping(actionListAction);
+            actionGroup.addMapping(mapping.groupId(),actionMapping);
+          }
+ else           if (mapping.type() == ActionMapping.Type.ACTION) {
+            Class<?> actionClass=mapping.actionClass();
+            String actionId=mapping.actionId();
+            if (actionClass != ObjectUtils.Null.class) {
+              if (SoapUIAction.class.isAssignableFrom(actionClass)) {
+                SoapUIAction action=createAction((Class<SoapUIAction>)actionClass);
+                actionRegistry.addAction(action.getId(),action);
+                actionId=action.getId();
+              }
+ else               if (Action.class.isAssignableFrom(actionClass)) {
+                Action swingAction=createObject((Class<Action>)actionClass);
+                SoapUIAction action=new WrapperSoapUIAction(swingAction);
+                actionRegistry.addAction(action.getId(),action);
+                actionId=action.getId();
+              }
+            }
+            DefaultActionMapping actionMapping=new DefaultActionMapping(actionId,mapping.keyStroke(),mapping.iconPath(),actionId.equals(annotation.defaultAction()),mapping.param());
+            actionMapping.setToolbarAction(mapping.isToolbarAction());
+            actionMapping.setToolbarIndex(mapping.toolbarIndex());
+            if (!mapping.name().equals("")) {
+              actionMapping.setName(mapping.name());
+            }
+            if (!mapping.description().equals("")) {
+              actionMapping.setDescription(mapping.description());
+            }
+            actionGroup.addMapping(actionId,actionMapping);
+          }
+        }
+ catch (        Throwable e) {
+          logger.error("Error adding actionMapping",e);
+        }
+      }
+      actionGroups.add(actionGroup);
+    }
+  }
+  return registerActionGroups(actionGroups);
+}

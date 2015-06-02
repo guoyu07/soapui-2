@@ -1,0 +1,6 @@
+{
+  ReflectionsAndClassLoader tuple=makeJarFileScanner(pluginFile,dependencyClassLoaders);
+  Class<?> pluginClass=readPluginConfigurationClasses(pluginFile,tuple.reflections);
+  Plugin plugin=loadPlugin(pluginClass,tuple.reflections);
+  return new InstalledPluginRecord(plugin,tuple.jarClassLoader);
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    return method.getAnnotation(UsePluginClassloader.class) != null || method.getDeclaringClass().getAnnotation(UsePluginClassloader.class) != null || innerObject.getClass().getAnnotation(UsePluginClassloader.class) != null || innerObject.getClass().getMethod(method.getName(),method.getParameterTypes()).getAnnotation(UsePluginClassloader.class) != null;
+  }
+ catch (  NoSuchMethodException e) {
+    return false;
+  }
+}

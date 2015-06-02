@@ -1,0 +1,13 @@
+{
+  if (versionString == null) {
+    return new Version(0,0,null);
+  }
+  try {
+    String[] parts=versionString.split("\\.");
+    String patchVersion=parts.length == 3 ? parts[2] : null;
+    return new Version(parts.length > 0 ? Integer.parseInt(parts[0]) : 0,parts.length > 1 ? Integer.parseInt(parts[1]) : 0,patchVersion);
+  }
+ catch (  NumberFormatException e) {
+    throw new IllegalArgumentException(versionString + " is not a valid version string");
+  }
+}
