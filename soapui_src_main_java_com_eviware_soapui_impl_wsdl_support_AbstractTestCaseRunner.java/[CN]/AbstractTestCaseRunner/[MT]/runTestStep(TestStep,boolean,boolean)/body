@@ -2,6 +2,7 @@
   if (!runBeforeSteps(testStep)) {
     return null;
   }
+  currentStepStartTime=System.currentTimeMillis();
   TestStepResult stepResult=testStep.run(this,getRunContext());
   testStepResults.add(stepResult);
   resultCount++;
