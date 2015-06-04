@@ -1,13 +1,11 @@
 {
-  long sum=0;
-  if (((WsdlTestRunContext)this.getRunContext()).getCurrentStep() != null && ((WsdlTestRunContext)this.getRunContext()).getCurrentStepIndex() != testStepResults.toArray().length - 1) {
-    sum=System.currentTimeMillis() - currentStepStartTime;
+  if (isRunning()) {
+    return System.currentTimeMillis() - getStartTime();
   }
- else {
-    for (    TestStepResult testStepResult : testStepResults) {
-      if (testStepResult != null) {
-        sum+=testStepResult.getTimeTaken();
-      }
+  long sum=0;
+  for (  TestStepResult testStepResult : testStepResults) {
+    if (testStepResult != null) {
+      sum+=testStepResult.getTimeTaken();
     }
   }
   return sum;
