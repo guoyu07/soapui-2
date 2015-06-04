@@ -1,0 +1,9 @@
+{
+  try {
+    WsdlProject project=target.createProject(ModelItemNamer.createName("Project",target.getProjectList()),null);
+    UISupport.selectAndShow(project);
+  }
+ catch (  SoapUIException e) {
+    UISupport.showErrorMessage(e);
+  }
+}
