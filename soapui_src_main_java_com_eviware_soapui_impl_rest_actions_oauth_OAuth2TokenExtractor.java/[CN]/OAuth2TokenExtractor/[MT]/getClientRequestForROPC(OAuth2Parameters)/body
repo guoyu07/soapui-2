@@ -1,0 +1,4 @@
+{
+  OAuthClientRequest accessTokenRequest=OAuthClientRequest.tokenLocation(parameters.accessTokenUri).setGrantType(GrantType.PASSWORD).setClientId(parameters.clientId).setClientSecret(parameters.clientSecret).setUsername(parameters.resourceOwnerName).setPassword(parameters.resourceOwnerPassword).setScope(parameters.scope).buildBodyMessage();
+  return accessTokenRequest;
+}

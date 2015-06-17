@@ -1,0 +1,9 @@
+{
+  OAuthClientRequest accessTokenRequest=getClientRequestForROPC(parameters);
+  OAuthClient oAuthClient=getOAuthClient();
+  OAuthToken oAuthToken=oAuthClient.accessToken(accessTokenRequest,OAuthJSONAccessTokenResponse.class).getOAuthToken();
+  parameters.applyRetrievedAccessToken(oAuthToken.getAccessToken());
+  parameters.setAccessTokenIssuedTimeInProfile(TimeUtils.getCurrentTimeInSeconds());
+  parameters.setAccessTokenExpirationTimeInProfile(oAuthToken.getExpiresIn());
+  parameters.setRefreshTokenInProfile(oAuthToken.getRefreshToken());
+}

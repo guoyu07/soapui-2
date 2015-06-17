@@ -13,4 +13,7 @@ catch (  MalformedURLException e) {
 catch (  URISyntaxException e) {
     logAndThrowOAuth2Exception(e);
   }
+catch (  OAuthProblemException e) {
+    e.printStackTrace();
+  }
 }

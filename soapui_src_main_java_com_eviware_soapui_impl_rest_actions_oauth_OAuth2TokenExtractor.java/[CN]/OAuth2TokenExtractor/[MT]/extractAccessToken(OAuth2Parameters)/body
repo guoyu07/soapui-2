@@ -1,11 +1,18 @@
 {
-switch (parameters.getOAuth2Flow()) {
-case IMPLICIT_GRANT:
+  OAuth2Profile.OAuth2Flow i=parameters.getOAuth2Flow();
+  if (i.equals(OAuth2Profile.OAuth2Flow.IMPLICIT_GRANT)) {
     extractAccessTokenForImplicitGrantFlow(parameters);
-  break;
-case AUTHORIZATION_CODE_GRANT:
-default :
-extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
-break;
-}
+  }
+ else   if (i.equals(OAuth2Profile.OAuth2Flow.RESOURCE_OWNER_PASSWORD_CREDENTIALS)) {
+    extractAccessTokenForROPC(parameters);
+  }
+ else   if (i.equals(OAuth2Profile.OAuth2Flow.AUTHORIZATION_CODE_GRANT)) {
+    extractAccessTokenForAuthorizationCodeGrantFlow(parameters);
+  }
+ else   if (i.equals(OAuth2Profile.OAuth2Flow.CLIENT_CREDENTIALS_GRANT)) {
+    extractAccessTokenForClientCredentialsGrant(parameters);
+  }
+ else {
+    throw OAuthProblemException.error("Unsupported OAuth 2.0 grant flow");
+  }
 }
