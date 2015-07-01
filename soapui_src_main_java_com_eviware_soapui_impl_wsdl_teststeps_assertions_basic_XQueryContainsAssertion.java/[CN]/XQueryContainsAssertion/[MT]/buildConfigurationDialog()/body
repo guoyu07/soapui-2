@@ -35,7 +35,7 @@
   splitPane.setBorder(BorderFactory.createEmptyBorder(0,1,0,1));
   contentPanel.add(splitPane,BorderLayout.CENTER);
   ButtonBarBuilder builder=new ButtonBarBuilder();
-  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(HelpUrls.XQUERYASSERTIONEDITOR_HELP_URL);
+  ShowOnlineHelpAction showOnlineHelpAction=new ShowOnlineHelpAction(this.getHelpURL());
   builder.addFixed(UISupport.createToolbarButton(showOnlineHelpAction));
   builder.addGlue();
   JButton okButton=new JButton(new OkAction());
