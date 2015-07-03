@@ -5,7 +5,7 @@
     for (    XmlObject include : includes) {
       Element elm=(Element)include.getDomNode();
       String href=elm.getAttribute("href");
-      Attachment attachment=getMmSupport().getAttachmentWithContentId("<" + href.substring(4) + ">");
+      Attachment attachment=getMmSupport().getAttachmentWithContentId("<" + URLDecoder.decode(href.substring(4),"UTF-8") + ">");
       if (attachment != null) {
         ByteArrayOutputStream data=Tools.readAll(attachment.getInputStream(),0);
         byte[] byteArray=data.toByteArray();
