@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getResourceOwnerPassword();
+  if (!StringUtils.equals(oldValue,resourceOwnerPassword)) {
+    configuration.setResourceOwnerPassword(resourceOwnerPassword);
+    pcs.firePropertyChange(RESOURCE_OWNER_PASSWORD_PROPERTY,oldValue,resourceOwnerPassword);
+  }
+}

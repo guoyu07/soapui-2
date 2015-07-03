@@ -1,0 +1,7 @@
+{
+  String oldValue=configuration.getResourceOwnerName();
+  if (!StringUtils.equals(oldValue,resourceOwnerName)) {
+    configuration.setResourceOwnerName(resourceOwnerName);
+    pcs.firePropertyChange(RESOURCE_OWNER_LOGIN_PROPERTY,oldValue,resourceOwnerName);
+  }
+}
