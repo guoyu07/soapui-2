@@ -3,7 +3,7 @@
   if (StringUtils.hasContent(getPath())) {
     TestModelItem testStep=getAssertable().getTestStep();
     TestProperty property=testStep instanceof WsdlTestRequestStep ? testStep.getProperty("Response") : testStep.getProperty("Request");
-    result.add(new XPathReferenceImpl("XPath for " + getName() + " XPathContainsAssertion in "+ testStep.getName(),property,this,"path"));
+    result.add(new XPathReferenceImpl(getQueryType() + " for " + getName()+ " "+ getQueryType()+ "ContainsAssertion in "+ testStep.getName(),property,this,"path"));
   }
   return result.toArray(new XPathReference[result.size()]);
 }
