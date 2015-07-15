@@ -1,0 +1,6 @@
+{
+  assertionBody.setPath("declare namespace urn='urn:schema:v1:companyservice:applications:bis.bonnier.se';" + "//urn:searchResponse");
+  assertionBody.setExpectedContent(testBodyWithDifferentNSPrefix);
+  assertionBody.setIgnoreNamespaceDifferences(true);
+  assertNotNull(assertionBody.assertContent(testResponse,new WsdlSubmitContext(null),""));
+}

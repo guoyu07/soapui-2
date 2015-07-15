@@ -6,13 +6,17 @@
     if (expectedContent == null) {
       return "Missing content for XQuery Assertion";
     }
-    XmlObject xml=XmlUtils.createXmlObject(response);
+    XmlOptions options=new XmlOptions();
+    if (ignoreComments) {
+      options.setLoadStripComments();
+    }
+    XmlObject xml=XmlUtils.createXmlObject(response,options);
     String expandedPath=PropertyExpander.expandProperties(context,path);
     XmlObject[] items=xml.execQuery(expandedPath);
     XmlObject contentObj=null;
     String expandedContent=PropertyExpander.expandProperties(context,expectedContent);
     try {
-      contentObj=XmlUtils.createXmlObject(expandedContent);
+      contentObj=XmlUtils.createXmlObject(expandedContent,options);
     }
  catch (    Exception e) {
       e.printStackTrace();
@@ -20,7 +24,6 @@
     if (items.length == 0) {
       throw new Exception("Missing content for xquery [" + path + "] in "+ type);
     }
-    XmlOptions options=new XmlOptions();
     options.setSavePrettyPrint();
     options.setSaveOuter();
     for (int c=0; c < items.length; c++) {
