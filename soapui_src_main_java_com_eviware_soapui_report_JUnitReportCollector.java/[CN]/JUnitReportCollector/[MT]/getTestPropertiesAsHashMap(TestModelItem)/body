@@ -1,0 +1,7 @@
+{
+  HashMap<String,String> testProperties=new HashMap<>();
+  for (  Map.Entry<String,TestProperty> stringTestPropertyEntry : testCase.getProperties().entrySet()) {
+    testProperties.put(stringTestPropertyEntry.getKey(),stringTestPropertyEntry.getValue().getValue());
+  }
+  return testProperties;
+}
