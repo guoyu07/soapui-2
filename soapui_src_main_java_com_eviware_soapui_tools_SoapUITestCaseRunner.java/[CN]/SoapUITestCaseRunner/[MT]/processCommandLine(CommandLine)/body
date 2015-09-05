@@ -60,6 +60,7 @@
     System.setProperty(SOAPUI_EXPORT_SEPARATOR,File.separator);
   }
   setJUnitReport(cmd.hasOption("j"));
+  setJUnitReportWithProperties(cmd.hasOption("J"));
   if (cmd.hasOption("m")) {
     setMaxErrors(Integer.parseInt(cmd.getOptionValue("m")));
   }

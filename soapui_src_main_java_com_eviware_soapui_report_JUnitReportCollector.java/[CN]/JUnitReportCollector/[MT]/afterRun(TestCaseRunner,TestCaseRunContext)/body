@@ -1,19 +1,20 @@
 {
   TestCase testCase=testRunner.getTestCase();
   JUnitReport report=reports.get(testCase.getTestSuite().getName());
+  HashMap<String,String> testProperties=getTestPropertiesAsHashMap(testCase);
   if (Status.INITIALIZED != testRunner.getStatus() && Status.RUNNING != testRunner.getStatus()) {
     if (Status.CANCELED == testRunner.getStatus()) {
-      report.addTestCase(testCase.getName(),testRunner.getTimeTaken());
+      report.addTestCase(testCase.getName(),testRunner.getTimeTaken(),testProperties);
     }
     if (Status.FAILED == testRunner.getStatus()) {
       String msg="";
       if (failures.containsKey(testCase)) {
         msg=failures.get(testCase).toString();
       }
-      report.addTestCaseWithFailure(testCase.getName(),testRunner.getTimeTaken(),testRunner.getReason(),msg);
+      report.addTestCaseWithFailure(testCase.getName(),testRunner.getTimeTaken(),testRunner.getReason(),msg,testProperties);
     }
     if (Status.FINISHED == testRunner.getStatus()) {
-      report.addTestCase(testCase.getName(),testRunner.getTimeTaken());
+      report.addTestCase(testCase.getName(),testRunner.getTimeTaken(),testProperties);
     }
   }
 }
