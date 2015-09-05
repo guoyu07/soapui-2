@@ -2,6 +2,7 @@
   TestCase testCase=testRunner.getTestCase();
   SecurityTest securityTest=((SecurityTestRunner)testRunner).getSecurityTest();
   JUnitReport report=new JUnitReport();
+  report.setIncludeTestProperties(includeTestPropertiesInReport);
   String reportName=securityTest.getName();
   report.setTestSuiteName(reportName);
   report.setPackage(testCase.getTestSuite().getProject().getName());
@@ -10,8 +11,9 @@
     SecurityTestStepResult secuTestStepResult=securityTest.getSecurityTestStepResultMap().get(ts);
     if (secuTestStepResult != null) {
       for (      SecurityScanResult scanResult : secuTestStepResult.getSecurityScanResultList()) {
+        HashMap<String,String> testProperties=getTestPropertiesAsHashMap(securityTest);
         List<SecurityScanRequestResult> resultList=scanResult.getSecurityRequestResultList();
-        Testcase secTestCase=report.addTestCase(ts.getName() + " - " + scanResult.getSecurityScanName(),scanResult.getTimeTaken());
+        Testcase secTestCase=report.addTestCase(ts.getName() + " - " + scanResult.getSecurityScanName(),scanResult.getTimeTaken(),testProperties);
         secTestCase.setPackage(testCase.getTestSuite().getProject().getName());
         for (int i=0; i < resultList.size(); i++) {
           SecurityScanRequestResult scanRequestResult=resultList.get(i);

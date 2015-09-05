@@ -1,0 +1,6 @@
+{
+  assertion.setPath("for $f in //step[1]/html_instructions return $f");
+  assertion.setExpectedContent("<html_instructions>Head *</html_instructions>");
+  assertion.setAllowWildcards(true);
+  assertion.assertContent(response,context,XQueryContainsAssertion.ID);
+}

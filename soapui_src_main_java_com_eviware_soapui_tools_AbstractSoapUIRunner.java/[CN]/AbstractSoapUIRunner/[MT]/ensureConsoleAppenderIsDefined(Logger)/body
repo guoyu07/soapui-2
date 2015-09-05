@@ -1,0 +1,13 @@
+{
+  if (logger != null) {
+    for (    Object appender : Collections.list(logger.getAllAppenders())) {
+      if (appender instanceof ConsoleAppender) {
+        return;
+      }
+    }
+    ConsoleAppender consoleAppender=new ConsoleAppender();
+    consoleAppender.setWriter(new OutputStreamWriter(System.out));
+    consoleAppender.setLayout(new PatternLayout("%d{ABSOLUTE} %-5p [%c{1}] %m%n"));
+    logger.addAppender(consoleAppender);
+  }
+}
