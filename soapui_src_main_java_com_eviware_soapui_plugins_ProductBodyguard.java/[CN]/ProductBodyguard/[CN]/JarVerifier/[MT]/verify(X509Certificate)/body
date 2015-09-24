@@ -12,10 +12,10 @@
     se.initCause(ex);
     throw se;
   }
-  Vector<JarEntry> entriesVec=new Vector<JarEntry>();
+  Vector<JarEntry> entriesVec=new Vector<>();
   Manifest man=jarFile.getManifest();
   if (man == null) {
-    throw new SecurityException("The provider is not signed");
+    throw new SecurityException("The plugin '" + jarFile.getName() + "' is not signed");
   }
   byte[] buffer=new byte[8192];
   Enumeration entries=jarFile.entries();
@@ -37,7 +37,7 @@
     Certificate[] certs=je.getCertificates();
     if ((certs == null) || (certs.length == 0)) {
       if (!je.getName().startsWith("META-INF")) {
-        throw new SecurityException("The provider " + "has unsigned " + "class files.");
+        throw new SecurityException("The plugin '" + jarFile.getName() + "' has unsigned class files.");
       }
     }
  else {
@@ -52,7 +52,7 @@
         startIndex+=certChain.length;
       }
       if (!signedAsExpected) {
-        throw new SecurityException("The provider " + "is not signed by a " + "trusted signer");
+        throw new SecurityException("The plugin '" + jarFile.getName() + "' is not signed by a trusted signer");
       }
     }
   }
