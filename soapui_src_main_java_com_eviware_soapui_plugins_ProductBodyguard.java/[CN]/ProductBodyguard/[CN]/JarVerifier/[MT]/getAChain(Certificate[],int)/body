@@ -1,0 +1,17 @@
+{
+  if (startIndex > certs.length - 1) {
+    return null;
+  }
+  int i;
+  for (i=startIndex; i < certs.length - 1; i++) {
+    if (!((X509Certificate)certs[i + 1]).getSubjectDN().equals(((X509Certificate)certs[i]).getIssuerDN())) {
+      break;
+    }
+  }
+  int certChainSize=(i - startIndex) + 1;
+  X509Certificate[] ret=new X509Certificate[certChainSize];
+  for (int j=0; j < certChainSize; j++) {
+    ret[j]=(X509Certificate)certs[startIndex + j];
+  }
+  return ret;
+}
