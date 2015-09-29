@@ -1,6 +1,6 @@
 {
-  wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,System.getProperty("wsi.dir",System.getenv("WSI_HOME")));
-  if (Tools.isEmpty(wsiDir)) {
+  wsiDir=SoapUI.getSettings().getString(WSISettings.WSI_LOCATION,System.getProperty(WSI_DIR_PROP_NAME,System.getenv(WSI_HOME_ENV_VAR_NAME)));
+  if (StringUtils.isNullOrEmpty(wsiDir)) {
     UISupport.showErrorMessage("WSI Test Tools directory must be set in global preferences");
     if (UISupport.getMainFrame() != null) {
       if (SoapUIPreferencesAction.getInstance().show(SoapUIPreferencesAction.WS_I_SETTINGS)) {
@@ -8,16 +8,14 @@
       }
     }
   }
-  if (Tools.isEmpty(wsiDir)) {
+  if (StringUtils.isNullOrEmpty(wsiDir)) {
     return;
   }
-  ProcessBuilder builder=new ProcessBuilder();
-  File reportFile=File.createTempFile("wsi-report",".xml");
-  File wsiToolDir=new File(wsiDir + File.separatorChar + "cs"+ File.separatorChar+ "bin");
-  if (!wsiToolDir.exists()) {
-    wsiToolDir=new File(wsiDir + File.separatorChar + "java"+ File.separatorChar+ "bin");
-  }
+  profile=SoapUI.getSettings().getString(WSISettings.PROFILE_TYPE,WSISettings.BASIC_PROFILE_10_TAD);
+  File reportFile=File.createTempFile(WSI_REPORT_NAME,XML_EXTENSION);
+  File wsiToolDir=new File(wsiDir);
   ArgumentBuilder args=buildArgs(wsiToolDir,reportFile,modelItem);
+  ProcessBuilder builder=new ProcessBuilder();
   builder.command(args.getArgs());
   builder.directory(wsiToolDir);
   toolHost.run(new WSIProcessToolRunner(builder,reportFile,modelItem));

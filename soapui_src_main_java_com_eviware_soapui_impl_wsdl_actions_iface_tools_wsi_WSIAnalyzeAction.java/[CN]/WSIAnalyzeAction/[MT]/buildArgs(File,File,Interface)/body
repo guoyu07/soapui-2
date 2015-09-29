@@ -2,13 +2,10 @@
   Settings settings=modelItem.getSettings();
   ConfigurationDocument configDoc=createConfigFile(reportFile,settings,(WsdlInterface)modelItem);
   configFile=configDoc.toString();
-  File file=File.createTempFile("wsi-analyzer-config",".xml");
+  File file=File.createTempFile(WSI_ANALYZER_CONFIG,XML_EXTENSION);
   configDoc.save(file);
   ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
-  builder.startScript(wsiToolDir.getAbsolutePath() + File.separator + "Analyzer",".bat",".sh");
+  builder.startScript(wsiToolDir.getAbsolutePath() + File.separator + (profile.equals(WSISettings.BASIC_PROFILE_10_TAD) ? ANALYZER_V10_NAME : ANALYZER_V11_NAME),WIN_BATCH_FILE_EXTENSION,UNIX_BATCH_FILE_EXTENSION);
   builder.addArgs("-config",file.getAbsolutePath());
-  if (settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION)) {
-    builder.addArgs("-assertionDescription","true");
-  }
   return builder;
 }

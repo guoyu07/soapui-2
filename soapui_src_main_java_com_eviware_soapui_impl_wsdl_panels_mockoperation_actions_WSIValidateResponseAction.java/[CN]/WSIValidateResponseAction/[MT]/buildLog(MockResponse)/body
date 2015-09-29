@@ -4,7 +4,7 @@
   log.setTimestamp(Calendar.getInstance());
   addMonitorConfig(log);
   addMessageConfig(log,modelItem);
-  logFile=File.createTempFile("wsi-analyzer-log",".xml");
+  logFile=File.createTempFile("wsi-analyzer-log",WSIAnalyzeAction.XML_EXTENSION);
   logDoc.save(logFile);
   return logFile;
 }
