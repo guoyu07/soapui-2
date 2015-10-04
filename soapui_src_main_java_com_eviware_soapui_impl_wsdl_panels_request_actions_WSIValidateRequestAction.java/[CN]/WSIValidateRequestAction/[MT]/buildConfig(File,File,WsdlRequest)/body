@@ -4,7 +4,7 @@
   Configuration config=configDoc.addNewConfiguration();
   config.setVerbose(settings.getBoolean(WSISettings.VERBOSE));
   AssertionResults results=config.addNewAssertionResults();
-  results.setType(AssertionResults.Type.Enum.forString(settings.getString(WSISettings.RESULTS_TYPE,AssertionResults.Type.ONLY_FAILED.toString())));
+  results.setType(AssertionResults.Type.Enum.forString(WSIAnalyzeAction.ALL_RESULT_TYPE));
   results.setMessageEntry(settings.getBoolean(WSISettings.MESSAGE_ENTRY));
   results.setFailureMessage(settings.getBoolean(WSISettings.FAILURE_MESSAGE));
   results.setAssertionDescription(settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION));
@@ -12,15 +12,15 @@
   report.setLocation(reportFile.getAbsolutePath());
   report.setReplace(true);
   AddStyleSheet stylesheet=report.addNewAddStyleSheet();
-  stylesheet.setHref(".\\..\\common\\Profiles\\SSBP10_BP11_TAD.xml");
+  stylesheet.setHref(WSIAnalyzeAction.PROFILES_DIR_RELATED_PATH + profile);
   stylesheet.setType("text/xsl");
   stylesheet.setAlternate(false);
-  config.setTestAssertionsFile("../../common/profiles/SSBP10_BP11_TAD.xml");
+  config.setTestAssertionsFile(WSIAnalyzeAction.PROFILES_DIR_RELATED_PATH + profile);
   LogFile logFileConfig=config.addNewLogFile();
   logFileConfig.setStringValue(logFile.getAbsolutePath());
   logFileConfig.setCorrelationType(CorrelationType.ENDPOINT);
   configFile=configDoc.toString();
-  File file=File.createTempFile("wsi-analyzer-config",".xml");
+  File file=File.createTempFile(WSIAnalyzeAction.WSI_ANALYZER_CONFIG,WSIAnalyzeAction.XML_EXTENSION);
   configDoc.save(file);
   return file;
 }
