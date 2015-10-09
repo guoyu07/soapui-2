@@ -1,0 +1,14 @@
+{
+  JarVerifier jv=new JarVerifier(plugin);
+  try {
+    if (providerCert == null) {
+      providerCert=setupProviderCert();
+    }
+    jv.verify(providerCert);
+  }
+ catch (  Exception e) {
+    SoapUI.logError(e);
+    return false;
+  }
+  return true;
+}

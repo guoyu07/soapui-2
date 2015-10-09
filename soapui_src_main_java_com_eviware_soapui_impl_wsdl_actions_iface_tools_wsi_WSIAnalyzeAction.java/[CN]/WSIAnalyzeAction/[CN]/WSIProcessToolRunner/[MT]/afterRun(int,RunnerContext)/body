@@ -3,8 +3,8 @@
     try {
       reportFile=transformReport(reportFile);
     }
- catch (    Exception e1) {
-      SoapUI.logError(e1);
+ catch (    Exception e) {
+      SoapUI.logError(e);
     }
     SwingUtilities.invokeLater(new Runnable(){
       public void run(){
@@ -17,6 +17,11 @@
       }
     }
 );
+  }
+ else {
+    ProcessBuilder processBuilder=getBuilders()[0];
+    List<String> programAndArgs=processBuilder.command();
+    log.error("WSI checking failed. Exit code " + new Integer(exitCode).toString() + ". Command line: "+ getCommandDetails(programAndArgs));
   }
   closeDialog(modelItem);
 }

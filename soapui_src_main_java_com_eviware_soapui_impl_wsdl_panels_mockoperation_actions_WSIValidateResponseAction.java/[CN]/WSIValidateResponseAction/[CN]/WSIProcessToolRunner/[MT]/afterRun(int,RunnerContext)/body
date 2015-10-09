@@ -1,9 +1,14 @@
 {
   try {
     if (exitCode == 0 && context.getStatus() == RunnerContext.RunnerStatus.FINISHED) {
-      WSIReportPanel panel=new WSIReportPanel(reportFile,configFile,logFile,true);
+      WSIReportPanel panel=new WSIReportPanel(WSIAnalyzeAction.transformReport(reportFile),configFile,logFile,true);
       panel.setPreferredSize(new Dimension(600,400));
-      UISupport.showDesktopPanel(new DefaultDesktopPanel("WS-I Report","WS-I Report for validation of messages in MockResponse [" + modelItem.getName() + "]",panel));
+      UISupport.showDesktopPanel(new DefaultDesktopPanel("WS-I Report","WS-I Report for validation of messages in VirtResponse [" + modelItem.getName() + "]",panel));
+    }
+ else {
+      ProcessBuilder processBuilder=getBuilders()[0];
+      List<String> programAndArgs=processBuilder.command();
+      log.error("WSI checking failed. Exit code " + new Integer(exitCode).toString() + ". Command line: "+ getCommandDetails(programAndArgs));
     }
   }
  catch (  Exception e) {

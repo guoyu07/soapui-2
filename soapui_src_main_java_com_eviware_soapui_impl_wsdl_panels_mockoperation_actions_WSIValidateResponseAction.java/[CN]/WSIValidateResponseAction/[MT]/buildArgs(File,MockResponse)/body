@@ -3,10 +3,7 @@
   File file=buildConfig(reportFile,logFile,modelItem);
   Settings settings=modelItem.getSettings();
   ArgumentBuilder builder=new ArgumentBuilder(new StringToStringMap());
-  builder.startScript("Analyzer",".bat",".sh");
+  builder.startScript(wsiDir + File.separator + (profile.equals(WSISettings.BASIC_PROFILE_10_TAD) ? WSIAnalyzeAction.ANALYZER_V10_NAME : WSIAnalyzeAction.ANALYZER_V11_NAME),WSIAnalyzeAction.WIN_BATCH_FILE_EXTENSION,WSIAnalyzeAction.UNIX_BATCH_FILE_EXTENSION);
   builder.addArgs("-config",file.getAbsolutePath());
-  if (settings.getBoolean(WSISettings.ASSERTION_DESCRIPTION)) {
-    builder.addArgs("-assertionDescription","true");
-  }
   return builder;
 }
