@@ -1,0 +1,9 @@
+{
+  super(assertionConfig,modelItem,cloneable,configurable,multiple,requiresResponseContent);
+  XmlObjectConfigurationReader reader=new XmlObjectConfigurationReader(getConfiguration());
+  path=reader.readString("path",null);
+  expectedContent=reader.readString("content",null);
+  allowWildcards=reader.readBoolean("allowWildcards",false);
+  ignoreNamespaceDifferences=reader.readBoolean("ignoreNamspaceDifferences",false);
+  ignoreComments=reader.readBoolean("ignoreComments",false);
+}
