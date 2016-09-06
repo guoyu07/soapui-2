@@ -2,8 +2,9 @@
   if (StringUtils.isNullOrEmpty(endpoint)) {
     return endpoint;
   }
-  endpoint=endpoint.toLowerCase().trim();
-  if (!endpoint.startsWith("http://") && !endpoint.startsWith("https://") && !endpoint.startsWith("$")) {
+  endpoint=endpoint.trim();
+  String lowerCaseEndpoint=endpoint.toLowerCase();
+  if (!lowerCaseEndpoint.startsWith("http://") && !lowerCaseEndpoint.startsWith("https://") && !endpoint.startsWith("$")) {
     return "http://" + endpoint;
   }
   return endpoint;
