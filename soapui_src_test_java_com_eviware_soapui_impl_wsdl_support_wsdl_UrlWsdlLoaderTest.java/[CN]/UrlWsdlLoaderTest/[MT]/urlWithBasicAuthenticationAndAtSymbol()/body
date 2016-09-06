@@ -1,0 +1,6 @@
+{
+  URL url=new URL("http://username:passw@rd@test/test6/TestService.wsdl");
+  WsdlLoader loader=new UrlWsdlLoader(url.toString());
+  assertThat(loader.getUsername(),is("username"));
+  assertThat(loader.getPassword(),is("passw@rd"));
+}
